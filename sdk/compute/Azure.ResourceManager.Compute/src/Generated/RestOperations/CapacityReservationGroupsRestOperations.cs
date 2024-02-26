@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.Compute
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2023-09-01";
+            _apiVersion = apiVersion ?? "2024-03-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -656,7 +656,7 @@ namespace Azure.ResourceManager.Compute
             }
         }
 
-        internal HttpMessage CreateListBySubscriptionRequest(string subscriptionId, CapacityReservationGroupGetExpand? expand)
+        internal HttpMessage CreateListBySubscriptionRequest(string subscriptionId, CapacityReservationGroupGetExpand? expand, ResourceIdOptionsForGetCapacityReservationGroup? resourceIdsOnly)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -671,6 +671,10 @@ namespace Azure.ResourceManager.Compute
             {
                 uri.AppendQuery("$expand", expand.Value.ToString(), true);
             }
+            if (resourceIdsOnly != null)
+            {
+                uri.AppendQuery("resourceIdsOnly", resourceIdsOnly.Value.ToString(), true);
+            }
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);
@@ -680,10 +684,11 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Lists all of the capacity reservation groups in the subscription. Use the nextLink property in the response to get the next page of capacity reservation groups. </summary>
         /// <param name="subscriptionId"> Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="expand"> The expand expression to apply on the operation. Based on the expand param(s) specified we return Virtual Machine or ScaleSet VM Instance or both resource Ids which are associated to capacity reservation group in the response. </param>
+        /// <param name="resourceIdsOnly"> The query option to fetch Capacity Reservation Group Resource Ids. &lt;br&gt; 'CreatedInSubscription' enables fetching Resource Ids for all capacity reservation group resources created in the subscription. &lt;br&gt; 'SharedWithSubscription' enables fetching Resource Ids for all capacity reservation group resources shared with the subscription. &lt;br&gt; 'All' enables fetching Resource Ids for all capacity reservation group resources shared with the subscription and created in the subscription. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<CapacityReservationGroupListResult>> ListBySubscriptionAsync(string subscriptionId, CapacityReservationGroupGetExpand? expand = null, CancellationToken cancellationToken = default)
+        public async Task<Response<CapacityReservationGroupListResult>> ListBySubscriptionAsync(string subscriptionId, CapacityReservationGroupGetExpand? expand = null, ResourceIdOptionsForGetCapacityReservationGroup? resourceIdsOnly = null, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -694,7 +699,7 @@ namespace Azure.ResourceManager.Compute
                 throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
             }
 
-            using var message = CreateListBySubscriptionRequest(subscriptionId, expand);
+            using var message = CreateListBySubscriptionRequest(subscriptionId, expand, resourceIdsOnly);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -713,10 +718,11 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Lists all of the capacity reservation groups in the subscription. Use the nextLink property in the response to get the next page of capacity reservation groups. </summary>
         /// <param name="subscriptionId"> Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="expand"> The expand expression to apply on the operation. Based on the expand param(s) specified we return Virtual Machine or ScaleSet VM Instance or both resource Ids which are associated to capacity reservation group in the response. </param>
+        /// <param name="resourceIdsOnly"> The query option to fetch Capacity Reservation Group Resource Ids. &lt;br&gt; 'CreatedInSubscription' enables fetching Resource Ids for all capacity reservation group resources created in the subscription. &lt;br&gt; 'SharedWithSubscription' enables fetching Resource Ids for all capacity reservation group resources shared with the subscription. &lt;br&gt; 'All' enables fetching Resource Ids for all capacity reservation group resources shared with the subscription and created in the subscription. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<CapacityReservationGroupListResult> ListBySubscription(string subscriptionId, CapacityReservationGroupGetExpand? expand = null, CancellationToken cancellationToken = default)
+        public Response<CapacityReservationGroupListResult> ListBySubscription(string subscriptionId, CapacityReservationGroupGetExpand? expand = null, ResourceIdOptionsForGetCapacityReservationGroup? resourceIdsOnly = null, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -727,7 +733,7 @@ namespace Azure.ResourceManager.Compute
                 throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
             }
 
-            using var message = CreateListBySubscriptionRequest(subscriptionId, expand);
+            using var message = CreateListBySubscriptionRequest(subscriptionId, expand, resourceIdsOnly);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -851,7 +857,7 @@ namespace Azure.ResourceManager.Compute
             }
         }
 
-        internal HttpMessage CreateListBySubscriptionNextPageRequest(string nextLink, string subscriptionId, CapacityReservationGroupGetExpand? expand)
+        internal HttpMessage CreateListBySubscriptionNextPageRequest(string nextLink, string subscriptionId, CapacityReservationGroupGetExpand? expand, ResourceIdOptionsForGetCapacityReservationGroup? resourceIdsOnly)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -869,10 +875,11 @@ namespace Azure.ResourceManager.Compute
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="expand"> The expand expression to apply on the operation. Based on the expand param(s) specified we return Virtual Machine or ScaleSet VM Instance or both resource Ids which are associated to capacity reservation group in the response. </param>
+        /// <param name="resourceIdsOnly"> The query option to fetch Capacity Reservation Group Resource Ids. &lt;br&gt; 'CreatedInSubscription' enables fetching Resource Ids for all capacity reservation group resources created in the subscription. &lt;br&gt; 'SharedWithSubscription' enables fetching Resource Ids for all capacity reservation group resources shared with the subscription. &lt;br&gt; 'All' enables fetching Resource Ids for all capacity reservation group resources shared with the subscription and created in the subscription. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<CapacityReservationGroupListResult>> ListBySubscriptionNextPageAsync(string nextLink, string subscriptionId, CapacityReservationGroupGetExpand? expand = null, CancellationToken cancellationToken = default)
+        public async Task<Response<CapacityReservationGroupListResult>> ListBySubscriptionNextPageAsync(string nextLink, string subscriptionId, CapacityReservationGroupGetExpand? expand = null, ResourceIdOptionsForGetCapacityReservationGroup? resourceIdsOnly = null, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -887,7 +894,7 @@ namespace Azure.ResourceManager.Compute
                 throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
             }
 
-            using var message = CreateListBySubscriptionNextPageRequest(nextLink, subscriptionId, expand);
+            using var message = CreateListBySubscriptionNextPageRequest(nextLink, subscriptionId, expand, resourceIdsOnly);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -907,10 +914,11 @@ namespace Azure.ResourceManager.Compute
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="expand"> The expand expression to apply on the operation. Based on the expand param(s) specified we return Virtual Machine or ScaleSet VM Instance or both resource Ids which are associated to capacity reservation group in the response. </param>
+        /// <param name="resourceIdsOnly"> The query option to fetch Capacity Reservation Group Resource Ids. &lt;br&gt; 'CreatedInSubscription' enables fetching Resource Ids for all capacity reservation group resources created in the subscription. &lt;br&gt; 'SharedWithSubscription' enables fetching Resource Ids for all capacity reservation group resources shared with the subscription. &lt;br&gt; 'All' enables fetching Resource Ids for all capacity reservation group resources shared with the subscription and created in the subscription. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<CapacityReservationGroupListResult> ListBySubscriptionNextPage(string nextLink, string subscriptionId, CapacityReservationGroupGetExpand? expand = null, CancellationToken cancellationToken = default)
+        public Response<CapacityReservationGroupListResult> ListBySubscriptionNextPage(string nextLink, string subscriptionId, CapacityReservationGroupGetExpand? expand = null, ResourceIdOptionsForGetCapacityReservationGroup? resourceIdsOnly = null, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -925,7 +933,7 @@ namespace Azure.ResourceManager.Compute
                 throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
             }
 
-            using var message = CreateListBySubscriptionNextPageRequest(nextLink, subscriptionId, expand);
+            using var message = CreateListBySubscriptionNextPageRequest(nextLink, subscriptionId, expand, resourceIdsOnly);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
