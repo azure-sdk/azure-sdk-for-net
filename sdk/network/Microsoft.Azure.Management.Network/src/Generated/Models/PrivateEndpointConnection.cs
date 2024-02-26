@@ -42,19 +42,22 @@ namespace Microsoft.Azure.Management.Network.Models
         /// private endpoint connection resource. Possible values include:
         /// 'Succeeded', 'Updating', 'Deleting', 'Failed'</param>
         /// <param name="linkIdentifier">The consumer link id.</param>
+        /// <param name="privateEndpointLocation">The location of the private
+        /// endpoint.</param>
         /// <param name="name">The name of the resource that is unique within a
         /// resource group. This name can be used to access the
         /// resource.</param>
         /// <param name="type">The resource type.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public PrivateEndpointConnection(string id = default(string), PrivateEndpoint privateEndpoint = default(PrivateEndpoint), PrivateLinkServiceConnectionState privateLinkServiceConnectionState = default(PrivateLinkServiceConnectionState), string provisioningState = default(string), string linkIdentifier = default(string), string name = default(string), string type = default(string), string etag = default(string))
+        public PrivateEndpointConnection(string id = default(string), PrivateEndpoint privateEndpoint = default(PrivateEndpoint), PrivateLinkServiceConnectionState privateLinkServiceConnectionState = default(PrivateLinkServiceConnectionState), string provisioningState = default(string), string linkIdentifier = default(string), string privateEndpointLocation = default(string), string name = default(string), string type = default(string), string etag = default(string))
             : base(id)
         {
             PrivateEndpoint = privateEndpoint;
             PrivateLinkServiceConnectionState = privateLinkServiceConnectionState;
             ProvisioningState = provisioningState;
             LinkIdentifier = linkIdentifier;
+            PrivateEndpointLocation = privateEndpointLocation;
             Name = name;
             Type = type;
             Etag = etag;
@@ -92,6 +95,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.linkIdentifier")]
         public string LinkIdentifier { get; private set; }
+
+        /// <summary>
+        /// Gets the location of the private endpoint.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.privateEndpointLocation")]
+        public string PrivateEndpointLocation { get; private set; }
 
         /// <summary>
         /// Gets or sets the name of the resource that is unique within a
