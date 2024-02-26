@@ -67,6 +67,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 writer.WritePropertyName("policyType"u8);
                 writer.WriteStringValue(PolicyType.Value.ToString());
             }
+            if (SnapshotConsistencyType.HasValue)
+            {
+                writer.WritePropertyName("snapshotConsistencyType"u8);
+                writer.WriteStringValue(SnapshotConsistencyType.Value.ToString());
+            }
             if (ProtectedItemsCount.HasValue)
             {
                 writer.WritePropertyName("protectedItemsCount"u8);
@@ -129,6 +134,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             Optional<int> instantRpRetentionRangeInDays = default;
             Optional<string> timeZone = default;
             Optional<IaasVmPolicyType> policyType = default;
+            Optional<IaasVmSnapshotConsistencyType> snapshotConsistencyType = default;
             Optional<int> protectedItemsCount = default;
             string backupManagementType = default;
             IList<string> resourceGuardOperationRequests = default;
@@ -200,6 +206,15 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     policyType = new IaasVmPolicyType(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("snapshotConsistencyType"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    snapshotConsistencyType = new IaasVmSnapshotConsistencyType(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("protectedItemsCount"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -234,7 +249,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new IaasVmProtectionPolicy(Optional.ToNullable(protectedItemsCount), backupManagementType, resourceGuardOperationRequests ?? new ChangeTrackingList<string>(), serializedAdditionalRawData, instantRPDetails.Value, schedulePolicy.Value, retentionPolicy.Value, tieringPolicy ?? new ChangeTrackingDictionary<string, BackupTieringPolicy>(), Optional.ToNullable(instantRpRetentionRangeInDays), timeZone.Value, Optional.ToNullable(policyType));
+            return new IaasVmProtectionPolicy(Optional.ToNullable(protectedItemsCount), backupManagementType, resourceGuardOperationRequests ?? new ChangeTrackingList<string>(), serializedAdditionalRawData, instantRPDetails.Value, schedulePolicy.Value, retentionPolicy.Value, tieringPolicy ?? new ChangeTrackingDictionary<string, BackupTieringPolicy>(), Optional.ToNullable(instantRpRetentionRangeInDays), timeZone.Value, Optional.ToNullable(policyType), Optional.ToNullable(snapshotConsistencyType));
         }
 
         BinaryData IPersistableModel<IaasVmProtectionPolicy>.Write(ModelReaderWriterOptions options)
