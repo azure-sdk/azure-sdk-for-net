@@ -271,6 +271,11 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("storageProfile"u8);
                 writer.WriteObjectValue(StorageProfile);
             }
+            if (IngressProfile != null)
+            {
+                writer.WritePropertyName("ingressProfile"u8);
+                writer.WriteObjectValue(IngressProfile);
+            }
             if (PublicNetworkAccess.HasValue)
             {
                 writer.WritePropertyName("publicNetworkAccess"u8);
@@ -378,6 +383,7 @@ namespace Azure.ResourceManager.ContainerService
             Optional<ManagedClusterHttpProxyConfig> httpProxyConfig = default;
             Optional<ManagedClusterSecurityProfile> securityProfile = default;
             Optional<ManagedClusterStorageProfile> storageProfile = default;
+            Optional<ManagedClusterIngressProfile> ingressProfile = default;
             Optional<ContainerServicePublicNetworkAccess> publicNetworkAccess = default;
             Optional<ManagedClusterWorkloadAutoScalerProfile> workloadAutoScalerProfile = default;
             Optional<ManagedClusterAzureMonitorProfile> azureMonitorProfile = default;
@@ -756,6 +762,15 @@ namespace Azure.ResourceManager.ContainerService
                             storageProfile = ManagedClusterStorageProfile.DeserializeManagedClusterStorageProfile(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("ingressProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            ingressProfile = ManagedClusterIngressProfile.DeserializeManagedClusterIngressProfile(property0.Value, options);
+                            continue;
+                        }
                         if (property0.NameEquals("publicNetworkAccess"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -810,7 +825,7 @@ namespace Azure.ResourceManager.ContainerService
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ContainerServiceManagedClusterData(id, name, type, systemData.Value, tags ?? new ChangeTrackingDictionary<string, string>(), location, sku.Value, extendedLocation, identity.Value, provisioningState.Value, powerState.Value, Optional.ToNullable(maxAgentPools), kubernetesVersion.Value, currentKubernetesVersion.Value, dnsPrefix.Value, fqdnSubdomain.Value, fqdn.Value, privateFQDN.Value, azurePortalFQDN.Value, agentPoolProfiles ?? new ChangeTrackingList<ManagedClusterAgentPoolProfile>(), linuxProfile.Value, windowsProfile.Value, servicePrincipalProfile.Value, addonProfiles ?? new ChangeTrackingDictionary<string, ManagedClusterAddonProfile>(), podIdentityProfile.Value, oidcIssuerProfile.Value, nodeResourceGroup.Value, Optional.ToNullable(enableRBAC), Optional.ToNullable(supportPlan), Optional.ToNullable(enablePodSecurityPolicy), networkProfile.Value, aadProfile.Value, autoUpgradeProfile.Value, upgradeSettings.Value, autoScalerProfile.Value, apiServerAccessProfile.Value, diskEncryptionSetId.Value, identityProfile ?? new ChangeTrackingDictionary<string, ContainerServiceUserAssignedIdentity>(), privateLinkResources ?? new ChangeTrackingList<ContainerServicePrivateLinkResourceData>(), Optional.ToNullable(disableLocalAccounts), httpProxyConfig.Value, securityProfile.Value, storageProfile.Value, Optional.ToNullable(publicNetworkAccess), workloadAutoScalerProfile.Value, azureMonitorProfile.Value, serviceMeshProfile.Value, resourceUID.Value, serializedAdditionalRawData);
+            return new ContainerServiceManagedClusterData(id, name, type, systemData.Value, tags ?? new ChangeTrackingDictionary<string, string>(), location, sku.Value, extendedLocation, identity.Value, provisioningState.Value, powerState.Value, Optional.ToNullable(maxAgentPools), kubernetesVersion.Value, currentKubernetesVersion.Value, dnsPrefix.Value, fqdnSubdomain.Value, fqdn.Value, privateFQDN.Value, azurePortalFQDN.Value, agentPoolProfiles ?? new ChangeTrackingList<ManagedClusterAgentPoolProfile>(), linuxProfile.Value, windowsProfile.Value, servicePrincipalProfile.Value, addonProfiles ?? new ChangeTrackingDictionary<string, ManagedClusterAddonProfile>(), podIdentityProfile.Value, oidcIssuerProfile.Value, nodeResourceGroup.Value, Optional.ToNullable(enableRBAC), Optional.ToNullable(supportPlan), Optional.ToNullable(enablePodSecurityPolicy), networkProfile.Value, aadProfile.Value, autoUpgradeProfile.Value, upgradeSettings.Value, autoScalerProfile.Value, apiServerAccessProfile.Value, diskEncryptionSetId.Value, identityProfile ?? new ChangeTrackingDictionary<string, ContainerServiceUserAssignedIdentity>(), privateLinkResources ?? new ChangeTrackingList<ContainerServicePrivateLinkResourceData>(), Optional.ToNullable(disableLocalAccounts), httpProxyConfig.Value, securityProfile.Value, storageProfile.Value, ingressProfile.Value, Optional.ToNullable(publicNetworkAccess), workloadAutoScalerProfile.Value, azureMonitorProfile.Value, serviceMeshProfile.Value, resourceUID.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ContainerServiceManagedClusterData>.Write(ModelReaderWriterOptions options)
