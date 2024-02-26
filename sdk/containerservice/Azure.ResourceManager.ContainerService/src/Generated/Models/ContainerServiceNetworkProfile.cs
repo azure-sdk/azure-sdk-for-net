@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.ContainerService.Models
 
         /// <summary> Initializes a new instance of <see cref="ContainerServiceNetworkProfile"/>. </summary>
         /// <param name="networkPlugin"> Network plugin used for building the Kubernetes network. </param>
-        /// <param name="networkPluginMode"> The mode the network plugin should use. </param>
+        /// <param name="networkPluginMode"> Network plugin mode used for building the Kubernetes network. </param>
         /// <param name="networkPolicy"> Network policy used for building the Kubernetes network. </param>
         /// <param name="networkMode"> This cannot be specified if networkPlugin is anything other than 'azure'. </param>
         /// <param name="networkDataplane"> Network dataplane used in the Kubernetes cluster. </param>
@@ -67,11 +67,15 @@ namespace Azure.ResourceManager.ContainerService.Models
         /// <param name="loadBalancerSku"> The default is 'standard'. See [Azure Load Balancer SKUs](https://docs.microsoft.com/azure/load-balancer/skus) for more information about the differences between load balancer SKUs. </param>
         /// <param name="loadBalancerProfile"> Profile of the cluster load balancer. </param>
         /// <param name="natGatewayProfile"> Profile of the cluster NAT gateway. </param>
+        /// <param name="staticEgressGatewayProfile"> The profile for Static Egress Gateway addon. For more details about Static Egress Gateway, see https://aka.ms/aks/static-egress-gateway. </param>
         /// <param name="podCidrs"> One IPv4 CIDR is expected for single-stack networking. Two CIDRs, one for each IP family (IPv4/IPv6), is expected for dual-stack networking. </param>
         /// <param name="serviceCidrs"> One IPv4 CIDR is expected for single-stack networking. Two CIDRs, one for each IP family (IPv4/IPv6), is expected for dual-stack networking. They must not overlap with any Subnet IP ranges. </param>
         /// <param name="ipFamilies"> IP families are used to determine single-stack or dual-stack clusters. For single-stack, the expected value is IPv4. For dual-stack, the expected values are IPv4 and IPv6. </param>
+        /// <param name="kubeProxyConfig"> Holds configuration customizations for kube-proxy. Any values not defined will use the kube-proxy defaulting behavior. See https://v&lt;version&gt;.docs.kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/ where &lt;version&gt; is represented by a &lt;major version&gt;-&lt;minor version&gt; string. Kubernetes version 1.23 would be '1-23'. </param>
+        /// <param name="monitoring"> This addon can be used to configure network monitoring and generate network monitoring data in Prometheus format. </param>
+        /// <param name="advancedNetworking"> Advanced Networking profile for enabling observability on a cluster. For more information see aka.ms/aksadvancednetworking. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ContainerServiceNetworkProfile(ContainerServiceNetworkPlugin? networkPlugin, ContainerServiceNetworkPluginMode? networkPluginMode, ContainerServiceNetworkPolicy? networkPolicy, ContainerServiceNetworkMode? networkMode, NetworkDataplane? networkDataplane, string podCidr, string serviceCidr, string dnsServiceIP, ContainerServiceOutboundType? outboundType, ContainerServiceLoadBalancerSku? loadBalancerSku, ManagedClusterLoadBalancerProfile loadBalancerProfile, ManagedClusterNatGatewayProfile natGatewayProfile, IList<string> podCidrs, IList<string> serviceCidrs, IList<IPFamily> ipFamilies, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ContainerServiceNetworkProfile(ContainerServiceNetworkPlugin? networkPlugin, ContainerServiceNetworkPluginMode? networkPluginMode, ContainerServiceNetworkPolicy? networkPolicy, ContainerServiceNetworkMode? networkMode, NetworkDataplane? networkDataplane, string podCidr, string serviceCidr, string dnsServiceIP, ContainerServiceOutboundType? outboundType, ContainerServiceLoadBalancerSku? loadBalancerSku, ManagedClusterLoadBalancerProfile loadBalancerProfile, ManagedClusterNatGatewayProfile natGatewayProfile, ManagedClusterStaticEgressGatewayProfile staticEgressGatewayProfile, IList<string> podCidrs, IList<string> serviceCidrs, IList<IPFamily> ipFamilies, ContainerServiceNetworkProfileKubeProxyConfig kubeProxyConfig, NetworkMonitoring monitoring, AdvancedNetworking advancedNetworking, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             NetworkPlugin = networkPlugin;
             NetworkPluginMode = networkPluginMode;
@@ -85,15 +89,19 @@ namespace Azure.ResourceManager.ContainerService.Models
             LoadBalancerSku = loadBalancerSku;
             LoadBalancerProfile = loadBalancerProfile;
             NatGatewayProfile = natGatewayProfile;
+            StaticEgressGatewayProfile = staticEgressGatewayProfile;
             PodCidrs = podCidrs;
             ServiceCidrs = serviceCidrs;
             IPFamilies = ipFamilies;
+            KubeProxyConfig = kubeProxyConfig;
+            Monitoring = monitoring;
+            AdvancedNetworking = advancedNetworking;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> Network plugin used for building the Kubernetes network. </summary>
         public ContainerServiceNetworkPlugin? NetworkPlugin { get; set; }
-        /// <summary> The mode the network plugin should use. </summary>
+        /// <summary> Network plugin mode used for building the Kubernetes network. </summary>
         public ContainerServiceNetworkPluginMode? NetworkPluginMode { get; set; }
         /// <summary> Network policy used for building the Kubernetes network. </summary>
         public ContainerServiceNetworkPolicy? NetworkPolicy { get; set; }
@@ -115,11 +123,54 @@ namespace Azure.ResourceManager.ContainerService.Models
         public ManagedClusterLoadBalancerProfile LoadBalancerProfile { get; set; }
         /// <summary> Profile of the cluster NAT gateway. </summary>
         public ManagedClusterNatGatewayProfile NatGatewayProfile { get; set; }
+        /// <summary> The profile for Static Egress Gateway addon. For more details about Static Egress Gateway, see https://aka.ms/aks/static-egress-gateway. </summary>
+        internal ManagedClusterStaticEgressGatewayProfile StaticEgressGatewayProfile { get; set; }
+        /// <summary> Indicates if Static Egress Gateway addon is enabled or not. </summary>
+        public bool? StaticEgressGatewayProfileEnabled
+        {
+            get => StaticEgressGatewayProfile is null ? default : StaticEgressGatewayProfile.Enabled;
+            set
+            {
+                if (StaticEgressGatewayProfile is null)
+                    StaticEgressGatewayProfile = new ManagedClusterStaticEgressGatewayProfile();
+                StaticEgressGatewayProfile.Enabled = value;
+            }
+        }
+
         /// <summary> One IPv4 CIDR is expected for single-stack networking. Two CIDRs, one for each IP family (IPv4/IPv6), is expected for dual-stack networking. </summary>
         public IList<string> PodCidrs { get; }
         /// <summary> One IPv4 CIDR is expected for single-stack networking. Two CIDRs, one for each IP family (IPv4/IPv6), is expected for dual-stack networking. They must not overlap with any Subnet IP ranges. </summary>
         public IList<string> ServiceCidrs { get; }
         /// <summary> IP families are used to determine single-stack or dual-stack clusters. For single-stack, the expected value is IPv4. For dual-stack, the expected values are IPv4 and IPv6. </summary>
         public IList<IPFamily> IPFamilies { get; }
+        /// <summary> Holds configuration customizations for kube-proxy. Any values not defined will use the kube-proxy defaulting behavior. See https://v&lt;version&gt;.docs.kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/ where &lt;version&gt; is represented by a &lt;major version&gt;-&lt;minor version&gt; string. Kubernetes version 1.23 would be '1-23'. </summary>
+        public ContainerServiceNetworkProfileKubeProxyConfig KubeProxyConfig { get; set; }
+        /// <summary> This addon can be used to configure network monitoring and generate network monitoring data in Prometheus format. </summary>
+        internal NetworkMonitoring Monitoring { get; set; }
+        /// <summary> Enable or disable the network monitoring plugin on the cluster. </summary>
+        public bool? MonitoringEnabled
+        {
+            get => Monitoring is null ? default : Monitoring.Enabled;
+            set
+            {
+                if (Monitoring is null)
+                    Monitoring = new NetworkMonitoring();
+                Monitoring.Enabled = value;
+            }
+        }
+
+        /// <summary> Advanced Networking profile for enabling observability on a cluster. For more information see aka.ms/aksadvancednetworking. </summary>
+        internal AdvancedNetworking AdvancedNetworking { get; set; }
+        /// <summary> Indicates the enablement of Advanced Networking observability functionalities on clusters. </summary>
+        public bool? ObservabilityEnabled
+        {
+            get => AdvancedNetworking is null ? default : AdvancedNetworking.ObservabilityEnabled;
+            set
+            {
+                if (AdvancedNetworking is null)
+                    AdvancedNetworking = new AdvancedNetworking();
+                AdvancedNetworking.ObservabilityEnabled = value;
+            }
+        }
     }
 }
