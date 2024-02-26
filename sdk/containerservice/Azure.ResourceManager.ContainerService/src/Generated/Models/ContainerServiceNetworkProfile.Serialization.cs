@@ -86,6 +86,11 @@ namespace Azure.ResourceManager.ContainerService.Models
                 writer.WritePropertyName("natGatewayProfile"u8);
                 writer.WriteObjectValue(NatGatewayProfile);
             }
+            if (StaticEgressGatewayProfile != null)
+            {
+                writer.WritePropertyName("staticEgressGatewayProfile"u8);
+                writer.WriteObjectValue(StaticEgressGatewayProfile);
+            }
             if (!(PodCidrs is ChangeTrackingList<string> collection && collection.IsUndefined))
             {
                 writer.WritePropertyName("podCidrs"u8);
@@ -115,6 +120,16 @@ namespace Azure.ResourceManager.ContainerService.Models
                     writer.WriteStringValue(item.ToString());
                 }
                 writer.WriteEndArray();
+            }
+            if (KubeProxyConfig != null)
+            {
+                writer.WritePropertyName("kubeProxyConfig"u8);
+                writer.WriteObjectValue(KubeProxyConfig);
+            }
+            if (Monitoring != null)
+            {
+                writer.WritePropertyName("monitoring"u8);
+                writer.WriteObjectValue(Monitoring);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -166,9 +181,12 @@ namespace Azure.ResourceManager.ContainerService.Models
             Optional<ContainerServiceLoadBalancerSku> loadBalancerSku = default;
             Optional<ManagedClusterLoadBalancerProfile> loadBalancerProfile = default;
             Optional<ManagedClusterNatGatewayProfile> natGatewayProfile = default;
+            Optional<ManagedClusterStaticEgressGatewayProfile> staticEgressGatewayProfile = default;
             IList<string> podCidrs = default;
             IList<string> serviceCidrs = default;
             IList<IPFamily> ipFamilies = default;
+            Optional<ContainerServiceNetworkProfileKubeProxyConfig> kubeProxyConfig = default;
+            Optional<NetworkMonitoring> monitoring = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -269,6 +287,15 @@ namespace Azure.ResourceManager.ContainerService.Models
                     natGatewayProfile = ManagedClusterNatGatewayProfile.DeserializeManagedClusterNatGatewayProfile(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("staticEgressGatewayProfile"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    staticEgressGatewayProfile = ManagedClusterStaticEgressGatewayProfile.DeserializeManagedClusterStaticEgressGatewayProfile(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("podCidrs"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -311,13 +338,31 @@ namespace Azure.ResourceManager.ContainerService.Models
                     ipFamilies = array;
                     continue;
                 }
+                if (property.NameEquals("kubeProxyConfig"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    kubeProxyConfig = ContainerServiceNetworkProfileKubeProxyConfig.DeserializeContainerServiceNetworkProfileKubeProxyConfig(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("monitoring"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    monitoring = NetworkMonitoring.DeserializeNetworkMonitoring(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ContainerServiceNetworkProfile(Optional.ToNullable(networkPlugin), Optional.ToNullable(networkPluginMode), Optional.ToNullable(networkPolicy), Optional.ToNullable(networkMode), Optional.ToNullable(networkDataplane), podCidr.Value, serviceCidr.Value, dnsServiceIP.Value, Optional.ToNullable(outboundType), Optional.ToNullable(loadBalancerSku), loadBalancerProfile.Value, natGatewayProfile.Value, podCidrs ?? new ChangeTrackingList<string>(), serviceCidrs ?? new ChangeTrackingList<string>(), ipFamilies ?? new ChangeTrackingList<IPFamily>(), serializedAdditionalRawData);
+            return new ContainerServiceNetworkProfile(Optional.ToNullable(networkPlugin), Optional.ToNullable(networkPluginMode), Optional.ToNullable(networkPolicy), Optional.ToNullable(networkMode), Optional.ToNullable(networkDataplane), podCidr.Value, serviceCidr.Value, dnsServiceIP.Value, Optional.ToNullable(outboundType), Optional.ToNullable(loadBalancerSku), loadBalancerProfile.Value, natGatewayProfile.Value, staticEgressGatewayProfile.Value, podCidrs ?? new ChangeTrackingList<string>(), serviceCidrs ?? new ChangeTrackingList<string>(), ipFamilies ?? new ChangeTrackingList<IPFamily>(), kubeProxyConfig.Value, monitoring.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ContainerServiceNetworkProfile>.Write(ModelReaderWriterOptions options)
