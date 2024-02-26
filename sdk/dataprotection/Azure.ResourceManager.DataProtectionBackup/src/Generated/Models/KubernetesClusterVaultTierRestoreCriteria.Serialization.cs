@@ -119,6 +119,11 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                 writer.WritePropertyName("stagingStorageAccountId"u8);
                 writer.WriteStringValue(StagingStorageAccountId);
             }
+            if (ResourceModifierReference != null)
+            {
+                writer.WritePropertyName("resourceModifierReference"u8);
+                writer.WriteObjectValue(ResourceModifierReference);
+            }
             writer.WritePropertyName("objectType"u8);
             writer.WriteStringValue(ObjectType);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -171,6 +176,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
             IList<NamespacedName> restoreHookReferences = default;
             Optional<ResourceIdentifier> stagingResourceGroupId = default;
             Optional<ResourceIdentifier> stagingStorageAccountId = default;
+            Optional<NamespacedName> resourceModifierReference = default;
             string objectType = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -315,6 +321,15 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                     stagingStorageAccountId = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("resourceModifierReference"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    resourceModifierReference = NamespacedName.DeserializeNamespacedName(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("objectType"u8))
                 {
                     objectType = property.Value.GetString();
@@ -326,7 +341,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new KubernetesClusterVaultTierRestoreCriteria(objectType, serializedAdditionalRawData, includeClusterScopeResources, includedNamespaces ?? new ChangeTrackingList<string>(), excludedNamespaces ?? new ChangeTrackingList<string>(), includedResourceTypes ?? new ChangeTrackingList<string>(), excludedResourceTypes ?? new ChangeTrackingList<string>(), labelSelectors ?? new ChangeTrackingList<string>(), Optional.ToNullable(persistentVolumeRestoreMode), Optional.ToNullable(conflictPolicy), namespaceMappings ?? new ChangeTrackingDictionary<string, string>(), restoreHookReferences ?? new ChangeTrackingList<NamespacedName>(), stagingResourceGroupId.Value, stagingStorageAccountId.Value);
+            return new KubernetesClusterVaultTierRestoreCriteria(objectType, serializedAdditionalRawData, includeClusterScopeResources, includedNamespaces ?? new ChangeTrackingList<string>(), excludedNamespaces ?? new ChangeTrackingList<string>(), includedResourceTypes ?? new ChangeTrackingList<string>(), excludedResourceTypes ?? new ChangeTrackingList<string>(), labelSelectors ?? new ChangeTrackingList<string>(), Optional.ToNullable(persistentVolumeRestoreMode), Optional.ToNullable(conflictPolicy), namespaceMappings ?? new ChangeTrackingDictionary<string, string>(), restoreHookReferences ?? new ChangeTrackingList<NamespacedName>(), stagingResourceGroupId.Value, stagingStorageAccountId.Value, resourceModifierReference.Value);
         }
 
         BinaryData IPersistableModel<KubernetesClusterVaultTierRestoreCriteria>.Write(ModelReaderWriterOptions options)

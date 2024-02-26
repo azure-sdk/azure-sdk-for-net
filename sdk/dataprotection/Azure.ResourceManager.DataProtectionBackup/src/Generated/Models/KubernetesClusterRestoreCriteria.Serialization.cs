@@ -109,6 +109,11 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                 }
                 writer.WriteEndArray();
             }
+            if (ResourceModifierReference != null)
+            {
+                writer.WritePropertyName("resourceModifierReference"u8);
+                writer.WriteObjectValue(ResourceModifierReference);
+            }
             writer.WritePropertyName("objectType"u8);
             writer.WriteStringValue(ObjectType);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -159,6 +164,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
             Optional<KubernetesClusterRestoreExistingResourcePolicy> conflictPolicy = default;
             IDictionary<string, string> namespaceMappings = default;
             IList<NamespacedName> restoreHookReferences = default;
+            Optional<NamespacedName> resourceModifierReference = default;
             string objectType = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -285,6 +291,15 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                     restoreHookReferences = array;
                     continue;
                 }
+                if (property.NameEquals("resourceModifierReference"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    resourceModifierReference = NamespacedName.DeserializeNamespacedName(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("objectType"u8))
                 {
                     objectType = property.Value.GetString();
@@ -296,7 +311,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new KubernetesClusterRestoreCriteria(objectType, serializedAdditionalRawData, includeClusterScopeResources, includedNamespaces ?? new ChangeTrackingList<string>(), excludedNamespaces ?? new ChangeTrackingList<string>(), includedResourceTypes ?? new ChangeTrackingList<string>(), excludedResourceTypes ?? new ChangeTrackingList<string>(), labelSelectors ?? new ChangeTrackingList<string>(), Optional.ToNullable(persistentVolumeRestoreMode), Optional.ToNullable(conflictPolicy), namespaceMappings ?? new ChangeTrackingDictionary<string, string>(), restoreHookReferences ?? new ChangeTrackingList<NamespacedName>());
+            return new KubernetesClusterRestoreCriteria(objectType, serializedAdditionalRawData, includeClusterScopeResources, includedNamespaces ?? new ChangeTrackingList<string>(), excludedNamespaces ?? new ChangeTrackingList<string>(), includedResourceTypes ?? new ChangeTrackingList<string>(), excludedResourceTypes ?? new ChangeTrackingList<string>(), labelSelectors ?? new ChangeTrackingList<string>(), Optional.ToNullable(persistentVolumeRestoreMode), Optional.ToNullable(conflictPolicy), namespaceMappings ?? new ChangeTrackingDictionary<string, string>(), restoreHookReferences ?? new ChangeTrackingList<NamespacedName>(), resourceModifierReference.Value);
         }
 
         BinaryData IPersistableModel<KubernetesClusterRestoreCriteria>.Write(ModelReaderWriterOptions options)
