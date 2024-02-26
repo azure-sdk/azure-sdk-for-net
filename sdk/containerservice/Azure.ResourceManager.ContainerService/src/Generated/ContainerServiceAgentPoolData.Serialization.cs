@@ -287,6 +287,11 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("networkProfile"u8);
                 writer.WriteObjectValue(NetworkProfile);
             }
+            if (WindowsProfile != null)
+            {
+                writer.WritePropertyName("windowsProfile"u8);
+                writer.WriteObjectValue(WindowsProfile);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -373,6 +378,7 @@ namespace Azure.ResourceManager.ContainerService
             Optional<ResourceIdentifier> capacityReservationGroupId = default;
             Optional<ResourceIdentifier> hostGroupId = default;
             Optional<AgentPoolNetworkProfile> networkProfile = default;
+            Optional<AgentPoolWindowsProfile> windowsProfile = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -797,6 +803,15 @@ namespace Azure.ResourceManager.ContainerService
                             networkProfile = AgentPoolNetworkProfile.DeserializeAgentPoolNetworkProfile(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("windowsProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            windowsProfile = AgentPoolWindowsProfile.DeserializeAgentPoolWindowsProfile(property0.Value, options);
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -806,7 +821,7 @@ namespace Azure.ResourceManager.ContainerService
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ContainerServiceAgentPoolData(id, name, type, systemData.Value, Optional.ToNullable(count), vmSize.Value, Optional.ToNullable(osDiskSizeGB), Optional.ToNullable(osDiskType), Optional.ToNullable(kubeletDiskType), Optional.ToNullable(workloadRuntime), vnetSubnetId.Value, podSubnetId.Value, Optional.ToNullable(maxPods), Optional.ToNullable(osType), Optional.ToNullable(osSku), Optional.ToNullable(maxCount), Optional.ToNullable(minCount), Optional.ToNullable(enableAutoScaling), Optional.ToNullable(scaleDownMode), Optional.ToNullable(type0), Optional.ToNullable(mode), orchestratorVersion.Value, currentOrchestratorVersion.Value, nodeImageVersion.Value, upgradeSettings.Value, provisioningState.Value, powerState.Value, availabilityZones ?? new ChangeTrackingList<string>(), Optional.ToNullable(enableNodePublicIP), nodePublicIPPrefixId.Value, Optional.ToNullable(scaleSetPriority), Optional.ToNullable(scaleSetEvictionPolicy), Optional.ToNullable(spotMaxPrice), tags ?? new ChangeTrackingDictionary<string, string>(), nodeLabels ?? new ChangeTrackingDictionary<string, string>(), nodeTaints ?? new ChangeTrackingList<string>(), proximityPlacementGroupId.Value, kubeletConfig.Value, linuxOSConfig.Value, Optional.ToNullable(enableEncryptionAtHost), Optional.ToNullable(enableUltraSsd), Optional.ToNullable(enableFIPS), Optional.ToNullable(gpuInstanceProfile), creationData.Value, capacityReservationGroupId.Value, hostGroupId.Value, networkProfile.Value, serializedAdditionalRawData);
+            return new ContainerServiceAgentPoolData(id, name, type, systemData.Value, Optional.ToNullable(count), vmSize.Value, Optional.ToNullable(osDiskSizeGB), Optional.ToNullable(osDiskType), Optional.ToNullable(kubeletDiskType), Optional.ToNullable(workloadRuntime), vnetSubnetId.Value, podSubnetId.Value, Optional.ToNullable(maxPods), Optional.ToNullable(osType), Optional.ToNullable(osSku), Optional.ToNullable(maxCount), Optional.ToNullable(minCount), Optional.ToNullable(enableAutoScaling), Optional.ToNullable(scaleDownMode), Optional.ToNullable(type0), Optional.ToNullable(mode), orchestratorVersion.Value, currentOrchestratorVersion.Value, nodeImageVersion.Value, upgradeSettings.Value, provisioningState.Value, powerState.Value, availabilityZones ?? new ChangeTrackingList<string>(), Optional.ToNullable(enableNodePublicIP), nodePublicIPPrefixId.Value, Optional.ToNullable(scaleSetPriority), Optional.ToNullable(scaleSetEvictionPolicy), Optional.ToNullable(spotMaxPrice), tags ?? new ChangeTrackingDictionary<string, string>(), nodeLabels ?? new ChangeTrackingDictionary<string, string>(), nodeTaints ?? new ChangeTrackingList<string>(), proximityPlacementGroupId.Value, kubeletConfig.Value, linuxOSConfig.Value, Optional.ToNullable(enableEncryptionAtHost), Optional.ToNullable(enableUltraSsd), Optional.ToNullable(enableFIPS), Optional.ToNullable(gpuInstanceProfile), creationData.Value, capacityReservationGroupId.Value, hostGroupId.Value, networkProfile.Value, windowsProfile.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ContainerServiceAgentPoolData>.Write(ModelReaderWriterOptions options)
