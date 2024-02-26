@@ -67,6 +67,16 @@ namespace Azure.ResourceManager.Network.Models
                 }
                 writer.WriteEndArray();
             }
+            if (ContinuousCapture.HasValue)
+            {
+                writer.WritePropertyName("continuousCapture"u8);
+                writer.WriteBooleanValue(ContinuousCapture.Value);
+            }
+            if (CaptureSettings != null)
+            {
+                writer.WritePropertyName("captureSettings"u8);
+                writer.WriteObjectValue(CaptureSettings);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -114,6 +124,8 @@ namespace Azure.ResourceManager.Network.Models
             Optional<int> timeLimitInSeconds = default;
             PacketCaptureStorageLocation storageLocation = default;
             IList<PacketCaptureFilter> filters = default;
+            Optional<bool> continuousCapture = default;
+            Optional<PacketCaptureSettings> captureSettings = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -196,6 +208,24 @@ namespace Azure.ResourceManager.Network.Models
                             filters = array;
                             continue;
                         }
+                        if (property0.NameEquals("continuousCapture"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            continuousCapture = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("captureSettings"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            captureSettings = PacketCaptureSettings.DeserializePacketCaptureSettings(property0.Value, options);
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -205,7 +235,7 @@ namespace Azure.ResourceManager.Network.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new PacketCaptureCreateOrUpdateContent(target, scope.Value, Optional.ToNullable(targetType), Optional.ToNullable(bytesToCapturePerPacket), Optional.ToNullable(totalBytesPerSession), Optional.ToNullable(timeLimitInSeconds), storageLocation, filters ?? new ChangeTrackingList<PacketCaptureFilter>(), serializedAdditionalRawData);
+            return new PacketCaptureCreateOrUpdateContent(target, scope.Value, Optional.ToNullable(targetType), Optional.ToNullable(bytesToCapturePerPacket), Optional.ToNullable(totalBytesPerSession), Optional.ToNullable(timeLimitInSeconds), storageLocation, filters ?? new ChangeTrackingList<PacketCaptureFilter>(), Optional.ToNullable(continuousCapture), captureSettings.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<PacketCaptureCreateOrUpdateContent>.Write(ModelReaderWriterOptions options)

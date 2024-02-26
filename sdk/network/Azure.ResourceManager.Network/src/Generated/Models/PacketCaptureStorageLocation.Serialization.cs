@@ -41,6 +41,11 @@ namespace Azure.ResourceManager.Network.Models
                 writer.WritePropertyName("filePath"u8);
                 writer.WriteStringValue(FilePath);
             }
+            if (LocalPath != null)
+            {
+                writer.WritePropertyName("localPath"u8);
+                writer.WriteStringValue(LocalPath);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -82,6 +87,7 @@ namespace Azure.ResourceManager.Network.Models
             Optional<ResourceIdentifier> storageId = default;
             Optional<string> storagePath = default;
             Optional<string> filePath = default;
+            Optional<string> localPath = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -105,13 +111,18 @@ namespace Azure.ResourceManager.Network.Models
                     filePath = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("localPath"u8))
+                {
+                    localPath = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new PacketCaptureStorageLocation(storageId.Value, storagePath.Value, filePath.Value, serializedAdditionalRawData);
+            return new PacketCaptureStorageLocation(storageId.Value, storagePath.Value, filePath.Value, localPath.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<PacketCaptureStorageLocation>.Write(ModelReaderWriterOptions options)
