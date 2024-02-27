@@ -113,9 +113,9 @@ namespace Azure.ResourceManager.Support
             ResourceType type = default;
             Optional<SystemData> systemData = default;
             Optional<DateTimeOffset> createdOn = default;
-            Optional<float> chunkSize = default;
-            Optional<float> fileSize = default;
-            Optional<float> numberOfChunks = default;
+            Optional<int> chunkSize = default;
+            Optional<int> fileSize = default;
+            Optional<int> numberOfChunks = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -168,7 +168,7 @@ namespace Azure.ResourceManager.Support
                             {
                                 continue;
                             }
-                            chunkSize = property0.Value.GetSingle();
+                            chunkSize = property0.Value.GetInt32();
                             continue;
                         }
                         if (property0.NameEquals("fileSize"u8))
@@ -177,7 +177,7 @@ namespace Azure.ResourceManager.Support
                             {
                                 continue;
                             }
-                            fileSize = property0.Value.GetSingle();
+                            fileSize = property0.Value.GetInt32();
                             continue;
                         }
                         if (property0.NameEquals("numberOfChunks"u8))
@@ -186,7 +186,7 @@ namespace Azure.ResourceManager.Support
                             {
                                 continue;
                             }
-                            numberOfChunks = property0.Value.GetSingle();
+                            numberOfChunks = property0.Value.GetInt32();
                             continue;
                         }
                     }
