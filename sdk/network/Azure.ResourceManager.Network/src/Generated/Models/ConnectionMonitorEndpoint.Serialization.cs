@@ -58,6 +58,16 @@ namespace Azure.ResourceManager.Network.Models
                 writer.WritePropertyName("coverageLevel"u8);
                 writer.WriteStringValue(CoverageLevel.Value.ToString());
             }
+            if (LocationDetails != null)
+            {
+                writer.WritePropertyName("locationDetails"u8);
+                writer.WriteObjectValue(LocationDetails);
+            }
+            if (SubscriptionId != null)
+            {
+                writer.WritePropertyName("subscriptionId"u8);
+                writer.WriteStringValue(SubscriptionId);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -103,6 +113,8 @@ namespace Azure.ResourceManager.Network.Models
             Optional<ConnectionMonitorEndpointFilter> filter = default;
             Optional<ConnectionMonitorEndpointScope> scope = default;
             Optional<CoverageLevel> coverageLevel = default;
+            Optional<ConnectionMonitorEndpointLocationDetails> locationDetails = default;
+            Optional<string> subscriptionId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -162,6 +174,20 @@ namespace Azure.ResourceManager.Network.Models
                     coverageLevel = new CoverageLevel(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("locationDetails"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    locationDetails = ConnectionMonitorEndpointLocationDetails.DeserializeConnectionMonitorEndpointLocationDetails(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("subscriptionId"u8))
+                {
+                    subscriptionId = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -176,6 +202,8 @@ namespace Azure.ResourceManager.Network.Models
                 filter.Value,
                 scope.Value,
                 Optional.ToNullable(coverageLevel),
+                locationDetails.Value,
+                subscriptionId.Value,
                 serializedAdditionalRawData);
         }
 
