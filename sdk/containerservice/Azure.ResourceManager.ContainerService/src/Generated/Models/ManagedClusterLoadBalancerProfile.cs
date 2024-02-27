@@ -62,8 +62,9 @@ namespace Azure.ResourceManager.ContainerService.Models
         /// <param name="idleTimeoutInMinutes"> Desired outbound flow idle timeout in minutes. Allowed values are in the range of 4 to 120 (inclusive). The default value is 30 minutes. </param>
         /// <param name="enableMultipleStandardLoadBalancers"> Enable multiple standard load balancers per AKS cluster or not. </param>
         /// <param name="backendPoolType"> The type of the managed inbound Load Balancer BackendPool. </param>
+        /// <param name="clusterServiceLoadBalancerHealthProbeMode"> The health probing behavior for External Traffic Policy Cluster services. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ManagedClusterLoadBalancerProfile(ManagedClusterLoadBalancerProfileManagedOutboundIPs managedOutboundIPs, ManagedClusterLoadBalancerProfileOutboundIPPrefixes outboundIPPrefixes, ManagedClusterLoadBalancerProfileOutboundIPs outboundIPs, IList<WritableSubResource> effectiveOutboundIPs, int? allocatedOutboundPorts, int? idleTimeoutInMinutes, bool? enableMultipleStandardLoadBalancers, ManagedClusterLoadBalancerBackendPoolType? backendPoolType, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ManagedClusterLoadBalancerProfile(ManagedClusterLoadBalancerProfileManagedOutboundIPs managedOutboundIPs, ManagedClusterLoadBalancerProfileOutboundIPPrefixes outboundIPPrefixes, ManagedClusterLoadBalancerProfileOutboundIPs outboundIPs, IList<WritableSubResource> effectiveOutboundIPs, int? allocatedOutboundPorts, int? idleTimeoutInMinutes, bool? enableMultipleStandardLoadBalancers, ManagedClusterLoadBalancerBackendPoolType? backendPoolType, ClusterServiceLoadBalancerHealthProbeMode? clusterServiceLoadBalancerHealthProbeMode, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ManagedOutboundIPs = managedOutboundIPs;
             OutboundIPPrefixes = outboundIPPrefixes;
@@ -73,6 +74,7 @@ namespace Azure.ResourceManager.ContainerService.Models
             IdleTimeoutInMinutes = idleTimeoutInMinutes;
             EnableMultipleStandardLoadBalancers = enableMultipleStandardLoadBalancers;
             BackendPoolType = backendPoolType;
+            ClusterServiceLoadBalancerHealthProbeMode = clusterServiceLoadBalancerHealthProbeMode;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -114,5 +116,7 @@ namespace Azure.ResourceManager.ContainerService.Models
         public bool? EnableMultipleStandardLoadBalancers { get; set; }
         /// <summary> The type of the managed inbound Load Balancer BackendPool. </summary>
         public ManagedClusterLoadBalancerBackendPoolType? BackendPoolType { get; set; }
+        /// <summary> The health probing behavior for External Traffic Policy Cluster services. </summary>
+        public ClusterServiceLoadBalancerHealthProbeMode? ClusterServiceLoadBalancerHealthProbeMode { get; set; }
     }
 }
