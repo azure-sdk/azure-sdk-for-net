@@ -94,6 +94,16 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 writer.WritePropertyName("materializedViewDefinition"u8);
                 writer.WriteObjectValue(MaterializedViewDefinition);
             }
+            if (!(ComputedProperties is ChangeTrackingList<ComputedProperty> collection && collection.IsUndefined))
+            {
+                writer.WritePropertyName("computedProperties"u8);
+                writer.WriteStartArray();
+                foreach (var item in ComputedProperties)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -146,6 +156,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
             ResourceRestoreParameters restoreParameters = default;
             CosmosDBAccountCreateMode? createMode = default;
             MaterializedViewDefinition materializedViewDefinition = default;
+            IList<ComputedProperty> computedProperties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -268,6 +279,20 @@ namespace Azure.ResourceManager.CosmosDB.Models
                     materializedViewDefinition = MaterializedViewDefinition.DeserializeMaterializedViewDefinition(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("computedProperties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<ComputedProperty> array = new List<ComputedProperty>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(ComputedProperty.DeserializeComputedProperty(item, options));
+                    }
+                    computedProperties = array;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -286,6 +311,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 restoreParameters,
                 createMode,
                 materializedViewDefinition,
+                computedProperties ?? new ChangeTrackingList<ComputedProperty>(),
                 serializedAdditionalRawData,
                 rid,
                 ts,
