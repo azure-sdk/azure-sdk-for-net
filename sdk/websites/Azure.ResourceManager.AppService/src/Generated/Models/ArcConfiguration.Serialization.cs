@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.AppService.Models
             if (ArtifactsStorageType.HasValue)
             {
                 writer.WritePropertyName("artifactsStorageType"u8);
-                writer.WriteStringValue(ArtifactsStorageType.Value.ToSerialString());
+                writer.WriteStringValue(ArtifactsStorageType.Value.ToString());
             }
             if (ArtifactStorageClassName != null)
             {
@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.AppService.Models
                     {
                         continue;
                     }
-                    artifactsStorageType = property.Value.GetString().ToArtifactStorageType();
+                    artifactsStorageType = new ArtifactStorageType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("artifactStorageClassName"u8))

@@ -71,7 +71,7 @@ namespace Azure.ResourceManager.AppService.Models
                 writer.WritePropertyName("privateLinkServiceConnectionState"u8);
                 writer.WriteObjectValue(PrivateLinkServiceConnectionState);
             }
-            if (!(IPAddresses is ChangeTrackingList<IPAddress> collection && collection.IsUndefined))
+            if (!(IPAddresses is ChangeTrackingList<System.Net.IPAddress> collection && collection.IsUndefined))
             {
                 writer.WritePropertyName("ipAddresses"u8);
                 writer.WriteStartArray();
@@ -133,7 +133,7 @@ namespace Azure.ResourceManager.AppService.Models
             Optional<string> provisioningState = default;
             Optional<SubResource> privateEndpoint = default;
             Optional<PrivateLinkConnectionState> privateLinkServiceConnectionState = default;
-            IList<IPAddress> ipAddresses = default;
+            IList<System.Net.IPAddress> ipAddresses = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -205,7 +205,7 @@ namespace Azure.ResourceManager.AppService.Models
                             {
                                 continue;
                             }
-                            List<IPAddress> array = new List<IPAddress>();
+                            List<System.Net.IPAddress> array = new List<System.Net.IPAddress>();
                             foreach (var item in property0.Value.EnumerateArray())
                             {
                                 if (item.ValueKind == JsonValueKind.Null)
@@ -214,7 +214,7 @@ namespace Azure.ResourceManager.AppService.Models
                                 }
                                 else
                                 {
-                                    array.Add(IPAddress.Parse(item.GetString()));
+                                    array.Add(System.Net.IPAddress.Parse(item.GetString()));
                                 }
                             }
                             ipAddresses = array;
@@ -237,7 +237,7 @@ namespace Azure.ResourceManager.AppService.Models
                 provisioningState.Value,
                 privateEndpoint,
                 privateLinkServiceConnectionState.Value,
-                ipAddresses ?? new ChangeTrackingList<IPAddress>(),
+                ipAddresses ?? new ChangeTrackingList<System.Net.IPAddress>(),
                 kind.Value,
                 serializedAdditionalRawData);
         }

@@ -135,10 +135,40 @@ namespace Azure.ResourceManager.AppService.Models
                 }
                 writer.WriteEndArray();
             }
-            if (options.Format != "W" && Provider != null)
+            if (options.Format != "W" && !(LinkedBackends is ChangeTrackingList<StaticSiteLinkedBackend> collection2 && collection2.IsUndefined))
+            {
+                writer.WritePropertyName("linkedBackends"u8);
+                writer.WriteStartArray();
+                foreach (var item in LinkedBackends)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Provider != null)
             {
                 writer.WritePropertyName("provider"u8);
                 writer.WriteStringValue(Provider);
+            }
+            if (EnterpriseGradeCdnStatus.HasValue)
+            {
+                writer.WritePropertyName("enterpriseGradeCdnStatus"u8);
+                writer.WriteStringValue(EnterpriseGradeCdnStatus.Value.ToString());
+            }
+            if (PublicNetworkAccess != null)
+            {
+                writer.WritePropertyName("publicNetworkAccess"u8);
+                writer.WriteStringValue(PublicNetworkAccess);
+            }
+            if (options.Format != "W" && !(DatabaseConnections is ChangeTrackingList<DatabaseConnectionOverview> collection3 && collection3.IsUndefined))
+            {
+                writer.WritePropertyName("databaseConnections"u8);
+                writer.WriteStartArray();
+                foreach (var item in DatabaseConnections)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
             }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -197,7 +227,11 @@ namespace Azure.ResourceManager.AppService.Models
             Optional<string> contentDistributionEndpoint = default;
             Optional<string> keyVaultReferenceIdentity = default;
             IReadOnlyList<StaticSiteUserProvidedFunctionAppData> userProvidedFunctionApps = default;
+            IReadOnlyList<StaticSiteLinkedBackend> linkedBackends = default;
             Optional<string> provider = default;
+            Optional<EnterpriseGradeCdnStatus> enterpriseGradeCdnStatus = default;
+            Optional<string> publicNetworkAccess = default;
+            IReadOnlyList<DatabaseConnectionOverview> databaseConnections = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -352,9 +386,51 @@ namespace Azure.ResourceManager.AppService.Models
                             userProvidedFunctionApps = array;
                             continue;
                         }
+                        if (property0.NameEquals("linkedBackends"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<StaticSiteLinkedBackend> array = new List<StaticSiteLinkedBackend>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(StaticSiteLinkedBackend.DeserializeStaticSiteLinkedBackend(item, options));
+                            }
+                            linkedBackends = array;
+                            continue;
+                        }
                         if (property0.NameEquals("provider"u8))
                         {
                             provider = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("enterpriseGradeCdnStatus"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            enterpriseGradeCdnStatus = new EnterpriseGradeCdnStatus(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("publicNetworkAccess"u8))
+                        {
+                            publicNetworkAccess = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("databaseConnections"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<DatabaseConnectionOverview> array = new List<DatabaseConnectionOverview>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(DatabaseConnectionOverview.DeserializeDatabaseConnectionOverview(item, options));
+                            }
+                            databaseConnections = array;
                             continue;
                         }
                     }
@@ -384,7 +460,11 @@ namespace Azure.ResourceManager.AppService.Models
                 contentDistributionEndpoint.Value,
                 keyVaultReferenceIdentity.Value,
                 userProvidedFunctionApps ?? new ChangeTrackingList<StaticSiteUserProvidedFunctionAppData>(),
+                linkedBackends ?? new ChangeTrackingList<StaticSiteLinkedBackend>(),
                 provider.Value,
+                Optional.ToNullable(enterpriseGradeCdnStatus),
+                publicNetworkAccess.Value,
+                databaseConnections ?? new ChangeTrackingList<DatabaseConnectionOverview>(),
                 kind.Value,
                 serializedAdditionalRawData);
         }

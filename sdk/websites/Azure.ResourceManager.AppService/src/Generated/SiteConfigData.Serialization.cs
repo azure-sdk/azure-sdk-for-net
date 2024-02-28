@@ -305,7 +305,24 @@ namespace Azure.ResourceManager.AppService
                     writer.WriteNull("appSettings");
                 }
             }
-            if (!(ConnectionStrings is ChangeTrackingList<ConnStringInfo> collection1 && collection1.IsUndefined))
+            if (!(Metadata is ChangeTrackingList<AppServiceNameValuePair> collection1 && collection1.IsUndefined))
+            {
+                if (Metadata != null)
+                {
+                    writer.WritePropertyName("metadata"u8);
+                    writer.WriteStartArray();
+                    foreach (var item in Metadata)
+                    {
+                        writer.WriteObjectValue(item);
+                    }
+                    writer.WriteEndArray();
+                }
+                else
+                {
+                    writer.WriteNull("metadata");
+                }
+            }
+            if (!(ConnectionStrings is ChangeTrackingList<ConnStringInfo> collection2 && collection2.IsUndefined))
             {
                 if (ConnectionStrings != null)
                 {
@@ -334,7 +351,7 @@ namespace Azure.ResourceManager.AppService
                     writer.WriteNull("machineKey");
                 }
             }
-            if (!(HandlerMappings is ChangeTrackingList<HttpRequestHandlerMapping> collection2 && collection2.IsUndefined))
+            if (!(HandlerMappings is ChangeTrackingList<HttpRequestHandlerMapping> collection3 && collection3.IsUndefined))
             {
                 if (HandlerMappings != null)
                 {
@@ -471,7 +488,7 @@ namespace Azure.ResourceManager.AppService
                     writer.WriteNull("managedPipelineMode");
                 }
             }
-            if (!(VirtualApplications is ChangeTrackingList<VirtualApplication> collection3 && collection3.IsUndefined))
+            if (!(VirtualApplications is ChangeTrackingList<VirtualApplication> collection4 && collection4.IsUndefined))
             {
                 if (VirtualApplications != null)
                 {
@@ -704,7 +721,7 @@ namespace Azure.ResourceManager.AppService
                     writer.WriteNull("keyVaultReferenceIdentity");
                 }
             }
-            if (!(IPSecurityRestrictions is ChangeTrackingList<AppServiceIPSecurityRestriction> collection4 && collection4.IsUndefined))
+            if (!(IPSecurityRestrictions is ChangeTrackingList<AppServiceIPSecurityRestriction> collection5 && collection5.IsUndefined))
             {
                 if (IPSecurityRestrictions != null)
                 {
@@ -721,7 +738,19 @@ namespace Azure.ResourceManager.AppService
                     writer.WriteNull("ipSecurityRestrictions");
                 }
             }
-            if (!(ScmIPSecurityRestrictions is ChangeTrackingList<AppServiceIPSecurityRestriction> collection5 && collection5.IsUndefined))
+            if (IPSecurityRestrictionsDefaultAction.HasValue)
+            {
+                if (IPSecurityRestrictionsDefaultAction != null)
+                {
+                    writer.WritePropertyName("ipSecurityRestrictionsDefaultAction"u8);
+                    writer.WriteStringValue(IPSecurityRestrictionsDefaultAction.Value.ToString());
+                }
+                else
+                {
+                    writer.WriteNull("ipSecurityRestrictionsDefaultAction");
+                }
+            }
+            if (!(ScmIPSecurityRestrictions is ChangeTrackingList<AppServiceIPSecurityRestriction> collection6 && collection6.IsUndefined))
             {
                 if (ScmIPSecurityRestrictions != null)
                 {
@@ -736,6 +765,18 @@ namespace Azure.ResourceManager.AppService
                 else
                 {
                     writer.WriteNull("scmIpSecurityRestrictions");
+                }
+            }
+            if (ScmIPSecurityRestrictionsDefaultAction.HasValue)
+            {
+                if (ScmIPSecurityRestrictionsDefaultAction != null)
+                {
+                    writer.WritePropertyName("scmIpSecurityRestrictionsDefaultAction"u8);
+                    writer.WriteStringValue(ScmIPSecurityRestrictionsDefaultAction.Value.ToString());
+                }
+                else
+                {
+                    writer.WriteNull("scmIpSecurityRestrictionsDefaultAction");
                 }
             }
             if (AllowIPSecurityRestrictionsForScmToUseMain.HasValue)
@@ -772,6 +813,18 @@ namespace Azure.ResourceManager.AppService
                 else
                 {
                     writer.WriteNull("minTlsVersion");
+                }
+            }
+            if (MinTlsCipherSuite.HasValue)
+            {
+                if (MinTlsCipherSuite != null)
+                {
+                    writer.WritePropertyName("minTlsCipherSuite"u8);
+                    writer.WriteStringValue(MinTlsCipherSuite.Value.ToString());
+                }
+                else
+                {
+                    writer.WriteNull("minTlsCipherSuite");
                 }
             }
             if (ScmMinTlsVersion.HasValue)
@@ -822,6 +875,18 @@ namespace Azure.ResourceManager.AppService
                     writer.WriteNull("functionAppScaleLimit");
                 }
             }
+            if (ElasticWebAppScaleLimit.HasValue)
+            {
+                if (ElasticWebAppScaleLimit != null)
+                {
+                    writer.WritePropertyName("elasticWebAppScaleLimit"u8);
+                    writer.WriteNumberValue(ElasticWebAppScaleLimit.Value);
+                }
+                else
+                {
+                    writer.WriteNull("elasticWebAppScaleLimit");
+                }
+            }
             if (HealthCheckPath != null)
             {
                 if (HealthCheckPath != null)
@@ -870,7 +935,7 @@ namespace Azure.ResourceManager.AppService
                     writer.WriteNull("minimumElasticInstanceCount");
                 }
             }
-            if (!(AzureStorageAccounts is ChangeTrackingDictionary<string, AppServiceStorageAccessInfo> collection6 && collection6.IsUndefined))
+            if (!(AzureStorageAccounts is ChangeTrackingDictionary<string, AppServiceStorageAccessInfo> collection7 && collection7.IsUndefined))
             {
                 if (AzureStorageAccounts != null)
                 {
@@ -964,6 +1029,7 @@ namespace Azure.ResourceManager.AppService
             Optional<bool?> detailedErrorLoggingEnabled = default;
             Optional<string> publishingUsername = default;
             IList<AppServiceNameValuePair> appSettings = default;
+            IList<AppServiceNameValuePair> metadata = default;
             IList<ConnStringInfo> connectionStrings = default;
             Optional<SiteMachineKey> machineKey = default;
             IList<HttpRequestHandlerMapping> handlerMappings = default;
@@ -997,14 +1063,18 @@ namespace Azure.ResourceManager.AppService
             Optional<int?> xManagedServiceIdentityId = default;
             Optional<string> keyVaultReferenceIdentity = default;
             IList<AppServiceIPSecurityRestriction> ipSecurityRestrictions = default;
+            Optional<DefaultAction?> ipSecurityRestrictionsDefaultAction = default;
             IList<AppServiceIPSecurityRestriction> scmIPSecurityRestrictions = default;
+            Optional<DefaultAction?> scmIPSecurityRestrictionsDefaultAction = default;
             Optional<bool?> scmIPSecurityRestrictionsUseMain = default;
             Optional<bool?> http20Enabled = default;
             Optional<AppServiceSupportedTlsVersion?> minTlsVersion = default;
+            Optional<TlsCipherSuite?> minTlsCipherSuite = default;
             Optional<AppServiceSupportedTlsVersion?> scmMinTlsVersion = default;
             Optional<AppServiceFtpsState?> ftpsState = default;
             Optional<int?> preWarmedInstanceCount = default;
             Optional<int?> functionAppScaleLimit = default;
+            Optional<int?> elasticWebAppScaleLimit = default;
             Optional<string> healthCheckPath = default;
             Optional<bool?> functionsRuntimeScaleMonitoringEnabled = default;
             Optional<string> websiteTimeZone = default;
@@ -1261,6 +1331,21 @@ namespace Azure.ResourceManager.AppService
                                 array.Add(AppServiceNameValuePair.DeserializeAppServiceNameValuePair(item, options));
                             }
                             appSettings = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("metadata"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                metadata = null;
+                                continue;
+                            }
+                            List<AppServiceNameValuePair> array = new List<AppServiceNameValuePair>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(AppServiceNameValuePair.DeserializeAppServiceNameValuePair(item, options));
+                            }
+                            metadata = array;
                             continue;
                         }
                         if (property0.NameEquals("connectionStrings"u8))
@@ -1613,6 +1698,16 @@ namespace Azure.ResourceManager.AppService
                             ipSecurityRestrictions = array;
                             continue;
                         }
+                        if (property0.NameEquals("ipSecurityRestrictionsDefaultAction"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                ipSecurityRestrictionsDefaultAction = null;
+                                continue;
+                            }
+                            ipSecurityRestrictionsDefaultAction = new DefaultAction(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("scmIpSecurityRestrictions"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -1626,6 +1721,16 @@ namespace Azure.ResourceManager.AppService
                                 array.Add(AppServiceIPSecurityRestriction.DeserializeAppServiceIPSecurityRestriction(item, options));
                             }
                             scmIPSecurityRestrictions = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("scmIpSecurityRestrictionsDefaultAction"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                scmIPSecurityRestrictionsDefaultAction = null;
+                                continue;
+                            }
+                            scmIPSecurityRestrictionsDefaultAction = new DefaultAction(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("scmIpSecurityRestrictionsUseMain"u8))
@@ -1656,6 +1761,16 @@ namespace Azure.ResourceManager.AppService
                                 continue;
                             }
                             minTlsVersion = new AppServiceSupportedTlsVersion(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("minTlsCipherSuite"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                minTlsCipherSuite = null;
+                                continue;
+                            }
+                            minTlsCipherSuite = new TlsCipherSuite(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("scmMinTlsVersion"u8))
@@ -1696,6 +1811,16 @@ namespace Azure.ResourceManager.AppService
                                 continue;
                             }
                             functionAppScaleLimit = property0.Value.GetInt32();
+                            continue;
+                        }
+                        if (property0.NameEquals("elasticWebAppScaleLimit"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                elasticWebAppScaleLimit = null;
+                                continue;
+                            }
+                            elasticWebAppScaleLimit = property0.Value.GetInt32();
                             continue;
                         }
                         if (property0.NameEquals("healthCheckPath"u8))
@@ -1797,6 +1922,7 @@ namespace Azure.ResourceManager.AppService
                 Optional.ToNullable(detailedErrorLoggingEnabled),
                 publishingUsername.Value,
                 appSettings ?? new ChangeTrackingList<AppServiceNameValuePair>(),
+                metadata ?? new ChangeTrackingList<AppServiceNameValuePair>(),
                 connectionStrings ?? new ChangeTrackingList<ConnStringInfo>(),
                 machineKey.Value,
                 handlerMappings ?? new ChangeTrackingList<HttpRequestHandlerMapping>(),
@@ -1830,14 +1956,18 @@ namespace Azure.ResourceManager.AppService
                 Optional.ToNullable(xManagedServiceIdentityId),
                 keyVaultReferenceIdentity.Value,
                 ipSecurityRestrictions ?? new ChangeTrackingList<AppServiceIPSecurityRestriction>(),
+                Optional.ToNullable(ipSecurityRestrictionsDefaultAction),
                 scmIPSecurityRestrictions ?? new ChangeTrackingList<AppServiceIPSecurityRestriction>(),
+                Optional.ToNullable(scmIPSecurityRestrictionsDefaultAction),
                 Optional.ToNullable(scmIPSecurityRestrictionsUseMain),
                 Optional.ToNullable(http20Enabled),
                 Optional.ToNullable(minTlsVersion),
+                Optional.ToNullable(minTlsCipherSuite),
                 Optional.ToNullable(scmMinTlsVersion),
                 Optional.ToNullable(ftpsState),
                 Optional.ToNullable(preWarmedInstanceCount),
                 Optional.ToNullable(functionAppScaleLimit),
+                Optional.ToNullable(elasticWebAppScaleLimit),
                 healthCheckPath.Value,
                 Optional.ToNullable(functionsRuntimeScaleMonitoringEnabled),
                 websiteTimeZone.Value,

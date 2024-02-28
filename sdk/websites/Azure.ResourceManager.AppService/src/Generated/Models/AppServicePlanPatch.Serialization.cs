@@ -79,6 +79,11 @@ namespace Azure.ResourceManager.AppService.Models
                 writer.WritePropertyName("maximumNumberOfWorkers"u8);
                 writer.WriteNumberValue(MaximumNumberOfWorkers.Value);
             }
+            if (options.Format != "W" && NumberOfWorkers.HasValue)
+            {
+                writer.WritePropertyName("numberOfWorkers"u8);
+                writer.WriteNumberValue(NumberOfWorkers.Value);
+            }
             if (options.Format != "W" && GeoRegion != null)
             {
                 writer.WritePropertyName("geoRegion"u8);
@@ -213,6 +218,7 @@ namespace Azure.ResourceManager.AppService.Models
             Optional<string> subscription = default;
             Optional<HostingEnvironmentProfile> hostingEnvironmentProfile = default;
             Optional<int> maximumNumberOfWorkers = default;
+            Optional<int> numberOfWorkers = default;
             Optional<string> geoRegion = default;
             Optional<bool> perSiteScaling = default;
             Optional<bool> elasticScaleEnabled = default;
@@ -307,6 +313,15 @@ namespace Azure.ResourceManager.AppService.Models
                                 continue;
                             }
                             maximumNumberOfWorkers = property0.Value.GetInt32();
+                            continue;
+                        }
+                        if (property0.NameEquals("numberOfWorkers"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            numberOfWorkers = property0.Value.GetInt32();
                             continue;
                         }
                         if (property0.NameEquals("geoRegion"u8))
@@ -473,6 +488,7 @@ namespace Azure.ResourceManager.AppService.Models
                 subscription.Value,
                 hostingEnvironmentProfile.Value,
                 Optional.ToNullable(maximumNumberOfWorkers),
+                Optional.ToNullable(numberOfWorkers),
                 geoRegion.Value,
                 Optional.ToNullable(perSiteScaling),
                 Optional.ToNullable(elasticScaleEnabled),
