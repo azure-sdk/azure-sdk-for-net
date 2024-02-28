@@ -31,11 +31,6 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("communityGalleryImageId"u8);
                 writer.WriteStringValue(CommunityGalleryImageId);
             }
-            if (VirtualMachineId != null)
-            {
-                writer.WritePropertyName("virtualMachineId"u8);
-                writer.WriteStringValue(VirtualMachineId);
-            }
             if (Id != null)
             {
                 writer.WritePropertyName("id"u8);
@@ -80,7 +75,6 @@ namespace Azure.ResourceManager.Compute.Models
                 return null;
             }
             string communityGalleryImageId = default;
-            ResourceIdentifier virtualMachineId = default;
             ResourceIdentifier id = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -89,15 +83,6 @@ namespace Azure.ResourceManager.Compute.Models
                 if (property.NameEquals("communityGalleryImageId"u8))
                 {
                     communityGalleryImageId = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("virtualMachineId"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    virtualMachineId = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("id"u8))
@@ -115,7 +100,7 @@ namespace Azure.ResourceManager.Compute.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new GalleryArtifactVersionFullSource(id, serializedAdditionalRawData, communityGalleryImageId, virtualMachineId);
+            return new GalleryArtifactVersionFullSource(id, serializedAdditionalRawData, communityGalleryImageId);
         }
 
         BinaryData IPersistableModel<GalleryArtifactVersionFullSource>.Write(ModelReaderWriterOptions options)
