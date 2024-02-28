@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.Search
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2023-11-01";
+            _apiVersion = apiVersion ?? "2024-03-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -63,11 +63,11 @@ namespace Azure.ResourceManager.Search
             return message;
         }
 
-        /// <summary> Updates a Private Endpoint connection to the search service in the given resource group. </summary>
+        /// <summary> Updates a private endpoint connection to the search service in the given resource group. </summary>
         /// <param name="subscriptionId"> The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="resourceGroupName"> The name of the resource group within the current subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
-        /// <param name="searchServiceName"> The name of the Azure Cognitive Search service associated with the specified resource group. </param>
-        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the Azure Cognitive Search service with the specified resource group. </param>
+        /// <param name="searchServiceName"> The name of the Azure AI Search service associated with the specified resource group. </param>
+        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the Azure AI Search service with the specified resource group. </param>
         /// <param name="data"> The definition of the private endpoint connection to update. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -128,11 +128,11 @@ namespace Azure.ResourceManager.Search
             }
         }
 
-        /// <summary> Updates a Private Endpoint connection to the search service in the given resource group. </summary>
+        /// <summary> Updates a private endpoint connection to the search service in the given resource group. </summary>
         /// <param name="subscriptionId"> The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="resourceGroupName"> The name of the resource group within the current subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
-        /// <param name="searchServiceName"> The name of the Azure Cognitive Search service associated with the specified resource group. </param>
-        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the Azure Cognitive Search service with the specified resource group. </param>
+        /// <param name="searchServiceName"> The name of the Azure AI Search service associated with the specified resource group. </param>
+        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the Azure AI Search service with the specified resource group. </param>
         /// <param name="data"> The definition of the private endpoint connection to update. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -218,8 +218,8 @@ namespace Azure.ResourceManager.Search
         /// <summary> Gets the details of the private endpoint connection to the search service in the given resource group. </summary>
         /// <param name="subscriptionId"> The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="resourceGroupName"> The name of the resource group within the current subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
-        /// <param name="searchServiceName"> The name of the Azure Cognitive Search service associated with the specified resource group. </param>
-        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the Azure Cognitive Search service with the specified resource group. </param>
+        /// <param name="searchServiceName"> The name of the Azure AI Search service associated with the specified resource group. </param>
+        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the Azure AI Search service with the specified resource group. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="searchServiceName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
@@ -280,8 +280,8 @@ namespace Azure.ResourceManager.Search
         /// <summary> Gets the details of the private endpoint connection to the search service in the given resource group. </summary>
         /// <param name="subscriptionId"> The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="resourceGroupName"> The name of the resource group within the current subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
-        /// <param name="searchServiceName"> The name of the Azure Cognitive Search service associated with the specified resource group. </param>
-        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the Azure Cognitive Search service with the specified resource group. </param>
+        /// <param name="searchServiceName"> The name of the Azure AI Search service associated with the specified resource group. </param>
+        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the Azure AI Search service with the specified resource group. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="searchServiceName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
@@ -364,8 +364,8 @@ namespace Azure.ResourceManager.Search
         /// <summary> Disconnects the private endpoint connection and deletes it from the search service. </summary>
         /// <param name="subscriptionId"> The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="resourceGroupName"> The name of the resource group within the current subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
-        /// <param name="searchServiceName"> The name of the Azure Cognitive Search service associated with the specified resource group. </param>
-        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the Azure Cognitive Search service with the specified resource group. </param>
+        /// <param name="searchServiceName"> The name of the Azure AI Search service associated with the specified resource group. </param>
+        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the Azure AI Search service with the specified resource group. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="searchServiceName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
@@ -426,8 +426,8 @@ namespace Azure.ResourceManager.Search
         /// <summary> Disconnects the private endpoint connection and deletes it from the search service. </summary>
         /// <param name="subscriptionId"> The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="resourceGroupName"> The name of the resource group within the current subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
-        /// <param name="searchServiceName"> The name of the Azure Cognitive Search service associated with the specified resource group. </param>
-        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the Azure Cognitive Search service with the specified resource group. </param>
+        /// <param name="searchServiceName"> The name of the Azure AI Search service associated with the specified resource group. </param>
+        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the Azure AI Search service with the specified resource group. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="searchServiceName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
@@ -509,7 +509,7 @@ namespace Azure.ResourceManager.Search
         /// <summary> Gets a list of all private endpoint connections in the given service. </summary>
         /// <param name="subscriptionId"> The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="resourceGroupName"> The name of the resource group within the current subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
-        /// <param name="searchServiceName"> The name of the Azure Cognitive Search service associated with the specified resource group. </param>
+        /// <param name="searchServiceName"> The name of the Azure AI Search service associated with the specified resource group. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="searchServiceName"/> is null. </exception>
@@ -560,7 +560,7 @@ namespace Azure.ResourceManager.Search
         /// <summary> Gets a list of all private endpoint connections in the given service. </summary>
         /// <param name="subscriptionId"> The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="resourceGroupName"> The name of the resource group within the current subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
-        /// <param name="searchServiceName"> The name of the Azure Cognitive Search service associated with the specified resource group. </param>
+        /// <param name="searchServiceName"> The name of the Azure AI Search service associated with the specified resource group. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="searchServiceName"/> is null. </exception>
@@ -626,7 +626,7 @@ namespace Azure.ResourceManager.Search
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="resourceGroupName"> The name of the resource group within the current subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
-        /// <param name="searchServiceName"> The name of the Azure Cognitive Search service associated with the specified resource group. </param>
+        /// <param name="searchServiceName"> The name of the Azure AI Search service associated with the specified resource group. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="searchServiceName"/> is null. </exception>
@@ -682,7 +682,7 @@ namespace Azure.ResourceManager.Search
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="resourceGroupName"> The name of the resource group within the current subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
-        /// <param name="searchServiceName"> The name of the Azure Cognitive Search service associated with the specified resource group. </param>
+        /// <param name="searchServiceName"> The name of the Azure AI Search service associated with the specified resource group. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="searchServiceName"/> is null. </exception>

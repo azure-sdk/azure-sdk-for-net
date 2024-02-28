@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: ServiceFabricManagedClusters
 namespace: Azure.ResourceManager.ServiceFabricManagedClusters
-require:  https://github.com/Azure/azure-rest-api-specs/blob/2ce7ebed8b2fbcce991d2839ba0ba712f9a0d12b/specification/servicefabricmanagedclusters/resource-manager/readme.md
+require:  https://github.com/Azure/azure-rest-api-specs/blob/7ab4387046343a75930f9fff8e1aa5e537d5cf0b/specification/servicefabricmanagedclusters/resource-manager/readme.md
 #tag: package-2023-12-preview
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
