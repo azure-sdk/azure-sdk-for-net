@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.ResourceManager.Support.Models;
 
 namespace Azure.ResourceManager.Support
 {
@@ -32,8 +33,89 @@ namespace Azure.ResourceManager.Support
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2022-09-01-preview";
+            _apiVersion = apiVersion ?? "2023-06-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
+        }
+
+        internal HttpMessage CreateListRequest(string supportTicketName)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/providers/Microsoft.Support/supportTickets/", false);
+            uri.AppendPath(supportTicketName, true);
+            uri.AppendPath("/chatTranscripts", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Lists all chat transcripts for a support ticket. </summary>
+        /// <param name="supportTicketName"> Support ticket name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="supportTicketName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="supportTicketName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<ChatTranscriptsListResult>> ListAsync(string supportTicketName, CancellationToken cancellationToken = default)
+        {
+            if (supportTicketName == null)
+            {
+                throw new ArgumentNullException(nameof(supportTicketName));
+            }
+            if (supportTicketName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(supportTicketName));
+            }
+
+            using var message = CreateListRequest(supportTicketName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        ChatTranscriptsListResult value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = ChatTranscriptsListResult.DeserializeChatTranscriptsListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Lists all chat transcripts for a support ticket. </summary>
+        /// <param name="supportTicketName"> Support ticket name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="supportTicketName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="supportTicketName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<ChatTranscriptsListResult> List(string supportTicketName, CancellationToken cancellationToken = default)
+        {
+            if (supportTicketName == null)
+            {
+                throw new ArgumentNullException(nameof(supportTicketName));
+            }
+            if (supportTicketName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(supportTicketName));
+            }
+
+            using var message = CreateListRequest(supportTicketName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        ChatTranscriptsListResult value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = ChatTranscriptsListResult.DeserializeChatTranscriptsListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
         }
 
         internal HttpMessage CreateGetRequest(string supportTicketName, string chatTranscriptName)
@@ -135,6 +217,94 @@ namespace Azure.ResourceManager.Support
                     }
                 case 404:
                     return Response.FromValue((ChatTranscriptDetailData)null, message.Response);
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListNextPageRequest(string nextLink, string supportTicketName)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRawNextLink(nextLink, false);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Lists all chat transcripts for a support ticket. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="supportTicketName"> Support ticket name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="supportTicketName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="supportTicketName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<ChatTranscriptsListResult>> ListNextPageAsync(string nextLink, string supportTicketName, CancellationToken cancellationToken = default)
+        {
+            if (nextLink == null)
+            {
+                throw new ArgumentNullException(nameof(nextLink));
+            }
+            if (supportTicketName == null)
+            {
+                throw new ArgumentNullException(nameof(supportTicketName));
+            }
+            if (supportTicketName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(supportTicketName));
+            }
+
+            using var message = CreateListNextPageRequest(nextLink, supportTicketName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        ChatTranscriptsListResult value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = ChatTranscriptsListResult.DeserializeChatTranscriptsListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Lists all chat transcripts for a support ticket. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="supportTicketName"> Support ticket name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="supportTicketName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="supportTicketName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<ChatTranscriptsListResult> ListNextPage(string nextLink, string supportTicketName, CancellationToken cancellationToken = default)
+        {
+            if (nextLink == null)
+            {
+                throw new ArgumentNullException(nameof(nextLink));
+            }
+            if (supportTicketName == null)
+            {
+                throw new ArgumentNullException(nameof(supportTicketName));
+            }
+            if (supportTicketName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(supportTicketName));
+            }
+
+            using var message = CreateListNextPageRequest(nextLink, supportTicketName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        ChatTranscriptsListResult value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = ChatTranscriptsListResult.DeserializeChatTranscriptsListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
                 default:
                     throw new RequestFailedException(message.Response);
             }
