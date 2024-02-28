@@ -10,6 +10,7 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.Maps;
 
 namespace Azure.ResourceManager.Maps.Models
 {
@@ -56,6 +57,36 @@ namespace Azure.ResourceManager.Maps.Models
                 writer.WritePropertyName("cors"u8);
                 writer.WriteObjectValue(Cors);
             }
+            if (Encryption != null)
+            {
+                writer.WritePropertyName("encryption"u8);
+                writer.WriteObjectValue(Encryption);
+            }
+            if (options.Format != "W" && !(PrivateEndpointConnections is ChangeTrackingList<MapsPrivateEndpointConnectionData> collection0 && collection0.IsUndefined))
+            {
+                writer.WritePropertyName("privateEndpointConnections"u8);
+                writer.WriteStartArray();
+                foreach (var item in PrivateEndpointConnections)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (PublicNetworkAccess.HasValue)
+            {
+                writer.WritePropertyName("publicNetworkAccess"u8);
+                writer.WriteStringValue(PublicNetworkAccess.Value.ToString());
+            }
+            if (!(Locations is ChangeTrackingList<LocationsItem> collection1 && collection1.IsUndefined))
+            {
+                writer.WritePropertyName("locations"u8);
+                writer.WriteStartArray();
+                foreach (var item in Locations)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -99,6 +130,10 @@ namespace Azure.ResourceManager.Maps.Models
             string provisioningState = default;
             IList<MapsLinkedResource> linkedResources = default;
             CorsRules cors = default;
+            Encryption encryption = default;
+            IReadOnlyList<MapsPrivateEndpointConnectionData> privateEndpointConnections = default;
+            PublicNetworkAccess? publicNetworkAccess = default;
+            IList<LocationsItem> locations = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -149,6 +184,52 @@ namespace Azure.ResourceManager.Maps.Models
                     cors = CorsRules.DeserializeCorsRules(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("encryption"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    encryption = Encryption.DeserializeEncryption(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("privateEndpointConnections"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<MapsPrivateEndpointConnectionData> array = new List<MapsPrivateEndpointConnectionData>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(MapsPrivateEndpointConnectionData.DeserializeMapsPrivateEndpointConnectionData(item, options));
+                    }
+                    privateEndpointConnections = array;
+                    continue;
+                }
+                if (property.NameEquals("publicNetworkAccess"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    publicNetworkAccess = new PublicNetworkAccess(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("locations"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<LocationsItem> array = new List<LocationsItem>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(LocationsItem.DeserializeLocationsItem(item, options));
+                    }
+                    locations = array;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -161,6 +242,10 @@ namespace Azure.ResourceManager.Maps.Models
                 provisioningState,
                 linkedResources ?? new ChangeTrackingList<MapsLinkedResource>(),
                 cors,
+                encryption,
+                privateEndpointConnections ?? new ChangeTrackingList<MapsPrivateEndpointConnectionData>(),
+                publicNetworkAccess,
+                locations ?? new ChangeTrackingList<LocationsItem>(),
                 serializedAdditionalRawData);
         }
 

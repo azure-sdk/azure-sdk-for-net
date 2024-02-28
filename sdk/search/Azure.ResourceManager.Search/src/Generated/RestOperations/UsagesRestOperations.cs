@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.Search
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2023-11-01";
+            _apiVersion = apiVersion ?? "2024-03-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.Search
             return message;
         }
 
-        /// <summary> Gets a list of all Search quota usages in the given subscription. </summary>
+        /// <summary> Get a list of all Azure AI Search quota usages across the subscription. </summary>
         /// <param name="subscriptionId"> The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="location"> The unique location name for a Microsoft Azure geographic region. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.Search
             }
         }
 
-        /// <summary> Gets a list of all Search quota usages in the given subscription. </summary>
+        /// <summary> Get a list of all Azure AI Search quota usages across the subscription. </summary>
         /// <param name="subscriptionId"> The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="location"> The unique location name for a Microsoft Azure geographic region. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
@@ -138,7 +138,7 @@ namespace Azure.ResourceManager.Search
             return message;
         }
 
-        /// <summary> Gets a list of all Search quota usages in the given subscription. </summary>
+        /// <summary> Get a list of all Azure AI Search quota usages across the subscription. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="location"> The unique location name for a Microsoft Azure geographic region. </param>
@@ -177,7 +177,7 @@ namespace Azure.ResourceManager.Search
             }
         }
 
-        /// <summary> Gets a list of all Search quota usages in the given subscription. </summary>
+        /// <summary> Get a list of all Azure AI Search quota usages across the subscription. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="location"> The unique location name for a Microsoft Azure geographic region. </param>
