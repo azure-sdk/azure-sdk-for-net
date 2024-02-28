@@ -9,6 +9,7 @@ using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
+using Azure;
 using Azure.Core;
 using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Search;
@@ -91,7 +92,7 @@ namespace Azure.ResourceManager.Search.Models
             if (PublicNetworkAccess.HasValue)
             {
                 writer.WritePropertyName("publicNetworkAccess"u8);
-                writer.WriteStringValue(PublicNetworkAccess.Value.ToSerialString());
+                writer.WriteStringValue(PublicNetworkAccess.Value.ToString());
             }
             if (options.Format != "W" && Status.HasValue)
             {
@@ -112,6 +113,16 @@ namespace Azure.ResourceManager.Search.Models
             {
                 writer.WritePropertyName("networkRuleSet"u8);
                 writer.WriteObjectValue(NetworkRuleSet);
+            }
+            if (!(DisabledDataExfiltrationOptions is ChangeTrackingList<SearchDisabledDataExfiltrationOption> collection0 && collection0.IsUndefined))
+            {
+                writer.WritePropertyName("disabledDataExfiltrationOptions"u8);
+                writer.WriteStartArray();
+                foreach (var item in DisabledDataExfiltrationOptions)
+                {
+                    writer.WriteStringValue(item.ToString());
+                }
+                writer.WriteEndArray();
             }
             if (EncryptionWithCmk != null)
             {
@@ -135,16 +146,6 @@ namespace Azure.ResourceManager.Search.Models
                 writer.WritePropertyName("authOptions"u8);
                 writer.WriteObjectValue(AuthOptions);
             }
-            if (options.Format != "W" && !(PrivateEndpointConnections is ChangeTrackingList<SearchPrivateEndpointConnectionData> collection0 && collection0.IsUndefined))
-            {
-                writer.WritePropertyName("privateEndpointConnections"u8);
-                writer.WriteStartArray();
-                foreach (var item in PrivateEndpointConnections)
-                {
-                    writer.WriteObjectValue(item);
-                }
-                writer.WriteEndArray();
-            }
             if (SemanticSearch.HasValue)
             {
                 if (SemanticSearch != null)
@@ -157,7 +158,17 @@ namespace Azure.ResourceManager.Search.Models
                     writer.WriteNull("semanticSearch");
                 }
             }
-            if (options.Format != "W" && !(SharedPrivateLinkResources is ChangeTrackingList<SharedSearchServicePrivateLinkResourceData> collection1 && collection1.IsUndefined))
+            if (options.Format != "W" && !(PrivateEndpointConnections is ChangeTrackingList<SearchPrivateEndpointConnectionData> collection1 && collection1.IsUndefined))
+            {
+                writer.WritePropertyName("privateEndpointConnections"u8);
+                writer.WriteStartArray();
+                foreach (var item in PrivateEndpointConnections)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (options.Format != "W" && !(SharedPrivateLinkResources is ChangeTrackingList<SharedSearchServicePrivateLinkResourceData> collection2 && collection2.IsUndefined))
             {
                 writer.WritePropertyName("sharedPrivateLinkResources"u8);
                 writer.WriteStartArray();
@@ -166,6 +177,11 @@ namespace Azure.ResourceManager.Search.Models
                     writer.WriteObjectValue(item);
                 }
                 writer.WriteEndArray();
+            }
+            if (options.Format != "W" && ETag.HasValue)
+            {
+                writer.WritePropertyName("eTag"u8);
+                writer.WriteStringValue(ETag.Value.ToString());
             }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -222,12 +238,14 @@ namespace Azure.ResourceManager.Search.Models
             string statusDetails = default;
             SearchServiceProvisioningState? provisioningState = default;
             NetworkRuleSet networkRuleSet = default;
+            IList<SearchDisabledDataExfiltrationOption> disabledDataExfiltrationOptions = default;
             SearchEncryptionWithCmk encryptionWithCmk = default;
             bool? disableLocalAuth = default;
             SearchAadAuthDataPlaneAuthOptions authOptions = default;
-            IReadOnlyList<SearchPrivateEndpointConnectionData> privateEndpointConnections = default;
             SearchSemanticSearch? semanticSearch = default;
+            IReadOnlyList<SearchPrivateEndpointConnectionData> privateEndpointConnections = default;
             IReadOnlyList<SharedSearchServicePrivateLinkResourceData> sharedPrivateLinkResources = default;
+            ETag? eTag = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -335,7 +353,7 @@ namespace Azure.ResourceManager.Search.Models
                             {
                                 continue;
                             }
-                            publicNetworkAccess = property0.Value.GetString().ToSearchServicePublicNetworkAccess();
+                            publicNetworkAccess = new SearchServicePublicNetworkAccess(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("status"u8))
@@ -370,6 +388,20 @@ namespace Azure.ResourceManager.Search.Models
                             networkRuleSet = NetworkRuleSet.DeserializeNetworkRuleSet(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("disabledDataExfiltrationOptions"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<SearchDisabledDataExfiltrationOption> array = new List<SearchDisabledDataExfiltrationOption>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(new SearchDisabledDataExfiltrationOption(item.GetString()));
+                            }
+                            disabledDataExfiltrationOptions = array;
+                            continue;
+                        }
                         if (property0.NameEquals("encryptionWithCmk"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -398,6 +430,16 @@ namespace Azure.ResourceManager.Search.Models
                             authOptions = SearchAadAuthDataPlaneAuthOptions.DeserializeSearchAadAuthDataPlaneAuthOptions(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("semanticSearch"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                semanticSearch = null;
+                                continue;
+                            }
+                            semanticSearch = new SearchSemanticSearch(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("privateEndpointConnections"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -412,16 +454,6 @@ namespace Azure.ResourceManager.Search.Models
                             privateEndpointConnections = array;
                             continue;
                         }
-                        if (property0.NameEquals("semanticSearch"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                semanticSearch = null;
-                                continue;
-                            }
-                            semanticSearch = new SearchSemanticSearch(property0.Value.GetString());
-                            continue;
-                        }
                         if (property0.NameEquals("sharedPrivateLinkResources"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -434,6 +466,15 @@ namespace Azure.ResourceManager.Search.Models
                                 array.Add(SharedSearchServicePrivateLinkResourceData.DeserializeSharedSearchServicePrivateLinkResourceData(item, options));
                             }
                             sharedPrivateLinkResources = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("eTag"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            eTag = new ETag(property0.Value.GetString());
                             continue;
                         }
                     }
@@ -462,12 +503,14 @@ namespace Azure.ResourceManager.Search.Models
                 statusDetails,
                 provisioningState,
                 networkRuleSet,
+                disabledDataExfiltrationOptions ?? new ChangeTrackingList<SearchDisabledDataExfiltrationOption>(),
                 encryptionWithCmk,
                 disableLocalAuth,
                 authOptions,
-                privateEndpointConnections ?? new ChangeTrackingList<SearchPrivateEndpointConnectionData>(),
                 semanticSearch,
+                privateEndpointConnections ?? new ChangeTrackingList<SearchPrivateEndpointConnectionData>(),
                 sharedPrivateLinkResources ?? new ChangeTrackingList<SharedSearchServicePrivateLinkResourceData>(),
+                eTag,
                 serializedAdditionalRawData);
         }
 

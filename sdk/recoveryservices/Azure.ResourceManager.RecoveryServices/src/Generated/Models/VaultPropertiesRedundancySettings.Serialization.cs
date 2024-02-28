@@ -26,12 +26,12 @@ namespace Azure.ResourceManager.RecoveryServices.Models
             }
 
             writer.WriteStartObject();
-            if (options.Format != "W" && StandardTierStorageRedundancy.HasValue)
+            if (StandardTierStorageRedundancy.HasValue)
             {
                 writer.WritePropertyName("standardTierStorageRedundancy"u8);
                 writer.WriteStringValue(StandardTierStorageRedundancy.Value.ToString());
             }
-            if (options.Format != "W" && CrossRegionRestore.HasValue)
+            if (CrossRegionRestore.HasValue)
             {
                 writer.WritePropertyName("crossRegionRestore"u8);
                 writer.WriteStringValue(CrossRegionRestore.Value.ToString());
