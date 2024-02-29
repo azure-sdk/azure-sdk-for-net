@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Search.Models
 {
-    /// <summary> The IP restriction rule of the Azure Cognitive Search service. </summary>
+    /// <summary> The IP restriction rule of the Azure AI Search service. </summary>
     public partial class SearchServiceIPRule
     {
         /// <summary>
