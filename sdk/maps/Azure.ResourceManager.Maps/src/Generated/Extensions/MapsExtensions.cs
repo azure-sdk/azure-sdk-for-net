@@ -79,6 +79,50 @@ namespace Azure.ResourceManager.Maps
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="MapsPrivateLinkResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="MapsPrivateLinkResource.CreateResourceIdentifier" /> to create a <see cref="MapsPrivateLinkResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableMapsArmClient.GetMapsPrivateLinkResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="MapsPrivateLinkResource"/> object. </returns>
+        public static MapsPrivateLinkResource GetMapsPrivateLinkResource(this ArmClient client, ResourceIdentifier id)
+        {
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
+
+            return GetMockableMapsArmClient(client).GetMapsPrivateLinkResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="MapsPrivateEndpointConnectionResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="MapsPrivateEndpointConnectionResource.CreateResourceIdentifier" /> to create a <see cref="MapsPrivateEndpointConnectionResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableMapsArmClient.GetMapsPrivateEndpointConnectionResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="MapsPrivateEndpointConnectionResource"/> object. </returns>
+        public static MapsPrivateEndpointConnectionResource GetMapsPrivateEndpointConnectionResource(this ArmClient client, ResourceIdentifier id)
+        {
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
+
+            return GetMockableMapsArmClient(client).GetMapsPrivateEndpointConnectionResource(id);
+        }
+
+        /// <summary>
         /// Gets a collection of MapsAccountResources in the ResourceGroupResource.
         /// <item>
         /// <term>Mocking</term>
@@ -111,7 +155,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -152,7 +196,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -193,7 +237,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -232,7 +276,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
