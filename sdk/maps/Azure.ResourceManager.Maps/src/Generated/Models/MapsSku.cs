@@ -46,14 +46,14 @@ namespace Azure.ResourceManager.Maps.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MapsSku"/>. </summary>
-        /// <param name="name"> The name of the SKU, in standard format (such as S0). </param>
+        /// <param name="name"> The name of the SKU, in standard format (such as G2). </param>
         public MapsSku(MapsSkuName name)
         {
             Name = name;
         }
 
         /// <summary> Initializes a new instance of <see cref="MapsSku"/>. </summary>
-        /// <param name="name"> The name of the SKU, in standard format (such as S0). </param>
+        /// <param name="name"> The name of the SKU, in standard format (such as G2). </param>
         /// <param name="tier"> Gets the sku tier. This is based on the SKU name. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal MapsSku(MapsSkuName name, string tier, IDictionary<string, BinaryData> serializedAdditionalRawData)
@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.Maps.Models
         {
         }
 
-        /// <summary> The name of the SKU, in standard format (such as S0). </summary>
+        /// <summary> The name of the SKU, in standard format (such as G2). </summary>
         public MapsSkuName Name { get; set; }
         /// <summary> Gets the sku tier. This is based on the SKU name. </summary>
         public string Tier { get; }
