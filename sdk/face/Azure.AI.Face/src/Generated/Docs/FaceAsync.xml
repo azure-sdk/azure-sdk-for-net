@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetStatusAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceAsync client = new FaceClient(endpoint, credential).GetFaceAsyncClient();
+
+Response<AsyncOperationStatus> response = await client.GetStatusAsync("<operationId>");
+]]></code>
+This sample shows how to call GetStatusAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceAsync client = new FaceClient(endpoint, credential).GetFaceAsyncClient();
+
+Response<AsyncOperationStatus> response = await client.GetStatusAsync("<operationId>");
+]]></code></example>
+    </member>
+    <member name="GetStatus(string,CancellationToken)">
+      <example>
+This sample shows how to call GetStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceAsync client = new FaceClient(endpoint, credential).GetFaceAsyncClient();
+
+Response<AsyncOperationStatus> response = client.GetStatus("<operationId>");
+]]></code>
+This sample shows how to call GetStatus with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceAsync client = new FaceClient(endpoint, credential).GetFaceAsyncClient();
+
+Response<AsyncOperationStatus> response = client.GetStatus("<operationId>");
+]]></code></example>
+    </member>
+    <member name="GetStatusAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceAsync client = new FaceClient(endpoint, credential).GetFaceAsyncClient();
+
+Response response = await client.GetStatusAsync("<operationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+]]></code>
+This sample shows how to call GetStatusAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceAsync client = new FaceClient(endpoint, credential).GetFaceAsyncClient();
+
+Response response = await client.GetStatusAsync("<operationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("finishedDateTime").ToString());
+Console.WriteLine(result.GetProperty("message").ToString());
+]]></code></example>
+    </member>
+    <member name="GetStatus(string,RequestContext)">
+      <example>
+This sample shows how to call GetStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceAsync client = new FaceClient(endpoint, credential).GetFaceAsyncClient();
+
+Response response = client.GetStatus("<operationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+]]></code>
+This sample shows how to call GetStatus with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceAsync client = new FaceClient(endpoint, credential).GetFaceAsyncClient();
+
+Response response = client.GetStatus("<operationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("finishedDateTime").ToString());
+Console.WriteLine(result.GetProperty("message").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>

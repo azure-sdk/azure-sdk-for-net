@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetGroupAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetGroupAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<DynamicPersonGroup> response = await client.GetGroupAsync("<dynamicPersonGroupId>");
+]]></code>
+This sample shows how to call GetGroupAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<DynamicPersonGroup> response = await client.GetGroupAsync("<dynamicPersonGroupId>");
+]]></code></example>
+    </member>
+    <member name="GetGroup(string,CancellationToken)">
+      <example>
+This sample shows how to call GetGroup.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<DynamicPersonGroup> response = client.GetGroup("<dynamicPersonGroupId>");
+]]></code>
+This sample shows how to call GetGroup with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<DynamicPersonGroup> response = client.GetGroup("<dynamicPersonGroupId>");
+]]></code></example>
+    </member>
+    <member name="GetGroupAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetGroupAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response response = await client.GetGroupAsync("<dynamicPersonGroupId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("dynamicPersonGroupId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+This sample shows how to call GetGroupAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response response = await client.GetGroupAsync("<dynamicPersonGroupId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("dynamicPersonGroupId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("userData").ToString());
+Console.WriteLine(result.GetProperty("addPersonIds")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetGroup(string,RequestContext)">
+      <example>
+This sample shows how to call GetGroup and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response response = client.GetGroup("<dynamicPersonGroupId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("dynamicPersonGroupId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+This sample shows how to call GetGroup with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response response = client.GetGroup("<dynamicPersonGroupId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("dynamicPersonGroupId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("userData").ToString());
+Console.WriteLine(result.GetProperty("addPersonIds")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetGroupsAsync(string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetGroupsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<IReadOnlyList<DynamicPersonGroup>> response = await client.GetGroupsAsync();
+]]></code>
+This sample shows how to call GetGroupsAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<IReadOnlyList<DynamicPersonGroup>> response = await client.GetGroupsAsync(start: "<start>", top: 1234);
+]]></code></example>
+    </member>
+    <member name="GetGroups(string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetGroups.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<IReadOnlyList<DynamicPersonGroup>> response = client.GetGroups();
+]]></code>
+This sample shows how to call GetGroups with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<IReadOnlyList<DynamicPersonGroup>> response = client.GetGroups(start: "<start>", top: 1234);
+]]></code></example>
+    </member>
+    <member name="GetGroupsAsync(string,int?,RequestContext)">
+      <example>
+This sample shows how to call GetGroupsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response response = await client.GetGroupsAsync(null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("dynamicPersonGroupId").ToString());
+Console.WriteLine(result[0].GetProperty("name").ToString());
+]]></code>
+This sample shows how to call GetGroupsAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response response = await client.GetGroupsAsync("<start>", 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("dynamicPersonGroupId").ToString());
+Console.WriteLine(result[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("userData").ToString());
+Console.WriteLine(result[0].GetProperty("addPersonIds")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetGroups(string,int?,RequestContext)">
+      <example>
+This sample shows how to call GetGroups and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response response = client.GetGroups(null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("dynamicPersonGroupId").ToString());
+Console.WriteLine(result[0].GetProperty("name").ToString());
+]]></code>
+This sample shows how to call GetGroups with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response response = client.GetGroups("<start>", 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("dynamicPersonGroupId").ToString());
+Console.WriteLine(result[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("userData").ToString());
+Console.WriteLine(result[0].GetProperty("addPersonIds")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetGroupPeopleAsync(string,string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetGroupPeopleAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<ListPersonResult> response = await client.GetGroupPeopleAsync("<dynamicPersonGroupId>");
+]]></code>
+This sample shows how to call GetGroupPeopleAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<ListPersonResult> response = await client.GetGroupPeopleAsync("<dynamicPersonGroupId>", start: "<start>", top: 1234);
+]]></code></example>
+    </member>
+    <member name="GetGroupPeople(string,string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetGroupPeople.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<ListPersonResult> response = client.GetGroupPeople("<dynamicPersonGroupId>");
+]]></code>
+This sample shows how to call GetGroupPeople with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<ListPersonResult> response = client.GetGroupPeople("<dynamicPersonGroupId>", start: "<start>", top: 1234);
+]]></code></example>
+    </member>
+    <member name="GetGroupPeopleAsync(string,string,int?,RequestContext)">
+      <example>
+This sample shows how to call GetGroupPeopleAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response response = await client.GetGroupPeopleAsync("<dynamicPersonGroupId>", null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personIds")[0].ToString());
+]]></code>
+This sample shows how to call GetGroupPeopleAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response response = await client.GetGroupPeopleAsync("<dynamicPersonGroupId>", "<start>", 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personIds")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetGroupPeople(string,string,int?,RequestContext)">
+      <example>
+This sample shows how to call GetGroupPeople and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response response = client.GetGroupPeople("<dynamicPersonGroupId>", null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personIds")[0].ToString());
+]]></code>
+This sample shows how to call GetGroupPeople with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response response = client.GetGroupPeople("<dynamicPersonGroupId>", "<start>", 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personIds")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="IdentifyFromDynamicPersonGroupAsync(IEnumerable{string},string,int?,float?,CancellationToken)">
+      <example>
+This sample shows how to call IdentifyFromDynamicPersonGroupAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<IReadOnlyList<IdentifyResult>> response = await client.IdentifyFromDynamicPersonGroupAsync(new string[] { "<faceIds>" }, "<dynamicPersonGroupId>");
+]]></code>
+This sample shows how to call IdentifyFromDynamicPersonGroupAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<IReadOnlyList<IdentifyResult>> response = await client.IdentifyFromDynamicPersonGroupAsync(new string[] { "<faceIds>" }, "<dynamicPersonGroupId>", maxNumOfCandidatesReturned: 1234, confidenceThreshold: 123.45F);
+]]></code></example>
+    </member>
+    <member name="IdentifyFromDynamicPersonGroup(IEnumerable{string},string,int?,float?,CancellationToken)">
+      <example>
+This sample shows how to call IdentifyFromDynamicPersonGroup.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<IReadOnlyList<IdentifyResult>> response = client.IdentifyFromDynamicPersonGroup(new string[] { "<faceIds>" }, "<dynamicPersonGroupId>");
+]]></code>
+This sample shows how to call IdentifyFromDynamicPersonGroup with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Response<IReadOnlyList<IdentifyResult>> response = client.IdentifyFromDynamicPersonGroup(new string[] { "<faceIds>" }, "<dynamicPersonGroupId>", maxNumOfCandidatesReturned: 1234, confidenceThreshold: 123.45F);
+]]></code></example>
+    </member>
+    <member name="IdentifyFromDynamicPersonGroupAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call IdentifyFromDynamicPersonGroupAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    faceIds = new object[]
+    {
+        "<faceIds>"
+    },
+    dynamicPersonGroupId = "<dynamicPersonGroupId>",
+});
+Response response = await client.IdentifyFromDynamicPersonGroupAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("faceId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("personId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("confidence").ToString());
+]]></code>
+This sample shows how to call IdentifyFromDynamicPersonGroupAsync with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    faceIds = new object[]
+    {
+        "<faceIds>"
+    },
+    dynamicPersonGroupId = "<dynamicPersonGroupId>",
+    maxNumOfCandidatesReturned = 1234,
+    confidenceThreshold = 123.45F,
+});
+Response response = await client.IdentifyFromDynamicPersonGroupAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("faceId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("personId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("confidence").ToString());
+]]></code></example>
+    </member>
+    <member name="IdentifyFromDynamicPersonGroup(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call IdentifyFromDynamicPersonGroup and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    faceIds = new object[]
+    {
+        "<faceIds>"
+    },
+    dynamicPersonGroupId = "<dynamicPersonGroupId>",
+});
+Response response = client.IdentifyFromDynamicPersonGroup(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("faceId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("personId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("confidence").ToString());
+]]></code>
+This sample shows how to call IdentifyFromDynamicPersonGroup with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    faceIds = new object[]
+    {
+        "<faceIds>"
+    },
+    dynamicPersonGroupId = "<dynamicPersonGroupId>",
+    maxNumOfCandidatesReturned = 1234,
+    confidenceThreshold = 123.45F,
+});
+Response response = client.IdentifyFromDynamicPersonGroup(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("faceId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("personId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("confidence").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateGroupAsync(WaitUntil,string,DynamicPersonGroup,CancellationToken)">
+      <example>
+This sample shows how to call CreateGroupAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+DynamicPersonGroup resource = new DynamicPersonGroup("<name>");
+Operation<DynamicPersonGroup> operation = await client.CreateGroupAsync(WaitUntil.Completed, "<dynamicPersonGroupId>", resource);
+DynamicPersonGroup responseData = operation.Value;
+]]></code>
+This sample shows how to call CreateGroupAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+DynamicPersonGroup resource = new DynamicPersonGroup("<name>")
+{
+    UserData = "<userData>",
+    AddPersonIds = { "<addPersonIds>" },
+};
+Operation<DynamicPersonGroup> operation = await client.CreateGroupAsync(WaitUntil.Completed, "<dynamicPersonGroupId>", resource);
+DynamicPersonGroup responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="CreateGroup(WaitUntil,string,DynamicPersonGroup,CancellationToken)">
+      <example>
+This sample shows how to call CreateGroup.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+DynamicPersonGroup resource = new DynamicPersonGroup("<name>");
+Operation<DynamicPersonGroup> operation = client.CreateGroup(WaitUntil.Completed, "<dynamicPersonGroupId>", resource);
+DynamicPersonGroup responseData = operation.Value;
+]]></code>
+This sample shows how to call CreateGroup with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+DynamicPersonGroup resource = new DynamicPersonGroup("<name>")
+{
+    UserData = "<userData>",
+    AddPersonIds = { "<addPersonIds>" },
+};
+Operation<DynamicPersonGroup> operation = client.CreateGroup(WaitUntil.Completed, "<dynamicPersonGroupId>", resource);
+DynamicPersonGroup responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="CreateGroupAsync(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateGroupAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+});
+Operation<BinaryData> operation = await client.CreateGroupAsync(WaitUntil.Completed, "<dynamicPersonGroupId>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("dynamicPersonGroupId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+This sample shows how to call CreateGroupAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    userData = "<userData>",
+    addPersonIds = new object[]
+    {
+        "<addPersonIds>"
+    },
+});
+Operation<BinaryData> operation = await client.CreateGroupAsync(WaitUntil.Completed, "<dynamicPersonGroupId>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("dynamicPersonGroupId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("userData").ToString());
+Console.WriteLine(result.GetProperty("addPersonIds")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="CreateGroup(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateGroup and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+});
+Operation<BinaryData> operation = client.CreateGroup(WaitUntil.Completed, "<dynamicPersonGroupId>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("dynamicPersonGroupId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+This sample shows how to call CreateGroup with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    userData = "<userData>",
+    addPersonIds = new object[]
+    {
+        "<addPersonIds>"
+    },
+});
+Operation<BinaryData> operation = client.CreateGroup(WaitUntil.Completed, "<dynamicPersonGroupId>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("dynamicPersonGroupId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("userData").ToString());
+Console.WriteLine(result.GetProperty("addPersonIds")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteGroupAsync(WaitUntil,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteGroupAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Operation operation = await client.DeleteGroupAsync(WaitUntil.Completed, "<dynamicPersonGroupId>");
+]]></code>
+This sample shows how to call DeleteGroupAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Operation operation = await client.DeleteGroupAsync(WaitUntil.Completed, "<dynamicPersonGroupId>");
+]]></code></example>
+    </member>
+    <member name="DeleteGroup(WaitUntil,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteGroup.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Operation operation = client.DeleteGroup(WaitUntil.Completed, "<dynamicPersonGroupId>");
+]]></code>
+This sample shows how to call DeleteGroup with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+Operation operation = client.DeleteGroup(WaitUntil.Completed, "<dynamicPersonGroupId>");
+]]></code></example>
+    </member>
+    <member name="UpdateGroupAsync(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateGroupAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+});
+Operation<BinaryData> operation = await client.UpdateGroupAsync(WaitUntil.Completed, "<dynamicPersonGroupId>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call UpdateGroupAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    userData = "<userData>",
+    addPersonIds = new object[]
+    {
+        "<addPersonIds>"
+    },
+    removePersonIds = new object[]
+    {
+        "<removePersonIds>"
+    },
+});
+Operation<BinaryData> operation = await client.UpdateGroupAsync(WaitUntil.Completed, "<dynamicPersonGroupId>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="UpdateGroup(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateGroup and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+});
+Operation<BinaryData> operation = client.UpdateGroup(WaitUntil.Completed, "<dynamicPersonGroupId>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call UpdateGroup with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryDynamicPersonGroups client = new FaceClient(endpoint, credential).GetPersonDirectoryDynamicPersonGroupsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    userData = "<userData>",
+    addPersonIds = new object[]
+    {
+        "<addPersonIds>"
+    },
+    removePersonIds = new object[]
+    {
+        "<removePersonIds>"
+    },
+});
+Operation<BinaryData> operation = client.UpdateGroup(WaitUntil.Completed, "<dynamicPersonGroupId>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>

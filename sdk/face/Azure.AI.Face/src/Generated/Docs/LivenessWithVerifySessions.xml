@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetSessionsAsync(string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetSessionsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response<IReadOnlyList<LivenessSessionItem>> response = await client.GetSessionsAsync();
+]]></code>
+This sample shows how to call GetSessionsAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response<IReadOnlyList<LivenessSessionItem>> response = await client.GetSessionsAsync(start: "<start>", top: 1234);
+]]></code></example>
+    </member>
+    <member name="GetSessions(string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetSessions.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response<IReadOnlyList<LivenessSessionItem>> response = client.GetSessions();
+]]></code>
+This sample shows how to call GetSessions with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response<IReadOnlyList<LivenessSessionItem>> response = client.GetSessions(start: "<start>", top: 1234);
+]]></code></example>
+    </member>
+    <member name="GetSessionsAsync(string,int?,RequestContext)">
+      <example>
+This sample shows how to call GetSessionsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = await client.GetSessionsAsync(null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("id").ToString());
+Console.WriteLine(result[0].GetProperty("createdDateTime").ToString());
+Console.WriteLine(result[0].GetProperty("sessionExpired").ToString());
+Console.WriteLine(result[0].GetProperty("deviceCorrelationId").ToString());
+]]></code>
+This sample shows how to call GetSessionsAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = await client.GetSessionsAsync("<start>", 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("id").ToString());
+Console.WriteLine(result[0].GetProperty("createdDateTime").ToString());
+Console.WriteLine(result[0].GetProperty("sessionStartDateTime").ToString());
+Console.WriteLine(result[0].GetProperty("sessionExpired").ToString());
+Console.WriteLine(result[0].GetProperty("deviceCorrelationId").ToString());
+Console.WriteLine(result[0].GetProperty("authTokenTimeToLiveInSeconds").ToString());
+]]></code></example>
+    </member>
+    <member name="GetSessions(string,int?,RequestContext)">
+      <example>
+This sample shows how to call GetSessions and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = client.GetSessions(null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("id").ToString());
+Console.WriteLine(result[0].GetProperty("createdDateTime").ToString());
+Console.WriteLine(result[0].GetProperty("sessionExpired").ToString());
+Console.WriteLine(result[0].GetProperty("deviceCorrelationId").ToString());
+]]></code>
+This sample shows how to call GetSessions with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = client.GetSessions("<start>", 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("id").ToString());
+Console.WriteLine(result[0].GetProperty("createdDateTime").ToString());
+Console.WriteLine(result[0].GetProperty("sessionStartDateTime").ToString());
+Console.WriteLine(result[0].GetProperty("sessionExpired").ToString());
+Console.WriteLine(result[0].GetProperty("deviceCorrelationId").ToString());
+Console.WriteLine(result[0].GetProperty("authTokenTimeToLiveInSeconds").ToString());
+]]></code></example>
+    </member>
+    <member name="GetSessionAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetSessionAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response<LivenessWithVerifySession> response = await client.GetSessionAsync("<sessionId>");
+]]></code>
+This sample shows how to call GetSessionAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response<LivenessWithVerifySession> response = await client.GetSessionAsync("<sessionId>");
+]]></code></example>
+    </member>
+    <member name="GetSession(string,CancellationToken)">
+      <example>
+This sample shows how to call GetSession.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response<LivenessWithVerifySession> response = client.GetSession("<sessionId>");
+]]></code>
+This sample shows how to call GetSession with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response<LivenessWithVerifySession> response = client.GetSession("<sessionId>");
+]]></code></example>
+    </member>
+    <member name="GetSessionAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetSessionAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = await client.GetSessionAsync("<sessionId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("sessionExpired").ToString());
+Console.WriteLine(result.GetProperty("deviceCorrelationId").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call GetSessionAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = await client.GetSessionAsync("<sessionId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("sessionStartDateTime").ToString());
+Console.WriteLine(result.GetProperty("sessionExpired").ToString());
+Console.WriteLine(result.GetProperty("deviceCorrelationId").ToString());
+Console.WriteLine(result.GetProperty("authTokenTimeToLiveInSeconds").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("sessionId").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("requestId").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("clientRequestId").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("receivedDateTime").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("request").GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("request").GetProperty("method").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("request").GetProperty("contentLength").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("request").GetProperty("contentType").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("request").GetProperty("userAgent").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("response").GetProperty("body").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("response").GetProperty("statusCode").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("response").GetProperty("latencyInMilliseconds").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("digest").ToString());
+]]></code></example>
+    </member>
+    <member name="GetSession(string,RequestContext)">
+      <example>
+This sample shows how to call GetSession and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = client.GetSession("<sessionId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("sessionExpired").ToString());
+Console.WriteLine(result.GetProperty("deviceCorrelationId").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call GetSession with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = client.GetSession("<sessionId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("sessionStartDateTime").ToString());
+Console.WriteLine(result.GetProperty("sessionExpired").ToString());
+Console.WriteLine(result.GetProperty("deviceCorrelationId").ToString());
+Console.WriteLine(result.GetProperty("authTokenTimeToLiveInSeconds").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("sessionId").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("requestId").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("clientRequestId").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("receivedDateTime").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("request").GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("request").GetProperty("method").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("request").GetProperty("contentLength").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("request").GetProperty("contentType").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("request").GetProperty("userAgent").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("response").GetProperty("body").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("response").GetProperty("statusCode").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("response").GetProperty("latencyInMilliseconds").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("digest").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteSessionAsync(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteSessionAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = await client.DeleteSessionAsync("<sessionId>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call DeleteSessionAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = await client.DeleteSessionAsync("<sessionId>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteSession(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteSession.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = client.DeleteSession("<sessionId>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call DeleteSession with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = client.DeleteSession("<sessionId>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetSessionAuditEntriesAsync(string,string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetSessionAuditEntriesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response<IReadOnlyList<LivenessWithVerifySessionAuditEntry>> response = await client.GetSessionAuditEntriesAsync("<sessionId>");
+]]></code>
+This sample shows how to call GetSessionAuditEntriesAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response<IReadOnlyList<LivenessWithVerifySessionAuditEntry>> response = await client.GetSessionAuditEntriesAsync("<sessionId>", start: "<start>", top: 1234);
+]]></code></example>
+    </member>
+    <member name="GetSessionAuditEntries(string,string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetSessionAuditEntries.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response<IReadOnlyList<LivenessWithVerifySessionAuditEntry>> response = client.GetSessionAuditEntries("<sessionId>");
+]]></code>
+This sample shows how to call GetSessionAuditEntries with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response<IReadOnlyList<LivenessWithVerifySessionAuditEntry>> response = client.GetSessionAuditEntries("<sessionId>", start: "<start>", top: 1234);
+]]></code></example>
+    </member>
+    <member name="GetSessionAuditEntriesAsync(string,string,int?,RequestContext)">
+      <example>
+This sample shows how to call GetSessionAuditEntriesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = await client.GetSessionAuditEntriesAsync("<sessionId>", null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("id").ToString());
+Console.WriteLine(result[0].GetProperty("sessionId").ToString());
+Console.WriteLine(result[0].GetProperty("requestId").ToString());
+Console.WriteLine(result[0].GetProperty("clientRequestId").ToString());
+Console.WriteLine(result[0].GetProperty("receivedDateTime").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("url").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("method").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("contentType").ToString());
+Console.WriteLine(result[0].GetProperty("response").GetProperty("body").GetProperty("<key>").ToString());
+Console.WriteLine(result[0].GetProperty("response").GetProperty("statusCode").ToString());
+Console.WriteLine(result[0].GetProperty("response").GetProperty("latencyInMilliseconds").ToString());
+Console.WriteLine(result[0].GetProperty("digest").ToString());
+]]></code>
+This sample shows how to call GetSessionAuditEntriesAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = await client.GetSessionAuditEntriesAsync("<sessionId>", "<start>", 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("id").ToString());
+Console.WriteLine(result[0].GetProperty("sessionId").ToString());
+Console.WriteLine(result[0].GetProperty("requestId").ToString());
+Console.WriteLine(result[0].GetProperty("clientRequestId").ToString());
+Console.WriteLine(result[0].GetProperty("receivedDateTime").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("url").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("method").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("contentLength").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("contentType").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("userAgent").ToString());
+Console.WriteLine(result[0].GetProperty("response").GetProperty("body").GetProperty("<key>").ToString());
+Console.WriteLine(result[0].GetProperty("response").GetProperty("statusCode").ToString());
+Console.WriteLine(result[0].GetProperty("response").GetProperty("latencyInMilliseconds").ToString());
+Console.WriteLine(result[0].GetProperty("digest").ToString());
+]]></code></example>
+    </member>
+    <member name="GetSessionAuditEntries(string,string,int?,RequestContext)">
+      <example>
+This sample shows how to call GetSessionAuditEntries and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = client.GetSessionAuditEntries("<sessionId>", null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("id").ToString());
+Console.WriteLine(result[0].GetProperty("sessionId").ToString());
+Console.WriteLine(result[0].GetProperty("requestId").ToString());
+Console.WriteLine(result[0].GetProperty("clientRequestId").ToString());
+Console.WriteLine(result[0].GetProperty("receivedDateTime").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("url").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("method").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("contentType").ToString());
+Console.WriteLine(result[0].GetProperty("response").GetProperty("body").GetProperty("<key>").ToString());
+Console.WriteLine(result[0].GetProperty("response").GetProperty("statusCode").ToString());
+Console.WriteLine(result[0].GetProperty("response").GetProperty("latencyInMilliseconds").ToString());
+Console.WriteLine(result[0].GetProperty("digest").ToString());
+]]></code>
+This sample shows how to call GetSessionAuditEntries with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+Response response = client.GetSessionAuditEntries("<sessionId>", "<start>", 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("id").ToString());
+Console.WriteLine(result[0].GetProperty("sessionId").ToString());
+Console.WriteLine(result[0].GetProperty("requestId").ToString());
+Console.WriteLine(result[0].GetProperty("clientRequestId").ToString());
+Console.WriteLine(result[0].GetProperty("receivedDateTime").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("url").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("method").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("contentLength").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("contentType").ToString());
+Console.WriteLine(result[0].GetProperty("request").GetProperty("userAgent").ToString());
+Console.WriteLine(result[0].GetProperty("response").GetProperty("body").GetProperty("<key>").ToString());
+Console.WriteLine(result[0].GetProperty("response").GetProperty("statusCode").ToString());
+Console.WriteLine(result[0].GetProperty("response").GetProperty("latencyInMilliseconds").ToString());
+Console.WriteLine(result[0].GetProperty("digest").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateSessionAsync(LivenessSessionCreationContent,CancellationToken)">
+      <example>
+This sample shows how to call CreateSessionAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+LivenessSessionCreationContent livenessSessionCreationContent = new LivenessSessionCreationContent("<livenessOperationMode>", "<deviceCorrelationId>");
+Response<LivenessSessionCreationResult> response = await client.CreateSessionAsync(livenessSessionCreationContent);
+]]></code>
+This sample shows how to call CreateSessionAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+LivenessSessionCreationContent livenessSessionCreationContent = new LivenessSessionCreationContent("<livenessOperationMode>", "<deviceCorrelationId>")
+{
+    SendResultsToClient = true,
+    DeviceCorrelationIdSetInClient = true,
+    AuthTokenTimeToLiveInSeconds = 1234,
+};
+Response<LivenessSessionCreationResult> response = await client.CreateSessionAsync(livenessSessionCreationContent);
+]]></code></example>
+    </member>
+    <member name="CreateSession(LivenessSessionCreationContent,CancellationToken)">
+      <example>
+This sample shows how to call CreateSession.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+LivenessSessionCreationContent livenessSessionCreationContent = new LivenessSessionCreationContent("<livenessOperationMode>", "<deviceCorrelationId>");
+Response<LivenessSessionCreationResult> response = client.CreateSession(livenessSessionCreationContent);
+]]></code>
+This sample shows how to call CreateSession with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+LivenessSessionCreationContent livenessSessionCreationContent = new LivenessSessionCreationContent("<livenessOperationMode>", "<deviceCorrelationId>")
+{
+    SendResultsToClient = true,
+    DeviceCorrelationIdSetInClient = true,
+    AuthTokenTimeToLiveInSeconds = 1234,
+};
+Response<LivenessSessionCreationResult> response = client.CreateSession(livenessSessionCreationContent);
+]]></code></example>
+    </member>
+    <member name="CreateSessionAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateSessionAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    livenessOperationMode = "<livenessOperationMode>",
+    deviceCorrelationId = "<deviceCorrelationId>",
+});
+Response response = await client.CreateSessionAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sessionId").ToString());
+Console.WriteLine(result.GetProperty("authToken").ToString());
+]]></code>
+This sample shows how to call CreateSessionAsync with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    livenessOperationMode = "<livenessOperationMode>",
+    sendResultsToClient = true,
+    deviceCorrelationIdSetInClient = true,
+    deviceCorrelationId = "<deviceCorrelationId>",
+    authTokenTimeToLiveInSeconds = 1234,
+});
+Response response = await client.CreateSessionAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sessionId").ToString());
+Console.WriteLine(result.GetProperty("authToken").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateSession(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateSession and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    livenessOperationMode = "<livenessOperationMode>",
+    deviceCorrelationId = "<deviceCorrelationId>",
+});
+Response response = client.CreateSession(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sessionId").ToString());
+Console.WriteLine(result.GetProperty("authToken").ToString());
+]]></code>
+This sample shows how to call CreateSession with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    livenessOperationMode = "<livenessOperationMode>",
+    sendResultsToClient = true,
+    deviceCorrelationIdSetInClient = true,
+    deviceCorrelationId = "<deviceCorrelationId>",
+    authTokenTimeToLiveInSeconds = 1234,
+});
+Response response = client.CreateSession(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sessionId").ToString());
+Console.WriteLine(result.GetProperty("authToken").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateSessionWithVerifyImageAsync(LivenessSessionWithVerifyImageCreationContent,CancellationToken)">
+      <example>
+This sample shows how to call CreateSessionWithVerifyImageAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+LivenessSessionWithVerifyImageCreationContent livenessSessionWithVerifyImageCreationContent = new LivenessSessionWithVerifyImageCreationContent(new LivenessSessionCreationContentForMultipart("<livenessOperationMode>", "<deviceCorrelationId>"), BinaryData.FromObjectAsJson(new object()));
+Response<LivenessSessionCreationResult> response = await client.CreateSessionWithVerifyImageAsync(livenessSessionWithVerifyImageCreationContent);
+]]></code>
+This sample shows how to call CreateSessionWithVerifyImageAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+LivenessSessionWithVerifyImageCreationContent livenessSessionWithVerifyImageCreationContent = new LivenessSessionWithVerifyImageCreationContent(new LivenessSessionCreationContentForMultipart("<livenessOperationMode>", "<deviceCorrelationId>")
+{
+    SendResultsToClient = true,
+    DeviceCorrelationIdSetInClient = true,
+    AuthTokenTimeToLiveInSeconds = 1234,
+}, BinaryData.FromObjectAsJson(new object()));
+Response<LivenessSessionCreationResult> response = await client.CreateSessionWithVerifyImageAsync(livenessSessionWithVerifyImageCreationContent);
+]]></code></example>
+    </member>
+    <member name="CreateSessionWithVerifyImage(LivenessSessionWithVerifyImageCreationContent,CancellationToken)">
+      <example>
+This sample shows how to call CreateSessionWithVerifyImage.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+LivenessSessionWithVerifyImageCreationContent livenessSessionWithVerifyImageCreationContent = new LivenessSessionWithVerifyImageCreationContent(new LivenessSessionCreationContentForMultipart("<livenessOperationMode>", "<deviceCorrelationId>"), BinaryData.FromObjectAsJson(new object()));
+Response<LivenessSessionCreationResult> response = client.CreateSessionWithVerifyImage(livenessSessionWithVerifyImageCreationContent);
+]]></code>
+This sample shows how to call CreateSessionWithVerifyImage with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+LivenessSessionWithVerifyImageCreationContent livenessSessionWithVerifyImageCreationContent = new LivenessSessionWithVerifyImageCreationContent(new LivenessSessionCreationContentForMultipart("<livenessOperationMode>", "<deviceCorrelationId>")
+{
+    SendResultsToClient = true,
+    DeviceCorrelationIdSetInClient = true,
+    AuthTokenTimeToLiveInSeconds = 1234,
+}, BinaryData.FromObjectAsJson(new object()));
+Response<LivenessSessionCreationResult> response = client.CreateSessionWithVerifyImage(livenessSessionWithVerifyImageCreationContent);
+]]></code></example>
+    </member>
+    <member name="CreateSessionWithVerifyImageAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateSessionWithVerifyImageAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    CreationContent = new
+    {
+        livenessOperationMode = "<livenessOperationMode>",
+        deviceCorrelationId = "<deviceCorrelationId>",
+    },
+    VerifyImage = new object(),
+});
+Response response = await client.CreateSessionWithVerifyImageAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sessionId").ToString());
+Console.WriteLine(result.GetProperty("authToken").ToString());
+]]></code>
+This sample shows how to call CreateSessionWithVerifyImageAsync with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    CreationContent = new
+    {
+        livenessOperationMode = "<livenessOperationMode>",
+        sendResultsToClient = true,
+        deviceCorrelationIdSetInClient = true,
+        deviceCorrelationId = "<deviceCorrelationId>",
+        authTokenTimeToLiveInSeconds = 1234,
+    },
+    VerifyImage = new object(),
+});
+Response response = await client.CreateSessionWithVerifyImageAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sessionId").ToString());
+Console.WriteLine(result.GetProperty("authToken").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateSessionWithVerifyImage(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateSessionWithVerifyImage and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    CreationContent = new
+    {
+        livenessOperationMode = "<livenessOperationMode>",
+        deviceCorrelationId = "<deviceCorrelationId>",
+    },
+    VerifyImage = new object(),
+});
+Response response = client.CreateSessionWithVerifyImage(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sessionId").ToString());
+Console.WriteLine(result.GetProperty("authToken").ToString());
+]]></code>
+This sample shows how to call CreateSessionWithVerifyImage with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+LivenessWithVerifySessions client = new FaceClient(endpoint, credential).GetLivenessWithVerifySessionsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    CreationContent = new
+    {
+        livenessOperationMode = "<livenessOperationMode>",
+        sendResultsToClient = true,
+        deviceCorrelationIdSetInClient = true,
+        deviceCorrelationId = "<deviceCorrelationId>",
+        authTokenTimeToLiveInSeconds = 1234,
+    },
+    VerifyImage = new object(),
+});
+Response response = client.CreateSessionWithVerifyImage(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sessionId").ToString());
+Console.WriteLine(result.GetProperty("authToken").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>

@@ -1,0 +1,1293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetPersonAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetPersonAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<PersonDirectoryPerson> response = await client.GetPersonAsync("<personId>");
+]]></code>
+This sample shows how to call GetPersonAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<PersonDirectoryPerson> response = await client.GetPersonAsync("<personId>");
+]]></code></example>
+    </member>
+    <member name="GetPerson(string,CancellationToken)">
+      <example>
+This sample shows how to call GetPerson.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<PersonDirectoryPerson> response = client.GetPerson("<personId>");
+]]></code>
+This sample shows how to call GetPerson with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<PersonDirectoryPerson> response = client.GetPerson("<personId>");
+]]></code></example>
+    </member>
+    <member name="GetPersonAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetPersonAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = await client.GetPersonAsync("<personId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+This sample shows how to call GetPersonAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = await client.GetPersonAsync("<personId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("userData").ToString());
+]]></code></example>
+    </member>
+    <member name="GetPerson(string,RequestContext)">
+      <example>
+This sample shows how to call GetPerson and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = client.GetPerson("<personId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+This sample shows how to call GetPerson with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = client.GetPerson("<personId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("userData").ToString());
+]]></code></example>
+    </member>
+    <member name="UpdatePersonAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdatePersonAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+});
+Response response = await client.UpdatePersonAsync("<personId>", content);
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call UpdatePersonAsync with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    userData = "<userData>",
+});
+Response response = await client.UpdatePersonAsync("<personId>", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="UpdatePerson(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdatePerson.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+});
+Response response = client.UpdatePerson("<personId>", content);
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call UpdatePerson with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    userData = "<userData>",
+});
+Response response = client.UpdatePerson("<personId>", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetPeopleAsync(string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetPeopleAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<IReadOnlyList<PersonDirectoryPerson>> response = await client.GetPeopleAsync();
+]]></code>
+This sample shows how to call GetPeopleAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<IReadOnlyList<PersonDirectoryPerson>> response = await client.GetPeopleAsync(start: "<start>", top: 1234);
+]]></code></example>
+    </member>
+    <member name="GetPeople(string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetPeople.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<IReadOnlyList<PersonDirectoryPerson>> response = client.GetPeople();
+]]></code>
+This sample shows how to call GetPeople with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<IReadOnlyList<PersonDirectoryPerson>> response = client.GetPeople(start: "<start>", top: 1234);
+]]></code></example>
+    </member>
+    <member name="GetPeopleAsync(string,int?,RequestContext)">
+      <example>
+This sample shows how to call GetPeopleAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = await client.GetPeopleAsync(null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("personId").ToString());
+Console.WriteLine(result[0].GetProperty("name").ToString());
+]]></code>
+This sample shows how to call GetPeopleAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = await client.GetPeopleAsync("<start>", 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("personId").ToString());
+Console.WriteLine(result[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("userData").ToString());
+]]></code></example>
+    </member>
+    <member name="GetPeople(string,int?,RequestContext)">
+      <example>
+This sample shows how to call GetPeople and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = client.GetPeople(null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("personId").ToString());
+Console.WriteLine(result[0].GetProperty("name").ToString());
+]]></code>
+This sample shows how to call GetPeople with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = client.GetPeople("<start>", 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("personId").ToString());
+Console.WriteLine(result[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("userData").ToString());
+]]></code></example>
+    </member>
+    <member name="GetGroupReferencesAsync(string,string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetGroupReferencesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<ListGroupReferenceResult> response = await client.GetGroupReferencesAsync("<personId>");
+]]></code>
+This sample shows how to call GetGroupReferencesAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<ListGroupReferenceResult> response = await client.GetGroupReferencesAsync("<personId>", start: "<start>", top: 1234);
+]]></code></example>
+    </member>
+    <member name="GetGroupReferences(string,string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetGroupReferences.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<ListGroupReferenceResult> response = client.GetGroupReferences("<personId>");
+]]></code>
+This sample shows how to call GetGroupReferences with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<ListGroupReferenceResult> response = client.GetGroupReferences("<personId>", start: "<start>", top: 1234);
+]]></code></example>
+    </member>
+    <member name="GetGroupReferencesAsync(string,string,int?,RequestContext)">
+      <example>
+This sample shows how to call GetGroupReferencesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = await client.GetGroupReferencesAsync("<personId>", null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("dynamicPersonGroupIds")[0].ToString());
+]]></code>
+This sample shows how to call GetGroupReferencesAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = await client.GetGroupReferencesAsync("<personId>", "<start>", 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("dynamicPersonGroupIds")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetGroupReferences(string,string,int?,RequestContext)">
+      <example>
+This sample shows how to call GetGroupReferences and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = client.GetGroupReferences("<personId>", null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("dynamicPersonGroupIds")[0].ToString());
+]]></code>
+This sample shows how to call GetGroupReferences with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = client.GetGroupReferences("<personId>", "<start>", 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("dynamicPersonGroupIds")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetFaceAsync(string,RecognitionModel,string,CancellationToken)">
+      <example>
+This sample shows how to call GetFaceAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<PersonDirectoryFace> response = await client.GetFaceAsync("<personId>", RecognitionModel.Recognition01, "<persistedFaceId>");
+]]></code>
+This sample shows how to call GetFaceAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<PersonDirectoryFace> response = await client.GetFaceAsync("<personId>", RecognitionModel.Recognition01, "<persistedFaceId>");
+]]></code></example>
+    </member>
+    <member name="GetFace(string,RecognitionModel,string,CancellationToken)">
+      <example>
+This sample shows how to call GetFace.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<PersonDirectoryFace> response = client.GetFace("<personId>", RecognitionModel.Recognition01, "<persistedFaceId>");
+]]></code>
+This sample shows how to call GetFace with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<PersonDirectoryFace> response = client.GetFace("<personId>", RecognitionModel.Recognition01, "<persistedFaceId>");
+]]></code></example>
+    </member>
+    <member name="GetFaceAsync(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetFaceAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = await client.GetFaceAsync("<personId>", "recognition_01", "<persistedFaceId>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("persistedFaceId").ToString());
+]]></code>
+This sample shows how to call GetFaceAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = await client.GetFaceAsync("<personId>", "recognition_01", "<persistedFaceId>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("persistedFaceId").ToString());
+Console.WriteLine(result.GetProperty("userData").ToString());
+]]></code></example>
+    </member>
+    <member name="GetFace(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetFace and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = client.GetFace("<personId>", "recognition_01", "<persistedFaceId>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("persistedFaceId").ToString());
+]]></code>
+This sample shows how to call GetFace with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = client.GetFace("<personId>", "recognition_01", "<persistedFaceId>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("persistedFaceId").ToString());
+Console.WriteLine(result.GetProperty("userData").ToString());
+]]></code></example>
+    </member>
+    <member name="UpdateFaceAsync(string,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateFaceAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.UpdateFaceAsync("<personId>", "recognition_01", "<persistedFaceId>", content);
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call UpdateFaceAsync with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    userData = "<userData>",
+});
+Response response = await client.UpdateFaceAsync("<personId>", "recognition_01", "<persistedFaceId>", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="UpdateFace(string,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateFace.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.UpdateFace("<personId>", "recognition_01", "<persistedFaceId>", content);
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call UpdateFace with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    userData = "<userData>",
+});
+Response response = client.UpdateFace("<personId>", "recognition_01", "<persistedFaceId>", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetFacesAsync(string,RecognitionModel,CancellationToken)">
+      <example>
+This sample shows how to call GetFacesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<ListFaceResult> response = await client.GetFacesAsync("<personId>", RecognitionModel.Recognition01);
+]]></code>
+This sample shows how to call GetFacesAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<ListFaceResult> response = await client.GetFacesAsync("<personId>", RecognitionModel.Recognition01);
+]]></code></example>
+    </member>
+    <member name="GetFaces(string,RecognitionModel,CancellationToken)">
+      <example>
+This sample shows how to call GetFaces.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<ListFaceResult> response = client.GetFaces("<personId>", RecognitionModel.Recognition01);
+]]></code>
+This sample shows how to call GetFaces with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<ListFaceResult> response = client.GetFaces("<personId>", RecognitionModel.Recognition01);
+]]></code></example>
+    </member>
+    <member name="GetFacesAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetFacesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = await client.GetFacesAsync("<personId>", "recognition_01");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+Console.WriteLine(result.GetProperty("persistedFaceIds")[0].ToString());
+]]></code>
+This sample shows how to call GetFacesAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = await client.GetFacesAsync("<personId>", "recognition_01");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+Console.WriteLine(result.GetProperty("persistedFaceIds")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetFaces(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetFaces and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = client.GetFaces("<personId>", "recognition_01");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+Console.WriteLine(result.GetProperty("persistedFaceIds")[0].ToString());
+]]></code>
+This sample shows how to call GetFaces with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response response = client.GetFaces("<personId>", "recognition_01");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+Console.WriteLine(result.GetProperty("persistedFaceIds")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="IdentifyFromPersonDirectoryAsync(IEnumerable{string},IEnumerable{string},int?,float?,CancellationToken)">
+      <example>
+This sample shows how to call IdentifyFromPersonDirectoryAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<IReadOnlyList<IdentifyResult>> response = await client.IdentifyFromPersonDirectoryAsync(new string[] { "<faceIds>" }, new string[] { "<personIds>" });
+]]></code>
+This sample shows how to call IdentifyFromPersonDirectoryAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<IReadOnlyList<IdentifyResult>> response = await client.IdentifyFromPersonDirectoryAsync(new string[] { "<faceIds>" }, new string[] { "<personIds>" }, maxNumOfCandidatesReturned: 1234, confidenceThreshold: 123.45F);
+]]></code></example>
+    </member>
+    <member name="IdentifyFromPersonDirectory(IEnumerable{string},IEnumerable{string},int?,float?,CancellationToken)">
+      <example>
+This sample shows how to call IdentifyFromPersonDirectory.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<IReadOnlyList<IdentifyResult>> response = client.IdentifyFromPersonDirectory(new string[] { "<faceIds>" }, new string[] { "<personIds>" });
+]]></code>
+This sample shows how to call IdentifyFromPersonDirectory with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<IReadOnlyList<IdentifyResult>> response = client.IdentifyFromPersonDirectory(new string[] { "<faceIds>" }, new string[] { "<personIds>" }, maxNumOfCandidatesReturned: 1234, confidenceThreshold: 123.45F);
+]]></code></example>
+    </member>
+    <member name="IdentifyFromPersonDirectoryAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call IdentifyFromPersonDirectoryAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    faceIds = new object[]
+    {
+        "<faceIds>"
+    },
+    personIds = new object[]
+    {
+        "<personIds>"
+    },
+});
+Response response = await client.IdentifyFromPersonDirectoryAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("faceId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("personId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("confidence").ToString());
+]]></code>
+This sample shows how to call IdentifyFromPersonDirectoryAsync with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    faceIds = new object[]
+    {
+        "<faceIds>"
+    },
+    personIds = new object[]
+    {
+        "<personIds>"
+    },
+    maxNumOfCandidatesReturned = 1234,
+    confidenceThreshold = 123.45F,
+});
+Response response = await client.IdentifyFromPersonDirectoryAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("faceId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("personId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("confidence").ToString());
+]]></code></example>
+    </member>
+    <member name="IdentifyFromPersonDirectory(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call IdentifyFromPersonDirectory and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    faceIds = new object[]
+    {
+        "<faceIds>"
+    },
+    personIds = new object[]
+    {
+        "<personIds>"
+    },
+});
+Response response = client.IdentifyFromPersonDirectory(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("faceId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("personId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("confidence").ToString());
+]]></code>
+This sample shows how to call IdentifyFromPersonDirectory with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    faceIds = new object[]
+    {
+        "<faceIds>"
+    },
+    personIds = new object[]
+    {
+        "<personIds>"
+    },
+    maxNumOfCandidatesReturned = 1234,
+    confidenceThreshold = 123.45F,
+});
+Response response = client.IdentifyFromPersonDirectory(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("faceId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("personId").ToString());
+Console.WriteLine(result[0].GetProperty("candidates")[0].GetProperty("confidence").ToString());
+]]></code></example>
+    </member>
+    <member name="VerifyFromPersonDirectoryAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call VerifyFromPersonDirectoryAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<VerifyResult> response = await client.VerifyFromPersonDirectoryAsync("<faceId>", "<personId>");
+]]></code>
+This sample shows how to call VerifyFromPersonDirectoryAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<VerifyResult> response = await client.VerifyFromPersonDirectoryAsync("<faceId>", "<personId>");
+]]></code></example>
+    </member>
+    <member name="VerifyFromPersonDirectory(string,string,CancellationToken)">
+      <example>
+This sample shows how to call VerifyFromPersonDirectory.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<VerifyResult> response = client.VerifyFromPersonDirectory("<faceId>", "<personId>");
+]]></code>
+This sample shows how to call VerifyFromPersonDirectory with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Response<VerifyResult> response = client.VerifyFromPersonDirectory("<faceId>", "<personId>");
+]]></code></example>
+    </member>
+    <member name="VerifyFromPersonDirectoryAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call VerifyFromPersonDirectoryAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    faceId = "<faceId>",
+    personId = "<personId>",
+});
+Response response = await client.VerifyFromPersonDirectoryAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("isIdentical").ToString());
+Console.WriteLine(result.GetProperty("confidence").ToString());
+]]></code>
+This sample shows how to call VerifyFromPersonDirectoryAsync with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    faceId = "<faceId>",
+    personId = "<personId>",
+});
+Response response = await client.VerifyFromPersonDirectoryAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("isIdentical").ToString());
+Console.WriteLine(result.GetProperty("confidence").ToString());
+]]></code></example>
+    </member>
+    <member name="VerifyFromPersonDirectory(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call VerifyFromPersonDirectory and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    faceId = "<faceId>",
+    personId = "<personId>",
+});
+Response response = client.VerifyFromPersonDirectory(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("isIdentical").ToString());
+Console.WriteLine(result.GetProperty("confidence").ToString());
+]]></code>
+This sample shows how to call VerifyFromPersonDirectory with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    faceId = "<faceId>",
+    personId = "<personId>",
+});
+Response response = client.VerifyFromPersonDirectory(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("isIdentical").ToString());
+Console.WriteLine(result.GetProperty("confidence").ToString());
+]]></code></example>
+    </member>
+    <member name="CreatePersonAsync(WaitUntil,PersonDirectoryPerson,CancellationToken)">
+      <example>
+This sample shows how to call CreatePersonAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+PersonDirectoryPerson resource = new PersonDirectoryPerson("<name>");
+Operation<CreatePersonResult> operation = await client.CreatePersonAsync(WaitUntil.Completed, resource);
+CreatePersonResult responseData = operation.Value;
+]]></code>
+This sample shows how to call CreatePersonAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+PersonDirectoryPerson resource = new PersonDirectoryPerson("<name>")
+{
+    UserData = "<userData>",
+};
+Operation<CreatePersonResult> operation = await client.CreatePersonAsync(WaitUntil.Completed, resource);
+CreatePersonResult responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="CreatePerson(WaitUntil,PersonDirectoryPerson,CancellationToken)">
+      <example>
+This sample shows how to call CreatePerson.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+PersonDirectoryPerson resource = new PersonDirectoryPerson("<name>");
+Operation<CreatePersonResult> operation = client.CreatePerson(WaitUntil.Completed, resource);
+CreatePersonResult responseData = operation.Value;
+]]></code>
+This sample shows how to call CreatePerson with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+PersonDirectoryPerson resource = new PersonDirectoryPerson("<name>")
+{
+    UserData = "<userData>",
+};
+Operation<CreatePersonResult> operation = client.CreatePerson(WaitUntil.Completed, resource);
+CreatePersonResult responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="CreatePersonAsync(WaitUntil,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreatePersonAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+});
+Operation<BinaryData> operation = await client.CreatePersonAsync(WaitUntil.Completed, content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+]]></code>
+This sample shows how to call CreatePersonAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    userData = "<userData>",
+});
+Operation<BinaryData> operation = await client.CreatePersonAsync(WaitUntil.Completed, content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+]]></code></example>
+    </member>
+    <member name="CreatePerson(WaitUntil,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreatePerson and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+});
+Operation<BinaryData> operation = client.CreatePerson(WaitUntil.Completed, content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+]]></code>
+This sample shows how to call CreatePerson with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    userData = "<userData>",
+});
+Operation<BinaryData> operation = client.CreatePerson(WaitUntil.Completed, content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+]]></code></example>
+    </member>
+    <member name="DeletePersonAsync(WaitUntil,string,RequestContext)">
+      <example>
+This sample shows how to call DeletePersonAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation operation = await client.DeletePersonAsync(WaitUntil.Completed, "<personId>");
+]]></code>
+This sample shows how to call DeletePersonAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation operation = await client.DeletePersonAsync(WaitUntil.Completed, "<personId>");
+]]></code></example>
+    </member>
+    <member name="DeletePerson(WaitUntil,string,RequestContext)">
+      <example>
+This sample shows how to call DeletePerson.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation operation = client.DeletePerson(WaitUntil.Completed, "<personId>");
+]]></code>
+This sample shows how to call DeletePerson with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation operation = client.DeletePerson(WaitUntil.Completed, "<personId>");
+]]></code></example>
+    </member>
+    <member name="AddFaceFromUrlAsync(WaitUntil,string,RecognitionModel,AddFaceFromUrlContent,string,DetectionModel?,string,CancellationToken)">
+      <example>
+This sample shows how to call AddFaceFromUrlAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+AddFaceFromUrlContent body = new AddFaceFromUrlContent(new Uri("http://localhost:3000"));
+Operation<AddFaceResult> operation = await client.AddFaceFromUrlAsync(WaitUntil.Completed, "<personId>", RecognitionModel.Recognition01, body);
+AddFaceResult responseData = operation.Value;
+]]></code>
+This sample shows how to call AddFaceFromUrlAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+AddFaceFromUrlContent body = new AddFaceFromUrlContent(new Uri("http://localhost:3000"));
+Operation<AddFaceResult> operation = await client.AddFaceFromUrlAsync(WaitUntil.Completed, "<personId>", RecognitionModel.Recognition01, body, targetFace: "<targetFace>", detectionModel: DetectionModel.Detection01, userData: "<userData>");
+AddFaceResult responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="AddFaceFromUrl(WaitUntil,string,RecognitionModel,AddFaceFromUrlContent,string,DetectionModel?,string,CancellationToken)">
+      <example>
+This sample shows how to call AddFaceFromUrl.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+AddFaceFromUrlContent body = new AddFaceFromUrlContent(new Uri("http://localhost:3000"));
+Operation<AddFaceResult> operation = client.AddFaceFromUrl(WaitUntil.Completed, "<personId>", RecognitionModel.Recognition01, body);
+AddFaceResult responseData = operation.Value;
+]]></code>
+This sample shows how to call AddFaceFromUrl with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+AddFaceFromUrlContent body = new AddFaceFromUrlContent(new Uri("http://localhost:3000"));
+Operation<AddFaceResult> operation = client.AddFaceFromUrl(WaitUntil.Completed, "<personId>", RecognitionModel.Recognition01, body, targetFace: "<targetFace>", detectionModel: DetectionModel.Detection01, userData: "<userData>");
+AddFaceResult responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="AddFaceFromUrlAsync(WaitUntil,string,string,RequestContent,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call AddFaceFromUrlAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    url = "http://localhost:3000",
+});
+Operation<BinaryData> operation = await client.AddFaceFromUrlAsync(WaitUntil.Completed, "<personId>", "recognition_01", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("persistedFaceId").ToString());
+]]></code>
+This sample shows how to call AddFaceFromUrlAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    url = "http://localhost:3000",
+});
+Operation<BinaryData> operation = await client.AddFaceFromUrlAsync(WaitUntil.Completed, "<personId>", "recognition_01", content, targetFace: "<targetFace>", detectionModel: "detection_01", userData: "<userData>");
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("persistedFaceId").ToString());
+]]></code></example>
+    </member>
+    <member name="AddFaceFromUrl(WaitUntil,string,string,RequestContent,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call AddFaceFromUrl and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    url = "http://localhost:3000",
+});
+Operation<BinaryData> operation = client.AddFaceFromUrl(WaitUntil.Completed, "<personId>", "recognition_01", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("persistedFaceId").ToString());
+]]></code>
+This sample shows how to call AddFaceFromUrl with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    url = "http://localhost:3000",
+});
+Operation<BinaryData> operation = client.AddFaceFromUrl(WaitUntil.Completed, "<personId>", "recognition_01", content, targetFace: "<targetFace>", detectionModel: "detection_01", userData: "<userData>");
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("persistedFaceId").ToString());
+]]></code></example>
+    </member>
+    <member name="AddFaceFromStreamAsync(WaitUntil,string,RecognitionModel,BinaryData,string,DetectionModel?,string,CancellationToken)">
+      <example>
+This sample shows how to call AddFaceFromStreamAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation<AddFaceResult> operation = await client.AddFaceFromStreamAsync(WaitUntil.Completed, "<personId>", RecognitionModel.Recognition01, BinaryData.FromObjectAsJson(new object()));
+AddFaceResult responseData = operation.Value;
+]]></code>
+This sample shows how to call AddFaceFromStreamAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation<AddFaceResult> operation = await client.AddFaceFromStreamAsync(WaitUntil.Completed, "<personId>", RecognitionModel.Recognition01, BinaryData.FromObjectAsJson(new object()), targetFace: "<targetFace>", detectionModel: DetectionModel.Detection01, userData: "<userData>");
+AddFaceResult responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="AddFaceFromStream(WaitUntil,string,RecognitionModel,BinaryData,string,DetectionModel?,string,CancellationToken)">
+      <example>
+This sample shows how to call AddFaceFromStream.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation<AddFaceResult> operation = client.AddFaceFromStream(WaitUntil.Completed, "<personId>", RecognitionModel.Recognition01, BinaryData.FromObjectAsJson(new object()));
+AddFaceResult responseData = operation.Value;
+]]></code>
+This sample shows how to call AddFaceFromStream with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation<AddFaceResult> operation = client.AddFaceFromStream(WaitUntil.Completed, "<personId>", RecognitionModel.Recognition01, BinaryData.FromObjectAsJson(new object()), targetFace: "<targetFace>", detectionModel: DetectionModel.Detection01, userData: "<userData>");
+AddFaceResult responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="AddFaceFromStreamAsync(WaitUntil,string,string,RequestContent,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call AddFaceFromStreamAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new object());
+Operation<BinaryData> operation = await client.AddFaceFromStreamAsync(WaitUntil.Completed, "<personId>", "recognition_01", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("persistedFaceId").ToString());
+]]></code>
+This sample shows how to call AddFaceFromStreamAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new object());
+Operation<BinaryData> operation = await client.AddFaceFromStreamAsync(WaitUntil.Completed, "<personId>", "recognition_01", content, targetFace: "<targetFace>", detectionModel: "detection_01", userData: "<userData>");
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("persistedFaceId").ToString());
+]]></code></example>
+    </member>
+    <member name="AddFaceFromStream(WaitUntil,string,string,RequestContent,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call AddFaceFromStream and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new object());
+Operation<BinaryData> operation = client.AddFaceFromStream(WaitUntil.Completed, "<personId>", "recognition_01", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("persistedFaceId").ToString());
+]]></code>
+This sample shows how to call AddFaceFromStream with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+using RequestContent content = RequestContent.Create(new object());
+Operation<BinaryData> operation = client.AddFaceFromStream(WaitUntil.Completed, "<personId>", "recognition_01", content, targetFace: "<targetFace>", detectionModel: "detection_01", userData: "<userData>");
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("persistedFaceId").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteFaceAsync(WaitUntil,string,RecognitionModel,string,CancellationToken)">
+      <example>
+This sample shows how to call DeleteFaceAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation operation = await client.DeleteFaceAsync(WaitUntil.Completed, "<personId>", RecognitionModel.Recognition01, "<persistedFaceId>");
+]]></code>
+This sample shows how to call DeleteFaceAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation operation = await client.DeleteFaceAsync(WaitUntil.Completed, "<personId>", RecognitionModel.Recognition01, "<persistedFaceId>");
+]]></code></example>
+    </member>
+    <member name="DeleteFace(WaitUntil,string,RecognitionModel,string,CancellationToken)">
+      <example>
+This sample shows how to call DeleteFace.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation operation = client.DeleteFace(WaitUntil.Completed, "<personId>", RecognitionModel.Recognition01, "<persistedFaceId>");
+]]></code>
+This sample shows how to call DeleteFace with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation operation = client.DeleteFace(WaitUntil.Completed, "<personId>", RecognitionModel.Recognition01, "<persistedFaceId>");
+]]></code></example>
+    </member>
+    <member name="DeleteFaceAsync(WaitUntil,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteFaceAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation operation = await client.DeleteFaceAsync(WaitUntil.Completed, "<personId>", "recognition_01", "<persistedFaceId>");
+]]></code>
+This sample shows how to call DeleteFaceAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation operation = await client.DeleteFaceAsync(WaitUntil.Completed, "<personId>", "recognition_01", "<persistedFaceId>");
+]]></code></example>
+    </member>
+    <member name="DeleteFace(WaitUntil,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteFace.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation operation = client.DeleteFace(WaitUntil.Completed, "<personId>", "recognition_01", "<persistedFaceId>");
+]]></code>
+This sample shows how to call DeleteFace with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonDirectoryPersons client = new FaceClient(endpoint, credential).GetPersonDirectoryPersonsClient();
+
+Operation operation = client.DeleteFace(WaitUntil.Completed, "<personId>", "recognition_01", "<persistedFaceId>");
+]]></code></example>
+    </member>
+  </members>
+</doc>
