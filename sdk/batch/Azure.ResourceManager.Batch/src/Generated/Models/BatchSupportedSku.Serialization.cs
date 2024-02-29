@@ -46,6 +46,11 @@ namespace Azure.ResourceManager.Batch.Models
                 }
                 writer.WriteEndArray();
             }
+            if (options.Format != "W" && BatchSupportEndOfLife.HasValue)
+            {
+                writer.WritePropertyName("batchSupportEndOfLife"u8);
+                writer.WriteStringValue(BatchSupportEndOfLife.Value, "O");
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -87,6 +92,7 @@ namespace Azure.ResourceManager.Batch.Models
             string name = default;
             string familyName = default;
             IReadOnlyList<BatchSkuCapability> capabilities = default;
+            DateTimeOffset? batchSupportEndOfLife = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -115,13 +121,22 @@ namespace Azure.ResourceManager.Batch.Models
                     capabilities = array;
                     continue;
                 }
+                if (property.NameEquals("batchSupportEndOfLife"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    batchSupportEndOfLife = property.Value.GetDateTimeOffset("O");
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new BatchSupportedSku(name, familyName, capabilities ?? new ChangeTrackingList<BatchSkuCapability>(), serializedAdditionalRawData);
+            return new BatchSupportedSku(name, familyName, capabilities ?? new ChangeTrackingList<BatchSkuCapability>(), batchSupportEndOfLife, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<BatchSupportedSku>.Write(ModelReaderWriterOptions options)
