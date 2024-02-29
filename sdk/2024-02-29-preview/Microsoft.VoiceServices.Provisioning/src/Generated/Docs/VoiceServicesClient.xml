@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetNumbersAsync(int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetNumbersAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(credential);
+
+await foreach (NumberResource item in client.GetNumbersAsync())
+{
+}
+]]></code>
+This sample shows how to call GetNumbersAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(credential);
+
+await foreach (NumberResource item in client.GetNumbersAsync(maxCount: 1234, skip: 1234, maxpagesize: 1234, filter: "<filter>", countRecords: true))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetNumbers(int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetNumbers.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(credential);
+
+foreach (NumberResource item in client.GetNumbers())
+{
+}
+]]></code>
+This sample shows how to call GetNumbers with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(credential);
+
+foreach (NumberResource item in client.GetNumbers(maxCount: 1234, skip: 1234, maxpagesize: 1234, filter: "<filter>", countRecords: true))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetNumbersAsync(int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetNumbersAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(credential);
+
+await foreach (BinaryData item in client.GetNumbersAsync(null, null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("telephoneNumber").ToString());
+    Console.WriteLine(result.GetProperty("accountName").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").ToString());
+}
+]]></code>
+This sample shows how to call GetNumbersAsync with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(credential);
+
+await foreach (BinaryData item in client.GetNumbersAsync(1234, 1234, 1234, "<filter>", true, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("serviceProvisioningStatus").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("innererror").GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("telephoneNumber").ToString());
+    Console.WriteLine(result.GetProperty("accountName").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("enabled").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("assignmentStatus").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("usage").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("choosableCapabilities")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("acquiredCapabilities")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("availableCapabilities")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("additionalUsages")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("civicAddressId").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("locationId").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("allowTenantAddressUpdate").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("displayedCountryCode").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsDirectRouting").GetProperty("enabled").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("enabled").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("assignmentStatus").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("usage").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("choosableCapabilities")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("acquiredCapabilities")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("availableCapabilities")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("additionalUsages")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("civicAddressId").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("locationId").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("allowTenantAddressUpdate").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("displayedCountryCode").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("zoomPhoneCloudPeering").GetProperty("enabled").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("azureOperatorCallProtection").GetProperty("enabled").ToString());
+    Console.WriteLine(result.GetProperty("configuration").GetProperty("customSipHeader").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetNumbers(int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetNumbers and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(credential);
+
+foreach (BinaryData item in client.GetNumbers(null, null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("telephoneNumber").ToString());
+    Console.WriteLine(result.GetProperty("accountName").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").ToString());
+}
+]]></code>
+This sample shows how to call GetNumbers with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(credential);
+
+foreach (BinaryData item in client.GetNumbers(1234, 1234, 1234, "<filter>", true, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("serviceProvisioningStatus").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("innererror").GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("telephoneNumber").ToString());
+    Console.WriteLine(result.GetProperty("accountName").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("enabled").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("assignmentStatus").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("usage").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("choosableCapabilities")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("acquiredCapabilities")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("availableCapabilities")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("additionalUsages")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("civicAddressId").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("locationId").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("allowTenantAddressUpdate").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsOperatorConnect").GetProperty("configuration").GetProperty("displayedCountryCode").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsDirectRouting").GetProperty("enabled").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("enabled").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("assignmentStatus").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("usage").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("choosableCapabilities")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("acquiredCapabilities")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("availableCapabilities")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("additionalUsages")[0].ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("civicAddressId").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("locationId").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("allowTenantAddressUpdate").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("teamsPhoneMobile").GetProperty("configuration").GetProperty("displayedCountryCode").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("zoomPhoneCloudPeering").GetProperty("enabled").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").GetProperty("azureOperatorCallProtection").GetProperty("enabled").ToString());
+    Console.WriteLine(result.GetProperty("configuration").GetProperty("customSipHeader").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
