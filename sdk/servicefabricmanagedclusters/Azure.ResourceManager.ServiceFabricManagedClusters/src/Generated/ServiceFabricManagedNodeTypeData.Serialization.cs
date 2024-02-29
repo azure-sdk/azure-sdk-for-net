@@ -328,6 +328,16 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 writer.WritePropertyName("natGatewayId"u8);
                 writer.WriteStringValue(NatGatewayId);
             }
+            if (!(NatConfigurations is ChangeTrackingList<NodeTypeNatConfig> collection9 && collection9.IsUndefined))
+            {
+                writer.WritePropertyName("natConfigurations"u8);
+                writer.WriteStartArray();
+                foreach (var item in NatConfigurations)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (VmImagePlan != null)
             {
                 writer.WritePropertyName("vmImagePlan"u8);
@@ -343,7 +353,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 writer.WritePropertyName("dscpConfigurationId"u8);
                 writer.WriteStringValue(DscpConfigurationId);
             }
-            if (!(AdditionalNetworkInterfaceConfigurations is ChangeTrackingList<AdditionalNetworkInterfaceConfiguration> collection9 && collection9.IsUndefined))
+            if (!(AdditionalNetworkInterfaceConfigurations is ChangeTrackingList<AdditionalNetworkInterfaceConfiguration> collection10 && collection10.IsUndefined))
             {
                 writer.WritePropertyName("additionalNetworkInterfaceConfigurations"u8);
                 writer.WriteStartArray();
@@ -441,6 +451,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             bool? enableNodePublicIPv6 = default;
             ResourceIdentifier vmSharedGalleryImageId = default;
             ResourceIdentifier natGatewayId = default;
+            IList<NodeTypeNatConfig> natConfigurations = default;
             VmImagePlan vmImagePlan = default;
             ResourceIdentifier serviceArtifactReferenceId = default;
             ResourceIdentifier dscpConfigurationId = default;
@@ -905,6 +916,20 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                             natGatewayId = new ResourceIdentifier(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("natConfigurations"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<NodeTypeNatConfig> array = new List<NodeTypeNatConfig>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(NodeTypeNatConfig.DeserializeNodeTypeNatConfig(item, options));
+                            }
+                            natConfigurations = array;
+                            continue;
+                        }
                         if (property0.NameEquals("vmImagePlan"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -1004,6 +1029,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 enableNodePublicIPv6,
                 vmSharedGalleryImageId,
                 natGatewayId,
+                natConfigurations ?? new ChangeTrackingList<NodeTypeNatConfig>(),
                 vmImagePlan,
                 serviceArtifactReferenceId,
                 dscpConfigurationId,
