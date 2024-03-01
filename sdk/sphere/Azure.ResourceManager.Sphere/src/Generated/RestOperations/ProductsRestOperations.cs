@@ -448,140 +448,6 @@ namespace Azure.ResourceManager.Sphere
             }
         }
 
-        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string catalogName, string productName)
-        {
-            var message = _pipeline.CreateMessage();
-            var request = message.Request;
-            request.Method = RequestMethod.Delete;
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/subscriptions/", false);
-            uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.AzureSphere/catalogs/", false);
-            uri.AppendPath(catalogName, true);
-            uri.AppendPath("/products/", false);
-            uri.AppendPath(productName, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            request.Uri = uri;
-            request.Headers.Add("Accept", "application/json");
-            _userAgent.Apply(message);
-            return message;
-        }
-
-        /// <summary> Delete a Product. '.default' and '.unassigned' are system defined values and cannot be used for product name'. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="catalogName"> Name of catalog. </param>
-        /// <param name="productName"> Name of product. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="catalogName"/> or <paramref name="productName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="catalogName"/> or <paramref name="productName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string catalogName, string productName, CancellationToken cancellationToken = default)
-        {
-            if (subscriptionId == null)
-            {
-                throw new ArgumentNullException(nameof(subscriptionId));
-            }
-            if (subscriptionId.Length == 0)
-            {
-                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
-            }
-            if (resourceGroupName == null)
-            {
-                throw new ArgumentNullException(nameof(resourceGroupName));
-            }
-            if (resourceGroupName.Length == 0)
-            {
-                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
-            }
-            if (catalogName == null)
-            {
-                throw new ArgumentNullException(nameof(catalogName));
-            }
-            if (catalogName.Length == 0)
-            {
-                throw new ArgumentException("Value cannot be an empty string.", nameof(catalogName));
-            }
-            if (productName == null)
-            {
-                throw new ArgumentNullException(nameof(productName));
-            }
-            if (productName.Length == 0)
-            {
-                throw new ArgumentException("Value cannot be an empty string.", nameof(productName));
-            }
-
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, catalogName, productName);
-            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            switch (message.Response.Status)
-            {
-                case 200:
-                case 202:
-                case 204:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        /// <summary> Delete a Product. '.default' and '.unassigned' are system defined values and cannot be used for product name'. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="catalogName"> Name of catalog. </param>
-        /// <param name="productName"> Name of product. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="catalogName"/> or <paramref name="productName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="catalogName"/> or <paramref name="productName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Delete(string subscriptionId, string resourceGroupName, string catalogName, string productName, CancellationToken cancellationToken = default)
-        {
-            if (subscriptionId == null)
-            {
-                throw new ArgumentNullException(nameof(subscriptionId));
-            }
-            if (subscriptionId.Length == 0)
-            {
-                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
-            }
-            if (resourceGroupName == null)
-            {
-                throw new ArgumentNullException(nameof(resourceGroupName));
-            }
-            if (resourceGroupName.Length == 0)
-            {
-                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
-            }
-            if (catalogName == null)
-            {
-                throw new ArgumentNullException(nameof(catalogName));
-            }
-            if (catalogName.Length == 0)
-            {
-                throw new ArgumentException("Value cannot be an empty string.", nameof(catalogName));
-            }
-            if (productName == null)
-            {
-                throw new ArgumentNullException(nameof(productName));
-            }
-            if (productName.Length == 0)
-            {
-                throw new ArgumentException("Value cannot be an empty string.", nameof(productName));
-            }
-
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, catalogName, productName);
-            _pipeline.Send(message, cancellationToken);
-            switch (message.Response.Status)
-            {
-                case 200:
-                case 202:
-                case 204:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
         internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string catalogName, string productName, SphereProductPatch patch)
         {
             var message = _pipeline.CreateMessage();
@@ -722,6 +588,140 @@ namespace Azure.ResourceManager.Sphere
             {
                 case 200:
                 case 202:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string catalogName, string productName)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Delete;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.AzureSphere/catalogs/", false);
+            uri.AppendPath(catalogName, true);
+            uri.AppendPath("/products/", false);
+            uri.AppendPath(productName, true);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Delete a Product. '.default' and '.unassigned' are system defined values and cannot be used for product name'. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="catalogName"> Name of catalog. </param>
+        /// <param name="productName"> Name of product. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="catalogName"/> or <paramref name="productName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="catalogName"/> or <paramref name="productName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string catalogName, string productName, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (catalogName == null)
+            {
+                throw new ArgumentNullException(nameof(catalogName));
+            }
+            if (catalogName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(catalogName));
+            }
+            if (productName == null)
+            {
+                throw new ArgumentNullException(nameof(productName));
+            }
+            if (productName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(productName));
+            }
+
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, catalogName, productName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                case 202:
+                case 204:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Delete a Product. '.default' and '.unassigned' are system defined values and cannot be used for product name'. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="catalogName"> Name of catalog. </param>
+        /// <param name="productName"> Name of product. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="catalogName"/> or <paramref name="productName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="catalogName"/> or <paramref name="productName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Delete(string subscriptionId, string resourceGroupName, string catalogName, string productName, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (catalogName == null)
+            {
+                throw new ArgumentNullException(nameof(catalogName));
+            }
+            if (catalogName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(catalogName));
+            }
+            if (productName == null)
+            {
+                throw new ArgumentNullException(nameof(productName));
+            }
+            if (productName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(productName));
+            }
+
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, catalogName, productName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                case 202:
+                case 204:
                     return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
