@@ -1055,6 +1055,7 @@ namespace Azure.ResourceManager.StreamAnalytics
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
+                case 200:
                 case 202:
                     return message.Response;
                 default:
@@ -1101,6 +1102,7 @@ namespace Azure.ResourceManager.StreamAnalytics
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
+                case 200:
                 case 202:
                     return message.Response;
                 default:

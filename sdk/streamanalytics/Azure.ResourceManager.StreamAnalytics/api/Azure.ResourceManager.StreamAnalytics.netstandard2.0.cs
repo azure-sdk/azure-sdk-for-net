@@ -171,7 +171,8 @@ namespace Azure.ResourceManager.StreamAnalytics
         public Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputStartMode? OutputStartMode { get { throw null; } set { } }
         public System.DateTimeOffset? OutputStartOn { get { throw null; } set { } }
         public string ProvisioningState { get { throw null; } }
-        public Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSkuName? SkuName { get { throw null; } set { } }
+        public Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSku Sku { get { throw null; } set { } }
+        public Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSku SkuPropertiesSku { get { throw null; } set { } }
         public Azure.ResourceManager.StreamAnalytics.StreamingJobTransformationData Transformation { get { throw null; } set { } }
         Azure.ResourceManager.StreamAnalytics.StreamingJobData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.StreamingJobData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.StreamingJobData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -292,7 +293,7 @@ namespace Azure.ResourceManager.StreamAnalytics
         public Azure.ETag? ETag { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.StreamAnalytics.Models.LastOutputEventTimestamp> LastOutputEventTimestamps { get { throw null; } }
         public Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsDataSerialization Serialization { get { throw null; } set { } }
-        public float? SizeWindow { get { throw null; } set { } }
+        public int? SizeWindow { get { throw null; } set { } }
         public System.TimeSpan? TimeFrame { get { throw null; } set { } }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.ObsoleteAttribute("This property is obsolete and will be removed in a future release. Please use TimeFrame instead.", false)]
@@ -333,6 +334,8 @@ namespace Azure.ResourceManager.StreamAnalytics
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.StreamAnalytics.StreamingJobResource> Get(string expand = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.StreamAnalytics.StreamingJobResource>> GetAsync(string expand = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.StreamAnalytics.Models.GetStreamingJobSkuResult> GetSkus(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.StreamAnalytics.Models.GetStreamingJobSkuResult> GetSkusAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.StreamAnalytics.StreamingJobFunctionResource> GetStreamingJobFunction(string functionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.StreamAnalytics.StreamingJobFunctionResource>> GetStreamingJobFunctionAsync(string functionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.StreamAnalytics.StreamingJobFunctionCollection GetStreamingJobFunctions() { throw null; }
@@ -454,9 +457,11 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
     public static partial class ArmStreamAnalyticsModelFactory
     {
         public static Azure.ResourceManager.StreamAnalytics.Models.AggregateFunctionProperties AggregateFunctionProperties(Azure.ETag? etag = default(Azure.ETag?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.Models.StreamingJobFunctionInput> inputs = null, string outputDataType = null, Azure.ResourceManager.StreamAnalytics.Models.StreamingJobFunctionBinding binding = null) { throw null; }
+        public static Azure.ResourceManager.StreamAnalytics.Models.GetStreamingJobSkuResult GetStreamingJobSkuResult(Azure.ResourceManager.StreamAnalytics.Models.ResourceType? resourceType = default(Azure.ResourceManager.StreamAnalytics.Models.ResourceType?), Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSkuName? skuName = default(Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSkuName?), Azure.ResourceManager.StreamAnalytics.Models.SkuCapacity capacity = null) { throw null; }
         public static Azure.ResourceManager.StreamAnalytics.Models.LastOutputEventTimestamp LastOutputEventTimestamp(System.DateTimeOffset? lastOutputEventOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastUpdatedOn = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.ResourceManager.StreamAnalytics.Models.ReferenceInputProperties ReferenceInputProperties(Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsDataSerialization serialization = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.Models.StreamingJobDiagnosticCondition> diagnosticsConditions = null, Azure.ETag? etag = default(Azure.ETag?), Azure.ResourceManager.StreamAnalytics.Models.StreamingCompressionType? compressionType = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingCompressionType?), string partitionKey = null, Azure.ResourceManager.StreamAnalytics.Models.StreamingJobInputWatermarkMode? watermarkMode = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingJobInputWatermarkMode?), Azure.ResourceManager.StreamAnalytics.Models.ReferenceInputDataSource datasource = null) { throw null; }
         public static Azure.ResourceManager.StreamAnalytics.Models.ScalarFunctionProperties ScalarFunctionProperties(Azure.ETag? etag = default(Azure.ETag?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.Models.StreamingJobFunctionInput> inputs = null, string outputDataType = null, Azure.ResourceManager.StreamAnalytics.Models.StreamingJobFunctionBinding binding = null) { throw null; }
+        public static Azure.ResourceManager.StreamAnalytics.Models.SkuCapacity SkuCapacity(int? minimum = default(int?), int? maximum = default(int?), int? @default = default(int?), Azure.ResourceManager.StreamAnalytics.Models.SkuCapacityScaleType? scaleType = default(Azure.ResourceManager.StreamAnalytics.Models.SkuCapacityScaleType?), System.Collections.Generic.IEnumerable<int> allowedValues = null) { throw null; }
         public static Azure.ResourceManager.StreamAnalytics.StreamAnalyticsClusterData StreamAnalyticsClusterData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsClusterSku sku = null, Azure.ETag? etag = default(Azure.ETag?), Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsClusterProperties properties = null) { throw null; }
         public static Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsClusterJob StreamAnalyticsClusterJob(Azure.Core.ResourceIdentifier id = null, int? streamingUnits = default(int?), Azure.ResourceManager.StreamAnalytics.Models.StreamingJobState? jobState = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingJobState?)) { throw null; }
         public static Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsClusterProperties StreamAnalyticsClusterProperties(System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.Guid? clusterId = default(System.Guid?), Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsClusterProvisioningState? provisioningState = default(Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsClusterProvisioningState?), int? capacityAllocated = default(int?), int? capacityAssigned = default(int?)) { throw null; }
@@ -476,13 +481,13 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         public static Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSubscriptionQuota StreamAnalyticsSubscriptionQuota(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType? resourceType = default(Azure.Core.ResourceType?), int? maxCount = default(int?), int? currentCount = default(int?)) { throw null; }
         public static Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsTestDatasourceResult StreamAnalyticsTestDatasourceResult(string code = null, string message = null, string target = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsErrorDetails> details = null, Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsTestDatasourceResultStatus? status = default(Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsTestDatasourceResultStatus?)) { throw null; }
         public static Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsTestQuery StreamAnalyticsTestQuery(Azure.ResourceManager.StreamAnalytics.StreamingJobData streamingJob = null, System.Uri writeUri = null, string path = null) { throw null; }
-        public static Azure.ResourceManager.StreamAnalytics.StreamingJobData StreamingJobData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.Models.ManagedServiceIdentity identity = null, Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSkuName? skuName = default(Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSkuName?), System.Guid? jobId = default(System.Guid?), string provisioningState = null, string jobState = null, Azure.ResourceManager.StreamAnalytics.Models.StreamingJobType? jobType = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingJobType?), Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputStartMode? outputStartMode = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputStartMode?), System.DateTimeOffset? outputStartOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastOutputEventOn = default(System.DateTimeOffset?), Azure.ResourceManager.StreamAnalytics.Models.EventsOutOfOrderPolicy? eventsOutOfOrderPolicy = default(Azure.ResourceManager.StreamAnalytics.Models.EventsOutOfOrderPolicy?), Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputErrorPolicy? outputErrorPolicy = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputErrorPolicy?), int? eventsOutOfOrderMaxDelayInSeconds = default(int?), int? eventsLateArrivalMaxDelayInSeconds = default(int?), Azure.Core.AzureLocation? dataLocalion = default(Azure.Core.AzureLocation?), Azure.ResourceManager.StreamAnalytics.Models.StreamingJobCompatibilityLevel? compatibilityLevel = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingJobCompatibilityLevel?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.StreamingJobInputData> inputs = null, Azure.ResourceManager.StreamAnalytics.StreamingJobTransformationData transformation = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.StreamingJobOutputData> outputs = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.StreamingJobFunctionData> functions = null, Azure.ETag? etag = default(Azure.ETag?), Azure.ResourceManager.StreamAnalytics.Models.StreamingJobStorageAccount jobStorageAccount = null, Azure.ResourceManager.StreamAnalytics.Models.StreamingJobContentStoragePolicy? contentStoragePolicy = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingJobContentStoragePolicy?), Azure.ResourceManager.StreamAnalytics.Models.StreamingJobExternal externals = null, Azure.Core.ResourceIdentifier clusterId = null) { throw null; }
+        public static Azure.ResourceManager.StreamAnalytics.StreamingJobData StreamingJobData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSku sku = null, Azure.ResourceManager.Models.ManagedServiceIdentity identity = null, Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSku skuPropertiesSku = null, System.Guid? jobId = default(System.Guid?), string provisioningState = null, string jobState = null, Azure.ResourceManager.StreamAnalytics.Models.StreamingJobType? jobType = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingJobType?), Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputStartMode? outputStartMode = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputStartMode?), System.DateTimeOffset? outputStartOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastOutputEventOn = default(System.DateTimeOffset?), Azure.ResourceManager.StreamAnalytics.Models.EventsOutOfOrderPolicy? eventsOutOfOrderPolicy = default(Azure.ResourceManager.StreamAnalytics.Models.EventsOutOfOrderPolicy?), Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputErrorPolicy? outputErrorPolicy = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputErrorPolicy?), int? eventsOutOfOrderMaxDelayInSeconds = default(int?), int? eventsLateArrivalMaxDelayInSeconds = default(int?), Azure.Core.AzureLocation? dataLocalion = default(Azure.Core.AzureLocation?), Azure.ResourceManager.StreamAnalytics.Models.StreamingJobCompatibilityLevel? compatibilityLevel = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingJobCompatibilityLevel?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.StreamingJobInputData> inputs = null, Azure.ResourceManager.StreamAnalytics.StreamingJobTransformationData transformation = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.StreamingJobOutputData> outputs = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.StreamingJobFunctionData> functions = null, Azure.ETag? etag = default(Azure.ETag?), Azure.ResourceManager.StreamAnalytics.Models.StreamingJobStorageAccount jobStorageAccount = null, Azure.ResourceManager.StreamAnalytics.Models.StreamingJobContentStoragePolicy? contentStoragePolicy = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingJobContentStoragePolicy?), Azure.ResourceManager.StreamAnalytics.Models.StreamingJobExternal externals = null, Azure.Core.ResourceIdentifier clusterId = null) { throw null; }
         public static Azure.ResourceManager.StreamAnalytics.Models.StreamingJobDiagnosticCondition StreamingJobDiagnosticCondition(System.DateTimeOffset? since = default(System.DateTimeOffset?), string code = null, string message = null) { throw null; }
         public static Azure.ResourceManager.StreamAnalytics.StreamingJobFunctionData StreamingJobFunctionData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType? resourceType = default(Azure.Core.ResourceType?), Azure.ResourceManager.StreamAnalytics.Models.StreamingJobFunctionProperties properties = null) { throw null; }
         public static Azure.ResourceManager.StreamAnalytics.Models.StreamingJobFunctionProperties StreamingJobFunctionProperties(string functionPropertiesType = null, Azure.ETag? etag = default(Azure.ETag?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.Models.StreamingJobFunctionInput> inputs = null, string outputDataType = null, Azure.ResourceManager.StreamAnalytics.Models.StreamingJobFunctionBinding binding = null) { throw null; }
         public static Azure.ResourceManager.StreamAnalytics.StreamingJobInputData StreamingJobInputData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType? resourceType = default(Azure.Core.ResourceType?), Azure.ResourceManager.StreamAnalytics.Models.StreamingJobInputProperties properties = null) { throw null; }
         public static Azure.ResourceManager.StreamAnalytics.Models.StreamingJobInputProperties StreamingJobInputProperties(string inputPropertiesType = null, Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsDataSerialization serialization = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.Models.StreamingJobDiagnosticCondition> diagnosticsConditions = null, Azure.ETag? etag = default(Azure.ETag?), Azure.ResourceManager.StreamAnalytics.Models.StreamingCompressionType? compressionType = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingCompressionType?), string partitionKey = null, Azure.ResourceManager.StreamAnalytics.Models.StreamingJobInputWatermarkMode? watermarkMode = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingJobInputWatermarkMode?)) { throw null; }
-        public static Azure.ResourceManager.StreamAnalytics.StreamingJobOutputData StreamingJobOutputData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType? resourceType = default(Azure.Core.ResourceType?), Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputDataSource datasource = null, System.TimeSpan? timeFrame = default(System.TimeSpan?), float? sizeWindow = default(float?), Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsDataSerialization serialization = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.Models.StreamingJobDiagnosticCondition> diagnosticsConditions = null, Azure.ETag? etag = default(Azure.ETag?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.Models.LastOutputEventTimestamp> lastOutputEventTimestamps = null, Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputWatermarkProperties watermarkSettings = null) { throw null; }
+        public static Azure.ResourceManager.StreamAnalytics.StreamingJobOutputData StreamingJobOutputData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType? resourceType = default(Azure.Core.ResourceType?), Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputDataSource datasource = null, System.TimeSpan? timeFrame = default(System.TimeSpan?), int? sizeWindow = default(int?), Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsDataSerialization serialization = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.Models.StreamingJobDiagnosticCondition> diagnosticsConditions = null, Azure.ETag? etag = default(Azure.ETag?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.Models.LastOutputEventTimestamp> lastOutputEventTimestamps = null, Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputWatermarkProperties watermarkSettings = null) { throw null; }
         public static Azure.ResourceManager.StreamAnalytics.StreamingJobTransformationData StreamingJobTransformationData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType? resourceType = default(Azure.Core.ResourceType?), int? streamingUnits = default(int?), System.Collections.Generic.IEnumerable<int> validStreamingUnits = null, string query = null, Azure.ETag? etag = default(Azure.ETag?)) { throw null; }
         public static Azure.ResourceManager.StreamAnalytics.Models.StreamInputProperties StreamInputProperties(Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsDataSerialization serialization = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StreamAnalytics.Models.StreamingJobDiagnosticCondition> diagnosticsConditions = null, Azure.ETag? etag = default(Azure.ETag?), Azure.ResourceManager.StreamAnalytics.Models.StreamingCompressionType? compressionType = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingCompressionType?), string partitionKey = null, Azure.ResourceManager.StreamAnalytics.Models.StreamingJobInputWatermarkMode? watermarkMode = default(Azure.ResourceManager.StreamAnalytics.Models.StreamingJobInputWatermarkMode?), Azure.ResourceManager.StreamAnalytics.Models.StreamInputDataSource datasource = null) { throw null; }
     }
@@ -495,6 +500,19 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         Azure.ResourceManager.StreamAnalytics.Models.AvroFormatSerialization System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.AvroFormatSerialization>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.AvroFormatSerialization>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.AvroFormatSerialization>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class AzureDataExplorerOutputDataSource : Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputDataSource, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.AzureDataExplorerOutputDataSource>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.AzureDataExplorerOutputDataSource>
+    {
+        public AzureDataExplorerOutputDataSource() { }
+        public Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsAuthenticationMode? AuthenticationMode { get { throw null; } set { } }
+        public string Cluster { get { throw null; } set { } }
+        public string Database { get { throw null; } set { } }
+        public string Table { get { throw null; } set { } }
+        Azure.ResourceManager.StreamAnalytics.Models.AzureDataExplorerOutputDataSource System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.AzureDataExplorerOutputDataSource>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.AzureDataExplorerOutputDataSource>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.StreamAnalytics.Models.AzureDataExplorerOutputDataSource System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.AzureDataExplorerOutputDataSource>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.AzureDataExplorerOutputDataSource>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.AzureDataExplorerOutputDataSource>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public partial class BlobOutputDataSource : Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputDataSource, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.BlobOutputDataSource>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.BlobOutputDataSource>
     {
@@ -643,8 +661,6 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
         public DataRefreshType(string value) { throw null; }
-        public static Azure.ResourceManager.StreamAnalytics.Models.DataRefreshType Blocking { get { throw null; } }
-        public static Azure.ResourceManager.StreamAnalytics.Models.DataRefreshType Nonblocking { get { throw null; } }
         public static Azure.ResourceManager.StreamAnalytics.Models.DataRefreshType RefreshPeriodicallyWithDelta { get { throw null; } }
         public static Azure.ResourceManager.StreamAnalytics.Models.DataRefreshType RefreshPeriodicallyWithFull { get { throw null; } }
         public static Azure.ResourceManager.StreamAnalytics.Models.DataRefreshType Static { get { throw null; } }
@@ -657,6 +673,17 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         public static implicit operator Azure.ResourceManager.StreamAnalytics.Models.DataRefreshType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.StreamAnalytics.Models.DataRefreshType left, Azure.ResourceManager.StreamAnalytics.Models.DataRefreshType right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class DeltaSerialization : Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsDataSerialization, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.DeltaSerialization>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.DeltaSerialization>
+    {
+        public DeltaSerialization() { }
+        public string DeltaTablePath { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> PartitionColumns { get { throw null; } }
+        Azure.ResourceManager.StreamAnalytics.Models.DeltaSerialization System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.DeltaSerialization>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.DeltaSerialization>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.StreamAnalytics.Models.DeltaSerialization System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.DeltaSerialization>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.DeltaSerialization>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.DeltaSerialization>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public partial class DocumentDbOutputDataSource : Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputDataSource, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.DocumentDbOutputDataSource>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.DocumentDbOutputDataSource>
     {
@@ -805,6 +832,16 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         public static bool operator !=(Azure.ResourceManager.StreamAnalytics.Models.EventsOutOfOrderPolicy left, Azure.ResourceManager.StreamAnalytics.Models.EventsOutOfOrderPolicy right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class FileReferenceInputDataSource : Azure.ResourceManager.StreamAnalytics.Models.ReferenceInputDataSource, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.FileReferenceInputDataSource>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.FileReferenceInputDataSource>
+    {
+        public FileReferenceInputDataSource() { }
+        public string Path { get { throw null; } set { } }
+        Azure.ResourceManager.StreamAnalytics.Models.FileReferenceInputDataSource System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.FileReferenceInputDataSource>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.FileReferenceInputDataSource>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.StreamAnalytics.Models.FileReferenceInputDataSource System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.FileReferenceInputDataSource>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.FileReferenceInputDataSource>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.FileReferenceInputDataSource>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
     public partial class FunctionOutputDataSource : Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputDataSource, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.FunctionOutputDataSource>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.FunctionOutputDataSource>
     {
         public FunctionOutputDataSource() { }
@@ -847,6 +884,18 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         Azure.ResourceManager.StreamAnalytics.Models.GatewayMessageBusStreamInputDataSource System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.GatewayMessageBusStreamInputDataSource>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.GatewayMessageBusStreamInputDataSource>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.GatewayMessageBusStreamInputDataSource>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class GetStreamingJobSkuResult : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.GetStreamingJobSkuResult>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.GetStreamingJobSkuResult>
+    {
+        internal GetStreamingJobSkuResult() { }
+        public Azure.ResourceManager.StreamAnalytics.Models.SkuCapacity Capacity { get { throw null; } }
+        public Azure.ResourceManager.StreamAnalytics.Models.ResourceType? ResourceType { get { throw null; } }
+        public Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSkuName? SkuName { get { throw null; } }
+        Azure.ResourceManager.StreamAnalytics.Models.GetStreamingJobSkuResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.GetStreamingJobSkuResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.GetStreamingJobSkuResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.StreamAnalytics.Models.GetStreamingJobSkuResult System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.GetStreamingJobSkuResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.GetStreamingJobSkuResult>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.GetStreamingJobSkuResult>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public partial class IoTHubStreamInputDataSource : Azure.ResourceManager.StreamAnalytics.Models.StreamInputDataSource, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.IoTHubStreamInputDataSource>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.IoTHubStreamInputDataSource>
     {
@@ -1114,6 +1163,23 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.ReferenceInputProperties>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.ReferenceInputProperties>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ResourceType : System.IEquatable<Azure.ResourceManager.StreamAnalytics.Models.ResourceType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ResourceType(string value) { throw null; }
+        public static Azure.ResourceManager.StreamAnalytics.Models.ResourceType MicrosoftStreamAnalyticsStreamingjobs { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.StreamAnalytics.Models.ResourceType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.StreamAnalytics.Models.ResourceType left, Azure.ResourceManager.StreamAnalytics.Models.ResourceType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.StreamAnalytics.Models.ResourceType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.StreamAnalytics.Models.ResourceType left, Azure.ResourceManager.StreamAnalytics.Models.ResourceType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class ScalarFunctionProperties : Azure.ResourceManager.StreamAnalytics.Models.StreamingJobFunctionProperties, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.ScalarFunctionProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.ScalarFunctionProperties>
     {
         public ScalarFunctionProperties() { }
@@ -1164,6 +1230,39 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         Azure.ResourceManager.StreamAnalytics.Models.ServiceBusTopicOutputDataSource System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.ServiceBusTopicOutputDataSource>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.ServiceBusTopicOutputDataSource>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.ServiceBusTopicOutputDataSource>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class SkuCapacity : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.SkuCapacity>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.SkuCapacity>
+    {
+        internal SkuCapacity() { }
+        public System.Collections.Generic.IReadOnlyList<int> AllowedValues { get { throw null; } }
+        public int? Default { get { throw null; } }
+        public int? Maximum { get { throw null; } }
+        public int? Minimum { get { throw null; } }
+        public Azure.ResourceManager.StreamAnalytics.Models.SkuCapacityScaleType? ScaleType { get { throw null; } }
+        Azure.ResourceManager.StreamAnalytics.Models.SkuCapacity System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.SkuCapacity>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.SkuCapacity>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.StreamAnalytics.Models.SkuCapacity System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.SkuCapacity>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.SkuCapacity>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.SkuCapacity>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct SkuCapacityScaleType : System.IEquatable<Azure.ResourceManager.StreamAnalytics.Models.SkuCapacityScaleType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public SkuCapacityScaleType(string value) { throw null; }
+        public static Azure.ResourceManager.StreamAnalytics.Models.SkuCapacityScaleType Automatic { get { throw null; } }
+        public static Azure.ResourceManager.StreamAnalytics.Models.SkuCapacityScaleType Manual { get { throw null; } }
+        public static Azure.ResourceManager.StreamAnalytics.Models.SkuCapacityScaleType None { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.StreamAnalytics.Models.SkuCapacityScaleType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.StreamAnalytics.Models.SkuCapacityScaleType left, Azure.ResourceManager.StreamAnalytics.Models.SkuCapacityScaleType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.StreamAnalytics.Models.SkuCapacityScaleType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.StreamAnalytics.Models.SkuCapacityScaleType left, Azure.ResourceManager.StreamAnalytics.Models.SkuCapacityScaleType right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public partial class SqlDatabaseOutputDataSource : Azure.ResourceManager.StreamAnalytics.Models.StreamingJobOutputDataSource, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.SqlDatabaseOutputDataSource>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.SqlDatabaseOutputDataSource>
     {
@@ -1552,6 +1651,17 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         public static bool operator !=(Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSampleInputResultStatus left, Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSampleInputResultStatus right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class StreamAnalyticsSku : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSku>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSku>
+    {
+        public StreamAnalyticsSku() { }
+        public int? Capacity { get { throw null; } set { } }
+        public Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSkuName? Name { get { throw null; } set { } }
+        Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSku System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSku>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSku>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSku System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSku>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSku>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSku>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct StreamAnalyticsSkuName : System.IEquatable<Azure.ResourceManager.StreamAnalytics.Models.StreamAnalyticsSkuName>
     {
@@ -1937,7 +2047,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         public string DateFormat { get { throw null; } set { } }
         public string PathPattern { get { throw null; } set { } }
         public string RefreshInterval { get { throw null; } set { } }
-        public Azure.ResourceManager.StreamAnalytics.Models.DataRefreshType? RefreshType { get { throw null; } set { } }
+        public Azure.ResourceManager.StreamAnalytics.Models.UpdatableUdfRefreshType? RefreshType { get { throw null; } set { } }
         public string TimeFormat { get { throw null; } set { } }
         Azure.ResourceManager.StreamAnalytics.Models.StreamingJobRefreshConfiguration System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.StreamingJobRefreshConfiguration>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StreamAnalytics.Models.StreamingJobRefreshConfiguration>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -2047,5 +2157,23 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         Azure.ResourceManager.StreamAnalytics.Models.TableOutputDataSource System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.TableOutputDataSource>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.TableOutputDataSource>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StreamAnalytics.Models.TableOutputDataSource>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct UpdatableUdfRefreshType : System.IEquatable<Azure.ResourceManager.StreamAnalytics.Models.UpdatableUdfRefreshType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public UpdatableUdfRefreshType(string value) { throw null; }
+        public static Azure.ResourceManager.StreamAnalytics.Models.UpdatableUdfRefreshType Blocking { get { throw null; } }
+        public static Azure.ResourceManager.StreamAnalytics.Models.UpdatableUdfRefreshType Nonblocking { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.StreamAnalytics.Models.UpdatableUdfRefreshType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.StreamAnalytics.Models.UpdatableUdfRefreshType left, Azure.ResourceManager.StreamAnalytics.Models.UpdatableUdfRefreshType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.StreamAnalytics.Models.UpdatableUdfRefreshType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.StreamAnalytics.Models.UpdatableUdfRefreshType left, Azure.ResourceManager.StreamAnalytics.Models.UpdatableUdfRefreshType right) { throw null; }
+        public override string ToString() { throw null; }
     }
 }

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using Autorest.CSharp.Core;
 using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
@@ -39,10 +40,12 @@ namespace Azure.ResourceManager.StreamAnalytics
 
         private readonly ClientDiagnostics _streamingJobClientDiagnostics;
         private readonly StreamingJobsRestOperations _streamingJobRestClient;
+        private readonly ClientDiagnostics _skuClientDiagnostics;
+        private readonly SkuRestOperations _skuRestClient;
         private readonly StreamingJobData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
-        public static readonly ResourceType ResourceType = "Microsoft.StreamAnalytics/streamingjobs";
+        public static readonly Core.ResourceType ResourceType = "Microsoft.StreamAnalytics/streamingjobs";
 
         /// <summary> Initializes a new instance of the <see cref="StreamingJobResource"/> class for mocking. </summary>
         protected StreamingJobResource()
@@ -66,6 +69,8 @@ namespace Azure.ResourceManager.StreamAnalytics
             _streamingJobClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.StreamAnalytics", ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ResourceType, out string streamingJobApiVersion);
             _streamingJobRestClient = new StreamingJobsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, streamingJobApiVersion);
+            _skuClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.StreamAnalytics", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _skuRestClient = new SkuRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -880,6 +885,58 @@ namespace Azure.ResourceManager.StreamAnalytics
                 scope.Failed(e);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Gets a list of available SKUs about the specified streaming job.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.StreamAnalytics/streamingjobs/{jobName}/skus</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Sku_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-10-01-preview</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="GetStreamingJobSkuResult"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<GetStreamingJobSkuResult> GetSkusAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _skuRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _skuRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => GetStreamingJobSkuResult.DeserializeGetStreamingJobSkuResult(e), _skuClientDiagnostics, Pipeline, "StreamingJobResource.GetSkus", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets a list of available SKUs about the specified streaming job.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.StreamAnalytics/streamingjobs/{jobName}/skus</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Sku_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-10-01-preview</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="GetStreamingJobSkuResult"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<GetStreamingJobSkuResult> GetSkus(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _skuRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _skuRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => GetStreamingJobSkuResult.DeserializeGetStreamingJobSkuResult(e), _skuClientDiagnostics, Pipeline, "StreamingJobResource.GetSkus", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>

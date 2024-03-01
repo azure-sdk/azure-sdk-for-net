@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Mocking
         private ClientDiagnostics StreamAnalyticsClusterClustersClientDiagnostics => _streamAnalyticsClusterClustersClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.StreamAnalytics", StreamAnalyticsClusterResource.ResourceType.Namespace, Diagnostics);
         private ClustersRestOperations StreamAnalyticsClusterClustersRestClient => _streamAnalyticsClusterClustersRestClient ??= new ClustersRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(StreamAnalyticsClusterResource.ResourceType));
 
-        private string GetApiVersionOrNull(ResourceType resourceType)
+        private string GetApiVersionOrNull(Core.ResourceType resourceType)
         {
             TryGetApiVersion(resourceType, out string apiVersion);
             return apiVersion;
