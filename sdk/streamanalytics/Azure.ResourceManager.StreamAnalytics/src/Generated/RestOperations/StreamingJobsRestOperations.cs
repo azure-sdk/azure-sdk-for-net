@@ -875,7 +875,7 @@ namespace Azure.ResourceManager.StreamAnalytics
             }
         }
 
-        internal HttpMessage CreateStopRequest(string subscriptionId, string resourceGroupName, string jobName)
+        internal HttpMessage CreateStopRequest(string subscriptionId, string resourceGroupName, string jobName, StopStreamingJobContent content)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -892,6 +892,13 @@ namespace Azure.ResourceManager.StreamAnalytics
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
+            if (content != null)
+            {
+                request.Headers.Add("Content-Type", "application/json");
+                var content0 = new Utf8JsonRequestContent();
+                content0.JsonWriter.WriteObjectValue(content);
+                request.Content = content0;
+            }
             _userAgent.Apply(message);
             return message;
         }
@@ -900,10 +907,11 @@ namespace Azure.ResourceManager.StreamAnalytics
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="jobName"> The name of the streaming job. </param>
+        /// <param name="content"> Parameters applicable to a stop streaming job operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="jobName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="jobName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> StopAsync(string subscriptionId, string resourceGroupName, string jobName, CancellationToken cancellationToken = default)
+        public async Task<Response> StopAsync(string subscriptionId, string resourceGroupName, string jobName, StopStreamingJobContent content = null, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -930,7 +938,7 @@ namespace Azure.ResourceManager.StreamAnalytics
                 throw new ArgumentException("Value cannot be an empty string.", nameof(jobName));
             }
 
-            using var message = CreateStopRequest(subscriptionId, resourceGroupName, jobName);
+            using var message = CreateStopRequest(subscriptionId, resourceGroupName, jobName, content);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -946,10 +954,11 @@ namespace Azure.ResourceManager.StreamAnalytics
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="jobName"> The name of the streaming job. </param>
+        /// <param name="content"> Parameters applicable to a stop streaming job operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="jobName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="jobName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Stop(string subscriptionId, string resourceGroupName, string jobName, CancellationToken cancellationToken = default)
+        public Response Stop(string subscriptionId, string resourceGroupName, string jobName, StopStreamingJobContent content = null, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -976,7 +985,7 @@ namespace Azure.ResourceManager.StreamAnalytics
                 throw new ArgumentException("Value cannot be an empty string.", nameof(jobName));
             }
 
-            using var message = CreateStopRequest(subscriptionId, resourceGroupName, jobName);
+            using var message = CreateStopRequest(subscriptionId, resourceGroupName, jobName, content);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -1055,6 +1064,7 @@ namespace Azure.ResourceManager.StreamAnalytics
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
+                case 200:
                 case 202:
                     return message.Response;
                 default:
@@ -1101,6 +1111,7 @@ namespace Azure.ResourceManager.StreamAnalytics
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
+                case 200:
                 case 202:
                     return message.Response;
                 default:

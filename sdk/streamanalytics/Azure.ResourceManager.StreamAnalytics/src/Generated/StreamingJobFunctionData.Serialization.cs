@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.StreamAnalytics
             StreamingJobFunctionProperties properties = default;
             ResourceIdentifier id = default;
             string name = default;
-            ResourceType? type = default;
+            Core.ResourceType? type = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.StreamAnalytics
                     {
                         continue;
                     }
-                    type = new ResourceType(property.Value.GetString());
+                    type = new Core.ResourceType(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

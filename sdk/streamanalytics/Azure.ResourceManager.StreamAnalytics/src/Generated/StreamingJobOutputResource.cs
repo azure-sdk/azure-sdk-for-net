@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.StreamAnalytics
         private readonly StreamingJobOutputData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
-        public static readonly ResourceType ResourceType = "Microsoft.StreamAnalytics/streamingjobs/outputs";
+        public static readonly Core.ResourceType ResourceType = "Microsoft.StreamAnalytics/streamingjobs/outputs";
 
         /// <summary> Initializes a new instance of the <see cref="StreamingJobOutputResource"/> class for mocking. </summary>
         protected StreamingJobOutputResource()
