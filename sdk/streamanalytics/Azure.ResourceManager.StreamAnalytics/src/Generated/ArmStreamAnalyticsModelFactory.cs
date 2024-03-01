@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// The available derived classes include <see cref="Models.AggregateFunctionProperties"/> and <see cref="Models.ScalarFunctionProperties"/>.
         /// </param>
         /// <returns> A new <see cref="StreamAnalytics.StreamingJobFunctionData"/> instance for mocking. </returns>
-        public static StreamingJobFunctionData StreamingJobFunctionData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, StreamingJobFunctionProperties properties = null)
+        public static StreamingJobFunctionData StreamingJobFunctionData(ResourceIdentifier id = null, string name = null, Core.ResourceType? resourceType = null, StreamingJobFunctionProperties properties = null)
         {
             return new StreamingJobFunctionData(id, name, resourceType, serializedAdditionalRawData: null, properties);
         }
@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="name"> Resource name. </param>
         /// <param name="resourceType"> Resource type. </param>
         /// <returns> A new <see cref="Models.StreamAnalyticsSubResource"/> instance for mocking. </returns>
-        public static StreamAnalyticsSubResource StreamAnalyticsSubResource(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null)
+        public static StreamAnalyticsSubResource StreamAnalyticsSubResource(ResourceIdentifier id = null, string name = null, Core.ResourceType? resourceType = null)
         {
             return new StreamAnalyticsSubResource(id, name, resourceType, serializedAdditionalRawData: null);
         }
@@ -110,7 +110,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// The available derived classes include <see cref="Models.ReferenceInputProperties"/> and <see cref="Models.StreamInputProperties"/>.
         /// </param>
         /// <returns> A new <see cref="StreamAnalytics.StreamingJobInputData"/> instance for mocking. </returns>
-        public static StreamingJobInputData StreamingJobInputData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, StreamingJobInputProperties properties = null)
+        public static StreamingJobInputData StreamingJobInputData(ResourceIdentifier id = null, string name = null, Core.ResourceType? resourceType = null, StreamingJobInputProperties properties = null)
         {
             return new StreamingJobInputData(id, name, resourceType, serializedAdditionalRawData: null, properties);
         }
@@ -120,7 +120,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="serialization">
         /// Describes how data from an input is serialized or how data is serialized when written to an output. Required on PUT (CreateOrReplace) requests.
         /// Please note <see cref="StreamAnalyticsDataSerialization"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="AvroFormatSerialization"/>, <see cref="CsvFormatSerialization"/>, <see cref="CustomClrFormatSerialization"/>, <see cref="JsonFormatSerialization"/> and <see cref="ParquetFormatSerialization"/>.
+        /// The available derived classes include <see cref="AvroFormatSerialization"/>, <see cref="CsvFormatSerialization"/>, <see cref="CustomClrFormatSerialization"/>, <see cref="DeltaSerialization"/>, <see cref="JsonFormatSerialization"/> and <see cref="ParquetFormatSerialization"/>.
         /// </param>
         /// <param name="diagnosticsConditions"> Describes conditions applicable to the Input, Output, or the job overall, that warrant customer attention. </param>
         /// <param name="etag"> The current entity tag for the input. This is an opaque string. You can use it to detect whether the resource has changed between requests. You can also use it in the If-Match or If-None-Match headers for write operations for optimistic concurrency. </param>
@@ -160,21 +160,21 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="datasource">
         /// Describes the data source that output will be written to. Required on PUT (CreateOrReplace) requests.
         /// Please note <see cref="StreamingJobOutputDataSource"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="GatewayMessageBusOutputDataSource"/>, <see cref="FunctionOutputDataSource"/>, <see cref="PostgreSQLOutputDataSource"/>, <see cref="DataLakeStoreOutputDataSource"/>, <see cref="EventHubV2OutputDataSource"/>, <see cref="EventHubOutputDataSource"/>, <see cref="ServiceBusQueueOutputDataSource"/>, <see cref="ServiceBusTopicOutputDataSource"/>, <see cref="SynapseOutputDataSource"/>, <see cref="SqlDatabaseOutputDataSource"/>, <see cref="BlobOutputDataSource"/>, <see cref="DocumentDbOutputDataSource"/>, <see cref="TableOutputDataSource"/>, <see cref="PowerBIOutputDataSource"/> and <see cref="RawOutputDatasource"/>.
+        /// The available derived classes include <see cref="GatewayMessageBusOutputDataSource"/>, <see cref="FunctionOutputDataSource"/>, <see cref="PostgreSQLOutputDataSource"/>, <see cref="DataLakeStoreOutputDataSource"/>, <see cref="EventHubV2OutputDataSource"/>, <see cref="AzureDataExplorerOutputDataSource"/>, <see cref="EventHubOutputDataSource"/>, <see cref="ServiceBusQueueOutputDataSource"/>, <see cref="ServiceBusTopicOutputDataSource"/>, <see cref="SynapseOutputDataSource"/>, <see cref="SqlDatabaseOutputDataSource"/>, <see cref="BlobOutputDataSource"/>, <see cref="DocumentDbOutputDataSource"/>, <see cref="TableOutputDataSource"/>, <see cref="PowerBIOutputDataSource"/> and <see cref="RawOutputDatasource"/>.
         /// </param>
         /// <param name="timeFrame"> The time frame for filtering Stream Analytics job outputs. </param>
         /// <param name="sizeWindow"> The size window to constrain a Stream Analytics output to. </param>
         /// <param name="serialization">
         /// Describes how data from an input is serialized or how data is serialized when written to an output. Required on PUT (CreateOrReplace) requests.
         /// Please note <see cref="StreamAnalyticsDataSerialization"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="AvroFormatSerialization"/>, <see cref="CsvFormatSerialization"/>, <see cref="CustomClrFormatSerialization"/>, <see cref="JsonFormatSerialization"/> and <see cref="ParquetFormatSerialization"/>.
+        /// The available derived classes include <see cref="AvroFormatSerialization"/>, <see cref="CsvFormatSerialization"/>, <see cref="CustomClrFormatSerialization"/>, <see cref="DeltaSerialization"/>, <see cref="JsonFormatSerialization"/> and <see cref="ParquetFormatSerialization"/>.
         /// </param>
         /// <param name="diagnosticsConditions"> Describes conditions applicable to the Input, Output, or the job overall, that warrant customer attention. </param>
         /// <param name="etag"> The current entity tag for the output. This is an opaque string. You can use it to detect whether the resource has changed between requests. You can also use it in the If-Match or If-None-Match headers for write operations for optimistic concurrency. </param>
         /// <param name="lastOutputEventTimestamps"> A list of the last output event times for each output partition. The index of the array corresponds to the partition number. </param>
         /// <param name="watermarkSettings"> Settings which determine whether to send watermarks to downstream. </param>
         /// <returns> A new <see cref="StreamAnalytics.StreamingJobOutputData"/> instance for mocking. </returns>
-        public static StreamingJobOutputData StreamingJobOutputData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, StreamingJobOutputDataSource datasource = null, TimeSpan? timeFrame = null, float? sizeWindow = null, StreamAnalyticsDataSerialization serialization = null, IEnumerable<StreamingJobDiagnosticCondition> diagnosticsConditions = null, ETag? etag = null, IEnumerable<LastOutputEventTimestamp> lastOutputEventTimestamps = null, StreamingJobOutputWatermarkProperties watermarkSettings = null)
+        public static StreamingJobOutputData StreamingJobOutputData(ResourceIdentifier id = null, string name = null, Core.ResourceType? resourceType = null, StreamingJobOutputDataSource datasource = null, TimeSpan? timeFrame = null, int? sizeWindow = null, StreamAnalyticsDataSerialization serialization = null, IEnumerable<StreamingJobDiagnosticCondition> diagnosticsConditions = null, ETag? etag = null, IEnumerable<LastOutputEventTimestamp> lastOutputEventTimestamps = null, StreamingJobOutputWatermarkProperties watermarkSettings = null)
         {
             diagnosticsConditions ??= new List<StreamingJobDiagnosticCondition>();
             lastOutputEventTimestamps ??= new List<LastOutputEventTimestamp>();
@@ -210,8 +210,9 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
+        /// <param name="sku"> Describes the SKU of the streaming job. Required on PUT (CreateOrReplace) requests. </param>
         /// <param name="identity"> Describes the managed identity assigned to this job that can be used to authenticate with inputs and outputs. Current supported identity types: SystemAssigned, UserAssigned, SystemAssigned,UserAssigned. </param>
-        /// <param name="skuName"> Describes the SKU of the streaming job. Required on PUT (CreateOrReplace) requests. </param>
+        /// <param name="skuPropertiesSku"> Describes the SKU of the streaming job. Required on PUT (CreateOrReplace) requests. </param>
         /// <param name="jobId"> A GUID uniquely identifying the streaming job. This GUID is generated upon creation of the streaming job. </param>
         /// <param name="provisioningState"> Describes the provisioning status of the streaming job. </param>
         /// <param name="jobState"> Describes the state of the streaming job. </param>
@@ -236,7 +237,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="externals"> The storage account where the custom code artifacts are located. </param>
         /// <param name="clusterId"> The cluster which streaming jobs will run on. </param>
         /// <returns> A new <see cref="StreamAnalytics.StreamingJobData"/> instance for mocking. </returns>
-        public static StreamingJobData StreamingJobData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, StreamAnalyticsSkuName? skuName = null, Guid? jobId = null, string provisioningState = null, string jobState = null, StreamingJobType? jobType = null, StreamingJobOutputStartMode? outputStartMode = null, DateTimeOffset? outputStartOn = null, DateTimeOffset? lastOutputEventOn = null, EventsOutOfOrderPolicy? eventsOutOfOrderPolicy = null, StreamingJobOutputErrorPolicy? outputErrorPolicy = null, int? eventsOutOfOrderMaxDelayInSeconds = null, int? eventsLateArrivalMaxDelayInSeconds = null, AzureLocation? dataLocalion = null, StreamingJobCompatibilityLevel? compatibilityLevel = null, DateTimeOffset? createdOn = null, IEnumerable<StreamingJobInputData> inputs = null, StreamingJobTransformationData transformation = null, IEnumerable<StreamingJobOutputData> outputs = null, IEnumerable<StreamingJobFunctionData> functions = null, ETag? etag = null, StreamingJobStorageAccount jobStorageAccount = null, StreamingJobContentStoragePolicy? contentStoragePolicy = null, StreamingJobExternal externals = null, ResourceIdentifier clusterId = null)
+        public static StreamingJobData StreamingJobData(ResourceIdentifier id = null, string name = null, Core.ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, StreamAnalyticsSku sku = null, ManagedServiceIdentity identity = null, StreamAnalyticsSku skuPropertiesSku = null, Guid? jobId = null, string provisioningState = null, string jobState = null, StreamingJobType? jobType = null, StreamingJobOutputStartMode? outputStartMode = null, DateTimeOffset? outputStartOn = null, DateTimeOffset? lastOutputEventOn = null, EventsOutOfOrderPolicy? eventsOutOfOrderPolicy = null, StreamingJobOutputErrorPolicy? outputErrorPolicy = null, int? eventsOutOfOrderMaxDelayInSeconds = null, int? eventsLateArrivalMaxDelayInSeconds = null, AzureLocation? dataLocalion = null, StreamingJobCompatibilityLevel? compatibilityLevel = null, DateTimeOffset? createdOn = null, IEnumerable<StreamingJobInputData> inputs = null, StreamingJobTransformationData transformation = null, IEnumerable<StreamingJobOutputData> outputs = null, IEnumerable<StreamingJobFunctionData> functions = null, ETag? etag = null, StreamingJobStorageAccount jobStorageAccount = null, StreamingJobContentStoragePolicy? contentStoragePolicy = null, StreamingJobExternal externals = null, ResourceIdentifier clusterId = null)
         {
             tags ??= new Dictionary<string, string>();
             inputs ??= new List<StreamingJobInputData>();
@@ -250,8 +251,9 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
                 systemData,
                 tags,
                 location,
+                sku,
                 identity,
-                skuName != null ? new StreamAnalyticsSku(skuName, serializedAdditionalRawData: null) : null,
+                skuPropertiesSku,
                 jobId,
                 provisioningState,
                 jobState,
@@ -287,7 +289,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="query"> Specifies the query that will be run in the streaming job. You can learn more about the Stream Analytics Query Language (SAQL) here: https://msdn.microsoft.com/library/azure/dn834998 . Required on PUT (CreateOrReplace) requests. </param>
         /// <param name="etag"> The current entity tag for the transformation. This is an opaque string. You can use it to detect whether the resource has changed between requests. You can also use it in the If-Match or If-None-Match headers for write operations for optimistic concurrency. </param>
         /// <returns> A new <see cref="StreamAnalytics.StreamingJobTransformationData"/> instance for mocking. </returns>
-        public static StreamingJobTransformationData StreamingJobTransformationData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, int? streamingUnits = null, IEnumerable<int> validStreamingUnits = null, string query = null, ETag? etag = null)
+        public static StreamingJobTransformationData StreamingJobTransformationData(ResourceIdentifier id = null, string name = null, Core.ResourceType? resourceType = null, int? streamingUnits = null, IEnumerable<int> validStreamingUnits = null, string query = null, ETag? etag = null)
         {
             validStreamingUnits ??= new List<int>();
 
@@ -302,6 +304,36 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
                 etag);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Models.GetStreamingJobSkuResult"/>. </summary>
+        /// <param name="resourceType"> The type of resource the SKU applies to. </param>
+        /// <param name="skuName"> The properties that are associated with a SKU. </param>
+        /// <param name="capacity"> Describes scaling information of a SKU. </param>
+        /// <returns> A new <see cref="Models.GetStreamingJobSkuResult"/> instance for mocking. </returns>
+        public static GetStreamingJobSkuResult GetStreamingJobSkuResult(ResourceType? resourceType = null, StreamAnalyticsSkuName? skuName = null, SkuCapacity capacity = null)
+        {
+            return new GetStreamingJobSkuResult(resourceType, skuName != null ? new GetStreamingJobSkuResultSku(skuName, serializedAdditionalRawData: null) : null, capacity, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SkuCapacity"/>. </summary>
+        /// <param name="minimum"> Specifies the minimum streaming units that the streaming job can use. </param>
+        /// <param name="maximum"> Specifies the maximum streaming units that the streaming job can use. </param>
+        /// <param name="default"> Specifies the default streaming units that the streaming job can use. </param>
+        /// <param name="scaleType"> The scale type applicable to the SKU. </param>
+        /// <param name="allowedValues"> Specifies the valid streaming units a streaming job can scale to. </param>
+        /// <returns> A new <see cref="Models.SkuCapacity"/> instance for mocking. </returns>
+        public static SkuCapacity SkuCapacity(int? minimum = null, int? maximum = null, int? @default = null, SkuCapacityScaleType? scaleType = null, IEnumerable<int> allowedValues = null)
+        {
+            allowedValues ??= new List<int>();
+
+            return new SkuCapacity(
+                minimum,
+                maximum,
+                @default,
+                scaleType,
+                allowedValues?.ToList(),
+                serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Models.StreamAnalyticsSubscriptionQuota"/>. </summary>
         /// <param name="id"> Resource Id. </param>
         /// <param name="name"> Resource name. </param>
@@ -309,7 +341,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="maxCount"> The max permitted usage of this resource. </param>
         /// <param name="currentCount"> The current usage of this resource. </param>
         /// <returns> A new <see cref="Models.StreamAnalyticsSubscriptionQuota"/> instance for mocking. </returns>
-        public static StreamAnalyticsSubscriptionQuota StreamAnalyticsSubscriptionQuota(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, int? maxCount = null, int? currentCount = null)
+        public static StreamAnalyticsSubscriptionQuota StreamAnalyticsSubscriptionQuota(ResourceIdentifier id = null, string name = null, Core.ResourceType? resourceType = null, int? maxCount = null, int? currentCount = null)
         {
             return new StreamAnalyticsSubscriptionQuota(
                 id,
@@ -475,7 +507,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="etag"> The current entity tag for the cluster. This is an opaque string. You can use it to detect whether the resource has changed between requests. You can also use it in the If-Match or If-None-Match headers for write operations for optimistic concurrency. </param>
         /// <param name="properties"> The properties associated with a Stream Analytics cluster. </param>
         /// <returns> A new <see cref="StreamAnalytics.StreamAnalyticsClusterData"/> instance for mocking. </returns>
-        public static StreamAnalyticsClusterData StreamAnalyticsClusterData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, StreamAnalyticsClusterSku sku = null, ETag? etag = null, StreamAnalyticsClusterProperties properties = null)
+        public static StreamAnalyticsClusterData StreamAnalyticsClusterData(ResourceIdentifier id = null, string name = null, Core.ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, StreamAnalyticsClusterSku sku = null, ETag? etag = null, StreamAnalyticsClusterProperties properties = null)
         {
             tags ??= new Dictionary<string, string>();
 
@@ -528,7 +560,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="properties"> The properties associated with a private endpoint. </param>
         /// <param name="etag"> Unique opaque string (generally a GUID) that represents the metadata state of the resource (private endpoint) and changes whenever the resource is updated. Required on PUT (CreateOrUpdate) requests. </param>
         /// <returns> A new <see cref="StreamAnalytics.StreamAnalyticsPrivateEndpointData"/> instance for mocking. </returns>
-        public static StreamAnalyticsPrivateEndpointData StreamAnalyticsPrivateEndpointData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, StreamAnalyticsPrivateEndpointProperties properties = null, ETag? etag = null)
+        public static StreamAnalyticsPrivateEndpointData StreamAnalyticsPrivateEndpointData(ResourceIdentifier id = null, string name = null, Core.ResourceType resourceType = default, SystemData systemData = null, StreamAnalyticsPrivateEndpointProperties properties = null, ETag? etag = null)
         {
             return new StreamAnalyticsPrivateEndpointData(
                 id,
@@ -624,7 +656,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="serialization">
         /// Describes how data from an input is serialized or how data is serialized when written to an output. Required on PUT (CreateOrReplace) requests.
         /// Please note <see cref="StreamAnalyticsDataSerialization"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="AvroFormatSerialization"/>, <see cref="CsvFormatSerialization"/>, <see cref="CustomClrFormatSerialization"/>, <see cref="JsonFormatSerialization"/> and <see cref="ParquetFormatSerialization"/>.
+        /// The available derived classes include <see cref="AvroFormatSerialization"/>, <see cref="CsvFormatSerialization"/>, <see cref="CustomClrFormatSerialization"/>, <see cref="DeltaSerialization"/>, <see cref="JsonFormatSerialization"/> and <see cref="ParquetFormatSerialization"/>.
         /// </param>
         /// <param name="diagnosticsConditions"> Describes conditions applicable to the Input, Output, or the job overall, that warrant customer attention. </param>
         /// <param name="etag"> The current entity tag for the input. This is an opaque string. You can use it to detect whether the resource has changed between requests. You can also use it in the If-Match or If-None-Match headers for write operations for optimistic concurrency. </param>
@@ -657,7 +689,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="serialization">
         /// Describes how data from an input is serialized or how data is serialized when written to an output. Required on PUT (CreateOrReplace) requests.
         /// Please note <see cref="StreamAnalyticsDataSerialization"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="AvroFormatSerialization"/>, <see cref="CsvFormatSerialization"/>, <see cref="CustomClrFormatSerialization"/>, <see cref="JsonFormatSerialization"/> and <see cref="ParquetFormatSerialization"/>.
+        /// The available derived classes include <see cref="AvroFormatSerialization"/>, <see cref="CsvFormatSerialization"/>, <see cref="CustomClrFormatSerialization"/>, <see cref="DeltaSerialization"/>, <see cref="JsonFormatSerialization"/> and <see cref="ParquetFormatSerialization"/>.
         /// </param>
         /// <param name="diagnosticsConditions"> Describes conditions applicable to the Input, Output, or the job overall, that warrant customer attention. </param>
         /// <param name="etag"> The current entity tag for the input. This is an opaque string. You can use it to detect whether the resource has changed between requests. You can also use it in the If-Match or If-None-Match headers for write operations for optimistic concurrency. </param>
@@ -667,7 +699,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="datasource">
         /// Describes an input data source that contains reference data. Required on PUT (CreateOrReplace) requests.
         /// Please note <see cref="ReferenceInputDataSource"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="SqlReferenceInputDataSource"/>, <see cref="BlobReferenceInputDataSource"/> and <see cref="RawReferenceInputDataSource"/>.
+        /// The available derived classes include <see cref="FileReferenceInputDataSource"/>, <see cref="SqlReferenceInputDataSource"/>, <see cref="BlobReferenceInputDataSource"/> and <see cref="RawReferenceInputDataSource"/>.
         /// </param>
         /// <returns> A new <see cref="Models.ReferenceInputProperties"/> instance for mocking. </returns>
         public static ReferenceInputProperties ReferenceInputProperties(StreamAnalyticsDataSerialization serialization = null, IEnumerable<StreamingJobDiagnosticCondition> diagnosticsConditions = null, ETag? etag = null, StreamingCompressionType? compressionType = null, string partitionKey = null, StreamingJobInputWatermarkMode? watermarkMode = null, ReferenceInputDataSource datasource = null)

@@ -29,6 +29,11 @@ namespace Azure.ResourceManager.StreamAnalytics
             }
 
             writer.WriteStartObject();
+            if (Sku != null)
+            {
+                writer.WritePropertyName("sku"u8);
+                writer.WriteObjectValue(Sku);
+            }
             if (Identity != null)
             {
                 writer.WritePropertyName("identity"u8);
@@ -70,10 +75,10 @@ namespace Azure.ResourceManager.StreamAnalytics
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Sku != null)
+            if (SkuPropertiesSku != null)
             {
                 writer.WritePropertyName("sku"u8);
-                writer.WriteObjectValue(Sku);
+                writer.WriteObjectValue(SkuPropertiesSku);
             }
             if (options.Format != "W" && JobId.HasValue)
             {
@@ -258,14 +263,15 @@ namespace Azure.ResourceManager.StreamAnalytics
             {
                 return null;
             }
+            StreamAnalyticsSku sku = default;
             ManagedServiceIdentity identity = default;
             IDictionary<string, string> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
-            ResourceType type = default;
+            Core.ResourceType type = default;
             SystemData systemData = default;
-            StreamAnalyticsSku sku = default;
+            StreamAnalyticsSku sku0 = default;
             Guid? jobId = default;
             string provisioningState = default;
             string jobState = default;
@@ -293,6 +299,15 @@ namespace Azure.ResourceManager.StreamAnalytics
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("sku"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sku = StreamAnalyticsSku.DeserializeStreamAnalyticsSku(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("identity"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -334,7 +349,7 @@ namespace Azure.ResourceManager.StreamAnalytics
                 }
                 if (property.NameEquals("type"u8))
                 {
-                    type = new ResourceType(property.Value.GetString());
+                    type = new Core.ResourceType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("systemData"u8))
@@ -361,7 +376,7 @@ namespace Azure.ResourceManager.StreamAnalytics
                             {
                                 continue;
                             }
-                            sku = StreamAnalyticsSku.DeserializeStreamAnalyticsSku(property0.Value, options);
+                            sku0 = StreamAnalyticsSku.DeserializeStreamAnalyticsSku(property0.Value, options);
                             continue;
                         }
                         if (property0.NameEquals("jobId"u8))
@@ -596,8 +611,9 @@ namespace Azure.ResourceManager.StreamAnalytics
                 systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
-                identity,
                 sku,
+                identity,
+                sku0,
                 jobId,
                 provisioningState,
                 jobState,

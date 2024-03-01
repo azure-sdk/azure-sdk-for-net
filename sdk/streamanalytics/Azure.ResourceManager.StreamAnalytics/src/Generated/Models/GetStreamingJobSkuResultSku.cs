@@ -10,12 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.StreamAnalytics.Models
 {
-    /// <summary>
-    /// Describes an input data source that contains reference data.
-    /// Please note <see cref="ReferenceInputDataSource"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="FileReferenceInputDataSource"/>, <see cref="SqlReferenceInputDataSource"/>, <see cref="BlobReferenceInputDataSource"/> and <see cref="RawReferenceInputDataSource"/>.
-    /// </summary>
-    public abstract partial class ReferenceInputDataSource
+    /// <summary> The properties that are associated with a SKU. </summary>
+    internal partial class GetStreamingJobSkuResultSku
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,23 +43,23 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// </list>
         /// </para>
         /// </summary>
-        private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ReferenceInputDataSource"/>. </summary>
-        protected ReferenceInputDataSource()
+        /// <summary> Initializes a new instance of <see cref="GetStreamingJobSkuResultSku"/>. </summary>
+        internal GetStreamingJobSkuResultSku()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="ReferenceInputDataSource"/>. </summary>
-        /// <param name="referenceInputDataSourceType"> Indicates the type of input data source containing reference data. Required on PUT (CreateOrReplace) requests. </param>
+        /// <summary> Initializes a new instance of <see cref="GetStreamingJobSkuResultSku"/>. </summary>
+        /// <param name="name"> The name of the SKU. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ReferenceInputDataSource(string referenceInputDataSourceType, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal GetStreamingJobSkuResultSku(StreamAnalyticsSkuName? name, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            ReferenceInputDataSourceType = referenceInputDataSourceType;
+            Name = name;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Indicates the type of input data source containing reference data. Required on PUT (CreateOrReplace) requests. </summary>
-        internal string ReferenceInputDataSourceType { get; set; }
+        /// <summary> The name of the SKU. </summary>
+        public StreamAnalyticsSkuName? Name { get; }
     }
 }

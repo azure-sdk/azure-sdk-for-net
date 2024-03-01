@@ -131,10 +131,10 @@ namespace Azure.ResourceManager.StreamAnalytics
             }
             ResourceIdentifier id = default;
             string name = default;
-            ResourceType? type = default;
+            Core.ResourceType? type = default;
             StreamingJobOutputDataSource datasource = default;
             TimeSpan? timeWindow = default;
-            float? sizeWindow = default;
+            int? sizeWindow = default;
             StreamAnalyticsDataSerialization serialization = default;
             StreamingJobDiagnostics diagnostics = default;
             ETag? etag = default;
@@ -164,7 +164,7 @@ namespace Azure.ResourceManager.StreamAnalytics
                     {
                         continue;
                     }
-                    type = new ResourceType(property.Value.GetString());
+                    type = new Core.ResourceType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("properties"u8))
@@ -200,7 +200,7 @@ namespace Azure.ResourceManager.StreamAnalytics
                             {
                                 continue;
                             }
-                            sizeWindow = property0.Value.GetSingle();
+                            sizeWindow = property0.Value.GetInt32();
                             continue;
                         }
                         if (property0.NameEquals("serialization"u8))
