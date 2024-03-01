@@ -99,6 +99,11 @@ namespace Azure.ResourceManager.AppService
                 writer.WritePropertyName("staticIp"u8);
                 writer.WriteStringValue(StaticIP);
             }
+            if (EnvironmentType != null)
+            {
+                writer.WritePropertyName("environmentType"u8);
+                writer.WriteStringValue(EnvironmentType);
+            }
             if (ArcConfiguration != null)
             {
                 writer.WritePropertyName("arcConfiguration"u8);
@@ -108,6 +113,11 @@ namespace Azure.ResourceManager.AppService
             {
                 writer.WritePropertyName("appLogsConfiguration"u8);
                 writer.WriteObjectValue(AppLogsConfiguration);
+            }
+            if (ContainerAppsConfiguration != null)
+            {
+                writer.WritePropertyName("containerAppsConfiguration"u8);
+                writer.WriteObjectValue(ContainerAppsConfiguration);
             }
             if (AksResourceId != null)
             {
@@ -166,8 +176,10 @@ namespace Azure.ResourceManager.AppService
             bool? internalLoadBalancerEnabled = default;
             string defaultDomain = default;
             string staticIP = default;
+            string environmentType = default;
             ArcConfiguration arcConfiguration = default;
             AppLogsConfiguration appLogsConfiguration = default;
+            ContainerAppsConfiguration containerAppsConfiguration = default;
             ResourceIdentifier aksResourceId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -272,6 +284,11 @@ namespace Azure.ResourceManager.AppService
                             staticIP = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("environmentType"u8))
+                        {
+                            environmentType = property0.Value.GetString();
+                            continue;
+                        }
                         if (property0.NameEquals("arcConfiguration"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -288,6 +305,15 @@ namespace Azure.ResourceManager.AppService
                                 continue;
                             }
                             appLogsConfiguration = AppLogsConfiguration.DeserializeAppLogsConfiguration(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("containerAppsConfiguration"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            containerAppsConfiguration = ContainerAppsConfiguration.DeserializeContainerAppsConfiguration(property0.Value, options);
                             continue;
                         }
                         if (property0.NameEquals("aksResourceID"u8))
@@ -321,8 +347,10 @@ namespace Azure.ResourceManager.AppService
                 internalLoadBalancerEnabled,
                 defaultDomain,
                 staticIP,
+                environmentType,
                 arcConfiguration,
                 appLogsConfiguration,
+                containerAppsConfiguration,
                 aksResourceId,
                 kind,
                 serializedAdditionalRawData);

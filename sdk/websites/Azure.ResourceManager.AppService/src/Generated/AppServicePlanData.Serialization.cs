@@ -111,6 +111,11 @@ namespace Azure.ResourceManager.AppService
                 writer.WritePropertyName("maximumNumberOfWorkers"u8);
                 writer.WriteNumberValue(MaximumNumberOfWorkers.Value);
             }
+            if (options.Format != "W" && NumberOfWorkers.HasValue)
+            {
+                writer.WritePropertyName("numberOfWorkers"u8);
+                writer.WriteNumberValue(NumberOfWorkers.Value);
+            }
             if (options.Format != "W" && GeoRegion != null)
             {
                 writer.WritePropertyName("geoRegion"u8);
@@ -270,6 +275,7 @@ namespace Azure.ResourceManager.AppService
             string subscription = default;
             HostingEnvironmentProfile hostingEnvironmentProfile = default;
             int? maximumNumberOfWorkers = default;
+            int? numberOfWorkers = default;
             string geoRegion = default;
             bool? perSiteScaling = default;
             bool? elasticScaleEnabled = default;
@@ -402,6 +408,15 @@ namespace Azure.ResourceManager.AppService
                                 continue;
                             }
                             maximumNumberOfWorkers = property0.Value.GetInt32();
+                            continue;
+                        }
+                        if (property0.NameEquals("numberOfWorkers"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            numberOfWorkers = property0.Value.GetInt32();
                             continue;
                         }
                         if (property0.NameEquals("geoRegion"u8))
@@ -575,6 +590,7 @@ namespace Azure.ResourceManager.AppService
                 subscription,
                 hostingEnvironmentProfile,
                 maximumNumberOfWorkers,
+                numberOfWorkers,
                 geoRegion,
                 perSiteScaling,
                 elasticScaleEnabled,

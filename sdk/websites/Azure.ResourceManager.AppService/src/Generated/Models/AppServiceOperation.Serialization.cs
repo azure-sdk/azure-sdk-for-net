@@ -9,7 +9,6 @@ using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure;
 using Azure.Core;
 
 namespace Azure.ResourceManager.AppService.Models
@@ -42,13 +41,13 @@ namespace Azure.ResourceManager.AppService.Models
                 writer.WritePropertyName("status"u8);
                 writer.WriteStringValue(Status.Value.ToSerialString());
             }
-            if (!(Errors is ChangeTrackingList<ResponseError> collection && collection.IsUndefined))
+            if (!(Errors is ChangeTrackingList<ErrorEntity> collection && collection.IsUndefined))
             {
                 writer.WritePropertyName("errors"u8);
                 writer.WriteStartArray();
                 foreach (var item in Errors)
                 {
-                    JsonSerializer.Serialize(writer, item);
+                    writer.WriteObjectValue(item);
                 }
                 writer.WriteEndArray();
             }
@@ -113,7 +112,7 @@ namespace Azure.ResourceManager.AppService.Models
             string id = default;
             string name = default;
             AppServiceOperationStatus? status = default;
-            IReadOnlyList<ResponseError> errors = default;
+            IReadOnlyList<ErrorEntity> errors = default;
             DateTimeOffset? createdTime = default;
             DateTimeOffset? modifiedTime = default;
             DateTimeOffset? expirationTime = default;
@@ -147,10 +146,10 @@ namespace Azure.ResourceManager.AppService.Models
                     {
                         continue;
                     }
-                    List<ResponseError> array = new List<ResponseError>();
+                    List<ErrorEntity> array = new List<ErrorEntity>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(JsonSerializer.Deserialize<ResponseError>(item.GetRawText()));
+                        array.Add(ErrorEntity.DeserializeErrorEntity(item, options));
                     }
                     errors = array;
                     continue;
@@ -201,7 +200,7 @@ namespace Azure.ResourceManager.AppService.Models
                 id,
                 name,
                 status,
-                errors ?? new ChangeTrackingList<ResponseError>(),
+                errors ?? new ChangeTrackingList<ErrorEntity>(),
                 createdTime,
                 modifiedTime,
                 expirationTime,

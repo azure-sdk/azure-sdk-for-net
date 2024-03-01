@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAppServicePlans_ListAppServicePlans()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/ListAppServicePlans.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-12-01/examples/ListAppServicePlans.json
             // this example is just showing the usage of "AppServicePlans_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetAppServicePlan()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/GetAppServicePlan.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-12-01/examples/GetAppServicePlan.json
             // this example is just showing the usage of "AppServicePlans_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteAppServicePlan()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/DeleteAppServicePlan.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-12-01/examples/DeleteAppServicePlan.json
             // this example is just showing the usage of "AppServicePlans_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -114,7 +114,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_PatchServicePlan()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/PatchAppServicePlan.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-12-01/examples/PatchAppServicePlan.json
             // this example is just showing the usage of "AppServicePlans_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -142,6 +142,64 @@ namespace Azure.ResourceManager.AppService.Samples
             AppServicePlanData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        // GetVirtualNetworkIntegration
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetVirtualNetworkIntegration_GetVirtualNetworkIntegration()
+        {
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-12-01/examples/AppServicePlan_GetVirtualNetworkIntegration.json
+            // this example is just showing the usage of "AppServicePlans_GetVirtualNetworkIntegration" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AppServicePlanResource created on azure
+            // for more information of creating AppServicePlanResource, please refer to the document of AppServicePlanResource
+            string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
+            string resourceGroupName = "test-rg";
+            string name = "test-serverfarm";
+            ResourceIdentifier appServicePlanResourceId = AppServicePlanResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, name);
+            AppServicePlanResource appServicePlan = client.GetAppServicePlanResource(appServicePlanResourceId);
+
+            // invoke the operation
+            string vnetName = "a254e7b9-0f75-4466-b435-5632ba65c79c_client-subnet";
+            SwiftVirtualNetwork result = await appServicePlan.GetVirtualNetworkIntegrationAsync(vnetName);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        // GetVirtualNetworkIntegrations
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetVirtualNetworkIntegrations_GetVirtualNetworkIntegrations()
+        {
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-12-01/examples/AppServicePlan_GetVirtualNetworkIntegrations.json
+            // this example is just showing the usage of "AppServicePlans_GetVirtualNetworkIntegrations" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AppServicePlanResource created on azure
+            // for more information of creating AppServicePlanResource, please refer to the document of AppServicePlanResource
+            string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
+            string resourceGroupName = "test-rg";
+            string name = "test-serverfarm";
+            ResourceIdentifier appServicePlanResourceId = AppServicePlanResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, name);
+            AppServicePlanResource appServicePlan = client.GetAppServicePlanResource(appServicePlanResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (SwiftVirtualNetwork item in appServicePlan.GetVirtualNetworkIntegrationsAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
         }
     }
 }

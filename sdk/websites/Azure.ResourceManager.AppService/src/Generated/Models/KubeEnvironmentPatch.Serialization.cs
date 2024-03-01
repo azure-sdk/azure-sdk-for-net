@@ -89,6 +89,11 @@ namespace Azure.ResourceManager.AppService.Models
                 writer.WritePropertyName("appLogsConfiguration"u8);
                 writer.WriteObjectValue(AppLogsConfiguration);
             }
+            if (ContainerAppsConfiguration != null)
+            {
+                writer.WritePropertyName("containerAppsConfiguration"u8);
+                writer.WriteObjectValue(ContainerAppsConfiguration);
+            }
             if (AksResourceId != null)
             {
                 writer.WritePropertyName("aksResourceID"u8);
@@ -145,6 +150,7 @@ namespace Azure.ResourceManager.AppService.Models
             string staticIP = default;
             ArcConfiguration arcConfiguration = default;
             AppLogsConfiguration appLogsConfiguration = default;
+            ContainerAppsConfiguration containerAppsConfiguration = default;
             ResourceIdentifier aksResourceId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -239,6 +245,15 @@ namespace Azure.ResourceManager.AppService.Models
                             appLogsConfiguration = AppLogsConfiguration.DeserializeAppLogsConfiguration(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("containerAppsConfiguration"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            containerAppsConfiguration = ContainerAppsConfiguration.DeserializeContainerAppsConfiguration(property0.Value, options);
+                            continue;
+                        }
                         if (property0.NameEquals("aksResourceID"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -269,6 +284,7 @@ namespace Azure.ResourceManager.AppService.Models
                 staticIP,
                 arcConfiguration,
                 appLogsConfiguration,
+                containerAppsConfiguration,
                 aksResourceId,
                 kind,
                 serializedAdditionalRawData);
