@@ -373,18 +373,73 @@ namespace Azure.AI.OpenAI
         }
 
         /// <summary> Initializes a new instance of <see cref="OpenAI.AzureChatExtensionsMessageContext"/>. </summary>
-        /// <param name="messages">
-        ///   The contextual message payload associated with the Azure chat extensions used for a chat completions request.
+        /// <param name="citations">
+        ///   The contextual information associated with the Azure chat extensions used for a chat completions request.
         ///   These messages describe the data source retrievals, plugin invocations, and other intermediate steps taken in the
         ///   course of generating a chat completions response that was augmented by capabilities from Azure OpenAI chat
         ///   extensions.
         /// </param>
+        /// <param name="intent"> The detected intent from the chat history, used to pass to the next turn to carry over the context. </param>
         /// <returns> A new <see cref="OpenAI.AzureChatExtensionsMessageContext"/> instance for mocking. </returns>
-        public static AzureChatExtensionsMessageContext AzureChatExtensionsMessageContext(IEnumerable<ChatResponseMessage> messages = null)
+        public static AzureChatExtensionsMessageContext AzureChatExtensionsMessageContext(IEnumerable<AzureChatExtensionDataSourceResponseCitation> citations = null, string intent = null)
         {
-            messages ??= new List<ChatResponseMessage>();
+            citations ??= new List<AzureChatExtensionDataSourceResponseCitation>();
 
-            return new AzureChatExtensionsMessageContext(messages?.ToList(), serializedAdditionalRawData: null);
+            return new AzureChatExtensionsMessageContext(citations?.ToList(), intent, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="OpenAI.AzureChatExtensionDataSourceResponseCitation"/>. </summary>
+        /// <param name="content"> The content of the citation. </param>
+        /// <param name="title"> The title of the citation. </param>
+        /// <param name="url"> The URL of the citation. </param>
+        /// <param name="filepath"> The file path of the citation. </param>
+        /// <param name="chunkId"> The chunk ID of the citation. </param>
+        /// <returns> A new <see cref="OpenAI.AzureChatExtensionDataSourceResponseCitation"/> instance for mocking. </returns>
+        public static AzureChatExtensionDataSourceResponseCitation AzureChatExtensionDataSourceResponseCitation(string content = null, string title = null, string url = null, string filepath = null, string chunkId = null)
+        {
+            return new AzureChatExtensionDataSourceResponseCitation(
+                content,
+                title,
+                url,
+                filepath,
+                chunkId,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="OpenAI.ChatChoiceLogProbabilityInfo"/>. </summary>
+        /// <param name="tokenLogProbabilityResults"> The list of log probability information entries for the choice's message content tokens, as requested via the 'logprobs' option. </param>
+        /// <returns> A new <see cref="OpenAI.ChatChoiceLogProbabilityInfo"/> instance for mocking. </returns>
+        public static ChatChoiceLogProbabilityInfo ChatChoiceLogProbabilityInfo(IEnumerable<ChatTokenLogProbabilityResult> tokenLogProbabilityResults = null)
+        {
+            tokenLogProbabilityResults ??= new List<ChatTokenLogProbabilityResult>();
+
+            return new ChatChoiceLogProbabilityInfo(tokenLogProbabilityResults?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="OpenAI.ChatTokenLogProbabilityResult"/>. </summary>
+        /// <param name="token"> The message content token. </param>
+        /// <param name="logProbability"> The log probability of the message content token. </param>
+        /// <param name="utf8ByteValues"> A list of integers representing the UTF-8 bytes representation of the token. Useful in instances where characters are represented by multiple tokens and their byte representations must be combined to generate the correct text representation. Can be null if there is no bytes representation for the token. </param>
+        /// <param name="topLogProbabilityEntries"> The list of most likely tokens and their log probability information, as requested via 'top_logprobs'. </param>
+        /// <returns> A new <see cref="OpenAI.ChatTokenLogProbabilityResult"/> instance for mocking. </returns>
+        public static ChatTokenLogProbabilityResult ChatTokenLogProbabilityResult(string token = null, float logProbability = default, IEnumerable<int> utf8ByteValues = null, IEnumerable<ChatTokenLogProbabilityInfo> topLogProbabilityEntries = null)
+        {
+            utf8ByteValues ??= new List<int>();
+            topLogProbabilityEntries ??= new List<ChatTokenLogProbabilityInfo>();
+
+            return new ChatTokenLogProbabilityResult(token, logProbability, utf8ByteValues?.ToList(), topLogProbabilityEntries?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="OpenAI.ChatTokenLogProbabilityInfo"/>. </summary>
+        /// <param name="token"> The message content token. </param>
+        /// <param name="logProbability"> The log probability of the message content token. </param>
+        /// <param name="utf8ByteValues"> A list of integers representing the UTF-8 bytes representation of the token. Useful in instances where characters are represented by multiple tokens and their byte representations must be combined to generate the correct text representation. Can be null if there is no bytes representation for the token. </param>
+        /// <returns> A new <see cref="OpenAI.ChatTokenLogProbabilityInfo"/> instance for mocking. </returns>
+        public static ChatTokenLogProbabilityInfo ChatTokenLogProbabilityInfo(string token = null, float logProbability = default, IEnumerable<int> utf8ByteValues = null)
+        {
+            utf8ByteValues ??= new List<int>();
+
+            return new ChatTokenLogProbabilityInfo(token, logProbability, utf8ByteValues?.ToList(), serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="OpenAI.AzureChatEnhancements"/>. </summary>
@@ -444,14 +499,112 @@ namespace Azure.AI.OpenAI
         /// <summary> Initializes a new instance of <see cref="OpenAI.ImageGenerationData"/>. </summary>
         /// <param name="url"> The URL that provides temporary access to download the generated image. </param>
         /// <param name="base64Data"> The complete data for an image, represented as a base64-encoded string. </param>
+        /// <param name="contentFilterResults"> Information about the content filtering results. </param>
         /// <param name="revisedPrompt">
         /// The final prompt used by the model to generate the image.
         /// Only provided with dall-3-models and only when revisions were made to the prompt.
         /// </param>
+        /// <param name="promptFilterResults">
+        /// Information about the content filtering category (hate, sexual, violence, self_harm), if
+        /// it has been detected, as well as the severity level (very_low, low, medium, high-scale
+        /// that determines the intensity and risk level of harmful content) and if it has been
+        /// filtered or not. Information about jailbreak content and profanity, if it has been detected,
+        /// and if it has been filtered or not. And information about customer block list, if it has
+        /// been filtered and its id.
+        /// </param>
         /// <returns> A new <see cref="OpenAI.ImageGenerationData"/> instance for mocking. </returns>
-        public static ImageGenerationData ImageGenerationData(Uri url = null, string base64Data = null, string revisedPrompt = null)
+        public static ImageGenerationData ImageGenerationData(Uri url = null, string base64Data = null, ImageGenerationContentFilterResults contentFilterResults = null, string revisedPrompt = null, ImageGenerationPromptFilterResults promptFilterResults = null)
         {
-            return new ImageGenerationData(url, base64Data, revisedPrompt, serializedAdditionalRawData: null);
+            return new ImageGenerationData(
+                url,
+                base64Data,
+                contentFilterResults,
+                revisedPrompt,
+                promptFilterResults,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="OpenAI.ImageGenerationContentFilterResults"/>. </summary>
+        /// <param name="sexual">
+        /// Describes language related to anatomical organs and genitals, romantic relationships,
+        ///  acts portrayed in erotic or affectionate terms, physical sexual acts, including
+        ///  those portrayed as an assault or a forced sexual violent act against one’s will,
+        ///  prostitution, pornography, and abuse.
+        /// </param>
+        /// <param name="violence">
+        /// Describes language related to physical actions intended to hurt, injure, damage, or
+        /// kill someone or something; describes weapons, etc.
+        /// </param>
+        /// <param name="hate">
+        /// Describes language attacks or uses that include pejorative or discriminatory language
+        /// with reference to a person or identity group on the basis of certain differentiating
+        /// attributes of these groups including but not limited to race, ethnicity, nationality,
+        /// gender identity and expression, sexual orientation, religion, immigration status, ability
+        /// status, personal appearance, and body size.
+        /// </param>
+        /// <param name="selfHarm">
+        /// Describes language related to physical actions intended to purposely hurt, injure,
+        /// or damage one’s body, or kill oneself.
+        /// </param>
+        /// <returns> A new <see cref="OpenAI.ImageGenerationContentFilterResults"/> instance for mocking. </returns>
+        public static ImageGenerationContentFilterResults ImageGenerationContentFilterResults(ContentFilterResult sexual = null, ContentFilterResult violence = null, ContentFilterResult hate = null, ContentFilterResult selfHarm = null)
+        {
+            return new ImageGenerationContentFilterResults(sexual, violence, hate, selfHarm, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="OpenAI.ImageGenerationPromptFilterResults"/>. </summary>
+        /// <param name="sexual">
+        /// Describes language related to anatomical organs and genitals, romantic relationships,
+        ///  acts portrayed in erotic or affectionate terms, physical sexual acts, including
+        ///  those portrayed as an assault or a forced sexual violent act against one’s will,
+        ///  prostitution, pornography, and abuse.
+        /// </param>
+        /// <param name="violence">
+        /// Describes language related to physical actions intended to hurt, injure, damage, or
+        /// kill someone or something; describes weapons, etc.
+        /// </param>
+        /// <param name="hate">
+        /// Describes language attacks or uses that include pejorative or discriminatory language
+        /// with reference to a person or identity group on the basis of certain differentiating
+        /// attributes of these groups including but not limited to race, ethnicity, nationality,
+        /// gender identity and expression, sexual orientation, religion, immigration status, ability
+        /// status, personal appearance, and body size.
+        /// </param>
+        /// <param name="selfHarm">
+        /// Describes language related to physical actions intended to purposely hurt, injure,
+        /// or damage one’s body, or kill oneself.
+        /// </param>
+        /// <param name="profanity"> Describes whether profanity was detected. </param>
+        /// <param name="jailbreak"> Whether a jailbreak attempt was detected in the prompt. </param>
+        /// <returns> A new <see cref="OpenAI.ImageGenerationPromptFilterResults"/> instance for mocking. </returns>
+        public static ImageGenerationPromptFilterResults ImageGenerationPromptFilterResults(ContentFilterResult sexual = null, ContentFilterResult violence = null, ContentFilterResult hate = null, ContentFilterResult selfHarm = null, ContentFilterDetectionResult profanity = null, ContentFilterDetectionResult jailbreak = null)
+        {
+            return new ImageGenerationPromptFilterResults(
+                sexual,
+                violence,
+                hate,
+                selfHarm,
+                profanity,
+                jailbreak,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="OpenAI.SpeechGenerationOptions"/>. </summary>
+        /// <param name="input"> The text to generate audio for. The maximum length is 4096 characters. </param>
+        /// <param name="voice"> The voice to use for text-to-speech. </param>
+        /// <param name="responseFormat"> The audio output format for the spoken text. By default, the MP3 format will be used. </param>
+        /// <param name="speed"> The speed of speech for generated audio. Values are valid in the range from 0.25 to 4.0, with 1.0 the default and higher values corresponding to faster speech. </param>
+        /// <param name="deploymentName"> The model to use for this text-to-speech request. </param>
+        /// <returns> A new <see cref="OpenAI.SpeechGenerationOptions"/> instance for mocking. </returns>
+        public static SpeechGenerationOptions SpeechGenerationOptions(string input = null, SpeechVoice voice = default, SpeechGenerationResponseFormat? responseFormat = null, float? speed = null, string deploymentName = null)
+        {
+            return new SpeechGenerationOptions(
+                input,
+                voice,
+                responseFormat,
+                speed,
+                deploymentName,
+                serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="OpenAI.Embeddings"/>. </summary>
@@ -580,6 +733,52 @@ namespace Azure.AI.OpenAI
         public static ChatCompletionsFunctionToolDefinition ChatCompletionsFunctionToolDefinition(FunctionDefinition function = null)
         {
             return new ChatCompletionsFunctionToolDefinition("function", serializedAdditionalRawData: null, function);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="OpenAI.AzureSearchChatExtensionConfiguration"/>. </summary>
+        /// <param name="parameters"> The parameters to use when configuring Azure Search. </param>
+        /// <returns> A new <see cref="OpenAI.AzureSearchChatExtensionConfiguration"/> instance for mocking. </returns>
+        public static AzureSearchChatExtensionConfiguration AzureSearchChatExtensionConfiguration(AzureSearchChatExtensionParameters parameters = null)
+        {
+            return new AzureSearchChatExtensionConfiguration(AzureChatExtensionType.AzureSearch, serializedAdditionalRawData: null, parameters);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="OpenAI.AzureSearchChatExtensionParameters"/>. </summary>
+        /// <param name="authentication">
+        /// The authentication method to use when accessing the defined data source.
+        /// Each data source type supports a specific set of available authentication methods; please see the documentation of
+        /// the data source for supported mechanisms.
+        /// If not otherwise provided, On Your Data will attempt to use System Managed Identity (default credential)
+        /// authentication.
+        /// </param>
+        /// <param name="documentCount"> The configured top number of documents to feature for the configured query. </param>
+        /// <param name="shouldRestrictResultScope"> Whether queries should be restricted to use of indexed data. </param>
+        /// <param name="strictness"> The configured strictness of the search relevance filtering. The higher of strictness, the higher of the precision but lower recall of the answer. </param>
+        /// <param name="roleInformation"> Give the model instructions about how it should behave and any context it should reference when generating a response. You can describe the assistant's personality and tell it how to format responses. There's a 100 token limit for it, and it counts against the overall token limit. </param>
+        /// <param name="searchEndpoint"> The absolute endpoint path for the Azure Cognitive Search resource to use. </param>
+        /// <param name="indexName"> The name of the index to use as available in the referenced Azure Cognitive Search resource. </param>
+        /// <param name="fieldMappingOptions"> Customized field mapping behavior to use when interacting with the search index. </param>
+        /// <param name="queryType"> The query type to use with Azure Cognitive Search. </param>
+        /// <param name="semanticConfiguration"> The additional semantic configuration for the query. </param>
+        /// <param name="filter"> Search filter. </param>
+        /// <param name="embeddingDependency"> The embedding dependency for vector search. </param>
+        /// <returns> A new <see cref="OpenAI.AzureSearchChatExtensionParameters"/> instance for mocking. </returns>
+        public static AzureSearchChatExtensionParameters AzureSearchChatExtensionParameters(OnYourDataAuthenticationOptions authentication = null, int? documentCount = null, bool? shouldRestrictResultScope = null, int? strictness = null, string roleInformation = null, Uri searchEndpoint = null, string indexName = null, AzureSearchIndexFieldMappingOptions fieldMappingOptions = null, AzureSearchQueryType? queryType = null, string semanticConfiguration = null, string filter = null, OnYourDataVectorizationSource embeddingDependency = null)
+        {
+            return new AzureSearchChatExtensionParameters(
+                authentication,
+                documentCount,
+                shouldRestrictResultScope,
+                strictness,
+                roleInformation,
+                searchEndpoint,
+                indexName,
+                fieldMappingOptions,
+                queryType,
+                semanticConfiguration,
+                filter,
+                embeddingDependency,
+                serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="OpenAI.OnYourDataApiKeyAuthenticationOptions"/>. </summary>
