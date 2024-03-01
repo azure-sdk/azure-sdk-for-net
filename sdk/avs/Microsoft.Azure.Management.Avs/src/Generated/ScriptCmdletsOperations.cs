@@ -69,7 +69,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="SerializationException">
@@ -116,6 +116,13 @@ namespace Microsoft.Azure.Management.Avs
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "privateCloudName");
             }
+            if (privateCloudName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(privateCloudName, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "privateCloudName", "^[-\\w\\._]+$");
+                }
+            }
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
@@ -130,6 +137,13 @@ namespace Microsoft.Azure.Management.Avs
             if (scriptPackageName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "scriptPackageName");
+            }
+            if (scriptPackageName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(scriptPackageName, "^[-\\w\\._@]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "scriptPackageName", "^[-\\w\\._@]+$");
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -216,14 +230,13 @@ namespace Microsoft.Azure.Management.Avs
             string _responseContent = null;
             if ((int)_statusCode != 200)
             {
-                var ex = new CloudException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                var ex = new ErrorResponseException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 try
                 {
                     _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    CloudError _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<CloudError>(_responseContent, Client.DeserializationSettings);
+                    ErrorResponse _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<ErrorResponse>(_responseContent, Client.DeserializationSettings);
                     if (_errorBody != null)
                     {
-                        ex = new CloudException(_errorBody.Message);
                         ex.Body = _errorBody;
                     }
                 }
@@ -233,10 +246,6 @@ namespace Microsoft.Azure.Management.Avs
                 }
                 ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
                 ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                if (_httpResponse.Headers.Contains("x-ms-request-id"))
-                {
-                    ex.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
-                }
                 if (_shouldTrace)
                 {
                     ServiceClientTracing.Error(_invocationId, ex);
@@ -304,7 +313,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="SerializationException">
@@ -351,13 +360,34 @@ namespace Microsoft.Azure.Management.Avs
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "privateCloudName");
             }
+            if (privateCloudName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(privateCloudName, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "privateCloudName", "^[-\\w\\._]+$");
+                }
+            }
             if (scriptPackageName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "scriptPackageName");
             }
+            if (scriptPackageName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(scriptPackageName, "^[-\\w\\._@]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "scriptPackageName", "^[-\\w\\._@]+$");
+                }
+            }
             if (scriptCmdletName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "scriptCmdletName");
+            }
+            if (scriptCmdletName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(scriptCmdletName, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "scriptCmdletName", "^[-\\w\\._]+$");
+                }
             }
             if (Client.ApiVersion == null)
             {
@@ -457,14 +487,13 @@ namespace Microsoft.Azure.Management.Avs
             string _responseContent = null;
             if ((int)_statusCode != 200)
             {
-                var ex = new CloudException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                var ex = new ErrorResponseException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 try
                 {
                     _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    CloudError _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<CloudError>(_responseContent, Client.DeserializationSettings);
+                    ErrorResponse _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<ErrorResponse>(_responseContent, Client.DeserializationSettings);
                     if (_errorBody != null)
                     {
-                        ex = new CloudException(_errorBody.Message);
                         ex.Body = _errorBody;
                     }
                 }
@@ -474,10 +503,6 @@ namespace Microsoft.Azure.Management.Avs
                 }
                 ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
                 ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                if (_httpResponse.Headers.Contains("x-ms-request-id"))
-                {
-                    ex.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
-                }
                 if (_shouldTrace)
                 {
                     ServiceClientTracing.Error(_invocationId, ex);
@@ -535,7 +560,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="SerializationException">
@@ -631,14 +656,13 @@ namespace Microsoft.Azure.Management.Avs
             string _responseContent = null;
             if ((int)_statusCode != 200)
             {
-                var ex = new CloudException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                var ex = new ErrorResponseException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 try
                 {
                     _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    CloudError _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<CloudError>(_responseContent, Client.DeserializationSettings);
+                    ErrorResponse _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<ErrorResponse>(_responseContent, Client.DeserializationSettings);
                     if (_errorBody != null)
                     {
-                        ex = new CloudException(_errorBody.Message);
                         ex.Body = _errorBody;
                     }
                 }
@@ -648,10 +672,6 @@ namespace Microsoft.Azure.Management.Avs
                 }
                 ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
                 ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                if (_httpResponse.Headers.Contains("x-ms-request-id"))
-                {
-                    ex.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
-                }
                 if (_shouldTrace)
                 {
                     ServiceClientTracing.Error(_invocationId, ex);

@@ -10,34 +10,30 @@
 
 namespace Microsoft.Azure.Management.Avs.Models
 {
-    using Newtonsoft.Json;
     using System.Linq;
 
     /// <summary>
-    /// Error response
+    /// Workload Network
     /// </summary>
-    /// <remarks>
-    /// Common error response for all Azure Resource Manager APIs to return
-    /// error details for failed operations. (This also follows the OData error
-    /// response format.).
-    /// </remarks>
-    public partial class ErrorResponse
+    public partial class WorkloadNetwork : ProxyResource
     {
         /// <summary>
-        /// Initializes a new instance of the ErrorResponse class.
+        /// Initializes a new instance of the WorkloadNetwork class.
         /// </summary>
-        public ErrorResponse()
+        public WorkloadNetwork()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ErrorResponse class.
+        /// Initializes a new instance of the WorkloadNetwork class.
         /// </summary>
-        /// <param name="error">The error object.</param>
-        public ErrorResponse(ErrorDetail error = default(ErrorDetail))
+        /// <param name="id">Resource ID.</param>
+        /// <param name="name">Resource name.</param>
+        /// <param name="type">Resource type.</param>
+        public WorkloadNetwork(string id = default(string), string name = default(string), string type = default(string))
+            : base(id, name, type)
         {
-            Error = error;
             CustomInit();
         }
 
@@ -45,12 +41,6 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
-
-        /// <summary>
-        /// Gets or sets the error object.
-        /// </summary>
-        [JsonProperty(PropertyName = "error")]
-        public ErrorDetail Error { get; set; }
 
     }
 }
