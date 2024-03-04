@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.ServiceLinker.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_Link()
         {
-            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2022-05-01/examples/Link.json
+            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2023-05-01/examples/Link.json
             // this example is just showing the usage of "Linker_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.ServiceLinker.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteLink()
         {
-            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2022-05-01/examples/DeleteLink.json
+            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2023-05-01/examples/DeleteLink.json
             // this example is just showing the usage of "Linker_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.ServiceLinker.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_PatchLink()
         {
-            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2022-05-01/examples/PatchLink.json
+            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2023-05-01/examples/PatchLink.json
             // this example is just showing the usage of "Linker_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -118,7 +118,7 @@ namespace Azure.ResourceManager.ServiceLinker.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Validate_ValidateLinkSuccess()
         {
-            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2022-05-01/examples/ValidateLinkSuccess.json
+            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2023-05-01/examples/ValidateLinkSuccess.json
             // this example is just showing the usage of "Linker_Validate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -145,7 +145,7 @@ namespace Azure.ResourceManager.ServiceLinker.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetConfigurations_GetConfiguration()
         {
-            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2022-05-01/examples/GetConfigurations.json
+            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2023-05-01/examples/GetConfigurations.json
             // this example is just showing the usage of "Linker_ListConfigurations" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
