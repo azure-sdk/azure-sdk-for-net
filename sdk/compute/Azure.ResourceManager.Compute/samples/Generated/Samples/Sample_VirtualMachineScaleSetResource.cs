@@ -213,6 +213,11 @@ CertificateStore = "aaaaaaaaaaaaaaaaaaaaaaaaa",
                         {
                             Caching = CachingType.ReadWrite,
                             WriteAcceleratorEnabled = true,
+                            DiffDiskSettings = new DiffDiskSettings()
+                            {
+                                Option = DiffDiskOption.Local,
+                                Placement = DiffDiskPlacement.CacheDisk,
+                            },
                             DiskSizeGB = 6,
                             ImageUri = new Uri("http://{existing-storage-account-name}.blob.core.windows.net/{existing-container-name}/myDisk.vhd"),
                             VhdContainers =
