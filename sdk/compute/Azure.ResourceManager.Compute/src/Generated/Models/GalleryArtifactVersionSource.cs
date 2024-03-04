@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.Compute.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="GalleryArtifactVersionSource"/>. </summary>
-        /// <param name="id"> The id of the gallery artifact version source. </param>
+        /// <param name="id"> The id of the gallery artifact version source. Can specify a disk uri, snapshot uri, user image or storage account resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal GalleryArtifactVersionSource(ResourceIdentifier id, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
@@ -60,7 +60,7 @@ namespace Azure.ResourceManager.Compute.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The id of the gallery artifact version source. </summary>
+        /// <summary> The id of the gallery artifact version source. Can specify a disk uri, snapshot uri, user image or storage account resource. </summary>
         public ResourceIdentifier Id { get; set; }
     }
 }
