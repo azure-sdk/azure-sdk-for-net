@@ -1,3 +1,5 @@
-directory: specification/translation/Azure.AI.TextTranslation
-commit: 7b097c7e91a72a8930b94282274158b71e604695
+additionalDirectories: []
+commit: e8fc2c5a6506daf539378a4a8238a509e39527a8
 repo: Azure/azure-rest-api-specs
+directory: specification/translation/Azure.AI.TextTranslation
+

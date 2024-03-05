@@ -1,5 +1,5 @@
-additionalDirectories: []
+directory: specification/loadtestservice/LoadTestService
 commit: e8fc2c5a6506daf539378a4a8238a509e39527a8
+additionalDirectories: []
 repo: Azure/azure-rest-api-specs
-directory: specification/ai/DocumentIntelligence
 

@@ -1,5 +1,5 @@
+directory: specification/batch/Azure.Batch
 commit: e8fc2c5a6506daf539378a4a8238a509e39527a8
-repo: Azure/azure-rest-api-specs
 additionalDirectories: []
-directory: specification/ai/ImageAnalysis
+repo: Azure/azure-rest-api-specs
 
