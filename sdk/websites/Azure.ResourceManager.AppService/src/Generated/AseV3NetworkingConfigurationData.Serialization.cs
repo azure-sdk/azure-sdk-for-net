@@ -120,6 +120,21 @@ namespace Azure.ResourceManager.AppService
                 writer.WritePropertyName("allowNewPrivateEndpointConnections"u8);
                 writer.WriteBooleanValue(AllowNewPrivateEndpointConnections.Value);
             }
+            if (Optional.IsDefined(FtpEnabled))
+            {
+                writer.WritePropertyName("ftpEnabled"u8);
+                writer.WriteBooleanValue(FtpEnabled.Value);
+            }
+            if (Optional.IsDefined(RemoteDebugEnabled))
+            {
+                writer.WritePropertyName("remoteDebugEnabled"u8);
+                writer.WriteBooleanValue(RemoteDebugEnabled.Value);
+            }
+            if (Optional.IsDefined(InboundIPAddressOverride))
+            {
+                writer.WritePropertyName("inboundIpAddressOverride"u8);
+                writer.WriteStringValue(InboundIPAddressOverride);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -169,6 +184,9 @@ namespace Azure.ResourceManager.AppService
             IReadOnlyList<IPAddress> externalInboundIPAddresses = default;
             IReadOnlyList<IPAddress> internalInboundIPAddresses = default;
             bool? allowNewPrivateEndpointConnections = default;
+            bool? ftpEnabled = default;
+            bool? remoteDebugEnabled = default;
+            string inboundIPAddressOverride = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -304,6 +322,29 @@ namespace Azure.ResourceManager.AppService
                             allowNewPrivateEndpointConnections = property0.Value.GetBoolean();
                             continue;
                         }
+                        if (property0.NameEquals("ftpEnabled"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            ftpEnabled = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("remoteDebugEnabled"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            remoteDebugEnabled = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("inboundIpAddressOverride"u8))
+                        {
+                            inboundIPAddressOverride = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -323,6 +364,9 @@ namespace Azure.ResourceManager.AppService
                 externalInboundIPAddresses ?? new ChangeTrackingList<IPAddress>(),
                 internalInboundIPAddresses ?? new ChangeTrackingList<IPAddress>(),
                 allowNewPrivateEndpointConnections,
+                ftpEnabled,
+                remoteDebugEnabled,
+                inboundIPAddressOverride,
                 kind,
                 serializedAdditionalRawData);
         }

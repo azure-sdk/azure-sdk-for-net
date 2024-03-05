@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure;
 using Azure.ResourceManager.AppService;
 
 namespace Azure.ResourceManager.AppService.Models
@@ -50,7 +49,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <summary> Initializes a new instance of <see cref="AppServiceOperation"/>. </summary>
         internal AppServiceOperation()
         {
-            Errors = new ChangeTrackingList<ResponseError>();
+            Errors = new ChangeTrackingList<ErrorEntity>();
         }
 
         /// <summary> Initializes a new instance of <see cref="AppServiceOperation"/>. </summary>
@@ -63,7 +62,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="expireOn"> Time when operation will expire. </param>
         /// <param name="geoMasterOperationId"> Applicable only for stamp operation ids. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppServiceOperation(string id, string name, AppServiceOperationStatus? status, IReadOnlyList<ResponseError> errors, DateTimeOffset? createdOn, DateTimeOffset? modifiedOn, DateTimeOffset? expireOn, Guid? geoMasterOperationId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AppServiceOperation(string id, string name, AppServiceOperationStatus? status, IReadOnlyList<ErrorEntity> errors, DateTimeOffset? createdOn, DateTimeOffset? modifiedOn, DateTimeOffset? expireOn, Guid? geoMasterOperationId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Id = id;
             Name = name;
@@ -83,7 +82,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <summary> The current status of the operation. </summary>
         public AppServiceOperationStatus? Status { get; }
         /// <summary> Any errors associate with the operation. </summary>
-        public IReadOnlyList<ResponseError> Errors { get; }
+        public IReadOnlyList<ErrorEntity> Errors { get; }
         /// <summary> Time when operation has started. </summary>
         public DateTimeOffset? CreatedOn { get; }
         /// <summary> Time when operation has been updated. </summary>
