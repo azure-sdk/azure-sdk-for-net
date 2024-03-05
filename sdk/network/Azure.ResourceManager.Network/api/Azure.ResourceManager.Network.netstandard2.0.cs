@@ -10350,6 +10350,81 @@ namespace Azure.ResourceManager.Network.Models
         public static bool operator !=(Azure.ResourceManager.Network.Models.EvaluationState left, Azure.ResourceManager.Network.Models.EvaluationState right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class ExceptionEntry : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.ExceptionEntry>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.ExceptionEntry>
+    {
+        public ExceptionEntry(Azure.ResourceManager.Network.Models.ExceptionEntryMatchVariable matchVariable, Azure.ResourceManager.Network.Models.ExceptionEntryValueMatchOperator valueMatchOperator) { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Network.Models.ExclusionManagedRuleSet> ExceptionManagedRuleSets { get { throw null; } }
+        public Azure.ResourceManager.Network.Models.ExceptionEntryMatchVariable MatchVariable { get { throw null; } set { } }
+        public string Selector { get { throw null; } set { } }
+        public Azure.ResourceManager.Network.Models.ExceptionEntrySelectorMatchOperator? SelectorMatchOperator { get { throw null; } set { } }
+        public Azure.ResourceManager.Network.Models.ExceptionEntryValueMatchOperator ValueMatchOperator { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> Values { get { throw null; } }
+        Azure.ResourceManager.Network.Models.ExceptionEntry System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.ExceptionEntry>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.ExceptionEntry>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Network.Models.ExceptionEntry System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.ExceptionEntry>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.ExceptionEntry>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.ExceptionEntry>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ExceptionEntryMatchVariable : System.IEquatable<Azure.ResourceManager.Network.Models.ExceptionEntryMatchVariable>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ExceptionEntryMatchVariable(string value) { throw null; }
+        public static Azure.ResourceManager.Network.Models.ExceptionEntryMatchVariable RemoteAddr { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.ExceptionEntryMatchVariable RequestHeader { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.ExceptionEntryMatchVariable RequestUri { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Network.Models.ExceptionEntryMatchVariable other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Network.Models.ExceptionEntryMatchVariable left, Azure.ResourceManager.Network.Models.ExceptionEntryMatchVariable right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Network.Models.ExceptionEntryMatchVariable (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Network.Models.ExceptionEntryMatchVariable left, Azure.ResourceManager.Network.Models.ExceptionEntryMatchVariable right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ExceptionEntrySelectorMatchOperator : System.IEquatable<Azure.ResourceManager.Network.Models.ExceptionEntrySelectorMatchOperator>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ExceptionEntrySelectorMatchOperator(string value) { throw null; }
+        public static Azure.ResourceManager.Network.Models.ExceptionEntrySelectorMatchOperator Contains { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.ExceptionEntrySelectorMatchOperator EndsWith { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.ExceptionEntrySelectorMatchOperator EqualsValue { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.ExceptionEntrySelectorMatchOperator StartsWith { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Network.Models.ExceptionEntrySelectorMatchOperator other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Network.Models.ExceptionEntrySelectorMatchOperator left, Azure.ResourceManager.Network.Models.ExceptionEntrySelectorMatchOperator right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Network.Models.ExceptionEntrySelectorMatchOperator (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Network.Models.ExceptionEntrySelectorMatchOperator left, Azure.ResourceManager.Network.Models.ExceptionEntrySelectorMatchOperator right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ExceptionEntryValueMatchOperator : System.IEquatable<Azure.ResourceManager.Network.Models.ExceptionEntryValueMatchOperator>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ExceptionEntryValueMatchOperator(string value) { throw null; }
+        public static Azure.ResourceManager.Network.Models.ExceptionEntryValueMatchOperator Contains { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.ExceptionEntryValueMatchOperator EndsWith { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.ExceptionEntryValueMatchOperator EqualsValue { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.ExceptionEntryValueMatchOperator IPMatch { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.ExceptionEntryValueMatchOperator StartsWith { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Network.Models.ExceptionEntryValueMatchOperator other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Network.Models.ExceptionEntryValueMatchOperator left, Azure.ResourceManager.Network.Models.ExceptionEntryValueMatchOperator right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Network.Models.ExceptionEntryValueMatchOperator (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Network.Models.ExceptionEntryValueMatchOperator left, Azure.ResourceManager.Network.Models.ExceptionEntryValueMatchOperator right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class ExclusionManagedRule : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.ExclusionManagedRule>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.ExclusionManagedRule>
     {
         public ExclusionManagedRule(string ruleId) { }
@@ -12183,6 +12258,7 @@ namespace Azure.ResourceManager.Network.Models
     public partial class ManagedRulesDefinition : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.ManagedRulesDefinition>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.ManagedRulesDefinition>
     {
         public ManagedRulesDefinition(System.Collections.Generic.IEnumerable<Azure.ResourceManager.Network.Models.ManagedRuleSet> managedRuleSets) { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Network.Models.ExceptionEntry> Exceptions { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntry> Exclusions { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Network.Models.ManagedRuleSet> ManagedRuleSets { get { throw null; } }
         Azure.ResourceManager.Network.Models.ManagedRulesDefinition System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.ManagedRulesDefinition>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
