@@ -66,7 +66,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-31</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -118,7 +118,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-31</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -170,7 +170,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-31</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -199,7 +199,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-31</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -228,7 +228,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-31</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -278,7 +278,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-31</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -328,7 +328,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-31</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -380,7 +380,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-31</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
