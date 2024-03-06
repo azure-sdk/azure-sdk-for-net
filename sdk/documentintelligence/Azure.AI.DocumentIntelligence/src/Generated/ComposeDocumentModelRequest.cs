@@ -7,12 +7,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Azure.Core;
 
 namespace Azure.AI.DocumentIntelligence
 {
-    /// <summary> Request body to build a new custom document model. </summary>
-    public partial class BuildDocumentModelContent
+    /// <summary> Request body to create a composed document model from component document models. </summary>
+    public partial class ComposeDocumentModelRequest
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,49 +47,43 @@ namespace Azure.AI.DocumentIntelligence
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="BuildDocumentModelContent"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ComposeDocumentModelRequest"/>. </summary>
         /// <param name="modelId"> Unique document model name. </param>
-        /// <param name="buildMode"> Custom document model build mode. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="modelId"/> is null. </exception>
-        public BuildDocumentModelContent(string modelId, DocumentBuildMode buildMode)
+        /// <param name="componentModels"> List of component document models to compose. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="modelId"/> or <paramref name="componentModels"/> is null. </exception>
+        public ComposeDocumentModelRequest(string modelId, IEnumerable<ComponentDocumentModelDetails> componentModels)
         {
             if (modelId == null)
             {
                 throw new ArgumentNullException(nameof(modelId));
             }
+            if (componentModels == null)
+            {
+                throw new ArgumentNullException(nameof(componentModels));
+            }
 
             ModelId = modelId;
-            BuildMode = buildMode;
+            ComponentModels = componentModels.ToList();
             Tags = new ChangeTrackingDictionary<string, string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="BuildDocumentModelContent"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ComposeDocumentModelRequest"/>. </summary>
         /// <param name="modelId"> Unique document model name. </param>
         /// <param name="description"> Document model description. </param>
-        /// <param name="buildMode"> Custom document model build mode. </param>
-        /// <param name="azureBlobSource">
-        /// Azure Blob Storage location containing the training data.  Either
-        /// azureBlobSource or azureBlobFileListSource must be specified.
-        /// </param>
-        /// <param name="azureBlobFileListSource">
-        /// Azure Blob Storage file list specifying the training data.  Either
-        /// azureBlobSource or azureBlobFileListSource must be specified.
-        /// </param>
+        /// <param name="componentModels"> List of component document models to compose. </param>
         /// <param name="tags"> List of key-value tag attributes associated with the document model. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BuildDocumentModelContent(string modelId, string description, DocumentBuildMode buildMode, AzureBlobContentSource azureBlobSource, AzureBlobFileListContentSource azureBlobFileListSource, IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ComposeDocumentModelRequest(string modelId, string description, IList<ComponentDocumentModelDetails> componentModels, IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ModelId = modelId;
             Description = description;
-            BuildMode = buildMode;
-            AzureBlobSource = azureBlobSource;
-            AzureBlobFileListSource = azureBlobFileListSource;
+            ComponentModels = componentModels;
             Tags = tags;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="BuildDocumentModelContent"/> for deserialization. </summary>
-        internal BuildDocumentModelContent()
+        /// <summary> Initializes a new instance of <see cref="ComposeDocumentModelRequest"/> for deserialization. </summary>
+        internal ComposeDocumentModelRequest()
         {
         }
 
@@ -96,18 +91,8 @@ namespace Azure.AI.DocumentIntelligence
         public string ModelId { get; }
         /// <summary> Document model description. </summary>
         public string Description { get; set; }
-        /// <summary> Custom document model build mode. </summary>
-        public DocumentBuildMode BuildMode { get; }
-        /// <summary>
-        /// Azure Blob Storage location containing the training data.  Either
-        /// azureBlobSource or azureBlobFileListSource must be specified.
-        /// </summary>
-        public AzureBlobContentSource AzureBlobSource { get; set; }
-        /// <summary>
-        /// Azure Blob Storage file list specifying the training data.  Either
-        /// azureBlobSource or azureBlobFileListSource must be specified.
-        /// </summary>
-        public AzureBlobFileListContentSource AzureBlobFileListSource { get; set; }
+        /// <summary> List of component document models to compose. </summary>
+        public IList<ComponentDocumentModelDetails> ComponentModels { get; }
         /// <summary> List of key-value tag attributes associated with the document model. </summary>
         public IDictionary<string, string> Tags { get; }
     }

@@ -48,9 +48,9 @@ namespace Azure.AI.DocumentIntelligence
 
         /// <summary> Initializes a new instance of <see cref="DocumentModelDetails"/>. </summary>
         /// <param name="modelId"> Unique document model name. </param>
-        /// <param name="createdOn"> Date and time (UTC) when the document model was created. </param>
+        /// <param name="createdDateTime"> Date and time (UTC) when the document model was created. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="modelId"/> is null. </exception>
-        internal DocumentModelDetails(string modelId, DateTimeOffset createdOn)
+        internal DocumentModelDetails(string modelId, DateTimeOffset createdDateTime)
         {
             if (modelId == null)
             {
@@ -58,7 +58,7 @@ namespace Azure.AI.DocumentIntelligence
             }
 
             ModelId = modelId;
-            CreatedOn = createdOn;
+            CreatedDateTime = createdDateTime;
             Tags = new ChangeTrackingDictionary<string, string>();
             DocTypes = new ChangeTrackingDictionary<string, DocumentTypeDetails>();
             Warnings = new ChangeTrackingList<DocumentIntelligenceWarning>();
@@ -67,8 +67,8 @@ namespace Azure.AI.DocumentIntelligence
         /// <summary> Initializes a new instance of <see cref="DocumentModelDetails"/>. </summary>
         /// <param name="modelId"> Unique document model name. </param>
         /// <param name="description"> Document model description. </param>
-        /// <param name="createdOn"> Date and time (UTC) when the document model was created. </param>
-        /// <param name="expiresOn"> Date and time (UTC) when the document model will expire. </param>
+        /// <param name="createdDateTime"> Date and time (UTC) when the document model was created. </param>
+        /// <param name="expirationDateTime"> Date and time (UTC) when the document model will expire. </param>
         /// <param name="apiVersion"> API version used to create this document model. </param>
         /// <param name="tags"> List of key-value tag attributes associated with the document model. </param>
         /// <param name="buildMode"> Custom document model build mode. </param>
@@ -83,12 +83,12 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="docTypes"> Supported document types. </param>
         /// <param name="warnings"> List of warnings encountered while building the model. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DocumentModelDetails(string modelId, string description, DateTimeOffset createdOn, DateTimeOffset? expiresOn, string apiVersion, IReadOnlyDictionary<string, string> tags, DocumentBuildMode? buildMode, AzureBlobContentSource azureBlobSource, AzureBlobFileListContentSource azureBlobFileListSource, IReadOnlyDictionary<string, DocumentTypeDetails> docTypes, IReadOnlyList<DocumentIntelligenceWarning> warnings, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DocumentModelDetails(string modelId, string description, DateTimeOffset createdDateTime, DateTimeOffset? expirationDateTime, string apiVersion, IReadOnlyDictionary<string, string> tags, DocumentBuildMode? buildMode, AzureBlobContentSource azureBlobSource, AzureBlobFileListContentSource azureBlobFileListSource, IReadOnlyDictionary<string, DocumentTypeDetails> docTypes, IReadOnlyList<DocumentIntelligenceWarning> warnings, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ModelId = modelId;
             Description = description;
-            CreatedOn = createdOn;
-            ExpiresOn = expiresOn;
+            CreatedDateTime = createdDateTime;
+            ExpirationDateTime = expirationDateTime;
             ApiVersion = apiVersion;
             Tags = tags;
             BuildMode = buildMode;
@@ -109,9 +109,9 @@ namespace Azure.AI.DocumentIntelligence
         /// <summary> Document model description. </summary>
         public string Description { get; }
         /// <summary> Date and time (UTC) when the document model was created. </summary>
-        public DateTimeOffset CreatedOn { get; }
+        public DateTimeOffset CreatedDateTime { get; }
         /// <summary> Date and time (UTC) when the document model will expire. </summary>
-        public DateTimeOffset? ExpiresOn { get; }
+        public DateTimeOffset? ExpirationDateTime { get; }
         /// <summary> API version used to create this document model. </summary>
         public string ApiVersion { get; }
         /// <summary> List of key-value tag attributes associated with the document model. </summary>

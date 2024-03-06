@@ -7,13 +7,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Azure.Core;
 
 namespace Azure.AI.DocumentIntelligence
 {
-    /// <summary> Request body to create a composed document model from component document models. </summary>
-    public partial class ComposeDocumentModelContent
+    /// <summary> Request body to authorize document model copy. </summary>
+    public partial class AuthorizeCopyRequest
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,43 +46,35 @@ namespace Azure.AI.DocumentIntelligence
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ComposeDocumentModelContent"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="AuthorizeCopyRequest"/>. </summary>
         /// <param name="modelId"> Unique document model name. </param>
-        /// <param name="componentModels"> List of component document models to compose. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="modelId"/> or <paramref name="componentModels"/> is null. </exception>
-        public ComposeDocumentModelContent(string modelId, IEnumerable<ComponentDocumentModelDetails> componentModels)
+        /// <exception cref="ArgumentNullException"> <paramref name="modelId"/> is null. </exception>
+        public AuthorizeCopyRequest(string modelId)
         {
             if (modelId == null)
             {
                 throw new ArgumentNullException(nameof(modelId));
             }
-            if (componentModels == null)
-            {
-                throw new ArgumentNullException(nameof(componentModels));
-            }
 
             ModelId = modelId;
-            ComponentModels = componentModels.ToList();
             Tags = new ChangeTrackingDictionary<string, string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="ComposeDocumentModelContent"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="AuthorizeCopyRequest"/>. </summary>
         /// <param name="modelId"> Unique document model name. </param>
         /// <param name="description"> Document model description. </param>
-        /// <param name="componentModels"> List of component document models to compose. </param>
         /// <param name="tags"> List of key-value tag attributes associated with the document model. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ComposeDocumentModelContent(string modelId, string description, IList<ComponentDocumentModelDetails> componentModels, IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AuthorizeCopyRequest(string modelId, string description, IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ModelId = modelId;
             Description = description;
-            ComponentModels = componentModels;
             Tags = tags;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ComposeDocumentModelContent"/> for deserialization. </summary>
-        internal ComposeDocumentModelContent()
+        /// <summary> Initializes a new instance of <see cref="AuthorizeCopyRequest"/> for deserialization. </summary>
+        internal AuthorizeCopyRequest()
         {
         }
 
@@ -91,8 +82,6 @@ namespace Azure.AI.DocumentIntelligence
         public string ModelId { get; }
         /// <summary> Document model description. </summary>
         public string Description { get; set; }
-        /// <summary> List of component document models to compose. </summary>
-        public IList<ComponentDocumentModelDetails> ComponentModels { get; }
         /// <summary> List of key-value tag attributes associated with the document model. </summary>
         public IDictionary<string, string> Tags { get; }
     }
