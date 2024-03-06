@@ -11,8 +11,8 @@ using Azure.ResourceManager.ServiceLinker;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    /// <summary> Configurations for source resource, include appSettings, connectionString and serviceBindings. </summary>
-    public partial class SourceConfigurationResult
+    /// <summary> The list of dryrun. </summary>
+    internal partial class DryrunList
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,22 +46,26 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SourceConfigurationResult"/>. </summary>
-        internal SourceConfigurationResult()
+        /// <summary> Initializes a new instance of <see cref="DryrunList"/>. </summary>
+        internal DryrunList()
         {
-            Configurations = new ChangeTrackingList<SourceConfiguration>();
+            Value = new ChangeTrackingList<DryrunResourceData>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="SourceConfigurationResult"/>. </summary>
-        /// <param name="configurations"> The configuration properties for source resource. </param>
+        /// <summary> Initializes a new instance of <see cref="DryrunList"/>. </summary>
+        /// <param name="nextLink"> The link used to get the next page of dryrun list. </param>
+        /// <param name="value"> The list of dryrun. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SourceConfigurationResult(IReadOnlyList<SourceConfiguration> configurations, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DryrunList(string nextLink, IReadOnlyList<DryrunResourceData> value, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Configurations = configurations;
+            NextLink = nextLink;
+            Value = value;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The configuration properties for source resource. </summary>
-        public IReadOnlyList<SourceConfiguration> Configurations { get; }
+        /// <summary> The link used to get the next page of dryrun list. </summary>
+        public string NextLink { get; }
+        /// <summary> The list of dryrun. </summary>
+        public IReadOnlyList<DryrunResourceData> Value { get; }
     }
 }

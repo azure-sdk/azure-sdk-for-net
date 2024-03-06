@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.ServiceLinker;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
@@ -32,6 +33,7 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             ClientId = clientId;
             PrincipalId = principalId;
             Certificate = certificate;
+            Roles = new ChangeTrackingList<string>();
             AuthType = LinkerAuthType.ServicePrincipalCertificate;
         }
 
@@ -41,11 +43,15 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         /// <param name="clientId"> Application clientId for servicePrincipal auth. </param>
         /// <param name="principalId"> Principal Id for servicePrincipal auth. </param>
         /// <param name="certificate"> ServicePrincipal certificate for servicePrincipal auth. </param>
-        internal ServicePrincipalCertificateAuthInfo(LinkerAuthType authType, IDictionary<string, BinaryData> serializedAdditionalRawData, string clientId, Guid principalId, string certificate) : base(authType, serializedAdditionalRawData)
+        /// <param name="deleteOrUpdateBehavior"> Indicates whether to clean up previous operation when Linker is updating or deleting. </param>
+        /// <param name="roles"> Optional, this value specifies the Azure roles to be assigned. Automatically. </param>
+        internal ServicePrincipalCertificateAuthInfo(LinkerAuthType authType, IDictionary<string, BinaryData> serializedAdditionalRawData, string clientId, Guid principalId, string certificate, DeleteOrUpdateBehavior? deleteOrUpdateBehavior, IList<string> roles) : base(authType, serializedAdditionalRawData)
         {
             ClientId = clientId;
             PrincipalId = principalId;
             Certificate = certificate;
+            DeleteOrUpdateBehavior = deleteOrUpdateBehavior;
+            Roles = roles;
             AuthType = authType;
         }
 
@@ -60,5 +66,9 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         public Guid PrincipalId { get; set; }
         /// <summary> ServicePrincipal certificate for servicePrincipal auth. </summary>
         public string Certificate { get; set; }
+        /// <summary> Indicates whether to clean up previous operation when Linker is updating or deleting. </summary>
+        public DeleteOrUpdateBehavior? DeleteOrUpdateBehavior { get; set; }
+        /// <summary> Optional, this value specifies the Azure roles to be assigned. Automatically. </summary>
+        public IList<string> Roles { get; }
     }
 }
