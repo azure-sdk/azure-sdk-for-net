@@ -8,7 +8,6 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.SpringAppDiscovery.Models
 {
@@ -16,7 +15,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
     /// The springbootsites resource patch definition.
     /// Serialized Name: SpringbootsitesPatch
     /// </summary>
-    public partial class SpringBootSitePatch : TrackedResourceData
+    public partial class SpringBootSitePatch
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -51,34 +50,33 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="SpringBootSitePatch"/>. </summary>
-        /// <param name="location"> The location. </param>
-        public SpringBootSitePatch(AzureLocation location) : base(location)
+        public SpringBootSitePatch()
         {
+            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="SpringBootSitePatch"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
+        /// <param name="tags">
+        /// Resource tags
+        /// Serialized Name: SpringbootsitesPatch.tags
+        /// </param>
         /// <param name="properties">
         /// The springbootsites resource definition.
         /// Serialized Name: SpringbootsitesPatch.properties
         /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SpringBootSitePatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, SpringBootSiteProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal SpringBootSitePatch(IDictionary<string, string> tags, SpringBootSiteProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
+            Tags = tags;
             Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="SpringBootSitePatch"/> for deserialization. </summary>
-        internal SpringBootSitePatch()
-        {
-        }
-
+        /// <summary>
+        /// Resource tags
+        /// Serialized Name: SpringbootsitesPatch.tags
+        /// </summary>
+        public IDictionary<string, string> Tags { get; }
         /// <summary>
         /// The springbootsites resource definition.
         /// Serialized Name: SpringbootsitesPatch.properties

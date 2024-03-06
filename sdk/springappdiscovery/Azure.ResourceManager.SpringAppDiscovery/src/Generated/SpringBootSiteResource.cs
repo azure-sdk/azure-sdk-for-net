@@ -112,7 +112,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -181,7 +181,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -212,7 +212,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -250,7 +250,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -281,7 +281,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -319,7 +319,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -350,7 +350,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -381,7 +381,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -421,7 +421,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -461,7 +461,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -503,7 +503,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -545,7 +545,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -594,7 +594,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -643,7 +643,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -685,7 +685,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -727,7 +727,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -765,7 +765,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new SpringBootSitePatch(current.Location);
+                    var patch = new SpringBootSitePatch();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -795,7 +795,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -833,7 +833,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new SpringBootSitePatch(current.Location);
+                    var patch = new SpringBootSitePatch();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -863,7 +863,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -897,7 +897,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new SpringBootSitePatch(current.Location);
+                    var patch = new SpringBootSitePatch();
                     patch.Tags.ReplaceWith(tags);
                     var result = await UpdateAsync(WaitUntil.Completed, patch, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(result.Value, result.GetRawResponse());
@@ -923,7 +923,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -957,7 +957,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new SpringBootSitePatch(current.Location);
+                    var patch = new SpringBootSitePatch();
                     patch.Tags.ReplaceWith(tags);
                     var result = Update(WaitUntil.Completed, patch, cancellationToken: cancellationToken);
                     return Response.FromValue(result.Value, result.GetRawResponse());
@@ -983,7 +983,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1016,7 +1016,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new SpringBootSitePatch(current.Location);
+                    var patch = new SpringBootSitePatch();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -1046,7 +1046,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1079,7 +1079,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new SpringBootSitePatch(current.Location);
+                    var patch = new SpringBootSitePatch();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);

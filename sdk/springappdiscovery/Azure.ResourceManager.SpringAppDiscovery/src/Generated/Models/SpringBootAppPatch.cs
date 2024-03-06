@@ -53,7 +53,6 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
         /// <summary> Initializes a new instance of <see cref="SpringBootAppPatch"/>. </summary>
         public SpringBootAppPatch()
         {
-            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="SpringBootAppPatch"/>. </summary>
@@ -65,15 +64,10 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
         /// The springbootapps resource definition.
         /// Serialized Name: SpringbootappsPatch.properties
         /// </param>
-        /// <param name="tags">
-        /// Resource tags
-        /// Serialized Name: SpringbootappsPatch.tags
-        /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SpringBootAppPatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SpringBootAppProperties properties, IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal SpringBootAppPatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SpringBootAppProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             Properties = properties;
-            Tags = tags;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -82,10 +76,5 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
         /// Serialized Name: SpringbootappsPatch.properties
         /// </summary>
         public SpringBootAppProperties Properties { get; set; }
-        /// <summary>
-        /// Resource tags
-        /// Serialized Name: SpringbootappsPatch.tags
-        /// </summary>
-        public IDictionary<string, string> Tags { get; }
     }
 }

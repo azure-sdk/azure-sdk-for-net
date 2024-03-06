@@ -66,6 +66,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
             StaticContentLocations = new ChangeTrackingList<string>();
             ConnectionStrings = new ChangeTrackingList<string>();
             Errors = new ChangeTrackingList<SpringBootSiteError>();
+            Labels = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="SpringBootAppProperties"/>. </summary>
@@ -149,10 +150,6 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
         /// The machine ARM id list the app belongs to.
         /// Serialized Name: SpringbootappsProperties.machineArmIds
         /// </param>
-        /// <param name="siteName">
-        /// The site name.
-        /// Serialized Name: SpringbootappsProperties.siteName
-        /// </param>
         /// <param name="springBootVersion">
         /// The spring boot version.
         /// Serialized Name: SpringbootappsProperties.springBootVersion
@@ -181,8 +178,12 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
         /// The list of errors.
         /// Serialized Name: SpringbootappsProperties.errors
         /// </param>
+        /// <param name="labels">
+        /// Resource labels
+        /// Serialized Name: SpringbootappsProperties.labels
+        /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SpringBootAppProperties(string appName, string artifactName, int? appPort, string appType, IList<SpringBootAppApplicationConfigurationsItem> applicationConfigurations, IList<int> bindingPorts, string buildJdkVersion, IList<string> certificates, string checksum, IList<string> dependencies, IList<string> environments, int? instanceCount, string jarFileLocation, int? jvmMemoryInMB, IList<string> jvmOptions, IList<SpringBootAppMiscsItem> miscs, IList<SpringBootAppInstancesItem> instances, string runtimeJdkVersion, IList<string> servers, IList<ResourceIdentifier> machineArmIds, string siteName, string springBootVersion, IList<string> staticContentLocations, IList<string> connectionStrings, DateTimeOffset? lastModifiedOn, DateTimeOffset? lastUpdatedOn, SpringAppDiscoveryProvisioningState? provisioningState, IList<SpringBootSiteError> errors, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SpringBootAppProperties(string appName, string artifactName, int? appPort, string appType, IList<SpringBootAppApplicationConfigurationsItem> applicationConfigurations, IList<int> bindingPorts, string buildJdkVersion, IList<string> certificates, string checksum, IList<string> dependencies, IList<string> environments, int? instanceCount, string jarFileLocation, int? jvmMemoryInMB, IList<string> jvmOptions, IList<SpringBootAppMiscsItem> miscs, IList<SpringBootAppInstancesItem> instances, string runtimeJdkVersion, IList<string> servers, IList<ResourceIdentifier> machineArmIds, string springBootVersion, IList<string> staticContentLocations, IList<string> connectionStrings, DateTimeOffset? lastModifiedOn, DateTimeOffset? lastUpdatedOn, SpringAppDiscoveryProvisioningState? provisioningState, IList<SpringBootSiteError> errors, IDictionary<string, string> labels, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             AppName = appName;
             ArtifactName = artifactName;
@@ -204,7 +205,6 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
             RuntimeJdkVersion = runtimeJdkVersion;
             Servers = servers;
             MachineArmIds = machineArmIds;
-            SiteName = siteName;
             SpringBootVersion = springBootVersion;
             StaticContentLocations = staticContentLocations;
             ConnectionStrings = connectionStrings;
@@ -212,6 +212,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
             LastUpdatedOn = lastUpdatedOn;
             ProvisioningState = provisioningState;
             Errors = errors;
+            Labels = labels;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -316,11 +317,6 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
         /// </summary>
         public IList<ResourceIdentifier> MachineArmIds { get; }
         /// <summary>
-        /// The site name.
-        /// Serialized Name: SpringbootappsProperties.siteName
-        /// </summary>
-        public string SiteName { get; set; }
-        /// <summary>
         /// The spring boot version.
         /// Serialized Name: SpringbootappsProperties.springBootVersion
         /// </summary>
@@ -349,11 +345,16 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
         /// The resource provisioning state.
         /// Serialized Name: SpringbootappsProperties.provisioningState
         /// </summary>
-        public SpringAppDiscoveryProvisioningState? ProvisioningState { get; set; }
+        public SpringAppDiscoveryProvisioningState? ProvisioningState { get; }
         /// <summary>
         /// The list of errors.
         /// Serialized Name: SpringbootappsProperties.errors
         /// </summary>
         public IList<SpringBootSiteError> Errors { get; }
+        /// <summary>
+        /// Resource labels
+        /// Serialized Name: SpringbootappsProperties.labels
+        /// </summary>
+        public IDictionary<string, string> Labels { get; }
     }
 }

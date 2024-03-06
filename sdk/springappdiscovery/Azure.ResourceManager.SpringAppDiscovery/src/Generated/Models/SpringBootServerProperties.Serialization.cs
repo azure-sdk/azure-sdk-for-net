@@ -80,6 +80,17 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
                 writer.WritePropertyName("provisioningState"u8);
                 writer.WriteStringValue(ProvisioningState.Value.ToString());
             }
+            if (Optional.IsCollectionDefined(Labels))
+            {
+                writer.WritePropertyName("labels"u8);
+                writer.WriteStartObject();
+                foreach (var item in Labels)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -126,6 +137,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
             int? springBootApps = default;
             IList<SpringBootSiteError> errors = default;
             SpringAppDiscoveryProvisioningState? provisioningState = default;
+            IDictionary<string, string> labels = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -215,6 +227,20 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
                     provisioningState = new SpringAppDiscoveryProvisioningState(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("labels"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        dictionary.Add(property0.Name, property0.Value.GetString());
+                    }
+                    labels = dictionary;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -230,6 +256,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
                 springBootApps,
                 errors ?? new ChangeTrackingList<SpringBootSiteError>(),
                 provisioningState,
+                labels ?? new ChangeTrackingDictionary<string, string>(),
                 serializedAdditionalRawData);
         }
 

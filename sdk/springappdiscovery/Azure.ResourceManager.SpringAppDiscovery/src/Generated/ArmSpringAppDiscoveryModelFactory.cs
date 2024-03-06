@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Azure.Core;
 using Azure.ResourceManager.Models;
 using Azure.ResourceManager.SpringAppDiscovery;
@@ -48,57 +49,23 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.SpringBootSitePatch"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="properties">
-        /// The springbootsites resource definition.
-        /// Serialized Name: SpringbootsitesPatch.properties
-        /// </param>
-        /// <returns> A new <see cref="Models.SpringBootSitePatch"/> instance for mocking. </returns>
-        public static SpringBootSitePatch SpringBootSitePatch(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, SpringBootSiteProperties properties = null)
-        {
-            tags ??= new Dictionary<string, string>();
-
-            return new SpringBootSitePatch(
-                id,
-                name,
-                resourceType,
-                systemData,
-                tags,
-                location,
-                properties,
-                serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="SpringAppDiscovery.SpringBootServerData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags">
-        /// Resource tags
-        /// Serialized Name: SpringbootserversModel.tags
-        /// </param>
         /// <param name="properties">
         /// The springbootservers resource definition.
         /// Serialized Name: SpringbootserversModel.properties
         /// </param>
         /// <returns> A new <see cref="SpringAppDiscovery.SpringBootServerData"/> instance for mocking. </returns>
-        public static SpringBootServerData SpringBootServerData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, SpringBootServerProperties properties = null)
+        public static SpringBootServerData SpringBootServerData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SpringBootServerProperties properties = null)
         {
-            tags ??= new Dictionary<string, string>();
-
             return new SpringBootServerData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                tags,
                 properties,
                 serializedAdditionalRawData: null);
         }
@@ -108,25 +75,18 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags">
-        /// Resource tags
-        /// Serialized Name: SpringbootserversPatch.tags
-        /// </param>
         /// <param name="properties">
         /// The springbootsites resource definition.
         /// Serialized Name: SpringbootserversPatch.properties
         /// </param>
         /// <returns> A new <see cref="Models.SpringBootServerPatch"/> instance for mocking. </returns>
-        public static SpringBootServerPatch SpringBootServerPatch(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, SpringBootServerProperties properties = null)
+        public static SpringBootServerPatch SpringBootServerPatch(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SpringBootServerProperties properties = null)
         {
-            tags ??= new Dictionary<string, string>();
-
             return new SpringBootServerPatch(
                 id,
                 name,
                 resourceType,
                 systemData,
-                tags,
                 properties,
                 serializedAdditionalRawData: null);
         }
@@ -140,22 +100,178 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
         /// The springbootapps resource definition.
         /// Serialized Name: SpringbootappsModel.properties
         /// </param>
-        /// <param name="tags">
-        /// Resource tags
-        /// Serialized Name: SpringbootappsModel.tags
-        /// </param>
         /// <returns> A new <see cref="SpringAppDiscovery.SpringBootAppData"/> instance for mocking. </returns>
-        public static SpringBootAppData SpringBootAppData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SpringBootAppProperties properties = null, IDictionary<string, string> tags = null)
+        public static SpringBootAppData SpringBootAppData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SpringBootAppProperties properties = null)
         {
-            tags ??= new Dictionary<string, string>();
-
             return new SpringBootAppData(
                 id,
                 name,
                 resourceType,
                 systemData,
                 properties,
-                tags,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SpringBootAppProperties"/>. </summary>
+        /// <param name="appName">
+        /// The name of SpringBootApp.
+        /// Serialized Name: SpringbootappsProperties.appName
+        /// </param>
+        /// <param name="artifactName">
+        /// The artifact name of SpringBootApp.
+        /// Serialized Name: SpringbootappsProperties.artifactName
+        /// </param>
+        /// <param name="appPort">
+        /// The application port.
+        /// Serialized Name: SpringbootappsProperties.appPort
+        /// </param>
+        /// <param name="appType">
+        /// The application type, whether it is a SpringBoot app.
+        /// Serialized Name: SpringbootappsProperties.appType
+        /// </param>
+        /// <param name="applicationConfigurations">
+        /// The application configuration file list.
+        /// Serialized Name: SpringbootappsProperties.applicationConfigurations
+        /// </param>
+        /// <param name="bindingPorts">
+        /// The application binding port list.
+        /// Serialized Name: SpringbootappsProperties.bindingPorts
+        /// </param>
+        /// <param name="buildJdkVersion">
+        /// The jdk version in build.
+        /// Serialized Name: SpringbootappsProperties.buildJdkVersion
+        /// </param>
+        /// <param name="certificates">
+        /// The certificate file list.
+        /// Serialized Name: SpringbootappsProperties.certificates
+        /// </param>
+        /// <param name="checksum">
+        /// The checksum of jar file.
+        /// Serialized Name: SpringbootappsProperties.checksum
+        /// </param>
+        /// <param name="dependencies">
+        /// The dependency list.
+        /// Serialized Name: SpringbootappsProperties.dependencies
+        /// </param>
+        /// <param name="environments">
+        /// The environment variable list.
+        /// Serialized Name: SpringbootappsProperties.environments
+        /// </param>
+        /// <param name="instanceCount">
+        /// The total instance count the app deployed.
+        /// Serialized Name: SpringbootappsProperties.instanceCount
+        /// </param>
+        /// <param name="jarFileLocation">
+        /// The jar file location on the server.
+        /// Serialized Name: SpringbootappsProperties.jarFileLocation
+        /// </param>
+        /// <param name="jvmMemoryInMB">
+        /// The jvm heap memory allocated.
+        /// Serialized Name: SpringbootappsProperties.jvmMemoryInMB
+        /// </param>
+        /// <param name="jvmOptions">
+        /// The jvm options.
+        /// Serialized Name: SpringbootappsProperties.jvmOptions
+        /// </param>
+        /// <param name="miscs">
+        /// The other types of date collected.
+        /// Serialized Name: SpringbootappsProperties.miscs
+        /// </param>
+        /// <param name="instances">
+        /// The breakdown info for app instances on all the servers
+        /// Serialized Name: SpringbootappsProperties.instances
+        /// </param>
+        /// <param name="runtimeJdkVersion">
+        /// The jdk version installed on server
+        /// Serialized Name: SpringbootappsProperties.runtimeJdkVersion
+        /// </param>
+        /// <param name="servers">
+        /// The server list the app installed
+        /// Serialized Name: SpringbootappsProperties.servers
+        /// </param>
+        /// <param name="machineArmIds">
+        /// The machine ARM id list the app belongs to.
+        /// Serialized Name: SpringbootappsProperties.machineArmIds
+        /// </param>
+        /// <param name="springBootVersion">
+        /// The spring boot version.
+        /// Serialized Name: SpringbootappsProperties.springBootVersion
+        /// </param>
+        /// <param name="staticContentLocations">
+        /// The static content location list.
+        /// Serialized Name: SpringbootappsProperties.staticContentLocations
+        /// </param>
+        /// <param name="connectionStrings">
+        /// The connection string list.
+        /// Serialized Name: SpringbootappsProperties.connectionStrings
+        /// </param>
+        /// <param name="lastModifiedOn">
+        /// Time when this springbootapps jar file was last modified.
+        /// Serialized Name: SpringbootappsProperties.lastModifiedTime
+        /// </param>
+        /// <param name="lastUpdatedOn">
+        /// Time when this springbootapps instance was last refreshed.
+        /// Serialized Name: SpringbootappsProperties.lastUpdatedTime
+        /// </param>
+        /// <param name="provisioningState">
+        /// The resource provisioning state.
+        /// Serialized Name: SpringbootappsProperties.provisioningState
+        /// </param>
+        /// <param name="errors">
+        /// The list of errors.
+        /// Serialized Name: SpringbootappsProperties.errors
+        /// </param>
+        /// <param name="labels">
+        /// Resource labels
+        /// Serialized Name: SpringbootappsProperties.labels
+        /// </param>
+        /// <returns> A new <see cref="Models.SpringBootAppProperties"/> instance for mocking. </returns>
+        public static SpringBootAppProperties SpringBootAppProperties(string appName = null, string artifactName = null, int? appPort = null, string appType = null, IEnumerable<SpringBootAppApplicationConfigurationsItem> applicationConfigurations = null, IEnumerable<int> bindingPorts = null, string buildJdkVersion = null, IEnumerable<string> certificates = null, string checksum = null, IEnumerable<string> dependencies = null, IEnumerable<string> environments = null, int? instanceCount = null, string jarFileLocation = null, int? jvmMemoryInMB = null, IEnumerable<string> jvmOptions = null, IEnumerable<SpringBootAppMiscsItem> miscs = null, IEnumerable<SpringBootAppInstancesItem> instances = null, string runtimeJdkVersion = null, IEnumerable<string> servers = null, IEnumerable<ResourceIdentifier> machineArmIds = null, string springBootVersion = null, IEnumerable<string> staticContentLocations = null, IEnumerable<string> connectionStrings = null, DateTimeOffset? lastModifiedOn = null, DateTimeOffset? lastUpdatedOn = null, SpringAppDiscoveryProvisioningState? provisioningState = null, IEnumerable<SpringBootSiteError> errors = null, IDictionary<string, string> labels = null)
+        {
+            applicationConfigurations ??= new List<SpringBootAppApplicationConfigurationsItem>();
+            bindingPorts ??= new List<int>();
+            certificates ??= new List<string>();
+            dependencies ??= new List<string>();
+            environments ??= new List<string>();
+            jvmOptions ??= new List<string>();
+            miscs ??= new List<SpringBootAppMiscsItem>();
+            instances ??= new List<SpringBootAppInstancesItem>();
+            servers ??= new List<string>();
+            machineArmIds ??= new List<ResourceIdentifier>();
+            staticContentLocations ??= new List<string>();
+            connectionStrings ??= new List<string>();
+            errors ??= new List<SpringBootSiteError>();
+            labels ??= new Dictionary<string, string>();
+
+            return new SpringBootAppProperties(
+                appName,
+                artifactName,
+                appPort,
+                appType,
+                applicationConfigurations?.ToList(),
+                bindingPorts?.ToList(),
+                buildJdkVersion,
+                certificates?.ToList(),
+                checksum,
+                dependencies?.ToList(),
+                environments?.ToList(),
+                instanceCount,
+                jarFileLocation,
+                jvmMemoryInMB,
+                jvmOptions?.ToList(),
+                miscs?.ToList(),
+                instances?.ToList(),
+                runtimeJdkVersion,
+                servers?.ToList(),
+                machineArmIds?.ToList(),
+                springBootVersion,
+                staticContentLocations?.ToList(),
+                connectionStrings?.ToList(),
+                lastModifiedOn,
+                lastUpdatedOn,
+                provisioningState,
+                errors?.ToList(),
+                labels,
                 serializedAdditionalRawData: null);
         }
 
@@ -168,22 +284,15 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
         /// The springbootapps resource definition.
         /// Serialized Name: SpringbootappsPatch.properties
         /// </param>
-        /// <param name="tags">
-        /// Resource tags
-        /// Serialized Name: SpringbootappsPatch.tags
-        /// </param>
         /// <returns> A new <see cref="Models.SpringBootAppPatch"/> instance for mocking. </returns>
-        public static SpringBootAppPatch SpringBootAppPatch(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SpringBootAppProperties properties = null, IDictionary<string, string> tags = null)
+        public static SpringBootAppPatch SpringBootAppPatch(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SpringBootAppProperties properties = null)
         {
-            tags ??= new Dictionary<string, string>();
-
             return new SpringBootAppPatch(
                 id,
                 name,
                 resourceType,
                 systemData,
                 properties,
-                tags,
                 serializedAdditionalRawData: null);
         }
 

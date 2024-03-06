@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_SpringbootsitesGetMaximumSetGen()
         {
-            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2023-01-01-preview/examples/springbootsites_Get_MaximumSet_Gen.json
+            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2024-04-01-preview/examples/springbootsites_Get_MaximumSet_Gen.json
             // this example is just showing the usage of "springbootsites_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_SpringbootsitesGetMinimumSetGen()
         {
-            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2023-01-01-preview/examples/springbootsites_Get_MinimumSet_Gen.json
+            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2024-04-01-preview/examples/springbootsites_Get_MinimumSet_Gen.json
             // this example is just showing the usage of "springbootsites_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_SpringbootsitesDeleteMaximumSetGen()
         {
-            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2023-01-01-preview/examples/springbootsites_Delete_MaximumSet_Gen.json
+            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2024-04-01-preview/examples/springbootsites_Delete_MaximumSet_Gen.json
             // this example is just showing the usage of "springbootsites_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -113,7 +113,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_SpringbootsitesDeleteMinimumSetGen()
         {
-            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2023-01-01-preview/examples/springbootsites_Delete_MinimumSet_Gen.json
+            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2024-04-01-preview/examples/springbootsites_Delete_MinimumSet_Gen.json
             // this example is just showing the usage of "springbootsites_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -140,7 +140,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_SpringbootsitesUpdateMaximumSetGen()
         {
-            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2023-01-01-preview/examples/springbootsites_Update_MaximumSet_Gen.json
+            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2024-04-01-preview/examples/springbootsites_Update_MaximumSet_Gen.json
             // this example is just showing the usage of "springbootsites_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -157,7 +157,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Samples
             SpringBootSiteResource springBootSite = client.GetSpringBootSiteResource(springBootSiteResourceId);
 
             // invoke the operation
-            SpringBootSitePatch patch = new SpringBootSitePatch(new AzureLocation("icnumzvzzeqhuxtcefuqdcro"))
+            SpringBootSitePatch patch = new SpringBootSitePatch()
             {
                 Tags =
 {
@@ -179,7 +179,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_SpringbootsitesUpdateMinimumSetGen()
         {
-            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2023-01-01-preview/examples/springbootsites_Update_MinimumSet_Gen.json
+            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2024-04-01-preview/examples/springbootsites_Update_MinimumSet_Gen.json
             // this example is just showing the usage of "springbootsites_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -196,7 +196,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Samples
             SpringBootSiteResource springBootSite = client.GetSpringBootSiteResource(springBootSiteResourceId);
 
             // invoke the operation
-            SpringBootSitePatch patch = new SpringBootSitePatch(new AzureLocation("icnumzvzzeqhuxtcefuqdcro"));
+            SpringBootSitePatch patch = new SpringBootSitePatch();
             ArmOperation<SpringBootSiteResource> lro = await springBootSite.UpdateAsync(WaitUntil.Completed, patch);
             SpringBootSiteResource result = lro.Value;
 
@@ -212,7 +212,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task TriggerRefreshSite_SpringbootsitesTriggerRefreshSiteMaximumSetGen()
         {
-            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2023-01-01-preview/examples/springbootsites_TriggerRefreshSite_MaximumSet_Gen.json
+            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2024-04-01-preview/examples/springbootsites_TriggerRefreshSite_MaximumSet_Gen.json
             // this example is just showing the usage of "springbootsites_TriggerRefreshSite" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -239,7 +239,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task TriggerRefreshSite_SpringbootsitesTriggerRefreshSiteMinimumSetGen()
         {
-            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2023-01-01-preview/examples/springbootsites_TriggerRefreshSite_MinimumSet_Gen.json
+            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2024-04-01-preview/examples/springbootsites_TriggerRefreshSite_MinimumSet_Gen.json
             // this example is just showing the usage of "springbootsites_TriggerRefreshSite" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -266,7 +266,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetSpringBootSites_SpringbootsitesListBySubscriptionMaximumSetGen()
         {
-            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2023-01-01-preview/examples/springbootsites_ListBySubscription_MaximumSet_Gen.json
+            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2024-04-01-preview/examples/springbootsites_ListBySubscription_MaximumSet_Gen.json
             // this example is just showing the usage of "springbootsites_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -298,7 +298,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetSpringBootSites_SpringbootsitesListBySubscriptionMinimumSetGen()
         {
-            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2023-01-01-preview/examples/springbootsites_ListBySubscription_MinimumSet_Gen.json
+            // Generated from example definition: specification/offazurespringboot/resource-manager/Microsoft.OffAzureSpringBoot/preview/2024-04-01-preview/examples/springbootsites_ListBySubscription_MinimumSet_Gen.json
             // this example is just showing the usage of "springbootsites_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
