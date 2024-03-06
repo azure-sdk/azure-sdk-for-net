@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2023-01-01-preview";
+            _apiVersion = apiVersion ?? "2024-04-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -504,7 +504,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="siteName"/>, <paramref name="springbootserversName"/> or <paramref name="patch"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="siteName"/> or <paramref name="springbootserversName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> UpdateAsync(string subscriptionId, string resourceGroupName, string siteName, string springbootserversName, SpringBootServerPatch patch, CancellationToken cancellationToken = default)
+        public async Task<Response<SpringBootServerData>> UpdateAsync(string subscriptionId, string resourceGroupName, string siteName, string springbootserversName, SpringBootServerPatch patch, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -548,8 +548,12 @@ namespace Azure.ResourceManager.SpringAppDiscovery
             switch (message.Response.Status)
             {
                 case 200:
-                case 202:
-                    return message.Response;
+                    {
+                        SpringBootServerData value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = SpringBootServerData.DeserializeSpringBootServerData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
                 default:
                     throw new RequestFailedException(message.Response);
             }
@@ -564,7 +568,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="siteName"/>, <paramref name="springbootserversName"/> or <paramref name="patch"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="siteName"/> or <paramref name="springbootserversName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Update(string subscriptionId, string resourceGroupName, string siteName, string springbootserversName, SpringBootServerPatch patch, CancellationToken cancellationToken = default)
+        public Response<SpringBootServerData> Update(string subscriptionId, string resourceGroupName, string siteName, string springbootserversName, SpringBootServerPatch patch, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -608,8 +612,12 @@ namespace Azure.ResourceManager.SpringAppDiscovery
             switch (message.Response.Status)
             {
                 case 200:
-                case 202:
-                    return message.Response;
+                    {
+                        SpringBootServerData value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = SpringBootServerData.DeserializeSpringBootServerData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
                 default:
                     throw new RequestFailedException(message.Response);
             }
