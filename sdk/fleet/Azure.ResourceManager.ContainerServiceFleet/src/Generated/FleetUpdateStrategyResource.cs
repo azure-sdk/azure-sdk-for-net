@@ -103,7 +103,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-10-15</description>
+        /// <description>2024-04-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-10-15</description>
+        /// <description>2024-04-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -183,7 +183,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-10-15</description>
+        /// <description>2024-04-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -226,7 +226,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-10-15</description>
+        /// <description>2024-04-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -269,7 +269,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-10-15</description>
+        /// <description>2024-04-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -317,7 +317,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-10-15</description>
+        /// <description>2024-04-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
