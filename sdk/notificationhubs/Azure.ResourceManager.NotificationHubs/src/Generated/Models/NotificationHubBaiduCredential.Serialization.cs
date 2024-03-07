@@ -10,7 +10,6 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.NotificationHubs;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
@@ -29,21 +28,12 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             writer.WriteStartObject();
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(BaiduApiKey))
-            {
-                writer.WritePropertyName("baiduApiKey"u8);
-                writer.WriteStringValue(BaiduApiKey);
-            }
-            if (Optional.IsDefined(BaiduEndpoint))
-            {
-                writer.WritePropertyName("baiduEndPoint"u8);
-                writer.WriteStringValue(BaiduEndpoint.AbsoluteUri);
-            }
-            if (Optional.IsDefined(BaiduSecretKey))
-            {
-                writer.WritePropertyName("baiduSecretKey"u8);
-                writer.WriteStringValue(BaiduSecretKey);
-            }
+            writer.WritePropertyName("baiduApiKey"u8);
+            writer.WriteStringValue(BaiduApiKey);
+            writer.WritePropertyName("baiduEndPoint"u8);
+            writer.WriteStringValue(BaiduEndpoint.AbsoluteUri);
+            writer.WritePropertyName("baiduSecretKey"u8);
+            writer.WriteStringValue(BaiduSecretKey);
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -106,10 +96,6 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                         }
                         if (property0.NameEquals("baiduEndPoint"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
                             baiduEndPoint = new Uri(property0.Value.GetString());
                             continue;
                         }
