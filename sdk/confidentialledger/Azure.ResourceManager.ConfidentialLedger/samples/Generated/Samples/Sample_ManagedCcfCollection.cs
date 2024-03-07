@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.ConfidentialLedger.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ManagedCCFGet()
         {
-            // Generated from example definition: specification/confidentialledger/resource-manager/Microsoft.ConfidentialLedger/preview/2023-01-26-preview/examples/ManagedCCF_Get.json
+            // Generated from example definition: specification/confidentialledger/resource-manager/Microsoft.ConfidentialLedger/preview/2024-03-07-preview/examples/ManagedCCF_Get.json
             // this example is just showing the usage of "ManagedCCF_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.ConfidentialLedger.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_ManagedCCFGet()
         {
-            // Generated from example definition: specification/confidentialledger/resource-manager/Microsoft.ConfidentialLedger/preview/2023-01-26-preview/examples/ManagedCCF_Get.json
+            // Generated from example definition: specification/confidentialledger/resource-manager/Microsoft.ConfidentialLedger/preview/2024-03-07-preview/examples/ManagedCCF_Get.json
             // this example is just showing the usage of "ManagedCCF_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.ConfidentialLedger.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_ManagedCCFGet()
         {
-            // Generated from example definition: specification/confidentialledger/resource-manager/Microsoft.ConfidentialLedger/preview/2023-01-26-preview/examples/ManagedCCF_Get.json
+            // Generated from example definition: specification/confidentialledger/resource-manager/Microsoft.ConfidentialLedger/preview/2024-03-07-preview/examples/ManagedCCF_Get.json
             // this example is just showing the usage of "ManagedCCF_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -131,7 +131,7 @@ namespace Azure.ResourceManager.ConfidentialLedger.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_ManagedCCFCreate()
         {
-            // Generated from example definition: specification/confidentialledger/resource-manager/Microsoft.ConfidentialLedger/preview/2023-01-26-preview/examples/ManagedCCF_Create.json
+            // Generated from example definition: specification/confidentialledger/resource-manager/Microsoft.ConfidentialLedger/preview/2024-03-07-preview/examples/ManagedCCF_Create.json
             // this example is just showing the usage of "ManagedCCF_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -193,7 +193,7 @@ Tags = BinaryData.FromObjectAsJson(new Dictionary<string, object>()
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ManagedCCFList()
         {
-            // Generated from example definition: specification/confidentialledger/resource-manager/Microsoft.ConfidentialLedger/preview/2023-01-26-preview/examples/ManagedCCF_List.json
+            // Generated from example definition: specification/confidentialledger/resource-manager/Microsoft.ConfidentialLedger/preview/2024-03-07-preview/examples/ManagedCCF_List.json
             // this example is just showing the usage of "ManagedCCF_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
