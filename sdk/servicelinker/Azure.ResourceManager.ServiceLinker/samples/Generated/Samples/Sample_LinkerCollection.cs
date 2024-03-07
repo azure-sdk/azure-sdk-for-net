@@ -16,14 +16,14 @@ using Azure.ResourceManager.ServiceLinker.Models;
 
 namespace Azure.ResourceManager.ServiceLinker.Samples
 {
-    public partial class Sample_LinkerResourceCollection
+    public partial class Sample_LinkerCollection
     {
-        // LinkList
+        // LinkerList
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAll_LinkList()
+        public async Task GetAll_LinkerList()
         {
-            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2022-05-01/examples/LinkList.json
+            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/preview/2023-04-01-preview/examples/LinkerList.json
             // this example is just showing the usage of "Linker_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.ServiceLinker.Samples
             // get the collection of this LinkerResource
             string resourceUri = "subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Web/sites/test-app";
             ResourceIdentifier scopeId = new ResourceIdentifier(string.Format("/{0}", resourceUri));
-            LinkerResourceCollection collection = client.GetLinkerResources(scopeId);
+            LinkerCollection collection = client.GetLinkers(scopeId);
 
             // invoke the operation and iterate over the result
             await foreach (LinkerResource item in collection.GetAllAsync())
@@ -52,12 +52,12 @@ namespace Azure.ResourceManager.ServiceLinker.Samples
             Console.WriteLine($"Succeeded");
         }
 
-        // Link
+        // Linker
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Get_Link()
+        public async Task Get_Linker()
         {
-            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2022-05-01/examples/Link.json
+            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/preview/2023-04-01-preview/examples/Linker.json
             // this example is just showing the usage of "Linker_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -71,7 +71,7 @@ namespace Azure.ResourceManager.ServiceLinker.Samples
             // get the collection of this LinkerResource
             string resourceUri = "subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Web/sites/test-app";
             ResourceIdentifier scopeId = new ResourceIdentifier(string.Format("/{0}", resourceUri));
-            LinkerResourceCollection collection = client.GetLinkerResources(scopeId);
+            LinkerCollection collection = client.GetLinkers(scopeId);
 
             // invoke the operation
             string linkerName = "linkName";
@@ -84,12 +84,12 @@ namespace Azure.ResourceManager.ServiceLinker.Samples
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // Link
+        // Linker
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Exists_Link()
+        public async Task Exists_Linker()
         {
-            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2022-05-01/examples/Link.json
+            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/preview/2023-04-01-preview/examples/Linker.json
             // this example is just showing the usage of "Linker_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -103,7 +103,7 @@ namespace Azure.ResourceManager.ServiceLinker.Samples
             // get the collection of this LinkerResource
             string resourceUri = "subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Web/sites/test-app";
             ResourceIdentifier scopeId = new ResourceIdentifier(string.Format("/{0}", resourceUri));
-            LinkerResourceCollection collection = client.GetLinkerResources(scopeId);
+            LinkerCollection collection = client.GetLinkers(scopeId);
 
             // invoke the operation
             string linkerName = "linkName";
@@ -112,12 +112,12 @@ namespace Azure.ResourceManager.ServiceLinker.Samples
             Console.WriteLine($"Succeeded: {result}");
         }
 
-        // Link
+        // Linker
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetIfExists_Link()
+        public async Task GetIfExists_Linker()
         {
-            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2022-05-01/examples/Link.json
+            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/preview/2023-04-01-preview/examples/Linker.json
             // this example is just showing the usage of "Linker_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -131,7 +131,7 @@ namespace Azure.ResourceManager.ServiceLinker.Samples
             // get the collection of this LinkerResource
             string resourceUri = "subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Web/sites/test-app";
             ResourceIdentifier scopeId = new ResourceIdentifier(string.Format("/{0}", resourceUri));
-            LinkerResourceCollection collection = client.GetLinkerResources(scopeId);
+            LinkerCollection collection = client.GetLinkers(scopeId);
 
             // invoke the operation
             string linkerName = "linkName";
@@ -152,12 +152,12 @@ namespace Azure.ResourceManager.ServiceLinker.Samples
             }
         }
 
-        // PutLink
+        // PutLinker
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task CreateOrUpdate_PutLink()
+        public async Task CreateOrUpdate_PutLinker()
         {
-            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2022-05-01/examples/PutLink.json
+            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/preview/2023-04-01-preview/examples/PutLinker.json
             // this example is just showing the usage of "Linker_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.ServiceLinker.Samples
             // get the collection of this LinkerResource
             string resourceUri = "subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Web/sites/test-app";
             ResourceIdentifier scopeId = new ResourceIdentifier(string.Format("/{0}", resourceUri));
-            LinkerResourceCollection collection = client.GetLinkerResources(scopeId);
+            LinkerCollection collection = client.GetLinkers(scopeId);
 
             // invoke the operation
             string linkerName = "linkName";
@@ -189,97 +189,10 @@ namespace Azure.ResourceManager.ServiceLinker.Samples
                         Value = "secret",
                     },
                 },
-            };
-            ArmOperation<LinkerResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, linkerName, data);
-            LinkerResource result = lro.Value;
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            LinkerResourceData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        // PutLinkWithSecretStore
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task CreateOrUpdate_PutLinkWithSecretStore()
-        {
-            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2022-05-01/examples/PutLinkWithSecretStore.json
-            // this example is just showing the usage of "Linker_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this ArmResource created on azure
-            // for more information of creating ArmResource, please refer to the document of ArmResource
-
-            // get the collection of this LinkerResource
-            string resourceUri = "subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Web/sites/test-app";
-            ResourceIdentifier scopeId = new ResourceIdentifier(string.Format("/{0}", resourceUri));
-            LinkerResourceCollection collection = client.GetLinkerResources(scopeId);
-
-            // invoke the operation
-            string linkerName = "linkName";
-            LinkerResourceData data = new LinkerResourceData()
-            {
-                TargetService = new AzureResourceInfo()
+                VnetSolution = new VnetSolution()
                 {
-                    Id = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.DocumentDb/databaseAccounts/test-acc/mongodbDatabases/test-db"),
+                    SolutionType = VnetSolutionType.ServiceEndpoint,
                 },
-                AuthInfo = new SecretAuthInfo(),
-                SecretStoreKeyVaultId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.KeyVault/vaults/test-kv"),
-            };
-            ArmOperation<LinkerResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, linkerName, data);
-            LinkerResource result = lro.Value;
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            LinkerResourceData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        // PutLinkWithServiceEndpoint
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task CreateOrUpdate_PutLinkWithServiceEndpoint()
-        {
-            // Generated from example definition: specification/servicelinker/resource-manager/Microsoft.ServiceLinker/stable/2022-05-01/examples/PutLinkWithServiceEndpoint.json
-            // this example is just showing the usage of "Linker_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this ArmResource created on azure
-            // for more information of creating ArmResource, please refer to the document of ArmResource
-
-            // get the collection of this LinkerResource
-            string resourceUri = "subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Web/sites/test-app";
-            ResourceIdentifier scopeId = new ResourceIdentifier(string.Format("/{0}", resourceUri));
-            LinkerResourceCollection collection = client.GetLinkerResources(scopeId);
-
-            // invoke the operation
-            string linkerName = "linkName";
-            LinkerResourceData data = new LinkerResourceData()
-            {
-                TargetService = new AzureResourceInfo()
-                {
-                    Id = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.DBforPostgreSQL/servers/test-pg/databases/test-db"),
-                },
-                AuthInfo = new SecretAuthInfo()
-                {
-                    Name = "name",
-                    SecretInfo = new KeyVaultSecretUriSecretInfo()
-                    {
-                        Value = "https://vault-name.vault.azure.net/secrets/secret-name/00000000000000000000000000000000",
-                    },
-                },
-                SolutionType = VnetSolutionType.ServiceEndpoint,
             };
             ArmOperation<LinkerResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, linkerName, data);
             LinkerResource result = lro.Value;

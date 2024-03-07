@@ -11,8 +11,8 @@ using Azure.ResourceManager.ServiceLinker;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    /// <summary> Configurations for source resource, include appSettings, connectionString and serviceBindings. </summary>
-    public partial class SourceConfigurationResult
+    /// <summary> Dapr configuration list supported by Service Connector. </summary>
+    internal partial class DaprConfigurationList
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,22 +46,26 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SourceConfigurationResult"/>. </summary>
-        internal SourceConfigurationResult()
+        /// <summary> Initializes a new instance of <see cref="DaprConfigurationList"/>. </summary>
+        internal DaprConfigurationList()
         {
-            Configurations = new ChangeTrackingList<SourceConfiguration>();
+            Value = new ChangeTrackingList<DaprConfigurationResource>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="SourceConfigurationResult"/>. </summary>
-        /// <param name="configurations"> The configuration properties for source resource. </param>
+        /// <summary> Initializes a new instance of <see cref="DaprConfigurationList"/>. </summary>
+        /// <param name="value"> The list of dapr configurations. </param>
+        /// <param name="nextLink"> Link to next page of resources. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SourceConfigurationResult(IReadOnlyList<SourceConfiguration> configurations, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DaprConfigurationList(IReadOnlyList<DaprConfigurationResource> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Configurations = configurations;
+            Value = value;
+            NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The configuration properties for source resource. </summary>
-        public IReadOnlyList<SourceConfiguration> Configurations { get; }
+        /// <summary> The list of dapr configurations. </summary>
+        public IReadOnlyList<DaprConfigurationResource> Value { get; }
+        /// <summary> Link to next page of resources. </summary>
+        public string NextLink { get; }
     }
 }

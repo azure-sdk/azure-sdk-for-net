@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.ServiceLinker
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2022-05-01";
+            _apiVersion = apiVersion ?? "2023-04-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -54,11 +54,11 @@ namespace Azure.ResourceManager.ServiceLinker
             return message;
         }
 
-        /// <summary> Returns list of Linkers which connects to the resource. </summary>
+        /// <summary> Returns list of Linkers which connects to the resource. which supports to config both application and target service during the resource provision. </summary>
         /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public async Task<Response<LinkerList>> ListAsync(string resourceUri, CancellationToken cancellationToken = default)
+        public async Task<Response<ResourceList>> ListAsync(string resourceUri, CancellationToken cancellationToken = default)
         {
             if (resourceUri == null)
             {
@@ -71,9 +71,9 @@ namespace Azure.ResourceManager.ServiceLinker
             {
                 case 200:
                     {
-                        LinkerList value = default;
+                        ResourceList value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = LinkerList.DeserializeLinkerList(document.RootElement);
+                        value = ResourceList.DeserializeResourceList(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -81,11 +81,11 @@ namespace Azure.ResourceManager.ServiceLinker
             }
         }
 
-        /// <summary> Returns list of Linkers which connects to the resource. </summary>
+        /// <summary> Returns list of Linkers which connects to the resource. which supports to config both application and target service during the resource provision. </summary>
         /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public Response<LinkerList> List(string resourceUri, CancellationToken cancellationToken = default)
+        public Response<ResourceList> List(string resourceUri, CancellationToken cancellationToken = default)
         {
             if (resourceUri == null)
             {
@@ -98,9 +98,9 @@ namespace Azure.ResourceManager.ServiceLinker
             {
                 case 200:
                     {
-                        LinkerList value = default;
+                        ResourceList value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = LinkerList.DeserializeLinkerList(document.RootElement);
+                        value = ResourceList.DeserializeResourceList(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -226,7 +226,7 @@ namespace Azure.ResourceManager.ServiceLinker
             return message;
         }
 
-        /// <summary> Create or update linker resource. </summary>
+        /// <summary> Create or update Linker resource. </summary>
         /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="linkerName"> The name Linker resource. </param>
         /// <param name="data"> Linker details. </param>
@@ -264,7 +264,7 @@ namespace Azure.ResourceManager.ServiceLinker
             }
         }
 
-        /// <summary> Create or update linker resource. </summary>
+        /// <summary> Create or update Linker resource. </summary>
         /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="linkerName"> The name Linker resource. </param>
         /// <param name="data"> Linker details. </param>
@@ -320,7 +320,7 @@ namespace Azure.ResourceManager.ServiceLinker
             return message;
         }
 
-        /// <summary> Delete a link. </summary>
+        /// <summary> Delete a Linker. </summary>
         /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="linkerName"> The name Linker resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -354,7 +354,7 @@ namespace Azure.ResourceManager.ServiceLinker
             }
         }
 
-        /// <summary> Delete a link. </summary>
+        /// <summary> Delete a Linker. </summary>
         /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="linkerName"> The name Linker resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -388,7 +388,7 @@ namespace Azure.ResourceManager.ServiceLinker
             }
         }
 
-        internal HttpMessage CreateUpdateRequest(string resourceUri, string linkerName, LinkerResourcePatch patch)
+        internal HttpMessage CreateUpdateRequest(string resourceUri, string linkerName, LinkerPatch patch)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -410,14 +410,14 @@ namespace Azure.ResourceManager.ServiceLinker
             return message;
         }
 
-        /// <summary> Operation to update an existing link. </summary>
+        /// <summary> Operation to update an existing Linker. </summary>
         /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="linkerName"> The name Linker resource. </param>
         /// <param name="patch"> Linker details. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/>, <paramref name="linkerName"/> or <paramref name="patch"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="linkerName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> UpdateAsync(string resourceUri, string linkerName, LinkerResourcePatch patch, CancellationToken cancellationToken = default)
+        public async Task<Response> UpdateAsync(string resourceUri, string linkerName, LinkerPatch patch, CancellationToken cancellationToken = default)
         {
             if (resourceUri == null)
             {
@@ -448,14 +448,14 @@ namespace Azure.ResourceManager.ServiceLinker
             }
         }
 
-        /// <summary> Operation to update an existing link. </summary>
+        /// <summary> Operation to update an existing Linker. </summary>
         /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="linkerName"> The name Linker resource. </param>
         /// <param name="patch"> Linker details. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/>, <paramref name="linkerName"/> or <paramref name="patch"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="linkerName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Update(string resourceUri, string linkerName, LinkerResourcePatch patch, CancellationToken cancellationToken = default)
+        public Response Update(string resourceUri, string linkerName, LinkerPatch patch, CancellationToken cancellationToken = default)
         {
             if (resourceUri == null)
             {
@@ -505,7 +505,7 @@ namespace Azure.ResourceManager.ServiceLinker
             return message;
         }
 
-        /// <summary> Validate a link. </summary>
+        /// <summary> Validate a Linker. </summary>
         /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="linkerName"> The name Linker resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -538,7 +538,7 @@ namespace Azure.ResourceManager.ServiceLinker
             }
         }
 
-        /// <summary> Validate a link. </summary>
+        /// <summary> Validate a Linker. </summary>
         /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="linkerName"> The name Linker resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -590,13 +590,13 @@ namespace Azure.ResourceManager.ServiceLinker
             return message;
         }
 
-        /// <summary> list source configurations for a linker. </summary>
+        /// <summary> list source configurations for a Linker. </summary>
         /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="linkerName"> The name Linker resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="linkerName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="linkerName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SourceConfigurationResult>> ListConfigurationsAsync(string resourceUri, string linkerName, CancellationToken cancellationToken = default)
+        public async Task<Response<ConfigurationResult>> ListConfigurationsAsync(string resourceUri, string linkerName, CancellationToken cancellationToken = default)
         {
             if (resourceUri == null)
             {
@@ -617,9 +617,9 @@ namespace Azure.ResourceManager.ServiceLinker
             {
                 case 200:
                     {
-                        SourceConfigurationResult value = default;
+                        ConfigurationResult value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = SourceConfigurationResult.DeserializeSourceConfigurationResult(document.RootElement);
+                        value = ConfigurationResult.DeserializeConfigurationResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -627,13 +627,13 @@ namespace Azure.ResourceManager.ServiceLinker
             }
         }
 
-        /// <summary> list source configurations for a linker. </summary>
+        /// <summary> list source configurations for a Linker. </summary>
         /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="linkerName"> The name Linker resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="linkerName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="linkerName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SourceConfigurationResult> ListConfigurations(string resourceUri, string linkerName, CancellationToken cancellationToken = default)
+        public Response<ConfigurationResult> ListConfigurations(string resourceUri, string linkerName, CancellationToken cancellationToken = default)
         {
             if (resourceUri == null)
             {
@@ -654,9 +654,9 @@ namespace Azure.ResourceManager.ServiceLinker
             {
                 case 200:
                     {
-                        SourceConfigurationResult value = default;
+                        ConfigurationResult value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = SourceConfigurationResult.DeserializeSourceConfigurationResult(document.RootElement);
+                        value = ConfigurationResult.DeserializeConfigurationResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -678,12 +678,12 @@ namespace Azure.ResourceManager.ServiceLinker
             return message;
         }
 
-        /// <summary> Returns list of Linkers which connects to the resource. </summary>
+        /// <summary> Returns list of Linkers which connects to the resource. which supports to config both application and target service during the resource provision. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="resourceUri"/> is null. </exception>
-        public async Task<Response<LinkerList>> ListNextPageAsync(string nextLink, string resourceUri, CancellationToken cancellationToken = default)
+        public async Task<Response<ResourceList>> ListNextPageAsync(string nextLink, string resourceUri, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -700,9 +700,9 @@ namespace Azure.ResourceManager.ServiceLinker
             {
                 case 200:
                     {
-                        LinkerList value = default;
+                        ResourceList value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = LinkerList.DeserializeLinkerList(document.RootElement);
+                        value = ResourceList.DeserializeResourceList(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -710,12 +710,12 @@ namespace Azure.ResourceManager.ServiceLinker
             }
         }
 
-        /// <summary> Returns list of Linkers which connects to the resource. </summary>
+        /// <summary> Returns list of Linkers which connects to the resource. which supports to config both application and target service during the resource provision. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="resourceUri"/> is null. </exception>
-        public Response<LinkerList> ListNextPage(string nextLink, string resourceUri, CancellationToken cancellationToken = default)
+        public Response<ResourceList> ListNextPage(string nextLink, string resourceUri, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -732,9 +732,9 @@ namespace Azure.ResourceManager.ServiceLinker
             {
                 case 200:
                     {
-                        LinkerList value = default;
+                        ResourceList value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = LinkerList.DeserializeLinkerList(document.RootElement);
+                        value = ResourceList.DeserializeResourceList(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:

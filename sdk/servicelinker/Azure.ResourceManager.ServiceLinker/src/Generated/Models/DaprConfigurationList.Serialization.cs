@@ -14,31 +14,19 @@ using Azure.ResourceManager.ServiceLinker;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    internal partial class LinkerList : IUtf8JsonSerializable, IJsonModel<LinkerList>
+    internal partial class DaprConfigurationList : IUtf8JsonSerializable, IJsonModel<DaprConfigurationList>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<LinkerList>)this).Write(writer, new ModelReaderWriterOptions("W"));
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<DaprConfigurationList>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
-        void IJsonModel<LinkerList>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<DaprConfigurationList>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<LinkerList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<DaprConfigurationList>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(LinkerList)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(DaprConfigurationList)} does not support '{format}' format.");
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(NextLink))
-            {
-                if (NextLink != null)
-                {
-                    writer.WritePropertyName("nextLink"u8);
-                    writer.WriteStringValue(NextLink);
-                }
-                else
-                {
-                    writer.WriteNull("nextLink");
-                }
-            }
             if (Optional.IsCollectionDefined(Value))
             {
                 writer.WritePropertyName("value"u8);
@@ -48,6 +36,11 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                     writer.WriteObjectValue(item);
                 }
                 writer.WriteEndArray();
+            }
+            if (options.Format != "W" && Optional.IsDefined(NextLink))
+            {
+                writer.WritePropertyName("nextLink"u8);
+                writer.WriteStringValue(NextLink);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -67,19 +60,19 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             writer.WriteEndObject();
         }
 
-        LinkerList IJsonModel<LinkerList>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        DaprConfigurationList IJsonModel<DaprConfigurationList>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<LinkerList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<DaprConfigurationList>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(LinkerList)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(DaprConfigurationList)} does not support '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeLinkerList(document.RootElement, options);
+            return DeserializeDaprConfigurationList(document.RootElement, options);
         }
 
-        internal static LinkerList DeserializeLinkerList(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static DaprConfigurationList DeserializeDaprConfigurationList(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= new ModelReaderWriterOptions("W");
 
@@ -87,34 +80,29 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             {
                 return null;
             }
+            IReadOnlyList<DaprConfigurationResource> value = default;
             string nextLink = default;
-            IReadOnlyList<LinkerResourceData> value = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("nextLink"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        nextLink = null;
-                        continue;
-                    }
-                    nextLink = property.Value.GetString();
-                    continue;
-                }
                 if (property.NameEquals("value"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    List<LinkerResourceData> array = new List<LinkerResourceData>();
+                    List<DaprConfigurationResource> array = new List<DaprConfigurationResource>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(LinkerResourceData.DeserializeLinkerResourceData(item, options));
+                        array.Add(DaprConfigurationResource.DeserializeDaprConfigurationResource(item, options));
                     }
                     value = array;
+                    continue;
+                }
+                if (property.NameEquals("nextLink"u8))
+                {
+                    nextLink = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -123,38 +111,38 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new LinkerList(nextLink, value ?? new ChangeTrackingList<LinkerResourceData>(), serializedAdditionalRawData);
+            return new DaprConfigurationList(value ?? new ChangeTrackingList<DaprConfigurationResource>(), nextLink, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<LinkerList>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<DaprConfigurationList>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<LinkerList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<DaprConfigurationList>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(LinkerList)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DaprConfigurationList)} does not support '{options.Format}' format.");
             }
         }
 
-        LinkerList IPersistableModel<LinkerList>.Create(BinaryData data, ModelReaderWriterOptions options)
+        DaprConfigurationList IPersistableModel<DaprConfigurationList>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<LinkerList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<DaprConfigurationList>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeLinkerList(document.RootElement, options);
+                        return DeserializeDaprConfigurationList(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(LinkerList)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DaprConfigurationList)} does not support '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<LinkerList>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<DaprConfigurationList>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
