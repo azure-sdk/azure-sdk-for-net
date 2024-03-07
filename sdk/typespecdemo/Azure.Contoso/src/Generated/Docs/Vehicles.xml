@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetVehiclesAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetVehiclesAsync.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Vehicles client = new ServiceClient(credential).GetVehiclesClient(apiVersion: "2022-11-01-preview");
+
+await foreach (Vehicle item in client.GetVehiclesAsync("<workspaceName>"))
+{
+}
+]]></code>
+This sample shows how to call GetVehiclesAsync with all parameters.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Vehicles client = new ServiceClient(credential).GetVehiclesClient(apiVersion: "2022-11-01-preview");
+
+await foreach (Vehicle item in client.GetVehiclesAsync("<workspaceName>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetVehicles(string,CancellationToken)">
+      <example>
+This sample shows how to call GetVehicles.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Vehicles client = new ServiceClient(credential).GetVehiclesClient(apiVersion: "2022-11-01-preview");
+
+foreach (Vehicle item in client.GetVehicles("<workspaceName>"))
+{
+}
+]]></code>
+This sample shows how to call GetVehicles with all parameters.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Vehicles client = new ServiceClient(credential).GetVehiclesClient(apiVersion: "2022-11-01-preview");
+
+foreach (Vehicle item in client.GetVehicles("<workspaceName>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetVehiclesAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetVehiclesAsync and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Vehicles client = new ServiceClient(credential).GetVehiclesClient(apiVersion: "2022-11-01-preview");
+
+await foreach (BinaryData item in client.GetVehiclesAsync("<workspaceName>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+    Console.WriteLine(result.GetProperty("manufacturerName").ToString());
+    Console.WriteLine(result.GetProperty("modelName").ToString());
+    Console.WriteLine(result.GetProperty("plateNumber").ToString());
+}
+]]></code>
+This sample shows how to call GetVehiclesAsync with all parameters and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Vehicles client = new ServiceClient(credential).GetVehiclesClient(apiVersion: "2022-11-01-preview");
+
+await foreach (BinaryData item in client.GetVehiclesAsync("<workspaceName>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+    Console.WriteLine(result.GetProperty("manufacturerName").ToString());
+    Console.WriteLine(result.GetProperty("modelName").ToString());
+    Console.WriteLine(result.GetProperty("plateNumber").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetVehicles(string,RequestContext)">
+      <example>
+This sample shows how to call GetVehicles and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Vehicles client = new ServiceClient(credential).GetVehiclesClient(apiVersion: "2022-11-01-preview");
+
+foreach (BinaryData item in client.GetVehicles("<workspaceName>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+    Console.WriteLine(result.GetProperty("manufacturerName").ToString());
+    Console.WriteLine(result.GetProperty("modelName").ToString());
+    Console.WriteLine(result.GetProperty("plateNumber").ToString());
+}
+]]></code>
+This sample shows how to call GetVehicles with all parameters and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Vehicles client = new ServiceClient(credential).GetVehiclesClient(apiVersion: "2022-11-01-preview");
+
+foreach (BinaryData item in client.GetVehicles("<workspaceName>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+    Console.WriteLine(result.GetProperty("manufacturerName").ToString());
+    Console.WriteLine(result.GetProperty("modelName").ToString());
+    Console.WriteLine(result.GetProperty("plateNumber").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>

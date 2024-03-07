@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetCarAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetCarAsync.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+Response<Car> response = await client.GetCarAsync("<workspaceName>", "<carId>");
+]]></code>
+This sample shows how to call GetCarAsync with all parameters.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+Response<Car> response = await client.GetCarAsync("<workspaceName>", "<carId>");
+]]></code></example>
+    </member>
+    <member name="GetCar(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetCar.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+Response<Car> response = client.GetCar("<workspaceName>", "<carId>");
+]]></code>
+This sample shows how to call GetCar with all parameters.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+Response<Car> response = client.GetCar("<workspaceName>", "<carId>");
+]]></code></example>
+    </member>
+    <member name="GetCarAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetCarAsync and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+Response response = await client.GetCarAsync("<workspaceName>", "<carId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+Console.WriteLine(result.GetProperty("numberOfDoors").ToString());
+]]></code>
+This sample shows how to call GetCarAsync with all parameters and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+Response response = await client.GetCarAsync("<workspaceName>", "<carId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+Console.WriteLine(result.GetProperty("numberOfDoors").ToString());
+]]></code></example>
+    </member>
+    <member name="GetCar(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetCar and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+Response response = client.GetCar("<workspaceName>", "<carId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+Console.WriteLine(result.GetProperty("numberOfDoors").ToString());
+]]></code>
+This sample shows how to call GetCar with all parameters and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+Response response = client.GetCar("<workspaceName>", "<carId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+Console.WriteLine(result.GetProperty("numberOfDoors").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateAsync(string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateAsync and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    vehicleKind = "Car",
+    numberOfDoors = 123,
+});
+Response response = await client.CreateOrUpdateAsync("<workspaceName>", "<carId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+Console.WriteLine(result.GetProperty("numberOfDoors").ToString());
+]]></code>
+This sample shows how to call CreateOrUpdateAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    vehicleKind = "Car",
+    numberOfDoors = 123,
+});
+Response response = await client.CreateOrUpdateAsync("<workspaceName>", "<carId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+Console.WriteLine(result.GetProperty("numberOfDoors").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdate(string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdate and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    vehicleKind = "Car",
+    numberOfDoors = 123,
+});
+Response response = client.CreateOrUpdate("<workspaceName>", "<carId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+Console.WriteLine(result.GetProperty("numberOfDoors").ToString());
+]]></code>
+This sample shows how to call CreateOrUpdate with all parameters and request content and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    vehicleKind = "Car",
+    numberOfDoors = 123,
+});
+Response response = client.CreateOrUpdate("<workspaceName>", "<carId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+Console.WriteLine(result.GetProperty("numberOfDoors").ToString());
+]]></code></example>
+    </member>
+    <member name="GetCarsAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetCarsAsync.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+await foreach (Car item in client.GetCarsAsync("<workspaceName>"))
+{
+}
+]]></code>
+This sample shows how to call GetCarsAsync with all parameters.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+await foreach (Car item in client.GetCarsAsync("<workspaceName>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetCars(string,CancellationToken)">
+      <example>
+This sample shows how to call GetCars.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+foreach (Car item in client.GetCars("<workspaceName>"))
+{
+}
+]]></code>
+This sample shows how to call GetCars with all parameters.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+foreach (Car item in client.GetCars("<workspaceName>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetCarsAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetCarsAsync and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+await foreach (BinaryData item in client.GetCarsAsync("<workspaceName>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+    Console.WriteLine(result.GetProperty("numberOfDoors").ToString());
+}
+]]></code>
+This sample shows how to call GetCarsAsync with all parameters and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+await foreach (BinaryData item in client.GetCarsAsync("<workspaceName>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+    Console.WriteLine(result.GetProperty("numberOfDoors").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetCars(string,RequestContext)">
+      <example>
+This sample shows how to call GetCars and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+foreach (BinaryData item in client.GetCars("<workspaceName>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+    Console.WriteLine(result.GetProperty("numberOfDoors").ToString());
+}
+]]></code>
+This sample shows how to call GetCars with all parameters and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Cars client = new ServiceClient(credential).GetCarsClient(apiVersion: "2022-11-01-preview");
+
+foreach (BinaryData item in client.GetCars("<workspaceName>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("vehicleKind").ToString());
+    Console.WriteLine(result.GetProperty("numberOfDoors").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
