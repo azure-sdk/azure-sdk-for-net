@@ -1,5 +1,5 @@
 additionalDirectories: []
 commit: cd61d52ae47d9265df9d74eb303f9549dd29c5f7
-directory: specification/ai/DocumentIntelligence
+directory: specification/purview/Azure.Analytics.Purview.DataMap
 repo: Azure/azure-rest-api-specs
 
