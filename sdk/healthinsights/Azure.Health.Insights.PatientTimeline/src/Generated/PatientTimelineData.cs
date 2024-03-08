@@ -9,10 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Azure.Health.Insights.CancerProfiling
+namespace Azure.Health.Insights.PatientTimeline
 {
-    /// <summary> The inference results for the Onco Phenotype request. </summary>
-    public partial class OncoPhenotypeResults
+    /// <summary> The body of the Patient Timeline request. </summary>
+    public partial class PatientTimelineData
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,38 +46,35 @@ namespace Azure.Health.Insights.CancerProfiling
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="OncoPhenotypeResults"/>. </summary>
-        /// <param name="patients"> Results for the patients given in the request. </param>
-        /// <param name="modelVersion"> The version of the model used for inference, expressed as the model date. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="patients"/> or <paramref name="modelVersion"/> is null. </exception>
-        internal OncoPhenotypeResults(IEnumerable<OncoPhenotypePatientResult> patients, string modelVersion)
+        /// <summary> Initializes a new instance of <see cref="PatientTimelineData"/>. </summary>
+        /// <param name="patients"> The list of patients, including their clinical information and data. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="patients"/> is null. </exception>
+        public PatientTimelineData(IEnumerable<PatientRecord> patients)
         {
             Argument.AssertNotNull(patients, nameof(patients));
-            Argument.AssertNotNull(modelVersion, nameof(modelVersion));
 
             Patients = patients.ToList();
-            ModelVersion = modelVersion;
         }
 
-        /// <summary> Initializes a new instance of <see cref="OncoPhenotypeResults"/>. </summary>
-        /// <param name="patients"> Results for the patients given in the request. </param>
-        /// <param name="modelVersion"> The version of the model used for inference, expressed as the model date. </param>
+        /// <summary> Initializes a new instance of <see cref="PatientTimelineData"/>. </summary>
+        /// <param name="patients"> The list of patients, including their clinical information and data. </param>
+        /// <param name="configuration"> Configuration affecting the Patient Timeline model's inference. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal OncoPhenotypeResults(IReadOnlyList<OncoPhenotypePatientResult> patients, string modelVersion, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PatientTimelineData(IList<PatientRecord> patients, PatientTimelineModelConfiguration configuration, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Patients = patients;
-            ModelVersion = modelVersion;
+            Configuration = configuration;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="OncoPhenotypeResults"/> for deserialization. </summary>
-        internal OncoPhenotypeResults()
+        /// <summary> Initializes a new instance of <see cref="PatientTimelineData"/> for deserialization. </summary>
+        internal PatientTimelineData()
         {
         }
 
-        /// <summary> Results for the patients given in the request. </summary>
-        public IReadOnlyList<OncoPhenotypePatientResult> Patients { get; }
-        /// <summary> The version of the model used for inference, expressed as the model date. </summary>
-        public string ModelVersion { get; }
+        /// <summary> The list of patients, including their clinical information and data. </summary>
+        public IList<PatientRecord> Patients { get; }
+        /// <summary> Configuration affecting the Patient Timeline model's inference. </summary>
+        public PatientTimelineModelConfiguration Configuration { get; set; }
     }
 }
