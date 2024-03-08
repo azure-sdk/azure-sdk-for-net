@@ -12,18 +12,18 @@ using System.Text.Json;
 using Azure;
 using Azure.Core;
 
-namespace Azure.Health.Insights.CancerProfiling
+namespace Azure.Health.Insights.PatientTimeline
 {
-    public partial class PatientInfo : IUtf8JsonSerializable, IJsonModel<PatientInfo>
+    public partial class PatientDetails : IUtf8JsonSerializable, IJsonModel<PatientDetails>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<PatientInfo>)this).Write(writer, new ModelReaderWriterOptions("W"));
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<PatientDetails>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
-        void IJsonModel<PatientInfo>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<PatientDetails>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<PatientInfo>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PatientDetails>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(PatientInfo)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(PatientDetails)} does not support '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -65,19 +65,19 @@ namespace Azure.Health.Insights.CancerProfiling
             writer.WriteEndObject();
         }
 
-        PatientInfo IJsonModel<PatientInfo>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        PatientDetails IJsonModel<PatientDetails>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<PatientInfo>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PatientDetails>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(PatientInfo)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(PatientDetails)} does not support '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializePatientInfo(document.RootElement, options);
+            return DeserializePatientDetails(document.RootElement, options);
         }
 
-        internal static PatientInfo DeserializePatientInfo(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static PatientDetails DeserializePatientDetails(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= new ModelReaderWriterOptions("W");
 
@@ -85,9 +85,9 @@ namespace Azure.Health.Insights.CancerProfiling
             {
                 return null;
             }
-            PatientInfoSex? sex = default;
+            PatientSex? sex = default;
             DateTimeOffset? birthDate = default;
-            IList<ClinicalCodedElement> clinicalInfo = default;
+            IList<FhirR4Resource> clinicalInfo = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -98,7 +98,7 @@ namespace Azure.Health.Insights.CancerProfiling
                     {
                         continue;
                     }
-                    sex = new PatientInfoSex(property.Value.GetString());
+                    sex = new PatientSex(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("birthDate"u8))
@@ -116,10 +116,10 @@ namespace Azure.Health.Insights.CancerProfiling
                     {
                         continue;
                     }
-                    List<ClinicalCodedElement> array = new List<ClinicalCodedElement>();
+                    List<FhirR4Resource> array = new List<FhirR4Resource>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(ClinicalCodedElement.DeserializeClinicalCodedElement(item, options));
+                        array.Add(FhirR4Resource.DeserializeFhirR4Resource(item, options));
                     }
                     clinicalInfo = array;
                     continue;
@@ -130,46 +130,46 @@ namespace Azure.Health.Insights.CancerProfiling
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new PatientInfo(sex, birthDate, clinicalInfo ?? new ChangeTrackingList<ClinicalCodedElement>(), serializedAdditionalRawData);
+            return new PatientDetails(sex, birthDate, clinicalInfo ?? new ChangeTrackingList<FhirR4Resource>(), serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<PatientInfo>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<PatientDetails>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<PatientInfo>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PatientDetails>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(PatientInfo)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(PatientDetails)} does not support '{options.Format}' format.");
             }
         }
 
-        PatientInfo IPersistableModel<PatientInfo>.Create(BinaryData data, ModelReaderWriterOptions options)
+        PatientDetails IPersistableModel<PatientDetails>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<PatientInfo>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PatientDetails>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializePatientInfo(document.RootElement, options);
+                        return DeserializePatientDetails(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(PatientInfo)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(PatientDetails)} does not support '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<PatientInfo>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<PatientDetails>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static PatientInfo FromResponse(Response response)
+        internal static PatientDetails FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializePatientInfo(document.RootElement);
+            return DeserializePatientDetails(document.RootElement);
         }
 
         /// <summary> Convert into a Utf8JsonRequestContent. </summary>
