@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2023-10-15";
+            _apiVersion = apiVersion ?? "2024-04-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -475,7 +475,6 @@ namespace Azure.ResourceManager.ContainerServiceFleet
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
-                case 200:
                 case 202:
                 case 204:
                     return message.Response;
@@ -502,7 +501,6 @@ namespace Azure.ResourceManager.ContainerServiceFleet
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
-                case 200:
                 case 202:
                 case 204:
                     return message.Response;
