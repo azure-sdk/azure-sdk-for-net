@@ -37,6 +37,16 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 writer.WritePropertyName("operationType"u8);
                 writer.WriteStringValue(OperationType.Value.ToString());
             }
+            if (options.Format != "W" && Optional.IsDefined(CanUndelete))
+            {
+                writer.WritePropertyName("canUndelete"u8);
+                writer.WriteStringValue(CanUndelete);
+            }
+            if (options.Format != "W" && Optional.IsDefined(CanUndeleteReason))
+            {
+                writer.WritePropertyName("canUndeleteReason"u8);
+                writer.WriteStringValue(CanUndeleteReason);
+            }
             if (options.Format != "W" && Optional.IsDefined(EventTimestamp))
             {
                 writer.WritePropertyName("eventTimestamp"u8);
@@ -92,6 +102,8 @@ namespace Azure.ResourceManager.CosmosDB.Models
             }
             string rid = default;
             CosmosDBOperationType? operationType = default;
+            string canUndelete = default;
+            string canUndeleteReason = default;
             string eventTimestamp = default;
             string ownerId = default;
             string ownerResourceId = default;
@@ -111,6 +123,16 @@ namespace Azure.ResourceManager.CosmosDB.Models
                         continue;
                     }
                     operationType = new CosmosDBOperationType(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("canUndelete"u8))
+                {
+                    canUndelete = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("canUndeleteReason"u8))
+                {
+                    canUndeleteReason = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("eventTimestamp"u8))
@@ -137,6 +159,8 @@ namespace Azure.ResourceManager.CosmosDB.Models
             return new ExtendedRestorableMongoDBCollectionResourceInfo(
                 rid,
                 operationType,
+                canUndelete,
+                canUndeleteReason,
                 eventTimestamp,
                 ownerId,
                 ownerResourceId,
