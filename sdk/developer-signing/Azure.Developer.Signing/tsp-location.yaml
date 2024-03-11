@@ -1,0 +1,5 @@
+additionalDirectories: []
+commit: e223f7047b637998acaa3642b2b2f49f3cbccb4d
+repo: Azure/azure-rest-api-specs
+directory: specification/developersigning/DeveloperSigning
+
