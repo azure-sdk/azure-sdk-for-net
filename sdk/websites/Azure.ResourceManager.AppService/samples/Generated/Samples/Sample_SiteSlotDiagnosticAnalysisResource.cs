@@ -22,7 +22,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetAppAnalysis()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/Diagnostics_GetSiteAnalysis.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-03-01/examples/Diagnostics_GetSiteAnalysis.json
             // this example is just showing the usage of "Diagnostics_GetSiteAnalysisSlot" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetAppSlotAnalysis()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/Diagnostics_GetSiteAnalysisSlot.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-03-01/examples/Diagnostics_GetSiteAnalysisSlot.json
             // this example is just showing the usage of "Diagnostics_GetSiteAnalysisSlot" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task ExecuteSiteAnalysisSlot_ExecuteSiteAnalysis()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/Diagnostics_ExecuteSiteAnalysis.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-03-01/examples/Diagnostics_ExecuteSiteAnalysis.json
             // this example is just showing the usage of "Diagnostics_ExecuteSiteAnalysisSlot" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -120,7 +120,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task ExecuteSiteAnalysisSlot_ExecuteSiteSlotAnalysis()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/Diagnostics_ExecuteSiteAnalysisSlot.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-03-01/examples/Diagnostics_ExecuteSiteAnalysisSlot.json
             // this example is just showing the usage of "Diagnostics_ExecuteSiteAnalysisSlot" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

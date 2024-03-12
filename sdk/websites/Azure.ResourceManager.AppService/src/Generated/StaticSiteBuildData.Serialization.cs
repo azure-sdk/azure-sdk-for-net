@@ -100,6 +100,26 @@ namespace Azure.ResourceManager.AppService
                 }
                 writer.WriteEndArray();
             }
+            if (options.Format != "W" && Optional.IsCollectionDefined(LinkedBackends))
+            {
+                writer.WritePropertyName("linkedBackends"u8);
+                writer.WriteStartArray();
+                foreach (var item in LinkedBackends)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (options.Format != "W" && Optional.IsCollectionDefined(DatabaseConnections))
+            {
+                writer.WritePropertyName("databaseConnections"u8);
+                writer.WriteStartArray();
+                foreach (var item in DatabaseConnections)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -152,6 +172,8 @@ namespace Azure.ResourceManager.AppService
             DateTimeOffset? lastUpdatedOn = default;
             StaticSiteBuildStatus? status = default;
             IReadOnlyList<StaticSiteUserProvidedFunctionAppData> userProvidedFunctionApps = default;
+            IReadOnlyList<StaticSiteLinkedBackend> linkedBackends = default;
+            IReadOnlyList<DatabaseConnectionOverview> databaseConnections = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -255,6 +277,34 @@ namespace Azure.ResourceManager.AppService
                             userProvidedFunctionApps = array;
                             continue;
                         }
+                        if (property0.NameEquals("linkedBackends"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<StaticSiteLinkedBackend> array = new List<StaticSiteLinkedBackend>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(StaticSiteLinkedBackend.DeserializeStaticSiteLinkedBackend(item, options));
+                            }
+                            linkedBackends = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("databaseConnections"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<DatabaseConnectionOverview> array = new List<DatabaseConnectionOverview>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(DatabaseConnectionOverview.DeserializeDatabaseConnectionOverview(item, options));
+                            }
+                            databaseConnections = array;
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -277,6 +327,8 @@ namespace Azure.ResourceManager.AppService
                 lastUpdatedOn,
                 status,
                 userProvidedFunctionApps ?? new ChangeTrackingList<StaticSiteUserProvidedFunctionAppData>(),
+                linkedBackends ?? new ChangeTrackingList<StaticSiteLinkedBackend>(),
+                databaseConnections ?? new ChangeTrackingList<DatabaseConnectionOverview>(),
                 kind,
                 serializedAdditionalRawData);
         }

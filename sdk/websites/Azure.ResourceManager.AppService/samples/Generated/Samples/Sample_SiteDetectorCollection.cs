@@ -22,7 +22,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_GetAppDetectorResponses()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/Diagnostics_ListSiteDetectorResponses.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-03-01/examples/Diagnostics_ListSiteDetectorResponses.json
             // this example is just showing the usage of "Diagnostics_ListSiteDetectorResponses" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_GetAppSlotDetectorResponses()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/Diagnostics_ListSiteDetectorResponsesSlot.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-03-01/examples/Diagnostics_ListSiteDetectorResponsesSlot.json
             // this example is just showing the usage of "Diagnostics_ListSiteDetectorResponses" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -96,7 +96,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetAppDetectorResponse()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/Diagnostics_GetSiteDetectorResponse.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-03-01/examples/Diagnostics_GetSiteDetectorResponse.json
             // this example is just showing the usage of "Diagnostics_GetSiteDetectorResponse" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -131,7 +131,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetAppDetectorResponse()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/Diagnostics_GetSiteDetectorResponse.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-03-01/examples/Diagnostics_GetSiteDetectorResponse.json
             // this example is just showing the usage of "Diagnostics_GetSiteDetectorResponse" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -162,7 +162,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetAppDetectorResponse()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/Diagnostics_GetSiteDetectorResponse.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-03-01/examples/Diagnostics_GetSiteDetectorResponse.json
             // this example is just showing the usage of "Diagnostics_GetSiteDetectorResponse" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -205,7 +205,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetAppSlotDetectorResponse()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/Diagnostics_GetSiteDetectorResponseSlot.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-03-01/examples/Diagnostics_GetSiteDetectorResponseSlot.json
             // this example is just showing the usage of "Diagnostics_GetSiteDetectorResponse" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -240,7 +240,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetAppSlotDetectorResponse()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/Diagnostics_GetSiteDetectorResponseSlot.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-03-01/examples/Diagnostics_GetSiteDetectorResponseSlot.json
             // this example is just showing the usage of "Diagnostics_GetSiteDetectorResponse" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -271,7 +271,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetAppSlotDetectorResponse()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/Diagnostics_GetSiteDetectorResponseSlot.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-03-01/examples/Diagnostics_GetSiteDetectorResponseSlot.json
             // this example is just showing the usage of "Diagnostics_GetSiteDetectorResponse" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
