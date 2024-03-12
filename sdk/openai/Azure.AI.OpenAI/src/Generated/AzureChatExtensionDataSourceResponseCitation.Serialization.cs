@@ -44,6 +44,11 @@ namespace Azure.AI.OpenAI
                 writer.WritePropertyName("filepath"u8);
                 writer.WriteStringValue(Filepath);
             }
+            if (Optional.IsDefined(Metadata))
+            {
+                writer.WritePropertyName("metadata"u8);
+                writer.WriteObjectValue(Metadata);
+            }
             if (Optional.IsDefined(ChunkId))
             {
                 writer.WritePropertyName("chunk_id"u8);
@@ -91,6 +96,7 @@ namespace Azure.AI.OpenAI
             string title = default;
             string url = default;
             string filepath = default;
+            AzureChatExtensionDataSourceResponseCitationMetadata metadata = default;
             string chunkId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -116,6 +122,15 @@ namespace Azure.AI.OpenAI
                     filepath = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("metadata"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    metadata = AzureChatExtensionDataSourceResponseCitationMetadata.DeserializeAzureChatExtensionDataSourceResponseCitationMetadata(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("chunk_id"u8))
                 {
                     chunkId = property.Value.GetString();
@@ -132,6 +147,7 @@ namespace Azure.AI.OpenAI
                 title,
                 url,
                 filepath,
+                metadata,
                 chunkId,
                 serializedAdditionalRawData);
         }

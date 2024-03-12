@@ -64,14 +64,16 @@ namespace Azure.AI.OpenAI
         /// <param name="title"> The title of the citation. </param>
         /// <param name="url"> The URL of the citation. </param>
         /// <param name="filepath"> The file path of the citation. </param>
+        /// <param name="metadata"> Additional metadata related to this citation. </param>
         /// <param name="chunkId"> The chunk ID of the citation. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AzureChatExtensionDataSourceResponseCitation(string content, string title, string url, string filepath, string chunkId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AzureChatExtensionDataSourceResponseCitation(string content, string title, string url, string filepath, AzureChatExtensionDataSourceResponseCitationMetadata metadata, string chunkId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Content = content;
             Title = title;
             Url = url;
             Filepath = filepath;
+            Metadata = metadata;
             ChunkId = chunkId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -89,6 +91,8 @@ namespace Azure.AI.OpenAI
         public string Url { get; }
         /// <summary> The file path of the citation. </summary>
         public string Filepath { get; }
+        /// <summary> Additional metadata related to this citation. </summary>
+        public AzureChatExtensionDataSourceResponseCitationMetadata Metadata { get; }
         /// <summary> The chunk ID of the citation. </summary>
         public string ChunkId { get; }
     }
