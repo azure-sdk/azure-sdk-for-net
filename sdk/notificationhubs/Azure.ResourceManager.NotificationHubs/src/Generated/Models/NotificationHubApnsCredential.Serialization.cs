@@ -10,7 +10,6 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.NotificationHubs;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
@@ -28,48 +27,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
 
             writer.WriteStartObject();
             writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(ApnsCertificate))
-            {
-                writer.WritePropertyName("apnsCertificate"u8);
-                writer.WriteStringValue(ApnsCertificate);
-            }
-            if (Optional.IsDefined(CertificateKey))
-            {
-                writer.WritePropertyName("certificateKey"u8);
-                writer.WriteStringValue(CertificateKey);
-            }
-            if (Optional.IsDefined(Endpoint))
-            {
-                writer.WritePropertyName("endpoint"u8);
-                writer.WriteStringValue(Endpoint.AbsoluteUri);
-            }
-            if (Optional.IsDefined(ThumbprintString))
-            {
-                writer.WritePropertyName("thumbprint"u8);
-                writer.WriteStringValue(ThumbprintString);
-            }
-            if (Optional.IsDefined(KeyId))
-            {
-                writer.WritePropertyName("keyId"u8);
-                writer.WriteStringValue(KeyId);
-            }
-            if (Optional.IsDefined(AppName))
-            {
-                writer.WritePropertyName("appName"u8);
-                writer.WriteStringValue(AppName);
-            }
-            if (Optional.IsDefined(AppId))
-            {
-                writer.WritePropertyName("appId"u8);
-                writer.WriteStringValue(AppId);
-            }
-            if (Optional.IsDefined(Token))
-            {
-                writer.WritePropertyName("token"u8);
-                writer.WriteStringValue(Token);
-            }
-            writer.WriteEndObject();
+            writer.WriteObjectValue(Properties);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -108,72 +66,14 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             {
                 return null;
             }
-            string apnsCertificate = default;
-            string certificateKey = default;
-            Uri endpoint = default;
-            string thumbprint = default;
-            string keyId = default;
-            string appName = default;
-            string appId = default;
-            string token = default;
+            ApnsCredentialProperties properties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("properties"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("apnsCertificate"u8))
-                        {
-                            apnsCertificate = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("certificateKey"u8))
-                        {
-                            certificateKey = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("endpoint"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            endpoint = new Uri(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("thumbprint"u8))
-                        {
-                            thumbprint = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("keyId"u8))
-                        {
-                            keyId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("appName"u8))
-                        {
-                            appName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("appId"u8))
-                        {
-                            appId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("token"u8))
-                        {
-                            token = property0.Value.GetString();
-                            continue;
-                        }
-                    }
+                    properties = ApnsCredentialProperties.DeserializeApnsCredentialProperties(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -182,16 +82,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new NotificationHubApnsCredential(
-                apnsCertificate,
-                certificateKey,
-                endpoint,
-                thumbprint,
-                keyId,
-                appName,
-                appId,
-                token,
-                serializedAdditionalRawData);
+            return new NotificationHubApnsCredential(properties, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<NotificationHubApnsCredential>.Write(ModelReaderWriterOptions options)

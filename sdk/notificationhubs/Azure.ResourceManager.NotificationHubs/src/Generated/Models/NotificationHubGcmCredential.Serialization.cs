@@ -10,11 +10,10 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.NotificationHubs;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
-    public partial class NotificationHubGcmCredential : IUtf8JsonSerializable, IJsonModel<NotificationHubGcmCredential>
+    internal partial class NotificationHubGcmCredential : IUtf8JsonSerializable, IJsonModel<NotificationHubGcmCredential>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<NotificationHubGcmCredential>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
@@ -28,18 +27,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
 
             writer.WriteStartObject();
             writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(GcmEndpoint))
-            {
-                writer.WritePropertyName("gcmEndpoint"u8);
-                writer.WriteStringValue(GcmEndpoint.AbsoluteUri);
-            }
-            if (Optional.IsDefined(GcmApiKey))
-            {
-                writer.WritePropertyName("googleApiKey"u8);
-                writer.WriteStringValue(GcmApiKey);
-            }
-            writer.WriteEndObject();
+            writer.WriteObjectValue(Properties);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -78,36 +66,14 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             {
                 return null;
             }
-            Uri gcmEndpoint = default;
-            string googleApiKey = default;
+            GcmCredentialProperties properties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("properties"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("gcmEndpoint"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            gcmEndpoint = new Uri(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("googleApiKey"u8))
-                        {
-                            googleApiKey = property0.Value.GetString();
-                            continue;
-                        }
-                    }
+                    properties = GcmCredentialProperties.DeserializeGcmCredentialProperties(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -116,7 +82,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new NotificationHubGcmCredential(gcmEndpoint, googleApiKey, serializedAdditionalRawData);
+            return new NotificationHubGcmCredential(properties, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<NotificationHubGcmCredential>.Write(ModelReaderWriterOptions options)

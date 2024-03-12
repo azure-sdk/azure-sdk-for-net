@@ -7,11 +7,12 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.NotificationHubs;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
     /// <summary> Description of a NotificationHub WnsCredential. </summary>
-    public partial class NotificationHubWnsCredential
+    internal partial class NotificationHubWnsCredential
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,28 +47,30 @@ namespace Azure.ResourceManager.NotificationHubs.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="NotificationHubWnsCredential"/>. </summary>
-        public NotificationHubWnsCredential()
+        /// <param name="properties"> Description of a NotificationHub WnsCredential. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
+        public NotificationHubWnsCredential(WnsCredentialProperties properties)
         {
+            Argument.AssertNotNull(properties, nameof(properties));
+
+            Properties = properties;
         }
 
         /// <summary> Initializes a new instance of <see cref="NotificationHubWnsCredential"/>. </summary>
-        /// <param name="packageSid"> The package ID for this credential. </param>
-        /// <param name="secretKey"> The secret key. </param>
-        /// <param name="windowsLiveEndpoint"> The Windows Live endpoint. </param>
+        /// <param name="properties"> Description of a NotificationHub WnsCredential. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal NotificationHubWnsCredential(string packageSid, string secretKey, Uri windowsLiveEndpoint, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal NotificationHubWnsCredential(WnsCredentialProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            PackageSid = packageSid;
-            SecretKey = secretKey;
-            WindowsLiveEndpoint = windowsLiveEndpoint;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The package ID for this credential. </summary>
-        public string PackageSid { get; set; }
-        /// <summary> The secret key. </summary>
-        public string SecretKey { get; set; }
-        /// <summary> The Windows Live endpoint. </summary>
-        public Uri WindowsLiveEndpoint { get; set; }
+        /// <summary> Initializes a new instance of <see cref="NotificationHubWnsCredential"/> for deserialization. </summary>
+        internal NotificationHubWnsCredential()
+        {
+        }
+
+        /// <summary> Description of a NotificationHub WnsCredential. </summary>
+        public WnsCredentialProperties Properties { get; set; }
     }
 }

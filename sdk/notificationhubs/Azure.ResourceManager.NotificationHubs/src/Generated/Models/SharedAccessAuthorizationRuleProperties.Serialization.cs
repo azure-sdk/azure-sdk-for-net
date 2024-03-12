@@ -27,22 +27,19 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             }
 
             writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(Rights))
+            writer.WritePropertyName("rights"u8);
+            writer.WriteStartArray();
+            foreach (var item in Rights)
             {
-                writer.WritePropertyName("rights"u8);
-                writer.WriteStartArray();
-                foreach (var item in Rights)
-                {
-                    writer.WriteStringValue(item.ToSerialString());
-                }
-                writer.WriteEndArray();
+                writer.WriteStringValue(item.ToString());
             }
-            if (options.Format != "W" && Optional.IsDefined(PrimaryKey))
+            writer.WriteEndArray();
+            if (Optional.IsDefined(PrimaryKey))
             {
                 writer.WritePropertyName("primaryKey"u8);
                 writer.WriteStringValue(PrimaryKey);
             }
-            if (options.Format != "W" && Optional.IsDefined(SecondaryKey))
+            if (Optional.IsDefined(SecondaryKey))
             {
                 writer.WritePropertyName("secondaryKey"u8);
                 writer.WriteStringValue(SecondaryKey);
@@ -51,16 +48,6 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             {
                 writer.WritePropertyName("keyName"u8);
                 writer.WriteStringValue(KeyName);
-            }
-            if (options.Format != "W" && Optional.IsDefined(ClaimType))
-            {
-                writer.WritePropertyName("claimType"u8);
-                writer.WriteStringValue(ClaimType);
-            }
-            if (options.Format != "W" && Optional.IsDefined(ClaimValue))
-            {
-                writer.WritePropertyName("claimValue"u8);
-                writer.WriteStringValue(ClaimValue);
             }
             if (options.Format != "W" && Optional.IsDefined(ModifiedOn))
             {
@@ -71,6 +58,16 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             {
                 writer.WritePropertyName("createdTime"u8);
                 writer.WriteStringValue(CreatedOn.Value, "O");
+            }
+            if (options.Format != "W" && Optional.IsDefined(ClaimType))
+            {
+                writer.WritePropertyName("claimType"u8);
+                writer.WriteStringValue(ClaimType);
+            }
+            if (options.Format != "W" && Optional.IsDefined(ClaimValue))
+            {
+                writer.WritePropertyName("claimValue"u8);
+                writer.WriteStringValue(ClaimValue);
             }
             if (options.Format != "W" && Optional.IsDefined(Revision))
             {
@@ -119,10 +116,10 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             string primaryKey = default;
             string secondaryKey = default;
             string keyName = default;
-            string claimType = default;
-            string claimValue = default;
             DateTimeOffset? modifiedTime = default;
             DateTimeOffset? createdTime = default;
+            string claimType = default;
+            string claimValue = default;
             int? revision = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -130,14 +127,10 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             {
                 if (property.NameEquals("rights"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     List<AuthorizationRuleAccessRight> array = new List<AuthorizationRuleAccessRight>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(item.GetString().ToAuthorizationRuleAccessRight());
+                        array.Add(new AuthorizationRuleAccessRight(item.GetString()));
                     }
                     rights = array;
                     continue;
@@ -155,16 +148,6 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                 if (property.NameEquals("keyName"u8))
                 {
                     keyName = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("claimType"u8))
-                {
-                    claimType = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("claimValue"u8))
-                {
-                    claimValue = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("modifiedTime"u8))
@@ -185,6 +168,16 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                     createdTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
+                if (property.NameEquals("claimType"u8))
+                {
+                    claimType = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("claimValue"u8))
+                {
+                    claimValue = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("revision"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -201,14 +194,14 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
             return new SharedAccessAuthorizationRuleProperties(
-                rights ?? new ChangeTrackingList<AuthorizationRuleAccessRight>(),
+                rights,
                 primaryKey,
                 secondaryKey,
                 keyName,
-                claimType,
-                claimValue,
                 modifiedTime,
                 createdTime,
+                claimType,
+                claimValue,
                 revision,
                 serializedAdditionalRawData);
         }

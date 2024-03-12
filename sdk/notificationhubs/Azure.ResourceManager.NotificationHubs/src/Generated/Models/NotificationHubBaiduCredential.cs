@@ -7,11 +7,12 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.NotificationHubs;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
     /// <summary> Description of a NotificationHub BaiduCredential. </summary>
-    public partial class NotificationHubBaiduCredential
+    internal partial class NotificationHubBaiduCredential
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,28 +47,30 @@ namespace Azure.ResourceManager.NotificationHubs.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="NotificationHubBaiduCredential"/>. </summary>
-        public NotificationHubBaiduCredential()
+        /// <param name="properties"> Description of a NotificationHub BaiduCredential. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
+        public NotificationHubBaiduCredential(BaiduCredentialProperties properties)
         {
+            Argument.AssertNotNull(properties, nameof(properties));
+
+            Properties = properties;
         }
 
         /// <summary> Initializes a new instance of <see cref="NotificationHubBaiduCredential"/>. </summary>
-        /// <param name="baiduApiKey"> Baidu Api Key. </param>
-        /// <param name="baiduEndpoint"> Baidu Endpoint. </param>
-        /// <param name="baiduSecretKey"> Baidu Secret Key. </param>
+        /// <param name="properties"> Description of a NotificationHub BaiduCredential. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal NotificationHubBaiduCredential(string baiduApiKey, Uri baiduEndpoint, string baiduSecretKey, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal NotificationHubBaiduCredential(BaiduCredentialProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            BaiduApiKey = baiduApiKey;
-            BaiduEndpoint = baiduEndpoint;
-            BaiduSecretKey = baiduSecretKey;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Baidu Api Key. </summary>
-        public string BaiduApiKey { get; set; }
-        /// <summary> Baidu Endpoint. </summary>
-        public Uri BaiduEndpoint { get; set; }
-        /// <summary> Baidu Secret Key. </summary>
-        public string BaiduSecretKey { get; set; }
+        /// <summary> Initializes a new instance of <see cref="NotificationHubBaiduCredential"/> for deserialization. </summary>
+        internal NotificationHubBaiduCredential()
+        {
+        }
+
+        /// <summary> Description of a NotificationHub BaiduCredential. </summary>
+        public BaiduCredentialProperties Properties { get; set; }
     }
 }

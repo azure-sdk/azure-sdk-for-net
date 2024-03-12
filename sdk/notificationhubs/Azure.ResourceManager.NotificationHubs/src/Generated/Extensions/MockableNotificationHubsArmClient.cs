@@ -37,6 +37,42 @@ namespace Azure.ResourceManager.NotificationHubs.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="NotificationHubResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="NotificationHubResource.CreateResourceIdentifier" /> to create a <see cref="NotificationHubResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="NotificationHubResource"/> object. </returns>
+        public virtual NotificationHubResource GetNotificationHubResource(ResourceIdentifier id)
+        {
+            NotificationHubResource.ValidateResourceId(id);
+            return new NotificationHubResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="NamespaceNotificationHubAuthorizationRuleResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="NamespaceNotificationHubAuthorizationRuleResource.CreateResourceIdentifier" /> to create a <see cref="NamespaceNotificationHubAuthorizationRuleResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="NamespaceNotificationHubAuthorizationRuleResource"/> object. </returns>
+        public virtual NamespaceNotificationHubAuthorizationRuleResource GetNamespaceNotificationHubAuthorizationRuleResource(ResourceIdentifier id)
+        {
+            NamespaceNotificationHubAuthorizationRuleResource.ValidateResourceId(id);
+            return new NamespaceNotificationHubAuthorizationRuleResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="NamespaceAuthorizationRuleResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="NamespaceAuthorizationRuleResource.CreateResourceIdentifier" /> to create a <see cref="NamespaceAuthorizationRuleResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="NamespaceAuthorizationRuleResource"/> object. </returns>
+        public virtual NamespaceAuthorizationRuleResource GetNamespaceAuthorizationRuleResource(ResourceIdentifier id)
+        {
+            NamespaceAuthorizationRuleResource.ValidateResourceId(id);
+            return new NamespaceAuthorizationRuleResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="NotificationHubNamespaceResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="NotificationHubNamespaceResource.CreateResourceIdentifier" /> to create a <see cref="NotificationHubNamespaceResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -49,39 +85,27 @@ namespace Azure.ResourceManager.NotificationHubs.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="NotificationHubNamespaceAuthorizationRuleResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="NotificationHubNamespaceAuthorizationRuleResource.CreateResourceIdentifier" /> to create a <see cref="NotificationHubNamespaceAuthorizationRuleResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// Gets an object representing a <see cref="PrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="PrivateEndpointConnectionResource.CreateResourceIdentifier" /> to create a <see cref="PrivateEndpointConnectionResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="NotificationHubNamespaceAuthorizationRuleResource"/> object. </returns>
-        public virtual NotificationHubNamespaceAuthorizationRuleResource GetNotificationHubNamespaceAuthorizationRuleResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="PrivateEndpointConnectionResource"/> object. </returns>
+        public virtual PrivateEndpointConnectionResource GetPrivateEndpointConnectionResource(ResourceIdentifier id)
         {
-            NotificationHubNamespaceAuthorizationRuleResource.ValidateResourceId(id);
-            return new NotificationHubNamespaceAuthorizationRuleResource(Client, id);
+            PrivateEndpointConnectionResource.ValidateResourceId(id);
+            return new PrivateEndpointConnectionResource(Client, id);
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="NotificationHubAuthorizationRuleResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="NotificationHubAuthorizationRuleResource.CreateResourceIdentifier" /> to create a <see cref="NotificationHubAuthorizationRuleResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// Gets an object representing a <see cref="NotificationHubsPrivateLinkResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="NotificationHubsPrivateLinkResource.CreateResourceIdentifier" /> to create a <see cref="NotificationHubsPrivateLinkResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="NotificationHubAuthorizationRuleResource"/> object. </returns>
-        public virtual NotificationHubAuthorizationRuleResource GetNotificationHubAuthorizationRuleResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="NotificationHubsPrivateLinkResource"/> object. </returns>
+        public virtual NotificationHubsPrivateLinkResource GetNotificationHubsPrivateLinkResource(ResourceIdentifier id)
         {
-            NotificationHubAuthorizationRuleResource.ValidateResourceId(id);
-            return new NotificationHubAuthorizationRuleResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="NotificationHubResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="NotificationHubResource.CreateResourceIdentifier" /> to create a <see cref="NotificationHubResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="NotificationHubResource"/> object. </returns>
-        public virtual NotificationHubResource GetNotificationHubResource(ResourceIdentifier id)
-        {
-            NotificationHubResource.ValidateResourceId(id);
-            return new NotificationHubResource(Client, id);
+            NotificationHubsPrivateLinkResource.ValidateResourceId(id);
+            return new NotificationHubsPrivateLinkResource(Client, id);
         }
     }
 }

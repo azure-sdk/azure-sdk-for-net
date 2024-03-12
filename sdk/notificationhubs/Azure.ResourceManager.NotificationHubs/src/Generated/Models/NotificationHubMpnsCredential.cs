@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.NotificationHubs;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
@@ -46,28 +47,30 @@ namespace Azure.ResourceManager.NotificationHubs.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="NotificationHubMpnsCredential"/>. </summary>
-        public NotificationHubMpnsCredential()
+        /// <param name="properties"> Description of a NotificationHub MpnsCredential. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
+        public NotificationHubMpnsCredential(MpnsCredentialProperties properties)
         {
+            Argument.AssertNotNull(properties, nameof(properties));
+
+            Properties = properties;
         }
 
         /// <summary> Initializes a new instance of <see cref="NotificationHubMpnsCredential"/>. </summary>
-        /// <param name="mpnsCertificate"> The MPNS certificate. </param>
-        /// <param name="certificateKey"> The certificate key for this credential. </param>
-        /// <param name="thumbprintString"> The MPNS certificate Thumbprint. </param>
+        /// <param name="properties"> Description of a NotificationHub MpnsCredential. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal NotificationHubMpnsCredential(string mpnsCertificate, string certificateKey, string thumbprintString, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal NotificationHubMpnsCredential(MpnsCredentialProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            MpnsCertificate = mpnsCertificate;
-            CertificateKey = certificateKey;
-            ThumbprintString = thumbprintString;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The MPNS certificate. </summary>
-        public string MpnsCertificate { get; set; }
-        /// <summary> The certificate key for this credential. </summary>
-        public string CertificateKey { get; set; }
-        /// <summary> The MPNS certificate Thumbprint. </summary>
-        public string ThumbprintString { get; set; }
+        /// <summary> Initializes a new instance of <see cref="NotificationHubMpnsCredential"/> for deserialization. </summary>
+        internal NotificationHubMpnsCredential()
+        {
+        }
+
+        /// <summary> Description of a NotificationHub MpnsCredential. </summary>
+        public MpnsCredentialProperties Properties { get; set; }
     }
 }

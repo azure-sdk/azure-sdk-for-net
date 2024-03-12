@@ -10,7 +10,6 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.NotificationHubs;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
@@ -28,23 +27,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
 
             writer.WriteStartObject();
             writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(MpnsCertificate))
-            {
-                writer.WritePropertyName("mpnsCertificate"u8);
-                writer.WriteStringValue(MpnsCertificate);
-            }
-            if (Optional.IsDefined(CertificateKey))
-            {
-                writer.WritePropertyName("certificateKey"u8);
-                writer.WriteStringValue(CertificateKey);
-            }
-            if (Optional.IsDefined(ThumbprintString))
-            {
-                writer.WritePropertyName("thumbprint"u8);
-                writer.WriteStringValue(ThumbprintString);
-            }
-            writer.WriteEndObject();
+            writer.WriteObjectValue(Properties);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -83,38 +66,14 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             {
                 return null;
             }
-            string mpnsCertificate = default;
-            string certificateKey = default;
-            string thumbprint = default;
+            MpnsCredentialProperties properties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("properties"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("mpnsCertificate"u8))
-                        {
-                            mpnsCertificate = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("certificateKey"u8))
-                        {
-                            certificateKey = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("thumbprint"u8))
-                        {
-                            thumbprint = property0.Value.GetString();
-                            continue;
-                        }
-                    }
+                    properties = MpnsCredentialProperties.DeserializeMpnsCredentialProperties(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -123,7 +82,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new NotificationHubMpnsCredential(mpnsCertificate, certificateKey, thumbprint, serializedAdditionalRawData);
+            return new NotificationHubMpnsCredential(properties, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<NotificationHubMpnsCredential>.Write(ModelReaderWriterOptions options)

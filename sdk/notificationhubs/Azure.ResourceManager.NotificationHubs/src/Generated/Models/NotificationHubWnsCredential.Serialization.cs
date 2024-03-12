@@ -10,11 +10,10 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.NotificationHubs;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
-    public partial class NotificationHubWnsCredential : IUtf8JsonSerializable, IJsonModel<NotificationHubWnsCredential>
+    internal partial class NotificationHubWnsCredential : IUtf8JsonSerializable, IJsonModel<NotificationHubWnsCredential>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<NotificationHubWnsCredential>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
@@ -28,23 +27,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
 
             writer.WriteStartObject();
             writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(PackageSid))
-            {
-                writer.WritePropertyName("packageSid"u8);
-                writer.WriteStringValue(PackageSid);
-            }
-            if (Optional.IsDefined(SecretKey))
-            {
-                writer.WritePropertyName("secretKey"u8);
-                writer.WriteStringValue(SecretKey);
-            }
-            if (Optional.IsDefined(WindowsLiveEndpoint))
-            {
-                writer.WritePropertyName("windowsLiveEndpoint"u8);
-                writer.WriteStringValue(WindowsLiveEndpoint.AbsoluteUri);
-            }
-            writer.WriteEndObject();
+            writer.WriteObjectValue(Properties);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -83,42 +66,14 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             {
                 return null;
             }
-            string packageSid = default;
-            string secretKey = default;
-            Uri windowsLiveEndpoint = default;
+            WnsCredentialProperties properties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("properties"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("packageSid"u8))
-                        {
-                            packageSid = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("secretKey"u8))
-                        {
-                            secretKey = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("windowsLiveEndpoint"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            windowsLiveEndpoint = new Uri(property0.Value.GetString());
-                            continue;
-                        }
-                    }
+                    properties = WnsCredentialProperties.DeserializeWnsCredentialProperties(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -127,7 +82,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new NotificationHubWnsCredential(packageSid, secretKey, windowsLiveEndpoint, serializedAdditionalRawData);
+            return new NotificationHubWnsCredential(properties, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<NotificationHubWnsCredential>.Write(ModelReaderWriterOptions options)

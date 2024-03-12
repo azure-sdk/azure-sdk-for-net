@@ -28,10 +28,10 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Sku))
+            if (Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("sku"u8);
-                writer.WriteObjectValue(Sku);
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties);
             }
             if (Optional.IsCollectionDefined(Tags))
             {
@@ -66,31 +66,6 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                 writer.WritePropertyName("systemData"u8);
                 JsonSerializer.Serialize(writer, SystemData);
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(Success))
-            {
-                writer.WritePropertyName("success"u8);
-                writer.WriteNumberValue(Success.Value);
-            }
-            if (Optional.IsDefined(Failure))
-            {
-                writer.WritePropertyName("failure"u8);
-                writer.WriteNumberValue(Failure.Value);
-            }
-            if (Optional.IsDefined(Results))
-            {
-                writer.WritePropertyName("results"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Results);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Results))
-                {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
-#endif
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -129,27 +104,24 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             {
                 return null;
             }
-            NotificationHubSku sku = default;
+            DebugSendResult properties = default;
             IDictionary<string, string> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            int? success = default;
-            int? failure = default;
-            BinaryData results = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("sku"u8))
+                if (property.NameEquals("properties"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    sku = NotificationHubSku.DeserializeNotificationHubSku(property.Value, options);
+                    properties = DebugSendResult.DeserializeDebugSendResult(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -195,45 +167,6 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("success"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            success = property0.Value.GetInt32();
-                            continue;
-                        }
-                        if (property0.NameEquals("failure"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            failure = property0.Value.GetInt32();
-                            continue;
-                        }
-                        if (property0.NameEquals("results"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            results = BinaryData.FromString(property0.Value.GetRawText());
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -247,10 +180,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                 systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
-                success,
-                failure,
-                results,
-                sku,
+                properties,
                 serializedAdditionalRawData);
         }
 
