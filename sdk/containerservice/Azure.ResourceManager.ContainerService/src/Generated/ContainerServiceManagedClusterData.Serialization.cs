@@ -271,6 +271,11 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("storageProfile"u8);
                 writer.WriteObjectValue(StorageProfile);
             }
+            if (Optional.IsDefined(IngressProfile))
+            {
+                writer.WritePropertyName("ingressProfile"u8);
+                writer.WriteObjectValue(IngressProfile);
+            }
             if (Optional.IsDefined(PublicNetworkAccess))
             {
                 writer.WritePropertyName("publicNetworkAccess"u8);
@@ -378,6 +383,7 @@ namespace Azure.ResourceManager.ContainerService
             ManagedClusterHttpProxyConfig httpProxyConfig = default;
             ManagedClusterSecurityProfile securityProfile = default;
             ManagedClusterStorageProfile storageProfile = default;
+            ManagedClusterIngressProfile ingressProfile = default;
             ContainerServicePublicNetworkAccess? publicNetworkAccess = default;
             ManagedClusterWorkloadAutoScalerProfile workloadAutoScalerProfile = default;
             ManagedClusterAzureMonitorProfile azureMonitorProfile = default;
@@ -756,6 +762,15 @@ namespace Azure.ResourceManager.ContainerService
                             storageProfile = ManagedClusterStorageProfile.DeserializeManagedClusterStorageProfile(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("ingressProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            ingressProfile = ManagedClusterIngressProfile.DeserializeManagedClusterIngressProfile(property0.Value, options);
+                            continue;
+                        }
                         if (property0.NameEquals("publicNetworkAccess"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -854,6 +869,7 @@ namespace Azure.ResourceManager.ContainerService
                 httpProxyConfig,
                 securityProfile,
                 storageProfile,
+                ingressProfile,
                 publicNetworkAccess,
                 workloadAutoScalerProfile,
                 azureMonitorProfile,
