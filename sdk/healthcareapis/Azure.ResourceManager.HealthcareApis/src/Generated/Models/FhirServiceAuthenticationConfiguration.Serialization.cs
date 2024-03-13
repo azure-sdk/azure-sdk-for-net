@@ -42,6 +42,16 @@ namespace Azure.ResourceManager.HealthcareApis.Models
                 writer.WritePropertyName("smartProxyEnabled"u8);
                 writer.WriteBooleanValue(IsSmartProxyEnabled.Value);
             }
+            if (Optional.IsCollectionDefined(SmartIdentityProviders))
+            {
+                writer.WritePropertyName("smartIdentityProviders"u8);
+                writer.WriteStartArray();
+                foreach (var item in SmartIdentityProviders)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -83,6 +93,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
             string authority = default;
             string audience = default;
             bool? smartProxyEnabled = default;
+            IList<SmartIdentityProviderConfiguration> smartIdentityProviders = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -106,13 +117,27 @@ namespace Azure.ResourceManager.HealthcareApis.Models
                     smartProxyEnabled = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("smartIdentityProviders"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<SmartIdentityProviderConfiguration> array = new List<SmartIdentityProviderConfiguration>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(SmartIdentityProviderConfiguration.DeserializeSmartIdentityProviderConfiguration(item, options));
+                    }
+                    smartIdentityProviders = array;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new FhirServiceAuthenticationConfiguration(authority, audience, smartProxyEnabled, serializedAdditionalRawData);
+            return new FhirServiceAuthenticationConfiguration(authority, audience, smartProxyEnabled, smartIdentityProviders ?? new ChangeTrackingList<SmartIdentityProviderConfiguration>(), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<FhirServiceAuthenticationConfiguration>.Write(ModelReaderWriterOptions options)

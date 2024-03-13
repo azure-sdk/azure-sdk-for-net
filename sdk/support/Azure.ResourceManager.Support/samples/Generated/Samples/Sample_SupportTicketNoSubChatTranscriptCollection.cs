@@ -17,13 +17,13 @@ namespace Azure.ResourceManager.Support.Samples
 {
     public partial class Sample_SupportTicketNoSubChatTranscriptCollection
     {
-        // List communications for a no-subscription support ticket
+        // List chat transcripts for a no-subscription support ticket
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAll_ListCommunicationsForANoSubscriptionSupportTicket()
+        public async Task GetAll_ListChatTranscriptsForANoSubscriptionSupportTicket()
         {
             // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/ListChatTranscriptsForSupportTicket.json
-            // this example is just showing the usage of "SupportTicketChatTranscriptsNoSubscription_List" operation, for the dependent resources, they will have to be created separately.
+            // this example is just showing the usage of "ChatTranscriptsNoSubscription_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
