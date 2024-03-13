@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.SignalR.Models
         /// <param name="name">
         /// The name of the SKU. Required.
         ///
-        /// Allowed values: Standard_S1, Free_F1
+        /// Allowed values: Standard_S1, Free_F1, Premium_P1, Premium_P2
         /// </param>
         /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
         public SignalRResourceSku(string name)
@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.SignalR.Models
         /// <param name="name">
         /// The name of the SKU. Required.
         ///
-        /// Allowed values: Standard_S1, Free_F1
+        /// Allowed values: Standard_S1, Free_F1, Premium_P1, Premium_P2
         /// </param>
         /// <param name="tier">
         /// Optional tier of this particular SKU. 'Standard' or 'Free'.
@@ -74,11 +74,14 @@ namespace Azure.ResourceManager.SignalR.Models
         /// <param name="size"> Not used. Retained for future use. </param>
         /// <param name="family"> Not used. Retained for future use. </param>
         /// <param name="capacity">
-        /// Optional, integer. The unit count of the resource. 1 by default.
+        /// Optional, integer. The unit count of the resource.
+        /// 1 for Free_F1/Standard_S1/Premium_P1, 100 for Premium_P2 by default.
         ///
         /// If present, following values are allowed:
-        ///     Free: 1
-        ///     Standard: 1,2,5,10,20,50,100
+        ///     Free_F1: 1;
+        ///     Standard_S1: 1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100;
+        ///     Premium_P1:  1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100;
+        ///     Premium_P2:  100,200,300,400,500,600,700,800,900,1000;
         /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal SignalRResourceSku(string name, SignalRSkuTier? tier, string size, string family, int? capacity, IDictionary<string, BinaryData> serializedAdditionalRawData)
@@ -99,7 +102,7 @@ namespace Azure.ResourceManager.SignalR.Models
         /// <summary>
         /// The name of the SKU. Required.
         ///
-        /// Allowed values: Standard_S1, Free_F1
+        /// Allowed values: Standard_S1, Free_F1, Premium_P1, Premium_P2
         /// </summary>
         public string Name { get; set; }
         /// <summary>
@@ -113,11 +116,14 @@ namespace Azure.ResourceManager.SignalR.Models
         /// <summary> Not used. Retained for future use. </summary>
         public string Family { get; }
         /// <summary>
-        /// Optional, integer. The unit count of the resource. 1 by default.
+        /// Optional, integer. The unit count of the resource.
+        /// 1 for Free_F1/Standard_S1/Premium_P1, 100 for Premium_P2 by default.
         ///
         /// If present, following values are allowed:
-        ///     Free: 1
-        ///     Standard: 1,2,5,10,20,50,100
+        ///     Free_F1: 1;
+        ///     Standard_S1: 1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100;
+        ///     Premium_P1:  1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100;
+        ///     Premium_P2:  100,200,300,400,500,600,700,800,900,1000;
         /// </summary>
         public int? Capacity { get; set; }
     }
