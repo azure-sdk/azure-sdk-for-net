@@ -165,6 +165,11 @@ namespace Azure.ResourceManager.Support
                 writer.WritePropertyName("fileWorkspaceName"u8);
                 writer.WriteStringValue(FileWorkspaceName);
             }
+            if (options.Format != "W" && Optional.IsDefined(IsTemporaryTicket))
+            {
+                writer.WritePropertyName("isTemporaryTicket"u8);
+                writer.WriteStringValue(IsTemporaryTicket.Value.ToString());
+            }
             if (Optional.IsDefined(TechnicalTicketDetails))
             {
                 writer.WritePropertyName("technicalTicketDetails"u8);
@@ -251,6 +256,7 @@ namespace Azure.ResourceManager.Support
             DateTimeOffset? createdDate = default;
             DateTimeOffset? modifiedDate = default;
             string fileWorkspaceName = default;
+            IsTemporaryTicket? isTemporaryTicket = default;
             TechnicalTicketDetails technicalTicketDetails = default;
             QuotaTicketDetails quotaTicketDetails = default;
             IList<SecondaryConsent> secondaryConsent = default;
@@ -442,6 +448,15 @@ namespace Azure.ResourceManager.Support
                             fileWorkspaceName = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("isTemporaryTicket"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            isTemporaryTicket = new IsTemporaryTicket(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("technicalTicketDetails"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -511,6 +526,7 @@ namespace Azure.ResourceManager.Support
                 createdDate,
                 modifiedDate,
                 fileWorkspaceName,
+                isTemporaryTicket,
                 technicalTicketDetails,
                 quotaTicketDetails,
                 secondaryConsent ?? new ChangeTrackingList<SecondaryConsent>(),

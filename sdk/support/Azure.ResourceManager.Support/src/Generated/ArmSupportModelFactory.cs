@@ -56,23 +56,13 @@ namespace Azure.ResourceManager.Support.Models
         /// <param name="serviceId"> Azure resource Id of the service. </param>
         /// <param name="displayName"> Localized name of the azure service. </param>
         /// <param name="resourceTypes"> List of applicable ARM resource types for this service. </param>
-        /// <param name="serviceIdChildServiceId"> Azure resource Id of the service. </param>
-        /// <param name="displayNameChildServiceDisplayName"> Localized name of the azure service. </param>
-        /// <param name="resourceTypesChildServiceResourceTypes"> List of applicable ARM resource types for this service. </param>
+        /// <param name="childService"> Child service. </param>
         /// <returns> A new <see cref="Models.ServiceClassificationAnswer"/> instance for mocking. </returns>
-        public static ServiceClassificationAnswer ServiceClassificationAnswer(ResourceIdentifier serviceId = null, string displayName = null, IEnumerable<ResourceType> resourceTypes = null, ResourceIdentifier serviceIdChildServiceId = null, string displayNameChildServiceDisplayName = null, IEnumerable<ResourceType> resourceTypesChildServiceResourceTypes = null)
+        public static ServiceClassificationAnswer ServiceClassificationAnswer(ResourceIdentifier serviceId = null, string displayName = null, IEnumerable<ResourceType> resourceTypes = null, ClassificationService childService = null)
         {
             resourceTypes ??= new List<ResourceType>();
-            resourceTypesChildServiceResourceTypes ??= new List<ResourceType>();
 
-            return new ServiceClassificationAnswer(
-                serviceId,
-                displayName,
-                resourceTypes?.ToList(),
-                serializedAdditionalRawData: null,
-                serviceIdChildServiceId,
-                displayNameChildServiceDisplayName,
-                resourceTypesChildServiceResourceTypes?.ToList());
+            return new ServiceClassificationAnswer(serviceId, displayName, resourceTypes?.ToList(), serializedAdditionalRawData: null, childService);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.ClassificationService"/>. </summary>
@@ -206,11 +196,12 @@ namespace Azure.ResourceManager.Support.Models
         /// <param name="createdOn"> Time in UTC (ISO 8601 format) when the support ticket was created. </param>
         /// <param name="modifiedOn"> Time in UTC (ISO 8601 format) when the support ticket was last modified. </param>
         /// <param name="fileWorkspaceName"> File workspace name. </param>
+        /// <param name="isTemporaryTicket"> This property indicates if support ticket is a temporary ticket. </param>
         /// <param name="technicalTicketDetailsResourceId"> Additional ticket details associated with a technical support ticket request. </param>
         /// <param name="quotaTicketDetails"> Additional ticket details associated with a quota support ticket request. </param>
         /// <param name="secondaryConsent"> This property indicates secondary consents for the support ticket. </param>
         /// <returns> A new <see cref="Support.SupportTicketData"/> instance for mocking. </returns>
-        public static SupportTicketData SupportTicketData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string supportTicketId = null, string description = null, string problemClassificationId = null, string problemClassificationDisplayName = null, SupportSeverityLevel? severity = null, string enrollmentId = null, bool? require24X7Response = null, AdvancedDiagnosticConsent? advancedDiagnosticConsent = null, string problemScopingQuestions = null, string supportPlanId = null, SupportContactProfile contactDetails = null, SupportServiceLevelAgreement serviceLevelAgreement = null, string supportEngineerEmailAddress = null, string supportPlanType = null, string supportPlanDisplayName = null, string title = null, DateTimeOffset? problemStartOn = null, string serviceId = null, string serviceDisplayName = null, string status = null, DateTimeOffset? createdOn = null, DateTimeOffset? modifiedOn = null, string fileWorkspaceName = null, ResourceIdentifier technicalTicketDetailsResourceId = null, QuotaTicketDetails quotaTicketDetails = null, IEnumerable<SecondaryConsent> secondaryConsent = null)
+        public static SupportTicketData SupportTicketData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string supportTicketId = null, string description = null, string problemClassificationId = null, string problemClassificationDisplayName = null, SupportSeverityLevel? severity = null, string enrollmentId = null, bool? require24X7Response = null, AdvancedDiagnosticConsent? advancedDiagnosticConsent = null, string problemScopingQuestions = null, string supportPlanId = null, SupportContactProfile contactDetails = null, SupportServiceLevelAgreement serviceLevelAgreement = null, string supportEngineerEmailAddress = null, string supportPlanType = null, string supportPlanDisplayName = null, string title = null, DateTimeOffset? problemStartOn = null, string serviceId = null, string serviceDisplayName = null, string status = null, DateTimeOffset? createdOn = null, DateTimeOffset? modifiedOn = null, string fileWorkspaceName = null, IsTemporaryTicket? isTemporaryTicket = null, ResourceIdentifier technicalTicketDetailsResourceId = null, QuotaTicketDetails quotaTicketDetails = null, IEnumerable<SecondaryConsent> secondaryConsent = null)
         {
             secondaryConsent ??= new List<SecondaryConsent>();
 
@@ -242,6 +233,7 @@ namespace Azure.ResourceManager.Support.Models
                 createdOn,
                 modifiedOn,
                 fileWorkspaceName,
+                isTemporaryTicket,
                 technicalTicketDetailsResourceId != null ? new TechnicalTicketDetails(technicalTicketDetailsResourceId, serializedAdditionalRawData: null) : null,
                 quotaTicketDetails,
                 secondaryConsent?.ToList(),

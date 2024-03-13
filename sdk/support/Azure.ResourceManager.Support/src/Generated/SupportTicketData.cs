@@ -85,11 +85,12 @@ namespace Azure.ResourceManager.Support
         /// <param name="createdOn"> Time in UTC (ISO 8601 format) when the support ticket was created. </param>
         /// <param name="modifiedOn"> Time in UTC (ISO 8601 format) when the support ticket was last modified. </param>
         /// <param name="fileWorkspaceName"> File workspace name. </param>
+        /// <param name="isTemporaryTicket"> This property indicates if support ticket is a temporary ticket. </param>
         /// <param name="technicalTicketDetails"> Additional ticket details associated with a technical support ticket request. </param>
         /// <param name="quotaTicketDetails"> Additional ticket details associated with a quota support ticket request. </param>
         /// <param name="secondaryConsent"> This property indicates secondary consents for the support ticket. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SupportTicketData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string supportTicketId, string description, string problemClassificationId, string problemClassificationDisplayName, SupportSeverityLevel? severity, string enrollmentId, bool? require24X7Response, AdvancedDiagnosticConsent? advancedDiagnosticConsent, string problemScopingQuestions, string supportPlanId, SupportContactProfile contactDetails, SupportServiceLevelAgreement serviceLevelAgreement, SupportEngineer supportEngineer, string supportPlanType, string supportPlanDisplayName, string title, DateTimeOffset? problemStartOn, string serviceId, string serviceDisplayName, string status, DateTimeOffset? createdOn, DateTimeOffset? modifiedOn, string fileWorkspaceName, TechnicalTicketDetails technicalTicketDetails, QuotaTicketDetails quotaTicketDetails, IList<SecondaryConsent> secondaryConsent, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal SupportTicketData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string supportTicketId, string description, string problemClassificationId, string problemClassificationDisplayName, SupportSeverityLevel? severity, string enrollmentId, bool? require24X7Response, AdvancedDiagnosticConsent? advancedDiagnosticConsent, string problemScopingQuestions, string supportPlanId, SupportContactProfile contactDetails, SupportServiceLevelAgreement serviceLevelAgreement, SupportEngineer supportEngineer, string supportPlanType, string supportPlanDisplayName, string title, DateTimeOffset? problemStartOn, string serviceId, string serviceDisplayName, string status, DateTimeOffset? createdOn, DateTimeOffset? modifiedOn, string fileWorkspaceName, IsTemporaryTicket? isTemporaryTicket, TechnicalTicketDetails technicalTicketDetails, QuotaTicketDetails quotaTicketDetails, IList<SecondaryConsent> secondaryConsent, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             SupportTicketId = supportTicketId;
             Description = description;
@@ -114,6 +115,7 @@ namespace Azure.ResourceManager.Support
             CreatedOn = createdOn;
             ModifiedOn = modifiedOn;
             FileWorkspaceName = fileWorkspaceName;
+            IsTemporaryTicket = isTemporaryTicket;
             TechnicalTicketDetails = technicalTicketDetails;
             QuotaTicketDetails = quotaTicketDetails;
             SecondaryConsent = secondaryConsent;
@@ -172,6 +174,8 @@ namespace Azure.ResourceManager.Support
         public DateTimeOffset? ModifiedOn { get; }
         /// <summary> File workspace name. </summary>
         public string FileWorkspaceName { get; set; }
+        /// <summary> This property indicates if support ticket is a temporary ticket. </summary>
+        public IsTemporaryTicket? IsTemporaryTicket { get; }
         /// <summary> Additional ticket details associated with a technical support ticket request. </summary>
         internal TechnicalTicketDetails TechnicalTicketDetails { get; set; }
         /// <summary> This is the resource Id of the Azure service resource (For example: A virtual machine resource or an HDInsight resource) for which the support ticket is created. </summary>
