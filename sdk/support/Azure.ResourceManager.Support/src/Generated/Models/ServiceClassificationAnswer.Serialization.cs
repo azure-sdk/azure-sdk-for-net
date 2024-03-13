@@ -27,6 +27,11 @@ namespace Azure.ResourceManager.Support.Models
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(ChildService))
+            {
+                writer.WritePropertyName("childService"u8);
+                writer.WriteObjectValue(ChildService);
+            }
             if (options.Format != "W" && Optional.IsDefined(ServiceId))
             {
                 writer.WritePropertyName("serviceId"u8);
@@ -47,29 +52,6 @@ namespace Azure.ResourceManager.Support.Models
                 }
                 writer.WriteEndArray();
             }
-            writer.WritePropertyName("childService"u8);
-            writer.WriteStartObject();
-            if (options.Format != "W" && Optional.IsDefined(ServiceIdChildServiceId))
-            {
-                writer.WritePropertyName("serviceId"u8);
-                writer.WriteStringValue(ServiceIdChildServiceId);
-            }
-            if (options.Format != "W" && Optional.IsDefined(DisplayNameChildServiceDisplayName))
-            {
-                writer.WritePropertyName("displayName"u8);
-                writer.WriteStringValue(DisplayNameChildServiceDisplayName);
-            }
-            if (Optional.IsCollectionDefined(ResourceTypesChildServiceResourceTypes))
-            {
-                writer.WritePropertyName("resourceTypes"u8);
-                writer.WriteStartArray();
-                foreach (var item in ResourceTypesChildServiceResourceTypes)
-                {
-                    writer.WriteStringValue(item);
-                }
-                writer.WriteEndArray();
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -108,16 +90,23 @@ namespace Azure.ResourceManager.Support.Models
             {
                 return null;
             }
+            ClassificationService childService = default;
             ResourceIdentifier serviceId = default;
             string displayName = default;
             IReadOnlyList<ResourceType> resourceTypes = default;
-            ResourceIdentifier serviceId0 = default;
-            string displayName0 = default;
-            IReadOnlyList<ResourceType> resourceTypes0 = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("childService"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    childService = DeserializeClassificationService(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("serviceId"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -146,60 +135,13 @@ namespace Azure.ResourceManager.Support.Models
                     resourceTypes = array;
                     continue;
                 }
-                if (property.NameEquals("childService"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("serviceId"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            serviceId0 = new ResourceIdentifier(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("displayName"u8))
-                        {
-                            displayName0 = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("resourceTypes"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            List<ResourceType> array = new List<ResourceType>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(new ResourceType(item.GetString()));
-                            }
-                            resourceTypes0 = array;
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ServiceClassificationAnswer(
-                serviceId,
-                displayName,
-                resourceTypes ?? new ChangeTrackingList<ResourceType>(),
-                serializedAdditionalRawData,
-                serviceId0,
-                displayName0,
-                resourceTypes0 ?? new ChangeTrackingList<ResourceType>());
+            return new ServiceClassificationAnswer(serviceId, displayName, resourceTypes ?? new ChangeTrackingList<ResourceType>(), serializedAdditionalRawData, childService);
         }
 
         BinaryData IPersistableModel<ServiceClassificationAnswer>.Write(ModelReaderWriterOptions options)
