@@ -98,8 +98,8 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="authorizeCopyRequest"> Authorize copy request parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="authorizeCopyRequest"/> is null. </exception>
-        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='AuthorizeModelCopyAsync(AuthorizeCopyContent,CancellationToken)']/*" />
-        public virtual async Task<Response<CopyAuthorization>> AuthorizeModelCopyAsync(AuthorizeCopyContent authorizeCopyRequest, CancellationToken cancellationToken = default)
+        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='AuthorizeModelCopyAsync(AuthorizeCopyRequest,CancellationToken)']/*" />
+        public virtual async Task<Response<CopyAuthorization>> AuthorizeModelCopyAsync(AuthorizeCopyRequest authorizeCopyRequest, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(authorizeCopyRequest, nameof(authorizeCopyRequest));
 
@@ -116,8 +116,8 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="authorizeCopyRequest"> Authorize copy request parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="authorizeCopyRequest"/> is null. </exception>
-        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='AuthorizeModelCopy(AuthorizeCopyContent,CancellationToken)']/*" />
-        public virtual Response<CopyAuthorization> AuthorizeModelCopy(AuthorizeCopyContent authorizeCopyRequest, CancellationToken cancellationToken = default)
+        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='AuthorizeModelCopy(AuthorizeCopyRequest,CancellationToken)']/*" />
+        public virtual Response<CopyAuthorization> AuthorizeModelCopy(AuthorizeCopyRequest authorizeCopyRequest, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(authorizeCopyRequest, nameof(authorizeCopyRequest));
 
@@ -138,7 +138,7 @@ namespace Azure.AI.DocumentIntelligence
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="AuthorizeModelCopyAsync(AuthorizeCopyContent,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="AuthorizeModelCopyAsync(AuthorizeCopyRequest,CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -178,7 +178,7 @@ namespace Azure.AI.DocumentIntelligence
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="AuthorizeModelCopy(AuthorizeCopyContent,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="AuthorizeModelCopy(AuthorizeCopyRequest,CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -998,8 +998,8 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="buildRequest"> Build request parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="buildRequest"/> is null. </exception>
-        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='BuildDocumentModelAsync(WaitUntil,BuildDocumentModelContent,CancellationToken)']/*" />
-        public virtual async Task<Operation<DocumentModelDetails>> BuildDocumentModelAsync(WaitUntil waitUntil, BuildDocumentModelContent buildRequest, CancellationToken cancellationToken = default)
+        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='BuildDocumentModelAsync(WaitUntil,BuildDocumentModelRequest,CancellationToken)']/*" />
+        public virtual async Task<Operation<DocumentModelDetails>> BuildDocumentModelAsync(WaitUntil waitUntil, BuildDocumentModelRequest buildRequest, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(buildRequest, nameof(buildRequest));
 
@@ -1014,8 +1014,8 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="buildRequest"> Build request parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="buildRequest"/> is null. </exception>
-        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='BuildDocumentModel(WaitUntil,BuildDocumentModelContent,CancellationToken)']/*" />
-        public virtual Operation<DocumentModelDetails> BuildDocumentModel(WaitUntil waitUntil, BuildDocumentModelContent buildRequest, CancellationToken cancellationToken = default)
+        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='BuildDocumentModel(WaitUntil,BuildDocumentModelRequest,CancellationToken)']/*" />
+        public virtual Operation<DocumentModelDetails> BuildDocumentModel(WaitUntil waitUntil, BuildDocumentModelRequest buildRequest, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(buildRequest, nameof(buildRequest));
 
@@ -1030,8 +1030,8 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="composeRequest"> Compose request parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="composeRequest"/> is null. </exception>
-        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='ComposeModelAsync(WaitUntil,ComposeDocumentModelContent,CancellationToken)']/*" />
-        public virtual async Task<Operation<DocumentModelDetails>> ComposeModelAsync(WaitUntil waitUntil, ComposeDocumentModelContent composeRequest, CancellationToken cancellationToken = default)
+        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='ComposeModelAsync(WaitUntil,ComposeDocumentModelRequest,CancellationToken)']/*" />
+        public virtual async Task<Operation<DocumentModelDetails>> ComposeModelAsync(WaitUntil waitUntil, ComposeDocumentModelRequest composeRequest, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(composeRequest, nameof(composeRequest));
 
@@ -1046,8 +1046,8 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="composeRequest"> Compose request parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="composeRequest"/> is null. </exception>
-        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='ComposeModel(WaitUntil,ComposeDocumentModelContent,CancellationToken)']/*" />
-        public virtual Operation<DocumentModelDetails> ComposeModel(WaitUntil waitUntil, ComposeDocumentModelContent composeRequest, CancellationToken cancellationToken = default)
+        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='ComposeModel(WaitUntil,ComposeDocumentModelRequest,CancellationToken)']/*" />
+        public virtual Operation<DocumentModelDetails> ComposeModel(WaitUntil waitUntil, ComposeDocumentModelRequest composeRequest, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(composeRequest, nameof(composeRequest));
 
@@ -1100,8 +1100,8 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="buildRequest"> Build request parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="buildRequest"/> is null. </exception>
-        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='BuildClassifierAsync(WaitUntil,BuildDocumentClassifierContent,CancellationToken)']/*" />
-        public virtual async Task<Operation<DocumentClassifierDetails>> BuildClassifierAsync(WaitUntil waitUntil, BuildDocumentClassifierContent buildRequest, CancellationToken cancellationToken = default)
+        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='BuildClassifierAsync(WaitUntil,BuildDocumentClassifierRequest,CancellationToken)']/*" />
+        public virtual async Task<Operation<DocumentClassifierDetails>> BuildClassifierAsync(WaitUntil waitUntil, BuildDocumentClassifierRequest buildRequest, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(buildRequest, nameof(buildRequest));
 
@@ -1116,8 +1116,8 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="buildRequest"> Build request parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="buildRequest"/> is null. </exception>
-        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='BuildClassifier(WaitUntil,BuildDocumentClassifierContent,CancellationToken)']/*" />
-        public virtual Operation<DocumentClassifierDetails> BuildClassifier(WaitUntil waitUntil, BuildDocumentClassifierContent buildRequest, CancellationToken cancellationToken = default)
+        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='BuildClassifier(WaitUntil,BuildDocumentClassifierRequest,CancellationToken)']/*" />
+        public virtual Operation<DocumentClassifierDetails> BuildClassifier(WaitUntil waitUntil, BuildDocumentClassifierRequest buildRequest, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(buildRequest, nameof(buildRequest));
 

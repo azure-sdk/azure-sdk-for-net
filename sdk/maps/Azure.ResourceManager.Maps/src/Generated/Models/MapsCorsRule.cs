@@ -12,7 +12,7 @@ using Azure.ResourceManager.Maps;
 
 namespace Azure.ResourceManager.Maps.Models
 {
-    /// <summary> Specifies a CORS rule for the Map Account. </summary>
+    /// <summary> Specifies a CORS rule for the Maps Account. </summary>
     public partial class MapsCorsRule
     {
         /// <summary>
