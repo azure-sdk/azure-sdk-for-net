@@ -56,23 +56,13 @@ namespace Azure.ResourceManager.Support.Models
         /// <param name="serviceId"> Azure resource Id of the service. </param>
         /// <param name="displayName"> Localized name of the azure service. </param>
         /// <param name="resourceTypes"> List of applicable ARM resource types for this service. </param>
-        /// <param name="serviceIdChildServiceId"> Azure resource Id of the service. </param>
-        /// <param name="displayNameChildServiceDisplayName"> Localized name of the azure service. </param>
-        /// <param name="resourceTypesChildServiceResourceTypes"> List of applicable ARM resource types for this service. </param>
+        /// <param name="childService"> Child service. </param>
         /// <returns> A new <see cref="Models.ServiceClassificationAnswer"/> instance for mocking. </returns>
-        public static ServiceClassificationAnswer ServiceClassificationAnswer(ResourceIdentifier serviceId = null, string displayName = null, IEnumerable<ResourceType> resourceTypes = null, ResourceIdentifier serviceIdChildServiceId = null, string displayNameChildServiceDisplayName = null, IEnumerable<ResourceType> resourceTypesChildServiceResourceTypes = null)
+        public static ServiceClassificationAnswer ServiceClassificationAnswer(ResourceIdentifier serviceId = null, string displayName = null, IEnumerable<ResourceType> resourceTypes = null, ClassificationService childService = null)
         {
             resourceTypes ??= new List<ResourceType>();
-            resourceTypesChildServiceResourceTypes ??= new List<ResourceType>();
 
-            return new ServiceClassificationAnswer(
-                serviceId,
-                displayName,
-                resourceTypes?.ToList(),
-                serializedAdditionalRawData: null,
-                serviceIdChildServiceId,
-                displayNameChildServiceDisplayName,
-                resourceTypesChildServiceResourceTypes?.ToList());
+            return new ServiceClassificationAnswer(serviceId, displayName, resourceTypes?.ToList(), serializedAdditionalRawData: null, childService);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.ClassificationService"/>. </summary>
