@@ -47,6 +47,16 @@ namespace Azure.ResourceManager.SignalR.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsCollectionDefined(IPRules))
+            {
+                writer.WritePropertyName("ipRules"u8);
+                writer.WriteStartArray();
+                foreach (var item in IPRules)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -88,6 +98,7 @@ namespace Azure.ResourceManager.SignalR.Models
             SignalRNetworkAclAction? defaultAction = default;
             SignalRNetworkAcl publicNetwork = default;
             IList<SignalRPrivateEndpointAcl> privateEndpoints = default;
+            IList<IPRule> ipRules = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -124,13 +135,27 @@ namespace Azure.ResourceManager.SignalR.Models
                     privateEndpoints = array;
                     continue;
                 }
+                if (property.NameEquals("ipRules"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<IPRule> array = new List<IPRule>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(IPRule.DeserializeIPRule(item, options));
+                    }
+                    ipRules = array;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new SignalRNetworkAcls(defaultAction, publicNetwork, privateEndpoints ?? new ChangeTrackingList<SignalRPrivateEndpointAcl>(), serializedAdditionalRawData);
+            return new SignalRNetworkAcls(defaultAction, publicNetwork, privateEndpoints ?? new ChangeTrackingList<SignalRPrivateEndpointAcl>(), ipRules ?? new ChangeTrackingList<IPRule>(), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<SignalRNetworkAcls>.Write(ModelReaderWriterOptions options)
