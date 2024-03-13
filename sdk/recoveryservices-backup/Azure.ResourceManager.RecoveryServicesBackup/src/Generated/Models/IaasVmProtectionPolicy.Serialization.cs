@@ -68,6 +68,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 writer.WritePropertyName("policyType"u8);
                 writer.WriteStringValue(PolicyType.Value.ToString());
             }
+            if (Optional.IsDefined(SnapshotConsistencyType))
+            {
+                writer.WritePropertyName("snapshotConsistencyType"u8);
+                writer.WriteStringValue(SnapshotConsistencyType.Value.ToString());
+            }
             if (Optional.IsDefined(ProtectedItemsCount))
             {
                 writer.WritePropertyName("protectedItemsCount"u8);
@@ -130,6 +135,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             int? instantRpRetentionRangeInDays = default;
             string timeZone = default;
             IaasVmPolicyType? policyType = default;
+            IaasVmSnapshotConsistencyType? snapshotConsistencyType = default;
             int? protectedItemsCount = default;
             string backupManagementType = default;
             IList<string> resourceGuardOperationRequests = default;
@@ -201,6 +207,15 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     policyType = new IaasVmPolicyType(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("snapshotConsistencyType"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    snapshotConsistencyType = new IaasVmSnapshotConsistencyType(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("protectedItemsCount"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -246,7 +261,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 tieringPolicy ?? new ChangeTrackingDictionary<string, BackupTieringPolicy>(),
                 instantRpRetentionRangeInDays,
                 timeZone,
-                policyType);
+                policyType,
+                snapshotConsistencyType);
         }
 
         BinaryData IPersistableModel<IaasVmProtectionPolicy>.Write(ModelReaderWriterOptions options)
