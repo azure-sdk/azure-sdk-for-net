@@ -14,7 +14,7 @@ using Azure.ResourceManager.ContainerService;
 
 namespace Azure.ResourceManager.ContainerService.Models
 {
-    internal partial class ManagedClusterStorageProfileDiskCsiDriver : IUtf8JsonSerializable, IJsonModel<ManagedClusterStorageProfileDiskCsiDriver>
+    public partial class ManagedClusterStorageProfileDiskCsiDriver : IUtf8JsonSerializable, IJsonModel<ManagedClusterStorageProfileDiskCsiDriver>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ManagedClusterStorageProfileDiskCsiDriver>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
@@ -31,6 +31,11 @@ namespace Azure.ResourceManager.ContainerService.Models
             {
                 writer.WritePropertyName("enabled"u8);
                 writer.WriteBooleanValue(IsEnabled.Value);
+            }
+            if (Optional.IsDefined(Version))
+            {
+                writer.WritePropertyName("version"u8);
+                writer.WriteStringValue(Version);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -71,6 +76,7 @@ namespace Azure.ResourceManager.ContainerService.Models
                 return null;
             }
             bool? enabled = default;
+            string version = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -84,13 +90,18 @@ namespace Azure.ResourceManager.ContainerService.Models
                     enabled = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("version"u8))
+                {
+                    version = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ManagedClusterStorageProfileDiskCsiDriver(enabled, serializedAdditionalRawData);
+            return new ManagedClusterStorageProfileDiskCsiDriver(enabled, version, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ManagedClusterStorageProfileDiskCsiDriver>.Write(ModelReaderWriterOptions options)
