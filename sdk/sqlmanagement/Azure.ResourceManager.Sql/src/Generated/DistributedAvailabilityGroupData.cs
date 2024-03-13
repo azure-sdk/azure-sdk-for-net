@@ -54,6 +54,7 @@ namespace Azure.ResourceManager.Sql
         /// <summary> Initializes a new instance of <see cref="DistributedAvailabilityGroupData"/>. </summary>
         public DistributedAvailabilityGroupData()
         {
+            Databases = new ChangeTrackingList<DistributedAvailabilityGroupDatabase>();
         }
 
         /// <summary> Initializes a new instance of <see cref="DistributedAvailabilityGroupData"/>. </summary>
@@ -61,51 +62,55 @@ namespace Azure.ResourceManager.Sql
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="targetDatabase"> The name of the target database. </param>
-        /// <param name="sourceEndpoint"> The source endpoint. </param>
-        /// <param name="primaryAvailabilityGroupName"> The primary availability group name. </param>
-        /// <param name="secondaryAvailabilityGroupName"> The secondary availability group name. </param>
-        /// <param name="replicationMode"> The replication mode of a distributed availability group. Parameter will be ignored during link creation. </param>
-        /// <param name="distributedAvailabilityGroupId"> The distributed availability group id. </param>
-        /// <param name="sourceReplicaId"> The source replica id. </param>
-        /// <param name="targetReplicaId"> The target replica id. </param>
-        /// <param name="linkState"> The link state. </param>
-        /// <param name="lastHardenedLsn"> The last hardened lsn. </param>
+        /// <param name="distributedAvailabilityGroupName"> Name of the distributed availability group. </param>
+        /// <param name="distributedAvailabilityGroupId"> ID of the distributed availability group. </param>
+        /// <param name="replicationMode"> Replication mode of the link. </param>
+        /// <param name="partnerLinkRole"> SQL server side link role. </param>
+        /// <param name="partnerAvailabilityGroupName"> SQL server side availability group name. </param>
+        /// <param name="partnerEndpoint"> SQL server side endpoint - IP or DNS resolvable name. </param>
+        /// <param name="instanceLinkRole"> Managed instance side link role. </param>
+        /// <param name="instanceAvailabilityGroupName"> Managed instance side availability group name. </param>
+        /// <param name="failoverMode"> The link failover mode - can be Manual if intended to be used for two-way failover with a supported SQL Server, or None for one-way failover to Azure. </param>
+        /// <param name="seedingMode"> Database seeding mode – can be Automatic (default), or Manual for supported scenarios. </param>
+        /// <param name="databases"> Databases in the distributed availability group. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DistributedAvailabilityGroupData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string targetDatabase, string sourceEndpoint, string primaryAvailabilityGroupName, string secondaryAvailabilityGroupName, DistributedAvailabilityGroupReplicationMode? replicationMode, Guid? distributedAvailabilityGroupId, Guid? sourceReplicaId, Guid? targetReplicaId, string linkState, string lastHardenedLsn, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal DistributedAvailabilityGroupData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string distributedAvailabilityGroupName, Guid? distributedAvailabilityGroupId, ReplicationModeType? replicationMode, LinkRole? partnerLinkRole, string partnerAvailabilityGroupName, string partnerEndpoint, LinkRole? instanceLinkRole, string instanceAvailabilityGroupName, FailoverModeType? failoverMode, SeedingModeType? seedingMode, IList<DistributedAvailabilityGroupDatabase> databases, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            TargetDatabase = targetDatabase;
-            SourceEndpoint = sourceEndpoint;
-            PrimaryAvailabilityGroupName = primaryAvailabilityGroupName;
-            SecondaryAvailabilityGroupName = secondaryAvailabilityGroupName;
-            ReplicationMode = replicationMode;
+            DistributedAvailabilityGroupName = distributedAvailabilityGroupName;
             DistributedAvailabilityGroupId = distributedAvailabilityGroupId;
-            SourceReplicaId = sourceReplicaId;
-            TargetReplicaId = targetReplicaId;
-            LinkState = linkState;
-            LastHardenedLsn = lastHardenedLsn;
+            ReplicationMode = replicationMode;
+            PartnerLinkRole = partnerLinkRole;
+            PartnerAvailabilityGroupName = partnerAvailabilityGroupName;
+            PartnerEndpoint = partnerEndpoint;
+            InstanceLinkRole = instanceLinkRole;
+            InstanceAvailabilityGroupName = instanceAvailabilityGroupName;
+            FailoverMode = failoverMode;
+            SeedingMode = seedingMode;
+            Databases = databases;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The name of the target database. </summary>
-        public string TargetDatabase { get; set; }
-        /// <summary> The source endpoint. </summary>
-        public string SourceEndpoint { get; set; }
-        /// <summary> The primary availability group name. </summary>
-        public string PrimaryAvailabilityGroupName { get; set; }
-        /// <summary> The secondary availability group name. </summary>
-        public string SecondaryAvailabilityGroupName { get; set; }
-        /// <summary> The replication mode of a distributed availability group. Parameter will be ignored during link creation. </summary>
-        public DistributedAvailabilityGroupReplicationMode? ReplicationMode { get; set; }
-        /// <summary> The distributed availability group id. </summary>
+        /// <summary> Name of the distributed availability group. </summary>
+        public string DistributedAvailabilityGroupName { get; }
+        /// <summary> ID of the distributed availability group. </summary>
         public Guid? DistributedAvailabilityGroupId { get; }
-        /// <summary> The source replica id. </summary>
-        public Guid? SourceReplicaId { get; }
-        /// <summary> The target replica id. </summary>
-        public Guid? TargetReplicaId { get; }
-        /// <summary> The link state. </summary>
-        public string LinkState { get; }
-        /// <summary> The last hardened lsn. </summary>
-        public string LastHardenedLsn { get; }
+        /// <summary> Replication mode of the link. </summary>
+        public ReplicationModeType? ReplicationMode { get; set; }
+        /// <summary> SQL server side link role. </summary>
+        public LinkRole? PartnerLinkRole { get; }
+        /// <summary> SQL server side availability group name. </summary>
+        public string PartnerAvailabilityGroupName { get; set; }
+        /// <summary> SQL server side endpoint - IP or DNS resolvable name. </summary>
+        public string PartnerEndpoint { get; set; }
+        /// <summary> Managed instance side link role. </summary>
+        public LinkRole? InstanceLinkRole { get; set; }
+        /// <summary> Managed instance side availability group name. </summary>
+        public string InstanceAvailabilityGroupName { get; set; }
+        /// <summary> The link failover mode - can be Manual if intended to be used for two-way failover with a supported SQL Server, or None for one-way failover to Azure. </summary>
+        public FailoverModeType? FailoverMode { get; set; }
+        /// <summary> Database seeding mode – can be Automatic (default), or Manual for supported scenarios. </summary>
+        public SeedingModeType? SeedingMode { get; set; }
+        /// <summary> Databases in the distributed availability group. </summary>
+        public IList<DistributedAvailabilityGroupDatabase> Databases { get; }
     }
 }
