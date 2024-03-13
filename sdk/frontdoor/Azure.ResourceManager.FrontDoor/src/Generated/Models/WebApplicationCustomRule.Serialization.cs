@@ -51,6 +51,16 @@ namespace Azure.ResourceManager.FrontDoor.Models
                 writer.WritePropertyName("rateLimitThreshold"u8);
                 writer.WriteNumberValue(RateLimitThreshold.Value);
             }
+            if (Optional.IsCollectionDefined(GroupBy))
+            {
+                writer.WritePropertyName("groupBy"u8);
+                writer.WriteStartArray();
+                foreach (var item in GroupBy)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             writer.WritePropertyName("matchConditions"u8);
             writer.WriteStartArray();
             foreach (var item in MatchConditions)
@@ -104,6 +114,7 @@ namespace Azure.ResourceManager.FrontDoor.Models
             WebApplicationRuleType ruleType = default;
             int? rateLimitDurationInMinutes = default;
             int? rateLimitThreshold = default;
+            IList<GroupByVariable> groupBy = default;
             IList<WebApplicationRuleMatchCondition> matchConditions = default;
             RuleMatchActionType action = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -152,6 +163,20 @@ namespace Azure.ResourceManager.FrontDoor.Models
                     rateLimitThreshold = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("groupBy"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<GroupByVariable> array = new List<GroupByVariable>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(GroupByVariable.DeserializeGroupByVariable(item, options));
+                    }
+                    groupBy = array;
+                    continue;
+                }
                 if (property.NameEquals("matchConditions"u8))
                 {
                     List<WebApplicationRuleMatchCondition> array = new List<WebApplicationRuleMatchCondition>();
@@ -180,6 +205,7 @@ namespace Azure.ResourceManager.FrontDoor.Models
                 ruleType,
                 rateLimitDurationInMinutes,
                 rateLimitThreshold,
+                groupBy ?? new ChangeTrackingList<GroupByVariable>(),
                 matchConditions,
                 action,
                 serializedAdditionalRawData);
