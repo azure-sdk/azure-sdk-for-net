@@ -134,7 +134,7 @@ namespace Azure.ResourceManager.AppService
             string provisioningState = default;
             SubResource privateEndpoint = default;
             PrivateLinkConnectionState privateLinkServiceConnectionState = default;
-            IList<IPAddress> ipAddresses = default;
+            IList<System.Net.IPAddress> ipAddresses = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -206,7 +206,7 @@ namespace Azure.ResourceManager.AppService
                             {
                                 continue;
                             }
-                            List<IPAddress> array = new List<IPAddress>();
+                            List<System.Net.IPAddress> array = new List<System.Net.IPAddress>();
                             foreach (var item in property0.Value.EnumerateArray())
                             {
                                 if (item.ValueKind == JsonValueKind.Null)
@@ -215,7 +215,7 @@ namespace Azure.ResourceManager.AppService
                                 }
                                 else
                                 {
-                                    array.Add(IPAddress.Parse(item.GetString()));
+                                    array.Add(System.Net.IPAddress.Parse(item.GetString()));
                                 }
                             }
                             ipAddresses = array;
@@ -238,7 +238,7 @@ namespace Azure.ResourceManager.AppService
                 provisioningState,
                 privateEndpoint,
                 privateLinkServiceConnectionState,
-                ipAddresses ?? new ChangeTrackingList<IPAddress>(),
+                ipAddresses ?? new ChangeTrackingList<System.Net.IPAddress>(),
                 kind,
                 serializedAdditionalRawData);
         }
