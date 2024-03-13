@@ -10,6 +10,7 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Network;
 
 namespace Azure.ResourceManager.Network.Models
@@ -33,6 +34,11 @@ namespace Azure.ResourceManager.Network.Models
             {
                 writer.WritePropertyName("flowAnalyticsConfiguration"u8);
                 writer.WriteObjectValue(FlowAnalyticsConfiguration);
+            }
+            if (Optional.IsDefined(Identity))
+            {
+                writer.WritePropertyName("identity"u8);
+                JsonSerializer.Serialize(writer, Identity);
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
@@ -91,6 +97,7 @@ namespace Azure.ResourceManager.Network.Models
             }
             ResourceIdentifier targetResourceId = default;
             TrafficAnalyticsProperties flowAnalyticsConfiguration = default;
+            ManagedServiceIdentity identity = default;
             ResourceIdentifier storageId = default;
             bool enabled = default;
             RetentionPolicyParameters retentionPolicy = default;
@@ -111,6 +118,15 @@ namespace Azure.ResourceManager.Network.Models
                         continue;
                     }
                     flowAnalyticsConfiguration = TrafficAnalyticsProperties.DeserializeTrafficAnalyticsProperties(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("identity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
                     continue;
                 }
                 if (property.NameEquals("properties"u8))
@@ -162,6 +178,7 @@ namespace Azure.ResourceManager.Network.Models
             return new FlowLogInformation(
                 targetResourceId,
                 flowAnalyticsConfiguration,
+                identity,
                 storageId,
                 enabled,
                 retentionPolicy,
