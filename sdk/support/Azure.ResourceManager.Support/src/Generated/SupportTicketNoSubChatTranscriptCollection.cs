@@ -28,8 +28,6 @@ namespace Azure.ResourceManager.Support
     {
         private readonly ClientDiagnostics _supportTicketNoSubChatTranscriptChatTranscriptsNoSubscriptionClientDiagnostics;
         private readonly ChatTranscriptsNoSubscriptionRestOperations _supportTicketNoSubChatTranscriptChatTranscriptsNoSubscriptionRestClient;
-        private readonly ClientDiagnostics _supportTicketNoSubChatTranscriptSupportTicketChatTranscriptsNoSubscriptionClientDiagnostics;
-        private readonly SupportTicketChatTranscriptsNoSubscriptionRestOperations _supportTicketNoSubChatTranscriptSupportTicketChatTranscriptsNoSubscriptionRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="SupportTicketNoSubChatTranscriptCollection"/> class for mocking. </summary>
         protected SupportTicketNoSubChatTranscriptCollection()
@@ -44,9 +42,6 @@ namespace Azure.ResourceManager.Support
             _supportTicketNoSubChatTranscriptChatTranscriptsNoSubscriptionClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Support", SupportTicketNoSubChatTranscriptResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(SupportTicketNoSubChatTranscriptResource.ResourceType, out string supportTicketNoSubChatTranscriptChatTranscriptsNoSubscriptionApiVersion);
             _supportTicketNoSubChatTranscriptChatTranscriptsNoSubscriptionRestClient = new ChatTranscriptsNoSubscriptionRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, supportTicketNoSubChatTranscriptChatTranscriptsNoSubscriptionApiVersion);
-            _supportTicketNoSubChatTranscriptSupportTicketChatTranscriptsNoSubscriptionClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Support", SupportTicketNoSubChatTranscriptResource.ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(SupportTicketNoSubChatTranscriptResource.ResourceType, out string supportTicketNoSubChatTranscriptSupportTicketChatTranscriptsNoSubscriptionApiVersion);
-            _supportTicketNoSubChatTranscriptSupportTicketChatTranscriptsNoSubscriptionRestClient = new SupportTicketChatTranscriptsNoSubscriptionRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, supportTicketNoSubChatTranscriptSupportTicketChatTranscriptsNoSubscriptionApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -157,7 +152,7 @@ namespace Azure.ResourceManager.Support
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SupportTicketChatTranscriptsNoSubscription_List</description>
+        /// <description>ChatTranscriptsNoSubscription_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -173,9 +168,9 @@ namespace Azure.ResourceManager.Support
         /// <returns> An async collection of <see cref="SupportTicketNoSubChatTranscriptResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<SupportTicketNoSubChatTranscriptResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _supportTicketNoSubChatTranscriptSupportTicketChatTranscriptsNoSubscriptionRestClient.CreateListRequest(Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _supportTicketNoSubChatTranscriptSupportTicketChatTranscriptsNoSubscriptionRestClient.CreateListNextPageRequest(nextLink, Id.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new SupportTicketNoSubChatTranscriptResource(Client, ChatTranscriptDetailData.DeserializeChatTranscriptDetailData(e)), _supportTicketNoSubChatTranscriptSupportTicketChatTranscriptsNoSubscriptionClientDiagnostics, Pipeline, "SupportTicketNoSubChatTranscriptCollection.GetAll", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _supportTicketNoSubChatTranscriptChatTranscriptsNoSubscriptionRestClient.CreateListRequest(Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _supportTicketNoSubChatTranscriptChatTranscriptsNoSubscriptionRestClient.CreateListNextPageRequest(nextLink, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new SupportTicketNoSubChatTranscriptResource(Client, ChatTranscriptDetailData.DeserializeChatTranscriptDetailData(e)), _supportTicketNoSubChatTranscriptChatTranscriptsNoSubscriptionClientDiagnostics, Pipeline, "SupportTicketNoSubChatTranscriptCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -187,7 +182,7 @@ namespace Azure.ResourceManager.Support
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SupportTicketChatTranscriptsNoSubscription_List</description>
+        /// <description>ChatTranscriptsNoSubscription_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -203,9 +198,9 @@ namespace Azure.ResourceManager.Support
         /// <returns> A collection of <see cref="SupportTicketNoSubChatTranscriptResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<SupportTicketNoSubChatTranscriptResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _supportTicketNoSubChatTranscriptSupportTicketChatTranscriptsNoSubscriptionRestClient.CreateListRequest(Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _supportTicketNoSubChatTranscriptSupportTicketChatTranscriptsNoSubscriptionRestClient.CreateListNextPageRequest(nextLink, Id.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new SupportTicketNoSubChatTranscriptResource(Client, ChatTranscriptDetailData.DeserializeChatTranscriptDetailData(e)), _supportTicketNoSubChatTranscriptSupportTicketChatTranscriptsNoSubscriptionClientDiagnostics, Pipeline, "SupportTicketNoSubChatTranscriptCollection.GetAll", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _supportTicketNoSubChatTranscriptChatTranscriptsNoSubscriptionRestClient.CreateListRequest(Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _supportTicketNoSubChatTranscriptChatTranscriptsNoSubscriptionRestClient.CreateListNextPageRequest(nextLink, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new SupportTicketNoSubChatTranscriptResource(Client, ChatTranscriptDetailData.DeserializeChatTranscriptDetailData(e)), _supportTicketNoSubChatTranscriptChatTranscriptsNoSubscriptionClientDiagnostics, Pipeline, "SupportTicketNoSubChatTranscriptCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
