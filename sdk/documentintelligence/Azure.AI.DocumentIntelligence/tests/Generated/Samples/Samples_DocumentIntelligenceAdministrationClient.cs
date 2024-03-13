@@ -73,7 +73,7 @@ namespace Azure.AI.DocumentIntelligence.Samples
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            AuthorizeCopyContent authorizeCopyRequest = new AuthorizeCopyContent("<modelId>");
+            AuthorizeCopyRequest authorizeCopyRequest = new AuthorizeCopyRequest("<modelId>");
             Response<CopyAuthorization> response = client.AuthorizeModelCopy(authorizeCopyRequest);
         }
 
@@ -85,7 +85,7 @@ namespace Azure.AI.DocumentIntelligence.Samples
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            AuthorizeCopyContent authorizeCopyRequest = new AuthorizeCopyContent("<modelId>");
+            AuthorizeCopyRequest authorizeCopyRequest = new AuthorizeCopyRequest("<modelId>");
             Response<CopyAuthorization> response = await client.AuthorizeModelCopyAsync(authorizeCopyRequest);
         }
 
@@ -153,7 +153,7 @@ namespace Azure.AI.DocumentIntelligence.Samples
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            AuthorizeCopyContent authorizeCopyRequest = new AuthorizeCopyContent("<modelId>")
+            AuthorizeCopyRequest authorizeCopyRequest = new AuthorizeCopyRequest("<modelId>")
             {
                 Description = "<description>",
                 Tags =
@@ -172,7 +172,7 @@ namespace Azure.AI.DocumentIntelligence.Samples
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            AuthorizeCopyContent authorizeCopyRequest = new AuthorizeCopyContent("<modelId>")
+            AuthorizeCopyRequest authorizeCopyRequest = new AuthorizeCopyRequest("<modelId>")
             {
                 Description = "<description>",
                 Tags =
@@ -1317,7 +1317,7 @@ namespace Azure.AI.DocumentIntelligence.Samples
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            BuildDocumentModelContent buildRequest = new BuildDocumentModelContent("<modelId>", DocumentBuildMode.Template);
+            BuildDocumentModelRequest buildRequest = new BuildDocumentModelRequest("<modelId>", DocumentBuildMode.Template);
             Operation<DocumentModelDetails> operation = client.BuildDocumentModel(WaitUntil.Completed, buildRequest);
             DocumentModelDetails responseData = operation.Value;
         }
@@ -1330,7 +1330,7 @@ namespace Azure.AI.DocumentIntelligence.Samples
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            BuildDocumentModelContent buildRequest = new BuildDocumentModelContent("<modelId>", DocumentBuildMode.Template);
+            BuildDocumentModelRequest buildRequest = new BuildDocumentModelRequest("<modelId>", DocumentBuildMode.Template);
             Operation<DocumentModelDetails> operation = await client.BuildDocumentModelAsync(WaitUntil.Completed, buildRequest);
             DocumentModelDetails responseData = operation.Value;
         }
@@ -1457,7 +1457,7 @@ namespace Azure.AI.DocumentIntelligence.Samples
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            BuildDocumentModelContent buildRequest = new BuildDocumentModelContent("<modelId>", DocumentBuildMode.Template)
+            BuildDocumentModelRequest buildRequest = new BuildDocumentModelRequest("<modelId>", DocumentBuildMode.Template)
             {
                 Description = "<description>",
                 AzureBlobSource = new AzureBlobContentSource(new Uri("http://localhost:3000"))
@@ -1482,7 +1482,7 @@ namespace Azure.AI.DocumentIntelligence.Samples
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            BuildDocumentModelContent buildRequest = new BuildDocumentModelContent("<modelId>", DocumentBuildMode.Template)
+            BuildDocumentModelRequest buildRequest = new BuildDocumentModelRequest("<modelId>", DocumentBuildMode.Template)
             {
                 Description = "<description>",
                 AzureBlobSource = new AzureBlobContentSource(new Uri("http://localhost:3000"))
@@ -1561,7 +1561,7 @@ modelId = "<modelId>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            ComposeDocumentModelContent composeRequest = new ComposeDocumentModelContent("<modelId>", new ComponentDocumentModelDetails[]
+            ComposeDocumentModelRequest composeRequest = new ComposeDocumentModelRequest("<modelId>", new ComponentDocumentModelDetails[]
             {
 new ComponentDocumentModelDetails("<modelId>")
             });
@@ -1577,7 +1577,7 @@ new ComponentDocumentModelDetails("<modelId>")
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            ComposeDocumentModelContent composeRequest = new ComposeDocumentModelContent("<modelId>", new ComponentDocumentModelDetails[]
+            ComposeDocumentModelRequest composeRequest = new ComposeDocumentModelRequest("<modelId>", new ComponentDocumentModelDetails[]
             {
 new ComponentDocumentModelDetails("<modelId>")
             });
@@ -1699,7 +1699,7 @@ modelId = "<modelId>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            ComposeDocumentModelContent composeRequest = new ComposeDocumentModelContent("<modelId>", new ComponentDocumentModelDetails[]
+            ComposeDocumentModelRequest composeRequest = new ComposeDocumentModelRequest("<modelId>", new ComponentDocumentModelDetails[]
             {
 new ComponentDocumentModelDetails("<modelId>")
             })
@@ -1722,7 +1722,7 @@ new ComponentDocumentModelDetails("<modelId>")
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            ComposeDocumentModelContent composeRequest = new ComposeDocumentModelContent("<modelId>", new ComponentDocumentModelDetails[]
+            ComposeDocumentModelRequest composeRequest = new ComposeDocumentModelRequest("<modelId>", new ComponentDocumentModelDetails[]
             {
 new ComponentDocumentModelDetails("<modelId>")
             })
@@ -2015,7 +2015,7 @@ new ComponentDocumentModelDetails("<modelId>")
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            BuildDocumentClassifierContent buildRequest = new BuildDocumentClassifierContent("<classifierId>", new Dictionary<string, ClassifierDocumentTypeDetails>
+            BuildDocumentClassifierRequest buildRequest = new BuildDocumentClassifierRequest("<classifierId>", new Dictionary<string, ClassifierDocumentTypeDetails>
             {
                 ["key"] = new ClassifierDocumentTypeDetails()
             });
@@ -2031,7 +2031,7 @@ new ComponentDocumentModelDetails("<modelId>")
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            BuildDocumentClassifierContent buildRequest = new BuildDocumentClassifierContent("<classifierId>", new Dictionary<string, ClassifierDocumentTypeDetails>
+            BuildDocumentClassifierRequest buildRequest = new BuildDocumentClassifierRequest("<classifierId>", new Dictionary<string, ClassifierDocumentTypeDetails>
             {
                 ["key"] = new ClassifierDocumentTypeDetails()
             });
@@ -2149,7 +2149,7 @@ new ComponentDocumentModelDetails("<modelId>")
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            BuildDocumentClassifierContent buildRequest = new BuildDocumentClassifierContent("<classifierId>", new Dictionary<string, ClassifierDocumentTypeDetails>
+            BuildDocumentClassifierRequest buildRequest = new BuildDocumentClassifierRequest("<classifierId>", new Dictionary<string, ClassifierDocumentTypeDetails>
             {
                 ["key"] = new ClassifierDocumentTypeDetails
                 {
@@ -2177,7 +2177,7 @@ new ComponentDocumentModelDetails("<modelId>")
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             DocumentIntelligenceAdministrationClient client = new DocumentIntelligenceAdministrationClient(endpoint, credential);
 
-            BuildDocumentClassifierContent buildRequest = new BuildDocumentClassifierContent("<classifierId>", new Dictionary<string, ClassifierDocumentTypeDetails>
+            BuildDocumentClassifierRequest buildRequest = new BuildDocumentClassifierRequest("<classifierId>", new Dictionary<string, ClassifierDocumentTypeDetails>
             {
                 ["key"] = new ClassifierDocumentTypeDetails
                 {
