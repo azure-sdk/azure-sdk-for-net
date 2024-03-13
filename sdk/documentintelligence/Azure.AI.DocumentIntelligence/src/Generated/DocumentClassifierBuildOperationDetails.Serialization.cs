@@ -42,9 +42,9 @@ namespace Azure.AI.DocumentIntelligence
                 writer.WriteNumberValue(PercentCompleted.Value);
             }
             writer.WritePropertyName("createdDateTime"u8);
-            writer.WriteStringValue(CreatedOn, "O");
+            writer.WriteStringValue(CreatedDateTime, "O");
             writer.WritePropertyName("lastUpdatedDateTime"u8);
-            writer.WriteStringValue(LastUpdatedOn, "O");
+            writer.WriteStringValue(LastUpdatedDateTime, "O");
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             writer.WritePropertyName("resourceLocation"u8);
