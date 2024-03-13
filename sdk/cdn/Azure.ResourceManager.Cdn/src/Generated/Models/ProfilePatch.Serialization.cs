@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Cdn;
+using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Cdn.Models
 {
@@ -38,12 +39,22 @@ namespace Azure.ResourceManager.Cdn.Models
                 }
                 writer.WriteEndObject();
             }
+            if (Optional.IsDefined(Identity))
+            {
+                writer.WritePropertyName("identity"u8);
+                JsonSerializer.Serialize(writer, Identity);
+            }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
             if (Optional.IsDefined(OriginResponseTimeoutSeconds))
             {
                 writer.WritePropertyName("originResponseTimeoutSeconds"u8);
                 writer.WriteNumberValue(OriginResponseTimeoutSeconds.Value);
+            }
+            if (Optional.IsDefined(LogScrubbing))
+            {
+                writer.WritePropertyName("logScrubbing"u8);
+                writer.WriteObjectValue(LogScrubbing);
             }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -85,7 +96,9 @@ namespace Azure.ResourceManager.Cdn.Models
                 return null;
             }
             IDictionary<string, string> tags = default;
+            ManagedServiceIdentity identity = default;
             int? originResponseTimeoutSeconds = default;
+            ProfileLogScrubbing logScrubbing = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -102,6 +115,15 @@ namespace Azure.ResourceManager.Cdn.Models
                         dictionary.Add(property0.Name, property0.Value.GetString());
                     }
                     tags = dictionary;
+                    continue;
+                }
+                if (property.NameEquals("identity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
                     continue;
                 }
                 if (property.NameEquals("properties"u8))
@@ -122,6 +144,15 @@ namespace Azure.ResourceManager.Cdn.Models
                             originResponseTimeoutSeconds = property0.Value.GetInt32();
                             continue;
                         }
+                        if (property0.NameEquals("logScrubbing"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            logScrubbing = ProfileLogScrubbing.DeserializeProfileLogScrubbing(property0.Value, options);
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -131,7 +162,7 @@ namespace Azure.ResourceManager.Cdn.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ProfilePatch(tags ?? new ChangeTrackingDictionary<string, string>(), originResponseTimeoutSeconds, serializedAdditionalRawData);
+            return new ProfilePatch(tags ?? new ChangeTrackingDictionary<string, string>(), identity, originResponseTimeoutSeconds, logScrubbing, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ProfilePatch>.Write(ModelReaderWriterOptions options)
