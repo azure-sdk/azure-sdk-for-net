@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: Maps
 namespace: Azure.ResourceManager.Maps
-require: https://github.com/Azure/azure-rest-api-specs/blob/6b08774c89877269e73e11ac3ecbd1bd4e14f5a0/specification/maps/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/aa3a76d24cc8777b5d301bb8cd06fe6e8bb0ce9f/specification/maps/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
