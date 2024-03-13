@@ -202,6 +202,7 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         public static Azure.ResourceManager.ServiceLinker.Models.LinkerClientType Dotnet { get { throw null; } }
         public static Azure.ResourceManager.ServiceLinker.Models.LinkerClientType Go { get { throw null; } }
         public static Azure.ResourceManager.ServiceLinker.Models.LinkerClientType Java { get { throw null; } }
+        public static Azure.ResourceManager.ServiceLinker.Models.LinkerClientType KafkaSpringBoot { get { throw null; } }
         public static Azure.ResourceManager.ServiceLinker.Models.LinkerClientType Nodejs { get { throw null; } }
         public static Azure.ResourceManager.ServiceLinker.Models.LinkerClientType None { get { throw null; } }
         public static Azure.ResourceManager.ServiceLinker.Models.LinkerClientType Php { get { throw null; } }
