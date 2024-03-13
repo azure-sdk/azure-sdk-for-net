@@ -9,6 +9,7 @@ using System;
 using System.ClientModel.Primitives;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.ServiceLinker;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
@@ -28,6 +29,11 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             writer.WriteStartObject();
             writer.WritePropertyName("authType"u8);
             writer.WriteStringValue(AuthType.ToString());
+            if (Optional.IsDefined(AuthMode))
+            {
+                writer.WritePropertyName("authMode"u8);
+                writer.WriteStringValue(AuthMode.Value.ToString());
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -70,10 +76,13 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             {
                 switch (discriminator.GetString())
                 {
+                    case "accessKey": return AccessKeyInfoBase.DeserializeAccessKeyInfoBase(element, options);
+                    case "easyAuthMicrosoftEntraID": return EasyAuthMicrosoftEntraIdAuthInfo.DeserializeEasyAuthMicrosoftEntraIdAuthInfo(element, options);
                     case "secret": return SecretAuthInfo.DeserializeSecretAuthInfo(element, options);
                     case "servicePrincipalCertificate": return ServicePrincipalCertificateAuthInfo.DeserializeServicePrincipalCertificateAuthInfo(element, options);
                     case "servicePrincipalSecret": return ServicePrincipalSecretAuthInfo.DeserializeServicePrincipalSecretAuthInfo(element, options);
                     case "systemAssignedIdentity": return SystemAssignedIdentityAuthInfo.DeserializeSystemAssignedIdentityAuthInfo(element, options);
+                    case "userAccount": return UserAccountAuthInfo.DeserializeUserAccountAuthInfo(element, options);
                     case "userAssignedIdentity": return UserAssignedIdentityAuthInfo.DeserializeUserAssignedIdentityAuthInfo(element, options);
                 }
             }

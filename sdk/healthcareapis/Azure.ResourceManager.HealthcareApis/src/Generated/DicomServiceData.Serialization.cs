@@ -120,6 +120,16 @@ namespace Azure.ResourceManager.HealthcareApis
                 writer.WritePropertyName("encryption"u8);
                 writer.WriteObjectValue(Encryption);
             }
+            if (Optional.IsDefined(StorageConfiguration))
+            {
+                writer.WritePropertyName("storageConfiguration"u8);
+                writer.WriteObjectValue(StorageConfiguration);
+            }
+            if (Optional.IsDefined(EnableDataPartitions))
+            {
+                writer.WritePropertyName("enableDataPartitions"u8);
+                writer.WriteBooleanValue(EnableDataPartitions.Value);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -175,6 +185,8 @@ namespace Azure.ResourceManager.HealthcareApis
             HealthcareApisPublicNetworkAccess? publicNetworkAccess = default;
             FhirServiceEventState? eventState = default;
             Encryption encryption = default;
+            StorageConfiguration storageConfiguration = default;
+            bool? enableDataPartitions = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -327,6 +339,24 @@ namespace Azure.ResourceManager.HealthcareApis
                             encryption = Encryption.DeserializeEncryption(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("storageConfiguration"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            storageConfiguration = StorageConfiguration.DeserializeStorageConfiguration(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("enableDataPartitions"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            enableDataPartitions = property0.Value.GetBoolean();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -351,6 +381,8 @@ namespace Azure.ResourceManager.HealthcareApis
                 publicNetworkAccess,
                 eventState,
                 encryption,
+                storageConfiguration,
+                enableDataPartitions,
                 identity,
                 etag,
                 serializedAdditionalRawData);
