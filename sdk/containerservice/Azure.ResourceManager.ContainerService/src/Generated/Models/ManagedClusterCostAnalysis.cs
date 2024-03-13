@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ContainerService.Models
 {
-    /// <summary> Istio egress gateway configuration. </summary>
-    public partial class IstioEgressGateway
+    /// <summary> The cost analysis configuration for the cluster. </summary>
+    internal partial class ManagedClusterCostAnalysis
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,28 +45,21 @@ namespace Azure.ResourceManager.ContainerService.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="IstioEgressGateway"/>. </summary>
-        /// <param name="isEnabled"> Whether to enable the egress gateway. </param>
-        public IstioEgressGateway(bool isEnabled)
+        /// <summary> Initializes a new instance of <see cref="ManagedClusterCostAnalysis"/>. </summary>
+        public ManagedClusterCostAnalysis()
         {
-            IsEnabled = isEnabled;
         }
 
-        /// <summary> Initializes a new instance of <see cref="IstioEgressGateway"/>. </summary>
-        /// <param name="isEnabled"> Whether to enable the egress gateway. </param>
+        /// <summary> Initializes a new instance of <see cref="ManagedClusterCostAnalysis"/>. </summary>
+        /// <param name="enabled"> The Managed Cluster sku.tier must be set to 'Standard' or 'Premium' to enable this feature. Enabling this will add Kubernetes Namespace and Deployment details to the Cost Analysis views in the Azure portal. If not specified, the default is false. For more information see aka.ms/aks/docs/cost-analysis. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IstioEgressGateway(bool isEnabled, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ManagedClusterCostAnalysis(bool? enabled, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            IsEnabled = isEnabled;
+            Enabled = enabled;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="IstioEgressGateway"/> for deserialization. </summary>
-        internal IstioEgressGateway()
-        {
-        }
-
-        /// <summary> Whether to enable the egress gateway. </summary>
-        public bool IsEnabled { get; set; }
+        /// <summary> The Managed Cluster sku.tier must be set to 'Standard' or 'Premium' to enable this feature. Enabling this will add Kubernetes Namespace and Deployment details to the Cost Analysis views in the Azure portal. If not specified, the default is false. For more information see aka.ms/aks/docs/cost-analysis. </summary>
+        public bool? Enabled { get; set; }
     }
 }
