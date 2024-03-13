@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.ResourceManager.ServiceLinker;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    /// <summary> The list of Linker. </summary>
-    internal partial class LinkerList
+    /// <summary> The configuration names. </summary>
+    public partial class ConfigurationName
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,26 +45,29 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="LinkerList"/>. </summary>
-        internal LinkerList()
+        /// <summary> Initializes a new instance of <see cref="ConfigurationName"/>. </summary>
+        internal ConfigurationName()
         {
-            Value = new ChangeTrackingList<LinkerResourceData>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="LinkerList"/>. </summary>
-        /// <param name="nextLink"> The link used to get the next page of Linker list. </param>
-        /// <param name="value"> The list of Linkers. </param>
+        /// <summary> Initializes a new instance of <see cref="ConfigurationName"/>. </summary>
+        /// <param name="value"></param>
+        /// <param name="description"> Description for the configuration name. </param>
+        /// <param name="required"> Represent the configuration is required or not. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LinkerList(string nextLink, IReadOnlyList<LinkerResourceData> value, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ConfigurationName(string value, string description, bool? required, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            NextLink = nextLink;
             Value = value;
+            Description = description;
+            Required = required;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The link used to get the next page of Linker list. </summary>
-        public string NextLink { get; }
-        /// <summary> The list of Linkers. </summary>
-        public IReadOnlyList<LinkerResourceData> Value { get; }
+        /// <summary> Gets the value. </summary>
+        public string Value { get; }
+        /// <summary> Description for the configuration name. </summary>
+        public string Description { get; }
+        /// <summary> Represent the configuration is required or not. </summary>
+        public bool? Required { get; }
     }
 }

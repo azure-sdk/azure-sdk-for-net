@@ -10,6 +10,7 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.ServiceLinker;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
@@ -32,6 +33,21 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             writer.WriteStringValue(PrincipalId);
             writer.WritePropertyName("certificate"u8);
             writer.WriteStringValue(Certificate);
+            if (Optional.IsDefined(DeleteOrUpdateBehavior))
+            {
+                writer.WritePropertyName("deleteOrUpdateBehavior"u8);
+                writer.WriteStringValue(DeleteOrUpdateBehavior.Value.ToString());
+            }
+            if (Optional.IsCollectionDefined(Roles))
+            {
+                writer.WritePropertyName("roles"u8);
+                writer.WriteStartArray();
+                foreach (var item in Roles)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
             writer.WritePropertyName("authType"u8);
             writer.WriteStringValue(AuthType.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -75,6 +91,8 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             string clientId = default;
             Guid principalId = default;
             string certificate = default;
+            DeleteOrUpdateBehavior? deleteOrUpdateBehavior = default;
+            IList<string> roles = default;
             LinkerAuthType authType = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -95,6 +113,29 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                     certificate = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("deleteOrUpdateBehavior"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    deleteOrUpdateBehavior = new DeleteOrUpdateBehavior(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("roles"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    roles = array;
+                    continue;
+                }
                 if (property.NameEquals("authType"u8))
                 {
                     authType = new LinkerAuthType(property.Value.GetString());
@@ -106,7 +147,14 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ServicePrincipalCertificateAuthInfo(authType, serializedAdditionalRawData, clientId, principalId, certificate);
+            return new ServicePrincipalCertificateAuthInfo(
+                authType,
+                serializedAdditionalRawData,
+                clientId,
+                principalId,
+                certificate,
+                deleteOrUpdateBehavior,
+                roles ?? new ChangeTrackingList<string>());
         }
 
         BinaryData IPersistableModel<ServicePrincipalCertificateAuthInfo>.Write(ModelReaderWriterOptions options)
