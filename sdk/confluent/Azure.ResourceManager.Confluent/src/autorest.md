@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: Confluent
 namespace: Azure.ResourceManager.Confluent
-require: https://github.com/Azure/azure-rest-api-specs/blob/fca48bec19cc5aab0a45c0769bfca0f667164dbf/specification/confluent/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/aa3a76d24cc8777b5d301bb8cd06fe6e8bb0ce9f/specification/confluent/resource-manager/readme.md
 #tag: package-2024-02
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
