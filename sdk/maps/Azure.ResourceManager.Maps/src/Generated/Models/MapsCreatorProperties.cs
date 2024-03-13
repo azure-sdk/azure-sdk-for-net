@@ -55,11 +55,15 @@ namespace Azure.ResourceManager.Maps.Models
         /// <summary> Initializes a new instance of <see cref="MapsCreatorProperties"/>. </summary>
         /// <param name="provisioningState"> The state of the resource provisioning, terminal states: Succeeded, Failed, Canceled. </param>
         /// <param name="storageUnits"> The storage units to be allocated. Integer values from 1 to 100, inclusive. </param>
+        /// <param name="totalStorageUnitSizeInBytes"> The total allocated storage unit size in bytes for the creator resource. </param>
+        /// <param name="consumedStorageUnitSizeInBytes"> The consumed storage unit size in bytes for the creator resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MapsCreatorProperties(string provisioningState, int storageUnits, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal MapsCreatorProperties(string provisioningState, int storageUnits, int? totalStorageUnitSizeInBytes, int? consumedStorageUnitSizeInBytes, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ProvisioningState = provisioningState;
             StorageUnits = storageUnits;
+            TotalStorageUnitSizeInBytes = totalStorageUnitSizeInBytes;
+            ConsumedStorageUnitSizeInBytes = consumedStorageUnitSizeInBytes;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -72,5 +76,9 @@ namespace Azure.ResourceManager.Maps.Models
         public string ProvisioningState { get; }
         /// <summary> The storage units to be allocated. Integer values from 1 to 100, inclusive. </summary>
         public int StorageUnits { get; set; }
+        /// <summary> The total allocated storage unit size in bytes for the creator resource. </summary>
+        public int? TotalStorageUnitSizeInBytes { get; set; }
+        /// <summary> The consumed storage unit size in bytes for the creator resource. </summary>
+        public int? ConsumedStorageUnitSizeInBytes { get; set; }
     }
 }

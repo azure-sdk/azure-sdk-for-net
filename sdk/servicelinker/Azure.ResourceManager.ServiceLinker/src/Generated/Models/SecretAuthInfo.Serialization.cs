@@ -53,6 +53,11 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             }
             writer.WritePropertyName("authType"u8);
             writer.WriteStringValue(AuthType.ToString());
+            if (Optional.IsDefined(AuthMode))
+            {
+                writer.WritePropertyName("authMode"u8);
+                writer.WriteStringValue(AuthMode.Value.ToString());
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -94,6 +99,7 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             string name = default;
             SecretBaseInfo secretInfo = default;
             LinkerAuthType authType = default;
+            AuthMode? authMode = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -123,13 +129,22 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                     authType = new LinkerAuthType(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("authMode"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    authMode = new AuthMode(property.Value.GetString());
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new SecretAuthInfo(authType, serializedAdditionalRawData, name, secretInfo);
+            return new SecretAuthInfo(authType, authMode, serializedAdditionalRawData, name, secretInfo);
         }
 
         BinaryData IPersistableModel<SecretAuthInfo>.Write(ModelReaderWriterOptions options)
