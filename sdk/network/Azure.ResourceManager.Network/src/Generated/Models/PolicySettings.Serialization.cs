@@ -82,6 +82,11 @@ namespace Azure.ResourceManager.Network.Models
                 writer.WritePropertyName("logScrubbing"u8);
                 writer.WriteObjectValue(LogScrubbing);
             }
+            if (Optional.IsDefined(JsChallengeCookieExpirationInMins))
+            {
+                writer.WritePropertyName("jsChallengeCookieExpirationInMins"u8);
+                writer.WriteNumberValue(JsChallengeCookieExpirationInMins.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -131,6 +136,7 @@ namespace Azure.ResourceManager.Network.Models
             int? customBlockResponseStatusCode = default;
             string customBlockResponseBody = default;
             PolicySettingsLogScrubbing logScrubbing = default;
+            int? jsChallengeCookieExpirationInMins = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -230,6 +236,15 @@ namespace Azure.ResourceManager.Network.Models
                     logScrubbing = PolicySettingsLogScrubbing.DeserializePolicySettingsLogScrubbing(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("jsChallengeCookieExpirationInMins"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    jsChallengeCookieExpirationInMins = property.Value.GetInt32();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -248,6 +263,7 @@ namespace Azure.ResourceManager.Network.Models
                 customBlockResponseStatusCode,
                 customBlockResponseBody,
                 logScrubbing,
+                jsChallengeCookieExpirationInMins,
                 serializedAdditionalRawData);
         }
 
