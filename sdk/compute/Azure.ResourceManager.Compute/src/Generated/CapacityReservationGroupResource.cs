@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using Autorest.CSharp.Core;
 using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
@@ -39,6 +40,8 @@ namespace Azure.ResourceManager.Compute
 
         private readonly ClientDiagnostics _capacityReservationGroupClientDiagnostics;
         private readonly CapacityReservationGroupsRestOperations _capacityReservationGroupRestClient;
+        private readonly ClientDiagnostics _capacityReservationsClientDiagnostics;
+        private readonly CapacityReservationsRestOperations _capacityReservationsRestClient;
         private readonly CapacityReservationGroupData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -66,6 +69,8 @@ namespace Azure.ResourceManager.Compute
             _capacityReservationGroupClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Compute", ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ResourceType, out string capacityReservationGroupApiVersion);
             _capacityReservationGroupRestClient = new CapacityReservationGroupsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, capacityReservationGroupApiVersion);
+            _capacityReservationsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Compute", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _capacityReservationsRestClient = new CapacityReservationsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -90,77 +95,6 @@ namespace Azure.ResourceManager.Compute
         {
             if (id.ResourceType != ResourceType)
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
-        }
-
-        /// <summary> Gets a collection of CapacityReservationResources in the CapacityReservationGroup. </summary>
-        /// <returns> An object representing collection of CapacityReservationResources and their operations over a CapacityReservationResource. </returns>
-        public virtual CapacityReservationCollection GetCapacityReservations()
-        {
-            return GetCachedClient(client => new CapacityReservationCollection(client, Id));
-        }
-
-        /// <summary>
-        /// The operation that retrieves information about the capacity reservation.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/capacityReservationGroups/{capacityReservationGroupName}/capacityReservations/{capacityReservationName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>CapacityReservations_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="CapacityReservationResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="capacityReservationName"> The name of the capacity reservation. </param>
-        /// <param name="expand"> The expand expression to apply on the operation. 'InstanceView' retrieves a snapshot of the runtime properties of the capacity reservation that is managed by the platform and can change outside of control plane operations. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="capacityReservationName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="capacityReservationName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<CapacityReservationResource>> GetCapacityReservationAsync(string capacityReservationName, CapacityReservationInstanceViewType? expand = null, CancellationToken cancellationToken = default)
-        {
-            return await GetCapacityReservations().GetAsync(capacityReservationName, expand, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// The operation that retrieves information about the capacity reservation.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/capacityReservationGroups/{capacityReservationGroupName}/capacityReservations/{capacityReservationName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>CapacityReservations_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="CapacityReservationResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="capacityReservationName"> The name of the capacity reservation. </param>
-        /// <param name="expand"> The expand expression to apply on the operation. 'InstanceView' retrieves a snapshot of the runtime properties of the capacity reservation that is managed by the platform and can change outside of control plane operations. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="capacityReservationName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="capacityReservationName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<CapacityReservationResource> GetCapacityReservation(string capacityReservationName, CapacityReservationInstanceViewType? expand = null, CancellationToken cancellationToken = default)
-        {
-            return GetCapacityReservations().Get(capacityReservationName, expand, cancellationToken);
         }
 
         /// <summary>
@@ -411,6 +345,324 @@ namespace Azure.ResourceManager.Compute
                 scope.Failed(e);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// The operation to create or update a capacity reservation. Please note some properties can be set only during capacity reservation creation. Please refer to https://aka.ms/CapacityReservation for more details.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/capacityReservationGroups/{capacityReservationGroupName}/capacityReservations/{capacityReservationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CapacityReservations_CreateOrUpdate</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="capacityReservationName"> The name of the capacity reservation. </param>
+        /// <param name="capacityReservation"> Parameters supplied to the Create capacity reservation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="capacityReservationName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="capacityReservationName"/> or <paramref name="capacityReservation"/> is null. </exception>
+        public virtual async Task<ArmOperation<CapacityReservation>> CreateOrUpdateCapacityReservationAsync(WaitUntil waitUntil, string capacityReservationName, CapacityReservation capacityReservation, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(capacityReservationName, nameof(capacityReservationName));
+            Argument.AssertNotNull(capacityReservation, nameof(capacityReservation));
+
+            using var scope = _capacityReservationsClientDiagnostics.CreateScope("CapacityReservationGroupResource.CreateOrUpdateCapacityReservation");
+            scope.Start();
+            try
+            {
+                var response = await _capacityReservationsRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, capacityReservationName, capacityReservation, cancellationToken).ConfigureAwait(false);
+                var operation = new ComputeArmOperation<CapacityReservation>(new CapacityReservationOperationSource(), _capacityReservationsClientDiagnostics, Pipeline, _capacityReservationsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, capacityReservationName, capacityReservation).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// The operation to create or update a capacity reservation. Please note some properties can be set only during capacity reservation creation. Please refer to https://aka.ms/CapacityReservation for more details.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/capacityReservationGroups/{capacityReservationGroupName}/capacityReservations/{capacityReservationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CapacityReservations_CreateOrUpdate</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="capacityReservationName"> The name of the capacity reservation. </param>
+        /// <param name="capacityReservation"> Parameters supplied to the Create capacity reservation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="capacityReservationName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="capacityReservationName"/> or <paramref name="capacityReservation"/> is null. </exception>
+        public virtual ArmOperation<CapacityReservation> CreateOrUpdateCapacityReservation(WaitUntil waitUntil, string capacityReservationName, CapacityReservation capacityReservation, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(capacityReservationName, nameof(capacityReservationName));
+            Argument.AssertNotNull(capacityReservation, nameof(capacityReservation));
+
+            using var scope = _capacityReservationsClientDiagnostics.CreateScope("CapacityReservationGroupResource.CreateOrUpdateCapacityReservation");
+            scope.Start();
+            try
+            {
+                var response = _capacityReservationsRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, capacityReservationName, capacityReservation, cancellationToken);
+                var operation = new ComputeArmOperation<CapacityReservation>(new CapacityReservationOperationSource(), _capacityReservationsClientDiagnostics, Pipeline, _capacityReservationsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, capacityReservationName, capacityReservation).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// The operation to update a capacity reservation.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/capacityReservationGroups/{capacityReservationGroupName}/capacityReservations/{capacityReservationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CapacityReservations_Update</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="capacityReservationName"> The name of the capacity reservation. </param>
+        /// <param name="capacityReservationUpdate"> Parameters supplied to the Update capacity reservation operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="capacityReservationName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="capacityReservationName"/> or <paramref name="capacityReservationUpdate"/> is null. </exception>
+        public virtual async Task<ArmOperation<CapacityReservation>> UpdateCapacityReservationAsync(WaitUntil waitUntil, string capacityReservationName, CapacityReservationUpdate capacityReservationUpdate, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(capacityReservationName, nameof(capacityReservationName));
+            Argument.AssertNotNull(capacityReservationUpdate, nameof(capacityReservationUpdate));
+
+            using var scope = _capacityReservationsClientDiagnostics.CreateScope("CapacityReservationGroupResource.UpdateCapacityReservation");
+            scope.Start();
+            try
+            {
+                var response = await _capacityReservationsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, capacityReservationName, capacityReservationUpdate, cancellationToken).ConfigureAwait(false);
+                var operation = new ComputeArmOperation<CapacityReservation>(new CapacityReservationOperationSource(), _capacityReservationsClientDiagnostics, Pipeline, _capacityReservationsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, capacityReservationName, capacityReservationUpdate).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// The operation to update a capacity reservation.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/capacityReservationGroups/{capacityReservationGroupName}/capacityReservations/{capacityReservationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CapacityReservations_Update</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="capacityReservationName"> The name of the capacity reservation. </param>
+        /// <param name="capacityReservationUpdate"> Parameters supplied to the Update capacity reservation operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="capacityReservationName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="capacityReservationName"/> or <paramref name="capacityReservationUpdate"/> is null. </exception>
+        public virtual ArmOperation<CapacityReservation> UpdateCapacityReservation(WaitUntil waitUntil, string capacityReservationName, CapacityReservationUpdate capacityReservationUpdate, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(capacityReservationName, nameof(capacityReservationName));
+            Argument.AssertNotNull(capacityReservationUpdate, nameof(capacityReservationUpdate));
+
+            using var scope = _capacityReservationsClientDiagnostics.CreateScope("CapacityReservationGroupResource.UpdateCapacityReservation");
+            scope.Start();
+            try
+            {
+                var response = _capacityReservationsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, capacityReservationName, capacityReservationUpdate, cancellationToken);
+                var operation = new ComputeArmOperation<CapacityReservation>(new CapacityReservationOperationSource(), _capacityReservationsClientDiagnostics, Pipeline, _capacityReservationsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, capacityReservationName, capacityReservationUpdate).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// The operation to delete a capacity reservation. This operation is allowed only when all the associated resources are disassociated from the capacity reservation. Please refer to https://aka.ms/CapacityReservation for more details.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/capacityReservationGroups/{capacityReservationGroupName}/capacityReservations/{capacityReservationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CapacityReservations_Delete</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="capacityReservationName"> The name of the capacity reservation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="capacityReservationName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="capacityReservationName"/> is null. </exception>
+        public virtual async Task<ArmOperation> DeleteCapacityReservationAsync(WaitUntil waitUntil, string capacityReservationName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(capacityReservationName, nameof(capacityReservationName));
+
+            using var scope = _capacityReservationsClientDiagnostics.CreateScope("CapacityReservationGroupResource.DeleteCapacityReservation");
+            scope.Start();
+            try
+            {
+                var response = await _capacityReservationsRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, capacityReservationName, cancellationToken).ConfigureAwait(false);
+                var operation = new ComputeArmOperation(_capacityReservationsClientDiagnostics, Pipeline, _capacityReservationsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, capacityReservationName).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// The operation to delete a capacity reservation. This operation is allowed only when all the associated resources are disassociated from the capacity reservation. Please refer to https://aka.ms/CapacityReservation for more details.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/capacityReservationGroups/{capacityReservationGroupName}/capacityReservations/{capacityReservationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CapacityReservations_Delete</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="capacityReservationName"> The name of the capacity reservation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="capacityReservationName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="capacityReservationName"/> is null. </exception>
+        public virtual ArmOperation DeleteCapacityReservation(WaitUntil waitUntil, string capacityReservationName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(capacityReservationName, nameof(capacityReservationName));
+
+            using var scope = _capacityReservationsClientDiagnostics.CreateScope("CapacityReservationGroupResource.DeleteCapacityReservation");
+            scope.Start();
+            try
+            {
+                var response = _capacityReservationsRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, capacityReservationName, cancellationToken);
+                var operation = new ComputeArmOperation(_capacityReservationsClientDiagnostics, Pipeline, _capacityReservationsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, capacityReservationName).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Lists all of the capacity reservations in the specified capacity reservation group. Use the nextLink property in the response to get the next page of capacity reservations.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/capacityReservationGroups/{capacityReservationGroupName}/capacityReservations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CapacityReservations_ListByCapacityReservationGroup</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="CapacityReservation"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<CapacityReservation> GetCapacityReservationsAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _capacityReservationsRestClient.CreateListByCapacityReservationGroupRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _capacityReservationsRestClient.CreateListByCapacityReservationGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => CapacityReservation.DeserializeCapacityReservation(e), _capacityReservationsClientDiagnostics, Pipeline, "CapacityReservationGroupResource.GetCapacityReservations", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists all of the capacity reservations in the specified capacity reservation group. Use the nextLink property in the response to get the next page of capacity reservations.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/capacityReservationGroups/{capacityReservationGroupName}/capacityReservations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CapacityReservations_ListByCapacityReservationGroup</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="CapacityReservation"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<CapacityReservation> GetCapacityReservations(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _capacityReservationsRestClient.CreateListByCapacityReservationGroupRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _capacityReservationsRestClient.CreateListByCapacityReservationGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => CapacityReservation.DeserializeCapacityReservation(e), _capacityReservationsClientDiagnostics, Pipeline, "CapacityReservationGroupResource.GetCapacityReservations", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>

@@ -23,8 +23,6 @@ namespace Azure.ResourceManager.Compute.Mocking
     {
         private ClientDiagnostics _usageClientDiagnostics;
         private UsageRestOperations _usageRestClient;
-        private ClientDiagnostics _virtualMachineSizesClientDiagnostics;
-        private VirtualMachineSizesRestOperations _virtualMachineSizesRestClient;
         private ClientDiagnostics _virtualMachineScaleSetClientDiagnostics;
         private VirtualMachineScaleSetsRestOperations _virtualMachineScaleSetRestClient;
         private ClientDiagnostics _virtualMachineClientDiagnostics;
@@ -41,8 +39,6 @@ namespace Azure.ResourceManager.Compute.Mocking
         private DedicatedHostGroupsRestOperations _dedicatedHostGroupRestClient;
         private ClientDiagnostics _sshPublicKeyClientDiagnostics;
         private SshPublicKeysRestOperations _sshPublicKeyRestClient;
-        private ClientDiagnostics _diskImageImagesClientDiagnostics;
-        private ImagesRestOperations _diskImageImagesRestClient;
         private ClientDiagnostics _restorePointGroupRestorePointCollectionsClientDiagnostics;
         private RestorePointCollectionsRestOperations _restorePointGroupRestorePointCollectionsRestClient;
         private ClientDiagnostics _capacityReservationGroupClientDiagnostics;
@@ -80,8 +76,6 @@ namespace Azure.ResourceManager.Compute.Mocking
 
         private ClientDiagnostics UsageClientDiagnostics => _usageClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Compute", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private UsageRestOperations UsageRestClient => _usageRestClient ??= new UsageRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
-        private ClientDiagnostics VirtualMachineSizesClientDiagnostics => _virtualMachineSizesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Compute", ProviderConstants.DefaultProviderNamespace, Diagnostics);
-        private VirtualMachineSizesRestOperations VirtualMachineSizesRestClient => _virtualMachineSizesRestClient ??= new VirtualMachineSizesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
         private ClientDiagnostics VirtualMachineScaleSetClientDiagnostics => _virtualMachineScaleSetClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Compute", VirtualMachineScaleSetResource.ResourceType.Namespace, Diagnostics);
         private VirtualMachineScaleSetsRestOperations VirtualMachineScaleSetRestClient => _virtualMachineScaleSetRestClient ??= new VirtualMachineScaleSetsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(VirtualMachineScaleSetResource.ResourceType));
         private ClientDiagnostics VirtualMachineClientDiagnostics => _virtualMachineClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Compute", VirtualMachineResource.ResourceType.Namespace, Diagnostics);
@@ -98,8 +92,6 @@ namespace Azure.ResourceManager.Compute.Mocking
         private DedicatedHostGroupsRestOperations DedicatedHostGroupRestClient => _dedicatedHostGroupRestClient ??= new DedicatedHostGroupsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(DedicatedHostGroupResource.ResourceType));
         private ClientDiagnostics SshPublicKeyClientDiagnostics => _sshPublicKeyClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Compute", SshPublicKeyResource.ResourceType.Namespace, Diagnostics);
         private SshPublicKeysRestOperations SshPublicKeyRestClient => _sshPublicKeyRestClient ??= new SshPublicKeysRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(SshPublicKeyResource.ResourceType));
-        private ClientDiagnostics DiskImageImagesClientDiagnostics => _diskImageImagesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Compute", DiskImageResource.ResourceType.Namespace, Diagnostics);
-        private ImagesRestOperations DiskImageImagesRestClient => _diskImageImagesRestClient ??= new ImagesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(DiskImageResource.ResourceType));
         private ClientDiagnostics RestorePointGroupRestorePointCollectionsClientDiagnostics => _restorePointGroupRestorePointCollectionsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Compute", RestorePointGroupResource.ResourceType.Namespace, Diagnostics);
         private RestorePointCollectionsRestOperations RestorePointGroupRestorePointCollectionsRestClient => _restorePointGroupRestorePointCollectionsRestClient ??= new RestorePointCollectionsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(RestorePointGroupResource.ResourceType));
         private ClientDiagnostics CapacityReservationGroupClientDiagnostics => _capacityReservationGroupClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Compute", CapacityReservationGroupResource.ResourceType.Namespace, Diagnostics);
@@ -547,58 +539,6 @@ namespace Azure.ResourceManager.Compute.Mocking
             HttpMessage FirstPageRequest(int? pageSizeHint) => UsageRestClient.CreateListRequest(Id.SubscriptionId, location);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => UsageRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, location);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => ComputeUsage.DeserializeComputeUsage(e), UsageClientDiagnostics, Pipeline, "MockableComputeSubscriptionResource.GetUsages", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// This API is deprecated. Use [Resources Skus](https://docs.microsoft.com/rest/api/compute/resourceskus/list)
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/vmSizes</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>VirtualMachineSizes_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The location upon which virtual-machine-sizes is queried. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="VirtualMachineSize"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<VirtualMachineSize> GetVirtualMachineSizesAsync(AzureLocation location, CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => VirtualMachineSizesRestClient.CreateListRequest(Id.SubscriptionId, location);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => VirtualMachineSize.DeserializeVirtualMachineSize(e), VirtualMachineSizesClientDiagnostics, Pipeline, "MockableComputeSubscriptionResource.GetVirtualMachineSizes", "value", null, cancellationToken);
-        }
-
-        /// <summary>
-        /// This API is deprecated. Use [Resources Skus](https://docs.microsoft.com/rest/api/compute/resourceskus/list)
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/vmSizes</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>VirtualMachineSizes_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The location upon which virtual-machine-sizes is queried. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="VirtualMachineSize"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<VirtualMachineSize> GetVirtualMachineSizes(AzureLocation location, CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => VirtualMachineSizesRestClient.CreateListRequest(Id.SubscriptionId, location);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => VirtualMachineSize.DeserializeVirtualMachineSize(e), VirtualMachineSizesClientDiagnostics, Pipeline, "MockableComputeSubscriptionResource.GetVirtualMachineSizes", "value", null, cancellationToken);
         }
 
         /// <summary>
@@ -1815,66 +1755,6 @@ namespace Azure.ResourceManager.Compute.Mocking
             HttpMessage FirstPageRequest(int? pageSizeHint) => SshPublicKeyRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SshPublicKeyRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new SshPublicKeyResource(Client, SshPublicKeyData.DeserializeSshPublicKeyData(e)), SshPublicKeyClientDiagnostics, Pipeline, "MockableComputeSubscriptionResource.GetSshPublicKeys", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets the list of Images in the subscription. Use nextLink property in the response to get the next page of Images. Do this till nextLink is null to fetch all the Images.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Compute/images</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Images_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="DiskImageResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="DiskImageResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<DiskImageResource> GetDiskImagesAsync(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => DiskImageImagesRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => DiskImageImagesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new DiskImageResource(Client, DiskImageData.DeserializeDiskImageData(e)), DiskImageImagesClientDiagnostics, Pipeline, "MockableComputeSubscriptionResource.GetDiskImages", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets the list of Images in the subscription. Use nextLink property in the response to get the next page of Images. Do this till nextLink is null to fetch all the Images.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Compute/images</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Images_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="DiskImageResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="DiskImageResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<DiskImageResource> GetDiskImages(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => DiskImageImagesRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => DiskImageImagesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new DiskImageResource(Client, DiskImageData.DeserializeDiskImageData(e)), DiskImageImagesClientDiagnostics, Pipeline, "MockableComputeSubscriptionResource.GetDiskImages", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>

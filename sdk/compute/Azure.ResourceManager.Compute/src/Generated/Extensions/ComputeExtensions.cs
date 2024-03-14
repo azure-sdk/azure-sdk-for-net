@@ -359,25 +359,6 @@ namespace Azure.ResourceManager.Compute
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="CapacityReservationResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="CapacityReservationResource.CreateResourceIdentifier" /> to create a <see cref="CapacityReservationResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableComputeArmClient.GetCapacityReservationResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="CapacityReservationResource"/> object. </returns>
-        public static CapacityReservationResource GetCapacityReservationResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableComputeArmClient(client).GetCapacityReservationResource(id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="VirtualMachineRunCommandResource" /> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="VirtualMachineRunCommandResource.CreateResourceIdentifier" /> to create a <see cref="VirtualMachineRunCommandResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
@@ -2798,72 +2779,6 @@ namespace Azure.ResourceManager.Compute
         }
 
         /// <summary>
-        /// This API is deprecated. Use [Resources Skus](https://docs.microsoft.com/rest/api/compute/resourceskus/list)
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/vmSizes</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>VirtualMachineSizes_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableComputeSubscriptionResource.GetVirtualMachineSizes(AzureLocation,CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="location"> The location upon which virtual-machine-sizes is queried. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
-        /// <returns> An async collection of <see cref="VirtualMachineSize"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<VirtualMachineSize> GetVirtualMachineSizesAsync(this SubscriptionResource subscriptionResource, AzureLocation location, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
-
-            return GetMockableComputeSubscriptionResource(subscriptionResource).GetVirtualMachineSizesAsync(location, cancellationToken);
-        }
-
-        /// <summary>
-        /// This API is deprecated. Use [Resources Skus](https://docs.microsoft.com/rest/api/compute/resourceskus/list)
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/vmSizes</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>VirtualMachineSizes_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableComputeSubscriptionResource.GetVirtualMachineSizes(AzureLocation,CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="location"> The location upon which virtual-machine-sizes is queried. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
-        /// <returns> A collection of <see cref="VirtualMachineSize"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<VirtualMachineSize> GetVirtualMachineSizes(this SubscriptionResource subscriptionResource, AzureLocation location, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
-
-            return GetMockableComputeSubscriptionResource(subscriptionResource).GetVirtualMachineSizes(location, cancellationToken);
-        }
-
-        /// <summary>
         /// Gets all the VM scale sets under the specified subscription for the specified location.
         /// <list type="bullet">
         /// <item>
@@ -4213,78 +4128,6 @@ namespace Azure.ResourceManager.Compute
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
             return GetMockableComputeSubscriptionResource(subscriptionResource).GetSshPublicKeys(cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets the list of Images in the subscription. Use nextLink property in the response to get the next page of Images. Do this till nextLink is null to fetch all the Images.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Compute/images</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Images_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="DiskImageResource"/></description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableComputeSubscriptionResource.GetDiskImages(CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
-        /// <returns> An async collection of <see cref="DiskImageResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<DiskImageResource> GetDiskImagesAsync(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
-
-            return GetMockableComputeSubscriptionResource(subscriptionResource).GetDiskImagesAsync(cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets the list of Images in the subscription. Use nextLink property in the response to get the next page of Images. Do this till nextLink is null to fetch all the Images.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Compute/images</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Images_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="DiskImageResource"/></description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableComputeSubscriptionResource.GetDiskImages(CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
-        /// <returns> A collection of <see cref="DiskImageResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<DiskImageResource> GetDiskImages(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
-
-            return GetMockableComputeSubscriptionResource(subscriptionResource).GetDiskImages(cancellationToken);
         }
 
         /// <summary>

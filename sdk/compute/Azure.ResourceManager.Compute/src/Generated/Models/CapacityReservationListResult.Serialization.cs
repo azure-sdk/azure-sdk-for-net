@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.Compute.Models
             {
                 return null;
             }
-            IReadOnlyList<CapacityReservationData> value = default;
+            IReadOnlyList<CapacityReservation> value = default;
             string nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -85,10 +85,10 @@ namespace Azure.ResourceManager.Compute.Models
             {
                 if (property.NameEquals("value"u8))
                 {
-                    List<CapacityReservationData> array = new List<CapacityReservationData>();
+                    List<CapacityReservation> array = new List<CapacityReservation>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(CapacityReservationData.DeserializeCapacityReservationData(item, options));
+                        array.Add(CapacityReservation.DeserializeCapacityReservation(item, options));
                     }
                     value = array;
                     continue;

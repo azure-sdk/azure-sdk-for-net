@@ -78,26 +78,6 @@ namespace Azure.ResourceManager.Compute.Models
             return new ComputeUsageName(value, localizedValue, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.VirtualMachineSize"/>. </summary>
-        /// <param name="name"> The name of the virtual machine size. </param>
-        /// <param name="numberOfCores"> The number of cores supported by the virtual machine size. For Constrained vCPU capable VM sizes, this number represents the total vCPUs of quota that the VM uses. For accurate vCPU count, please refer to https://docs.microsoft.com/azure/virtual-machines/constrained-vcpu or https://docs.microsoft.com/rest/api/compute/resourceskus/list. </param>
-        /// <param name="osDiskSizeInMB"> The OS disk size, in MB, allowed by the virtual machine size. </param>
-        /// <param name="resourceDiskSizeInMB"> The resource disk size, in MB, allowed by the virtual machine size. </param>
-        /// <param name="memoryInMB"> The amount of memory, in MB, supported by the virtual machine size. </param>
-        /// <param name="maxDataDiskCount"> The maximum number of data disks that can be attached to the virtual machine size. </param>
-        /// <returns> A new <see cref="Models.VirtualMachineSize"/> instance for mocking. </returns>
-        public static VirtualMachineSize VirtualMachineSize(string name = null, int? numberOfCores = null, int? osDiskSizeInMB = null, int? resourceDiskSizeInMB = null, int? memoryInMB = null, int? maxDataDiskCount = null)
-        {
-            return new VirtualMachineSize(
-                name,
-                numberOfCores,
-                osDiskSizeInMB,
-                resourceDiskSizeInMB,
-                memoryInMB,
-                maxDataDiskCount,
-                serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="Compute.VirtualMachineScaleSetData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -1188,6 +1168,26 @@ namespace Azure.ResourceManager.Compute.Models
                 timeCreated);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Models.VirtualMachineSize"/>. </summary>
+        /// <param name="name"> The name of the virtual machine size. </param>
+        /// <param name="numberOfCores"> The number of cores supported by the virtual machine size. For Constrained vCPU capable VM sizes, this number represents the total vCPUs of quota that the VM uses. For accurate vCPU count, please refer to https://docs.microsoft.com/azure/virtual-machines/constrained-vcpu or https://docs.microsoft.com/rest/api/compute/resourceskus/list. </param>
+        /// <param name="osDiskSizeInMB"> The OS disk size, in MB, allowed by the virtual machine size. </param>
+        /// <param name="resourceDiskSizeInMB"> The resource disk size, in MB, allowed by the virtual machine size. </param>
+        /// <param name="memoryInMB"> The amount of memory, in MB, supported by the virtual machine size. </param>
+        /// <param name="maxDataDiskCount"> The maximum number of data disks that can be attached to the virtual machine size. </param>
+        /// <returns> A new <see cref="Models.VirtualMachineSize"/> instance for mocking. </returns>
+        public static VirtualMachineSize VirtualMachineSize(string name = null, int? numberOfCores = null, int? osDiskSizeInMB = null, int? resourceDiskSizeInMB = null, int? memoryInMB = null, int? maxDataDiskCount = null)
+        {
+            return new VirtualMachineSize(
+                name,
+                numberOfCores,
+                osDiskSizeInMB,
+                resourceDiskSizeInMB,
+                memoryInMB,
+                maxDataDiskCount,
+                serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Models.VirtualMachineAssessPatchesResult"/>. </summary>
         /// <param name="status"> The overall success or failure status of the operation. It remains "InProgress" until the operation completes. At that point it will become "Unknown", "Failed", "Succeeded", or "CompletedWithWarnings.". </param>
         /// <param name="assessmentActivityId"> The activity ID of the operation that produced this result. It is used to correlate across CRP and extension logs. </param>
@@ -2040,7 +2040,7 @@ namespace Azure.ResourceManager.Compute.Models
                 sharingSubscriptionIds != null ? new ResourceSharingProfile(sharingSubscriptionIds?.ToList(), serializedAdditionalRawData: null) : null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Compute.CapacityReservationData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Models.CapacityReservation"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -2056,14 +2056,14 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="provisioningState"> The provisioning state, which only appears in the response. </param>
         /// <param name="instanceView"> The Capacity reservation instance view. </param>
         /// <param name="timeCreated"> Specifies the time at which the Capacity Reservation resource was created. Minimum api-version: 2021-11-01. </param>
-        /// <returns> A new <see cref="Compute.CapacityReservationData"/> instance for mocking. </returns>
-        public static CapacityReservationData CapacityReservationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ComputeSku sku = null, IEnumerable<string> zones = null, string reservationId = null, int? platformFaultDomainCount = null, IEnumerable<SubResource> virtualMachinesAssociated = null, DateTimeOffset? provisioningOn = null, string provisioningState = null, CapacityReservationInstanceView instanceView = null, DateTimeOffset? timeCreated = null)
+        /// <returns> A new <see cref="Models.CapacityReservation"/> instance for mocking. </returns>
+        public static CapacityReservation CapacityReservation(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ComputeSku sku = null, IEnumerable<string> zones = null, string reservationId = null, int? platformFaultDomainCount = null, IEnumerable<SubResource> virtualMachinesAssociated = null, DateTimeOffset? provisioningOn = null, string provisioningState = null, CapacityReservationInstanceView instanceView = null, DateTimeOffset? timeCreated = null)
         {
             tags ??= new Dictionary<string, string>();
             zones ??= new List<string>();
             virtualMachinesAssociated ??= new List<SubResource>();
 
-            return new CapacityReservationData(
+            return new CapacityReservation(
                 id,
                 name,
                 resourceType,
@@ -2082,7 +2082,7 @@ namespace Azure.ResourceManager.Compute.Models
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.CapacityReservationPatch"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Models.CapacityReservationUpdate"/>. </summary>
         /// <param name="tags"> Resource tags. </param>
         /// <param name="sku"> SKU of the resource for which capacity needs be reserved. The SKU name and capacity is required to be set. Currently VM Skus with the capability called 'CapacityReservationSupported' set to true are supported. Refer to List Microsoft.Compute SKUs in a region (https://docs.microsoft.com/rest/api/compute/resourceskus/list) for supported values. </param>
         /// <param name="reservationId"> A unique id generated and assigned to the capacity reservation by the platform which does not change throughout the lifetime of the resource. </param>
@@ -2092,13 +2092,13 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="provisioningState"> The provisioning state, which only appears in the response. </param>
         /// <param name="instanceView"> The Capacity reservation instance view. </param>
         /// <param name="timeCreated"> Specifies the time at which the Capacity Reservation resource was created. Minimum api-version: 2021-11-01. </param>
-        /// <returns> A new <see cref="Models.CapacityReservationPatch"/> instance for mocking. </returns>
-        public static CapacityReservationPatch CapacityReservationPatch(IDictionary<string, string> tags = null, ComputeSku sku = null, string reservationId = null, int? platformFaultDomainCount = null, IEnumerable<SubResource> virtualMachinesAssociated = null, DateTimeOffset? provisioningOn = null, string provisioningState = null, CapacityReservationInstanceView instanceView = null, DateTimeOffset? timeCreated = null)
+        /// <returns> A new <see cref="Models.CapacityReservationUpdate"/> instance for mocking. </returns>
+        public static CapacityReservationUpdate CapacityReservationUpdate(IDictionary<string, string> tags = null, ComputeSku sku = null, string reservationId = null, int? platformFaultDomainCount = null, IEnumerable<SubResource> virtualMachinesAssociated = null, DateTimeOffset? provisioningOn = null, string provisioningState = null, CapacityReservationInstanceView instanceView = null, DateTimeOffset? timeCreated = null)
         {
             tags ??= new Dictionary<string, string>();
             virtualMachinesAssociated ??= new List<SubResource>();
 
-            return new CapacityReservationPatch(
+            return new CapacityReservationUpdate(
                 tags,
                 serializedAdditionalRawData: null,
                 sku,

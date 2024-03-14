@@ -207,5 +207,207 @@ namespace Azure.ResourceManager.Compute.Samples
 
             Console.WriteLine($"Succeeded");
         }
+
+        // Create or update a capacity reservation .
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task CreateOrUpdateCapacityReservation_CreateOrUpdateACapacityReservation()
+        {
+            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2023-09-01/examples/capacityReservationExamples/CapacityReservation_CreateOrUpdate.json
+            // this example is just showing the usage of "CapacityReservations_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this CapacityReservationGroupResource created on azure
+            // for more information of creating CapacityReservationGroupResource, please refer to the document of CapacityReservationGroupResource
+            string subscriptionId = "{subscription-id}";
+            string resourceGroupName = "myResourceGroup";
+            string capacityReservationGroupName = "myCapacityReservationGroup";
+            ResourceIdentifier capacityReservationGroupResourceId = CapacityReservationGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, capacityReservationGroupName);
+            CapacityReservationGroupResource capacityReservationGroup = client.GetCapacityReservationGroupResource(capacityReservationGroupResourceId);
+
+            // invoke the operation
+            string capacityReservationName = "myCapacityReservation";
+            CapacityReservation capacityReservation = new CapacityReservation(new AzureLocation("westus"), new ComputeSku()
+            {
+                Name = "Standard_DS1_v2",
+                Capacity = 4,
+            })
+            {
+                Zones =
+{
+"1"
+},
+                Tags =
+{
+["department"] = "HR",
+},
+            };
+            ArmOperation<CapacityReservation> lro = await capacityReservationGroup.CreateOrUpdateCapacityReservationAsync(WaitUntil.Completed, capacityReservationName, capacityReservation);
+            CapacityReservation result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        // CapacityReservation_Update_MaximumSet_Gen
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task UpdateCapacityReservation_CapacityReservationUpdateMaximumSetGen()
+        {
+            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2023-09-01/examples/capacityReservationExamples/CapacityReservation_Update_MaximumSet_Gen.json
+            // this example is just showing the usage of "CapacityReservations_Update" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this CapacityReservationGroupResource created on azure
+            // for more information of creating CapacityReservationGroupResource, please refer to the document of CapacityReservationGroupResource
+            string subscriptionId = "{subscription-id}";
+            string resourceGroupName = "rgcompute";
+            string capacityReservationGroupName = "aaaaaaaaaa";
+            ResourceIdentifier capacityReservationGroupResourceId = CapacityReservationGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, capacityReservationGroupName);
+            CapacityReservationGroupResource capacityReservationGroup = client.GetCapacityReservationGroupResource(capacityReservationGroupResourceId);
+
+            // invoke the operation
+            string capacityReservationName = "aaaaaaaaaaaaaaaaaaa";
+            CapacityReservationUpdate capacityReservationUpdate = new CapacityReservationUpdate()
+            {
+                Sku = new ComputeSku()
+                {
+                    Name = "Standard_DS1_v2",
+                    Tier = "aaa",
+                    Capacity = 7,
+                },
+                Tags =
+{
+["key4974"] = "aaaaaaaaaaaaaaaa",
+},
+            };
+            ArmOperation<CapacityReservation> lro = await capacityReservationGroup.UpdateCapacityReservationAsync(WaitUntil.Completed, capacityReservationName, capacityReservationUpdate);
+            CapacityReservation result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        // CapacityReservation_Update_MinimumSet_Gen
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task UpdateCapacityReservation_CapacityReservationUpdateMinimumSetGen()
+        {
+            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2023-09-01/examples/capacityReservationExamples/CapacityReservation_Update_MinimumSet_Gen.json
+            // this example is just showing the usage of "CapacityReservations_Update" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this CapacityReservationGroupResource created on azure
+            // for more information of creating CapacityReservationGroupResource, please refer to the document of CapacityReservationGroupResource
+            string subscriptionId = "{subscription-id}";
+            string resourceGroupName = "rgcompute";
+            string capacityReservationGroupName = "aaaaaaaaaaaaaaaaaaaaaaaaaa";
+            ResourceIdentifier capacityReservationGroupResourceId = CapacityReservationGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, capacityReservationGroupName);
+            CapacityReservationGroupResource capacityReservationGroup = client.GetCapacityReservationGroupResource(capacityReservationGroupResourceId);
+
+            // invoke the operation
+            string capacityReservationName = "aaa";
+            CapacityReservationUpdate capacityReservationUpdate = new CapacityReservationUpdate();
+            ArmOperation<CapacityReservation> lro = await capacityReservationGroup.UpdateCapacityReservationAsync(WaitUntil.Completed, capacityReservationName, capacityReservationUpdate);
+            CapacityReservation result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        // CapacityReservation_Delete_MaximumSet_Gen
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task DeleteCapacityReservation_CapacityReservationDeleteMaximumSetGen()
+        {
+            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2023-09-01/examples/capacityReservationExamples/CapacityReservation_Delete_MaximumSet_Gen.json
+            // this example is just showing the usage of "CapacityReservations_Delete" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this CapacityReservationGroupResource created on azure
+            // for more information of creating CapacityReservationGroupResource, please refer to the document of CapacityReservationGroupResource
+            string subscriptionId = "{subscription-id}";
+            string resourceGroupName = "rgcompute";
+            string capacityReservationGroupName = "aaaaaaaaaaa";
+            ResourceIdentifier capacityReservationGroupResourceId = CapacityReservationGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, capacityReservationGroupName);
+            CapacityReservationGroupResource capacityReservationGroup = client.GetCapacityReservationGroupResource(capacityReservationGroupResourceId);
+
+            // invoke the operation
+            string capacityReservationName = "aaaaaaaaaaaaaaaaaaaaaaaaaaa";
+            await capacityReservationGroup.DeleteCapacityReservationAsync(WaitUntil.Completed, capacityReservationName);
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // CapacityReservation_Delete_MinimumSet_Gen
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task DeleteCapacityReservation_CapacityReservationDeleteMinimumSetGen()
+        {
+            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2023-09-01/examples/capacityReservationExamples/CapacityReservation_Delete_MinimumSet_Gen.json
+            // this example is just showing the usage of "CapacityReservations_Delete" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this CapacityReservationGroupResource created on azure
+            // for more information of creating CapacityReservationGroupResource, please refer to the document of CapacityReservationGroupResource
+            string subscriptionId = "{subscription-id}";
+            string resourceGroupName = "rgcompute";
+            string capacityReservationGroupName = "aaa";
+            ResourceIdentifier capacityReservationGroupResourceId = CapacityReservationGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, capacityReservationGroupName);
+            CapacityReservationGroupResource capacityReservationGroup = client.GetCapacityReservationGroupResource(capacityReservationGroupResourceId);
+
+            // invoke the operation
+            string capacityReservationName = "aaaaaa";
+            await capacityReservationGroup.DeleteCapacityReservationAsync(WaitUntil.Completed, capacityReservationName);
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // List capacity reservations in reservation group.
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetCapacityReservations_ListCapacityReservationsInReservationGroup()
+        {
+            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2023-09-01/examples/capacityReservationExamples/CapacityReservation_ListByReservationGroup.json
+            // this example is just showing the usage of "CapacityReservations_ListByCapacityReservationGroup" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this CapacityReservationGroupResource created on azure
+            // for more information of creating CapacityReservationGroupResource, please refer to the document of CapacityReservationGroupResource
+            string subscriptionId = "{subscription-id}";
+            string resourceGroupName = "myResourceGroup";
+            string capacityReservationGroupName = "myCapacityReservationGroup";
+            ResourceIdentifier capacityReservationGroupResourceId = CapacityReservationGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, capacityReservationGroupName);
+            CapacityReservationGroupResource capacityReservationGroup = client.GetCapacityReservationGroupResource(capacityReservationGroupResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (CapacityReservation item in capacityReservationGroup.GetCapacityReservationsAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
     }
 }

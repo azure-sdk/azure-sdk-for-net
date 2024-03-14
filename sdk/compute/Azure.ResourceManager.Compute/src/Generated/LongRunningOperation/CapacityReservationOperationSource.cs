@@ -10,31 +10,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
-using Azure.ResourceManager;
+using Azure.ResourceManager.Compute.Models;
 
 namespace Azure.ResourceManager.Compute
 {
-    internal class CapacityReservationOperationSource : IOperationSource<CapacityReservationResource>
+    internal class CapacityReservationOperationSource : IOperationSource<CapacityReservation>
     {
-        private readonly ArmClient _client;
-
-        internal CapacityReservationOperationSource(ArmClient client)
-        {
-            _client = client;
-        }
-
-        CapacityReservationResource IOperationSource<CapacityReservationResource>.CreateResult(Response response, CancellationToken cancellationToken)
+        CapacityReservation IOperationSource<CapacityReservation>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            var data = CapacityReservationData.DeserializeCapacityReservationData(document.RootElement);
-            return new CapacityReservationResource(_client, data);
+            return CapacityReservation.DeserializeCapacityReservation(document.RootElement);
         }
 
-        async ValueTask<CapacityReservationResource> IOperationSource<CapacityReservationResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
+        async ValueTask<CapacityReservation> IOperationSource<CapacityReservation>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            var data = CapacityReservationData.DeserializeCapacityReservationData(document.RootElement);
-            return new CapacityReservationResource(_client, data);
+            return CapacityReservation.DeserializeCapacityReservation(document.RootElement);
         }
     }
 }

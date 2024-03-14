@@ -13,15 +13,15 @@ using Azure.ResourceManager.Resources.Models;
 namespace Azure.ResourceManager.Compute.Models
 {
     /// <summary> Specifies information about the capacity reservation. Only tags and sku.capacity can be updated. </summary>
-    public partial class CapacityReservationPatch : ComputeResourcePatch
+    public partial class CapacityReservationUpdate : ComputeResourcePatch
     {
-        /// <summary> Initializes a new instance of <see cref="CapacityReservationPatch"/>. </summary>
-        public CapacityReservationPatch()
+        /// <summary> Initializes a new instance of <see cref="CapacityReservationUpdate"/>. </summary>
+        public CapacityReservationUpdate()
         {
             VirtualMachinesAssociated = new ChangeTrackingList<SubResource>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="CapacityReservationPatch"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="CapacityReservationUpdate"/>. </summary>
         /// <param name="tags"> Resource tags. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="sku"> SKU of the resource for which capacity needs be reserved. The SKU name and capacity is required to be set. Currently VM Skus with the capability called 'CapacityReservationSupported' set to true are supported. Refer to List Microsoft.Compute SKUs in a region (https://docs.microsoft.com/rest/api/compute/resourceskus/list) for supported values. </param>
@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="provisioningState"> The provisioning state, which only appears in the response. </param>
         /// <param name="instanceView"> The Capacity reservation instance view. </param>
         /// <param name="timeCreated"> Specifies the time at which the Capacity Reservation resource was created. Minimum api-version: 2021-11-01. </param>
-        internal CapacityReservationPatch(IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData, ComputeSku sku, string reservationId, int? platformFaultDomainCount, IReadOnlyList<SubResource> virtualMachinesAssociated, DateTimeOffset? provisioningOn, string provisioningState, CapacityReservationInstanceView instanceView, DateTimeOffset? timeCreated) : base(tags, serializedAdditionalRawData)
+        internal CapacityReservationUpdate(IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData, ComputeSku sku, string reservationId, int? platformFaultDomainCount, IReadOnlyList<SubResource> virtualMachinesAssociated, DateTimeOffset? provisioningOn, string provisioningState, CapacityReservationInstanceView instanceView, DateTimeOffset? timeCreated) : base(tags, serializedAdditionalRawData)
         {
             Sku = sku;
             ReservationId = reservationId;

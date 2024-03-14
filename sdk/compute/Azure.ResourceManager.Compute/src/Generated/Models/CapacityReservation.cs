@@ -8,17 +8,14 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.Compute.Models;
+using Azure.ResourceManager.Compute;
 using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources.Models;
 
-namespace Azure.ResourceManager.Compute
+namespace Azure.ResourceManager.Compute.Models
 {
-    /// <summary>
-    /// A class representing the CapacityReservation data model.
-    /// Specifies information about the capacity reservation.
-    /// </summary>
-    public partial class CapacityReservationData : TrackedResourceData
+    /// <summary> Specifies information about the capacity reservation. </summary>
+    public partial class CapacityReservation : TrackedResourceData
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -52,11 +49,11 @@ namespace Azure.ResourceManager.Compute
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="CapacityReservationData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="CapacityReservation"/>. </summary>
         /// <param name="location"> The location. </param>
         /// <param name="sku"> SKU of the resource for which capacity needs be reserved. The SKU name and capacity is required to be set. Currently VM Skus with the capability called 'CapacityReservationSupported' set to true are supported. Refer to List Microsoft.Compute SKUs in a region (https://docs.microsoft.com/rest/api/compute/resourceskus/list) for supported values. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="sku"/> is null. </exception>
-        public CapacityReservationData(AzureLocation location, ComputeSku sku) : base(location)
+        public CapacityReservation(AzureLocation location, ComputeSku sku) : base(location)
         {
             Argument.AssertNotNull(sku, nameof(sku));
 
@@ -65,7 +62,7 @@ namespace Azure.ResourceManager.Compute
             VirtualMachinesAssociated = new ChangeTrackingList<SubResource>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="CapacityReservationData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="CapacityReservation"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -82,7 +79,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="instanceView"> The Capacity reservation instance view. </param>
         /// <param name="timeCreated"> Specifies the time at which the Capacity Reservation resource was created. Minimum api-version: 2021-11-01. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CapacityReservationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ComputeSku sku, IList<string> zones, string reservationId, int? platformFaultDomainCount, IReadOnlyList<SubResource> virtualMachinesAssociated, DateTimeOffset? provisioningOn, string provisioningState, CapacityReservationInstanceView instanceView, DateTimeOffset? timeCreated, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal CapacityReservation(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ComputeSku sku, IList<string> zones, string reservationId, int? platformFaultDomainCount, IReadOnlyList<SubResource> virtualMachinesAssociated, DateTimeOffset? provisioningOn, string provisioningState, CapacityReservationInstanceView instanceView, DateTimeOffset? timeCreated, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             Sku = sku;
             Zones = zones;
@@ -96,8 +93,8 @@ namespace Azure.ResourceManager.Compute
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="CapacityReservationData"/> for deserialization. </summary>
-        internal CapacityReservationData()
+        /// <summary> Initializes a new instance of <see cref="CapacityReservation"/> for deserialization. </summary>
+        internal CapacityReservation()
         {
         }
 

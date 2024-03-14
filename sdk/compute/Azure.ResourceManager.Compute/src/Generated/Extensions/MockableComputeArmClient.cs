@@ -241,18 +241,6 @@ namespace Azure.ResourceManager.Compute.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="CapacityReservationResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="CapacityReservationResource.CreateResourceIdentifier" /> to create a <see cref="CapacityReservationResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="CapacityReservationResource"/> object. </returns>
-        public virtual CapacityReservationResource GetCapacityReservationResource(ResourceIdentifier id)
-        {
-            CapacityReservationResource.ValidateResourceId(id);
-            return new CapacityReservationResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="VirtualMachineRunCommandResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="VirtualMachineRunCommandResource.CreateResourceIdentifier" /> to create a <see cref="VirtualMachineRunCommandResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>

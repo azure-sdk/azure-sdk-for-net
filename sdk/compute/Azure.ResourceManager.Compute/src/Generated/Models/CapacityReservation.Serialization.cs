@@ -11,27 +11,35 @@ using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Compute;
+using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class CapacityReservationPatch : IUtf8JsonSerializable, IJsonModel<CapacityReservationPatch>
+    public partial class CapacityReservation : IUtf8JsonSerializable, IJsonModel<CapacityReservation>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<CapacityReservationPatch>)this).Write(writer, new ModelReaderWriterOptions("W"));
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<CapacityReservation>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
-        void IJsonModel<CapacityReservationPatch>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<CapacityReservation>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CapacityReservationPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<CapacityReservation>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(CapacityReservationPatch)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(CapacityReservation)} does not support '{format}' format.");
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Sku))
+            writer.WritePropertyName("sku"u8);
+            writer.WriteObjectValue(Sku);
+            if (Optional.IsCollectionDefined(Zones))
             {
-                writer.WritePropertyName("sku"u8);
-                writer.WriteObjectValue(Sku);
+                writer.WritePropertyName("zones"u8);
+                writer.WriteStartArray();
+                foreach (var item in Zones)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
             }
             if (Optional.IsCollectionDefined(Tags))
             {
@@ -43,6 +51,28 @@ namespace Azure.ResourceManager.Compute.Models
                     writer.WriteStringValue(item.Value);
                 }
                 writer.WriteEndObject();
+            }
+            writer.WritePropertyName("location"u8);
+            writer.WriteStringValue(Location);
+            if (options.Format != "W")
+            {
+                writer.WritePropertyName("id"u8);
+                writer.WriteStringValue(Id);
+            }
+            if (options.Format != "W")
+            {
+                writer.WritePropertyName("name"u8);
+                writer.WriteStringValue(Name);
+            }
+            if (options.Format != "W")
+            {
+                writer.WritePropertyName("type"u8);
+                writer.WriteStringValue(ResourceType);
+            }
+            if (options.Format != "W" && Optional.IsDefined(SystemData))
+            {
+                writer.WritePropertyName("systemData"u8);
+                JsonSerializer.Serialize(writer, SystemData);
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
@@ -105,19 +135,19 @@ namespace Azure.ResourceManager.Compute.Models
             writer.WriteEndObject();
         }
 
-        CapacityReservationPatch IJsonModel<CapacityReservationPatch>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        CapacityReservation IJsonModel<CapacityReservation>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CapacityReservationPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<CapacityReservation>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(CapacityReservationPatch)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(CapacityReservation)} does not support '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeCapacityReservationPatch(document.RootElement, options);
+            return DeserializeCapacityReservation(document.RootElement, options);
         }
 
-        internal static CapacityReservationPatch DeserializeCapacityReservationPatch(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static CapacityReservation DeserializeCapacityReservation(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= new ModelReaderWriterOptions("W");
 
@@ -126,7 +156,13 @@ namespace Azure.ResourceManager.Compute.Models
                 return null;
             }
             ComputeSku sku = default;
+            IList<string> zones = default;
             IDictionary<string, string> tags = default;
+            AzureLocation location = default;
+            ResourceIdentifier id = default;
+            string name = default;
+            ResourceType type = default;
+            SystemData systemData = default;
             string reservationId = default;
             int? platformFaultDomainCount = default;
             IReadOnlyList<SubResource> virtualMachinesAssociated = default;
@@ -140,11 +176,21 @@ namespace Azure.ResourceManager.Compute.Models
             {
                 if (property.NameEquals("sku"u8))
                 {
+                    sku = ComputeSku.DeserializeComputeSku(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("zones"u8))
+                {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    sku = ComputeSku.DeserializeComputeSku(property.Value, options);
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    zones = array;
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -159,6 +205,35 @@ namespace Azure.ResourceManager.Compute.Models
                         dictionary.Add(property0.Name, property0.Value.GetString());
                     }
                     tags = dictionary;
+                    continue;
+                }
+                if (property.NameEquals("location"u8))
+                {
+                    location = new AzureLocation(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("id"u8))
+                {
+                    id = new ResourceIdentifier(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("name"u8))
+                {
+                    name = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("type"u8))
+                {
+                    type = new ResourceType(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("systemData"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
                 if (property.NameEquals("properties"u8))
@@ -239,48 +314,54 @@ namespace Azure.ResourceManager.Compute.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new CapacityReservationPatch(
+            return new CapacityReservation(
+                id,
+                name,
+                type,
+                systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
-                serializedAdditionalRawData,
+                location,
                 sku,
+                zones ?? new ChangeTrackingList<string>(),
                 reservationId,
                 platformFaultDomainCount,
                 virtualMachinesAssociated ?? new ChangeTrackingList<SubResource>(),
                 provisioningTime,
                 provisioningState,
                 instanceView,
-                timeCreated);
+                timeCreated,
+                serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<CapacityReservationPatch>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<CapacityReservation>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CapacityReservationPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<CapacityReservation>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(CapacityReservationPatch)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(CapacityReservation)} does not support '{options.Format}' format.");
             }
         }
 
-        CapacityReservationPatch IPersistableModel<CapacityReservationPatch>.Create(BinaryData data, ModelReaderWriterOptions options)
+        CapacityReservation IPersistableModel<CapacityReservation>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CapacityReservationPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<CapacityReservation>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeCapacityReservationPatch(document.RootElement, options);
+                        return DeserializeCapacityReservation(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(CapacityReservationPatch)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(CapacityReservation)} does not support '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<CapacityReservationPatch>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<CapacityReservation>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
