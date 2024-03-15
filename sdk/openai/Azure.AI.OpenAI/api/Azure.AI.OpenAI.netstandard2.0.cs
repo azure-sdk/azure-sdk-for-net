@@ -361,6 +361,7 @@ namespace Azure.AI.OpenAI
         public static Azure.AI.OpenAI.ImageGenerationContentFilterResults ImageGenerationContentFilterResults(Azure.AI.OpenAI.ContentFilterResult sexual = null, Azure.AI.OpenAI.ContentFilterResult violence = null, Azure.AI.OpenAI.ContentFilterResult hate = null, Azure.AI.OpenAI.ContentFilterResult selfHarm = null) { throw null; }
         public static Azure.AI.OpenAI.ImageGenerationData ImageGenerationData(System.Uri url = null, string base64Data = null, Azure.AI.OpenAI.ImageGenerationContentFilterResults contentFilterResults = null, string revisedPrompt = null, Azure.AI.OpenAI.ImageGenerationPromptFilterResults promptFilterResults = null) { throw null; }
         public static Azure.AI.OpenAI.ImageGenerationPromptFilterResults ImageGenerationPromptFilterResults(Azure.AI.OpenAI.ContentFilterResult sexual = null, Azure.AI.OpenAI.ContentFilterResult violence = null, Azure.AI.OpenAI.ContentFilterResult hate = null, Azure.AI.OpenAI.ContentFilterResult selfHarm = null, Azure.AI.OpenAI.ContentFilterDetectionResult profanity = null, Azure.AI.OpenAI.ContentFilterDetectionResult jailbreak = null) { throw null; }
+        public static Azure.AI.OpenAI.ImageGenerations ImageGenerations(System.DateTimeOffset created = default(System.DateTimeOffset), System.Collections.Generic.IEnumerable<Azure.AI.OpenAI.ImageGenerationData> data = null) { throw null; }
         public static Azure.AI.OpenAI.OnYourDataAccessTokenAuthenticationOptions OnYourDataAccessTokenAuthenticationOptions(string accessToken = null) { throw null; }
         public static Azure.AI.OpenAI.OnYourDataApiKeyAuthenticationOptions OnYourDataApiKeyAuthenticationOptions(string key = null) { throw null; }
         public static Azure.AI.OpenAI.OnYourDataConnectionStringAuthenticationOptions OnYourDataConnectionStringAuthenticationOptions(string connectionString = null) { throw null; }
@@ -1184,9 +1185,9 @@ namespace Azure.AI.OpenAI
     }
     public partial class ImageGenerations : System.ClientModel.Primitives.IJsonModel<Azure.AI.OpenAI.ImageGenerations>, System.ClientModel.Primitives.IPersistableModel<Azure.AI.OpenAI.ImageGenerations>
     {
-        public ImageGenerations(System.DateTimeOffset created, System.Collections.Generic.IEnumerable<Azure.AI.OpenAI.ImageGenerationData> data) { }
-        public System.DateTimeOffset Created { get { throw null; } set { } }
-        public System.Collections.Generic.IList<Azure.AI.OpenAI.ImageGenerationData> Data { get { throw null; } }
+        internal ImageGenerations() { }
+        public System.DateTimeOffset Created { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.AI.OpenAI.ImageGenerationData> Data { get { throw null; } }
         Azure.AI.OpenAI.ImageGenerations System.ClientModel.Primitives.IJsonModel<Azure.AI.OpenAI.ImageGenerations>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.OpenAI.ImageGenerations>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.OpenAI.ImageGenerations System.ClientModel.Primitives.IPersistableModel<Azure.AI.OpenAI.ImageGenerations>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
