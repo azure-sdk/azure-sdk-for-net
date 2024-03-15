@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.Resources
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal Core.HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string templateSpecName, TemplateSpecData data)
+        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string templateSpecName, TemplateSpecData data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -125,7 +125,7 @@ namespace Azure.ResourceManager.Resources
             }
         }
 
-        internal Core.HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string templateSpecName, TemplateSpecPatch patch)
+        internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string templateSpecName, TemplateSpecPatch patch)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -211,7 +211,7 @@ namespace Azure.ResourceManager.Resources
             }
         }
 
-        internal Core.HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, string templateSpecName, TemplateSpecExpandKind? expand)
+        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, string templateSpecName, TemplateSpecExpandKind? expand)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -299,7 +299,7 @@ namespace Azure.ResourceManager.Resources
             }
         }
 
-        internal Core.HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string templateSpecName)
+        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string templateSpecName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -369,7 +369,7 @@ namespace Azure.ResourceManager.Resources
             }
         }
 
-        internal Core.HttpMessage CreateListBySubscriptionRequest(string subscriptionId, TemplateSpecExpandKind? expand)
+        internal HttpMessage CreateListBySubscriptionRequest(string subscriptionId, TemplateSpecExpandKind? expand)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -442,7 +442,7 @@ namespace Azure.ResourceManager.Resources
             }
         }
 
-        internal Core.HttpMessage CreateListByResourceGroupRequest(string subscriptionId, string resourceGroupName, TemplateSpecExpandKind? expand)
+        internal HttpMessage CreateListByResourceGroupRequest(string subscriptionId, string resourceGroupName, TemplateSpecExpandKind? expand)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -521,7 +521,7 @@ namespace Azure.ResourceManager.Resources
             }
         }
 
-        internal Core.HttpMessage CreateListBySubscriptionNextPageRequest(string nextLink, string subscriptionId, TemplateSpecExpandKind? expand)
+        internal HttpMessage CreateListBySubscriptionNextPageRequest(string nextLink, string subscriptionId, TemplateSpecExpandKind? expand)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -591,7 +591,7 @@ namespace Azure.ResourceManager.Resources
             }
         }
 
-        internal Core.HttpMessage CreateListByResourceGroupNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, TemplateSpecExpandKind? expand)
+        internal HttpMessage CreateListByResourceGroupNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, TemplateSpecExpandKind? expand)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
