@@ -85,7 +85,7 @@ namespace Azure.Health.Insights.ClinicalMatching
             {
                 return null;
             }
-            IList<ClinicalTrialDetails> customTrials = default;
+            IList<FhirR4ResearchStudy> customTrials = default;
             IList<ClinicalTrialRegistryFilter> registryFilters = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -97,10 +97,10 @@ namespace Azure.Health.Insights.ClinicalMatching
                     {
                         continue;
                     }
-                    List<ClinicalTrialDetails> array = new List<ClinicalTrialDetails>();
+                    List<FhirR4ResearchStudy> array = new List<FhirR4ResearchStudy>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(ClinicalTrialDetails.DeserializeClinicalTrialDetails(item, options));
+                        array.Add(FhirR4ResearchStudy.DeserializeFhirR4ResearchStudy(item, options));
                     }
                     customTrials = array;
                     continue;
@@ -125,7 +125,7 @@ namespace Azure.Health.Insights.ClinicalMatching
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ClinicalTrials(customTrials ?? new ChangeTrackingList<ClinicalTrialDetails>(), registryFilters ?? new ChangeTrackingList<ClinicalTrialRegistryFilter>(), serializedAdditionalRawData);
+            return new ClinicalTrials(customTrials ?? new ChangeTrackingList<FhirR4ResearchStudy>(), registryFilters ?? new ChangeTrackingList<ClinicalTrialRegistryFilter>(), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ClinicalTrials>.Write(ModelReaderWriterOptions options)
