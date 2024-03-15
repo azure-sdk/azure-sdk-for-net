@@ -57,8 +57,9 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="accessKey"> Access key for the storage account. </param>
         /// <param name="mountPath"> Path to mount the storage within the site's runtime environment. </param>
         /// <param name="state"> State of the storage account. </param>
+        /// <param name="protocol"> Mounting protocol to use for the storage account. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppServiceStorageAccessInfo(AppServiceStorageType? storageType, string accountName, string shareName, string accessKey, string mountPath, AppServiceStorageAccountState? state, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AppServiceStorageAccessInfo(AppServiceStorageType? storageType, string accountName, string shareName, string accessKey, string mountPath, AppServiceStorageAccountState? state, AzureStorageProtocol? protocol, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             StorageType = storageType;
             AccountName = accountName;
@@ -66,6 +67,7 @@ namespace Azure.ResourceManager.AppService.Models
             AccessKey = accessKey;
             MountPath = mountPath;
             State = state;
+            Protocol = protocol;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -81,5 +83,7 @@ namespace Azure.ResourceManager.AppService.Models
         public string MountPath { get; set; }
         /// <summary> State of the storage account. </summary>
         public AppServiceStorageAccountState? State { get; }
+        /// <summary> Mounting protocol to use for the storage account. </summary>
+        public AzureStorageProtocol? Protocol { get; set; }
     }
 }
