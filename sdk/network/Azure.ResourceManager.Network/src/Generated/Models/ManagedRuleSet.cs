@@ -58,18 +58,21 @@ namespace Azure.ResourceManager.Network.Models
             RuleSetType = ruleSetType;
             RuleSetVersion = ruleSetVersion;
             RuleGroupOverrides = new ChangeTrackingList<ManagedRuleGroupOverride>();
+            ComputedDisabledRuleGroups = new ChangeTrackingList<ManagedRuleSetRuleGroup>();
         }
 
         /// <summary> Initializes a new instance of <see cref="ManagedRuleSet"/>. </summary>
         /// <param name="ruleSetType"> Defines the rule set type to use. </param>
         /// <param name="ruleSetVersion"> Defines the version of the rule set to use. </param>
         /// <param name="ruleGroupOverrides"> Defines the rule group overrides to apply to the rule set. </param>
+        /// <param name="computedDisabledRuleGroups"> Stores the final list of disabled rule groups. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ManagedRuleSet(string ruleSetType, string ruleSetVersion, IList<ManagedRuleGroupOverride> ruleGroupOverrides, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ManagedRuleSet(string ruleSetType, string ruleSetVersion, IList<ManagedRuleGroupOverride> ruleGroupOverrides, IReadOnlyList<ManagedRuleSetRuleGroup> computedDisabledRuleGroups, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             RuleSetType = ruleSetType;
             RuleSetVersion = ruleSetVersion;
             RuleGroupOverrides = ruleGroupOverrides;
+            ComputedDisabledRuleGroups = computedDisabledRuleGroups;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -84,5 +87,7 @@ namespace Azure.ResourceManager.Network.Models
         public string RuleSetVersion { get; set; }
         /// <summary> Defines the rule group overrides to apply to the rule set. </summary>
         public IList<ManagedRuleGroupOverride> RuleGroupOverrides { get; }
+        /// <summary> Stores the final list of disabled rule groups. </summary>
+        public IReadOnlyList<ManagedRuleSetRuleGroup> ComputedDisabledRuleGroups { get; }
     }
 }

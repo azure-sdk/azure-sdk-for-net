@@ -41,6 +41,16 @@ namespace Azure.ResourceManager.Network.Models
                 }
                 writer.WriteEndArray();
             }
+            if (options.Format != "W" && Optional.IsCollectionDefined(ComputedDisabledRuleGroups))
+            {
+                writer.WritePropertyName("computedDisabledRuleGroups"u8);
+                writer.WriteStartArray();
+                foreach (var item in ComputedDisabledRuleGroups)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -82,6 +92,7 @@ namespace Azure.ResourceManager.Network.Models
             string ruleSetType = default;
             string ruleSetVersion = default;
             IList<ManagedRuleGroupOverride> ruleGroupOverrides = default;
+            IReadOnlyList<ManagedRuleSetRuleGroup> computedDisabledRuleGroups = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -110,13 +121,27 @@ namespace Azure.ResourceManager.Network.Models
                     ruleGroupOverrides = array;
                     continue;
                 }
+                if (property.NameEquals("computedDisabledRuleGroups"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<ManagedRuleSetRuleGroup> array = new List<ManagedRuleSetRuleGroup>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(ManagedRuleSetRuleGroup.DeserializeManagedRuleSetRuleGroup(item, options));
+                    }
+                    computedDisabledRuleGroups = array;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ManagedRuleSet(ruleSetType, ruleSetVersion, ruleGroupOverrides ?? new ChangeTrackingList<ManagedRuleGroupOverride>(), serializedAdditionalRawData);
+            return new ManagedRuleSet(ruleSetType, ruleSetVersion, ruleGroupOverrides ?? new ChangeTrackingList<ManagedRuleGroupOverride>(), computedDisabledRuleGroups ?? new ChangeTrackingList<ManagedRuleSetRuleGroup>(), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ManagedRuleSet>.Write(ModelReaderWriterOptions options)

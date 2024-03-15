@@ -7619,6 +7619,31 @@ namespace Azure.ResourceManager.Network.Models
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Models.ManagedRuleSet"/>. </summary>
+        /// <param name="ruleSetType"> Defines the rule set type to use. </param>
+        /// <param name="ruleSetVersion"> Defines the version of the rule set to use. </param>
+        /// <param name="ruleGroupOverrides"> Defines the rule group overrides to apply to the rule set. </param>
+        /// <param name="computedDisabledRuleGroups"> Stores the final list of disabled rule groups. </param>
+        /// <returns> A new <see cref="Models.ManagedRuleSet"/> instance for mocking. </returns>
+        public static ManagedRuleSet ManagedRuleSet(string ruleSetType = null, string ruleSetVersion = null, IEnumerable<ManagedRuleGroupOverride> ruleGroupOverrides = null, IEnumerable<ManagedRuleSetRuleGroup> computedDisabledRuleGroups = null)
+        {
+            ruleGroupOverrides ??= new List<ManagedRuleGroupOverride>();
+            computedDisabledRuleGroups ??= new List<ManagedRuleSetRuleGroup>();
+
+            return new ManagedRuleSet(ruleSetType, ruleSetVersion, ruleGroupOverrides?.ToList(), computedDisabledRuleGroups?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ManagedRuleSetRuleGroup"/>. </summary>
+        /// <param name="ruleGroupName"> Name of the rule group. </param>
+        /// <param name="rules"> List of rules within the rule group. </param>
+        /// <returns> A new <see cref="Models.ManagedRuleSetRuleGroup"/> instance for mocking. </returns>
+        public static ManagedRuleSetRuleGroup ManagedRuleSetRuleGroup(string ruleGroupName = null, IEnumerable<string> rules = null)
+        {
+            rules ??= new List<string>();
+
+            return new ManagedRuleSetRuleGroup(ruleGroupName, rules?.ToList(), serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Models.ActiveSecurityAdminRule"/>. </summary>
         /// <param name="id"> Resource ID. </param>
         /// <param name="commitOn"> Deployment time string. </param>
