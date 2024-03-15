@@ -35,11 +35,11 @@ namespace Azure.AI.DocumentIntelligence
                 writer.WriteStringValue(Description);
             }
             writer.WritePropertyName("createdDateTime"u8);
-            writer.WriteStringValue(CreatedOn, "O");
-            if (Optional.IsDefined(ExpiresOn))
+            writer.WriteStringValue(CreatedDateTime, "O");
+            if (Optional.IsDefined(ExpirationDateTime))
             {
                 writer.WritePropertyName("expirationDateTime"u8);
-                writer.WriteStringValue(ExpiresOn.Value, "O");
+                writer.WriteStringValue(ExpirationDateTime.Value, "O");
             }
             if (Optional.IsDefined(ApiVersion))
             {
