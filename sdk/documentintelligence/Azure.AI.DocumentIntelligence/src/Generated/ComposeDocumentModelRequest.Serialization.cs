@@ -14,16 +14,16 @@ using Azure.Core;
 
 namespace Azure.AI.DocumentIntelligence
 {
-    public partial class ComposeDocumentModelContent : IUtf8JsonSerializable, IJsonModel<ComposeDocumentModelContent>
+    public partial class ComposeDocumentModelRequest : IUtf8JsonSerializable, IJsonModel<ComposeDocumentModelRequest>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ComposeDocumentModelContent>)this).Write(writer, new ModelReaderWriterOptions("W"));
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ComposeDocumentModelRequest>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
-        void IJsonModel<ComposeDocumentModelContent>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ComposeDocumentModelRequest>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ComposeDocumentModelContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ComposeDocumentModelRequest>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ComposeDocumentModelContent)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(ComposeDocumentModelRequest)} does not support '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -70,19 +70,19 @@ namespace Azure.AI.DocumentIntelligence
             writer.WriteEndObject();
         }
 
-        ComposeDocumentModelContent IJsonModel<ComposeDocumentModelContent>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ComposeDocumentModelRequest IJsonModel<ComposeDocumentModelRequest>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ComposeDocumentModelContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ComposeDocumentModelRequest>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ComposeDocumentModelContent)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(ComposeDocumentModelRequest)} does not support '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeComposeDocumentModelContent(document.RootElement, options);
+            return DeserializeComposeDocumentModelRequest(document.RootElement, options);
         }
 
-        internal static ComposeDocumentModelContent DeserializeComposeDocumentModelContent(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ComposeDocumentModelRequest DeserializeComposeDocumentModelRequest(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= new ModelReaderWriterOptions("W");
 
@@ -138,46 +138,46 @@ namespace Azure.AI.DocumentIntelligence
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ComposeDocumentModelContent(modelId, description, componentModels, tags ?? new ChangeTrackingDictionary<string, string>(), serializedAdditionalRawData);
+            return new ComposeDocumentModelRequest(modelId, description, componentModels, tags ?? new ChangeTrackingDictionary<string, string>(), serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<ComposeDocumentModelContent>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ComposeDocumentModelRequest>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ComposeDocumentModelContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ComposeDocumentModelRequest>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(ComposeDocumentModelContent)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ComposeDocumentModelRequest)} does not support '{options.Format}' format.");
             }
         }
 
-        ComposeDocumentModelContent IPersistableModel<ComposeDocumentModelContent>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ComposeDocumentModelRequest IPersistableModel<ComposeDocumentModelRequest>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ComposeDocumentModelContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ComposeDocumentModelRequest>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeComposeDocumentModelContent(document.RootElement, options);
+                        return DeserializeComposeDocumentModelRequest(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ComposeDocumentModelContent)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ComposeDocumentModelRequest)} does not support '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ComposeDocumentModelContent>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ComposeDocumentModelRequest>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static ComposeDocumentModelContent FromResponse(Response response)
+        internal static ComposeDocumentModelRequest FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeComposeDocumentModelContent(document.RootElement);
+            return DeserializeComposeDocumentModelRequest(document.RootElement);
         }
 
         /// <summary> Convert into a Utf8JsonRequestContent. </summary>
