@@ -7,7 +7,7 @@ azure-arm: true
 csharp: true
 library-name: FrontDoor
 namespace: Azure.ResourceManager.FrontDoor
-require: https://github.com/Azure/azure-rest-api-specs/blob/aa8a23b8f92477d0fdce7af6ccffee1c604b3c56/specification/frontdoor/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/dda9b8e0f98086cacbd7213e6d4ebad011485f72/specification/frontdoor/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
