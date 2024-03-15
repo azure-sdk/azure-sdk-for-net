@@ -51,10 +51,10 @@ namespace Azure.Health.Insights.ClinicalMatching
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(Id))
+            if (Optional.IsDefined(ClinicalTrialId))
             {
-                writer.WritePropertyName("id"u8);
-                writer.WriteStringValue(Id);
+                writer.WritePropertyName("clinicalTrialId"u8);
+                writer.WriteStringValue(ClinicalTrialId);
             }
             if (Optional.IsDefined(Source))
             {
@@ -109,7 +109,7 @@ namespace Azure.Health.Insights.ClinicalMatching
             string description = default;
             float? confidenceScore = default;
             IReadOnlyList<TrialMatcherInferenceEvidence> evidence = default;
-            string id = default;
+            string clinicalTrialId = default;
             ClinicalTrialSource? source = default;
             ClinicalTrialMetadata metadata = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -154,9 +154,9 @@ namespace Azure.Health.Insights.ClinicalMatching
                     evidence = array;
                     continue;
                 }
-                if (property.NameEquals("id"u8))
+                if (property.NameEquals("clinicalTrialId"u8))
                 {
-                    id = property.Value.GetString();
+                    clinicalTrialId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("source"u8))
@@ -189,7 +189,7 @@ namespace Azure.Health.Insights.ClinicalMatching
                 description,
                 confidenceScore,
                 evidence ?? new ChangeTrackingList<TrialMatcherInferenceEvidence>(),
-                id,
+                clinicalTrialId,
                 source,
                 metadata,
                 serializedAdditionalRawData);
