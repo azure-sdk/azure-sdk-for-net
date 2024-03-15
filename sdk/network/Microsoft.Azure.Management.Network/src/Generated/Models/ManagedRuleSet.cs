@@ -37,11 +37,14 @@ namespace Microsoft.Azure.Management.Network.Models
         /// use.</param>
         /// <param name="ruleGroupOverrides">Defines the rule group overrides
         /// to apply to the rule set.</param>
-        public ManagedRuleSet(string ruleSetType, string ruleSetVersion, IList<ManagedRuleGroupOverride> ruleGroupOverrides = default(IList<ManagedRuleGroupOverride>))
+        /// <param name="computedDisabledRuleGroups">Stores the final list of
+        /// disabled rule groups</param>
+        public ManagedRuleSet(string ruleSetType, string ruleSetVersion, IList<ManagedRuleGroupOverride> ruleGroupOverrides = default(IList<ManagedRuleGroupOverride>), IList<ManagedRuleSetRuleGroup> computedDisabledRuleGroups = default(IList<ManagedRuleSetRuleGroup>))
         {
             RuleSetType = ruleSetType;
             RuleSetVersion = ruleSetVersion;
             RuleGroupOverrides = ruleGroupOverrides;
+            ComputedDisabledRuleGroups = computedDisabledRuleGroups;
             CustomInit();
         }
 
@@ -70,6 +73,12 @@ namespace Microsoft.Azure.Management.Network.Models
         public IList<ManagedRuleGroupOverride> RuleGroupOverrides { get; set; }
 
         /// <summary>
+        /// Gets stores the final list of disabled rule groups
+        /// </summary>
+        [JsonProperty(PropertyName = "computedDisabledRuleGroups")]
+        public IList<ManagedRuleSetRuleGroup> ComputedDisabledRuleGroups { get; private set; }
+
+        /// <summary>
         /// Validate the object.
         /// </summary>
         /// <exception cref="ValidationException">
@@ -92,6 +101,16 @@ namespace Microsoft.Azure.Management.Network.Models
                     if (element != null)
                     {
                         element.Validate();
+                    }
+                }
+            }
+            if (ComputedDisabledRuleGroups != null)
+            {
+                foreach (var element1 in ComputedDisabledRuleGroups)
+                {
+                    if (element1 != null)
+                    {
+                        element1.Validate();
                     }
                 }
             }
