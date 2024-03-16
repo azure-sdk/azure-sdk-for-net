@@ -62,6 +62,11 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 writer.WritePropertyName("sqlServerLicenseType"u8);
                 writer.WriteStringValue(SqlServerLicenseType);
             }
+            if (Optional.IsDefined(LinuxLicenseType))
+            {
+                writer.WritePropertyName("linuxLicenseType"u8);
+                writer.WriteStringValue(LinuxLicenseType.Value.ToString());
+            }
             if (options.Format != "W" && Optional.IsDefined(DataMoverRunAsAccountId))
             {
                 writer.WritePropertyName("dataMoverRunAsAccountId"u8);
@@ -353,6 +358,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             string targetGeneration = default;
             string licenseType = default;
             string sqlServerLicenseType = default;
+            LinuxLicenseType? linuxLicenseType = default;
             ResourceIdentifier dataMoverRunAsAccountId = default;
             ResourceIdentifier snapshotRunAsAccountId = default;
             ResourceIdentifier storageAccountId = default;
@@ -436,6 +442,15 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 if (property.NameEquals("sqlServerLicenseType"u8))
                 {
                     sqlServerLicenseType = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("linuxLicenseType"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    linuxLicenseType = new LinuxLicenseType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("dataMoverRunAsAccountId"u8))
@@ -831,6 +846,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 targetGeneration,
                 licenseType,
                 sqlServerLicenseType,
+                linuxLicenseType,
                 dataMoverRunAsAccountId,
                 snapshotRunAsAccountId,
                 storageAccountId,

@@ -42,11 +42,12 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         /// <param name="vmDisks"> The list of disk update properties. </param>
         /// <param name="licenseType"> The license type. </param>
         /// <param name="sqlServerLicenseType"> The SQL Server license type. </param>
+        /// <param name="linuxLicenseType"> The license type for Linux VM's. </param>
         /// <param name="performAutoResync"> A value indicating whether auto resync is to be done. </param>
         /// <param name="targetVmTags"> The target VM tags. </param>
         /// <param name="targetDiskTags"> The tags for the target disks. </param>
         /// <param name="targetNicTags"> The tags for the target NICs. </param>
-        internal VMwareCbtUpdateMigrationItemContent(string instanceType, IDictionary<string, BinaryData> serializedAdditionalRawData, string targetVmName, string targetVmSize, ResourceIdentifier targetResourceGroupId, ResourceIdentifier targetAvailabilitySetId, string targetAvailabilityZone, ResourceIdentifier targetProximityPlacementGroupId, ResourceIdentifier targetBootDiagnosticsStorageAccountId, ResourceIdentifier targetNetworkId, ResourceIdentifier testNetworkId, IList<VMwareCbtNicContent> vmNics, IList<VMwareCbtUpdateDiskContent> vmDisks, SiteRecoveryLicenseType? licenseType, SiteRecoverySqlServerLicenseType? sqlServerLicenseType, string performAutoResync, IDictionary<string, string> targetVmTags, IDictionary<string, string> targetDiskTags, IDictionary<string, string> targetNicTags) : base(instanceType, serializedAdditionalRawData)
+        internal VMwareCbtUpdateMigrationItemContent(string instanceType, IDictionary<string, BinaryData> serializedAdditionalRawData, string targetVmName, string targetVmSize, ResourceIdentifier targetResourceGroupId, ResourceIdentifier targetAvailabilitySetId, string targetAvailabilityZone, ResourceIdentifier targetProximityPlacementGroupId, ResourceIdentifier targetBootDiagnosticsStorageAccountId, ResourceIdentifier targetNetworkId, ResourceIdentifier testNetworkId, IList<VMwareCbtNicContent> vmNics, IList<VMwareCbtUpdateDiskContent> vmDisks, SiteRecoveryLicenseType? licenseType, SiteRecoverySqlServerLicenseType? sqlServerLicenseType, LinuxLicenseType? linuxLicenseType, string performAutoResync, IDictionary<string, string> targetVmTags, IDictionary<string, string> targetDiskTags, IDictionary<string, string> targetNicTags) : base(instanceType, serializedAdditionalRawData)
         {
             TargetVmName = targetVmName;
             TargetVmSize = targetVmSize;
@@ -61,6 +62,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             VmDisks = vmDisks;
             LicenseType = licenseType;
             SqlServerLicenseType = sqlServerLicenseType;
+            LinuxLicenseType = linuxLicenseType;
             PerformAutoResync = performAutoResync;
             TargetVmTags = targetVmTags;
             TargetDiskTags = targetDiskTags;
@@ -94,6 +96,8 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         public SiteRecoveryLicenseType? LicenseType { get; set; }
         /// <summary> The SQL Server license type. </summary>
         public SiteRecoverySqlServerLicenseType? SqlServerLicenseType { get; set; }
+        /// <summary> The license type for Linux VM's. </summary>
+        public LinuxLicenseType? LinuxLicenseType { get; set; }
         /// <summary> A value indicating whether auto resync is to be done. </summary>
         public string PerformAutoResync { get; set; }
         /// <summary> The target VM tags. </summary>

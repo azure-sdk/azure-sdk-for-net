@@ -46,6 +46,16 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 writer.WritePropertyName("osUpgradeVersion"u8);
                 writer.WriteStringValue(OSUpgradeVersion);
             }
+            if (Optional.IsCollectionDefined(PostMigrationSteps))
+            {
+                writer.WritePropertyName("postMigrationSteps"u8);
+                writer.WriteStartArray();
+                foreach (var item in PostMigrationSteps)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             writer.WritePropertyName("instanceType"u8);
             writer.WriteStringValue(InstanceType);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -90,6 +100,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             ResourceIdentifier networkId = default;
             IList<VMwareCbtNicContent> vmNics = default;
             string osUpgradeVersion = default;
+            IList<ManagedRunCommandScriptContent> postMigrationSteps = default;
             string instanceType = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -124,6 +135,20 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                     osUpgradeVersion = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("postMigrationSteps"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<ManagedRunCommandScriptContent> array = new List<ManagedRunCommandScriptContent>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(ManagedRunCommandScriptContent.DeserializeManagedRunCommandScriptContent(item, options));
+                    }
+                    postMigrationSteps = array;
+                    continue;
+                }
                 if (property.NameEquals("instanceType"u8))
                 {
                     instanceType = property.Value.GetString();
@@ -141,7 +166,8 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 recoveryPointId,
                 networkId,
                 vmNics ?? new ChangeTrackingList<VMwareCbtNicContent>(),
-                osUpgradeVersion);
+                osUpgradeVersion,
+                postMigrationSteps ?? new ChangeTrackingList<ManagedRunCommandScriptContent>());
         }
 
         BinaryData IPersistableModel<VMwareCbtTestMigrateContent>.Write(ModelReaderWriterOptions options)

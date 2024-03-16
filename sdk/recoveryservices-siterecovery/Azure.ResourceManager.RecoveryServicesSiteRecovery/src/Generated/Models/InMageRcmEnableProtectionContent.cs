@@ -29,6 +29,10 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             DisksToInclude = new ChangeTrackingList<InMageRcmDiskContent>();
             TargetResourceGroupId = targetResourceGroupId;
             ProcessServerId = processServerId;
+            TargetVmTags = new ChangeTrackingList<UserCreatedResourceTag>();
+            SeedManagedDiskTags = new ChangeTrackingList<UserCreatedResourceTag>();
+            TargetManagedDiskTags = new ChangeTrackingList<UserCreatedResourceTag>();
+            TargetNicTags = new ChangeTrackingList<UserCreatedResourceTag>();
             InstanceType = "InMageRcm";
         }
 
@@ -53,7 +57,14 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         /// <param name="runAsAccountId"> The run-as account Id. </param>
         /// <param name="processServerId"> The process server Id. </param>
         /// <param name="multiVmGroupName"> The multi VM group name. </param>
-        internal InMageRcmEnableProtectionContent(string instanceType, IDictionary<string, BinaryData> serializedAdditionalRawData, string fabricDiscoveryMachineId, IList<InMageRcmDiskContent> disksToInclude, InMageRcmDisksDefaultContent disksDefault, ResourceIdentifier targetResourceGroupId, ResourceIdentifier targetNetworkId, ResourceIdentifier testNetworkId, string targetSubnetName, string testSubnetName, string targetVmName, string targetVmSize, SiteRecoveryLicenseType? licenseType, ResourceIdentifier targetAvailabilitySetId, string targetAvailabilityZone, ResourceIdentifier targetProximityPlacementGroupId, ResourceIdentifier targetBootDiagnosticsStorageAccountId, string runAsAccountId, Guid processServerId, string multiVmGroupName) : base(instanceType, serializedAdditionalRawData)
+        /// <param name="sqlServerLicenseType"> The SQL Server license type. </param>
+        /// <param name="targetVmTags"> The target VM tags. </param>
+        /// <param name="seedManagedDiskTags"> The tags for the seed managed disks. </param>
+        /// <param name="targetManagedDiskTags"> The tags for the target managed disks. </param>
+        /// <param name="targetNicTags"> The tags for the target NICs. </param>
+        /// <param name="userSelectedOSName"> The OS name selected by user. </param>
+        /// <param name="targetVmSecurityProfile"> The target VM security profile. </param>
+        internal InMageRcmEnableProtectionContent(string instanceType, IDictionary<string, BinaryData> serializedAdditionalRawData, string fabricDiscoveryMachineId, IList<InMageRcmDiskContent> disksToInclude, InMageRcmDisksDefaultContent disksDefault, ResourceIdentifier targetResourceGroupId, ResourceIdentifier targetNetworkId, ResourceIdentifier testNetworkId, string targetSubnetName, string testSubnetName, string targetVmName, string targetVmSize, SiteRecoveryLicenseType? licenseType, ResourceIdentifier targetAvailabilitySetId, string targetAvailabilityZone, ResourceIdentifier targetProximityPlacementGroupId, ResourceIdentifier targetBootDiagnosticsStorageAccountId, string runAsAccountId, Guid processServerId, string multiVmGroupName, SiteRecoverySqlServerLicenseType? sqlServerLicenseType, IList<UserCreatedResourceTag> targetVmTags, IList<UserCreatedResourceTag> seedManagedDiskTags, IList<UserCreatedResourceTag> targetManagedDiskTags, IList<UserCreatedResourceTag> targetNicTags, string userSelectedOSName, SecurityProfileProperties targetVmSecurityProfile) : base(instanceType, serializedAdditionalRawData)
         {
             FabricDiscoveryMachineId = fabricDiscoveryMachineId;
             DisksToInclude = disksToInclude;
@@ -73,6 +84,13 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             RunAsAccountId = runAsAccountId;
             ProcessServerId = processServerId;
             MultiVmGroupName = multiVmGroupName;
+            SqlServerLicenseType = sqlServerLicenseType;
+            TargetVmTags = targetVmTags;
+            SeedManagedDiskTags = seedManagedDiskTags;
+            TargetManagedDiskTags = targetManagedDiskTags;
+            TargetNicTags = targetNicTags;
+            UserSelectedOSName = userSelectedOSName;
+            TargetVmSecurityProfile = targetVmSecurityProfile;
             InstanceType = instanceType ?? "InMageRcm";
         }
 
@@ -117,5 +135,19 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         public Guid ProcessServerId { get; }
         /// <summary> The multi VM group name. </summary>
         public string MultiVmGroupName { get; set; }
+        /// <summary> The SQL Server license type. </summary>
+        public SiteRecoverySqlServerLicenseType? SqlServerLicenseType { get; set; }
+        /// <summary> The target VM tags. </summary>
+        public IList<UserCreatedResourceTag> TargetVmTags { get; }
+        /// <summary> The tags for the seed managed disks. </summary>
+        public IList<UserCreatedResourceTag> SeedManagedDiskTags { get; }
+        /// <summary> The tags for the target managed disks. </summary>
+        public IList<UserCreatedResourceTag> TargetManagedDiskTags { get; }
+        /// <summary> The tags for the target NICs. </summary>
+        public IList<UserCreatedResourceTag> TargetNicTags { get; }
+        /// <summary> The OS name selected by user. </summary>
+        public string UserSelectedOSName { get; set; }
+        /// <summary> The target VM security profile. </summary>
+        public SecurityProfileProperties TargetVmSecurityProfile { get; set; }
     }
 }

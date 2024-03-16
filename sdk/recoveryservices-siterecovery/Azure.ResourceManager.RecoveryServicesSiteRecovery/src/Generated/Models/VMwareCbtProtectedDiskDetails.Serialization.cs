@@ -102,6 +102,11 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 writer.WritePropertyName("gatewayOperationDetails"u8);
                 writer.WriteObjectValue(GatewayOperationDetails);
             }
+            if (Optional.IsDefined(SectorSizeInBytes))
+            {
+                writer.WritePropertyName("sectorSizeInBytes"u8);
+                writer.WriteNumberValue(SectorSizeInBytes.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -155,6 +160,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             Uri targetBlobUri = default;
             string targetDiskName = default;
             GatewayOperationDetails gatewayOperationDetails = default;
+            int? sectorSizeInBytes = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -262,6 +268,15 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                     gatewayOperationDetails = GatewayOperationDetails.DeserializeGatewayOperationDetails(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("sectorSizeInBytes"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sectorSizeInBytes = property.Value.GetInt32();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -284,6 +299,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 targetBlobUri,
                 targetDiskName,
                 gatewayOperationDetails,
+                sectorSizeInBytes,
                 serializedAdditionalRawData);
         }
 

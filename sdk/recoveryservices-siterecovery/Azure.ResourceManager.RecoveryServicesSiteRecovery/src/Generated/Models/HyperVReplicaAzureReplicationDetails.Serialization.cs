@@ -241,6 +241,11 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(TargetVmSecurityProfile))
+            {
+                writer.WritePropertyName("targetVmSecurityProfile"u8);
+                writer.WriteObjectValue(TargetVmSecurityProfile);
+            }
             writer.WritePropertyName("instanceType"u8);
             writer.WriteStringValue(InstanceType);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -315,6 +320,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             IReadOnlyDictionary<string, string> targetNicTags = default;
             IReadOnlyList<HyperVReplicaAzureManagedDiskDetails> protectedManagedDisks = default;
             IReadOnlyList<OSUpgradeSupportedVersions> allAvailableOSUpgradeConfigurations = default;
+            SecurityProfileProperties targetVmSecurityProfile = default;
             string instanceType = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -614,6 +620,15 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                     allAvailableOSUpgradeConfigurations = array;
                     continue;
                 }
+                if (property.NameEquals("targetVmSecurityProfile"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    targetVmSecurityProfile = SecurityProfileProperties.DeserializeSecurityProfileProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("instanceType"u8))
                 {
                     instanceType = property.Value.GetString();
@@ -661,7 +676,8 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 targetManagedDiskTags ?? new ChangeTrackingDictionary<string, string>(),
                 targetNicTags ?? new ChangeTrackingDictionary<string, string>(),
                 protectedManagedDisks ?? new ChangeTrackingList<HyperVReplicaAzureManagedDiskDetails>(),
-                allAvailableOSUpgradeConfigurations ?? new ChangeTrackingList<OSUpgradeSupportedVersions>());
+                allAvailableOSUpgradeConfigurations ?? new ChangeTrackingList<OSUpgradeSupportedVersions>(),
+                targetVmSecurityProfile);
         }
 
         BinaryData IPersistableModel<HyperVReplicaAzureReplicationDetails>.Write(ModelReaderWriterOptions options)
