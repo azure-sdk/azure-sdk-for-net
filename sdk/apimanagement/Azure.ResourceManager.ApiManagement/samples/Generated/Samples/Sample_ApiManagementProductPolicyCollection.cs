@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.ApiManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ApiManagementListProductPolicies()
         {
-            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/stable/2021-08-01/examples/ApiManagementListProductPolicies.json
+            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/preview/2023-05-01-preview/examples/ApiManagementListProductPolicies.json
             // this example is just showing the usage of "ProductPolicy_ListByProduct" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -31,17 +31,17 @@ namespace Azure.ResourceManager.ApiManagement.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this ApiManagementProductResource created on azure
-            // for more information of creating ApiManagementProductResource, please refer to the document of ApiManagementProductResource
-            string subscriptionId = "subid";
+            // this example assumes you already have this ServiceProductResource created on azure
+            // for more information of creating ServiceProductResource, please refer to the document of ServiceProductResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "rg1";
             string serviceName = "apimService1";
             string productId = "armTemplateProduct4";
-            ResourceIdentifier apiManagementProductResourceId = ApiManagementProductResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName, productId);
-            ApiManagementProductResource apiManagementProduct = client.GetApiManagementProductResource(apiManagementProductResourceId);
+            ResourceIdentifier serviceProductResourceId = ServiceProductResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName, productId);
+            ServiceProductResource serviceProduct = client.GetServiceProductResource(serviceProductResourceId);
 
             // get the collection of this ApiManagementProductPolicyResource
-            ApiManagementProductPolicyCollection collection = apiManagementProduct.GetApiManagementProductPolicies();
+            ApiManagementProductPolicyCollection collection = serviceProduct.GetApiManagementProductPolicies();
 
             // invoke the operation and iterate over the result
             await foreach (ApiManagementProductPolicyResource item in collection.GetAllAsync())
@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.ApiManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ApiManagementGetProductPolicy()
         {
-            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/stable/2021-08-01/examples/ApiManagementGetProductPolicy.json
+            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/preview/2023-05-01-preview/examples/ApiManagementGetProductPolicy.json
             // this example is just showing the usage of "ProductPolicy_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -69,17 +69,17 @@ namespace Azure.ResourceManager.ApiManagement.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this ApiManagementProductResource created on azure
-            // for more information of creating ApiManagementProductResource, please refer to the document of ApiManagementProductResource
-            string subscriptionId = "subid";
+            // this example assumes you already have this ServiceProductResource created on azure
+            // for more information of creating ServiceProductResource, please refer to the document of ServiceProductResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "rg1";
             string serviceName = "apimService1";
             string productId = "kjoshiarmTemplateProduct4";
-            ResourceIdentifier apiManagementProductResourceId = ApiManagementProductResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName, productId);
-            ApiManagementProductResource apiManagementProduct = client.GetApiManagementProductResource(apiManagementProductResourceId);
+            ResourceIdentifier serviceProductResourceId = ServiceProductResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName, productId);
+            ServiceProductResource serviceProduct = client.GetServiceProductResource(serviceProductResourceId);
 
             // get the collection of this ApiManagementProductPolicyResource
-            ApiManagementProductPolicyCollection collection = apiManagementProduct.GetApiManagementProductPolicies();
+            ApiManagementProductPolicyCollection collection = serviceProduct.GetApiManagementProductPolicies();
 
             // invoke the operation
             PolicyName policyId = PolicyName.Policy;
@@ -97,7 +97,7 @@ namespace Azure.ResourceManager.ApiManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_ApiManagementGetProductPolicy()
         {
-            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/stable/2021-08-01/examples/ApiManagementGetProductPolicy.json
+            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/preview/2023-05-01-preview/examples/ApiManagementGetProductPolicy.json
             // this example is just showing the usage of "ProductPolicy_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -105,17 +105,17 @@ namespace Azure.ResourceManager.ApiManagement.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this ApiManagementProductResource created on azure
-            // for more information of creating ApiManagementProductResource, please refer to the document of ApiManagementProductResource
-            string subscriptionId = "subid";
+            // this example assumes you already have this ServiceProductResource created on azure
+            // for more information of creating ServiceProductResource, please refer to the document of ServiceProductResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "rg1";
             string serviceName = "apimService1";
             string productId = "kjoshiarmTemplateProduct4";
-            ResourceIdentifier apiManagementProductResourceId = ApiManagementProductResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName, productId);
-            ApiManagementProductResource apiManagementProduct = client.GetApiManagementProductResource(apiManagementProductResourceId);
+            ResourceIdentifier serviceProductResourceId = ServiceProductResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName, productId);
+            ServiceProductResource serviceProduct = client.GetServiceProductResource(serviceProductResourceId);
 
             // get the collection of this ApiManagementProductPolicyResource
-            ApiManagementProductPolicyCollection collection = apiManagementProduct.GetApiManagementProductPolicies();
+            ApiManagementProductPolicyCollection collection = serviceProduct.GetApiManagementProductPolicies();
 
             // invoke the operation
             PolicyName policyId = PolicyName.Policy;
@@ -129,7 +129,7 @@ namespace Azure.ResourceManager.ApiManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_ApiManagementGetProductPolicy()
         {
-            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/stable/2021-08-01/examples/ApiManagementGetProductPolicy.json
+            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/preview/2023-05-01-preview/examples/ApiManagementGetProductPolicy.json
             // this example is just showing the usage of "ProductPolicy_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -137,17 +137,17 @@ namespace Azure.ResourceManager.ApiManagement.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this ApiManagementProductResource created on azure
-            // for more information of creating ApiManagementProductResource, please refer to the document of ApiManagementProductResource
-            string subscriptionId = "subid";
+            // this example assumes you already have this ServiceProductResource created on azure
+            // for more information of creating ServiceProductResource, please refer to the document of ServiceProductResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "rg1";
             string serviceName = "apimService1";
             string productId = "kjoshiarmTemplateProduct4";
-            ResourceIdentifier apiManagementProductResourceId = ApiManagementProductResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName, productId);
-            ApiManagementProductResource apiManagementProduct = client.GetApiManagementProductResource(apiManagementProductResourceId);
+            ResourceIdentifier serviceProductResourceId = ServiceProductResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName, productId);
+            ServiceProductResource serviceProduct = client.GetServiceProductResource(serviceProductResourceId);
 
             // get the collection of this ApiManagementProductPolicyResource
-            ApiManagementProductPolicyCollection collection = apiManagementProduct.GetApiManagementProductPolicies();
+            ApiManagementProductPolicyCollection collection = serviceProduct.GetApiManagementProductPolicies();
 
             // invoke the operation
             PolicyName policyId = PolicyName.Policy;
@@ -173,7 +173,7 @@ namespace Azure.ResourceManager.ApiManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_ApiManagementCreateProductPolicy()
         {
-            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/stable/2021-08-01/examples/ApiManagementCreateProductPolicy.json
+            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/preview/2023-05-01-preview/examples/ApiManagementCreateProductPolicy.json
             // this example is just showing the usage of "ProductPolicy_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -181,17 +181,17 @@ namespace Azure.ResourceManager.ApiManagement.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this ApiManagementProductResource created on azure
-            // for more information of creating ApiManagementProductResource, please refer to the document of ApiManagementProductResource
-            string subscriptionId = "subid";
+            // this example assumes you already have this ServiceProductResource created on azure
+            // for more information of creating ServiceProductResource, please refer to the document of ServiceProductResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "rg1";
             string serviceName = "apimService1";
             string productId = "5702e97e5157a50f48dce801";
-            ResourceIdentifier apiManagementProductResourceId = ApiManagementProductResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName, productId);
-            ApiManagementProductResource apiManagementProduct = client.GetApiManagementProductResource(apiManagementProductResourceId);
+            ResourceIdentifier serviceProductResourceId = ServiceProductResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName, productId);
+            ServiceProductResource serviceProduct = client.GetServiceProductResource(serviceProductResourceId);
 
             // get the collection of this ApiManagementProductPolicyResource
-            ApiManagementProductPolicyCollection collection = apiManagementProduct.GetApiManagementProductPolicies();
+            ApiManagementProductPolicyCollection collection = serviceProduct.GetApiManagementProductPolicies();
 
             // invoke the operation
             PolicyName policyId = PolicyName.Policy;

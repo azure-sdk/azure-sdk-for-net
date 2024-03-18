@@ -22,7 +22,7 @@ namespace Azure.ResourceManager.ApiManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetEntityTag_ApiManagementHeadSignInSettings()
         {
-            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/stable/2021-08-01/examples/ApiManagementHeadSignInSettings.json
+            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/preview/2023-05-01-preview/examples/ApiManagementHeadSignInSettings.json
             // this example is just showing the usage of "SignInSettings_GetEntityTag" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.ApiManagement.Samples
 
             // this example assumes you already have this ApiManagementPortalSignInSettingResource created on azure
             // for more information of creating ApiManagementPortalSignInSettingResource, please refer to the document of ApiManagementPortalSignInSettingResource
-            string subscriptionId = "subid";
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "rg1";
             string serviceName = "apimService1";
             ResourceIdentifier apiManagementPortalSignInSettingResourceId = ApiManagementPortalSignInSettingResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName);
@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.ApiManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ApiManagementPortalSettingsGetSignIn()
         {
-            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/stable/2021-08-01/examples/ApiManagementPortalSettingsGetSignIn.json
+            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/preview/2023-05-01-preview/examples/ApiManagementPortalSettingsGetSignIn.json
             // this example is just showing the usage of "SignInSettings_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.ApiManagement.Samples
 
             // this example assumes you already have this ApiManagementPortalSignInSettingResource created on azure
             // for more information of creating ApiManagementPortalSignInSettingResource, please refer to the document of ApiManagementPortalSignInSettingResource
-            string subscriptionId = "subid";
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "rg1";
             string serviceName = "apimService1";
             ResourceIdentifier apiManagementPortalSignInSettingResourceId = ApiManagementPortalSignInSettingResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName);
@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.ApiManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_ApiManagementPortalSettingsUpdateSignIn()
         {
-            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/stable/2021-08-01/examples/ApiManagementPortalSettingsUpdateSignIn.json
+            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/preview/2023-05-01-preview/examples/ApiManagementPortalSettingsUpdateSignIn.json
             // this example is just showing the usage of "SignInSettings_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.ApiManagement.Samples
 
             // this example assumes you already have this ApiManagementPortalSignInSettingResource created on azure
             // for more information of creating ApiManagementPortalSignInSettingResource, please refer to the document of ApiManagementPortalSignInSettingResource
-            string subscriptionId = "subid";
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "rg1";
             string serviceName = "apimService1";
             ResourceIdentifier apiManagementPortalSignInSettingResourceId = ApiManagementPortalSignInSettingResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName);
@@ -112,7 +112,7 @@ namespace Azure.ResourceManager.ApiManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_ApiManagementPortalSettingsUpdateSignIn()
         {
-            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/stable/2021-08-01/examples/ApiManagementPortalSettingsPutSignIn.json
+            // Generated from example definition: specification/apimanagement/resource-manager/Microsoft.ApiManagement/preview/2023-05-01-preview/examples/ApiManagementPortalSettingsPutSignIn.json
             // this example is just showing the usage of "SignInSettings_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.ApiManagement.Samples
 
             // this example assumes you already have this ApiManagementPortalSignInSettingResource created on azure
             // for more information of creating ApiManagementPortalSignInSettingResource, please refer to the document of ApiManagementPortalSignInSettingResource
-            string subscriptionId = "subid";
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "rg1";
             string serviceName = "apimService1";
             ResourceIdentifier apiManagementPortalSignInSettingResourceId = ApiManagementPortalSignInSettingResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName);

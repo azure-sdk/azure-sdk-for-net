@@ -74,6 +74,11 @@ namespace Azure.ResourceManager.ApiManagement.Models
                 writer.WritePropertyName("passwordResetPolicyName"u8);
                 writer.WriteStringValue(PasswordResetPolicyName);
             }
+            if (Optional.IsDefined(ClientLibrary))
+            {
+                writer.WritePropertyName("clientLibrary"u8);
+                writer.WriteStringValue(ClientLibrary);
+            }
             if (Optional.IsDefined(ClientId))
             {
                 writer.WritePropertyName("clientId"u8);
@@ -131,6 +136,7 @@ namespace Azure.ResourceManager.ApiManagement.Models
             string signinPolicyName = default;
             string profileEditingPolicyName = default;
             string passwordResetPolicyName = default;
+            string clientLibrary = default;
             string clientId = default;
             string clientSecret = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -199,6 +205,11 @@ namespace Azure.ResourceManager.ApiManagement.Models
                             passwordResetPolicyName = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("clientLibrary"u8))
+                        {
+                            clientLibrary = property0.Value.GetString();
+                            continue;
+                        }
                         if (property0.NameEquals("clientId"u8))
                         {
                             clientId = property0.Value.GetString();
@@ -227,6 +238,7 @@ namespace Azure.ResourceManager.ApiManagement.Models
                 signinPolicyName,
                 profileEditingPolicyName,
                 passwordResetPolicyName,
+                clientLibrary,
                 clientId,
                 clientSecret,
                 serializedAdditionalRawData);
