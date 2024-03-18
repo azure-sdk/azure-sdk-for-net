@@ -161,6 +161,11 @@ namespace Azure.ResourceManager.Network
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(DpdTimeoutSeconds))
+            {
+                writer.WritePropertyName("dpdTimeoutSeconds"u8);
+                writer.WriteNumberValue(DpdTimeoutSeconds.Value);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -222,6 +227,7 @@ namespace Azure.ResourceManager.Network
             NetworkProvisioningState? provisioningState = default;
             IList<WritableSubResource> ingressNatRules = default;
             IList<WritableSubResource> egressNatRules = default;
+            int? dpdTimeoutSeconds = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -445,6 +451,15 @@ namespace Azure.ResourceManager.Network
                             egressNatRules = array;
                             continue;
                         }
+                        if (property0.NameEquals("dpdTimeoutSeconds"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            dpdTimeoutSeconds = property0.Value.GetInt32();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -477,7 +492,8 @@ namespace Azure.ResourceManager.Network
                 useLocalAzureIPAddress,
                 provisioningState,
                 ingressNatRules ?? new ChangeTrackingList<WritableSubResource>(),
-                egressNatRules ?? new ChangeTrackingList<WritableSubResource>());
+                egressNatRules ?? new ChangeTrackingList<WritableSubResource>(),
+                dpdTimeoutSeconds);
         }
 
         BinaryData IPersistableModel<VpnSiteLinkConnectionData>.Write(ModelReaderWriterOptions options)
