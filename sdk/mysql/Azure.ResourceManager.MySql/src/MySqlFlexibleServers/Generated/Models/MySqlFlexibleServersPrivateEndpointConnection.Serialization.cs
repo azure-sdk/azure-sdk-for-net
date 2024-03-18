@@ -71,7 +71,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers.Models
                 writer.WritePropertyName("privateLinkServiceConnectionState"u8);
                 writer.WriteObjectValue(ConnectionState);
             }
-            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
+            if (Optional.IsDefined(ProvisioningState))
             {
                 writer.WritePropertyName("provisioningState"u8);
                 writer.WriteStringValue(ProvisioningState.Value.ToString());

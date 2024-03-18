@@ -2159,7 +2159,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers.Models
         public Azure.ResourceManager.MySql.FlexibleServers.Models.MySqlFlexibleServersPrivateLinkServiceConnectionState ConnectionState { get { throw null; } set { } }
         public System.Collections.Generic.IReadOnlyList<string> GroupIds { get { throw null; } }
         public Azure.Core.ResourceIdentifier PrivateEndpointId { get { throw null; } }
-        public Azure.ResourceManager.MySql.FlexibleServers.Models.MySqlFlexibleServersPrivateEndpointConnectionProvisioningState? ProvisioningState { get { throw null; } }
+        public Azure.ResourceManager.MySql.FlexibleServers.Models.MySqlFlexibleServersPrivateEndpointConnectionProvisioningState? ProvisioningState { get { throw null; } set { } }
         Azure.ResourceManager.MySql.FlexibleServers.Models.MySqlFlexibleServersPrivateEndpointConnection System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MySql.FlexibleServers.Models.MySqlFlexibleServersPrivateEndpointConnection>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MySql.FlexibleServers.Models.MySqlFlexibleServersPrivateEndpointConnection>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.MySql.FlexibleServers.Models.MySqlFlexibleServersPrivateEndpointConnection System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MySql.FlexibleServers.Models.MySqlFlexibleServersPrivateEndpointConnection>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
