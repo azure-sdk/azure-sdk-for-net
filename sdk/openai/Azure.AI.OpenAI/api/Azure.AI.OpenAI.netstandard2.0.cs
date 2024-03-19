@@ -361,6 +361,7 @@ namespace Azure.AI.OpenAI
         public static Azure.AI.OpenAI.ImageGenerationContentFilterResults ImageGenerationContentFilterResults(Azure.AI.OpenAI.ContentFilterResult sexual = null, Azure.AI.OpenAI.ContentFilterResult violence = null, Azure.AI.OpenAI.ContentFilterResult hate = null, Azure.AI.OpenAI.ContentFilterResult selfHarm = null) { throw null; }
         public static Azure.AI.OpenAI.ImageGenerationData ImageGenerationData(System.Uri url = null, string base64Data = null, Azure.AI.OpenAI.ImageGenerationContentFilterResults contentFilterResults = null, string revisedPrompt = null, Azure.AI.OpenAI.ImageGenerationPromptFilterResults promptFilterResults = null) { throw null; }
         public static Azure.AI.OpenAI.ImageGenerationPromptFilterResults ImageGenerationPromptFilterResults(Azure.AI.OpenAI.ContentFilterResult sexual = null, Azure.AI.OpenAI.ContentFilterResult violence = null, Azure.AI.OpenAI.ContentFilterResult hate = null, Azure.AI.OpenAI.ContentFilterResult selfHarm = null, Azure.AI.OpenAI.ContentFilterDetectionResult profanity = null, Azure.AI.OpenAI.ContentFilterDetectionResult jailbreak = null) { throw null; }
+        public static Azure.AI.OpenAI.ImageGenerations ImageGenerations(System.DateTimeOffset created = default(System.DateTimeOffset), System.Collections.Generic.IEnumerable<Azure.AI.OpenAI.ImageGenerationData> data = null) { throw null; }
         public static Azure.AI.OpenAI.OnYourDataAccessTokenAuthenticationOptions OnYourDataAccessTokenAuthenticationOptions(string accessToken = null) { throw null; }
         public static Azure.AI.OpenAI.OnYourDataApiKeyAuthenticationOptions OnYourDataApiKeyAuthenticationOptions(string key = null) { throw null; }
         public static Azure.AI.OpenAI.OnYourDataConnectionStringAuthenticationOptions OnYourDataConnectionStringAuthenticationOptions(string connectionString = null) { throw null; }
@@ -1032,6 +1033,24 @@ namespace Azure.AI.OpenAI
         public static bool operator !=(Azure.AI.OpenAI.ElasticsearchQueryType left, Azure.AI.OpenAI.ElasticsearchQueryType right) { throw null; }
         public override string ToString() { throw null; }
     }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct EmbeddingEncodingFormat : System.IEquatable<Azure.AI.OpenAI.EmbeddingEncodingFormat>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public EmbeddingEncodingFormat(string value) { throw null; }
+        public static Azure.AI.OpenAI.EmbeddingEncodingFormat Base64 { get { throw null; } }
+        public static Azure.AI.OpenAI.EmbeddingEncodingFormat Float { get { throw null; } }
+        public bool Equals(Azure.AI.OpenAI.EmbeddingEncodingFormat other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.AI.OpenAI.EmbeddingEncodingFormat left, Azure.AI.OpenAI.EmbeddingEncodingFormat right) { throw null; }
+        public static implicit operator Azure.AI.OpenAI.EmbeddingEncodingFormat (string value) { throw null; }
+        public static bool operator !=(Azure.AI.OpenAI.EmbeddingEncodingFormat left, Azure.AI.OpenAI.EmbeddingEncodingFormat right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class EmbeddingItem : System.ClientModel.Primitives.IJsonModel<Azure.AI.OpenAI.EmbeddingItem>, System.ClientModel.Primitives.IPersistableModel<Azure.AI.OpenAI.EmbeddingItem>
     {
         internal EmbeddingItem() { }
@@ -1059,6 +1078,8 @@ namespace Azure.AI.OpenAI
         public EmbeddingsOptions() { }
         public EmbeddingsOptions(string deploymentName, System.Collections.Generic.IEnumerable<string> input) { }
         public string DeploymentName { get { throw null; } set { } }
+        public int? Dimensions { get { throw null; } set { } }
+        public Azure.AI.OpenAI.EmbeddingEncodingFormat? EncodingFormat { get { throw null; } set { } }
         public System.Collections.Generic.IList<string> Input { get { throw null; } }
         public string InputType { get { throw null; } set { } }
         public string User { get { throw null; } set { } }
@@ -1184,9 +1205,9 @@ namespace Azure.AI.OpenAI
     }
     public partial class ImageGenerations : System.ClientModel.Primitives.IJsonModel<Azure.AI.OpenAI.ImageGenerations>, System.ClientModel.Primitives.IPersistableModel<Azure.AI.OpenAI.ImageGenerations>
     {
-        public ImageGenerations(System.DateTimeOffset created, System.Collections.Generic.IEnumerable<Azure.AI.OpenAI.ImageGenerationData> data) { }
-        public System.DateTimeOffset Created { get { throw null; } set { } }
-        public System.Collections.Generic.IList<Azure.AI.OpenAI.ImageGenerationData> Data { get { throw null; } }
+        internal ImageGenerations() { }
+        public System.DateTimeOffset Created { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.AI.OpenAI.ImageGenerationData> Data { get { throw null; } }
         Azure.AI.OpenAI.ImageGenerations System.ClientModel.Primitives.IJsonModel<Azure.AI.OpenAI.ImageGenerations>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.OpenAI.ImageGenerations>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.OpenAI.ImageGenerations System.ClientModel.Primitives.IPersistableModel<Azure.AI.OpenAI.ImageGenerations>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1391,7 +1412,7 @@ namespace Azure.AI.OpenAI
     }
     public partial class OpenAIClientOptions : Azure.Core.ClientOptions
     {
-        public OpenAIClientOptions(Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion version = Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion.V2024_02_15_Preview) { }
+        public OpenAIClientOptions(Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion version = Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion.V2024_03_01_Preview) { }
         public enum ServiceVersion
         {
             V2022_12_01 = 1,
@@ -1399,6 +1420,7 @@ namespace Azure.AI.OpenAI
             V2023_06_01_Preview = 3,
             V2023_07_01_Preview = 4,
             V2024_02_15_Preview = 5,
+            V2024_03_01_Preview = 6,
         }
     }
     public partial class PineconeChatExtensionConfiguration : Azure.AI.OpenAI.AzureChatExtensionConfiguration, System.ClientModel.Primitives.IJsonModel<Azure.AI.OpenAI.PineconeChatExtensionConfiguration>, System.ClientModel.Primitives.IPersistableModel<Azure.AI.OpenAI.PineconeChatExtensionConfiguration>
