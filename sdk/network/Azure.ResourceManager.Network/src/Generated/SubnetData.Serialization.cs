@@ -201,6 +201,11 @@ namespace Azure.ResourceManager.Network
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(SharingScope))
+            {
+                writer.WritePropertyName("sharingScope"u8);
+                writer.WriteStringValue(SharingScope.Value.ToString());
+            }
             if (Optional.IsDefined(DefaultOutboundAccess))
             {
                 writer.WritePropertyName("defaultOutboundAccess"u8);
@@ -268,6 +273,7 @@ namespace Azure.ResourceManager.Network
             VirtualNetworkPrivateEndpointNetworkPolicy? privateEndpointNetworkPolicies = default;
             VirtualNetworkPrivateLinkServiceNetworkPolicy? privateLinkServiceNetworkPolicies = default;
             IList<ApplicationGatewayIPConfiguration> applicationGatewayIPConfigurations = default;
+            SharingScope? sharingScope = default;
             bool? defaultOutboundAccess = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -532,6 +538,15 @@ namespace Azure.ResourceManager.Network
                             applicationGatewayIPConfigurations = array;
                             continue;
                         }
+                        if (property0.NameEquals("sharingScope"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            sharingScope = new SharingScope(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("defaultOutboundAccess"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -575,6 +590,7 @@ namespace Azure.ResourceManager.Network
                 privateEndpointNetworkPolicies,
                 privateLinkServiceNetworkPolicies,
                 applicationGatewayIPConfigurations ?? new ChangeTrackingList<ApplicationGatewayIPConfiguration>(),
+                sharingScope,
                 defaultOutboundAccess);
         }
 

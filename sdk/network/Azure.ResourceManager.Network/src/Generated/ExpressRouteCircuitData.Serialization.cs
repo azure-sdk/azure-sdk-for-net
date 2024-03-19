@@ -162,6 +162,11 @@ namespace Azure.ResourceManager.Network
                 writer.WritePropertyName("authorizationStatus"u8);
                 writer.WriteStringValue(AuthorizationStatus);
             }
+            if (Optional.IsDefined(EnableDirectPortRateLimit))
+            {
+                writer.WritePropertyName("enableDirectPortRateLimit"u8);
+                writer.WriteBooleanValue(EnableDirectPortRateLimit.Value);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -224,6 +229,7 @@ namespace Azure.ResourceManager.Network
             bool? globalReachEnabled = default;
             string authorizationKey = default;
             string authorizationStatus = default;
+            bool? enableDirectPortRateLimit = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -431,6 +437,15 @@ namespace Azure.ResourceManager.Network
                             authorizationStatus = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("enableDirectPortRateLimit"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            enableDirectPortRateLimit = property0.Value.GetBoolean();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -464,7 +479,8 @@ namespace Azure.ResourceManager.Network
                 gatewayManagerETag,
                 globalReachEnabled,
                 authorizationKey,
-                authorizationStatus);
+                authorizationStatus,
+                enableDirectPortRateLimit);
         }
 
         BinaryData IPersistableModel<ExpressRouteCircuitData>.Write(ModelReaderWriterOptions options)
