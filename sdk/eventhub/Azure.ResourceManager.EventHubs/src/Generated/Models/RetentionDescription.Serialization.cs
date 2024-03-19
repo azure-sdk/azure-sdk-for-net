@@ -37,6 +37,11 @@ namespace Azure.ResourceManager.EventHubs.Models
                 writer.WritePropertyName("retentionTimeInHours"u8);
                 writer.WriteNumberValue(RetentionTimeInHours.Value);
             }
+            if (Optional.IsDefined(MinCompactionLagInMins))
+            {
+                writer.WritePropertyName("minCompactionLagInMins"u8);
+                writer.WriteNumberValue(MinCompactionLagInMins.Value);
+            }
             if (Optional.IsDefined(TombstoneRetentionTimeInHours))
             {
                 writer.WritePropertyName("tombstoneRetentionTimeInHours"u8);
@@ -82,6 +87,7 @@ namespace Azure.ResourceManager.EventHubs.Models
             }
             CleanupPolicyRetentionDescription? cleanupPolicy = default;
             long? retentionTimeInHours = default;
+            long? minCompactionLagInMins = default;
             int? tombstoneRetentionTimeInHours = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -105,6 +111,15 @@ namespace Azure.ResourceManager.EventHubs.Models
                     retentionTimeInHours = property.Value.GetInt64();
                     continue;
                 }
+                if (property.NameEquals("minCompactionLagInMins"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    minCompactionLagInMins = property.Value.GetInt64();
+                    continue;
+                }
                 if (property.NameEquals("tombstoneRetentionTimeInHours"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -120,7 +135,7 @@ namespace Azure.ResourceManager.EventHubs.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new RetentionDescription(cleanupPolicy, retentionTimeInHours, tombstoneRetentionTimeInHours, serializedAdditionalRawData);
+            return new RetentionDescription(cleanupPolicy, retentionTimeInHours, minCompactionLagInMins, tombstoneRetentionTimeInHours, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<RetentionDescription>.Write(ModelReaderWriterOptions options)

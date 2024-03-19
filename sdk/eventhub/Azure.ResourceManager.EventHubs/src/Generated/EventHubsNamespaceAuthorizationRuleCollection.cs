@@ -21,8 +21,8 @@ namespace Azure.ResourceManager.EventHubs
 {
     /// <summary>
     /// A class representing a collection of <see cref="EventHubsNamespaceAuthorizationRuleResource"/> and their operations.
-    /// Each <see cref="EventHubsNamespaceAuthorizationRuleResource"/> in the collection will belong to the same instance of <see cref="EventHubsNamespaceResource"/>.
-    /// To get an <see cref="EventHubsNamespaceAuthorizationRuleCollection"/> instance call the GetEventHubsNamespaceAuthorizationRules method from an instance of <see cref="EventHubsNamespaceResource"/>.
+    /// Each <see cref="EventHubsNamespaceAuthorizationRuleResource"/> in the collection will belong to the same instance of <see cref="EHNamespaceResource"/>.
+    /// To get an <see cref="EventHubsNamespaceAuthorizationRuleCollection"/> instance call the GetEventHubsNamespaceAuthorizationRules method from an instance of <see cref="EHNamespaceResource"/>.
     /// </summary>
     public partial class EventHubsNamespaceAuthorizationRuleCollection : ArmCollection, IEnumerable<EventHubsNamespaceAuthorizationRuleResource>, IAsyncEnumerable<EventHubsNamespaceAuthorizationRuleResource>
     {
@@ -49,8 +49,8 @@ namespace Azure.ResourceManager.EventHubs
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != EventHubsNamespaceResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, EventHubsNamespaceResource.ResourceType), nameof(id));
+            if (id.ResourceType != EHNamespaceResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, EHNamespaceResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Azure.ResourceManager.EventHubs
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -115,7 +115,7 @@ namespace Azure.ResourceManager.EventHubs
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -164,7 +164,7 @@ namespace Azure.ResourceManager.EventHubs
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -209,7 +209,7 @@ namespace Azure.ResourceManager.EventHubs
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -254,7 +254,7 @@ namespace Azure.ResourceManager.EventHubs
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -284,7 +284,7 @@ namespace Azure.ResourceManager.EventHubs
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -314,7 +314,7 @@ namespace Azure.ResourceManager.EventHubs
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -357,7 +357,7 @@ namespace Azure.ResourceManager.EventHubs
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -400,7 +400,7 @@ namespace Azure.ResourceManager.EventHubs
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -445,7 +445,7 @@ namespace Azure.ResourceManager.EventHubs
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

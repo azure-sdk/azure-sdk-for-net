@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.EventHubs.Models
             {
                 return null;
             }
-            IReadOnlyList<EventHubsNamespaceData> value = default;
+            IReadOnlyList<EHNamespaceData> value = default;
             string nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -92,10 +92,10 @@ namespace Azure.ResourceManager.EventHubs.Models
                     {
                         continue;
                     }
-                    List<EventHubsNamespaceData> array = new List<EventHubsNamespaceData>();
+                    List<EHNamespaceData> array = new List<EHNamespaceData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(EventHubsNamespaceData.DeserializeEventHubsNamespaceData(item, options));
+                        array.Add(EHNamespaceData.DeserializeEHNamespaceData(item, options));
                     }
                     value = array;
                     continue;
@@ -111,7 +111,7 @@ namespace Azure.ResourceManager.EventHubs.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new EHNamespaceListResult(value ?? new ChangeTrackingList<EventHubsNamespaceData>(), nextLink, serializedAdditionalRawData);
+            return new EHNamespaceListResult(value ?? new ChangeTrackingList<EHNamespaceData>(), nextLink, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<EHNamespaceListResult>.Write(ModelReaderWriterOptions options)

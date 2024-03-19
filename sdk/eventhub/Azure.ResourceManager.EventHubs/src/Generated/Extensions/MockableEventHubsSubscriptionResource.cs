@@ -21,10 +21,10 @@ namespace Azure.ResourceManager.EventHubs.Mocking
     /// <summary> A class to add extension methods to SubscriptionResource. </summary>
     public partial class MockableEventHubsSubscriptionResource : ArmResource
     {
-        private ClientDiagnostics _eventHubsClusterClustersClientDiagnostics;
-        private ClustersRestOperations _eventHubsClusterClustersRestClient;
-        private ClientDiagnostics _eventHubsNamespaceNamespacesClientDiagnostics;
-        private NamespacesRestOperations _eventHubsNamespaceNamespacesRestClient;
+        private ClientDiagnostics _clusterClientDiagnostics;
+        private ClustersRestOperations _clusterRestClient;
+        private ClientDiagnostics _ehNamespaceNamespacesClientDiagnostics;
+        private NamespacesRestOperations _ehNamespaceNamespacesRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="MockableEventHubsSubscriptionResource"/> class for mocking. </summary>
         protected MockableEventHubsSubscriptionResource()
@@ -38,10 +38,10 @@ namespace Azure.ResourceManager.EventHubs.Mocking
         {
         }
 
-        private ClientDiagnostics EventHubsClusterClustersClientDiagnostics => _eventHubsClusterClustersClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.EventHubs", EventHubsClusterResource.ResourceType.Namespace, Diagnostics);
-        private ClustersRestOperations EventHubsClusterClustersRestClient => _eventHubsClusterClustersRestClient ??= new ClustersRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(EventHubsClusterResource.ResourceType));
-        private ClientDiagnostics EventHubsNamespaceNamespacesClientDiagnostics => _eventHubsNamespaceNamespacesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.EventHubs", EventHubsNamespaceResource.ResourceType.Namespace, Diagnostics);
-        private NamespacesRestOperations EventHubsNamespaceNamespacesRestClient => _eventHubsNamespaceNamespacesRestClient ??= new NamespacesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(EventHubsNamespaceResource.ResourceType));
+        private ClientDiagnostics ClusterClientDiagnostics => _clusterClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.EventHubs", ClusterResource.ResourceType.Namespace, Diagnostics);
+        private ClustersRestOperations ClusterRestClient => _clusterRestClient ??= new ClustersRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(ClusterResource.ResourceType));
+        private ClientDiagnostics EHNamespaceNamespacesClientDiagnostics => _ehNamespaceNamespacesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.EventHubs", EHNamespaceResource.ResourceType.Namespace, Diagnostics);
+        private NamespacesRestOperations EHNamespaceNamespacesRestClient => _ehNamespaceNamespacesRestClient ??= new NamespacesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(EHNamespaceResource.ResourceType));
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -62,11 +62,11 @@ namespace Azure.ResourceManager.EventHubs.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="EventHubsClusterResource"/></description>
+        /// <description><see cref="ClusterResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -74,8 +74,8 @@ namespace Azure.ResourceManager.EventHubs.Mocking
         /// <returns> An async collection of <see cref="AvailableCluster"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<AvailableCluster> GetAvailableClusterRegionClustersAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => EventHubsClusterClustersRestClient.CreateListAvailableClusterRegionRequest(Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => AvailableCluster.DeserializeAvailableCluster(e), EventHubsClusterClustersClientDiagnostics, Pipeline, "MockableEventHubsSubscriptionResource.GetAvailableClusterRegionClusters", "value", null, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ClusterRestClient.CreateListAvailableClusterRegionRequest(Id.SubscriptionId);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => AvailableCluster.DeserializeAvailableCluster(e), ClusterClientDiagnostics, Pipeline, "MockableEventHubsSubscriptionResource.GetAvailableClusterRegionClusters", "value", null, cancellationToken);
         }
 
         /// <summary>
@@ -91,11 +91,11 @@ namespace Azure.ResourceManager.EventHubs.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="EventHubsClusterResource"/></description>
+        /// <description><see cref="ClusterResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -103,8 +103,8 @@ namespace Azure.ResourceManager.EventHubs.Mocking
         /// <returns> A collection of <see cref="AvailableCluster"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<AvailableCluster> GetAvailableClusterRegionClusters(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => EventHubsClusterClustersRestClient.CreateListAvailableClusterRegionRequest(Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => AvailableCluster.DeserializeAvailableCluster(e), EventHubsClusterClustersClientDiagnostics, Pipeline, "MockableEventHubsSubscriptionResource.GetAvailableClusterRegionClusters", "value", null, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ClusterRestClient.CreateListAvailableClusterRegionRequest(Id.SubscriptionId);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => AvailableCluster.DeserializeAvailableCluster(e), ClusterClientDiagnostics, Pipeline, "MockableEventHubsSubscriptionResource.GetAvailableClusterRegionClusters", "value", null, cancellationToken);
         }
 
         /// <summary>
@@ -120,21 +120,21 @@ namespace Azure.ResourceManager.EventHubs.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="EventHubsClusterResource"/></description>
+        /// <description><see cref="ClusterResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="EventHubsClusterResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<EventHubsClusterResource> GetEventHubsClustersAsync(CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="ClusterResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<ClusterResource> GetClustersAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => EventHubsClusterClustersRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => EventHubsClusterClustersRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new EventHubsClusterResource(Client, EventHubsClusterData.DeserializeEventHubsClusterData(e)), EventHubsClusterClustersClientDiagnostics, Pipeline, "MockableEventHubsSubscriptionResource.GetEventHubsClusters", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ClusterRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ClusterRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ClusterResource(Client, ClusterData.DeserializeClusterData(e)), ClusterClientDiagnostics, Pipeline, "MockableEventHubsSubscriptionResource.GetClusters", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -150,21 +150,21 @@ namespace Azure.ResourceManager.EventHubs.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="EventHubsClusterResource"/></description>
+        /// <description><see cref="ClusterResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="EventHubsClusterResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<EventHubsClusterResource> GetEventHubsClusters(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="ClusterResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<ClusterResource> GetClusters(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => EventHubsClusterClustersRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => EventHubsClusterClustersRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new EventHubsClusterResource(Client, EventHubsClusterData.DeserializeEventHubsClusterData(e)), EventHubsClusterClustersClientDiagnostics, Pipeline, "MockableEventHubsSubscriptionResource.GetEventHubsClusters", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ClusterRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ClusterRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ClusterResource(Client, ClusterData.DeserializeClusterData(e)), ClusterClientDiagnostics, Pipeline, "MockableEventHubsSubscriptionResource.GetClusters", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -180,21 +180,21 @@ namespace Azure.ResourceManager.EventHubs.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="EventHubsNamespaceResource"/></description>
+        /// <description><see cref="EHNamespaceResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="EventHubsNamespaceResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<EventHubsNamespaceResource> GetEventHubsNamespacesAsync(CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="EHNamespaceResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<EHNamespaceResource> GetEHNamespacesAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => EventHubsNamespaceNamespacesRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => EventHubsNamespaceNamespacesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new EventHubsNamespaceResource(Client, EventHubsNamespaceData.DeserializeEventHubsNamespaceData(e)), EventHubsNamespaceNamespacesClientDiagnostics, Pipeline, "MockableEventHubsSubscriptionResource.GetEventHubsNamespaces", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => EHNamespaceNamespacesRestClient.CreateListRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => EHNamespaceNamespacesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new EHNamespaceResource(Client, EHNamespaceData.DeserializeEHNamespaceData(e)), EHNamespaceNamespacesClientDiagnostics, Pipeline, "MockableEventHubsSubscriptionResource.GetEHNamespaces", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -210,21 +210,21 @@ namespace Azure.ResourceManager.EventHubs.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="EventHubsNamespaceResource"/></description>
+        /// <description><see cref="EHNamespaceResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="EventHubsNamespaceResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<EventHubsNamespaceResource> GetEventHubsNamespaces(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EHNamespaceResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<EHNamespaceResource> GetEHNamespaces(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => EventHubsNamespaceNamespacesRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => EventHubsNamespaceNamespacesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new EventHubsNamespaceResource(Client, EventHubsNamespaceData.DeserializeEventHubsNamespaceData(e)), EventHubsNamespaceNamespacesClientDiagnostics, Pipeline, "MockableEventHubsSubscriptionResource.GetEventHubsNamespaces", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => EHNamespaceNamespacesRestClient.CreateListRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => EHNamespaceNamespacesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new EHNamespaceResource(Client, EHNamespaceData.DeserializeEHNamespaceData(e)), EHNamespaceNamespacesClientDiagnostics, Pipeline, "MockableEventHubsSubscriptionResource.GetEHNamespaces", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -240,11 +240,11 @@ namespace Azure.ResourceManager.EventHubs.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="EventHubsNamespaceResource"/></description>
+        /// <description><see cref="EHNamespaceResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -255,11 +255,11 @@ namespace Azure.ResourceManager.EventHubs.Mocking
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = EventHubsNamespaceNamespacesClientDiagnostics.CreateScope("MockableEventHubsSubscriptionResource.CheckEventHubsNamespaceNameAvailability");
+            using var scope = EHNamespaceNamespacesClientDiagnostics.CreateScope("MockableEventHubsSubscriptionResource.CheckEventHubsNamespaceNameAvailability");
             scope.Start();
             try
             {
-                var response = await EventHubsNamespaceNamespacesRestClient.CheckNameAvailabilityAsync(Id.SubscriptionId, content, cancellationToken).ConfigureAwait(false);
+                var response = await EHNamespaceNamespacesRestClient.CheckNameAvailabilityAsync(Id.SubscriptionId, content, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -282,11 +282,11 @@ namespace Azure.ResourceManager.EventHubs.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01-preview</description>
+        /// <description>2024-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="EventHubsNamespaceResource"/></description>
+        /// <description><see cref="EHNamespaceResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -297,11 +297,11 @@ namespace Azure.ResourceManager.EventHubs.Mocking
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = EventHubsNamespaceNamespacesClientDiagnostics.CreateScope("MockableEventHubsSubscriptionResource.CheckEventHubsNamespaceNameAvailability");
+            using var scope = EHNamespaceNamespacesClientDiagnostics.CreateScope("MockableEventHubsSubscriptionResource.CheckEventHubsNamespaceNameAvailability");
             scope.Start();
             try
             {
-                var response = EventHubsNamespaceNamespacesRestClient.CheckNameAvailability(Id.SubscriptionId, content, cancellationToken);
+                var response = EHNamespaceNamespacesRestClient.CheckNameAvailability(Id.SubscriptionId, content, cancellationToken);
                 return response;
             }
             catch (Exception e)
