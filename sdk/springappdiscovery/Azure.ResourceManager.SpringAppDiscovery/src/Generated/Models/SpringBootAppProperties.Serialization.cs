@@ -182,11 +182,6 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(SiteName))
-            {
-                writer.WritePropertyName("siteName"u8);
-                writer.WriteStringValue(SiteName);
-            }
             if (Optional.IsDefined(SpringBootVersion))
             {
                 writer.WritePropertyName("springBootVersion"u8);
@@ -222,7 +217,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
                 writer.WritePropertyName("lastUpdatedTime"u8);
                 writer.WriteStringValue(LastUpdatedOn.Value, "O");
             }
-            if (Optional.IsDefined(ProvisioningState))
+            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
             {
                 writer.WritePropertyName("provisioningState"u8);
                 writer.WriteStringValue(ProvisioningState.Value.ToString());
@@ -236,6 +231,17 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
                     writer.WriteObjectValue(item);
                 }
                 writer.WriteEndArray();
+            }
+            if (Optional.IsCollectionDefined(Labels))
+            {
+                writer.WritePropertyName("labels"u8);
+                writer.WriteStartObject();
+                foreach (var item in Labels)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -295,7 +301,6 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
             string runtimeJdkVersion = default;
             IList<string> servers = default;
             IList<ResourceIdentifier> machineArmIds = default;
-            string siteName = default;
             string springBootVersion = default;
             IList<string> staticContentLocations = default;
             IList<string> connectionStrings = default;
@@ -303,6 +308,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
             DateTimeOffset? lastUpdatedTime = default;
             SpringAppDiscoveryProvisioningState? provisioningState = default;
             IList<SpringBootSiteError> errors = default;
+            IDictionary<string, string> labels = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -516,11 +522,6 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
                     machineArmIds = array;
                     continue;
                 }
-                if (property.NameEquals("siteName"u8))
-                {
-                    siteName = property.Value.GetString();
-                    continue;
-                }
                 if (property.NameEquals("springBootVersion"u8))
                 {
                     springBootVersion = property.Value.GetString();
@@ -595,6 +596,20 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
                     errors = array;
                     continue;
                 }
+                if (property.NameEquals("labels"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        dictionary.Add(property0.Name, property0.Value.GetString());
+                    }
+                    labels = dictionary;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -622,7 +637,6 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
                 runtimeJdkVersion,
                 servers ?? new ChangeTrackingList<string>(),
                 machineArmIds ?? new ChangeTrackingList<ResourceIdentifier>(),
-                siteName,
                 springBootVersion,
                 staticContentLocations ?? new ChangeTrackingList<string>(),
                 connectionStrings ?? new ChangeTrackingList<string>(),
@@ -630,6 +644,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
                 lastUpdatedTime,
                 provisioningState,
                 errors ?? new ChangeTrackingList<SpringBootSiteError>(),
+                labels ?? new ChangeTrackingDictionary<string, string>(),
                 serializedAdditionalRawData);
         }
 

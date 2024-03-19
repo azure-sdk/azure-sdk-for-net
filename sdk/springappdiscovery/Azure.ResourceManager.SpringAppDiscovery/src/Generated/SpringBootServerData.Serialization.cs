@@ -28,17 +28,6 @@ namespace Azure.ResourceManager.SpringAppDiscovery
             }
 
             writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(Tags))
-            {
-                writer.WritePropertyName("tags"u8);
-                writer.WriteStartObject();
-                foreach (var item in Tags)
-                {
-                    writer.WritePropertyName(item.Key);
-                    writer.WriteStringValue(item.Value);
-                }
-                writer.WriteEndObject();
-            }
             if (Optional.IsDefined(Properties))
             {
                 writer.WritePropertyName("properties"u8);
@@ -102,7 +91,6 @@ namespace Azure.ResourceManager.SpringAppDiscovery
             {
                 return null;
             }
-            IDictionary<string, string> tags = default;
             SpringBootServerProperties properties = default;
             ResourceIdentifier id = default;
             string name = default;
@@ -112,20 +100,6 @@ namespace Azure.ResourceManager.SpringAppDiscovery
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("tags"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        dictionary.Add(property0.Name, property0.Value.GetString());
-                    }
-                    tags = dictionary;
-                    continue;
-                }
                 if (property.NameEquals("properties"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -170,7 +144,6 @@ namespace Azure.ResourceManager.SpringAppDiscovery
                 name,
                 type,
                 systemData,
-                tags ?? new ChangeTrackingDictionary<string, string>(),
                 properties,
                 serializedAdditionalRawData);
         }

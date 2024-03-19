@@ -112,7 +112,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -181,7 +181,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -212,7 +212,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -250,7 +250,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -281,7 +281,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -319,7 +319,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -350,7 +350,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -381,7 +381,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -421,7 +421,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -461,7 +461,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -503,7 +503,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -545,7 +545,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -591,7 +591,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -637,7 +637,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -679,7 +679,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -721,7 +721,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -783,7 +783,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -845,7 +845,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -902,7 +902,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -959,7 +959,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1019,7 +1019,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

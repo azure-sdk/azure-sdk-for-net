@@ -64,6 +64,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
             Server = server;
             FqdnAndIPAddressList = new ChangeTrackingList<IPAddress>();
             Errors = new ChangeTrackingList<SpringBootSiteError>();
+            Labels = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="SpringBootServerProperties"/>. </summary>
@@ -99,8 +100,12 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
         /// The resource provisioning state.
         /// Serialized Name: SpringbootserversProperties.provisioningState
         /// </param>
+        /// <param name="labels">
+        /// Resource labels
+        /// Serialized Name: SpringbootserversProperties.labels
+        /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SpringBootServerProperties(int? port, string server, IList<IPAddress> fqdnAndIPAddressList, ResourceIdentifier machineArmId, int? totalApps, int? springBootApps, IList<SpringBootSiteError> errors, SpringAppDiscoveryProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SpringBootServerProperties(int? port, string server, IList<IPAddress> fqdnAndIPAddressList, ResourceIdentifier machineArmId, int? totalApps, int? springBootApps, IList<SpringBootSiteError> errors, SpringAppDiscoveryProvisioningState? provisioningState, IDictionary<string, string> labels, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Port = port;
             Server = server;
@@ -110,6 +115,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
             SpringBootApps = springBootApps;
             Errors = errors;
             ProvisioningState = provisioningState;
+            Labels = labels;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -158,5 +164,10 @@ namespace Azure.ResourceManager.SpringAppDiscovery.Models
         /// Serialized Name: SpringbootserversProperties.provisioningState
         /// </summary>
         public SpringAppDiscoveryProvisioningState? ProvisioningState { get; set; }
+        /// <summary>
+        /// Resource labels
+        /// Serialized Name: SpringbootserversProperties.labels
+        /// </summary>
+        public IDictionary<string, string> Labels { get; }
     }
 }
