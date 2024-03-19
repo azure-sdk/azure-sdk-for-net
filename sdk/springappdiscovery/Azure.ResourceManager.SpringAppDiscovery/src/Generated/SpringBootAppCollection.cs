@@ -54,6 +54,104 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         }
 
         /// <summary>
+        /// Create a springbootapps resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OffAzureSpringBoot/springbootsites/{siteName}/springbootapps/{springbootappsName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>springbootapps_CreateOrUpdate</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-04-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SpringBootAppResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="springbootappsName"> The springbootapps name. </param>
+        /// <param name="data"> Create a springbootapps payload. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="springbootappsName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="springbootappsName"/> or <paramref name="data"/> is null. </exception>
+        public virtual async Task<ArmOperation<SpringBootAppResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string springbootappsName, SpringBootAppData data, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(springbootappsName, nameof(springbootappsName));
+            Argument.AssertNotNull(data, nameof(data));
+
+            using var scope = _springBootAppspringbootappsClientDiagnostics.CreateScope("SpringBootAppCollection.CreateOrUpdate");
+            scope.Start();
+            try
+            {
+                var response = await _springBootAppspringbootappsRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, springbootappsName, data, cancellationToken).ConfigureAwait(false);
+                var operation = new SpringAppDiscoveryArmOperation<SpringBootAppResource>(new SpringBootAppOperationSource(Client), _springBootAppspringbootappsClientDiagnostics, Pipeline, _springBootAppspringbootappsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, springbootappsName, data).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a springbootapps resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OffAzureSpringBoot/springbootsites/{siteName}/springbootapps/{springbootappsName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>springbootapps_CreateOrUpdate</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-04-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SpringBootAppResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="springbootappsName"> The springbootapps name. </param>
+        /// <param name="data"> Create a springbootapps payload. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="springbootappsName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="springbootappsName"/> or <paramref name="data"/> is null. </exception>
+        public virtual ArmOperation<SpringBootAppResource> CreateOrUpdate(WaitUntil waitUntil, string springbootappsName, SpringBootAppData data, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(springbootappsName, nameof(springbootappsName));
+            Argument.AssertNotNull(data, nameof(data));
+
+            using var scope = _springBootAppspringbootappsClientDiagnostics.CreateScope("SpringBootAppCollection.CreateOrUpdate");
+            scope.Start();
+            try
+            {
+                var response = _springBootAppspringbootappsRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, springbootappsName, data, cancellationToken);
+                var operation = new SpringAppDiscoveryArmOperation<SpringBootAppResource>(new SpringBootAppOperationSource(Client), _springBootAppspringbootappsClientDiagnostics, Pipeline, _springBootAppspringbootappsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, springbootappsName, data).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Get a springbootapps resource.
         /// <list type="bullet">
         /// <item>
@@ -66,7 +164,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -111,7 +209,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -156,7 +254,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -186,7 +284,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -216,7 +314,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -259,7 +357,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -302,7 +400,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -347,7 +445,7 @@ namespace Azure.ResourceManager.SpringAppDiscovery
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01-preview</description>
+        /// <description>2024-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
