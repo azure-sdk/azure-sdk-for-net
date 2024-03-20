@@ -28,7 +28,7 @@ namespace Azure.AI.OpenAI
 
             writer.WriteStartObject();
             writer.WritePropertyName("url"u8);
-            writer.WriteStringValue(Url.AbsoluteUri);
+            writer.WriteStringValue(Url);
             if (Optional.IsDefined(Detail))
             {
                 writer.WritePropertyName("detail"u8);
@@ -72,7 +72,7 @@ namespace Azure.AI.OpenAI
             {
                 return null;
             }
-            Uri url = default;
+            string url = default;
             ChatMessageImageDetailLevel? detail = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -80,7 +80,7 @@ namespace Azure.AI.OpenAI
             {
                 if (property.NameEquals("url"u8))
                 {
-                    url = new Uri(property.Value.GetString());
+                    url = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("detail"u8))

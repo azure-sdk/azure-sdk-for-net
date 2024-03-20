@@ -48,7 +48,7 @@ namespace Azure.AI.OpenAI
         /// <summary> Initializes a new instance of <see cref="ChatMessageImageUrl"/>. </summary>
         /// <param name="url"> The URL of the image. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="url"/> is null. </exception>
-        public ChatMessageImageUrl(Uri url)
+        public ChatMessageImageUrl(string url)
         {
             Argument.AssertNotNull(url, nameof(url));
 
@@ -62,7 +62,7 @@ namespace Azure.AI.OpenAI
         /// accuracy.
         /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ChatMessageImageUrl(Uri url, ChatMessageImageDetailLevel? detail, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ChatMessageImageUrl(string url, ChatMessageImageDetailLevel? detail, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Url = url;
             Detail = detail;
@@ -75,7 +75,7 @@ namespace Azure.AI.OpenAI
         }
 
         /// <summary> The URL of the image. </summary>
-        public Uri Url { get; }
+        public string Url { get; }
         /// <summary>
         /// The evaluation quality setting to use, which controls relative prioritization of speed, token consumption, and
         /// accuracy.

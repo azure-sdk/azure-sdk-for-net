@@ -666,7 +666,7 @@ namespace Azure.AI.OpenAI
         /// accuracy.
         /// </param>
         /// <returns> A new <see cref="OpenAI.ChatMessageImageUrl"/> instance for mocking. </returns>
-        public static ChatMessageImageUrl ChatMessageImageUrl(Uri url = null, ChatMessageImageDetailLevel? detail = null)
+        public static ChatMessageImageUrl ChatMessageImageUrl(string url = null, ChatMessageImageDetailLevel? detail = null)
         {
             return new ChatMessageImageUrl(url, detail, serializedAdditionalRawData: null);
         }
