@@ -7,7 +7,7 @@ azure-arm: true
 csharp: true
 library-name: OperationalInsights
 namespace: Azure.ResourceManager.OperationalInsights
-require: https://github.com/Azure/azure-rest-api-specs/blob/d402f685809d6d08be9c0b45065cadd7d78ab870/specification/operationalinsights/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/operationalinsights/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:

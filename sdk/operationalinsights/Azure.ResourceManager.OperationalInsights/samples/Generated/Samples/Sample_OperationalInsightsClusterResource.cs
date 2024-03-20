@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.OperationalInsights.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetOperationalInsightsClusters_ClustersSubscriptionList()
         {
-            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2021-06-01/examples/ClustersSubscriptionList.json
+            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2022-10-01/examples/ClustersSubscriptionList.json
             // this example is just showing the usage of "Clusters_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.OperationalInsights.Samples
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "00000000-0000-0000-0000-00000000000";
+            string subscriptionId = "53bc36c5-91e1-4d09-92c9-63b89e571926";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.OperationalInsights.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_ClustersDelete()
         {
-            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2021-06-01/examples/ClustersDelete.json
+            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2022-10-01/examples/ClustersDelete.json
             // this example is just showing the usage of "Clusters_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -67,7 +67,7 @@ namespace Azure.ResourceManager.OperationalInsights.Samples
 
             // this example assumes you already have this OperationalInsightsClusterResource created on azure
             // for more information of creating OperationalInsightsClusterResource, please refer to the document of OperationalInsightsClusterResource
-            string subscriptionId = "00000000-0000-0000-0000-00000000000";
+            string subscriptionId = "53bc36c5-91e1-4d09-92c9-63b89e571926";
             string resourceGroupName = "oiautorest6685";
             string clusterName = "oiautorest6685";
             ResourceIdentifier operationalInsightsClusterResourceId = OperationalInsightsClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, clusterName);
@@ -84,7 +84,7 @@ namespace Azure.ResourceManager.OperationalInsights.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ClustersGet()
         {
-            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2021-06-01/examples/ClustersGet.json
+            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2022-10-01/examples/ClustersGet.json
             // this example is just showing the usage of "Clusters_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.OperationalInsights.Samples
 
             // this example assumes you already have this OperationalInsightsClusterResource created on azure
             // for more information of creating OperationalInsightsClusterResource, please refer to the document of OperationalInsightsClusterResource
-            string subscriptionId = "00000000-0000-0000-0000-00000000000";
+            string subscriptionId = "53bc36c5-91e1-4d09-92c9-63b89e571926";
             string resourceGroupName = "oiautorest6685";
             string clusterName = "oiautorest6685";
             ResourceIdentifier operationalInsightsClusterResourceId = OperationalInsightsClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, clusterName);
@@ -115,7 +115,7 @@ namespace Azure.ResourceManager.OperationalInsights.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_ClustersPatch()
         {
-            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2021-06-01/examples/ClustersUpdate.json
+            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2022-10-01/examples/ClustersUpdate.json
             // this example is just showing the usage of "Clusters_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -125,7 +125,7 @@ namespace Azure.ResourceManager.OperationalInsights.Samples
 
             // this example assumes you already have this OperationalInsightsClusterResource created on azure
             // for more information of creating OperationalInsightsClusterResource, please refer to the document of OperationalInsightsClusterResource
-            string subscriptionId = "00000000-0000-0000-0000-00000000000";
+            string subscriptionId = "53bc36c5-91e1-4d09-92c9-63b89e571926";
             string resourceGroupName = "oiautorest6685";
             string clusterName = "oiautorest6685";
             ResourceIdentifier operationalInsightsClusterResourceId = OperationalInsightsClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, clusterName);
@@ -138,7 +138,7 @@ namespace Azure.ResourceManager.OperationalInsights.Samples
                 {
                     UserAssignedIdentities =
 {
-[new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-00000000000/resourcegroups/oiautorest6685/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myidentity")] = new UserAssignedIdentity(),
+[new ResourceIdentifier("/subscriptions/53bc36c5-91e1-4d09-92c9-63b89e571926/resourcegroups/oiautorest6685/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myidentity")] = new UserAssignedIdentity(),
 },
                 },
                 Sku = new OperationalInsightsClusterSku()
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.OperationalInsights.Samples
                 {
                     KeyVaultUri = new Uri("https://aztest2170.vault.azure.net"),
                     KeyName = "aztest2170cert",
-                    KeyVersion = "654ft6c4e63845cbb50fd6fg51540429",
+                    KeyVersion = "",
                     KeyRsaSize = 1024,
                 },
             };
