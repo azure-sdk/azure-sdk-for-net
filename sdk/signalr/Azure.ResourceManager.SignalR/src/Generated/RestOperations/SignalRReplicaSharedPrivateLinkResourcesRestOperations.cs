@@ -16,20 +16,20 @@ using Azure.ResourceManager.SignalR.Models;
 
 namespace Azure.ResourceManager.SignalR
 {
-    internal partial class SignalRSharedPrivateLinkResourcesRestOperations
+    internal partial class SignalRReplicaSharedPrivateLinkResourcesRestOperations
     {
         private readonly TelemetryDetails _userAgent;
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
 
-        /// <summary> Initializes a new instance of SignalRSharedPrivateLinkResourcesRestOperations. </summary>
+        /// <summary> Initializes a new instance of SignalRReplicaSharedPrivateLinkResourcesRestOperations. </summary>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="applicationId"> The application id to use for user agent. </param>
         /// <param name="endpoint"> server parameter. </param>
         /// <param name="apiVersion"> Api Version. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="pipeline"/> or <paramref name="apiVersion"/> is null. </exception>
-        public SignalRSharedPrivateLinkResourcesRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
+        public SignalRReplicaSharedPrivateLinkResourcesRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.SignalR
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal HttpMessage CreateListRequest(string subscriptionId, string resourceGroupName, string resourceName)
+        internal HttpMessage CreateListRequest(string subscriptionId, string resourceGroupName, string resourceName, string replicaName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -50,6 +50,8 @@ namespace Azure.ResourceManager.SignalR
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.SignalRService/signalR/", false);
             uri.AppendPath(resourceName, true);
+            uri.AppendPath("/replicas/", false);
+            uri.AppendPath(replicaName, true);
             uri.AppendPath("/sharedPrivateLinkResources", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -62,16 +64,18 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
+        /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SignalRSharedPrivateLinkResourceListResult>> ListAsync(string subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<SignalRSharedPrivateLinkResourceListResult>> ListAsync(string subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
+            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
 
-            using var message = CreateListRequest(subscriptionId, resourceGroupName, resourceName);
+            using var message = CreateListRequest(subscriptionId, resourceGroupName, resourceName, replicaName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -91,16 +95,18 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
+        /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SignalRSharedPrivateLinkResourceListResult> List(string subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<SignalRSharedPrivateLinkResourceListResult> List(string subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
+            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
 
-            using var message = CreateListRequest(subscriptionId, resourceGroupName, resourceName);
+            using var message = CreateListRequest(subscriptionId, resourceGroupName, resourceName, replicaName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -116,7 +122,7 @@ namespace Azure.ResourceManager.SignalR
             }
         }
 
-        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName)
+        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, string resourceName, string replicaName, string sharedPrivateLinkResourceName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -129,6 +135,8 @@ namespace Azure.ResourceManager.SignalR
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.SignalRService/signalR/", false);
             uri.AppendPath(resourceName, true);
+            uri.AppendPath("/replicas/", false);
+            uri.AppendPath(replicaName, true);
             uri.AppendPath("/sharedPrivateLinkResources/", false);
             uri.AppendPath(sharedPrivateLinkResourceName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -142,18 +150,20 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
+        /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SignalRSharedPrivateLinkResourceData>> GetAsync(string subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="replicaName"/> or <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="replicaName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<SignalRSharedPrivateLinkResourceData>> GetAsync(string subscriptionId, string resourceGroupName, string resourceName, string replicaName, string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
+            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
             Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName);
+            using var message = CreateGetRequest(subscriptionId, resourceGroupName, resourceName, replicaName, sharedPrivateLinkResourceName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -175,18 +185,20 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
+        /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SignalRSharedPrivateLinkResourceData> Get(string subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="replicaName"/> or <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="replicaName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<SignalRSharedPrivateLinkResourceData> Get(string subscriptionId, string resourceGroupName, string resourceName, string replicaName, string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
+            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
             Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName);
+            using var message = CreateGetRequest(subscriptionId, resourceGroupName, resourceName, replicaName, sharedPrivateLinkResourceName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -204,7 +216,7 @@ namespace Azure.ResourceManager.SignalR
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, SignalRSharedPrivateLinkResourceData data)
+        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string resourceName, string replicaName, string sharedPrivateLinkResourceName, SignalRSharedPrivateLinkResourceData data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -217,6 +229,8 @@ namespace Azure.ResourceManager.SignalR
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.SignalRService/signalR/", false);
             uri.AppendPath(resourceName, true);
+            uri.AppendPath("/replicas/", false);
+            uri.AppendPath(replicaName, true);
             uri.AppendPath("/sharedPrivateLinkResources/", false);
             uri.AppendPath(sharedPrivateLinkResourceName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -234,20 +248,22 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
+        /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource. </param>
         /// <param name="data"> The shared private link resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="sharedPrivateLinkResourceName"/> or <paramref name="data"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, SignalRSharedPrivateLinkResourceData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="replicaName"/>, <paramref name="sharedPrivateLinkResourceName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="replicaName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string resourceName, string replicaName, string sharedPrivateLinkResourceName, SignalRSharedPrivateLinkResourceData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
+            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
             Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, data);
+            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, resourceName, replicaName, sharedPrivateLinkResourceName, data);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -263,20 +279,22 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
+        /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource. </param>
         /// <param name="data"> The shared private link resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="sharedPrivateLinkResourceName"/> or <paramref name="data"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response CreateOrUpdate(string subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, SignalRSharedPrivateLinkResourceData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="replicaName"/>, <paramref name="sharedPrivateLinkResourceName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="replicaName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response CreateOrUpdate(string subscriptionId, string resourceGroupName, string resourceName, string replicaName, string sharedPrivateLinkResourceName, SignalRSharedPrivateLinkResourceData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
+            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
             Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, data);
+            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, resourceName, replicaName, sharedPrivateLinkResourceName, data);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -288,85 +306,7 @@ namespace Azure.ResourceManager.SignalR
             }
         }
 
-        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName)
-        {
-            var message = _pipeline.CreateMessage();
-            var request = message.Request;
-            request.Method = RequestMethod.Delete;
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/subscriptions/", false);
-            uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.SignalRService/signalR/", false);
-            uri.AppendPath(resourceName, true);
-            uri.AppendPath("/sharedPrivateLinkResources/", false);
-            uri.AppendPath(sharedPrivateLinkResourceName, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            request.Uri = uri;
-            request.Headers.Add("Accept", "application/json");
-            _userAgent.Apply(message);
-            return message;
-        }
-
-        /// <summary> Delete the specified shared private link resource. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="resourceName"> The name of the resource. </param>
-        /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
-
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName);
-            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            switch (message.Response.Status)
-            {
-                case 200:
-                case 202:
-                case 204:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        /// <summary> Delete the specified shared private link resource. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="resourceName"> The name of the resource. </param>
-        /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Delete(string subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
-
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName);
-            _pipeline.Send(message, cancellationToken);
-            switch (message.Response.Status)
-            {
-                case 200:
-                case 202:
-                case 204:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        internal HttpMessage CreateListNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string resourceName)
+        internal HttpMessage CreateListNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string resourceName, string replicaName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -385,17 +325,19 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
+        /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SignalRSharedPrivateLinkResourceListResult>> ListNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<SignalRSharedPrivateLinkResourceListResult>> ListNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
+            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
 
-            using var message = CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName);
+            using var message = CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName, replicaName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -416,17 +358,19 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
+        /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SignalRSharedPrivateLinkResourceListResult> ListNextPage(string nextLink, string subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<SignalRSharedPrivateLinkResourceListResult> ListNextPage(string nextLink, string subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
+            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
 
-            using var message = CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName);
+            using var message = CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName, replicaName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
