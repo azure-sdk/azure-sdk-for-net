@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.SignalR.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2024-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.SignalR.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2024-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

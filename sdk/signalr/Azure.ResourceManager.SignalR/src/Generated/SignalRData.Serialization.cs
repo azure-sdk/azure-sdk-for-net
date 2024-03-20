@@ -163,6 +163,11 @@ namespace Azure.ResourceManager.SignalR
                 writer.WritePropertyName("cors"u8);
                 writer.WriteObjectValue(Cors);
             }
+            if (Optional.IsDefined(Serverless))
+            {
+                writer.WritePropertyName("serverless"u8);
+                writer.WriteObjectValue(Serverless);
+            }
             if (Optional.IsDefined(Upstream))
             {
                 writer.WritePropertyName("upstream"u8);
@@ -187,6 +192,16 @@ namespace Azure.ResourceManager.SignalR
             {
                 writer.WritePropertyName("disableAadAuth"u8);
                 writer.WriteBooleanValue(DisableAadAuth.Value);
+            }
+            if (Optional.IsDefined(RegionEndpointEnabled))
+            {
+                writer.WritePropertyName("regionEndpointEnabled"u8);
+                writer.WriteStringValue(RegionEndpointEnabled);
+            }
+            if (Optional.IsDefined(ResourceStopped))
+            {
+                writer.WritePropertyName("resourceStopped"u8);
+                writer.WriteStringValue(ResourceStopped);
             }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -250,11 +265,14 @@ namespace Azure.ResourceManager.SignalR
             SignalRLiveTraceConfiguration liveTraceConfiguration = default;
             SignalRResourceLogCategoryListResult resourceLogConfiguration = default;
             SignalRCorsSettings cors = default;
+            ServerlessSettings serverless = default;
             ServerlessUpstreamSettings upstream = default;
             SignalRNetworkAcls networkACLs = default;
             string publicNetworkAccess = default;
             bool? disableLocalAuth = default;
             bool? disableAadAuth = default;
+            string regionEndpointEnabled = default;
+            string resourceStopped = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -463,6 +481,15 @@ namespace Azure.ResourceManager.SignalR
                             cors = SignalRCorsSettings.DeserializeSignalRCorsSettings(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("serverless"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            serverless = ServerlessSettings.DeserializeServerlessSettings(property0.Value, options);
+                            continue;
+                        }
                         if (property0.NameEquals("upstream"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -504,6 +531,16 @@ namespace Azure.ResourceManager.SignalR
                             disableAadAuth = property0.Value.GetBoolean();
                             continue;
                         }
+                        if (property0.NameEquals("regionEndpointEnabled"u8))
+                        {
+                            regionEndpointEnabled = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("resourceStopped"u8))
+                        {
+                            resourceStopped = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -537,11 +574,14 @@ namespace Azure.ResourceManager.SignalR
                 liveTraceConfiguration,
                 resourceLogConfiguration,
                 cors,
+                serverless,
                 upstream,
                 networkACLs,
                 publicNetworkAccess,
                 disableLocalAuth,
                 disableAadAuth,
+                regionEndpointEnabled,
+                resourceStopped,
                 serializedAdditionalRawData);
         }
 
