@@ -53,6 +53,7 @@ namespace Azure.ResourceManager.EventHubs.Models
 
         /// <summary> Initializes a new instance of <see cref="EventHubDestination"/>. </summary>
         /// <param name="name"> Name for capture destination. </param>
+        /// <param name="identity"> A value that indicates whether capture description is enabled. </param>
         /// <param name="storageAccountResourceId"> Resource id of the storage account to be used to create the blobs. </param>
         /// <param name="blobContainer"> Blob container Name. </param>
         /// <param name="archiveNameFormat"> Blob naming convention for archive, e.g. {Namespace}/{EventHub}/{PartitionId}/{Year}/{Month}/{Day}/{Hour}/{Minute}/{Second}. Here all the parameters (Namespace,EventHub .. etc) are mandatory irrespective of order. </param>
@@ -60,9 +61,10 @@ namespace Azure.ResourceManager.EventHubs.Models
         /// <param name="dataLakeAccountName"> The Azure Data Lake Store name for the captured events. </param>
         /// <param name="dataLakeFolderPath"> The destination folder path for the captured events. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal EventHubDestination(string name, ResourceIdentifier storageAccountResourceId, string blobContainer, string archiveNameFormat, Guid? dataLakeSubscriptionId, string dataLakeAccountName, string dataLakeFolderPath, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal EventHubDestination(string name, CaptureIdentity identity, ResourceIdentifier storageAccountResourceId, string blobContainer, string archiveNameFormat, Guid? dataLakeSubscriptionId, string dataLakeAccountName, string dataLakeFolderPath, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
+            Identity = identity;
             StorageAccountResourceId = storageAccountResourceId;
             BlobContainer = blobContainer;
             ArchiveNameFormat = archiveNameFormat;
@@ -74,6 +76,8 @@ namespace Azure.ResourceManager.EventHubs.Models
 
         /// <summary> Name for capture destination. </summary>
         public string Name { get; set; }
+        /// <summary> A value that indicates whether capture description is enabled. </summary>
+        public CaptureIdentity Identity { get; set; }
         /// <summary> Resource id of the storage account to be used to create the blobs. </summary>
         public ResourceIdentifier StorageAccountResourceId { get; set; }
         /// <summary> Blob container Name. </summary>

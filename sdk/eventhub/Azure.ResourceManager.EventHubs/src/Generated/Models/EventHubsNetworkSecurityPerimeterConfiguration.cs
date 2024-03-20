@@ -14,7 +14,7 @@ using Azure.ResourceManager.Models;
 namespace Azure.ResourceManager.EventHubs.Models
 {
     /// <summary> Network Security Perimeter related configurations of a given namespace. </summary>
-    public partial class EventHubsNetworkSecurityPerimeterConfiguration : TrackedResourceData
+    public partial class EventHubsNetworkSecurityPerimeterConfiguration : ResourceData
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -49,10 +49,10 @@ namespace Azure.ResourceManager.EventHubs.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="EventHubsNetworkSecurityPerimeterConfiguration"/>. </summary>
-        /// <param name="location"> The location. </param>
-        public EventHubsNetworkSecurityPerimeterConfiguration(AzureLocation location) : base(location)
+        public EventHubsNetworkSecurityPerimeterConfiguration()
         {
             ProvisioningIssues = new ChangeTrackingList<EventHubsProvisioningIssue>();
+            ApplicableFeatures = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="EventHubsNetworkSecurityPerimeterConfiguration"/>. </summary>
@@ -60,27 +60,30 @@ namespace Azure.ResourceManager.EventHubs.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
         /// <param name="provisioningState"> Provisioning state of NetworkSecurityPerimeter configuration propagation. </param>
         /// <param name="provisioningIssues"> List of Provisioning Issues if any. </param>
         /// <param name="networkSecurityPerimeter"> NetworkSecurityPerimeter related information. </param>
         /// <param name="resourceAssociation"> Information about resource association. </param>
         /// <param name="profile"> Information about current network profile. </param>
+        /// <param name="isBackingResource"> True if the EventHub namespace is backed by another Azure resource and not visible to end users. </param>
+        /// <param name="applicableFeatures"> Indicates that the NSP controls related to backing association are only applicable to a specific feature in backing resource's data plane. </param>
+        /// <param name="parentAssociationName"> Source Resource Association name. </param>
+        /// <param name="sourceResourceId"> ARM Id of source resource. </param>
+        /// <param name="location"> The geo-location where the resource lives. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal EventHubsNetworkSecurityPerimeterConfiguration(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, EventHubsNetworkSecurityPerimeterConfigurationProvisioningState? provisioningState, IList<EventHubsProvisioningIssue> provisioningIssues, EventHubsNetworkSecurityPerimeter networkSecurityPerimeter, EventHubsNetworkSecurityPerimeterConfigurationPropertiesResourceAssociation resourceAssociation, EventHubsNetworkSecurityPerimeterConfigurationPropertiesProfile profile, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal EventHubsNetworkSecurityPerimeterConfiguration(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, EventHubsNetworkSecurityPerimeterConfigurationProvisioningState? provisioningState, IList<EventHubsProvisioningIssue> provisioningIssues, EventHubsNetworkSecurityPerimeter networkSecurityPerimeter, EventHubsNetworkSecurityPerimeterConfigurationPropertiesResourceAssociation resourceAssociation, EventHubsNetworkSecurityPerimeterConfigurationPropertiesProfile profile, bool? isBackingResource, IReadOnlyList<string> applicableFeatures, string parentAssociationName, string sourceResourceId, AzureLocation? location, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             ProvisioningState = provisioningState;
             ProvisioningIssues = provisioningIssues;
             NetworkSecurityPerimeter = networkSecurityPerimeter;
             ResourceAssociation = resourceAssociation;
             Profile = profile;
+            IsBackingResource = isBackingResource;
+            ApplicableFeatures = applicableFeatures;
+            ParentAssociationName = parentAssociationName;
+            SourceResourceId = sourceResourceId;
+            Location = location;
             _serializedAdditionalRawData = serializedAdditionalRawData;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="EventHubsNetworkSecurityPerimeterConfiguration"/> for deserialization. </summary>
-        internal EventHubsNetworkSecurityPerimeterConfiguration()
-        {
         }
 
         /// <summary> Provisioning state of NetworkSecurityPerimeter configuration propagation. </summary>
@@ -93,5 +96,15 @@ namespace Azure.ResourceManager.EventHubs.Models
         public EventHubsNetworkSecurityPerimeterConfigurationPropertiesResourceAssociation ResourceAssociation { get; }
         /// <summary> Information about current network profile. </summary>
         public EventHubsNetworkSecurityPerimeterConfigurationPropertiesProfile Profile { get; }
+        /// <summary> True if the EventHub namespace is backed by another Azure resource and not visible to end users. </summary>
+        public bool? IsBackingResource { get; }
+        /// <summary> Indicates that the NSP controls related to backing association are only applicable to a specific feature in backing resource's data plane. </summary>
+        public IReadOnlyList<string> ApplicableFeatures { get; }
+        /// <summary> Source Resource Association name. </summary>
+        public string ParentAssociationName { get; }
+        /// <summary> ARM Id of source resource. </summary>
+        public string SourceResourceId { get; }
+        /// <summary> The geo-location where the resource lives. </summary>
+        public AzureLocation? Location { get; }
     }
 }

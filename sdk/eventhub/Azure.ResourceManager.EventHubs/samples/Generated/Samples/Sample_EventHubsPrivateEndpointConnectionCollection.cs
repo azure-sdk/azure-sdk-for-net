@@ -18,12 +18,12 @@ namespace Azure.ResourceManager.EventHubs.Samples
 {
     public partial class Sample_EventHubsPrivateEndpointConnectionCollection
     {
-        // NameSpaceCreate
+        // PrivateEndPointConnectionList
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAll_NameSpaceCreate()
+        public async Task GetAll_PrivateEndPointConnectionList()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/NameSpaces/PrivateEndPointConnectionList.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/NameSpaces/PrivateEndPointConnectionList.json
             // this example is just showing the usage of "PrivateEndpointConnections_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -31,16 +31,16 @@ namespace Azure.ResourceManager.EventHubs.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "subID";
             string resourceGroupName = "SDK-EventHub-4794";
             string namespaceName = "sdk-Namespace-5828";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsPrivateEndpointConnectionResource
-            EventHubsPrivateEndpointConnectionCollection collection = eventHubsNamespace.GetEventHubsPrivateEndpointConnections();
+            EventHubsPrivateEndpointConnectionCollection collection = ehNamespace.GetEventHubsPrivateEndpointConnections();
 
             // invoke the operation and iterate over the result
             await foreach (EventHubsPrivateEndpointConnectionResource item in collection.GetAllAsync())
@@ -60,7 +60,7 @@ namespace Azure.ResourceManager.EventHubs.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_NameSpacePrivateEndPointConnectionCreate()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/NameSpaces/PrivateEndPointConnectionCreate.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/NameSpaces/PrivateEndPointConnectionCreate.json
             // this example is just showing the usage of "PrivateEndpointConnections_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -68,28 +68,28 @@ namespace Azure.ResourceManager.EventHubs.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "subID";
             string resourceGroupName = "ArunMonocle";
             string namespaceName = "sdk-Namespace-2924";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsPrivateEndpointConnectionResource
-            EventHubsPrivateEndpointConnectionCollection collection = eventHubsNamespace.GetEventHubsPrivateEndpointConnections();
+            EventHubsPrivateEndpointConnectionCollection collection = ehNamespace.GetEventHubsPrivateEndpointConnections();
 
             // invoke the operation
             string privateEndpointConnectionName = "privateEndpointConnectionName";
             EventHubsPrivateEndpointConnectionData data = new EventHubsPrivateEndpointConnectionData()
             {
                 PrivateEndpointId = new ResourceIdentifier("/subscriptions/dbedb4e0-40e6-4145-81f3-f1314c150774/resourceGroups/SDK-EventHub-8396/providers/Microsoft.Network/privateEndpoints/sdk-Namespace-2847"),
-                ConnectionState = new EventHubsPrivateLinkServiceConnectionState()
+                ConnectionState = new ConnectionState()
                 {
-                    Status = EventHubsPrivateLinkConnectionStatus.Rejected,
+                    Status = PrivateLinkConnectionStatus.Rejected,
                     Description = "testing",
                 },
-                ProvisioningState = EventHubsPrivateEndpointConnectionProvisioningState.Succeeded,
+                ProvisioningState = EndPointProvisioningState.Succeeded,
             };
             ArmOperation<EventHubsPrivateEndpointConnectionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, privateEndpointConnectionName, data);
             EventHubsPrivateEndpointConnectionResource result = lro.Value;
@@ -106,7 +106,7 @@ namespace Azure.ResourceManager.EventHubs.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_NameSpacePrivateEndPointConnectionGet()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/NameSpaces/PrivateEndPointConnectionGet.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/NameSpaces/PrivateEndPointConnectionGet.json
             // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -114,16 +114,16 @@ namespace Azure.ResourceManager.EventHubs.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "subID";
             string resourceGroupName = "SDK-EventHub-4794";
             string namespaceName = "sdk-Namespace-5828";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsPrivateEndpointConnectionResource
-            EventHubsPrivateEndpointConnectionCollection collection = eventHubsNamespace.GetEventHubsPrivateEndpointConnections();
+            EventHubsPrivateEndpointConnectionCollection collection = ehNamespace.GetEventHubsPrivateEndpointConnections();
 
             // invoke the operation
             string privateEndpointConnectionName = "privateEndpointConnectionName";
@@ -141,7 +141,7 @@ namespace Azure.ResourceManager.EventHubs.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_NameSpacePrivateEndPointConnectionGet()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/NameSpaces/PrivateEndPointConnectionGet.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/NameSpaces/PrivateEndPointConnectionGet.json
             // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -149,16 +149,16 @@ namespace Azure.ResourceManager.EventHubs.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "subID";
             string resourceGroupName = "SDK-EventHub-4794";
             string namespaceName = "sdk-Namespace-5828";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsPrivateEndpointConnectionResource
-            EventHubsPrivateEndpointConnectionCollection collection = eventHubsNamespace.GetEventHubsPrivateEndpointConnections();
+            EventHubsPrivateEndpointConnectionCollection collection = ehNamespace.GetEventHubsPrivateEndpointConnections();
 
             // invoke the operation
             string privateEndpointConnectionName = "privateEndpointConnectionName";
@@ -172,7 +172,7 @@ namespace Azure.ResourceManager.EventHubs.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_NameSpacePrivateEndPointConnectionGet()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/NameSpaces/PrivateEndPointConnectionGet.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/NameSpaces/PrivateEndPointConnectionGet.json
             // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -180,16 +180,16 @@ namespace Azure.ResourceManager.EventHubs.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "subID";
             string resourceGroupName = "SDK-EventHub-4794";
             string namespaceName = "sdk-Namespace-5828";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsPrivateEndpointConnectionResource
-            EventHubsPrivateEndpointConnectionCollection collection = eventHubsNamespace.GetEventHubsPrivateEndpointConnections();
+            EventHubsPrivateEndpointConnectionCollection collection = ehNamespace.GetEventHubsPrivateEndpointConnections();
 
             // invoke the operation
             string privateEndpointConnectionName = "privateEndpointConnectionName";
