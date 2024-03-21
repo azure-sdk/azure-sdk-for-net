@@ -28,11 +28,8 @@ namespace Azure.ResourceManager.NotificationHubs
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Sku))
-            {
-                writer.WritePropertyName("sku"u8);
-                writer.WriteObjectValue(Sku);
-            }
+            writer.WritePropertyName("sku"u8);
+            writer.WriteObjectValue(Sku);
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -68,7 +65,7 @@ namespace Azure.ResourceManager.NotificationHubs
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(NamespaceName))
+            if (options.Format != "W" && Optional.IsDefined(NamespaceName))
             {
                 writer.WritePropertyName("name"u8);
                 writer.WriteStringValue(NamespaceName);
@@ -76,9 +73,29 @@ namespace Azure.ResourceManager.NotificationHubs
             if (Optional.IsDefined(ProvisioningState))
             {
                 writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState);
+                writer.WriteStringValue(ProvisioningState.Value.ToString());
             }
-            if (Optional.IsDefined(Region))
+            if (Optional.IsDefined(Status))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(Status.Value.ToString());
+            }
+            if (options.Format != "W" && Optional.IsDefined(IsEnabled))
+            {
+                writer.WritePropertyName("enabled"u8);
+                writer.WriteBooleanValue(IsEnabled.Value);
+            }
+            if (options.Format != "W" && Optional.IsDefined(IsCritical))
+            {
+                writer.WritePropertyName("critical"u8);
+                writer.WriteBooleanValue(IsCritical.Value);
+            }
+            if (options.Format != "W" && Optional.IsDefined(SubscriptionId))
+            {
+                writer.WritePropertyName("subscriptionId"u8);
+                writer.WriteStringValue(SubscriptionId);
+            }
+            if (options.Format != "W" && Optional.IsDefined(Region))
             {
                 writer.WritePropertyName("region"u8);
                 writer.WriteStringValue(Region);
@@ -88,55 +105,70 @@ namespace Azure.ResourceManager.NotificationHubs
                 writer.WritePropertyName("metricId"u8);
                 writer.WriteStringValue(MetricId);
             }
-            if (Optional.IsDefined(Status))
-            {
-                writer.WritePropertyName("status"u8);
-                writer.WriteStringValue(Status);
-            }
-            if (Optional.IsDefined(CreatedOn))
+            if (options.Format != "W" && Optional.IsDefined(CreatedOn))
             {
                 writer.WritePropertyName("createdAt"u8);
                 writer.WriteStringValue(CreatedOn.Value, "O");
             }
-            if (Optional.IsDefined(UpdatedOn))
+            if (options.Format != "W" && Optional.IsDefined(UpdatedOn))
             {
                 writer.WritePropertyName("updatedAt"u8);
                 writer.WriteStringValue(UpdatedOn.Value, "O");
             }
-            if (Optional.IsDefined(ServiceBusEndpoint))
+            if (Optional.IsDefined(NamespaceType))
+            {
+                writer.WritePropertyName("namespaceType"u8);
+                writer.WriteStringValue(NamespaceType.Value.ToString());
+            }
+            if (Optional.IsDefined(ReplicationRegion))
+            {
+                writer.WritePropertyName("replicationRegion"u8);
+                writer.WriteStringValue(ReplicationRegion.Value.ToString());
+            }
+            if (Optional.IsDefined(ZoneRedundancy))
+            {
+                writer.WritePropertyName("zoneRedundancy"u8);
+                writer.WriteStringValue(ZoneRedundancy.Value.ToString());
+            }
+            if (Optional.IsDefined(NetworkAcls))
+            {
+                writer.WritePropertyName("networkAcls"u8);
+                writer.WriteObjectValue(NetworkAcls);
+            }
+            if (Optional.IsDefined(PnsCredentials))
+            {
+                writer.WritePropertyName("pnsCredentials"u8);
+                writer.WriteObjectValue(PnsCredentials);
+            }
+            if (options.Format != "W" && Optional.IsDefined(ServiceBusEndpoint))
             {
                 writer.WritePropertyName("serviceBusEndpoint"u8);
                 writer.WriteStringValue(ServiceBusEndpoint.AbsoluteUri);
             }
-            if (Optional.IsDefined(SubscriptionId))
+            if (options.Format != "W" && Optional.IsCollectionDefined(PrivateEndpointConnections))
             {
-                writer.WritePropertyName("subscriptionId"u8);
-                writer.WriteStringValue(SubscriptionId);
+                writer.WritePropertyName("privateEndpointConnections"u8);
+                writer.WriteStartArray();
+                foreach (var item in PrivateEndpointConnections)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
             }
             if (Optional.IsDefined(ScaleUnit))
             {
                 writer.WritePropertyName("scaleUnit"u8);
                 writer.WriteStringValue(ScaleUnit);
             }
-            if (Optional.IsDefined(IsEnabled))
-            {
-                writer.WritePropertyName("enabled"u8);
-                writer.WriteBooleanValue(IsEnabled.Value);
-            }
-            if (Optional.IsDefined(IsCritical))
-            {
-                writer.WritePropertyName("critical"u8);
-                writer.WriteBooleanValue(IsCritical.Value);
-            }
             if (Optional.IsDefined(DataCenter))
             {
                 writer.WritePropertyName("dataCenter"u8);
                 writer.WriteStringValue(DataCenter);
             }
-            if (Optional.IsDefined(NamespaceType))
+            if (Optional.IsDefined(PublicNetworkAccess))
             {
-                writer.WritePropertyName("namespaceType"u8);
-                writer.WriteStringValue(NamespaceType.Value.ToSerialString());
+                writer.WritePropertyName("publicNetworkAccess"u8);
+                writer.WriteStringValue(PublicNetworkAccess.Value.ToString());
             }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -185,29 +217,31 @@ namespace Azure.ResourceManager.NotificationHubs
             ResourceType type = default;
             SystemData systemData = default;
             string name0 = default;
-            string provisioningState = default;
-            string region = default;
-            string metricId = default;
-            string status = default;
-            DateTimeOffset? createdAt = default;
-            DateTimeOffset? updatedAt = default;
-            Uri serviceBusEndpoint = default;
-            string subscriptionId = default;
-            string scaleUnit = default;
+            OperationProvisioningState? provisioningState = default;
+            NamespaceStatus? status = default;
             bool? enabled = default;
             bool? critical = default;
-            string dataCenter = default;
+            string subscriptionId = default;
+            string region = default;
+            string metricId = default;
+            DateTimeOffset? createdAt = default;
+            DateTimeOffset? updatedAt = default;
             NotificationHubNamespaceType? namespaceType = default;
+            ReplicationRegion? replicationRegion = default;
+            ZoneRedundancyPreference? zoneRedundancy = default;
+            NetworkAcls networkAcls = default;
+            PnsCredentials pnsCredentials = default;
+            Uri serviceBusEndpoint = default;
+            IReadOnlyList<PrivateEndpointConnectionResourceData> privateEndpointConnections = default;
+            string scaleUnit = default;
+            string dataCenter = default;
+            PublicNetworkAccess? publicNetworkAccess = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("sku"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     sku = NotificationHubSku.DeserializeNotificationHubSku(property.Value, options);
                     continue;
                 }
@@ -270,59 +304,20 @@ namespace Azure.ResourceManager.NotificationHubs
                         }
                         if (property0.NameEquals("provisioningState"u8))
                         {
-                            provisioningState = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("region"u8))
-                        {
-                            region = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("metricId"u8))
-                        {
-                            metricId = property0.Value.GetString();
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            provisioningState = new OperationProvisioningState(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("status"u8))
                         {
-                            status = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("createdAt"u8))
-                        {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
-                            createdAt = property0.Value.GetDateTimeOffset("O");
-                            continue;
-                        }
-                        if (property0.NameEquals("updatedAt"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            updatedAt = property0.Value.GetDateTimeOffset("O");
-                            continue;
-                        }
-                        if (property0.NameEquals("serviceBusEndpoint"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            serviceBusEndpoint = new Uri(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("subscriptionId"u8))
-                        {
-                            subscriptionId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("scaleUnit"u8))
-                        {
-                            scaleUnit = property0.Value.GetString();
+                            status = new NamespaceStatus(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("enabled"u8))
@@ -343,9 +338,37 @@ namespace Azure.ResourceManager.NotificationHubs
                             critical = property0.Value.GetBoolean();
                             continue;
                         }
-                        if (property0.NameEquals("dataCenter"u8))
+                        if (property0.NameEquals("subscriptionId"u8))
                         {
-                            dataCenter = property0.Value.GetString();
+                            subscriptionId = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("region"u8))
+                        {
+                            region = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("metricId"u8))
+                        {
+                            metricId = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("createdAt"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            createdAt = property0.Value.GetDateTimeOffset("O");
+                            continue;
+                        }
+                        if (property0.NameEquals("updatedAt"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            updatedAt = property0.Value.GetDateTimeOffset("O");
                             continue;
                         }
                         if (property0.NameEquals("namespaceType"u8))
@@ -354,7 +377,85 @@ namespace Azure.ResourceManager.NotificationHubs
                             {
                                 continue;
                             }
-                            namespaceType = property0.Value.GetString().ToNotificationHubNamespaceType();
+                            namespaceType = new NotificationHubNamespaceType(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("replicationRegion"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            replicationRegion = new ReplicationRegion(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("zoneRedundancy"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            zoneRedundancy = new ZoneRedundancyPreference(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("networkAcls"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            networkAcls = NetworkAcls.DeserializeNetworkAcls(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("pnsCredentials"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            pnsCredentials = PnsCredentials.DeserializePnsCredentials(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("serviceBusEndpoint"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            serviceBusEndpoint = new Uri(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("privateEndpointConnections"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<PrivateEndpointConnectionResourceData> array = new List<PrivateEndpointConnectionResourceData>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(PrivateEndpointConnectionResourceData.DeserializePrivateEndpointConnectionResourceData(item, options));
+                            }
+                            privateEndpointConnections = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("scaleUnit"u8))
+                        {
+                            scaleUnit = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("dataCenter"u8))
+                        {
+                            dataCenter = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("publicNetworkAccess"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            publicNetworkAccess = new PublicNetworkAccess(property0.Value.GetString());
                             continue;
                         }
                     }
@@ -373,21 +474,27 @@ namespace Azure.ResourceManager.NotificationHubs
                 systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
+                sku,
                 name0,
                 provisioningState,
-                region,
-                metricId,
                 status,
-                createdAt,
-                updatedAt,
-                serviceBusEndpoint,
-                subscriptionId,
-                scaleUnit,
                 enabled,
                 critical,
-                dataCenter,
+                subscriptionId,
+                region,
+                metricId,
+                createdAt,
+                updatedAt,
                 namespaceType,
-                sku,
+                replicationRegion,
+                zoneRedundancy,
+                networkAcls,
+                pnsCredentials,
+                serviceBusEndpoint,
+                privateEndpointConnections ?? new ChangeTrackingList<PrivateEndpointConnectionResourceData>(),
+                scaleUnit,
+                dataCenter,
+                publicNetworkAccess,
                 serializedAdditionalRawData);
         }
 
