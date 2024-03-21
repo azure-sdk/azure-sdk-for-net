@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.EventHubs.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_EHAliasList()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/disasterRecoveryConfigs/EHAliasList.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/disasterRecoveryConfigs/EHAliasList.json
             // this example is just showing the usage of "DisasterRecoveryConfigs_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -27,16 +27,16 @@ namespace Azure.ResourceManager.EventHubs.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "exampleSubscriptionId";
             string resourceGroupName = "exampleResourceGroup";
             string namespaceName = "sdk-Namespace-8859";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsDisasterRecoveryResource
-            EventHubsDisasterRecoveryCollection collection = eventHubsNamespace.GetEventHubsDisasterRecoveries();
+            EventHubsDisasterRecoveryCollection collection = ehNamespace.GetEventHubsDisasterRecoveries();
 
             // invoke the operation and iterate over the result
             await foreach (EventHubsDisasterRecoveryResource item in collection.GetAllAsync())
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.EventHubs.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_EHAliasCreate()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/disasterRecoveryConfigs/EHAliasCreate.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/disasterRecoveryConfigs/EHAliasCreate.json
             // this example is just showing the usage of "DisasterRecoveryConfigs_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -64,16 +64,16 @@ namespace Azure.ResourceManager.EventHubs.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "exampleSubscriptionId";
             string resourceGroupName = "exampleResourceGroup";
             string namespaceName = "sdk-Namespace-8859";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsDisasterRecoveryResource
-            EventHubsDisasterRecoveryCollection collection = eventHubsNamespace.GetEventHubsDisasterRecoveries();
+            EventHubsDisasterRecoveryCollection collection = ehNamespace.GetEventHubsDisasterRecoveries();
 
             // invoke the operation
             string @alias = "sdk-DisasterRecovery-3814";
@@ -96,7 +96,7 @@ namespace Azure.ResourceManager.EventHubs.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_EHAliasGet()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/disasterRecoveryConfigs/EHAliasGet.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/disasterRecoveryConfigs/EHAliasGet.json
             // this example is just showing the usage of "DisasterRecoveryConfigs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -104,16 +104,16 @@ namespace Azure.ResourceManager.EventHubs.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "exampleSubscriptionId";
             string resourceGroupName = "exampleResourceGroup";
             string namespaceName = "sdk-Namespace-8859";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsDisasterRecoveryResource
-            EventHubsDisasterRecoveryCollection collection = eventHubsNamespace.GetEventHubsDisasterRecoveries();
+            EventHubsDisasterRecoveryCollection collection = ehNamespace.GetEventHubsDisasterRecoveries();
 
             // invoke the operation
             string @alias = "sdk-DisasterRecovery-3814";
@@ -131,7 +131,7 @@ namespace Azure.ResourceManager.EventHubs.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_EHAliasGet()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/disasterRecoveryConfigs/EHAliasGet.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/disasterRecoveryConfigs/EHAliasGet.json
             // this example is just showing the usage of "DisasterRecoveryConfigs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -139,16 +139,16 @@ namespace Azure.ResourceManager.EventHubs.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "exampleSubscriptionId";
             string resourceGroupName = "exampleResourceGroup";
             string namespaceName = "sdk-Namespace-8859";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsDisasterRecoveryResource
-            EventHubsDisasterRecoveryCollection collection = eventHubsNamespace.GetEventHubsDisasterRecoveries();
+            EventHubsDisasterRecoveryCollection collection = ehNamespace.GetEventHubsDisasterRecoveries();
 
             // invoke the operation
             string @alias = "sdk-DisasterRecovery-3814";
@@ -162,7 +162,7 @@ namespace Azure.ResourceManager.EventHubs.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_EHAliasGet()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/disasterRecoveryConfigs/EHAliasGet.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/disasterRecoveryConfigs/EHAliasGet.json
             // this example is just showing the usage of "DisasterRecoveryConfigs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -170,16 +170,16 @@ namespace Azure.ResourceManager.EventHubs.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "exampleSubscriptionId";
             string resourceGroupName = "exampleResourceGroup";
             string namespaceName = "sdk-Namespace-8859";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsDisasterRecoveryResource
-            EventHubsDisasterRecoveryCollection collection = eventHubsNamespace.GetEventHubsDisasterRecoveries();
+            EventHubsDisasterRecoveryCollection collection = ehNamespace.GetEventHubsDisasterRecoveries();
 
             // invoke the operation
             string @alias = "sdk-DisasterRecovery-3814";
