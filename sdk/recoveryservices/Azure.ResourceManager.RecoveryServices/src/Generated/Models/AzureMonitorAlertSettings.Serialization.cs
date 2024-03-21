@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServices.Models
 {
-    internal partial class AzureMonitorAlertSettings : IUtf8JsonSerializable, IJsonModel<AzureMonitorAlertSettings>
+    public partial class AzureMonitorAlertSettings : IUtf8JsonSerializable, IJsonModel<AzureMonitorAlertSettings>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AzureMonitorAlertSettings>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
@@ -30,6 +30,16 @@ namespace Azure.ResourceManager.RecoveryServices.Models
             {
                 writer.WritePropertyName("alertsForAllJobFailures"u8);
                 writer.WriteStringValue(AlertsForAllJobFailures.Value.ToString());
+            }
+            if (Optional.IsDefined(AlertsForAllReplicationIssues))
+            {
+                writer.WritePropertyName("alertsForAllReplicationIssues"u8);
+                writer.WriteStringValue(AlertsForAllReplicationIssues.Value.ToString());
+            }
+            if (Optional.IsDefined(AlertsForAllFailoverIssues))
+            {
+                writer.WritePropertyName("alertsForAllFailoverIssues"u8);
+                writer.WriteStringValue(AlertsForAllFailoverIssues.Value.ToString());
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -70,6 +80,8 @@ namespace Azure.ResourceManager.RecoveryServices.Models
                 return null;
             }
             RecoveryServicesAlertsState? alertsForAllJobFailures = default;
+            RecoveryServicesAlertsState? alertsForAllReplicationIssues = default;
+            RecoveryServicesAlertsState? alertsForAllFailoverIssues = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -83,13 +95,31 @@ namespace Azure.ResourceManager.RecoveryServices.Models
                     alertsForAllJobFailures = new RecoveryServicesAlertsState(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("alertsForAllReplicationIssues"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    alertsForAllReplicationIssues = new RecoveryServicesAlertsState(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("alertsForAllFailoverIssues"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    alertsForAllFailoverIssues = new RecoveryServicesAlertsState(property.Value.GetString());
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new AzureMonitorAlertSettings(alertsForAllJobFailures, serializedAdditionalRawData);
+            return new AzureMonitorAlertSettings(alertsForAllJobFailures, alertsForAllReplicationIssues, alertsForAllFailoverIssues, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AzureMonitorAlertSettings>.Write(ModelReaderWriterOptions options)
