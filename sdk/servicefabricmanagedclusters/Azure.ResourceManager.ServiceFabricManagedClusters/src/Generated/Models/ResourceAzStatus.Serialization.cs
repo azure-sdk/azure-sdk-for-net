@@ -41,6 +41,11 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                 writer.WritePropertyName("isZoneResilient"u8);
                 writer.WriteBooleanValue(IsZoneResilient.Value);
             }
+            if (options.Format != "W" && Optional.IsDefined(Details))
+            {
+                writer.WritePropertyName("details"u8);
+                writer.WriteStringValue(Details);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -82,6 +87,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             string resourceName = default;
             ResourceType? resourceType = default;
             bool? isZoneResilient = default;
+            string details = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -109,13 +115,18 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                     isZoneResilient = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("details"u8))
+                {
+                    details = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ResourceAzStatus(resourceName, resourceType, isZoneResilient, serializedAdditionalRawData);
+            return new ResourceAzStatus(resourceName, resourceType, isZoneResilient, details, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ResourceAzStatus>.Write(ModelReaderWriterOptions options)
