@@ -7,12 +7,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net;
+using Azure.ResourceManager.DataFactory;
 
 namespace Azure.ResourceManager.DataFactory.Models
 {
-    /// <summary> The IP address of self-hosted integration runtime node. </summary>
-    public partial class IntegrationRuntimeNodeIPAddress
+    /// <summary> Nested representation of a complex expression. </summary>
+    public partial class ExpressionV2
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,21 +46,34 @@ namespace Azure.ResourceManager.DataFactory.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="IntegrationRuntimeNodeIPAddress"/>. </summary>
-        internal IntegrationRuntimeNodeIPAddress()
+        /// <summary> Initializes a new instance of <see cref="ExpressionV2"/>. </summary>
+        public ExpressionV2()
         {
+            Operands = new ChangeTrackingList<ExpressionV2>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="IntegrationRuntimeNodeIPAddress"/>. </summary>
-        /// <param name="ipAddress"> The IP address of self-hosted integration runtime node. </param>
+        /// <summary> Initializes a new instance of <see cref="ExpressionV2"/>. </summary>
+        /// <param name="v2Type"> Type of expressions supported by the system. Type: string. </param>
+        /// <param name="value"> Value for Constant/Field Type: string. </param>
+        /// <param name="operator"> Expression operator value Type: string. </param>
+        /// <param name="operands"> List of nested expressions. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationRuntimeNodeIPAddress(IPAddress ipAddress, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ExpressionV2(ExpressionV2Type? v2Type, string value, string @operator, IList<ExpressionV2> operands, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            IPAddress = ipAddress;
+            V2Type = v2Type;
+            Value = value;
+            Operator = @operator;
+            Operands = operands;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The IP address of self-hosted integration runtime node. </summary>
-        public IPAddress IPAddress { get; }
+        /// <summary> Type of expressions supported by the system. Type: string. </summary>
+        public ExpressionV2Type? V2Type { get; set; }
+        /// <summary> Value for Constant/Field Type: string. </summary>
+        public string Value { get; set; }
+        /// <summary> Expression operator value Type: string. </summary>
+        public string Operator { get; set; }
+        /// <summary> List of nested expressions. </summary>
+        public IList<ExpressionV2> Operands { get; }
     }
 }
