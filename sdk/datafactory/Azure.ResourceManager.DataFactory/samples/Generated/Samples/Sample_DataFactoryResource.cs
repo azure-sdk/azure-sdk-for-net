@@ -15,81 +15,80 @@ using Azure.Identity;
 using Azure.ResourceManager;
 using Azure.ResourceManager.DataFactory;
 using Azure.ResourceManager.DataFactory.Models;
-using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.DataFactory.Samples
 {
     public partial class Sample_DataFactoryResource
     {
-        // Factories_List
+        // ExposureControl_GetFeatureValueByFactory
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetDataFactories_FactoriesList()
+        public async Task GetExposureControlFeature_ExposureControlGetFeatureValueByFactory()
         {
-            // Generated from example definition: specification/datafactory/resource-manager/Microsoft.DataFactory/stable/2018-06-01/examples/Factories_List.json
-            // this example is just showing the usage of "Factories_List" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/datafactory/resource-manager/Microsoft.DataFactory/stable/2018-06-01/examples/ExposureControl_GetFeatureValueByFactory.json
+            // this example is just showing the usage of "ExposureControl_GetFeatureValueByFactory" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this SubscriptionResource created on azure
-            // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
+            // this example assumes you already have this DataFactoryResource created on azure
+            // for more information of creating DataFactoryResource, please refer to the document of DataFactoryResource
             string subscriptionId = "12345678-1234-1234-1234-12345678abc";
-            ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
-            SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
-
-            // invoke the operation and iterate over the result
-            await foreach (DataFactoryResource item in subscriptionResource.GetDataFactoriesAsync())
-            {
-                // the variable item is a resource, you could call other operations on this instance as well
-                // but just for demo, we get its data from this resource instance
-                DataFactoryData resourceData = item.Data;
-                // for demo we just print out the id
-                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-            }
-
-            Console.WriteLine($"Succeeded");
-        }
-
-        // Factories_ConfigureFactoryRepo
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task ConfigureFactoryRepoInformation_FactoriesConfigureFactoryRepo()
-        {
-            // Generated from example definition: specification/datafactory/resource-manager/Microsoft.DataFactory/stable/2018-06-01/examples/Factories_ConfigureFactoryRepo.json
-            // this example is just showing the usage of "Factories_ConfigureFactoryRepo" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this SubscriptionResource created on azure
-            // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "12345678-1234-1234-1234-12345678abc";
-            ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
-            SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
+            string resourceGroupName = "exampleResourceGroup";
+            string factoryName = "exampleFactoryName";
+            ResourceIdentifier dataFactoryResourceId = DataFactoryResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, factoryName);
+            DataFactoryResource dataFactory = client.GetDataFactoryResource(dataFactoryResourceId);
 
             // invoke the operation
-            AzureLocation locationId = new AzureLocation("East US");
-            FactoryRepoContent content = new FactoryRepoContent()
+            ExposureControlContent content = new ExposureControlContent()
             {
-                FactoryResourceId = new ResourceIdentifier("/subscriptions/12345678-1234-1234-1234-12345678abc/resourceGroups/exampleResourceGroup/providers/Microsoft.DataFactory/factories/exampleFactoryName"),
-                RepoConfiguration = new FactoryVstsConfiguration("ADF", "repo", "master", "/", "project")
-                {
-                    TenantId = Guid.Parse(""),
-                    LastCommitId = "",
-                },
+                FeatureName = "ADFIntegrationRuntimeSharingRbac",
+                FeatureType = "Feature",
             };
-            DataFactoryResource result = await subscriptionResource.ConfigureFactoryRepoInformationAsync(locationId, content);
+            ExposureControlResult result = await dataFactory.GetExposureControlFeatureAsync(content);
 
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            DataFactoryData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        // ExposureControl_QueryFeatureValuesByFactory
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetExposureControlFeatures_ExposureControlQueryFeatureValuesByFactory()
+        {
+            // Generated from example definition: specification/datafactory/resource-manager/Microsoft.DataFactory/stable/2018-06-01/examples/ExposureControl_QueryFeatureValuesByFactory.json
+            // this example is just showing the usage of "ExposureControl_QueryFeatureValuesByFactory" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this DataFactoryResource created on azure
+            // for more information of creating DataFactoryResource, please refer to the document of DataFactoryResource
+            string subscriptionId = "12345678-1234-1234-1234-12345678abc";
+            string resourceGroupName = "exampleResourceGroup";
+            string factoryName = "exampleFactoryName";
+            ResourceIdentifier dataFactoryResourceId = DataFactoryResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, factoryName);
+            DataFactoryResource dataFactory = client.GetDataFactoryResource(dataFactoryResourceId);
+
+            // invoke the operation
+            ExposureControlBatchContent content = new ExposureControlBatchContent(new ExposureControlContent[]
+            {
+new ExposureControlContent()
+{
+FeatureName = "ADFIntegrationRuntimeSharingRbac",
+FeatureType = "Feature",
+},new ExposureControlContent()
+{
+FeatureName = "ADFSampleFeature",
+FeatureType = "Feature",
+}
+            });
+            ExposureControlBatchResult result = await dataFactory.GetExposureControlFeaturesAsync(content);
+
+            Console.WriteLine($"Succeeded: {result}");
         }
 
         // Factories_Update
@@ -250,77 +249,6 @@ namespace Azure.ResourceManager.DataFactory.Samples
                 ExpireOn = DateTimeOffset.Parse("2018-11-10T09:46:20.2659347Z"),
             };
             DataFactoryDataPlaneAccessPolicyResult result = await dataFactory.GetDataPlaneAccessAsync(policy);
-
-            Console.WriteLine($"Succeeded: {result}");
-        }
-
-        // ExposureControl_GetFeatureValueByFactory
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetExposureControlFeature_ExposureControlGetFeatureValueByFactory()
-        {
-            // Generated from example definition: specification/datafactory/resource-manager/Microsoft.DataFactory/stable/2018-06-01/examples/ExposureControl_GetFeatureValueByFactory.json
-            // this example is just showing the usage of "ExposureControl_GetFeatureValueByFactory" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this DataFactoryResource created on azure
-            // for more information of creating DataFactoryResource, please refer to the document of DataFactoryResource
-            string subscriptionId = "12345678-1234-1234-1234-12345678abc";
-            string resourceGroupName = "exampleResourceGroup";
-            string factoryName = "exampleFactoryName";
-            ResourceIdentifier dataFactoryResourceId = DataFactoryResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, factoryName);
-            DataFactoryResource dataFactory = client.GetDataFactoryResource(dataFactoryResourceId);
-
-            // invoke the operation
-            ExposureControlContent content = new ExposureControlContent()
-            {
-                FeatureName = "ADFIntegrationRuntimeSharingRbac",
-                FeatureType = "Feature",
-            };
-            ExposureControlResult result = await dataFactory.GetExposureControlFeatureAsync(content);
-
-            Console.WriteLine($"Succeeded: {result}");
-        }
-
-        // ExposureControl_QueryFeatureValuesByFactory
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetExposureControlFeatures_ExposureControlQueryFeatureValuesByFactory()
-        {
-            // Generated from example definition: specification/datafactory/resource-manager/Microsoft.DataFactory/stable/2018-06-01/examples/ExposureControl_QueryFeatureValuesByFactory.json
-            // this example is just showing the usage of "ExposureControl_QueryFeatureValuesByFactory" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this DataFactoryResource created on azure
-            // for more information of creating DataFactoryResource, please refer to the document of DataFactoryResource
-            string subscriptionId = "12345678-1234-1234-1234-12345678abc";
-            string resourceGroupName = "exampleResourceGroup";
-            string factoryName = "exampleFactoryName";
-            ResourceIdentifier dataFactoryResourceId = DataFactoryResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, factoryName);
-            DataFactoryResource dataFactory = client.GetDataFactoryResource(dataFactoryResourceId);
-
-            // invoke the operation
-            ExposureControlBatchContent content = new ExposureControlBatchContent(new ExposureControlContent[]
-            {
-new ExposureControlContent()
-{
-FeatureName = "ADFIntegrationRuntimeSharingRbac",
-FeatureType = "Feature",
-},new ExposureControlContent()
-{
-FeatureName = "ADFSampleFeature",
-FeatureType = "Feature",
-}
-            });
-            ExposureControlBatchResult result = await dataFactory.GetExposureControlFeaturesAsync(content);
 
             Console.WriteLine($"Succeeded: {result}");
         }
