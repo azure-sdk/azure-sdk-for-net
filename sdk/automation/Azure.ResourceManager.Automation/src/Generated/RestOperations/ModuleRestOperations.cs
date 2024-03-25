@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.Automation
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2020-01-13-preview";
+            _apiVersion = apiVersion ?? "2023-11-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -199,7 +199,7 @@ namespace Azure.ResourceManager.Automation
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, AutomationAccountModuleCreateOrUpdateContent content)
+        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, ModuleCreateOrUpdateParameters moduleCreateOrUpdateParameters)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -218,9 +218,9 @@ namespace Azure.ResourceManager.Automation
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
-            var content0 = new Utf8JsonRequestContent();
-            content0.JsonWriter.WriteObjectValue<AutomationAccountModuleCreateOrUpdateContent>(content, new ModelReaderWriterOptions("W"));
-            request.Content = content0;
+            var content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue<ModuleCreateOrUpdateParameters>(moduleCreateOrUpdateParameters, new ModelReaderWriterOptions("W"));
+            request.Content = content;
             _userAgent.Apply(message);
             return message;
         }
@@ -230,30 +230,25 @@ namespace Azure.ResourceManager.Automation
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
         /// <param name="moduleName"> The name of module. </param>
-        /// <param name="content"> The create or update parameters for module. </param>
+        /// <param name="moduleCreateOrUpdateParameters"> The create or update parameters for module. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="moduleName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="moduleName"/> or <paramref name="moduleCreateOrUpdateParameters"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<AutomationModuleData>> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, AutomationAccountModuleCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        public async Task<Response> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, ModuleCreateOrUpdateParameters moduleCreateOrUpdateParameters, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
             Argument.AssertNotNullOrEmpty(moduleName, nameof(moduleName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(moduleCreateOrUpdateParameters, nameof(moduleCreateOrUpdateParameters));
 
-            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName, content);
+            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName, moduleCreateOrUpdateParameters);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                 case 201:
-                    {
-                        AutomationModuleData value = default;
-                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = AutomationModuleData.DeserializeAutomationModuleData(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
+                    return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
             }
@@ -264,36 +259,31 @@ namespace Azure.ResourceManager.Automation
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
         /// <param name="moduleName"> The name of module. </param>
-        /// <param name="content"> The create or update parameters for module. </param>
+        /// <param name="moduleCreateOrUpdateParameters"> The create or update parameters for module. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="moduleName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="moduleName"/> or <paramref name="moduleCreateOrUpdateParameters"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<AutomationModuleData> CreateOrUpdate(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, AutomationAccountModuleCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        public Response CreateOrUpdate(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, ModuleCreateOrUpdateParameters moduleCreateOrUpdateParameters, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
             Argument.AssertNotNullOrEmpty(moduleName, nameof(moduleName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(moduleCreateOrUpdateParameters, nameof(moduleCreateOrUpdateParameters));
 
-            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName, content);
+            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName, moduleCreateOrUpdateParameters);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                 case 201:
-                    {
-                        AutomationModuleData value = default;
-                        using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = AutomationModuleData.DeserializeAutomationModuleData(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
+                    return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, AutomationAccountModulePatch patch)
+        internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, ModuleUpdateParameters moduleUpdateParameters)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -313,7 +303,7 @@ namespace Azure.ResourceManager.Automation
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
             var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue<AutomationAccountModulePatch>(patch, new ModelReaderWriterOptions("W"));
+            content.JsonWriter.WriteObjectValue<ModuleUpdateParameters>(moduleUpdateParameters, new ModelReaderWriterOptions("W"));
             request.Content = content;
             _userAgent.Apply(message);
             return message;
@@ -324,19 +314,19 @@ namespace Azure.ResourceManager.Automation
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
         /// <param name="moduleName"> The name of module. </param>
-        /// <param name="patch"> The update parameters for module. </param>
+        /// <param name="moduleUpdateParameters"> The update parameters for module. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="moduleName"/> or <paramref name="patch"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="moduleName"/> or <paramref name="moduleUpdateParameters"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<AutomationModuleData>> UpdateAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, AutomationAccountModulePatch patch, CancellationToken cancellationToken = default)
+        public async Task<Response<AutomationModuleData>> UpdateAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, ModuleUpdateParameters moduleUpdateParameters, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
             Argument.AssertNotNullOrEmpty(moduleName, nameof(moduleName));
-            Argument.AssertNotNull(patch, nameof(patch));
+            Argument.AssertNotNull(moduleUpdateParameters, nameof(moduleUpdateParameters));
 
-            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName, patch);
+            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName, moduleUpdateParameters);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -357,19 +347,19 @@ namespace Azure.ResourceManager.Automation
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
         /// <param name="moduleName"> The name of module. </param>
-        /// <param name="patch"> The update parameters for module. </param>
+        /// <param name="moduleUpdateParameters"> The update parameters for module. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="moduleName"/> or <paramref name="patch"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="moduleName"/> or <paramref name="moduleUpdateParameters"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<AutomationModuleData> Update(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, AutomationAccountModulePatch patch, CancellationToken cancellationToken = default)
+        public Response<AutomationModuleData> Update(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, ModuleUpdateParameters moduleUpdateParameters, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
             Argument.AssertNotNullOrEmpty(moduleName, nameof(moduleName));
-            Argument.AssertNotNull(patch, nameof(patch));
+            Argument.AssertNotNull(moduleUpdateParameters, nameof(moduleUpdateParameters));
 
-            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName, patch);
+            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName, moduleUpdateParameters);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {

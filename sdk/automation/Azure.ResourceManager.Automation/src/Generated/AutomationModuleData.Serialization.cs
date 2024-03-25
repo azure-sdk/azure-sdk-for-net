@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.Automation
             if (Optional.IsDefined(ProvisioningState))
             {
                 writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState.Value.ToSerialString());
+                writer.WriteStringValue(ProvisioningState.Value.ToString());
             }
             if (Optional.IsDefined(ContentLink))
             {
@@ -283,7 +283,7 @@ namespace Azure.ResourceManager.Automation
                             {
                                 continue;
                             }
-                            provisioningState = property0.Value.GetString().ToModuleProvisioningState();
+                            provisioningState = new ModuleProvisioningState(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("contentLink"u8))
