@@ -66,7 +66,7 @@ namespace Azure.ResourceManager.EventHubs
             if (Optional.IsDefined(ConnectionState))
             {
                 writer.WritePropertyName("privateLinkServiceConnectionState"u8);
-                writer.WriteObjectValue<EventHubsPrivateLinkServiceConnectionState>(ConnectionState, options);
+                writer.WriteObjectValue<ConnectionState>(ConnectionState, options);
             }
             if (Optional.IsDefined(ProvisioningState))
             {
@@ -118,8 +118,8 @@ namespace Azure.ResourceManager.EventHubs
             ResourceType type = default;
             SystemData systemData = default;
             WritableSubResource privateEndpoint = default;
-            EventHubsPrivateLinkServiceConnectionState privateLinkServiceConnectionState = default;
-            EventHubsPrivateEndpointConnectionProvisioningState? provisioningState = default;
+            ConnectionState privateLinkServiceConnectionState = default;
+            EndPointProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -181,7 +181,7 @@ namespace Azure.ResourceManager.EventHubs
                             {
                                 continue;
                             }
-                            privateLinkServiceConnectionState = EventHubsPrivateLinkServiceConnectionState.DeserializeEventHubsPrivateLinkServiceConnectionState(property0.Value, options);
+                            privateLinkServiceConnectionState = ConnectionState.DeserializeConnectionState(property0.Value, options);
                             continue;
                         }
                         if (property0.NameEquals("provisioningState"u8))
@@ -190,7 +190,7 @@ namespace Azure.ResourceManager.EventHubs
                             {
                                 continue;
                             }
-                            provisioningState = new EventHubsPrivateEndpointConnectionProvisioningState(property0.Value.GetString());
+                            provisioningState = new EndPointProvisioningState(property0.Value.GetString());
                             continue;
                         }
                     }

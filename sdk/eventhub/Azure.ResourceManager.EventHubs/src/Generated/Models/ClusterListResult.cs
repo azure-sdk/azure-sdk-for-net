@@ -48,14 +48,14 @@ namespace Azure.ResourceManager.EventHubs.Models
         /// <summary> Initializes a new instance of <see cref="ClusterListResult"/>. </summary>
         internal ClusterListResult()
         {
-            Value = new ChangeTrackingList<EventHubsClusterData>();
+            Value = new ChangeTrackingList<ClusterData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="ClusterListResult"/>. </summary>
         /// <param name="value"> The Event Hubs Clusters present in the List Event Hubs operation results. </param>
         /// <param name="nextLink"> Link to the next set of results. Empty unless the value parameter contains an incomplete list of Event Hubs Clusters. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ClusterListResult(IReadOnlyList<EventHubsClusterData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ClusterListResult(IReadOnlyList<ClusterData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.EventHubs.Models
         }
 
         /// <summary> The Event Hubs Clusters present in the List Event Hubs operation results. </summary>
-        public IReadOnlyList<EventHubsClusterData> Value { get; }
+        public IReadOnlyList<ClusterData> Value { get; }
         /// <summary> Link to the next set of results. Empty unless the value parameter contains an incomplete list of Event Hubs Clusters. </summary>
         public string NextLink { get; }
     }

@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.EventHubs.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListAuthorizationRules()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/NameSpaces/EHNameSpaceAuthorizationRuleListAll.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/NameSpaces/EHNameSpaceAuthorizationRuleListAll.json
             // this example is just showing the usage of "Namespaces_ListAuthorizationRules" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -28,16 +28,16 @@ namespace Azure.ResourceManager.EventHubs.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "5f750a97-50d9-4e36-8081-c9ee4c0210d4";
             string resourceGroupName = "ArunMonocle";
             string namespaceName = "sdk-Namespace-2702";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsNamespaceAuthorizationRuleResource
-            EventHubsNamespaceAuthorizationRuleCollection collection = eventHubsNamespace.GetEventHubsNamespaceAuthorizationRules();
+            EventHubsNamespaceAuthorizationRuleCollection collection = ehNamespace.GetEventHubsNamespaceAuthorizationRules();
 
             // invoke the operation and iterate over the result
             await foreach (EventHubsNamespaceAuthorizationRuleResource item in collection.GetAllAsync())
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.EventHubs.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_NameSpaceAuthorizationRuleCreate()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/NameSpaces/EHNameSpaceAuthorizationRuleCreate.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/NameSpaces/EHNameSpaceAuthorizationRuleCreate.json
             // this example is just showing the usage of "Namespaces_CreateOrUpdateAuthorizationRule" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -65,16 +65,16 @@ namespace Azure.ResourceManager.EventHubs.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "5f750a97-50d9-4e36-8081-c9ee4c0210d4";
             string resourceGroupName = "ArunMonocle";
             string namespaceName = "sdk-Namespace-2702";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsNamespaceAuthorizationRuleResource
-            EventHubsNamespaceAuthorizationRuleCollection collection = eventHubsNamespace.GetEventHubsNamespaceAuthorizationRules();
+            EventHubsNamespaceAuthorizationRuleCollection collection = ehNamespace.GetEventHubsNamespaceAuthorizationRules();
 
             // invoke the operation
             string authorizationRuleName = "sdk-Authrules-1746";
@@ -100,7 +100,7 @@ EventHubsAccessRight.Listen,EventHubsAccessRight.Send
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_NameSpaceAuthorizationRuleGet()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/NameSpaces/EHNameSpaceAuthorizationRuleGet.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/NameSpaces/EHNameSpaceAuthorizationRuleGet.json
             // this example is just showing the usage of "Namespaces_GetAuthorizationRule" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -108,16 +108,16 @@ EventHubsAccessRight.Listen,EventHubsAccessRight.Send
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "5f750a97-50d9-4e36-8081-c9ee4c0210d4";
             string resourceGroupName = "ArunMonocle";
             string namespaceName = "sdk-Namespace-2702";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsNamespaceAuthorizationRuleResource
-            EventHubsNamespaceAuthorizationRuleCollection collection = eventHubsNamespace.GetEventHubsNamespaceAuthorizationRules();
+            EventHubsNamespaceAuthorizationRuleCollection collection = ehNamespace.GetEventHubsNamespaceAuthorizationRules();
 
             // invoke the operation
             string authorizationRuleName = "sdk-Authrules-1746";
@@ -135,7 +135,7 @@ EventHubsAccessRight.Listen,EventHubsAccessRight.Send
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_NameSpaceAuthorizationRuleGet()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/NameSpaces/EHNameSpaceAuthorizationRuleGet.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/NameSpaces/EHNameSpaceAuthorizationRuleGet.json
             // this example is just showing the usage of "Namespaces_GetAuthorizationRule" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -143,16 +143,16 @@ EventHubsAccessRight.Listen,EventHubsAccessRight.Send
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "5f750a97-50d9-4e36-8081-c9ee4c0210d4";
             string resourceGroupName = "ArunMonocle";
             string namespaceName = "sdk-Namespace-2702";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsNamespaceAuthorizationRuleResource
-            EventHubsNamespaceAuthorizationRuleCollection collection = eventHubsNamespace.GetEventHubsNamespaceAuthorizationRules();
+            EventHubsNamespaceAuthorizationRuleCollection collection = ehNamespace.GetEventHubsNamespaceAuthorizationRules();
 
             // invoke the operation
             string authorizationRuleName = "sdk-Authrules-1746";
@@ -166,7 +166,7 @@ EventHubsAccessRight.Listen,EventHubsAccessRight.Send
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_NameSpaceAuthorizationRuleGet()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/NameSpaces/EHNameSpaceAuthorizationRuleGet.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/NameSpaces/EHNameSpaceAuthorizationRuleGet.json
             // this example is just showing the usage of "Namespaces_GetAuthorizationRule" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -174,16 +174,16 @@ EventHubsAccessRight.Listen,EventHubsAccessRight.Send
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "5f750a97-50d9-4e36-8081-c9ee4c0210d4";
             string resourceGroupName = "ArunMonocle";
             string namespaceName = "sdk-Namespace-2702";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsNamespaceAuthorizationRuleResource
-            EventHubsNamespaceAuthorizationRuleCollection collection = eventHubsNamespace.GetEventHubsNamespaceAuthorizationRules();
+            EventHubsNamespaceAuthorizationRuleCollection collection = ehNamespace.GetEventHubsNamespaceAuthorizationRules();
 
             // invoke the operation
             string authorizationRuleName = "sdk-Authrules-1746";
