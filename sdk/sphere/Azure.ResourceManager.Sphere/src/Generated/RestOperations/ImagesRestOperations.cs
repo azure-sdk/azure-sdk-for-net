@@ -51,6 +51,7 @@ namespace Azure.ResourceManager.Sphere
             uri.AppendPath("/providers/Microsoft.AzureSphere/catalogs/", false);
             uri.AppendPath(catalogName, true);
             uri.AppendPath("/images", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
             if (filter != null)
             {
                 uri.AppendQuery("$filter", filter, true);
@@ -67,7 +68,6 @@ namespace Azure.ResourceManager.Sphere
             {
                 uri.AppendQuery("$maxpagesize", maxpagesize.Value, true);
             }
-            uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);
