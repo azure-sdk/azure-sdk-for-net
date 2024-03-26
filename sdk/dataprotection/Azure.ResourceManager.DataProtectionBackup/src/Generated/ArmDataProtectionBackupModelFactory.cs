@@ -55,9 +55,10 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         /// <param name="isVaultProtectedByResourceGuard"> Is vault protected by resource guard. </param>
         /// <param name="featureSettings"> Feature Settings. </param>
         /// <param name="secureScore"> Secure Score of Backup Vault. </param>
+        /// <param name="bcdrSecurityLevel"> Security Level of Backup Vault. </param>
         /// <param name="replicatedRegions"> List of replicated regions for Backup Vault. </param>
         /// <returns> A new <see cref="Models.DataProtectionBackupVaultProperties"/> instance for mocking. </returns>
-        public static DataProtectionBackupVaultProperties DataProtectionBackupVaultProperties(AzureMonitorAlertsState? alertSettingsForAllJobFailures = null, DataProtectionBackupProvisioningState? provisioningState = null, BackupVaultResourceMoveState? resourceMoveState = null, BackupVaultResourceMoveDetails resourceMoveDetails = null, BackupVaultSecuritySettings securitySettings = null, IEnumerable<DataProtectionBackupStorageSetting> storageSettings = null, bool? isVaultProtectedByResourceGuard = null, BackupVaultFeatureSettings featureSettings = null, BackupVaultSecureScoreLevel? secureScore = null, IEnumerable<AzureLocation> replicatedRegions = null)
+        public static DataProtectionBackupVaultProperties DataProtectionBackupVaultProperties(AzureMonitorAlertsState? alertSettingsForAllJobFailures = null, DataProtectionBackupProvisioningState? provisioningState = null, BackupVaultResourceMoveState? resourceMoveState = null, BackupVaultResourceMoveDetails resourceMoveDetails = null, BackupVaultSecuritySettings securitySettings = null, IEnumerable<DataProtectionBackupStorageSetting> storageSettings = null, bool? isVaultProtectedByResourceGuard = null, BackupVaultFeatureSettings featureSettings = null, BackupVaultSecureScoreLevel? secureScore = null, BcdrSecurityLevel? bcdrSecurityLevel = null, IEnumerable<AzureLocation> replicatedRegions = null)
         {
             storageSettings ??= new List<DataProtectionBackupStorageSetting>();
             replicatedRegions ??= new List<AzureLocation>();
@@ -72,6 +73,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                 isVaultProtectedByResourceGuard,
                 featureSettings,
                 secureScore,
+                bcdrSecurityLevel,
                 replicatedRegions?.ToList(),
                 serializedAdditionalRawData: null);
         }
@@ -857,8 +859,9 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         /// <param name="conflictPolicy"> Gets or sets the Conflict Policy property. This property sets policy during conflict of resources during restore. </param>
         /// <param name="namespaceMappings"> Gets or sets the Namespace Mappings property. This property sets if namespace needs to be change during restore. </param>
         /// <param name="restoreHookReferences"> Gets or sets the restore hook references. This property sets the hook reference to be executed during restore. </param>
+        /// <param name="resourceModifierReference"> Gets or sets the resource modifier reference. This property sets the reference for resource modifier during restore. </param>
         /// <returns> A new <see cref="Models.KubernetesClusterRestoreCriteria"/> instance for mocking. </returns>
-        public static KubernetesClusterRestoreCriteria KubernetesClusterRestoreCriteria(bool isClusterScopeResourcesIncluded = default, IEnumerable<string> includedNamespaces = null, IEnumerable<string> excludedNamespaces = null, IEnumerable<string> includedResourceTypes = null, IEnumerable<string> excludedResourceTypes = null, IEnumerable<string> labelSelectors = null, PersistentVolumeRestoreMode? persistentVolumeRestoreMode = null, KubernetesClusterRestoreExistingResourcePolicy? conflictPolicy = null, IDictionary<string, string> namespaceMappings = null, IEnumerable<NamespacedName> restoreHookReferences = null)
+        public static KubernetesClusterRestoreCriteria KubernetesClusterRestoreCriteria(bool isClusterScopeResourcesIncluded = default, IEnumerable<string> includedNamespaces = null, IEnumerable<string> excludedNamespaces = null, IEnumerable<string> includedResourceTypes = null, IEnumerable<string> excludedResourceTypes = null, IEnumerable<string> labelSelectors = null, PersistentVolumeRestoreMode? persistentVolumeRestoreMode = null, KubernetesClusterRestoreExistingResourcePolicy? conflictPolicy = null, IDictionary<string, string> namespaceMappings = null, IEnumerable<NamespacedName> restoreHookReferences = null, NamespacedName resourceModifierReference = null)
         {
             includedNamespaces ??= new List<string>();
             excludedNamespaces ??= new List<string>();
@@ -880,7 +883,8 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                 persistentVolumeRestoreMode,
                 conflictPolicy,
                 namespaceMappings,
-                restoreHookReferences?.ToList());
+                restoreHookReferences?.ToList(),
+                resourceModifierReference);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.KubernetesClusterVaultTierRestoreCriteria"/>. </summary>
@@ -896,8 +900,9 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         /// <param name="restoreHookReferences"> Gets or sets the restore hook references. This property sets the hook reference to be executed during restore from vault. </param>
         /// <param name="stagingResourceGroupId"> Gets or sets the staging RG Id for creating staging disks and snapshots during restore from vault. </param>
         /// <param name="stagingStorageAccountId"> Gets or sets the staging Storage Account Id for creating backup extension object store data during restore from vault. </param>
+        /// <param name="resourceModifierReference"> Gets or sets the resource modifier reference. This property sets the reference for resource modifier during restore. </param>
         /// <returns> A new <see cref="Models.KubernetesClusterVaultTierRestoreCriteria"/> instance for mocking. </returns>
-        public static KubernetesClusterVaultTierRestoreCriteria KubernetesClusterVaultTierRestoreCriteria(bool includeClusterScopeResources = default, IEnumerable<string> includedNamespaces = null, IEnumerable<string> excludedNamespaces = null, IEnumerable<string> includedResourceTypes = null, IEnumerable<string> excludedResourceTypes = null, IEnumerable<string> labelSelectors = null, PersistentVolumeRestoreMode? persistentVolumeRestoreMode = null, KubernetesClusterRestoreExistingResourcePolicy? conflictPolicy = null, IDictionary<string, string> namespaceMappings = null, IEnumerable<NamespacedName> restoreHookReferences = null, ResourceIdentifier stagingResourceGroupId = null, ResourceIdentifier stagingStorageAccountId = null)
+        public static KubernetesClusterVaultTierRestoreCriteria KubernetesClusterVaultTierRestoreCriteria(bool includeClusterScopeResources = default, IEnumerable<string> includedNamespaces = null, IEnumerable<string> excludedNamespaces = null, IEnumerable<string> includedResourceTypes = null, IEnumerable<string> excludedResourceTypes = null, IEnumerable<string> labelSelectors = null, PersistentVolumeRestoreMode? persistentVolumeRestoreMode = null, KubernetesClusterRestoreExistingResourcePolicy? conflictPolicy = null, IDictionary<string, string> namespaceMappings = null, IEnumerable<NamespacedName> restoreHookReferences = null, ResourceIdentifier stagingResourceGroupId = null, ResourceIdentifier stagingStorageAccountId = null, NamespacedName resourceModifierReference = null)
         {
             includedNamespaces ??= new List<string>();
             excludedNamespaces ??= new List<string>();
@@ -921,7 +926,8 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                 namespaceMappings,
                 restoreHookReferences?.ToList(),
                 stagingResourceGroupId,
-                stagingStorageAccountId);
+                stagingStorageAccountId,
+                resourceModifierReference);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.RestoreFilesTargetInfo"/>. </summary>
@@ -976,6 +982,24 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                 dataSourceInfo,
                 dataSourceSetInfo,
                 dataSourceAuthCredentials);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.DataProtectionBackup.Models.DataProtectionBackupVaultProperties" />. </summary>
+        /// <param name="alertSettingsForAllJobFailures"> Monitoring Settings. </param>
+        /// <param name="provisioningState"> Provisioning state of the BackupVault resource. </param>
+        /// <param name="resourceMoveState"> Resource move state for backup vault. </param>
+        /// <param name="resourceMoveDetails"> Resource move details for backup vault. </param>
+        /// <param name="securitySettings"> Security Settings. </param>
+        /// <param name="storageSettings"> Storage Settings. </param>
+        /// <param name="isVaultProtectedByResourceGuard"> Is vault protected by resource guard. </param>
+        /// <param name="featureSettings"> Feature Settings. </param>
+        /// <param name="secureScore"> Secure Score of Backup Vault. </param>
+        /// <param name="replicatedRegions"> List of replicated regions for Backup Vault. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.DataProtectionBackup.Models.DataProtectionBackupVaultProperties" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static DataProtectionBackupVaultProperties DataProtectionBackupVaultProperties(AzureMonitorAlertsState? alertSettingsForAllJobFailures, DataProtectionBackupProvisioningState? provisioningState, BackupVaultResourceMoveState? resourceMoveState, BackupVaultResourceMoveDetails resourceMoveDetails, BackupVaultSecuritySettings securitySettings, IEnumerable<DataProtectionBackupStorageSetting> storageSettings, bool? isVaultProtectedByResourceGuard, BackupVaultFeatureSettings featureSettings, BackupVaultSecureScoreLevel? secureScore, IEnumerable<AzureLocation> replicatedRegions)
+        {
+            return DataProtectionBackupVaultProperties(alertSettingsForAllJobFailures: alertSettingsForAllJobFailures, provisioningState: provisioningState, resourceMoveState: resourceMoveState, resourceMoveDetails: resourceMoveDetails, securitySettings: securitySettings, storageSettings: storageSettings, isVaultProtectedByResourceGuard: isVaultProtectedByResourceGuard, featureSettings: featureSettings, secureScore: secureScore, bcdrSecurityLevel: default, replicatedRegions: replicatedRegions);
         }
     }
 }

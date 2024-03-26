@@ -36,6 +36,11 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                 writer.WritePropertyName("immutabilitySettings"u8);
                 writer.WriteObjectValue<ImmutabilitySettings>(ImmutabilitySettings, options);
             }
+            if (Optional.IsDefined(EncryptionSettings))
+            {
+                writer.WritePropertyName("encryptionSettings"u8);
+                writer.WriteObjectValue<EncryptionSettings>(EncryptionSettings, options);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -76,6 +81,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
             }
             BackupVaultSoftDeleteSettings softDeleteSettings = default;
             ImmutabilitySettings immutabilitySettings = default;
+            EncryptionSettings encryptionSettings = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -98,13 +104,22 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                     immutabilitySettings = ImmutabilitySettings.DeserializeImmutabilitySettings(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("encryptionSettings"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    encryptionSettings = EncryptionSettings.DeserializeEncryptionSettings(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new BackupVaultSecuritySettings(softDeleteSettings, immutabilitySettings, serializedAdditionalRawData);
+            return new BackupVaultSecuritySettings(softDeleteSettings, immutabilitySettings, encryptionSettings, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<BackupVaultSecuritySettings>.Write(ModelReaderWriterOptions options)
