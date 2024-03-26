@@ -21,7 +21,7 @@ namespace Azure.Monitor.Query.Models
         /// The interval (i.e. timegrain) of the query in ISO 8601 duration format. Defaults to PT1M. Special case for 'FULL' value that returns single datapoint for entire time span requested.
         /// *Examples: PT15M, PT1H, P1D, FULL*
         /// </param>
-        /// <param name="metricNames"> The names of the metrics (comma separated) to retrieve. </param>
+        /// <param name="metricNames"> The names of the metrics (comma separated) to retrieve. Special case: If a metricname itself has a comma in it then use %2 to indicate it. Eg: 'Metric,Name1' should be **'Metric%2Name1'**. At most 20 metric names can be specified. </param>
         /// <param name="aggregation"> The list of aggregation types (comma separated) to retrieve. </param>
         /// <param name="filter"> The **$filter** is used to reduce the set of metric data returned.&lt;br&gt;Example:&lt;br&gt;Metric contains metadata A, B and C.&lt;br&gt;- Return all time series of C where A = a1 and B = b1 or b2&lt;br&gt;**$filter=A eq ‘a1’ and B eq ‘b1’ or B eq ‘b2’ and C eq ‘*’**&lt;br&gt;- Invalid variant:&lt;br&gt;**$filter=A eq ‘a1’ and B eq ‘b1’ and C eq ‘*’ or B = ‘b2’**&lt;br&gt;This is invalid because the logical or operator cannot separate two different metadata names.&lt;br&gt;- Return all time series where A = a1, B = b1 and C = c1:&lt;br&gt;**$filter=A eq ‘a1’ and B eq ‘b1’ and C eq ‘c1’**&lt;br&gt;- Return all time series where A = a1&lt;br&gt;**$filter=A eq ‘a1’ and B eq ‘*’ and C eq ‘*’**. </param>
         /// <param name="top">
@@ -62,7 +62,7 @@ namespace Azure.Monitor.Query.Models
         /// *Examples: PT15M, PT1H, P1D, FULL*
         /// </summary>
         public string Interval { get; }
-        /// <summary> The names of the metrics (comma separated) to retrieve. </summary>
+        /// <summary> The names of the metrics (comma separated) to retrieve. Special case: If a metricname itself has a comma in it then use %2 to indicate it. Eg: 'Metric,Name1' should be **'Metric%2Name1'**. At most 20 metric names can be specified. </summary>
         public string MetricNames { get; }
         /// <summary> The list of aggregation types (comma separated) to retrieve. </summary>
         public string Aggregation { get; }

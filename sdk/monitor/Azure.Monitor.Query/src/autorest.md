@@ -5,11 +5,11 @@ Run `dotnet build /t:GenerateCode` to generate code.
 ``` yaml
 title: MonitorQuery
 input-file:
-    - https://github.com/Azure/azure-rest-api-specs/blob/0373f0edc4414fd402603fac51d0df93f1f70507/specification/monitor/resource-manager/Microsoft.Insights/stable/2023-10-01/metricDefinitions_API.json
-    - https://github.com/Azure/azure-rest-api-specs/blob/0373f0edc4414fd402603fac51d0df93f1f70507/specification/monitor/resource-manager/Microsoft.Insights/stable/2023-10-01/metrics_API.json
-    - https://github.com/Azure/azure-rest-api-specs/blob/0373f0edc4414fd402603fac51d0df93f1f70507/specification/monitor/resource-manager/Microsoft.Insights/preview/2017-12-01-preview/metricNamespaces_API.json
-    - https://github.com/Azure/azure-rest-api-specs/blob/0550754fb421cd3a5859abf6713a542b682f626c/specification/monitor/data-plane/Microsoft.Insights/stable/2023-10-01/metricBatch.json
-    - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/21f5332f2dc7437d1446edf240e9a3d4c90c6431/specification/operationalinsights/data-plane/Microsoft.OperationalInsights/stable/2022-10-27/OperationalInsights.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/a80d6e326074eee958b0cf551ba8acd7edbe4d53/specification/monitor/resource-manager/Microsoft.Insights/stable/2023-10-01/metricDefinitions_API.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/a80d6e326074eee958b0cf551ba8acd7edbe4d53/specification/monitor/resource-manager/Microsoft.Insights/stable/2023-10-01/metrics_API.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/a80d6e326074eee958b0cf551ba8acd7edbe4d53/specification/monitor/resource-manager/Microsoft.Insights/preview/2017-12-01-preview/metricNamespaces_API.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/a80d6e326074eee958b0cf551ba8acd7edbe4d53/specification/monitor/data-plane/Microsoft.Insights/stable/2023-10-01/metricBatch.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/a80d6e326074eee958b0cf551ba8acd7edbe4d53/specification/operationalinsights/data-plane/Microsoft.OperationalInsights/stable/2022-10-27/OperationalInsights.json
 generation1-convenience-client: true
 modelerfour:
     lenient-model-deduplication: true

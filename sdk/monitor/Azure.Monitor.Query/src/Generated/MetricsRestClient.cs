@@ -106,7 +106,7 @@ namespace Azure.Monitor.Query
         /// The interval (i.e. timegrain) of the query in ISO 8601 duration format. Defaults to PT1M. Special case for 'FULL' value that returns single datapoint for entire time span requested.
         /// *Examples: PT15M, PT1H, P1D, FULL*
         /// </param>
-        /// <param name="metricnames"> The names of the metrics (comma separated) to retrieve. </param>
+        /// <param name="metricnames"> The names of the metrics (comma separated) to retrieve. Special case: If a metricname itself has a comma in it then use %2 to indicate it. Eg: 'Metric,Name1' should be **'Metric%2Name1'**. At most 20 metric names can be specified. </param>
         /// <param name="aggregation">
         /// The list of aggregation types (comma separated) to retrieve.
         /// *Examples: average, minimum, maximum*
@@ -159,7 +159,7 @@ namespace Azure.Monitor.Query
         /// The interval (i.e. timegrain) of the query in ISO 8601 duration format. Defaults to PT1M. Special case for 'FULL' value that returns single datapoint for entire time span requested.
         /// *Examples: PT15M, PT1H, P1D, FULL*
         /// </param>
-        /// <param name="metricnames"> The names of the metrics (comma separated) to retrieve. </param>
+        /// <param name="metricnames"> The names of the metrics (comma separated) to retrieve. Special case: If a metricname itself has a comma in it then use %2 to indicate it. Eg: 'Metric,Name1' should be **'Metric%2Name1'**. At most 20 metric names can be specified. </param>
         /// <param name="aggregation">
         /// The list of aggregation types (comma separated) to retrieve.
         /// *Examples: average, minimum, maximum*
