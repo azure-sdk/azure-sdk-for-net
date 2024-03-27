@@ -1,0 +1,849 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetJobAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetJobAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response<Job> response = await client.GetJobAsync("<name>");
+]]></code>
+This sample shows how to call GetJobAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response<Job> response = await client.GetJobAsync("<name>");
+]]></code></example>
+    </member>
+    <member name="GetJob(string,CancellationToken)">
+      <example>
+This sample shows how to call GetJob.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response<Job> response = client.GetJob("<name>");
+]]></code>
+This sample shows how to call GetJob with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response<Job> response = client.GetJob("<name>");
+]]></code></example>
+    </member>
+    <member name="GetJobAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetJobAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response response = await client.GetJobAsync("<name>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("dataType").ToString());
+Console.WriteLine(result.GetProperty("operation").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+]]></code>
+This sample shows how to call GetJobAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response response = await client.GetJobAsync("<name>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("extensions")[0].ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("dataType").ToString());
+Console.WriteLine(result.GetProperty("operation").ToString());
+Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("startedAt").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedAt").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("successful").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("failed").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("canceled").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("total").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("bytesProcessed").ToString());
+]]></code></example>
+    </member>
+    <member name="GetJob(string,RequestContext)">
+      <example>
+This sample shows how to call GetJob and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response response = client.GetJob("<name>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("dataType").ToString());
+Console.WriteLine(result.GetProperty("operation").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+]]></code>
+This sample shows how to call GetJob with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response response = client.GetJob("<name>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("extensions")[0].ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("dataType").ToString());
+Console.WriteLine(result.GetProperty("operation").ToString());
+Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("startedAt").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedAt").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("successful").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("failed").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("canceled").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("total").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("bytesProcessed").ToString());
+]]></code></example>
+    </member>
+    <member name="CancelAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call CancelAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response<Job> response = await client.CancelAsync("<name>");
+]]></code>
+This sample shows how to call CancelAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response<Job> response = await client.CancelAsync("<name>");
+]]></code></example>
+    </member>
+    <member name="Cancel(string,CancellationToken)">
+      <example>
+This sample shows how to call Cancel.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response<Job> response = client.Cancel("<name>");
+]]></code>
+This sample shows how to call Cancel with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response<Job> response = client.Cancel("<name>");
+]]></code></example>
+    </member>
+    <member name="CancelAsync(string,RequestContext)">
+      <example>
+This sample shows how to call CancelAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response response = await client.CancelAsync("<name>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("dataType").ToString());
+Console.WriteLine(result.GetProperty("operation").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+]]></code>
+This sample shows how to call CancelAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response response = await client.CancelAsync("<name>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("extensions")[0].ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("dataType").ToString());
+Console.WriteLine(result.GetProperty("operation").ToString());
+Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("startedAt").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedAt").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("successful").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("failed").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("canceled").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("total").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("bytesProcessed").ToString());
+]]></code></example>
+    </member>
+    <member name="Cancel(string,RequestContext)">
+      <example>
+This sample shows how to call Cancel and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response response = client.Cancel("<name>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("dataType").ToString());
+Console.WriteLine(result.GetProperty("operation").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+]]></code>
+This sample shows how to call Cancel with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response response = client.Cancel("<name>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("extensions")[0].ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("dataType").ToString());
+Console.WriteLine(result.GetProperty("operation").ToString());
+Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("startedAt").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedAt").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("successful").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("failed").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("canceled").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("total").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("bytesProcessed").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteAsync(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response response = await client.DeleteAsync("<name>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call DeleteAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response response = await client.DeleteAsync("<name>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Delete(string,RequestContext)">
+      <example>
+This sample shows how to call Delete.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response response = client.Delete("<name>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call Delete with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Response response = client.Delete("<name>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetJobsAsync(int?,string,CancellationToken)">
+      <example>
+This sample shows how to call GetJobsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+await foreach (Job item in client.GetJobsAsync())
+{
+}
+]]></code>
+This sample shows how to call GetJobsAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+await foreach (Job item in client.GetJobsAsync(maxpagesize: 1234, continuationToken: "<continuationToken>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetJobs(int?,string,CancellationToken)">
+      <example>
+This sample shows how to call GetJobs.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+foreach (Job item in client.GetJobs())
+{
+}
+]]></code>
+This sample shows how to call GetJobs with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+foreach (Job item in client.GetJobs(maxpagesize: 1234, continuationToken: "<continuationToken>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetJobsAsync(int?,string,RequestContext)">
+      <example>
+This sample shows how to call GetJobsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+await foreach (BinaryData item in client.GetJobsAsync(null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+    Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+    Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+    Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+    Console.WriteLine(result.GetProperty("dataType").ToString());
+    Console.WriteLine(result.GetProperty("operation").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("createdAt").ToString());
+}
+]]></code>
+This sample shows how to call GetJobsAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+await foreach (BinaryData item in client.GetJobsAsync(1234, "<continuationToken>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+    Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+    Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("extensions")[0].ToString());
+    Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+    Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+    Console.WriteLine(result.GetProperty("dataType").ToString());
+    Console.WriteLine(result.GetProperty("operation").ToString());
+    Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("startedAt").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdatedAt").ToString());
+    Console.WriteLine(result.GetProperty("summary").GetProperty("successful").ToString());
+    Console.WriteLine(result.GetProperty("summary").GetProperty("failed").ToString());
+    Console.WriteLine(result.GetProperty("summary").GetProperty("canceled").ToString());
+    Console.WriteLine(result.GetProperty("summary").GetProperty("total").ToString());
+    Console.WriteLine(result.GetProperty("summary").GetProperty("bytesProcessed").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetJobs(int?,string,RequestContext)">
+      <example>
+This sample shows how to call GetJobs and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+foreach (BinaryData item in client.GetJobs(null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+    Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+    Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+    Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+    Console.WriteLine(result.GetProperty("dataType").ToString());
+    Console.WriteLine(result.GetProperty("operation").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("createdAt").ToString());
+}
+]]></code>
+This sample shows how to call GetJobs with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+foreach (BinaryData item in client.GetJobs(1234, "<continuationToken>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+    Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+    Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("extensions")[0].ToString());
+    Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+    Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+    Console.WriteLine(result.GetProperty("dataType").ToString());
+    Console.WriteLine(result.GetProperty("operation").ToString());
+    Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("startedAt").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdatedAt").ToString());
+    Console.WriteLine(result.GetProperty("summary").GetProperty("successful").ToString());
+    Console.WriteLine(result.GetProperty("summary").GetProperty("failed").ToString());
+    Console.WriteLine(result.GetProperty("summary").GetProperty("canceled").ToString());
+    Console.WriteLine(result.GetProperty("summary").GetProperty("total").ToString());
+    Console.WriteLine(result.GetProperty("summary").GetProperty("bytesProcessed").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetFilesAsync(string,int?,string,CancellationToken)">
+      <example>
+This sample shows how to call GetFilesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+await foreach (File item in client.GetFilesAsync("<name>"))
+{
+}
+]]></code>
+This sample shows how to call GetFilesAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+await foreach (File item in client.GetFilesAsync("<name>", maxpagesize: 1234, continuationToken: "<continuationToken>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetFiles(string,int?,string,CancellationToken)">
+      <example>
+This sample shows how to call GetFiles.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+foreach (File item in client.GetFiles("<name>"))
+{
+}
+]]></code>
+This sample shows how to call GetFiles with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+foreach (File item in client.GetFiles("<name>", maxpagesize: 1234, continuationToken: "<continuationToken>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetFilesAsync(string,int?,string,RequestContext)">
+      <example>
+This sample shows how to call GetFilesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+await foreach (BinaryData item in client.GetFilesAsync("<name>", null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("input").GetProperty("path").ToString());
+    Console.WriteLine(result.GetProperty("input").GetProperty("etag").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+}
+]]></code>
+This sample shows how to call GetFilesAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+await foreach (BinaryData item in client.GetFilesAsync("<name>", 1234, "<continuationToken>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("input").GetProperty("path").ToString());
+    Console.WriteLine(result.GetProperty("input").GetProperty("etag").ToString());
+    Console.WriteLine(result.GetProperty("output").GetProperty("path").ToString());
+    Console.WriteLine(result.GetProperty("output").GetProperty("etag").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetFiles(string,int?,string,RequestContext)">
+      <example>
+This sample shows how to call GetFiles and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+foreach (BinaryData item in client.GetFiles("<name>", null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("input").GetProperty("path").ToString());
+    Console.WriteLine(result.GetProperty("input").GetProperty("etag").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+}
+]]></code>
+This sample shows how to call GetFiles with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+foreach (BinaryData item in client.GetFiles("<name>", 1234, "<continuationToken>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("input").GetProperty("path").ToString());
+    Console.WriteLine(result.GetProperty("input").GetProperty("etag").ToString());
+    Console.WriteLine(result.GetProperty("output").GetProperty("path").ToString());
+    Console.WriteLine(result.GetProperty("output").GetProperty("etag").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="CreateAsync(WaitUntil,string,Job,CancellationToken)">
+      <example>
+This sample shows how to call CreateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Job resource = new Job(new SourceStorageLocation(new Uri("http://localhost:3000"), "<prefix>"), new TargetStorageLocation(new Uri("http://localhost:3000"), "<prefix>"), DocumentDataType.PlainText, OperationType.Redact);
+Operation<Job> operation = await client.CreateAsync(WaitUntil.Completed, "<name>", resource);
+Job responseData = operation.Value;
+]]></code>
+This sample shows how to call CreateAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Job resource = new Job(new SourceStorageLocation(new Uri("http://localhost:3000"), "<prefix>")
+{
+    Extensions = { "<extensions>" },
+}, new TargetStorageLocation(new Uri("http://localhost:3000"), "<prefix>"), DocumentDataType.PlainText, OperationType.Redact)
+{
+    RedactionFormat = "<redactionFormat>",
+};
+Operation<Job> operation = await client.CreateAsync(WaitUntil.Completed, "<name>", resource);
+Job responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="Create(WaitUntil,string,Job,CancellationToken)">
+      <example>
+This sample shows how to call Create.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Job resource = new Job(new SourceStorageLocation(new Uri("http://localhost:3000"), "<prefix>"), new TargetStorageLocation(new Uri("http://localhost:3000"), "<prefix>"), DocumentDataType.PlainText, OperationType.Redact);
+Operation<Job> operation = client.Create(WaitUntil.Completed, "<name>", resource);
+Job responseData = operation.Value;
+]]></code>
+This sample shows how to call Create with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+Job resource = new Job(new SourceStorageLocation(new Uri("http://localhost:3000"), "<prefix>")
+{
+    Extensions = { "<extensions>" },
+}, new TargetStorageLocation(new Uri("http://localhost:3000"), "<prefix>"), DocumentDataType.PlainText, OperationType.Redact)
+{
+    RedactionFormat = "<redactionFormat>",
+};
+Operation<Job> operation = client.Create(WaitUntil.Completed, "<name>", resource);
+Job responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="CreateAsync(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    sourceLocation = new
+    {
+        location = "http://localhost:3000",
+        prefix = "<prefix>",
+    },
+    targetLocation = new
+    {
+        location = "http://localhost:3000",
+        prefix = "<prefix>",
+    },
+    dataType = "PlainText",
+    operation = "Redact",
+});
+Operation<BinaryData> operation = await client.CreateAsync(WaitUntil.Completed, "<name>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("dataType").ToString());
+Console.WriteLine(result.GetProperty("operation").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+]]></code>
+This sample shows how to call CreateAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    sourceLocation = new
+    {
+        location = "http://localhost:3000",
+        prefix = "<prefix>",
+        extensions = new object[]
+        {
+            "<extensions>"
+        },
+    },
+    targetLocation = new
+    {
+        location = "http://localhost:3000",
+        prefix = "<prefix>",
+    },
+    dataType = "PlainText",
+    operation = "Redact",
+    redactionFormat = "<redactionFormat>",
+});
+Operation<BinaryData> operation = await client.CreateAsync(WaitUntil.Completed, "<name>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("extensions")[0].ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("dataType").ToString());
+Console.WriteLine(result.GetProperty("operation").ToString());
+Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("startedAt").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedAt").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("successful").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("failed").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("canceled").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("total").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("bytesProcessed").ToString());
+]]></code></example>
+    </member>
+    <member name="Create(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Create and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    sourceLocation = new
+    {
+        location = "http://localhost:3000",
+        prefix = "<prefix>",
+    },
+    targetLocation = new
+    {
+        location = "http://localhost:3000",
+        prefix = "<prefix>",
+    },
+    dataType = "PlainText",
+    operation = "Redact",
+});
+Operation<BinaryData> operation = client.Create(WaitUntil.Completed, "<name>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("dataType").ToString());
+Console.WriteLine(result.GetProperty("operation").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+]]></code>
+This sample shows how to call Create with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Jobs client = new DeidentificationClient(endpoint, credential).GetJobsClient(apiVersion: "2024-01-31-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    sourceLocation = new
+    {
+        location = "http://localhost:3000",
+        prefix = "<prefix>",
+        extensions = new object[]
+        {
+            "<extensions>"
+        },
+    },
+    targetLocation = new
+    {
+        location = "http://localhost:3000",
+        prefix = "<prefix>",
+    },
+    dataType = "PlainText",
+    operation = "Redact",
+    redactionFormat = "<redactionFormat>",
+});
+Operation<BinaryData> operation = client.Create(WaitUntil.Completed, "<name>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("sourceLocation").GetProperty("extensions")[0].ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
+Console.WriteLine(result.GetProperty("dataType").ToString());
+Console.WriteLine(result.GetProperty("operation").ToString());
+Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("startedAt").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedAt").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("successful").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("failed").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("canceled").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("total").ToString());
+Console.WriteLine(result.GetProperty("summary").GetProperty("bytesProcessed").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
