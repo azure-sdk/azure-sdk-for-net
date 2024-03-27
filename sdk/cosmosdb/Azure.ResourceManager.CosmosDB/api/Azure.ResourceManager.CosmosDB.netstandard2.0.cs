@@ -4050,6 +4050,8 @@ namespace Azure.ResourceManager.CosmosDB.Models
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
         public CosmosDBServerVersion(string value) { throw null; }
+        public static Azure.ResourceManager.CosmosDB.Models.CosmosDBServerVersion Five0 { get { throw null; } }
+        public static Azure.ResourceManager.CosmosDB.Models.CosmosDBServerVersion Six0 { get { throw null; } }
         public static Azure.ResourceManager.CosmosDB.Models.CosmosDBServerVersion V3_2 { get { throw null; } }
         public static Azure.ResourceManager.CosmosDB.Models.CosmosDBServerVersion V3_6 { get { throw null; } }
         public static Azure.ResourceManager.CosmosDB.Models.CosmosDBServerVersion V4_0 { get { throw null; } }
