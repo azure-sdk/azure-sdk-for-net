@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ContainerService.Models
 {
-    /// <summary> Istio egress gateway configuration. </summary>
-    public partial class IstioEgressGateway
+    /// <summary> The Windows agent pool's specific profile. </summary>
+    internal partial class AgentPoolWindowsProfile
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,28 +45,21 @@ namespace Azure.ResourceManager.ContainerService.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="IstioEgressGateway"/>. </summary>
-        /// <param name="isEnabled"> Whether to enable the egress gateway. </param>
-        public IstioEgressGateway(bool isEnabled)
+        /// <summary> Initializes a new instance of <see cref="AgentPoolWindowsProfile"/>. </summary>
+        public AgentPoolWindowsProfile()
         {
-            IsEnabled = isEnabled;
         }
 
-        /// <summary> Initializes a new instance of <see cref="IstioEgressGateway"/>. </summary>
-        /// <param name="isEnabled"> Whether to enable the egress gateway. </param>
+        /// <summary> Initializes a new instance of <see cref="AgentPoolWindowsProfile"/>. </summary>
+        /// <param name="disableOutboundNat"> The default value is false. Outbound NAT can only be disabled if the cluster outboundType is NAT Gateway and the Windows agent pool does not have node public IP enabled. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IstioEgressGateway(bool isEnabled, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AgentPoolWindowsProfile(bool? disableOutboundNat, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            IsEnabled = isEnabled;
+            DisableOutboundNat = disableOutboundNat;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="IstioEgressGateway"/> for deserialization. </summary>
-        internal IstioEgressGateway()
-        {
-        }
-
-        /// <summary> Whether to enable the egress gateway. </summary>
-        public bool IsEnabled { get; set; }
+        /// <summary> The default value is false. Outbound NAT can only be disabled if the cluster outboundType is NAT Gateway and the Windows agent pool does not have node public IP enabled. </summary>
+        public bool? DisableOutboundNat { get; set; }
     }
 }
