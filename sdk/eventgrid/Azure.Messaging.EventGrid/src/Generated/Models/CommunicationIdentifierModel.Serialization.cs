@@ -17,12 +17,23 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
+            CommunicationIdentifierModelKind? kind = default;
             string rawId = default;
             CommunicationUserIdentifierModel communicationUser = default;
             PhoneNumberIdentifierModel phoneNumber = default;
             MicrosoftTeamsUserIdentifierModel microsoftTeamsUser = default;
+            MicrosoftTeamsAppIdentifierModel microsoftTeamsApp = default;
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("kind"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    kind = new CommunicationIdentifierModelKind(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("rawId"u8))
                 {
                     rawId = property.Value.GetString();
@@ -55,8 +66,23 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     microsoftTeamsUser = MicrosoftTeamsUserIdentifierModel.DeserializeMicrosoftTeamsUserIdentifierModel(property.Value);
                     continue;
                 }
+                if (property.NameEquals("microsoftTeamsApp"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    microsoftTeamsApp = MicrosoftTeamsAppIdentifierModel.DeserializeMicrosoftTeamsAppIdentifierModel(property.Value);
+                    continue;
+                }
             }
-            return new CommunicationIdentifierModel(rawId, communicationUser, phoneNumber, microsoftTeamsUser);
+            return new CommunicationIdentifierModel(
+                kind,
+                rawId,
+                communicationUser,
+                phoneNumber,
+                microsoftTeamsUser,
+                microsoftTeamsApp);
         }
     }
 }
