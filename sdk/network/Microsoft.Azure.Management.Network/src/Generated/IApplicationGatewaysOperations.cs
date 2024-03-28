@@ -243,6 +243,83 @@ namespace Microsoft.Azure.Management.Network
         /// </exception>
         Task<AzureOperationResponse<ApplicationGatewayBackendHealth>> BackendHealthWithHttpMessagesAsync(string resourceGroupName, string applicationGatewayName, string expand = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
+        /// Validates the feasibility of the specified application gateway in a
+        /// resource group for v1 to v2 migration and spins up a parallel v2
+        /// gateway.
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group.
+        /// </param>
+        /// <param name='applicationGatewayName'>
+        /// The name of the application gateway.
+        /// </param>
+        /// <param name='migrationRequest'>
+        /// Application gateway migration request body.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse> PrepareMigrationWithHttpMessagesAsync(string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// To switch the existing v1 data plane to v2 dataplane.
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group.
+        /// </param>
+        /// <param name='applicationGatewayName'>
+        /// The name of the application gateway.
+        /// </param>
+        /// <param name='migrationRequest'>
+        /// Application gateway migration request body.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse> ExecuteMigrationWithHttpMessagesAsync(string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Deletes the v1 gateway.
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group.
+        /// </param>
+        /// <param name='applicationGatewayName'>
+        /// The name of the application gateway.
+        /// </param>
+        /// <param name='migrationRequest'>
+        /// Application gateway migration request body.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse> CommitMigrationWithHttpMessagesAsync(string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
         /// Gets the backend health for given combination of backend pool and
         /// http setting of the specified application gateway in a resource
         /// group.
@@ -537,6 +614,83 @@ namespace Microsoft.Azure.Management.Network
         /// Thrown when a required parameter is null
         /// </exception>
         Task<AzureOperationResponse<ApplicationGatewayBackendHealth>> BeginBackendHealthWithHttpMessagesAsync(string resourceGroupName, string applicationGatewayName, string expand = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Validates the feasibility of the specified application gateway in a
+        /// resource group for v1 to v2 migration and spins up a parallel v2
+        /// gateway.
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group.
+        /// </param>
+        /// <param name='applicationGatewayName'>
+        /// The name of the application gateway.
+        /// </param>
+        /// <param name='migrationRequest'>
+        /// Application gateway migration request body.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse> BeginPrepareMigrationWithHttpMessagesAsync(string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// To switch the existing v1 data plane to v2 dataplane.
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group.
+        /// </param>
+        /// <param name='applicationGatewayName'>
+        /// The name of the application gateway.
+        /// </param>
+        /// <param name='migrationRequest'>
+        /// Application gateway migration request body.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse> BeginExecuteMigrationWithHttpMessagesAsync(string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Deletes the v1 gateway.
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group.
+        /// </param>
+        /// <param name='applicationGatewayName'>
+        /// The name of the application gateway.
+        /// </param>
+        /// <param name='migrationRequest'>
+        /// Application gateway migration request body.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse> BeginCommitMigrationWithHttpMessagesAsync(string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Gets the backend health for given combination of backend pool and
         /// http setting of the specified application gateway in a resource

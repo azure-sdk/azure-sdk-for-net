@@ -379,6 +379,137 @@ namespace Microsoft.Azure.Management.Network
             }
 
             /// <summary>
+            /// Validates the feasibility of the specified application gateway in a
+            /// resource group for v1 to v2 migration and spins up a parallel v2 gateway.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='applicationGatewayName'>
+            /// The name of the application gateway.
+            /// </param>
+            /// <param name='migrationRequest'>
+            /// Application gateway migration request body.
+            /// </param>
+            public static void PrepareMigration(this IApplicationGatewaysOperations operations, string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest)
+            {
+                operations.PrepareMigrationAsync(resourceGroupName, applicationGatewayName, migrationRequest).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Validates the feasibility of the specified application gateway in a
+            /// resource group for v1 to v2 migration and spins up a parallel v2 gateway.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='applicationGatewayName'>
+            /// The name of the application gateway.
+            /// </param>
+            /// <param name='migrationRequest'>
+            /// Application gateway migration request body.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task PrepareMigrationAsync(this IApplicationGatewaysOperations operations, string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.PrepareMigrationWithHttpMessagesAsync(resourceGroupName, applicationGatewayName, migrationRequest, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <summary>
+            /// To switch the existing v1 data plane to v2 dataplane.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='applicationGatewayName'>
+            /// The name of the application gateway.
+            /// </param>
+            /// <param name='migrationRequest'>
+            /// Application gateway migration request body.
+            /// </param>
+            public static void ExecuteMigration(this IApplicationGatewaysOperations operations, string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest)
+            {
+                operations.ExecuteMigrationAsync(resourceGroupName, applicationGatewayName, migrationRequest).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// To switch the existing v1 data plane to v2 dataplane.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='applicationGatewayName'>
+            /// The name of the application gateway.
+            /// </param>
+            /// <param name='migrationRequest'>
+            /// Application gateway migration request body.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task ExecuteMigrationAsync(this IApplicationGatewaysOperations operations, string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.ExecuteMigrationWithHttpMessagesAsync(resourceGroupName, applicationGatewayName, migrationRequest, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <summary>
+            /// Deletes the v1 gateway.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='applicationGatewayName'>
+            /// The name of the application gateway.
+            /// </param>
+            /// <param name='migrationRequest'>
+            /// Application gateway migration request body.
+            /// </param>
+            public static void CommitMigration(this IApplicationGatewaysOperations operations, string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest)
+            {
+                operations.CommitMigrationAsync(resourceGroupName, applicationGatewayName, migrationRequest).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Deletes the v1 gateway.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='applicationGatewayName'>
+            /// The name of the application gateway.
+            /// </param>
+            /// <param name='migrationRequest'>
+            /// Application gateway migration request body.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task CommitMigrationAsync(this IApplicationGatewaysOperations operations, string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.CommitMigrationWithHttpMessagesAsync(resourceGroupName, applicationGatewayName, migrationRequest, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <summary>
             /// Gets the backend health for given combination of backend pool and http
             /// setting of the specified application gateway in a resource group.
             /// </summary>
@@ -841,6 +972,137 @@ namespace Microsoft.Azure.Management.Network
                 {
                     return _result.Body;
                 }
+            }
+
+            /// <summary>
+            /// Validates the feasibility of the specified application gateway in a
+            /// resource group for v1 to v2 migration and spins up a parallel v2 gateway.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='applicationGatewayName'>
+            /// The name of the application gateway.
+            /// </param>
+            /// <param name='migrationRequest'>
+            /// Application gateway migration request body.
+            /// </param>
+            public static void BeginPrepareMigration(this IApplicationGatewaysOperations operations, string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest)
+            {
+                operations.BeginPrepareMigrationAsync(resourceGroupName, applicationGatewayName, migrationRequest).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Validates the feasibility of the specified application gateway in a
+            /// resource group for v1 to v2 migration and spins up a parallel v2 gateway.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='applicationGatewayName'>
+            /// The name of the application gateway.
+            /// </param>
+            /// <param name='migrationRequest'>
+            /// Application gateway migration request body.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task BeginPrepareMigrationAsync(this IApplicationGatewaysOperations operations, string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.BeginPrepareMigrationWithHttpMessagesAsync(resourceGroupName, applicationGatewayName, migrationRequest, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <summary>
+            /// To switch the existing v1 data plane to v2 dataplane.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='applicationGatewayName'>
+            /// The name of the application gateway.
+            /// </param>
+            /// <param name='migrationRequest'>
+            /// Application gateway migration request body.
+            /// </param>
+            public static void BeginExecuteMigration(this IApplicationGatewaysOperations operations, string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest)
+            {
+                operations.BeginExecuteMigrationAsync(resourceGroupName, applicationGatewayName, migrationRequest).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// To switch the existing v1 data plane to v2 dataplane.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='applicationGatewayName'>
+            /// The name of the application gateway.
+            /// </param>
+            /// <param name='migrationRequest'>
+            /// Application gateway migration request body.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task BeginExecuteMigrationAsync(this IApplicationGatewaysOperations operations, string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.BeginExecuteMigrationWithHttpMessagesAsync(resourceGroupName, applicationGatewayName, migrationRequest, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <summary>
+            /// Deletes the v1 gateway.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='applicationGatewayName'>
+            /// The name of the application gateway.
+            /// </param>
+            /// <param name='migrationRequest'>
+            /// Application gateway migration request body.
+            /// </param>
+            public static void BeginCommitMigration(this IApplicationGatewaysOperations operations, string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest)
+            {
+                operations.BeginCommitMigrationAsync(resourceGroupName, applicationGatewayName, migrationRequest).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Deletes the v1 gateway.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='applicationGatewayName'>
+            /// The name of the application gateway.
+            /// </param>
+            /// <param name='migrationRequest'>
+            /// Application gateway migration request body.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task BeginCommitMigrationAsync(this IApplicationGatewaysOperations operations, string resourceGroupName, string applicationGatewayName, ApplicationGatewayMigrationRequest migrationRequest, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.BeginCommitMigrationWithHttpMessagesAsync(resourceGroupName, applicationGatewayName, migrationRequest, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <summary>
