@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteApplicationGateway()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayDelete.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayDelete.json
             // this example is just showing the usage of "ApplicationGateways_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -48,7 +48,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetApplicationGateway()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayGet.json
             // this example is just showing the usage of "ApplicationGateways_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_UpdateApplicationGatewayTags()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayUpdateTags.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayUpdateTags.json
             // this example is just showing the usage of "ApplicationGateways_UpdateTags" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -118,7 +118,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetApplicationGateways_ListsAllApplicationGatewaysInASubscription()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayListAll.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayListAll.json
             // this example is just showing the usage of "ApplicationGateways_ListAll" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -150,7 +150,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Start_StartApplicationGateway()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayStart.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayStart.json
             // this example is just showing the usage of "ApplicationGateways_Start" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -177,7 +177,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Stop_StopApplicationGateway()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayStop.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayStop.json
             // this example is just showing the usage of "ApplicationGateways_Stop" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -204,7 +204,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task BackendHealth_GetBackendHealth()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayBackendHealthGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayBackendHealthGet.json
             // this example is just showing the usage of "ApplicationGateways_BackendHealth" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -227,12 +227,112 @@ namespace Azure.ResourceManager.Network.Samples
             Console.WriteLine($"Succeeded: {result}");
         }
 
+        // Prepare Application Gateway Migration
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task PrepareMigration_PrepareApplicationGatewayMigration()
+        {
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayPrepareMigration.json
+            // this example is just showing the usage of "ApplicationGateways_PrepareMigration" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ApplicationGatewayResource created on azure
+            // for more information of creating ApplicationGatewayResource, please refer to the document of ApplicationGatewayResource
+            string subscriptionId = "subid";
+            string resourceGroupName = "rg1";
+            string applicationGatewayName = "appgw";
+            ResourceIdentifier applicationGatewayResourceId = ApplicationGatewayResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, applicationGatewayName);
+            ApplicationGatewayResource applicationGateway = client.GetApplicationGatewayResource(applicationGatewayResourceId);
+
+            // invoke the operation
+            ApplicationGatewayMigrationRequest migrationRequest = new ApplicationGatewayMigrationRequest()
+            {
+                MigrationType = ApplicationGatewayMigrationType.UpgradeDeploymentToV2Sku,
+                SubnetId = "/subscriptions/subid/resourceGroups/rg1/providers/Microsoft.Network/virtualNetworks/vnet1/subnets/appgwV2Subnet",
+                PrivateIP = "10.0.0.154",
+                WafPolicyName = "waf",
+                Zones =
+{
+"1","2","3"
+},
+            };
+            await applicationGateway.PrepareMigrationAsync(WaitUntil.Completed, migrationRequest);
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // Execute Application Gateway Migration
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task ExecuteMigration_ExecuteApplicationGatewayMigration()
+        {
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayExecuteMigration.json
+            // this example is just showing the usage of "ApplicationGateways_ExecuteMigration" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ApplicationGatewayResource created on azure
+            // for more information of creating ApplicationGatewayResource, please refer to the document of ApplicationGatewayResource
+            string subscriptionId = "subid";
+            string resourceGroupName = "rg1";
+            string applicationGatewayName = "appgw";
+            ResourceIdentifier applicationGatewayResourceId = ApplicationGatewayResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, applicationGatewayName);
+            ApplicationGatewayResource applicationGateway = client.GetApplicationGatewayResource(applicationGatewayResourceId);
+
+            // invoke the operation
+            ApplicationGatewayMigrationRequest migrationRequest = new ApplicationGatewayMigrationRequest()
+            {
+                MigrationType = ApplicationGatewayMigrationType.UpgradeDeploymentToV2Sku,
+            };
+            await applicationGateway.ExecuteMigrationAsync(WaitUntil.Completed, migrationRequest);
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // Commit Application Gateway Migration
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task CommitMigration_CommitApplicationGatewayMigration()
+        {
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayCommitMigration.json
+            // this example is just showing the usage of "ApplicationGateways_CommitMigration" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ApplicationGatewayResource created on azure
+            // for more information of creating ApplicationGatewayResource, please refer to the document of ApplicationGatewayResource
+            string subscriptionId = "subid";
+            string resourceGroupName = "rg1";
+            string applicationGatewayName = "appgw";
+            ResourceIdentifier applicationGatewayResourceId = ApplicationGatewayResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, applicationGatewayName);
+            ApplicationGatewayResource applicationGateway = client.GetApplicationGatewayResource(applicationGatewayResourceId);
+
+            // invoke the operation
+            ApplicationGatewayMigrationRequest migrationRequest = new ApplicationGatewayMigrationRequest()
+            {
+                MigrationType = ApplicationGatewayMigrationType.UpgradeDeploymentToV2Sku,
+            };
+            await applicationGateway.CommitMigrationAsync(WaitUntil.Completed, migrationRequest);
+
+            Console.WriteLine($"Succeeded");
+        }
+
         // Test Backend Health
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task BackendHealthOnDemand_TestBackendHealth()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayBackendHealthTest.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayBackendHealthTest.json
             // this example is just showing the usage of "ApplicationGateways_BackendHealthOnDemand" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -269,7 +369,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAvailableServerVariablesApplicationGateways_GetAvailableServerVariables()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayAvailableServerVariablesGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayAvailableServerVariablesGet.json
             // this example is just showing the usage of "ApplicationGateways_ListAvailableServerVariables" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -297,7 +397,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAvailableRequestHeadersApplicationGateways_GetAvailableRequestHeaders()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayAvailableRequestHeadersGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayAvailableRequestHeadersGet.json
             // this example is just showing the usage of "ApplicationGateways_ListAvailableRequestHeaders" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -325,7 +425,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAvailableResponseHeadersApplicationGateways_GetAvailableResponseHeaders()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayAvailableResponseHeadersGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayAvailableResponseHeadersGet.json
             // this example is just showing the usage of "ApplicationGateways_ListAvailableResponseHeaders" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -353,7 +453,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAppGatewayAvailableWafRuleSets_GetAvailableWafRuleSets()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayAvailableWafRuleSetsGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayAvailableWafRuleSetsGet.json
             // this example is just showing the usage of "ApplicationGateways_ListAvailableWafRuleSets" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -381,7 +481,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetApplicationGatewayAvailableSslOptions_GetAvailableSslOptions()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayAvailableSslOptionsGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayAvailableSslOptionsGet.json
             // this example is just showing the usage of "ApplicationGateways_ListAvailableSslOptions" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -406,7 +506,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetApplicationGatewayAvailableSslPredefinedPolicies_GetAvailableSslPredefinedPolicies()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayAvailableSslOptionsPredefinedPoliciesGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayAvailableSslOptionsPredefinedPoliciesGet.json
             // this example is just showing the usage of "ApplicationGateways_ListAvailableSslPredefinedPolicies" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -434,7 +534,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetApplicationGatewaySslPredefinedPolicy_GetAvailableSslPredefinedPolicyByName()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayAvailableSslOptionsPredefinedPolicyGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayAvailableSslOptionsPredefinedPolicyGet.json
             // this example is just showing the usage of "ApplicationGateways_GetSslPredefinedPolicy" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -460,7 +560,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetApplicationGatewayPrivateLinkResources_ListsAllPrivateLinkResourcesOnApplicationGateway()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-09-01/examples/ApplicationGatewayPrivateLinkResourceList.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/ApplicationGatewayPrivateLinkResourceList.json
             // this example is just showing the usage of "ApplicationGatewayPrivateLinkResources_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
