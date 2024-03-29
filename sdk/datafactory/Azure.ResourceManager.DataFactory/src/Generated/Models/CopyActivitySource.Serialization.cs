@@ -122,6 +122,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "FileSystemSource": return FileSystemSource.DeserializeFileSystemSource(element, options);
                     case "GoogleAdWordsSource": return GoogleAdWordsSource.DeserializeGoogleAdWordsSource(element, options);
                     case "GoogleBigQuerySource": return GoogleBigQuerySource.DeserializeGoogleBigQuerySource(element, options);
+                    case "GoogleBigQueryV2Source": return GoogleBigQueryV2Source.DeserializeGoogleBigQueryV2Source(element, options);
                     case "GreenplumSource": return GreenplumSource.DeserializeGreenplumSource(element, options);
                     case "HBaseSource": return HBaseSource.DeserializeHBaseSource(element, options);
                     case "HdfsSource": return HdfsSource.DeserializeHdfsSource(element, options);
@@ -170,6 +171,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "SapOpenHubSource": return SapOpenHubSource.DeserializeSapOpenHubSource(element, options);
                     case "SapTableSource": return SapTableSource.DeserializeSapTableSource(element, options);
                     case "ServiceNowSource": return ServiceNowSource.DeserializeServiceNowSource(element, options);
+                    case "ServiceNowV2Source": return ServiceNowV2Source.DeserializeServiceNowV2Source(element, options);
                     case "SharePointOnlineListSource": return SharePointOnlineListSource.DeserializeSharePointOnlineListSource(element, options);
                     case "ShopifySource": return ShopifySource.DeserializeShopifySource(element, options);
                     case "SnowflakeSource": return SnowflakeSource.DeserializeSnowflakeSource(element, options);

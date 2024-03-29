@@ -160,6 +160,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "FtpServer": return FtpServerLinkedService.DeserializeFtpServerLinkedService(element, options);
                     case "GoogleAdWords": return GoogleAdWordsLinkedService.DeserializeGoogleAdWordsLinkedService(element, options);
                     case "GoogleBigQuery": return GoogleBigQueryLinkedService.DeserializeGoogleBigQueryLinkedService(element, options);
+                    case "GoogleBigQueryV2": return GoogleBigQueryV2LinkedService.DeserializeGoogleBigQueryV2LinkedService(element, options);
                     case "GoogleCloudStorage": return GoogleCloudStorageLinkedService.DeserializeGoogleCloudStorageLinkedService(element, options);
                     case "GoogleSheets": return GoogleSheetsLinkedService.DeserializeGoogleSheetsLinkedService(element, options);
                     case "Greenplum": return GreenplumLinkedService.DeserializeGreenplumLinkedService(element, options);
@@ -210,6 +211,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "SapOpenHub": return SapOpenHubLinkedService.DeserializeSapOpenHubLinkedService(element, options);
                     case "SapTable": return SapTableLinkedService.DeserializeSapTableLinkedService(element, options);
                     case "ServiceNow": return ServiceNowLinkedService.DeserializeServiceNowLinkedService(element, options);
+                    case "ServiceNowV2": return ServiceNowV2LinkedService.DeserializeServiceNowV2LinkedService(element, options);
                     case "Sftp": return SftpServerLinkedService.DeserializeSftpServerLinkedService(element, options);
                     case "SharePointOnlineList": return SharePointOnlineListLinkedService.DeserializeSharePointOnlineListLinkedService(element, options);
                     case "Shopify": return ShopifyLinkedService.DeserializeShopifyLinkedService(element, options);
