@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="DeidAsync(DeidRequest,CancellationToken)">
+      <example>
+This sample shows how to call DeidAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Realtime client = new DeidentificationClient(endpoint, credential).GetRealtimeClient(apiVersion: "2024-01-31-preview");
+
+DeidRequest options = new DeidRequest("<inputText>", DocumentDataType.PlainText, OperationType.Redact, StringIndexType.TextElementV8);
+Response<DeidResponse> response = await client.DeidAsync(options);
+]]></code>
+This sample shows how to call DeidAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Realtime client = new DeidentificationClient(endpoint, credential).GetRealtimeClient(apiVersion: "2024-01-31-preview");
+
+DeidRequest options = new DeidRequest("<inputText>", DocumentDataType.PlainText, OperationType.Redact, StringIndexType.TextElementV8)
+{
+    RedactionFormat = "<redactionFormat>",
+};
+Response<DeidResponse> response = await client.DeidAsync(options);
+]]></code></example>
+    </member>
+    <member name="Deid(DeidRequest,CancellationToken)">
+      <example>
+This sample shows how to call Deid.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Realtime client = new DeidentificationClient(endpoint, credential).GetRealtimeClient(apiVersion: "2024-01-31-preview");
+
+DeidRequest options = new DeidRequest("<inputText>", DocumentDataType.PlainText, OperationType.Redact, StringIndexType.TextElementV8);
+Response<DeidResponse> response = client.Deid(options);
+]]></code>
+This sample shows how to call Deid with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Realtime client = new DeidentificationClient(endpoint, credential).GetRealtimeClient(apiVersion: "2024-01-31-preview");
+
+DeidRequest options = new DeidRequest("<inputText>", DocumentDataType.PlainText, OperationType.Redact, StringIndexType.TextElementV8)
+{
+    RedactionFormat = "<redactionFormat>",
+};
+Response<DeidResponse> response = client.Deid(options);
+]]></code></example>
+    </member>
+    <member name="DeidAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call DeidAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Realtime client = new DeidentificationClient(endpoint, credential).GetRealtimeClient(apiVersion: "2024-01-31-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    inputText = "<inputText>",
+    dataType = "PlainText",
+    operation = "Redact",
+    stringIndexType = "TextElement_v8",
+});
+Response response = await client.DeidAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call DeidAsync with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Realtime client = new DeidentificationClient(endpoint, credential).GetRealtimeClient(apiVersion: "2024-01-31-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    inputText = "<inputText>",
+    dataType = "PlainText",
+    operation = "Redact",
+    stringIndexType = "TextElement_v8",
+    redactionFormat = "<redactionFormat>",
+});
+Response response = await client.DeidAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("outputText").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("entities")[0].GetProperty("category").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("entities")[0].GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("entities")[0].GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("entities")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("entities")[0].GetProperty("confidenceScore").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("stringIndexType").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("path").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("etag").ToString());
+]]></code></example>
+    </member>
+    <member name="Deid(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Deid and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Realtime client = new DeidentificationClient(endpoint, credential).GetRealtimeClient(apiVersion: "2024-01-31-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    inputText = "<inputText>",
+    dataType = "PlainText",
+    operation = "Redact",
+    stringIndexType = "TextElement_v8",
+});
+Response response = client.Deid(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call Deid with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+Realtime client = new DeidentificationClient(endpoint, credential).GetRealtimeClient(apiVersion: "2024-01-31-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    inputText = "<inputText>",
+    dataType = "PlainText",
+    operation = "Redact",
+    stringIndexType = "TextElement_v8",
+    redactionFormat = "<redactionFormat>",
+});
+Response response = client.Deid(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("outputText").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("entities")[0].GetProperty("category").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("entities")[0].GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("entities")[0].GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("entities")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("entities")[0].GetProperty("confidenceScore").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("stringIndexType").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("path").ToString());
+Console.WriteLine(result.GetProperty("taggerResult").GetProperty("etag").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
