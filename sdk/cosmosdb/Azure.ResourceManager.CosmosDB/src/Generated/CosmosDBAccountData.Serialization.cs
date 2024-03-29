@@ -306,6 +306,16 @@ namespace Azure.ResourceManager.CosmosDB
                 writer.WritePropertyName("capacity"u8);
                 writer.WriteObjectValue<CosmosDBAccountCapacity>(Capacity, options);
             }
+            if (Optional.IsDefined(CapacityMode))
+            {
+                writer.WritePropertyName("capacityMode"u8);
+                writer.WriteStringValue(CapacityMode.Value.ToString());
+            }
+            if (Optional.IsDefined(CapacityModeChangeTransitionState))
+            {
+                writer.WritePropertyName("capacityModeChangeTransitionState"u8);
+                writer.WriteObjectValue<CapacityModeChangeTransitionState>(CapacityModeChangeTransitionState, options);
+            }
             if (Optional.IsDefined(EnableMaterializedViews))
             {
                 writer.WritePropertyName("enableMaterializedViews"u8);
@@ -433,6 +443,8 @@ namespace Azure.ResourceManager.CosmosDB
             DiagnosticLogSettings diagnosticLogSettings = default;
             bool? disableLocalAuth = default;
             CosmosDBAccountCapacity capacity = default;
+            CapacityMode? capacityMode = default;
+            CapacityModeChangeTransitionState capacityModeChangeTransitionState = default;
             bool? enableMaterializedViews = default;
             DatabaseAccountKeysMetadata keysMetadata = default;
             bool? enablePartitionMerge = default;
@@ -877,6 +889,24 @@ namespace Azure.ResourceManager.CosmosDB
                             capacity = CosmosDBAccountCapacity.DeserializeCosmosDBAccountCapacity(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("capacityMode"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            capacityMode = new CapacityMode(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("capacityModeChangeTransitionState"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            capacityModeChangeTransitionState = CapacityModeChangeTransitionState.DeserializeCapacityModeChangeTransitionState(property0.Value, options);
+                            continue;
+                        }
                         if (property0.NameEquals("enableMaterializedViews"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -1006,6 +1036,8 @@ namespace Azure.ResourceManager.CosmosDB
                 diagnosticLogSettings,
                 disableLocalAuth,
                 capacity,
+                capacityMode,
+                capacityModeChangeTransitionState,
                 enableMaterializedViews,
                 keysMetadata,
                 enablePartitionMerge,
@@ -1766,6 +1798,34 @@ namespace Azure.ResourceManager.CosmosDB
                 else
                 {
                     BicepSerializationHelpers.AppendChildObject(builder, Capacity, options, 4, false, "    capacity: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(CapacityMode), out propertyOverride);
+            if (Optional.IsDefined(CapacityMode) || hasPropertyOverride)
+            {
+                builder.Append("    capacityMode: ");
+                if (hasPropertyOverride)
+                {
+                    builder.AppendLine($"{propertyOverride}");
+                }
+                else
+                {
+                    builder.AppendLine($"'{CapacityMode.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(CapacityModeChangeTransitionState), out propertyOverride);
+            if (Optional.IsDefined(CapacityModeChangeTransitionState) || hasPropertyOverride)
+            {
+                builder.Append("    capacityModeChangeTransitionState: ");
+                if (hasPropertyOverride)
+                {
+                    builder.AppendLine($"{propertyOverride}");
+                }
+                else
+                {
+                    BicepSerializationHelpers.AppendChildObject(builder, CapacityModeChangeTransitionState, options, 4, false, "    capacityModeChangeTransitionState: ");
                 }
             }
 
