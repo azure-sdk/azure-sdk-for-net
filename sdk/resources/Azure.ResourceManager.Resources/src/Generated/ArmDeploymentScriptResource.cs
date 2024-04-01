@@ -375,7 +375,7 @@ namespace Azure.ResourceManager.Resources
         /// <returns> An async collection of <see cref="ScriptLogResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ScriptLogResource> GetLogsAsync(CancellationToken cancellationToken = default)
         {
-            Core.HttpMessage FirstPageRequest(int? pageSizeHint) => _scriptLogDeploymentScriptsRestClient.CreateGetLogsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _scriptLogDeploymentScriptsRestClient.CreateGetLogsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
             return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => new ScriptLogResource(Client, ScriptLogData.DeserializeScriptLogData(e)), _scriptLogDeploymentScriptsClientDiagnostics, Pipeline, "ArmDeploymentScriptResource.GetLogs", "value", null, cancellationToken);
         }
 
@@ -404,7 +404,7 @@ namespace Azure.ResourceManager.Resources
         /// <returns> A collection of <see cref="ScriptLogResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ScriptLogResource> GetLogs(CancellationToken cancellationToken = default)
         {
-            Core.HttpMessage FirstPageRequest(int? pageSizeHint) => _scriptLogDeploymentScriptsRestClient.CreateGetLogsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _scriptLogDeploymentScriptsRestClient.CreateGetLogsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => new ScriptLogResource(Client, ScriptLogData.DeserializeScriptLogData(e)), _scriptLogDeploymentScriptsClientDiagnostics, Pipeline, "ArmDeploymentScriptResource.GetLogs", "value", null, cancellationToken);
         }
 
