@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.Sphere.Models
                 writer.WriteObjectValue<SphereDeviceData>(item, options);
             }
             writer.WriteEndArray();
-            if (options.Format != "W" && Optional.IsDefined(NextLink))
+            if (Optional.IsDefined(NextLink))
             {
                 writer.WritePropertyName("nextLink"u8);
                 writer.WriteStringValue(NextLink.AbsoluteUri);
