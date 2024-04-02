@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Health.Insights.RadiologyInsights
 {
-    /// <summary> Procedure information. </summary>
-    public partial class FhirR4Extendible
+    /// <summary> visit/encounter information. </summary>
+    public partial class PatientEncounter
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,30 +45,45 @@ namespace Azure.Health.Insights.RadiologyInsights
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="FhirR4Extendible"/>. </summary>
-        public FhirR4Extendible()
+        /// <summary> Initializes a new instance of <see cref="PatientEncounter"/>. </summary>
+        /// <param name="id"> The id of the visit. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="id"/> is null. </exception>
+        public PatientEncounter(string id)
         {
-            Extension = new ChangeTrackingList<FhirR4Extension>();
+            Argument.AssertNotNull(id, nameof(id));
+
+            Id = id;
         }
 
-        /// <summary> Initializes a new instance of <see cref="FhirR4Extendible"/>. </summary>
-        /// <param name="extension"> Additional Content defined by implementations. </param>
-        /// <param name="code"> Procedure code. </param>
-        /// <param name="description"> Procedure description. </param>
+        /// <summary> Initializes a new instance of <see cref="PatientEncounter"/>. </summary>
+        /// <param name="id"> The id of the visit. </param>
+        /// <param name="period">
+        /// Time period of the visit.
+        /// In case of admission, use timePeriod.start to indicate the admission time and timePeriod.end to indicate the discharge time.
+        /// </param>
+        /// <param name="class"> The class of the encounter. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal FhirR4Extendible(IList<FhirR4Extension> extension, FhirR4CodeableConcept code, string description, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PatientEncounter(string id, TimePeriod period, EncounterClass? @class, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Extension = extension;
-            Code = code;
-            Description = description;
+            Id = id;
+            Period = period;
+            Class = @class;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Additional Content defined by implementations. </summary>
-        public IList<FhirR4Extension> Extension { get; }
-        /// <summary> Procedure code. </summary>
-        public FhirR4CodeableConcept Code { get; set; }
-        /// <summary> Procedure description. </summary>
-        public string Description { get; set; }
+        /// <summary> Initializes a new instance of <see cref="PatientEncounter"/> for deserialization. </summary>
+        internal PatientEncounter()
+        {
+        }
+
+        /// <summary> The id of the visit. </summary>
+        public string Id { get; set; }
+        /// <summary>
+        /// Time period of the visit.
+        /// In case of admission, use timePeriod.start to indicate the admission time and timePeriod.end to indicate the discharge time.
+        /// </summary>
+        public TimePeriod Period { get; set; }
+        /// <summary> The class of the encounter. </summary>
+        public EncounterClass? Class { get; set; }
     }
 }

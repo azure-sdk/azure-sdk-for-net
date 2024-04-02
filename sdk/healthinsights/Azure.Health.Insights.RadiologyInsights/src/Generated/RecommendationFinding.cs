@@ -10,22 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Health.Insights.RadiologyInsights
 {
-    /// <summary>
-    /// An inference made by the Radiology Insights model regarding a patient.
-    ///   - AgeMismatch
-    ///   - SexMismatch
-    ///   - LateralityDiscrepancy
-    ///   - CompleteOrderDiscrepancy
-    ///   - LimitedOrderDiscrepancy
-    ///   - Finding
-    ///   - CriticalResult
-    ///   - FollowupRecommendation
-    ///   - RadiologyProcedure
-    ///   - FollowupCommunication
-    /// Please note <see cref="RadiologyInsightsInference"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="AgeMismatchInference"/>, <see cref="CompleteOrderDiscrepancyInference"/>, <see cref="CriticalResultInference"/>, <see cref="FindingInference"/>, <see cref="FollowupCommunicationInference"/>, <see cref="FollowupRecommendationInference"/>, <see cref="LateralityDiscrepancyInference"/>, <see cref="LimitedOrderDiscrepancyInference"/>, <see cref="RadiologyProcedureInference"/> and <see cref="SexMismatchInference"/>.
-    /// </summary>
-    public abstract partial class RadiologyInsightsInference
+    /// <summary> Finding reference for recommendation. </summary>
+    public partial class RecommendationFinding
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -57,27 +43,42 @@ namespace Azure.Health.Insights.RadiologyInsights
         /// </list>
         /// </para>
         /// </summary>
-        private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="RadiologyInsightsInference"/>. </summary>
-        protected RadiologyInsightsInference()
+        /// <summary> Initializes a new instance of <see cref="RecommendationFinding"/>. </summary>
+        /// <param name="recommendationFindingStatus"> Recommendation finding status. </param>
+        public RecommendationFinding(RecommendationFindingStatusType recommendationFindingStatus)
         {
+            RecommendationFindingStatus = recommendationFindingStatus;
             Extension = new ChangeTrackingList<FhirR4Extension>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="RadiologyInsightsInference"/>. </summary>
-        /// <param name="kind"> Discriminator. </param>
+        /// <summary> Initializes a new instance of <see cref="RecommendationFinding"/>. </summary>
+        /// <param name="finding"> Finding linked to a recommendation. </param>
+        /// <param name="criticalFinding"> Critical result linked to a recommendation. </param>
+        /// <param name="recommendationFindingStatus"> Recommendation finding status. </param>
         /// <param name="extension"> Additional Content defined by implementations. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal RadiologyInsightsInference(string kind, IList<FhirR4Extension> extension, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal RecommendationFinding(FhirR4Observation finding, CriticalResult criticalFinding, RecommendationFindingStatusType recommendationFindingStatus, IList<FhirR4Extension> extension, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Kind = kind;
+            Finding = finding;
+            CriticalFinding = criticalFinding;
+            RecommendationFindingStatus = recommendationFindingStatus;
             Extension = extension;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Discriminator. </summary>
-        internal string Kind { get; set; }
+        /// <summary> Initializes a new instance of <see cref="RecommendationFinding"/> for deserialization. </summary>
+        internal RecommendationFinding()
+        {
+        }
+
+        /// <summary> Finding linked to a recommendation. </summary>
+        public FhirR4Observation Finding { get; set; }
+        /// <summary> Critical result linked to a recommendation. </summary>
+        public CriticalResult CriticalFinding { get; set; }
+        /// <summary> Recommendation finding status. </summary>
+        public RecommendationFindingStatusType RecommendationFindingStatus { get; set; }
         /// <summary> Additional Content defined by implementations. </summary>
         public IList<FhirR4Extension> Extension { get; }
     }
