@@ -2322,6 +2322,33 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Models.CassandraClusterRestoreResult"/>. </summary>
+        /// <param name="exitCode"> The exit code returned by the command. </param>
+        /// <param name="commandOutput"> The output from the command. </param>
+        /// <param name="commandErrorOutput"> The error generated from the command. </param>
+        /// <param name="backupId"> Backup Id to restore. </param>
+        /// <param name="startTimestamp"> Starting time of restore. </param>
+        /// <returns> A new <see cref="Models.CassandraClusterRestoreResult"/> instance for mocking. </returns>
+        public static CassandraClusterRestoreResult CassandraClusterRestoreResult(int? exitCode = null, string commandOutput = null, string commandErrorOutput = null, string backupId = null, string startTimestamp = null)
+        {
+            return new CassandraClusterRestoreResult(
+                exitCode,
+                commandOutput,
+                commandErrorOutput,
+                backupId,
+                startTimestamp,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.CassandraClusterRestoreInfo"/>. </summary>
+        /// <param name="backupId"> Restore's Backup Id. </param>
+        /// <param name="startTimestamp"> Time that the restore started. </param>
+        /// <returns> A new <see cref="Models.CassandraClusterRestoreInfo"/> instance for mocking. </returns>
+        public static CassandraClusterRestoreInfo CassandraClusterRestoreInfo(string backupId = null, string startTimestamp = null)
+        {
+            return new CassandraClusterRestoreInfo(backupId, startTimestamp, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="CosmosDB.CassandraDataCenterData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
