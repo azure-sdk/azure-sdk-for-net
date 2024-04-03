@@ -307,6 +307,11 @@ namespace Azure.ResourceManager.Network
                 writer.WritePropertyName("enableFips"u8);
                 writer.WriteBooleanValue(EnableFips.Value);
             }
+            if (Optional.IsDefined(NetworkIsolationEnabled))
+            {
+                writer.WritePropertyName("networkIsolationEnabled"u8);
+                writer.WriteBooleanValue(NetworkIsolationEnabled.Value);
+            }
             if (Optional.IsDefined(AutoscaleConfiguration))
             {
                 writer.WritePropertyName("autoscaleConfiguration"u8);
@@ -450,6 +455,7 @@ namespace Azure.ResourceManager.Network
             WritableSubResource firewallPolicy = default;
             bool? enableHttp2 = default;
             bool? enableFips = default;
+            bool? networkIsolationEnabled = default;
             ApplicationGatewayAutoscaleConfiguration autoscaleConfiguration = default;
             IList<ApplicationGatewayPrivateLinkConfiguration> privateLinkConfigurations = default;
             IReadOnlyList<ApplicationGatewayPrivateEndpointConnectionData> privateEndpointConnections = default;
@@ -880,6 +886,15 @@ namespace Azure.ResourceManager.Network
                             enableFips = property0.Value.GetBoolean();
                             continue;
                         }
+                        if (property0.NameEquals("networkIsolationEnabled"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            networkIsolationEnabled = property0.Value.GetBoolean();
+                            continue;
+                        }
                         if (property0.NameEquals("autoscaleConfiguration"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -1035,6 +1050,7 @@ namespace Azure.ResourceManager.Network
                 firewallPolicy,
                 enableHttp2,
                 enableFips,
+                networkIsolationEnabled,
                 autoscaleConfiguration,
                 privateLinkConfigurations ?? new ChangeTrackingList<ApplicationGatewayPrivateLinkConfiguration>(),
                 privateEndpointConnections ?? new ChangeTrackingList<ApplicationGatewayPrivateEndpointConnectionData>(),
