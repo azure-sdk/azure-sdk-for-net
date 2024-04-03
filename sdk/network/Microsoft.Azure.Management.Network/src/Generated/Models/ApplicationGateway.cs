@@ -114,6 +114,8 @@ namespace Microsoft.Azure.Management.Network.Models
         /// application gateway resource.</param>
         /// <param name="enableFips">Whether FIPS is enabled on the application
         /// gateway resource.</param>
+        /// <param name="networkIsolationEnabled">Whether NetworkIsolation is
+        /// enabled on the application gateway resource.</param>
         /// <param name="autoscaleConfiguration">Autoscale
         /// Configuration.</param>
         /// <param name="privateLinkConfigurations">PrivateLink configurations
@@ -133,13 +135,18 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="loadDistributionPolicies">Load distribution policies
         /// of the application gateway resource.</param>
         /// <param name="globalConfiguration">Global Configuration.</param>
+        /// <param name="defaultPredefinedSslPolicy">The default predefined SSL
+        /// Policy applied on the application gateway resource. Possible values
+        /// include: 'AppGwSslPolicy20150501', 'AppGwSslPolicy20170401',
+        /// 'AppGwSslPolicy20170401S', 'AppGwSslPolicy20220101',
+        /// 'AppGwSslPolicy20220101S'</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
         /// <param name="zones">A list of availability zones denoting where the
         /// resource needs to come from.</param>
         /// <param name="identity">The identity of the application gateway, if
         /// configured.</param>
-        public ApplicationGateway(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), ApplicationGatewaySku sku = default(ApplicationGatewaySku), ApplicationGatewaySslPolicy sslPolicy = default(ApplicationGatewaySslPolicy), string operationalState = default(string), IList<ApplicationGatewayIPConfiguration> gatewayIPConfigurations = default(IList<ApplicationGatewayIPConfiguration>), IList<ApplicationGatewayAuthenticationCertificate> authenticationCertificates = default(IList<ApplicationGatewayAuthenticationCertificate>), IList<ApplicationGatewayTrustedRootCertificate> trustedRootCertificates = default(IList<ApplicationGatewayTrustedRootCertificate>), IList<ApplicationGatewayTrustedClientCertificate> trustedClientCertificates = default(IList<ApplicationGatewayTrustedClientCertificate>), IList<ApplicationGatewaySslCertificate> sslCertificates = default(IList<ApplicationGatewaySslCertificate>), IList<ApplicationGatewayFrontendIPConfiguration> frontendIPConfigurations = default(IList<ApplicationGatewayFrontendIPConfiguration>), IList<ApplicationGatewayFrontendPort> frontendPorts = default(IList<ApplicationGatewayFrontendPort>), IList<ApplicationGatewayProbe> probes = default(IList<ApplicationGatewayProbe>), IList<ApplicationGatewayBackendAddressPool> backendAddressPools = default(IList<ApplicationGatewayBackendAddressPool>), IList<ApplicationGatewayBackendHttpSettings> backendHttpSettingsCollection = default(IList<ApplicationGatewayBackendHttpSettings>), IList<ApplicationGatewayBackendSettings> backendSettingsCollection = default(IList<ApplicationGatewayBackendSettings>), IList<ApplicationGatewayHttpListener> httpListeners = default(IList<ApplicationGatewayHttpListener>), IList<ApplicationGatewayListener> listeners = default(IList<ApplicationGatewayListener>), IList<ApplicationGatewaySslProfile> sslProfiles = default(IList<ApplicationGatewaySslProfile>), IList<ApplicationGatewayUrlPathMap> urlPathMaps = default(IList<ApplicationGatewayUrlPathMap>), IList<ApplicationGatewayRequestRoutingRule> requestRoutingRules = default(IList<ApplicationGatewayRequestRoutingRule>), IList<ApplicationGatewayRoutingRule> routingRules = default(IList<ApplicationGatewayRoutingRule>), IList<ApplicationGatewayRewriteRuleSet> rewriteRuleSets = default(IList<ApplicationGatewayRewriteRuleSet>), IList<ApplicationGatewayRedirectConfiguration> redirectConfigurations = default(IList<ApplicationGatewayRedirectConfiguration>), ApplicationGatewayWebApplicationFirewallConfiguration webApplicationFirewallConfiguration = default(ApplicationGatewayWebApplicationFirewallConfiguration), SubResource firewallPolicy = default(SubResource), bool? enableHttp2 = default(bool?), bool? enableFips = default(bool?), ApplicationGatewayAutoscaleConfiguration autoscaleConfiguration = default(ApplicationGatewayAutoscaleConfiguration), IList<ApplicationGatewayPrivateLinkConfiguration> privateLinkConfigurations = default(IList<ApplicationGatewayPrivateLinkConfiguration>), IList<ApplicationGatewayPrivateEndpointConnection> privateEndpointConnections = default(IList<ApplicationGatewayPrivateEndpointConnection>), string resourceGuid = default(string), string provisioningState = default(string), IList<ApplicationGatewayCustomError> customErrorConfigurations = default(IList<ApplicationGatewayCustomError>), bool? forceFirewallPolicyAssociation = default(bool?), IList<ApplicationGatewayLoadDistributionPolicy> loadDistributionPolicies = default(IList<ApplicationGatewayLoadDistributionPolicy>), ApplicationGatewayGlobalConfiguration globalConfiguration = default(ApplicationGatewayGlobalConfiguration), string etag = default(string), IList<string> zones = default(IList<string>), ManagedServiceIdentity identity = default(ManagedServiceIdentity))
+        public ApplicationGateway(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), ApplicationGatewaySku sku = default(ApplicationGatewaySku), ApplicationGatewaySslPolicy sslPolicy = default(ApplicationGatewaySslPolicy), string operationalState = default(string), IList<ApplicationGatewayIPConfiguration> gatewayIPConfigurations = default(IList<ApplicationGatewayIPConfiguration>), IList<ApplicationGatewayAuthenticationCertificate> authenticationCertificates = default(IList<ApplicationGatewayAuthenticationCertificate>), IList<ApplicationGatewayTrustedRootCertificate> trustedRootCertificates = default(IList<ApplicationGatewayTrustedRootCertificate>), IList<ApplicationGatewayTrustedClientCertificate> trustedClientCertificates = default(IList<ApplicationGatewayTrustedClientCertificate>), IList<ApplicationGatewaySslCertificate> sslCertificates = default(IList<ApplicationGatewaySslCertificate>), IList<ApplicationGatewayFrontendIPConfiguration> frontendIPConfigurations = default(IList<ApplicationGatewayFrontendIPConfiguration>), IList<ApplicationGatewayFrontendPort> frontendPorts = default(IList<ApplicationGatewayFrontendPort>), IList<ApplicationGatewayProbe> probes = default(IList<ApplicationGatewayProbe>), IList<ApplicationGatewayBackendAddressPool> backendAddressPools = default(IList<ApplicationGatewayBackendAddressPool>), IList<ApplicationGatewayBackendHttpSettings> backendHttpSettingsCollection = default(IList<ApplicationGatewayBackendHttpSettings>), IList<ApplicationGatewayBackendSettings> backendSettingsCollection = default(IList<ApplicationGatewayBackendSettings>), IList<ApplicationGatewayHttpListener> httpListeners = default(IList<ApplicationGatewayHttpListener>), IList<ApplicationGatewayListener> listeners = default(IList<ApplicationGatewayListener>), IList<ApplicationGatewaySslProfile> sslProfiles = default(IList<ApplicationGatewaySslProfile>), IList<ApplicationGatewayUrlPathMap> urlPathMaps = default(IList<ApplicationGatewayUrlPathMap>), IList<ApplicationGatewayRequestRoutingRule> requestRoutingRules = default(IList<ApplicationGatewayRequestRoutingRule>), IList<ApplicationGatewayRoutingRule> routingRules = default(IList<ApplicationGatewayRoutingRule>), IList<ApplicationGatewayRewriteRuleSet> rewriteRuleSets = default(IList<ApplicationGatewayRewriteRuleSet>), IList<ApplicationGatewayRedirectConfiguration> redirectConfigurations = default(IList<ApplicationGatewayRedirectConfiguration>), ApplicationGatewayWebApplicationFirewallConfiguration webApplicationFirewallConfiguration = default(ApplicationGatewayWebApplicationFirewallConfiguration), SubResource firewallPolicy = default(SubResource), bool? enableHttp2 = default(bool?), bool? enableFips = default(bool?), bool? networkIsolationEnabled = default(bool?), ApplicationGatewayAutoscaleConfiguration autoscaleConfiguration = default(ApplicationGatewayAutoscaleConfiguration), IList<ApplicationGatewayPrivateLinkConfiguration> privateLinkConfigurations = default(IList<ApplicationGatewayPrivateLinkConfiguration>), IList<ApplicationGatewayPrivateEndpointConnection> privateEndpointConnections = default(IList<ApplicationGatewayPrivateEndpointConnection>), string resourceGuid = default(string), string provisioningState = default(string), IList<ApplicationGatewayCustomError> customErrorConfigurations = default(IList<ApplicationGatewayCustomError>), bool? forceFirewallPolicyAssociation = default(bool?), IList<ApplicationGatewayLoadDistributionPolicy> loadDistributionPolicies = default(IList<ApplicationGatewayLoadDistributionPolicy>), ApplicationGatewayGlobalConfiguration globalConfiguration = default(ApplicationGatewayGlobalConfiguration), string defaultPredefinedSslPolicy = default(string), string etag = default(string), IList<string> zones = default(IList<string>), ManagedServiceIdentity identity = default(ManagedServiceIdentity))
             : base(id, name, type, location, tags)
         {
             Sku = sku;
@@ -168,6 +175,7 @@ namespace Microsoft.Azure.Management.Network.Models
             FirewallPolicy = firewallPolicy;
             EnableHttp2 = enableHttp2;
             EnableFips = enableFips;
+            NetworkIsolationEnabled = networkIsolationEnabled;
             AutoscaleConfiguration = autoscaleConfiguration;
             PrivateLinkConfigurations = privateLinkConfigurations;
             PrivateEndpointConnections = privateEndpointConnections;
@@ -177,6 +185,7 @@ namespace Microsoft.Azure.Management.Network.Models
             ForceFirewallPolicyAssociation = forceFirewallPolicyAssociation;
             LoadDistributionPolicies = loadDistributionPolicies;
             GlobalConfiguration = globalConfiguration;
+            DefaultPredefinedSslPolicy = defaultPredefinedSslPolicy;
             Etag = etag;
             Zones = zones;
             Identity = identity;
@@ -380,6 +389,13 @@ namespace Microsoft.Azure.Management.Network.Models
         public bool? EnableFips { get; set; }
 
         /// <summary>
+        /// Gets or sets whether NetworkIsolation is enabled on the application
+        /// gateway resource.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.networkIsolationEnabled")]
+        public bool? NetworkIsolationEnabled { get; set; }
+
+        /// <summary>
         /// Gets or sets autoscale Configuration.
         /// </summary>
         [JsonProperty(PropertyName = "properties.autoscaleConfiguration")]
@@ -439,6 +455,16 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.globalConfiguration")]
         public ApplicationGatewayGlobalConfiguration GlobalConfiguration { get; set; }
+
+        /// <summary>
+        /// Gets the default predefined SSL Policy applied on the application
+        /// gateway resource. Possible values include:
+        /// 'AppGwSslPolicy20150501', 'AppGwSslPolicy20170401',
+        /// 'AppGwSslPolicy20170401S', 'AppGwSslPolicy20220101',
+        /// 'AppGwSslPolicy20220101S'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.defaultPredefinedSslPolicy")]
+        public string DefaultPredefinedSslPolicy { get; private set; }
 
         /// <summary>
         /// Gets a unique read-only string that changes whenever the resource
