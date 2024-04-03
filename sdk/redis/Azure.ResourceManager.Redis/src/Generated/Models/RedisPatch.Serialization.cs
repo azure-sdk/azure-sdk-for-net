@@ -101,6 +101,11 @@ namespace Azure.ResourceManager.Redis.Models
                 writer.WritePropertyName("updateChannel"u8);
                 writer.WriteStringValue(UpdateChannel.Value.ToString());
             }
+            if (Optional.IsDefined(ZonalAllocation))
+            {
+                writer.WritePropertyName("zonalAllocation"u8);
+                writer.WriteStringValue(ZonalAllocation.Value.ToString());
+            }
             if (Optional.IsDefined(Sku))
             {
                 writer.WritePropertyName("sku"u8);
@@ -157,6 +162,7 @@ namespace Azure.ResourceManager.Redis.Models
             RedisTlsVersion? minimumTlsVersion = default;
             RedisPublicNetworkAccess? publicNetworkAccess = default;
             UpdateChannel? updateChannel = default;
+            ZonalAllocation? zonalAllocation = default;
             RedisSku sku = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -285,6 +291,15 @@ namespace Azure.ResourceManager.Redis.Models
                             updateChannel = new UpdateChannel(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("zonalAllocation"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            zonalAllocation = new ZonalAllocation(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("sku"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -316,6 +331,7 @@ namespace Azure.ResourceManager.Redis.Models
                 minimumTlsVersion,
                 publicNetworkAccess,
                 updateChannel,
+                zonalAllocation,
                 sku,
                 serializedAdditionalRawData);
         }

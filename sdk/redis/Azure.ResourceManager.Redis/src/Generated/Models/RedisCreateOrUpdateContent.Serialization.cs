@@ -114,6 +114,11 @@ namespace Azure.ResourceManager.Redis.Models
                 writer.WritePropertyName("updateChannel"u8);
                 writer.WriteStringValue(UpdateChannel.Value.ToString());
             }
+            if (Optional.IsDefined(ZonalAllocation))
+            {
+                writer.WritePropertyName("zonalAllocation"u8);
+                writer.WriteStringValue(ZonalAllocation.Value.ToString());
+            }
             writer.WritePropertyName("sku"u8);
             writer.WriteObjectValue<RedisSku>(Sku, options);
             if (Optional.IsDefined(SubnetId))
@@ -179,6 +184,7 @@ namespace Azure.ResourceManager.Redis.Models
             RedisTlsVersion? minimumTlsVersion = default;
             RedisPublicNetworkAccess? publicNetworkAccess = default;
             UpdateChannel? updateChannel = default;
+            ZonalAllocation? zonalAllocation = default;
             RedisSku sku = default;
             ResourceIdentifier subnetId = default;
             IPAddress staticIP = default;
@@ -328,6 +334,15 @@ namespace Azure.ResourceManager.Redis.Models
                             updateChannel = new UpdateChannel(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("zonalAllocation"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            zonalAllocation = new ZonalAllocation(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("sku"u8))
                         {
                             sku = RedisSku.DeserializeRedisSku(property0.Value, options);
@@ -375,6 +390,7 @@ namespace Azure.ResourceManager.Redis.Models
                 minimumTlsVersion,
                 publicNetworkAccess,
                 updateChannel,
+                zonalAllocation,
                 sku,
                 subnetId,
                 staticIP,

@@ -78,11 +78,12 @@ namespace Azure.ResourceManager.Redis.Models
         /// <param name="minimumTlsVersion"> Optional: requires clients to use a specified TLS version (or higher) to connect (e,g, '1.0', '1.1', '1.2'). </param>
         /// <param name="publicNetworkAccess"> Whether or not public endpoint access is allowed for this cache.  Value is optional but if passed in, must be 'Enabled' or 'Disabled'. If 'Disabled', private endpoints are the exclusive access method. Default value is 'Enabled'. </param>
         /// <param name="updateChannel"> Optional: Specifies the update channel for the monthly Redis updates your Redis Cache will receive. Caches using 'Preview' update channel get latest Redis updates at least 4 weeks ahead of 'Stable' channel caches. Default value is 'Stable'. </param>
+        /// <param name="zonalAllocation"> Optional: Specifies the method in which zones are allocated to the Redis cache. 'Automatic' refers to allocation of zones automatically by the Azure based on the availability zones support in the region and number of instances. 'UserDefined' refers to usage of zones passed in by you for allocation. 'NoZones' refers to the non-zonal cache. If 'zonalAllocation' is not passed, it will be set to 'UserDefined' when zones are passed in, otherwise, will be set to 'NoZones'. </param>
         /// <param name="sku"> The SKU of the Redis cache to deploy. </param>
         /// <param name="subnetId"> The full resource ID of a subnet in a virtual network to deploy the Redis cache in. Example format: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/Microsoft.{Network|ClassicNetwork}/VirtualNetworks/vnet1/subnets/subnet1. </param>
         /// <param name="staticIP"> Static IP address. Optionally, may be specified when deploying a Redis cache inside an existing Azure Virtual Network; auto assigned by default. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal RedisCreateOrUpdateContent(IList<string> zones, AzureLocation location, IDictionary<string, string> tags, ManagedServiceIdentity identity, RedisCommonConfiguration redisConfiguration, string redisVersion, bool? enableNonSslPort, int? replicasPerMaster, int? replicasPerPrimary, IDictionary<string, string> tenantSettings, int? shardCount, RedisTlsVersion? minimumTlsVersion, RedisPublicNetworkAccess? publicNetworkAccess, UpdateChannel? updateChannel, RedisSku sku, ResourceIdentifier subnetId, IPAddress staticIP, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal RedisCreateOrUpdateContent(IList<string> zones, AzureLocation location, IDictionary<string, string> tags, ManagedServiceIdentity identity, RedisCommonConfiguration redisConfiguration, string redisVersion, bool? enableNonSslPort, int? replicasPerMaster, int? replicasPerPrimary, IDictionary<string, string> tenantSettings, int? shardCount, RedisTlsVersion? minimumTlsVersion, RedisPublicNetworkAccess? publicNetworkAccess, UpdateChannel? updateChannel, ZonalAllocation? zonalAllocation, RedisSku sku, ResourceIdentifier subnetId, IPAddress staticIP, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Zones = zones;
             Location = location;
@@ -98,6 +99,7 @@ namespace Azure.ResourceManager.Redis.Models
             MinimumTlsVersion = minimumTlsVersion;
             PublicNetworkAccess = publicNetworkAccess;
             UpdateChannel = updateChannel;
+            ZonalAllocation = zonalAllocation;
             Sku = sku;
             SubnetId = subnetId;
             StaticIP = staticIP;
@@ -151,6 +153,9 @@ namespace Azure.ResourceManager.Redis.Models
         /// <summary> Optional: Specifies the update channel for the monthly Redis updates your Redis Cache will receive. Caches using 'Preview' update channel get latest Redis updates at least 4 weeks ahead of 'Stable' channel caches. Default value is 'Stable'. </summary>
         [WirePath("properties.updateChannel")]
         public UpdateChannel? UpdateChannel { get; set; }
+        /// <summary> Optional: Specifies the method in which zones are allocated to the Redis cache. 'Automatic' refers to allocation of zones automatically by the Azure based on the availability zones support in the region and number of instances. 'UserDefined' refers to usage of zones passed in by you for allocation. 'NoZones' refers to the non-zonal cache. If 'zonalAllocation' is not passed, it will be set to 'UserDefined' when zones are passed in, otherwise, will be set to 'NoZones'. </summary>
+        [WirePath("properties.zonalAllocation")]
+        public ZonalAllocation? ZonalAllocation { get; set; }
         /// <summary> The SKU of the Redis cache to deploy. </summary>
         [WirePath("properties.sku")]
         public RedisSku Sku { get; }
