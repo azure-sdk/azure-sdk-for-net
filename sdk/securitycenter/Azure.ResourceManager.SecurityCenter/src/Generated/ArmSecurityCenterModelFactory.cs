@@ -1519,6 +1519,17 @@ namespace Azure.ResourceManager.SecurityCenter.Models
             return new UnknownCloudOffering(offeringType == null ? default : new OfferingType(offeringType), description, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="SecurityCenter.DataScannerData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <returns> A new <see cref="SecurityCenter.DataScannerData"/> instance for mocking. </returns>
+        public static DataScannerData DataScannerData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null)
+        {
+            return new DataScannerData(id, name, resourceType, systemData, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="SecurityCenter.ComplianceResultData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>

@@ -1422,6 +1422,18 @@ namespace Azure.ResourceManager.SecurityCenter.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="DataScannerResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DataScannerResource.CreateResourceIdentifier" /> to create a <see cref="DataScannerResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="DataScannerResource"/> object. </returns>
+        public virtual DataScannerResource GetDataScannerResource(ResourceIdentifier id)
+        {
+            DataScannerResource.ValidateResourceId(id);
+            return new DataScannerResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="ComplianceResultResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="ComplianceResultResource.CreateResourceIdentifier" /> to create a <see cref="ComplianceResultResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>

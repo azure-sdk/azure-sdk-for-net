@@ -666,6 +666,75 @@ namespace Azure.ResourceManager.SecurityCenter.Mocking
             return GetSubscriptionSecurityApplications().Get(applicationId, cancellationToken);
         }
 
+        /// <summary> Gets a collection of DataScannerResources in the SubscriptionResource. </summary>
+        /// <returns> An object representing collection of DataScannerResources and their operations over a DataScannerResource. </returns>
+        public virtual DataScannerCollection GetDataScanners()
+        {
+            return GetCachedClient(client => new DataScannerCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Get a specific security data scanner for the requested scope
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Security/dataScanners/{dataScannerName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>DataScanners_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-01-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="DataScannerResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="dataScannerName"> Security data scanner name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="dataScannerName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="dataScannerName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<DataScannerResource>> GetDataScannerAsync(string dataScannerName, CancellationToken cancellationToken = default)
+        {
+            return await GetDataScanners().GetAsync(dataScannerName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a specific security data scanner for the requested scope
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Security/dataScanners/{dataScannerName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>DataScanners_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-01-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="DataScannerResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="dataScannerName"> Security data scanner name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="dataScannerName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="dataScannerName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<DataScannerResource> GetDataScanner(string dataScannerName, CancellationToken cancellationToken = default)
+        {
+            return GetDataScanners().Get(dataScannerName, cancellationToken);
+        }
+
         /// <summary> Gets a collection of SecureScoreResources in the SubscriptionResource. </summary>
         /// <returns> An object representing collection of SecureScoreResources and their operations over a SecureScoreResource. </returns>
         public virtual SecureScoreCollection GetSecureScores()
