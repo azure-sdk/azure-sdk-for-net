@@ -21,8 +21,6 @@ namespace Azure.ResourceManager.Batch.Mocking
     /// <summary> A class to add extension methods to SubscriptionResource. </summary>
     public partial class MockableBatchSubscriptionResource : ArmResource
     {
-        private ClientDiagnostics _batchAccountClientDiagnostics;
-        private BatchAccountRestOperations _batchAccountRestClient;
         private ClientDiagnostics _locationClientDiagnostics;
         private LocationRestOperations _locationRestClient;
 
@@ -38,8 +36,6 @@ namespace Azure.ResourceManager.Batch.Mocking
         {
         }
 
-        private ClientDiagnostics BatchAccountClientDiagnostics => _batchAccountClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Batch", BatchAccountResource.ResourceType.Namespace, Diagnostics);
-        private BatchAccountRestOperations BatchAccountRestClient => _batchAccountRestClient ??= new BatchAccountRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(BatchAccountResource.ResourceType));
         private ClientDiagnostics LocationClientDiagnostics => _locationClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Batch", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private LocationRestOperations LocationRestClient => _locationRestClient ??= new LocationRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 
@@ -47,66 +43,6 @@ namespace Azure.ResourceManager.Batch.Mocking
         {
             TryGetApiVersion(resourceType, out string apiVersion);
             return apiVersion;
-        }
-
-        /// <summary>
-        /// Gets information about the Batch accounts associated with the subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Batch/batchAccounts</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>BatchAccount_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="BatchAccountResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="BatchAccountResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<BatchAccountResource> GetBatchAccountsAsync(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => BatchAccountRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => BatchAccountRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new BatchAccountResource(Client, BatchAccountData.DeserializeBatchAccountData(e)), BatchAccountClientDiagnostics, Pipeline, "MockableBatchSubscriptionResource.GetBatchAccounts", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets information about the Batch accounts associated with the subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Batch/batchAccounts</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>BatchAccount_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="BatchAccountResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="BatchAccountResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<BatchAccountResource> GetBatchAccounts(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => BatchAccountRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => BatchAccountRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new BatchAccountResource(Client, BatchAccountData.DeserializeBatchAccountData(e)), BatchAccountClientDiagnostics, Pipeline, "MockableBatchSubscriptionResource.GetBatchAccounts", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -122,7 +58,7 @@ namespace Azure.ResourceManager.Batch.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -157,7 +93,7 @@ namespace Azure.ResourceManager.Batch.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -192,7 +128,7 @@ namespace Azure.ResourceManager.Batch.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -221,7 +157,7 @@ namespace Azure.ResourceManager.Batch.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -250,7 +186,7 @@ namespace Azure.ResourceManager.Batch.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -279,7 +215,7 @@ namespace Azure.ResourceManager.Batch.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -308,7 +244,7 @@ namespace Azure.ResourceManager.Batch.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -347,7 +283,7 @@ namespace Azure.ResourceManager.Batch.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>

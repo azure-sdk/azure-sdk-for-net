@@ -233,11 +233,6 @@ namespace Azure.ResourceManager.Batch
                     writer.WriteNull("currentNodeCommunicationMode");
                 }
             }
-            if (Optional.IsDefined(UpgradePolicy))
-            {
-                writer.WritePropertyName("upgradePolicy"u8);
-                writer.WriteObjectValue(UpgradePolicy);
-            }
             if (Optional.IsCollectionDefined(ResourceTags))
             {
                 writer.WritePropertyName("resourceTags"u8);
@@ -321,7 +316,6 @@ namespace Azure.ResourceManager.Batch
             IList<BatchMountConfiguration> mountConfiguration = default;
             NodeCommunicationMode? targetNodeCommunicationMode = default;
             NodeCommunicationMode? currentNodeCommunicationMode = default;
-            UpgradePolicy upgradePolicy = default;
             IDictionary<string, string> resourceTags = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -644,15 +638,6 @@ namespace Azure.ResourceManager.Batch
                             currentNodeCommunicationMode = property0.Value.GetString().ToNodeCommunicationMode();
                             continue;
                         }
-                        if (property0.NameEquals("upgradePolicy"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            upgradePolicy = UpgradePolicy.DeserializeUpgradePolicy(property0.Value, options);
-                            continue;
-                        }
                         if (property0.NameEquals("resourceTags"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -709,7 +694,6 @@ namespace Azure.ResourceManager.Batch
                 mountConfiguration ?? new ChangeTrackingList<BatchMountConfiguration>(),
                 targetNodeCommunicationMode,
                 currentNodeCommunicationMode,
-                upgradePolicy,
                 resourceTags ?? new ChangeTrackingDictionary<string, string>(),
                 etag,
                 serializedAdditionalRawData);
