@@ -9,6 +9,7 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
+using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Network.Models;
 using Azure.ResourceManager.Resources;
 
@@ -43,6 +44,13 @@ namespace Azure.ResourceManager.Network.Samples
             string virtualNetworkGatewayName = "vpngw";
             VirtualNetworkGatewayData data = new VirtualNetworkGatewayData()
             {
+                Identity = new ManagedServiceIdentity("UserAssigned")
+                {
+                    UserAssignedIdentities =
+{
+[new ResourceIdentifier("/subscriptions/subid/resourceGroups/rg1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identity1")] = new UserAssignedIdentity(),
+},
+                },
                 IPConfigurations =
 {
 new VirtualNetworkGatewayIPConfiguration()

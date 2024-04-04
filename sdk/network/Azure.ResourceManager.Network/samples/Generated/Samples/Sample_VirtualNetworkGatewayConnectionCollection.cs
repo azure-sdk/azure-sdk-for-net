@@ -121,6 +121,16 @@ new GatewayCustomBgpIPAddressIPConfiguration("/subscriptions/subid/resourceGroup
                 TrafficSelectorPolicies =
 {
 },
+                AuthenticationType = ConnectionAuthenticationType.Certificate,
+                CertificateAuthentication = new CertificateAuthentication()
+                {
+                    OutboundAuthCertificate = "https://customerKv.vault.azure.net/Certificates/outBoundcert/Version",
+                    InboundAuthCertificateSubjectName = "CN=rootCert.com",
+                    InboundAuthCertificateChain =
+{
+"MIIC+TCCAeGgAwIBAgIQFOJUqDaxV5xJcKpTKO...","MIIC+TCCAeGgAwIBAgIQPJerInitNblK7yBgkqh..."
+},
+                },
                 Location = new AzureLocation("centralus"),
             };
             ArmOperation<VirtualNetworkGatewayConnectionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, virtualNetworkGatewayConnectionName, data);
