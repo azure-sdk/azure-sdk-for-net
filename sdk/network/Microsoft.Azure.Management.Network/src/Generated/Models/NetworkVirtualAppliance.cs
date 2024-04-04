@@ -56,8 +56,16 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="sshPublicKey">Public key for SSH login.</param>
         /// <param name="virtualApplianceNics">List of Virtual Appliance
         /// Network Interfaces.</param>
+        /// <param name="networkProfile">Network Profile containing
+        /// configurations for Public and Private NIC.</param>
+        /// <param name="additionalNics">Details required for Additional
+        /// Network Interface.</param>
+        /// <param name="internetIngressPublicIps">List of Resource Uri of
+        /// Public IPs for Internet Ingress Scenario.</param>
         /// <param name="virtualApplianceSites">List of references to
         /// VirtualApplianceSite.</param>
+        /// <param name="virtualApplianceConnections">List of references to
+        /// VirtualApplianceConnections.</param>
         /// <param name="inboundSecurityRules">List of references to
         /// InboundSecurityRules.</param>
         /// <param name="provisioningState">The provisioning state of the
@@ -73,7 +81,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// to cloud-init and config blob.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public NetworkVirtualAppliance(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), VirtualApplianceSkuProperties nvaSku = default(VirtualApplianceSkuProperties), string addressPrefix = default(string), IList<string> bootStrapConfigurationBlobs = default(IList<string>), SubResource virtualHub = default(SubResource), IList<string> cloudInitConfigurationBlobs = default(IList<string>), string cloudInitConfiguration = default(string), long? virtualApplianceAsn = default(long?), string sshPublicKey = default(string), IList<VirtualApplianceNicProperties> virtualApplianceNics = default(IList<VirtualApplianceNicProperties>), IList<SubResource> virtualApplianceSites = default(IList<SubResource>), IList<SubResource> inboundSecurityRules = default(IList<SubResource>), string provisioningState = default(string), string deploymentType = default(string), DelegationProperties delegation = default(DelegationProperties), PartnerManagedResourceProperties partnerManagedResource = default(PartnerManagedResourceProperties), ManagedServiceIdentity identity = default(ManagedServiceIdentity), string etag = default(string))
+        public NetworkVirtualAppliance(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), VirtualApplianceSkuProperties nvaSku = default(VirtualApplianceSkuProperties), string addressPrefix = default(string), IList<string> bootStrapConfigurationBlobs = default(IList<string>), SubResource virtualHub = default(SubResource), IList<string> cloudInitConfigurationBlobs = default(IList<string>), string cloudInitConfiguration = default(string), long? virtualApplianceAsn = default(long?), string sshPublicKey = default(string), IList<VirtualApplianceNicProperties> virtualApplianceNics = default(IList<VirtualApplianceNicProperties>), NetworkVirtualAppliancePropertiesFormatNetworkProfile networkProfile = default(NetworkVirtualAppliancePropertiesFormatNetworkProfile), IList<VirtualApplianceAdditionalNicProperties> additionalNics = default(IList<VirtualApplianceAdditionalNicProperties>), IList<InternetIngressPublicIpsProperties> internetIngressPublicIps = default(IList<InternetIngressPublicIpsProperties>), IList<SubResource> virtualApplianceSites = default(IList<SubResource>), IList<SubResource> virtualApplianceConnections = default(IList<SubResource>), IList<SubResource> inboundSecurityRules = default(IList<SubResource>), string provisioningState = default(string), string deploymentType = default(string), DelegationProperties delegation = default(DelegationProperties), PartnerManagedResourceProperties partnerManagedResource = default(PartnerManagedResourceProperties), ManagedServiceIdentity identity = default(ManagedServiceIdentity), string etag = default(string))
             : base(id, name, type, location, tags)
         {
             NvaSku = nvaSku;
@@ -85,7 +93,11 @@ namespace Microsoft.Azure.Management.Network.Models
             VirtualApplianceAsn = virtualApplianceAsn;
             SshPublicKey = sshPublicKey;
             VirtualApplianceNics = virtualApplianceNics;
+            NetworkProfile = networkProfile;
+            AdditionalNics = additionalNics;
+            InternetIngressPublicIps = internetIngressPublicIps;
             VirtualApplianceSites = virtualApplianceSites;
+            VirtualApplianceConnections = virtualApplianceConnections;
             InboundSecurityRules = inboundSecurityRules;
             ProvisioningState = provisioningState;
             DeploymentType = deploymentType;
@@ -158,10 +170,36 @@ namespace Microsoft.Azure.Management.Network.Models
         public IList<VirtualApplianceNicProperties> VirtualApplianceNics { get; private set; }
 
         /// <summary>
+        /// Gets or sets network Profile containing configurations for Public
+        /// and Private NIC.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.networkProfile")]
+        public NetworkVirtualAppliancePropertiesFormatNetworkProfile NetworkProfile { get; set; }
+
+        /// <summary>
+        /// Gets or sets details required for Additional Network Interface.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.additionalNics")]
+        public IList<VirtualApplianceAdditionalNicProperties> AdditionalNics { get; set; }
+
+        /// <summary>
+        /// Gets or sets list of Resource Uri of Public IPs for Internet
+        /// Ingress Scenario.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.internetIngressPublicIps")]
+        public IList<InternetIngressPublicIpsProperties> InternetIngressPublicIps { get; set; }
+
+        /// <summary>
         /// Gets list of references to VirtualApplianceSite.
         /// </summary>
         [JsonProperty(PropertyName = "properties.virtualApplianceSites")]
         public IList<SubResource> VirtualApplianceSites { get; private set; }
+
+        /// <summary>
+        /// Gets list of references to VirtualApplianceConnections.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.virtualApplianceConnections")]
+        public IList<SubResource> VirtualApplianceConnections { get; private set; }
 
         /// <summary>
         /// Gets list of references to InboundSecurityRules.
