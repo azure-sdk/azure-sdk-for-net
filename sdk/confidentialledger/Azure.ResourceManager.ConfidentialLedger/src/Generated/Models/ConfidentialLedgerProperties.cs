@@ -53,6 +53,7 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="ConfidentialLedgerProperties"/>. </summary>
+        /// <param name="enclavePlatform"> Enclave Platform on which Ledger Application is deployed, defaults to IntelSgx. </param>
         /// <param name="ledgerName"> Unique name for the Confidential Ledger. </param>
         /// <param name="ledgerUri"> Endpoint for calling Ledger Service. </param>
         /// <param name="identityServiceUri"> Endpoint for accessing network identity. </param>
@@ -60,11 +61,13 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         /// <param name="runningState"> Object representing RunningState for Ledger. </param>
         /// <param name="ledgerType"> Type of Confidential Ledger. </param>
         /// <param name="provisioningState"> Provisioning state of Ledger Resource. </param>
+        /// <param name="ledgerSku"> SKU associated with the ledger. </param>
         /// <param name="aadBasedSecurityPrincipals"> Array of all AAD based Security Principals. </param>
         /// <param name="certBasedSecurityPrincipals"> Array of all cert based Security Principals. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ConfidentialLedgerProperties(string ledgerName, Uri ledgerUri, Uri identityServiceUri, string ledgerInternalNamespace, ConfidentialLedgerRunningState? runningState, ConfidentialLedgerType? ledgerType, ConfidentialLedgerProvisioningState? provisioningState, IList<AadBasedSecurityPrincipal> aadBasedSecurityPrincipals, IList<CertBasedSecurityPrincipal> certBasedSecurityPrincipals, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ConfidentialLedgerProperties(EnclavePlatform? enclavePlatform, string ledgerName, Uri ledgerUri, Uri identityServiceUri, string ledgerInternalNamespace, ConfidentialLedgerRunningState? runningState, ConfidentialLedgerType? ledgerType, ConfidentialLedgerProvisioningState? provisioningState, LedgerSku? ledgerSku, IList<AadBasedSecurityPrincipal> aadBasedSecurityPrincipals, IList<CertBasedSecurityPrincipal> certBasedSecurityPrincipals, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
+            EnclavePlatform = enclavePlatform;
             LedgerName = ledgerName;
             LedgerUri = ledgerUri;
             IdentityServiceUri = identityServiceUri;
@@ -72,11 +75,14 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
             RunningState = runningState;
             LedgerType = ledgerType;
             ProvisioningState = provisioningState;
+            LedgerSku = ledgerSku;
             AadBasedSecurityPrincipals = aadBasedSecurityPrincipals;
             CertBasedSecurityPrincipals = certBasedSecurityPrincipals;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
+        /// <summary> Enclave Platform on which Ledger Application is deployed, defaults to IntelSgx. </summary>
+        public EnclavePlatform? EnclavePlatform { get; }
         /// <summary> Unique name for the Confidential Ledger. </summary>
         public string LedgerName { get; }
         /// <summary> Endpoint for calling Ledger Service. </summary>
@@ -91,6 +97,8 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         public ConfidentialLedgerType? LedgerType { get; set; }
         /// <summary> Provisioning state of Ledger Resource. </summary>
         public ConfidentialLedgerProvisioningState? ProvisioningState { get; }
+        /// <summary> SKU associated with the ledger. </summary>
+        public LedgerSku? LedgerSku { get; set; }
         /// <summary> Array of all AAD based Security Principals. </summary>
         public IList<AadBasedSecurityPrincipal> AadBasedSecurityPrincipals { get; }
         /// <summary> Array of all cert based Security Principals. </summary>

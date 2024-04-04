@@ -56,6 +56,16 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                 writer.WritePropertyName("deploymentType"u8);
                 writer.WriteObjectValue<ConfidentialLedgerDeploymentType>(DeploymentType, options);
             }
+            if (Optional.IsDefined(EnclavePlatform))
+            {
+                writer.WritePropertyName("enclavePlatform"u8);
+                writer.WriteStringValue(EnclavePlatform.Value.ToString());
+            }
+            if (Optional.IsDefined(RunningState))
+            {
+                writer.WritePropertyName("runningState"u8);
+                writer.WriteStringValue(RunningState.Value.ToString());
+            }
             if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
             {
                 writer.WritePropertyName("provisioningState"u8);
@@ -65,6 +75,11 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
             {
                 writer.WritePropertyName("nodeCount"u8);
                 writer.WriteNumberValue(NodeCount.Value);
+            }
+            if (Optional.IsDefined(CustomizationData))
+            {
+                writer.WritePropertyName("customizationData"u8);
+                writer.WriteObjectValue<CustomizationData>(CustomizationData, options);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -109,8 +124,11 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
             Uri identityServiceUri = default;
             IList<ConfidentialLedgerMemberIdentityCertificate> memberIdentityCertificates = default;
             ConfidentialLedgerDeploymentType deploymentType = default;
+            EnclavePlatform? enclavePlatform = default;
+            ConfidentialLedgerRunningState? runningState = default;
             ConfidentialLedgerProvisioningState? provisioningState = default;
             int? nodeCount = default;
+            CustomizationData customizationData = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -161,6 +179,24 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                     deploymentType = ConfidentialLedgerDeploymentType.DeserializeConfidentialLedgerDeploymentType(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("enclavePlatform"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    enclavePlatform = new EnclavePlatform(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("runningState"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    runningState = new ConfidentialLedgerRunningState(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("provisioningState"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -179,6 +215,15 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                     nodeCount = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("customizationData"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    customizationData = CustomizationData.DeserializeCustomizationData(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -191,8 +236,11 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                 identityServiceUri,
                 memberIdentityCertificates ?? new ChangeTrackingList<ConfidentialLedgerMemberIdentityCertificate>(),
                 deploymentType,
+                enclavePlatform,
+                runningState,
                 provisioningState,
                 nodeCount,
+                customizationData,
                 serializedAdditionalRawData);
         }
 
