@@ -21,7 +21,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             string messageId = default;
-            AcsAdvanceMessageDeliveryStatus? status = default;
+            AcsAdvancedMessageDeliveryStatus? status = default;
             AcsMessageChannelKind? channelType = default;
             string @from = default;
             string to = default;
@@ -40,7 +40,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     {
                         continue;
                     }
-                    status = new AcsAdvanceMessageDeliveryStatus(property.Value.GetString());
+                    status = new AcsAdvancedMessageDeliveryStatus(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("channelType"u8))

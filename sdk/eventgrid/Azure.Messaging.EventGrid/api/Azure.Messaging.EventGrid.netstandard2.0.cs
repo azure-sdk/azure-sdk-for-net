@@ -786,12 +786,34 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public string From { get { throw null; } }
         public string MessageId { get { throw null; } }
     }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct AcsAdvancedMessageDeliveryStatus : System.IEquatable<Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageDeliveryStatus>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public AcsAdvancedMessageDeliveryStatus(string value) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageDeliveryStatus Delivered { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageDeliveryStatus Failed { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageDeliveryStatus Read { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageDeliveryStatus Sent { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageDeliveryStatus Unknown { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageDeliveryStatus Warning { get { throw null; } }
+        public bool Equals(Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageDeliveryStatus other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageDeliveryStatus left, Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageDeliveryStatus right) { throw null; }
+        public static implicit operator Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageDeliveryStatus (string value) { throw null; }
+        public static bool operator !=(Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageDeliveryStatus left, Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageDeliveryStatus right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class AcsAdvancedMessageDeliveryStatusUpdatedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageEventData
     {
         internal AcsAdvancedMessageDeliveryStatusUpdatedEventData() { }
         public Azure.Messaging.EventGrid.SystemEvents.AcsMessageChannelKind? ChannelKind { get { throw null; } }
         public string MessageId { get { throw null; } }
-        public Azure.Messaging.EventGrid.SystemEvents.AcsAdvanceMessageDeliveryStatus? Status { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageDeliveryStatus? Status { get { throw null; } }
     }
     public partial class AcsAdvancedMessageEventData
     {
@@ -838,28 +860,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageContext Context { get { throw null; } }
         public Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageInteractiveContent InteractiveContent { get { throw null; } }
         public Azure.Messaging.EventGrid.SystemEvents.AcsAdvancedMessageMediaContent MediaContent { get { throw null; } }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct AcsAdvanceMessageDeliveryStatus : System.IEquatable<Azure.Messaging.EventGrid.SystemEvents.AcsAdvanceMessageDeliveryStatus>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public AcsAdvanceMessageDeliveryStatus(string value) { throw null; }
-        public static Azure.Messaging.EventGrid.SystemEvents.AcsAdvanceMessageDeliveryStatus Delivered { get { throw null; } }
-        public static Azure.Messaging.EventGrid.SystemEvents.AcsAdvanceMessageDeliveryStatus Failed { get { throw null; } }
-        public static Azure.Messaging.EventGrid.SystemEvents.AcsAdvanceMessageDeliveryStatus Read { get { throw null; } }
-        public static Azure.Messaging.EventGrid.SystemEvents.AcsAdvanceMessageDeliveryStatus Sent { get { throw null; } }
-        public static Azure.Messaging.EventGrid.SystemEvents.AcsAdvanceMessageDeliveryStatus Unknown { get { throw null; } }
-        public static Azure.Messaging.EventGrid.SystemEvents.AcsAdvanceMessageDeliveryStatus Warning { get { throw null; } }
-        public bool Equals(Azure.Messaging.EventGrid.SystemEvents.AcsAdvanceMessageDeliveryStatus other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.Messaging.EventGrid.SystemEvents.AcsAdvanceMessageDeliveryStatus left, Azure.Messaging.EventGrid.SystemEvents.AcsAdvanceMessageDeliveryStatus right) { throw null; }
-        public static implicit operator Azure.Messaging.EventGrid.SystemEvents.AcsAdvanceMessageDeliveryStatus (string value) { throw null; }
-        public static bool operator !=(Azure.Messaging.EventGrid.SystemEvents.AcsAdvanceMessageDeliveryStatus left, Azure.Messaging.EventGrid.SystemEvents.AcsAdvanceMessageDeliveryStatus right) { throw null; }
-        public override string ToString() { throw null; }
     }
     public partial class AcsChatEventBaseProperties
     {

@@ -22,12 +22,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="to"> The message recipient. </param>
         /// <param name="receivedTimestamp"> The time message was received. </param>
         /// <param name="errorInternal"> The channel event error. </param>
-        /// <param name="content"> The The messaged received content. </param>
-        /// <param name="channelKind"> The The messaged received channel Kind. </param>
-        /// <param name="mediaContent"> The messaged received media content. </param>
-        /// <param name="context"> The The messaged received context. </param>
-        /// <param name="button"> The The messaged received button content. </param>
-        /// <param name="interactiveContent"> The The messaged received interactive content. </param>
+        /// <param name="content"> The received message content. </param>
+        /// <param name="channelKind"> The received message channel Kind. </param>
+        /// <param name="mediaContent"> The received message media content. </param>
+        /// <param name="context"> The received message context. </param>
+        /// <param name="button"> The received message button content. </param>
+        /// <param name="interactiveContent"> The received message interactive content. </param>
         internal AcsAdvancedMessageReceivedEventData(string @from, string to, DateTimeOffset? receivedTimestamp, AcsAdvancedMessageChannelEventError errorInternal, string content, AcsMessageChannelKind? channelKind, AcsAdvancedMessageMediaContent mediaContent, AcsAdvancedMessageContext context, AcsAdvancedMessageButtonContent button, AcsAdvancedMessageInteractiveContent interactiveContent) : base(@from, to, receivedTimestamp, errorInternal)
         {
             Content = content;
@@ -38,17 +38,17 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             InteractiveContent = interactiveContent;
         }
 
-        /// <summary> The The messaged received content. </summary>
+        /// <summary> The received message content. </summary>
         public string Content { get; }
-        /// <summary> The The messaged received channel Kind. </summary>
+        /// <summary> The received message channel Kind. </summary>
         public AcsMessageChannelKind? ChannelKind { get; }
-        /// <summary> The messaged received media content. </summary>
+        /// <summary> The received message media content. </summary>
         public AcsAdvancedMessageMediaContent MediaContent { get; }
-        /// <summary> The The messaged received context. </summary>
+        /// <summary> The received message context. </summary>
         public AcsAdvancedMessageContext Context { get; }
-        /// <summary> The The messaged received button content. </summary>
+        /// <summary> The received message button content. </summary>
         public AcsAdvancedMessageButtonContent Button { get; }
-        /// <summary> The The messaged received interactive content. </summary>
+        /// <summary> The received message interactive content. </summary>
         public AcsAdvancedMessageInteractiveContent InteractiveContent { get; }
     }
 }
