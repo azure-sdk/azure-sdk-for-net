@@ -351,6 +351,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         public virtual System.Threading.Tasks.Task<Azure.Response> RevokeItemLevelRecoveryConnectionAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation TriggerRestore(Azure.WaitUntil waitUntil, Azure.ResourceManager.RecoveryServicesBackup.Models.TriggerRestoreContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> TriggerRestoreAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.RecoveryServicesBackup.Models.TriggerRestoreContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.RecoveryServicesBackup.BackupRecoveryPointResource> Update(Azure.ResourceManager.RecoveryServicesBackup.Models.BackupRecoveryPointPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.RecoveryServicesBackup.BackupRecoveryPointResource>> UpdateAsync(Azure.ResourceManager.RecoveryServicesBackup.Models.BackupRecoveryPointPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
     public partial class BackupResourceConfigCollection : Azure.ResourceManager.ArmCollection
     {
@@ -1312,6 +1314,16 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         public static implicit operator Azure.ResourceManager.RecoveryServicesBackup.Models.BackupProtectionStatus (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.RecoveryServicesBackup.Models.BackupProtectionStatus left, Azure.ResourceManager.RecoveryServicesBackup.Models.BackupProtectionStatus right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class BackupRecoveryPointPatch : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.RecoveryServicesBackup.Models.BackupRecoveryPointPatch>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.RecoveryServicesBackup.Models.BackupRecoveryPointPatch>
+    {
+        public BackupRecoveryPointPatch() { }
+        public string RecoveryPointExpiryTime { get { throw null; } set { } }
+        Azure.ResourceManager.RecoveryServicesBackup.Models.BackupRecoveryPointPatch System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.RecoveryServicesBackup.Models.BackupRecoveryPointPatch>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.RecoveryServicesBackup.Models.BackupRecoveryPointPatch>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.RecoveryServicesBackup.Models.BackupRecoveryPointPatch System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.RecoveryServicesBackup.Models.BackupRecoveryPointPatch>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.RecoveryServicesBackup.Models.BackupRecoveryPointPatch>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.RecoveryServicesBackup.Models.BackupRecoveryPointPatch>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public partial class BackupResourceConfigProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.RecoveryServicesBackup.Models.BackupResourceConfigProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.RecoveryServicesBackup.Models.BackupResourceConfigProperties>
     {
@@ -2436,6 +2448,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         public Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmPolicyType? PolicyType { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServicesBackup.Models.BackupRetentionPolicy RetentionPolicy { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServicesBackup.Models.BackupSchedulePolicy SchedulePolicy { get { throw null; } set { } }
+        public Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmSnapshotConsistencyType? SnapshotConsistencyType { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.RecoveryServicesBackup.Models.BackupTieringPolicy> TieringPolicy { get { throw null; } }
         public string TimeZone { get { throw null; } set { } }
         Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmProtectionPolicy System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmProtectionPolicy>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -2513,6 +2526,23 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmRestoreWithRehydrationContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmRestoreWithRehydrationContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmRestoreWithRehydrationContent>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmRestoreWithRehydrationContent>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct IaasVmSnapshotConsistencyType : System.IEquatable<Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmSnapshotConsistencyType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public IaasVmSnapshotConsistencyType(string value) { throw null; }
+        public static Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmSnapshotConsistencyType OnlyCrashConsistent { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmSnapshotConsistencyType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmSnapshotConsistencyType left, Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmSnapshotConsistencyType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmSnapshotConsistencyType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmSnapshotConsistencyType left, Azure.ResourceManager.RecoveryServicesBackup.Models.IaasVmSnapshotConsistencyType right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public partial class IdentityBasedRestoreDetails : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.RecoveryServicesBackup.Models.IdentityBasedRestoreDetails>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.RecoveryServicesBackup.Models.IdentityBasedRestoreDetails>
     {

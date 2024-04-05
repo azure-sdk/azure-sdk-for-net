@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
-    /// <summary> User assigned managed identity details. </summary>
-    public partial class UserAssignedManagedIdentityDetails
+    /// <summary> Patch Request content to update recovery point for given RecoveryPointId. </summary>
+    public partial class BackupRecoveryPointPatch
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,29 +45,32 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="UserAssignedManagedIdentityDetails"/>. </summary>
-        public UserAssignedManagedIdentityDetails()
+        /// <summary> Initializes a new instance of <see cref="BackupRecoveryPointPatch"/>. </summary>
+        public BackupRecoveryPointPatch()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="UserAssignedManagedIdentityDetails"/>. </summary>
-        /// <param name="identityArmId"> The ARM id of the assigned identity. </param>
-        /// <param name="identityName"> The name of the assigned identity. </param>
-        /// <param name="userAssignedIdentityProperties"> User assigned managed identity properties. </param>
+        /// <summary> Initializes a new instance of <see cref="BackupRecoveryPointPatch"/>. </summary>
+        /// <param name="properties"> Resource properties. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UserAssignedManagedIdentityDetails(string identityArmId, string identityName, UserAssignedIdentity userAssignedIdentityProperties, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BackupRecoveryPointPatch(PatchRecoveryPointInput properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            IdentityArmId = identityArmId;
-            IdentityName = identityName;
-            UserAssignedIdentityProperties = userAssignedIdentityProperties;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The ARM id of the assigned identity. </summary>
-        public string IdentityArmId { get; set; }
-        /// <summary> The name of the assigned identity. </summary>
-        public string IdentityName { get; set; }
-        /// <summary> User assigned managed identity properties. </summary>
-        public UserAssignedIdentity UserAssignedIdentityProperties { get; set; }
+        /// <summary> Resource properties. </summary>
+        internal PatchRecoveryPointInput Properties { get; set; }
+        /// <summary> Expiry time of Recovery Point in UTC. </summary>
+        public string RecoveryPointExpiryTime
+        {
+            get => Properties is null ? default : Properties.RecoveryPointExpiryTime;
+            set
+            {
+                if (Properties is null)
+                    Properties = new PatchRecoveryPointInput();
+                Properties.RecoveryPointExpiryTime = value;
+            }
+        }
     }
 }
