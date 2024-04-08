@@ -7,11 +7,12 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.HealthcareApis;
 
 namespace Azure.ResourceManager.HealthcareApis.Models
 {
-    /// <summary> Authentication configuration information. </summary>
-    public partial class HealthcareApisServiceAuthenticationConfiguration
+    /// <summary> An object to configure an identity provider for use with SMART on FHIR authentication. </summary>
+    public partial class SmartIdentityProviderConfiguration
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,29 +46,26 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceAuthenticationConfiguration"/>. </summary>
-        internal HealthcareApisServiceAuthenticationConfiguration()
+        /// <summary> Initializes a new instance of <see cref="SmartIdentityProviderConfiguration"/>. </summary>
+        public SmartIdentityProviderConfiguration()
         {
+            Applications = new ChangeTrackingList<SmartIdentityProviderApplication>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceAuthenticationConfiguration"/>. </summary>
-        /// <param name="authority"> The authority url for the service. </param>
-        /// <param name="audience"> The audience url for the service. </param>
-        /// <param name="isSmartProxyEnabled"> If the SMART on FHIR proxy is enabled. </param>
+        /// <summary> Initializes a new instance of <see cref="SmartIdentityProviderConfiguration"/>. </summary>
+        /// <param name="authority"> The identity provider token authority also known as the token issuing authority. </param>
+        /// <param name="applications"> The array of identity provider applications for SMART on FHIR authentication. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthcareApisServiceAuthenticationConfiguration(string authority, string audience, bool? isSmartProxyEnabled, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SmartIdentityProviderConfiguration(string authority, IList<SmartIdentityProviderApplication> applications, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Authority = authority;
-            Audience = audience;
-            IsSmartProxyEnabled = isSmartProxyEnabled;
+            Applications = applications;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The authority url for the service. </summary>
-        public string Authority { get; }
-        /// <summary> The audience url for the service. </summary>
-        public string Audience { get; }
-        /// <summary> If the SMART on FHIR proxy is enabled. </summary>
-        public bool? IsSmartProxyEnabled { get; }
+        /// <summary> The identity provider token authority also known as the token issuing authority. </summary>
+        public string Authority { get; set; }
+        /// <summary> The array of identity provider applications for SMART on FHIR authentication. </summary>
+        public IList<SmartIdentityProviderApplication> Applications { get; }
     }
 }

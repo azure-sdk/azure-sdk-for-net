@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.HealthcareApis
     /// A class representing the HealthcareApisService data model.
     /// The description of the service.
     /// </summary>
-    public partial class HealthcareApisServiceData : TrackedResourceData
+    public partial class HealthcareApisServiceData : ResourceData
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -53,11 +53,13 @@ namespace Azure.ResourceManager.HealthcareApis
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceData"/>. </summary>
-        /// <param name="location"> The location. </param>
         /// <param name="kind"> The kind of the service. </param>
-        public HealthcareApisServiceData(AzureLocation location, HealthcareApisKind kind) : base(location)
+        /// <param name="location"> The resource location. </param>
+        internal HealthcareApisServiceData(HealthcareApisKind kind, AzureLocation location)
         {
             Kind = kind;
+            Location = location;
+            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceData"/>. </summary>
@@ -65,17 +67,19 @@ namespace Azure.ResourceManager.HealthcareApis
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
         /// <param name="properties"> The common properties of a service. </param>
         /// <param name="kind"> The kind of the service. </param>
+        /// <param name="location"> The resource location. </param>
+        /// <param name="tags"> The resource tags. </param>
         /// <param name="etag"> An etag associated with the resource, used for optimistic concurrency when editing it. </param>
         /// <param name="identity"> Setting indicating whether the service has a managed identity associated with it. Current supported identity types: SystemAssigned, None. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthcareApisServiceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, HealthcareApisServiceProperties properties, HealthcareApisKind kind, ETag? etag, ManagedServiceIdentity identity, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal HealthcareApisServiceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, HealthcareApisServiceProperties properties, HealthcareApisKind kind, AzureLocation location, IReadOnlyDictionary<string, string> tags, ETag? etag, ManagedServiceIdentity identity, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             Properties = properties;
             Kind = kind;
+            Location = location;
+            Tags = tags;
             ETag = etag;
             Identity = identity;
             _serializedAdditionalRawData = serializedAdditionalRawData;
@@ -87,12 +91,16 @@ namespace Azure.ResourceManager.HealthcareApis
         }
 
         /// <summary> The common properties of a service. </summary>
-        public HealthcareApisServiceProperties Properties { get; set; }
+        public HealthcareApisServiceProperties Properties { get; }
         /// <summary> The kind of the service. </summary>
-        public HealthcareApisKind Kind { get; set; }
+        public HealthcareApisKind Kind { get; }
+        /// <summary> The resource location. </summary>
+        public AzureLocation Location { get; }
+        /// <summary> The resource tags. </summary>
+        public IReadOnlyDictionary<string, string> Tags { get; }
         /// <summary> An etag associated with the resource, used for optimistic concurrency when editing it. </summary>
-        public ETag? ETag { get; set; }
+        public ETag? ETag { get; }
         /// <summary> Setting indicating whether the service has a managed identity associated with it. Current supported identity types: SystemAssigned, None. </summary>
-        public ManagedServiceIdentity Identity { get; set; }
+        public ManagedServiceIdentity Identity { get; }
     }
 }

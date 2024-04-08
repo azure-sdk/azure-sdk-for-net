@@ -105,9 +105,9 @@ namespace Azure.ResourceManager.HealthcareApis.Models
             {
                 return null;
             }
-            IList<string> origins = default;
-            IList<string> headers = default;
-            IList<string> methods = default;
+            IReadOnlyList<string> origins = default;
+            IReadOnlyList<string> headers = default;
+            IReadOnlyList<string> methods = default;
             int? maxAge = default;
             bool? allowCredentials = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;

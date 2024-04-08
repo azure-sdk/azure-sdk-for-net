@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceAccessPolicyEntry"/>. </summary>
         /// <param name="objectId"> An Azure AD object ID (User or Apps) that is allowed access to the FHIR service. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="objectId"/> is null. </exception>
-        public HealthcareApisServiceAccessPolicyEntry(string objectId)
+        internal HealthcareApisServiceAccessPolicyEntry(string objectId)
         {
             Argument.AssertNotNull(objectId, nameof(objectId));
 
@@ -71,6 +71,6 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         }
 
         /// <summary> An Azure AD object ID (User or Apps) that is allowed access to the FHIR service. </summary>
-        public string ObjectId { get; set; }
+        public string ObjectId { get; }
     }
 }

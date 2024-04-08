@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceCosmosDbConfiguration"/>. </summary>
-        public HealthcareApisServiceCosmosDbConfiguration()
+        internal HealthcareApisServiceCosmosDbConfiguration()
         {
         }
 
@@ -64,10 +64,10 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         }
 
         /// <summary> The provisioned throughput for the backing database. </summary>
-        public int? OfferThroughput { get; set; }
+        public int? OfferThroughput { get; }
         /// <summary> The URI of the customer-managed key for the backing database. </summary>
-        public Uri KeyVaultKeyUri { get; set; }
+        public Uri KeyVaultKeyUri { get; }
         /// <summary> The multi-tenant application id used to enable CMK access for services in a data sovereign region. </summary>
-        public Guid? CrossTenantCmkApplicationId { get; set; }
+        public Guid? CrossTenantCmkApplicationId { get; }
     }
 }

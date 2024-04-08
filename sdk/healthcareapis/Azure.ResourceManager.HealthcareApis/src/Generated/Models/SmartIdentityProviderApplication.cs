@@ -7,11 +7,12 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.HealthcareApis;
 
 namespace Azure.ResourceManager.HealthcareApis.Models
 {
-    /// <summary> Authentication configuration information. </summary>
-    public partial class HealthcareApisServiceAuthenticationConfiguration
+    /// <summary> An Application configured in the Identity Provider used to access FHIR resources. </summary>
+    public partial class SmartIdentityProviderApplication
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,29 +46,30 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceAuthenticationConfiguration"/>. </summary>
-        internal HealthcareApisServiceAuthenticationConfiguration()
+        /// <summary> Initializes a new instance of <see cref="SmartIdentityProviderApplication"/>. </summary>
+        public SmartIdentityProviderApplication()
         {
+            AllowedDataActions = new ChangeTrackingList<SmartDataAction>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceAuthenticationConfiguration"/>. </summary>
-        /// <param name="authority"> The authority url for the service. </param>
-        /// <param name="audience"> The audience url for the service. </param>
-        /// <param name="isSmartProxyEnabled"> If the SMART on FHIR proxy is enabled. </param>
+        /// <summary> Initializes a new instance of <see cref="SmartIdentityProviderApplication"/>. </summary>
+        /// <param name="clientId"> The application client id defined in the identity provider. This value will be used to validate bearer tokens against the given authority. </param>
+        /// <param name="audience"> The audience that will be used to validate bearer tokens against the given authority. </param>
+        /// <param name="allowedDataActions"> The actions that are permitted to be performed on FHIR resources for the application. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthcareApisServiceAuthenticationConfiguration(string authority, string audience, bool? isSmartProxyEnabled, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SmartIdentityProviderApplication(string clientId, string audience, IList<SmartDataAction> allowedDataActions, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Authority = authority;
+            ClientId = clientId;
             Audience = audience;
-            IsSmartProxyEnabled = isSmartProxyEnabled;
+            AllowedDataActions = allowedDataActions;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The authority url for the service. </summary>
-        public string Authority { get; }
-        /// <summary> The audience url for the service. </summary>
-        public string Audience { get; }
-        /// <summary> If the SMART on FHIR proxy is enabled. </summary>
-        public bool? IsSmartProxyEnabled { get; }
+        /// <summary> The application client id defined in the identity provider. This value will be used to validate bearer tokens against the given authority. </summary>
+        public string ClientId { get; set; }
+        /// <summary> The audience that will be used to validate bearer tokens against the given authority. </summary>
+        public string Audience { get; set; }
+        /// <summary> The actions that are permitted to be performed on FHIR resources for the application. </summary>
+        public IList<SmartDataAction> AllowedDataActions { get; }
     }
 }

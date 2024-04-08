@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ServiceExportConfigurationInfo"/>. </summary>
-        public ServiceExportConfigurationInfo()
+        internal ServiceExportConfigurationInfo()
         {
         }
 
@@ -60,6 +60,6 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         }
 
         /// <summary> The name of the default export storage account. </summary>
-        public string StorageAccountName { get; set; }
+        public string StorageAccountName { get; }
     }
 }

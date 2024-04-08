@@ -55,104 +55,6 @@ namespace Azure.ResourceManager.HealthcareApis
         }
 
         /// <summary>
-        /// Create or update the metadata of a service instance.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HealthcareApis/services/{resourceName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Services_CreateOrUpdate</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="HealthcareApisServiceResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="resourceName"> The name of the service instance. </param>
-        /// <param name="data"> The service instance metadata. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceName"/> or <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<HealthcareApisServiceResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string resourceName, HealthcareApisServiceData data, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNull(data, nameof(data));
-
-            using var scope = _healthcareApisServiceServicesClientDiagnostics.CreateScope("HealthcareApisServiceCollection.CreateOrUpdate");
-            scope.Start();
-            try
-            {
-                var response = await _healthcareApisServiceServicesRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, resourceName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new HealthcareApisArmOperation<HealthcareApisServiceResource>(new HealthcareApisServiceOperationSource(Client), _healthcareApisServiceServicesClientDiagnostics, Pipeline, _healthcareApisServiceServicesRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, resourceName, data).Request, response, OperationFinalStateVia.Location);
-                if (waitUntil == WaitUntil.Completed)
-                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
-                return operation;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Create or update the metadata of a service instance.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HealthcareApis/services/{resourceName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Services_CreateOrUpdate</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="HealthcareApisServiceResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="resourceName"> The name of the service instance. </param>
-        /// <param name="data"> The service instance metadata. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceName"/> or <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<HealthcareApisServiceResource> CreateOrUpdate(WaitUntil waitUntil, string resourceName, HealthcareApisServiceData data, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNull(data, nameof(data));
-
-            using var scope = _healthcareApisServiceServicesClientDiagnostics.CreateScope("HealthcareApisServiceCollection.CreateOrUpdate");
-            scope.Start();
-            try
-            {
-                var response = _healthcareApisServiceServicesRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, resourceName, data, cancellationToken);
-                var operation = new HealthcareApisArmOperation<HealthcareApisServiceResource>(new HealthcareApisServiceOperationSource(Client), _healthcareApisServiceServicesClientDiagnostics, Pipeline, _healthcareApisServiceServicesRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, resourceName, data).Request, response, OperationFinalStateVia.Location);
-                if (waitUntil == WaitUntil.Completed)
-                    operation.WaitForCompletion(cancellationToken);
-                return operation;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Get the metadata of a service instance.
         /// <list type="bullet">
         /// <item>
@@ -165,7 +67,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -210,7 +112,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -255,7 +157,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -285,7 +187,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -315,7 +217,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -358,7 +260,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -401,7 +303,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -446,7 +348,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-11-01</description>
+        /// <description>2024-03-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

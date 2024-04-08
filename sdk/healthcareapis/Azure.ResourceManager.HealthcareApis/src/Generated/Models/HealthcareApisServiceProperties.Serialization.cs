@@ -126,12 +126,12 @@ namespace Azure.ResourceManager.HealthcareApis.Models
                 return null;
             }
             HealthcareApisProvisioningState? provisioningState = default;
-            IList<HealthcareApisServiceAccessPolicyEntry> accessPolicies = default;
+            IReadOnlyList<HealthcareApisServiceAccessPolicyEntry> accessPolicies = default;
             HealthcareApisServiceCosmosDbConfiguration cosmosDbConfiguration = default;
             HealthcareApisServiceAuthenticationConfiguration authenticationConfiguration = default;
             HealthcareApisServiceCorsConfiguration corsConfiguration = default;
             ServiceExportConfigurationInfo exportConfiguration = default;
-            IList<HealthcareApisPrivateEndpointConnectionData> privateEndpointConnections = default;
+            IReadOnlyList<HealthcareApisPrivateEndpointConnectionData> privateEndpointConnections = default;
             HealthcareApisPublicNetworkAccess? publicNetworkAccess = default;
             HealthcareApisServiceAcrConfiguration acrConfiguration = default;
             HealthcareApisServiceImportConfiguration importConfiguration = default;

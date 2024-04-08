@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceCorsConfiguration"/>. </summary>
-        public HealthcareApisServiceCorsConfiguration()
+        internal HealthcareApisServiceCorsConfiguration()
         {
             Origins = new ChangeTrackingList<string>();
             Headers = new ChangeTrackingList<string>();
@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         /// <param name="maxAge"> The max age to be allowed via CORS. </param>
         /// <param name="allowCredentials"> If credentials are allowed via CORS. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthcareApisServiceCorsConfiguration(IList<string> origins, IList<string> headers, IList<string> methods, int? maxAge, bool? allowCredentials, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal HealthcareApisServiceCorsConfiguration(IReadOnlyList<string> origins, IReadOnlyList<string> headers, IReadOnlyList<string> methods, int? maxAge, bool? allowCredentials, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Origins = origins;
             Headers = headers;
@@ -72,14 +72,14 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         }
 
         /// <summary> The origins to be allowed via CORS. </summary>
-        public IList<string> Origins { get; }
+        public IReadOnlyList<string> Origins { get; }
         /// <summary> The headers to be allowed via CORS. </summary>
-        public IList<string> Headers { get; }
+        public IReadOnlyList<string> Headers { get; }
         /// <summary> The methods to be allowed via CORS. </summary>
-        public IList<string> Methods { get; }
+        public IReadOnlyList<string> Methods { get; }
         /// <summary> The max age to be allowed via CORS. </summary>
-        public int? MaxAge { get; set; }
+        public int? MaxAge { get; }
         /// <summary> If credentials are allowed via CORS. </summary>
-        public bool? AllowCredentials { get; set; }
+        public bool? AllowCredentials { get; }
     }
 }

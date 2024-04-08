@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceImportConfiguration"/>. </summary>
-        public HealthcareApisServiceImportConfiguration()
+        internal HealthcareApisServiceImportConfiguration()
         {
         }
 
@@ -64,10 +64,10 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         }
 
         /// <summary> The name of the default integration storage account. </summary>
-        public string IntegrationDataStore { get; set; }
+        public string IntegrationDataStore { get; }
         /// <summary> If the FHIR service is in InitialImportMode. </summary>
-        public bool? IsInitialImportMode { get; set; }
+        public bool? IsInitialImportMode { get; }
         /// <summary> If the import operation is enabled. </summary>
-        public bool? IsEnabled { get; set; }
+        public bool? IsEnabled { get; }
     }
 }

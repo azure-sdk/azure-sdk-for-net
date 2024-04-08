@@ -24,14 +24,14 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
         /// <param name="properties"> The common properties of a service. </param>
         /// <param name="kind"> The kind of the service. </param>
+        /// <param name="location"> The resource location. </param>
+        /// <param name="tags"> The resource tags. </param>
         /// <param name="etag"> An etag associated with the resource, used for optimistic concurrency when editing it. </param>
         /// <param name="identity"> Setting indicating whether the service has a managed identity associated with it. Current supported identity types: SystemAssigned, None. </param>
         /// <returns> A new <see cref="HealthcareApis.HealthcareApisServiceData"/> instance for mocking. </returns>
-        public static HealthcareApisServiceData HealthcareApisServiceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, HealthcareApisServiceProperties properties = null, HealthcareApisKind kind = default, ETag? etag = null, ManagedServiceIdentity identity = null)
+        public static HealthcareApisServiceData HealthcareApisServiceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, HealthcareApisServiceProperties properties = null, HealthcareApisKind kind = default, AzureLocation location = default, IReadOnlyDictionary<string, string> tags = null, ETag? etag = null, ManagedServiceIdentity identity = null)
         {
             tags ??= new Dictionary<string, string>();
 
@@ -40,10 +40,10 @@ namespace Azure.ResourceManager.HealthcareApis.Models
                 name,
                 resourceType,
                 systemData,
-                tags,
-                location,
                 properties,
                 kind,
+                location,
+                tags,
                 etag,
                 identity,
                 serializedAdditionalRawData: null);
@@ -80,6 +80,56 @@ namespace Azure.ResourceManager.HealthcareApis.Models
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Models.HealthcareApisServiceAccessPolicyEntry"/>. </summary>
+        /// <param name="objectId"> An Azure AD object ID (User or Apps) that is allowed access to the FHIR service. </param>
+        /// <returns> A new <see cref="Models.HealthcareApisServiceAccessPolicyEntry"/> instance for mocking. </returns>
+        public static HealthcareApisServiceAccessPolicyEntry HealthcareApisServiceAccessPolicyEntry(string objectId = null)
+        {
+            return new HealthcareApisServiceAccessPolicyEntry(objectId, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.HealthcareApisServiceCosmosDbConfiguration"/>. </summary>
+        /// <param name="offerThroughput"> The provisioned throughput for the backing database. </param>
+        /// <param name="keyVaultKeyUri"> The URI of the customer-managed key for the backing database. </param>
+        /// <param name="crossTenantCmkApplicationId"> The multi-tenant application id used to enable CMK access for services in a data sovereign region. </param>
+        /// <returns> A new <see cref="Models.HealthcareApisServiceCosmosDbConfiguration"/> instance for mocking. </returns>
+        public static HealthcareApisServiceCosmosDbConfiguration HealthcareApisServiceCosmosDbConfiguration(int? offerThroughput = null, Uri keyVaultKeyUri = null, Guid? crossTenantCmkApplicationId = null)
+        {
+            return new HealthcareApisServiceCosmosDbConfiguration(offerThroughput, keyVaultKeyUri, crossTenantCmkApplicationId, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.HealthcareApisServiceAuthenticationConfiguration"/>. </summary>
+        /// <param name="authority"> The authority url for the service. </param>
+        /// <param name="audience"> The audience url for the service. </param>
+        /// <param name="isSmartProxyEnabled"> If the SMART on FHIR proxy is enabled. </param>
+        /// <returns> A new <see cref="Models.HealthcareApisServiceAuthenticationConfiguration"/> instance for mocking. </returns>
+        public static HealthcareApisServiceAuthenticationConfiguration HealthcareApisServiceAuthenticationConfiguration(string authority = null, string audience = null, bool? isSmartProxyEnabled = null)
+        {
+            return new HealthcareApisServiceAuthenticationConfiguration(authority, audience, isSmartProxyEnabled, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.HealthcareApisServiceCorsConfiguration"/>. </summary>
+        /// <param name="origins"> The origins to be allowed via CORS. </param>
+        /// <param name="headers"> The headers to be allowed via CORS. </param>
+        /// <param name="methods"> The methods to be allowed via CORS. </param>
+        /// <param name="maxAge"> The max age to be allowed via CORS. </param>
+        /// <param name="allowCredentials"> If credentials are allowed via CORS. </param>
+        /// <returns> A new <see cref="Models.HealthcareApisServiceCorsConfiguration"/> instance for mocking. </returns>
+        public static HealthcareApisServiceCorsConfiguration HealthcareApisServiceCorsConfiguration(IEnumerable<string> origins = null, IEnumerable<string> headers = null, IEnumerable<string> methods = null, int? maxAge = null, bool? allowCredentials = null)
+        {
+            origins ??= new List<string>();
+            headers ??= new List<string>();
+            methods ??= new List<string>();
+
+            return new HealthcareApisServiceCorsConfiguration(
+                origins?.ToList(),
+                headers?.ToList(),
+                methods?.ToList(),
+                maxAge,
+                allowCredentials,
+                serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="HealthcareApis.HealthcareApisPrivateEndpointConnectionData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -100,6 +150,28 @@ namespace Azure.ResourceManager.HealthcareApis.Models
                 connectionState,
                 provisioningState,
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.HealthcareApisServiceAcrConfiguration"/>. </summary>
+        /// <param name="loginServers"> The list of the ACR login servers. </param>
+        /// <param name="ociArtifacts"> The list of Open Container Initiative (OCI) artifacts. </param>
+        /// <returns> A new <see cref="Models.HealthcareApisServiceAcrConfiguration"/> instance for mocking. </returns>
+        public static HealthcareApisServiceAcrConfiguration HealthcareApisServiceAcrConfiguration(IEnumerable<string> loginServers = null, IEnumerable<HealthcareApisServiceOciArtifactEntry> ociArtifacts = null)
+        {
+            loginServers ??= new List<string>();
+            ociArtifacts ??= new List<HealthcareApisServiceOciArtifactEntry>();
+
+            return new HealthcareApisServiceAcrConfiguration(loginServers?.ToList(), ociArtifacts?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.HealthcareApisServiceImportConfiguration"/>. </summary>
+        /// <param name="integrationDataStore"> The name of the default integration storage account. </param>
+        /// <param name="isInitialImportMode"> If the FHIR service is in InitialImportMode. </param>
+        /// <param name="isEnabled"> If the import operation is enabled. </param>
+        /// <returns> A new <see cref="Models.HealthcareApisServiceImportConfiguration"/> instance for mocking. </returns>
+        public static HealthcareApisServiceImportConfiguration HealthcareApisServiceImportConfiguration(string integrationDataStore = null, bool? isInitialImportMode = null, bool? isEnabled = null)
+        {
+            return new HealthcareApisServiceImportConfiguration(integrationDataStore, isInitialImportMode, isEnabled, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.HealthcareApisNameAvailabilityResult"/>. </summary>
@@ -190,10 +262,11 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         /// <param name="publicNetworkAccess"> Control permission for data plane traffic coming from public networks while private endpoint is enabled. </param>
         /// <param name="eventState"> DICOM Service event support status. </param>
         /// <param name="keyEncryptionKeyUri"> The encryption settings of the DICOM service. </param>
+        /// <param name="storageConfiguration"> The configuration of external storage account. </param>
         /// <param name="identity"> Setting indicating whether the service has a managed identity associated with it. </param>
         /// <param name="etag"> An etag associated with the resource, used for optimistic concurrency when editing it. </param>
         /// <returns> A new <see cref="HealthcareApis.DicomServiceData"/> instance for mocking. </returns>
-        public static DicomServiceData DicomServiceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, HealthcareApisProvisioningState? provisioningState = null, DicomServiceAuthenticationConfiguration authenticationConfiguration = null, DicomServiceCorsConfiguration corsConfiguration = null, Uri serviceUri = null, IEnumerable<HealthcareApisPrivateEndpointConnectionData> privateEndpointConnections = null, HealthcareApisPublicNetworkAccess? publicNetworkAccess = null, FhirServiceEventState? eventState = null, Uri keyEncryptionKeyUri = null, ManagedServiceIdentity identity = null, ETag? etag = null)
+        public static DicomServiceData DicomServiceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, HealthcareApisProvisioningState? provisioningState = null, DicomServiceAuthenticationConfiguration authenticationConfiguration = null, DicomServiceCorsConfiguration corsConfiguration = null, Uri serviceUri = null, IEnumerable<HealthcareApisPrivateEndpointConnectionData> privateEndpointConnections = null, HealthcareApisPublicNetworkAccess? publicNetworkAccess = null, FhirServiceEventState? eventState = null, Uri keyEncryptionKeyUri = null, StorageConfiguration storageConfiguration = null, ManagedServiceIdentity identity = null, ETag? etag = null)
         {
             tags ??= new Dictionary<string, string>();
             privateEndpointConnections ??= new List<HealthcareApisPrivateEndpointConnectionData>();
@@ -213,6 +286,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
                 publicNetworkAccess,
                 eventState,
                 keyEncryptionKeyUri != null ? new Encryption(new EncryptionCustomerManagedKeyEncryption(keyEncryptionKeyUri, serializedAdditionalRawData: null), serializedAdditionalRawData: null) : null,
+                storageConfiguration,
                 identity,
                 etag,
                 serializedAdditionalRawData: null);
@@ -340,6 +414,30 @@ namespace Azure.ResourceManager.HealthcareApis.Models
                 identity,
                 etag,
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.HealthcareApis.DicomServiceData" />. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="provisioningState"> The provisioning state. </param>
+        /// <param name="authenticationConfiguration"> Dicom Service authentication configuration. </param>
+        /// <param name="corsConfiguration"> Dicom Service Cors configuration. </param>
+        /// <param name="serviceUri"> The url of the Dicom Services. </param>
+        /// <param name="privateEndpointConnections"> The list of private endpoint connections that are set up for this resource. </param>
+        /// <param name="publicNetworkAccess"> Control permission for data plane traffic coming from public networks while private endpoint is enabled. </param>
+        /// <param name="eventState"> DICOM Service event support status. </param>
+        /// <param name="keyEncryptionKeyUri"> The encryption settings of the DICOM service. </param>
+        /// <param name="identity"> Setting indicating whether the service has a managed identity associated with it. </param>
+        /// <param name="etag"> An etag associated with the resource, used for optimistic concurrency when editing it. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.HealthcareApis.DicomServiceData" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static DicomServiceData DicomServiceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, HealthcareApisProvisioningState? provisioningState, DicomServiceAuthenticationConfiguration authenticationConfiguration, DicomServiceCorsConfiguration corsConfiguration, Uri serviceUri, IEnumerable<HealthcareApisPrivateEndpointConnectionData> privateEndpointConnections, HealthcareApisPublicNetworkAccess? publicNetworkAccess, FhirServiceEventState? eventState, Uri keyEncryptionKeyUri, ManagedServiceIdentity identity, ETag? etag)
+        {
+            return DicomServiceData(id: id, name: name, resourceType: resourceType, systemData: systemData, tags: tags, location: location, provisioningState: provisioningState, authenticationConfiguration: authenticationConfiguration, corsConfiguration: corsConfiguration, serviceUri: serviceUri, privateEndpointConnections: privateEndpointConnections, publicNetworkAccess: publicNetworkAccess, eventState: eventState, keyEncryptionKeyUri: keyEncryptionKeyUri, storageConfiguration: default, identity: identity, etag: etag);
         }
     }
 }

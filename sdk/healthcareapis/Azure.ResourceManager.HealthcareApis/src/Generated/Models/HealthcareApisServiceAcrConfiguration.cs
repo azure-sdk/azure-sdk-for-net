@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceAcrConfiguration"/>. </summary>
-        public HealthcareApisServiceAcrConfiguration()
+        internal HealthcareApisServiceAcrConfiguration()
         {
             LoginServers = new ChangeTrackingList<string>();
             OciArtifacts = new ChangeTrackingList<HealthcareApisServiceOciArtifactEntry>();
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         /// <param name="loginServers"> The list of the ACR login servers. </param>
         /// <param name="ociArtifacts"> The list of Open Container Initiative (OCI) artifacts. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthcareApisServiceAcrConfiguration(IList<string> loginServers, IList<HealthcareApisServiceOciArtifactEntry> ociArtifacts, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal HealthcareApisServiceAcrConfiguration(IReadOnlyList<string> loginServers, IReadOnlyList<HealthcareApisServiceOciArtifactEntry> ociArtifacts, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             LoginServers = loginServers;
             OciArtifacts = ociArtifacts;
@@ -65,8 +65,8 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         }
 
         /// <summary> The list of the ACR login servers. </summary>
-        public IList<string> LoginServers { get; }
+        public IReadOnlyList<string> LoginServers { get; }
         /// <summary> The list of Open Container Initiative (OCI) artifacts. </summary>
-        public IList<HealthcareApisServiceOciArtifactEntry> OciArtifacts { get; }
+        public IReadOnlyList<HealthcareApisServiceOciArtifactEntry> OciArtifacts { get; }
     }
 }

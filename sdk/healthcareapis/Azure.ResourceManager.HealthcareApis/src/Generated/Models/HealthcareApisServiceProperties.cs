@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceProperties"/>. </summary>
-        public HealthcareApisServiceProperties()
+        internal HealthcareApisServiceProperties()
         {
             AccessPolicies = new ChangeTrackingList<HealthcareApisServiceAccessPolicyEntry>();
             PrivateEndpointConnections = new ChangeTrackingList<HealthcareApisPrivateEndpointConnectionData>();
@@ -65,7 +65,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         /// <param name="acrConfiguration"> The azure container registry settings used for convert data operation of the service instance. </param>
         /// <param name="importConfiguration"> The settings for the import operation of the service instance. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthcareApisServiceProperties(HealthcareApisProvisioningState? provisioningState, IList<HealthcareApisServiceAccessPolicyEntry> accessPolicies, HealthcareApisServiceCosmosDbConfiguration cosmosDbConfiguration, HealthcareApisServiceAuthenticationConfiguration authenticationConfiguration, HealthcareApisServiceCorsConfiguration corsConfiguration, ServiceExportConfigurationInfo exportConfiguration, IList<HealthcareApisPrivateEndpointConnectionData> privateEndpointConnections, HealthcareApisPublicNetworkAccess? publicNetworkAccess, HealthcareApisServiceAcrConfiguration acrConfiguration, HealthcareApisServiceImportConfiguration importConfiguration, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal HealthcareApisServiceProperties(HealthcareApisProvisioningState? provisioningState, IReadOnlyList<HealthcareApisServiceAccessPolicyEntry> accessPolicies, HealthcareApisServiceCosmosDbConfiguration cosmosDbConfiguration, HealthcareApisServiceAuthenticationConfiguration authenticationConfiguration, HealthcareApisServiceCorsConfiguration corsConfiguration, ServiceExportConfigurationInfo exportConfiguration, IReadOnlyList<HealthcareApisPrivateEndpointConnectionData> privateEndpointConnections, HealthcareApisPublicNetworkAccess? publicNetworkAccess, HealthcareApisServiceAcrConfiguration acrConfiguration, HealthcareApisServiceImportConfiguration importConfiguration, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ProvisioningState = provisioningState;
             AccessPolicies = accessPolicies;
@@ -83,34 +83,28 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         /// <summary> The provisioning state. </summary>
         public HealthcareApisProvisioningState? ProvisioningState { get; }
         /// <summary> The access policies of the service instance. </summary>
-        public IList<HealthcareApisServiceAccessPolicyEntry> AccessPolicies { get; }
+        public IReadOnlyList<HealthcareApisServiceAccessPolicyEntry> AccessPolicies { get; }
         /// <summary> The settings for the Cosmos DB database backing the service. </summary>
-        public HealthcareApisServiceCosmosDbConfiguration CosmosDbConfiguration { get; set; }
+        public HealthcareApisServiceCosmosDbConfiguration CosmosDbConfiguration { get; }
         /// <summary> The authentication configuration for the service instance. </summary>
-        public HealthcareApisServiceAuthenticationConfiguration AuthenticationConfiguration { get; set; }
+        public HealthcareApisServiceAuthenticationConfiguration AuthenticationConfiguration { get; }
         /// <summary> The settings for the CORS configuration of the service instance. </summary>
-        public HealthcareApisServiceCorsConfiguration CorsConfiguration { get; set; }
+        public HealthcareApisServiceCorsConfiguration CorsConfiguration { get; }
         /// <summary> The settings for the export operation of the service instance. </summary>
-        internal ServiceExportConfigurationInfo ExportConfiguration { get; set; }
+        internal ServiceExportConfigurationInfo ExportConfiguration { get; }
         /// <summary> The name of the default export storage account. </summary>
         public string ExportStorageAccountName
         {
-            get => ExportConfiguration is null ? default : ExportConfiguration.StorageAccountName;
-            set
-            {
-                if (ExportConfiguration is null)
-                    ExportConfiguration = new ServiceExportConfigurationInfo();
-                ExportConfiguration.StorageAccountName = value;
-            }
+            get => ExportConfiguration?.StorageAccountName;
         }
 
         /// <summary> The list of private endpoint connections that are set up for this resource. </summary>
-        public IList<HealthcareApisPrivateEndpointConnectionData> PrivateEndpointConnections { get; }
+        public IReadOnlyList<HealthcareApisPrivateEndpointConnectionData> PrivateEndpointConnections { get; }
         /// <summary> Control permission for data plane traffic coming from public networks while private endpoint is enabled. </summary>
-        public HealthcareApisPublicNetworkAccess? PublicNetworkAccess { get; set; }
+        public HealthcareApisPublicNetworkAccess? PublicNetworkAccess { get; }
         /// <summary> The azure container registry settings used for convert data operation of the service instance. </summary>
-        public HealthcareApisServiceAcrConfiguration AcrConfiguration { get; set; }
+        public HealthcareApisServiceAcrConfiguration AcrConfiguration { get; }
         /// <summary> The settings for the import operation of the service instance. </summary>
-        public HealthcareApisServiceImportConfiguration ImportConfiguration { get; set; }
+        public HealthcareApisServiceImportConfiguration ImportConfiguration { get; }
     }
 }

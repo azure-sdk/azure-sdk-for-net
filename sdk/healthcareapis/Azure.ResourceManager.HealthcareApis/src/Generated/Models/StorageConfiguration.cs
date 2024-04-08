@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.HealthcareApis.Models
 {
-    /// <summary> Authentication configuration information. </summary>
-    public partial class HealthcareApisServiceAuthenticationConfiguration
+    /// <summary> The configuration of connected storage. </summary>
+    public partial class StorageConfiguration
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,29 +45,25 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceAuthenticationConfiguration"/>. </summary>
-        internal HealthcareApisServiceAuthenticationConfiguration()
+        /// <summary> Initializes a new instance of <see cref="StorageConfiguration"/>. </summary>
+        public StorageConfiguration()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceAuthenticationConfiguration"/>. </summary>
-        /// <param name="authority"> The authority url for the service. </param>
-        /// <param name="audience"> The audience url for the service. </param>
-        /// <param name="isSmartProxyEnabled"> If the SMART on FHIR proxy is enabled. </param>
+        /// <summary> Initializes a new instance of <see cref="StorageConfiguration"/>. </summary>
+        /// <param name="storageResourceId"> The resource id of connected storage account. </param>
+        /// <param name="fileSystemName"> The filesystem name of connected storage account. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthcareApisServiceAuthenticationConfiguration(string authority, string audience, bool? isSmartProxyEnabled, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal StorageConfiguration(string storageResourceId, string fileSystemName, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Authority = authority;
-            Audience = audience;
-            IsSmartProxyEnabled = isSmartProxyEnabled;
+            StorageResourceId = storageResourceId;
+            FileSystemName = fileSystemName;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The authority url for the service. </summary>
-        public string Authority { get; }
-        /// <summary> The audience url for the service. </summary>
-        public string Audience { get; }
-        /// <summary> If the SMART on FHIR proxy is enabled. </summary>
-        public bool? IsSmartProxyEnabled { get; }
+        /// <summary> The resource id of connected storage account. </summary>
+        public string StorageResourceId { get; set; }
+        /// <summary> The filesystem name of connected storage account. </summary>
+        public string FileSystemName { get; set; }
     }
 }
