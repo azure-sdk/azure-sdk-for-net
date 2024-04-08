@@ -26,10 +26,10 @@ namespace Azure.Health.Insights.RadiologyInsights
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(EffectiveDateTime))
+            if (Optional.IsDefined(EffectiveAt))
             {
-                writer.WritePropertyName("effectiveDateTime"u8);
-                writer.WriteStringValue(EffectiveDateTime);
+                writer.WritePropertyName("effectiveAt"u8);
+                writer.WriteStringValue(EffectiveAt);
             }
             if (Optional.IsDefined(EffectivePeriod))
             {
@@ -42,7 +42,7 @@ namespace Azure.Health.Insights.RadiologyInsights
                 writer.WriteStartArray();
                 foreach (var item in Findings)
                 {
-                    writer.WriteObjectValue<FhirR4Extendible>(item, options);
+                    writer.WriteObjectValue<RecommendationFinding>(item, options);
                 }
                 writer.WriteEndArray();
             }
@@ -106,23 +106,23 @@ namespace Azure.Health.Insights.RadiologyInsights
             {
                 return null;
             }
-            string effectiveDateTime = default;
+            string effectiveAt = default;
             FhirR4Period effectivePeriod = default;
-            IReadOnlyList<FhirR4Extendible> findings = default;
+            IList<RecommendationFinding> findings = default;
             bool isConditional = default;
             bool isOption = default;
             bool isGuideline = default;
             bool isHedging = default;
             ProcedureRecommendation recommendedProcedure = default;
             string kind = default;
-            IReadOnlyList<FhirR4Extension> extension = default;
+            IList<FhirR4Extension> extension = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("effectiveDateTime"u8))
+                if (property.NameEquals("effectiveAt"u8))
                 {
-                    effectiveDateTime = property.Value.GetString();
+                    effectiveAt = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("effectivePeriod"u8))
@@ -140,10 +140,10 @@ namespace Azure.Health.Insights.RadiologyInsights
                     {
                         continue;
                     }
-                    List<FhirR4Extendible> array = new List<FhirR4Extendible>();
+                    List<RecommendationFinding> array = new List<RecommendationFinding>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(FhirR4Extendible.DeserializeFhirR4Extendible(item, options));
+                        array.Add(RecommendationFinding.DeserializeRecommendationFinding(item, options));
                     }
                     findings = array;
                     continue;
@@ -202,9 +202,9 @@ namespace Azure.Health.Insights.RadiologyInsights
                 kind,
                 extension ?? new ChangeTrackingList<FhirR4Extension>(),
                 serializedAdditionalRawData,
-                effectiveDateTime,
+                effectiveAt,
                 effectivePeriod,
-                findings ?? new ChangeTrackingList<FhirR4Extendible>(),
+                findings ?? new ChangeTrackingList<RecommendationFinding>(),
                 isConditional,
                 isOption,
                 isGuideline,
