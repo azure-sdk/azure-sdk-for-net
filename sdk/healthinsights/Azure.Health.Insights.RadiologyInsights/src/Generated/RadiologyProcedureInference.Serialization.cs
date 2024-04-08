@@ -44,7 +44,7 @@ namespace Azure.Health.Insights.RadiologyInsights
             }
             writer.WriteEndArray();
             writer.WritePropertyName("orderedProcedure"u8);
-            writer.WriteObjectValue<FhirR4Extendible>(OrderedProcedure, options);
+            writer.WriteObjectValue<OrderedProcedure>(OrderedProcedure, options);
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind);
             if (Optional.IsCollectionDefined(Extension))
@@ -95,11 +95,11 @@ namespace Azure.Health.Insights.RadiologyInsights
             {
                 return null;
             }
-            IReadOnlyList<FhirR4CodeableConcept> procedureCodes = default;
-            IReadOnlyList<ImagingProcedure> imagingProcedures = default;
-            FhirR4Extendible orderedProcedure = default;
+            IList<FhirR4CodeableConcept> procedureCodes = default;
+            IList<ImagingProcedure> imagingProcedures = default;
+            OrderedProcedure orderedProcedure = default;
             string kind = default;
-            IReadOnlyList<FhirR4Extension> extension = default;
+            IList<FhirR4Extension> extension = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -130,7 +130,7 @@ namespace Azure.Health.Insights.RadiologyInsights
                 }
                 if (property.NameEquals("orderedProcedure"u8))
                 {
-                    orderedProcedure = FhirR4Extendible.DeserializeFhirR4Extendible(property.Value, options);
+                    orderedProcedure = OrderedProcedure.DeserializeOrderedProcedure(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("kind"u8))
