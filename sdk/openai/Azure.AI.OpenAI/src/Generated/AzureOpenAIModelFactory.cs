@@ -317,6 +317,7 @@ namespace Azure.AI.OpenAI
         /// Generally, `n` choices are generated per provided prompt with a default value of 1.
         /// Token limits and other settings may limit the number of choices generated.
         /// </param>
+        /// <param name="model"> The model name used for this completions request. </param>
         /// <param name="promptFilterResults">
         /// Content filtering results for zero or more prompts in the request. In a streaming request,
         /// results for different prompts may arrive at different times or in different orders.
@@ -327,7 +328,7 @@ namespace Azure.AI.OpenAI
         /// </param>
         /// <param name="usage"> Usage information for tokens processed and generated as part of this completions operation. </param>
         /// <returns> A new <see cref="OpenAI.ChatCompletions"/> instance for mocking. </returns>
-        public static ChatCompletions ChatCompletions(string id = null, DateTimeOffset created = default, IEnumerable<ChatChoice> choices = null, IEnumerable<ContentFilterResultsForPrompt> promptFilterResults = null, string systemFingerprint = null, CompletionsUsage usage = null)
+        public static ChatCompletions ChatCompletions(string id = null, DateTimeOffset created = default, IEnumerable<ChatChoice> choices = null, string model = null, IEnumerable<ContentFilterResultsForPrompt> promptFilterResults = null, string systemFingerprint = null, CompletionsUsage usage = null)
         {
             choices ??= new List<ChatChoice>();
             promptFilterResults ??= new List<ContentFilterResultsForPrompt>();
@@ -336,6 +337,7 @@ namespace Azure.AI.OpenAI
                 id,
                 created,
                 choices?.ToList(),
+                model,
                 promptFilterResults?.ToList(),
                 systemFingerprint,
                 usage,
