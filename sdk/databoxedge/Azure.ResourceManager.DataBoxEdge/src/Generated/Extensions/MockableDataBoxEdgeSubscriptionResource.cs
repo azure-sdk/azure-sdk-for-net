@@ -9,15 +9,12 @@ using System.Threading;
 using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
-using Azure.ResourceManager.DataBoxEdge.Models;
 
 namespace Azure.ResourceManager.DataBoxEdge.Mocking
 {
     /// <summary> A class to add extension methods to SubscriptionResource. </summary>
     public partial class MockableDataBoxEdgeSubscriptionResource : ArmResource
     {
-        private ClientDiagnostics _availableSkusClientDiagnostics;
-        private AvailableSkusRestOperations _availableSkusRestClient;
         private ClientDiagnostics _dataBoxEdgeDeviceDevicesClientDiagnostics;
         private DevicesRestOperations _dataBoxEdgeDeviceDevicesRestClient;
 
@@ -33,8 +30,6 @@ namespace Azure.ResourceManager.DataBoxEdge.Mocking
         {
         }
 
-        private ClientDiagnostics AvailableSkusClientDiagnostics => _availableSkusClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.DataBoxEdge", ProviderConstants.DefaultProviderNamespace, Diagnostics);
-        private AvailableSkusRestOperations AvailableSkusRestClient => _availableSkusRestClient ??= new AvailableSkusRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
         private ClientDiagnostics DataBoxEdgeDeviceDevicesClientDiagnostics => _dataBoxEdgeDeviceDevicesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.DataBoxEdge", DataBoxEdgeDeviceResource.ResourceType.Namespace, Diagnostics);
         private DevicesRestOperations DataBoxEdgeDeviceDevicesRestClient => _dataBoxEdgeDeviceDevicesRestClient ??= new DevicesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(DataBoxEdgeDeviceResource.ResourceType));
 
@@ -42,58 +37,6 @@ namespace Azure.ResourceManager.DataBoxEdge.Mocking
         {
             TryGetApiVersion(resourceType, out string apiVersion);
             return apiVersion;
-        }
-
-        /// <summary>
-        /// List all the available Skus and information related to them.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DataBoxEdge/availableSkus</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>AvailableSkus_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2022-03-01</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="AvailableDataBoxEdgeSku"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<AvailableDataBoxEdgeSku> GetAvailableSkusAsync(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => AvailableSkusRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => AvailableSkusRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => AvailableDataBoxEdgeSku.DeserializeAvailableDataBoxEdgeSku(e), AvailableSkusClientDiagnostics, Pipeline, "MockableDataBoxEdgeSubscriptionResource.GetAvailableSkus", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// List all the available Skus and information related to them.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DataBoxEdge/availableSkus</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>AvailableSkus_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2022-03-01</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="AvailableDataBoxEdgeSku"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<AvailableDataBoxEdgeSku> GetAvailableSkus(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => AvailableSkusRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => AvailableSkusRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => AvailableDataBoxEdgeSku.DeserializeAvailableDataBoxEdgeSku(e), AvailableSkusClientDiagnostics, Pipeline, "MockableDataBoxEdgeSubscriptionResource.GetAvailableSkus", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -109,7 +52,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-03-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -140,7 +83,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-03-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

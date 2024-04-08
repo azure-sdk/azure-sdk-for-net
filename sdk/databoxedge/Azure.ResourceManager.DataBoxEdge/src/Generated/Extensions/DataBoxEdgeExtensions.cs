@@ -10,7 +10,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.ResourceManager.DataBoxEdge.Mocking;
-using Azure.ResourceManager.DataBoxEdge.Models;
 using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.DataBoxEdge
@@ -367,7 +366,7 @@ namespace Azure.ResourceManager.DataBoxEdge
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-03-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -405,7 +404,7 @@ namespace Azure.ResourceManager.DataBoxEdge
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-03-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -431,70 +430,6 @@ namespace Azure.ResourceManager.DataBoxEdge
         }
 
         /// <summary>
-        /// List all the available Skus and information related to them.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DataBoxEdge/availableSkus</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>AvailableSkus_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2022-03-01</description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableDataBoxEdgeSubscriptionResource.GetAvailableSkus(CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
-        /// <returns> An async collection of <see cref="AvailableDataBoxEdgeSku"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<AvailableDataBoxEdgeSku> GetAvailableSkusAsync(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
-
-            return GetMockableDataBoxEdgeSubscriptionResource(subscriptionResource).GetAvailableSkusAsync(cancellationToken);
-        }
-
-        /// <summary>
-        /// List all the available Skus and information related to them.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DataBoxEdge/availableSkus</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>AvailableSkus_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2022-03-01</description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableDataBoxEdgeSubscriptionResource.GetAvailableSkus(CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
-        /// <returns> A collection of <see cref="AvailableDataBoxEdgeSku"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<AvailableDataBoxEdgeSku> GetAvailableSkus(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
-
-            return GetMockableDataBoxEdgeSubscriptionResource(subscriptionResource).GetAvailableSkus(cancellationToken);
-        }
-
-        /// <summary>
         /// Gets all the Data Box Edge/Data Box Gateway devices in a subscription.
         /// <list type="bullet">
         /// <item>
@@ -507,7 +442,7 @@ namespace Azure.ResourceManager.DataBoxEdge
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-03-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -544,7 +479,7 @@ namespace Azure.ResourceManager.DataBoxEdge
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-03-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

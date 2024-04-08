@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_DataBoxEdgeDeviceGetByResourceGroup()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/DataBoxEdgeDeviceGetByResourceGroup.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/DataBoxEdgeDeviceGetByResourceGroup.json
             // this example is just showing the usage of "Devices_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_DataBoxEdgeDeviceGetByName()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/DataBoxEdgeDeviceGetByName.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/DataBoxEdgeDeviceGetByName.json
             // this example is just showing the usage of "Devices_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_DataBoxEdgeDeviceGetByName()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/DataBoxEdgeDeviceGetByName.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/DataBoxEdgeDeviceGetByName.json
             // this example is just showing the usage of "Devices_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_DataBoxEdgeDeviceGetByName()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/DataBoxEdgeDeviceGetByName.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/DataBoxEdgeDeviceGetByName.json
             // this example is just showing the usage of "Devices_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -163,7 +163,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_DataBoxEdgeDeviceGetByNameWithDataResidency()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/DataBoxEdgeDeviceGetByNameWithDataResidency.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/DataBoxEdgeDeviceGetByNameWithDataResidency.json
             // this example is just showing the usage of "Devices_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -197,7 +197,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_DataBoxEdgeDeviceGetByNameWithDataResidency()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/DataBoxEdgeDeviceGetByNameWithDataResidency.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/DataBoxEdgeDeviceGetByNameWithDataResidency.json
             // this example is just showing the usage of "Devices_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -227,7 +227,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_DataBoxEdgeDeviceGetByNameWithDataResidency()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/DataBoxEdgeDeviceGetByNameWithDataResidency.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/DataBoxEdgeDeviceGetByNameWithDataResidency.json
             // this example is just showing the usage of "Devices_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -269,7 +269,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_DataBoxEdgeDevicePut()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/DataBoxEdgeDevicePut.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/DataBoxEdgeDevicePut.json
             // this example is just showing the usage of "Devices_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -315,7 +315,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_DataBoxEdgeDevicePutWithDataResidency()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/DataBoxEdgeDevicePutWithDataResidency.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/DataBoxEdgeDevicePutWithDataResidency.json
             // this example is just showing the usage of "Devices_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

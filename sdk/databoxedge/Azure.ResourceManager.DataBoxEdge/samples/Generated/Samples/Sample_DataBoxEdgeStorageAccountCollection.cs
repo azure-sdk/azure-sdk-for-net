@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_StorageAccountGetAllInDevice()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/StorageAccountGetAllInDevice.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/StorageAccountGetAllInDevice.json
             // this example is just showing the usage of "StorageAccounts_ListByDataBoxEdgeDevice" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_StorageAccountGet()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/StorageAccountGet.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/StorageAccountGet.json
             // this example is just showing the usage of "StorageAccounts_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_StorageAccountGet()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/StorageAccountGet.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/StorageAccountGet.json
             // this example is just showing the usage of "StorageAccounts_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_StorageAccountGet()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/StorageAccountGet.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/StorageAccountGet.json
             // this example is just showing the usage of "StorageAccounts_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_StorageAccountPut()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/StorageAccountPut.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/StorageAccountPut.json
             // this example is just showing the usage of "StorageAccounts_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
