@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.SecurityCenter.Samples
         public async Task CreateOrUpdate_UpdateSensitivitySettings()
         {
             // Generated from example definition: specification/security/resource-manager/Microsoft.Security/preview/2023-02-15-preview/examples/SensitivitySettings/PutSensitivitySettings_example.json
-            // this example is just showing the usage of "UpdateSensitivitySettings" operation, for the dependent resources, they will have to be created separately.
+            // this example is just showing the usage of "SensitivitySettings_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -58,7 +58,7 @@ Guid.Parse("f2f8a7a1-28c0-404b-9ab4-30a0a7af18cb"),Guid.Parse("b452f22b-f87d-4f4
         public async Task Get_GetSensitivitySettings()
         {
             // Generated from example definition: specification/security/resource-manager/Microsoft.Security/preview/2023-02-15-preview/examples/SensitivitySettings/GetSensitivitySettings_example.json
-            // this example is just showing the usage of "GetSensitivitySettings" operation, for the dependent resources, they will have to be created separately.
+            // this example is just showing the usage of "SensitivitySettings_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
