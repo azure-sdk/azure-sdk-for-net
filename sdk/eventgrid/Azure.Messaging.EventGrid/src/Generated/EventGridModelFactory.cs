@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Azure.Messaging.EventGrid.Models;
 using Azure.Messaging.EventGrid.SystemEvents;
 
 namespace Azure.Messaging.EventGrid
@@ -2444,7 +2445,7 @@ namespace Azure.Messaging.EventGrid
         /// <param name="scheduledOn"> Router Job Received Scheduled Time in UTC. </param>
         /// <param name="unavailableForMatching"> Unavailable For Matching for Router Job Received. </param>
         /// <returns> A new <see cref="SystemEvents.AcsRouterJobReceivedEventData"/> instance for mocking. </returns>
-        public static AcsRouterJobReceivedEventData AcsRouterJobReceivedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, IReadOnlyDictionary<string, string> labels = null, IReadOnlyDictionary<string, string> tags = null, AcsRouterJobStatus? status = null, string classificationPolicyId = null, int? priority = null, IEnumerable<AcsRouterWorkerSelector> requestedWorkerSelectors = null, DateTimeOffset? scheduledOn = null, bool unavailableForMatching = default)
+        public static AcsRouterJobReceivedEventData AcsRouterJobReceivedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, IReadOnlyDictionary<string, string> labels = null, IReadOnlyDictionary<string, string> tags = null, SystemEvents.AcsRouterJobStatus? status = null, string classificationPolicyId = null, int? priority = null, IEnumerable<AcsRouterWorkerSelector> requestedWorkerSelectors = null, DateTimeOffset? scheduledOn = null, bool unavailableForMatching = default)
         {
             labels ??= new Dictionary<string, string>();
             tags ??= new Dictionary<string, string>();
@@ -3476,62 +3477,130 @@ namespace Azure.Messaging.EventGrid
                 engagement);
         }
 
-        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsAdvancedMessageMediaContent"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsMessageReceivedEventData"/>. </summary>
+        /// <param name="from"> The message sender. </param>
+        /// <param name="to"> The message recipient. </param>
+        /// <param name="receivedTimestamp"> The time message was received. </param>
+        /// <param name="error"> The channel event error. </param>
+        /// <param name="content"> The received message content. </param>
+        /// <param name="channelKind"> The received message channel Kind. </param>
+        /// <param name="mediaContent"> The received message media content. </param>
+        /// <param name="context"> The received message context. </param>
+        /// <param name="button"> The received message button content. </param>
+        /// <param name="interactiveContent"> The received message interactive content. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsMessageReceivedEventData"/> instance for mocking. </returns>
+        public static AcsMessageReceivedEventData AcsMessageReceivedEventData(string @from = null, string to = null, DateTimeOffset? receivedTimestamp = null, AcsMessageChannelEventError error = null, string content = null, AcsMessageChannelKind? channelKind = null, AcsMessageMediaContent mediaContent = null, AcsMessageContext context = null, AcsMessageButtonContent button = null, AcsMessageInteractiveContent interactiveContent = null)
+        {
+            return new AcsMessageReceivedEventData(
+                @from,
+                to,
+                receivedTimestamp,
+                error,
+                content,
+                channelKind,
+                mediaContent,
+                context,
+                button,
+                interactiveContent);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsMessageMediaContent"/>. </summary>
         /// <param name="mimeType"> The MIME type of the file this media represents. </param>
         /// <param name="mediaId"> The media identifier. </param>
         /// <param name="fileName"> The filename of the underlying media file as specified when uploaded. </param>
         /// <param name="caption"> The caption for the media object, if supported and provided. </param>
-        /// <returns> A new <see cref="SystemEvents.AcsAdvancedMessageMediaContent"/> instance for mocking. </returns>
-        public static AcsAdvancedMessageMediaContent AcsAdvancedMessageMediaContent(string mimeType = null, string mediaId = null, string fileName = null, string caption = null)
+        /// <returns> A new <see cref="SystemEvents.AcsMessageMediaContent"/> instance for mocking. </returns>
+        public static AcsMessageMediaContent AcsMessageMediaContent(string mimeType = null, string mediaId = null, string fileName = null, string caption = null)
         {
-            return new AcsAdvancedMessageMediaContent(mimeType, mediaId, fileName, caption);
+            return new AcsMessageMediaContent(mimeType, mediaId, fileName, caption);
         }
 
-        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsAdvancedMessageContext"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsMessageContext"/>. </summary>
         /// <param name="from"> The WhatsApp ID for the customer who replied to an inbound message. </param>
         /// <param name="messageId"> The message ID for the sent message for an inbound reply. </param>
-        /// <returns> A new <see cref="SystemEvents.AcsAdvancedMessageContext"/> instance for mocking. </returns>
-        public static AcsAdvancedMessageContext AcsAdvancedMessageContext(string @from = null, string messageId = null)
+        /// <returns> A new <see cref="SystemEvents.AcsMessageContext"/> instance for mocking. </returns>
+        public static AcsMessageContext AcsMessageContext(string @from = null, string messageId = null)
         {
-            return new AcsAdvancedMessageContext(@from, messageId);
+            return new AcsMessageContext(@from, messageId);
         }
 
-        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsAdvancedMessageButtonContent"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsMessageButtonContent"/>. </summary>
         /// <param name="text"> The Text of the button. </param>
         /// <param name="payload"> The Payload of the button which was clicked by the user, setup by the business. </param>
-        /// <returns> A new <see cref="SystemEvents.AcsAdvancedMessageButtonContent"/> instance for mocking. </returns>
-        public static AcsAdvancedMessageButtonContent AcsAdvancedMessageButtonContent(string text = null, string payload = null)
+        /// <returns> A new <see cref="SystemEvents.AcsMessageButtonContent"/> instance for mocking. </returns>
+        public static AcsMessageButtonContent AcsMessageButtonContent(string text = null, string payload = null)
         {
-            return new AcsAdvancedMessageButtonContent(text, payload);
+            return new AcsMessageButtonContent(text, payload);
         }
 
-        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsAdvancedMessageInteractiveContent"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsMessageInteractiveContent"/>. </summary>
         /// <param name="replyKind"> The Message interactive reply type. </param>
         /// <param name="buttonReply"> The Message Sent when a customer clicks a button. </param>
         /// <param name="listReply"> The Message Sent when a customer selects an item from a list. </param>
-        /// <returns> A new <see cref="SystemEvents.AcsAdvancedMessageInteractiveContent"/> instance for mocking. </returns>
-        public static AcsAdvancedMessageInteractiveContent AcsAdvancedMessageInteractiveContent(AcsInteractiveReplyKind? replyKind = null, AcsAdvancedMessageInteractiveButtonReplyContent buttonReply = null, AcsAdvancedMessageInteractiveListReplyContent listReply = null)
+        /// <returns> A new <see cref="SystemEvents.AcsMessageInteractiveContent"/> instance for mocking. </returns>
+        public static AcsMessageInteractiveContent AcsMessageInteractiveContent(AcsInteractiveReplyKind? replyKind = null, AcsMessageInteractiveButtonReplyContent buttonReply = null, AcsMessageInteractiveListReplyContent listReply = null)
         {
-            return new AcsAdvancedMessageInteractiveContent(replyKind, buttonReply, listReply);
+            return new AcsMessageInteractiveContent(replyKind, buttonReply, listReply);
         }
 
-        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsAdvancedMessageInteractiveButtonReplyContent"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsMessageInteractiveButtonReplyContent"/>. </summary>
         /// <param name="buttonId"> The ID of the button. </param>
         /// <param name="title"> The title of the button. </param>
-        /// <returns> A new <see cref="SystemEvents.AcsAdvancedMessageInteractiveButtonReplyContent"/> instance for mocking. </returns>
-        public static AcsAdvancedMessageInteractiveButtonReplyContent AcsAdvancedMessageInteractiveButtonReplyContent(string buttonId = null, string title = null)
+        /// <returns> A new <see cref="SystemEvents.AcsMessageInteractiveButtonReplyContent"/> instance for mocking. </returns>
+        public static AcsMessageInteractiveButtonReplyContent AcsMessageInteractiveButtonReplyContent(string buttonId = null, string title = null)
         {
-            return new AcsAdvancedMessageInteractiveButtonReplyContent(buttonId, title);
+            return new AcsMessageInteractiveButtonReplyContent(buttonId, title);
         }
 
-        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsAdvancedMessageInteractiveListReplyContent"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsMessageInteractiveListReplyContent"/>. </summary>
         /// <param name="listItemId"> The ID of the selected list item. </param>
         /// <param name="title"> The title of the selected list item. </param>
         /// <param name="description"> The sescription of the selected row. </param>
-        /// <returns> A new <see cref="SystemEvents.AcsAdvancedMessageInteractiveListReplyContent"/> instance for mocking. </returns>
-        public static AcsAdvancedMessageInteractiveListReplyContent AcsAdvancedMessageInteractiveListReplyContent(string listItemId = null, string title = null, string description = null)
+        /// <returns> A new <see cref="SystemEvents.AcsMessageInteractiveListReplyContent"/> instance for mocking. </returns>
+        public static AcsMessageInteractiveListReplyContent AcsMessageInteractiveListReplyContent(string listItemId = null, string title = null, string description = null)
         {
-            return new AcsAdvancedMessageInteractiveListReplyContent(listItemId, title, description);
+            return new AcsMessageInteractiveListReplyContent(listItemId, title, description);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsMessageEventData"/>. </summary>
+        /// <param name="from"> The message sender. </param>
+        /// <param name="to"> The message recipient. </param>
+        /// <param name="receivedTimestamp"> The time message was received. </param>
+        /// <param name="error"> The channel event error. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsMessageEventData"/> instance for mocking. </returns>
+        public static AcsMessageEventData AcsMessageEventData(string @from = null, string to = null, DateTimeOffset? receivedTimestamp = null, AcsMessageChannelEventError error = null)
+        {
+            return new AcsMessageEventData(@from, to, receivedTimestamp, error);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsMessageChannelEventError"/>. </summary>
+        /// <param name="channelCode"> The channel error code. </param>
+        /// <param name="channelMessage"> The channel error message. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsMessageChannelEventError"/> instance for mocking. </returns>
+        public static AcsMessageChannelEventError AcsMessageChannelEventError(string channelCode = null, string channelMessage = null)
+        {
+            return new AcsMessageChannelEventError(channelCode, channelMessage);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsMessageDeliveryStatusUpdatedEventData"/>. </summary>
+        /// <param name="from"> The message sender. </param>
+        /// <param name="to"> The message recipient. </param>
+        /// <param name="receivedTimestamp"> The time message was received. </param>
+        /// <param name="error"> The channel event error. </param>
+        /// <param name="messageId"> The message id. </param>
+        /// <param name="status"> The updated message status. </param>
+        /// <param name="channelKind"> The updated message channel type. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsMessageDeliveryStatusUpdatedEventData"/> instance for mocking. </returns>
+        public static AcsMessageDeliveryStatusUpdatedEventData AcsMessageDeliveryStatusUpdatedEventData(string @from = null, string to = null, DateTimeOffset? receivedTimestamp = null, AcsMessageChannelEventError error = null, string messageId = null, AcsMessageDeliveryStatus? status = null, AcsMessageChannelKind? channelKind = null)
+        {
+            return new AcsMessageDeliveryStatusUpdatedEventData(
+                @from,
+                to,
+                receivedTimestamp,
+                error,
+                messageId,
+                status,
+                channelKind);
         }
 
         /// <summary> Initializes a new instance of <see cref="SystemEvents.PolicyInsightsPolicyStateCreatedEventData"/>. </summary>

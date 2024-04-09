@@ -8,7 +8,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> The Message interactive reply type. </summary>
     public readonly partial struct AcsInteractiveReplyKind : IEquatable<AcsInteractiveReplyKind>

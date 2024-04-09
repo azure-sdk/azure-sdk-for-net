@@ -6,26 +6,27 @@
 #nullable disable
 
 using System;
+using Azure.Messaging.EventGrid.Models;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
     /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.Communication.AdvancedMessageDeliveryStatusUpdated event. </summary>
-    public partial class AcsAdvancedMessageDeliveryStatusUpdatedEventData : AcsAdvancedMessageEventData
+    public partial class AcsMessageDeliveryStatusUpdatedEventData : AcsMessageEventData
     {
-        /// <summary> Initializes a new instance of <see cref="AcsAdvancedMessageDeliveryStatusUpdatedEventData"/>. </summary>
-        internal AcsAdvancedMessageDeliveryStatusUpdatedEventData()
+        /// <summary> Initializes a new instance of <see cref="AcsMessageDeliveryStatusUpdatedEventData"/>. </summary>
+        internal AcsMessageDeliveryStatusUpdatedEventData()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="AcsAdvancedMessageDeliveryStatusUpdatedEventData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="AcsMessageDeliveryStatusUpdatedEventData"/>. </summary>
         /// <param name="from"> The message sender. </param>
         /// <param name="to"> The message recipient. </param>
         /// <param name="receivedTimestamp"> The time message was received. </param>
-        /// <param name="errorInternal"> The channel event error. </param>
+        /// <param name="error"> The channel event error. </param>
         /// <param name="messageId"> The message id. </param>
         /// <param name="status"> The updated message status. </param>
         /// <param name="channelKind"> The updated message channel type. </param>
-        internal AcsAdvancedMessageDeliveryStatusUpdatedEventData(string @from, string to, DateTimeOffset? receivedTimestamp, AcsAdvancedMessageChannelEventError errorInternal, string messageId, AcsAdvanceMessageDeliveryStatus? status, AcsMessageChannelKind? channelKind) : base(@from, to, receivedTimestamp, errorInternal)
+        internal AcsMessageDeliveryStatusUpdatedEventData(string @from, string to, DateTimeOffset? receivedTimestamp, AcsMessageChannelEventError error, string messageId, AcsMessageDeliveryStatus? status, AcsMessageChannelKind? channelKind) : base(@from, to, receivedTimestamp, error)
         {
             MessageId = messageId;
             Status = status;
@@ -35,7 +36,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> The message id. </summary>
         public string MessageId { get; }
         /// <summary> The updated message status. </summary>
-        public AcsAdvanceMessageDeliveryStatus? Status { get; }
+        public AcsMessageDeliveryStatus? Status { get; }
         /// <summary> The updated message channel type. </summary>
         public AcsMessageChannelKind? ChannelKind { get; }
     }
