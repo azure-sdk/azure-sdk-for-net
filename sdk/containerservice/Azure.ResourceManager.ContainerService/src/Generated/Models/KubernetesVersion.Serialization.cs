@@ -36,6 +36,11 @@ namespace Azure.ResourceManager.ContainerService.Models
                 writer.WritePropertyName("capabilities"u8);
                 writer.WriteObjectValue<KubernetesVersionCapabilities>(Capabilities, options);
             }
+            if (Optional.IsDefined(IsDefault))
+            {
+                writer.WritePropertyName("isDefault"u8);
+                writer.WriteBooleanValue(IsDefault.Value);
+            }
             if (Optional.IsDefined(IsPreview))
             {
                 writer.WritePropertyName("isPreview"u8);
@@ -92,6 +97,7 @@ namespace Azure.ResourceManager.ContainerService.Models
             }
             string version = default;
             KubernetesVersionCapabilities capabilities = default;
+            bool? isDefault = default;
             bool? isPreview = default;
             IReadOnlyDictionary<string, KubernetesPatchVersion> patchVersions = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -110,6 +116,15 @@ namespace Azure.ResourceManager.ContainerService.Models
                         continue;
                     }
                     capabilities = KubernetesVersionCapabilities.DeserializeKubernetesVersionCapabilities(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("isDefault"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    isDefault = property.Value.GetBoolean();
                     continue;
                 }
                 if (property.NameEquals("isPreview"u8))
@@ -141,7 +156,13 @@ namespace Azure.ResourceManager.ContainerService.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new KubernetesVersion(version, capabilities, isPreview, patchVersions ?? new ChangeTrackingDictionary<string, KubernetesPatchVersion>(), serializedAdditionalRawData);
+            return new KubernetesVersion(
+                version,
+                capabilities,
+                isDefault,
+                isPreview,
+                patchVersions ?? new ChangeTrackingDictionary<string, KubernetesPatchVersion>(),
+                serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<KubernetesVersion>.Write(ModelReaderWriterOptions options)

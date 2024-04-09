@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ContainerService.Models
 {
-    internal partial class ManagedClusterVerticalPodAutoscaler : IUtf8JsonSerializable, IJsonModel<ManagedClusterVerticalPodAutoscaler>
+    public partial class ManagedClusterVerticalPodAutoscaler : IUtf8JsonSerializable, IJsonModel<ManagedClusterVerticalPodAutoscaler>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ManagedClusterVerticalPodAutoscaler>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
@@ -28,6 +28,11 @@ namespace Azure.ResourceManager.ContainerService.Models
             writer.WriteStartObject();
             writer.WritePropertyName("enabled"u8);
             writer.WriteBooleanValue(IsVpaEnabled);
+            if (Optional.IsDefined(AddonAutoscaling))
+            {
+                writer.WritePropertyName("addonAutoscaling"u8);
+                writer.WriteStringValue(AddonAutoscaling.Value.ToString());
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -67,6 +72,7 @@ namespace Azure.ResourceManager.ContainerService.Models
                 return null;
             }
             bool enabled = default;
+            AddonAutoscaling? addonAutoscaling = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -76,13 +82,22 @@ namespace Azure.ResourceManager.ContainerService.Models
                     enabled = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("addonAutoscaling"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    addonAutoscaling = new AddonAutoscaling(property.Value.GetString());
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ManagedClusterVerticalPodAutoscaler(enabled, serializedAdditionalRawData);
+            return new ManagedClusterVerticalPodAutoscaler(enabled, addonAutoscaling, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ManagedClusterVerticalPodAutoscaler>.Write(ModelReaderWriterOptions options)
