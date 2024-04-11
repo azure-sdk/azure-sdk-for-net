@@ -81,7 +81,7 @@ namespace Azure.ResourceManager.EventHubs.Models
             {
                 return null;
             }
-            IReadOnlyList<EventHubsNetworkRuleSetData> value = default;
+            IReadOnlyList<NetworkRuleSetData> value = default;
             string nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -93,10 +93,10 @@ namespace Azure.ResourceManager.EventHubs.Models
                     {
                         continue;
                     }
-                    List<EventHubsNetworkRuleSetData> array = new List<EventHubsNetworkRuleSetData>();
+                    List<NetworkRuleSetData> array = new List<NetworkRuleSetData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(EventHubsNetworkRuleSetData.DeserializeEventHubsNetworkRuleSetData(item, options));
+                        array.Add(NetworkRuleSetData.DeserializeNetworkRuleSetData(item, options));
                     }
                     value = array;
                     continue;
@@ -112,7 +112,7 @@ namespace Azure.ResourceManager.EventHubs.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new NetworkRuleSetListResult(value ?? new ChangeTrackingList<EventHubsNetworkRuleSetData>(), nextLink, serializedAdditionalRawData);
+            return new NetworkRuleSetListResult(value ?? new ChangeTrackingList<NetworkRuleSetData>(), nextLink, serializedAdditionalRawData);
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)

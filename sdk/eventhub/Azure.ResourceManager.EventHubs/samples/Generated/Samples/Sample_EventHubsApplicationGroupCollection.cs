@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.EventHubs.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListApplicationGroups()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/ApplicationGroup/ApplicationGroupListByNamespace.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/ApplicationGroup/ApplicationGroupListByNamespace.json
             // this example is just showing the usage of "ApplicationGroup_ListByNamespace" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -28,16 +28,16 @@ namespace Azure.ResourceManager.EventHubs.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "contosotest";
             string namespaceName = "contoso-ua-test-eh-system-1";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsApplicationGroupResource
-            EventHubsApplicationGroupCollection collection = eventHubsNamespace.GetEventHubsApplicationGroups();
+            EventHubsApplicationGroupCollection collection = ehNamespace.GetEventHubsApplicationGroups();
 
             // invoke the operation and iterate over the result
             await foreach (EventHubsApplicationGroupResource item in collection.GetAllAsync())
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.EventHubs.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_ApplicationGroupCreate()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/ApplicationGroup/ApplicationGroupCreate.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/ApplicationGroup/ApplicationGroupCreate.json
             // this example is just showing the usage of "ApplicationGroup_CreateOrUpdateApplicationGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -65,16 +65,16 @@ namespace Azure.ResourceManager.EventHubs.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "contosotest";
             string namespaceName = "contoso-ua-test-eh-system-1";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsApplicationGroupResource
-            EventHubsApplicationGroupCollection collection = eventHubsNamespace.GetEventHubsApplicationGroups();
+            EventHubsApplicationGroupCollection collection = ehNamespace.GetEventHubsApplicationGroups();
 
             // invoke the operation
             string applicationGroupName = "appGroup1";
@@ -102,7 +102,7 @@ new EventHubsThrottlingPolicy("ThrottlingPolicy1",7912,EventHubsMetricId.Incomin
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ApplicationGroupGet()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/ApplicationGroup/ApplicationGroupGet.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/ApplicationGroup/ApplicationGroupGet.json
             // this example is just showing the usage of "ApplicationGroup_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -110,16 +110,16 @@ new EventHubsThrottlingPolicy("ThrottlingPolicy1",7912,EventHubsMetricId.Incomin
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "contosotest";
             string namespaceName = "contoso-ua-test-eh-system-1";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsApplicationGroupResource
-            EventHubsApplicationGroupCollection collection = eventHubsNamespace.GetEventHubsApplicationGroups();
+            EventHubsApplicationGroupCollection collection = ehNamespace.GetEventHubsApplicationGroups();
 
             // invoke the operation
             string applicationGroupName = "appGroup1";
@@ -137,7 +137,7 @@ new EventHubsThrottlingPolicy("ThrottlingPolicy1",7912,EventHubsMetricId.Incomin
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_ApplicationGroupGet()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/ApplicationGroup/ApplicationGroupGet.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/ApplicationGroup/ApplicationGroupGet.json
             // this example is just showing the usage of "ApplicationGroup_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -145,16 +145,16 @@ new EventHubsThrottlingPolicy("ThrottlingPolicy1",7912,EventHubsMetricId.Incomin
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "contosotest";
             string namespaceName = "contoso-ua-test-eh-system-1";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsApplicationGroupResource
-            EventHubsApplicationGroupCollection collection = eventHubsNamespace.GetEventHubsApplicationGroups();
+            EventHubsApplicationGroupCollection collection = ehNamespace.GetEventHubsApplicationGroups();
 
             // invoke the operation
             string applicationGroupName = "appGroup1";
@@ -168,7 +168,7 @@ new EventHubsThrottlingPolicy("ThrottlingPolicy1",7912,EventHubsMetricId.Incomin
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_ApplicationGroupGet()
         {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/preview/2022-10-01-preview/examples/ApplicationGroup/ApplicationGroupGet.json
+            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/ApplicationGroup/ApplicationGroupGet.json
             // this example is just showing the usage of "ApplicationGroup_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -176,16 +176,16 @@ new EventHubsThrottlingPolicy("ThrottlingPolicy1",7912,EventHubsMetricId.Incomin
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
+            // this example assumes you already have this EHNamespaceResource created on azure
+            // for more information of creating EHNamespaceResource, please refer to the document of EHNamespaceResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "contosotest";
             string namespaceName = "contoso-ua-test-eh-system-1";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
+            ResourceIdentifier ehNamespaceResourceId = EHNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
+            EHNamespaceResource ehNamespace = client.GetEHNamespaceResource(ehNamespaceResourceId);
 
             // get the collection of this EventHubsApplicationGroupResource
-            EventHubsApplicationGroupCollection collection = eventHubsNamespace.GetEventHubsApplicationGroups();
+            EventHubsApplicationGroupCollection collection = ehNamespace.GetEventHubsApplicationGroups();
 
             // invoke the operation
             string applicationGroupName = "appGroup1";
