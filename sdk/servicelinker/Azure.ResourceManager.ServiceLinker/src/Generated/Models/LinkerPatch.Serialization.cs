@@ -13,16 +13,16 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    public partial class LinkerResourcePatch : IUtf8JsonSerializable, IJsonModel<LinkerResourcePatch>
+    public partial class LinkerPatch : IUtf8JsonSerializable, IJsonModel<LinkerPatch>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<LinkerResourcePatch>)this).Write(writer, new ModelReaderWriterOptions("W"));
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<LinkerPatch>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
-        void IJsonModel<LinkerResourcePatch>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<LinkerPatch>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<LinkerResourcePatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<LinkerPatch>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(LinkerResourcePatch)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(LinkerPatch)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -84,6 +84,30 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                     writer.WriteNull("scope");
                 }
             }
+            if (Optional.IsDefined(PublicNetworkSolution))
+            {
+                if (PublicNetworkSolution != null)
+                {
+                    writer.WritePropertyName("publicNetworkSolution"u8);
+                    writer.WriteObjectValue(PublicNetworkSolution, options);
+                }
+                else
+                {
+                    writer.WriteNull("publicNetworkSolution");
+                }
+            }
+            if (Optional.IsDefined(ConfigurationInfo))
+            {
+                if (ConfigurationInfo != null)
+                {
+                    writer.WritePropertyName("configurationInfo"u8);
+                    writer.WriteObjectValue(ConfigurationInfo, options);
+                }
+                else
+                {
+                    writer.WriteNull("configurationInfo");
+                }
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -103,19 +127,19 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             writer.WriteEndObject();
         }
 
-        LinkerResourcePatch IJsonModel<LinkerResourcePatch>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        LinkerPatch IJsonModel<LinkerPatch>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<LinkerResourcePatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<LinkerPatch>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(LinkerResourcePatch)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(LinkerPatch)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeLinkerResourcePatch(document.RootElement, options);
+            return DeserializeLinkerPatch(document.RootElement, options);
         }
 
-        internal static LinkerResourcePatch DeserializeLinkerResourcePatch(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static LinkerPatch DeserializeLinkerPatch(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= new ModelReaderWriterOptions("W");
 
@@ -130,6 +154,8 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             VnetSolution vnetSolution = default;
             LinkerSecretStore secretStore = default;
             string scope = default;
+            PublicNetworkSolution publicNetworkSolution = default;
+            ConfigurationInfo configurationInfo = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -205,6 +231,26 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                             scope = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("publicNetworkSolution"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                publicNetworkSolution = null;
+                                continue;
+                            }
+                            publicNetworkSolution = PublicNetworkSolution.DeserializePublicNetworkSolution(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("configurationInfo"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                configurationInfo = null;
+                                continue;
+                            }
+                            configurationInfo = ConfigurationInfo.DeserializeConfigurationInfo(property0.Value, options);
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -214,7 +260,7 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new LinkerResourcePatch(
+            return new LinkerPatch(
                 targetService,
                 authInfo,
                 clientType,
@@ -222,38 +268,40 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                 vnetSolution,
                 secretStore,
                 scope,
+                publicNetworkSolution,
+                configurationInfo,
                 serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<LinkerResourcePatch>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<LinkerPatch>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<LinkerResourcePatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<LinkerPatch>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(LinkerResourcePatch)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(LinkerPatch)} does not support writing '{options.Format}' format.");
             }
         }
 
-        LinkerResourcePatch IPersistableModel<LinkerResourcePatch>.Create(BinaryData data, ModelReaderWriterOptions options)
+        LinkerPatch IPersistableModel<LinkerPatch>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<LinkerResourcePatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<LinkerPatch>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeLinkerResourcePatch(document.RootElement, options);
+                        return DeserializeLinkerPatch(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(LinkerResourcePatch)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(LinkerPatch)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<LinkerResourcePatch>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<LinkerPatch>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

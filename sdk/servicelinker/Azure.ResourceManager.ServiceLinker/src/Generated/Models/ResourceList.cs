@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    /// <summary> Configurations for source resource, include appSettings, connectionString and serviceBindings. </summary>
-    public partial class SourceConfigurationResult
+    /// <summary> The list of Linker. </summary>
+    internal partial class ResourceList
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,22 +45,26 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SourceConfigurationResult"/>. </summary>
-        internal SourceConfigurationResult()
+        /// <summary> Initializes a new instance of <see cref="ResourceList"/>. </summary>
+        internal ResourceList()
         {
-            Configurations = new ChangeTrackingList<SourceConfiguration>();
+            Value = new ChangeTrackingList<LinkerResourceData>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="SourceConfigurationResult"/>. </summary>
-        /// <param name="configurations"> The configuration properties for source resource. </param>
+        /// <summary> Initializes a new instance of <see cref="ResourceList"/>. </summary>
+        /// <param name="nextLink"> The Linker used to get the next page of Linker list. </param>
+        /// <param name="value"> The list of Linkers. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SourceConfigurationResult(IReadOnlyList<SourceConfiguration> configurations, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ResourceList(string nextLink, IReadOnlyList<LinkerResourceData> value, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Configurations = configurations;
+            NextLink = nextLink;
+            Value = value;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The configuration properties for source resource. </summary>
-        public IReadOnlyList<SourceConfiguration> Configurations { get; }
+        /// <summary> The Linker used to get the next page of Linker list. </summary>
+        public string NextLink { get; }
+        /// <summary> The list of Linkers. </summary>
+        public IReadOnlyList<LinkerResourceData> Value { get; }
     }
 }

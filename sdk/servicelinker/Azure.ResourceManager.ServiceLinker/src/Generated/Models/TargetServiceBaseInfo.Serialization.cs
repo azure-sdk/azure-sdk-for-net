@@ -73,6 +73,7 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                     case "AzureResource": return AzureResourceInfo.DeserializeAzureResourceInfo(element, options);
                     case "ConfluentBootstrapServer": return ConfluentBootstrapServerInfo.DeserializeConfluentBootstrapServerInfo(element, options);
                     case "ConfluentSchemaRegistry": return ConfluentSchemaRegistryInfo.DeserializeConfluentSchemaRegistryInfo(element, options);
+                    case "SelfHostedServer": return SelfHostedServer.DeserializeSelfHostedServer(element, options);
                 }
             }
             return UnknownTargetServiceBase.DeserializeUnknownTargetServiceBase(element, options);

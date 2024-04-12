@@ -13,16 +13,16 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    public partial class SourceConfigurationResult : IUtf8JsonSerializable, IJsonModel<SourceConfigurationResult>
+    public partial class ConfigurationResult : IUtf8JsonSerializable, IJsonModel<ConfigurationResult>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<SourceConfigurationResult>)this).Write(writer, new ModelReaderWriterOptions("W"));
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ConfigurationResult>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
-        void IJsonModel<SourceConfigurationResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ConfigurationResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SourceConfigurationResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ConfigurationResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SourceConfigurationResult)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ConfigurationResult)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -54,19 +54,19 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             writer.WriteEndObject();
         }
 
-        SourceConfigurationResult IJsonModel<SourceConfigurationResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ConfigurationResult IJsonModel<ConfigurationResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SourceConfigurationResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ConfigurationResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SourceConfigurationResult)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ConfigurationResult)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeSourceConfigurationResult(document.RootElement, options);
+            return DeserializeConfigurationResult(document.RootElement, options);
         }
 
-        internal static SourceConfigurationResult DeserializeSourceConfigurationResult(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ConfigurationResult DeserializeConfigurationResult(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= new ModelReaderWriterOptions("W");
 
@@ -99,38 +99,38 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new SourceConfigurationResult(configurations ?? new ChangeTrackingList<SourceConfiguration>(), serializedAdditionalRawData);
+            return new ConfigurationResult(configurations ?? new ChangeTrackingList<SourceConfiguration>(), serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<SourceConfigurationResult>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ConfigurationResult>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SourceConfigurationResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ConfigurationResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(SourceConfigurationResult)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ConfigurationResult)} does not support writing '{options.Format}' format.");
             }
         }
 
-        SourceConfigurationResult IPersistableModel<SourceConfigurationResult>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ConfigurationResult IPersistableModel<ConfigurationResult>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SourceConfigurationResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ConfigurationResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeSourceConfigurationResult(document.RootElement, options);
+                        return DeserializeConfigurationResult(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(SourceConfigurationResult)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ConfigurationResult)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<SourceConfigurationResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ConfigurationResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

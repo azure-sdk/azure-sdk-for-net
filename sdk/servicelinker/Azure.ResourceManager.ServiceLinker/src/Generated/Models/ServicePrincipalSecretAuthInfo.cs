@@ -26,20 +26,28 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             ClientId = clientId;
             PrincipalId = principalId;
             Secret = secret;
+            Roles = new ChangeTrackingList<string>();
             AuthType = LinkerAuthType.ServicePrincipalSecret;
         }
 
         /// <summary> Initializes a new instance of <see cref="ServicePrincipalSecretAuthInfo"/>. </summary>
         /// <param name="authType"> The authentication type. </param>
+        /// <param name="authMode"> Optional. Indicates how to configure authentication. If optInAllAuth, service linker configures authentication such as enabling identity on source resource and granting RBAC roles. If optOutAllAuth, opt out authentication setup. Default is optInAllAuth. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="clientId"> ServicePrincipal application clientId for servicePrincipal auth. </param>
         /// <param name="principalId"> Principal Id for servicePrincipal auth. </param>
         /// <param name="secret"> Secret for servicePrincipal auth. </param>
-        internal ServicePrincipalSecretAuthInfo(LinkerAuthType authType, IDictionary<string, BinaryData> serializedAdditionalRawData, string clientId, Guid principalId, string secret) : base(authType, serializedAdditionalRawData)
+        /// <param name="deleteOrUpdateBehavior"> Indicates whether to clean up previous operation when Linker is updating or deleting. </param>
+        /// <param name="roles"> Optional, this value specifies the Azure roles to be assigned. Automatically. </param>
+        /// <param name="userName"> Username created in the database which is mapped to a user in AAD. </param>
+        internal ServicePrincipalSecretAuthInfo(LinkerAuthType authType, AuthMode? authMode, IDictionary<string, BinaryData> serializedAdditionalRawData, string clientId, Guid principalId, string secret, DeleteOrUpdateBehavior? deleteOrUpdateBehavior, IList<string> roles, string userName) : base(authType, authMode, serializedAdditionalRawData)
         {
             ClientId = clientId;
             PrincipalId = principalId;
             Secret = secret;
+            DeleteOrUpdateBehavior = deleteOrUpdateBehavior;
+            Roles = roles;
+            UserName = userName;
             AuthType = authType;
         }
 
@@ -54,5 +62,11 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         public Guid PrincipalId { get; set; }
         /// <summary> Secret for servicePrincipal auth. </summary>
         public string Secret { get; set; }
+        /// <summary> Indicates whether to clean up previous operation when Linker is updating or deleting. </summary>
+        public DeleteOrUpdateBehavior? DeleteOrUpdateBehavior { get; set; }
+        /// <summary> Optional, this value specifies the Azure roles to be assigned. Automatically. </summary>
+        public IList<string> Roles { get; }
+        /// <summary> Username created in the database which is mapped to a user in AAD. </summary>
+        public string UserName { get; set; }
     }
 }
