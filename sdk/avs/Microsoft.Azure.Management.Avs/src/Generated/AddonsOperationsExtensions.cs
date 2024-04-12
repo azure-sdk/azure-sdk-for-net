@@ -22,7 +22,7 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class AddonsOperationsExtensions
     {
             /// <summary>
-            /// List addons in a private cloud
+            /// List Addon resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -39,7 +39,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List addons in a private cloud
+            /// List Addon resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -62,7 +62,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get an addon by name in a private cloud
+            /// Get a Addon
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -74,7 +74,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='addonName'>
-            /// Name of the addon for the private cloud
+            /// Name of the addon.
             /// </param>
             public static Addon Get(this IAddonsOperations operations, string resourceGroupName, string privateCloudName, string addonName)
             {
@@ -82,7 +82,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get an addon by name in a private cloud
+            /// Get a Addon
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -94,7 +94,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='addonName'>
-            /// Name of the addon for the private cloud
+            /// Name of the addon.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -108,7 +108,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a addon in a private cloud
+            /// Create a Addon
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -117,13 +117,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='addonName'>
-            /// Name of the addon for the private cloud
+            /// Name of the addon.
             /// </param>
             /// <param name='addon'>
-            /// A addon in the private cloud
+            /// Resource create parameters.
             /// </param>
             public static Addon CreateOrUpdate(this IAddonsOperations operations, string resourceGroupName, string privateCloudName, string addonName, Addon addon)
             {
@@ -131,7 +131,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a addon in a private cloud
+            /// Create a Addon
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -140,13 +140,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='addonName'>
-            /// Name of the addon for the private cloud
+            /// Name of the addon.
             /// </param>
             /// <param name='addon'>
-            /// A addon in the private cloud
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -160,7 +160,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a addon in a private cloud
+            /// Delete a Addon
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -172,15 +172,15 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='addonName'>
-            /// Name of the addon for the private cloud
+            /// Name of the addon.
             /// </param>
-            public static void Delete(this IAddonsOperations operations, string resourceGroupName, string privateCloudName, string addonName)
+            public static AddonsDeleteHeaders Delete(this IAddonsOperations operations, string resourceGroupName, string privateCloudName, string addonName)
             {
-                operations.DeleteAsync(resourceGroupName, privateCloudName, addonName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, privateCloudName, addonName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a addon in a private cloud
+            /// Delete a Addon
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -192,18 +192,21 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='addonName'>
-            /// Name of the addon for the private cloud
+            /// Name of the addon.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IAddonsOperations operations, string resourceGroupName, string privateCloudName, string addonName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<AddonsDeleteHeaders> DeleteAsync(this IAddonsOperations operations, string resourceGroupName, string privateCloudName, string addonName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, addonName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, addonName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Create or update a addon in a private cloud
+            /// Create a Addon
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -212,13 +215,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='addonName'>
-            /// Name of the addon for the private cloud
+            /// Name of the addon.
             /// </param>
             /// <param name='addon'>
-            /// A addon in the private cloud
+            /// Resource create parameters.
             /// </param>
             public static Addon BeginCreateOrUpdate(this IAddonsOperations operations, string resourceGroupName, string privateCloudName, string addonName, Addon addon)
             {
@@ -226,7 +229,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a addon in a private cloud
+            /// Create a Addon
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -235,13 +238,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='addonName'>
-            /// Name of the addon for the private cloud
+            /// Name of the addon.
             /// </param>
             /// <param name='addon'>
-            /// A addon in the private cloud
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -255,7 +258,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a addon in a private cloud
+            /// Delete a Addon
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -267,15 +270,15 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='addonName'>
-            /// Name of the addon for the private cloud
+            /// Name of the addon.
             /// </param>
-            public static void BeginDelete(this IAddonsOperations operations, string resourceGroupName, string privateCloudName, string addonName)
+            public static AddonsDeleteHeaders BeginDelete(this IAddonsOperations operations, string resourceGroupName, string privateCloudName, string addonName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, privateCloudName, addonName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, privateCloudName, addonName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a addon in a private cloud
+            /// Delete a Addon
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -287,18 +290,21 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='addonName'>
-            /// Name of the addon for the private cloud
+            /// Name of the addon.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IAddonsOperations operations, string resourceGroupName, string privateCloudName, string addonName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<AddonsDeleteHeaders> BeginDeleteAsync(this IAddonsOperations operations, string resourceGroupName, string privateCloudName, string addonName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, addonName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, addonName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// List addons in a private cloud
+            /// List Addon resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -312,7 +318,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List addons in a private cloud
+            /// List Addon resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.

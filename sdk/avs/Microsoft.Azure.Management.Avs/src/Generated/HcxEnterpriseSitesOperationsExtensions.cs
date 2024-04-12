@@ -22,7 +22,7 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class HcxEnterpriseSitesOperationsExtensions
     {
             /// <summary>
-            /// List HCX Enterprise Sites in a private cloud
+            /// List HcxEnterpriseSite resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -39,7 +39,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List HCX Enterprise Sites in a private cloud
+            /// List HcxEnterpriseSite resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -62,7 +62,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get an HCX Enterprise Site by name in a private cloud
+            /// Get a HcxEnterpriseSite
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -74,7 +74,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='hcxEnterpriseSiteName'>
-            /// Name of the HCX Enterprise Site in the private cloud
+            /// Name of the HCX Enterprise Site
             /// </param>
             public static HcxEnterpriseSite Get(this IHcxEnterpriseSitesOperations operations, string resourceGroupName, string privateCloudName, string hcxEnterpriseSiteName)
             {
@@ -82,7 +82,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get an HCX Enterprise Site by name in a private cloud
+            /// Get a HcxEnterpriseSite
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -94,7 +94,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='hcxEnterpriseSiteName'>
-            /// Name of the HCX Enterprise Site in the private cloud
+            /// Name of the HCX Enterprise Site
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -108,7 +108,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update an HCX Enterprise Site in a private cloud
+            /// Create a HcxEnterpriseSite
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -117,10 +117,10 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='hcxEnterpriseSiteName'>
-            /// Name of the HCX Enterprise Site in the private cloud
+            /// Name of the HCX Enterprise Site
             /// </param>
             public static HcxEnterpriseSite CreateOrUpdate(this IHcxEnterpriseSitesOperations operations, string resourceGroupName, string privateCloudName, string hcxEnterpriseSiteName)
             {
@@ -128,7 +128,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update an HCX Enterprise Site in a private cloud
+            /// Create a HcxEnterpriseSite
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -137,10 +137,10 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='hcxEnterpriseSiteName'>
-            /// Name of the HCX Enterprise Site in the private cloud
+            /// Name of the HCX Enterprise Site
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -154,7 +154,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete an HCX Enterprise Site in a private cloud
+            /// Delete a HcxEnterpriseSite
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -166,7 +166,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='hcxEnterpriseSiteName'>
-            /// Name of the HCX Enterprise Site in the private cloud
+            /// Name of the HCX Enterprise Site
             /// </param>
             public static void Delete(this IHcxEnterpriseSitesOperations operations, string resourceGroupName, string privateCloudName, string hcxEnterpriseSiteName)
             {
@@ -174,7 +174,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete an HCX Enterprise Site in a private cloud
+            /// Delete a HcxEnterpriseSite
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -186,7 +186,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='hcxEnterpriseSiteName'>
-            /// Name of the HCX Enterprise Site in the private cloud
+            /// Name of the HCX Enterprise Site
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -197,7 +197,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List HCX Enterprise Sites in a private cloud
+            /// List HcxEnterpriseSite resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -211,7 +211,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List HCX Enterprise Sites in a private cloud
+            /// List HcxEnterpriseSite resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
