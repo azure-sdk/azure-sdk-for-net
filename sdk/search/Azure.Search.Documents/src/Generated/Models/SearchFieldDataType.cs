@@ -34,8 +34,11 @@ namespace Azure.Search.Documents.Indexes.Models
         private const string HalfValue = "Edm.Half";
         private const string Int16Value = "Edm.Int16";
         private const string SByteValue = "Edm.SByte";
+        private const string ByteValue = "Edm.Byte";
         /// <summary> Indicates that a field contains a half-precision floating point number. This is only valid when used with Collection(Edm.Half). </summary>
         public static SearchFieldDataType Half { get; } = new SearchFieldDataType(HalfValue);
+        /// <summary> Indicates that a field contains a 8-bit unsigned integer. This is only valid when used with Collection(Edm.Byte). </summary>
+        public static SearchFieldDataType Byte { get; } = new SearchFieldDataType(ByteValue);
         /// <summary> Determines if two <see cref="SearchFieldDataType"/> values are the same. </summary>
         public static bool operator ==(SearchFieldDataType left, SearchFieldDataType right) => left.Equals(right);
         /// <summary> Determines if two <see cref="SearchFieldDataType"/> values are not the same. </summary>

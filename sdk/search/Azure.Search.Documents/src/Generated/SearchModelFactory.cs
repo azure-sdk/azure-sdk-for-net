@@ -15,84 +15,6 @@ namespace Azure.Search.Documents.Models
     /// <summary> Model factory for models. </summary>
     public static partial class SearchModelFactory
     {
-        /// <summary> Initializes a new instance of <see cref="Models.QueryAnswerResult"/>. </summary>
-        /// <param name="score"> The score value represents how relevant the answer is to the query relative to other answers returned for the query. </param>
-        /// <param name="key"> The key of the document the answer was extracted from. </param>
-        /// <param name="text"> The text passage extracted from the document contents as the answer. </param>
-        /// <param name="highlights"> Same text passage as in the Text property with highlighted text phrases most relevant to the query. </param>
-        /// <param name="additionalProperties"> Additional Properties. </param>
-        /// <returns> A new <see cref="Models.QueryAnswerResult"/> instance for mocking. </returns>
-        public static QueryAnswerResult QueryAnswerResult(double? score = null, string key = null, string text = null, string highlights = null, IReadOnlyDictionary<string, object> additionalProperties = null)
-        {
-            additionalProperties ??= new Dictionary<string, object>();
-
-            return new QueryAnswerResult(score, key, text, highlights, additionalProperties);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.QueryCaptionResult"/>. </summary>
-        /// <param name="text"> A representative text passage extracted from the document most relevant to the search query. </param>
-        /// <param name="highlights"> Same text passage as in the Text property with highlighted phrases most relevant to the query. </param>
-        /// <param name="additionalProperties"> Additional Properties. </param>
-        /// <returns> A new <see cref="Models.QueryCaptionResult"/> instance for mocking. </returns>
-        public static QueryCaptionResult QueryCaptionResult(string text = null, string highlights = null, IReadOnlyDictionary<string, object> additionalProperties = null)
-        {
-            additionalProperties ??= new Dictionary<string, object>();
-
-            return new QueryCaptionResult(text, highlights, additionalProperties);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DocumentDebugInfo"/>. </summary>
-        /// <param name="semantic"> Contains debugging information specific to semantic ranking requests. </param>
-        /// <returns> A new <see cref="Models.DocumentDebugInfo"/> instance for mocking. </returns>
-        public static DocumentDebugInfo DocumentDebugInfo(SemanticDebugInfo semantic = null)
-        {
-            return new DocumentDebugInfo(semantic);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.SemanticDebugInfo"/>. </summary>
-        /// <param name="titleField"> The title field that was sent to the semantic enrichment process, as well as how it was used. </param>
-        /// <param name="contentFields"> The content fields that were sent to the semantic enrichment process, as well as how they were used. </param>
-        /// <param name="keywordFields"> The keyword fields that were sent to the semantic enrichment process, as well as how they were used. </param>
-        /// <param name="rerankerInput"> The raw concatenated strings that were sent to the semantic enrichment process. </param>
-        /// <returns> A new <see cref="Models.SemanticDebugInfo"/> instance for mocking. </returns>
-        public static SemanticDebugInfo SemanticDebugInfo(QueryResultDocumentSemanticField titleField = null, IEnumerable<QueryResultDocumentSemanticField> contentFields = null, IEnumerable<QueryResultDocumentSemanticField> keywordFields = null, QueryResultDocumentRerankerInput rerankerInput = null)
-        {
-            contentFields ??= new List<QueryResultDocumentSemanticField>();
-            keywordFields ??= new List<QueryResultDocumentSemanticField>();
-
-            return new SemanticDebugInfo(titleField, contentFields?.ToList(), keywordFields?.ToList(), rerankerInput);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.QueryResultDocumentSemanticField"/>. </summary>
-        /// <param name="name"> The name of the field that was sent to the semantic enrichment process. </param>
-        /// <param name="state"> The way the field was used for the semantic enrichment process (fully used, partially used, or unused). </param>
-        /// <returns> A new <see cref="Models.QueryResultDocumentSemanticField"/> instance for mocking. </returns>
-        public static QueryResultDocumentSemanticField QueryResultDocumentSemanticField(string name = null, SemanticFieldState? state = null)
-        {
-            return new QueryResultDocumentSemanticField(name, state);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.QueryResultDocumentRerankerInput"/>. </summary>
-        /// <param name="title"> The raw string for the title field that was used for semantic enrichment. </param>
-        /// <param name="content"> The raw concatenated strings for the content fields that were used for semantic enrichment. </param>
-        /// <param name="keywords"> The raw concatenated strings for the keyword fields that were used for semantic enrichment. </param>
-        /// <returns> A new <see cref="Models.QueryResultDocumentRerankerInput"/> instance for mocking. </returns>
-        public static QueryResultDocumentRerankerInput QueryResultDocumentRerankerInput(string title = null, string content = null, string keywords = null)
-        {
-            return new QueryResultDocumentRerankerInput(title, content, keywords);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.AutocompleteResults"/>. </summary>
-        /// <param name="coverage"> A value indicating the percentage of the index that was considered by the autocomplete request, or null if minimumCoverage was not specified in the request. </param>
-        /// <param name="results"> The list of returned Autocompleted items. </param>
-        /// <returns> A new <see cref="Models.AutocompleteResults"/> instance for mocking. </returns>
-        public static AutocompleteResults AutocompleteResults(double? coverage = null, IEnumerable<AutocompleteItem> results = null)
-        {
-            results ??= new List<AutocompleteItem>();
-
-            return new AutocompleteResults(coverage, results?.ToList());
-        }
-
         /// <summary> Initializes a new instance of <see cref="Indexes.Models.SearchIndexerStatus"/>. </summary>
         /// <param name="status"> Overall indexer status. </param>
         /// <param name="lastResult"> The result of the most recent or an in-progress indexer execution. </param>
@@ -211,6 +133,96 @@ namespace Azure.Search.Documents.Models
                 synonymMapCounter,
                 skillsetCounter,
                 vectorIndexSizeCounter);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Indexes.Models.SearchServiceLimits"/>. </summary>
+        /// <param name="maxFieldsPerIndex"> The maximum allowed fields per index. </param>
+        /// <param name="maxFieldNestingDepthPerIndex"> The maximum depth which you can nest sub-fields in an index, including the top-level complex field. For example, a/b/c has a nesting depth of 3. </param>
+        /// <param name="maxComplexCollectionFieldsPerIndex"> The maximum number of fields of type Collection(Edm.ComplexType) allowed in an index. </param>
+        /// <param name="maxComplexObjectsInCollectionsPerDocument"> The maximum number of objects in complex collections allowed per document. </param>
+        /// <param name="maxStoragePerIndex"> The maximum amount of storage in bytes allowed per index. </param>
+        /// <returns> A new <see cref="Indexes.Models.SearchServiceLimits"/> instance for mocking. </returns>
+        public static SearchServiceLimits SearchServiceLimits(int? maxFieldsPerIndex = null, int? maxFieldNestingDepthPerIndex = null, int? maxComplexCollectionFieldsPerIndex = null, int? maxComplexObjectsInCollectionsPerDocument = null, long? maxStoragePerIndex = null)
+        {
+            return new SearchServiceLimits(maxFieldsPerIndex, maxFieldNestingDepthPerIndex, maxComplexCollectionFieldsPerIndex, maxComplexObjectsInCollectionsPerDocument, maxStoragePerIndex);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.QueryAnswerResult"/>. </summary>
+        /// <param name="score"> The score value represents how relevant the answer is to the query relative to other answers returned for the query. </param>
+        /// <param name="key"> The key of the document the answer was extracted from. </param>
+        /// <param name="text"> The text passage extracted from the document contents as the answer. </param>
+        /// <param name="highlights"> Same text passage as in the Text property with highlighted text phrases most relevant to the query. </param>
+        /// <param name="additionalProperties"> Additional Properties. </param>
+        /// <returns> A new <see cref="Models.QueryAnswerResult"/> instance for mocking. </returns>
+        public static QueryAnswerResult QueryAnswerResult(double? score = null, string key = null, string text = null, string highlights = null, IReadOnlyDictionary<string, object> additionalProperties = null)
+        {
+            additionalProperties ??= new Dictionary<string, object>();
+
+            return new QueryAnswerResult(score, key, text, highlights, additionalProperties);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.QueryCaptionResult"/>. </summary>
+        /// <param name="text"> A representative text passage extracted from the document most relevant to the search query. </param>
+        /// <param name="highlights"> Same text passage as in the Text property with highlighted phrases most relevant to the query. </param>
+        /// <param name="additionalProperties"> Additional Properties. </param>
+        /// <returns> A new <see cref="Models.QueryCaptionResult"/> instance for mocking. </returns>
+        public static QueryCaptionResult QueryCaptionResult(string text = null, string highlights = null, IReadOnlyDictionary<string, object> additionalProperties = null)
+        {
+            additionalProperties ??= new Dictionary<string, object>();
+
+            return new QueryCaptionResult(text, highlights, additionalProperties);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.DocumentDebugInfo"/>. </summary>
+        /// <param name="semantic"> Contains debugging information specific to semantic ranking requests. </param>
+        /// <returns> A new <see cref="Models.DocumentDebugInfo"/> instance for mocking. </returns>
+        public static DocumentDebugInfo DocumentDebugInfo(SemanticDebugInfo semantic = null)
+        {
+            return new DocumentDebugInfo(semantic);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SemanticDebugInfo"/>. </summary>
+        /// <param name="titleField"> The title field that was sent to the semantic enrichment process, as well as how it was used. </param>
+        /// <param name="contentFields"> The content fields that were sent to the semantic enrichment process, as well as how they were used. </param>
+        /// <param name="keywordFields"> The keyword fields that were sent to the semantic enrichment process, as well as how they were used. </param>
+        /// <param name="rerankerInput"> The raw concatenated strings that were sent to the semantic enrichment process. </param>
+        /// <returns> A new <see cref="Models.SemanticDebugInfo"/> instance for mocking. </returns>
+        public static SemanticDebugInfo SemanticDebugInfo(QueryResultDocumentSemanticField titleField = null, IEnumerable<QueryResultDocumentSemanticField> contentFields = null, IEnumerable<QueryResultDocumentSemanticField> keywordFields = null, QueryResultDocumentRerankerInput rerankerInput = null)
+        {
+            contentFields ??= new List<QueryResultDocumentSemanticField>();
+            keywordFields ??= new List<QueryResultDocumentSemanticField>();
+
+            return new SemanticDebugInfo(titleField, contentFields?.ToList(), keywordFields?.ToList(), rerankerInput);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.QueryResultDocumentSemanticField"/>. </summary>
+        /// <param name="name"> The name of the field that was sent to the semantic enrichment process. </param>
+        /// <param name="state"> The way the field was used for the semantic enrichment process (fully used, partially used, or unused). </param>
+        /// <returns> A new <see cref="Models.QueryResultDocumentSemanticField"/> instance for mocking. </returns>
+        public static QueryResultDocumentSemanticField QueryResultDocumentSemanticField(string name = null, SemanticFieldState? state = null)
+        {
+            return new QueryResultDocumentSemanticField(name, state);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.QueryResultDocumentRerankerInput"/>. </summary>
+        /// <param name="title"> The raw string for the title field that was used for semantic enrichment. </param>
+        /// <param name="content"> The raw concatenated strings for the content fields that were used for semantic enrichment. </param>
+        /// <param name="keywords"> The raw concatenated strings for the keyword fields that were used for semantic enrichment. </param>
+        /// <returns> A new <see cref="Models.QueryResultDocumentRerankerInput"/> instance for mocking. </returns>
+        public static QueryResultDocumentRerankerInput QueryResultDocumentRerankerInput(string title = null, string content = null, string keywords = null)
+        {
+            return new QueryResultDocumentRerankerInput(title, content, keywords);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.AutocompleteResults"/>. </summary>
+        /// <param name="coverage"> A value indicating the percentage of the index that was considered by the autocomplete request, or null if minimumCoverage was not specified in the request. </param>
+        /// <param name="results"> The list of returned Autocompleted items. </param>
+        /// <returns> A new <see cref="Models.AutocompleteResults"/> instance for mocking. </returns>
+        public static AutocompleteResults AutocompleteResults(double? coverage = null, IEnumerable<AutocompleteItem> results = null)
+        {
+            results ??= new List<AutocompleteItem>();
+
+            return new AutocompleteResults(coverage, results?.ToList());
         }
     }
 }
