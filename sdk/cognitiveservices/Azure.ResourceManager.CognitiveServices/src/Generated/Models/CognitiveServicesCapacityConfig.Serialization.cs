@@ -8,6 +8,7 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using Azure.Core;
@@ -46,6 +47,16 @@ namespace Azure.ResourceManager.CognitiveServices.Models
             {
                 writer.WritePropertyName("default"u8);
                 writer.WriteNumberValue(Default.Value);
+            }
+            if (Optional.IsCollectionDefined(AllowedValues))
+            {
+                writer.WritePropertyName("allowedValues"u8);
+                writer.WriteStartArray();
+                foreach (var item in AllowedValues)
+                {
+                    writer.WriteNumberValue(item);
+                }
+                writer.WriteEndArray();
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -89,6 +100,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
             int? maximum = default;
             int? step = default;
             int? @default = default;
+            IList<int> allowedValues = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -129,13 +141,33 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                     @default = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("allowedValues"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<int> array = new List<int>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetInt32());
+                    }
+                    allowedValues = array;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new CognitiveServicesCapacityConfig(minimum, maximum, step, @default, serializedAdditionalRawData);
+            return new CognitiveServicesCapacityConfig(
+                minimum,
+                maximum,
+                step,
+                @default,
+                allowedValues ?? new ChangeTrackingList<int>(),
+                serializedAdditionalRawData);
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)
@@ -202,6 +234,28 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                 else
                 {
                     builder.AppendLine($"{Default.Value}");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(AllowedValues), out propertyOverride);
+            if (Optional.IsCollectionDefined(AllowedValues) || hasPropertyOverride)
+            {
+                if (AllowedValues.Any() || hasPropertyOverride)
+                {
+                    builder.Append("  allowedValues: ");
+                    if (hasPropertyOverride)
+                    {
+                        builder.AppendLine($"{propertyOverride}");
+                    }
+                    else
+                    {
+                        builder.AppendLine("[");
+                        foreach (var item in AllowedValues)
+                        {
+                            builder.AppendLine($"    {item}");
+                        }
+                        builder.AppendLine("  ]");
+                    }
                 }
             }
 
