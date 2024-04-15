@@ -28,6 +28,16 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             writer.WriteStartObject();
             writer.WritePropertyName("objectType"u8);
             writer.WriteStringValue(ObjectType);
+            if (Optional.IsCollectionDefined(ResourceGuardOperationRequests))
+            {
+                writer.WritePropertyName("resourceGuardOperationRequests"u8);
+                writer.WriteStartArray();
+                foreach (var item in ResourceGuardOperationRequests)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
