@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.CosmosDB.Models
 {
-    /// <summary> Error Response. </summary>
-    public partial class ErrorResponse
+    /// <summary> Information of Access Rule in Network Security Perimeter profile. </summary>
+    public partial class NspAccessRule
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,27 +45,27 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ErrorResponse"/>. </summary>
-        internal ErrorResponse()
+        /// <summary> Initializes a new instance of <see cref="NspAccessRule"/>. </summary>
+        internal NspAccessRule()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="ErrorResponse"/>. </summary>
-        /// <param name="code"> Error code. </param>
-        /// <param name="message"> Error message indicating why the operation failed. </param>
+        /// <summary> Initializes a new instance of <see cref="NspAccessRule"/>. </summary>
+        /// <param name="name"> Name of the resource. </param>
+        /// <param name="properties"> Properties of Access Rule. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ErrorResponse(string code, string message, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal NspAccessRule(string name, NspAccessRuleProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Code = code;
-            Message = message;
+            Name = name;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Error code. </summary>
-        [WirePath("code")]
-        public string Code { get; }
-        /// <summary> Error message indicating why the operation failed. </summary>
-        [WirePath("message")]
-        public string Message { get; }
+        /// <summary> Name of the resource. </summary>
+        [WirePath("name")]
+        public string Name { get; }
+        /// <summary> Properties of Access Rule. </summary>
+        [WirePath("properties")]
+        public NspAccessRuleProperties Properties { get; }
     }
 }

@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-15-preview</description>
+        /// <description>2024-05-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -105,7 +105,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-15-preview</description>
+        /// <description>2024-05-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -134,7 +134,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-15-preview</description>
+        /// <description>2024-05-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -163,7 +163,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-15-preview</description>
+        /// <description>2024-05-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -192,7 +192,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-15-preview</description>
+        /// <description>2024-05-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -221,7 +221,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-15-preview</description>
+        /// <description>2024-05-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -250,7 +250,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-15-preview</description>
+        /// <description>2024-05-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -280,7 +280,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-15-preview</description>
+        /// <description>2024-05-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -310,7 +310,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-15-preview</description>
+        /// <description>2024-05-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -339,7 +339,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-15-preview</description>
+        /// <description>2024-05-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -368,7 +368,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-15-preview</description>
+        /// <description>2024-05-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -398,7 +398,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-15-preview</description>
+        /// <description>2024-05-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

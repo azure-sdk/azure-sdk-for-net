@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.CosmosDB
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2024-02-15-preview";
+            _apiVersion = apiVersion ?? "2024-05-15-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> List all the mongo clusters in a given subscription. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> List all the mongo clusters in a given subscription. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
@@ -124,7 +124,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> List all the mongo clusters in a given resource group. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is null. </exception>
@@ -151,7 +151,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> List all the mongo clusters in a given resource group. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is null. </exception>
@@ -202,7 +202,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Create or update a mongo cluster. Update overwrites all properties for the resource. To only modify some of the properties, use PATCH. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="data"> The required parameters for creating or updating a mongo cluster. </param>
@@ -229,7 +229,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Create or update a mongo cluster. Update overwrites all properties for the resource. To only modify some of the properties, use PATCH. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="data"> The required parameters for creating or updating a mongo cluster. </param>
@@ -276,7 +276,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Gets information about a mongo cluster. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -307,7 +307,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Gets information about a mongo cluster. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -358,7 +358,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Deletes a mongo cluster. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -383,7 +383,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Deletes a mongo cluster. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -432,7 +432,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Updates an existing mongo cluster. The request body can contain one to many of the properties present in the normal mongo cluster definition. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="patch"> The parameters for updating a mongo cluster. </param>
@@ -459,7 +459,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Updates an existing mongo cluster. The request body can contain one to many of the properties present in the normal mongo cluster definition. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="patch"> The parameters for updating a mongo cluster. </param>
@@ -512,7 +512,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Creates a new firewall rule or updates an existing firewall rule on a mongo cluster. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="firewallRuleName"> The name of the mongo cluster firewall rule. </param>
@@ -541,7 +541,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Creates a new firewall rule or updates an existing firewall rule on a mongo cluster. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="firewallRuleName"> The name of the mongo cluster firewall rule. </param>
@@ -592,7 +592,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Deletes a mongo cluster firewall rule. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="firewallRuleName"> The name of the mongo cluster firewall rule. </param>
@@ -619,7 +619,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Deletes a mongo cluster firewall rule. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="firewallRuleName"> The name of the mongo cluster firewall rule. </param>
@@ -668,7 +668,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Gets information about a mongo cluster firewall rule. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="firewallRuleName"> The name of the mongo cluster firewall rule. </param>
@@ -701,7 +701,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Gets information about a mongo cluster firewall rule. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="firewallRuleName"> The name of the mongo cluster firewall rule. </param>
@@ -755,7 +755,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> List all the firewall rules in a given mongo cluster. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -784,7 +784,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> List all the firewall rules in a given mongo cluster. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -836,7 +836,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Check the availability of name for resource. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="location"> The name of the Azure region. </param>
         /// <param name="content"> The required parameters for checking if resource name is available. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -864,7 +864,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Check the availability of name for resource. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="location"> The name of the Azure region. </param>
         /// <param name="content"> The required parameters for checking if resource name is available. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -913,7 +913,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> List mongo cluster connection strings. This includes the default connection string using SCRAM-SHA-256, as well as other connection strings supported by the cluster. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -942,7 +942,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> List mongo cluster connection strings. This includes the default connection string using SCRAM-SHA-256, as well as other connection strings supported by the cluster. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -986,7 +986,7 @@ namespace Azure.ResourceManager.CosmosDB
 
         /// <summary> List all the mongo clusters in a given subscription. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
@@ -1013,7 +1013,7 @@ namespace Azure.ResourceManager.CosmosDB
 
         /// <summary> List all the mongo clusters in a given subscription. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
@@ -1054,7 +1054,7 @@ namespace Azure.ResourceManager.CosmosDB
 
         /// <summary> List all the mongo clusters in a given resource group. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is null. </exception>
@@ -1083,7 +1083,7 @@ namespace Azure.ResourceManager.CosmosDB
 
         /// <summary> List all the mongo clusters in a given resource group. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is null. </exception>
@@ -1126,7 +1126,7 @@ namespace Azure.ResourceManager.CosmosDB
 
         /// <summary> List all the firewall rules in a given mongo cluster. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -1157,7 +1157,7 @@ namespace Azure.ResourceManager.CosmosDB
 
         /// <summary> List all the firewall rules in a given mongo cluster. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="mongoClusterName"> The name of the mongo cluster. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

@@ -14,28 +14,28 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.CosmosDB.Models
 {
-    public partial class ErrorResponse : IUtf8JsonSerializable, IJsonModel<ErrorResponse>
+    public partial class NspAccessRule : IUtf8JsonSerializable, IJsonModel<NspAccessRule>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ErrorResponse>)this).Write(writer, new ModelReaderWriterOptions("W"));
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<NspAccessRule>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
-        void IJsonModel<ErrorResponse>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<NspAccessRule>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ErrorResponse>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<NspAccessRule>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ErrorResponse)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(NspAccessRule)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Code))
+            if (Optional.IsDefined(Name))
             {
-                writer.WritePropertyName("code"u8);
-                writer.WriteStringValue(Code);
+                writer.WritePropertyName("name"u8);
+                writer.WriteStringValue(Name);
             }
-            if (Optional.IsDefined(Message))
+            if (options.Format != "W" && Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("message"u8);
-                writer.WriteStringValue(Message);
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -55,19 +55,19 @@ namespace Azure.ResourceManager.CosmosDB.Models
             writer.WriteEndObject();
         }
 
-        ErrorResponse IJsonModel<ErrorResponse>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        NspAccessRule IJsonModel<NspAccessRule>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ErrorResponse>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<NspAccessRule>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ErrorResponse)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(NspAccessRule)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeErrorResponse(document.RootElement, options);
+            return DeserializeNspAccessRule(document.RootElement, options);
         }
 
-        internal static ErrorResponse DeserializeErrorResponse(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static NspAccessRule DeserializeNspAccessRule(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= new ModelReaderWriterOptions("W");
 
@@ -75,20 +75,24 @@ namespace Azure.ResourceManager.CosmosDB.Models
             {
                 return null;
             }
-            string code = default;
-            string message = default;
+            string name = default;
+            NspAccessRuleProperties properties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("code"u8))
+                if (property.NameEquals("name"u8))
                 {
-                    code = property.Value.GetString();
+                    name = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("message"u8))
+                if (property.NameEquals("properties"u8))
                 {
-                    message = property.Value.GetString();
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = NspAccessRuleProperties.DeserializeNspAccessRuleProperties(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -97,7 +101,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ErrorResponse(code, message, serializedAdditionalRawData);
+            return new NspAccessRule(name, properties, serializedAdditionalRawData);
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)
@@ -111,47 +115,39 @@ namespace Azure.ResourceManager.CosmosDB.Models
 
             builder.AppendLine("{");
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Code), out propertyOverride);
-            if (Optional.IsDefined(Code) || hasPropertyOverride)
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Name), out propertyOverride);
+            if (Optional.IsDefined(Name) || hasPropertyOverride)
             {
-                builder.Append("  code: ");
+                builder.Append("  name: ");
                 if (hasPropertyOverride)
                 {
                     builder.AppendLine($"{propertyOverride}");
                 }
                 else
                 {
-                    if (Code.Contains(Environment.NewLine))
+                    if (Name.Contains(Environment.NewLine))
                     {
                         builder.AppendLine("'''");
-                        builder.AppendLine($"{Code}'''");
+                        builder.AppendLine($"{Name}'''");
                     }
                     else
                     {
-                        builder.AppendLine($"'{Code}'");
+                        builder.AppendLine($"'{Name}'");
                     }
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Message), out propertyOverride);
-            if (Optional.IsDefined(Message) || hasPropertyOverride)
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Properties), out propertyOverride);
+            if (Optional.IsDefined(Properties) || hasPropertyOverride)
             {
-                builder.Append("  message: ");
+                builder.Append("  properties: ");
                 if (hasPropertyOverride)
                 {
                     builder.AppendLine($"{propertyOverride}");
                 }
                 else
                 {
-                    if (Message.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{Message}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{Message}'");
-                    }
+                    BicepSerializationHelpers.AppendChildObject(builder, Properties, options, 2, false, "  properties: ");
                 }
             }
 
@@ -159,9 +155,9 @@ namespace Azure.ResourceManager.CosmosDB.Models
             return BinaryData.FromString(builder.ToString());
         }
 
-        BinaryData IPersistableModel<ErrorResponse>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<NspAccessRule>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ErrorResponse>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<NspAccessRule>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
@@ -170,26 +166,26 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 case "bicep":
                     return SerializeBicep(options);
                 default:
-                    throw new FormatException($"The model {nameof(ErrorResponse)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(NspAccessRule)} does not support writing '{options.Format}' format.");
             }
         }
 
-        ErrorResponse IPersistableModel<ErrorResponse>.Create(BinaryData data, ModelReaderWriterOptions options)
+        NspAccessRule IPersistableModel<NspAccessRule>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ErrorResponse>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<NspAccessRule>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeErrorResponse(document.RootElement, options);
+                        return DeserializeNspAccessRule(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ErrorResponse)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(NspAccessRule)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ErrorResponse>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<NspAccessRule>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
