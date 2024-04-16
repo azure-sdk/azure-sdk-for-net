@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.DataProtectionBackup
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2023-11-01";
+            _apiVersion = apiVersion ?? "2024-04-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -371,7 +371,7 @@ namespace Azure.ResourceManager.DataProtectionBackup
             }
         }
 
-        internal HttpMessage CreateUnlockDeleteRequest(string subscriptionId, string resourceGroupName, string vaultName, string resourceGuardProxyName, DataProtectionUnlockDeleteContent content)
+        internal HttpMessage CreateUnlockDeleteRequest(string subscriptionId, string resourceGroupName, string vaultName, string resourceGuardProxyName, DataProtectionUnlockDeleteContent content, string xMsAuthorizationAuxiliary)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -389,6 +389,10 @@ namespace Azure.ResourceManager.DataProtectionBackup
             uri.AppendPath("/unlockDelete", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
+            if (xMsAuthorizationAuxiliary != null)
+            {
+                request.Headers.Add("x-ms-authorization-auxiliary", xMsAuthorizationAuxiliary);
+            }
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
             var content0 = new Utf8JsonRequestContent();
@@ -404,10 +408,11 @@ namespace Azure.ResourceManager.DataProtectionBackup
         /// <param name="vaultName"> The name of the backup vault. </param>
         /// <param name="resourceGuardProxyName"> name of the resource guard proxy. </param>
         /// <param name="content"> Request body for operation. </param>
+        /// <param name="xMsAuthorizationAuxiliary"> The <see cref="string"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/>, <paramref name="resourceGuardProxyName"/> or <paramref name="content"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/> or <paramref name="resourceGuardProxyName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<DataProtectionUnlockDeleteResult>> UnlockDeleteAsync(string subscriptionId, string resourceGroupName, string vaultName, string resourceGuardProxyName, DataProtectionUnlockDeleteContent content, CancellationToken cancellationToken = default)
+        public async Task<Response<DataProtectionUnlockDeleteResult>> UnlockDeleteAsync(string subscriptionId, string resourceGroupName, string vaultName, string resourceGuardProxyName, DataProtectionUnlockDeleteContent content, string xMsAuthorizationAuxiliary = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -415,7 +420,7 @@ namespace Azure.ResourceManager.DataProtectionBackup
             Argument.AssertNotNullOrEmpty(resourceGuardProxyName, nameof(resourceGuardProxyName));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var message = CreateUnlockDeleteRequest(subscriptionId, resourceGroupName, vaultName, resourceGuardProxyName, content);
+            using var message = CreateUnlockDeleteRequest(subscriptionId, resourceGroupName, vaultName, resourceGuardProxyName, content, xMsAuthorizationAuxiliary);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -437,10 +442,11 @@ namespace Azure.ResourceManager.DataProtectionBackup
         /// <param name="vaultName"> The name of the backup vault. </param>
         /// <param name="resourceGuardProxyName"> name of the resource guard proxy. </param>
         /// <param name="content"> Request body for operation. </param>
+        /// <param name="xMsAuthorizationAuxiliary"> The <see cref="string"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/>, <paramref name="resourceGuardProxyName"/> or <paramref name="content"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/> or <paramref name="resourceGuardProxyName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<DataProtectionUnlockDeleteResult> UnlockDelete(string subscriptionId, string resourceGroupName, string vaultName, string resourceGuardProxyName, DataProtectionUnlockDeleteContent content, CancellationToken cancellationToken = default)
+        public Response<DataProtectionUnlockDeleteResult> UnlockDelete(string subscriptionId, string resourceGroupName, string vaultName, string resourceGuardProxyName, DataProtectionUnlockDeleteContent content, string xMsAuthorizationAuxiliary = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -448,7 +454,7 @@ namespace Azure.ResourceManager.DataProtectionBackup
             Argument.AssertNotNullOrEmpty(resourceGuardProxyName, nameof(resourceGuardProxyName));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var message = CreateUnlockDeleteRequest(subscriptionId, resourceGroupName, vaultName, resourceGuardProxyName, content);
+            using var message = CreateUnlockDeleteRequest(subscriptionId, resourceGroupName, vaultName, resourceGuardProxyName, content, xMsAuthorizationAuxiliary);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
