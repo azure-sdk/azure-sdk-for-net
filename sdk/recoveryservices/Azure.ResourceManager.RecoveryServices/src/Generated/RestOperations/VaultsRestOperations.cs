@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.RecoveryServices
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2023-04-01";
+            _apiVersion = apiVersion ?? "2024-04-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -258,7 +258,7 @@ namespace Azure.ResourceManager.RecoveryServices
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string vaultName, RecoveryServicesVaultData data)
+        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string vaultName, RecoveryServicesVaultData data, string xMsAuthorizationAuxiliary)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -273,6 +273,10 @@ namespace Azure.ResourceManager.RecoveryServices
             uri.AppendPath(vaultName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
+            if (xMsAuthorizationAuxiliary != null)
+            {
+                request.Headers.Add("x-ms-authorization-auxiliary", xMsAuthorizationAuxiliary);
+            }
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
             var content = new Utf8JsonRequestContent();
@@ -287,17 +291,18 @@ namespace Azure.ResourceManager.RecoveryServices
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="vaultName"> The name of the recovery services vault. </param>
         /// <param name="data"> Recovery Services Vault to be created. </param>
+        /// <param name="xMsAuthorizationAuxiliary"> The <see cref="string"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="vaultName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string vaultName, RecoveryServicesVaultData data, CancellationToken cancellationToken = default)
+        public async Task<Response> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string vaultName, RecoveryServicesVaultData data, string xMsAuthorizationAuxiliary = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(vaultName, nameof(vaultName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, vaultName, data);
+            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, vaultName, data, xMsAuthorizationAuxiliary);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -314,17 +319,18 @@ namespace Azure.ResourceManager.RecoveryServices
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="vaultName"> The name of the recovery services vault. </param>
         /// <param name="data"> Recovery Services Vault to be created. </param>
+        /// <param name="xMsAuthorizationAuxiliary"> The <see cref="string"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="vaultName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response CreateOrUpdate(string subscriptionId, string resourceGroupName, string vaultName, RecoveryServicesVaultData data, CancellationToken cancellationToken = default)
+        public Response CreateOrUpdate(string subscriptionId, string resourceGroupName, string vaultName, RecoveryServicesVaultData data, string xMsAuthorizationAuxiliary = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(vaultName, nameof(vaultName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, vaultName, data);
+            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, vaultName, data, xMsAuthorizationAuxiliary);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -373,7 +379,8 @@ namespace Azure.ResourceManager.RecoveryServices
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
-                case 200:
+                case 202:
+                case 204:
                     return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
@@ -397,14 +404,15 @@ namespace Azure.ResourceManager.RecoveryServices
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
-                case 200:
+                case 202:
+                case 204:
                     return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string vaultName, RecoveryServicesVaultPatch patch)
+        internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string vaultName, RecoveryServicesVaultPatch patch, string xMsAuthorizationAuxiliary)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -419,6 +427,10 @@ namespace Azure.ResourceManager.RecoveryServices
             uri.AppendPath(vaultName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
+            if (xMsAuthorizationAuxiliary != null)
+            {
+                request.Headers.Add("x-ms-authorization-auxiliary", xMsAuthorizationAuxiliary);
+            }
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
             var content = new Utf8JsonRequestContent();
@@ -433,17 +445,18 @@ namespace Azure.ResourceManager.RecoveryServices
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="vaultName"> The name of the recovery services vault. </param>
         /// <param name="patch"> Recovery Services Vault to be created. </param>
+        /// <param name="xMsAuthorizationAuxiliary"> The <see cref="string"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/> or <paramref name="patch"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="vaultName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> UpdateAsync(string subscriptionId, string resourceGroupName, string vaultName, RecoveryServicesVaultPatch patch, CancellationToken cancellationToken = default)
+        public async Task<Response> UpdateAsync(string subscriptionId, string resourceGroupName, string vaultName, RecoveryServicesVaultPatch patch, string xMsAuthorizationAuxiliary = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(vaultName, nameof(vaultName));
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, vaultName, patch);
+            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, vaultName, patch, xMsAuthorizationAuxiliary);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -460,17 +473,18 @@ namespace Azure.ResourceManager.RecoveryServices
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="vaultName"> The name of the recovery services vault. </param>
         /// <param name="patch"> Recovery Services Vault to be created. </param>
+        /// <param name="xMsAuthorizationAuxiliary"> The <see cref="string"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/> or <paramref name="patch"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="vaultName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Update(string subscriptionId, string resourceGroupName, string vaultName, RecoveryServicesVaultPatch patch, CancellationToken cancellationToken = default)
+        public Response Update(string subscriptionId, string resourceGroupName, string vaultName, RecoveryServicesVaultPatch patch, string xMsAuthorizationAuxiliary = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(vaultName, nameof(vaultName));
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, vaultName, patch);
+            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, vaultName, patch, xMsAuthorizationAuxiliary);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
