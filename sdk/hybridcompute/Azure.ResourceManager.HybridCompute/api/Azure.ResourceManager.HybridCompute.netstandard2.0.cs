@@ -1,7 +1,64 @@
 namespace Azure.ResourceManager.HybridCompute
 {
+    public partial class GatewayCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.HybridCompute.GatewayResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.HybridCompute.GatewayResource>, System.Collections.IEnumerable
+    {
+        protected GatewayCollection() { }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.HybridCompute.GatewayResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string gatewayName, Azure.ResourceManager.HybridCompute.GatewayData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.HybridCompute.GatewayResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string gatewayName, Azure.ResourceManager.HybridCompute.GatewayData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> Exists(string gatewayName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string gatewayName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource> Get(string gatewayName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.HybridCompute.GatewayResource> GetAll(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.HybridCompute.GatewayResource> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource>> GetAsync(string gatewayName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.NullableResponse<Azure.ResourceManager.HybridCompute.GatewayResource> GetIfExists(string gatewayName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.NullableResponse<Azure.ResourceManager.HybridCompute.GatewayResource>> GetIfExistsAsync(string gatewayName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.HybridCompute.GatewayResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.HybridCompute.GatewayResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
+        System.Collections.Generic.IEnumerator<Azure.ResourceManager.HybridCompute.GatewayResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.HybridCompute.GatewayResource>.GetEnumerator() { throw null; }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
+    }
+    public partial class GatewayData : Azure.ResourceManager.Models.TrackedResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HybridCompute.GatewayData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HybridCompute.GatewayData>
+    {
+        public GatewayData(Azure.Core.AzureLocation location) { }
+        public System.Collections.Generic.IList<string> AllowedFeatures { get { throw null; } }
+        public string GatewayEndpoint { get { throw null; } }
+        public string GatewayId { get { throw null; } }
+        public Azure.ResourceManager.HybridCompute.Models.GatewayType? GatewayType { get { throw null; } set { } }
+        public Azure.ResourceManager.HybridCompute.Models.HybridComputeProvisioningState? ProvisioningState { get { throw null; } }
+        Azure.ResourceManager.HybridCompute.GatewayData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HybridCompute.GatewayData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HybridCompute.GatewayData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.HybridCompute.GatewayData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HybridCompute.GatewayData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HybridCompute.GatewayData>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HybridCompute.GatewayData>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class GatewayResource : Azure.ResourceManager.ArmResource
+    {
+        public static readonly Azure.Core.ResourceType ResourceType;
+        protected GatewayResource() { }
+        public virtual Azure.ResourceManager.HybridCompute.GatewayData Data { get { throw null; } }
+        public virtual bool HasData { get { throw null; } }
+        public virtual Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource> AddTag(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource>> AddTagAsync(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string gatewayName) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource>> SetTagsAsync(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource> Update(Azure.ResourceManager.HybridCompute.Models.GatewayPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource>> UpdateAsync(Azure.ResourceManager.HybridCompute.Models.GatewayPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
     public static partial class HybridComputeExtensions
     {
+        public static Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource> GetGateway(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, string gatewayName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource>> GetGatewayAsync(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, string gatewayName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.ResourceManager.HybridCompute.GatewayResource GetGatewayResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
+        public static Azure.ResourceManager.HybridCompute.GatewayCollection GetGateways(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource) { throw null; }
+        public static Azure.Pageable<Azure.ResourceManager.HybridCompute.GatewayResource> GetGateways(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.AsyncPageable<Azure.ResourceManager.HybridCompute.GatewayResource> GetGatewaysAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Response<Azure.ResourceManager.HybridCompute.HybridComputeExtensionValueResource> GetHybridComputeExtensionValue(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, string publisher, string extensionType, string version, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HybridCompute.HybridComputeExtensionValueResource>> GetHybridComputeExtensionValueAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, string publisher, string extensionType, string version, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.ResourceManager.HybridCompute.HybridComputeExtensionValueResource GetHybridComputeExtensionValueResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
@@ -397,6 +454,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
     public partial class MockableHybridComputeArmClient : Azure.ResourceManager.ArmResource
     {
         protected MockableHybridComputeArmClient() { }
+        public virtual Azure.ResourceManager.HybridCompute.GatewayResource GetGatewayResource(Azure.Core.ResourceIdentifier id) { throw null; }
         public virtual Azure.ResourceManager.HybridCompute.HybridComputeExtensionValueResource GetHybridComputeExtensionValueResource(Azure.Core.ResourceIdentifier id) { throw null; }
         public virtual Azure.ResourceManager.HybridCompute.HybridComputeMachineExtensionResource GetHybridComputeMachineExtensionResource(Azure.Core.ResourceIdentifier id) { throw null; }
         public virtual Azure.ResourceManager.HybridCompute.HybridComputeMachineResource GetHybridComputeMachineResource(Azure.Core.ResourceIdentifier id) { throw null; }
@@ -408,6 +466,9 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
     public partial class MockableHybridComputeResourceGroupResource : Azure.ResourceManager.ArmResource
     {
         protected MockableHybridComputeResourceGroupResource() { }
+        public virtual Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource> GetGateway(string gatewayName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HybridCompute.GatewayResource>> GetGatewayAsync(string gatewayName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.HybridCompute.GatewayCollection GetGateways() { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.HybridCompute.HybridComputeMachineResource> GetHybridComputeMachine(string machineName, string expand = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HybridCompute.HybridComputeMachineResource>> GetHybridComputeMachineAsync(string machineName, string expand = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.HybridCompute.HybridComputeMachineCollection GetHybridComputeMachines() { throw null; }
@@ -418,6 +479,8 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
     public partial class MockableHybridComputeSubscriptionResource : Azure.ResourceManager.ArmResource
     {
         protected MockableHybridComputeSubscriptionResource() { }
+        public virtual Azure.Pageable<Azure.ResourceManager.HybridCompute.GatewayResource> GetGateways(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.HybridCompute.GatewayResource> GetGatewaysAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.HybridCompute.HybridComputeExtensionValueResource> GetHybridComputeExtensionValue(Azure.Core.AzureLocation location, string publisher, string extensionType, string version, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HybridCompute.HybridComputeExtensionValueResource>> GetHybridComputeExtensionValueAsync(Azure.Core.AzureLocation location, string publisher, string extensionType, string version, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.HybridCompute.HybridComputeExtensionValueCollection GetHybridComputeExtensionValues(Azure.Core.AzureLocation location, string publisher, string extensionType) { throw null; }
@@ -512,6 +575,7 @@ namespace Azure.ResourceManager.HybridCompute.Models
         public static Azure.ResourceManager.HybridCompute.Models.AvailablePatchCountByClassification AvailablePatchCountByClassification(int? security = default(int?), int? critical = default(int?), int? definition = default(int?), int? updateRollup = default(int?), int? featurePack = default(int?), int? servicePack = default(int?), int? tools = default(int?), int? updates = default(int?), int? other = default(int?)) { throw null; }
         public static Azure.ResourceManager.HybridCompute.Models.EsuKey EsuKey(string sku = null, string licenseStatus = null) { throw null; }
         public static Azure.ResourceManager.HybridCompute.Models.ExtensionsResourceStatus ExtensionsResourceStatus(string code = null, Azure.ResourceManager.HybridCompute.Models.ExtensionsStatusLevelType? level = default(Azure.ResourceManager.HybridCompute.Models.ExtensionsStatusLevelType?), string displayStatus = null, string message = null, System.DateTimeOffset? time = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.ResourceManager.HybridCompute.GatewayData GatewayData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.HybridCompute.Models.HybridComputeProvisioningState? provisioningState = default(Azure.ResourceManager.HybridCompute.Models.HybridComputeProvisioningState?), string gatewayId = null, Azure.ResourceManager.HybridCompute.Models.GatewayType? gatewayType = default(Azure.ResourceManager.HybridCompute.Models.GatewayType?), string gatewayEndpoint = null, System.Collections.Generic.IEnumerable<string> allowedFeatures = null) { throw null; }
         public static Azure.ResourceManager.HybridCompute.Models.HybridComputeConfigurationExtension HybridComputeConfigurationExtension(string publisher = null, string configurationExtensionType = null) { throw null; }
         public static Azure.ResourceManager.HybridCompute.Models.HybridComputeConnectionDetail HybridComputeConnectionDetail(Azure.Core.ResourceIdentifier id = null, string privateIPAddress = null, string linkIdentifier = null, string groupId = null, string memberName = null) { throw null; }
         public static Azure.ResourceManager.HybridCompute.HybridComputeExtensionValueData HybridComputeExtensionValueData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string version = null, string extensionType = null, string publisher = null) { throw null; }
@@ -675,6 +739,34 @@ namespace Azure.ResourceManager.HybridCompute.Models
         Azure.ResourceManager.HybridCompute.Models.ExtensionTargetProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HybridCompute.Models.ExtensionTargetProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HybridCompute.Models.ExtensionTargetProperties>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HybridCompute.Models.ExtensionTargetProperties>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class GatewayPatch : Azure.ResourceManager.HybridCompute.Models.HybridComputeResourceUpdate, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HybridCompute.Models.GatewayPatch>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HybridCompute.Models.GatewayPatch>
+    {
+        public GatewayPatch() { }
+        public System.Collections.Generic.IList<string> AllowedFeatures { get { throw null; } }
+        Azure.ResourceManager.HybridCompute.Models.GatewayPatch System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HybridCompute.Models.GatewayPatch>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HybridCompute.Models.GatewayPatch>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.HybridCompute.Models.GatewayPatch System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HybridCompute.Models.GatewayPatch>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HybridCompute.Models.GatewayPatch>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HybridCompute.Models.GatewayPatch>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct GatewayType : System.IEquatable<Azure.ResourceManager.HybridCompute.Models.GatewayType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public GatewayType(string value) { throw null; }
+        public static Azure.ResourceManager.HybridCompute.Models.GatewayType Private { get { throw null; } }
+        public static Azure.ResourceManager.HybridCompute.Models.GatewayType Public { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.HybridCompute.Models.GatewayType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.HybridCompute.Models.GatewayType left, Azure.ResourceManager.HybridCompute.Models.GatewayType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.HybridCompute.Models.GatewayType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.HybridCompute.Models.GatewayType left, Azure.ResourceManager.HybridCompute.Models.GatewayType right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public partial class HybridComputeConfigurationExtension : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HybridCompute.Models.HybridComputeConfigurationExtension>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HybridCompute.Models.HybridComputeConfigurationExtension>
     {
@@ -1085,6 +1177,7 @@ namespace Azure.ResourceManager.HybridCompute.Models
         public HybridComputePublicNetworkAccessType(string value) { throw null; }
         public static Azure.ResourceManager.HybridCompute.Models.HybridComputePublicNetworkAccessType Disabled { get { throw null; } }
         public static Azure.ResourceManager.HybridCompute.Models.HybridComputePublicNetworkAccessType Enabled { get { throw null; } }
+        public static Azure.ResourceManager.HybridCompute.Models.HybridComputePublicNetworkAccessType SecuredByPerimeter { get { throw null; } }
         public bool Equals(Azure.ResourceManager.HybridCompute.Models.HybridComputePublicNetworkAccessType other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override bool Equals(object obj) { throw null; }

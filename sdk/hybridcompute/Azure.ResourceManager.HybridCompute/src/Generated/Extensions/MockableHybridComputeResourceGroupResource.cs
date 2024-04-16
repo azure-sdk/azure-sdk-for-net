@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-10-03-preview</description>
+        /// <description>2024-03-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -85,7 +85,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-10-03-preview</description>
+        /// <description>2024-03-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -102,6 +102,75 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         public virtual Response<HybridComputeMachineResource> GetHybridComputeMachine(string machineName, string expand = null, CancellationToken cancellationToken = default)
         {
             return GetHybridComputeMachines().Get(machineName, expand, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of GatewayResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of GatewayResources and their operations over a GatewayResource. </returns>
+        public virtual GatewayCollection GetGateways()
+        {
+            return GetCachedClient(client => new GatewayCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Retrieves information about the view of a gateway.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HybridCompute/gateways/{gatewayName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Gateways_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-03-31-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="GatewayResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="gatewayName"> The name of the Gateway. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="gatewayName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="gatewayName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<GatewayResource>> GetGatewayAsync(string gatewayName, CancellationToken cancellationToken = default)
+        {
+            return await GetGateways().GetAsync(gatewayName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Retrieves information about the view of a gateway.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HybridCompute/gateways/{gatewayName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Gateways_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-03-31-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="GatewayResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="gatewayName"> The name of the Gateway. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="gatewayName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="gatewayName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<GatewayResource> GetGateway(string gatewayName, CancellationToken cancellationToken = default)
+        {
+            return GetGateways().Get(gatewayName, cancellationToken);
         }
 
         /// <summary> Gets a collection of HybridComputePrivateLinkScopeResources in the ResourceGroupResource. </summary>
@@ -124,7 +193,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-10-03-preview</description>
+        /// <description>2024-03-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -155,7 +224,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-10-03-preview</description>
+        /// <description>2024-03-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
