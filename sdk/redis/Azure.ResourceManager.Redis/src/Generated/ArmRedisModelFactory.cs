@@ -90,6 +90,7 @@ namespace Azure.ResourceManager.Redis.Models
         /// <param name="maxMemoryReserved"> Value in megabytes reserved for non-cache usage per shard e.g. failover. </param>
         /// <param name="maxMemoryDelta"> Value in megabytes reserved for non-cache usage per shard e.g. failover. </param>
         /// <param name="maxClients"> The max clients config. </param>
+        /// <param name="notifyKeyspaceEvents"> The keyspace events which should be monitored. </param>
         /// <param name="preferredDataArchiveAuthMethod"> Preferred auth method to communicate to storage account used for data archive, specify SAS or ManagedIdentity, default value is SAS. </param>
         /// <param name="preferredDataPersistenceAuthMethod"> Preferred auth method to communicate to storage account used for data persistence, specify SAS or ManagedIdentity, default value is SAS. </param>
         /// <param name="zonalConfiguration"> Zonal Configuration. </param>
@@ -98,7 +99,7 @@ namespace Azure.ResourceManager.Redis.Models
         /// <param name="isAadEnabled"> Specifies whether AAD based authentication has been enabled or disabled for the cache. </param>
         /// <param name="additionalProperties"> Additional Properties. </param>
         /// <returns> A new <see cref="Models.RedisCommonConfiguration"/> instance for mocking. </returns>
-        public static RedisCommonConfiguration RedisCommonConfiguration(bool? isRdbBackupEnabled = null, string rdbBackupFrequency = null, int? rdbBackupMaxSnapshotCount = null, string rdbStorageConnectionString = null, bool? isAofBackupEnabled = null, string aofStorageConnectionString0 = null, string aofStorageConnectionString1 = null, string maxFragmentationMemoryReserved = null, string maxMemoryPolicy = null, string maxMemoryReserved = null, string maxMemoryDelta = null, string maxClients = null, string preferredDataArchiveAuthMethod = null, string preferredDataPersistenceAuthMethod = null, string zonalConfiguration = null, string authNotRequired = null, string storageSubscriptionId = null, string isAadEnabled = null, IDictionary<string, BinaryData> additionalProperties = null)
+        public static RedisCommonConfiguration RedisCommonConfiguration(bool? isRdbBackupEnabled = null, string rdbBackupFrequency = null, int? rdbBackupMaxSnapshotCount = null, string rdbStorageConnectionString = null, bool? isAofBackupEnabled = null, string aofStorageConnectionString0 = null, string aofStorageConnectionString1 = null, string maxFragmentationMemoryReserved = null, string maxMemoryPolicy = null, string maxMemoryReserved = null, string maxMemoryDelta = null, string maxClients = null, string notifyKeyspaceEvents = null, string preferredDataArchiveAuthMethod = null, string preferredDataPersistenceAuthMethod = null, string zonalConfiguration = null, string authNotRequired = null, string storageSubscriptionId = null, string isAadEnabled = null, IDictionary<string, BinaryData> additionalProperties = null)
         {
             additionalProperties ??= new Dictionary<string, BinaryData>();
 
@@ -115,6 +116,7 @@ namespace Azure.ResourceManager.Redis.Models
                 maxMemoryReserved,
                 maxMemoryDelta,
                 maxClients,
+                notifyKeyspaceEvents,
                 preferredDataArchiveAuthMethod,
                 preferredDataPersistenceAuthMethod,
                 zonalConfiguration,
@@ -460,6 +462,33 @@ namespace Azure.ResourceManager.Redis.Models
                 objectIdAlias,
                 accessPolicyName,
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Redis.Models.RedisCommonConfiguration" />. </summary>
+        /// <param name="isRdbBackupEnabled"> Specifies whether the rdb backup is enabled. </param>
+        /// <param name="rdbBackupFrequency"> Specifies the frequency for creating rdb backup in minutes. Valid values: (15, 30, 60, 360, 720, 1440). </param>
+        /// <param name="rdbBackupMaxSnapshotCount"> Specifies the maximum number of snapshots for rdb backup. </param>
+        /// <param name="rdbStorageConnectionString"> The storage account connection string for storing rdb file. </param>
+        /// <param name="isAofBackupEnabled"> Specifies whether the aof backup is enabled. </param>
+        /// <param name="aofStorageConnectionString0"> First storage account connection string. </param>
+        /// <param name="aofStorageConnectionString1"> Second storage account connection string. </param>
+        /// <param name="maxFragmentationMemoryReserved"> Value in megabytes reserved for fragmentation per shard. </param>
+        /// <param name="maxMemoryPolicy"> The eviction strategy used when your data won't fit within its memory limit. </param>
+        /// <param name="maxMemoryReserved"> Value in megabytes reserved for non-cache usage per shard e.g. failover. </param>
+        /// <param name="maxMemoryDelta"> Value in megabytes reserved for non-cache usage per shard e.g. failover. </param>
+        /// <param name="maxClients"> The max clients config. </param>
+        /// <param name="preferredDataArchiveAuthMethod"> Preferred auth method to communicate to storage account used for data archive, specify SAS or ManagedIdentity, default value is SAS. </param>
+        /// <param name="preferredDataPersistenceAuthMethod"> Preferred auth method to communicate to storage account used for data persistence, specify SAS or ManagedIdentity, default value is SAS. </param>
+        /// <param name="zonalConfiguration"> Zonal Configuration. </param>
+        /// <param name="authNotRequired"> Specifies whether the authentication is disabled. Setting this property is highly discouraged from security point of view. </param>
+        /// <param name="storageSubscriptionId"> SubscriptionId of the storage account for persistence (aof/rdb) using ManagedIdentity. </param>
+        /// <param name="isAadEnabled"> Specifies whether AAD based authentication has been enabled or disabled for the cache. </param>
+        /// <param name="additionalProperties"> Additional Properties. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Redis.Models.RedisCommonConfiguration" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static RedisCommonConfiguration RedisCommonConfiguration(bool? isRdbBackupEnabled, string rdbBackupFrequency, int? rdbBackupMaxSnapshotCount, string rdbStorageConnectionString, bool? isAofBackupEnabled, string aofStorageConnectionString0, string aofStorageConnectionString1, string maxFragmentationMemoryReserved, string maxMemoryPolicy, string maxMemoryReserved, string maxMemoryDelta, string maxClients, string preferredDataArchiveAuthMethod, string preferredDataPersistenceAuthMethod, string zonalConfiguration, string authNotRequired, string storageSubscriptionId, string isAadEnabled, IDictionary<string, BinaryData> additionalProperties)
+        {
+            return RedisCommonConfiguration(isRdbBackupEnabled: isRdbBackupEnabled, rdbBackupFrequency: rdbBackupFrequency, rdbBackupMaxSnapshotCount: rdbBackupMaxSnapshotCount, rdbStorageConnectionString: rdbStorageConnectionString, isAofBackupEnabled: isAofBackupEnabled, aofStorageConnectionString0: aofStorageConnectionString0, aofStorageConnectionString1: aofStorageConnectionString1, maxFragmentationMemoryReserved: maxFragmentationMemoryReserved, maxMemoryPolicy: maxMemoryPolicy, maxMemoryReserved: maxMemoryReserved, maxMemoryDelta: maxMemoryDelta, maxClients: maxClients, notifyKeyspaceEvents: default, preferredDataArchiveAuthMethod: preferredDataArchiveAuthMethod, preferredDataPersistenceAuthMethod: preferredDataPersistenceAuthMethod, zonalConfiguration: zonalConfiguration, authNotRequired: authNotRequired, storageSubscriptionId: storageSubscriptionId, isAadEnabled: isAadEnabled, additionalProperties: additionalProperties);
         }
     }
 }

@@ -87,6 +87,11 @@ namespace Azure.ResourceManager.Redis.Models
                 writer.WritePropertyName("maxclients"u8);
                 writer.WriteStringValue(MaxClients);
             }
+            if (Optional.IsDefined(NotifyKeyspaceEvents))
+            {
+                writer.WritePropertyName("notify-keyspace-events"u8);
+                writer.WriteStringValue(NotifyKeyspaceEvents);
+            }
             if (options.Format != "W" && Optional.IsDefined(PreferredDataArchiveAuthMethod))
             {
                 writer.WritePropertyName("preferred-data-archive-auth-method"u8);
@@ -164,6 +169,7 @@ namespace Azure.ResourceManager.Redis.Models
             string maxmemoryReserved = default;
             string maxmemoryDelta = default;
             string maxclients = default;
+            string notifyKeyspaceEvents = default;
             string preferredDataArchiveAuthMethod = default;
             string preferredDataPersistenceAuthMethod = default;
             string zonalConfiguration = default;
@@ -234,6 +240,11 @@ namespace Azure.ResourceManager.Redis.Models
                     maxclients = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("notify-keyspace-events"u8))
+                {
+                    notifyKeyspaceEvents = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("preferred-data-archive-auth-method"u8))
                 {
                     preferredDataArchiveAuthMethod = property.Value.GetString();
@@ -280,6 +291,7 @@ namespace Azure.ResourceManager.Redis.Models
                 maxmemoryReserved,
                 maxmemoryDelta,
                 maxclients,
+                notifyKeyspaceEvents,
                 preferredDataArchiveAuthMethod,
                 preferredDataPersistenceAuthMethod,
                 zonalConfiguration,
@@ -538,6 +550,28 @@ namespace Azure.ResourceManager.Redis.Models
                     else
                     {
                         builder.AppendLine($"'{MaxClients}'");
+                    }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(NotifyKeyspaceEvents), out propertyOverride);
+            if (Optional.IsDefined(NotifyKeyspaceEvents) || hasPropertyOverride)
+            {
+                builder.Append("  notify-keyspace-events: ");
+                if (hasPropertyOverride)
+                {
+                    builder.AppendLine($"{propertyOverride}");
+                }
+                else
+                {
+                    if (NotifyKeyspaceEvents.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{NotifyKeyspaceEvents}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{NotifyKeyspaceEvents}'");
                     }
                 }
             }
