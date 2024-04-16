@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.CosmosDB
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2024-02-15-preview";
+            _apiVersion = apiVersion ?? "2024-05-15-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves the metrics determined by the given filter for the given database account and database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseRid"> Cosmos DB database rid. </param>
@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves the metrics determined by the given filter for the given database account and database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseRid"> Cosmos DB database rid. </param>
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves the usages (most recent data) for the given database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseRid"> Cosmos DB database rid. </param>
@@ -186,7 +186,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves the usages (most recent data) for the given database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseRid"> Cosmos DB database rid. </param>
@@ -241,7 +241,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves metric definitions for the given database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseRid"> Cosmos DB database rid. </param>
@@ -272,7 +272,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves metric definitions for the given database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseRid"> Cosmos DB database rid. </param>

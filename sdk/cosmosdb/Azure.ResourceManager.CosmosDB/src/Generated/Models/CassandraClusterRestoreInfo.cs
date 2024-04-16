@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.CosmosDB.Models
 {
-    /// <summary> Error Response. </summary>
-    public partial class ErrorResponse
+    /// <summary> The CassandraClusterRestoreInfo. </summary>
+    public partial class CassandraClusterRestoreInfo
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,27 +45,27 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ErrorResponse"/>. </summary>
-        internal ErrorResponse()
+        /// <summary> Initializes a new instance of <see cref="CassandraClusterRestoreInfo"/>. </summary>
+        internal CassandraClusterRestoreInfo()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="ErrorResponse"/>. </summary>
-        /// <param name="code"> Error code. </param>
-        /// <param name="message"> Error message indicating why the operation failed. </param>
+        /// <summary> Initializes a new instance of <see cref="CassandraClusterRestoreInfo"/>. </summary>
+        /// <param name="backupId"> Backup Id of restore. </param>
+        /// <param name="startTimestamp"> Time that the restore started. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ErrorResponse(string code, string message, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CassandraClusterRestoreInfo(string backupId, string startTimestamp, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Code = code;
-            Message = message;
+            BackupId = backupId;
+            StartTimestamp = startTimestamp;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Error code. </summary>
-        [WirePath("code")]
-        public string Code { get; }
-        /// <summary> Error message indicating why the operation failed. </summary>
-        [WirePath("message")]
-        public string Message { get; }
+        /// <summary> Backup Id of restore. </summary>
+        [WirePath("backupId")]
+        public string BackupId { get; }
+        /// <summary> Time that the restore started. </summary>
+        [WirePath("startTimestamp")]
+        public string StartTimestamp { get; }
     }
 }

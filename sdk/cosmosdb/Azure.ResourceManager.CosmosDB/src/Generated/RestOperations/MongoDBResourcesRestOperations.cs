@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.CosmosDB
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2024-02-15-preview";
+            _apiVersion = apiVersion ?? "2024-05-15-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Lists the MongoDB databases under an existing Azure Cosmos DB database account. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Lists the MongoDB databases under an existing Azure Cosmos DB database account. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -138,7 +138,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Gets the MongoDB databases under an existing Azure Cosmos DB database account with the provided name. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Gets the MongoDB databases under an existing Azure Cosmos DB database account with the provided name. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -230,7 +230,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Create or updates Azure Cosmos DB MongoDB database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -259,7 +259,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Create or updates Azure Cosmos DB MongoDB database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -309,7 +309,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Deletes an existing Azure Cosmos DB MongoDB database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -336,7 +336,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Deletes an existing Azure Cosmos DB MongoDB database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -386,7 +386,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Gets the RUs per second of the MongoDB database under an existing Azure Cosmos DB database account with the provided name. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -419,7 +419,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Gets the RUs per second of the MongoDB database under an existing Azure Cosmos DB database account with the provided name. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -479,7 +479,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Update RUs per second of the an Azure Cosmos DB MongoDB database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -508,7 +508,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Update RUs per second of the an Azure Cosmos DB MongoDB database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -560,7 +560,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Migrate an Azure Cosmos DB MongoDB database from manual throughput to autoscale. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -587,7 +587,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Migrate an Azure Cosmos DB MongoDB database from manual throughput to autoscale. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -637,7 +637,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Migrate an Azure Cosmos DB MongoDB database from autoscale to manual throughput. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -664,7 +664,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Migrate an Azure Cosmos DB MongoDB database from autoscale to manual throughput. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -718,7 +718,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieve throughput distribution for an Azure Cosmos DB MongoDB database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -747,7 +747,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieve throughput distribution for an Azure Cosmos DB MongoDB database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -803,7 +803,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Redistribute throughput for an Azure Cosmos DB MongoDB database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -832,7 +832,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Redistribute throughput for an Azure Cosmos DB MongoDB database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -890,7 +890,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieve throughput distribution for an Azure Cosmos DB MongoDB container. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -921,7 +921,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieve throughput distribution for an Azure Cosmos DB MongoDB container. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -981,7 +981,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Redistribute throughput for an Azure Cosmos DB MongoDB container. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1012,7 +1012,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Redistribute throughput for an Azure Cosmos DB MongoDB container. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1066,7 +1066,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Lists the MongoDB collection under an existing Azure Cosmos DB database account. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1097,7 +1097,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Lists the MongoDB collection under an existing Azure Cosmos DB database account. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1152,7 +1152,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Gets the MongoDB collection under an existing Azure Cosmos DB database account. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1187,7 +1187,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Gets the MongoDB collection under an existing Azure Cosmos DB database account. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1250,7 +1250,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Create or update an Azure Cosmos DB MongoDB Collection. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1281,7 +1281,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Create or update an Azure Cosmos DB MongoDB Collection. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1335,7 +1335,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Deletes an existing Azure Cosmos DB MongoDB Collection. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1364,7 +1364,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Deletes an existing Azure Cosmos DB MongoDB Collection. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1420,7 +1420,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Merges the partitions of a MongoDB database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1449,7 +1449,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Merges the partitions of a MongoDB database. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1507,7 +1507,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Merges the partitions of a MongoDB Collection. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1538,7 +1538,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Merges the partitions of a MongoDB Collection. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1594,7 +1594,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Gets the RUs per second of the MongoDB collection under an existing Azure Cosmos DB database account with the provided name. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1629,7 +1629,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Gets the RUs per second of the MongoDB collection under an existing Azure Cosmos DB database account with the provided name. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1693,7 +1693,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Update the RUs per second of an Azure Cosmos DB MongoDB collection. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1724,7 +1724,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Update the RUs per second of an Azure Cosmos DB MongoDB collection. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1780,7 +1780,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Migrate an Azure Cosmos DB MongoDB collection from manual throughput to autoscale. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1809,7 +1809,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Migrate an Azure Cosmos DB MongoDB collection from manual throughput to autoscale. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1863,7 +1863,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Migrate an Azure Cosmos DB MongoDB collection from autoscale to manual throughput. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1892,7 +1892,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Migrate an Azure Cosmos DB MongoDB collection from autoscale to manual throughput. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -1943,7 +1943,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves the properties of an existing Azure Cosmos DB Mongo Role Definition with the given Id. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="mongoRoleDefinitionId"> The ID for the Role Definition {dbName.roleName}. </param>
@@ -1976,7 +1976,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves the properties of an existing Azure Cosmos DB Mongo Role Definition with the given Id. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="mongoRoleDefinitionId"> The ID for the Role Definition {dbName.roleName}. </param>
@@ -2035,7 +2035,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Creates or updates an Azure Cosmos DB Mongo Role Definition. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="mongoRoleDefinitionId"> The ID for the Role Definition {dbName.roleName}. </param>
@@ -2064,7 +2064,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Creates or updates an Azure Cosmos DB Mongo Role Definition. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="mongoRoleDefinitionId"> The ID for the Role Definition {dbName.roleName}. </param>
@@ -2115,7 +2115,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Deletes an existing Azure Cosmos DB Mongo Role Definition. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="mongoRoleDefinitionId"> The ID for the Role Definition {dbName.roleName}. </param>
@@ -2143,7 +2143,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Deletes an existing Azure Cosmos DB Mongo Role Definition. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="mongoRoleDefinitionId"> The ID for the Role Definition {dbName.roleName}. </param>
@@ -2192,7 +2192,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves the list of all Azure Cosmos DB Mongo Role Definitions. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -2221,7 +2221,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves the list of all Azure Cosmos DB Mongo Role Definitions. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -2272,7 +2272,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves the properties of an existing Azure Cosmos DB Mongo User Definition with the given Id. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="mongoUserDefinitionId"> The ID for the User Definition {dbName.userName}. </param>
@@ -2305,7 +2305,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves the properties of an existing Azure Cosmos DB Mongo User Definition with the given Id. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="mongoUserDefinitionId"> The ID for the User Definition {dbName.userName}. </param>
@@ -2364,7 +2364,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Creates or updates an Azure Cosmos DB Mongo User Definition. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="mongoUserDefinitionId"> The ID for the User Definition {dbName.userName}. </param>
@@ -2393,7 +2393,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Creates or updates an Azure Cosmos DB Mongo User Definition. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="mongoUserDefinitionId"> The ID for the User Definition {dbName.userName}. </param>
@@ -2444,7 +2444,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Deletes an existing Azure Cosmos DB Mongo User Definition. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="mongoUserDefinitionId"> The ID for the User Definition {dbName.userName}. </param>
@@ -2472,7 +2472,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Deletes an existing Azure Cosmos DB Mongo User Definition. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="mongoUserDefinitionId"> The ID for the User Definition {dbName.userName}. </param>
@@ -2521,7 +2521,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves the list of all Azure Cosmos DB Mongo User Definition. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -2550,7 +2550,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves the list of all Azure Cosmos DB Mongo User Definition. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -2608,7 +2608,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves continuous backup information for a Mongodb collection. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
@@ -2639,7 +2639,7 @@ namespace Azure.ResourceManager.CosmosDB
         }
 
         /// <summary> Retrieves continuous backup information for a Mongodb collection. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> Cosmos DB database account name. </param>
         /// <param name="databaseName"> Cosmos DB database name. </param>
