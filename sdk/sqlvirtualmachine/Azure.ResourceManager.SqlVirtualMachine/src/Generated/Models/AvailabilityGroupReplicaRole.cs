@@ -22,12 +22,12 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string PrimaryValue = "PRIMARY";
-        private const string SecondaryValue = "SECONDARY";
+        private const string PrimaryValue = "Primary";
+        private const string SecondaryValue = "Secondary";
 
-        /// <summary> PRIMARY. </summary>
+        /// <summary> Primary. </summary>
         public static AvailabilityGroupReplicaRole Primary { get; } = new AvailabilityGroupReplicaRole(PrimaryValue);
-        /// <summary> SECONDARY. </summary>
+        /// <summary> Secondary. </summary>
         public static AvailabilityGroupReplicaRole Secondary { get; } = new AvailabilityGroupReplicaRole(SecondaryValue);
         /// <summary> Determines if two <see cref="AvailabilityGroupReplicaRole"/> values are the same. </summary>
         public static bool operator ==(AvailabilityGroupReplicaRole left, AvailabilityGroupReplicaRole right) => left.Equals(right);

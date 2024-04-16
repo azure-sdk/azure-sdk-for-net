@@ -54,11 +54,13 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         /// <summary> Initializes a new instance of <see cref="SqlStorageSettings"/>. </summary>
         /// <param name="luns"> Logical Unit Numbers for the disks. </param>
         /// <param name="defaultFilePath"> SQL Server default file path. </param>
+        /// <param name="useStoragePool"> Use storage pool to build a drive if true or not provided. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SqlStorageSettings(IList<int> luns, string defaultFilePath, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SqlStorageSettings(IList<int> luns, string defaultFilePath, bool? useStoragePool, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Luns = luns;
             DefaultFilePath = defaultFilePath;
+            UseStoragePool = useStoragePool;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -66,5 +68,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         public IList<int> Luns { get; }
         /// <summary> SQL Server default file path. </summary>
         public string DefaultFilePath { get; set; }
+        /// <summary> Use storage pool to build a drive if true or not provided. </summary>
+        public bool? UseStoragePool { get; set; }
     }
 }

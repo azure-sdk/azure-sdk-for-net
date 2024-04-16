@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.SqlVirtualMachine.Models
 {
-    /// <summary> The SqlVmAssessmentSchedule. </summary>
+    /// <summary> Set assessment schedule for SQL Server. </summary>
     public partial class SqlVmAssessmentSchedule
     {
         /// <summary>

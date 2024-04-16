@@ -22,12 +22,12 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string AutomaticValue = "AUTOMATIC";
-        private const string ManualValue = "MANUAL";
+        private const string AutomaticValue = "Automatic";
+        private const string ManualValue = "Manual";
 
-        /// <summary> AUTOMATIC. </summary>
+        /// <summary> Automatic. </summary>
         public static AvailabilityGroupReplicaFailoverMode Automatic { get; } = new AvailabilityGroupReplicaFailoverMode(AutomaticValue);
-        /// <summary> MANUAL. </summary>
+        /// <summary> Manual. </summary>
         public static AvailabilityGroupReplicaFailoverMode Manual { get; } = new AvailabilityGroupReplicaFailoverMode(ManualValue);
         /// <summary> Determines if two <see cref="AvailabilityGroupReplicaFailoverMode"/> values are the same. </summary>
         public static bool operator ==(AvailabilityGroupReplicaFailoverMode left, AvailabilityGroupReplicaFailoverMode right) => left.Equals(right);

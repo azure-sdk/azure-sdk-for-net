@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.SqlVirtualMachine.Models
 {
-    /// <summary> Configure SQL best practices Assessment for databases in your SQL virtual machine. </summary>
-    public partial class SqlVmAssessmentSettings
+    /// <summary> Configure disk config assessment for databases in your SQL virtual machine. </summary>
+    public partial class DiskConfigAssessmentContent
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,29 +45,21 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SqlVmAssessmentSettings"/>. </summary>
-        public SqlVmAssessmentSettings()
+        /// <summary> Initializes a new instance of <see cref="DiskConfigAssessmentContent"/>. </summary>
+        public DiskConfigAssessmentContent()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="SqlVmAssessmentSettings"/>. </summary>
-        /// <param name="isEnabled"> Enable or disable SQL best practices Assessment feature on SQL virtual machine. </param>
-        /// <param name="runImmediately"> Run SQL best practices Assessment immediately on SQL virtual machine. </param>
-        /// <param name="schedule"> Schedule for SQL best practices Assessment. </param>
+        /// <summary> Initializes a new instance of <see cref="DiskConfigAssessmentContent"/>. </summary>
+        /// <param name="runDiskConfigRules"> Boolean to run disk config Assessment. Use false to fetch past Assessment. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SqlVmAssessmentSettings(bool? isEnabled, bool? runImmediately, SqlVmAssessmentSchedule schedule, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DiskConfigAssessmentContent(bool? runDiskConfigRules, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            IsEnabled = isEnabled;
-            RunImmediately = runImmediately;
-            Schedule = schedule;
+            RunDiskConfigRules = runDiskConfigRules;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Enable or disable SQL best practices Assessment feature on SQL virtual machine. </summary>
-        public bool? IsEnabled { get; set; }
-        /// <summary> Run SQL best practices Assessment immediately on SQL virtual machine. </summary>
-        public bool? RunImmediately { get; set; }
-        /// <summary> Schedule for SQL best practices Assessment. </summary>
-        public SqlVmAssessmentSchedule Schedule { get; set; }
+        /// <summary> Boolean to run disk config Assessment. Use false to fetch past Assessment. </summary>
+        public bool? RunDiskConfigRules { get; set; }
     }
 }

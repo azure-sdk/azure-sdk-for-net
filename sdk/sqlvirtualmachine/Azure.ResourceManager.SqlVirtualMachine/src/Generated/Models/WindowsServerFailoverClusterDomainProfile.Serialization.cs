@@ -51,6 +51,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                 writer.WritePropertyName("sqlServiceAccount"u8);
                 writer.WriteStringValue(SqlServiceAccount);
             }
+            if (Optional.IsDefined(IsSqlServiceAccountGmsa))
+            {
+                writer.WritePropertyName("isSqlServiceAccountGmsa"u8);
+                writer.WriteBooleanValue(IsSqlServiceAccountGmsa.Value);
+            }
             if (Optional.IsDefined(FileShareWitnessPath))
             {
                 writer.WritePropertyName("fileShareWitnessPath"u8);
@@ -114,6 +119,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             string clusterBootstrapAccount = default;
             string clusterOperatorAccount = default;
             string sqlServiceAccount = default;
+            bool? isSqlServiceAccountGmsa = default;
             string fileShareWitnessPath = default;
             Uri storageAccountUrl = default;
             string storageAccountPrimaryKey = default;
@@ -145,6 +151,15 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                 if (property.NameEquals("sqlServiceAccount"u8))
                 {
                     sqlServiceAccount = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("isSqlServiceAccountGmsa"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    isSqlServiceAccountGmsa = property.Value.GetBoolean();
                     continue;
                 }
                 if (property.NameEquals("fileShareWitnessPath"u8))
@@ -187,6 +202,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                 clusterBootstrapAccount,
                 clusterOperatorAccount,
                 sqlServiceAccount,
+                isSqlServiceAccountGmsa,
                 fileShareWitnessPath,
                 storageAccountUrl,
                 storageAccountPrimaryKey,

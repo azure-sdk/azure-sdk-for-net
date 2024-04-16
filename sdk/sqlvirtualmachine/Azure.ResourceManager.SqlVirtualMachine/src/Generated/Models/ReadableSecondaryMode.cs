@@ -22,15 +22,15 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string NoValue = "NO";
-        private const string AllValue = "ALL";
-        private const string ReadOnlyValue = "READ_ONLY";
+        private const string NoValue = "No";
+        private const string AllValue = "All";
+        private const string ReadOnlyValue = "Read_Only";
 
-        /// <summary> NO. </summary>
+        /// <summary> No. </summary>
         public static ReadableSecondaryMode No { get; } = new ReadableSecondaryMode(NoValue);
-        /// <summary> ALL. </summary>
+        /// <summary> All. </summary>
         public static ReadableSecondaryMode All { get; } = new ReadableSecondaryMode(AllValue);
-        /// <summary> READ_ONLY. </summary>
+        /// <summary> Read_Only. </summary>
         public static ReadableSecondaryMode ReadOnly { get; } = new ReadableSecondaryMode(ReadOnlyValue);
         /// <summary> Determines if two <see cref="ReadableSecondaryMode"/> values are the same. </summary>
         public static bool operator ==(ReadableSecondaryMode left, ReadableSecondaryMode right) => left.Equals(right);

@@ -56,6 +56,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                 writer.WritePropertyName("storageWorkloadType"u8);
                 writer.WriteStringValue(StorageWorkloadType.Value.ToString());
             }
+            if (Optional.IsDefined(EnableStorageConfigBlade))
+            {
+                writer.WritePropertyName("enableStorageConfigBlade"u8);
+                writer.WriteBooleanValue(EnableStorageConfigBlade.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -100,6 +105,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             bool? sqlSystemDBOnDataDisk = default;
             SqlVmDiskConfigurationType? diskConfigurationType = default;
             SqlVmStorageWorkloadType? storageWorkloadType = default;
+            bool? enableStorageConfigBlade = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -158,6 +164,15 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                     storageWorkloadType = new SqlVmStorageWorkloadType(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("enableStorageConfigBlade"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    enableStorageConfigBlade = property.Value.GetBoolean();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -171,6 +186,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                 sqlSystemDBOnDataDisk,
                 diskConfigurationType,
                 storageWorkloadType,
+                enableStorageConfigBlade,
                 serializedAdditionalRawData);
         }
 
