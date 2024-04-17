@@ -11,41 +11,45 @@ using System.Linq;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> An object representing the pre-build summarization results of each document. </summary>
-    internal partial class AbstractiveSummarizationResult : AbstractiveSummarizationResultBase
+    /// <summary> An object representing the pre-built Abstractive Summarization results of each document. </summary>
+    internal partial class AbstractiveSummarizationResult
     {
         /// <summary> Initializes a new instance of <see cref="AbstractiveSummarizationResult"/>. </summary>
-        /// <param name="documents"> Response by document. </param>
         /// <param name="errors"> Errors by document id. </param>
         /// <param name="modelVersion"> This field indicates which model is used for scoring. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="documents"/>, <paramref name="errors"/> or <paramref name="modelVersion"/> is null. </exception>
-        public AbstractiveSummarizationResult(IEnumerable<AbstractiveSummaryDocumentResult> documents, IEnumerable<DocumentError> errors, string modelVersion) : base(documents)
+        /// <param name="documents"> Response by document. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="errors"/>, <paramref name="modelVersion"/> or <paramref name="documents"/> is null. </exception>
+        internal AbstractiveSummarizationResult(IEnumerable<DocumentError> errors, string modelVersion, IEnumerable<AbstractiveSummaryDocumentResult> documents)
         {
-            Argument.AssertNotNull(documents, nameof(documents));
             Argument.AssertNotNull(errors, nameof(errors));
             Argument.AssertNotNull(modelVersion, nameof(modelVersion));
+            Argument.AssertNotNull(documents, nameof(documents));
 
             Errors = errors.ToList();
             ModelVersion = modelVersion;
+            Documents = documents.ToList();
         }
 
         /// <summary> Initializes a new instance of <see cref="AbstractiveSummarizationResult"/>. </summary>
-        /// <param name="documents"> Response by document. </param>
         /// <param name="errors"> Errors by document id. </param>
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the request payload. </param>
         /// <param name="modelVersion"> This field indicates which model is used for scoring. </param>
-        internal AbstractiveSummarizationResult(IList<AbstractiveSummaryDocumentResult> documents, IList<DocumentError> errors, TextDocumentBatchStatistics statistics, string modelVersion) : base(documents)
+        /// <param name="documents"> Response by document. </param>
+        internal AbstractiveSummarizationResult(IReadOnlyList<DocumentError> errors, TextDocumentBatchStatistics statistics, string modelVersion, IReadOnlyList<AbstractiveSummaryDocumentResult> documents)
         {
             Errors = errors;
             Statistics = statistics;
             ModelVersion = modelVersion;
+            Documents = documents;
         }
 
         /// <summary> Errors by document id. </summary>
-        public IList<DocumentError> Errors { get; }
+        public IReadOnlyList<DocumentError> Errors { get; }
         /// <summary> if showStats=true was specified in the request this field will contain information about the request payload. </summary>
-        public TextDocumentBatchStatistics Statistics { get; set; }
+        public TextDocumentBatchStatistics Statistics { get; }
         /// <summary> This field indicates which model is used for scoring. </summary>
-        public string ModelVersion { get; set; }
+        public string ModelVersion { get; }
+        /// <summary> Response by document. </summary>
+        public IReadOnlyList<AbstractiveSummaryDocumentResult> Documents { get; }
     }
 }
