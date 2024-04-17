@@ -2256,7 +2256,7 @@ namespace Azure.AI.Language.Conversations.Samples
             using RequestContent content = RequestContent.Create(new
             {
                 projectFileVersion = "<projectFileVersion>",
-                stringIndexType = "Utf16CodeUnit",
+                stringIndexType = "TextElements_v8",
                 metadata = new
                 {
                     projectKind = "Conversation",
@@ -2285,7 +2285,7 @@ namespace Azure.AI.Language.Conversations.Samples
             using RequestContent content = RequestContent.Create(new
             {
                 projectFileVersion = "<projectFileVersion>",
-                stringIndexType = "Utf16CodeUnit",
+                stringIndexType = "TextElements_v8",
                 metadata = new
                 {
                     projectKind = "Conversation",
@@ -2314,7 +2314,7 @@ namespace Azure.AI.Language.Conversations.Samples
             using RequestContent content = RequestContent.Create(new
             {
                 projectFileVersion = "<projectFileVersion>",
-                stringIndexType = "Utf16CodeUnit",
+                stringIndexType = "TextElements_v8",
                 metadata = new
                 {
                     projectKind = "Conversation",
@@ -2448,7 +2448,7 @@ dataset = "<dataset>",
             using RequestContent content = RequestContent.Create(new
             {
                 projectFileVersion = "<projectFileVersion>",
-                stringIndexType = "Utf16CodeUnit",
+                stringIndexType = "TextElements_v8",
                 metadata = new
                 {
                     projectKind = "Conversation",
