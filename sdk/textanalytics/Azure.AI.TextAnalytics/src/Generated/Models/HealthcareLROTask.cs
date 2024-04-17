@@ -7,7 +7,7 @@
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The HealthcareLROTask. </summary>
+    /// <summary> The long running task to be performed by the service on the Healthcare input documents. </summary>
     internal partial class HealthcareLROTask : AnalyzeTextLROTask
     {
         /// <summary> Initializes a new instance of <see cref="HealthcareLROTask"/>. </summary>
@@ -17,16 +17,16 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="HealthcareLROTask"/>. </summary>
-        /// <param name="taskName"></param>
-        /// <param name="kind"> Enumeration of supported long-running Text Analysis tasks. </param>
-        /// <param name="parameters"> Supported parameters for a Healthcare task. </param>
+        /// <param name="taskName"> task name. </param>
+        /// <param name="kind"> The kind of task to perform. </param>
+        /// <param name="parameters"> Parameters for the Healthcare task. </param>
         internal HealthcareLROTask(string taskName, AnalyzeTextLROTaskKind kind, HealthcareTaskParameters parameters) : base(taskName, kind)
         {
             Parameters = parameters;
             Kind = kind;
         }
 
-        /// <summary> Supported parameters for a Healthcare task. </summary>
+        /// <summary> Parameters for the Healthcare task. </summary>
         public HealthcareTaskParameters Parameters { get; set; }
     }
 }
