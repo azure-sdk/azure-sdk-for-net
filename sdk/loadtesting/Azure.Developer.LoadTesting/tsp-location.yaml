@@ -1,5 +1,5 @@
 commit: 6750678c2f03b986e59ff9268ed275e8a2d18622
-directory: specification/purview/Azure.Analytics.Purview.DataMap
+directory: specification/loadtestservice/LoadTestService
 repo: Azure/azure-rest-api-specs
 additionalDirectories: []
 
