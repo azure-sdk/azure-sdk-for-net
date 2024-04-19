@@ -46,7 +46,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// target.</param>
         /// <param name="sessionDurationInMins">Duration in mins the session
         /// has been active.</param>
-        public BastionActiveSession(string sessionId = default(string), object startTime = default(object), string targetSubscriptionId = default(string), string resourceType = default(string), string targetHostName = default(string), string targetResourceGroup = default(string), string userName = default(string), string targetIpAddress = default(string), string protocol = default(string), string targetResourceId = default(string), double? sessionDurationInMins = default(double?))
+        public BastionActiveSession(string sessionId = default(string), string startTime = default(string), string targetSubscriptionId = default(string), string resourceType = default(string), string targetHostName = default(string), string targetResourceGroup = default(string), string userName = default(string), string targetIpAddress = default(string), string protocol = default(string), string targetResourceId = default(string), double? sessionDurationInMins = default(double?))
         {
             SessionId = sessionId;
             StartTime = startTime;
@@ -77,7 +77,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets the time when the session started.
         /// </summary>
         [JsonProperty(PropertyName = "startTime")]
-        public object StartTime { get; private set; }
+        public string StartTime { get; private set; }
 
         /// <summary>
         /// Gets the subscription id for the target virtual machine.
