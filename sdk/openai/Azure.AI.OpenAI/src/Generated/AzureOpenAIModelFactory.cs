@@ -50,16 +50,6 @@ namespace Azure.AI.OpenAI
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="OpenAI.AudioTranscriptionWord"/>. </summary>
-        /// <param name="word"> The textual content of the word. </param>
-        /// <param name="start"> The start time of the word relative to the beginning of the audio, expressed in seconds. </param>
-        /// <param name="end"> The end time of the word relative to the beginning of the audio, expressed in seconds. </param>
-        /// <returns> A new <see cref="OpenAI.AudioTranscriptionWord"/> instance for mocking. </returns>
-        public static AudioTranscriptionWord AudioTranscriptionWord(string word = null, TimeSpan start = default, TimeSpan end = default)
-        {
-            return new AudioTranscriptionWord(word, start, end, serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="OpenAI.AudioTranslationSegment"/>. </summary>
         /// <param name="id"> The 0-based index of this segment within a translation. </param>
         /// <param name="start"> The time at which this segment started relative to the beginning of the translated audio. </param>
@@ -165,30 +155,30 @@ namespace Azure.AI.OpenAI
         /// down or otherwise unable to complete the operation in time.
         /// </param>
         /// <param name="jailbreak"> Whether a jailbreak attempt was detected in the prompt. </param>
-        /// <param name="indirectAttack"> Whether an indirect attack was detected in the prompt. </param>
         /// <returns> A new <see cref="OpenAI.ContentFilterResultDetailsForPrompt"/> instance for mocking. </returns>
-        public static ContentFilterResultDetailsForPrompt ContentFilterResultDetailsForPrompt(ContentFilterResult sexual = null, ContentFilterResult violence = null, ContentFilterResult hate = null, ContentFilterResult selfHarm = null, ContentFilterDetectionResult profanity = null, ContentFilterDetailedResults customBlocklists = null, ResponseError error = null, ContentFilterDetectionResult jailbreak = null, ContentFilterDetectionResult indirectAttack = null)
+        public static ContentFilterResultDetailsForPrompt ContentFilterResultDetailsForPrompt(ContentFilterResult sexual = null, ContentFilterResult violence = null, ContentFilterResult hate = null, ContentFilterResult selfHarm = null, ContentFilterDetectionResult profanity = null, IEnumerable<ContentFilterBlocklistIdResult> customBlocklists = null, ResponseError error = null, ContentFilterDetectionResult jailbreak = null)
         {
+            customBlocklists ??= new List<ContentFilterBlocklistIdResult>();
+
             return new ContentFilterResultDetailsForPrompt(
                 sexual,
                 violence,
                 hate,
                 selfHarm,
                 profanity,
-                customBlocklists,
+                customBlocklists?.ToList(),
                 error,
                 jailbreak,
-                indirectAttack,
                 serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="OpenAI.ContentFilterResult"/>. </summary>
-        /// <param name="filtered"> A value indicating whether or not the content has been filtered. </param>
         /// <param name="severity"> Ratings for the intensity and risk level of filtered content. </param>
+        /// <param name="filtered"> A value indicating whether or not the content has been filtered. </param>
         /// <returns> A new <see cref="OpenAI.ContentFilterResult"/> instance for mocking. </returns>
-        public static ContentFilterResult ContentFilterResult(bool filtered = default, ContentFilterSeverity severity = default)
+        public static ContentFilterResult ContentFilterResult(ContentFilterSeverity severity = default, bool filtered = default)
         {
-            return new ContentFilterResult(filtered, severity, serializedAdditionalRawData: null);
+            return new ContentFilterResult(severity, filtered, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="OpenAI.ContentFilterDetectionResult"/>. </summary>
@@ -200,24 +190,13 @@ namespace Azure.AI.OpenAI
             return new ContentFilterDetectionResult(filtered, detected, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="OpenAI.ContentFilterDetailedResults"/>. </summary>
-        /// <param name="filtered"> A value indicating whether or not the content has been filtered. </param>
-        /// <param name="details"> The collection of detailed blocklist result information. </param>
-        /// <returns> A new <see cref="OpenAI.ContentFilterDetailedResults"/> instance for mocking. </returns>
-        public static ContentFilterDetailedResults ContentFilterDetailedResults(bool filtered = default, IEnumerable<ContentFilterBlocklistIdResult> details = null)
-        {
-            details ??= new List<ContentFilterBlocklistIdResult>();
-
-            return new ContentFilterDetailedResults(filtered, details?.ToList(), serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="OpenAI.ContentFilterBlocklistIdResult"/>. </summary>
-        /// <param name="filtered"> A value indicating whether or not the content has been filtered. </param>
         /// <param name="id"> The ID of the custom blocklist evaluated. </param>
+        /// <param name="filtered"> A value indicating whether or not the content has been filtered. </param>
         /// <returns> A new <see cref="OpenAI.ContentFilterBlocklistIdResult"/> instance for mocking. </returns>
-        public static ContentFilterBlocklistIdResult ContentFilterBlocklistIdResult(bool filtered = default, string id = null)
+        public static ContentFilterBlocklistIdResult ContentFilterBlocklistIdResult(string id = null, bool filtered = default)
         {
-            return new ContentFilterBlocklistIdResult(filtered, id, serializedAdditionalRawData: null);
+            return new ContentFilterBlocklistIdResult(id, filtered, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="OpenAI.Choice"/>. </summary>
@@ -273,15 +252,17 @@ namespace Azure.AI.OpenAI
         /// <param name="protectedMaterialText"> Information about detection of protected text material. </param>
         /// <param name="protectedMaterialCode"> Information about detection of protected code material. </param>
         /// <returns> A new <see cref="OpenAI.ContentFilterResultsForChoice"/> instance for mocking. </returns>
-        public static ContentFilterResultsForChoice ContentFilterResultsForChoice(ContentFilterResult sexual = null, ContentFilterResult violence = null, ContentFilterResult hate = null, ContentFilterResult selfHarm = null, ContentFilterDetectionResult profanity = null, ContentFilterDetailedResults customBlocklists = null, ResponseError error = null, ContentFilterDetectionResult protectedMaterialText = null, ContentFilterCitedDetectionResult protectedMaterialCode = null)
+        public static ContentFilterResultsForChoice ContentFilterResultsForChoice(ContentFilterResult sexual = null, ContentFilterResult violence = null, ContentFilterResult hate = null, ContentFilterResult selfHarm = null, ContentFilterDetectionResult profanity = null, IEnumerable<ContentFilterBlocklistIdResult> customBlocklists = null, ResponseError error = null, ContentFilterDetectionResult protectedMaterialText = null, ContentFilterCitedDetectionResult protectedMaterialCode = null)
         {
+            customBlocklists ??= new List<ContentFilterBlocklistIdResult>();
+
             return new ContentFilterResultsForChoice(
                 sexual,
                 violence,
                 hate,
                 selfHarm,
                 profanity,
-                customBlocklists,
+                customBlocklists?.ToList(),
                 error,
                 protectedMaterialText,
                 protectedMaterialCode,

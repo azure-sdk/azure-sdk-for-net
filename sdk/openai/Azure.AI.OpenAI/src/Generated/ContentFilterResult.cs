@@ -46,22 +46,22 @@ namespace Azure.AI.OpenAI
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ContentFilterResult"/>. </summary>
-        /// <param name="filtered"> A value indicating whether or not the content has been filtered. </param>
         /// <param name="severity"> Ratings for the intensity and risk level of filtered content. </param>
-        internal ContentFilterResult(bool filtered, ContentFilterSeverity severity)
+        /// <param name="filtered"> A value indicating whether or not the content has been filtered. </param>
+        internal ContentFilterResult(ContentFilterSeverity severity, bool filtered)
         {
-            Filtered = filtered;
             Severity = severity;
+            Filtered = filtered;
         }
 
         /// <summary> Initializes a new instance of <see cref="ContentFilterResult"/>. </summary>
-        /// <param name="filtered"> A value indicating whether or not the content has been filtered. </param>
         /// <param name="severity"> Ratings for the intensity and risk level of filtered content. </param>
+        /// <param name="filtered"> A value indicating whether or not the content has been filtered. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ContentFilterResult(bool filtered, ContentFilterSeverity severity, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ContentFilterResult(ContentFilterSeverity severity, bool filtered, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Filtered = filtered;
             Severity = severity;
+            Filtered = filtered;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -70,9 +70,9 @@ namespace Azure.AI.OpenAI
         {
         }
 
-        /// <summary> A value indicating whether or not the content has been filtered. </summary>
-        public bool Filtered { get; }
         /// <summary> Ratings for the intensity and risk level of filtered content. </summary>
         public ContentFilterSeverity Severity { get; }
+        /// <summary> A value indicating whether or not the content has been filtered. </summary>
+        public bool Filtered { get; }
     }
 }
