@@ -36,6 +36,7 @@ namespace Azure.AI.OpenAI
         /// <summary>
         /// Specifies that the model should not respond with a function call and should instead provide a standard chat
         /// completions response. Response content may still be influenced by the provided function information.
+        /// Doc change.
         /// </summary>
         public static FunctionCallPreset None { get; } = new FunctionCallPreset(NoneValue);
         /// <summary> Determines if two <see cref="FunctionCallPreset"/> values are the same. </summary>
