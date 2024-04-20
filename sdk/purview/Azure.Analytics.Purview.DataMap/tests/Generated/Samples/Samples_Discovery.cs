@@ -22,7 +22,7 @@ namespace Azure.Analytics.Purview.DataMap.Samples
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new object());
             Response response = client.Query(content);
@@ -37,7 +37,7 @@ namespace Azure.Analytics.Purview.DataMap.Samples
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new object());
             Response response = await client.QueryAsync(content);
@@ -52,7 +52,7 @@ namespace Azure.Analytics.Purview.DataMap.Samples
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             QueryConfig queryConfig = new QueryConfig();
             Response<QueryResult> response = client.Query(queryConfig);
@@ -64,7 +64,7 @@ namespace Azure.Analytics.Purview.DataMap.Samples
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             QueryConfig queryConfig = new QueryConfig();
             Response<QueryResult> response = await client.QueryAsync(queryConfig);
@@ -76,7 +76,7 @@ namespace Azure.Analytics.Purview.DataMap.Samples
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -173,7 +173,7 @@ value = "asc",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -270,7 +270,7 @@ value = "asc",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             QueryConfig queryConfig = new QueryConfig
             {
@@ -304,7 +304,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             QueryConfig queryConfig = new QueryConfig
             {
@@ -338,7 +338,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new object());
             Response response = client.Suggest(content);
@@ -353,7 +353,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new object());
             Response response = await client.SuggestAsync(content);
@@ -368,7 +368,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             SuggestConfig suggestConfig = new SuggestConfig();
             Response<SuggestResult> response = client.Suggest(suggestConfig);
@@ -380,7 +380,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             SuggestConfig suggestConfig = new SuggestConfig();
             Response<SuggestResult> response = await client.SuggestAsync(suggestConfig);
@@ -392,7 +392,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -437,7 +437,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -482,7 +482,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             SuggestConfig suggestConfig = new SuggestConfig
             {
@@ -499,7 +499,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             SuggestConfig suggestConfig = new SuggestConfig
             {
@@ -516,7 +516,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new object());
             Response response = client.AutoComplete(content);
@@ -531,7 +531,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new object());
             Response response = await client.AutoCompleteAsync(content);
@@ -546,7 +546,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             AutoCompleteConfig autoCompleteConfig = new AutoCompleteConfig();
             Response<AutoCompleteResult> response = client.AutoComplete(autoCompleteConfig);
@@ -558,7 +558,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             AutoCompleteConfig autoCompleteConfig = new AutoCompleteConfig();
             Response<AutoCompleteResult> response = await client.AutoCompleteAsync(autoCompleteConfig);
@@ -570,7 +570,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -591,7 +591,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -612,7 +612,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             AutoCompleteConfig autoCompleteConfig = new AutoCompleteConfig
             {
@@ -629,7 +629,7 @@ Value = SearchSortOrder.Ascend,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+            Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
             AutoCompleteConfig autoCompleteConfig = new AutoCompleteConfig
             {

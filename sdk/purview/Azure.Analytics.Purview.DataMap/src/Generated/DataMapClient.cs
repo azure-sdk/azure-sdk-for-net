@@ -61,14 +61,14 @@ namespace Azure.Analytics.Purview.DataMap
 
         /// <summary> Initializes a new instance of Entity. </summary>
         /// <param name="apiVersion"> The API version to use for this operation. </param>
-        public virtual Entity GetEntityClient(string apiVersion = "2023-09-01")
+        public virtual Entity GetEntityClient(string apiVersion = "2024-03-01-preview")
         {
             return new Entity(ClientDiagnostics, _pipeline, _tokenCredential, _endpoint, apiVersion);
         }
 
         /// <summary> Initializes a new instance of Glossary. </summary>
         /// <param name="apiVersion"> The API version to use for this operation. </param>
-        public virtual Glossary GetGlossaryClient(string apiVersion = "2023-09-01")
+        public virtual Glossary GetGlossaryClient(string apiVersion = "2024-03-01-preview")
         {
             return new Glossary(ClientDiagnostics, _pipeline, _tokenCredential, _endpoint, apiVersion);
         }
@@ -76,7 +76,7 @@ namespace Azure.Analytics.Purview.DataMap
         /// <summary> Initializes a new instance of Discovery. </summary>
         /// <param name="apiVersion"> The API version to use for this operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="apiVersion"/> is null. </exception>
-        public virtual Discovery GetDiscoveryClient(string apiVersion = "2023-09-01")
+        public virtual Discovery GetDiscoveryClient(string apiVersion = "2024-03-01-preview")
         {
             Argument.AssertNotNull(apiVersion, nameof(apiVersion));
 
@@ -86,7 +86,7 @@ namespace Azure.Analytics.Purview.DataMap
         /// <summary> Initializes a new instance of Lineage. </summary>
         /// <param name="apiVersion"> The API version to use for this operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="apiVersion"/> is null. </exception>
-        public virtual Lineage GetLineageClient(string apiVersion = "2023-09-01")
+        public virtual Lineage GetLineageClient(string apiVersion = "2024-03-01-preview")
         {
             Argument.AssertNotNull(apiVersion, nameof(apiVersion));
 
@@ -101,7 +101,7 @@ namespace Azure.Analytics.Purview.DataMap
 
         /// <summary> Initializes a new instance of TypeDefinition. </summary>
         /// <param name="apiVersion"> The API version to use for this operation. </param>
-        public virtual TypeDefinition GetTypeDefinitionClient(string apiVersion = "2023-09-01")
+        public virtual TypeDefinition GetTypeDefinitionClient(string apiVersion = "2024-03-01-preview")
         {
             return new TypeDefinition(ClientDiagnostics, _pipeline, _tokenCredential, _endpoint, apiVersion);
         }

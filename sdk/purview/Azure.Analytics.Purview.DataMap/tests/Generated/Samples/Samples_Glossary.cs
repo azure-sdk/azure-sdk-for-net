@@ -73,7 +73,7 @@ namespace Azure.Analytics.Purview.DataMap.Samples
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response response = client.BatchGet(1234, 1234, "<sort>", true, null);
 
@@ -119,7 +119,7 @@ namespace Azure.Analytics.Purview.DataMap.Samples
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response response = await client.BatchGetAsync(1234, 1234, "<sort>", true, null);
 
@@ -165,7 +165,7 @@ namespace Azure.Analytics.Purview.DataMap.Samples
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<IReadOnlyList<AtlasGlossary>> response = client.BatchGet(limit: 1234, offset: 1234, sort: "<sort>", ignoreTermsAndCategories: true);
         }
@@ -176,7 +176,7 @@ namespace Azure.Analytics.Purview.DataMap.Samples
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<IReadOnlyList<AtlasGlossary>> response = await client.BatchGetAsync(limit: 1234, offset: 1234, sort: "<sort>", ignoreTermsAndCategories: true);
         }
@@ -3645,7 +3645,7 @@ Status = AtlasTermRelationshipStatus.Draft,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response response = client.GetTerm("<termId>", null);
 
@@ -3806,7 +3806,7 @@ Status = AtlasTermRelationshipStatus.Draft,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response response = await client.GetTermAsync("<termId>", null);
 
@@ -3967,7 +3967,7 @@ Status = AtlasTermRelationshipStatus.Draft,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<AtlasGlossaryTerm> response = client.GetTerm("<termId>");
         }
@@ -3978,7 +3978,7 @@ Status = AtlasTermRelationshipStatus.Draft,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<AtlasGlossaryTerm> response = await client.GetTermAsync("<termId>");
         }
@@ -4043,7 +4043,7 @@ Status = AtlasTermRelationshipStatus.Draft,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -4403,7 +4403,7 @@ null
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -4763,7 +4763,7 @@ null
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             AtlasGlossaryTerm atlasGlossaryTerm = new AtlasGlossaryTerm
             {
@@ -4907,7 +4907,7 @@ Status = AtlasTermRelationshipStatus.Draft,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             AtlasGlossaryTerm atlasGlossaryTerm = new AtlasGlossaryTerm
             {
@@ -5167,7 +5167,7 @@ Status = AtlasTermRelationshipStatus.Draft,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -5332,7 +5332,7 @@ Status = AtlasTermRelationshipStatus.Draft,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -5497,7 +5497,7 @@ Status = AtlasTermRelationshipStatus.Draft,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<AtlasGlossaryTerm> response = client.PartialUpdateTerm("<termId>", new Dictionary<string, string>
             {
@@ -5511,7 +5511,7 @@ Status = AtlasTermRelationshipStatus.Draft,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<AtlasGlossaryTerm> response = await client.PartialUpdateTermAsync("<termId>", new Dictionary<string, string>
             {
@@ -5589,7 +5589,7 @@ new AtlasGlossaryTerm()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new object[]
             {
@@ -5952,7 +5952,7 @@ null
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new object[]
             {
@@ -6315,7 +6315,7 @@ null
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<IReadOnlyList<AtlasGlossaryTerm>> response = client.CreateTerms(new AtlasGlossaryTerm[]
             {
@@ -6461,7 +6461,7 @@ ValidValuesFor = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<IReadOnlyList<AtlasGlossaryTerm>> response = await client.CreateTermsAsync(new AtlasGlossaryTerm[]
             {
@@ -7201,7 +7201,7 @@ RelationshipStatus = StatusAtlasRelationship.Active,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response response = client.GetRelatedTerms("<termId>", 1234, 1234, "<sort>", null);
 
@@ -7221,7 +7221,7 @@ RelationshipStatus = StatusAtlasRelationship.Active,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response response = await client.GetRelatedTermsAsync("<termId>", 1234, 1234, "<sort>", null);
 
@@ -7241,7 +7241,7 @@ RelationshipStatus = StatusAtlasRelationship.Active,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<IReadOnlyDictionary<string, IList<AtlasRelatedTermHeader>>> response = client.GetRelatedTerms("<termId>", limit: 1234, offset: 1234, sort: "<sort>");
         }
@@ -7252,7 +7252,7 @@ RelationshipStatus = StatusAtlasRelationship.Active,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<IReadOnlyDictionary<string, IList<AtlasRelatedTermHeader>>> response = await client.GetRelatedTermsAsync("<termId>", limit: 1234, offset: 1234, sort: "<sort>");
         }
@@ -7481,7 +7481,7 @@ RelationshipStatus = StatusAtlasRelationship.Active,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -7590,7 +7590,7 @@ termGuid = "<termGuid>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -7699,7 +7699,7 @@ termGuid = "<termGuid>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             AtlasGlossary atlasGlossary = new AtlasGlossary
             {
@@ -7761,7 +7761,7 @@ TermGuid = "<termGuid>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             AtlasGlossary atlasGlossary = new AtlasGlossary
             {
@@ -8209,7 +8209,7 @@ TermGuid = "<termGuid>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response response = client.GetDetailed("<glossaryId>", null);
 
@@ -8442,7 +8442,7 @@ TermGuid = "<termGuid>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response response = await client.GetDetailedAsync("<glossaryId>", null);
 
@@ -8675,7 +8675,7 @@ TermGuid = "<termGuid>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<AtlasGlossaryExtInfo> response = client.GetDetailed("<glossaryId>");
         }
@@ -8686,7 +8686,7 @@ TermGuid = "<termGuid>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<AtlasGlossaryExtInfo> response = await client.GetDetailedAsync("<glossaryId>");
         }
@@ -8761,7 +8761,7 @@ TermGuid = "<termGuid>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -8811,7 +8811,7 @@ TermGuid = "<termGuid>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -8861,7 +8861,7 @@ TermGuid = "<termGuid>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<AtlasGlossary> response = client.PartialUpdate("<glossaryId>", new Dictionary<string, string>
             {
@@ -8875,7 +8875,7 @@ TermGuid = "<termGuid>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<AtlasGlossary> response = await client.PartialUpdateAsync("<glossaryId>", new Dictionary<string, string>
             {
@@ -8939,7 +8939,7 @@ TermGuid = "<termGuid>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response response = client.GetTerms("<glossaryId>", 1234, 1234, "<sort>", null);
 
@@ -9100,7 +9100,7 @@ TermGuid = "<termGuid>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response response = await client.GetTermsAsync("<glossaryId>", 1234, 1234, "<sort>", null);
 
@@ -9261,7 +9261,7 @@ TermGuid = "<termGuid>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<IReadOnlyList<AtlasGlossaryTerm>> response = client.GetTerms("<glossaryId>", limit: 1234, offset: 1234, sort: "<sort>");
         }
@@ -9272,7 +9272,7 @@ TermGuid = "<termGuid>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2023-09-01");
+            Glossary client = new DataMapClient(endpoint, credential).GetGlossaryClient(apiVersion: "2024-03-01-preview");
 
             Response<IReadOnlyList<AtlasGlossaryTerm>> response = await client.GetTermsAsync("<glossaryId>", limit: 1234, offset: 1234, sort: "<sort>");
         }

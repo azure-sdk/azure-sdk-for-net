@@ -77,7 +77,7 @@ namespace Azure.Analytics.Purview.DataMap.Samples
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -239,7 +239,7 @@ info = "<info>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -401,7 +401,7 @@ info = "<info>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             AtlasEntityWithExtInfo atlasEntityWithExtInfo = new AtlasEntityWithExtInfo
             {
@@ -490,7 +490,7 @@ Info = "<info>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             AtlasEntityWithExtInfo atlasEntityWithExtInfo = new AtlasEntityWithExtInfo
             {
@@ -629,7 +629,7 @@ Info = "<info>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             Response response = client.GetByIds(new string[] { "<guid>" }, true, true, null);
 
@@ -720,7 +720,7 @@ Info = "<info>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             Response response = await client.GetByIdsAsync(new string[] { "<guid>" }, true, true, null);
 
@@ -811,7 +811,7 @@ Info = "<info>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             Response<AtlasEntitiesWithExtInfo> response = client.GetByIds(new string[] { "<guid>" }, minExtInfo: true, ignoreRelationships: true);
         }
@@ -822,7 +822,7 @@ Info = "<info>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             Response<AtlasEntitiesWithExtInfo> response = await client.GetByIdsAsync(new string[] { "<guid>" }, minExtInfo: true, ignoreRelationships: true);
         }
@@ -887,7 +887,7 @@ Info = "<info>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -1053,7 +1053,7 @@ null
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -1219,7 +1219,7 @@ null
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             AtlasEntitiesWithExtInfo atlasEntitiesWithExtInfo = new AtlasEntitiesWithExtInfo
             {
@@ -1308,7 +1308,7 @@ Info = "<info>",
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             AtlasEntitiesWithExtInfo atlasEntitiesWithExtInfo = new AtlasEntitiesWithExtInfo
             {
@@ -6805,7 +6805,7 @@ Status = EntityStatus.Active,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new object());
             Response response = client.MoveEntitiesToCollection("<collectionId>", content);
@@ -6820,7 +6820,7 @@ Status = EntityStatus.Active,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new object());
             Response response = await client.MoveEntitiesToCollectionAsync("<collectionId>", content);
@@ -6835,7 +6835,7 @@ Status = EntityStatus.Active,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             MoveEntitiesConfig moveEntitiesConfig = new MoveEntitiesConfig();
             Response<EntityMutationResult> response = client.MoveEntitiesToCollection("<collectionId>", moveEntitiesConfig);
@@ -6847,7 +6847,7 @@ Status = EntityStatus.Active,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             MoveEntitiesConfig moveEntitiesConfig = new MoveEntitiesConfig();
             Response<EntityMutationResult> response = await client.MoveEntitiesToCollectionAsync("<collectionId>", moveEntitiesConfig);
@@ -6859,7 +6859,7 @@ Status = EntityStatus.Active,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -6936,7 +6936,7 @@ Status = EntityStatus.Active,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             using RequestContent content = RequestContent.Create(new
             {
@@ -7013,7 +7013,7 @@ Status = EntityStatus.Active,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             MoveEntitiesConfig moveEntitiesConfig = new MoveEntitiesConfig
             {
@@ -7028,7 +7028,7 @@ Status = EntityStatus.Active,
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2023-09-01");
+            Entity client = new DataMapClient(endpoint, credential).GetEntityClient(apiVersion: "2024-03-01-preview");
 
             MoveEntitiesConfig moveEntitiesConfig = new MoveEntitiesConfig
             {

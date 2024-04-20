@@ -2745,7 +2745,7 @@ This sample shows how to call GetTypeDefinitionAsync with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response<AtlasTypesDef> response = await client.GetTypeDefinitionAsync(includeTermTemplate: true, type: TypeCategory.Primitive);
 ]]></code></example>
@@ -2764,7 +2764,7 @@ This sample shows how to call GetTypeDefinition with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response<AtlasTypesDef> response = client.GetTypeDefinition(includeTermTemplate: true, type: TypeCategory.Primitive);
 ]]></code></example>
@@ -2786,7 +2786,7 @@ This sample shows how to call GetTypeDefinitionAsync with all parameters and par
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response response = await client.GetTypeDefinitionAsync(true, "PRIMITIVE", null);
 
@@ -3143,7 +3143,7 @@ This sample shows how to call GetTypeDefinition with all parameters and parse th
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response response = client.GetTypeDefinition(true, "PRIMITIVE", null);
 
@@ -8499,7 +8499,7 @@ This sample shows how to call GetHeadersAsync with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response<IReadOnlyList<AtlasTypeDefHeader>> response = await client.GetHeadersAsync(includeTermTemplate: true, type: TypeCategory.Primitive);
 ]]></code></example>
@@ -8518,7 +8518,7 @@ This sample shows how to call GetHeaders with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response<IReadOnlyList<AtlasTypeDefHeader>> response = client.GetHeaders(includeTermTemplate: true, type: TypeCategory.Primitive);
 ]]></code></example>
@@ -8540,7 +8540,7 @@ This sample shows how to call GetHeadersAsync with all parameters and parse the 
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response response = await client.GetHeadersAsync(true, "PRIMITIVE", null);
 
@@ -8567,7 +8567,7 @@ This sample shows how to call GetHeaders with all parameters and parse the resul
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response response = client.GetHeaders(true, "PRIMITIVE", null);
 
@@ -8583,7 +8583,7 @@ This sample shows how to call GetTermTemplateByIdAsync.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response<TermTemplateDef> response = await client.GetTermTemplateByIdAsync("<guid>");
 ]]></code>
@@ -8591,7 +8591,7 @@ This sample shows how to call GetTermTemplateByIdAsync with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response<TermTemplateDef> response = await client.GetTermTemplateByIdAsync("<guid>");
 ]]></code></example>
@@ -8602,7 +8602,7 @@ This sample shows how to call GetTermTemplateById.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response<TermTemplateDef> response = client.GetTermTemplateById("<guid>");
 ]]></code>
@@ -8610,7 +8610,7 @@ This sample shows how to call GetTermTemplateById with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response<TermTemplateDef> response = client.GetTermTemplateById("<guid>");
 ]]></code></example>
@@ -8621,7 +8621,7 @@ This sample shows how to call GetTermTemplateByIdAsync and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response response = await client.GetTermTemplateByIdAsync("<guid>", null);
 
@@ -8632,7 +8632,7 @@ This sample shows how to call GetTermTemplateByIdAsync with all parameters and p
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response response = await client.GetTermTemplateByIdAsync("<guid>", null);
 
@@ -8689,7 +8689,7 @@ This sample shows how to call GetTermTemplateById and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response response = client.GetTermTemplateById("<guid>", null);
 
@@ -8700,7 +8700,7 @@ This sample shows how to call GetTermTemplateById with all parameters and parse 
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response response = client.GetTermTemplateById("<guid>", null);
 
@@ -8757,7 +8757,7 @@ This sample shows how to call GetTermTemplateByNameAsync.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response<TermTemplateDef> response = await client.GetTermTemplateByNameAsync("<name>");
 ]]></code>
@@ -8765,7 +8765,7 @@ This sample shows how to call GetTermTemplateByNameAsync with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response<TermTemplateDef> response = await client.GetTermTemplateByNameAsync("<name>");
 ]]></code></example>
@@ -8776,7 +8776,7 @@ This sample shows how to call GetTermTemplateByName.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response<TermTemplateDef> response = client.GetTermTemplateByName("<name>");
 ]]></code>
@@ -8784,7 +8784,7 @@ This sample shows how to call GetTermTemplateByName with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response<TermTemplateDef> response = client.GetTermTemplateByName("<name>");
 ]]></code></example>
@@ -8795,7 +8795,7 @@ This sample shows how to call GetTermTemplateByNameAsync and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response response = await client.GetTermTemplateByNameAsync("<name>", null);
 
@@ -8806,7 +8806,7 @@ This sample shows how to call GetTermTemplateByNameAsync with all parameters and
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response response = await client.GetTermTemplateByNameAsync("<name>", null);
 
@@ -8863,7 +8863,7 @@ This sample shows how to call GetTermTemplateByName and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response response = client.GetTermTemplateByName("<name>", null);
 
@@ -8874,7 +8874,7 @@ This sample shows how to call GetTermTemplateByName with all parameters and pars
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
 Response response = client.GetTermTemplateByName("<name>", null);
 

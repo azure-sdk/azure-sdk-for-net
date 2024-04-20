@@ -982,19 +982,20 @@ namespace Azure.Analytics.Purview.DataMap
         public DataMapClient(System.Uri endpoint, Azure.Core.TokenCredential credential) { }
         public DataMapClient(System.Uri endpoint, Azure.Core.TokenCredential credential, Azure.Analytics.Purview.DataMap.DataMapClientOptions options) { }
         public virtual Azure.Core.Pipeline.HttpPipeline Pipeline { get { throw null; } }
-        public virtual Azure.Analytics.Purview.DataMap.Discovery GetDiscoveryClient(string apiVersion = "2023-09-01") { throw null; }
-        public virtual Azure.Analytics.Purview.DataMap.Entity GetEntityClient(string apiVersion = "2023-09-01") { throw null; }
-        public virtual Azure.Analytics.Purview.DataMap.Glossary GetGlossaryClient(string apiVersion = "2023-09-01") { throw null; }
-        public virtual Azure.Analytics.Purview.DataMap.Lineage GetLineageClient(string apiVersion = "2023-09-01") { throw null; }
+        public virtual Azure.Analytics.Purview.DataMap.Discovery GetDiscoveryClient(string apiVersion = "2024-03-01-preview") { throw null; }
+        public virtual Azure.Analytics.Purview.DataMap.Entity GetEntityClient(string apiVersion = "2024-03-01-preview") { throw null; }
+        public virtual Azure.Analytics.Purview.DataMap.Glossary GetGlossaryClient(string apiVersion = "2024-03-01-preview") { throw null; }
+        public virtual Azure.Analytics.Purview.DataMap.Lineage GetLineageClient(string apiVersion = "2024-03-01-preview") { throw null; }
         public virtual Azure.Analytics.Purview.DataMap.Relationship GetRelationshipClient() { throw null; }
-        public virtual Azure.Analytics.Purview.DataMap.TypeDefinition GetTypeDefinitionClient(string apiVersion = "2023-09-01") { throw null; }
+        public virtual Azure.Analytics.Purview.DataMap.TypeDefinition GetTypeDefinitionClient(string apiVersion = "2024-03-01-preview") { throw null; }
     }
     public partial class DataMapClientOptions : Azure.Core.ClientOptions
     {
-        public DataMapClientOptions(Azure.Analytics.Purview.DataMap.DataMapClientOptions.ServiceVersion version = Azure.Analytics.Purview.DataMap.DataMapClientOptions.ServiceVersion.V2023_09_01) { }
+        public DataMapClientOptions(Azure.Analytics.Purview.DataMap.DataMapClientOptions.ServiceVersion version = Azure.Analytics.Purview.DataMap.DataMapClientOptions.ServiceVersion.V2024_03_01_Preview) { }
         public enum ServiceVersion
         {
             V2023_09_01 = 1,
+            V2024_03_01_Preview = 2,
         }
     }
     public partial class Discovery

@@ -7,7 +7,7 @@ This sample shows how to call QueryAsync.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 QueryConfig queryConfig = new QueryConfig();
 Response<QueryResult> response = await client.QueryAsync(queryConfig);
@@ -16,7 +16,7 @@ This sample shows how to call QueryAsync with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 QueryConfig queryConfig = new QueryConfig
 {
@@ -50,7 +50,7 @@ This sample shows how to call Query.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 QueryConfig queryConfig = new QueryConfig();
 Response<QueryResult> response = client.Query(queryConfig);
@@ -59,7 +59,7 @@ This sample shows how to call Query with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 QueryConfig queryConfig = new QueryConfig
 {
@@ -93,7 +93,7 @@ This sample shows how to call QueryAsync and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 using RequestContent content = RequestContent.Create(new object());
 Response response = await client.QueryAsync(content);
@@ -105,7 +105,7 @@ This sample shows how to call QueryAsync with all request content and parse the 
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 using RequestContent content = RequestContent.Create(new
 {
@@ -202,7 +202,7 @@ This sample shows how to call Query and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 using RequestContent content = RequestContent.Create(new object());
 Response response = client.Query(content);
@@ -214,7 +214,7 @@ This sample shows how to call Query with all request content and parse the resul
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 using RequestContent content = RequestContent.Create(new
 {
@@ -311,7 +311,7 @@ This sample shows how to call SuggestAsync.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 SuggestConfig suggestConfig = new SuggestConfig();
 Response<SuggestResult> response = await client.SuggestAsync(suggestConfig);
@@ -320,7 +320,7 @@ This sample shows how to call SuggestAsync with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 SuggestConfig suggestConfig = new SuggestConfig
 {
@@ -337,7 +337,7 @@ This sample shows how to call Suggest.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 SuggestConfig suggestConfig = new SuggestConfig();
 Response<SuggestResult> response = client.Suggest(suggestConfig);
@@ -346,7 +346,7 @@ This sample shows how to call Suggest with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 SuggestConfig suggestConfig = new SuggestConfig
 {
@@ -363,7 +363,7 @@ This sample shows how to call SuggestAsync and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 using RequestContent content = RequestContent.Create(new object());
 Response response = await client.SuggestAsync(content);
@@ -375,7 +375,7 @@ This sample shows how to call SuggestAsync with all request content and parse th
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 using RequestContent content = RequestContent.Create(new
 {
@@ -420,7 +420,7 @@ This sample shows how to call Suggest and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 using RequestContent content = RequestContent.Create(new object());
 Response response = client.Suggest(content);
@@ -432,7 +432,7 @@ This sample shows how to call Suggest with all request content and parse the res
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 using RequestContent content = RequestContent.Create(new
 {
@@ -477,7 +477,7 @@ This sample shows how to call AutoCompleteAsync.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 AutoCompleteConfig autoCompleteConfig = new AutoCompleteConfig();
 Response<AutoCompleteResult> response = await client.AutoCompleteAsync(autoCompleteConfig);
@@ -486,7 +486,7 @@ This sample shows how to call AutoCompleteAsync with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 AutoCompleteConfig autoCompleteConfig = new AutoCompleteConfig
 {
@@ -503,7 +503,7 @@ This sample shows how to call AutoComplete.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 AutoCompleteConfig autoCompleteConfig = new AutoCompleteConfig();
 Response<AutoCompleteResult> response = client.AutoComplete(autoCompleteConfig);
@@ -512,7 +512,7 @@ This sample shows how to call AutoComplete with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 AutoCompleteConfig autoCompleteConfig = new AutoCompleteConfig
 {
@@ -529,7 +529,7 @@ This sample shows how to call AutoCompleteAsync and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 using RequestContent content = RequestContent.Create(new object());
 Response response = await client.AutoCompleteAsync(content);
@@ -541,7 +541,7 @@ This sample shows how to call AutoCompleteAsync with all request content and par
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 using RequestContent content = RequestContent.Create(new
 {
@@ -562,7 +562,7 @@ This sample shows how to call AutoComplete and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 using RequestContent content = RequestContent.Create(new object());
 Response response = client.AutoComplete(content);
@@ -574,7 +574,7 @@ This sample shows how to call AutoComplete with all request content and parse th
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2023-09-01");
+Discovery client = new DataMapClient(endpoint, credential).GetDiscoveryClient(apiVersion: "2024-03-01-preview");
 
 using RequestContent content = RequestContent.Create(new
 {

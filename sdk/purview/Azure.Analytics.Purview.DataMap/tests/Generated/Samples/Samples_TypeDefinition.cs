@@ -2977,7 +2977,7 @@ namespace Azure.Analytics.Purview.DataMap.Samples
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response response = client.GetTypeDefinition(true, "PRIMITIVE", null);
 
@@ -3323,7 +3323,7 @@ namespace Azure.Analytics.Purview.DataMap.Samples
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response response = await client.GetTypeDefinitionAsync(true, "PRIMITIVE", null);
 
@@ -3669,7 +3669,7 @@ namespace Azure.Analytics.Purview.DataMap.Samples
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response<AtlasTypesDef> response = client.GetTypeDefinition(includeTermTemplate: true, type: TypeCategory.Primitive);
         }
@@ -3680,7 +3680,7 @@ namespace Azure.Analytics.Purview.DataMap.Samples
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response<AtlasTypesDef> response = await client.GetTypeDefinitionAsync(includeTermTemplate: true, type: TypeCategory.Primitive);
         }
@@ -8779,7 +8779,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response response = client.GetHeaders(true, "PRIMITIVE", null);
 
@@ -8795,7 +8795,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response response = await client.GetHeadersAsync(true, "PRIMITIVE", null);
 
@@ -8811,7 +8811,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response<IReadOnlyList<AtlasTypeDefHeader>> response = client.GetHeaders(includeTermTemplate: true, type: TypeCategory.Primitive);
         }
@@ -8822,7 +8822,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response<IReadOnlyList<AtlasTypeDefHeader>> response = await client.GetHeadersAsync(includeTermTemplate: true, type: TypeCategory.Primitive);
         }
@@ -8833,7 +8833,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response response = client.GetTermTemplateById("<guid>", null);
 
@@ -8847,7 +8847,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response response = await client.GetTermTemplateByIdAsync("<guid>", null);
 
@@ -8861,7 +8861,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response<TermTemplateDef> response = client.GetTermTemplateById("<guid>");
         }
@@ -8872,7 +8872,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response<TermTemplateDef> response = await client.GetTermTemplateByIdAsync("<guid>");
         }
@@ -8883,7 +8883,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response response = client.GetTermTemplateById("<guid>", null);
 
@@ -8940,7 +8940,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response response = await client.GetTermTemplateByIdAsync("<guid>", null);
 
@@ -8997,7 +8997,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response<TermTemplateDef> response = client.GetTermTemplateById("<guid>");
         }
@@ -9008,7 +9008,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response<TermTemplateDef> response = await client.GetTermTemplateByIdAsync("<guid>");
         }
@@ -9019,7 +9019,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response response = client.GetTermTemplateByName("<name>", null);
 
@@ -9033,7 +9033,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response response = await client.GetTermTemplateByNameAsync("<name>", null);
 
@@ -9047,7 +9047,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response<TermTemplateDef> response = client.GetTermTemplateByName("<name>");
         }
@@ -9058,7 +9058,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response<TermTemplateDef> response = await client.GetTermTemplateByNameAsync("<name>");
         }
@@ -9069,7 +9069,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response response = client.GetTermTemplateByName("<name>", null);
 
@@ -9126,7 +9126,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response response = await client.GetTermTemplateByNameAsync("<name>", null);
 
@@ -9183,7 +9183,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response<TermTemplateDef> response = client.GetTermTemplateByName("<name>");
         }
@@ -9194,7 +9194,7 @@ AttributeDefs = {default},
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
-            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2023-09-01");
+            TypeDefinition client = new DataMapClient(endpoint, credential).GetTypeDefinitionClient(apiVersion: "2024-03-01-preview");
 
             Response<TermTemplateDef> response = await client.GetTermTemplateByNameAsync("<name>");
         }
