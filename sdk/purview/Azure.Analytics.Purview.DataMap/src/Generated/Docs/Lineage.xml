@@ -173,7 +173,7 @@ This sample shows how to call GetNextPageAsync.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2023-09-01");
+Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2024-03-01-preview");
 
 Response<AtlasLineageInfo> response = await client.GetNextPageAsync("<guid>", LineageDirection.Input);
 ]]></code>
@@ -181,7 +181,7 @@ This sample shows how to call GetNextPageAsync with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2023-09-01");
+Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2024-03-01-preview");
 
 Response<AtlasLineageInfo> response = await client.GetNextPageAsync("<guid>", LineageDirection.Input, offset: 1234, limit: 1234);
 ]]></code></example>
@@ -192,7 +192,7 @@ This sample shows how to call GetNextPage.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2023-09-01");
+Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2024-03-01-preview");
 
 Response<AtlasLineageInfo> response = client.GetNextPage("<guid>", LineageDirection.Input);
 ]]></code>
@@ -200,7 +200,7 @@ This sample shows how to call GetNextPage with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2023-09-01");
+Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2024-03-01-preview");
 
 Response<AtlasLineageInfo> response = client.GetNextPage("<guid>", LineageDirection.Input, offset: 1234, limit: 1234);
 ]]></code></example>
@@ -211,7 +211,7 @@ This sample shows how to call GetNextPageAsync and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2023-09-01");
+Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2024-03-01-preview");
 
 Response response = await client.GetNextPageAsync("<guid>", "INPUT");
 
@@ -222,7 +222,7 @@ This sample shows how to call GetNextPageAsync with all parameters and parse the
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2023-09-01");
+Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2024-03-01-preview");
 
 Response response = await client.GetNextPageAsync("<guid>", "INPUT", offset: 1234, limit: 1234);
 
@@ -275,7 +275,7 @@ This sample shows how to call GetNextPage and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2023-09-01");
+Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2024-03-01-preview");
 
 Response response = client.GetNextPage("<guid>", "INPUT");
 
@@ -286,7 +286,7 @@ This sample shows how to call GetNextPage with all parameters and parse the resu
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 TokenCredential credential = new DefaultAzureCredential();
-Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2023-09-01");
+Lineage client = new DataMapClient(endpoint, credential).GetLineageClient(apiVersion: "2024-03-01-preview");
 
 Response response = client.GetNextPage("<guid>", "INPUT", offset: 1234, limit: 1234);
 

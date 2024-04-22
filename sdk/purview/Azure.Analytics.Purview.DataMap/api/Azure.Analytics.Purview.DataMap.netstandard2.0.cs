@@ -16,6 +16,9 @@ namespace Azure.Analytics.Purview.DataMap
         public static Azure.Analytics.Purview.DataMap.EntityMutationResult EntityMutationResult(System.Collections.Generic.IReadOnlyDictionary<string, string> guidAssignments = null, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IList<Azure.Analytics.Purview.DataMap.AtlasEntityHeader>> mutatedEntities = null, System.Collections.Generic.IEnumerable<Azure.Analytics.Purview.DataMap.AtlasEntityHeader> partialUpdatedEntities = null) { throw null; }
         public static Azure.Analytics.Purview.DataMap.ImportInfo ImportInfo(string childObjectName = null, Azure.Analytics.Purview.DataMap.ImportStatus? importStatus = default(Azure.Analytics.Purview.DataMap.ImportStatus?), string parentObjectName = null, string remarks = null) { throw null; }
         public static Azure.Analytics.Purview.DataMap.LineageRelation LineageRelation(string fromEntityId = null, string relationshipId = null, string toEntityId = null) { throw null; }
+        public static Azure.Analytics.Purview.DataMap.NavigationElement NavigationElement(string name = null, Azure.Analytics.Purview.DataMap.ItemPath itemPath = null, string type = null, bool? isEntity = default(bool?), bool? isLeafNode = default(bool?), int? count = default(int?), System.Collections.Generic.IReadOnlyDictionary<string, System.BinaryData> properties = null) { throw null; }
+        public static Azure.Analytics.Purview.DataMap.NavigationRequest NavigationRequest(Azure.Analytics.Purview.DataMap.NavigationMode? navigationMode = default(Azure.Analytics.Purview.DataMap.NavigationMode?), Azure.Analytics.Purview.DataMap.ItemPath itemPath = null, bool? includeNextLevelAssetCount = default(bool?), System.Collections.Generic.IDictionary<string, System.BinaryData> properties = null) { throw null; }
+        public static Azure.Analytics.Purview.DataMap.NavigationResult NavigationResult(string continuationToken = null, System.Collections.Generic.IEnumerable<Azure.Analytics.Purview.DataMap.NavigationElement> items = null) { throw null; }
         public static Azure.Analytics.Purview.DataMap.ParentRelation ParentRelation(string childEntityId = null, string relationshipId = null, string parentEntityId = null) { throw null; }
         public static Azure.Analytics.Purview.DataMap.QueryResult QueryResult(int? searchCount = default(int?), bool? searchCountApproximate = default(bool?), string continuationToken = null, Azure.Analytics.Purview.DataMap.SearchFacetResultValue searchFacets = null, System.Collections.Generic.IEnumerable<Azure.Analytics.Purview.DataMap.SearchResultValue> value = null) { throw null; }
         public static Azure.Analytics.Purview.DataMap.SearchFacetItemValue SearchFacetItemValue(int? count = default(int?), string value = null) { throw null; }
@@ -982,19 +985,20 @@ namespace Azure.Analytics.Purview.DataMap
         public DataMapClient(System.Uri endpoint, Azure.Core.TokenCredential credential) { }
         public DataMapClient(System.Uri endpoint, Azure.Core.TokenCredential credential, Azure.Analytics.Purview.DataMap.DataMapClientOptions options) { }
         public virtual Azure.Core.Pipeline.HttpPipeline Pipeline { get { throw null; } }
-        public virtual Azure.Analytics.Purview.DataMap.Discovery GetDiscoveryClient(string apiVersion = "2023-09-01") { throw null; }
-        public virtual Azure.Analytics.Purview.DataMap.Entity GetEntityClient(string apiVersion = "2023-09-01") { throw null; }
-        public virtual Azure.Analytics.Purview.DataMap.Glossary GetGlossaryClient(string apiVersion = "2023-09-01") { throw null; }
-        public virtual Azure.Analytics.Purview.DataMap.Lineage GetLineageClient(string apiVersion = "2023-09-01") { throw null; }
+        public virtual Azure.Analytics.Purview.DataMap.Discovery GetDiscoveryClient(string apiVersion = "2024-03-01-preview") { throw null; }
+        public virtual Azure.Analytics.Purview.DataMap.Entity GetEntityClient(string apiVersion = "2024-03-01-preview") { throw null; }
+        public virtual Azure.Analytics.Purview.DataMap.Glossary GetGlossaryClient(string apiVersion = "2024-03-01-preview") { throw null; }
+        public virtual Azure.Analytics.Purview.DataMap.Lineage GetLineageClient(string apiVersion = "2024-03-01-preview") { throw null; }
         public virtual Azure.Analytics.Purview.DataMap.Relationship GetRelationshipClient() { throw null; }
-        public virtual Azure.Analytics.Purview.DataMap.TypeDefinition GetTypeDefinitionClient(string apiVersion = "2023-09-01") { throw null; }
+        public virtual Azure.Analytics.Purview.DataMap.TypeDefinition GetTypeDefinitionClient(string apiVersion = "2024-03-01-preview") { throw null; }
     }
     public partial class DataMapClientOptions : Azure.Core.ClientOptions
     {
-        public DataMapClientOptions(Azure.Analytics.Purview.DataMap.DataMapClientOptions.ServiceVersion version = Azure.Analytics.Purview.DataMap.DataMapClientOptions.ServiceVersion.V2023_09_01) { }
+        public DataMapClientOptions(Azure.Analytics.Purview.DataMap.DataMapClientOptions.ServiceVersion version = Azure.Analytics.Purview.DataMap.DataMapClientOptions.ServiceVersion.V2024_03_01_Preview) { }
         public enum ServiceVersion
         {
             V2023_09_01 = 1,
+            V2024_03_01_Preview = 2,
         }
     }
     public partial class Discovery
@@ -1005,6 +1009,10 @@ namespace Azure.Analytics.Purview.DataMap
         public virtual Azure.Response AutoComplete(Azure.Core.RequestContent content, Azure.RequestContext context = null) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.Analytics.Purview.DataMap.AutoCompleteResult>> AutoCompleteAsync(Azure.Analytics.Purview.DataMap.AutoCompleteConfig autoCompleteConfig, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response> AutoCompleteAsync(Azure.Core.RequestContent content, Azure.RequestContext context = null) { throw null; }
+        public virtual Azure.Response<Azure.Analytics.Purview.DataMap.NavigationResult> Navigate(Azure.Analytics.Purview.DataMap.NavigationRequest navigationRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response Navigate(Azure.Core.RequestContent content, Azure.RequestContext context = null) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.Analytics.Purview.DataMap.NavigationResult>> NavigateAsync(Azure.Analytics.Purview.DataMap.NavigationRequest navigationRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response> NavigateAsync(Azure.Core.RequestContent content, Azure.RequestContext context = null) { throw null; }
         public virtual Azure.Response<Azure.Analytics.Purview.DataMap.QueryResult> Query(Azure.Analytics.Purview.DataMap.QueryConfig queryConfig, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response Query(Azure.Core.RequestContent content, Azure.RequestContext context = null) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.Analytics.Purview.DataMap.QueryResult>> QueryAsync(Azure.Analytics.Purview.DataMap.QueryConfig queryConfig, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -1332,6 +1340,17 @@ namespace Azure.Analytics.Purview.DataMap
         public static bool operator !=(Azure.Analytics.Purview.DataMap.ImportStatus left, Azure.Analytics.Purview.DataMap.ImportStatus right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class ItemPath : System.ClientModel.Primitives.IJsonModel<Azure.Analytics.Purview.DataMap.ItemPath>, System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.ItemPath>
+    {
+        public ItemPath(string path) { }
+        public System.Collections.Generic.IDictionary<string, System.BinaryData> ExtendedProperties { get { throw null; } }
+        public string Path { get { throw null; } set { } }
+        Azure.Analytics.Purview.DataMap.ItemPath System.ClientModel.Primitives.IJsonModel<Azure.Analytics.Purview.DataMap.ItemPath>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.Analytics.Purview.DataMap.ItemPath>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.Analytics.Purview.DataMap.ItemPath System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.ItemPath>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.ItemPath>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.ItemPath>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
     public partial class Lineage
     {
         protected Lineage() { }
@@ -1389,6 +1408,64 @@ namespace Azure.Analytics.Purview.DataMap
         Azure.Analytics.Purview.DataMap.MoveEntitiesConfig System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.MoveEntitiesConfig>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.MoveEntitiesConfig>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.MoveEntitiesConfig>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class NavigationElement : System.ClientModel.Primitives.IJsonModel<Azure.Analytics.Purview.DataMap.NavigationElement>, System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.NavigationElement>
+    {
+        internal NavigationElement() { }
+        public int? Count { get { throw null; } }
+        public bool? IsEntity { get { throw null; } }
+        public bool? IsLeafNode { get { throw null; } }
+        public Azure.Analytics.Purview.DataMap.ItemPath ItemPath { get { throw null; } }
+        public string Name { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, System.BinaryData> Properties { get { throw null; } }
+        public string Type { get { throw null; } }
+        Azure.Analytics.Purview.DataMap.NavigationElement System.ClientModel.Primitives.IJsonModel<Azure.Analytics.Purview.DataMap.NavigationElement>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.Analytics.Purview.DataMap.NavigationElement>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.Analytics.Purview.DataMap.NavigationElement System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.NavigationElement>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.NavigationElement>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.NavigationElement>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct NavigationMode : System.IEquatable<Azure.Analytics.Purview.DataMap.NavigationMode>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public NavigationMode(string value) { throw null; }
+        public static Azure.Analytics.Purview.DataMap.NavigationMode AssetType { get { throw null; } }
+        public static Azure.Analytics.Purview.DataMap.NavigationMode AzureResourceHierarchy { get { throw null; } }
+        public bool Equals(Azure.Analytics.Purview.DataMap.NavigationMode other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.Analytics.Purview.DataMap.NavigationMode left, Azure.Analytics.Purview.DataMap.NavigationMode right) { throw null; }
+        public static implicit operator Azure.Analytics.Purview.DataMap.NavigationMode (string value) { throw null; }
+        public static bool operator !=(Azure.Analytics.Purview.DataMap.NavigationMode left, Azure.Analytics.Purview.DataMap.NavigationMode right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class NavigationRequest : System.ClientModel.Primitives.IJsonModel<Azure.Analytics.Purview.DataMap.NavigationRequest>, System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.NavigationRequest>
+    {
+        public NavigationRequest(Azure.Analytics.Purview.DataMap.ItemPath itemPath) { }
+        public bool? IncludeNextLevelAssetCount { get { throw null; } set { } }
+        public Azure.Analytics.Purview.DataMap.ItemPath ItemPath { get { throw null; } }
+        public Azure.Analytics.Purview.DataMap.NavigationMode? NavigationMode { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, System.BinaryData> Properties { get { throw null; } }
+        Azure.Analytics.Purview.DataMap.NavigationRequest System.ClientModel.Primitives.IJsonModel<Azure.Analytics.Purview.DataMap.NavigationRequest>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.Analytics.Purview.DataMap.NavigationRequest>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.Analytics.Purview.DataMap.NavigationRequest System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.NavigationRequest>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.NavigationRequest>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.NavigationRequest>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class NavigationResult : System.ClientModel.Primitives.IJsonModel<Azure.Analytics.Purview.DataMap.NavigationResult>, System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.NavigationResult>
+    {
+        internal NavigationResult() { }
+        public string ContinuationToken { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.Analytics.Purview.DataMap.NavigationElement> Items { get { throw null; } }
+        Azure.Analytics.Purview.DataMap.NavigationResult System.ClientModel.Primitives.IJsonModel<Azure.Analytics.Purview.DataMap.NavigationResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.Analytics.Purview.DataMap.NavigationResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.Analytics.Purview.DataMap.NavigationResult System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.NavigationResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.NavigationResult>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.NavigationResult>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public partial class ParentRelation : System.ClientModel.Primitives.IJsonModel<Azure.Analytics.Purview.DataMap.ParentRelation>, System.ClientModel.Primitives.IPersistableModel<Azure.Analytics.Purview.DataMap.ParentRelation>
     {

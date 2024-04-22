@@ -373,6 +373,114 @@ namespace Azure.Analytics.Purview.DataMap
             }
         }
 
+        /// <summary> Navigate entities by itemPath. </summary>
+        /// <param name="navigationRequest"> The request payload of Navigation API. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="navigationRequest"/> is null. </exception>
+        /// <include file="Docs/Discovery.xml" path="doc/members/member[@name='NavigateAsync(NavigationRequest,CancellationToken)']/*" />
+        public virtual async Task<Response<NavigationResult>> NavigateAsync(NavigationRequest navigationRequest, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(navigationRequest, nameof(navigationRequest));
+
+            using RequestContent content = navigationRequest.ToRequestContent();
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = await NavigateAsync(content, context).ConfigureAwait(false);
+            return Response.FromValue(NavigationResult.FromResponse(response), response);
+        }
+
+        /// <summary> Navigate entities by itemPath. </summary>
+        /// <param name="navigationRequest"> The request payload of Navigation API. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="navigationRequest"/> is null. </exception>
+        /// <include file="Docs/Discovery.xml" path="doc/members/member[@name='Navigate(NavigationRequest,CancellationToken)']/*" />
+        public virtual Response<NavigationResult> Navigate(NavigationRequest navigationRequest, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(navigationRequest, nameof(navigationRequest));
+
+            using RequestContent content = navigationRequest.ToRequestContent();
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = Navigate(content, context);
+            return Response.FromValue(NavigationResult.FromResponse(response), response);
+        }
+
+        /// <summary>
+        /// [Protocol Method] Navigate entities by itemPath.
+        /// <list type="bullet">
+        /// <item>
+        /// <description>
+        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <description>
+        /// Please try the simpler <see cref="NavigateAsync(NavigationRequest,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/Discovery.xml" path="doc/members/member[@name='NavigateAsync(RequestContent,RequestContext)']/*" />
+        public virtual async Task<Response> NavigateAsync(RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("Discovery.Navigate");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateNavigateRequest(content, context);
+                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// [Protocol Method] Navigate entities by itemPath.
+        /// <list type="bullet">
+        /// <item>
+        /// <description>
+        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <description>
+        /// Please try the simpler <see cref="Navigate(NavigationRequest,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/Discovery.xml" path="doc/members/member[@name='Navigate(RequestContent,RequestContext)']/*" />
+        public virtual Response Navigate(RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("Discovery.Navigate");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateNavigateRequest(content, context);
+                return _pipeline.ProcessMessage(message, context);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
         internal HttpMessage CreateQueryRequest(RequestContent content, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
@@ -416,6 +524,23 @@ namespace Azure.Analytics.Purview.DataMap
             uri.Reset(_endpoint);
             uri.AppendRaw("/datamap/api", false);
             uri.AppendPath("/search/autocomplete", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            request.Content = content;
+            return message;
+        }
+
+        internal HttpMessage CreateNavigateRequest(RequestContent content, RequestContext context)
+        {
+            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRaw("/datamap/api", false);
+            uri.AppendPath("/navigate", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");

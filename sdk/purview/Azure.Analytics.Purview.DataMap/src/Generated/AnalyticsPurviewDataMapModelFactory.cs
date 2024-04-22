@@ -480,6 +480,54 @@ namespace Azure.Analytics.Purview.DataMap
             return new AutoCompleteResultValue(text, queryPlusText, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="DataMap.NavigationRequest"/>. </summary>
+        /// <param name="navigationMode"> The enum of navigation mode. </param>
+        /// <param name="itemPath"> The identifier of navigation request. </param>
+        /// <param name="includeNextLevelAssetCount"> Whether to return the next level asset count. </param>
+        /// <param name="properties"> The additional properties of the request. </param>
+        /// <returns> A new <see cref="DataMap.NavigationRequest"/> instance for mocking. </returns>
+        public static NavigationRequest NavigationRequest(NavigationMode? navigationMode = null, ItemPath itemPath = null, bool? includeNextLevelAssetCount = null, IDictionary<string, BinaryData> properties = null)
+        {
+            properties ??= new Dictionary<string, BinaryData>();
+
+            return new NavigationRequest(navigationMode, itemPath, includeNextLevelAssetCount, properties, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="DataMap.NavigationResult"/>. </summary>
+        /// <param name="continuationToken"> The token used to get next batch of data. Absent if there's no more data. </param>
+        /// <param name="items"> The identifier of navigation request. </param>
+        /// <returns> A new <see cref="DataMap.NavigationResult"/> instance for mocking. </returns>
+        public static NavigationResult NavigationResult(string continuationToken = null, IEnumerable<NavigationElement> items = null)
+        {
+            items ??= new List<NavigationElement>();
+
+            return new NavigationResult(continuationToken, items?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="DataMap.NavigationElement"/>. </summary>
+        /// <param name="name"> The name of the item. </param>
+        /// <param name="itemPath"> The identifier of navigation request. </param>
+        /// <param name="type"> The type name of the item. Eg. EntityType. </param>
+        /// <param name="isEntity"> Whether the item is Entity. If yes, can get complete definition of an entity given its itemPath. </param>
+        /// <param name="isLeafNode"> Indicates whether the item is a leaf node. If it is, further navigation is not possible. </param>
+        /// <param name="count"> The count of the top level asset. Won't return if request payload 'includeNextLevelAssetCount' is false. </param>
+        /// <param name="properties"> The additional properties of the navigation element. </param>
+        /// <returns> A new <see cref="DataMap.NavigationElement"/> instance for mocking. </returns>
+        public static NavigationElement NavigationElement(string name = null, ItemPath itemPath = null, string type = null, bool? isEntity = null, bool? isLeafNode = null, int? count = null, IReadOnlyDictionary<string, BinaryData> properties = null)
+        {
+            properties ??= new Dictionary<string, BinaryData>();
+
+            return new NavigationElement(
+                name,
+                itemPath,
+                type,
+                isEntity,
+                isLeafNode,
+                count,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="DataMap.AtlasLineageInfo"/>. </summary>
         /// <param name="baseEntityGuid"> The GUID of the base entity. </param>
         /// <param name="guidEntityMap"> The GUID entity map. </param>

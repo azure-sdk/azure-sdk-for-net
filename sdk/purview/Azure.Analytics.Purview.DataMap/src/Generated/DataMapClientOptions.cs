@@ -13,13 +13,15 @@ namespace Azure.Analytics.Purview.DataMap
     /// <summary> Client options for DataMapClient. </summary>
     public partial class DataMapClientOptions : ClientOptions
     {
-        private const ServiceVersion LatestVersion = ServiceVersion.V2023_09_01;
+        private const ServiceVersion LatestVersion = ServiceVersion.V2024_03_01_Preview;
 
         /// <summary> The version of the service to use. </summary>
         public enum ServiceVersion
         {
             /// <summary> Service version "2023-09-01". </summary>
             V2023_09_01 = 1,
+            /// <summary> Service version "2024-03-01-preview". </summary>
+            V2024_03_01_Preview = 2,
         }
 
         internal string Version { get; }
@@ -30,6 +32,7 @@ namespace Azure.Analytics.Purview.DataMap
             Version = version switch
             {
                 ServiceVersion.V2023_09_01 => "2023-09-01",
+                ServiceVersion.V2024_03_01_Preview => "2024-03-01-preview",
                 _ => throw new NotSupportedException()
             };
         }
