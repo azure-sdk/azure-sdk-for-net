@@ -41,6 +41,11 @@ namespace Azure.ResourceManager.HybridCompute.Models
                 writer.WritePropertyName("billingStartDate"u8);
                 writer.WriteStringValue(BillingStartOn.Value, "O");
             }
+            if (options.Format != "W" && Optional.IsDefined(BillingEndOn))
+            {
+                writer.WritePropertyName("billingEndDate"u8);
+                writer.WriteStringValue(BillingEndOn.Value, "O");
+            }
             if (options.Format != "W" && Optional.IsDefined(EnrollmentOn))
             {
                 writer.WritePropertyName("enrollmentDate"u8);
@@ -92,6 +97,7 @@ namespace Azure.ResourceManager.HybridCompute.Models
             string name = default;
             LicenseProfileSubscriptionStatus? subscriptionStatus = default;
             DateTimeOffset? billingStartDate = default;
+            DateTimeOffset? billingEndDate = default;
             DateTimeOffset? enrollmentDate = default;
             DateTimeOffset? disenrollmentDate = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -119,6 +125,15 @@ namespace Azure.ResourceManager.HybridCompute.Models
                         continue;
                     }
                     billingStartDate = property.Value.GetDateTimeOffset("O");
+                    continue;
+                }
+                if (property.NameEquals("billingEndDate"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    billingEndDate = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
                 if (property.NameEquals("enrollmentDate"u8))
@@ -149,6 +164,7 @@ namespace Azure.ResourceManager.HybridCompute.Models
                 name,
                 subscriptionStatus,
                 billingStartDate,
+                billingEndDate,
                 enrollmentDate,
                 disenrollmentDate,
                 serializedAdditionalRawData);

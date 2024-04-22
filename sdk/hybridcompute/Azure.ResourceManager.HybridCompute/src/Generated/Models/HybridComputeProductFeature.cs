@@ -54,14 +54,16 @@ namespace Azure.ResourceManager.HybridCompute.Models
         /// <param name="name"> Product feature name. </param>
         /// <param name="subscriptionStatus"> Indicates the current status of the product features. </param>
         /// <param name="billingStartOn"> The timestamp in UTC when the billing starts. </param>
+        /// <param name="billingEndOn"> The timestamp in UTC when the billing ends. </param>
         /// <param name="enrollmentOn"> The timestamp in UTC when the user enrolls the feature. </param>
         /// <param name="disenrollmentOn"> The timestamp in UTC when the user disenrolled the feature. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HybridComputeProductFeature(string name, LicenseProfileSubscriptionStatus? subscriptionStatus, DateTimeOffset? billingStartOn, DateTimeOffset? enrollmentOn, DateTimeOffset? disenrollmentOn, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal HybridComputeProductFeature(string name, LicenseProfileSubscriptionStatus? subscriptionStatus, DateTimeOffset? billingStartOn, DateTimeOffset? billingEndOn, DateTimeOffset? enrollmentOn, DateTimeOffset? disenrollmentOn, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
             SubscriptionStatus = subscriptionStatus;
             BillingStartOn = billingStartOn;
+            BillingEndOn = billingEndOn;
             EnrollmentOn = enrollmentOn;
             DisenrollmentOn = disenrollmentOn;
             _serializedAdditionalRawData = serializedAdditionalRawData;
@@ -73,6 +75,8 @@ namespace Azure.ResourceManager.HybridCompute.Models
         public LicenseProfileSubscriptionStatus? SubscriptionStatus { get; set; }
         /// <summary> The timestamp in UTC when the billing starts. </summary>
         public DateTimeOffset? BillingStartOn { get; }
+        /// <summary> The timestamp in UTC when the billing ends. </summary>
+        public DateTimeOffset? BillingEndOn { get; }
         /// <summary> The timestamp in UTC when the user enrolls the feature. </summary>
         public DateTimeOffset? EnrollmentOn { get; }
         /// <summary> The timestamp in UTC when the user disenrolled the feature. </summary>

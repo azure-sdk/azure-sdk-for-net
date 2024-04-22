@@ -58,12 +58,13 @@ namespace Azure.ResourceManager.HybridCompute.Models
         /// <param name="subscriptionStatus"> Indicates the subscription status of the product. </param>
         /// <param name="productType"> Indicates the product type of the license. </param>
         /// <param name="billingStartOn"> The timestamp in UTC when the billing starts. </param>
+        /// <param name="billingEndOn"> The timestamp in UTC when the billing ends. </param>
         /// <param name="enrollmentOn"> The timestamp in UTC when the user enrolls the feature. </param>
         /// <param name="disenrollmentOn"> The timestamp in UTC when the user disenrolled the feature. </param>
         /// <param name="productFeatures"> The list of product features. </param>
         /// <param name="isSoftwareAssuranceCustomer"> Specifies if this machine is licensed as part of a Software Assurance agreement. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LicenseProfileMachineInstanceView(HybridComputeLicenseStatus? licenseStatus, string licenseChannel, LicenseProfileMachineInstanceViewEsuProperties esuProfile, LicenseProfileSubscriptionStatus? subscriptionStatus, LicenseProfileProductType? productType, DateTimeOffset? billingStartOn, DateTimeOffset? enrollmentOn, DateTimeOffset? disenrollmentOn, IList<HybridComputeProductFeature> productFeatures, bool? isSoftwareAssuranceCustomer, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal LicenseProfileMachineInstanceView(HybridComputeLicenseStatus? licenseStatus, string licenseChannel, LicenseProfileMachineInstanceViewEsuProperties esuProfile, LicenseProfileSubscriptionStatus? subscriptionStatus, LicenseProfileProductType? productType, DateTimeOffset? billingStartOn, DateTimeOffset? billingEndOn, DateTimeOffset? enrollmentOn, DateTimeOffset? disenrollmentOn, IList<HybridComputeProductFeature> productFeatures, bool? isSoftwareAssuranceCustomer, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             LicenseStatus = licenseStatus;
             LicenseChannel = licenseChannel;
@@ -71,6 +72,7 @@ namespace Azure.ResourceManager.HybridCompute.Models
             SubscriptionStatus = subscriptionStatus;
             ProductType = productType;
             BillingStartOn = billingStartOn;
+            BillingEndOn = billingEndOn;
             EnrollmentOn = enrollmentOn;
             DisenrollmentOn = disenrollmentOn;
             ProductFeatures = productFeatures;
@@ -90,6 +92,8 @@ namespace Azure.ResourceManager.HybridCompute.Models
         public LicenseProfileProductType? ProductType { get; set; }
         /// <summary> The timestamp in UTC when the billing starts. </summary>
         public DateTimeOffset? BillingStartOn { get; }
+        /// <summary> The timestamp in UTC when the billing ends. </summary>
+        public DateTimeOffset? BillingEndOn { get; }
         /// <summary> The timestamp in UTC when the user enrolls the feature. </summary>
         public DateTimeOffset? EnrollmentOn { get; }
         /// <summary> The timestamp in UTC when the user disenrolled the feature. </summary>

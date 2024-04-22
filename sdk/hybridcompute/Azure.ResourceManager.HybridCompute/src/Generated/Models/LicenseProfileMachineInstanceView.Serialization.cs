@@ -58,6 +58,11 @@ namespace Azure.ResourceManager.HybridCompute.Models
                 writer.WritePropertyName("billingStartDate"u8);
                 writer.WriteStringValue(BillingStartOn.Value, "O");
             }
+            if (options.Format != "W" && Optional.IsDefined(BillingEndOn))
+            {
+                writer.WritePropertyName("billingEndDate"u8);
+                writer.WriteStringValue(BillingEndOn.Value, "O");
+            }
             if (options.Format != "W" && Optional.IsDefined(EnrollmentOn))
             {
                 writer.WritePropertyName("enrollmentDate"u8);
@@ -131,6 +136,7 @@ namespace Azure.ResourceManager.HybridCompute.Models
             LicenseProfileSubscriptionStatus? subscriptionStatus = default;
             LicenseProfileProductType? productType = default;
             DateTimeOffset? billingStartDate = default;
+            DateTimeOffset? billingEndDate = default;
             DateTimeOffset? enrollmentDate = default;
             DateTimeOffset? disenrollmentDate = default;
             IList<HybridComputeProductFeature> productFeatures = default;
@@ -196,6 +202,15 @@ namespace Azure.ResourceManager.HybridCompute.Models
                                 continue;
                             }
                             billingStartDate = property0.Value.GetDateTimeOffset("O");
+                            continue;
+                        }
+                        if (property0.NameEquals("billingEndDate"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            billingEndDate = property0.Value.GetDateTimeOffset("O");
                             continue;
                         }
                         if (property0.NameEquals("enrollmentDate"u8))
@@ -267,6 +282,7 @@ namespace Azure.ResourceManager.HybridCompute.Models
                 subscriptionStatus,
                 productType,
                 billingStartDate,
+                billingEndDate,
                 enrollmentDate,
                 disenrollmentDate,
                 productFeatures ?? new ChangeTrackingList<HybridComputeProductFeature>(),
