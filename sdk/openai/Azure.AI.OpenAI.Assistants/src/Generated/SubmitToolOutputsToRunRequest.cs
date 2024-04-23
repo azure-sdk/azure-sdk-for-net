@@ -58,10 +58,12 @@ namespace Azure.AI.OpenAI.Assistants
 
         /// <summary> Initializes a new instance of <see cref="SubmitToolOutputsToRunRequest"/>. </summary>
         /// <param name="toolOutputs"> The list of tool outputs requested by tool calls from the specified run. </param>
+        /// <param name="stream"> If `true`, returns a stream of events that happen during the Run as server-sent events, terminating when the Run enters a terminal state with a `data: [DONE]` message. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SubmitToolOutputsToRunRequest(IList<ToolOutput> toolOutputs, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SubmitToolOutputsToRunRequest(IList<ToolOutput> toolOutputs, bool? stream, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ToolOutputs = toolOutputs;
+            Stream = stream;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -72,5 +74,7 @@ namespace Azure.AI.OpenAI.Assistants
 
         /// <summary> The list of tool outputs requested by tool calls from the specified run. </summary>
         public IList<ToolOutput> ToolOutputs { get; }
+        /// <summary> If `true`, returns a stream of events that happen during the Run as server-sent events, terminating when the Run enters a terminal state with a `data: [DONE]` message. </summary>
+        public bool? Stream { get; set; }
     }
 }

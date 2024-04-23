@@ -50,6 +50,10 @@ namespace Azure.AI.OpenAI.Assistants
         /// <param name="id"> The identifier, which can be referenced in API endpoints. </param>
         /// <param name="createdAt"> The Unix timestamp, in seconds, representing when this object was created. </param>
         /// <param name="threadId"> The ID of the thread that this message belongs to. </param>
+        /// <param name="status"> The status of the message. </param>
+        /// <param name="incompleteDetails"> On an incomplete message, details about why the message is incomplete. </param>
+        /// <param name="completedAt"> The Unix timestamp (in seconds) for when the message was completed. </param>
+        /// <param name="incompleteAt"> The Unix timestamp (in seconds) for when the message was marked as incomplete. </param>
         /// <param name="role"> The role associated with the assistant thread message. </param>
         /// <param name="contentItems">
         /// The list of content items associated with the assistant thread message.
@@ -62,7 +66,7 @@ namespace Azure.AI.OpenAI.Assistants
         /// </param>
         /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="id"/>, <paramref name="threadId"/>, <paramref name="contentItems"/> or <paramref name="fileIds"/> is null. </exception>
-        internal ThreadMessage(string id, DateTimeOffset createdAt, string threadId, MessageRole role, IEnumerable<MessageContent> contentItems, IEnumerable<string> fileIds, IReadOnlyDictionary<string, string> metadata)
+        internal ThreadMessage(string id, DateTimeOffset createdAt, string threadId, MessageStatus status, MessageIncompleteDetailsReason? incompleteDetails, DateTimeOffset? completedAt, DateTimeOffset? incompleteAt, MessageRole role, IEnumerable<MessageContent> contentItems, IEnumerable<string> fileIds, IReadOnlyDictionary<string, string> metadata)
         {
             Argument.AssertNotNull(id, nameof(id));
             Argument.AssertNotNull(threadId, nameof(threadId));
@@ -72,6 +76,10 @@ namespace Azure.AI.OpenAI.Assistants
             Id = id;
             CreatedAt = createdAt;
             ThreadId = threadId;
+            Status = status;
+            IncompleteDetails = incompleteDetails;
+            CompletedAt = completedAt;
+            IncompleteAt = incompleteAt;
             Role = role;
             ContentItems = contentItems.ToList();
             FileIds = fileIds.ToList();
@@ -83,6 +91,10 @@ namespace Azure.AI.OpenAI.Assistants
         /// <param name="object"> The object type, which is always 'thread.message'. </param>
         /// <param name="createdAt"> The Unix timestamp, in seconds, representing when this object was created. </param>
         /// <param name="threadId"> The ID of the thread that this message belongs to. </param>
+        /// <param name="status"> The status of the message. </param>
+        /// <param name="incompleteDetails"> On an incomplete message, details about why the message is incomplete. </param>
+        /// <param name="completedAt"> The Unix timestamp (in seconds) for when the message was completed. </param>
+        /// <param name="incompleteAt"> The Unix timestamp (in seconds) for when the message was marked as incomplete. </param>
         /// <param name="role"> The role associated with the assistant thread message. </param>
         /// <param name="contentItems">
         /// The list of content items associated with the assistant thread message.
@@ -97,12 +109,16 @@ namespace Azure.AI.OpenAI.Assistants
         /// </param>
         /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ThreadMessage(string id, string @object, DateTimeOffset createdAt, string threadId, MessageRole role, IReadOnlyList<MessageContent> contentItems, string assistantId, string runId, IReadOnlyList<string> fileIds, IReadOnlyDictionary<string, string> metadata, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ThreadMessage(string id, string @object, DateTimeOffset createdAt, string threadId, MessageStatus status, MessageIncompleteDetailsReason? incompleteDetails, DateTimeOffset? completedAt, DateTimeOffset? incompleteAt, MessageRole role, IReadOnlyList<MessageContent> contentItems, string assistantId, string runId, IReadOnlyList<string> fileIds, IReadOnlyDictionary<string, string> metadata, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Id = id;
             Object = @object;
             CreatedAt = createdAt;
             ThreadId = threadId;
+            Status = status;
+            IncompleteDetails = incompleteDetails;
+            CompletedAt = completedAt;
+            IncompleteAt = incompleteAt;
             Role = role;
             ContentItems = contentItems;
             AssistantId = assistantId;
@@ -124,6 +140,14 @@ namespace Azure.AI.OpenAI.Assistants
         public DateTimeOffset CreatedAt { get; }
         /// <summary> The ID of the thread that this message belongs to. </summary>
         public string ThreadId { get; }
+        /// <summary> The status of the message. </summary>
+        public MessageStatus Status { get; }
+        /// <summary> On an incomplete message, details about why the message is incomplete. </summary>
+        public MessageIncompleteDetailsReason? IncompleteDetails { get; }
+        /// <summary> The Unix timestamp (in seconds) for when the message was completed. </summary>
+        public DateTimeOffset? CompletedAt { get; }
+        /// <summary> The Unix timestamp (in seconds) for when the message was marked as incomplete. </summary>
+        public DateTimeOffset? IncompleteAt { get; }
         /// <summary> The role associated with the assistant thread message. </summary>
         public MessageRole Role { get; }
         /// <summary>
