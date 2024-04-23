@@ -33,6 +33,11 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 writer.WritePropertyName("sqlDedicatedGatewayEndpoint"u8);
                 writer.WriteStringValue(SqlDedicatedGatewayEndpoint);
             }
+            if (Optional.IsDefined(DedicatedGatewayType))
+            {
+                writer.WritePropertyName("dedicatedGatewayType"u8);
+                writer.WriteStringValue(DedicatedGatewayType.Value.ToString());
+            }
             if (options.Format != "W" && Optional.IsCollectionDefined(Locations))
             {
                 writer.WritePropertyName("locations"u8);
@@ -101,6 +106,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 return null;
             }
             string sqlDedicatedGatewayEndpoint = default;
+            DedicatedGatewayType? dedicatedGatewayType = default;
             IReadOnlyList<SqlDedicatedGatewayRegionalService> locations = default;
             DateTimeOffset? creationTime = default;
             CosmosDBServiceSize? instanceSize = default;
@@ -114,6 +120,15 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 if (property.NameEquals("sqlDedicatedGatewayEndpoint"u8))
                 {
                     sqlDedicatedGatewayEndpoint = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("dedicatedGatewayType"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    dedicatedGatewayType = new DedicatedGatewayType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("locations"u8))
@@ -182,6 +197,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 status,
                 additionalProperties,
                 sqlDedicatedGatewayEndpoint,
+                dedicatedGatewayType,
                 locations ?? new ChangeTrackingList<SqlDedicatedGatewayRegionalService>());
         }
 
@@ -215,6 +231,20 @@ namespace Azure.ResourceManager.CosmosDB.Models
                     {
                         builder.AppendLine($"'{SqlDedicatedGatewayEndpoint}'");
                     }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(DedicatedGatewayType), out propertyOverride);
+            if (Optional.IsDefined(DedicatedGatewayType) || hasPropertyOverride)
+            {
+                builder.Append("  dedicatedGatewayType: ");
+                if (hasPropertyOverride)
+                {
+                    builder.AppendLine($"{propertyOverride}");
+                }
+                else
+                {
+                    builder.AppendLine($"'{DedicatedGatewayType.Value.ToString()}'");
                 }
             }
 
