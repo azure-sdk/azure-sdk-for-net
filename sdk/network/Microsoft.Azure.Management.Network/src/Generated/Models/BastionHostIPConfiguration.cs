@@ -33,9 +33,9 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Initializes a new instance of the BastionHostIPConfiguration class.
         /// </summary>
         /// <param name="subnet">Reference of the subnet resource.</param>
-        /// <param name="publicIPAddress">Reference of the PublicIP
-        /// resource.</param>
         /// <param name="id">Resource ID.</param>
+        /// <param name="publicIPAddress">Reference of the PublicIP resource.
+        /// Null for private only bastion.</param>
         /// <param name="provisioningState">The provisioning state of the
         /// bastion host IP configuration resource. Possible values include:
         /// 'Succeeded', 'Updating', 'Deleting', 'Failed'</param>
@@ -47,7 +47,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
         /// <param name="type">Ip configuration type.</param>
-        public BastionHostIPConfiguration(SubResource subnet, SubResource publicIPAddress, string id = default(string), string provisioningState = default(string), string privateIPAllocationMethod = default(string), string name = default(string), string etag = default(string), string type = default(string))
+        public BastionHostIPConfiguration(SubResource subnet, string id = default(string), SubResource publicIPAddress = default(SubResource), string provisioningState = default(string), string privateIPAllocationMethod = default(string), string name = default(string), string etag = default(string), string type = default(string))
             : base(id)
         {
             Subnet = subnet;
@@ -72,7 +72,8 @@ namespace Microsoft.Azure.Management.Network.Models
         public SubResource Subnet { get; set; }
 
         /// <summary>
-        /// Gets or sets reference of the PublicIP resource.
+        /// Gets or sets reference of the PublicIP resource. Null for private
+        /// only bastion.
         /// </summary>
         [JsonProperty(PropertyName = "properties.publicIPAddress")]
         public SubResource PublicIPAddress { get; set; }
@@ -123,10 +124,6 @@ namespace Microsoft.Azure.Management.Network.Models
             if (Subnet == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "Subnet");
-            }
-            if (PublicIPAddress == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "PublicIPAddress");
             }
         }
     }
