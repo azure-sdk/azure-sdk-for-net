@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Developer.DevCenter.Models
 {
-    /// <summary> A catalog. </summary>
-    public partial class DevCenterCatalog
+    /// <summary> Information about the result of a repair operation on a Dev Box. </summary>
+    internal partial class DevBoxRepairOperationResult
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,35 +45,29 @@ namespace Azure.Developer.DevCenter.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="DevCenterCatalog"/>. </summary>
-        /// <param name="uri"> The unique URI of the catalog. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="uri"/> is null. </exception>
-        internal DevCenterCatalog(Uri uri)
+        /// <summary> Initializes a new instance of <see cref="DevBoxRepairOperationResult"/>. </summary>
+        internal DevBoxRepairOperationResult()
         {
-            Argument.AssertNotNull(uri, nameof(uri));
-
-            Uri = uri;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DevCenterCatalog"/>. </summary>
-        /// <param name="uri"> The unique URI of the catalog. </param>
-        /// <param name="name"> Name of the catalog. </param>
+        /// <summary> Initializes a new instance of <see cref="DevBoxRepairOperationResult"/>. </summary>
+        /// <param name="repairOutcome"> The outcome of the repair operation. </param>
+        /// <param name="code"> The result code associated with the repair operation. </param>
+        /// <param name="message"> The result message associated with the repair operation. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DevCenterCatalog(Uri uri, string name, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DevBoxRepairOperationResult(string repairOutcome, string code, string message, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Uri = uri;
-            Name = name;
+            RepairOutcome = repairOutcome;
+            Code = code;
+            Message = message;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DevCenterCatalog"/> for deserialization. </summary>
-        internal DevCenterCatalog()
-        {
-        }
-
-        /// <summary> The unique URI of the catalog. </summary>
-        public Uri Uri { get; }
-        /// <summary> Name of the catalog. </summary>
-        public string Name { get; }
+        /// <summary> The outcome of the repair operation. </summary>
+        public string RepairOutcome { get; }
+        /// <summary> The result code associated with the repair operation. </summary>
+        public string Code { get; }
+        /// <summary> The result message associated with the repair operation. </summary>
+        public string Message { get; }
     }
 }
