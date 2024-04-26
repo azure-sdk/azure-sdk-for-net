@@ -89,6 +89,15 @@ namespace Azure.AI.OpenAI.Assistants
             {
                 writer.WriteNull("failed_at");
             }
+            if (Usage != null)
+            {
+                writer.WritePropertyName("usage"u8);
+                writer.WriteObjectValue(Usage, options);
+            }
+            else
+            {
+                writer.WriteNull("usage");
+            }
             if (Metadata != null && Optional.IsCollectionDefined(Metadata))
             {
                 writer.WritePropertyName("metadata"u8);
@@ -156,6 +165,7 @@ namespace Azure.AI.OpenAI.Assistants
             DateTimeOffset? completedAt = default;
             DateTimeOffset? cancelledAt = default;
             DateTimeOffset? failedAt = default;
+            RunStepCompletionUsage usage = default;
             IReadOnlyDictionary<string, string> metadata = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -236,6 +246,16 @@ namespace Azure.AI.OpenAI.Assistants
                     DeserializeNullableDateTimeOffset(property, ref failedAt);
                     continue;
                 }
+                if (property.NameEquals("usage"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        usage = null;
+                        continue;
+                    }
+                    usage = RunStepCompletionUsage.DeserializeRunStepCompletionUsage(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("metadata"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -272,6 +292,7 @@ namespace Azure.AI.OpenAI.Assistants
                 completedAt,
                 cancelledAt,
                 failedAt,
+                usage,
                 metadata,
                 serializedAdditionalRawData);
         }
