@@ -16,7 +16,13 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class AffinityType
     {
+        /// <summary>
+        /// is affinity
+        /// </summary>
         public const string Affinity = "Affinity";
+        /// <summary>
+        /// is anti-affinity
+        /// </summary>
         public const string AntiAffinity = "AntiAffinity";
     }
 }
