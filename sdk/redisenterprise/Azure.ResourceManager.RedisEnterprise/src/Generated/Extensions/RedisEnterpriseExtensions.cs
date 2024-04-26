@@ -120,7 +120,7 @@ namespace Azure.ResourceManager.RedisEnterprise
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -133,7 +133,7 @@ namespace Azure.ResourceManager.RedisEnterprise
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="clusterName"> The name of the RedisEnterprise cluster. </param>
+        /// <param name="clusterName"> The name of the Redis Enterprise cluster. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> or <paramref name="clusterName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="clusterName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -158,7 +158,7 @@ namespace Azure.ResourceManager.RedisEnterprise
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.RedisEnterprise
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="clusterName"> The name of the RedisEnterprise cluster. </param>
+        /// <param name="clusterName"> The name of the Redis Enterprise cluster. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> or <paramref name="clusterName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="clusterName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -196,7 +196,7 @@ namespace Azure.ResourceManager.RedisEnterprise
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-03-01-preview</description>
         /// </item>
         /// </list>
         /// <item>
@@ -230,7 +230,7 @@ namespace Azure.ResourceManager.RedisEnterprise
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-03-01-preview</description>
         /// </item>
         /// </list>
         /// <item>
@@ -264,7 +264,7 @@ namespace Azure.ResourceManager.RedisEnterprise
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -300,7 +300,7 @@ namespace Azure.ResourceManager.RedisEnterprise
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

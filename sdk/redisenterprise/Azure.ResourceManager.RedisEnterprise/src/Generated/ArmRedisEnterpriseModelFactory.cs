@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Azure.Core;
 using Azure.ResourceManager.Models;
@@ -147,8 +148,10 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         /// <param name="persistence"> Persistence settings. </param>
         /// <param name="modules"> Optional set of redis modules to enable in this database - modules can only be added at creation time. </param>
         /// <param name="geoReplication"> Optional set of properties to configure geo replication for this database. </param>
+        /// <param name="redisVersion"> Version of Redis the database is running on, e.g. '6.0'. </param>
+        /// <param name="deferUpgrade"> Option to defer upgrade when newest version is released - default is NotDeferred. Learn more:  https://aka.ms/redisversionupgrade. </param>
         /// <returns> A new <see cref="RedisEnterprise.RedisEnterpriseDatabaseData"/> instance for mocking. </returns>
-        public static RedisEnterpriseDatabaseData RedisEnterpriseDatabaseData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, RedisEnterpriseClientProtocol? clientProtocol = null, int? port = null, RedisEnterpriseProvisioningStatus? provisioningState = null, RedisEnterpriseClusterResourceState? resourceState = null, RedisEnterpriseClusteringPolicy? clusteringPolicy = null, RedisEnterpriseEvictionPolicy? evictionPolicy = null, RedisPersistenceSettings persistence = null, IEnumerable<RedisEnterpriseModule> modules = null, RedisEnterpriseDatabaseGeoReplication geoReplication = null)
+        public static RedisEnterpriseDatabaseData RedisEnterpriseDatabaseData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, RedisEnterpriseClientProtocol? clientProtocol = null, int? port = null, RedisEnterpriseProvisioningStatus? provisioningState = null, RedisEnterpriseClusterResourceState? resourceState = null, RedisEnterpriseClusteringPolicy? clusteringPolicy = null, RedisEnterpriseEvictionPolicy? evictionPolicy = null, RedisPersistenceSettings persistence = null, IEnumerable<RedisEnterpriseModule> modules = null, RedisEnterpriseDatabaseGeoReplication geoReplication = null, string redisVersion = null, DeferUpgradeSetting? deferUpgrade = null)
         {
             modules ??= new List<RedisEnterpriseModule>();
 
@@ -166,6 +169,8 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 persistence,
                 modules?.ToList(),
                 geoReplication,
+                redisVersion,
+                deferUpgrade,
                 serializedAdditionalRawData: null);
         }
 
@@ -198,8 +203,10 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         /// <param name="persistence"> Persistence settings. </param>
         /// <param name="modules"> Optional set of redis modules to enable in this database - modules can only be added at creation time. </param>
         /// <param name="geoReplication"> Optional set of properties to configure geo replication for this database. </param>
+        /// <param name="redisVersion"> Version of Redis the database is running on, e.g. '6.0'. </param>
+        /// <param name="deferUpgrade"> Option to defer upgrade when newest version is released - default is NotDeferred. Learn more:  https://aka.ms/redisversionupgrade. </param>
         /// <returns> A new <see cref="Models.RedisEnterpriseDatabasePatch"/> instance for mocking. </returns>
-        public static RedisEnterpriseDatabasePatch RedisEnterpriseDatabasePatch(RedisEnterpriseClientProtocol? clientProtocol = null, int? port = null, RedisEnterpriseProvisioningStatus? provisioningState = null, RedisEnterpriseClusterResourceState? resourceState = null, RedisEnterpriseClusteringPolicy? clusteringPolicy = null, RedisEnterpriseEvictionPolicy? evictionPolicy = null, RedisPersistenceSettings persistence = null, IEnumerable<RedisEnterpriseModule> modules = null, RedisEnterpriseDatabaseGeoReplication geoReplication = null)
+        public static RedisEnterpriseDatabasePatch RedisEnterpriseDatabasePatch(RedisEnterpriseClientProtocol? clientProtocol = null, int? port = null, RedisEnterpriseProvisioningStatus? provisioningState = null, RedisEnterpriseClusterResourceState? resourceState = null, RedisEnterpriseClusteringPolicy? clusteringPolicy = null, RedisEnterpriseEvictionPolicy? evictionPolicy = null, RedisPersistenceSettings persistence = null, IEnumerable<RedisEnterpriseModule> modules = null, RedisEnterpriseDatabaseGeoReplication geoReplication = null, string redisVersion = null, DeferUpgradeSetting? deferUpgrade = null)
         {
             modules ??= new List<RedisEnterpriseModule>();
 
@@ -213,6 +220,8 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 persistence,
                 modules?.ToList(),
                 geoReplication,
+                redisVersion,
+                deferUpgrade,
                 serializedAdditionalRawData: null);
         }
 
@@ -248,6 +257,44 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 requiredMembers?.ToList(),
                 requiredZoneNames?.ToList(),
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.RedisEnterprise.RedisEnterpriseDatabaseData" />. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="clientProtocol"> Specifies whether redis clients can connect using TLS-encrypted or plaintext redis protocols. Default is TLS-encrypted. </param>
+        /// <param name="port"> TCP port of the database endpoint. Specified at create time. Defaults to an available port. </param>
+        /// <param name="provisioningState"> Current provisioning status of the database. </param>
+        /// <param name="resourceState"> Current resource status of the database. </param>
+        /// <param name="clusteringPolicy"> Clustering policy - default is OSSCluster. Specified at create time. </param>
+        /// <param name="evictionPolicy"> Redis eviction policy - default is VolatileLRU. </param>
+        /// <param name="persistence"> Persistence settings. </param>
+        /// <param name="modules"> Optional set of redis modules to enable in this database - modules can only be added at creation time. </param>
+        /// <param name="geoReplication"> Optional set of properties to configure geo replication for this database. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.RedisEnterprise.RedisEnterpriseDatabaseData" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static RedisEnterpriseDatabaseData RedisEnterpriseDatabaseData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, RedisEnterpriseClientProtocol? clientProtocol, int? port, RedisEnterpriseProvisioningStatus? provisioningState, RedisEnterpriseClusterResourceState? resourceState, RedisEnterpriseClusteringPolicy? clusteringPolicy, RedisEnterpriseEvictionPolicy? evictionPolicy, RedisPersistenceSettings persistence, IEnumerable<RedisEnterpriseModule> modules, RedisEnterpriseDatabaseGeoReplication geoReplication)
+        {
+            return RedisEnterpriseDatabaseData(id: id, name: name, resourceType: resourceType, systemData: systemData, clientProtocol: clientProtocol, port: port, provisioningState: provisioningState, resourceState: resourceState, clusteringPolicy: clusteringPolicy, evictionPolicy: evictionPolicy, persistence: persistence, modules: modules, geoReplication: geoReplication, redisVersion: default, deferUpgrade: default);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseDatabasePatch" />. </summary>
+        /// <param name="clientProtocol"> Specifies whether redis clients can connect using TLS-encrypted or plaintext redis protocols. Default is TLS-encrypted. </param>
+        /// <param name="port"> TCP port of the database endpoint. Specified at create time. Defaults to an available port. </param>
+        /// <param name="provisioningState"> Current provisioning status of the database. </param>
+        /// <param name="resourceState"> Current resource status of the database. </param>
+        /// <param name="clusteringPolicy"> Clustering policy - default is OSSCluster. Specified at create time. </param>
+        /// <param name="evictionPolicy"> Redis eviction policy - default is VolatileLRU. </param>
+        /// <param name="persistence"> Persistence settings. </param>
+        /// <param name="modules"> Optional set of redis modules to enable in this database - modules can only be added at creation time. </param>
+        /// <param name="geoReplication"> Optional set of properties to configure geo replication for this database. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseDatabasePatch" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static RedisEnterpriseDatabasePatch RedisEnterpriseDatabasePatch(RedisEnterpriseClientProtocol? clientProtocol, int? port, RedisEnterpriseProvisioningStatus? provisioningState, RedisEnterpriseClusterResourceState? resourceState, RedisEnterpriseClusteringPolicy? clusteringPolicy, RedisEnterpriseEvictionPolicy? evictionPolicy, RedisPersistenceSettings persistence, IEnumerable<RedisEnterpriseModule> modules, RedisEnterpriseDatabaseGeoReplication geoReplication)
+        {
+            return RedisEnterpriseDatabasePatch(clientProtocol: clientProtocol, port: port, provisioningState: provisioningState, resourceState: resourceState, clusteringPolicy: clusteringPolicy, evictionPolicy: evictionPolicy, persistence: persistence, modules: modules, geoReplication: geoReplication, redisVersion: default, deferUpgrade: default);
         }
     }
 }
