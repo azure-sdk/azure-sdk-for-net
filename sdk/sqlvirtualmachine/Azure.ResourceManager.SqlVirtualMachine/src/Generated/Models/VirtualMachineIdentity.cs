@@ -7,11 +7,12 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.SqlVirtualMachine.Models
 {
-    /// <summary> Configure SQL best practices Assessment for databases in your SQL virtual machine. </summary>
-    public partial class SqlVmAssessmentSettings
+    /// <summary> Virtual Machine Identity details used for Sql IaaS extension configurations. </summary>
+    public partial class VirtualMachineIdentity
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,29 +46,25 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SqlVmAssessmentSettings"/>. </summary>
-        public SqlVmAssessmentSettings()
+        /// <summary> Initializes a new instance of <see cref="VirtualMachineIdentity"/>. </summary>
+        public VirtualMachineIdentity()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="SqlVmAssessmentSettings"/>. </summary>
-        /// <param name="isEnabled"> Enable or disable SQL best practices Assessment feature on SQL virtual machine. </param>
-        /// <param name="runImmediately"> Run SQL best practices Assessment immediately on SQL virtual machine. </param>
-        /// <param name="schedule"> Schedule for SQL best practices Assessment. </param>
+        /// <summary> Initializes a new instance of <see cref="VirtualMachineIdentity"/>. </summary>
+        /// <param name="vmIdentityType"> Identity type of the virtual machine. Specify None to opt-out of Managed Identities. </param>
+        /// <param name="resourceId"> ARM Resource Id of the identity. Only required when UserAssigned identity is selected. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SqlVmAssessmentSettings(bool? isEnabled, bool? runImmediately, SqlVmAssessmentSchedule schedule, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VirtualMachineIdentity(VmIdentityType? vmIdentityType, ResourceIdentifier resourceId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            IsEnabled = isEnabled;
-            RunImmediately = runImmediately;
-            Schedule = schedule;
+            VmIdentityType = vmIdentityType;
+            ResourceId = resourceId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Enable or disable SQL best practices Assessment feature on SQL virtual machine. </summary>
-        public bool? IsEnabled { get; set; }
-        /// <summary> Run SQL best practices Assessment immediately on SQL virtual machine. </summary>
-        public bool? RunImmediately { get; set; }
-        /// <summary> Schedule for SQL best practices Assessment. </summary>
-        public SqlVmAssessmentSchedule Schedule { get; set; }
+        /// <summary> Identity type of the virtual machine. Specify None to opt-out of Managed Identities. </summary>
+        public VmIdentityType? VmIdentityType { get; set; }
+        /// <summary> ARM Resource Id of the identity. Only required when UserAssigned identity is selected. </summary>
+        public ResourceIdentifier ResourceId { get; set; }
     }
 }
