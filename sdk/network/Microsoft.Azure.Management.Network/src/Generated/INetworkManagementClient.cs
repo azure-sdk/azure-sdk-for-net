@@ -271,6 +271,21 @@ namespace Microsoft.Azure.Management.Network
         IFirewallPolicyIdpsSignaturesFilterValuesOperations FirewallPolicyIdpsSignaturesFilterValues { get; }
 
         /// <summary>
+        /// Gets the IFirewallPolicyDraftsOperations.
+        /// </summary>
+        IFirewallPolicyDraftsOperations FirewallPolicyDrafts { get; }
+
+        /// <summary>
+        /// Gets the IFirewallPolicyDeploymentsOperations.
+        /// </summary>
+        IFirewallPolicyDeploymentsOperations FirewallPolicyDeployments { get; }
+
+        /// <summary>
+        /// Gets the IFirewallPolicyRuleCollectionGroupDraftsOperations.
+        /// </summary>
+        IFirewallPolicyRuleCollectionGroupDraftsOperations FirewallPolicyRuleCollectionGroupDrafts { get; }
+
+        /// <summary>
         /// Gets the IIpAllocationsOperations.
         /// </summary>
         IIpAllocationsOperations IpAllocations { get; }
@@ -701,6 +716,11 @@ namespace Microsoft.Azure.Management.Network
         IExpressRouteConnectionsOperations ExpressRouteConnections { get; }
 
         /// <summary>
+        /// Gets the INetworkVirtualApplianceConnectionsOperations.
+        /// </summary>
+        INetworkVirtualApplianceConnectionsOperations NetworkVirtualApplianceConnections { get; }
+
+        /// <summary>
         /// Gets the IVirtualHubBgpConnectionOperations.
         /// </summary>
         IVirtualHubBgpConnectionOperations VirtualHubBgpConnection { get; }
@@ -741,7 +761,8 @@ namespace Microsoft.Azure.Management.Network
         /// The name of the Bastion Host.
         /// </param>
         /// <param name='bslRequest'>
-        /// Post request for all the Bastion Shareable Link endpoints.
+        /// Post request for Create/Delete/Get Bastion Shareable Link
+        /// endpoints.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -762,7 +783,8 @@ namespace Microsoft.Azure.Management.Network
         /// The name of the Bastion Host.
         /// </param>
         /// <param name='bslRequest'>
-        /// Post request for all the Bastion Shareable Link endpoints.
+        /// Post request for Create/Delete/Get Bastion Shareable Link
+        /// endpoints.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -771,6 +793,27 @@ namespace Microsoft.Azure.Management.Network
         /// The cancellation token.
         /// </param>
         Task<AzureOperationResponse> DeleteBastionShareableLinkWithHttpMessagesAsync(string resourceGroupName, string bastionHostName, BastionShareableLinkListRequest bslRequest, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Deletes the Bastion Shareable Links for all the tokens specified in
+        /// the request.
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group.
+        /// </param>
+        /// <param name='bastionHostName'>
+        /// The name of the Bastion Host.
+        /// </param>
+        /// <param name='bslTokenRequest'>
+        /// Post request for Delete Bastion Shareable Link By Token endpoint.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationHeaderResponse<DeleteBastionShareableLinkByTokenHeaders>> DeleteBastionShareableLinkByTokenWithHttpMessagesAsync(string resourceGroupName, string bastionHostName, BastionShareableLinkTokenListRequest bslTokenRequest, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Return the Bastion Shareable Links for all the VMs specified in the
@@ -783,7 +826,8 @@ namespace Microsoft.Azure.Management.Network
         /// The name of the Bastion Host.
         /// </param>
         /// <param name='bslRequest'>
-        /// Post request for all the Bastion Shareable Link endpoints.
+        /// Post request for Create/Delete/Get Bastion Shareable Link
+        /// endpoints.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1014,7 +1058,8 @@ namespace Microsoft.Azure.Management.Network
         /// The name of the Bastion Host.
         /// </param>
         /// <param name='bslRequest'>
-        /// Post request for all the Bastion Shareable Link endpoints.
+        /// Post request for Create/Delete/Get Bastion Shareable Link
+        /// endpoints.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1035,7 +1080,8 @@ namespace Microsoft.Azure.Management.Network
         /// The name of the Bastion Host.
         /// </param>
         /// <param name='bslRequest'>
-        /// Post request for all the Bastion Shareable Link endpoints.
+        /// Post request for Create/Delete/Get Bastion Shareable Link
+        /// endpoints.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1044,6 +1090,27 @@ namespace Microsoft.Azure.Management.Network
         /// The cancellation token.
         /// </param>
         Task<AzureOperationResponse> BeginDeleteBastionShareableLinkWithHttpMessagesAsync(string resourceGroupName, string bastionHostName, BastionShareableLinkListRequest bslRequest, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Deletes the Bastion Shareable Links for all the tokens specified in
+        /// the request.
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group.
+        /// </param>
+        /// <param name='bastionHostName'>
+        /// The name of the Bastion Host.
+        /// </param>
+        /// <param name='bslTokenRequest'>
+        /// Post request for Delete Bastion Shareable Link By Token endpoint.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationHeaderResponse<DeleteBastionShareableLinkByTokenHeaders>> BeginDeleteBastionShareableLinkByTokenWithHttpMessagesAsync(string resourceGroupName, string bastionHostName, BastionShareableLinkTokenListRequest bslTokenRequest, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Returns the list of currently active sessions on the Bastion.
