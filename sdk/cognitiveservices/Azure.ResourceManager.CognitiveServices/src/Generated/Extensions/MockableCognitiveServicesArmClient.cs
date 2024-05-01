@@ -117,5 +117,53 @@ namespace Azure.ResourceManager.CognitiveServices.Mocking
             CommitmentPlanAccountAssociationResource.ValidateResourceId(id);
             return new CommitmentPlanAccountAssociationResource(Client, id);
         }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="EncryptionScopeResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="EncryptionScopeResource.CreateResourceIdentifier" /> to create an <see cref="EncryptionScopeResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="EncryptionScopeResource"/> object. </returns>
+        public virtual EncryptionScopeResource GetEncryptionScopeResource(ResourceIdentifier id)
+        {
+            EncryptionScopeResource.ValidateResourceId(id);
+            return new EncryptionScopeResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="RaiPolicyResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="RaiPolicyResource.CreateResourceIdentifier" /> to create a <see cref="RaiPolicyResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="RaiPolicyResource"/> object. </returns>
+        public virtual RaiPolicyResource GetRaiPolicyResource(ResourceIdentifier id)
+        {
+            RaiPolicyResource.ValidateResourceId(id);
+            return new RaiPolicyResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="RaiBlocklistResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="RaiBlocklistResource.CreateResourceIdentifier" /> to create a <see cref="RaiBlocklistResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="RaiBlocklistResource"/> object. </returns>
+        public virtual RaiBlocklistResource GetRaiBlocklistResource(ResourceIdentifier id)
+        {
+            RaiBlocklistResource.ValidateResourceId(id);
+            return new RaiBlocklistResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="RaiBlocklistItemResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="RaiBlocklistItemResource.CreateResourceIdentifier" /> to create a <see cref="RaiBlocklistItemResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="RaiBlocklistItemResource"/> object. </returns>
+        public virtual RaiBlocklistItemResource GetRaiBlocklistItemResource(ResourceIdentifier id)
+        {
+            RaiBlocklistItemResource.ValidateResourceId(id);
+            return new RaiBlocklistItemResource(Client, id);
+        }
     }
 }
