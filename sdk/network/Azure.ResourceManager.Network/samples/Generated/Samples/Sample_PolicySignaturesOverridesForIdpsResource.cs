@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_PatchSignatureOverrides()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/FirewallPolicySignatureOverridesPatch.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2024-01-01/examples/FirewallPolicySignatureOverridesPatch.json
             // this example is just showing the usage of "FirewallPolicyIdpsSignaturesOverrides_Patch" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -39,7 +39,7 @@ namespace Azure.ResourceManager.Network.Samples
             PolicySignaturesOverridesForIdpsData data = new PolicySignaturesOverridesForIdpsData()
             {
                 Name = "default",
-                Id = new ResourceIdentifier("/subscriptions/e747cc13-97d4-4a79-b463-42d7f4e558f2/resourceGroups/rg1/providers/Microsoft.Network/firewallPolicies/firewallPolicy/signatureOverrides/default"),
+                Id = new ResourceIdentifier("/subscriptions/e747cc13-97d4-4a79-b463-42d7f4e558f2/resourceGroups/rg1/providers/Microsoft.Network/firewallPolicies/firewallPolicy/intrusionDetectionSignaturesOverrides/default"),
                 ResourceType = new ResourceType("Microsoft.Network/firewallPolicies/signatureOverrides"),
                 Signatures =
 {
@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_PutSignatureOverrides()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/FirewallPolicySignatureOverridesPut.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2024-01-01/examples/FirewallPolicySignatureOverridesPut.json
             // this example is just showing the usage of "FirewallPolicyIdpsSignaturesOverrides_Put" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -104,7 +104,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetSignatureOverrides()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-11-01/examples/FirewallPolicySignatureOverridesGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2024-01-01/examples/FirewallPolicySignatureOverridesGet.json
             // this example is just showing the usage of "FirewallPolicyIdpsSignaturesOverrides_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
