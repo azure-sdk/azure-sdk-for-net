@@ -33,8 +33,9 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="enabled">Indicates if encryption is enabled on the
         /// virtual network.</param>
         /// <param name="enforcement">If the encrypted VNet allows VM that does
-        /// not support encryption. Possible values include: 'DropUnencrypted',
-        /// 'AllowUnencrypted'</param>
+        /// not support encryption. This field is for future support, only
+        /// supported value at this time is AllowUnencrypted. Possible values
+        /// include: 'DropUnencrypted', 'AllowUnencrypted'</param>
         public VirtualNetworkEncryption(bool enabled, string enforcement = default(string))
         {
             Enabled = enabled;
@@ -56,8 +57,9 @@ namespace Microsoft.Azure.Management.Network.Models
 
         /// <summary>
         /// Gets or sets if the encrypted VNet allows VM that does not support
-        /// encryption. Possible values include: 'DropUnencrypted',
-        /// 'AllowUnencrypted'
+        /// encryption. This field is for future support, only supported value
+        /// at this time is AllowUnencrypted. Possible values include:
+        /// 'DropUnencrypted', 'AllowUnencrypted'
         /// </summary>
         [JsonProperty(PropertyName = "enforcement")]
         public string Enforcement { get; set; }

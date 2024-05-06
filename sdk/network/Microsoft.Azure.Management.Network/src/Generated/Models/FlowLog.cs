@@ -57,7 +57,8 @@ namespace Microsoft.Azure.Management.Network.Models
         /// 'Failed'</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public FlowLog(string targetResourceId, string storageId, string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), string targetResourceGuid = default(string), bool? enabled = default(bool?), RetentionPolicyParameters retentionPolicy = default(RetentionPolicyParameters), FlowLogFormatParameters format = default(FlowLogFormatParameters), TrafficAnalyticsProperties flowAnalyticsConfiguration = default(TrafficAnalyticsProperties), string provisioningState = default(string), string etag = default(string))
+        /// <param name="identity">FlowLog resource Managed Identity</param>
+        public FlowLog(string targetResourceId, string storageId, string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), string targetResourceGuid = default(string), bool? enabled = default(bool?), RetentionPolicyParameters retentionPolicy = default(RetentionPolicyParameters), FlowLogFormatParameters format = default(FlowLogFormatParameters), TrafficAnalyticsProperties flowAnalyticsConfiguration = default(TrafficAnalyticsProperties), string provisioningState = default(string), string etag = default(string), ManagedServiceIdentity identity = default(ManagedServiceIdentity))
             : base(id, name, type, location, tags)
         {
             TargetResourceId = targetResourceId;
@@ -69,6 +70,7 @@ namespace Microsoft.Azure.Management.Network.Models
             FlowAnalyticsConfiguration = flowAnalyticsConfiguration;
             ProvisioningState = provisioningState;
             Etag = etag;
+            Identity = identity;
             CustomInit();
         }
 
@@ -137,6 +139,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "etag")]
         public string Etag { get; private set; }
+
+        /// <summary>
+        /// Gets or sets flowLog resource Managed Identity
+        /// </summary>
+        [JsonProperty(PropertyName = "identity")]
+        public ManagedServiceIdentity Identity { get; set; }
 
         /// <summary>
         /// Validate the object.
