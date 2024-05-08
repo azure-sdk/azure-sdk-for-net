@@ -16,7 +16,13 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class AvailabilityStrategy
     {
+        /// <summary>
+        /// in single zone
+        /// </summary>
         public const string SingleZone = "SingleZone";
+        /// <summary>
+        /// in two zones
+        /// </summary>
         public const string DualZone = "DualZone";
     }
 }

@@ -24,7 +24,7 @@ namespace Microsoft.Azure.Management.Avs
     public partial interface ICloudLinksOperations
     {
         /// <summary>
-        /// List cloud link in a private cloud
+        /// List CloudLink resources by PrivateCloud
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -38,7 +38,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -49,7 +49,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<IPage<CloudLink>>> ListWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Get an cloud link by name in a private cloud
+        /// Get a CloudLink
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -58,7 +58,7 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='cloudLinkName'>
-        /// Name of the cloud link resource
+        /// Name of the cloud link.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -66,7 +66,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -77,38 +77,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<CloudLink>> GetWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string cloudLinkName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create or update a cloud link in a private cloud
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// The name of the private cloud.
-        /// </param>
-        /// <param name='cloudLinkName'>
-        /// Name of the cloud link resource
-        /// </param>
-        /// <param name='cloudLink'>
-        /// A cloud link in the private cloud
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<CloudLink>> CreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string cloudLinkName, CloudLink cloudLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Delete a cloud link in a private cloud
+        /// Create a CloudLink
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -117,35 +86,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='cloudLinkName'>
-        /// Name of the cloud link resource
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string cloudLinkName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Create or update a cloud link in a private cloud
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// The name of the private cloud.
-        /// </param>
-        /// <param name='cloudLinkName'>
-        /// Name of the cloud link resource
+        /// Name of the cloud link.
         /// </param>
         /// <param name='cloudLink'>
-        /// A cloud link in the private cloud
+        /// Resource create parameters.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -153,7 +97,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -162,9 +106,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<CloudLink>> BeginCreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string cloudLinkName, CloudLink cloudLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<CloudLink,CloudLinksCreateOrUpdateHeaders>> CreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string cloudLinkName, CloudLink cloudLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete a cloud link in a private cloud
+        /// Delete a CloudLink
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -173,7 +117,7 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='cloudLinkName'>
-        /// Name of the cloud link resource
+        /// Name of the cloud link.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -181,15 +125,71 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginDeleteWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string cloudLinkName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<CloudLinksDeleteHeaders>> DeleteWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string cloudLinkName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// List cloud link in a private cloud
+        /// Create a CloudLink
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='cloudLinkName'>
+        /// Name of the cloud link.
+        /// </param>
+        /// <param name='cloudLink'>
+        /// Resource create parameters.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<CloudLink,CloudLinksCreateOrUpdateHeaders>> BeginCreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string cloudLinkName, CloudLink cloudLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Delete a CloudLink
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='cloudLinkName'>
+        /// Name of the cloud link.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationHeaderResponse<CloudLinksDeleteHeaders>> BeginDeleteWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string cloudLinkName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// List CloudLink resources by PrivateCloud
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.
@@ -200,7 +200,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
