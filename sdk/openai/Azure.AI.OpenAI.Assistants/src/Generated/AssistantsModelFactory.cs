@@ -73,9 +73,13 @@ namespace Azure.AI.OpenAI.Assistants
         /// Please note <see cref="ToolDefinition"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="CodeInterpreterToolDefinition"/>, <see cref="FunctionToolDefinition"/> and <see cref="RetrievalToolDefinition"/>.
         /// </param>
+        /// <param name="stream">
+        /// If `true`, returns a stream of events that happen during the Run as server-sent events,
+        /// terminating when the Run enters a terminal state with a `data: [DONE]` message.
+        /// </param>
         /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
         /// <returns> A new <see cref="Assistants.CreateRunOptions"/> instance for mocking. </returns>
-        public static CreateRunOptions CreateRunOptions(string assistantId = null, string overrideModelName = null, string overrideInstructions = null, string additionalInstructions = null, IEnumerable<ToolDefinition> overrideTools = null, IDictionary<string, string> metadata = null)
+        public static CreateRunOptions CreateRunOptions(string assistantId = null, string overrideModelName = null, string overrideInstructions = null, string additionalInstructions = null, IEnumerable<ToolDefinition> overrideTools = null, bool? stream = null, IDictionary<string, string> metadata = null)
         {
             overrideTools ??= new List<ToolDefinition>();
             metadata ??= new Dictionary<string, string>();
@@ -86,6 +90,7 @@ namespace Azure.AI.OpenAI.Assistants
                 overrideInstructions,
                 additionalInstructions,
                 overrideTools?.ToList(),
+                stream,
                 metadata,
                 serializedAdditionalRawData: null);
         }
@@ -99,9 +104,19 @@ namespace Azure.AI.OpenAI.Assistants
             return new RunError(code, message, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Assistants.RunCompletionUsage"/>. </summary>
+        /// <param name="completionTokens"> Number of completion tokens used over the course of the run. </param>
+        /// <param name="promptTokens"> Number of prompt tokens used over the course of the run. </param>
+        /// <param name="totalTokens"> Total number of tokens used (prompt + completion). </param>
+        /// <returns> A new <see cref="Assistants.RunCompletionUsage"/> instance for mocking. </returns>
+        public static RunCompletionUsage RunCompletionUsage(long completionTokens = default, long promptTokens = default, long totalTokens = default)
+        {
+            return new RunCompletionUsage(completionTokens, promptTokens, totalTokens, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Assistants.CreateAndRunThreadOptions"/>. </summary>
         /// <param name="assistantId"> The ID of the assistant for which the thread should be created. </param>
-        /// <param name="thread"> The details used to create the new thread. </param>
+        /// <param name="thread"> The details used to create the new thread. If no thread is provided, an empty one will be created. </param>
         /// <param name="overrideModelName"> The overridden model that the assistant should use to run the thread. </param>
         /// <param name="overrideInstructions"> The overridden system instructions the assistant should use to run the thread. </param>
         /// <param name="overrideTools">
@@ -109,9 +124,13 @@ namespace Azure.AI.OpenAI.Assistants
         /// Please note <see cref="ToolDefinition"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="CodeInterpreterToolDefinition"/>, <see cref="FunctionToolDefinition"/> and <see cref="RetrievalToolDefinition"/>.
         /// </param>
+        /// <param name="stream">
+        /// If `true`, returns a stream of events that happen during the Run as server-sent events,
+        /// terminating when the Run enters a terminal state with a `data: [DONE]` message.
+        /// </param>
         /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
         /// <returns> A new <see cref="Assistants.CreateAndRunThreadOptions"/> instance for mocking. </returns>
-        public static CreateAndRunThreadOptions CreateAndRunThreadOptions(string assistantId = null, AssistantThreadCreationOptions thread = null, string overrideModelName = null, string overrideInstructions = null, IEnumerable<ToolDefinition> overrideTools = null, IDictionary<string, string> metadata = null)
+        public static CreateAndRunThreadOptions CreateAndRunThreadOptions(string assistantId = null, AssistantThreadCreationOptions thread = null, string overrideModelName = null, string overrideInstructions = null, IEnumerable<ToolDefinition> overrideTools = null, bool? stream = null, IDictionary<string, string> metadata = null)
         {
             overrideTools ??= new List<ToolDefinition>();
             metadata ??= new Dictionary<string, string>();
@@ -122,6 +141,7 @@ namespace Azure.AI.OpenAI.Assistants
                 overrideModelName,
                 overrideInstructions,
                 overrideTools?.ToList(),
+                stream,
                 metadata,
                 serializedAdditionalRawData: null);
         }
@@ -135,15 +155,23 @@ namespace Azure.AI.OpenAI.Assistants
             return new RunStepError(code, message, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Assistants.RunStepCompletionUsage"/>. </summary>
+        /// <param name="completionTokens"> Number of completion tokens used over the course of the run step. </param>
+        /// <param name="promptTokens"> Number of prompt tokens used over the course of the run step. </param>
+        /// <param name="totalTokens"> Total number of tokens used (prompt + completion). </param>
+        /// <returns> A new <see cref="Assistants.RunStepCompletionUsage"/> instance for mocking. </returns>
+        public static RunStepCompletionUsage RunStepCompletionUsage(long completionTokens = default, long promptTokens = default, long totalTokens = default)
+        {
+            return new RunStepCompletionUsage(completionTokens, promptTokens, totalTokens, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Assistants.MessageTextAnnotation"/>. </summary>
         /// <param name="type"> The object type. </param>
         /// <param name="text"> The textual content associated with this text annotation item. </param>
-        /// <param name="startIndex"> The first text index associated with this text annotation. </param>
-        /// <param name="endIndex"> The last text index associated with this text annotation. </param>
         /// <returns> A new <see cref="Assistants.MessageTextAnnotation"/> instance for mocking. </returns>
-        public static MessageTextAnnotation MessageTextAnnotation(string type = null, string text = null, int startIndex = default, int endIndex = default)
+        public static MessageTextAnnotation MessageTextAnnotation(string type = null, string text = null)
         {
-            return new UnknownMessageTextAnnotation(type, text, startIndex, endIndex, serializedAdditionalRawData: null);
+            return new UnknownMessageTextAnnotation(type, text, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Assistants.RequiredToolCall"/>. </summary>
@@ -227,6 +255,156 @@ namespace Azure.AI.OpenAI.Assistants
             retrieval ??= new Dictionary<string, string>();
 
             return new RunStepRetrievalToolCall("retrieval", id, serializedAdditionalRawData: null, retrieval);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.MessageDeltaChunk"/>. </summary>
+        /// <param name="id"> The identifier of the message, which can be referenced in API endpoints. </param>
+        /// <param name="object"> The object type, which is always `thread.message.delta`. </param>
+        /// <param name="delta"> The delta containing the fields that have changed on the Message. </param>
+        /// <returns> A new <see cref="Assistants.MessageDeltaChunk"/> instance for mocking. </returns>
+        public static MessageDeltaChunk MessageDeltaChunk(string id = null, MessageDeltaChunkObject @object = default, MessageDelta delta = null)
+        {
+            return new MessageDeltaChunk(id, @object, delta, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.MessageDelta"/>. </summary>
+        /// <param name="role"> The entity that produced the message. </param>
+        /// <param name="content">
+        /// The content of the message as an array of text and/or images.
+        /// Please note <see cref="Assistants.MessageDeltaContent"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="Assistants.MessageDeltaImageFileContent"/>.
+        /// </param>
+        /// <returns> A new <see cref="Assistants.MessageDelta"/> instance for mocking. </returns>
+        public static MessageDelta MessageDelta(MessageRole role = default, IEnumerable<MessageDeltaContent> content = null)
+        {
+            content ??= new List<MessageDeltaContent>();
+
+            return new MessageDelta(role, content?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.MessageDeltaContent"/>. </summary>
+        /// <param name="index"> The index of the content part of the message. </param>
+        /// <param name="type"> The type of content for this content part. </param>
+        /// <returns> A new <see cref="Assistants.MessageDeltaContent"/> instance for mocking. </returns>
+        public static MessageDeltaContent MessageDeltaContent(int index = default, string type = null)
+        {
+            return new UnknownMessageDeltaContent(index, type, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.MessageDeltaImageFileContent"/>. </summary>
+        /// <param name="index"> The index of the content part of the message. </param>
+        /// <param name="imageFile"> The image_file data. </param>
+        /// <returns> A new <see cref="Assistants.MessageDeltaImageFileContent"/> instance for mocking. </returns>
+        public static MessageDeltaImageFileContent MessageDeltaImageFileContent(int index = default, MessageDeltaImageFileContentObject imageFile = null)
+        {
+            return new MessageDeltaImageFileContent(index, "image_file", serializedAdditionalRawData: null, imageFile);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.MessageDeltaImageFileContentObject"/>. </summary>
+        /// <param name="fileId"> The file ID of the image in the message content. </param>
+        /// <returns> A new <see cref="Assistants.MessageDeltaImageFileContentObject"/> instance for mocking. </returns>
+        public static MessageDeltaImageFileContentObject MessageDeltaImageFileContentObject(string fileId = null)
+        {
+            return new MessageDeltaImageFileContentObject(fileId, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.MessageDeltaTextContent"/>. </summary>
+        /// <param name="value"> The data that makes up the text. </param>
+        /// <param name="annotations"> Annotations for the text. </param>
+        /// <returns> A new <see cref="Assistants.MessageDeltaTextContent"/> instance for mocking. </returns>
+        public static MessageDeltaTextContent MessageDeltaTextContent(string value = null, IEnumerable<MessageDeltaTextAnnotation> annotations = null)
+        {
+            annotations ??= new List<MessageDeltaTextAnnotation>();
+
+            return new MessageDeltaTextContent(value, annotations?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.MessageDeltaTextAnnotation"/>. </summary>
+        /// <param name="index"> The index of the annotation within a text content part. </param>
+        /// <param name="type"> The type of the text content annotation. </param>
+        /// <returns> A new <see cref="Assistants.MessageDeltaTextAnnotation"/> instance for mocking. </returns>
+        public static MessageDeltaTextAnnotation MessageDeltaTextAnnotation(int index = default, string type = null)
+        {
+            return new UnknownMessageDeltaTextAnnotation(index, type, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.MessageDeltaTextFileCitationAnnotation"/>. </summary>
+        /// <param name="fileId"> The ID of the specific file the citation is from. </param>
+        /// <param name="quote"> The specific quote in the cited file. </param>
+        /// <returns> A new <see cref="Assistants.MessageDeltaTextFileCitationAnnotation"/> instance for mocking. </returns>
+        public static MessageDeltaTextFileCitationAnnotation MessageDeltaTextFileCitationAnnotation(string fileId = null, string quote = null)
+        {
+            return new MessageDeltaTextFileCitationAnnotation(fileId, quote, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.MessageDeltaTextFilePathAnnotation"/>. </summary>
+        /// <param name="fileId"> The file ID for the annotation. </param>
+        /// <returns> A new <see cref="Assistants.MessageDeltaTextFilePathAnnotation"/> instance for mocking. </returns>
+        public static MessageDeltaTextFilePathAnnotation MessageDeltaTextFilePathAnnotation(string fileId = null)
+        {
+            return new MessageDeltaTextFilePathAnnotation(fileId, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.RunStepDeltaChunk"/>. </summary>
+        /// <param name="id"> The identifier of the run step, which can be referenced in API endpoints. </param>
+        /// <param name="object"> The object type, which is always `thread.run.step.delta`. </param>
+        /// <param name="delta"> The delta containing the fields that have changed on the run step. </param>
+        /// <returns> A new <see cref="Assistants.RunStepDeltaChunk"/> instance for mocking. </returns>
+        public static RunStepDeltaChunk RunStepDeltaChunk(string id = null, RunStepDeltaChunkObject @object = default, RunStepDelta delta = null)
+        {
+            return new RunStepDeltaChunk(id, @object, delta, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.RunStepDelta"/>. </summary>
+        /// <param name="stepDetails"> The details of the run step. </param>
+        /// <returns> A new <see cref="Assistants.RunStepDelta"/> instance for mocking. </returns>
+        public static RunStepDelta RunStepDelta(RunStepDeltaDetail stepDetails = null)
+        {
+            return new RunStepDelta(stepDetails, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.RunStepDeltaMessageCreationObject"/>. </summary>
+        /// <param name="messageId"> The ID of the newly-created message. </param>
+        /// <returns> A new <see cref="Assistants.RunStepDeltaMessageCreationObject"/> instance for mocking. </returns>
+        public static RunStepDeltaMessageCreationObject RunStepDeltaMessageCreationObject(string messageId = null)
+        {
+            return new RunStepDeltaMessageCreationObject(messageId, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.RunStepDeltaFunction"/>. </summary>
+        /// <param name="name"> The name of the function. </param>
+        /// <param name="arguments"> The arguments passed to the function as input. </param>
+        /// <param name="output"> The output of the function, null if outputs have not yet been submitted. </param>
+        /// <returns> A new <see cref="Assistants.RunStepDeltaFunction"/> instance for mocking. </returns>
+        public static RunStepDeltaFunction RunStepDeltaFunction(string name = null, string arguments = null, string output = null)
+        {
+            return new RunStepDeltaFunction(name, arguments, output, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.RunStepDeltaCodeInterpreterLogOutput"/>. </summary>
+        /// <param name="index"> The index of the output in the streaming run step tool call's Code Interpreter outputs array. </param>
+        /// <param name="logs"> The text output from the Code Interpreter tool call. </param>
+        /// <returns> A new <see cref="Assistants.RunStepDeltaCodeInterpreterLogOutput"/> instance for mocking. </returns>
+        public static RunStepDeltaCodeInterpreterLogOutput RunStepDeltaCodeInterpreterLogOutput(int index = default, string logs = null)
+        {
+            return new RunStepDeltaCodeInterpreterLogOutput(index, "logs", serializedAdditionalRawData: null, logs);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.RunStepDeltaCodeInterpreterOutput"/>. </summary>
+        /// <param name="index"> The index of the output in the streaming run step tool call's Code Interpreter outputs array. </param>
+        /// <param name="type"> The type of the streaming run step tool call's Code Interpreter output. </param>
+        /// <returns> A new <see cref="Assistants.RunStepDeltaCodeInterpreterOutput"/> instance for mocking. </returns>
+        public static RunStepDeltaCodeInterpreterOutput RunStepDeltaCodeInterpreterOutput(int index = default, string type = null)
+        {
+            return new UnknownRunStepDeltaCodeInterpreterOutput(index, type, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Assistants.RunStepDeltaCodeInterpreterImageOutputObject"/>. </summary>
+        /// <param name="fileId"> The file ID for the image. </param>
+        /// <returns> A new <see cref="Assistants.RunStepDeltaCodeInterpreterImageOutputObject"/> instance for mocking. </returns>
+        public static RunStepDeltaCodeInterpreterImageOutputObject RunStepDeltaCodeInterpreterImageOutputObject(string fileId = null)
+        {
+            return new RunStepDeltaCodeInterpreterImageOutputObject(fileId, serializedAdditionalRawData: null);
         }
     }
 }

@@ -34,6 +34,35 @@ namespace Azure.AI.OpenAI.Assistants
             writer.WriteNumberValue(CreatedAt, "U");
             writer.WritePropertyName("thread_id"u8);
             writer.WriteStringValue(ThreadId);
+            writer.WritePropertyName("status"u8);
+            writer.WriteStringValue(Status.ToString());
+            if (IncompleteDetails != null)
+            {
+                writer.WritePropertyName("incomplete_details"u8);
+                writer.WriteStringValue(IncompleteDetails.Value.ToString());
+            }
+            else
+            {
+                writer.WriteNull("incomplete_details");
+            }
+            if (CompletedAt != null)
+            {
+                writer.WritePropertyName("completed_at"u8);
+                writer.WriteNumberValue(CompletedAt.Value, "U");
+            }
+            else
+            {
+                writer.WriteNull("completed_at");
+            }
+            if (IncompleteAt != null)
+            {
+                writer.WritePropertyName("incomplete_at"u8);
+                writer.WriteNumberValue(IncompleteAt.Value, "U");
+            }
+            else
+            {
+                writer.WriteNull("incomplete_at");
+            }
             writer.WritePropertyName("role"u8);
             writer.WriteStringValue(Role.ToString());
             writer.WritePropertyName("content"u8);
@@ -117,6 +146,10 @@ namespace Azure.AI.OpenAI.Assistants
             string @object = default;
             DateTimeOffset createdAt = default;
             string threadId = default;
+            MessageStatus status = default;
+            MessageIncompleteDetailsReason? incompleteDetails = default;
+            DateTimeOffset? completedAt = default;
+            DateTimeOffset? incompleteAt = default;
             MessageRole role = default;
             IReadOnlyList<MessageContent> content = default;
             string assistantId = default;
@@ -145,6 +178,41 @@ namespace Azure.AI.OpenAI.Assistants
                 if (property.NameEquals("thread_id"u8))
                 {
                     threadId = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("status"u8))
+                {
+                    status = new MessageStatus(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("incomplete_details"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        incompleteDetails = null;
+                        continue;
+                    }
+                    incompleteDetails = new MessageIncompleteDetailsReason(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("completed_at"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        completedAt = null;
+                        continue;
+                    }
+                    completedAt = DateTimeOffset.FromUnixTimeSeconds(property.Value.GetInt64());
+                    continue;
+                }
+                if (property.NameEquals("incomplete_at"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        incompleteAt = null;
+                        continue;
+                    }
+                    incompleteAt = DateTimeOffset.FromUnixTimeSeconds(property.Value.GetInt64());
                     continue;
                 }
                 if (property.NameEquals("role"u8))
@@ -208,6 +276,10 @@ namespace Azure.AI.OpenAI.Assistants
                 @object,
                 createdAt,
                 threadId,
+                status,
+                incompleteDetails,
+                completedAt,
+                incompleteAt,
                 role,
                 content,
                 assistantId,

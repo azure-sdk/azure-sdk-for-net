@@ -13,22 +13,24 @@ using Azure.Core;
 
 namespace Azure.AI.OpenAI.Assistants
 {
-    internal partial class SubmitToolOutputsToRunRequest : IUtf8JsonSerializable, IJsonModel<SubmitToolOutputsToRunRequest>
+    public partial class MessageDelta : IUtf8JsonSerializable, IJsonModel<MessageDelta>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<SubmitToolOutputsToRunRequest>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<MessageDelta>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<SubmitToolOutputsToRunRequest>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<MessageDelta>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SubmitToolOutputsToRunRequest>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<MessageDelta>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SubmitToolOutputsToRunRequest)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(MessageDelta)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("tool_outputs"u8);
+            writer.WritePropertyName("role"u8);
+            writer.WriteStringValue(Role.ToString());
+            writer.WritePropertyName("content"u8);
             writer.WriteStartArray();
-            foreach (var item in ToolOutputs)
+            foreach (var item in Content)
             {
                 writer.WriteObjectValue(item, options);
             }
@@ -51,19 +53,19 @@ namespace Azure.AI.OpenAI.Assistants
             writer.WriteEndObject();
         }
 
-        SubmitToolOutputsToRunRequest IJsonModel<SubmitToolOutputsToRunRequest>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        MessageDelta IJsonModel<MessageDelta>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SubmitToolOutputsToRunRequest>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<MessageDelta>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SubmitToolOutputsToRunRequest)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(MessageDelta)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeSubmitToolOutputsToRunRequest(document.RootElement, options);
+            return DeserializeMessageDelta(document.RootElement, options);
         }
 
-        internal static SubmitToolOutputsToRunRequest DeserializeSubmitToolOutputsToRunRequest(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static MessageDelta DeserializeMessageDelta(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -71,19 +73,25 @@ namespace Azure.AI.OpenAI.Assistants
             {
                 return null;
             }
-            IList<ToolOutput> toolOutputs = default;
+            MessageRole role = default;
+            IReadOnlyList<MessageDeltaContent> content = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("tool_outputs"u8))
+                if (property.NameEquals("role"u8))
                 {
-                    List<ToolOutput> array = new List<ToolOutput>();
+                    role = new MessageRole(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("content"u8))
+                {
+                    List<MessageDeltaContent> array = new List<MessageDeltaContent>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(ToolOutput.DeserializeToolOutput(item, options));
+                        array.Add(MessageDeltaContent.DeserializeMessageDeltaContent(item, options));
                     }
-                    toolOutputs = array;
+                    content = array;
                     continue;
                 }
                 if (options.Format != "W")
@@ -92,46 +100,46 @@ namespace Azure.AI.OpenAI.Assistants
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new SubmitToolOutputsToRunRequest(toolOutputs, serializedAdditionalRawData);
+            return new MessageDelta(role, content, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<SubmitToolOutputsToRunRequest>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<MessageDelta>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SubmitToolOutputsToRunRequest>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<MessageDelta>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(SubmitToolOutputsToRunRequest)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(MessageDelta)} does not support writing '{options.Format}' format.");
             }
         }
 
-        SubmitToolOutputsToRunRequest IPersistableModel<SubmitToolOutputsToRunRequest>.Create(BinaryData data, ModelReaderWriterOptions options)
+        MessageDelta IPersistableModel<MessageDelta>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SubmitToolOutputsToRunRequest>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<MessageDelta>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeSubmitToolOutputsToRunRequest(document.RootElement, options);
+                        return DeserializeMessageDelta(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(SubmitToolOutputsToRunRequest)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(MessageDelta)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<SubmitToolOutputsToRunRequest>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<MessageDelta>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static SubmitToolOutputsToRunRequest FromResponse(Response response)
+        internal static MessageDelta FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeSubmitToolOutputsToRunRequest(document.RootElement);
+            return DeserializeMessageDelta(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>

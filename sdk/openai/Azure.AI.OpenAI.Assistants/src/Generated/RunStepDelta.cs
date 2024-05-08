@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Azure.AI.OpenAI.Assistants
 {
-    /// <summary> The SubmitToolOutputsToRunRequest. </summary>
-    internal partial class SubmitToolOutputsToRunRequest
+    /// <summary> Represents the delta payload in a streaming run step delta chunk. </summary>
+    public partial class RunStepDelta
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,31 +45,21 @@ namespace Azure.AI.OpenAI.Assistants
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SubmitToolOutputsToRunRequest"/>. </summary>
-        /// <param name="toolOutputs"> The list of tool outputs requested by tool calls from the specified run. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="toolOutputs"/> is null. </exception>
-        public SubmitToolOutputsToRunRequest(IEnumerable<ToolOutput> toolOutputs)
+        /// <summary> Initializes a new instance of <see cref="RunStepDelta"/>. </summary>
+        internal RunStepDelta()
         {
-            Argument.AssertNotNull(toolOutputs, nameof(toolOutputs));
-
-            ToolOutputs = toolOutputs.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="SubmitToolOutputsToRunRequest"/>. </summary>
-        /// <param name="toolOutputs"> The list of tool outputs requested by tool calls from the specified run. </param>
+        /// <summary> Initializes a new instance of <see cref="RunStepDelta"/>. </summary>
+        /// <param name="stepDetails"> The details of the run step. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SubmitToolOutputsToRunRequest(IList<ToolOutput> toolOutputs, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal RunStepDelta(RunStepDeltaDetail stepDetails, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            ToolOutputs = toolOutputs;
+            StepDetails = stepDetails;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="SubmitToolOutputsToRunRequest"/> for deserialization. </summary>
-        internal SubmitToolOutputsToRunRequest()
-        {
-        }
-
-        /// <summary> The list of tool outputs requested by tool calls from the specified run. </summary>
-        public IList<ToolOutput> ToolOutputs { get; }
+        /// <summary> The details of the run step. </summary>
+        public RunStepDeltaDetail StepDetails { get; }
     }
 }

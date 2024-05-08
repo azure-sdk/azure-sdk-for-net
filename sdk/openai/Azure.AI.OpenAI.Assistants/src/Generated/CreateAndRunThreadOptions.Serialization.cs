@@ -35,23 +35,49 @@ namespace Azure.AI.OpenAI.Assistants
             }
             if (Optional.IsDefined(OverrideModelName))
             {
-                writer.WritePropertyName("model"u8);
-                writer.WriteStringValue(OverrideModelName);
+                if (OverrideModelName != null)
+                {
+                    writer.WritePropertyName("model"u8);
+                    writer.WriteStringValue(OverrideModelName);
+                }
+                else
+                {
+                    writer.WriteNull("model");
+                }
             }
             if (Optional.IsDefined(OverrideInstructions))
             {
-                writer.WritePropertyName("instructions"u8);
-                writer.WriteStringValue(OverrideInstructions);
+                if (OverrideInstructions != null)
+                {
+                    writer.WritePropertyName("instructions"u8);
+                    writer.WriteStringValue(OverrideInstructions);
+                }
+                else
+                {
+                    writer.WriteNull("instructions");
+                }
             }
             if (Optional.IsCollectionDefined(OverrideTools))
             {
-                writer.WritePropertyName("tools"u8);
-                writer.WriteStartArray();
-                foreach (var item in OverrideTools)
+                if (OverrideTools != null)
                 {
-                    writer.WriteObjectValue(item, options);
+                    writer.WritePropertyName("tools"u8);
+                    writer.WriteStartArray();
+                    foreach (var item in OverrideTools)
+                    {
+                        writer.WriteObjectValue(item, options);
+                    }
+                    writer.WriteEndArray();
                 }
-                writer.WriteEndArray();
+                else
+                {
+                    writer.WriteNull("tools");
+                }
+            }
+            if (Optional.IsDefined(Stream))
+            {
+                writer.WritePropertyName("stream"u8);
+                writer.WriteBooleanValue(Stream.Value);
             }
             if (Optional.IsCollectionDefined(Metadata))
             {
@@ -114,6 +140,7 @@ namespace Azure.AI.OpenAI.Assistants
             string model = default;
             string instructions = default;
             IList<ToolDefinition> tools = default;
+            bool? stream = default;
             IDictionary<string, string> metadata = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -135,11 +162,21 @@ namespace Azure.AI.OpenAI.Assistants
                 }
                 if (property.NameEquals("model"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        model = null;
+                        continue;
+                    }
                     model = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("instructions"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        instructions = null;
+                        continue;
+                    }
                     instructions = property.Value.GetString();
                     continue;
                 }
@@ -155,6 +192,15 @@ namespace Azure.AI.OpenAI.Assistants
                         array.Add(ToolDefinition.DeserializeToolDefinition(item, options));
                     }
                     tools = array;
+                    continue;
+                }
+                if (property.NameEquals("stream"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    stream = property.Value.GetBoolean();
                     continue;
                 }
                 if (property.NameEquals("metadata"u8))
@@ -183,6 +229,7 @@ namespace Azure.AI.OpenAI.Assistants
                 model,
                 instructions,
                 tools ?? new ChangeTrackingList<ToolDefinition>(),
+                stream,
                 metadata ?? new ChangeTrackingDictionary<string, string>(),
                 serializedAdditionalRawData);
         }
