@@ -9,7 +9,7 @@ using System;
 
 namespace Azure.AI.TextAnalytics
 {
-    /// <summary> The HealthcareEntityLink. </summary>
+    /// <summary> Reference to an entity in known data sources. </summary>
     public partial class EntityDataSource
     {
     }
