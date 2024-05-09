@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
             }
             writer.WritePropertyName("networkFabricSku"u8);
             writer.WriteStringValue(NetworkFabricSku);
-            if (options.Format != "W" && Optional.IsDefined(FabricVersion))
+            if (Optional.IsDefined(FabricVersion))
             {
                 writer.WritePropertyName("fabricVersion"u8);
                 writer.WriteStringValue(FabricVersion);
