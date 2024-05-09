@@ -13,16 +13,16 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.StreamAnalytics.Models
 {
-    public partial class StreamAnalyticsSku : IUtf8JsonSerializable, IJsonModel<StreamAnalyticsSku>
+    internal partial class GetStreamingJobSkuResultSku : IUtf8JsonSerializable, IJsonModel<GetStreamingJobSkuResultSku>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<StreamAnalyticsSku>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<GetStreamingJobSkuResultSku>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<StreamAnalyticsSku>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<GetStreamingJobSkuResultSku>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StreamAnalyticsSku>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<GetStreamingJobSkuResultSku>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(StreamAnalyticsSku)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(GetStreamingJobSkuResultSku)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -30,11 +30,6 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
             {
                 writer.WritePropertyName("name"u8);
                 writer.WriteStringValue(Name.Value.ToString());
-            }
-            if (Optional.IsDefined(Capacity))
-            {
-                writer.WritePropertyName("capacity"u8);
-                writer.WriteNumberValue(Capacity.Value);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -54,19 +49,19 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
             writer.WriteEndObject();
         }
 
-        StreamAnalyticsSku IJsonModel<StreamAnalyticsSku>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        GetStreamingJobSkuResultSku IJsonModel<GetStreamingJobSkuResultSku>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StreamAnalyticsSku>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<GetStreamingJobSkuResultSku>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(StreamAnalyticsSku)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(GetStreamingJobSkuResultSku)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeStreamAnalyticsSku(document.RootElement, options);
+            return DeserializeGetStreamingJobSkuResultSku(document.RootElement, options);
         }
 
-        internal static StreamAnalyticsSku DeserializeStreamAnalyticsSku(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static GetStreamingJobSkuResultSku DeserializeGetStreamingJobSkuResultSku(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -75,7 +70,6 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
                 return null;
             }
             StreamAnalyticsSkuName? name = default;
-            int? capacity = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -89,53 +83,44 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
                     name = new StreamAnalyticsSkuName(property.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("capacity"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    capacity = property.Value.GetInt32();
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new StreamAnalyticsSku(name, capacity, serializedAdditionalRawData);
+            return new GetStreamingJobSkuResultSku(name, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<StreamAnalyticsSku>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<GetStreamingJobSkuResultSku>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StreamAnalyticsSku>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<GetStreamingJobSkuResultSku>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(StreamAnalyticsSku)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(GetStreamingJobSkuResultSku)} does not support writing '{options.Format}' format.");
             }
         }
 
-        StreamAnalyticsSku IPersistableModel<StreamAnalyticsSku>.Create(BinaryData data, ModelReaderWriterOptions options)
+        GetStreamingJobSkuResultSku IPersistableModel<GetStreamingJobSkuResultSku>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StreamAnalyticsSku>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<GetStreamingJobSkuResultSku>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeStreamAnalyticsSku(document.RootElement, options);
+                        return DeserializeGetStreamingJobSkuResultSku(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(StreamAnalyticsSku)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(GetStreamingJobSkuResultSku)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<StreamAnalyticsSku>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<GetStreamingJobSkuResultSku>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
