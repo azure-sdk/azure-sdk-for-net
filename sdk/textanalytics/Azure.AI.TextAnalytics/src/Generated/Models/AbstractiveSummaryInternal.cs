@@ -16,7 +16,7 @@ namespace Azure.AI.TextAnalytics.Models
         /// <summary> Initializes a new instance of <see cref="AbstractiveSummaryInternal"/>. </summary>
         /// <param name="text"> The text of the summary. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="text"/> is null. </exception>
-        public AbstractiveSummaryInternal(string text)
+        internal AbstractiveSummaryInternal(string text)
         {
             Argument.AssertNotNull(text, nameof(text));
 
@@ -27,15 +27,15 @@ namespace Azure.AI.TextAnalytics.Models
         /// <summary> Initializes a new instance of <see cref="AbstractiveSummaryInternal"/>. </summary>
         /// <param name="text"> The text of the summary. </param>
         /// <param name="contexts"> The context list of the summary. </param>
-        internal AbstractiveSummaryInternal(string text, IList<SummaryContextInternal> contexts)
+        internal AbstractiveSummaryInternal(string text, IReadOnlyList<SummaryContextInternal> contexts)
         {
             Text = text;
             Contexts = contexts;
         }
 
         /// <summary> The text of the summary. </summary>
-        public string Text { get; set; }
+        public string Text { get; }
         /// <summary> The context list of the summary. </summary>
-        public IList<SummaryContextInternal> Contexts { get; }
+        public IReadOnlyList<SummaryContextInternal> Contexts { get; }
     }
 }

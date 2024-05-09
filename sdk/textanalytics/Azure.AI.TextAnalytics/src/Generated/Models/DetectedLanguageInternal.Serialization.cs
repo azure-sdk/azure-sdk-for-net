@@ -6,38 +6,11 @@
 #nullable disable
 
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial struct DetectedLanguageInternal : IUtf8JsonSerializable
+    internal partial struct DetectedLanguageInternal
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            if (Name != null)
-            {
-                writer.WritePropertyName("name"u8);
-                writer.WriteStringValue(Name);
-            }
-            else
-            {
-                writer.WriteNull("name");
-            }
-            if (Iso6391Name != null)
-            {
-                writer.WritePropertyName("iso6391Name"u8);
-                writer.WriteStringValue(Iso6391Name);
-            }
-            else
-            {
-                writer.WriteNull("iso6391Name");
-            }
-            writer.WritePropertyName("confidenceScore"u8);
-            writer.WriteNumberValue(ConfidenceScore);
-            writer.WriteEndObject();
-        }
-
         internal static DetectedLanguageInternal DeserializeDetectedLanguageInternal(JsonElement element)
         {
             string name = default;
@@ -80,14 +53,6 @@ namespace Azure.AI.TextAnalytics.Models
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializeDetectedLanguageInternal(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }
