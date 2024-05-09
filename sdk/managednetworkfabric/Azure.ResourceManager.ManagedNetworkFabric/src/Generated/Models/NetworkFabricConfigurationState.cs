@@ -32,6 +32,8 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
         private const string DeprovisionedValue = "Deprovisioned";
         private const string ErrorDeprovisioningValue = "ErrorDeprovisioning";
         private const string DeferredControlValue = "DeferredControl";
+        private const string ProvisioningValue = "Provisioning";
+        private const string PendingCommitValue = "PendingCommit";
 
         /// <summary> Succeeded. </summary>
         public static NetworkFabricConfigurationState Succeeded { get; } = new NetworkFabricConfigurationState(SucceededValue);
@@ -53,6 +55,10 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
         public static NetworkFabricConfigurationState ErrorDeprovisioning { get; } = new NetworkFabricConfigurationState(ErrorDeprovisioningValue);
         /// <summary> DeferredControl. </summary>
         public static NetworkFabricConfigurationState DeferredControl { get; } = new NetworkFabricConfigurationState(DeferredControlValue);
+        /// <summary> Provisioning. </summary>
+        public static NetworkFabricConfigurationState Provisioning { get; } = new NetworkFabricConfigurationState(ProvisioningValue);
+        /// <summary> PendingCommit. </summary>
+        public static NetworkFabricConfigurationState PendingCommit { get; } = new NetworkFabricConfigurationState(PendingCommitValue);
         /// <summary> Determines if two <see cref="NetworkFabricConfigurationState"/> values are the same. </summary>
         public static bool operator ==(NetworkFabricConfigurationState left, NetworkFabricConfigurationState right) => left.Equals(right);
         /// <summary> Determines if two <see cref="NetworkFabricConfigurationState"/> values are not the same. </summary>

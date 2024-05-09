@@ -342,11 +342,12 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Samples
             NetworkFabricResource networkFabric = client.GetNetworkFabricResource(networkFabricResourceId);
 
             // invoke the operation
-            NetworkFabricUpdateVersionContent content = new NetworkFabricUpdateVersionContent()
+            UpgradeNetworkFabricProperties body = new UpgradeNetworkFabricProperties()
             {
-                Version = "version1",
+                Action = NetworkFabricUpgradeAction.Start,
+                Version = "3.x.x",
             };
-            ArmOperation<StateUpdateCommonPostActionResult> lro = await networkFabric.UpgradeAsync(WaitUntil.Completed, content);
+            ArmOperation<StateUpdateCommonPostActionResult> lro = await networkFabric.UpgradeAsync(WaitUntil.Completed, body);
             StateUpdateCommonPostActionResult result = lro.Value;
 
             Console.WriteLine($"Succeeded: {result}");

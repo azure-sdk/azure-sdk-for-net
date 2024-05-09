@@ -55,6 +55,11 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
                 writer.WritePropertyName("annotation"u8);
                 writer.WriteStringValue(Annotation);
             }
+            if (Optional.IsDefined(NetworkToNetworkInterconnectId))
+            {
+                writer.WritePropertyName("networkToNetworkInterconnectId"u8);
+                writer.WriteStringValue(NetworkToNetworkInterconnectId);
+            }
             if (Optional.IsDefined(ImportRoutePolicyId))
             {
                 writer.WritePropertyName("importRoutePolicyId"u8);
@@ -74,11 +79,6 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
             {
                 writer.WritePropertyName("exportRoutePolicy"u8);
                 writer.WriteObjectValue(ExportRoutePolicy, options);
-            }
-            if (options.Format != "W" && Optional.IsDefined(NetworkToNetworkInterconnectId))
-            {
-                writer.WritePropertyName("networkToNetworkInterconnectId"u8);
-                writer.WriteStringValue(NetworkToNetworkInterconnectId);
             }
             writer.WritePropertyName("peeringOption"u8);
             writer.WriteStringValue(PeeringOption.ToString());
@@ -151,11 +151,11 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
             ResourceType type = default;
             SystemData systemData = default;
             string annotation = default;
+            ResourceIdentifier networkToNetworkInterconnectId = default;
             ResourceIdentifier importRoutePolicyId = default;
             ResourceIdentifier exportRoutePolicyId = default;
             ImportRoutePolicy importRoutePolicy = default;
             ExportRoutePolicy exportRoutePolicy = default;
-            ResourceIdentifier networkToNetworkInterconnectId = default;
             PeeringOption peeringOption = default;
             L3OptionBProperties optionBProperties = default;
             ExternalNetworkOptionAProperties optionAProperties = default;
@@ -204,6 +204,15 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
                             annotation = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("networkToNetworkInterconnectId"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            networkToNetworkInterconnectId = new ResourceIdentifier(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("importRoutePolicyId"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -238,15 +247,6 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
                                 continue;
                             }
                             exportRoutePolicy = ExportRoutePolicy.DeserializeExportRoutePolicy(property0.Value, options);
-                            continue;
-                        }
-                        if (property0.NameEquals("networkToNetworkInterconnectId"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            networkToNetworkInterconnectId = new ResourceIdentifier(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("peeringOption"u8))
@@ -314,11 +314,11 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
                 type,
                 systemData,
                 annotation,
+                networkToNetworkInterconnectId,
                 importRoutePolicyId,
                 exportRoutePolicyId,
                 importRoutePolicy,
                 exportRoutePolicy,
-                networkToNetworkInterconnectId,
                 peeringOption,
                 optionBProperties,
                 optionAProperties,
