@@ -1259,18 +1259,6 @@ namespace Azure.ResourceManager.Sql.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="ManagedInstanceResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="ManagedInstanceResource.CreateResourceIdentifier" /> to create a <see cref="ManagedInstanceResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="ManagedInstanceResource"/> object. </returns>
-        public virtual ManagedInstanceResource GetManagedInstanceResource(ResourceIdentifier id)
-        {
-            ManagedInstanceResource.ValidateResourceId(id);
-            return new ManagedInstanceResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="ManagedLedgerDigestUploadResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="ManagedLedgerDigestUploadResource.CreateResourceIdentifier" /> to create a <see cref="ManagedLedgerDigestUploadResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -1532,6 +1520,18 @@ namespace Azure.ResourceManager.Sql.Mocking
         {
             LongTermRetentionPolicyResource.ValidateResourceId(id);
             return new LongTermRetentionPolicyResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="ManagedInstanceResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ManagedInstanceResource.CreateResourceIdentifier" /> to create a <see cref="ManagedInstanceResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ManagedInstanceResource"/> object. </returns>
+        public virtual ManagedInstanceResource GetManagedInstanceResource(ResourceIdentifier id)
+        {
+            ManagedInstanceResource.ValidateResourceId(id);
+            return new ManagedInstanceResource(Client, id);
         }
 
         /// <summary>
