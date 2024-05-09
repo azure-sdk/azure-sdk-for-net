@@ -149,6 +149,7 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Samples
             }))
             {
                 Annotation = "annotation",
+                FabricVersion = "1.x.x",
                 RackCount = 4,
                 IPv6Prefix = "3FFE:FFFF:0:CD40::/59",
                 Tags =

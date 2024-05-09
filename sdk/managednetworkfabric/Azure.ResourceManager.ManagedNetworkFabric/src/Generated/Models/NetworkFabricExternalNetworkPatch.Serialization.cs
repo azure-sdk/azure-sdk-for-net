@@ -33,6 +33,11 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
                 writer.WritePropertyName("annotation"u8);
                 writer.WriteStringValue(Annotation);
             }
+            if (Optional.IsDefined(NetworkToNetworkInterconnectId))
+            {
+                writer.WritePropertyName("networkToNetworkInterconnectId"u8);
+                writer.WriteStringValue(NetworkToNetworkInterconnectId);
+            }
             if (Optional.IsDefined(ImportRoutePolicyId))
             {
                 writer.WritePropertyName("importRoutePolicyId"u8);
@@ -108,6 +113,7 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
                 return null;
             }
             string annotation = default;
+            ResourceIdentifier networkToNetworkInterconnectId = default;
             ResourceIdentifier importRoutePolicyId = default;
             ResourceIdentifier exportRoutePolicyId = default;
             ImportRoutePolicy importRoutePolicy = default;
@@ -131,6 +137,15 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
                         if (property0.NameEquals("annotation"u8))
                         {
                             annotation = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("networkToNetworkInterconnectId"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            networkToNetworkInterconnectId = new ResourceIdentifier(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("importRoutePolicyId"u8))
@@ -207,6 +222,7 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
             serializedAdditionalRawData = rawDataDictionary;
             return new NetworkFabricExternalNetworkPatch(
                 annotation,
+                networkToNetworkInterconnectId,
                 importRoutePolicyId,
                 exportRoutePolicyId,
                 importRoutePolicy,

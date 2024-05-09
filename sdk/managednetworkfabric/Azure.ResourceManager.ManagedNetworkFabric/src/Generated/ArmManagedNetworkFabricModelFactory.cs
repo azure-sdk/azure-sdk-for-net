@@ -495,11 +495,11 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="annotation"> Switch configuration description. </param>
+        /// <param name="networkToNetworkInterconnectId"> ARM Resource ID of the networkToNetworkInterconnectId of the ExternalNetwork resource. </param>
         /// <param name="importRoutePolicyId"> ARM Resource ID of the RoutePolicy. This is used for the backward compatibility. </param>
         /// <param name="exportRoutePolicyId"> ARM Resource ID of the RoutePolicy. This is used for the backward compatibility. </param>
         /// <param name="importRoutePolicy"> Import Route Policy either IPv4 or IPv6. </param>
         /// <param name="exportRoutePolicy"> Export Route Policy either IPv4 or IPv6. </param>
-        /// <param name="networkToNetworkInterconnectId"> Gets the networkToNetworkInterconnectId of the resource. </param>
         /// <param name="peeringOption"> Peering option list. </param>
         /// <param name="optionBProperties"> option B properties object. </param>
         /// <param name="optionAProperties"> option A properties object. </param>
@@ -507,7 +507,7 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="administrativeState"> Administrative state of the resource. </param>
         /// <returns> A new <see cref="ManagedNetworkFabric.NetworkFabricExternalNetworkData"/> instance for mocking. </returns>
-        public static NetworkFabricExternalNetworkData NetworkFabricExternalNetworkData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string annotation = null, ResourceIdentifier importRoutePolicyId = null, ResourceIdentifier exportRoutePolicyId = null, ImportRoutePolicy importRoutePolicy = null, ExportRoutePolicy exportRoutePolicy = null, ResourceIdentifier networkToNetworkInterconnectId = null, PeeringOption peeringOption = default, L3OptionBProperties optionBProperties = null, ExternalNetworkOptionAProperties optionAProperties = null, NetworkFabricConfigurationState? configurationState = null, NetworkFabricProvisioningState? provisioningState = null, NetworkFabricAdministrativeState? administrativeState = null)
+        public static NetworkFabricExternalNetworkData NetworkFabricExternalNetworkData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string annotation = null, ResourceIdentifier networkToNetworkInterconnectId = null, ResourceIdentifier importRoutePolicyId = null, ResourceIdentifier exportRoutePolicyId = null, ImportRoutePolicy importRoutePolicy = null, ExportRoutePolicy exportRoutePolicy = null, PeeringOption peeringOption = default, L3OptionBProperties optionBProperties = null, ExternalNetworkOptionAProperties optionAProperties = null, NetworkFabricConfigurationState? configurationState = null, NetworkFabricProvisioningState? provisioningState = null, NetworkFabricAdministrativeState? administrativeState = null)
         {
             return new NetworkFabricExternalNetworkData(
                 id,
@@ -515,11 +515,11 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
                 resourceType,
                 systemData,
                 annotation,
+                networkToNetworkInterconnectId,
                 importRoutePolicyId,
                 exportRoutePolicyId,
                 importRoutePolicy,
                 exportRoutePolicy,
-                networkToNetworkInterconnectId,
                 peeringOption,
                 optionBProperties,
                 optionAProperties,

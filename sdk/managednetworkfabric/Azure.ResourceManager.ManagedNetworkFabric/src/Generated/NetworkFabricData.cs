@@ -141,7 +141,7 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
         /// <summary> Supported Network Fabric SKU.Example: Compute / Aggregate racks. Once the user chooses a particular SKU, only supported racks can be added to the Network Fabric. The SKU determines whether it is a single / multi rack Network Fabric. </summary>
         public string NetworkFabricSku { get; set; }
         /// <summary> The version of Network Fabric. </summary>
-        public string FabricVersion { get; }
+        public string FabricVersion { get; set; }
         /// <summary> Array of router IDs. </summary>
         public IReadOnlyList<string> RouterIds { get; }
         /// <summary> Azure resource ID for the NetworkFabricController the NetworkFabric belongs. </summary>

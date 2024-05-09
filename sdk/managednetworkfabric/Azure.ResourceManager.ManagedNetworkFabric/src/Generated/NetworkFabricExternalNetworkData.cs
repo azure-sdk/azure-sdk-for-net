@@ -64,11 +64,11 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="annotation"> Switch configuration description. </param>
+        /// <param name="networkToNetworkInterconnectId"> ARM Resource ID of the networkToNetworkInterconnectId of the ExternalNetwork resource. </param>
         /// <param name="importRoutePolicyId"> ARM Resource ID of the RoutePolicy. This is used for the backward compatibility. </param>
         /// <param name="exportRoutePolicyId"> ARM Resource ID of the RoutePolicy. This is used for the backward compatibility. </param>
         /// <param name="importRoutePolicy"> Import Route Policy either IPv4 or IPv6. </param>
         /// <param name="exportRoutePolicy"> Export Route Policy either IPv4 or IPv6. </param>
-        /// <param name="networkToNetworkInterconnectId"> Gets the networkToNetworkInterconnectId of the resource. </param>
         /// <param name="peeringOption"> Peering option list. </param>
         /// <param name="optionBProperties"> option B properties object. </param>
         /// <param name="optionAProperties"> option A properties object. </param>
@@ -76,14 +76,14 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="administrativeState"> Administrative state of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal NetworkFabricExternalNetworkData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string annotation, ResourceIdentifier importRoutePolicyId, ResourceIdentifier exportRoutePolicyId, ImportRoutePolicy importRoutePolicy, ExportRoutePolicy exportRoutePolicy, ResourceIdentifier networkToNetworkInterconnectId, PeeringOption peeringOption, L3OptionBProperties optionBProperties, ExternalNetworkOptionAProperties optionAProperties, NetworkFabricConfigurationState? configurationState, NetworkFabricProvisioningState? provisioningState, NetworkFabricAdministrativeState? administrativeState, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal NetworkFabricExternalNetworkData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string annotation, ResourceIdentifier networkToNetworkInterconnectId, ResourceIdentifier importRoutePolicyId, ResourceIdentifier exportRoutePolicyId, ImportRoutePolicy importRoutePolicy, ExportRoutePolicy exportRoutePolicy, PeeringOption peeringOption, L3OptionBProperties optionBProperties, ExternalNetworkOptionAProperties optionAProperties, NetworkFabricConfigurationState? configurationState, NetworkFabricProvisioningState? provisioningState, NetworkFabricAdministrativeState? administrativeState, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             Annotation = annotation;
+            NetworkToNetworkInterconnectId = networkToNetworkInterconnectId;
             ImportRoutePolicyId = importRoutePolicyId;
             ExportRoutePolicyId = exportRoutePolicyId;
             ImportRoutePolicy = importRoutePolicy;
             ExportRoutePolicy = exportRoutePolicy;
-            NetworkToNetworkInterconnectId = networkToNetworkInterconnectId;
             PeeringOption = peeringOption;
             OptionBProperties = optionBProperties;
             OptionAProperties = optionAProperties;
@@ -100,6 +100,8 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
 
         /// <summary> Switch configuration description. </summary>
         public string Annotation { get; set; }
+        /// <summary> ARM Resource ID of the networkToNetworkInterconnectId of the ExternalNetwork resource. </summary>
+        public ResourceIdentifier NetworkToNetworkInterconnectId { get; set; }
         /// <summary> ARM Resource ID of the RoutePolicy. This is used for the backward compatibility. </summary>
         public ResourceIdentifier ImportRoutePolicyId { get; set; }
         /// <summary> ARM Resource ID of the RoutePolicy. This is used for the backward compatibility. </summary>
@@ -108,8 +110,6 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
         public ImportRoutePolicy ImportRoutePolicy { get; set; }
         /// <summary> Export Route Policy either IPv4 or IPv6. </summary>
         public ExportRoutePolicy ExportRoutePolicy { get; set; }
-        /// <summary> Gets the networkToNetworkInterconnectId of the resource. </summary>
-        public ResourceIdentifier NetworkToNetworkInterconnectId { get; }
         /// <summary> Peering option list. </summary>
         public PeeringOption PeeringOption { get; set; }
         /// <summary> option B properties object. </summary>
