@@ -29,8 +29,9 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <summary>
         /// Initializes a new instance of the Sku class.
         /// </summary>
-        /// <param name="name">The name of this Bastion Host. Possible values
-        /// include: 'Basic', 'Standard'</param>
+        /// <param name="name">The name of the sku of this Bastion Host.
+        /// Possible values include: 'Basic', 'Standard', 'Developer',
+        /// 'Premium'</param>
         public Sku(string name = default(string))
         {
             Name = name;
@@ -43,8 +44,8 @@ namespace Microsoft.Azure.Management.Network.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets the name of this Bastion Host. Possible values
-        /// include: 'Basic', 'Standard'
+        /// Gets or sets the name of the sku of this Bastion Host. Possible
+        /// values include: 'Basic', 'Standard', 'Developer', 'Premium'
         /// </summary>
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
