@@ -11,8 +11,8 @@ using System.Linq;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The PiiEntitiesDocumentResult. </summary>
-    internal partial class PiiEntitiesDocumentResult : DocumentResult
+    /// <summary> Contains the PII results. </summary>
+    internal partial class PiiEntitiesDocumentResult
     {
         /// <summary> Initializes a new instance of <see cref="PiiEntitiesDocumentResult"/>. </summary>
         /// <param name="id"> Unique, non-empty document identifier. </param>
@@ -20,13 +20,15 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="redactedText"> Returns redacted text. </param>
         /// <param name="entities"> Recognized entities in the document. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="id"/>, <paramref name="warnings"/>, <paramref name="redactedText"/> or <paramref name="entities"/> is null. </exception>
-        public PiiEntitiesDocumentResult(string id, IEnumerable<DocumentWarning> warnings, string redactedText, IEnumerable<Entity> entities) : base(id, warnings)
+        internal PiiEntitiesDocumentResult(string id, IEnumerable<DocumentWarning> warnings, string redactedText, IEnumerable<Entity> entities)
         {
             Argument.AssertNotNull(id, nameof(id));
             Argument.AssertNotNull(warnings, nameof(warnings));
             Argument.AssertNotNull(redactedText, nameof(redactedText));
             Argument.AssertNotNull(entities, nameof(entities));
 
+            Id = id;
+            Warnings = warnings.ToList();
             RedactedText = redactedText;
             Entities = entities.ToList();
         }
@@ -37,15 +39,24 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the document payload. </param>
         /// <param name="redactedText"> Returns redacted text. </param>
         /// <param name="entities"> Recognized entities in the document. </param>
-        internal PiiEntitiesDocumentResult(string id, IList<DocumentWarning> warnings, TextDocumentStatistics? statistics, string redactedText, IList<Entity> entities) : base(id, warnings, statistics)
+        internal PiiEntitiesDocumentResult(string id, IReadOnlyList<DocumentWarning> warnings, TextDocumentStatistics? statistics, string redactedText, IReadOnlyList<Entity> entities)
         {
+            Id = id;
+            Warnings = warnings;
+            Statistics = statistics;
             RedactedText = redactedText;
             Entities = entities;
         }
 
+        /// <summary> Unique, non-empty document identifier. </summary>
+        public string Id { get; }
+        /// <summary> Warnings encountered while processing document. </summary>
+        public IReadOnlyList<DocumentWarning> Warnings { get; }
+        /// <summary> if showStats=true was specified in the request this field will contain information about the document payload. </summary>
+        public TextDocumentStatistics? Statistics { get; }
         /// <summary> Returns redacted text. </summary>
-        public string RedactedText { get; set; }
+        public string RedactedText { get; }
         /// <summary> Recognized entities in the document. </summary>
-        public IList<Entity> Entities { get; }
+        public IReadOnlyList<Entity> Entities { get; }
     }
 }
