@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The HealthcareEntity. </summary>
+    /// <summary> Healthcare entity extracted from the document. </summary>
     internal partial class HealthcareEntityInternal
     {
         /// <summary> Initializes a new instance of <see cref="HealthcareEntityInternal"/>. </summary>
@@ -20,7 +20,7 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="length"> Length for the entity text. Use of different 'stringIndexType' values can affect the length returned. </param>
         /// <param name="confidenceScore"> Confidence score between 0 and 1 of the extracted entity. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="text"/> is null. </exception>
-        public HealthcareEntityInternal(string text, HealthcareEntityCategory category, int offset, int length, double confidenceScore)
+        internal HealthcareEntityInternal(string text, HealthcareEntityCategory category, int offset, int length, double confidenceScore)
         {
             Argument.AssertNotNull(text, nameof(text));
 
@@ -39,10 +39,10 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="offset"> Start position for the entity text. Use of different 'stringIndexType' values can affect the offset returned. </param>
         /// <param name="length"> Length for the entity text. Use of different 'stringIndexType' values can affect the length returned. </param>
         /// <param name="confidenceScore"> Confidence score between 0 and 1 of the extracted entity. </param>
-        /// <param name="assertion"></param>
+        /// <param name="assertion"> Assertion of the entity. </param>
         /// <param name="name"> Preferred name for the entity. Example: 'histologically' would have a 'name' of 'histologic'. </param>
         /// <param name="links"> Entity references in known data sources. </param>
-        internal HealthcareEntityInternal(string text, HealthcareEntityCategory category, string subcategory, int offset, int length, double confidenceScore, HealthcareEntityAssertion assertion, string name, IList<EntityDataSource> links)
+        internal HealthcareEntityInternal(string text, HealthcareEntityCategory category, string subcategory, int offset, int length, double confidenceScore, HealthcareEntityAssertion assertion, string name, IReadOnlyList<EntityDataSource> links)
         {
             Text = text;
             Category = category;
@@ -56,22 +56,22 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Entity text as appears in the request. </summary>
-        public string Text { get; set; }
+        public string Text { get; }
         /// <summary> Healthcare Entity Category. </summary>
-        public HealthcareEntityCategory Category { get; set; }
+        public HealthcareEntityCategory Category { get; }
         /// <summary> (Optional) Entity sub type. </summary>
-        public string Subcategory { get; set; }
+        public string Subcategory { get; }
         /// <summary> Start position for the entity text. Use of different 'stringIndexType' values can affect the offset returned. </summary>
-        public int Offset { get; set; }
+        public int Offset { get; }
         /// <summary> Length for the entity text. Use of different 'stringIndexType' values can affect the length returned. </summary>
-        public int Length { get; set; }
+        public int Length { get; }
         /// <summary> Confidence score between 0 and 1 of the extracted entity. </summary>
-        public double ConfidenceScore { get; set; }
-        /// <summary> Gets or sets the assertion. </summary>
-        public HealthcareEntityAssertion Assertion { get; set; }
+        public double ConfidenceScore { get; }
+        /// <summary> Assertion of the entity. </summary>
+        public HealthcareEntityAssertion Assertion { get; }
         /// <summary> Preferred name for the entity. Example: 'histologically' would have a 'name' of 'histologic'. </summary>
-        public string Name { get; set; }
+        public string Name { get; }
         /// <summary> Entity references in known data sources. </summary>
-        public IList<EntityDataSource> Links { get; }
+        public IReadOnlyList<EntityDataSource> Links { get; }
     }
 }
