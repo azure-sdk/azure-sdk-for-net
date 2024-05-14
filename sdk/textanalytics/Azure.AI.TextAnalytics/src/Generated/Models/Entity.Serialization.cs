@@ -6,33 +6,11 @@
 #nullable disable
 
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class Entity : IUtf8JsonSerializable
+    internal partial class Entity
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("text"u8);
-            writer.WriteStringValue(Text);
-            writer.WritePropertyName("category"u8);
-            writer.WriteStringValue(Category);
-            if (Optional.IsDefined(Subcategory))
-            {
-                writer.WritePropertyName("subcategory"u8);
-                writer.WriteStringValue(Subcategory);
-            }
-            writer.WritePropertyName("offset"u8);
-            writer.WriteNumberValue(Offset);
-            writer.WritePropertyName("length"u8);
-            writer.WriteNumberValue(Length);
-            writer.WritePropertyName("confidenceScore"u8);
-            writer.WriteNumberValue(ConfidenceScore);
-            writer.WriteEndObject();
-        }
-
         internal static Entity DeserializeEntity(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -93,14 +71,6 @@ namespace Azure.AI.TextAnalytics.Models
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializeEntity(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal virtual RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }

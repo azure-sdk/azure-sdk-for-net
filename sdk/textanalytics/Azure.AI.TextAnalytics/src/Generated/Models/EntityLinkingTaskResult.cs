@@ -9,11 +9,11 @@ using System;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The EntityLinkingTaskResult. </summary>
+    /// <summary> Contains the analyze text Entity linking task result. </summary>
     internal partial class EntityLinkingTaskResult : AnalyzeTextTaskResult
     {
         /// <summary> Initializes a new instance of <see cref="EntityLinkingTaskResult"/>. </summary>
-        /// <param name="results"></param>
+        /// <param name="results"> Entity linking result. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="results"/> is null. </exception>
         internal EntityLinkingTaskResult(EntityLinkingResult results)
         {
@@ -24,15 +24,15 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="EntityLinkingTaskResult"/>. </summary>
-        /// <param name="kind"> Enumeration of supported Text Analysis task results. </param>
-        /// <param name="results"></param>
+        /// <param name="kind"> The kind of task result. </param>
+        /// <param name="results"> Entity linking result. </param>
         internal EntityLinkingTaskResult(AnalyzeTextTaskResultsKind kind, EntityLinkingResult results) : base(kind)
         {
             Results = results;
             Kind = kind;
         }
 
-        /// <summary> Gets the results. </summary>
+        /// <summary> Entity linking result. </summary>
         public EntityLinkingResult Results { get; }
     }
 }
