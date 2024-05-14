@@ -8,7 +8,7 @@
 namespace Azure.AI.TextAnalytics.Models
 {
     /// <summary> Supported parameters for a Key Phrase Extraction task. </summary>
-    internal partial class KeyPhraseTaskParameters : PreBuiltTaskParameters
+    internal partial class KeyPhraseTaskParameters
     {
         /// <summary> Initializes a new instance of <see cref="KeyPhraseTaskParameters"/>. </summary>
         public KeyPhraseTaskParameters()
@@ -16,10 +16,17 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="KeyPhraseTaskParameters"/>. </summary>
-        /// <param name="loggingOptOut"></param>
-        /// <param name="modelVersion"></param>
-        internal KeyPhraseTaskParameters(bool? loggingOptOut, string modelVersion) : base(loggingOptOut, modelVersion)
+        /// <param name="loggingOptOut"> logging opt out. </param>
+        /// <param name="modelVersion"> model version. </param>
+        internal KeyPhraseTaskParameters(bool? loggingOptOut, string modelVersion)
         {
+            LoggingOptOut = loggingOptOut;
+            ModelVersion = modelVersion;
         }
+
+        /// <summary> logging opt out. </summary>
+        public bool? LoggingOptOut { get; set; }
+        /// <summary> model version. </summary>
+        public string ModelVersion { get; set; }
     }
 }

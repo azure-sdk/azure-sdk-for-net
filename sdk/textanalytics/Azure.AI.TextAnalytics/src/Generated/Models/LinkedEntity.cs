@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.AI.TextAnalytics
 {
-    /// <summary> The LinkedEntity. </summary>
+    /// <summary> The LinkedEntity object containing the detected entity with the associated sources/links. </summary>
     public readonly partial struct LinkedEntity
     {
     }
