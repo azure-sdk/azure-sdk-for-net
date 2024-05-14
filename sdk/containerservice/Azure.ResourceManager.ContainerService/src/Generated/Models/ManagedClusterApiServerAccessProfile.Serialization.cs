@@ -56,6 +56,16 @@ namespace Azure.ResourceManager.ContainerService.Models
                 writer.WritePropertyName("disableRunCommand"u8);
                 writer.WriteBooleanValue(DisableRunCommand.Value);
             }
+            if (Optional.IsDefined(EnableVnetIntegration))
+            {
+                writer.WritePropertyName("enableVnetIntegration"u8);
+                writer.WriteBooleanValue(EnableVnetIntegration.Value);
+            }
+            if (Optional.IsDefined(SubnetId))
+            {
+                writer.WritePropertyName("subnetId"u8);
+                writer.WriteStringValue(SubnetId);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -99,6 +109,8 @@ namespace Azure.ResourceManager.ContainerService.Models
             string privateDnsZone = default;
             bool? enablePrivateClusterPublicFQDN = default;
             bool? disableRunCommand = default;
+            bool? enableVnetIntegration = default;
+            ResourceIdentifier subnetId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -149,6 +161,24 @@ namespace Azure.ResourceManager.ContainerService.Models
                     disableRunCommand = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("enableVnetIntegration"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    enableVnetIntegration = property.Value.GetBoolean();
+                    continue;
+                }
+                if (property.NameEquals("subnetId"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    subnetId = new ResourceIdentifier(property.Value.GetString());
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -161,6 +191,8 @@ namespace Azure.ResourceManager.ContainerService.Models
                 privateDnsZone,
                 enablePrivateClusterPublicFQDN,
                 disableRunCommand,
+                enableVnetIntegration,
+                subnetId,
                 serializedAdditionalRawData);
         }
 
