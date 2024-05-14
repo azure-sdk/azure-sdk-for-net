@@ -12,20 +12,22 @@ using Azure.AI.TextAnalytics.Models;
 
 namespace Azure.AI.TextAnalytics
 {
-    /// <summary> The PiiResult. </summary>
-    internal partial class PiiEntitiesResult : PreBuiltResult
+    /// <summary> Contains the PiiResult. </summary>
+    internal partial class PiiEntitiesResult
     {
         /// <summary> Initializes a new instance of <see cref="PiiEntitiesResult"/>. </summary>
         /// <param name="errors"> Errors by document id. </param>
         /// <param name="modelVersion"> This field indicates which model is used for scoring. </param>
         /// <param name="documents"> Response by document. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="errors"/>, <paramref name="modelVersion"/> or <paramref name="documents"/> is null. </exception>
-        public PiiEntitiesResult(IEnumerable<DocumentError> errors, string modelVersion, IEnumerable<PiiResultDocumentsItem> documents) : base(errors, modelVersion)
+        internal PiiEntitiesResult(IEnumerable<DocumentError> errors, string modelVersion, IEnumerable<PiiEntitiesDocumentResult> documents)
         {
             Argument.AssertNotNull(errors, nameof(errors));
             Argument.AssertNotNull(modelVersion, nameof(modelVersion));
             Argument.AssertNotNull(documents, nameof(documents));
 
+            Errors = errors.ToList();
+            ModelVersion = modelVersion;
             Documents = documents.ToList();
         }
 
@@ -34,12 +36,21 @@ namespace Azure.AI.TextAnalytics
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the request payload. </param>
         /// <param name="modelVersion"> This field indicates which model is used for scoring. </param>
         /// <param name="documents"> Response by document. </param>
-        internal PiiEntitiesResult(IList<DocumentError> errors, TextDocumentBatchStatistics statistics, string modelVersion, IList<PiiResultDocumentsItem> documents) : base(errors, statistics, modelVersion)
+        internal PiiEntitiesResult(IReadOnlyList<DocumentError> errors, TextDocumentBatchStatistics statistics, string modelVersion, IReadOnlyList<PiiEntitiesDocumentResult> documents)
         {
+            Errors = errors;
+            Statistics = statistics;
+            ModelVersion = modelVersion;
             Documents = documents;
         }
 
+        /// <summary> Errors by document id. </summary>
+        public IReadOnlyList<DocumentError> Errors { get; }
+        /// <summary> if showStats=true was specified in the request this field will contain information about the request payload. </summary>
+        public TextDocumentBatchStatistics Statistics { get; }
+        /// <summary> This field indicates which model is used for scoring. </summary>
+        public string ModelVersion { get; }
         /// <summary> Response by document. </summary>
-        public IList<PiiResultDocumentsItem> Documents { get; }
+        public IReadOnlyList<PiiEntitiesDocumentResult> Documents { get; }
     }
 }

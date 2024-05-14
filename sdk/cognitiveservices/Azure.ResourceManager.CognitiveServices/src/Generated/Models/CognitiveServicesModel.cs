@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="CognitiveServicesModel"/>. </summary>
-        /// <param name="model"> Model Metadata. </param>
+        /// <param name="model"> Cognitive Services account Model. </param>
         /// <param name="kind"> The Kind of the Model. </param>
         /// <param name="skuName"> The SKU of the Model. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Model Metadata. </summary>
+        /// <summary> Cognitive Services account Model. </summary>
         [WirePath("model")]
         public CognitiveServicesAccountModel Model { get; }
         /// <summary> The Kind of the Model. </summary>
