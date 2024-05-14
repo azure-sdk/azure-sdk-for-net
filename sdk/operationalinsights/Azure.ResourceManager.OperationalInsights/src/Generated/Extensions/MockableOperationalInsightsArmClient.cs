@@ -35,6 +35,30 @@ namespace Azure.ResourceManager.OperationalInsights.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing an <see cref="OperationalInsightsWorkspaceResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="OperationalInsightsWorkspaceResource.CreateResourceIdentifier" /> to create an <see cref="OperationalInsightsWorkspaceResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="OperationalInsightsWorkspaceResource"/> object. </returns>
+        public virtual OperationalInsightsWorkspaceResource GetOperationalInsightsWorkspaceResource(ResourceIdentifier id)
+        {
+            OperationalInsightsWorkspaceResource.ValidateResourceId(id);
+            return new OperationalInsightsWorkspaceResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="OperationalInsightsTableResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="OperationalInsightsTableResource.CreateResourceIdentifier" /> to create an <see cref="OperationalInsightsTableResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="OperationalInsightsTableResource"/> object. </returns>
+        public virtual OperationalInsightsTableResource GetOperationalInsightsTableResource(ResourceIdentifier id)
+        {
+            OperationalInsightsTableResource.ValidateResourceId(id);
+            return new OperationalInsightsTableResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="LogAnalyticsQueryPackResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="LogAnalyticsQueryPackResource.CreateResourceIdentifier" /> to create a <see cref="LogAnalyticsQueryPackResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -140,30 +164,6 @@ namespace Azure.ResourceManager.OperationalInsights.Mocking
         {
             OperationalInsightsClusterResource.ValidateResourceId(id);
             return new OperationalInsightsClusterResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="OperationalInsightsWorkspaceResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="OperationalInsightsWorkspaceResource.CreateResourceIdentifier" /> to create an <see cref="OperationalInsightsWorkspaceResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="OperationalInsightsWorkspaceResource"/> object. </returns>
-        public virtual OperationalInsightsWorkspaceResource GetOperationalInsightsWorkspaceResource(ResourceIdentifier id)
-        {
-            OperationalInsightsWorkspaceResource.ValidateResourceId(id);
-            return new OperationalInsightsWorkspaceResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="OperationalInsightsTableResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="OperationalInsightsTableResource.CreateResourceIdentifier" /> to create an <see cref="OperationalInsightsTableResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="OperationalInsightsTableResource"/> object. </returns>
-        public virtual OperationalInsightsTableResource GetOperationalInsightsTableResource(ResourceIdentifier id)
-        {
-            OperationalInsightsTableResource.ValidateResourceId(id);
-            return new OperationalInsightsTableResource(Client, id);
         }
     }
 }
