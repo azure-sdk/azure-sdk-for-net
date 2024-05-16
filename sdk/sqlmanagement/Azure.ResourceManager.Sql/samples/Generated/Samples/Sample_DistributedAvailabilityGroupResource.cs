@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.Sql.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetsTheDistributedAvailabilityGroupInfo()
         {
-            // Generated from example definition: specification/sql/resource-manager/Microsoft.Sql/preview/2021-11-01-preview/examples/DistributedAvailabilityGroupsGet.json
+            // Generated from example definition: specification/sql/resource-manager/Microsoft.Sql/preview/2023-08-01-preview/examples/DistributedAvailabilityGroupsGet.json
             // this example is just showing the usage of "DistributedAvailabilityGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -30,7 +30,7 @@ namespace Azure.ResourceManager.Sql.Samples
 
             // this example assumes you already have this DistributedAvailabilityGroupResource created on azure
             // for more information of creating DistributedAvailabilityGroupResource, please refer to the document of DistributedAvailabilityGroupResource
-            string subscriptionId = "f2669dff-5f08-45dd-b857-b2a60b72cdc9";
+            string subscriptionId = "00000000-1111-2222-3333-444444444444";
             string resourceGroupName = "testrg";
             string managedInstanceName = "testcl";
             string distributedAvailabilityGroupName = "dag";
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.Sql.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_InitiateADistributedAvailabilityGroupDrop()
         {
-            // Generated from example definition: specification/sql/resource-manager/Microsoft.Sql/preview/2021-11-01-preview/examples/DistributedAvailabilityGroupsDelete.json
+            // Generated from example definition: specification/sql/resource-manager/Microsoft.Sql/preview/2023-08-01-preview/examples/DistributedAvailabilityGroupsDelete.json
             // this example is just showing the usage of "DistributedAvailabilityGroups_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.Sql.Samples
 
             // this example assumes you already have this DistributedAvailabilityGroupResource created on azure
             // for more information of creating DistributedAvailabilityGroupResource, please refer to the document of DistributedAvailabilityGroupResource
-            string subscriptionId = "f2669dff-5f08-45dd-b857-b2a60b72cdc9";
+            string subscriptionId = "00000000-1111-2222-3333-444444444444";
             string resourceGroupName = "testrg";
             string managedInstanceName = "testcl";
             string distributedAvailabilityGroupName = "dag";
@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.Sql.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_UpdateTheDistributedAvailabilityGroupReplicationModeBeforeDeletingIt()
         {
-            // Generated from example definition: specification/sql/resource-manager/Microsoft.Sql/preview/2021-11-01-preview/examples/DistributedAvailabilityGroupsUpdate.json
+            // Generated from example definition: specification/sql/resource-manager/Microsoft.Sql/preview/2023-08-01-preview/examples/DistributedAvailabilityGroupsUpdate.json
             // this example is just showing the usage of "DistributedAvailabilityGroups_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -100,9 +100,77 @@ namespace Azure.ResourceManager.Sql.Samples
             // invoke the operation
             DistributedAvailabilityGroupData data = new DistributedAvailabilityGroupData()
             {
-                ReplicationMode = DistributedAvailabilityGroupReplicationMode.Sync,
+                ReplicationMode = ReplicationModeType.Sync,
             };
             ArmOperation<DistributedAvailabilityGroupResource> lro = await distributedAvailabilityGroup.UpdateAsync(WaitUntil.Completed, data);
+            DistributedAvailabilityGroupResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            DistributedAvailabilityGroupData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        // Failover a distributed availability group.
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task Failover_FailoverADistributedAvailabilityGroup()
+        {
+            // Generated from example definition: specification/sql/resource-manager/Microsoft.Sql/preview/2023-08-01-preview/examples/DistributedAvailabilityGroupsFailover.json
+            // this example is just showing the usage of "DistributedAvailabilityGroups_Failover" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this DistributedAvailabilityGroupResource created on azure
+            // for more information of creating DistributedAvailabilityGroupResource, please refer to the document of DistributedAvailabilityGroupResource
+            string subscriptionId = "00000000-1111-2222-3333-444444444444";
+            string resourceGroupName = "testrg";
+            string managedInstanceName = "testcl";
+            string distributedAvailabilityGroupName = "dag";
+            ResourceIdentifier distributedAvailabilityGroupResourceId = DistributedAvailabilityGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, managedInstanceName, distributedAvailabilityGroupName);
+            DistributedAvailabilityGroupResource distributedAvailabilityGroup = client.GetDistributedAvailabilityGroupResource(distributedAvailabilityGroupResourceId);
+
+            // invoke the operation
+            DistributedAvailabilityGroupsFailoverContent content = new DistributedAvailabilityGroupsFailoverContent(FailoverType.ForcedAllowDataLoss);
+            ArmOperation<DistributedAvailabilityGroupResource> lro = await distributedAvailabilityGroup.FailoverAsync(WaitUntil.Completed, content);
+            DistributedAvailabilityGroupResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            DistributedAvailabilityGroupData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        // Set distributed availability group primary replica to managed instance.
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task SetRole_SetDistributedAvailabilityGroupPrimaryReplicaToManagedInstance()
+        {
+            // Generated from example definition: specification/sql/resource-manager/Microsoft.Sql/preview/2023-08-01-preview/examples/DistributedAvailabilityGroupsSetRole.json
+            // this example is just showing the usage of "DistributedAvailabilityGroups_SetRole" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this DistributedAvailabilityGroupResource created on azure
+            // for more information of creating DistributedAvailabilityGroupResource, please refer to the document of DistributedAvailabilityGroupResource
+            string subscriptionId = "00000000-1111-2222-3333-444444444444";
+            string resourceGroupName = "testrg";
+            string managedInstanceName = "testcl";
+            string distributedAvailabilityGroupName = "dag";
+            ResourceIdentifier distributedAvailabilityGroupResourceId = DistributedAvailabilityGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, managedInstanceName, distributedAvailabilityGroupName);
+            DistributedAvailabilityGroupResource distributedAvailabilityGroup = client.GetDistributedAvailabilityGroupResource(distributedAvailabilityGroupResourceId);
+
+            // invoke the operation
+            DistributedAvailabilityGroupSetRole distributedAvailabilityGroupSetRole = new DistributedAvailabilityGroupSetRole(InstanceRole.Primary, RoleChangeType.Forced);
+            ArmOperation<DistributedAvailabilityGroupResource> lro = await distributedAvailabilityGroup.SetRoleAsync(WaitUntil.Completed, distributedAvailabilityGroupSetRole);
             DistributedAvailabilityGroupResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well
