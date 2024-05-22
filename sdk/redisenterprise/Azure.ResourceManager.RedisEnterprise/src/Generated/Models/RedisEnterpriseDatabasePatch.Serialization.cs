@@ -78,6 +78,16 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 writer.WritePropertyName("geoReplication"u8);
                 writer.WriteObjectValue(GeoReplication, options);
             }
+            if (options.Format != "W" && Optional.IsDefined(RedisVersion))
+            {
+                writer.WritePropertyName("redisVersion"u8);
+                writer.WriteStringValue(RedisVersion);
+            }
+            if (Optional.IsDefined(DeferUpgrade))
+            {
+                writer.WritePropertyName("deferUpgrade"u8);
+                writer.WriteStringValue(DeferUpgrade.Value.ToString());
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -126,6 +136,8 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
             RedisPersistenceSettings persistence = default;
             IList<RedisEnterpriseModule> modules = default;
             RedisEnterpriseDatabaseGeoReplication geoReplication = default;
+            string redisVersion = default;
+            DeferUpgradeSetting? deferUpgrade = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -225,6 +237,20 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                             geoReplication = RedisEnterpriseDatabaseGeoReplication.DeserializeRedisEnterpriseDatabaseGeoReplication(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("redisVersion"u8))
+                        {
+                            redisVersion = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("deferUpgrade"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            deferUpgrade = new DeferUpgradeSetting(property0.Value.GetString());
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -244,6 +270,8 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 persistence,
                 modules ?? new ChangeTrackingList<RedisEnterpriseModule>(),
                 geoReplication,
+                redisVersion,
+                deferUpgrade,
                 serializedAdditionalRawData);
         }
 
