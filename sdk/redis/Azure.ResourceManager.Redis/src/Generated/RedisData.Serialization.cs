@@ -138,6 +138,16 @@ namespace Azure.ResourceManager.Redis
                 writer.WritePropertyName("updateChannel"u8);
                 writer.WriteStringValue(UpdateChannel.Value.ToString());
             }
+            if (Optional.IsDefined(DisableAccessKeyAuthentication))
+            {
+                writer.WritePropertyName("disableAccessKeyAuthentication"u8);
+                writer.WriteBooleanValue(DisableAccessKeyAuthentication.Value);
+            }
+            if (Optional.IsDefined(ZonalAllocationPolicy))
+            {
+                writer.WritePropertyName("zonalAllocationPolicy"u8);
+                writer.WriteStringValue(ZonalAllocationPolicy.Value.ToString());
+            }
             writer.WritePropertyName("sku"u8);
             writer.WriteObjectValue(Sku, options);
             if (Optional.IsDefined(SubnetId))
@@ -269,6 +279,8 @@ namespace Azure.ResourceManager.Redis
             RedisTlsVersion? minimumTlsVersion = default;
             RedisPublicNetworkAccess? publicNetworkAccess = default;
             UpdateChannel? updateChannel = default;
+            bool? disableAccessKeyAuthentication = default;
+            ZonalAllocationPolicy? zonalAllocationPolicy = default;
             RedisSku sku = default;
             ResourceIdentifier subnetId = default;
             IPAddress staticIP = default;
@@ -450,6 +462,24 @@ namespace Azure.ResourceManager.Redis
                             updateChannel = new UpdateChannel(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("disableAccessKeyAuthentication"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            disableAccessKeyAuthentication = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("zonalAllocationPolicy"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            zonalAllocationPolicy = new ZonalAllocationPolicy(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("sku"u8))
                         {
                             sku = RedisSku.DeserializeRedisSku(property0.Value, options);
@@ -585,6 +615,8 @@ namespace Azure.ResourceManager.Redis
                 minimumTlsVersion,
                 publicNetworkAccess,
                 updateChannel,
+                disableAccessKeyAuthentication,
+                zonalAllocationPolicy,
                 sku,
                 subnetId,
                 staticIP,
@@ -943,6 +975,37 @@ namespace Azure.ResourceManager.Redis
                 {
                     builder.Append("    updateChannel: ");
                     builder.AppendLine($"'{UpdateChannel.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(DisableAccessKeyAuthentication), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    disableAccessKeyAuthentication: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(DisableAccessKeyAuthentication))
+                {
+                    builder.Append("    disableAccessKeyAuthentication: ");
+                    var boolValue = DisableAccessKeyAuthentication.Value == true ? "true" : "false";
+                    builder.AppendLine($"{boolValue}");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ZonalAllocationPolicy), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    zonalAllocationPolicy: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(ZonalAllocationPolicy))
+                {
+                    builder.Append("    zonalAllocationPolicy: ");
+                    builder.AppendLine($"'{ZonalAllocationPolicy.Value.ToString()}'");
                 }
             }
 
