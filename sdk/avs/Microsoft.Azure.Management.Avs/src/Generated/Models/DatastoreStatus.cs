@@ -16,12 +16,33 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class DatastoreStatus
     {
+        /// <summary>
+        /// is unknown
+        /// </summary>
         public const string Unknown = "Unknown";
+        /// <summary>
+        /// is accessible
+        /// </summary>
         public const string Accessible = "Accessible";
+        /// <summary>
+        /// is inaccessible
+        /// </summary>
         public const string Inaccessible = "Inaccessible";
+        /// <summary>
+        /// is attached
+        /// </summary>
         public const string Attached = "Attached";
+        /// <summary>
+        /// is detached
+        /// </summary>
         public const string Detached = "Detached";
+        /// <summary>
+        /// is lost communication
+        /// </summary>
         public const string LostCommunication = "LostCommunication";
+        /// <summary>
+        /// is dead or error
+        /// </summary>
         public const string DeadOrError = "DeadOrError";
     }
 }

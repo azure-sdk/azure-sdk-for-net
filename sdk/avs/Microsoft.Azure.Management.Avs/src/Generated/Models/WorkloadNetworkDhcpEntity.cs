@@ -17,7 +17,8 @@ namespace Microsoft.Azure.Management.Avs.Models
 
     /// <summary>
     /// Base class for WorkloadNetworkDhcpServer and WorkloadNetworkDhcpRelay
-    /// to inherit from
+    /// to
+    /// inherit from
     /// </summary>
     public partial class WorkloadNetworkDhcpEntity
     {
@@ -35,8 +36,8 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <param name="displayName">Display name of the DHCP entity.</param>
         /// <param name="segments">NSX Segments consuming DHCP.</param>
         /// <param name="provisioningState">The provisioning state. Possible
-        /// values include: 'Succeeded', 'Failed', 'Building', 'Deleting',
-        /// 'Updating'</param>
+        /// values include: 'Succeeded', 'Failed', 'Canceled', 'Building',
+        /// 'Deleting', 'Updating'</param>
         /// <param name="revision">NSX revision number.</param>
         public WorkloadNetworkDhcpEntity(string displayName = default(string), IList<string> segments = default(IList<string>), string provisioningState = default(string), long? revision = default(long?))
         {
@@ -66,7 +67,7 @@ namespace Microsoft.Azure.Management.Avs.Models
 
         /// <summary>
         /// Gets the provisioning state. Possible values include: 'Succeeded',
-        /// 'Failed', 'Building', 'Deleting', 'Updating'
+        /// 'Failed', 'Canceled', 'Building', 'Deleting', 'Updating'
         /// </summary>
         [JsonProperty(PropertyName = "provisioningState")]
         public string ProvisioningState { get; private set; }

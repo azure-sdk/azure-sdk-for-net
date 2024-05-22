@@ -22,7 +22,7 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class ScriptPackagesOperationsExtensions
     {
             /// <summary>
-            /// List script packages available to run on the private cloud
+            /// List ScriptPackage resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -39,7 +39,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List script packages available to run on the private cloud
+            /// List ScriptPackage resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -62,7 +62,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a script package available to run on a private cloud
+            /// Get a ScriptPackage
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -74,7 +74,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='scriptPackageName'>
-            /// Name of the script package in the private cloud
+            /// Name of the script package.
             /// </param>
             public static ScriptPackage Get(this IScriptPackagesOperations operations, string resourceGroupName, string privateCloudName, string scriptPackageName)
             {
@@ -82,7 +82,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a script package available to run on a private cloud
+            /// Get a ScriptPackage
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -94,7 +94,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='scriptPackageName'>
-            /// Name of the script package in the private cloud
+            /// Name of the script package.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -108,7 +108,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List script packages available to run on the private cloud
+            /// List ScriptPackage resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -122,7 +122,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List script packages available to run on the private cloud
+            /// List ScriptPackage resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
