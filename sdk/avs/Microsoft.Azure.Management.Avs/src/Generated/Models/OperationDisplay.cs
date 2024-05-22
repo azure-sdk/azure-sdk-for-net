@@ -14,7 +14,7 @@ namespace Microsoft.Azure.Management.Avs.Models
     using System.Linq;
 
     /// <summary>
-    /// Contains the localized display information for this operation
+    /// Localized display information for this particular operation.
     /// </summary>
     public partial class OperationDisplay
     {
@@ -29,14 +29,18 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Initializes a new instance of the OperationDisplay class.
         /// </summary>
-        /// <param name="provider">Localized friendly form of the resource
-        /// provider name</param>
-        /// <param name="resource">Localized friendly form of the resource type
-        /// related to this operation</param>
-        /// <param name="operation">Localized friendly name for the
-        /// operation</param>
-        /// <param name="description">Localized friendly description for the
-        /// operation</param>
+        /// <param name="provider">The localized friendly form of the resource
+        /// provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft
+        /// Compute".</param>
+        /// <param name="resource">The localized friendly name of the resource
+        /// type related to this operation. E.g. "Virtual Machines" or "Job
+        /// Schedule Collections".</param>
+        /// <param name="operation">The concise, localized friendly name for
+        /// the operation; suitable for dropdowns. E.g. "Create or Update
+        /// Virtual Machine", "Restart Virtual Machine".</param>
+        /// <param name="description">The short, localized friendly description
+        /// of the operation; suitable for tool tips and detailed
+        /// views.</param>
         public OperationDisplay(string provider = default(string), string resource = default(string), string operation = default(string), string description = default(string))
         {
             Provider = provider;
@@ -52,26 +56,31 @@ namespace Microsoft.Azure.Management.Avs.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets localized friendly form of the resource provider name
+        /// Gets the localized friendly form of the resource provider name,
+        /// e.g. "Microsoft Monitoring Insights" or "Microsoft Compute".
         /// </summary>
         [JsonProperty(PropertyName = "provider")]
         public string Provider { get; private set; }
 
         /// <summary>
-        /// Gets localized friendly form of the resource type related to this
-        /// operation
+        /// Gets the localized friendly name of the resource type related to
+        /// this operation. E.g. "Virtual Machines" or "Job Schedule
+        /// Collections".
         /// </summary>
         [JsonProperty(PropertyName = "resource")]
         public string Resource { get; private set; }
 
         /// <summary>
-        /// Gets localized friendly name for the operation
+        /// Gets the concise, localized friendly name for the operation;
+        /// suitable for dropdowns. E.g. "Create or Update Virtual Machine",
+        /// "Restart Virtual Machine".
         /// </summary>
         [JsonProperty(PropertyName = "operation")]
         public string Operation { get; private set; }
 
         /// <summary>
-        /// Gets localized friendly description for the operation
+        /// Gets the short, localized friendly description of the operation;
+        /// suitable for tool tips and detailed views.
         /// </summary>
         [JsonProperty(PropertyName = "description")]
         public string Description { get; private set; }

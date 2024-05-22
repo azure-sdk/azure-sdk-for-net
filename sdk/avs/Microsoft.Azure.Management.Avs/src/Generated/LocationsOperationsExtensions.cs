@@ -22,47 +22,13 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class LocationsOperationsExtensions
     {
             /// <summary>
-            /// Return trial status for subscription by region
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='location'>
-            /// Azure region
-            /// </param>
-            public static Trial CheckTrialAvailability(this ILocationsOperations operations, string location)
-            {
-                return operations.CheckTrialAvailabilityAsync(location).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Return trial status for subscription by region
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='location'>
-            /// Azure region
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<Trial> CheckTrialAvailabilityAsync(this ILocationsOperations operations, string location, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.CheckTrialAvailabilityWithHttpMessagesAsync(location, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
             /// Return quota for subscription by region
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='location'>
-            /// Azure region
+            /// The name of the Azure region.
             /// </param>
             public static Quota CheckQuotaAvailability(this ILocationsOperations operations, string location)
             {
@@ -76,7 +42,7 @@ namespace Microsoft.Azure.Management.Avs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='location'>
-            /// Azure region
+            /// The name of the Azure region.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -84,6 +50,46 @@ namespace Microsoft.Azure.Management.Avs
             public static async Task<Quota> CheckQuotaAvailabilityAsync(this ILocationsOperations operations, string location, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.CheckQuotaAvailabilityWithHttpMessagesAsync(location, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Return trial status for subscription by region
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='location'>
+            /// The name of the Azure region.
+            /// </param>
+            /// <param name='sku'>
+            /// Optionally, check for a specific SKU
+            /// </param>
+            public static Trial CheckTrialAvailability(this ILocationsOperations operations, string location, Sku sku = default(Sku))
+            {
+                return operations.CheckTrialAvailabilityAsync(location, sku).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Return trial status for subscription by region
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='location'>
+            /// The name of the Azure region.
+            /// </param>
+            /// <param name='sku'>
+            /// Optionally, check for a specific SKU
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<Trial> CheckTrialAvailabilityAsync(this ILocationsOperations operations, string location, Sku sku = default(Sku), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.CheckTrialAvailabilityWithHttpMessagesAsync(location, sku, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

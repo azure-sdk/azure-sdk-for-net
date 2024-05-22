@@ -35,8 +35,9 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <param name="lunName">Name of the LUN to be used for
         /// datastore</param>
         /// <param name="mountOption">Mode that describes whether the LUN has
-        /// to be mounted as a datastore or attached as a LUN. Possible values
-        /// include: 'MOUNT', 'ATTACH'</param>
+        /// to be mounted as a datastore or
+        /// attached as a LUN. Possible values include: 'MOUNT',
+        /// 'ATTACH'</param>
         /// <param name="path">Device path</param>
         public DiskPoolVolume(string targetId, string lunName, string mountOption = default(string), string path = default(string))
         {
@@ -66,8 +67,8 @@ namespace Microsoft.Azure.Management.Avs.Models
 
         /// <summary>
         /// Gets or sets mode that describes whether the LUN has to be mounted
-        /// as a datastore or attached as a LUN. Possible values include:
-        /// 'MOUNT', 'ATTACH'
+        /// as a datastore or
+        /// attached as a LUN. Possible values include: 'MOUNT', 'ATTACH'
         /// </summary>
         [JsonProperty(PropertyName = "mountOption")]
         public string MountOption { get; set; }

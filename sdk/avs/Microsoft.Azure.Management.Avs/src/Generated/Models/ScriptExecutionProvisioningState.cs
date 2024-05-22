@@ -16,12 +16,37 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class ScriptExecutionProvisioningState
     {
-        public const string Pending = "Pending";
-        public const string Running = "Running";
+        /// <summary>
+        /// Resource has been created.
+        /// </summary>
         public const string Succeeded = "Succeeded";
+        /// <summary>
+        /// Resource creation failed.
+        /// </summary>
         public const string Failed = "Failed";
+        /// <summary>
+        /// Resource creation was canceled.
+        /// </summary>
+        public const string Canceled = "Canceled";
+        /// <summary>
+        /// is pending
+        /// </summary>
+        public const string Pending = "Pending";
+        /// <summary>
+        /// is running
+        /// </summary>
+        public const string Running = "Running";
+        /// <summary>
+        /// is cancelling
+        /// </summary>
         public const string Cancelling = "Cancelling";
+        /// <summary>
+        /// is cancelled
+        /// </summary>
         public const string Cancelled = "Cancelled";
+        /// <summary>
+        /// is deleting
+        /// </summary>
         public const string Deleting = "Deleting";
     }
 }

@@ -22,7 +22,7 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class CloudLinksOperationsExtensions
     {
             /// <summary>
-            /// List cloud link in a private cloud
+            /// List CloudLink resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -39,7 +39,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List cloud link in a private cloud
+            /// List CloudLink resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -62,7 +62,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get an cloud link by name in a private cloud
+            /// Get a CloudLink
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -74,7 +74,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='cloudLinkName'>
-            /// Name of the cloud link resource
+            /// Name of the cloud link.
             /// </param>
             public static CloudLink Get(this ICloudLinksOperations operations, string resourceGroupName, string privateCloudName, string cloudLinkName)
             {
@@ -82,7 +82,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get an cloud link by name in a private cloud
+            /// Get a CloudLink
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -94,7 +94,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='cloudLinkName'>
-            /// Name of the cloud link resource
+            /// Name of the cloud link.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -108,7 +108,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a cloud link in a private cloud
+            /// Create a CloudLink
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -117,13 +117,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='cloudLinkName'>
-            /// Name of the cloud link resource
+            /// Name of the cloud link.
             /// </param>
             /// <param name='cloudLink'>
-            /// A cloud link in the private cloud
+            /// Resource create parameters.
             /// </param>
             public static CloudLink CreateOrUpdate(this ICloudLinksOperations operations, string resourceGroupName, string privateCloudName, string cloudLinkName, CloudLink cloudLink)
             {
@@ -131,7 +131,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a cloud link in a private cloud
+            /// Create a CloudLink
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -140,13 +140,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='cloudLinkName'>
-            /// Name of the cloud link resource
+            /// Name of the cloud link.
             /// </param>
             /// <param name='cloudLink'>
-            /// A cloud link in the private cloud
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -160,7 +160,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a cloud link in a private cloud
+            /// Delete a CloudLink
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -172,15 +172,15 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='cloudLinkName'>
-            /// Name of the cloud link resource
+            /// Name of the cloud link.
             /// </param>
-            public static void Delete(this ICloudLinksOperations operations, string resourceGroupName, string privateCloudName, string cloudLinkName)
+            public static CloudLinksDeleteHeaders Delete(this ICloudLinksOperations operations, string resourceGroupName, string privateCloudName, string cloudLinkName)
             {
-                operations.DeleteAsync(resourceGroupName, privateCloudName, cloudLinkName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, privateCloudName, cloudLinkName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a cloud link in a private cloud
+            /// Delete a CloudLink
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -192,18 +192,21 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='cloudLinkName'>
-            /// Name of the cloud link resource
+            /// Name of the cloud link.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this ICloudLinksOperations operations, string resourceGroupName, string privateCloudName, string cloudLinkName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<CloudLinksDeleteHeaders> DeleteAsync(this ICloudLinksOperations operations, string resourceGroupName, string privateCloudName, string cloudLinkName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, cloudLinkName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, cloudLinkName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Create or update a cloud link in a private cloud
+            /// Create a CloudLink
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -212,13 +215,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='cloudLinkName'>
-            /// Name of the cloud link resource
+            /// Name of the cloud link.
             /// </param>
             /// <param name='cloudLink'>
-            /// A cloud link in the private cloud
+            /// Resource create parameters.
             /// </param>
             public static CloudLink BeginCreateOrUpdate(this ICloudLinksOperations operations, string resourceGroupName, string privateCloudName, string cloudLinkName, CloudLink cloudLink)
             {
@@ -226,7 +229,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a cloud link in a private cloud
+            /// Create a CloudLink
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -235,13 +238,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='cloudLinkName'>
-            /// Name of the cloud link resource
+            /// Name of the cloud link.
             /// </param>
             /// <param name='cloudLink'>
-            /// A cloud link in the private cloud
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -255,7 +258,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a cloud link in a private cloud
+            /// Delete a CloudLink
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -267,15 +270,15 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='cloudLinkName'>
-            /// Name of the cloud link resource
+            /// Name of the cloud link.
             /// </param>
-            public static void BeginDelete(this ICloudLinksOperations operations, string resourceGroupName, string privateCloudName, string cloudLinkName)
+            public static CloudLinksDeleteHeaders BeginDelete(this ICloudLinksOperations operations, string resourceGroupName, string privateCloudName, string cloudLinkName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, privateCloudName, cloudLinkName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, privateCloudName, cloudLinkName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a cloud link in a private cloud
+            /// Delete a CloudLink
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -287,18 +290,21 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='cloudLinkName'>
-            /// Name of the cloud link resource
+            /// Name of the cloud link.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this ICloudLinksOperations operations, string resourceGroupName, string privateCloudName, string cloudLinkName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<CloudLinksDeleteHeaders> BeginDeleteAsync(this ICloudLinksOperations operations, string resourceGroupName, string privateCloudName, string cloudLinkName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, cloudLinkName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, cloudLinkName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// List cloud link in a private cloud
+            /// List CloudLink resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -312,7 +318,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List cloud link in a private cloud
+            /// List CloudLink resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.

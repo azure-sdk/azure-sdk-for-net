@@ -16,7 +16,13 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class VMGroupStatusEnum
     {
+        /// <summary>
+        /// is success
+        /// </summary>
         public const string SUCCESS = "SUCCESS";
+        /// <summary>
+        /// is failure
+        /// </summary>
         public const string FAILURE = "FAILURE";
     }
 }

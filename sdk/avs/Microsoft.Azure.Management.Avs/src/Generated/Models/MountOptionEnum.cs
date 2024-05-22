@@ -16,7 +16,13 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class MountOptionEnum
     {
+        /// <summary>
+        /// is mount
+        /// </summary>
         public const string MOUNT = "MOUNT";
+        /// <summary>
+        /// is attach
+        /// </summary>
         public const string ATTACH = "ATTACH";
     }
 }

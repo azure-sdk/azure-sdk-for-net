@@ -51,7 +51,7 @@ namespace Microsoft.Azure.Management.Avs
         public AvsClient Client { get; private set; }
 
         /// <summary>
-        /// List of virtual machines in a private cloud cluster
+        /// List VirtualMachine resources by Cluster
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -60,7 +60,7 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -68,7 +68,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="SerializationException">
@@ -85,15 +85,15 @@ namespace Microsoft.Azure.Management.Avs
         /// </return>
         public async Task<AzureOperationResponse<IPage<VirtualMachine>>> ListWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
+            if (Client.ApiVersion == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
             }
-            if (Client.SubscriptionId != null)
+            if (Client.ApiVersion != null)
             {
-                if (Client.SubscriptionId.Length < 1)
+                if (Client.ApiVersion.Length < 1)
                 {
-                    throw new ValidationException(ValidationRules.MinLength, "Client.SubscriptionId", 1);
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
                 }
             }
             if (resourceGroupName == null)
@@ -111,24 +111,27 @@ namespace Microsoft.Azure.Management.Avs
                     throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
                 }
             }
-            if (Client.ApiVersion == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
-            }
-            if (Client.ApiVersion != null)
-            {
-                if (Client.ApiVersion.Length < 1)
-                {
-                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
-                }
-            }
             if (privateCloudName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "privateCloudName");
             }
+            if (privateCloudName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(privateCloudName, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "privateCloudName", "^[-\\w\\._]+$");
+                }
+            }
             if (clusterName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "clusterName");
+            }
+            if (clusterName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(clusterName, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "clusterName", "^[-\\w\\._]+$");
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -146,7 +149,7 @@ namespace Microsoft.Azure.Management.Avs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/clusters/{clusterName}/virtualMachines").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{privateCloudName}", System.Uri.EscapeDataString(privateCloudName));
             _url = _url.Replace("{clusterName}", System.Uri.EscapeDataString(clusterName));
@@ -215,14 +218,13 @@ namespace Microsoft.Azure.Management.Avs
             string _responseContent = null;
             if ((int)_statusCode != 200)
             {
-                var ex = new CloudException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                var ex = new ErrorResponseException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 try
                 {
                     _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    CloudError _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<CloudError>(_responseContent, Client.DeserializationSettings);
+                    ErrorResponse _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<ErrorResponse>(_responseContent, Client.DeserializationSettings);
                     if (_errorBody != null)
                     {
-                        ex = new CloudException(_errorBody.Message);
                         ex.Body = _errorBody;
                     }
                 }
@@ -232,10 +234,6 @@ namespace Microsoft.Azure.Management.Avs
                 }
                 ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
                 ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                if (_httpResponse.Headers.Contains("x-ms-request-id"))
-                {
-                    ex.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
-                }
                 if (_shouldTrace)
                 {
                     ServiceClientTracing.Error(_invocationId, ex);
@@ -281,7 +279,7 @@ namespace Microsoft.Azure.Management.Avs
         }
 
         /// <summary>
-        /// Get a virtual machine by id in a private cloud cluster
+        /// Get a VirtualMachine
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -290,10 +288,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='virtualMachineId'>
-        /// Virtual Machine identifier
+        /// ID of the virtual machine.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -301,7 +299,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="SerializationException">
@@ -318,15 +316,15 @@ namespace Microsoft.Azure.Management.Avs
         /// </return>
         public async Task<AzureOperationResponse<VirtualMachine>> GetWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string virtualMachineId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
+            if (Client.ApiVersion == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
             }
-            if (Client.SubscriptionId != null)
+            if (Client.ApiVersion != null)
             {
-                if (Client.SubscriptionId.Length < 1)
+                if (Client.ApiVersion.Length < 1)
                 {
-                    throw new ValidationException(ValidationRules.MinLength, "Client.SubscriptionId", 1);
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
                 }
             }
             if (resourceGroupName == null)
@@ -344,28 +342,38 @@ namespace Microsoft.Azure.Management.Avs
                     throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
                 }
             }
-            if (Client.ApiVersion == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
-            }
-            if (Client.ApiVersion != null)
-            {
-                if (Client.ApiVersion.Length < 1)
-                {
-                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
-                }
-            }
             if (privateCloudName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "privateCloudName");
+            }
+            if (privateCloudName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(privateCloudName, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "privateCloudName", "^[-\\w\\._]+$");
+                }
             }
             if (clusterName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "clusterName");
             }
+            if (clusterName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(clusterName, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "clusterName", "^[-\\w\\._]+$");
+                }
+            }
             if (virtualMachineId == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "virtualMachineId");
+            }
+            if (virtualMachineId != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(virtualMachineId, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "virtualMachineId", "^[-\\w\\._]+$");
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -384,7 +392,7 @@ namespace Microsoft.Azure.Management.Avs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/clusters/{clusterName}/virtualMachines/{virtualMachineId}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{privateCloudName}", System.Uri.EscapeDataString(privateCloudName));
             _url = _url.Replace("{clusterName}", System.Uri.EscapeDataString(clusterName));
@@ -454,14 +462,13 @@ namespace Microsoft.Azure.Management.Avs
             string _responseContent = null;
             if ((int)_statusCode != 200)
             {
-                var ex = new CloudException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                var ex = new ErrorResponseException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 try
                 {
                     _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    CloudError _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<CloudError>(_responseContent, Client.DeserializationSettings);
+                    ErrorResponse _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<ErrorResponse>(_responseContent, Client.DeserializationSettings);
                     if (_errorBody != null)
                     {
-                        ex = new CloudException(_errorBody.Message);
                         ex.Body = _errorBody;
                     }
                 }
@@ -471,10 +478,6 @@ namespace Microsoft.Azure.Management.Avs
                 }
                 ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
                 ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                if (_httpResponse.Headers.Contains("x-ms-request-id"))
-                {
-                    ex.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
-                }
                 if (_shouldTrace)
                 {
                     ServiceClientTracing.Error(_invocationId, ex);
@@ -529,13 +532,13 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='virtualMachineId'>
-        /// Virtual Machine identifier
+        /// ID of the virtual machine.
         /// </param>
         /// <param name='restrictMovement'>
-        /// Whether VM DRS-driven movement is restricted (Enabled) or not (Disabled)
+        /// The body type of the operation request.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -543,10 +546,10 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<AzureOperationResponse> RestrictMovementWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string virtualMachineId, VirtualMachineRestrictMovement restrictMovement, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationHeaderResponse<VirtualMachinesRestrictMovementHeaders>> RestrictMovementWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string virtualMachineId, VirtualMachineRestrictMovement restrictMovement, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Send request
-            AzureOperationResponse _response = await BeginRestrictMovementWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, virtualMachineId, restrictMovement, customHeaders, cancellationToken).ConfigureAwait(false);
+            AzureOperationHeaderResponse<VirtualMachinesRestrictMovementHeaders> _response = await BeginRestrictMovementWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, virtualMachineId, restrictMovement, customHeaders, cancellationToken).ConfigureAwait(false);
             return await Client.GetPostOrDeleteOperationResultAsync(_response, customHeaders, cancellationToken).ConfigureAwait(false);
         }
 
@@ -560,13 +563,13 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='virtualMachineId'>
-        /// Virtual Machine identifier
+        /// ID of the virtual machine.
         /// </param>
         /// <param name='restrictMovement'>
-        /// Whether VM DRS-driven movement is restricted (Enabled) or not (Disabled)
+        /// The body type of the operation request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -574,7 +577,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="ValidationException">
@@ -586,17 +589,17 @@ namespace Microsoft.Azure.Management.Avs
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<AzureOperationResponse> BeginRestrictMovementWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string virtualMachineId, VirtualMachineRestrictMovement restrictMovement, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationHeaderResponse<VirtualMachinesRestrictMovementHeaders>> BeginRestrictMovementWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string virtualMachineId, VirtualMachineRestrictMovement restrictMovement, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
+            if (Client.ApiVersion == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
             }
-            if (Client.SubscriptionId != null)
+            if (Client.ApiVersion != null)
             {
-                if (Client.SubscriptionId.Length < 1)
+                if (Client.ApiVersion.Length < 1)
                 {
-                    throw new ValidationException(ValidationRules.MinLength, "Client.SubscriptionId", 1);
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
                 }
             }
             if (resourceGroupName == null)
@@ -614,28 +617,38 @@ namespace Microsoft.Azure.Management.Avs
                     throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
                 }
             }
-            if (Client.ApiVersion == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
-            }
-            if (Client.ApiVersion != null)
-            {
-                if (Client.ApiVersion.Length < 1)
-                {
-                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
-                }
-            }
             if (privateCloudName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "privateCloudName");
+            }
+            if (privateCloudName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(privateCloudName, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "privateCloudName", "^[-\\w\\._]+$");
+                }
             }
             if (clusterName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "clusterName");
             }
+            if (clusterName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(clusterName, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "clusterName", "^[-\\w\\._]+$");
+                }
+            }
             if (virtualMachineId == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "virtualMachineId");
+            }
+            if (virtualMachineId != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(virtualMachineId, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "virtualMachineId", "^[-\\w\\._]+$");
+                }
             }
             if (restrictMovement == null)
             {
@@ -659,7 +672,7 @@ namespace Microsoft.Azure.Management.Avs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/clusters/{clusterName}/virtualMachines/{virtualMachineId}/restrictMovement").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{privateCloudName}", System.Uri.EscapeDataString(privateCloudName));
             _url = _url.Replace("{clusterName}", System.Uri.EscapeDataString(clusterName));
@@ -735,14 +748,13 @@ namespace Microsoft.Azure.Management.Avs
             string _responseContent = null;
             if ((int)_statusCode != 202)
             {
-                var ex = new CloudException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                var ex = new ErrorResponseException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 try
                 {
                     _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    CloudError _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<CloudError>(_responseContent, Client.DeserializationSettings);
+                    ErrorResponse _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<ErrorResponse>(_responseContent, Client.DeserializationSettings);
                     if (_errorBody != null)
                     {
-                        ex = new CloudException(_errorBody.Message);
                         ex.Body = _errorBody;
                     }
                 }
@@ -752,10 +764,6 @@ namespace Microsoft.Azure.Management.Avs
                 }
                 ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
                 ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                if (_httpResponse.Headers.Contains("x-ms-request-id"))
-                {
-                    ex.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
-                }
                 if (_shouldTrace)
                 {
                     ServiceClientTracing.Error(_invocationId, ex);
@@ -768,12 +776,25 @@ namespace Microsoft.Azure.Management.Avs
                 throw ex;
             }
             // Create Result
-            var _result = new AzureOperationResponse();
+            var _result = new AzureOperationHeaderResponse<VirtualMachinesRestrictMovementHeaders>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             if (_httpResponse.Headers.Contains("x-ms-request-id"))
             {
                 _result.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
+            }
+            try
+            {
+                _result.Headers = _httpResponse.GetHeadersAsJson().ToObject<VirtualMachinesRestrictMovementHeaders>(JsonSerializer.Create(Client.DeserializationSettings));
+            }
+            catch (JsonException ex)
+            {
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw new SerializationException("Unable to deserialize the headers.", _httpResponse.GetHeadersAsJson().ToString(), ex);
             }
             if (_shouldTrace)
             {
@@ -783,7 +804,7 @@ namespace Microsoft.Azure.Management.Avs
         }
 
         /// <summary>
-        /// List of virtual machines in a private cloud cluster
+        /// List VirtualMachine resources by Cluster
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.
@@ -794,7 +815,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="SerializationException">
@@ -890,14 +911,13 @@ namespace Microsoft.Azure.Management.Avs
             string _responseContent = null;
             if ((int)_statusCode != 200)
             {
-                var ex = new CloudException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                var ex = new ErrorResponseException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 try
                 {
                     _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    CloudError _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<CloudError>(_responseContent, Client.DeserializationSettings);
+                    ErrorResponse _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<ErrorResponse>(_responseContent, Client.DeserializationSettings);
                     if (_errorBody != null)
                     {
-                        ex = new CloudException(_errorBody.Message);
                         ex.Body = _errorBody;
                     }
                 }
@@ -907,10 +927,6 @@ namespace Microsoft.Azure.Management.Avs
                 }
                 ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
                 ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                if (_httpResponse.Headers.Contains("x-ms-request-id"))
-                {
-                    ex.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
-                }
                 if (_shouldTrace)
                 {
                     ServiceClientTracing.Error(_invocationId, ex);

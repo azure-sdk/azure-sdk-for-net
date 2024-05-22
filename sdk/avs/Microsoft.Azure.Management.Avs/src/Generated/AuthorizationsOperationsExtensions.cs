@@ -22,7 +22,7 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class AuthorizationsOperationsExtensions
     {
             /// <summary>
-            /// List ExpressRoute Circuit Authorizations in a private cloud
+            /// List ExpressRouteAuthorization resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -39,7 +39,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List ExpressRoute Circuit Authorizations in a private cloud
+            /// List ExpressRouteAuthorization resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -62,7 +62,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get an ExpressRoute Circuit Authorization by name in a private cloud
+            /// Get a ExpressRouteAuthorization
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -74,7 +74,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='authorizationName'>
-            /// Name of the ExpressRoute Circuit Authorization in the private cloud
+            /// Name of the ExpressRoute Circuit Authorization
             /// </param>
             public static ExpressRouteAuthorization Get(this IAuthorizationsOperations operations, string resourceGroupName, string privateCloudName, string authorizationName)
             {
@@ -82,7 +82,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get an ExpressRoute Circuit Authorization by name in a private cloud
+            /// Get a ExpressRouteAuthorization
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -94,7 +94,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='authorizationName'>
-            /// Name of the ExpressRoute Circuit Authorization in the private cloud
+            /// Name of the ExpressRoute Circuit Authorization
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -108,7 +108,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update an ExpressRoute Circuit Authorization in a private cloud
+            /// Create a ExpressRouteAuthorization
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -117,13 +117,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='authorizationName'>
-            /// Name of the ExpressRoute Circuit Authorization in the private cloud
+            /// Name of the ExpressRoute Circuit Authorization
             /// </param>
             /// <param name='authorization'>
-            /// An ExpressRoute Circuit Authorization
+            /// Resource create parameters.
             /// </param>
             public static ExpressRouteAuthorization CreateOrUpdate(this IAuthorizationsOperations operations, string resourceGroupName, string privateCloudName, string authorizationName, ExpressRouteAuthorization authorization)
             {
@@ -131,7 +131,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update an ExpressRoute Circuit Authorization in a private cloud
+            /// Create a ExpressRouteAuthorization
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -140,13 +140,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='authorizationName'>
-            /// Name of the ExpressRoute Circuit Authorization in the private cloud
+            /// Name of the ExpressRoute Circuit Authorization
             /// </param>
             /// <param name='authorization'>
-            /// An ExpressRoute Circuit Authorization
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -160,7 +160,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete an ExpressRoute Circuit Authorization in a private cloud
+            /// Delete a ExpressRouteAuthorization
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -172,15 +172,15 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='authorizationName'>
-            /// Name of the ExpressRoute Circuit Authorization in the private cloud
+            /// Name of the ExpressRoute Circuit Authorization
             /// </param>
-            public static void Delete(this IAuthorizationsOperations operations, string resourceGroupName, string privateCloudName, string authorizationName)
+            public static AuthorizationsDeleteHeaders Delete(this IAuthorizationsOperations operations, string resourceGroupName, string privateCloudName, string authorizationName)
             {
-                operations.DeleteAsync(resourceGroupName, privateCloudName, authorizationName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, privateCloudName, authorizationName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete an ExpressRoute Circuit Authorization in a private cloud
+            /// Delete a ExpressRouteAuthorization
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -192,18 +192,21 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='authorizationName'>
-            /// Name of the ExpressRoute Circuit Authorization in the private cloud
+            /// Name of the ExpressRoute Circuit Authorization
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IAuthorizationsOperations operations, string resourceGroupName, string privateCloudName, string authorizationName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<AuthorizationsDeleteHeaders> DeleteAsync(this IAuthorizationsOperations operations, string resourceGroupName, string privateCloudName, string authorizationName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, authorizationName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, authorizationName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Create or update an ExpressRoute Circuit Authorization in a private cloud
+            /// Create a ExpressRouteAuthorization
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -212,13 +215,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='authorizationName'>
-            /// Name of the ExpressRoute Circuit Authorization in the private cloud
+            /// Name of the ExpressRoute Circuit Authorization
             /// </param>
             /// <param name='authorization'>
-            /// An ExpressRoute Circuit Authorization
+            /// Resource create parameters.
             /// </param>
             public static ExpressRouteAuthorization BeginCreateOrUpdate(this IAuthorizationsOperations operations, string resourceGroupName, string privateCloudName, string authorizationName, ExpressRouteAuthorization authorization)
             {
@@ -226,7 +229,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update an ExpressRoute Circuit Authorization in a private cloud
+            /// Create a ExpressRouteAuthorization
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -235,13 +238,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='authorizationName'>
-            /// Name of the ExpressRoute Circuit Authorization in the private cloud
+            /// Name of the ExpressRoute Circuit Authorization
             /// </param>
             /// <param name='authorization'>
-            /// An ExpressRoute Circuit Authorization
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -255,7 +258,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete an ExpressRoute Circuit Authorization in a private cloud
+            /// Delete a ExpressRouteAuthorization
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -267,15 +270,15 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='authorizationName'>
-            /// Name of the ExpressRoute Circuit Authorization in the private cloud
+            /// Name of the ExpressRoute Circuit Authorization
             /// </param>
-            public static void BeginDelete(this IAuthorizationsOperations operations, string resourceGroupName, string privateCloudName, string authorizationName)
+            public static AuthorizationsDeleteHeaders BeginDelete(this IAuthorizationsOperations operations, string resourceGroupName, string privateCloudName, string authorizationName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, privateCloudName, authorizationName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, privateCloudName, authorizationName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete an ExpressRoute Circuit Authorization in a private cloud
+            /// Delete a ExpressRouteAuthorization
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -287,18 +290,21 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='authorizationName'>
-            /// Name of the ExpressRoute Circuit Authorization in the private cloud
+            /// Name of the ExpressRoute Circuit Authorization
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IAuthorizationsOperations operations, string resourceGroupName, string privateCloudName, string authorizationName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<AuthorizationsDeleteHeaders> BeginDeleteAsync(this IAuthorizationsOperations operations, string resourceGroupName, string privateCloudName, string authorizationName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, authorizationName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, authorizationName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// List ExpressRoute Circuit Authorizations in a private cloud
+            /// List ExpressRouteAuthorization resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -312,7 +318,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List ExpressRoute Circuit Authorizations in a private cloud
+            /// List ExpressRouteAuthorization resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.

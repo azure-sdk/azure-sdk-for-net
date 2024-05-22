@@ -22,8 +22,7 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class ScriptCmdletsOperationsExtensions
     {
             /// <summary>
-            /// List script cmdlet resources available for a private cloud to create a
-            /// script execution resource on a private cloud
+            /// List ScriptCmdlet resources by ScriptPackage
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -35,7 +34,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='scriptPackageName'>
-            /// Name of the script package in the private cloud
+            /// Name of the script package.
             /// </param>
             public static IPage<ScriptCmdlet> List(this IScriptCmdletsOperations operations, string resourceGroupName, string privateCloudName, string scriptPackageName)
             {
@@ -43,8 +42,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List script cmdlet resources available for a private cloud to create a
-            /// script execution resource on a private cloud
+            /// List ScriptCmdlet resources by ScriptPackage
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -56,7 +54,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='scriptPackageName'>
-            /// Name of the script package in the private cloud
+            /// Name of the script package.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -70,8 +68,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Return information about a script cmdlet resource in a specific package on
-            /// a private cloud
+            /// Get a ScriptCmdlet
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -83,11 +80,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='scriptPackageName'>
-            /// Name of the script package in the private cloud
+            /// Name of the script package.
             /// </param>
             /// <param name='scriptCmdletName'>
-            /// Name of the script cmdlet resource in the script package in the private
-            /// cloud
+            /// Name of the script cmdlet.
             /// </param>
             public static ScriptCmdlet Get(this IScriptCmdletsOperations operations, string resourceGroupName, string privateCloudName, string scriptPackageName, string scriptCmdletName)
             {
@@ -95,8 +91,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Return information about a script cmdlet resource in a specific package on
-            /// a private cloud
+            /// Get a ScriptCmdlet
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -108,11 +103,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='scriptPackageName'>
-            /// Name of the script package in the private cloud
+            /// Name of the script package.
             /// </param>
             /// <param name='scriptCmdletName'>
-            /// Name of the script cmdlet resource in the script package in the private
-            /// cloud
+            /// Name of the script cmdlet.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -126,8 +120,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List script cmdlet resources available for a private cloud to create a
-            /// script execution resource on a private cloud
+            /// List ScriptCmdlet resources by ScriptPackage
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -141,8 +134,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List script cmdlet resources available for a private cloud to create a
-            /// script execution resource on a private cloud
+            /// List ScriptCmdlet resources by ScriptPackage
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.

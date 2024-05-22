@@ -35,12 +35,12 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <param name="displayName">Display name of the DHCP entity.</param>
         /// <param name="segments">NSX Segments consuming DHCP.</param>
         /// <param name="provisioningState">The provisioning state. Possible
-        /// values include: 'Succeeded', 'Failed', 'Building', 'Deleting',
-        /// 'Updating'</param>
+        /// values include: 'Succeeded', 'Failed', 'Canceled', 'Building',
+        /// 'Deleting', 'Updating'</param>
         /// <param name="revision">NSX revision number.</param>
         /// <param name="serverAddress">DHCP Server Address.</param>
         /// <param name="leaseTime">DHCP Server Lease Time.</param>
-        public WorkloadNetworkDhcpServer(string displayName = default(string), IList<string> segments = default(IList<string>), string provisioningState = default(string), long? revision = default(long?), string serverAddress = default(string), long? leaseTime = default(long?))
+        public WorkloadNetworkDhcpServer(string displayName = default(string), IList<string> segments = default(IList<string>), string provisioningState = default(string), long? revision = default(long?), string serverAddress = default(string), int? leaseTime = default(int?))
             : base(displayName, segments, provisioningState, revision)
         {
             ServerAddress = serverAddress;
@@ -63,7 +63,7 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// Gets or sets DHCP Server Lease Time.
         /// </summary>
         [JsonProperty(PropertyName = "leaseTime")]
-        public long? LeaseTime { get; set; }
+        public int? LeaseTime { get; set; }
 
     }
 }

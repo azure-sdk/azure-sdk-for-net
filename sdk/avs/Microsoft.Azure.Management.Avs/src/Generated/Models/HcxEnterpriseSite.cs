@@ -19,7 +19,7 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// An HCX Enterprise Site resource
     /// </summary>
     [Rest.Serialization.JsonTransformation]
-    public partial class HcxEnterpriseSite : Resource
+    public partial class HcxEnterpriseSite : ProxyResource
     {
         /// <summary>
         /// Initializes a new instance of the HcxEnterpriseSite class.
@@ -32,16 +32,25 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Initializes a new instance of the HcxEnterpriseSite class.
         /// </summary>
-        /// <param name="id">Resource ID.</param>
-        /// <param name="name">Resource name.</param>
-        /// <param name="type">Resource type.</param>
+        /// <param name="id">Fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="systemData">Azure Resource Manager metadata containing
+        /// createdBy and modifiedBy information.</param>
+        /// <param name="provisioningState">The provisioning state of the
+        /// resource. Possible values include: 'Succeeded', 'Failed',
+        /// 'Canceled'</param>
         /// <param name="activationKey">The activation key</param>
         /// <param name="status">The status of the HCX Enterprise Site.
         /// Possible values include: 'Available', 'Consumed', 'Deactivated',
         /// 'Deleted'</param>
-        public HcxEnterpriseSite(string id = default(string), string name = default(string), string type = default(string), string activationKey = default(string), string status = default(string))
-            : base(id, name, type)
+        public HcxEnterpriseSite(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string provisioningState = default(string), string activationKey = default(string), string status = default(string))
+            : base(id, name, type, systemData)
         {
+            ProvisioningState = provisioningState;
             ActivationKey = activationKey;
             Status = status;
             CustomInit();
@@ -51,6 +60,13 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
+
+        /// <summary>
+        /// Gets the provisioning state of the resource. Possible values
+        /// include: 'Succeeded', 'Failed', 'Canceled'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.provisioningState")]
+        public string ProvisioningState { get; private set; }
 
         /// <summary>
         /// Gets the activation key

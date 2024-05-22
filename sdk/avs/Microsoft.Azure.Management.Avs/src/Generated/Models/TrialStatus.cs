@@ -16,8 +16,17 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class TrialStatus
     {
+        /// <summary>
+        /// is available
+        /// </summary>
         public const string TrialAvailable = "TrialAvailable";
+        /// <summary>
+        /// is used
+        /// </summary>
         public const string TrialUsed = "TrialUsed";
+        /// <summary>
+        /// is disabled
+        /// </summary>
         public const string TrialDisabled = "TrialDisabled";
     }
 }

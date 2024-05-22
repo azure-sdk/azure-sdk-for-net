@@ -16,7 +16,13 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class EncryptionVersionType
     {
+        /// <summary>
+        /// is fixed
+        /// </summary>
         public const string Fixed = "Fixed";
+        /// <summary>
+        /// is auto-detected
+        /// </summary>
         public const string AutoDetected = "AutoDetected";
     }
 }
