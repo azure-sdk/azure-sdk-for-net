@@ -18,28 +18,28 @@ using Azure.Core.Pipeline;
 namespace Azure.ResourceManager.SignalR
 {
     /// <summary>
-    /// A class representing a collection of <see cref="SignalRSharedPrivateLinkResource"/> and their operations.
-    /// Each <see cref="SignalRSharedPrivateLinkResource"/> in the collection will belong to the same instance of <see cref="SignalRResource"/>.
-    /// To get a <see cref="SignalRSharedPrivateLinkResourceCollection"/> instance call the GetSignalRSharedPrivateLinkResources method from an instance of <see cref="SignalRResource"/>.
+    /// A class representing a collection of <see cref="SignalRReplicaSharedPrivateLinkResource"/> and their operations.
+    /// Each <see cref="SignalRReplicaSharedPrivateLinkResource"/> in the collection will belong to the same instance of <see cref="ReplicaResource"/>.
+    /// To get a <see cref="SignalRReplicaSharedPrivateLinkResourceCollection"/> instance call the GetSignalRReplicaSharedPrivateLinkResources method from an instance of <see cref="ReplicaResource"/>.
     /// </summary>
-    public partial class SignalRSharedPrivateLinkResourceCollection : ArmCollection, IEnumerable<SignalRSharedPrivateLinkResource>, IAsyncEnumerable<SignalRSharedPrivateLinkResource>
+    public partial class SignalRReplicaSharedPrivateLinkResourceCollection : ArmCollection, IEnumerable<SignalRReplicaSharedPrivateLinkResource>, IAsyncEnumerable<SignalRReplicaSharedPrivateLinkResource>
     {
-        private readonly ClientDiagnostics _signalRSharedPrivateLinkResourceClientDiagnostics;
-        private readonly SignalRSharedPrivateLinkResourcesRestOperations _signalRSharedPrivateLinkResourceRestClient;
+        private readonly ClientDiagnostics _signalRReplicaSharedPrivateLinkResourceClientDiagnostics;
+        private readonly SignalRReplicaSharedPrivateLinkResourcesRestOperations _signalRReplicaSharedPrivateLinkResourceRestClient;
 
-        /// <summary> Initializes a new instance of the <see cref="SignalRSharedPrivateLinkResourceCollection"/> class for mocking. </summary>
-        protected SignalRSharedPrivateLinkResourceCollection()
+        /// <summary> Initializes a new instance of the <see cref="SignalRReplicaSharedPrivateLinkResourceCollection"/> class for mocking. </summary>
+        protected SignalRReplicaSharedPrivateLinkResourceCollection()
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref="SignalRSharedPrivateLinkResourceCollection"/> class. </summary>
+        /// <summary> Initializes a new instance of the <see cref="SignalRReplicaSharedPrivateLinkResourceCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
-        internal SignalRSharedPrivateLinkResourceCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
+        internal SignalRReplicaSharedPrivateLinkResourceCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _signalRSharedPrivateLinkResourceClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.SignalR", SignalRSharedPrivateLinkResource.ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(SignalRSharedPrivateLinkResource.ResourceType, out string signalRSharedPrivateLinkResourceApiVersion);
-            _signalRSharedPrivateLinkResourceRestClient = new SignalRSharedPrivateLinkResourcesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, signalRSharedPrivateLinkResourceApiVersion);
+            _signalRReplicaSharedPrivateLinkResourceClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.SignalR", SignalRReplicaSharedPrivateLinkResource.ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(SignalRReplicaSharedPrivateLinkResource.ResourceType, out string signalRReplicaSharedPrivateLinkResourceApiVersion);
+            _signalRReplicaSharedPrivateLinkResourceRestClient = new SignalRReplicaSharedPrivateLinkResourcesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, signalRReplicaSharedPrivateLinkResourceApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -47,8 +47,8 @@ namespace Azure.ResourceManager.SignalR
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != SignalRResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, SignalRResource.ResourceType), nameof(id));
+            if (id.ResourceType != ReplicaResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ReplicaResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -56,11 +56,11 @@ namespace Azure.ResourceManager.SignalR
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/replicas/{replicaName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SignalRSharedPrivateLinkResources_CreateOrUpdate</description>
+        /// <description>SignalRReplicaSharedPrivateLinkResources_CreateOrUpdate</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="SignalRSharedPrivateLinkResource"/></description>
+        /// <description><see cref="SignalRReplicaSharedPrivateLinkResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -78,17 +78,17 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="sharedPrivateLinkResourceName"/> or <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<SignalRSharedPrivateLinkResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string sharedPrivateLinkResourceName, SignalRSharedPrivateLinkResourceData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<SignalRReplicaSharedPrivateLinkResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string sharedPrivateLinkResourceName, SignalRSharedPrivateLinkResourceData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _signalRSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRSharedPrivateLinkResourceCollection.CreateOrUpdate");
+            using var scope = _signalRReplicaSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRReplicaSharedPrivateLinkResourceCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = await _signalRSharedPrivateLinkResourceRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sharedPrivateLinkResourceName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new SignalRArmOperation<SignalRSharedPrivateLinkResource>(new SignalRSharedPrivateLinkResourceOperationSource(Client), _signalRSharedPrivateLinkResourceClientDiagnostics, Pipeline, _signalRSharedPrivateLinkResourceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sharedPrivateLinkResourceName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = await _signalRReplicaSharedPrivateLinkResourceRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, sharedPrivateLinkResourceName, data, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation<SignalRReplicaSharedPrivateLinkResource>(new SignalRReplicaSharedPrivateLinkResourceOperationSource(Client), _signalRReplicaSharedPrivateLinkResourceClientDiagnostics, Pipeline, _signalRReplicaSharedPrivateLinkResourceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, sharedPrivateLinkResourceName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -105,11 +105,11 @@ namespace Azure.ResourceManager.SignalR
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/replicas/{replicaName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SignalRSharedPrivateLinkResources_CreateOrUpdate</description>
+        /// <description>SignalRReplicaSharedPrivateLinkResources_CreateOrUpdate</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="SignalRSharedPrivateLinkResource"/></description>
+        /// <description><see cref="SignalRReplicaSharedPrivateLinkResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -127,17 +127,17 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="sharedPrivateLinkResourceName"/> or <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<SignalRSharedPrivateLinkResource> CreateOrUpdate(WaitUntil waitUntil, string sharedPrivateLinkResourceName, SignalRSharedPrivateLinkResourceData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<SignalRReplicaSharedPrivateLinkResource> CreateOrUpdate(WaitUntil waitUntil, string sharedPrivateLinkResourceName, SignalRSharedPrivateLinkResourceData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _signalRSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRSharedPrivateLinkResourceCollection.CreateOrUpdate");
+            using var scope = _signalRReplicaSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRReplicaSharedPrivateLinkResourceCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = _signalRSharedPrivateLinkResourceRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sharedPrivateLinkResourceName, data, cancellationToken);
-                var operation = new SignalRArmOperation<SignalRSharedPrivateLinkResource>(new SignalRSharedPrivateLinkResourceOperationSource(Client), _signalRSharedPrivateLinkResourceClientDiagnostics, Pipeline, _signalRSharedPrivateLinkResourceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sharedPrivateLinkResourceName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = _signalRReplicaSharedPrivateLinkResourceRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, sharedPrivateLinkResourceName, data, cancellationToken);
+                var operation = new SignalRArmOperation<SignalRReplicaSharedPrivateLinkResource>(new SignalRReplicaSharedPrivateLinkResourceOperationSource(Client), _signalRReplicaSharedPrivateLinkResourceClientDiagnostics, Pipeline, _signalRReplicaSharedPrivateLinkResourceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, sharedPrivateLinkResourceName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -154,11 +154,11 @@ namespace Azure.ResourceManager.SignalR
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/replicas/{replicaName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SignalRSharedPrivateLinkResources_Get</description>
+        /// <description>SignalRReplicaSharedPrivateLinkResources_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="SignalRSharedPrivateLinkResource"/></description>
+        /// <description><see cref="SignalRReplicaSharedPrivateLinkResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -174,18 +174,18 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
-        public virtual async Task<Response<SignalRSharedPrivateLinkResource>> GetAsync(string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<SignalRReplicaSharedPrivateLinkResource>> GetAsync(string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
 
-            using var scope = _signalRSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRSharedPrivateLinkResourceCollection.Get");
+            using var scope = _signalRReplicaSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRReplicaSharedPrivateLinkResourceCollection.Get");
             scope.Start();
             try
             {
-                var response = await _signalRSharedPrivateLinkResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sharedPrivateLinkResourceName, cancellationToken).ConfigureAwait(false);
+                var response = await _signalRReplicaSharedPrivateLinkResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, sharedPrivateLinkResourceName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
-                return Response.FromValue(new SignalRSharedPrivateLinkResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new SignalRReplicaSharedPrivateLinkResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -199,11 +199,11 @@ namespace Azure.ResourceManager.SignalR
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/replicas/{replicaName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SignalRSharedPrivateLinkResources_Get</description>
+        /// <description>SignalRReplicaSharedPrivateLinkResources_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -211,7 +211,7 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="SignalRSharedPrivateLinkResource"/></description>
+        /// <description><see cref="SignalRReplicaSharedPrivateLinkResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -219,18 +219,18 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
-        public virtual Response<SignalRSharedPrivateLinkResource> Get(string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
+        public virtual Response<SignalRReplicaSharedPrivateLinkResource> Get(string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
 
-            using var scope = _signalRSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRSharedPrivateLinkResourceCollection.Get");
+            using var scope = _signalRReplicaSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRReplicaSharedPrivateLinkResourceCollection.Get");
             scope.Start();
             try
             {
-                var response = _signalRSharedPrivateLinkResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sharedPrivateLinkResourceName, cancellationToken);
+                var response = _signalRReplicaSharedPrivateLinkResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, sharedPrivateLinkResourceName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
-                return Response.FromValue(new SignalRSharedPrivateLinkResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new SignalRReplicaSharedPrivateLinkResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -244,11 +244,11 @@ namespace Azure.ResourceManager.SignalR
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/sharedPrivateLinkResources</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/replicas/{replicaName}/sharedPrivateLinkResources</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SignalRSharedPrivateLinkResources_List</description>
+        /// <description>SignalRReplicaSharedPrivateLinkResources_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -256,17 +256,17 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="SignalRSharedPrivateLinkResource"/></description>
+        /// <description><see cref="SignalRReplicaSharedPrivateLinkResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="SignalRSharedPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<SignalRSharedPrivateLinkResource> GetAllAsync(CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="SignalRReplicaSharedPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<SignalRReplicaSharedPrivateLinkResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _signalRSharedPrivateLinkResourceRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _signalRSharedPrivateLinkResourceRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new SignalRSharedPrivateLinkResource(Client, SignalRSharedPrivateLinkResourceData.DeserializeSignalRSharedPrivateLinkResourceData(e)), _signalRSharedPrivateLinkResourceClientDiagnostics, Pipeline, "SignalRSharedPrivateLinkResourceCollection.GetAll", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _signalRReplicaSharedPrivateLinkResourceRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _signalRReplicaSharedPrivateLinkResourceRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new SignalRReplicaSharedPrivateLinkResource(Client, SignalRSharedPrivateLinkResourceData.DeserializeSignalRSharedPrivateLinkResourceData(e)), _signalRReplicaSharedPrivateLinkResourceClientDiagnostics, Pipeline, "SignalRReplicaSharedPrivateLinkResourceCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -274,11 +274,11 @@ namespace Azure.ResourceManager.SignalR
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/sharedPrivateLinkResources</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/replicas/{replicaName}/sharedPrivateLinkResources</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SignalRSharedPrivateLinkResources_List</description>
+        /// <description>SignalRReplicaSharedPrivateLinkResources_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -286,17 +286,17 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="SignalRSharedPrivateLinkResource"/></description>
+        /// <description><see cref="SignalRReplicaSharedPrivateLinkResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SignalRSharedPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<SignalRSharedPrivateLinkResource> GetAll(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="SignalRReplicaSharedPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<SignalRReplicaSharedPrivateLinkResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _signalRSharedPrivateLinkResourceRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _signalRSharedPrivateLinkResourceRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new SignalRSharedPrivateLinkResource(Client, SignalRSharedPrivateLinkResourceData.DeserializeSignalRSharedPrivateLinkResourceData(e)), _signalRSharedPrivateLinkResourceClientDiagnostics, Pipeline, "SignalRSharedPrivateLinkResourceCollection.GetAll", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _signalRReplicaSharedPrivateLinkResourceRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _signalRReplicaSharedPrivateLinkResourceRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new SignalRReplicaSharedPrivateLinkResource(Client, SignalRSharedPrivateLinkResourceData.DeserializeSignalRSharedPrivateLinkResourceData(e)), _signalRReplicaSharedPrivateLinkResourceClientDiagnostics, Pipeline, "SignalRReplicaSharedPrivateLinkResourceCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -304,11 +304,11 @@ namespace Azure.ResourceManager.SignalR
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/replicas/{replicaName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SignalRSharedPrivateLinkResources_Get</description>
+        /// <description>SignalRReplicaSharedPrivateLinkResources_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -316,7 +316,7 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="SignalRSharedPrivateLinkResource"/></description>
+        /// <description><see cref="SignalRReplicaSharedPrivateLinkResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -328,11 +328,11 @@ namespace Azure.ResourceManager.SignalR
         {
             Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
 
-            using var scope = _signalRSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRSharedPrivateLinkResourceCollection.Exists");
+            using var scope = _signalRReplicaSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRReplicaSharedPrivateLinkResourceCollection.Exists");
             scope.Start();
             try
             {
-                var response = await _signalRSharedPrivateLinkResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sharedPrivateLinkResourceName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _signalRReplicaSharedPrivateLinkResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, sharedPrivateLinkResourceName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -347,11 +347,11 @@ namespace Azure.ResourceManager.SignalR
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/replicas/{replicaName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SignalRSharedPrivateLinkResources_Get</description>
+        /// <description>SignalRReplicaSharedPrivateLinkResources_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -359,7 +359,7 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="SignalRSharedPrivateLinkResource"/></description>
+        /// <description><see cref="SignalRReplicaSharedPrivateLinkResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -371,11 +371,11 @@ namespace Azure.ResourceManager.SignalR
         {
             Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
 
-            using var scope = _signalRSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRSharedPrivateLinkResourceCollection.Exists");
+            using var scope = _signalRReplicaSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRReplicaSharedPrivateLinkResourceCollection.Exists");
             scope.Start();
             try
             {
-                var response = _signalRSharedPrivateLinkResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sharedPrivateLinkResourceName, cancellationToken: cancellationToken);
+                var response = _signalRReplicaSharedPrivateLinkResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, sharedPrivateLinkResourceName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -390,11 +390,11 @@ namespace Azure.ResourceManager.SignalR
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/replicas/{replicaName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SignalRSharedPrivateLinkResources_Get</description>
+        /// <description>SignalRReplicaSharedPrivateLinkResources_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -402,7 +402,7 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="SignalRSharedPrivateLinkResource"/></description>
+        /// <description><see cref="SignalRReplicaSharedPrivateLinkResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -410,18 +410,18 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
-        public virtual async Task<NullableResponse<SignalRSharedPrivateLinkResource>> GetIfExistsAsync(string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
+        public virtual async Task<NullableResponse<SignalRReplicaSharedPrivateLinkResource>> GetIfExistsAsync(string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
 
-            using var scope = _signalRSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRSharedPrivateLinkResourceCollection.GetIfExists");
+            using var scope = _signalRReplicaSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRReplicaSharedPrivateLinkResourceCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = await _signalRSharedPrivateLinkResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sharedPrivateLinkResourceName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _signalRReplicaSharedPrivateLinkResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, sharedPrivateLinkResourceName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
-                    return new NoValueResponse<SignalRSharedPrivateLinkResource>(response.GetRawResponse());
-                return Response.FromValue(new SignalRSharedPrivateLinkResource(Client, response.Value), response.GetRawResponse());
+                    return new NoValueResponse<SignalRReplicaSharedPrivateLinkResource>(response.GetRawResponse());
+                return Response.FromValue(new SignalRReplicaSharedPrivateLinkResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -435,11 +435,11 @@ namespace Azure.ResourceManager.SignalR
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/replicas/{replicaName}/sharedPrivateLinkResources/{sharedPrivateLinkResourceName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SignalRSharedPrivateLinkResources_Get</description>
+        /// <description>SignalRReplicaSharedPrivateLinkResources_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -447,7 +447,7 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="SignalRSharedPrivateLinkResource"/></description>
+        /// <description><see cref="SignalRReplicaSharedPrivateLinkResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -455,18 +455,18 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
-        public virtual NullableResponse<SignalRSharedPrivateLinkResource> GetIfExists(string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
+        public virtual NullableResponse<SignalRReplicaSharedPrivateLinkResource> GetIfExists(string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
 
-            using var scope = _signalRSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRSharedPrivateLinkResourceCollection.GetIfExists");
+            using var scope = _signalRReplicaSharedPrivateLinkResourceClientDiagnostics.CreateScope("SignalRReplicaSharedPrivateLinkResourceCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = _signalRSharedPrivateLinkResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sharedPrivateLinkResourceName, cancellationToken: cancellationToken);
+                var response = _signalRReplicaSharedPrivateLinkResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, sharedPrivateLinkResourceName, cancellationToken: cancellationToken);
                 if (response.Value == null)
-                    return new NoValueResponse<SignalRSharedPrivateLinkResource>(response.GetRawResponse());
-                return Response.FromValue(new SignalRSharedPrivateLinkResource(Client, response.Value), response.GetRawResponse());
+                    return new NoValueResponse<SignalRReplicaSharedPrivateLinkResource>(response.GetRawResponse());
+                return Response.FromValue(new SignalRReplicaSharedPrivateLinkResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -475,7 +475,7 @@ namespace Azure.ResourceManager.SignalR
             }
         }
 
-        IEnumerator<SignalRSharedPrivateLinkResource> IEnumerable<SignalRSharedPrivateLinkResource>.GetEnumerator()
+        IEnumerator<SignalRReplicaSharedPrivateLinkResource> IEnumerable<SignalRReplicaSharedPrivateLinkResource>.GetEnumerator()
         {
             return GetAll().GetEnumerator();
         }
@@ -485,7 +485,7 @@ namespace Azure.ResourceManager.SignalR
             return GetAll().GetEnumerator();
         }
 
-        IAsyncEnumerator<SignalRSharedPrivateLinkResource> IAsyncEnumerable<SignalRSharedPrivateLinkResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
+        IAsyncEnumerator<SignalRReplicaSharedPrivateLinkResource> IAsyncEnumerable<SignalRReplicaSharedPrivateLinkResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
         {
             return GetAllAsync(cancellationToken: cancellationToken).GetAsyncEnumerator(cancellationToken);
         }

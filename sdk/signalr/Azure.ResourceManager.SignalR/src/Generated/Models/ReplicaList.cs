@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.SignalR.Models
 {
-    /// <summary> TLS settings for the resource. </summary>
-    internal partial class SignalRTlsSettings
+    /// <summary> The ReplicaList. </summary>
+    internal partial class ReplicaList
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,22 +45,32 @@ namespace Azure.ResourceManager.SignalR.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SignalRTlsSettings"/>. </summary>
-        public SignalRTlsSettings()
+        /// <summary> Initializes a new instance of <see cref="ReplicaList"/>. </summary>
+        internal ReplicaList()
         {
+            Value = new ChangeTrackingList<ReplicaData>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="SignalRTlsSettings"/>. </summary>
-        /// <param name="isClientCertEnabled"> Request client certificate during TLS handshake if enabled. Not supported for free tier. Any input will be ignored for free tier. </param>
+        /// <summary> Initializes a new instance of <see cref="ReplicaList"/>. </summary>
+        /// <param name="value"> List of the replica. </param>
+        /// <param name="nextLink">
+        /// The URL the client should use to fetch the next page (per server side paging).
+        /// It's null for now, added for future use.
+        /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SignalRTlsSettings(bool? isClientCertEnabled, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ReplicaList(IReadOnlyList<ReplicaData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            IsClientCertEnabled = isClientCertEnabled;
+            Value = value;
+            NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Request client certificate during TLS handshake if enabled. Not supported for free tier. Any input will be ignored for free tier. </summary>
-        [WirePath("clientCertEnabled")]
-        public bool? IsClientCertEnabled { get; set; }
+        /// <summary> List of the replica. </summary>
+        public IReadOnlyList<ReplicaData> Value { get; }
+        /// <summary>
+        /// The URL the client should use to fetch the next page (per server side paging).
+        /// It's null for now, added for future use.
+        /// </summary>
+        public string NextLink { get; }
     }
 }
