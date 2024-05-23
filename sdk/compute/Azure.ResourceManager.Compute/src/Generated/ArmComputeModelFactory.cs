@@ -220,6 +220,51 @@ namespace Azure.ResourceManager.Compute.Models
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Models.WindowsConfiguration"/>. </summary>
+        /// <param name="provisionVmAgent"> Indicates whether virtual machine agent should be provisioned on the virtual machine. When this property is not specified in the request body, it is set to true by default. This will ensure that VM Agent is installed on the VM so that extensions can be added to the VM later. </param>
+        /// <param name="isAutomaticUpdatesEnabled"> Indicates whether Automatic Updates is enabled for the Windows virtual machine. Default value is true. For virtual machine scale sets, this property can be updated and updates will take effect on OS reprovisioning. </param>
+        /// <param name="timeZone"> Specifies the time zone of the virtual machine. e.g. "Pacific Standard Time". Possible values can be [TimeZoneInfo.Id](https://docs.microsoft.com/dotnet/api/system.timezoneinfo.id?#System_TimeZoneInfo_Id) value from time zones returned by [TimeZoneInfo.GetSystemTimeZones](https://docs.microsoft.com/dotnet/api/system.timezoneinfo.getsystemtimezones). </param>
+        /// <param name="additionalUnattendContent"> Specifies additional base-64 encoded XML formatted information that can be included in the Unattend.xml file, which is used by Windows Setup. </param>
+        /// <param name="patchSettings"> [Preview Feature] Specifies settings related to VM Guest Patching on Windows. </param>
+        /// <param name="winRMListeners"> Specifies the Windows Remote Management listeners. This enables remote Windows PowerShell. </param>
+        /// <param name="isVmAgentPlatformUpdatesEnabled"> Indicates whether VMAgent Platform Updates are enabled for the Windows Virtual Machine. </param>
+        /// <returns> A new <see cref="Models.WindowsConfiguration"/> instance for mocking. </returns>
+        public static WindowsConfiguration WindowsConfiguration(bool? provisionVmAgent = null, bool? isAutomaticUpdatesEnabled = null, string timeZone = null, IEnumerable<AdditionalUnattendContent> additionalUnattendContent = null, PatchSettings patchSettings = null, IEnumerable<WinRMListener> winRMListeners = null, bool? isVmAgentPlatformUpdatesEnabled = null)
+        {
+            additionalUnattendContent ??= new List<AdditionalUnattendContent>();
+            winRMListeners ??= new List<WinRMListener>();
+
+            return new WindowsConfiguration(
+                provisionVmAgent,
+                isAutomaticUpdatesEnabled,
+                timeZone,
+                additionalUnattendContent?.ToList(),
+                patchSettings,
+                winRMListeners != null ? new WinRMConfiguration(winRMListeners?.ToList(), serializedAdditionalRawData: null) : null,
+                isVmAgentPlatformUpdatesEnabled,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.LinuxConfiguration"/>. </summary>
+        /// <param name="isPasswordAuthenticationDisabled"> Specifies whether password authentication should be disabled. </param>
+        /// <param name="sshPublicKeys"> Specifies the ssh key configuration for a Linux OS. </param>
+        /// <param name="provisionVmAgent"> Indicates whether virtual machine agent should be provisioned on the virtual machine. When this property is not specified in the request body, default behavior is to set it to true. This will ensure that VM Agent is installed on the VM so that extensions can be added to the VM later. </param>
+        /// <param name="patchSettings"> [Preview Feature] Specifies settings related to VM Guest Patching on Linux. </param>
+        /// <param name="isVmAgentPlatformUpdatesEnabled"> Indicates whether VMAgent Platform Updates are enabled for the Linux Virtual Machine. </param>
+        /// <returns> A new <see cref="Models.LinuxConfiguration"/> instance for mocking. </returns>
+        public static LinuxConfiguration LinuxConfiguration(bool? isPasswordAuthenticationDisabled = null, IEnumerable<SshPublicKeyConfiguration> sshPublicKeys = null, bool? provisionVmAgent = null, LinuxPatchSettings patchSettings = null, bool? isVmAgentPlatformUpdatesEnabled = null)
+        {
+            sshPublicKeys ??= new List<SshPublicKeyConfiguration>();
+
+            return new LinuxConfiguration(
+                isPasswordAuthenticationDisabled,
+                sshPublicKeys != null ? new SshConfiguration(sshPublicKeys?.ToList(), serializedAdditionalRawData: null) : null,
+                provisionVmAgent,
+                patchSettings,
+                isVmAgentPlatformUpdatesEnabled,
+                serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Models.ImageReference"/>. </summary>
         /// <param name="id"> Resource Id. </param>
         /// <param name="publisher"> The image publisher. </param>

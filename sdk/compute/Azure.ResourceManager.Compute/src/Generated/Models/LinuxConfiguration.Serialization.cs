@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("patchSettings"u8);
                 writer.WriteObjectValue(PatchSettings, options);
             }
-            if (Optional.IsDefined(IsVmAgentPlatformUpdatesEnabled))
+            if (options.Format != "W" && Optional.IsDefined(IsVmAgentPlatformUpdatesEnabled))
             {
                 writer.WritePropertyName("enableVMAgentPlatformUpdates"u8);
                 writer.WriteBooleanValue(IsVmAgentPlatformUpdatesEnabled.Value);
