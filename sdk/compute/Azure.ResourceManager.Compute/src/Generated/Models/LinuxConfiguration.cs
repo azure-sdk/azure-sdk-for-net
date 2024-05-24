@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="ssh"> Specifies the ssh key configuration for a Linux OS. </param>
         /// <param name="provisionVmAgent"> Indicates whether virtual machine agent should be provisioned on the virtual machine. When this property is not specified in the request body, default behavior is to set it to true. This will ensure that VM Agent is installed on the VM so that extensions can be added to the VM later. </param>
         /// <param name="patchSettings"> [Preview Feature] Specifies settings related to VM Guest Patching on Linux. </param>
-        /// <param name="isVmAgentPlatformUpdatesEnabled"> Indicates whether VMAgent Platform Updates is enabled for the Linux virtual machine. Default value is false. </param>
+        /// <param name="isVmAgentPlatformUpdatesEnabled"> Indicates whether VMAgent Platform Updates is enabled for the Linux virtual machine. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal LinuxConfiguration(bool? isPasswordAuthenticationDisabled, SshConfiguration ssh, bool? provisionVmAgent, LinuxPatchSettings patchSettings, bool? isVmAgentPlatformUpdatesEnabled, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.Compute.Models
         public bool? ProvisionVmAgent { get; set; }
         /// <summary> [Preview Feature] Specifies settings related to VM Guest Patching on Linux. </summary>
         public LinuxPatchSettings PatchSettings { get; set; }
-        /// <summary> Indicates whether VMAgent Platform Updates is enabled for the Linux virtual machine. Default value is false. </summary>
+        /// <summary> Indicates whether VMAgent Platform Updates is enabled for the Linux virtual machine. </summary>
         public bool? IsVmAgentPlatformUpdatesEnabled { get; set; }
     }
 }
