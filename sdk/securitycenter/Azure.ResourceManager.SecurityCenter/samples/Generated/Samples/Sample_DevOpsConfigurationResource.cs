@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.SecurityCenter.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAvailableDevOpsOrgs_ListAvailableAzureDevOpsOrgs()
         {
-            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/preview/2023-09-01-preview/examples/SecurityConnectorsDevOps/ListAvailableAzureDevOpsOrgs_example.json
+            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/stable/2024-04-01/examples/SecurityConnectorsDevOps/ListAvailableAzureDevOpsOrgs_example.json
             // this example is just showing the usage of "AzureDevOpsOrgs_ListAvailable" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -55,7 +55,38 @@ namespace Azure.ResourceManager.SecurityCenter.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetDevOpsConfigurations()
         {
-            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/preview/2023-09-01-preview/examples/SecurityConnectorsDevOps/GetDevOpsConfigurations_example.json
+            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/stable/2024-04-01/examples/SecurityConnectorsDevOps/GetDevOpsConfigurations_example.json
+            // this example is just showing the usage of "DevOpsConfigurations_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this DevOpsConfigurationResource created on azure
+            // for more information of creating DevOpsConfigurationResource, please refer to the document of DevOpsConfigurationResource
+            string subscriptionId = "0806e1cd-cfda-4ff8-b99c-2b0af42cffd3";
+            string resourceGroupName = "myRg";
+            string securityConnectorName = "mySecurityConnectorName";
+            ResourceIdentifier devOpsConfigurationResourceId = DevOpsConfigurationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, securityConnectorName);
+            DevOpsConfigurationResource devOpsConfiguration = client.GetDevOpsConfigurationResource(devOpsConfigurationResourceId);
+
+            // invoke the operation
+            DevOpsConfigurationResource result = await devOpsConfiguration.GetAsync();
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            DevOpsConfigurationData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        // Get_DevOpsConfigurations_WithCapabilities
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task Get_GetDevOpsConfigurationsWithCapabilities()
+        {
+            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/stable/2024-04-01/examples/SecurityConnectorsDevOps/GetDevOpsConfigurationsWithCapabilities_example.json
             // this example is just showing the usage of "DevOpsConfigurations_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -86,7 +117,7 @@ namespace Azure.ResourceManager.SecurityCenter.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateOrUpdateDevOpsConfigurationsOnboardCurrentAndFuture()
         {
-            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/preview/2023-09-01-preview/examples/SecurityConnectorsDevOps/CreateOrUpdateDevOpsConfigurationsOnboardCurrentAndFuture_example.json
+            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/stable/2024-04-01/examples/SecurityConnectorsDevOps/CreateOrUpdateDevOpsConfigurationsOnboardCurrentAndFuture_example.json
             // this example is just showing the usage of "DevOpsConfigurations_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -126,7 +157,7 @@ namespace Azure.ResourceManager.SecurityCenter.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateOrUpdateDevOpsConfigurationsOnboardCurrentOnly()
         {
-            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/preview/2023-09-01-preview/examples/SecurityConnectorsDevOps/CreateOrUpdateDevOpsConfigurationsOnboardCurrentOnly_example.json
+            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/stable/2024-04-01/examples/SecurityConnectorsDevOps/CreateOrUpdateDevOpsConfigurationsOnboardCurrentOnly_example.json
             // this example is just showing the usage of "DevOpsConfigurations_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -166,7 +197,7 @@ namespace Azure.ResourceManager.SecurityCenter.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateOrUpdateDevOpsConfigurationsOnboardSelected()
         {
-            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/preview/2023-09-01-preview/examples/SecurityConnectorsDevOps/CreateOrUpdateDevOpsConfigurationsOnboardSelected_example.json
+            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/stable/2024-04-01/examples/SecurityConnectorsDevOps/CreateOrUpdateDevOpsConfigurationsOnboardSelected_example.json
             // this example is just showing the usage of "DevOpsConfigurations_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -210,7 +241,7 @@ namespace Azure.ResourceManager.SecurityCenter.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_UpdateDevOpsConfigurations()
         {
-            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/preview/2023-09-01-preview/examples/SecurityConnectorsDevOps/UpdateDevOpsConfigurations_example.json
+            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/stable/2024-04-01/examples/SecurityConnectorsDevOps/UpdateDevOpsConfigurations_example.json
             // this example is just showing the usage of "DevOpsConfigurations_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -249,7 +280,7 @@ namespace Azure.ResourceManager.SecurityCenter.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteDevOpsConfigurations()
         {
-            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/preview/2023-09-01-preview/examples/SecurityConnectorsDevOps/DeleteDevOpsConfigurations_example.json
+            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/stable/2024-04-01/examples/SecurityConnectorsDevOps/DeleteDevOpsConfigurations_example.json
             // this example is just showing the usage of "DevOpsConfigurations_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -276,7 +307,7 @@ namespace Azure.ResourceManager.SecurityCenter.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAvailableGitHubOwners_ListAvailableGitHubOwners()
         {
-            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/preview/2023-09-01-preview/examples/SecurityConnectorsDevOps/ListAvailableGitHubOwners_example.json
+            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/stable/2024-04-01/examples/SecurityConnectorsDevOps/ListAvailableGitHubOwners_example.json
             // this example is just showing the usage of "GitHubOwners_ListAvailable" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -310,7 +341,7 @@ namespace Azure.ResourceManager.SecurityCenter.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAvailableGitLabGroups_ListAvailableGitLabGroups()
         {
-            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/preview/2023-09-01-preview/examples/SecurityConnectorsDevOps/ListAvailableGitLabGroups_example.json
+            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/stable/2024-04-01/examples/SecurityConnectorsDevOps/ListAvailableGitLabGroups_example.json
             // this example is just showing the usage of "GitLabGroups_ListAvailable" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -344,7 +375,7 @@ namespace Azure.ResourceManager.SecurityCenter.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetDevOpsOperationResult_GetDevOpsOperationResultsFailed()
         {
-            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/preview/2023-09-01-preview/examples/SecurityConnectorsDevOps/GetDevOpsOperationResultsFailed_example.json
+            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/stable/2024-04-01/examples/SecurityConnectorsDevOps/GetDevOpsOperationResultsFailed_example.json
             // this example is just showing the usage of "DevOpsOperationResults_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -372,7 +403,7 @@ namespace Azure.ResourceManager.SecurityCenter.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetDevOpsOperationResult_GetDevOpsOperationResultsSucceeded()
         {
-            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/preview/2023-09-01-preview/examples/SecurityConnectorsDevOps/GetDevOpsOperationResultsSucceeded_example.json
+            // Generated from example definition: specification/security/resource-manager/Microsoft.Security/stable/2024-04-01/examples/SecurityConnectorsDevOps/GetDevOpsOperationResultsSucceeded_example.json
             // this example is just showing the usage of "DevOpsOperationResults_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
