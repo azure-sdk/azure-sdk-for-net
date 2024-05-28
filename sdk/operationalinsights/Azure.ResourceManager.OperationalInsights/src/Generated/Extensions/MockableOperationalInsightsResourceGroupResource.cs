@@ -17,10 +17,10 @@ namespace Azure.ResourceManager.OperationalInsights.Mocking
     /// <summary> A class to add extension methods to ResourceGroupResource. </summary>
     public partial class MockableOperationalInsightsResourceGroupResource : ArmResource
     {
-        private ClientDiagnostics _logAnalyticsQueryPackQueryPacksClientDiagnostics;
-        private QueryPacksRestOperations _logAnalyticsQueryPackQueryPacksRestClient;
         private ClientDiagnostics _deletedWorkspacesClientDiagnostics;
         private DeletedWorkspacesRestOperations _deletedWorkspacesRestClient;
+        private ClientDiagnostics _logAnalyticsQueryPackQueryPacksClientDiagnostics;
+        private QueryPacksRestOperations _logAnalyticsQueryPackQueryPacksRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="MockableOperationalInsightsResourceGroupResource"/> class for mocking. </summary>
         protected MockableOperationalInsightsResourceGroupResource()
@@ -34,15 +34,84 @@ namespace Azure.ResourceManager.OperationalInsights.Mocking
         {
         }
 
-        private ClientDiagnostics LogAnalyticsQueryPackQueryPacksClientDiagnostics => _logAnalyticsQueryPackQueryPacksClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.OperationalInsights", LogAnalyticsQueryPackResource.ResourceType.Namespace, Diagnostics);
-        private QueryPacksRestOperations LogAnalyticsQueryPackQueryPacksRestClient => _logAnalyticsQueryPackQueryPacksRestClient ??= new QueryPacksRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(LogAnalyticsQueryPackResource.ResourceType));
         private ClientDiagnostics DeletedWorkspacesClientDiagnostics => _deletedWorkspacesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.OperationalInsights", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private DeletedWorkspacesRestOperations DeletedWorkspacesRestClient => _deletedWorkspacesRestClient ??= new DeletedWorkspacesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics LogAnalyticsQueryPackQueryPacksClientDiagnostics => _logAnalyticsQueryPackQueryPacksClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.OperationalInsights", LogAnalyticsQueryPackResource.ResourceType.Namespace, Diagnostics);
+        private QueryPacksRestOperations LogAnalyticsQueryPackQueryPacksRestClient => _logAnalyticsQueryPackQueryPacksRestClient ??= new QueryPacksRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(LogAnalyticsQueryPackResource.ResourceType));
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
             TryGetApiVersion(resourceType, out string apiVersion);
             return apiVersion;
+        }
+
+        /// <summary> Gets a collection of OperationalInsightsWorkspaceResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of OperationalInsightsWorkspaceResources and their operations over a OperationalInsightsWorkspaceResource. </returns>
+        public virtual OperationalInsightsWorkspaceCollection GetOperationalInsightsWorkspaces()
+        {
+            return GetCachedClient(client => new OperationalInsightsWorkspaceCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Gets a workspace instance.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Workspaces_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-09-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="OperationalInsightsWorkspaceResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workspaceName"> The name of the workspace. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workspaceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<OperationalInsightsWorkspaceResource>> GetOperationalInsightsWorkspaceAsync(string workspaceName, CancellationToken cancellationToken = default)
+        {
+            return await GetOperationalInsightsWorkspaces().GetAsync(workspaceName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a workspace instance.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Workspaces_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-09-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="OperationalInsightsWorkspaceResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workspaceName"> The name of the workspace. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workspaceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<OperationalInsightsWorkspaceResource> GetOperationalInsightsWorkspace(string workspaceName, CancellationToken cancellationToken = default)
+        {
+            return GetOperationalInsightsWorkspaces().Get(workspaceName, cancellationToken);
         }
 
         /// <summary> Gets a collection of LogAnalyticsQueryPackResources in the ResourceGroupResource. </summary>
@@ -134,7 +203,7 @@ namespace Azure.ResourceManager.OperationalInsights.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-06-01</description>
+        /// <description>2022-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -165,7 +234,7 @@ namespace Azure.ResourceManager.OperationalInsights.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-06-01</description>
+        /// <description>2022-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -183,73 +252,54 @@ namespace Azure.ResourceManager.OperationalInsights.Mocking
             return GetOperationalInsightsClusters().Get(clusterName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of OperationalInsightsWorkspaceResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of OperationalInsightsWorkspaceResources and their operations over a OperationalInsightsWorkspaceResource. </returns>
-        public virtual OperationalInsightsWorkspaceCollection GetOperationalInsightsWorkspaces()
-        {
-            return GetCachedClient(client => new OperationalInsightsWorkspaceCollection(client, Id));
-        }
-
         /// <summary>
-        /// Gets a workspace instance.
+        /// Gets recently deleted workspaces in a resource group, available for recovery.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/deletedWorkspaces</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Workspaces_Get</description>
+        /// <description>DeletedWorkspaces_ListByResourceGroup</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="OperationalInsightsWorkspaceResource"/></description>
+        /// <description>2023-09-01</description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="workspaceName"> The name of the workspace. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="workspaceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<OperationalInsightsWorkspaceResource>> GetOperationalInsightsWorkspaceAsync(string workspaceName, CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="OperationalInsightsWorkspaceResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<OperationalInsightsWorkspaceResource> GetDeletedWorkspacesAsync(CancellationToken cancellationToken = default)
         {
-            return await GetOperationalInsightsWorkspaces().GetAsync(workspaceName, cancellationToken).ConfigureAwait(false);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => DeletedWorkspacesRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => new OperationalInsightsWorkspaceResource(Client, OperationalInsightsWorkspaceData.DeserializeOperationalInsightsWorkspaceData(e)), DeletedWorkspacesClientDiagnostics, Pipeline, "MockableOperationalInsightsResourceGroupResource.GetDeletedWorkspaces", "value", null, cancellationToken);
         }
 
         /// <summary>
-        /// Gets a workspace instance.
+        /// Gets recently deleted workspaces in a resource group, available for recovery.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/deletedWorkspaces</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Workspaces_Get</description>
+        /// <description>DeletedWorkspaces_ListByResourceGroup</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-10-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="OperationalInsightsWorkspaceResource"/></description>
+        /// <description>2023-09-01</description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="workspaceName"> The name of the workspace. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="workspaceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<OperationalInsightsWorkspaceResource> GetOperationalInsightsWorkspace(string workspaceName, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="OperationalInsightsWorkspaceResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<OperationalInsightsWorkspaceResource> GetDeletedWorkspaces(CancellationToken cancellationToken = default)
         {
-            return GetOperationalInsightsWorkspaces().Get(workspaceName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => DeletedWorkspacesRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => new OperationalInsightsWorkspaceResource(Client, OperationalInsightsWorkspaceData.DeserializeOperationalInsightsWorkspaceData(e)), DeletedWorkspacesClientDiagnostics, Pipeline, "MockableOperationalInsightsResourceGroupResource.GetDeletedWorkspaces", "value", null, cancellationToken);
         }
 
         /// <summary>
@@ -334,56 +384,6 @@ namespace Azure.ResourceManager.OperationalInsights.Mocking
                 scope.Failed(e);
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Gets recently deleted workspaces in a resource group, available for recovery.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/deletedWorkspaces</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>DeletedWorkspaces_ListByResourceGroup</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2022-10-01</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="OperationalInsightsWorkspaceResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<OperationalInsightsWorkspaceResource> GetDeletedWorkspacesAsync(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => DeletedWorkspacesRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => new OperationalInsightsWorkspaceResource(Client, OperationalInsightsWorkspaceData.DeserializeOperationalInsightsWorkspaceData(e)), DeletedWorkspacesClientDiagnostics, Pipeline, "MockableOperationalInsightsResourceGroupResource.GetDeletedWorkspaces", "value", null, cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets recently deleted workspaces in a resource group, available for recovery.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/deletedWorkspaces</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>DeletedWorkspaces_ListByResourceGroup</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2022-10-01</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="OperationalInsightsWorkspaceResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<OperationalInsightsWorkspaceResource> GetDeletedWorkspaces(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => DeletedWorkspacesRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => new OperationalInsightsWorkspaceResource(Client, OperationalInsightsWorkspaceData.DeserializeOperationalInsightsWorkspaceData(e)), DeletedWorkspacesClientDiagnostics, Pipeline, "MockableOperationalInsightsResourceGroupResource.GetDeletedWorkspaces", "value", null, cancellationToken);
         }
     }
 }
