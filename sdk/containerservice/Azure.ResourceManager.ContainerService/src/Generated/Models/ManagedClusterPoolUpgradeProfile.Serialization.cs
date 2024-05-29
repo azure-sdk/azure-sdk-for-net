@@ -45,6 +45,11 @@ namespace Azure.ResourceManager.ContainerService.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(ComponentsByReleases))
+            {
+                writer.WritePropertyName("componentsByReleases"u8);
+                writer.WriteObjectValue(ComponentsByReleases, options);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -87,6 +92,7 @@ namespace Azure.ResourceManager.ContainerService.Models
             string name = default;
             ContainerServiceOSType osType = default;
             IReadOnlyList<ManagedClusterPoolUpgradeProfileUpgradesItem> upgrades = default;
+            ComponentsByReleases componentsByReleases = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -120,13 +126,28 @@ namespace Azure.ResourceManager.ContainerService.Models
                     upgrades = array;
                     continue;
                 }
+                if (property.NameEquals("componentsByReleases"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    componentsByReleases = ComponentsByReleases.DeserializeComponentsByReleases(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ManagedClusterPoolUpgradeProfile(kubernetesVersion, name, osType, upgrades ?? new ChangeTrackingList<ManagedClusterPoolUpgradeProfileUpgradesItem>(), serializedAdditionalRawData);
+            return new ManagedClusterPoolUpgradeProfile(
+                kubernetesVersion,
+                name,
+                osType,
+                upgrades ?? new ChangeTrackingList<ManagedClusterPoolUpgradeProfileUpgradesItem>(),
+                componentsByReleases,
+                serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ManagedClusterPoolUpgradeProfile>.Write(ModelReaderWriterOptions options)

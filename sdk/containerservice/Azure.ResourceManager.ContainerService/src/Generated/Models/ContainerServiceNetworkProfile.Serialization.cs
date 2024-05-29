@@ -86,6 +86,11 @@ namespace Azure.ResourceManager.ContainerService.Models
                 writer.WritePropertyName("natGatewayProfile"u8);
                 writer.WriteObjectValue(NatGatewayProfile, options);
             }
+            if (Optional.IsDefined(StaticEgressGatewayProfile))
+            {
+                writer.WritePropertyName("staticEgressGatewayProfile"u8);
+                writer.WriteObjectValue(StaticEgressGatewayProfile, options);
+            }
             if (Optional.IsCollectionDefined(PodCidrs))
             {
                 writer.WritePropertyName("podCidrs"u8);
@@ -115,6 +120,26 @@ namespace Azure.ResourceManager.ContainerService.Models
                     writer.WriteStringValue(item.ToString());
                 }
                 writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(PodLinkLocalAccess))
+            {
+                writer.WritePropertyName("podLinkLocalAccess"u8);
+                writer.WriteStringValue(PodLinkLocalAccess.Value.ToString());
+            }
+            if (Optional.IsDefined(KubeProxyConfig))
+            {
+                writer.WritePropertyName("kubeProxyConfig"u8);
+                writer.WriteObjectValue(KubeProxyConfig, options);
+            }
+            if (Optional.IsDefined(Monitoring))
+            {
+                writer.WritePropertyName("monitoring"u8);
+                writer.WriteObjectValue(Monitoring, options);
+            }
+            if (Optional.IsDefined(AdvancedNetworking))
+            {
+                writer.WritePropertyName("advancedNetworking"u8);
+                writer.WriteObjectValue(AdvancedNetworking, options);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -166,9 +191,14 @@ namespace Azure.ResourceManager.ContainerService.Models
             ContainerServiceLoadBalancerSku? loadBalancerSku = default;
             ManagedClusterLoadBalancerProfile loadBalancerProfile = default;
             ManagedClusterNatGatewayProfile natGatewayProfile = default;
+            ManagedClusterStaticEgressGatewayProfile staticEgressGatewayProfile = default;
             IList<string> podCidrs = default;
             IList<string> serviceCidrs = default;
             IList<IPFamily> ipFamilies = default;
+            PodLinkLocalAccess? podLinkLocalAccess = default;
+            ContainerServiceNetworkProfileKubeProxyConfig kubeProxyConfig = default;
+            NetworkMonitoring monitoring = default;
+            AdvancedNetworking advancedNetworking = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -269,6 +299,15 @@ namespace Azure.ResourceManager.ContainerService.Models
                     natGatewayProfile = ManagedClusterNatGatewayProfile.DeserializeManagedClusterNatGatewayProfile(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("staticEgressGatewayProfile"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    staticEgressGatewayProfile = ManagedClusterStaticEgressGatewayProfile.DeserializeManagedClusterStaticEgressGatewayProfile(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("podCidrs"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -311,6 +350,42 @@ namespace Azure.ResourceManager.ContainerService.Models
                     ipFamilies = array;
                     continue;
                 }
+                if (property.NameEquals("podLinkLocalAccess"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    podLinkLocalAccess = new PodLinkLocalAccess(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("kubeProxyConfig"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    kubeProxyConfig = ContainerServiceNetworkProfileKubeProxyConfig.DeserializeContainerServiceNetworkProfileKubeProxyConfig(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("monitoring"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    monitoring = NetworkMonitoring.DeserializeNetworkMonitoring(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("advancedNetworking"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    advancedNetworking = AdvancedNetworking.DeserializeAdvancedNetworking(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -330,9 +405,14 @@ namespace Azure.ResourceManager.ContainerService.Models
                 loadBalancerSku,
                 loadBalancerProfile,
                 natGatewayProfile,
+                staticEgressGatewayProfile,
                 podCidrs ?? new ChangeTrackingList<string>(),
                 serviceCidrs ?? new ChangeTrackingList<string>(),
                 ipFamilies ?? new ChangeTrackingList<IPFamily>(),
+                podLinkLocalAccess,
+                kubeProxyConfig,
+                monitoring,
+                advancedNetworking,
                 serializedAdditionalRawData);
         }
 
