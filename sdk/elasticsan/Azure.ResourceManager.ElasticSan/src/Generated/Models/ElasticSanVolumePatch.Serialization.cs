@@ -38,6 +38,11 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 writer.WritePropertyName("managedBy"u8);
                 writer.WriteObjectValue(ManagedBy, options);
             }
+            if (Optional.IsDefined(SoftDeleteEnabled))
+            {
+                writer.WritePropertyName("softDeleteEnabled"u8);
+                writer.WriteBooleanValue(SoftDeleteEnabled.Value);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -79,6 +84,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
             }
             long? sizeGiB = default;
             ManagedByInfo managedBy = default;
+            bool? softDeleteEnabled = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -110,6 +116,15 @@ namespace Azure.ResourceManager.ElasticSan.Models
                             managedBy = ManagedByInfo.DeserializeManagedByInfo(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("softDeleteEnabled"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            softDeleteEnabled = property0.Value.GetBoolean();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -119,7 +134,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ElasticSanVolumePatch(sizeGiB, managedBy, serializedAdditionalRawData);
+            return new ElasticSanVolumePatch(sizeGiB, managedBy, softDeleteEnabled, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ElasticSanVolumePatch>.Write(ModelReaderWriterOptions options)

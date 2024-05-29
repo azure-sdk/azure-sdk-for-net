@@ -67,15 +67,17 @@ namespace Azure.ResourceManager.ElasticSan
         /// <param name="creationData"> State of the operation on the resource. </param>
         /// <param name="sizeGiB"> Volume size. </param>
         /// <param name="storageTarget"> Storage target information. </param>
+        /// <param name="softDeleteEnabled"> Indicates whether delete retention is allowed on the volume. </param>
         /// <param name="managedBy"> Parent resource information. </param>
         /// <param name="provisioningState"> State of the operation on the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ElasticSanVolumeData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, Guid? volumeId, ElasticSanVolumeDataSourceInfo creationData, long sizeGiB, IscsiTargetInfo storageTarget, ManagedByInfo managedBy, ElasticSanProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal ElasticSanVolumeData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, Guid? volumeId, ElasticSanVolumeDataSourceInfo creationData, long sizeGiB, IscsiTargetInfo storageTarget, bool? softDeleteEnabled, ManagedByInfo managedBy, ElasticSanProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             VolumeId = volumeId;
             CreationData = creationData;
             SizeGiB = sizeGiB;
             StorageTarget = storageTarget;
+            SoftDeleteEnabled = softDeleteEnabled;
             ManagedBy = managedBy;
             ProvisioningState = provisioningState;
             _serializedAdditionalRawData = serializedAdditionalRawData;
@@ -94,6 +96,8 @@ namespace Azure.ResourceManager.ElasticSan
         public long SizeGiB { get; set; }
         /// <summary> Storage target information. </summary>
         public IscsiTargetInfo StorageTarget { get; }
+        /// <summary> Indicates whether delete retention is allowed on the volume. </summary>
+        public bool? SoftDeleteEnabled { get; set; }
         /// <summary> Parent resource information. </summary>
         internal ManagedByInfo ManagedBy { get; set; }
         /// <summary> Resource ID of the resource managing the volume, this is a restricted field and can only be set for internal use. </summary>

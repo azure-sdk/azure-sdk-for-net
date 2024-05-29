@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Azure.Core;
 using Azure.ResourceManager.Models;
@@ -146,8 +147,9 @@ namespace Azure.ResourceManager.ElasticSan.Models
         /// <param name="encryptionProperties"> Encryption Properties describing Key Vault and Identity information. </param>
         /// <param name="virtualNetworkRules"> A collection of rules governing the accessibility from specific network locations. </param>
         /// <param name="privateEndpointConnections"> The list of Private Endpoint Connections. </param>
+        /// <param name="deleteRetentionPolicy"> The retention policy for the deleted volumes. </param>
         /// <returns> A new <see cref="ElasticSan.ElasticSanVolumeGroupData"/> instance for mocking. </returns>
-        public static ElasticSanVolumeGroupData ElasticSanVolumeGroupData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ManagedServiceIdentity identity = null, ElasticSanProvisioningState? provisioningState = null, ElasticSanStorageTargetType? protocolType = null, ElasticSanEncryptionType? encryption = null, ElasticSanEncryptionProperties encryptionProperties = null, IEnumerable<ElasticSanVirtualNetworkRule> virtualNetworkRules = null, IEnumerable<ElasticSanPrivateEndpointConnectionData> privateEndpointConnections = null)
+        public static ElasticSanVolumeGroupData ElasticSanVolumeGroupData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ManagedServiceIdentity identity = null, ElasticSanProvisioningState? provisioningState = null, ElasticSanStorageTargetType? protocolType = null, ElasticSanEncryptionType? encryption = null, ElasticSanEncryptionProperties encryptionProperties = null, IEnumerable<ElasticSanVirtualNetworkRule> virtualNetworkRules = null, IEnumerable<ElasticSanPrivateEndpointConnectionData> privateEndpointConnections = null, DeleteRetentionPolicy deleteRetentionPolicy = null)
         {
             virtualNetworkRules ??= new List<ElasticSanVirtualNetworkRule>();
             privateEndpointConnections ??= new List<ElasticSanPrivateEndpointConnectionData>();
@@ -164,6 +166,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 encryptionProperties,
                 virtualNetworkRules != null ? new NetworkRuleSet(virtualNetworkRules?.ToList(), serializedAdditionalRawData: null) : null,
                 privateEndpointConnections?.ToList(),
+                deleteRetentionPolicy,
                 serializedAdditionalRawData: null);
         }
 
@@ -196,10 +199,11 @@ namespace Azure.ResourceManager.ElasticSan.Models
         /// <param name="creationData"> State of the operation on the resource. </param>
         /// <param name="sizeGiB"> Volume size. </param>
         /// <param name="storageTarget"> Storage target information. </param>
+        /// <param name="softDeleteEnabled"> Indicates whether delete retention is allowed on the volume. </param>
         /// <param name="managedByResourceId"> Parent resource information. </param>
         /// <param name="provisioningState"> State of the operation on the resource. </param>
         /// <returns> A new <see cref="ElasticSan.ElasticSanVolumeData"/> instance for mocking. </returns>
-        public static ElasticSanVolumeData ElasticSanVolumeData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, Guid? volumeId = null, ElasticSanVolumeDataSourceInfo creationData = null, long sizeGiB = default, IscsiTargetInfo storageTarget = null, ResourceIdentifier managedByResourceId = null, ElasticSanProvisioningState? provisioningState = null)
+        public static ElasticSanVolumeData ElasticSanVolumeData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, Guid? volumeId = null, ElasticSanVolumeDataSourceInfo creationData = null, long sizeGiB = default, IscsiTargetInfo storageTarget = null, bool? softDeleteEnabled = null, ResourceIdentifier managedByResourceId = null, ElasticSanProvisioningState? provisioningState = null)
         {
             return new ElasticSanVolumeData(
                 id,
@@ -210,6 +214,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 creationData,
                 sizeGiB,
                 storageTarget,
+                softDeleteEnabled,
                 managedByResourceId != null ? new ManagedByInfo(managedByResourceId, serializedAdditionalRawData: null) : null,
                 provisioningState,
                 serializedAdditionalRawData: null);
@@ -280,6 +285,43 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 sourceVolumeSizeGiB,
                 volumeName,
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.ElasticSan.ElasticSanVolumeGroupData" />. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="identity"> The identity of the resource. Current supported identity types: None, SystemAssigned, UserAssigned. </param>
+        /// <param name="provisioningState"> State of the operation on the resource. </param>
+        /// <param name="protocolType"> Type of storage target. </param>
+        /// <param name="encryption"> Type of encryption. </param>
+        /// <param name="encryptionProperties"> Encryption Properties describing Key Vault and Identity information. </param>
+        /// <param name="virtualNetworkRules"> A collection of rules governing the accessibility from specific network locations. </param>
+        /// <param name="privateEndpointConnections"> The list of Private Endpoint Connections. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.ElasticSan.ElasticSanVolumeGroupData" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static ElasticSanVolumeGroupData ElasticSanVolumeGroupData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ManagedServiceIdentity identity, ElasticSanProvisioningState? provisioningState, ElasticSanStorageTargetType? protocolType, ElasticSanEncryptionType? encryption, ElasticSanEncryptionProperties encryptionProperties, IEnumerable<ElasticSanVirtualNetworkRule> virtualNetworkRules, IEnumerable<ElasticSanPrivateEndpointConnectionData> privateEndpointConnections)
+        {
+            return ElasticSanVolumeGroupData(id: id, name: name, resourceType: resourceType, systemData: systemData, identity: identity, provisioningState: provisioningState, protocolType: protocolType, encryption: encryption, encryptionProperties: encryptionProperties, virtualNetworkRules: virtualNetworkRules, privateEndpointConnections: privateEndpointConnections, deleteRetentionPolicy: default);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.ElasticSan.ElasticSanVolumeData" />. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="volumeId"> Unique Id of the volume in GUID format. </param>
+        /// <param name="creationData"> State of the operation on the resource. </param>
+        /// <param name="sizeGiB"> Volume size. </param>
+        /// <param name="storageTarget"> Storage target information. </param>
+        /// <param name="managedByResourceId"> Parent resource information. </param>
+        /// <param name="provisioningState"> State of the operation on the resource. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.ElasticSan.ElasticSanVolumeData" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static ElasticSanVolumeData ElasticSanVolumeData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, Guid? volumeId, ElasticSanVolumeDataSourceInfo creationData, long sizeGiB, IscsiTargetInfo storageTarget, ResourceIdentifier managedByResourceId, ElasticSanProvisioningState? provisioningState)
+        {
+            return ElasticSanVolumeData(id: id, name: name, resourceType: resourceType, systemData: systemData, volumeId: volumeId, creationData: creationData, sizeGiB: sizeGiB, storageTarget: storageTarget, softDeleteEnabled: default, managedByResourceId: managedByResourceId, provisioningState: provisioningState);
         }
     }
 }

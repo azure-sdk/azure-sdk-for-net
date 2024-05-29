@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.ElasticSan.Models
 {
-    /// <summary> Response for Volume request. </summary>
-    public partial class ElasticSanVolumePatch
+    /// <summary> Response for Delete Retention Policy object. </summary>
+    public partial class DeleteRetentionPolicy
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,41 +45,25 @@ namespace Azure.ResourceManager.ElasticSan.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ElasticSanVolumePatch"/>. </summary>
-        public ElasticSanVolumePatch()
+        /// <summary> Initializes a new instance of <see cref="DeleteRetentionPolicy"/>. </summary>
+        public DeleteRetentionPolicy()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="ElasticSanVolumePatch"/>. </summary>
-        /// <param name="sizeGiB"> Volume size. </param>
-        /// <param name="managedBy"> Parent resource information. </param>
-        /// <param name="softDeleteEnabled"> Indicates whether delete retention is allowed on the volume. </param>
+        /// <summary> Initializes a new instance of <see cref="DeleteRetentionPolicy"/>. </summary>
+        /// <param name="enabled"> The flag to enable/disable retention policy. </param>
+        /// <param name="days"> The number of days to retain the volume after deletion. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ElasticSanVolumePatch(long? sizeGiB, ManagedByInfo managedBy, bool? softDeleteEnabled, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DeleteRetentionPolicy(bool? enabled, int? days, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            SizeGiB = sizeGiB;
-            ManagedBy = managedBy;
-            SoftDeleteEnabled = softDeleteEnabled;
+            Enabled = enabled;
+            Days = days;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Volume size. </summary>
-        public long? SizeGiB { get; set; }
-        /// <summary> Parent resource information. </summary>
-        internal ManagedByInfo ManagedBy { get; set; }
-        /// <summary> Resource ID of the resource managing the volume, this is a restricted field and can only be set for internal use. </summary>
-        public ResourceIdentifier ManagedByResourceId
-        {
-            get => ManagedBy is null ? default : ManagedBy.ResourceId;
-            set
-            {
-                if (ManagedBy is null)
-                    ManagedBy = new ManagedByInfo();
-                ManagedBy.ResourceId = value;
-            }
-        }
-
-        /// <summary> Indicates whether delete retention is allowed on the volume. </summary>
-        public bool? SoftDeleteEnabled { get; set; }
+        /// <summary> The flag to enable/disable retention policy. </summary>
+        public bool? Enabled { get; set; }
+        /// <summary> The number of days to retain the volume after deletion. </summary>
+        public int? Days { get; set; }
     }
 }
