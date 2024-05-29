@@ -17,8 +17,6 @@ namespace Azure.ResourceManager.ApplicationInsights.Mocking
     /// <summary> A class to add extension methods to SubscriptionResource. </summary>
     public partial class MockableApplicationInsightsSubscriptionResource : ArmResource
     {
-        private ClientDiagnostics _applicationInsightsComponentComponentsClientDiagnostics;
-        private ComponentsRestOperations _applicationInsightsComponentComponentsRestClient;
         private ClientDiagnostics _applicationInsightsWebTestWebTestsClientDiagnostics;
         private WebTestsRestOperations _applicationInsightsWebTestWebTestsRestClient;
         private ClientDiagnostics _applicationInsightsWorkbookWorkbooksClientDiagnostics;
@@ -36,8 +34,6 @@ namespace Azure.ResourceManager.ApplicationInsights.Mocking
         {
         }
 
-        private ClientDiagnostics ApplicationInsightsComponentComponentsClientDiagnostics => _applicationInsightsComponentComponentsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.ApplicationInsights", ApplicationInsightsComponentResource.ResourceType.Namespace, Diagnostics);
-        private ComponentsRestOperations ApplicationInsightsComponentComponentsRestClient => _applicationInsightsComponentComponentsRestClient ??= new ComponentsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(ApplicationInsightsComponentResource.ResourceType));
         private ClientDiagnostics ApplicationInsightsWebTestWebTestsClientDiagnostics => _applicationInsightsWebTestWebTestsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.ApplicationInsights", ApplicationInsightsWebTestResource.ResourceType.Namespace, Diagnostics);
         private WebTestsRestOperations ApplicationInsightsWebTestWebTestsRestClient => _applicationInsightsWebTestWebTestsRestClient ??= new WebTestsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(ApplicationInsightsWebTestResource.ResourceType));
         private ClientDiagnostics ApplicationInsightsWorkbookWorkbooksClientDiagnostics => _applicationInsightsWorkbookWorkbooksClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.ApplicationInsights", ApplicationInsightsWorkbookResource.ResourceType.Namespace, Diagnostics);
@@ -47,66 +43,6 @@ namespace Azure.ResourceManager.ApplicationInsights.Mocking
         {
             TryGetApiVersion(resourceType, out string apiVersion);
             return apiVersion;
-        }
-
-        /// <summary>
-        /// Gets a list of all Application Insights components within a subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Insights/components</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Components_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2020-02-02</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ApplicationInsightsComponentResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="ApplicationInsightsComponentResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<ApplicationInsightsComponentResource> GetApplicationInsightsComponentsAsync(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => ApplicationInsightsComponentComponentsRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ApplicationInsightsComponentComponentsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ApplicationInsightsComponentResource(Client, ApplicationInsightsComponentData.DeserializeApplicationInsightsComponentData(e)), ApplicationInsightsComponentComponentsClientDiagnostics, Pipeline, "MockableApplicationInsightsSubscriptionResource.GetApplicationInsightsComponents", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets a list of all Application Insights components within a subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Insights/components</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Components_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2020-02-02</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ApplicationInsightsComponentResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="ApplicationInsightsComponentResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<ApplicationInsightsComponentResource> GetApplicationInsightsComponents(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => ApplicationInsightsComponentComponentsRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ApplicationInsightsComponentComponentsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ApplicationInsightsComponentResource(Client, ApplicationInsightsComponentData.DeserializeApplicationInsightsComponentData(e)), ApplicationInsightsComponentComponentsClientDiagnostics, Pipeline, "MockableApplicationInsightsSubscriptionResource.GetApplicationInsightsComponents", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
