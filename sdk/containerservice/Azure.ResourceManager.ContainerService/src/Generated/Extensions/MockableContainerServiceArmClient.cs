@@ -71,6 +71,30 @@ namespace Azure.ResourceManager.ContainerService.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="GuardrailsAvailableVersionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="GuardrailsAvailableVersionResource.CreateResourceIdentifier" /> to create a <see cref="GuardrailsAvailableVersionResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="GuardrailsAvailableVersionResource"/> object. </returns>
+        public virtual GuardrailsAvailableVersionResource GetGuardrailsAvailableVersionResource(ResourceIdentifier id)
+        {
+            GuardrailsAvailableVersionResource.ValidateResourceId(id);
+            return new GuardrailsAvailableVersionResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SafeguardsAvailableVersionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SafeguardsAvailableVersionResource.CreateResourceIdentifier" /> to create a <see cref="SafeguardsAvailableVersionResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SafeguardsAvailableVersionResource"/> object. </returns>
+        public virtual SafeguardsAvailableVersionResource GetSafeguardsAvailableVersionResource(ResourceIdentifier id)
+        {
+            SafeguardsAvailableVersionResource.ValidateResourceId(id);
+            return new SafeguardsAvailableVersionResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="MeshRevisionProfileResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="MeshRevisionProfileResource.CreateResourceIdentifier" /> to create a <see cref="MeshRevisionProfileResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -131,6 +155,18 @@ namespace Azure.ResourceManager.ContainerService.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="MachineResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="MachineResource.CreateResourceIdentifier" /> to create a <see cref="MachineResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="MachineResource"/> object. </returns>
+        public virtual MachineResource GetMachineResource(ResourceIdentifier id)
+        {
+            MachineResource.ValidateResourceId(id);
+            return new MachineResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="ContainerServicePrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="ContainerServicePrivateEndpointConnectionResource.CreateResourceIdentifier" /> to create a <see cref="ContainerServicePrivateEndpointConnectionResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -155,6 +191,18 @@ namespace Azure.ResourceManager.ContainerService.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="ManagedClusterSnapshotResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ManagedClusterSnapshotResource.CreateResourceIdentifier" /> to create a <see cref="ManagedClusterSnapshotResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ManagedClusterSnapshotResource"/> object. </returns>
+        public virtual ManagedClusterSnapshotResource GetManagedClusterSnapshotResource(ResourceIdentifier id)
+        {
+            ManagedClusterSnapshotResource.ValidateResourceId(id);
+            return new ManagedClusterSnapshotResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="ContainerServiceTrustedAccessRoleBindingResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="ContainerServiceTrustedAccessRoleBindingResource.CreateResourceIdentifier" /> to create a <see cref="ContainerServiceTrustedAccessRoleBindingResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -164,6 +212,18 @@ namespace Azure.ResourceManager.ContainerService.Mocking
         {
             ContainerServiceTrustedAccessRoleBindingResource.ValidateResourceId(id);
             return new ContainerServiceTrustedAccessRoleBindingResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="LoadBalancerResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="LoadBalancerResource.CreateResourceIdentifier" /> to create a <see cref="LoadBalancerResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="LoadBalancerResource"/> object. </returns>
+        public virtual LoadBalancerResource GetLoadBalancerResource(ResourceIdentifier id)
+        {
+            LoadBalancerResource.ValidateResourceId(id);
+            return new LoadBalancerResource(Client, id);
         }
     }
 }
