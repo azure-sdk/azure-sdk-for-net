@@ -44,7 +44,8 @@ namespace Microsoft.Azure.Management.Network.Models
         /// format.</param>
         /// <param name="flowAnalyticsConfiguration">Parameters that define the
         /// configuration of traffic analytics.</param>
-        public FlowLogInformation(string targetResourceId, string storageId, bool enabled, RetentionPolicyParameters retentionPolicy = default(RetentionPolicyParameters), FlowLogFormatParameters format = default(FlowLogFormatParameters), TrafficAnalyticsProperties flowAnalyticsConfiguration = default(TrafficAnalyticsProperties))
+        /// <param name="identity">FlowLog resource Managed Identity</param>
+        public FlowLogInformation(string targetResourceId, string storageId, bool enabled, RetentionPolicyParameters retentionPolicy = default(RetentionPolicyParameters), FlowLogFormatParameters format = default(FlowLogFormatParameters), TrafficAnalyticsProperties flowAnalyticsConfiguration = default(TrafficAnalyticsProperties), ManagedServiceIdentity identity = default(ManagedServiceIdentity))
         {
             TargetResourceId = targetResourceId;
             StorageId = storageId;
@@ -52,6 +53,7 @@ namespace Microsoft.Azure.Management.Network.Models
             RetentionPolicy = retentionPolicy;
             Format = format;
             FlowAnalyticsConfiguration = flowAnalyticsConfiguration;
+            Identity = identity;
             CustomInit();
         }
 
@@ -99,6 +101,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "flowAnalyticsConfiguration")]
         public TrafficAnalyticsProperties FlowAnalyticsConfiguration { get; set; }
+
+        /// <summary>
+        /// Gets or sets flowLog resource Managed Identity
+        /// </summary>
+        [JsonProperty(PropertyName = "identity")]
+        public ManagedServiceIdentity Identity { get; set; }
 
         /// <summary>
         /// Validate the object.
