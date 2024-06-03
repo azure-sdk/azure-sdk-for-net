@@ -55,10 +55,17 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="timeLimitInSeconds">Maximum duration of the capture
         /// session in seconds.</param>
         /// <param name="filters">A list of packet capture filters.</param>
+        /// <param name="continuousCapture">This continuous capture is a
+        /// nullable boolean, which can hold 'null', 'true' or 'false' value.
+        /// If we do not pass this parameter, it would be consider as 'null',
+        /// default value is 'null'.</param>
+        /// <param name="captureSettings">The capture setting holds the
+        /// 'FileCount', 'FileSizeInBytes', 'SessionTimeLimitInSeconds'
+        /// values.</param>
         /// <param name="provisioningState">The provisioning state of the
         /// packet capture session. Possible values include: 'Succeeded',
         /// 'Updating', 'Deleting', 'Failed'</param>
-        public PacketCaptureResult(string target, PacketCaptureStorageLocation storageLocation, string name = default(string), string id = default(string), string etag = default(string), PacketCaptureMachineScope scope = default(PacketCaptureMachineScope), PacketCaptureTargetType? targetType = default(PacketCaptureTargetType?), long? bytesToCapturePerPacket = default(long?), long? totalBytesPerSession = default(long?), int? timeLimitInSeconds = default(int?), IList<PacketCaptureFilter> filters = default(IList<PacketCaptureFilter>), string provisioningState = default(string))
+        public PacketCaptureResult(string target, PacketCaptureStorageLocation storageLocation, string name = default(string), string id = default(string), string etag = default(string), PacketCaptureMachineScope scope = default(PacketCaptureMachineScope), PacketCaptureTargetType? targetType = default(PacketCaptureTargetType?), long? bytesToCapturePerPacket = default(long?), long? totalBytesPerSession = default(long?), int? timeLimitInSeconds = default(int?), IList<PacketCaptureFilter> filters = default(IList<PacketCaptureFilter>), bool? continuousCapture = default(bool?), PacketCaptureSettings captureSettings = default(PacketCaptureSettings), string provisioningState = default(string))
         {
             Name = name;
             Id = id;
@@ -71,6 +78,8 @@ namespace Microsoft.Azure.Management.Network.Models
             TimeLimitInSeconds = timeLimitInSeconds;
             StorageLocation = storageLocation;
             Filters = filters;
+            ContinuousCapture = continuousCapture;
+            CaptureSettings = captureSettings;
             ProvisioningState = provisioningState;
             CustomInit();
         }
@@ -154,6 +163,21 @@ namespace Microsoft.Azure.Management.Network.Models
         public IList<PacketCaptureFilter> Filters { get; set; }
 
         /// <summary>
+        /// Gets or sets this continuous capture is a nullable boolean, which
+        /// can hold 'null', 'true' or 'false' value. If we do not pass this
+        /// parameter, it would be consider as 'null', default value is 'null'.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.continuousCapture")]
+        public bool? ContinuousCapture { get; set; }
+
+        /// <summary>
+        /// Gets or sets the capture setting holds the 'FileCount',
+        /// 'FileSizeInBytes', 'SessionTimeLimitInSeconds' values.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.captureSettings")]
+        public PacketCaptureSettings CaptureSettings { get; set; }
+
+        /// <summary>
         /// Gets the provisioning state of the packet capture session. Possible
         /// values include: 'Succeeded', 'Updating', 'Deleting', 'Failed'
         /// </summary>
@@ -199,6 +223,10 @@ namespace Microsoft.Azure.Management.Network.Models
             if (TimeLimitInSeconds < 0)
             {
                 throw new ValidationException(ValidationRules.InclusiveMinimum, "TimeLimitInSeconds", 0);
+            }
+            if (CaptureSettings != null)
+            {
+                CaptureSettings.Validate();
             }
         }
     }
