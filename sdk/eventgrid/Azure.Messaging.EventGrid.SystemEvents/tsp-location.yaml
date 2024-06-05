@@ -1,5 +1,5 @@
 commit: b4ab795efa0dc387a973c5140b740636c10fe4fa
 additionalDirectories: []
 repo: Azure/azure-rest-api-specs
-directory: specification/cognitiveservices/OpenAI.Inference
+directory: specification/eventgrid/Azure.Messaging.EventGrid.SystemEvents
 
