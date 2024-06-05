@@ -30,16 +30,17 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// Initializes a new instance of the ScriptParameter class.
         /// </summary>
         /// <param name="type">The type of parameter the script is expecting.
-        /// psCredential is a PSCredentialObject. Possible values include:
-        /// 'String', 'SecureString', 'Credential', 'Int', 'Bool',
-        /// 'Float'</param>
+        /// psCredential is a
+        /// PSCredentialObject. Possible values include: 'String',
+        /// 'SecureString', 'Credential', 'Int', 'Bool', 'Float'</param>
         /// <param name="name">The parameter name that the script will expect a
         /// parameter value for</param>
         /// <param name="description">User friendly description of the
         /// parameter</param>
         /// <param name="visibility">Should this parameter be visible to arm
-        /// and passed in the parameters argument when executing. Possible
-        /// values include: 'Visible', 'Hidden'</param>
+        /// and passed in the parameters argument
+        /// when executing. Possible values include: 'Visible',
+        /// 'Hidden'</param>
         /// <param name="optional">Is this parameter required or optional.
         /// Possible values include: 'Optional', 'Required'</param>
         public ScriptParameter(string type = default(string), string name = default(string), string description = default(string), string visibility = default(string), string optional = default(string))
@@ -59,7 +60,8 @@ namespace Microsoft.Azure.Management.Avs.Models
 
         /// <summary>
         /// Gets the type of parameter the script is expecting. psCredential is
-        /// a PSCredentialObject. Possible values include: 'String',
+        /// a
+        /// PSCredentialObject. Possible values include: 'String',
         /// 'SecureString', 'Credential', 'Int', 'Bool', 'Float'
         /// </summary>
         [JsonProperty(PropertyName = "type")]
@@ -80,8 +82,8 @@ namespace Microsoft.Azure.Management.Avs.Models
 
         /// <summary>
         /// Gets should this parameter be visible to arm and passed in the
-        /// parameters argument when executing. Possible values include:
-        /// 'Visible', 'Hidden'
+        /// parameters argument
+        /// when executing. Possible values include: 'Visible', 'Hidden'
         /// </summary>
         [JsonProperty(PropertyName = "visibility")]
         public string Visibility { get; private set; }

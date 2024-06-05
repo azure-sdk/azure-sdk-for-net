@@ -24,8 +24,7 @@ namespace Microsoft.Azure.Management.Avs
     public partial interface IScriptCmdletsOperations
     {
         /// <summary>
-        /// List script cmdlet resources available for a private cloud to
-        /// create a script execution resource on a private cloud
+        /// List ScriptCmdlet resources by ScriptPackage
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -34,7 +33,7 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='scriptPackageName'>
-        /// Name of the script package in the private cloud
+        /// Name of the script package.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -42,7 +41,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -53,8 +52,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<IPage<ScriptCmdlet>>> ListWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string scriptPackageName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Return information about a script cmdlet resource in a specific
-        /// package on a private cloud
+        /// Get a ScriptCmdlet
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -63,11 +61,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='scriptPackageName'>
-        /// Name of the script package in the private cloud
+        /// Name of the script package.
         /// </param>
         /// <param name='scriptCmdletName'>
-        /// Name of the script cmdlet resource in the script package in the
-        /// private cloud
+        /// Name of the script cmdlet.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -75,7 +72,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -86,8 +83,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<ScriptCmdlet>> GetWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string scriptPackageName, string scriptCmdletName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// List script cmdlet resources available for a private cloud to
-        /// create a script execution resource on a private cloud
+        /// List ScriptCmdlet resources by ScriptPackage
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.
@@ -98,7 +94,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
