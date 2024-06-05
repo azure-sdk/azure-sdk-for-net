@@ -41,10 +41,11 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <param name="ssl">Protect LDAP communication using SSL certificate
         /// (LDAPS). Possible values include: 'Enabled', 'Disabled'</param>
         /// <param name="username">The ID of an Active Directory user with a
-        /// minimum of read-only access to Base DN for users and group</param>
+        /// minimum of read-only access to Base
+        /// DN for users and group</param>
         /// <param name="password">The password of the Active Directory user
-        /// with a minimum of read-only access to Base DN for users and
-        /// groups.</param>
+        /// with a minimum of read-only access to
+        /// Base DN for users and groups.</param>
         public IdentitySource(string name = default(string), string alias = default(string), string domain = default(string), string baseUserDN = default(string), string baseGroupDN = default(string), string primaryServer = default(string), string secondaryServer = default(string), string ssl = default(string), string username = default(string), string password = default(string))
         {
             Name = name;
@@ -116,14 +117,16 @@ namespace Microsoft.Azure.Management.Avs.Models
 
         /// <summary>
         /// Gets or sets the ID of an Active Directory user with a minimum of
-        /// read-only access to Base DN for users and group
+        /// read-only access to Base
+        /// DN for users and group
         /// </summary>
         [JsonProperty(PropertyName = "username")]
         public string Username { get; set; }
 
         /// <summary>
         /// Gets or sets the password of the Active Directory user with a
-        /// minimum of read-only access to Base DN for users and groups.
+        /// minimum of read-only access to
+        /// Base DN for users and groups.
         /// </summary>
         [JsonProperty(PropertyName = "password")]
         public string Password { get; set; }

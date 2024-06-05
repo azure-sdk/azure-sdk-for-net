@@ -32,14 +32,23 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Initializes a new instance of the WorkloadNetworkGateway class.
         /// </summary>
-        /// <param name="id">Resource ID.</param>
-        /// <param name="name">Resource name.</param>
-        /// <param name="type">Resource type.</param>
+        /// <param name="id">Fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="systemData">Azure Resource Manager metadata containing
+        /// createdBy and modifiedBy information.</param>
+        /// <param name="provisioningState">The provisioning state of the
+        /// resource. Possible values include: 'Succeeded', 'Failed',
+        /// 'Canceled', 'Building', 'Deleting', 'Updating'</param>
         /// <param name="displayName">Display name of the DHCP entity.</param>
         /// <param name="path">NSX Gateway Path.</param>
-        public WorkloadNetworkGateway(string id = default(string), string name = default(string), string type = default(string), string displayName = default(string), string path = default(string))
-            : base(id, name, type)
+        public WorkloadNetworkGateway(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string provisioningState = default(string), string displayName = default(string), string path = default(string))
+            : base(id, name, type, systemData)
         {
+            ProvisioningState = provisioningState;
             DisplayName = displayName;
             Path = path;
             CustomInit();
@@ -49,6 +58,14 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
+
+        /// <summary>
+        /// Gets the provisioning state of the resource. Possible values
+        /// include: 'Succeeded', 'Failed', 'Canceled', 'Building', 'Deleting',
+        /// 'Updating'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.provisioningState")]
+        public string ProvisioningState { get; private set; }
 
         /// <summary>
         /// Gets or sets display name of the DHCP entity.

@@ -34,10 +34,13 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Initializes a new instance of the ClusterUpdate class.
         /// </summary>
+        /// <param name="sku">The SKU (Stock Keeping Unit) assigned to this
+        /// resource.</param>
         /// <param name="clusterSize">The cluster size</param>
         /// <param name="hosts">The hosts</param>
-        public ClusterUpdate(int? clusterSize = default(int?), IList<string> hosts = default(IList<string>))
+        public ClusterUpdate(Sku sku = default(Sku), int? clusterSize = default(int?), IList<string> hosts = default(IList<string>))
         {
+            Sku = sku;
             ClusterSize = clusterSize;
             Hosts = hosts;
             CustomInit();
@@ -47,6 +50,13 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
+
+        /// <summary>
+        /// Gets or sets the SKU (Stock Keeping Unit) assigned to this
+        /// resource.
+        /// </summary>
+        [JsonProperty(PropertyName = "sku")]
+        public Sku Sku { get; set; }
 
         /// <summary>
         /// Gets or sets the cluster size
@@ -60,5 +70,18 @@ namespace Microsoft.Azure.Management.Avs.Models
         [JsonProperty(PropertyName = "properties.hosts")]
         public IList<string> Hosts { get; set; }
 
+        /// <summary>
+        /// Validate the object.
+        /// </summary>
+        /// <exception cref="ValidationException">
+        /// Thrown if validation fails
+        /// </exception>
+        public virtual void Validate()
+        {
+            if (Sku != null)
+            {
+                Sku.Validate();
+            }
+        }
     }
 }

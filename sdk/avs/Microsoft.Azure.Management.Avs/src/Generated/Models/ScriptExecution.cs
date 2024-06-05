@@ -35,17 +35,23 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// Initializes a new instance of the ScriptExecution class.
         /// </summary>
         /// <param name="timeout">Time limit for execution</param>
-        /// <param name="id">Resource ID.</param>
-        /// <param name="name">Resource name.</param>
-        /// <param name="type">Resource type.</param>
+        /// <param name="id">Fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="systemData">Azure Resource Manager metadata containing
+        /// createdBy and modifiedBy information.</param>
         /// <param name="scriptCmdletId">A reference to the script cmdlet
         /// resource if user is running a AVS script</param>
         /// <param name="parameters">Parameters the script will accept</param>
         /// <param name="hiddenParameters">Parameters that will be hidden/not
-        /// visible to ARM, such as passwords and credentials</param>
+        /// visible to ARM, such as passwords and
+        /// credentials</param>
         /// <param name="failureReason">Error message if the script was able to
-        /// run, but if the script itself had errors or powershell threw an
-        /// exception</param>
+        /// run, but if the script itself had
+        /// errors or powershell threw an exception</param>
         /// <param name="retention">Time to live for the resource. If not
         /// provided, will be available for 60 days</param>
         /// <param name="submittedAt">Time the script execution was
@@ -55,8 +61,8 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <param name="finishedAt">Time the script execution was
         /// finished</param>
         /// <param name="provisioningState">The state of the script execution
-        /// resource. Possible values include: 'Pending', 'Running',
-        /// 'Succeeded', 'Failed', 'Cancelling', 'Cancelled',
+        /// resource. Possible values include: 'Succeeded', 'Failed',
+        /// 'Canceled', 'Pending', 'Running', 'Cancelling', 'Cancelled',
         /// 'Deleting'</param>
         /// <param name="output">Standard output stream from the powershell
         /// execution</param>
@@ -67,8 +73,8 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// powershell execution</param>
         /// <param name="errors">Standard error output stream from the
         /// powershell execution</param>
-        public ScriptExecution(string timeout, string id = default(string), string name = default(string), string type = default(string), string scriptCmdletId = default(string), IList<ScriptExecutionParameter> parameters = default(IList<ScriptExecutionParameter>), IList<ScriptExecutionParameter> hiddenParameters = default(IList<ScriptExecutionParameter>), string failureReason = default(string), string retention = default(string), System.DateTime? submittedAt = default(System.DateTime?), System.DateTime? startedAt = default(System.DateTime?), System.DateTime? finishedAt = default(System.DateTime?), string provisioningState = default(string), IList<string> output = default(IList<string>), IDictionary<string, object> namedOutputs = default(IDictionary<string, object>), IList<string> information = default(IList<string>), IList<string> warnings = default(IList<string>), IList<string> errors = default(IList<string>))
-            : base(id, name, type)
+        public ScriptExecution(string timeout, string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string scriptCmdletId = default(string), IList<ScriptExecutionParameter> parameters = default(IList<ScriptExecutionParameter>), IList<ScriptExecutionParameter> hiddenParameters = default(IList<ScriptExecutionParameter>), string failureReason = default(string), string retention = default(string), System.DateTime? submittedAt = default(System.DateTime?), System.DateTime? startedAt = default(System.DateTime?), System.DateTime? finishedAt = default(System.DateTime?), string provisioningState = default(string), IList<string> output = default(IList<string>), IDictionary<string, object> namedOutputs = default(IDictionary<string, object>), IList<string> information = default(IList<string>), IList<string> warnings = default(IList<string>), IList<string> errors = default(IList<string>))
+            : base(id, name, type, systemData)
         {
             ScriptCmdletId = scriptCmdletId;
             Parameters = parameters;
@@ -108,14 +114,16 @@ namespace Microsoft.Azure.Management.Avs.Models
 
         /// <summary>
         /// Gets or sets parameters that will be hidden/not visible to ARM,
-        /// such as passwords and credentials
+        /// such as passwords and
+        /// credentials
         /// </summary>
         [JsonProperty(PropertyName = "properties.hiddenParameters")]
         public IList<ScriptExecutionParameter> HiddenParameters { get; set; }
 
         /// <summary>
         /// Gets or sets error message if the script was able to run, but if
-        /// the script itself had errors or powershell threw an exception
+        /// the script itself had
+        /// errors or powershell threw an exception
         /// </summary>
         [JsonProperty(PropertyName = "properties.failureReason")]
         public string FailureReason { get; set; }
@@ -153,8 +161,8 @@ namespace Microsoft.Azure.Management.Avs.Models
 
         /// <summary>
         /// Gets the state of the script execution resource. Possible values
-        /// include: 'Pending', 'Running', 'Succeeded', 'Failed', 'Cancelling',
-        /// 'Cancelled', 'Deleting'
+        /// include: 'Succeeded', 'Failed', 'Canceled', 'Pending', 'Running',
+        /// 'Cancelling', 'Cancelled', 'Deleting'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
         public string ProvisioningState { get; private set; }

@@ -19,35 +19,25 @@ namespace Microsoft.Azure.Management.Avs
           {
               return new Tuple<string, string, string>[]
               {
-                new Tuple<string, string, string>("AVS", "Addons", "2021-12-01"),
-                new Tuple<string, string, string>("AVS", "Authorizations", "2021-12-01"),
-                new Tuple<string, string, string>("AVS", "CloudLinks", "2021-12-01"),
-                new Tuple<string, string, string>("AVS", "Clusters", "2021-12-01"),
-                new Tuple<string, string, string>("AVS", "Datastores", "2021-12-01"),
-                new Tuple<string, string, string>("AVS", "GlobalReachConnections", "2021-12-01"),
-                new Tuple<string, string, string>("AVS", "HcxEnterpriseSites", "2021-12-01"),
-                new Tuple<string, string, string>("AVS", "Locations", "2021-12-01"),
-                new Tuple<string, string, string>("AVS", "Operations", "2021-12-01"),
-                new Tuple<string, string, string>("AVS", "PlacementPolicies", "2021-12-01"),
-                new Tuple<string, string, string>("AVS", "PrivateClouds", "2021-12-01"),
-                new Tuple<string, string, string>("AVS", "ScriptCmdlets", "2021-12-01"),
-                new Tuple<string, string, string>("AVS", "ScriptExecutions", "2021-12-01"),
-                new Tuple<string, string, string>("AVS", "ScriptPackages", "2021-12-01"),
-                new Tuple<string, string, string>("AVS", "VirtualMachines", "2021-12-01"),
-                new Tuple<string, string, string>("AVS", "WorkloadNetworks", "2021-12-01"),
+                new Tuple<string, string, string>("AVS", "Addons", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "Authorizations", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "CloudLinks", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "Clusters", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "Datastores", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "GlobalReachConnections", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "HcxEnterpriseSites", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "IscsiPaths", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "Locations", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "Operations", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "PlacementPolicies", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "PrivateClouds", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "ScriptCmdlets", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "ScriptExecutions", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "ScriptPackages", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "VirtualMachines", "2023-09-01"),
+                new Tuple<string, string, string>("AVS", "WorkloadNetworks", "2023-09-01"),
               }.AsEnumerable();
           }
       }
-      // BEGIN: Code Generation Metadata Section
-      public static readonly String AutoRestVersion = "v2";
-      public static readonly String AutoRestBootStrapperVersion = "autorest@3.2.1";
-      public static readonly String AutoRestCmdExecuted = "cmd.exe /c autorest.cmd https://github.com/Azure/azure-rest-api-specs/blob/main/specification/vmware/resource-manager/readme.md --csharp --version=v2 --reflect-api-versions --csharp-sdks-folder=C:\\Users\\cataggar\\io\\azure-sdk-for-net\\sdk";
-      public static readonly String GithubForkName = "Azure";
-      public static readonly String GithubBranchName = "main";
-      public static readonly String GithubCommidId = "18479a01a549e9942ea38da8761919066aa87234";
-      public static readonly String CodeGenerationErrors = "";
-      public static readonly String GithubRepoName = "azure-rest-api-specs";
-      // END: Code Generation Metadata Section
   }
 }
-
