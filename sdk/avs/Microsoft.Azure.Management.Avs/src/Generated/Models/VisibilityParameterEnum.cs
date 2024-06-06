@@ -16,7 +16,13 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class VisibilityParameterEnum
     {
+        /// <summary>
+        /// is visible
+        /// </summary>
         public const string Visible = "Visible";
+        /// <summary>
+        /// is hidden
+        /// </summary>
         public const string Hidden = "Hidden";
     }
 }

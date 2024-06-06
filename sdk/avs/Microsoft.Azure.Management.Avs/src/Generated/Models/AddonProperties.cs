@@ -31,7 +31,7 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// </summary>
         /// <param name="provisioningState">The state of the addon
         /// provisioning. Possible values include: 'Succeeded', 'Failed',
-        /// 'Cancelled', 'Building', 'Deleting', 'Updating'</param>
+        /// 'Canceled', 'Cancelled', 'Building', 'Deleting', 'Updating'</param>
         public AddonProperties(string provisioningState = default(string))
         {
             ProvisioningState = provisioningState;
@@ -45,8 +45,8 @@ namespace Microsoft.Azure.Management.Avs.Models
 
         /// <summary>
         /// Gets the state of the addon provisioning. Possible values include:
-        /// 'Succeeded', 'Failed', 'Cancelled', 'Building', 'Deleting',
-        /// 'Updating'
+        /// 'Succeeded', 'Failed', 'Canceled', 'Cancelled', 'Building',
+        /// 'Deleting', 'Updating'
         /// </summary>
         [JsonProperty(PropertyName = "provisioningState")]
         public string ProvisioningState { get; private set; }

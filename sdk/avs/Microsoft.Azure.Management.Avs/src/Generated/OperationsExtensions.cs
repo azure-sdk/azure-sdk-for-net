@@ -22,7 +22,7 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class OperationsExtensions
     {
             /// <summary>
-            /// Lists all of the available operations
+            /// List the operations for the provider
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -33,7 +33,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Lists all of the available operations
+            /// List the operations for the provider
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -50,7 +50,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Lists all of the available operations
+            /// List the operations for the provider
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -64,7 +64,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Lists all of the available operations
+            /// List the operations for the provider
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
