@@ -19,7 +19,7 @@ batch:
 
 ``` yaml $(tag) == 'package-2020-01-01'
 namespace: Azure.ResourceManager.MySql
-require: https://github.com/Azure/azure-rest-api-specs/blob/c45a7f47c1901149828eb8a33c74898c554659c0/specification/mysql/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/bcb94bd661856fbc89efef404ca96828c0ba8986/specification/mysql/resource-manager/readme.md
 output-folder: $(this-folder)/MySql/Generated
 sample-gen:
   output-folder: $(this-folder)/../samples/Generated
@@ -187,9 +187,9 @@ directive:
 
 ``` yaml $(tag) == 'package-flexibleserver-2023-12-01-preview'
 input-file:
-- https://github.com/Azure/azure-rest-api-specs/blob/c45a7f47c1901149828eb8a33c74898c554659c0/specification/common-types/resource-management/v5/privatelinks.json
+- https://github.com/Azure/azure-rest-api-specs/blob/bcb94bd661856fbc89efef404ca96828c0ba8986/specification/common-types/resource-management/v5/privatelinks.json
 namespace: Azure.ResourceManager.MySql.FlexibleServers
-require: https://github.com/Azure/azure-rest-api-specs/blob/c45a7f47c1901149828eb8a33c74898c554659c0/specification/mysql/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/bcb94bd661856fbc89efef404ca96828c0ba8986/specification/mysql/resource-manager/readme.md
 output-folder: $(this-folder)/MySqlFlexibleServers/Generated
 sample-gen:
   output-folder: $(this-folder)/../samples/Generated
