@@ -19,7 +19,7 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// A datastore resource
     /// </summary>
     [Rest.Serialization.JsonTransformation]
-    public partial class Datastore : Resource
+    public partial class Datastore : ProxyResource
     {
         /// <summary>
         /// Initializes a new instance of the Datastore class.
@@ -32,23 +32,31 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Initializes a new instance of the Datastore class.
         /// </summary>
-        /// <param name="id">Resource ID.</param>
-        /// <param name="name">Resource name.</param>
-        /// <param name="type">Resource type.</param>
+        /// <param name="id">Fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="systemData">Azure Resource Manager metadata containing
+        /// createdBy and modifiedBy information.</param>
         /// <param name="provisioningState">The state of the datastore
         /// provisioning. Possible values include: 'Succeeded', 'Failed',
-        /// 'Cancelled', 'Pending', 'Creating', 'Updating', 'Deleting'</param>
+        /// 'Canceled', 'Cancelled', 'Pending', 'Creating', 'Updating',
+        /// 'Deleting'</param>
         /// <param name="netAppVolume">An Azure NetApp Files volume</param>
         /// <param name="diskPoolVolume">An iSCSI volume</param>
+        /// <param name="elasticSanVolume">An Elastic SAN volume</param>
         /// <param name="status">The operational status of the datastore.
         /// Possible values include: 'Unknown', 'Accessible', 'Inaccessible',
         /// 'Attached', 'Detached', 'LostCommunication', 'DeadOrError'</param>
-        public Datastore(string id = default(string), string name = default(string), string type = default(string), string provisioningState = default(string), NetAppVolume netAppVolume = default(NetAppVolume), DiskPoolVolume diskPoolVolume = default(DiskPoolVolume), string status = default(string))
-            : base(id, name, type)
+        public Datastore(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string provisioningState = default(string), NetAppVolume netAppVolume = default(NetAppVolume), DiskPoolVolume diskPoolVolume = default(DiskPoolVolume), ElasticSanVolume elasticSanVolume = default(ElasticSanVolume), string status = default(string))
+            : base(id, name, type, systemData)
         {
             ProvisioningState = provisioningState;
             NetAppVolume = netAppVolume;
             DiskPoolVolume = diskPoolVolume;
+            ElasticSanVolume = elasticSanVolume;
             Status = status;
             CustomInit();
         }
@@ -60,8 +68,8 @@ namespace Microsoft.Azure.Management.Avs.Models
 
         /// <summary>
         /// Gets the state of the datastore provisioning. Possible values
-        /// include: 'Succeeded', 'Failed', 'Cancelled', 'Pending', 'Creating',
-        /// 'Updating', 'Deleting'
+        /// include: 'Succeeded', 'Failed', 'Canceled', 'Cancelled', 'Pending',
+        /// 'Creating', 'Updating', 'Deleting'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
         public string ProvisioningState { get; private set; }
@@ -77,6 +85,12 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.diskPoolVolume")]
         public DiskPoolVolume DiskPoolVolume { get; set; }
+
+        /// <summary>
+        /// Gets or sets an Elastic SAN volume
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.elasticSanVolume")]
+        public ElasticSanVolume ElasticSanVolume { get; set; }
 
         /// <summary>
         /// Gets the operational status of the datastore. Possible values
@@ -101,6 +115,10 @@ namespace Microsoft.Azure.Management.Avs.Models
             if (DiskPoolVolume != null)
             {
                 DiskPoolVolume.Validate();
+            }
+            if (ElasticSanVolume != null)
+            {
+                ElasticSanVolume.Validate();
             }
         }
     }
