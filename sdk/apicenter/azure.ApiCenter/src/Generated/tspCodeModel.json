@@ -1,0 +1,4569 @@
+{
+ "$id": "1",
+ "Name": "ApiCenter.DataApi",
+ "ApiVersions": [
+  "2024-02-01-preview"
+ ],
+ "Enums": [
+  {
+   "$id": "2",
+   "Kind": "enum",
+   "Name": "ApiKind",
+   "ValueType": {
+    "$id": "3",
+    "Kind": "string",
+    "IsNullable": false
+   },
+   "Values": [
+    {
+     "$id": "4",
+     "Name": "Rest",
+     "Value": "rest",
+     "Description": "REST API"
+    },
+    {
+     "$id": "5",
+     "Name": "Graphql",
+     "Value": "graphql",
+     "Description": "GraphQL API"
+    },
+    {
+     "$id": "6",
+     "Name": "Grpc",
+     "Value": "grpc",
+     "Description": "GRPC API"
+    },
+    {
+     "$id": "7",
+     "Name": "Soap",
+     "Value": "soap",
+     "Description": "SOAP API"
+    },
+    {
+     "$id": "8",
+     "Name": "Webhook",
+     "Value": "webhook",
+     "Description": "Webhook API"
+    },
+    {
+     "$id": "9",
+     "Name": "Websocket",
+     "Value": "websocket",
+     "Description": "Websocket API"
+    }
+   ],
+   "Namespace": "ApiCenter.DataApi",
+   "Description": "API kind",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "10",
+   "Kind": "enum",
+   "Name": "LifecycleStage",
+   "ValueType": {
+    "$id": "11",
+    "Kind": "string",
+    "IsNullable": false
+   },
+   "Values": [
+    {
+     "$id": "12",
+     "Name": "Design",
+     "Value": "design",
+     "Description": "API is in the design stage"
+    },
+    {
+     "$id": "13",
+     "Name": "Development",
+     "Value": "development",
+     "Description": "API is in the development stage"
+    },
+    {
+     "$id": "14",
+     "Name": "Testing",
+     "Value": "testing",
+     "Description": "API is in the testing stage"
+    },
+    {
+     "$id": "15",
+     "Name": "Preview",
+     "Value": "preview",
+     "Description": "API is in the preview stage"
+    },
+    {
+     "$id": "16",
+     "Name": "Production",
+     "Value": "production",
+     "Description": "API is in the production stage"
+    },
+    {
+     "$id": "17",
+     "Name": "Deprecated",
+     "Value": "deprecated",
+     "Description": "API is in the deprecated stage"
+    },
+    {
+     "$id": "18",
+     "Name": "Retired",
+     "Value": "retired",
+     "Description": "API is in the retired stage"
+    }
+   ],
+   "Namespace": "ApiCenter.DataApi",
+   "Description": "API Lifecycle Stage",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "19",
+   "Kind": "enum",
+   "Name": "OperationState",
+   "ValueType": {
+    "$id": "20",
+    "Kind": "string",
+    "IsNullable": false
+   },
+   "Values": [
+    {
+     "$id": "21",
+     "Name": "NotStarted",
+     "Value": "NotStarted",
+     "Description": "The operation has not started."
+    },
+    {
+     "$id": "22",
+     "Name": "Running",
+     "Value": "Running",
+     "Description": "The operation is in progress."
+    },
+    {
+     "$id": "23",
+     "Name": "Succeeded",
+     "Value": "Succeeded",
+     "Description": "The operation has completed successfully."
+    },
+    {
+     "$id": "24",
+     "Name": "Failed",
+     "Value": "Failed",
+     "Description": "The operation has failed."
+    },
+    {
+     "$id": "25",
+     "Name": "Canceled",
+     "Value": "Canceled",
+     "Description": "The operation has been canceled by the user."
+    }
+   ],
+   "Namespace": "Azure.Core.Foundations",
+   "Description": "Enum describing allowed operation states.",
+   "IsExtensible": false,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "26",
+   "Kind": "enum",
+   "Name": "ApiSpecExportResultFormat",
+   "ValueType": {
+    "$id": "27",
+    "Kind": "string",
+    "IsNullable": false
+   },
+   "Values": [
+    {
+     "$id": "28",
+     "Name": "Link",
+     "Value": "link",
+     "Description": "Link format"
+    }
+   ],
+   "Namespace": "ApiCenter.DataApi",
+   "Description": "Export specification result format",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "29",
+   "Kind": "enum",
+   "Name": "EnvironmentKind",
+   "ValueType": {
+    "$id": "30",
+    "Kind": "string",
+    "IsNullable": false
+   },
+   "Values": [
+    {
+     "$id": "31",
+     "Name": "Development",
+     "Value": "development",
+     "Description": "Environment is in the development stage"
+    },
+    {
+     "$id": "32",
+     "Name": "Testing",
+     "Value": "testing",
+     "Description": "Environment is in the testing stage"
+    },
+    {
+     "$id": "33",
+     "Name": "Staging",
+     "Value": "staging",
+     "Description": "Environment is in the staging stage"
+    },
+    {
+     "$id": "34",
+     "Name": "Production",
+     "Value": "production",
+     "Description": "Environment is in the production stage"
+    }
+   ],
+   "Namespace": "ApiCenter.DataApi",
+   "Description": "Environment kind",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "35",
+   "Kind": "enum",
+   "Name": "Versions",
+   "ValueType": {
+    "$id": "36",
+    "Kind": "string",
+    "IsNullable": false
+   },
+   "Values": [
+    {
+     "$id": "37",
+     "Name": "v2024_02_01_preview",
+     "Value": "2024-02-01-preview",
+     "Description": "Preview release version 2024-02-01-preview"
+    }
+   ],
+   "Namespace": "ApiCenter.DataApi",
+   "Description": "API versions",
+   "IsExtensible": false,
+   "IsNullable": false,
+   "Usage": "None"
+  }
+ ],
+ "Models": [
+  {
+   "$id": "38",
+   "Kind": "Model",
+   "Name": "PagedApi",
+   "Namespace": "Azure.Core.Foundations",
+   "Description": "Paged collection of Api items",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "39",
+     "Name": "value",
+     "SerializedName": "value",
+     "Description": "The Api items on this page",
+     "Type": {
+      "$id": "40",
+      "Kind": "Array",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "41",
+       "Kind": "Model",
+       "Name": "Api",
+       "Namespace": "ApiCenter.DataApi",
+       "Description": "API resource model.",
+       "IsNullable": false,
+       "Usage": "Output",
+       "Properties": [
+        {
+         "$id": "42",
+         "Name": "name",
+         "SerializedName": "name",
+         "Description": "Api identifier.",
+         "Type": {
+          "$id": "43",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "44",
+         "Name": "title",
+         "SerializedName": "title",
+         "Description": "The name of the API.",
+         "Type": {
+          "$id": "45",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "46",
+         "Name": "summary",
+         "SerializedName": "summary",
+         "Description": "Short description of the API.",
+         "Type": {
+          "$id": "47",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "48",
+         "Name": "description",
+         "SerializedName": "description",
+         "Description": "The description of the API",
+         "Type": {
+          "$id": "49",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "50",
+         "Name": "kind",
+         "SerializedName": "kind",
+         "Description": "Kind of API. For example, REST or GraphQL.",
+         "Type": {
+          "$ref": "2"
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "51",
+         "Name": "lifecycleStage",
+         "SerializedName": "lifecycleStage",
+         "Description": "Current lifecycle stage of the API.",
+         "Type": {
+          "$ref": "10"
+         },
+         "IsRequired": false,
+         "IsReadOnly": true
+        },
+        {
+         "$id": "52",
+         "Name": "termsOfService",
+         "SerializedName": "termsOfService",
+         "Description": "Terms of service for the API.",
+         "Type": {
+          "$id": "53",
+          "Kind": "Model",
+          "Name": "TermsOfService",
+          "Namespace": "ApiCenter.DataApi",
+          "Description": "API Terms of Service",
+          "IsNullable": false,
+          "Usage": "Output",
+          "Properties": [
+           {
+            "$id": "54",
+            "Name": "url",
+            "SerializedName": "url",
+            "Description": "URL pointing to the terms of service.",
+            "Type": {
+             "$id": "55",
+             "Kind": "url",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           }
+          ]
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "56",
+         "Name": "license",
+         "SerializedName": "license",
+         "Description": "The license information for the API.",
+         "Type": {
+          "$id": "57",
+          "Kind": "Model",
+          "Name": "License",
+          "Namespace": "ApiCenter.DataApi",
+          "Description": "API License Model",
+          "IsNullable": false,
+          "Usage": "Output",
+          "Properties": [
+           {
+            "$id": "58",
+            "Name": "name",
+            "SerializedName": "name",
+            "Description": "Name of the license.",
+            "Type": {
+             "$id": "59",
+             "Kind": "string",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "60",
+            "Name": "url",
+            "SerializedName": "url",
+            "Description": "URL pointing to the license details. The URL field is mutually exclusive of the identifier field.",
+            "Type": {
+             "$id": "61",
+             "Kind": "url",
+             "IsNullable": false
+            },
+            "IsRequired": false,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "62",
+            "Name": "identifier",
+            "SerializedName": "identifier",
+            "Description": "SPDX license information for the API. The identifier field is mutually exclusive of the URL field.",
+            "Type": {
+             "$id": "63",
+             "Kind": "string",
+             "IsNullable": false
+            },
+            "IsRequired": false,
+            "IsReadOnly": false
+           }
+          ]
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "64",
+         "Name": "externalDocumentation",
+         "SerializedName": "externalDocumentation",
+         "Description": "External documentation",
+         "Type": {
+          "$id": "65",
+          "Kind": "Array",
+          "Name": "Array",
+          "ElementType": {
+           "$id": "66",
+           "Kind": "Model",
+           "Name": "ExternalDocumentation",
+           "Namespace": "ApiCenter.DataApi",
+           "Description": "Api External Documentation Model",
+           "IsNullable": false,
+           "Usage": "Output",
+           "Properties": [
+            {
+             "$id": "67",
+             "Name": "title",
+             "SerializedName": "title",
+             "Description": "Title of the documentation.",
+             "Type": {
+              "$id": "68",
+              "Kind": "string",
+              "IsNullable": false
+             },
+             "IsRequired": true,
+             "IsReadOnly": false
+            },
+            {
+             "$id": "69",
+             "Name": "description",
+             "SerializedName": "description",
+             "Description": "Description of the documentation.",
+             "Type": {
+              "$id": "70",
+              "Kind": "string",
+              "IsNullable": false
+             },
+             "IsRequired": true,
+             "IsReadOnly": false
+            },
+            {
+             "$id": "71",
+             "Name": "url",
+             "SerializedName": "url",
+             "Description": "URL pointing to the documentation.",
+             "Type": {
+              "$id": "72",
+              "Kind": "url",
+              "IsNullable": false
+             },
+             "IsRequired": true,
+             "IsReadOnly": false
+            }
+           ]
+          },
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "73",
+         "Name": "contacts",
+         "SerializedName": "contacts",
+         "Description": "Points of contact for the API.",
+         "Type": {
+          "$id": "74",
+          "Kind": "Array",
+          "Name": "Array",
+          "ElementType": {
+           "$id": "75",
+           "Kind": "Model",
+           "Name": "Contact",
+           "Namespace": "ApiCenter.DataApi",
+           "Description": "API contact information",
+           "IsNullable": false,
+           "Usage": "Output",
+           "Properties": [
+            {
+             "$id": "76",
+             "Name": "name",
+             "SerializedName": "name",
+             "Description": "Name of the contact.",
+             "Type": {
+              "$id": "77",
+              "Kind": "string",
+              "IsNullable": false
+             },
+             "IsRequired": true,
+             "IsReadOnly": false
+            },
+            {
+             "$id": "78",
+             "Name": "url",
+             "SerializedName": "url",
+             "Description": "URL for the contact.",
+             "Type": {
+              "$id": "79",
+              "Kind": "url",
+              "IsNullable": false
+             },
+             "IsRequired": false,
+             "IsReadOnly": false
+            },
+            {
+             "$id": "80",
+             "Name": "email",
+             "SerializedName": "email",
+             "Description": "Email address for the contact.",
+             "Type": {
+              "$id": "81",
+              "Kind": "string",
+              "IsNullable": false
+             },
+             "IsRequired": false,
+             "IsReadOnly": false
+            }
+           ]
+          },
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "82",
+         "Name": "customProperties",
+         "SerializedName": "customProperties",
+         "Description": "The custom metadata defined for API entities.",
+         "Type": {
+          "$id": "83",
+          "Kind": "Model",
+          "Name": "ApiCustomProperties",
+          "Namespace": "ApiCenter.DataApi",
+          "IsNullable": false,
+          "Usage": "Output",
+          "Properties": []
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "84",
+         "Name": "lastUpdated",
+         "SerializedName": "lastUpdated",
+         "Description": "Last updated date and time.",
+         "Type": {
+          "$id": "85",
+          "Kind": "utcDateTime",
+          "IsNullable": false,
+          "Encode": "rfc3339",
+          "WireType": {
+           "$id": "86",
+           "Kind": "string",
+           "IsNullable": false
+          }
+         },
+         "IsRequired": false,
+         "IsReadOnly": true
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "87",
+     "Name": "nextLink",
+     "SerializedName": "nextLink",
+     "Description": "The link to the next page of items",
+     "Type": {
+      "$id": "88",
+      "Kind": "url",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "41"
+  },
+  {
+   "$ref": "53"
+  },
+  {
+   "$ref": "57"
+  },
+  {
+   "$ref": "66"
+  },
+  {
+   "$ref": "75"
+  },
+  {
+   "$ref": "83"
+  },
+  {
+   "$id": "89",
+   "Kind": "Model",
+   "Name": "PagedApiAll",
+   "Namespace": "ApiCenter.DataApi",
+   "Description": "Paged collection of API items across workspaces.",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "90",
+     "Name": "value",
+     "SerializedName": "value",
+     "Description": "The Api items on this page",
+     "Type": {
+      "$id": "91",
+      "Kind": "Array",
+      "Name": "Array",
+      "ElementType": {
+       "$ref": "41"
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "92",
+     "Name": "nextLink",
+     "SerializedName": "nextLink",
+     "Description": "The link to the next page of items",
+     "Type": {
+      "$id": "93",
+      "Kind": "url",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "94",
+   "Kind": "Model",
+   "Name": "",
+   "Namespace": "",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "95",
+     "Name": "title",
+     "SerializedName": "title",
+     "Description": "The name of the API.",
+     "Type": {
+      "$id": "96",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "97",
+     "Name": "summary",
+     "SerializedName": "summary",
+     "Description": "Short description of the API.",
+     "Type": {
+      "$id": "98",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "99",
+     "Name": "description",
+     "SerializedName": "description",
+     "Description": "The description of the API",
+     "Type": {
+      "$id": "100",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "101",
+     "Name": "kind",
+     "SerializedName": "kind",
+     "Description": "Kind of API. For example, REST or GraphQL.",
+     "Type": {
+      "$ref": "2"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "102",
+     "Name": "lifecycleStage",
+     "SerializedName": "lifecycleStage",
+     "Description": "Current lifecycle stage of the API.",
+     "Type": {
+      "$ref": "10"
+     },
+     "IsRequired": false,
+     "IsReadOnly": true
+    },
+    {
+     "$id": "103",
+     "Name": "termsOfService",
+     "SerializedName": "termsOfService",
+     "Description": "Terms of service for the API.",
+     "Type": {
+      "$ref": "53"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "104",
+     "Name": "license",
+     "SerializedName": "license",
+     "Description": "The license information for the API.",
+     "Type": {
+      "$ref": "57"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "105",
+     "Name": "externalDocumentation",
+     "SerializedName": "externalDocumentation",
+     "Description": "External documentation",
+     "Type": {
+      "$id": "106",
+      "Kind": "Array",
+      "Name": "Array",
+      "ElementType": {
+       "$ref": "66"
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "107",
+     "Name": "contacts",
+     "SerializedName": "contacts",
+     "Description": "Points of contact for the API.",
+     "Type": {
+      "$id": "108",
+      "Kind": "Array",
+      "Name": "Array",
+      "ElementType": {
+       "$ref": "75"
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "109",
+     "Name": "customProperties",
+     "SerializedName": "customProperties",
+     "Description": "The custom metadata defined for API entities.",
+     "Type": {
+      "$ref": "83"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "110",
+     "Name": "lastUpdated",
+     "SerializedName": "lastUpdated",
+     "Description": "Last updated date and time.",
+     "Type": {
+      "$id": "111",
+      "Kind": "utcDateTime",
+      "IsNullable": false,
+      "Encode": "rfc3339",
+      "WireType": {
+       "$id": "112",
+       "Kind": "string",
+       "IsNullable": false
+      }
+     },
+     "IsRequired": false,
+     "IsReadOnly": true
+    }
+   ]
+  },
+  {
+   "$id": "113",
+   "Kind": "Model",
+   "Name": "PagedApiDefinition",
+   "Namespace": "Azure.Core.Foundations",
+   "Description": "Paged collection of ApiDefinition items",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "114",
+     "Name": "value",
+     "SerializedName": "value",
+     "Description": "The ApiDefinition items on this page",
+     "Type": {
+      "$id": "115",
+      "Kind": "Array",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "116",
+       "Kind": "Model",
+       "Name": "ApiDefinition",
+       "Namespace": "ApiCenter.DataApi",
+       "Description": "API definition resource model.",
+       "IsNullable": false,
+       "Usage": "Output",
+       "Properties": [
+        {
+         "$id": "117",
+         "Name": "name",
+         "SerializedName": "name",
+         "Description": "Definition identifier.",
+         "Type": {
+          "$id": "118",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "119",
+         "Name": "title",
+         "SerializedName": "title",
+         "Description": "The name of the API definition.",
+         "Type": {
+          "$id": "120",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "121",
+         "Name": "description",
+         "SerializedName": "description",
+         "Description": "The description of the API definition.",
+         "Type": {
+          "$id": "122",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "123",
+         "Name": "specification",
+         "SerializedName": "specification",
+         "Description": "The API specification details.",
+         "Type": {
+          "$id": "124",
+          "Kind": "Model",
+          "Name": "ApiSpecification",
+          "Namespace": "ApiCenter.DataApi",
+          "Description": "API specification",
+          "IsNullable": false,
+          "Usage": "Output",
+          "Properties": [
+           {
+            "$id": "125",
+            "Name": "name",
+            "SerializedName": "name",
+            "Description": "API specification name, e.g. 'swagger' or 'openapi'.",
+            "Type": {
+             "$id": "126",
+             "Kind": "string",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "127",
+            "Name": "version",
+            "SerializedName": "version",
+            "Description": "API specification version, e.g. '3.0.1'.",
+            "Type": {
+             "$id": "128",
+             "Kind": "string",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           }
+          ]
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "129",
+     "Name": "nextLink",
+     "SerializedName": "nextLink",
+     "Description": "The link to the next page of items",
+     "Type": {
+      "$id": "130",
+      "Kind": "url",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "116"
+  },
+  {
+   "$ref": "124"
+  },
+  {
+   "$id": "131",
+   "Kind": "Model",
+   "Name": "ResourceOperationStatusApiSpecExportResultApiSpecExportResultError",
+   "Namespace": "Azure.Core",
+   "Description": "Provides status details for long running operations.",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "132",
+     "Name": "id",
+     "SerializedName": "id",
+     "Description": "The unique ID of the operation.",
+     "Type": {
+      "$id": "133",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "134",
+     "Name": "status",
+     "SerializedName": "status",
+     "Description": "The status of the operation",
+     "Type": {
+      "$ref": "19"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "135",
+     "Name": "error",
+     "SerializedName": "error",
+     "Description": "Error object that describes the error when status is \"Failed\".",
+     "Type": {
+      "$id": "136",
+      "Kind": "Model",
+      "Name": "Error",
+      "Namespace": "Azure.Core.Foundations",
+      "Description": "The error object.",
+      "IsNullable": false,
+      "Usage": "Output",
+      "Properties": [
+       {
+        "$id": "137",
+        "Name": "code",
+        "SerializedName": "code",
+        "Description": "One of a server-defined set of error codes.",
+        "Type": {
+         "$id": "138",
+         "Kind": "string",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "139",
+        "Name": "message",
+        "SerializedName": "message",
+        "Description": "A human-readable representation of the error.",
+        "Type": {
+         "$id": "140",
+         "Kind": "string",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "141",
+        "Name": "target",
+        "SerializedName": "target",
+        "Description": "The target of the error.",
+        "Type": {
+         "$id": "142",
+         "Kind": "string",
+         "IsNullable": false
+        },
+        "IsRequired": false,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "143",
+        "Name": "details",
+        "SerializedName": "details",
+        "Description": "An array of details about specific errors that led to this reported error.",
+        "Type": {
+         "$id": "144",
+         "Kind": "Array",
+         "Name": "Array",
+         "ElementType": {
+          "$ref": "136"
+         },
+         "IsNullable": false
+        },
+        "IsRequired": false,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "145",
+        "Name": "innererror",
+        "SerializedName": "innererror",
+        "Description": "An object containing more specific information than the current object about the error.",
+        "Type": {
+         "$id": "146",
+         "Kind": "Model",
+         "Name": "InnerError",
+         "Namespace": "Azure.Core.Foundations",
+         "Description": "An object containing more specific information about the error. As per Microsoft One API guidelines - https://github.com/Microsoft/api-guidelines/blob/vNext/Guidelines.md#7102-error-condition-responses.",
+         "IsNullable": false,
+         "Usage": "Output",
+         "Properties": [
+          {
+           "$id": "147",
+           "Name": "code",
+           "SerializedName": "code",
+           "Description": "One of a server-defined set of error codes.",
+           "Type": {
+            "$id": "148",
+            "Kind": "string",
+            "IsNullable": false
+           },
+           "IsRequired": false,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "149",
+           "Name": "innererror",
+           "SerializedName": "innererror",
+           "Description": "Inner error.",
+           "Type": {
+            "$ref": "146"
+           },
+           "IsRequired": false,
+           "IsReadOnly": false
+          }
+         ]
+        },
+        "IsRequired": false,
+        "IsReadOnly": false
+       }
+      ]
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "150",
+     "Name": "result",
+     "SerializedName": "result",
+     "Description": "The result of the operation.",
+     "Type": {
+      "$id": "151",
+      "Kind": "Model",
+      "Name": "ApiSpecExportResult",
+      "Namespace": "ApiCenter.DataApi",
+      "Description": "Export specification result model.",
+      "IsNullable": false,
+      "Usage": "Output",
+      "Properties": [
+       {
+        "$id": "152",
+        "Name": "definitionName",
+        "SerializedName": "definitionName",
+        "Description": "API definition identifier.",
+        "Type": {
+         "$id": "153",
+         "Kind": "string",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "154",
+        "Name": "value",
+        "SerializedName": "value",
+        "Description": "The result of the specification export.",
+        "Type": {
+         "$id": "155",
+         "Kind": "string",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "156",
+        "Name": "format",
+        "SerializedName": "format",
+        "Description": "The format of the specification export result.",
+        "Type": {
+         "$ref": "26"
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       }
+      ]
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "136"
+  },
+  {
+   "$ref": "146"
+  },
+  {
+   "$ref": "151"
+  },
+  {
+   "$id": "157",
+   "Kind": "Model",
+   "Name": "PagedApiDeployment",
+   "Namespace": "Azure.Core.Foundations",
+   "Description": "Paged collection of ApiDeployment items",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "158",
+     "Name": "value",
+     "SerializedName": "value",
+     "Description": "The ApiDeployment items on this page",
+     "Type": {
+      "$id": "159",
+      "Kind": "Array",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "160",
+       "Kind": "Model",
+       "Name": "ApiDeployment",
+       "Namespace": "ApiCenter.DataApi",
+       "Description": "API deployment resource model.",
+       "IsNullable": false,
+       "Usage": "Output",
+       "Properties": [
+        {
+         "$id": "161",
+         "Name": "name",
+         "SerializedName": "name",
+         "Description": "Deployment identifier.",
+         "Type": {
+          "$id": "162",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "163",
+         "Name": "title",
+         "SerializedName": "title",
+         "Description": "The name of the deployment.",
+         "Type": {
+          "$id": "164",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "165",
+         "Name": "description",
+         "SerializedName": "description",
+         "Description": "The description of the deployment.",
+         "Type": {
+          "$id": "166",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "167",
+         "Name": "environment",
+         "SerializedName": "environment",
+         "Description": "The name of the deployment environment.",
+         "Type": {
+          "$id": "168",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "169",
+         "Name": "server",
+         "SerializedName": "server",
+         "Description": "The server information of the API deployment.",
+         "Type": {
+          "$id": "170",
+          "Kind": "Model",
+          "Name": "ApiDeploymentServer",
+          "Namespace": "ApiCenter.DataApi",
+          "Description": "Api Deployment Server",
+          "IsNullable": false,
+          "Usage": "Output",
+          "Properties": [
+           {
+            "$id": "171",
+            "Name": "runtimeUris",
+            "SerializedName": "runtimeUris",
+            "Description": "Base runtime URIs for this deployment.",
+            "Type": {
+             "$id": "172",
+             "Kind": "Array",
+             "Name": "Array",
+             "ElementType": {
+              "$id": "173",
+              "Kind": "url",
+              "IsNullable": false
+             },
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           }
+          ]
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "174",
+         "Name": "customProperties",
+         "SerializedName": "customProperties",
+         "Description": "The custom metadata defined for API deployment entities.",
+         "Type": {
+          "$id": "175",
+          "Kind": "Model",
+          "Name": "ApiDeploymentCustomProperties",
+          "Namespace": "ApiCenter.DataApi",
+          "IsNullable": false,
+          "Usage": "Output",
+          "Properties": []
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "176",
+         "Name": "recommended",
+         "SerializedName": "recommended",
+         "Description": "Indicates if this is currently recommended deployment.",
+         "Type": {
+          "$id": "177",
+          "Kind": "boolean",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "178",
+     "Name": "nextLink",
+     "SerializedName": "nextLink",
+     "Description": "The link to the next page of items",
+     "Type": {
+      "$id": "179",
+      "Kind": "url",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "160"
+  },
+  {
+   "$ref": "170"
+  },
+  {
+   "$ref": "175"
+  },
+  {
+   "$id": "180",
+   "Kind": "Model",
+   "Name": "PagedEnvironment",
+   "Namespace": "Azure.Core.Foundations",
+   "Description": "Paged collection of Environment items",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "181",
+     "Name": "value",
+     "SerializedName": "value",
+     "Description": "The Environment items on this page",
+     "Type": {
+      "$id": "182",
+      "Kind": "Array",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "183",
+       "Kind": "Model",
+       "Name": "Environment",
+       "Namespace": "ApiCenter.DataApi",
+       "Description": "Environment resource model.",
+       "IsNullable": false,
+       "Usage": "Output",
+       "Properties": [
+        {
+         "$id": "184",
+         "Name": "name",
+         "SerializedName": "name",
+         "Description": "Environment identifier.",
+         "Type": {
+          "$id": "185",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "186",
+         "Name": "title",
+         "SerializedName": "title",
+         "Description": "The name of the environment.",
+         "Type": {
+          "$id": "187",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "188",
+         "Name": "kind",
+         "SerializedName": "kind",
+         "Description": "Kind of deployment environment.",
+         "Type": {
+          "$ref": "29"
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "189",
+         "Name": "description",
+         "SerializedName": "description",
+         "Description": "Description of the environment.",
+         "Type": {
+          "$id": "190",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "191",
+         "Name": "server",
+         "SerializedName": "server",
+         "Description": "Server information of the environment.",
+         "Type": {
+          "$id": "192",
+          "Kind": "Model",
+          "Name": "EnvironmentServer",
+          "Namespace": "ApiCenter.DataApi",
+          "Description": "Environment Server",
+          "IsNullable": false,
+          "Usage": "Output",
+          "Properties": [
+           {
+            "$id": "193",
+            "Name": "type",
+            "SerializedName": "type",
+            "Description": "Type of the server that represents the environment.",
+            "Type": {
+             "$id": "194",
+             "Kind": "string",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "195",
+            "Name": "managementPortalUris",
+            "SerializedName": "managementPortalUris",
+            "Description": "URIs of the server's management portal.",
+            "Type": {
+             "$id": "196",
+             "Kind": "Array",
+             "Name": "Array",
+             "ElementType": {
+              "$id": "197",
+              "Kind": "url",
+              "IsNullable": false
+             },
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           }
+          ]
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "198",
+         "Name": "onboarding",
+         "SerializedName": "onboarding",
+         "Description": "Onboarding information for this environment.",
+         "Type": {
+          "$id": "199",
+          "Kind": "Model",
+          "Name": "EnvironmentOnboardingModel",
+          "Namespace": "ApiCenter.DataApi",
+          "Description": "Environment Onboarding Model",
+          "IsNullable": false,
+          "Usage": "Output",
+          "Properties": [
+           {
+            "$id": "200",
+            "Name": "instructions",
+            "SerializedName": "instructions",
+            "Description": "Instructions how to onboard to the environment.",
+            "Type": {
+             "$id": "201",
+             "Kind": "string",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "202",
+            "Name": "developerPortalUris",
+            "SerializedName": "developerPortalUris",
+            "Description": "Developer portal URIs of the environment.",
+            "Type": {
+             "$id": "203",
+             "Kind": "Array",
+             "Name": "Array",
+             "ElementType": {
+              "$id": "204",
+              "Kind": "url",
+              "IsNullable": false
+             },
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           }
+          ]
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "205",
+         "Name": "customProperties",
+         "SerializedName": "customProperties",
+         "Description": "The custom metadata defined for environment entities.",
+         "Type": {
+          "$id": "206",
+          "Kind": "Model",
+          "Name": "EnvironmentCustomProperties",
+          "Namespace": "ApiCenter.DataApi",
+          "IsNullable": false,
+          "Usage": "Output",
+          "Properties": []
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "207",
+     "Name": "nextLink",
+     "SerializedName": "nextLink",
+     "Description": "The link to the next page of items",
+     "Type": {
+      "$id": "208",
+      "Kind": "url",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "183"
+  },
+  {
+   "$ref": "192"
+  },
+  {
+   "$ref": "199"
+  },
+  {
+   "$ref": "206"
+  },
+  {
+   "$id": "209",
+   "Kind": "Model",
+   "Name": "PagedEnvironmentAll",
+   "Namespace": "ApiCenter.DataApi",
+   "Description": "Paged collection of Environment items across workspaces",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "210",
+     "Name": "value",
+     "SerializedName": "value",
+     "Description": "The Environment items on this page",
+     "Type": {
+      "$id": "211",
+      "Kind": "Array",
+      "Name": "Array",
+      "ElementType": {
+       "$ref": "183"
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "212",
+     "Name": "nextLink",
+     "SerializedName": "nextLink",
+     "Description": "The link to the next page of items",
+     "Type": {
+      "$id": "213",
+      "Kind": "url",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "214",
+   "Kind": "Model",
+   "Name": "PagedApiVersion",
+   "Namespace": "Azure.Core.Foundations",
+   "Description": "Paged collection of ApiVersion items",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "215",
+     "Name": "value",
+     "SerializedName": "value",
+     "Description": "The ApiVersion items on this page",
+     "Type": {
+      "$id": "216",
+      "Kind": "Array",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "217",
+       "Kind": "Model",
+       "Name": "ApiVersion",
+       "Namespace": "ApiCenter.DataApi",
+       "Description": "API version resource model.",
+       "IsNullable": false,
+       "Usage": "Output",
+       "Properties": [
+        {
+         "$id": "218",
+         "Name": "name",
+         "SerializedName": "name",
+         "Description": "Version identifier.",
+         "Type": {
+          "$id": "219",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "220",
+         "Name": "title",
+         "SerializedName": "title",
+         "Description": "Version title.",
+         "Type": {
+          "$id": "221",
+          "Kind": "string",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "222",
+         "Name": "lifecycleStage",
+         "SerializedName": "lifecycleStage",
+         "Description": "Current lifecycle stage of the API version.",
+         "Type": {
+          "$ref": "10"
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "223",
+     "Name": "nextLink",
+     "SerializedName": "nextLink",
+     "Description": "The link to the next page of items",
+     "Type": {
+      "$id": "224",
+      "Kind": "url",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "217"
+  },
+  {
+   "$id": "225",
+   "Kind": "Model",
+   "Name": "GetVersionResponse",
+   "Namespace": "",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "226",
+     "Name": "title",
+     "SerializedName": "title",
+     "Description": "Version title.",
+     "Type": {
+      "$id": "227",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "228",
+     "Name": "lifecycleStage",
+     "SerializedName": "lifecycleStage",
+     "Description": "Current lifecycle stage of the API version.",
+     "Type": {
+      "$ref": "10"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "229",
+   "Kind": "Model",
+   "Name": "GetResponse",
+   "Namespace": "",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "230",
+     "Name": "title",
+     "SerializedName": "title",
+     "Description": "The name of the environment.",
+     "Type": {
+      "$id": "231",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "232",
+     "Name": "kind",
+     "SerializedName": "kind",
+     "Description": "Kind of deployment environment.",
+     "Type": {
+      "$ref": "29"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "233",
+     "Name": "description",
+     "SerializedName": "description",
+     "Description": "Description of the environment.",
+     "Type": {
+      "$id": "234",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "235",
+     "Name": "server",
+     "SerializedName": "server",
+     "Description": "Server information of the environment.",
+     "Type": {
+      "$ref": "192"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "236",
+     "Name": "onboarding",
+     "SerializedName": "onboarding",
+     "Description": "Onboarding information for this environment.",
+     "Type": {
+      "$ref": "199"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "237",
+     "Name": "customProperties",
+     "SerializedName": "customProperties",
+     "Description": "The custom metadata defined for environment entities.",
+     "Type": {
+      "$ref": "206"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "238",
+   "Kind": "Model",
+   "Name": "GetDeploymentResponse",
+   "Namespace": "",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "239",
+     "Name": "title",
+     "SerializedName": "title",
+     "Description": "The name of the deployment.",
+     "Type": {
+      "$id": "240",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "241",
+     "Name": "description",
+     "SerializedName": "description",
+     "Description": "The description of the deployment.",
+     "Type": {
+      "$id": "242",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "243",
+     "Name": "environment",
+     "SerializedName": "environment",
+     "Description": "The name of the deployment environment.",
+     "Type": {
+      "$id": "244",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "245",
+     "Name": "server",
+     "SerializedName": "server",
+     "Description": "The server information of the API deployment.",
+     "Type": {
+      "$ref": "170"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "246",
+     "Name": "customProperties",
+     "SerializedName": "customProperties",
+     "Description": "The custom metadata defined for API deployment entities.",
+     "Type": {
+      "$ref": "175"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "247",
+     "Name": "recommended",
+     "SerializedName": "recommended",
+     "Description": "Indicates if this is currently recommended deployment.",
+     "Type": {
+      "$id": "248",
+      "Kind": "boolean",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "249",
+   "Kind": "Model",
+   "Name": "GetDefinitionResponse",
+   "Namespace": "",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "250",
+     "Name": "title",
+     "SerializedName": "title",
+     "Description": "The name of the API definition.",
+     "Type": {
+      "$id": "251",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "252",
+     "Name": "description",
+     "SerializedName": "description",
+     "Description": "The description of the API definition.",
+     "Type": {
+      "$id": "253",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "254",
+     "Name": "specification",
+     "SerializedName": "specification",
+     "Description": "The API specification details.",
+     "Type": {
+      "$ref": "124"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "255",
+   "Kind": "Model",
+   "Name": "GetResponse1",
+   "Namespace": "",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "256",
+     "Name": "title",
+     "SerializedName": "title",
+     "Description": "The name of the API.",
+     "Type": {
+      "$id": "257",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "258",
+     "Name": "summary",
+     "SerializedName": "summary",
+     "Description": "Short description of the API.",
+     "Type": {
+      "$id": "259",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "260",
+     "Name": "description",
+     "SerializedName": "description",
+     "Description": "The description of the API",
+     "Type": {
+      "$id": "261",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "262",
+     "Name": "kind",
+     "SerializedName": "kind",
+     "Description": "Kind of API. For example, REST or GraphQL.",
+     "Type": {
+      "$ref": "2"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "263",
+     "Name": "lifecycleStage",
+     "SerializedName": "lifecycleStage",
+     "Description": "Current lifecycle stage of the API.",
+     "Type": {
+      "$ref": "10"
+     },
+     "IsRequired": false,
+     "IsReadOnly": true
+    },
+    {
+     "$id": "264",
+     "Name": "termsOfService",
+     "SerializedName": "termsOfService",
+     "Description": "Terms of service for the API.",
+     "Type": {
+      "$ref": "53"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "265",
+     "Name": "license",
+     "SerializedName": "license",
+     "Description": "The license information for the API.",
+     "Type": {
+      "$ref": "57"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "266",
+     "Name": "externalDocumentation",
+     "SerializedName": "externalDocumentation",
+     "Description": "External documentation",
+     "Type": {
+      "$id": "267",
+      "Kind": "Array",
+      "Name": "Array",
+      "ElementType": {
+       "$ref": "66"
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "268",
+     "Name": "contacts",
+     "SerializedName": "contacts",
+     "Description": "Points of contact for the API.",
+     "Type": {
+      "$id": "269",
+      "Kind": "Array",
+      "Name": "Array",
+      "ElementType": {
+       "$ref": "75"
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "270",
+     "Name": "customProperties",
+     "SerializedName": "customProperties",
+     "Description": "The custom metadata defined for API entities.",
+     "Type": {
+      "$ref": "83"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "271",
+     "Name": "lastUpdated",
+     "SerializedName": "lastUpdated",
+     "Description": "Last updated date and time.",
+     "Type": {
+      "$id": "272",
+      "Kind": "utcDateTime",
+      "IsNullable": false,
+      "Encode": "rfc3339",
+      "WireType": {
+       "$id": "273",
+       "Kind": "string",
+       "IsNullable": false
+      }
+     },
+     "IsRequired": false,
+     "IsReadOnly": true
+    }
+   ]
+  }
+ ],
+ "Clients": [
+  {
+   "$id": "274",
+   "Name": "DataApiClient",
+   "Description": "",
+   "Operations": [],
+   "Protocol": {
+    "$id": "275"
+   },
+   "Creatable": true,
+   "Parameters": [
+    {
+     "$id": "276",
+     "Name": "serviceName",
+     "NameInRequest": "serviceName",
+     "Description": "Region-unique API Center service name",
+     "Type": {
+      "$id": "277",
+      "Kind": "string",
+      "IsNullable": false
+     },
+     "Location": "Uri",
+     "IsApiVersion": false,
+     "IsResourceParameter": false,
+     "IsContentType": false,
+     "IsRequired": true,
+     "IsEndpoint": false,
+     "SkipUrlEncoding": false,
+     "Explode": false,
+     "Kind": "Client"
+    }
+   ]
+  },
+  {
+   "$id": "278",
+   "Name": "Apis",
+   "Description": "",
+   "Operations": [
+    {
+     "$id": "279",
+     "Name": "list",
+     "ResourceName": "Api",
+     "Description": "List a collection of APIs.",
+     "Parameters": [
+      {
+       "$ref": "276"
+      },
+      {
+       "$id": "280",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "281",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "DefaultValue": {
+        "$id": "282",
+        "Type": {
+         "$id": "283",
+         "Kind": "string",
+         "IsNullable": false
+        },
+        "Value": "2024-02-01-preview"
+       },
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "284",
+       "Name": "workspaceName",
+       "NameInRequest": "workspaceName",
+       "Description": "Workspace identifier.",
+       "Type": {
+        "$id": "285",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "286",
+       "Name": "top",
+       "NameInRequest": "top",
+       "Description": "The number of result items to return.",
+       "Type": {
+        "$id": "287",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "288",
+       "Name": "skip",
+       "NameInRequest": "skip",
+       "Description": "The number of result items to skip.",
+       "Type": {
+        "$id": "289",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "290",
+       "Name": "maxpagesize",
+       "NameInRequest": "maxpagesize",
+       "Description": "The maximum number of result items per page.",
+       "Type": {
+        "$id": "291",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "292",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "293",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "294",
+        "Type": {
+         "$ref": "293"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "295",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "38"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{serviceName}.data.azure-apicenter.net",
+     "Path": "/workspaces/{workspaceName}/apis",
+     "BufferResponse": true,
+     "Paging": {
+      "$id": "296",
+      "NextLinkName": "nextLink",
+      "ItemName": "value"
+     },
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "297",
+     "Name": "listAll",
+     "ResourceName": "Apis",
+     "Description": "List a collection of APIs across workspaces.",
+     "Parameters": [
+      {
+       "$ref": "276"
+      },
+      {
+       "$id": "298",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "299",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "DefaultValue": {
+        "$ref": "282"
+       },
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "300",
+       "Name": "top",
+       "NameInRequest": "top",
+       "Description": "The number of result items to return.",
+       "Type": {
+        "$id": "301",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "302",
+       "Name": "skip",
+       "NameInRequest": "skip",
+       "Description": "The number of result items to skip.",
+       "Type": {
+        "$id": "303",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "304",
+       "Name": "maxpagesize",
+       "NameInRequest": "maxpagesize",
+       "Description": "The maximum number of result items per page.",
+       "Type": {
+        "$id": "305",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "306",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "307",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "308",
+        "Type": {
+         "$ref": "307"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "309",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "89"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{serviceName}.data.azure-apicenter.net",
+     "Path": "/apis",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "310",
+     "Name": "get",
+     "ResourceName": "Api",
+     "Description": "Get an API.",
+     "Parameters": [
+      {
+       "$ref": "276"
+      },
+      {
+       "$id": "311",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "312",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "DefaultValue": {
+        "$ref": "282"
+       },
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "313",
+       "Name": "workspaceName",
+       "NameInRequest": "workspaceName",
+       "Description": "Workspace identifier.",
+       "Type": {
+        "$id": "314",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "315",
+       "Name": "apiName",
+       "NameInRequest": "apiName",
+       "Description": "Api identifier.",
+       "Type": {
+        "$id": "316",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "317",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "318",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "319",
+        "Type": {
+         "$ref": "318"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "320",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "94"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{serviceName}.data.azure-apicenter.net",
+     "Path": "/workspaces/{workspaceName}/apis/{apiName}",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    }
+   ],
+   "Protocol": {
+    "$id": "321"
+   },
+   "Creatable": false,
+   "Parent": "DataApiClient",
+   "Parameters": [
+    {
+     "$ref": "276"
+    }
+   ]
+  },
+  {
+   "$id": "322",
+   "Name": "ApiDefinitions",
+   "Description": "",
+   "Operations": [
+    {
+     "$id": "323",
+     "Name": "listDefinitions",
+     "ResourceName": "ApiDefinition",
+     "Description": "List a collection of API definitions.",
+     "Parameters": [
+      {
+       "$ref": "276"
+      },
+      {
+       "$id": "324",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "325",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "DefaultValue": {
+        "$ref": "282"
+       },
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "326",
+       "Name": "workspaceName",
+       "NameInRequest": "workspaceName",
+       "Description": "Workspace identifier.",
+       "Type": {
+        "$id": "327",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "328",
+       "Name": "apiName",
+       "NameInRequest": "apiName",
+       "Description": "Api identifier.",
+       "Type": {
+        "$id": "329",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "330",
+       "Name": "versionName",
+       "NameInRequest": "versionName",
+       "Description": "Version identifier.",
+       "Type": {
+        "$id": "331",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "332",
+       "Name": "top",
+       "NameInRequest": "top",
+       "Description": "The number of result items to return.",
+       "Type": {
+        "$id": "333",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "334",
+       "Name": "skip",
+       "NameInRequest": "skip",
+       "Description": "The number of result items to skip.",
+       "Type": {
+        "$id": "335",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "336",
+       "Name": "maxpagesize",
+       "NameInRequest": "maxpagesize",
+       "Description": "The maximum number of result items per page.",
+       "Type": {
+        "$id": "337",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "338",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "339",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "340",
+        "Type": {
+         "$ref": "339"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "341",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "113"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{serviceName}.data.azure-apicenter.net",
+     "Path": "/workspaces/{workspaceName}/apis/{apiName}/versions/{versionName}/definitions",
+     "BufferResponse": true,
+     "Paging": {
+      "$id": "342",
+      "NextLinkName": "nextLink",
+      "ItemName": "value"
+     },
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "343",
+     "Name": "getDefinition",
+     "ResourceName": "ApiDefinition",
+     "Description": "Get an API definition.",
+     "Parameters": [
+      {
+       "$ref": "276"
+      },
+      {
+       "$id": "344",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "345",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "DefaultValue": {
+        "$ref": "282"
+       },
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "346",
+       "Name": "workspaceName",
+       "NameInRequest": "workspaceName",
+       "Description": "Workspace identifier.",
+       "Type": {
+        "$id": "347",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "348",
+       "Name": "apiName",
+       "NameInRequest": "apiName",
+       "Description": "Api identifier.",
+       "Type": {
+        "$id": "349",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "350",
+       "Name": "versionName",
+       "NameInRequest": "versionName",
+       "Description": "Version identifier.",
+       "Type": {
+        "$id": "351",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "352",
+       "Name": "definitionName",
+       "NameInRequest": "definitionName",
+       "Description": "Definition identifier.",
+       "Type": {
+        "$id": "353",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "354",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "355",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "356",
+        "Type": {
+         "$ref": "355"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "357",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "94"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{serviceName}.data.azure-apicenter.net",
+     "Path": "/workspaces/{workspaceName}/apis/{apiName}/versions/{versionName}/definitions/{definitionName}",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "358",
+     "Name": "getExportSpecificationOperationStatus",
+     "ResourceName": "ResourceOperationStatus",
+     "Description": "Gets status of a an API specification export operation.",
+     "Parameters": [
+      {
+       "$ref": "276"
+      },
+      {
+       "$id": "359",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "360",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "DefaultValue": {
+        "$ref": "282"
+       },
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "361",
+       "Name": "workspaceName",
+       "NameInRequest": "workspaceName",
+       "Description": "Workspace identifier.",
+       "Type": {
+        "$id": "362",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "363",
+       "Name": "apiName",
+       "NameInRequest": "apiName",
+       "Description": "Api identifier.",
+       "Type": {
+        "$id": "364",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "365",
+       "Name": "versionName",
+       "NameInRequest": "versionName",
+       "Description": "Version identifier.",
+       "Type": {
+        "$id": "366",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "367",
+       "Name": "definitionName",
+       "NameInRequest": "definitionName",
+       "Description": "API definition identifier.",
+       "Type": {
+        "$id": "368",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "369",
+       "Name": "operationId",
+       "NameInRequest": "operationId",
+       "Description": "The unique ID of the operation.",
+       "Type": {
+        "$id": "370",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "371",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "372",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "373",
+        "Type": {
+         "$ref": "372"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "374",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "131"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{serviceName}.data.azure-apicenter.net",
+     "Path": "/workspaces/{workspaceName}/apis/{apiName}/versions/{versionName}/definitions/{definitionName}/operations/{operationId}",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "375",
+     "Name": "exportSpecification",
+     "ResourceName": "ApiDefinitions",
+     "Description": "Export an API specification asynchronously.",
+     "Parameters": [
+      {
+       "$ref": "276"
+      },
+      {
+       "$id": "376",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "377",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "DefaultValue": {
+        "$ref": "282"
+       },
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "378",
+       "Name": "workspaceName",
+       "NameInRequest": "workspaceName",
+       "Description": "Workspace identifier.",
+       "Type": {
+        "$id": "379",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "380",
+       "Name": "apiName",
+       "NameInRequest": "apiName",
+       "Description": "Api identifier.",
+       "Type": {
+        "$id": "381",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "382",
+       "Name": "versionName",
+       "NameInRequest": "versionName",
+       "Description": "Version identifier.",
+       "Type": {
+        "$id": "383",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "384",
+       "Name": "definitionName",
+       "NameInRequest": "definitionName",
+       "Description": "API definition identifier.",
+       "Type": {
+        "$id": "385",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "386",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "387",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "388",
+        "Type": {
+         "$ref": "387"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "389",
+       "StatusCodes": [
+        202
+       ],
+       "BodyType": {
+        "$ref": "131"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [
+        {
+         "$id": "390",
+         "Name": "Operation-Location",
+         "NameInResponse": "operationLocation",
+         "Description": "The location for monitoring the operation state.",
+         "Type": {
+          "$id": "391",
+          "Kind": "url",
+          "IsNullable": false
+         }
+        }
+       ],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{serviceName}.data.azure-apicenter.net",
+     "Path": "/workspaces/{workspaceName}/apis/{apiName}/versions/{versionName}/definitions/{definitionName}:exportSpecification",
+     "BufferResponse": true,
+     "LongRunning": {
+      "$id": "392",
+      "FinalStateVia": 3,
+      "FinalResponse": {
+       "$id": "393",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "131"
+       },
+       "BodyMediaType": "Json"
+      },
+      "ResultPath": "result"
+     },
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    }
+   ],
+   "Protocol": {
+    "$id": "394"
+   },
+   "Creatable": false,
+   "Parent": "DataApiClient",
+   "Parameters": [
+    {
+     "$ref": "276"
+    }
+   ]
+  },
+  {
+   "$id": "395",
+   "Name": "ApiDeployments",
+   "Description": "",
+   "Operations": [
+    {
+     "$id": "396",
+     "Name": "listDeployments",
+     "ResourceName": "ApiDeployment",
+     "Description": "List a collection of API deployments.",
+     "Parameters": [
+      {
+       "$ref": "276"
+      },
+      {
+       "$id": "397",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "398",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "DefaultValue": {
+        "$ref": "282"
+       },
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "399",
+       "Name": "workspaceName",
+       "NameInRequest": "workspaceName",
+       "Description": "Workspace identifier.",
+       "Type": {
+        "$id": "400",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "401",
+       "Name": "apiName",
+       "NameInRequest": "apiName",
+       "Description": "Api identifier.",
+       "Type": {
+        "$id": "402",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "403",
+       "Name": "top",
+       "NameInRequest": "top",
+       "Description": "The number of result items to return.",
+       "Type": {
+        "$id": "404",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "405",
+       "Name": "skip",
+       "NameInRequest": "skip",
+       "Description": "The number of result items to skip.",
+       "Type": {
+        "$id": "406",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "407",
+       "Name": "maxpagesize",
+       "NameInRequest": "maxpagesize",
+       "Description": "The maximum number of result items per page.",
+       "Type": {
+        "$id": "408",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "409",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "410",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "411",
+        "Type": {
+         "$ref": "410"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "412",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "157"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{serviceName}.data.azure-apicenter.net",
+     "Path": "/workspaces/{workspaceName}/apis/{apiName}/deployments",
+     "BufferResponse": true,
+     "Paging": {
+      "$id": "413",
+      "NextLinkName": "nextLink",
+      "ItemName": "value"
+     },
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "414",
+     "Name": "getDeployment",
+     "ResourceName": "ApiDeployment",
+     "Description": "Get an API deployment.",
+     "Parameters": [
+      {
+       "$ref": "276"
+      },
+      {
+       "$id": "415",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "416",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "DefaultValue": {
+        "$ref": "282"
+       },
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "417",
+       "Name": "workspaceName",
+       "NameInRequest": "workspaceName",
+       "Description": "Workspace identifier.",
+       "Type": {
+        "$id": "418",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "419",
+       "Name": "apiName",
+       "NameInRequest": "apiName",
+       "Description": "Api identifier.",
+       "Type": {
+        "$id": "420",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "421",
+       "Name": "deploymentName",
+       "NameInRequest": "deploymentName",
+       "Description": "Deployment identifier.",
+       "Type": {
+        "$id": "422",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "423",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "424",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "425",
+        "Type": {
+         "$ref": "424"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "426",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "94"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{serviceName}.data.azure-apicenter.net",
+     "Path": "/workspaces/{workspaceName}/apis/{apiName}/deployments/{deploymentName}",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    }
+   ],
+   "Protocol": {
+    "$id": "427"
+   },
+   "Creatable": false,
+   "Parent": "DataApiClient",
+   "Parameters": [
+    {
+     "$ref": "276"
+    }
+   ]
+  },
+  {
+   "$id": "428",
+   "Name": "Environments",
+   "Description": "",
+   "Operations": [
+    {
+     "$id": "429",
+     "Name": "list",
+     "ResourceName": "Environment",
+     "Description": "List a collection of environments.",
+     "Parameters": [
+      {
+       "$ref": "276"
+      },
+      {
+       "$id": "430",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "431",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "DefaultValue": {
+        "$ref": "282"
+       },
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "432",
+       "Name": "workspaceName",
+       "NameInRequest": "workspaceName",
+       "Description": "Workspace identifier.",
+       "Type": {
+        "$id": "433",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "434",
+       "Name": "top",
+       "NameInRequest": "top",
+       "Description": "The number of result items to return.",
+       "Type": {
+        "$id": "435",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "436",
+       "Name": "skip",
+       "NameInRequest": "skip",
+       "Description": "The number of result items to skip.",
+       "Type": {
+        "$id": "437",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "438",
+       "Name": "maxpagesize",
+       "NameInRequest": "maxpagesize",
+       "Description": "The maximum number of result items per page.",
+       "Type": {
+        "$id": "439",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "440",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "441",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "442",
+        "Type": {
+         "$ref": "441"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "443",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "180"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{serviceName}.data.azure-apicenter.net",
+     "Path": "/workspaces/{workspaceName}/environments",
+     "BufferResponse": true,
+     "Paging": {
+      "$id": "444",
+      "NextLinkName": "nextLink",
+      "ItemName": "value"
+     },
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "445",
+     "Name": "listAll",
+     "ResourceName": "Environments",
+     "Description": "List a collection of environments across workspaces.",
+     "Parameters": [
+      {
+       "$ref": "276"
+      },
+      {
+       "$id": "446",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "447",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "DefaultValue": {
+        "$ref": "282"
+       },
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "448",
+       "Name": "top",
+       "NameInRequest": "top",
+       "Description": "The number of result items to return.",
+       "Type": {
+        "$id": "449",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "450",
+       "Name": "skip",
+       "NameInRequest": "skip",
+       "Description": "The number of result items to skip.",
+       "Type": {
+        "$id": "451",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "452",
+       "Name": "maxpagesize",
+       "NameInRequest": "maxpagesize",
+       "Description": "The maximum number of result items per page.",
+       "Type": {
+        "$id": "453",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "454",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "455",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "456",
+        "Type": {
+         "$ref": "455"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "457",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "209"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{serviceName}.data.azure-apicenter.net",
+     "Path": "/environments",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "458",
+     "Name": "get",
+     "ResourceName": "Environment",
+     "Description": "Get an environment.",
+     "Parameters": [
+      {
+       "$ref": "276"
+      },
+      {
+       "$id": "459",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "460",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "DefaultValue": {
+        "$ref": "282"
+       },
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "461",
+       "Name": "workspaceName",
+       "NameInRequest": "workspaceName",
+       "Description": "Workspace identifier.",
+       "Type": {
+        "$id": "462",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "463",
+       "Name": "environmentName",
+       "NameInRequest": "environmentName",
+       "Description": "Environment identifier.",
+       "Type": {
+        "$id": "464",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "465",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "466",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "467",
+        "Type": {
+         "$ref": "466"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "468",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "94"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{serviceName}.data.azure-apicenter.net",
+     "Path": "/workspaces/{workspaceName}/environments/{environmentName}",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    }
+   ],
+   "Protocol": {
+    "$id": "469"
+   },
+   "Creatable": false,
+   "Parent": "DataApiClient",
+   "Parameters": [
+    {
+     "$ref": "276"
+    }
+   ]
+  },
+  {
+   "$id": "470",
+   "Name": "ApiVersions",
+   "Description": "",
+   "Operations": [
+    {
+     "$id": "471",
+     "Name": "listVersions",
+     "ResourceName": "ApiVersion",
+     "Description": "List a collection of API versions.",
+     "Parameters": [
+      {
+       "$ref": "276"
+      },
+      {
+       "$id": "472",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "473",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "DefaultValue": {
+        "$ref": "282"
+       },
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "474",
+       "Name": "workspaceName",
+       "NameInRequest": "workspaceName",
+       "Description": "Workspace identifier.",
+       "Type": {
+        "$id": "475",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "476",
+       "Name": "apiName",
+       "NameInRequest": "apiName",
+       "Description": "Api identifier.",
+       "Type": {
+        "$id": "477",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "478",
+       "Name": "top",
+       "NameInRequest": "top",
+       "Description": "The number of result items to return.",
+       "Type": {
+        "$id": "479",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "480",
+       "Name": "skip",
+       "NameInRequest": "skip",
+       "Description": "The number of result items to skip.",
+       "Type": {
+        "$id": "481",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "482",
+       "Name": "maxpagesize",
+       "NameInRequest": "maxpagesize",
+       "Description": "The maximum number of result items per page.",
+       "Type": {
+        "$id": "483",
+        "Kind": "int32",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": false,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "484",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "485",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "486",
+        "Type": {
+         "$ref": "485"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "487",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "214"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{serviceName}.data.azure-apicenter.net",
+     "Path": "/workspaces/{workspaceName}/apis/{apiName}/versions",
+     "BufferResponse": true,
+     "Paging": {
+      "$id": "488",
+      "NextLinkName": "nextLink",
+      "ItemName": "value"
+     },
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "489",
+     "Name": "getVersion",
+     "ResourceName": "ApiVersion",
+     "Description": "Get an API version.",
+     "Parameters": [
+      {
+       "$ref": "276"
+      },
+      {
+       "$id": "490",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "491",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "DefaultValue": {
+        "$ref": "282"
+       },
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "492",
+       "Name": "workspaceName",
+       "NameInRequest": "workspaceName",
+       "Description": "Workspace identifier.",
+       "Type": {
+        "$id": "493",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "494",
+       "Name": "apiName",
+       "NameInRequest": "apiName",
+       "Description": "Api identifier.",
+       "Type": {
+        "$id": "495",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "496",
+       "Name": "versionName",
+       "NameInRequest": "versionName",
+       "Description": "Version identifier.",
+       "Type": {
+        "$id": "497",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "498",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "499",
+        "Kind": "string",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "500",
+        "Type": {
+         "$ref": "499"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "501",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "94"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{serviceName}.data.azure-apicenter.net",
+     "Path": "/workspaces/{workspaceName}/apis/{apiName}/versions/{versionName}",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    }
+   ],
+   "Protocol": {
+    "$id": "502"
+   },
+   "Creatable": false,
+   "Parent": "DataApiClient",
+   "Parameters": [
+    {
+     "$ref": "276"
+    }
+   ]
+  }
+ ],
+ "Auth": {
+  "$id": "503",
+  "OAuth2": {
+   "$id": "504",
+   "Scopes": [
+    "https://azure-apicenter.net/user_impersonation"
+   ]
+  }
+ }
+}
