@@ -15,7 +15,7 @@ namespace Azure.Analytics.Defender.Easm
     public static partial class AnalyticsDefenderEasmModelFactory
     {
         /// <summary> Initializes a new instance of <see cref="Easm.AssetResource"/>. </summary>
-        /// <param name="kind"> Discriminator. </param>
+        /// <param name="kind"> Discriminator property for AssetResource. </param>
         /// <param name="id"> The system generated unique id for the resource. </param>
         /// <param name="name"> The caller provided unique name for the resource. </param>
         /// <param name="displayName"> The name that can be used for display purposes. </param>
@@ -97,8 +97,141 @@ namespace Azure.Analytics.Defender.Easm
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Easm.ObservationPageResult"/>. </summary>
+        /// <param name="totalElements"> The total number of elements. </param>
+        /// <param name="prioritySummary"> The summary of observation counts by priority. </param>
+        /// <param name="value"> The list of observation results. </param>
+        /// <returns> A new <see cref="Easm.ObservationPageResult"/> instance for mocking. </returns>
+        public static ObservationPageResult ObservationPageResult(long totalElements = default, IReadOnlyDictionary<string, int> prioritySummary = null, IEnumerable<ObservationResult> value = null)
+        {
+            prioritySummary ??= new Dictionary<string, int>();
+            value ??= new List<ObservationResult>();
+
+            return new ObservationPageResult(totalElements, prioritySummary, value?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Easm.ObservationResult"/>. </summary>
+        /// <param name="name"> The name of the observation. </param>
+        /// <param name="types"> The list of applicable types. </param>
+        /// <param name="priority"> The priority of the observation. </param>
+        /// <param name="cvssScoreV2"> The CVSS v2 score. </param>
+        /// <param name="cvssScoreV3"> The CVSS v3 score. </param>
+        /// <returns> A new <see cref="Easm.ObservationResult"/> instance for mocking. </returns>
+        public static ObservationResult ObservationResult(string name = null, IEnumerable<ObservationType> types = null, ObservationPriority priority = default, double cvssScoreV2 = default, double cvssScoreV3 = default)
+        {
+            types ??= new List<ObservationType>();
+
+            return new ObservationResult(
+                name,
+                types?.ToList(),
+                priority,
+                cvssScoreV2,
+                cvssScoreV3,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Easm.DeltaDetailsRequest"/>. </summary>
+        /// <param name="deltaDetailType"> The type of delta detail to retrieve. </param>
+        /// <param name="priorDays"> The number of days prior to retrieve deltas for. </param>
+        /// <param name="kind"> The type of asset. </param>
+        /// <param name="date"> expected format to be: yyyy-MM-dd. </param>
+        /// <returns> A new <see cref="Easm.DeltaDetailsRequest"/> instance for mocking. </returns>
+        public static DeltaDetailsRequest DeltaDetailsRequest(DeltaDetailType deltaDetailType = default, int? priorDays = null, GlobalAssetType kind = default, string date = null)
+        {
+            return new DeltaDetailsRequest(deltaDetailType, priorDays, kind, date, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Easm.DeltaResult"/>. </summary>
+        /// <param name="kind"> Shows the asset kind. </param>
+        /// <param name="name"> Shows the asset name. </param>
+        /// <param name="createdAt"> Shows the date when the asset was originally created. </param>
+        /// <param name="updatedAt"> Shows the date when the asset was last updated, usually the date the we trying to pull up the results for. </param>
+        /// <param name="state"> Shows the inventory state. </param>
+        /// <returns> A new <see cref="Easm.DeltaResult"/> instance for mocking. </returns>
+        public static DeltaResult DeltaResult(GlobalAssetType kind = default, string name = null, DateTimeOffset createdAt = default, DateTimeOffset updatedAt = default, GlobalInventoryState state = default)
+        {
+            return new DeltaResult(
+                kind,
+                name,
+                createdAt,
+                updatedAt,
+                state,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Easm.DeltaSummaryResult"/>. </summary>
+        /// <param name="summary"> Contains added, removed, and difference values for the whole range either 7 or 30 days. </param>
+        /// <param name="daily"> Contains added, removed, count, and difference values for each day. </param>
+        /// <returns> A new <see cref="Easm.DeltaSummaryResult"/> instance for mocking. </returns>
+        public static DeltaSummaryResult DeltaSummaryResult(DeltaRangeResult summary = null, IEnumerable<DeltaDateResult> daily = null)
+        {
+            daily ??= new List<DeltaDateResult>();
+
+            return new DeltaSummaryResult(summary, daily?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Easm.DeltaRangeResult"/>. </summary>
+        /// <param name="range"> The range of dates requested. </param>
+        /// <param name="removed"> The total amount of assets removed over a date range. </param>
+        /// <param name="added"> The total amount of assets added over a date range. </param>
+        /// <param name="difference"> The total amount of assets changed removed over a date range. </param>
+        /// <param name="kindSummaries"> A list of summary changes per asset kind. </param>
+        /// <returns> A new <see cref="Easm.DeltaRangeResult"/> instance for mocking. </returns>
+        public static DeltaRangeResult DeltaRangeResult(long range = default, long removed = default, long added = default, long difference = default, IEnumerable<DeltaTypeResponse> kindSummaries = null)
+        {
+            kindSummaries ??= new List<DeltaTypeResponse>();
+
+            return new DeltaRangeResult(
+                range,
+                removed,
+                added,
+                difference,
+                kindSummaries?.ToList(),
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Easm.DeltaTypeResponse"/>. </summary>
+        /// <param name="kind"> The kind of asset. </param>
+        /// <param name="removed"> The amount of assets removed for one asset kind. </param>
+        /// <param name="added"> The amount of assets added for one asset kind. </param>
+        /// <param name="difference"> The amount of assets changed for one asset kind. </param>
+        /// <returns> A new <see cref="Easm.DeltaTypeResponse"/> instance for mocking. </returns>
+        public static DeltaTypeResponse DeltaTypeResponse(GlobalAssetType kind = default, long removed = default, long added = default, long difference = default)
+        {
+            return new DeltaTypeResponse(kind, removed, added, difference, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Easm.DeltaDateResult"/>. </summary>
+        /// <param name="date"> The date that is being requested. </param>
+        /// <param name="deltas"> A list of summary counts per day. </param>
+        /// <returns> A new <see cref="Easm.DeltaDateResult"/> instance for mocking. </returns>
+        public static DeltaDateResult DeltaDateResult(DateTimeOffset date = default, IEnumerable<DailyDeltaTypeResponse> deltas = null)
+        {
+            deltas ??= new List<DailyDeltaTypeResponse>();
+
+            return new DeltaDateResult(date, deltas?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Easm.DailyDeltaTypeResponse"/>. </summary>
+        /// <param name="kind"> The kind of asset. </param>
+        /// <param name="removed"> The amount of assets removed for one asset kind. </param>
+        /// <param name="added"> The amount of assets added for one asset kind. </param>
+        /// <param name="difference"> The amount of assets changed for one asset kind. </param>
+        /// <param name="count"> The current number of assets for one asset kind. </param>
+        /// <returns> A new <see cref="Easm.DailyDeltaTypeResponse"/> instance for mocking. </returns>
+        public static DailyDeltaTypeResponse DailyDeltaTypeResponse(GlobalAssetType kind = default, long removed = default, long added = default, long difference = default, long count = default)
+        {
+            return new DailyDeltaTypeResponse(
+                kind,
+                removed,
+                added,
+                difference,
+                serializedAdditionalRawData: null,
+                count);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Easm.DataConnection"/>. </summary>
-        /// <param name="kind"> Discriminator. </param>
+        /// <param name="kind"> Discriminator property for DataConnection. </param>
         /// <param name="id"> The system generated unique id for the resource. </param>
         /// <param name="name"> The caller provided unique name for the resource. </param>
         /// <param name="displayName"> The name that can be used for display purposes. </param>
@@ -230,6 +363,47 @@ namespace Azure.Analytics.Defender.Easm
                 excludes?.ToList(),
                 names?.ToList(),
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Easm.AssetChainSummaryResult"/>. </summary>
+        /// <param name="affectedAssetsSummary"> A list of asset chain summaries per asset kind. </param>
+        /// <param name="affectedGroupsSummary"> A list of disco group summaries. </param>
+        /// <param name="errors"> The list of exceptions. </param>
+        /// <returns> A new <see cref="Easm.AssetChainSummaryResult"/> instance for mocking. </returns>
+        public static AssetChainSummaryResult AssetChainSummaryResult(IEnumerable<AssetChainKindSummaryResult> affectedAssetsSummary = null, IEnumerable<DiscoGroupSummaryResult> affectedGroupsSummary = null, IEnumerable<ErrorResponse> errors = null)
+        {
+            affectedAssetsSummary ??= new List<AssetChainKindSummaryResult>();
+            affectedGroupsSummary ??= new List<DiscoGroupSummaryResult>();
+            errors ??= new List<ErrorResponse>();
+
+            return new AssetChainSummaryResult(affectedAssetsSummary?.ToList(), affectedGroupsSummary?.ToList(), errors?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Easm.AssetChainKindSummaryResult"/>. </summary>
+        /// <param name="kind"> The kind of asset. </param>
+        /// <param name="affectedCount"> The amount of assets affected for a given asset kind. </param>
+        /// <returns> A new <see cref="Easm.AssetChainKindSummaryResult"/> instance for mocking. </returns>
+        public static AssetChainKindSummaryResult AssetChainKindSummaryResult(AssetKind kind = default, long affectedCount = default)
+        {
+            return new AssetChainKindSummaryResult(kind, affectedCount, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Easm.DiscoGroupSummaryResult"/>. </summary>
+        /// <param name="id"> The system generated unique id for the resource. </param>
+        /// <param name="name"> The caller provided unique name for the resource. </param>
+        /// <param name="displayName"> The name that can be used for display purposes. </param>
+        /// <returns> A new <see cref="Easm.DiscoGroupSummaryResult"/> instance for mocking. </returns>
+        public static DiscoGroupSummaryResult DiscoGroupSummaryResult(string id = null, string name = null, string displayName = null)
+        {
+            return new DiscoGroupSummaryResult(id, name, displayName, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Easm.ErrorResponse"/>. </summary>
+        /// <param name="error"> The error object. </param>
+        /// <returns> A new <see cref="Easm.ErrorResponse"/> instance for mocking. </returns>
+        public static ErrorResponse ErrorResponse(ResponseError error = null)
+        {
+            return new ErrorResponse(error, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Easm.DiscoveryTemplate"/>. </summary>
@@ -386,6 +560,36 @@ namespace Azure.Analytics.Defender.Easm
                 displayName,
                 filter,
                 description,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Easm.CisaCveResult"/>. </summary>
+        /// <param name="cveId"> The CVE ID of the vulnerability in the format CVE-YYYY-NNNN, note that the number portion can have more than 4 digits. </param>
+        /// <param name="vendorProject"> The vendor or project name for the vulnerability. </param>
+        /// <param name="product"> The vulnerability product. </param>
+        /// <param name="vulnerabilityName"> The name of the vulnerability. </param>
+        /// <param name="shortDescription"> A short description of the vulnerability. </param>
+        /// <param name="requiredAction"> The required action to address the vulnerability. </param>
+        /// <param name="notes"> Any additional notes about the vulnerability. </param>
+        /// <param name="dateAdded"> The date the vulnerability was added to the catalog in the format YYYY-MM-DD. </param>
+        /// <param name="dueDate"> The date the required action is due in the format YYYY-MM-DD. </param>
+        /// <param name="updatedAt"> The date the vulnerability was updated. </param>
+        /// <param name="count"> The number of assets affected by the vulnerability. </param>
+        /// <returns> A new <see cref="Easm.CisaCveResult"/> instance for mocking. </returns>
+        public static CisaCveResult CisaCveResult(string cveId = null, string vendorProject = null, string product = null, string vulnerabilityName = null, string shortDescription = null, string requiredAction = null, string notes = null, DateTimeOffset dateAdded = default, DateTimeOffset dueDate = default, DateTimeOffset updatedAt = default, long count = default)
+        {
+            return new CisaCveResult(
+                cveId,
+                vendorProject,
+                product,
+                vulnerabilityName,
+                shortDescription,
+                requiredAction,
+                notes,
+                dateAdded,
+                dueDate,
+                updatedAt,
+                count,
                 serializedAdditionalRawData: null);
         }
 
