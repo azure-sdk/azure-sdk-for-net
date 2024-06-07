@@ -1,0 +1,12 @@
+{
+  "output-folder": ".",
+  "namespace": "Azure.Template.Contoso",
+  "library-name": "Azure.Template.Contoso",
+  "shared-source-folders": [
+    "../../TempTypeSpecFiles/Contoso.WidgetManager/node_modules/@autorest/csharp/Generator.Shared",
+    "../../TempTypeSpecFiles/Contoso.WidgetManager/node_modules/@autorest/csharp/Azure.Core.Shared"
+  ],
+  "model-namespace": false,
+  "flavor": "azure",
+  "use-model-reader-writer": true
+}
