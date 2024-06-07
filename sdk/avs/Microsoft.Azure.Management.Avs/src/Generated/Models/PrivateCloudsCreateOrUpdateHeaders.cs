@@ -14,26 +14,29 @@ namespace Microsoft.Azure.Management.Avs.Models
     using System.Linq;
 
     /// <summary>
-    /// Extra Operation properties
+    /// Defines headers for CreateOrUpdate operation.
     /// </summary>
-    public partial class OperationProperties
+    public partial class PrivateCloudsCreateOrUpdateHeaders
     {
         /// <summary>
-        /// Initializes a new instance of the OperationProperties class.
+        /// Initializes a new instance of the
+        /// PrivateCloudsCreateOrUpdateHeaders class.
         /// </summary>
-        public OperationProperties()
+        public PrivateCloudsCreateOrUpdateHeaders()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the OperationProperties class.
+        /// Initializes a new instance of the
+        /// PrivateCloudsCreateOrUpdateHeaders class.
         /// </summary>
-        /// <param name="serviceSpecification">Service specifications of the
-        /// operation</param>
-        public OperationProperties(ServiceSpecification serviceSpecification = default(ServiceSpecification))
+        /// <param name="retryAfter">The Retry-After header can indicate how
+        /// long the client should wait before polling the operation
+        /// status.</param>
+        public PrivateCloudsCreateOrUpdateHeaders(int? retryAfter = default(int?))
         {
-            ServiceSpecification = serviceSpecification;
+            RetryAfter = retryAfter;
             CustomInit();
         }
 
@@ -43,10 +46,11 @@ namespace Microsoft.Azure.Management.Avs.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets service specifications of the operation
+        /// Gets or sets the Retry-After header can indicate how long the
+        /// client should wait before polling the operation status.
         /// </summary>
-        [JsonProperty(PropertyName = "serviceSpecification")]
-        public ServiceSpecification ServiceSpecification { get; set; }
+        [JsonProperty(PropertyName = "Retry-After")]
+        public int? RetryAfter { get; set; }
 
     }
 }

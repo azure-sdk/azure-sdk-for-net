@@ -22,7 +22,7 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class ClustersOperationsExtensions
     {
             /// <summary>
-            /// List clusters in a private cloud
+            /// List Cluster resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -39,7 +39,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List clusters in a private cloud
+            /// List Cluster resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -62,7 +62,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a cluster by name in a private cloud
+            /// Get a Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -74,7 +74,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             public static Cluster Get(this IClustersOperations operations, string resourceGroupName, string privateCloudName, string clusterName)
             {
@@ -82,7 +82,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a cluster by name in a private cloud
+            /// Get a Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -94,7 +94,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -108,7 +108,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a cluster in a private cloud
+            /// Create a Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -117,13 +117,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='cluster'>
-            /// A cluster in the private cloud
+            /// Resource create parameters.
             /// </param>
             public static Cluster CreateOrUpdate(this IClustersOperations operations, string resourceGroupName, string privateCloudName, string clusterName, Cluster cluster)
             {
@@ -131,7 +131,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a cluster in a private cloud
+            /// Create a Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -140,13 +140,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='cluster'>
-            /// A cluster in the private cloud
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -160,7 +160,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Update a cluster in a private cloud
+            /// Update a Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -172,10 +172,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='clusterUpdate'>
-            /// The cluster properties to be updated
+            /// The cluster properties to be updated.
             /// </param>
             public static Cluster Update(this IClustersOperations operations, string resourceGroupName, string privateCloudName, string clusterName, ClusterUpdate clusterUpdate)
             {
@@ -183,7 +183,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Update a cluster in a private cloud
+            /// Update a Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -195,10 +195,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='clusterUpdate'>
-            /// The cluster properties to be updated
+            /// The cluster properties to be updated.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -212,7 +212,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a cluster in a private cloud
+            /// Delete a Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -224,15 +224,15 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
-            public static void Delete(this IClustersOperations operations, string resourceGroupName, string privateCloudName, string clusterName)
+            public static ClustersDeleteHeaders Delete(this IClustersOperations operations, string resourceGroupName, string privateCloudName, string clusterName)
             {
-                operations.DeleteAsync(resourceGroupName, privateCloudName, clusterName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, privateCloudName, clusterName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a cluster in a private cloud
+            /// Delete a Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -244,18 +244,21 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IClustersOperations operations, string resourceGroupName, string privateCloudName, string clusterName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ClustersDeleteHeaders> DeleteAsync(this IClustersOperations operations, string resourceGroupName, string privateCloudName, string clusterName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Create or update a cluster in a private cloud
+            /// List hosts by zone in a cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -264,13 +267,59 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
+            /// </param>
+            public static ClusterZoneList ListZones(this IClustersOperations operations, string resourceGroupName, string privateCloudName, string clusterName)
+            {
+                return operations.ListZonesAsync(resourceGroupName, privateCloudName, clusterName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// List hosts by zone in a cluster
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='clusterName'>
+            /// Name of the cluster
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<ClusterZoneList> ListZonesAsync(this IClustersOperations operations, string resourceGroupName, string privateCloudName, string clusterName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListZonesWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Create a Cluster
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='clusterName'>
+            /// Name of the cluster
             /// </param>
             /// <param name='cluster'>
-            /// A cluster in the private cloud
+            /// Resource create parameters.
             /// </param>
             public static Cluster BeginCreateOrUpdate(this IClustersOperations operations, string resourceGroupName, string privateCloudName, string clusterName, Cluster cluster)
             {
@@ -278,7 +327,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a cluster in a private cloud
+            /// Create a Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -287,13 +336,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='cluster'>
-            /// A cluster in the private cloud
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -307,7 +356,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Update a cluster in a private cloud
+            /// Update a Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -319,10 +368,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='clusterUpdate'>
-            /// The cluster properties to be updated
+            /// The cluster properties to be updated.
             /// </param>
             public static Cluster BeginUpdate(this IClustersOperations operations, string resourceGroupName, string privateCloudName, string clusterName, ClusterUpdate clusterUpdate)
             {
@@ -330,7 +379,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Update a cluster in a private cloud
+            /// Update a Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -342,10 +391,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='clusterUpdate'>
-            /// The cluster properties to be updated
+            /// The cluster properties to be updated.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -359,7 +408,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a cluster in a private cloud
+            /// Delete a Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -371,15 +420,15 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
-            public static void BeginDelete(this IClustersOperations operations, string resourceGroupName, string privateCloudName, string clusterName)
+            public static ClustersDeleteHeaders BeginDelete(this IClustersOperations operations, string resourceGroupName, string privateCloudName, string clusterName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, privateCloudName, clusterName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, privateCloudName, clusterName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a cluster in a private cloud
+            /// Delete a Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -391,18 +440,21 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IClustersOperations operations, string resourceGroupName, string privateCloudName, string clusterName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ClustersDeleteHeaders> BeginDeleteAsync(this IClustersOperations operations, string resourceGroupName, string privateCloudName, string clusterName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// List clusters in a private cloud
+            /// List Cluster resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -416,7 +468,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List clusters in a private cloud
+            /// List Cluster resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.

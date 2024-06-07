@@ -34,18 +34,31 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Initializes a new instance of the ScriptCmdlet class.
         /// </summary>
-        /// <param name="id">Resource ID.</param>
-        /// <param name="name">Resource name.</param>
-        /// <param name="type">Resource type.</param>
+        /// <param name="id">Fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="systemData">Azure Resource Manager metadata containing
+        /// createdBy and modifiedBy information.</param>
+        /// <param name="provisioningState">The provisioning state of the
+        /// resource. Possible values include: 'Succeeded', 'Failed',
+        /// 'Canceled'</param>
         /// <param name="description">Description of the scripts
         /// functionality</param>
         /// <param name="timeout">Recommended time limit for execution</param>
+        /// <param name="audience">Specifies whether a script cmdlet is
+        /// intended to be invoked only through automation or visible to
+        /// customers. Possible values include: 'Automation', 'Any'</param>
         /// <param name="parameters">Parameters the script will accept</param>
-        public ScriptCmdlet(string id = default(string), string name = default(string), string type = default(string), string description = default(string), string timeout = default(string), IList<ScriptParameter> parameters = default(IList<ScriptParameter>))
-            : base(id, name, type)
+        public ScriptCmdlet(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string provisioningState = default(string), string description = default(string), string timeout = default(string), string audience = default(string), IList<ScriptParameter> parameters = default(IList<ScriptParameter>))
+            : base(id, name, type, systemData)
         {
+            ProvisioningState = provisioningState;
             Description = description;
             Timeout = timeout;
+            Audience = audience;
             Parameters = parameters;
             CustomInit();
         }
@@ -54,6 +67,13 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
+
+        /// <summary>
+        /// Gets the provisioning state of the resource. Possible values
+        /// include: 'Succeeded', 'Failed', 'Canceled'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.provisioningState")]
+        public string ProvisioningState { get; private set; }
 
         /// <summary>
         /// Gets description of the scripts functionality
@@ -66,6 +86,14 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.timeout")]
         public string Timeout { get; private set; }
+
+        /// <summary>
+        /// Gets specifies whether a script cmdlet is intended to be invoked
+        /// only through automation or visible to customers. Possible values
+        /// include: 'Automation', 'Any'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.audience")]
+        public string Audience { get; private set; }
 
         /// <summary>
         /// Gets parameters the script will accept

@@ -13,8 +13,12 @@ namespace Microsoft.Azure.Management.Avs.Models
     using System.Linq;
 
     /// <summary>
-    /// The resource model definition for a ARM proxy resource
+    /// Proxy Resource
     /// </summary>
+    /// <remarks>
+    /// The resource model definition for a Azure Resource Manager proxy
+    /// resource. It will not have tags and a location
+    /// </remarks>
     public partial class ProxyResource : Resource
     {
         /// <summary>
@@ -28,11 +32,16 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Initializes a new instance of the ProxyResource class.
         /// </summary>
-        /// <param name="id">Resource ID.</param>
-        /// <param name="name">Resource name.</param>
-        /// <param name="type">Resource type.</param>
-        public ProxyResource(string id = default(string), string name = default(string), string type = default(string))
-            : base(id, name, type)
+        /// <param name="id">Fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="systemData">Azure Resource Manager metadata containing
+        /// createdBy and modifiedBy information.</param>
+        public ProxyResource(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData))
+            : base(id, name, type, systemData)
         {
             CustomInit();
         }

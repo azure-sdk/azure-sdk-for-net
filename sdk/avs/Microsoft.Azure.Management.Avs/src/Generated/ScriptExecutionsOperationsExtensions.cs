@@ -24,7 +24,7 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class ScriptExecutionsOperationsExtensions
     {
             /// <summary>
-            /// List script executions in a private cloud
+            /// List ScriptExecution resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -41,7 +41,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List script executions in a private cloud
+            /// List ScriptExecution resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -64,7 +64,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get an script execution by name in a private cloud
+            /// Get a ScriptExecution
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -76,7 +76,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='scriptExecutionName'>
-            /// Name of the user-invoked script execution resource
+            /// Name of the script cmdlet.
             /// </param>
             public static ScriptExecution Get(this IScriptExecutionsOperations operations, string resourceGroupName, string privateCloudName, string scriptExecutionName)
             {
@@ -84,7 +84,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get an script execution by name in a private cloud
+            /// Get a ScriptExecution
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -96,7 +96,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='scriptExecutionName'>
-            /// Name of the user-invoked script execution resource
+            /// Name of the script cmdlet.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -110,7 +110,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a script execution in a private cloud
+            /// Create a ScriptExecution
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -119,13 +119,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='scriptExecutionName'>
-            /// Name of the user-invoked script execution resource
+            /// Name of the script cmdlet.
             /// </param>
             /// <param name='scriptExecution'>
-            /// A script running in the private cloud
+            /// Resource create parameters.
             /// </param>
             public static ScriptExecution CreateOrUpdate(this IScriptExecutionsOperations operations, string resourceGroupName, string privateCloudName, string scriptExecutionName, ScriptExecution scriptExecution)
             {
@@ -133,7 +133,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a script execution in a private cloud
+            /// Create a ScriptExecution
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -142,13 +142,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='scriptExecutionName'>
-            /// Name of the user-invoked script execution resource
+            /// Name of the script cmdlet.
             /// </param>
             /// <param name='scriptExecution'>
-            /// A script running in the private cloud
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -162,7 +162,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Cancel a ScriptExecution in a private cloud
+            /// Delete a ScriptExecution
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -174,15 +174,15 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='scriptExecutionName'>
-            /// Name of the user-invoked script execution resource
+            /// Name of the script cmdlet.
             /// </param>
-            public static void Delete(this IScriptExecutionsOperations operations, string resourceGroupName, string privateCloudName, string scriptExecutionName)
+            public static ScriptExecutionsDeleteHeaders Delete(this IScriptExecutionsOperations operations, string resourceGroupName, string privateCloudName, string scriptExecutionName)
             {
-                operations.DeleteAsync(resourceGroupName, privateCloudName, scriptExecutionName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, privateCloudName, scriptExecutionName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Cancel a ScriptExecution in a private cloud
+            /// Delete a ScriptExecution
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -194,14 +194,17 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='scriptExecutionName'>
-            /// Name of the user-invoked script execution resource
+            /// Name of the script cmdlet.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IScriptExecutionsOperations operations, string resourceGroupName, string privateCloudName, string scriptExecutionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ScriptExecutionsDeleteHeaders> DeleteAsync(this IScriptExecutionsOperations operations, string resourceGroupName, string privateCloudName, string scriptExecutionName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, scriptExecutionName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, scriptExecutionName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -217,11 +220,11 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='scriptExecutionName'>
-            /// Name of the user-invoked script execution resource
+            /// Name of the script cmdlet.
             /// </param>
             /// <param name='scriptOutputStreamType'>
             /// Name of the desired output stream to return. If not provided, will return
-            /// all. An empty array will return nothing
+            /// all. An empty array will return nothing.
             /// </param>
             public static ScriptExecution GetExecutionLogs(this IScriptExecutionsOperations operations, string resourceGroupName, string privateCloudName, string scriptExecutionName, IList<string> scriptOutputStreamType = default(IList<string>))
             {
@@ -241,11 +244,11 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='scriptExecutionName'>
-            /// Name of the user-invoked script execution resource
+            /// Name of the script cmdlet.
             /// </param>
             /// <param name='scriptOutputStreamType'>
             /// Name of the desired output stream to return. If not provided, will return
-            /// all. An empty array will return nothing
+            /// all. An empty array will return nothing.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -259,7 +262,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a script execution in a private cloud
+            /// Create a ScriptExecution
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -268,13 +271,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='scriptExecutionName'>
-            /// Name of the user-invoked script execution resource
+            /// Name of the script cmdlet.
             /// </param>
             /// <param name='scriptExecution'>
-            /// A script running in the private cloud
+            /// Resource create parameters.
             /// </param>
             public static ScriptExecution BeginCreateOrUpdate(this IScriptExecutionsOperations operations, string resourceGroupName, string privateCloudName, string scriptExecutionName, ScriptExecution scriptExecution)
             {
@@ -282,7 +285,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a script execution in a private cloud
+            /// Create a ScriptExecution
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -291,13 +294,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='scriptExecutionName'>
-            /// Name of the user-invoked script execution resource
+            /// Name of the script cmdlet.
             /// </param>
             /// <param name='scriptExecution'>
-            /// A script running in the private cloud
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -311,7 +314,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Cancel a ScriptExecution in a private cloud
+            /// Delete a ScriptExecution
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -323,15 +326,15 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='scriptExecutionName'>
-            /// Name of the user-invoked script execution resource
+            /// Name of the script cmdlet.
             /// </param>
-            public static void BeginDelete(this IScriptExecutionsOperations operations, string resourceGroupName, string privateCloudName, string scriptExecutionName)
+            public static ScriptExecutionsDeleteHeaders BeginDelete(this IScriptExecutionsOperations operations, string resourceGroupName, string privateCloudName, string scriptExecutionName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, privateCloudName, scriptExecutionName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, privateCloudName, scriptExecutionName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Cancel a ScriptExecution in a private cloud
+            /// Delete a ScriptExecution
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -343,18 +346,21 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='scriptExecutionName'>
-            /// Name of the user-invoked script execution resource
+            /// Name of the script cmdlet.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IScriptExecutionsOperations operations, string resourceGroupName, string privateCloudName, string scriptExecutionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ScriptExecutionsDeleteHeaders> BeginDeleteAsync(this IScriptExecutionsOperations operations, string resourceGroupName, string privateCloudName, string scriptExecutionName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, scriptExecutionName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, scriptExecutionName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// List script executions in a private cloud
+            /// List ScriptExecution resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -368,7 +374,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List script executions in a private cloud
+            /// List ScriptExecution resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.

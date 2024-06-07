@@ -16,10 +16,25 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class CloudLinkStatus
     {
+        /// <summary>
+        /// is active
+        /// </summary>
         public const string Active = "Active";
+        /// <summary>
+        /// is building
+        /// </summary>
         public const string Building = "Building";
+        /// <summary>
+        /// is deleting
+        /// </summary>
         public const string Deleting = "Deleting";
+        /// <summary>
+        /// is failed
+        /// </summary>
         public const string Failed = "Failed";
+        /// <summary>
+        /// is disconnected
+        /// </summary>
         public const string Disconnected = "Disconnected";
     }
 }

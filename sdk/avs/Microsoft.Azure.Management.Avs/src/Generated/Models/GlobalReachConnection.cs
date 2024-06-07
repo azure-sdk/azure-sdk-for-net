@@ -19,7 +19,7 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// A global reach connection resource
     /// </summary>
     [Rest.Serialization.JsonTransformation]
-    public partial class GlobalReachConnection : Resource
+    public partial class GlobalReachConnection : ProxyResource
     {
         /// <summary>
         /// Initializes a new instance of the GlobalReachConnection class.
@@ -32,17 +32,23 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Initializes a new instance of the GlobalReachConnection class.
         /// </summary>
-        /// <param name="id">Resource ID.</param>
-        /// <param name="name">Resource name.</param>
-        /// <param name="type">Resource type.</param>
+        /// <param name="id">Fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="systemData">Azure Resource Manager metadata containing
+        /// createdBy and modifiedBy information.</param>
         /// <param name="provisioningState">The state of the  ExpressRoute
         /// Circuit Authorization provisioning. Possible values include:
-        /// 'Succeeded', 'Failed', 'Updating'</param>
+        /// 'Succeeded', 'Failed', 'Canceled', 'Updating'</param>
         /// <param name="addressPrefix">The network used for global reach
-        /// carved out from the original network block provided for the private
-        /// cloud</param>
+        /// carved out from the original network block
+        /// provided for the private cloud</param>
         /// <param name="authorizationKey">Authorization key from the peer
-        /// express route used for the global reach connection</param>
+        /// express route used for the global reach
+        /// connection</param>
         /// <param name="circuitConnectionStatus">The connection status of the
         /// global reach connection. Possible values include: 'Connected',
         /// 'Connecting', 'Disconnected'</param>
@@ -50,10 +56,10 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// ExpressRoute Circuit to peer with in the global reach
         /// connection</param>
         /// <param name="expressRouteId">The ID of the Private Cloud's
-        /// ExpressRoute Circuit that is participating in the global reach
-        /// connection</param>
-        public GlobalReachConnection(string id = default(string), string name = default(string), string type = default(string), string provisioningState = default(string), string addressPrefix = default(string), string authorizationKey = default(string), string circuitConnectionStatus = default(string), string peerExpressRouteCircuit = default(string), string expressRouteId = default(string))
-            : base(id, name, type)
+        /// ExpressRoute Circuit that is participating in the
+        /// global reach connection</param>
+        public GlobalReachConnection(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string provisioningState = default(string), string addressPrefix = default(string), string authorizationKey = default(string), string circuitConnectionStatus = default(string), string peerExpressRouteCircuit = default(string), string expressRouteId = default(string))
+            : base(id, name, type, systemData)
         {
             ProvisioningState = provisioningState;
             AddressPrefix = addressPrefix;
@@ -72,21 +78,23 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Gets the state of the  ExpressRoute Circuit Authorization
         /// provisioning. Possible values include: 'Succeeded', 'Failed',
-        /// 'Updating'
+        /// 'Canceled', 'Updating'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
         public string ProvisioningState { get; private set; }
 
         /// <summary>
         /// Gets the network used for global reach carved out from the original
-        /// network block provided for the private cloud
+        /// network block
+        /// provided for the private cloud
         /// </summary>
         [JsonProperty(PropertyName = "properties.addressPrefix")]
         public string AddressPrefix { get; private set; }
 
         /// <summary>
         /// Gets or sets authorization key from the peer express route used for
-        /// the global reach connection
+        /// the global reach
+        /// connection
         /// </summary>
         [JsonProperty(PropertyName = "properties.authorizationKey")]
         public string AuthorizationKey { get; set; }
@@ -100,14 +108,16 @@ namespace Microsoft.Azure.Management.Avs.Models
 
         /// <summary>
         /// Gets or sets identifier of the ExpressRoute Circuit to peer with in
-        /// the global reach connection
+        /// the global reach
+        /// connection
         /// </summary>
         [JsonProperty(PropertyName = "properties.peerExpressRouteCircuit")]
         public string PeerExpressRouteCircuit { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the Private Cloud's ExpressRoute Circuit
-        /// that is participating in the global reach connection
+        /// that is participating in the
+        /// global reach connection
         /// </summary>
         [JsonProperty(PropertyName = "properties.expressRouteId")]
         public string ExpressRouteId { get; set; }
