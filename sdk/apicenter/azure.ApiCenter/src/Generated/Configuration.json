@@ -1,0 +1,12 @@
+{
+  "output-folder": ".",
+  "namespace": "azure.ApiCenter",
+  "library-name": "azure.ApiCenter",
+  "shared-source-folders": [
+    "../../TempTypeSpecFiles/ApiCenter.DataApi/node_modules/@autorest/csharp/Generator.Shared",
+    "../../TempTypeSpecFiles/ApiCenter.DataApi/node_modules/@autorest/csharp/Azure.Core.Shared"
+  ],
+  "model-namespace": false,
+  "flavor": "azure",
+  "use-model-reader-writer": true
+}
