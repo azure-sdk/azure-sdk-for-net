@@ -31,6 +31,11 @@ namespace Azure.ResourceManager.Network.Models
                 writer.WritePropertyName("service"u8);
                 writer.WriteStringValue(Service);
             }
+            if (Optional.IsDefined(NetworkIdentifier))
+            {
+                writer.WritePropertyName("networkIdentifier"u8);
+                writer.WriteObjectValue(NetworkIdentifier, options);
+            }
             if (Optional.IsCollectionDefined(Locations))
             {
                 writer.WritePropertyName("locations"u8);
@@ -85,6 +90,7 @@ namespace Azure.ResourceManager.Network.Models
                 return null;
             }
             string service = default;
+            PublicIPAddressData networkIdentifier = default;
             IList<AzureLocation> locations = default;
             NetworkProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -94,6 +100,15 @@ namespace Azure.ResourceManager.Network.Models
                 if (property.NameEquals("service"u8))
                 {
                     service = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("networkIdentifier"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    networkIdentifier = PublicIPAddressData.DeserializePublicIPAddressData(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("locations"u8))
@@ -125,7 +140,7 @@ namespace Azure.ResourceManager.Network.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ServiceEndpointProperties(service, locations ?? new ChangeTrackingList<AzureLocation>(), provisioningState, serializedAdditionalRawData);
+            return new ServiceEndpointProperties(service, networkIdentifier, locations ?? new ChangeTrackingList<AzureLocation>(), provisioningState, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ServiceEndpointProperties>.Write(ModelReaderWriterOptions options)

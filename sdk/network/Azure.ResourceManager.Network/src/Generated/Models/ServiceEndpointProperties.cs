@@ -54,12 +54,14 @@ namespace Azure.ResourceManager.Network.Models
 
         /// <summary> Initializes a new instance of <see cref="ServiceEndpointProperties"/>. </summary>
         /// <param name="service"> The type of the endpoint service. </param>
+        /// <param name="networkIdentifier"> Public IP Address Resource as network identifier. </param>
         /// <param name="locations"> A list of locations. </param>
         /// <param name="provisioningState"> The provisioning state of the service endpoint resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ServiceEndpointProperties(string service, IList<AzureLocation> locations, NetworkProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ServiceEndpointProperties(string service, PublicIPAddressData networkIdentifier, IList<AzureLocation> locations, NetworkProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Service = service;
+            NetworkIdentifier = networkIdentifier;
             Locations = locations;
             ProvisioningState = provisioningState;
             _serializedAdditionalRawData = serializedAdditionalRawData;
@@ -67,6 +69,8 @@ namespace Azure.ResourceManager.Network.Models
 
         /// <summary> The type of the endpoint service. </summary>
         public string Service { get; set; }
+        /// <summary> Public IP Address Resource as network identifier. </summary>
+        public PublicIPAddressData NetworkIdentifier { get; set; }
         /// <summary> A list of locations. </summary>
         public IList<AzureLocation> Locations { get; }
         /// <summary> The provisioning state of the service endpoint resource. </summary>
