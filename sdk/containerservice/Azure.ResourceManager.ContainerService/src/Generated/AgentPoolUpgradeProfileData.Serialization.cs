@@ -64,6 +64,11 @@ namespace Azure.ResourceManager.ContainerService
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(ComponentsByReleases))
+            {
+                writer.WritePropertyName("componentsByReleases"u8);
+                writer.WriteObjectValue(ComponentsByReleases, options);
+            }
             if (Optional.IsDefined(LatestNodeImageVersion))
             {
                 writer.WritePropertyName("latestNodeImageVersion"u8);
@@ -115,6 +120,7 @@ namespace Azure.ResourceManager.ContainerService
             string kubernetesVersion = default;
             ContainerServiceOSType osType = default;
             IReadOnlyList<AgentPoolUpgradeProfilePropertiesUpgradesItem> upgrades = default;
+            ComponentsByReleases componentsByReleases = default;
             string latestNodeImageVersion = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -177,6 +183,15 @@ namespace Azure.ResourceManager.ContainerService
                             upgrades = array;
                             continue;
                         }
+                        if (property0.NameEquals("componentsByReleases"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            componentsByReleases = ComponentsByReleases.DeserializeComponentsByReleases(property0.Value, options);
+                            continue;
+                        }
                         if (property0.NameEquals("latestNodeImageVersion"u8))
                         {
                             latestNodeImageVersion = property0.Value.GetString();
@@ -199,6 +214,7 @@ namespace Azure.ResourceManager.ContainerService
                 kubernetesVersion,
                 osType,
                 upgrades ?? new ChangeTrackingList<AgentPoolUpgradeProfilePropertiesUpgradesItem>(),
+                componentsByReleases,
                 latestNodeImageVersion,
                 serializedAdditionalRawData);
         }
