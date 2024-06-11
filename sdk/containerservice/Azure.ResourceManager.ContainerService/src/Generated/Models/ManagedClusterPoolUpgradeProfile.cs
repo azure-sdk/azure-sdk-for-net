@@ -63,13 +63,15 @@ namespace Azure.ResourceManager.ContainerService.Models
         /// <param name="name"> The Agent Pool name. </param>
         /// <param name="osType"> The operating system type. The default is Linux. </param>
         /// <param name="upgrades"> List of orchestrator types and versions available for upgrade. </param>
+        /// <param name="componentsByReleases"> components of given Kubernetes version. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ManagedClusterPoolUpgradeProfile(string kubernetesVersion, string name, ContainerServiceOSType osType, IReadOnlyList<ManagedClusterPoolUpgradeProfileUpgradesItem> upgrades, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ManagedClusterPoolUpgradeProfile(string kubernetesVersion, string name, ContainerServiceOSType osType, IReadOnlyList<ManagedClusterPoolUpgradeProfileUpgradesItem> upgrades, ComponentsByReleases componentsByReleases, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             KubernetesVersion = kubernetesVersion;
             Name = name;
             OSType = osType;
             Upgrades = upgrades;
+            ComponentsByReleases = componentsByReleases;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -86,5 +88,7 @@ namespace Azure.ResourceManager.ContainerService.Models
         public ContainerServiceOSType OSType { get; }
         /// <summary> List of orchestrator types and versions available for upgrade. </summary>
         public IReadOnlyList<ManagedClusterPoolUpgradeProfileUpgradesItem> Upgrades { get; }
+        /// <summary> components of given Kubernetes version. </summary>
+        public ComponentsByReleases ComponentsByReleases { get; }
     }
 }
