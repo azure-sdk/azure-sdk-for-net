@@ -10,6 +10,7 @@
 
 namespace Microsoft.Azure.Management.Avs.Models
 {
+    using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
@@ -17,7 +18,7 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// <summary>
     /// The properties of a management cluster
     /// </summary>
-    public partial class ManagementCluster : CommonClusterProperties
+    public partial class ManagementCluster
     {
         /// <summary>
         /// Initializes a new instance of the ManagementCluster class.
@@ -33,12 +34,18 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <param name="clusterSize">The cluster size</param>
         /// <param name="provisioningState">The state of the cluster
         /// provisioning. Possible values include: 'Succeeded', 'Failed',
-        /// 'Cancelled', 'Deleting', 'Updating'</param>
+        /// 'Canceled', 'Cancelled', 'Deleting', 'Updating'</param>
         /// <param name="clusterId">The identity</param>
         /// <param name="hosts">The hosts</param>
-        public ManagementCluster(int? clusterSize = default(int?), string provisioningState = default(string), int? clusterId = default(int?), IList<string> hosts = default(IList<string>))
-            : base(clusterSize, provisioningState, clusterId, hosts)
+        /// <param name="vsanDatastoreName">Name of the vsan datastore
+        /// associated with the cluster</param>
+        public ManagementCluster(int? clusterSize = default(int?), string provisioningState = default(string), int? clusterId = default(int?), IList<string> hosts = default(IList<string>), string vsanDatastoreName = default(string))
         {
+            ClusterSize = clusterSize;
+            ProvisioningState = provisioningState;
+            ClusterId = clusterId;
+            Hosts = hosts;
+            VsanDatastoreName = vsanDatastoreName;
             CustomInit();
         }
 
@@ -46,6 +53,38 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
+
+        /// <summary>
+        /// Gets or sets the cluster size
+        /// </summary>
+        [JsonProperty(PropertyName = "clusterSize")]
+        public int? ClusterSize { get; set; }
+
+        /// <summary>
+        /// Gets the state of the cluster provisioning. Possible values
+        /// include: 'Succeeded', 'Failed', 'Canceled', 'Cancelled',
+        /// 'Deleting', 'Updating'
+        /// </summary>
+        [JsonProperty(PropertyName = "provisioningState")]
+        public string ProvisioningState { get; private set; }
+
+        /// <summary>
+        /// Gets the identity
+        /// </summary>
+        [JsonProperty(PropertyName = "clusterId")]
+        public int? ClusterId { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the hosts
+        /// </summary>
+        [JsonProperty(PropertyName = "hosts")]
+        public IList<string> Hosts { get; set; }
+
+        /// <summary>
+        /// Gets or sets name of the vsan datastore associated with the cluster
+        /// </summary>
+        [JsonProperty(PropertyName = "vsanDatastoreName")]
+        public string VsanDatastoreName { get; set; }
 
     }
 }

@@ -16,8 +16,17 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class GlobalReachConnectionStatus
     {
+        /// <summary>
+        /// is connected
+        /// </summary>
         public const string Connected = "Connected";
+        /// <summary>
+        /// is connecting
+        /// </summary>
         public const string Connecting = "Connecting";
+        /// <summary>
+        /// is disconnected
+        /// </summary>
         public const string Disconnected = "Disconnected";
     }
 }
