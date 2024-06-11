@@ -9,7 +9,7 @@ csharp: true
 library-name: ResourceGraph
 namespace: Azure.ResourceManager.ResourceGraph
 # default tag is a preview version
-require: https://github.com/Azure/azure-rest-api-specs/blob/e686ed79e9b0bbc10355fd8d7ba36d1a07e4ba28/specification/resourcegraph/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/d40c547f3423feb435808e09fd712bcec0d9c3c8/specification/resourcegraph/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:

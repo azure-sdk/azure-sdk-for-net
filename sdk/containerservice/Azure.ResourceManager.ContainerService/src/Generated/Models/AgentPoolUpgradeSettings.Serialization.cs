@@ -36,6 +36,16 @@ namespace Azure.ResourceManager.ContainerService.Models
                 writer.WritePropertyName("drainTimeoutInMinutes"u8);
                 writer.WriteNumberValue(DrainTimeoutInMinutes.Value);
             }
+            if (Optional.IsDefined(NodeSoakDurationInMinutes))
+            {
+                writer.WritePropertyName("nodeSoakDurationInMinutes"u8);
+                writer.WriteNumberValue(NodeSoakDurationInMinutes.Value);
+            }
+            if (Optional.IsDefined(UndrainableNodeBehavior))
+            {
+                writer.WritePropertyName("undrainableNodeBehavior"u8);
+                writer.WriteStringValue(UndrainableNodeBehavior.Value.ToString());
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -76,6 +86,8 @@ namespace Azure.ResourceManager.ContainerService.Models
             }
             string maxSurge = default;
             int? drainTimeoutInMinutes = default;
+            int? nodeSoakDurationInMinutes = default;
+            UndrainableNodeBehavior? undrainableNodeBehavior = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -94,13 +106,31 @@ namespace Azure.ResourceManager.ContainerService.Models
                     drainTimeoutInMinutes = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("nodeSoakDurationInMinutes"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    nodeSoakDurationInMinutes = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("undrainableNodeBehavior"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    undrainableNodeBehavior = new UndrainableNodeBehavior(property.Value.GetString());
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AgentPoolUpgradeSettings(maxSurge, drainTimeoutInMinutes, serializedAdditionalRawData);
+            return new AgentPoolUpgradeSettings(maxSurge, drainTimeoutInMinutes, nodeSoakDurationInMinutes, undrainableNodeBehavior, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AgentPoolUpgradeSettings>.Write(ModelReaderWriterOptions options)
