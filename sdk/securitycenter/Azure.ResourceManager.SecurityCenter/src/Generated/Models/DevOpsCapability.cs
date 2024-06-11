@@ -7,17 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
-using Azure.ResourceManager.Models;
-using Azure.ResourceManager.SecurityCenter.Models;
 
-namespace Azure.ResourceManager.SecurityCenter
+namespace Azure.ResourceManager.SecurityCenter.Models
 {
-    /// <summary>
-    /// A class representing the DefenderForStorageSetting data model.
-    /// The Defender for Storage resource.
-    /// </summary>
-    public partial class DefenderForStorageSettingData : ResourceData
+    /// <summary> Details about DevOps capability. </summary>
+    public partial class DevOpsCapability
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -51,25 +45,25 @@ namespace Azure.ResourceManager.SecurityCenter
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="DefenderForStorageSettingData"/>. </summary>
-        public DefenderForStorageSettingData()
+        /// <summary> Initializes a new instance of <see cref="DevOpsCapability"/>. </summary>
+        internal DevOpsCapability()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="DefenderForStorageSettingData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> Defender for Storage resource properties. </param>
+        /// <summary> Initializes a new instance of <see cref="DevOpsCapability"/>. </summary>
+        /// <param name="name"> Gets the name of the DevOps capability. </param>
+        /// <param name="value"> Gets the value of the DevOps capability. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DefenderForStorageSettingData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, DefenderForStorageSettingProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal DevOpsCapability(string name, string value, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Properties = properties;
+            Name = name;
+            Value = value;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Defender for Storage resource properties. </summary>
-        public DefenderForStorageSettingProperties Properties { get; set; }
+        /// <summary> Gets the name of the DevOps capability. </summary>
+        public string Name { get; }
+        /// <summary> Gets the value of the DevOps capability. </summary>
+        public string Value { get; }
     }
 }

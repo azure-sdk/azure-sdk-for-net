@@ -7,17 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
-using Azure.ResourceManager.Models;
-using Azure.ResourceManager.SecurityCenter.Models;
 
-namespace Azure.ResourceManager.SecurityCenter
+namespace Azure.ResourceManager.SecurityCenter.Models
 {
-    /// <summary>
-    /// A class representing the DefenderForStorageSetting data model.
-    /// The Defender for Storage resource.
-    /// </summary>
-    public partial class DefenderForStorageSettingData : ResourceData
+    /// <summary> Properties of On Upload malware scanning. </summary>
+    public partial class OnUploadProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -51,25 +45,25 @@ namespace Azure.ResourceManager.SecurityCenter
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="DefenderForStorageSettingData"/>. </summary>
-        public DefenderForStorageSettingData()
+        /// <summary> Initializes a new instance of <see cref="OnUploadProperties"/>. </summary>
+        public OnUploadProperties()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="DefenderForStorageSettingData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> Defender for Storage resource properties. </param>
+        /// <summary> Initializes a new instance of <see cref="OnUploadProperties"/>. </summary>
+        /// <param name="isEnabled"> Indicates whether On Upload malware scanning should be enabled. </param>
+        /// <param name="capGBPerMonth"> Defines the max GB to be scanned per Month. Set to -1 if no capping is needed. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DefenderForStorageSettingData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, DefenderForStorageSettingProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal OnUploadProperties(bool? isEnabled, int? capGBPerMonth, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Properties = properties;
+            IsEnabled = isEnabled;
+            CapGBPerMonth = capGBPerMonth;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Defender for Storage resource properties. </summary>
-        public DefenderForStorageSettingProperties Properties { get; set; }
+        /// <summary> Indicates whether On Upload malware scanning should be enabled. </summary>
+        public bool? IsEnabled { get; set; }
+        /// <summary> Defines the max GB to be scanned per Month. Set to -1 if no capping is needed. </summary>
+        public int? CapGBPerMonth { get; set; }
     }
 }

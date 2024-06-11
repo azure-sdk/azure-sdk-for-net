@@ -724,31 +724,27 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="isEnabled"> Indicates whether Defender for Storage is enabled on this storage account. </param>
-        /// <param name="isOverrideSubscriptionLevelSettingsEnabled"> Indicates whether the settings defined for this storage account should override the settings defined for the subscription. </param>
-        /// <param name="isSensitiveDataDiscoveryEnabled"> Indicates whether Sensitive Data Discovery should be enabled. </param>
-        /// <param name="sensitiveDataDiscoveryOperationStatus"> Upon failure or partial success. Additional data describing Sensitive Data Discovery enable/disable operation. </param>
-        /// <param name="scanResultsEventGridTopicResourceId"> Optional. Resource id of an Event Grid Topic to send scan results to. </param>
-        /// <param name="malwareScanningOperationStatus"> Upon failure or partial success. Additional data describing Malware Scanning enable/disable operation. </param>
-        /// <param name="isMalwareScanningOnUploadEnabled"> Indicates whether On Upload malware scanning should be enabled. </param>
-        /// <param name="capGBPerMonth"> Defines the max GB to be scanned per Month. Set to -1 if no capping is needed. </param>
+        /// <param name="properties"> Defender for Storage resource properties. </param>
         /// <returns> A new <see cref="SecurityCenter.DefenderForStorageSettingData"/> instance for mocking. </returns>
-        public static DefenderForStorageSettingData DefenderForStorageSettingData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, bool? isEnabled = null, bool? isOverrideSubscriptionLevelSettingsEnabled = null, bool? isSensitiveDataDiscoveryEnabled = null, ExtensionOperationStatus sensitiveDataDiscoveryOperationStatus = null, ResourceIdentifier scanResultsEventGridTopicResourceId = null, ExtensionOperationStatus malwareScanningOperationStatus = null, bool? isMalwareScanningOnUploadEnabled = null, int? capGBPerMonth = null)
+        public static DefenderForStorageSettingData DefenderForStorageSettingData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DefenderForStorageSettingProperties properties = null)
         {
             return new DefenderForStorageSettingData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                isEnabled,
-                isOverrideSubscriptionLevelSettingsEnabled,
-                isSensitiveDataDiscoveryEnabled,
-                sensitiveDataDiscoveryOperationStatus,
-                scanResultsEventGridTopicResourceId,
-                malwareScanningOperationStatus,
-                isMalwareScanningOnUploadEnabled,
-                capGBPerMonth,
+                properties,
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.MalwareScanningProperties"/>. </summary>
+        /// <param name="onUpload"> Properties of On Upload malware scanning. </param>
+        /// <param name="scanResultsEventGridTopicResourceId"> Optional. Resource id of an Event Grid Topic to send scan results to. </param>
+        /// <param name="operationStatus"> Upon failure or partial success. Additional data describing Malware Scanning enable/disable operation. </param>
+        /// <returns> A new <see cref="Models.MalwareScanningProperties"/> instance for mocking. </returns>
+        public static MalwareScanningProperties MalwareScanningProperties(OnUploadProperties onUpload = null, ResourceIdentifier scanResultsEventGridTopicResourceId = null, ExtensionOperationStatus operationStatus = null)
+        {
+            return new MalwareScanningProperties(onUpload, scanResultsEventGridTopicResourceId, operationStatus, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.ExtensionOperationStatus"/>. </summary>
@@ -758,6 +754,15 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         public static ExtensionOperationStatus ExtensionOperationStatus(string code = null, string message = null)
         {
             return new ExtensionOperationStatus(code, message, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SensitiveDataDiscoveryProperties"/>. </summary>
+        /// <param name="isEnabled"> Indicates whether Sensitive Data Discovery should be enabled. </param>
+        /// <param name="operationStatus"> Upon failure or partial success. Additional data describing Sensitive Data Discovery enable/disable operation. </param>
+        /// <returns> A new <see cref="Models.SensitiveDataDiscoveryProperties"/> instance for mocking. </returns>
+        public static SensitiveDataDiscoveryProperties SensitiveDataDiscoveryProperties(bool? isEnabled = null, ExtensionOperationStatus operationStatus = null)
+        {
+            return new SensitiveDataDiscoveryProperties(isEnabled, operationStatus, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="SecurityCenter.SecurityOperatorData"/>. </summary>
@@ -972,496 +977,6 @@ namespace Azure.ResourceManager.SecurityCenter.Models
                 lastScannedOn,
                 statusChangeOn,
                 firstEvaluationOn,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="SecurityCenter.DevOpsOrgData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> Azure DevOps Organization properties. </param>
-        /// <returns> A new <see cref="SecurityCenter.DevOpsOrgData"/> instance for mocking. </returns>
-        public static DevOpsOrgData DevOpsOrgData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DevOpsOrgProperties properties = null)
-        {
-            return new DevOpsOrgData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                properties,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DevOpsOrgProperties"/>. </summary>
-        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
-        /// <param name="provisioningStatusUpdatedOn"> Gets or sets time when resource was last checked. </param>
-        /// <param name="provisioningState">
-        /// The provisioning state of the resource.
-        ///
-        /// Pending - Provisioning pending.
-        /// Failed - Provisioning failed.
-        /// Succeeded - Successful provisioning.
-        /// Canceled - Provisioning canceled.
-        /// PendingDeletion - Deletion pending.
-        /// DeletionSuccess - Deletion successful.
-        /// DeletionFailure - Deletion failure.
-        /// </param>
-        /// <param name="onboardingState">
-        /// Details about resource onboarding status across all connectors.
-        ///
-        /// OnboardedByOtherConnector - this resource has already been onboarded to another connector. This is only applicable to top-level resources.
-        /// Onboarded - this resource has already been onboarded by the specified connector.
-        /// NotOnboarded - this resource has not been onboarded to any connector.
-        /// NotApplicable - the onboarding state is not applicable to the current endpoint.
-        /// </param>
-        /// <param name="actionableRemediation"> Configuration payload for PR Annotations. </param>
-        /// <returns> A new <see cref="Models.DevOpsOrgProperties"/> instance for mocking. </returns>
-        public static DevOpsOrgProperties DevOpsOrgProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdatedOn = null, DevOpsProvisioningState? provisioningState = null, ResourceOnboardingState? onboardingState = null, ActionableRemediation actionableRemediation = null)
-        {
-            return new DevOpsOrgProperties(
-                provisioningStatusMessage,
-                provisioningStatusUpdatedOn,
-                provisioningState,
-                onboardingState,
-                actionableRemediation,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="SecurityCenter.DevOpsProjectData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> Azure DevOps Project properties. </param>
-        /// <returns> A new <see cref="SecurityCenter.DevOpsProjectData"/> instance for mocking. </returns>
-        public static DevOpsProjectData DevOpsProjectData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DevOpsProjectProperties properties = null)
-        {
-            return new DevOpsProjectData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                properties,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DevOpsProjectProperties"/>. </summary>
-        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
-        /// <param name="provisioningStatusUpdatedOn"> Gets or sets time when resource was last checked. </param>
-        /// <param name="provisioningState">
-        /// The provisioning state of the resource.
-        ///
-        /// Pending - Provisioning pending.
-        /// Failed - Provisioning failed.
-        /// Succeeded - Successful provisioning.
-        /// Canceled - Provisioning canceled.
-        /// PendingDeletion - Deletion pending.
-        /// DeletionSuccess - Deletion successful.
-        /// DeletionFailure - Deletion failure.
-        /// </param>
-        /// <param name="parentOrgName"> Gets or sets parent Azure DevOps Organization name. </param>
-        /// <param name="projectId"> Gets or sets Azure DevOps Project id. </param>
-        /// <param name="onboardingState">
-        /// Details about resource onboarding status across all connectors.
-        ///
-        /// OnboardedByOtherConnector - this resource has already been onboarded to another connector. This is only applicable to top-level resources.
-        /// Onboarded - this resource has already been onboarded by the specified connector.
-        /// NotOnboarded - this resource has not been onboarded to any connector.
-        /// NotApplicable - the onboarding state is not applicable to the current endpoint.
-        /// </param>
-        /// <param name="actionableRemediation"> Configuration payload for PR Annotations. </param>
-        /// <returns> A new <see cref="Models.DevOpsProjectProperties"/> instance for mocking. </returns>
-        public static DevOpsProjectProperties DevOpsProjectProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdatedOn = null, DevOpsProvisioningState? provisioningState = null, string parentOrgName = null, string projectId = null, ResourceOnboardingState? onboardingState = null, ActionableRemediation actionableRemediation = null)
-        {
-            return new DevOpsProjectProperties(
-                provisioningStatusMessage,
-                provisioningStatusUpdatedOn,
-                provisioningState,
-                parentOrgName,
-                projectId,
-                onboardingState,
-                actionableRemediation,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="SecurityCenter.DevOpsRepositoryData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> Azure DevOps Repository properties. </param>
-        /// <returns> A new <see cref="SecurityCenter.DevOpsRepositoryData"/> instance for mocking. </returns>
-        public static DevOpsRepositoryData DevOpsRepositoryData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DevOpsRepositoryProperties properties = null)
-        {
-            return new DevOpsRepositoryData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                properties,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DevOpsRepositoryProperties"/>. </summary>
-        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
-        /// <param name="provisioningStatusUpdatedOn"> Gets or sets time when resource was last checked. </param>
-        /// <param name="provisioningState">
-        /// The provisioning state of the resource.
-        ///
-        /// Pending - Provisioning pending.
-        /// Failed - Provisioning failed.
-        /// Succeeded - Successful provisioning.
-        /// Canceled - Provisioning canceled.
-        /// PendingDeletion - Deletion pending.
-        /// DeletionSuccess - Deletion successful.
-        /// DeletionFailure - Deletion failure.
-        /// </param>
-        /// <param name="parentOrgName"> Gets or sets parent Azure DevOps Organization name. </param>
-        /// <param name="parentProjectName"> Gets or sets parent Azure DevOps Project name. </param>
-        /// <param name="repoId"> Gets or sets Azure DevOps Repository id. </param>
-        /// <param name="repoUri"> Gets or sets Azure DevOps Repository url. </param>
-        /// <param name="visibility"> Gets or sets Azure DevOps repository visibility, whether it is public or private etc. </param>
-        /// <param name="onboardingState">
-        /// Details about resource onboarding status across all connectors.
-        ///
-        /// OnboardedByOtherConnector - this resource has already been onboarded to another connector. This is only applicable to top-level resources.
-        /// Onboarded - this resource has already been onboarded by the specified connector.
-        /// NotOnboarded - this resource has not been onboarded to any connector.
-        /// NotApplicable - the onboarding state is not applicable to the current endpoint.
-        /// </param>
-        /// <param name="actionableRemediation"> Configuration payload for PR Annotations. </param>
-        /// <returns> A new <see cref="Models.DevOpsRepositoryProperties"/> instance for mocking. </returns>
-        public static DevOpsRepositoryProperties DevOpsRepositoryProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdatedOn = null, DevOpsProvisioningState? provisioningState = null, string parentOrgName = null, string parentProjectName = null, string repoId = null, Uri repoUri = null, string visibility = null, ResourceOnboardingState? onboardingState = null, ActionableRemediation actionableRemediation = null)
-        {
-            return new DevOpsRepositoryProperties(
-                provisioningStatusMessage,
-                provisioningStatusUpdatedOn,
-                provisioningState,
-                parentOrgName,
-                parentProjectName,
-                repoId,
-                repoUri,
-                visibility,
-                onboardingState,
-                actionableRemediation,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="SecurityCenter.DevOpsConfigurationData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> DevOps Configuration properties. </param>
-        /// <returns> A new <see cref="SecurityCenter.DevOpsConfigurationData"/> instance for mocking. </returns>
-        public static DevOpsConfigurationData DevOpsConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DevOpsConfigurationProperties properties = null)
-        {
-            return new DevOpsConfigurationData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                properties,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DevOpsConfigurationProperties"/>. </summary>
-        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
-        /// <param name="provisioningStatusUpdateTimeUtc"> Gets or sets time when resource was last checked. </param>
-        /// <param name="provisioningState">
-        /// The provisioning state of the resource.
-        ///
-        /// Pending - Provisioning pending.
-        /// Failed - Provisioning failed.
-        /// Succeeded - Successful provisioning.
-        /// Canceled - Provisioning canceled.
-        /// PendingDeletion - Deletion pending.
-        /// DeletionSuccess - Deletion successful.
-        /// DeletionFailure - Deletion failure.
-        /// </param>
-        /// <param name="authorizationCode"> Authorization payload. </param>
-        /// <param name="autoDiscovery"> AutoDiscovery states. </param>
-        /// <param name="topLevelInventoryList">
-        /// List of top-level inventory to select when AutoDiscovery is disabled.
-        /// This field is ignored when AutoDiscovery is enabled.
-        /// </param>
-        /// <returns> A new <see cref="Models.DevOpsConfigurationProperties"/> instance for mocking. </returns>
-        public static DevOpsConfigurationProperties DevOpsConfigurationProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdateTimeUtc = null, DevOpsProvisioningState? provisioningState = null, string authorizationCode = null, DevOpsAutoDiscovery? autoDiscovery = null, IEnumerable<string> topLevelInventoryList = null)
-        {
-            topLevelInventoryList ??= new List<string>();
-
-            return new DevOpsConfigurationProperties(
-                provisioningStatusMessage,
-                provisioningStatusUpdateTimeUtc,
-                provisioningState,
-                authorizationCode != null ? new DevOpsAuthorization(authorizationCode, serializedAdditionalRawData: null) : null,
-                autoDiscovery,
-                topLevelInventoryList?.ToList(),
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="SecurityCenter.SecurityConnectorGitHubOwnerData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> GitHub Owner properties. </param>
-        /// <returns> A new <see cref="SecurityCenter.SecurityConnectorGitHubOwnerData"/> instance for mocking. </returns>
-        public static SecurityConnectorGitHubOwnerData SecurityConnectorGitHubOwnerData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SecurityConnectorGitHubOwnerProperties properties = null)
-        {
-            return new SecurityConnectorGitHubOwnerData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                properties,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.SecurityConnectorGitHubOwnerProperties"/>. </summary>
-        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
-        /// <param name="provisioningStatusUpdateTimeUtc"> Gets or sets time when resource was last checked. </param>
-        /// <param name="provisioningState">
-        /// The provisioning state of the resource.
-        ///
-        /// Pending - Provisioning pending.
-        /// Failed - Provisioning failed.
-        /// Succeeded - Successful provisioning.
-        /// Canceled - Provisioning canceled.
-        /// PendingDeletion - Deletion pending.
-        /// DeletionSuccess - Deletion successful.
-        /// DeletionFailure - Deletion failure.
-        /// </param>
-        /// <param name="ownerUri"> Gets or sets GitHub Owner url. </param>
-        /// <param name="gitHubInternalId"> Gets or sets internal GitHub id. </param>
-        /// <param name="onboardingState">
-        /// Details about resource onboarding status across all connectors.
-        ///
-        /// OnboardedByOtherConnector - this resource has already been onboarded to another connector. This is only applicable to top-level resources.
-        /// Onboarded - this resource has already been onboarded by the specified connector.
-        /// NotOnboarded - this resource has not been onboarded to any connector.
-        /// NotApplicable - the onboarding state is not applicable to the current endpoint.
-        /// </param>
-        /// <returns> A new <see cref="Models.SecurityConnectorGitHubOwnerProperties"/> instance for mocking. </returns>
-        public static SecurityConnectorGitHubOwnerProperties SecurityConnectorGitHubOwnerProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdateTimeUtc = null, DevOpsProvisioningState? provisioningState = null, Uri ownerUri = null, string gitHubInternalId = null, ResourceOnboardingState? onboardingState = null)
-        {
-            return new SecurityConnectorGitHubOwnerProperties(
-                provisioningStatusMessage,
-                provisioningStatusUpdateTimeUtc,
-                provisioningState,
-                ownerUri,
-                gitHubInternalId,
-                onboardingState,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="SecurityCenter.SecurityConnectorGitHubRepositoryData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> GitHub Repository properties. </param>
-        /// <returns> A new <see cref="SecurityCenter.SecurityConnectorGitHubRepositoryData"/> instance for mocking. </returns>
-        public static SecurityConnectorGitHubRepositoryData SecurityConnectorGitHubRepositoryData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SecurityConnectorGitHubRepositoryProperties properties = null)
-        {
-            return new SecurityConnectorGitHubRepositoryData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                properties,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.SecurityConnectorGitHubRepositoryProperties"/>. </summary>
-        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
-        /// <param name="provisioningStatusUpdateTimeUtc"> Gets or sets time when resource was last checked. </param>
-        /// <param name="provisioningState">
-        /// The provisioning state of the resource.
-        ///
-        /// Pending - Provisioning pending.
-        /// Failed - Provisioning failed.
-        /// Succeeded - Successful provisioning.
-        /// Canceled - Provisioning canceled.
-        /// PendingDeletion - Deletion pending.
-        /// DeletionSuccess - Deletion successful.
-        /// DeletionFailure - Deletion failure.
-        /// </param>
-        /// <param name="repoId">
-        /// Gets or sets GitHub Repository id.
-        ///
-        /// This is a numeric id defined by Github.
-        /// Eg: "123456".
-        /// </param>
-        /// <param name="repoName">
-        /// Gets or sets GitHub Repository name.
-        /// Eg: "new-repo-1".
-        /// </param>
-        /// <param name="repoFullName">
-        /// Gets or sets GitHub Full Name.
-        /// Repository name, prefixed with Owner name.
-        /// Eg: "my-org/new-repo-1".
-        /// </param>
-        /// <param name="onboardingState">
-        /// Details about resource onboarding status across all connectors.
-        ///
-        /// OnboardedByOtherConnector - this resource has already been onboarded to another connector. This is only applicable to top-level resources.
-        /// Onboarded - this resource has already been onboarded by the specified connector.
-        /// NotOnboarded - this resource has not been onboarded to any connector.
-        /// NotApplicable - the onboarding state is not applicable to the current endpoint.
-        /// </param>
-        /// <param name="repoUri"> Gets or sets GitHub Repository url. </param>
-        /// <param name="parentOwnerName"> Gets or sets parent GitHub Owner name. </param>
-        /// <returns> A new <see cref="Models.SecurityConnectorGitHubRepositoryProperties"/> instance for mocking. </returns>
-        public static SecurityConnectorGitHubRepositoryProperties SecurityConnectorGitHubRepositoryProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdateTimeUtc = null, DevOpsProvisioningState? provisioningState = null, string repoId = null, string repoName = null, string repoFullName = null, ResourceOnboardingState? onboardingState = null, Uri repoUri = null, string parentOwnerName = null)
-        {
-            return new SecurityConnectorGitHubRepositoryProperties(
-                provisioningStatusMessage,
-                provisioningStatusUpdateTimeUtc,
-                provisioningState,
-                repoId,
-                repoName,
-                repoFullName,
-                onboardingState,
-                repoUri,
-                parentOwnerName,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="SecurityCenter.SecurityConnectorGitLabGroupData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> GitLab Group properties. </param>
-        /// <returns> A new <see cref="SecurityCenter.SecurityConnectorGitLabGroupData"/> instance for mocking. </returns>
-        public static SecurityConnectorGitLabGroupData SecurityConnectorGitLabGroupData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SecurityConnectorGitLabGroupProperties properties = null)
-        {
-            return new SecurityConnectorGitLabGroupData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                properties,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.SecurityConnectorGitLabGroupProperties"/>. </summary>
-        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
-        /// <param name="provisioningStatusUpdateTimeUtc"> Gets or sets time when resource was last checked. </param>
-        /// <param name="provisioningState">
-        /// The provisioning state of the resource.
-        ///
-        /// Pending - Provisioning pending.
-        /// Failed - Provisioning failed.
-        /// Succeeded - Successful provisioning.
-        /// Canceled - Provisioning canceled.
-        /// PendingDeletion - Deletion pending.
-        /// DeletionSuccess - Deletion successful.
-        /// DeletionFailure - Deletion failure.
-        /// </param>
-        /// <param name="fullyQualifiedName">
-        /// Gets or sets the fully-qualified name of the Group object.
-        ///
-        /// This contains the entire namespace hierarchy where namespaces are separated by the '$' character.
-        /// </param>
-        /// <param name="fullyQualifiedFriendlyName">
-        /// Gets or sets the human readable fully-qualified name of the Group object.
-        ///
-        /// This contains the entire namespace hierarchy as seen on GitLab UI where namespaces are separated by the '/' character.
-        /// </param>
-        /// <param name="uri"> Gets or sets the url of the GitLab Group. </param>
-        /// <param name="onboardingState">
-        /// Details about resource onboarding status across all connectors.
-        ///
-        /// OnboardedByOtherConnector - this resource has already been onboarded to another connector. This is only applicable to top-level resources.
-        /// Onboarded - this resource has already been onboarded by the specified connector.
-        /// NotOnboarded - this resource has not been onboarded to any connector.
-        /// NotApplicable - the onboarding state is not applicable to the current endpoint.
-        /// </param>
-        /// <returns> A new <see cref="Models.SecurityConnectorGitLabGroupProperties"/> instance for mocking. </returns>
-        public static SecurityConnectorGitLabGroupProperties SecurityConnectorGitLabGroupProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdateTimeUtc = null, DevOpsProvisioningState? provisioningState = null, string fullyQualifiedName = null, string fullyQualifiedFriendlyName = null, Uri uri = null, ResourceOnboardingState? onboardingState = null)
-        {
-            return new SecurityConnectorGitLabGroupProperties(
-                provisioningStatusMessage,
-                provisioningStatusUpdateTimeUtc,
-                provisioningState,
-                fullyQualifiedName,
-                fullyQualifiedFriendlyName,
-                uri,
-                onboardingState,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="SecurityCenter.SecurityConnectorGitLabProjectData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> GitLab Project properties. </param>
-        /// <returns> A new <see cref="SecurityCenter.SecurityConnectorGitLabProjectData"/> instance for mocking. </returns>
-        public static SecurityConnectorGitLabProjectData SecurityConnectorGitLabProjectData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SecurityConnectorGitLabProjectProperties properties = null)
-        {
-            return new SecurityConnectorGitLabProjectData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                properties,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.SecurityConnectorGitLabProjectProperties"/>. </summary>
-        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
-        /// <param name="provisioningStatusUpdateTimeUtc"> Gets or sets time when resource was last checked. </param>
-        /// <param name="provisioningState">
-        /// The provisioning state of the resource.
-        ///
-        /// Pending - Provisioning pending.
-        /// Failed - Provisioning failed.
-        /// Succeeded - Successful provisioning.
-        /// Canceled - Provisioning canceled.
-        /// PendingDeletion - Deletion pending.
-        /// DeletionSuccess - Deletion successful.
-        /// DeletionFailure - Deletion failure.
-        /// </param>
-        /// <param name="fullyQualifiedName">
-        /// Gets or sets the fully-qualified name of the project object.
-        ///
-        /// This contains the entire hierarchy where entities are separated by the '$' character.
-        /// </param>
-        /// <param name="fullyQualifiedFriendlyName">
-        /// Gets or sets the human readable fully-qualified name of the Project object.
-        ///
-        /// This contains the entire namespace hierarchy as seen on GitLab UI where entities are separated by the '/' character.
-        /// </param>
-        /// <param name="fullyQualifiedParentGroupName">
-        /// Gets or sets the fully-qualified name of the project's parent group object.
-        ///
-        /// This contains the entire hierarchy where namespaces are separated by the '$' character.
-        /// </param>
-        /// <param name="uri"> Gets or sets the url of the GitLab Project. </param>
-        /// <param name="onboardingState">
-        /// Details about resource onboarding status across all connectors.
-        ///
-        /// OnboardedByOtherConnector - this resource has already been onboarded to another connector. This is only applicable to top-level resources.
-        /// Onboarded - this resource has already been onboarded by the specified connector.
-        /// NotOnboarded - this resource has not been onboarded to any connector.
-        /// NotApplicable - the onboarding state is not applicable to the current endpoint.
-        /// </param>
-        /// <returns> A new <see cref="Models.SecurityConnectorGitLabProjectProperties"/> instance for mocking. </returns>
-        public static SecurityConnectorGitLabProjectProperties SecurityConnectorGitLabProjectProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdateTimeUtc = null, DevOpsProvisioningState? provisioningState = null, string fullyQualifiedName = null, string fullyQualifiedFriendlyName = null, string fullyQualifiedParentGroupName = null, Uri uri = null, ResourceOnboardingState? onboardingState = null)
-        {
-            return new SecurityConnectorGitLabProjectProperties(
-                provisioningStatusMessage,
-                provisioningStatusUpdateTimeUtc,
-                provisioningState,
-                fullyQualifiedName,
-                fullyQualifiedFriendlyName,
-                fullyQualifiedParentGroupName,
-                uri,
-                onboardingState,
                 serializedAdditionalRawData: null);
         }
 
@@ -2791,6 +2306,508 @@ namespace Azure.ResourceManager.SecurityCenter.Models
                 numberOfExternalApiEndpoints,
                 numberOfApiEndpointsWithSensitiveDataExposed,
                 sensitivityLabel,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SecurityCenter.DevOpsOrgData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="properties"> Azure DevOps Organization properties. </param>
+        /// <returns> A new <see cref="SecurityCenter.DevOpsOrgData"/> instance for mocking. </returns>
+        public static DevOpsOrgData DevOpsOrgData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DevOpsOrgProperties properties = null)
+        {
+            return new DevOpsOrgData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.DevOpsOrgProperties"/>. </summary>
+        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
+        /// <param name="provisioningStatusUpdatedOn"> Gets or sets time when resource was last checked. </param>
+        /// <param name="provisioningState">
+        /// The provisioning state of the resource.
+        ///
+        /// Pending - Provisioning pending.
+        /// Failed - Provisioning failed.
+        /// Succeeded - Successful provisioning.
+        /// Canceled - Provisioning canceled.
+        /// PendingDeletion - Deletion pending.
+        /// DeletionSuccess - Deletion successful.
+        /// DeletionFailure - Deletion failure.
+        /// </param>
+        /// <param name="onboardingState">
+        /// Details about resource onboarding status across all connectors.
+        ///
+        /// OnboardedByOtherConnector - this resource has already been onboarded to another connector. This is only applicable to top-level resources.
+        /// Onboarded - this resource has already been onboarded by the specified connector.
+        /// NotOnboarded - this resource has not been onboarded to any connector.
+        /// NotApplicable - the onboarding state is not applicable to the current endpoint.
+        /// </param>
+        /// <param name="actionableRemediation"> Configuration payload for PR Annotations. </param>
+        /// <returns> A new <see cref="Models.DevOpsOrgProperties"/> instance for mocking. </returns>
+        public static DevOpsOrgProperties DevOpsOrgProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdatedOn = null, DevOpsProvisioningState? provisioningState = null, ResourceOnboardingState? onboardingState = null, ActionableRemediation actionableRemediation = null)
+        {
+            return new DevOpsOrgProperties(
+                provisioningStatusMessage,
+                provisioningStatusUpdatedOn,
+                provisioningState,
+                onboardingState,
+                actionableRemediation,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SecurityCenter.DevOpsProjectData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="properties"> Azure DevOps Project properties. </param>
+        /// <returns> A new <see cref="SecurityCenter.DevOpsProjectData"/> instance for mocking. </returns>
+        public static DevOpsProjectData DevOpsProjectData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DevOpsProjectProperties properties = null)
+        {
+            return new DevOpsProjectData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.DevOpsProjectProperties"/>. </summary>
+        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
+        /// <param name="provisioningStatusUpdatedOn"> Gets or sets time when resource was last checked. </param>
+        /// <param name="provisioningState">
+        /// The provisioning state of the resource.
+        ///
+        /// Pending - Provisioning pending.
+        /// Failed - Provisioning failed.
+        /// Succeeded - Successful provisioning.
+        /// Canceled - Provisioning canceled.
+        /// PendingDeletion - Deletion pending.
+        /// DeletionSuccess - Deletion successful.
+        /// DeletionFailure - Deletion failure.
+        /// </param>
+        /// <param name="parentOrgName"> Gets or sets parent Azure DevOps Organization name. </param>
+        /// <param name="projectId"> Gets or sets Azure DevOps Project id. </param>
+        /// <param name="onboardingState">
+        /// Details about resource onboarding status across all connectors.
+        ///
+        /// OnboardedByOtherConnector - this resource has already been onboarded to another connector. This is only applicable to top-level resources.
+        /// Onboarded - this resource has already been onboarded by the specified connector.
+        /// NotOnboarded - this resource has not been onboarded to any connector.
+        /// NotApplicable - the onboarding state is not applicable to the current endpoint.
+        /// </param>
+        /// <param name="actionableRemediation"> Configuration payload for PR Annotations. </param>
+        /// <returns> A new <see cref="Models.DevOpsProjectProperties"/> instance for mocking. </returns>
+        public static DevOpsProjectProperties DevOpsProjectProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdatedOn = null, DevOpsProvisioningState? provisioningState = null, string parentOrgName = null, string projectId = null, ResourceOnboardingState? onboardingState = null, ActionableRemediation actionableRemediation = null)
+        {
+            return new DevOpsProjectProperties(
+                provisioningStatusMessage,
+                provisioningStatusUpdatedOn,
+                provisioningState,
+                parentOrgName,
+                projectId,
+                onboardingState,
+                actionableRemediation,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SecurityCenter.DevOpsRepositoryData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="properties"> Azure DevOps Repository properties. </param>
+        /// <returns> A new <see cref="SecurityCenter.DevOpsRepositoryData"/> instance for mocking. </returns>
+        public static DevOpsRepositoryData DevOpsRepositoryData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DevOpsRepositoryProperties properties = null)
+        {
+            return new DevOpsRepositoryData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.DevOpsRepositoryProperties"/>. </summary>
+        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
+        /// <param name="provisioningStatusUpdatedOn"> Gets or sets time when resource was last checked. </param>
+        /// <param name="provisioningState">
+        /// The provisioning state of the resource.
+        ///
+        /// Pending - Provisioning pending.
+        /// Failed - Provisioning failed.
+        /// Succeeded - Successful provisioning.
+        /// Canceled - Provisioning canceled.
+        /// PendingDeletion - Deletion pending.
+        /// DeletionSuccess - Deletion successful.
+        /// DeletionFailure - Deletion failure.
+        /// </param>
+        /// <param name="parentOrgName"> Gets or sets parent Azure DevOps Organization name. </param>
+        /// <param name="parentProjectName"> Gets or sets parent Azure DevOps Project name. </param>
+        /// <param name="repoId"> Gets or sets Azure DevOps Repository id. </param>
+        /// <param name="repoUri"> Gets or sets Azure DevOps Repository url. </param>
+        /// <param name="visibility"> Gets or sets Azure DevOps repository visibility, whether it is public or private etc. </param>
+        /// <param name="onboardingState">
+        /// Details about resource onboarding status across all connectors.
+        ///
+        /// OnboardedByOtherConnector - this resource has already been onboarded to another connector. This is only applicable to top-level resources.
+        /// Onboarded - this resource has already been onboarded by the specified connector.
+        /// NotOnboarded - this resource has not been onboarded to any connector.
+        /// NotApplicable - the onboarding state is not applicable to the current endpoint.
+        /// </param>
+        /// <param name="actionableRemediation"> Configuration payload for PR Annotations. </param>
+        /// <returns> A new <see cref="Models.DevOpsRepositoryProperties"/> instance for mocking. </returns>
+        public static DevOpsRepositoryProperties DevOpsRepositoryProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdatedOn = null, DevOpsProvisioningState? provisioningState = null, string parentOrgName = null, string parentProjectName = null, string repoId = null, Uri repoUri = null, string visibility = null, ResourceOnboardingState? onboardingState = null, ActionableRemediation actionableRemediation = null)
+        {
+            return new DevOpsRepositoryProperties(
+                provisioningStatusMessage,
+                provisioningStatusUpdatedOn,
+                provisioningState,
+                parentOrgName,
+                parentProjectName,
+                repoId,
+                repoUri,
+                visibility,
+                onboardingState,
+                actionableRemediation,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SecurityCenter.DevOpsConfigurationData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="properties"> DevOps Configuration properties. </param>
+        /// <returns> A new <see cref="SecurityCenter.DevOpsConfigurationData"/> instance for mocking. </returns>
+        public static DevOpsConfigurationData DevOpsConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DevOpsConfigurationProperties properties = null)
+        {
+            return new DevOpsConfigurationData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.DevOpsConfigurationProperties"/>. </summary>
+        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
+        /// <param name="provisioningStatusUpdateTimeUtc"> Gets or sets time when resource was last checked. </param>
+        /// <param name="provisioningState">
+        /// The provisioning state of the resource.
+        ///
+        /// Pending - Provisioning pending.
+        /// Failed - Provisioning failed.
+        /// Succeeded - Successful provisioning.
+        /// Canceled - Provisioning canceled.
+        /// PendingDeletion - Deletion pending.
+        /// DeletionSuccess - Deletion successful.
+        /// DeletionFailure - Deletion failure.
+        /// </param>
+        /// <param name="authorizationCode"> Authorization payload. </param>
+        /// <param name="autoDiscovery"> AutoDiscovery states. </param>
+        /// <param name="topLevelInventoryList">
+        /// List of top-level inventory to select when AutoDiscovery is disabled.
+        /// This field is ignored when AutoDiscovery is enabled.
+        /// </param>
+        /// <param name="capabilities"> List of capabilities assigned to the DevOps configuration during the discovery process. </param>
+        /// <returns> A new <see cref="Models.DevOpsConfigurationProperties"/> instance for mocking. </returns>
+        public static DevOpsConfigurationProperties DevOpsConfigurationProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdateTimeUtc = null, DevOpsProvisioningState? provisioningState = null, string authorizationCode = null, DevOpsAutoDiscovery? autoDiscovery = null, IEnumerable<string> topLevelInventoryList = null, IEnumerable<DevOpsCapability> capabilities = null)
+        {
+            topLevelInventoryList ??= new List<string>();
+            capabilities ??= new List<DevOpsCapability>();
+
+            return new DevOpsConfigurationProperties(
+                provisioningStatusMessage,
+                provisioningStatusUpdateTimeUtc,
+                provisioningState,
+                authorizationCode != null ? new DevOpsAuthorization(authorizationCode, serializedAdditionalRawData: null) : null,
+                autoDiscovery,
+                topLevelInventoryList?.ToList(),
+                capabilities?.ToList(),
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.DevOpsCapability"/>. </summary>
+        /// <param name="name"> Gets the name of the DevOps capability. </param>
+        /// <param name="value"> Gets the value of the DevOps capability. </param>
+        /// <returns> A new <see cref="Models.DevOpsCapability"/> instance for mocking. </returns>
+        public static DevOpsCapability DevOpsCapability(string name = null, string value = null)
+        {
+            return new DevOpsCapability(name, value, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SecurityCenter.SecurityConnectorGitHubOwnerData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="properties"> GitHub Owner properties. </param>
+        /// <returns> A new <see cref="SecurityCenter.SecurityConnectorGitHubOwnerData"/> instance for mocking. </returns>
+        public static SecurityConnectorGitHubOwnerData SecurityConnectorGitHubOwnerData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SecurityConnectorGitHubOwnerProperties properties = null)
+        {
+            return new SecurityConnectorGitHubOwnerData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SecurityConnectorGitHubOwnerProperties"/>. </summary>
+        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
+        /// <param name="provisioningStatusUpdateTimeUtc"> Gets or sets time when resource was last checked. </param>
+        /// <param name="provisioningState">
+        /// The provisioning state of the resource.
+        ///
+        /// Pending - Provisioning pending.
+        /// Failed - Provisioning failed.
+        /// Succeeded - Successful provisioning.
+        /// Canceled - Provisioning canceled.
+        /// PendingDeletion - Deletion pending.
+        /// DeletionSuccess - Deletion successful.
+        /// DeletionFailure - Deletion failure.
+        /// </param>
+        /// <param name="ownerUri"> Gets or sets GitHub Owner url. </param>
+        /// <param name="gitHubInternalId"> Gets or sets internal GitHub id. </param>
+        /// <param name="onboardingState">
+        /// Details about resource onboarding status across all connectors.
+        ///
+        /// OnboardedByOtherConnector - this resource has already been onboarded to another connector. This is only applicable to top-level resources.
+        /// Onboarded - this resource has already been onboarded by the specified connector.
+        /// NotOnboarded - this resource has not been onboarded to any connector.
+        /// NotApplicable - the onboarding state is not applicable to the current endpoint.
+        /// </param>
+        /// <returns> A new <see cref="Models.SecurityConnectorGitHubOwnerProperties"/> instance for mocking. </returns>
+        public static SecurityConnectorGitHubOwnerProperties SecurityConnectorGitHubOwnerProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdateTimeUtc = null, DevOpsProvisioningState? provisioningState = null, Uri ownerUri = null, string gitHubInternalId = null, ResourceOnboardingState? onboardingState = null)
+        {
+            return new SecurityConnectorGitHubOwnerProperties(
+                provisioningStatusMessage,
+                provisioningStatusUpdateTimeUtc,
+                provisioningState,
+                ownerUri,
+                gitHubInternalId,
+                onboardingState,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SecurityCenter.SecurityConnectorGitHubRepositoryData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="properties"> GitHub Repository properties. </param>
+        /// <returns> A new <see cref="SecurityCenter.SecurityConnectorGitHubRepositoryData"/> instance for mocking. </returns>
+        public static SecurityConnectorGitHubRepositoryData SecurityConnectorGitHubRepositoryData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SecurityConnectorGitHubRepositoryProperties properties = null)
+        {
+            return new SecurityConnectorGitHubRepositoryData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SecurityConnectorGitHubRepositoryProperties"/>. </summary>
+        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
+        /// <param name="provisioningStatusUpdateTimeUtc"> Gets or sets time when resource was last checked. </param>
+        /// <param name="provisioningState">
+        /// The provisioning state of the resource.
+        ///
+        /// Pending - Provisioning pending.
+        /// Failed - Provisioning failed.
+        /// Succeeded - Successful provisioning.
+        /// Canceled - Provisioning canceled.
+        /// PendingDeletion - Deletion pending.
+        /// DeletionSuccess - Deletion successful.
+        /// DeletionFailure - Deletion failure.
+        /// </param>
+        /// <param name="repoId">
+        /// Gets or sets GitHub Repository id.
+        ///
+        /// This is a numeric id defined by Github.
+        /// Eg: "123456".
+        /// </param>
+        /// <param name="repoName">
+        /// Gets or sets GitHub Repository name.
+        /// Eg: "new-repo-1".
+        /// </param>
+        /// <param name="repoFullName">
+        /// Gets or sets GitHub Full Name.
+        /// Repository name, prefixed with Owner name.
+        /// Eg: "my-org/new-repo-1".
+        /// </param>
+        /// <param name="onboardingState">
+        /// Details about resource onboarding status across all connectors.
+        ///
+        /// OnboardedByOtherConnector - this resource has already been onboarded to another connector. This is only applicable to top-level resources.
+        /// Onboarded - this resource has already been onboarded by the specified connector.
+        /// NotOnboarded - this resource has not been onboarded to any connector.
+        /// NotApplicable - the onboarding state is not applicable to the current endpoint.
+        /// </param>
+        /// <param name="repoUri"> Gets or sets GitHub Repository url. </param>
+        /// <param name="parentOwnerName"> Gets or sets parent GitHub Owner name. </param>
+        /// <returns> A new <see cref="Models.SecurityConnectorGitHubRepositoryProperties"/> instance for mocking. </returns>
+        public static SecurityConnectorGitHubRepositoryProperties SecurityConnectorGitHubRepositoryProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdateTimeUtc = null, DevOpsProvisioningState? provisioningState = null, string repoId = null, string repoName = null, string repoFullName = null, ResourceOnboardingState? onboardingState = null, Uri repoUri = null, string parentOwnerName = null)
+        {
+            return new SecurityConnectorGitHubRepositoryProperties(
+                provisioningStatusMessage,
+                provisioningStatusUpdateTimeUtc,
+                provisioningState,
+                repoId,
+                repoName,
+                repoFullName,
+                onboardingState,
+                repoUri,
+                parentOwnerName,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SecurityCenter.SecurityConnectorGitLabGroupData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="properties"> GitLab Group properties. </param>
+        /// <returns> A new <see cref="SecurityCenter.SecurityConnectorGitLabGroupData"/> instance for mocking. </returns>
+        public static SecurityConnectorGitLabGroupData SecurityConnectorGitLabGroupData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SecurityConnectorGitLabGroupProperties properties = null)
+        {
+            return new SecurityConnectorGitLabGroupData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SecurityConnectorGitLabGroupProperties"/>. </summary>
+        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
+        /// <param name="provisioningStatusUpdateTimeUtc"> Gets or sets time when resource was last checked. </param>
+        /// <param name="provisioningState">
+        /// The provisioning state of the resource.
+        ///
+        /// Pending - Provisioning pending.
+        /// Failed - Provisioning failed.
+        /// Succeeded - Successful provisioning.
+        /// Canceled - Provisioning canceled.
+        /// PendingDeletion - Deletion pending.
+        /// DeletionSuccess - Deletion successful.
+        /// DeletionFailure - Deletion failure.
+        /// </param>
+        /// <param name="fullyQualifiedName">
+        /// Gets or sets the fully-qualified name of the Group object.
+        ///
+        /// This contains the entire namespace hierarchy where namespaces are separated by the '$' character.
+        /// </param>
+        /// <param name="fullyQualifiedFriendlyName">
+        /// Gets or sets the human readable fully-qualified name of the Group object.
+        ///
+        /// This contains the entire namespace hierarchy as seen on GitLab UI where namespaces are separated by the '/' character.
+        /// </param>
+        /// <param name="uri"> Gets or sets the url of the GitLab Group. </param>
+        /// <param name="onboardingState">
+        /// Details about resource onboarding status across all connectors.
+        ///
+        /// OnboardedByOtherConnector - this resource has already been onboarded to another connector. This is only applicable to top-level resources.
+        /// Onboarded - this resource has already been onboarded by the specified connector.
+        /// NotOnboarded - this resource has not been onboarded to any connector.
+        /// NotApplicable - the onboarding state is not applicable to the current endpoint.
+        /// </param>
+        /// <returns> A new <see cref="Models.SecurityConnectorGitLabGroupProperties"/> instance for mocking. </returns>
+        public static SecurityConnectorGitLabGroupProperties SecurityConnectorGitLabGroupProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdateTimeUtc = null, DevOpsProvisioningState? provisioningState = null, string fullyQualifiedName = null, string fullyQualifiedFriendlyName = null, Uri uri = null, ResourceOnboardingState? onboardingState = null)
+        {
+            return new SecurityConnectorGitLabGroupProperties(
+                provisioningStatusMessage,
+                provisioningStatusUpdateTimeUtc,
+                provisioningState,
+                fullyQualifiedName,
+                fullyQualifiedFriendlyName,
+                uri,
+                onboardingState,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SecurityCenter.SecurityConnectorGitLabProjectData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="properties"> GitLab Project properties. </param>
+        /// <returns> A new <see cref="SecurityCenter.SecurityConnectorGitLabProjectData"/> instance for mocking. </returns>
+        public static SecurityConnectorGitLabProjectData SecurityConnectorGitLabProjectData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SecurityConnectorGitLabProjectProperties properties = null)
+        {
+            return new SecurityConnectorGitLabProjectData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SecurityConnectorGitLabProjectProperties"/>. </summary>
+        /// <param name="provisioningStatusMessage"> Gets or sets resource status message. </param>
+        /// <param name="provisioningStatusUpdateTimeUtc"> Gets or sets time when resource was last checked. </param>
+        /// <param name="provisioningState">
+        /// The provisioning state of the resource.
+        ///
+        /// Pending - Provisioning pending.
+        /// Failed - Provisioning failed.
+        /// Succeeded - Successful provisioning.
+        /// Canceled - Provisioning canceled.
+        /// PendingDeletion - Deletion pending.
+        /// DeletionSuccess - Deletion successful.
+        /// DeletionFailure - Deletion failure.
+        /// </param>
+        /// <param name="fullyQualifiedName">
+        /// Gets or sets the fully-qualified name of the project object.
+        ///
+        /// This contains the entire hierarchy where entities are separated by the '$' character.
+        /// </param>
+        /// <param name="fullyQualifiedFriendlyName">
+        /// Gets or sets the human readable fully-qualified name of the Project object.
+        ///
+        /// This contains the entire namespace hierarchy as seen on GitLab UI where entities are separated by the '/' character.
+        /// </param>
+        /// <param name="fullyQualifiedParentGroupName">
+        /// Gets or sets the fully-qualified name of the project's parent group object.
+        ///
+        /// This contains the entire hierarchy where namespaces are separated by the '$' character.
+        /// </param>
+        /// <param name="uri"> Gets or sets the url of the GitLab Project. </param>
+        /// <param name="onboardingState">
+        /// Details about resource onboarding status across all connectors.
+        ///
+        /// OnboardedByOtherConnector - this resource has already been onboarded to another connector. This is only applicable to top-level resources.
+        /// Onboarded - this resource has already been onboarded by the specified connector.
+        /// NotOnboarded - this resource has not been onboarded to any connector.
+        /// NotApplicable - the onboarding state is not applicable to the current endpoint.
+        /// </param>
+        /// <returns> A new <see cref="Models.SecurityConnectorGitLabProjectProperties"/> instance for mocking. </returns>
+        public static SecurityConnectorGitLabProjectProperties SecurityConnectorGitLabProjectProperties(string provisioningStatusMessage = null, DateTimeOffset? provisioningStatusUpdateTimeUtc = null, DevOpsProvisioningState? provisioningState = null, string fullyQualifiedName = null, string fullyQualifiedFriendlyName = null, string fullyQualifiedParentGroupName = null, Uri uri = null, ResourceOnboardingState? onboardingState = null)
+        {
+            return new SecurityConnectorGitLabProjectProperties(
+                provisioningStatusMessage,
+                provisioningStatusUpdateTimeUtc,
+                provisioningState,
+                fullyQualifiedName,
+                fullyQualifiedFriendlyName,
+                fullyQualifiedParentGroupName,
+                uri,
+                onboardingState,
                 serializedAdditionalRawData: null);
         }
 
