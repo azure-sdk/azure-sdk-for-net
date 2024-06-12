@@ -39,7 +39,8 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="priorityMixPolicy"> Specifies the desired targets for mixing Spot and Regular priority VMs within the same VMSS Flex instance. </param>
         /// <param name="spotRestorePolicy"> Specifies the Spot Restore properties for the virtual machine scale set. </param>
         /// <param name="resiliencyPolicy"> Policy for Resiliency. </param>
-        internal VirtualMachineScaleSetPatch(IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData, ComputeSku sku, ComputePlan plan, ManagedServiceIdentity identity, VirtualMachineScaleSetUpgradePolicy upgradePolicy, AutomaticRepairsPolicy automaticRepairsPolicy, VirtualMachineScaleSetUpdateVmProfile virtualMachineProfile, bool? overprovision, bool? doNotRunExtensionsOnOverprovisionedVms, bool? singlePlacementGroup, AdditionalCapabilities additionalCapabilities, ScaleInPolicy scaleInPolicy, WritableSubResource proximityPlacementGroup, VirtualMachineScaleSetPriorityMixPolicy priorityMixPolicy, SpotRestorePolicy spotRestorePolicy, ResiliencyPolicy resiliencyPolicy) : base(tags, serializedAdditionalRawData)
+        /// <param name="skuProfile"> Specifies the sku profile for the virtual machine scale set. </param>
+        internal VirtualMachineScaleSetPatch(IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData, ComputeSku sku, ComputePlan plan, ManagedServiceIdentity identity, VirtualMachineScaleSetUpgradePolicy upgradePolicy, AutomaticRepairsPolicy automaticRepairsPolicy, VirtualMachineScaleSetUpdateVmProfile virtualMachineProfile, bool? overprovision, bool? doNotRunExtensionsOnOverprovisionedVms, bool? singlePlacementGroup, AdditionalCapabilities additionalCapabilities, ScaleInPolicy scaleInPolicy, WritableSubResource proximityPlacementGroup, VirtualMachineScaleSetPriorityMixPolicy priorityMixPolicy, SpotRestorePolicy spotRestorePolicy, ResiliencyPolicy resiliencyPolicy, SkuProfile skuProfile) : base(tags, serializedAdditionalRawData)
         {
             Sku = sku;
             Plan = plan;
@@ -56,6 +57,7 @@ namespace Azure.ResourceManager.Compute.Models
             PriorityMixPolicy = priorityMixPolicy;
             SpotRestorePolicy = spotRestorePolicy;
             ResiliencyPolicy = resiliencyPolicy;
+            SkuProfile = skuProfile;
         }
 
         /// <summary> The virtual machine scale set sku. </summary>
@@ -100,5 +102,7 @@ namespace Azure.ResourceManager.Compute.Models
         public SpotRestorePolicy SpotRestorePolicy { get; set; }
         /// <summary> Policy for Resiliency. </summary>
         public ResiliencyPolicy ResiliencyPolicy { get; set; }
+        /// <summary> Specifies the sku profile for the virtual machine scale set. </summary>
+        public SkuProfile SkuProfile { get; set; }
     }
 }
