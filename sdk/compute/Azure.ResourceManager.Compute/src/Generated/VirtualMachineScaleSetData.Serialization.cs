@@ -204,6 +204,11 @@ namespace Azure.ResourceManager.Compute
                 writer.WritePropertyName("resiliencyPolicy"u8);
                 writer.WriteObjectValue(ResiliencyPolicy, options);
             }
+            if (Optional.IsDefined(SkuProfile))
+            {
+                writer.WritePropertyName("skuProfile"u8);
+                writer.WriteObjectValue(SkuProfile, options);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -276,6 +281,7 @@ namespace Azure.ResourceManager.Compute
             DateTimeOffset? timeCreated = default;
             bool? constrainedMaximumCapacity = default;
             ResiliencyPolicy resiliencyPolicy = default;
+            SkuProfile skuProfile = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -568,6 +574,15 @@ namespace Azure.ResourceManager.Compute
                             resiliencyPolicy = ResiliencyPolicy.DeserializeResiliencyPolicy(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("skuProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            skuProfile = SkuProfile.DeserializeSkuProfile(property0.Value, options);
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -611,6 +626,7 @@ namespace Azure.ResourceManager.Compute
                 timeCreated,
                 constrainedMaximumCapacity,
                 resiliencyPolicy,
+                skuProfile,
                 serializedAdditionalRawData);
         }
 
