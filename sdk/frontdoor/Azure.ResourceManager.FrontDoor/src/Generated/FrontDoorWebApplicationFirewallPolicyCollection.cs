@@ -6,12 +6,9 @@
 #nullable disable
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager.Resources;
@@ -23,7 +20,7 @@ namespace Azure.ResourceManager.FrontDoor
     /// Each <see cref="FrontDoorWebApplicationFirewallPolicyResource"/> in the collection will belong to the same instance of <see cref="ResourceGroupResource"/>.
     /// To get a <see cref="FrontDoorWebApplicationFirewallPolicyCollection"/> instance call the GetFrontDoorWebApplicationFirewallPolicies method from an instance of <see cref="ResourceGroupResource"/>.
     /// </summary>
-    public partial class FrontDoorWebApplicationFirewallPolicyCollection : ArmCollection, IEnumerable<FrontDoorWebApplicationFirewallPolicyResource>, IAsyncEnumerable<FrontDoorWebApplicationFirewallPolicyResource>
+    public partial class FrontDoorWebApplicationFirewallPolicyCollection : ArmCollection
     {
         private readonly ClientDiagnostics _frontDoorWebApplicationFirewallPolicyPoliciesClientDiagnostics;
         private readonly PoliciesRestOperations _frontDoorWebApplicationFirewallPolicyPoliciesRestClient;
@@ -241,66 +238,6 @@ namespace Azure.ResourceManager.FrontDoor
         }
 
         /// <summary>
-        /// Lists all of the protection policies within a resource group.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/frontDoorWebApplicationFirewallPolicies</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Policies_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="FrontDoorWebApplicationFirewallPolicyResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="FrontDoorWebApplicationFirewallPolicyResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<FrontDoorWebApplicationFirewallPolicyResource> GetAllAsync(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _frontDoorWebApplicationFirewallPolicyPoliciesRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _frontDoorWebApplicationFirewallPolicyPoliciesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new FrontDoorWebApplicationFirewallPolicyResource(Client, FrontDoorWebApplicationFirewallPolicyData.DeserializeFrontDoorWebApplicationFirewallPolicyData(e)), _frontDoorWebApplicationFirewallPolicyPoliciesClientDiagnostics, Pipeline, "FrontDoorWebApplicationFirewallPolicyCollection.GetAll", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Lists all of the protection policies within a resource group.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/frontDoorWebApplicationFirewallPolicies</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Policies_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="FrontDoorWebApplicationFirewallPolicyResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="FrontDoorWebApplicationFirewallPolicyResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<FrontDoorWebApplicationFirewallPolicyResource> GetAll(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _frontDoorWebApplicationFirewallPolicyPoliciesRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _frontDoorWebApplicationFirewallPolicyPoliciesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new FrontDoorWebApplicationFirewallPolicyResource(Client, FrontDoorWebApplicationFirewallPolicyData.DeserializeFrontDoorWebApplicationFirewallPolicyData(e)), _frontDoorWebApplicationFirewallPolicyPoliciesClientDiagnostics, Pipeline, "FrontDoorWebApplicationFirewallPolicyCollection.GetAll", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
         /// Checks to see if the resource exists in azure.
         /// <list type="bullet">
         /// <item>
@@ -474,21 +411,6 @@ namespace Azure.ResourceManager.FrontDoor
                 scope.Failed(e);
                 throw;
             }
-        }
-
-        IEnumerator<FrontDoorWebApplicationFirewallPolicyResource> IEnumerable<FrontDoorWebApplicationFirewallPolicyResource>.GetEnumerator()
-        {
-            return GetAll().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetAll().GetEnumerator();
-        }
-
-        IAsyncEnumerator<FrontDoorWebApplicationFirewallPolicyResource> IAsyncEnumerable<FrontDoorWebApplicationFirewallPolicyResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
-        {
-            return GetAllAsync(cancellationToken: cancellationToken).GetAsyncEnumerator(cancellationToken);
         }
     }
 }
