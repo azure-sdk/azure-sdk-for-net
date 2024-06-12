@@ -20,7 +20,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
             string key = default;
             AcsRouterLabelOperator? labelOperator = default;
-            object value = default;
+            object labelValue = default;
             float? ttlSeconds = default;
             AcsRouterWorkerSelectorState? state = default;
             DateTimeOffset? expirationTime = default;
@@ -40,13 +40,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     labelOperator = new AcsRouterLabelOperator(property.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("value"u8))
+                if (property.NameEquals("labelValue"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    value = property.Value.GetObject();
+                    labelValue = property.Value.GetObject();
                     continue;
                 }
                 if (property.NameEquals("ttlSeconds"u8))
@@ -80,7 +80,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             return new AcsRouterWorkerSelector(
                 key,
                 labelOperator,
-                value,
+                labelValue,
                 ttlSeconds,
                 state,
                 expirationTime);
