@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ContainerService.Models
 {
-    /// <summary> OS option property. </summary>
-    public partial class ContainerServiceOSOptionProperty
+    /// <summary> Observability profile to enable advanced network metrics and flow logs with historical contexts. </summary>
+    internal partial class AdvancedNetworkingObservability
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,37 +45,21 @@ namespace Azure.ResourceManager.ContainerService.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceOSOptionProperty"/>. </summary>
-        /// <param name="osType"> The OS type. </param>
-        /// <param name="enableFipsImage"> Whether the image is FIPS-enabled. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="osType"/> is null. </exception>
-        internal ContainerServiceOSOptionProperty(string osType, bool enableFipsImage)
+        /// <summary> Initializes a new instance of <see cref="AdvancedNetworkingObservability"/>. </summary>
+        public AdvancedNetworkingObservability()
         {
-            Argument.AssertNotNull(osType, nameof(osType));
-
-            OSType = osType;
-            EnableFipsImage = enableFipsImage;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceOSOptionProperty"/>. </summary>
-        /// <param name="osType"> The OS type. </param>
-        /// <param name="enableFipsImage"> Whether the image is FIPS-enabled. </param>
+        /// <summary> Initializes a new instance of <see cref="AdvancedNetworkingObservability"/>. </summary>
+        /// <param name="enabled"> Indicates the enablement of Advanced Networking observability functionalities on clusters. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ContainerServiceOSOptionProperty(string osType, bool enableFipsImage, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AdvancedNetworkingObservability(bool? enabled, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            OSType = osType;
-            EnableFipsImage = enableFipsImage;
+            Enabled = enabled;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceOSOptionProperty"/> for deserialization. </summary>
-        internal ContainerServiceOSOptionProperty()
-        {
-        }
-
-        /// <summary> The OS type. </summary>
-        public string OSType { get; }
-        /// <summary> Whether the image is FIPS-enabled. </summary>
-        public bool EnableFipsImage { get; }
+        /// <summary> Indicates the enablement of Advanced Networking observability functionalities on clusters. </summary>
+        public bool? Enabled { get; set; }
     }
 }
