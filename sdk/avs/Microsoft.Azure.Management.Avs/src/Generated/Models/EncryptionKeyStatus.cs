@@ -16,7 +16,13 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class EncryptionKeyStatus
     {
+        /// <summary>
+        /// is connected
+        /// </summary>
         public const string Connected = "Connected";
+        /// <summary>
+        /// is access denied
+        /// </summary>
         public const string AccessDenied = "AccessDenied";
     }
 }

@@ -34,18 +34,26 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Initializes a new instance of the PrivateCloud class.
         /// </summary>
-        /// <param name="sku">The private cloud SKU</param>
-        /// <param name="networkBlock">The block of addresses should be unique
-        /// across VNet in your subscription as well as on-premise. Make sure
-        /// the CIDR format is conformed to (A.B.C.D/X) where A,B,C,D are
-        /// between 0 and 255, and X is between 0 and 22</param>
-        /// <param name="id">Resource ID.</param>
-        /// <param name="name">Resource name.</param>
-        /// <param name="type">Resource type.</param>
-        /// <param name="location">Resource location</param>
-        /// <param name="tags">Resource tags</param>
+        /// <param name="location">The geo-location where the resource
+        /// lives</param>
         /// <param name="managementCluster">The default cluster used for
         /// management</param>
+        /// <param name="networkBlock">The block of addresses should be unique
+        /// across VNet in your subscription as
+        /// well as on-premise. Make sure the CIDR format is conformed to
+        /// (A.B.C.D/X) where
+        /// A,B,C,D are between 0 and 255, and X is between 0 and 22</param>
+        /// <param name="sku">The SKU (Stock Keeping Unit) assigned to this
+        /// resource.</param>
+        /// <param name="id">Fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="systemData">Azure Resource Manager metadata containing
+        /// createdBy and modifiedBy information.</param>
+        /// <param name="tags">Resource tags.</param>
         /// <param name="internet">Connectivity to internet is enabled or
         /// disabled. Possible values include: 'Enabled', 'Disabled'</param>
         /// <param name="identitySources">vCenter Single Sign On Identity
@@ -54,9 +62,16 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// distributed across availability zones</param>
         /// <param name="encryption">Customer managed key encryption, can be
         /// enabled or disabled</param>
+        /// <param name="extendedNetworkBlocks">Array of additional networks
+        /// noncontiguous with networkBlock. Networks must be
+        /// unique and non-overlapping across VNet in your subscription,
+        /// on-premise, and
+        /// this privateCloud networkBlock attribute. Make sure the CIDR format
+        /// conforms to
+        /// (A.B.C.D/X).</param>
         /// <param name="provisioningState">The provisioning state. Possible
-        /// values include: 'Succeeded', 'Failed', 'Cancelled', 'Pending',
-        /// 'Building', 'Deleting', 'Updating'</param>
+        /// values include: 'Succeeded', 'Failed', 'Canceled', 'Cancelled',
+        /// 'Pending', 'Building', 'Deleting', 'Updating'</param>
         /// <param name="circuit">An ExpressRoute Circuit</param>
         /// <param name="endpoints">The endpoints</param>
         /// <param name="managementNetwork">Network used to access vCenter
@@ -76,19 +91,27 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <param name="externalCloudLinks">Array of cloud link IDs from other
         /// clouds that connect to this one</param>
         /// <param name="secondaryCircuit">A secondary expressRoute circuit
-        /// from a separate AZ. Only present in a stretched private
-        /// cloud</param>
-        /// <param name="identity">The identity of the private cloud, if
-        /// configured.</param>
-        public PrivateCloud(Sku sku, string networkBlock, string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), ManagementCluster managementCluster = default(ManagementCluster), string internet = default(string), IList<IdentitySource> identitySources = default(IList<IdentitySource>), AvailabilityProperties availability = default(AvailabilityProperties), Encryption encryption = default(Encryption), string provisioningState = default(string), Circuit circuit = default(Circuit), Endpoints endpoints = default(Endpoints), string managementNetwork = default(string), string provisioningNetwork = default(string), string vmotionNetwork = default(string), string vcenterPassword = default(string), string nsxtPassword = default(string), string vcenterCertificateThumbprint = default(string), string nsxtCertificateThumbprint = default(string), IList<string> externalCloudLinks = default(IList<string>), Circuit secondaryCircuit = default(Circuit), PrivateCloudIdentity identity = default(PrivateCloudIdentity))
-            : base(id, name, type, location, tags)
+        /// from a separate AZ. Only present in a
+        /// stretched private cloud</param>
+        /// <param name="nsxPublicIpQuotaRaised">Flag to indicate whether the
+        /// private cloud has the quota for provisioned NSX
+        /// Public IP count raised from 64 to 1024. Possible values include:
+        /// 'Enabled', 'Disabled'</param>
+        /// <param name="virtualNetworkId">Azure resource ID of the virtual
+        /// network</param>
+        /// <param name="dnsZoneType">The type of DNS zone to use. Possible
+        /// values include: 'Public', 'Private'</param>
+        /// <param name="identity">The managed service identities assigned to
+        /// this resource.</param>
+        public PrivateCloud(string location, ManagementCluster managementCluster, string networkBlock, Sku sku, string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), IDictionary<string, string> tags = default(IDictionary<string, string>), string internet = default(string), IList<IdentitySource> identitySources = default(IList<IdentitySource>), AvailabilityProperties availability = default(AvailabilityProperties), Encryption encryption = default(Encryption), IList<string> extendedNetworkBlocks = default(IList<string>), string provisioningState = default(string), Circuit circuit = default(Circuit), Endpoints endpoints = default(Endpoints), string managementNetwork = default(string), string provisioningNetwork = default(string), string vmotionNetwork = default(string), string vcenterPassword = default(string), string nsxtPassword = default(string), string vcenterCertificateThumbprint = default(string), string nsxtCertificateThumbprint = default(string), IList<string> externalCloudLinks = default(IList<string>), Circuit secondaryCircuit = default(Circuit), string nsxPublicIpQuotaRaised = default(string), string virtualNetworkId = default(string), string dnsZoneType = default(string), SystemAssignedServiceIdentity identity = default(SystemAssignedServiceIdentity))
+            : base(location, id, name, type, systemData, tags)
         {
-            Sku = sku;
             ManagementCluster = managementCluster;
             Internet = internet;
             IdentitySources = identitySources;
             Availability = availability;
             Encryption = encryption;
+            ExtendedNetworkBlocks = extendedNetworkBlocks;
             ProvisioningState = provisioningState;
             Circuit = circuit;
             Endpoints = endpoints;
@@ -102,6 +125,10 @@ namespace Microsoft.Azure.Management.Avs.Models
             NsxtCertificateThumbprint = nsxtCertificateThumbprint;
             ExternalCloudLinks = externalCloudLinks;
             SecondaryCircuit = secondaryCircuit;
+            NsxPublicIpQuotaRaised = nsxPublicIpQuotaRaised;
+            VirtualNetworkId = virtualNetworkId;
+            DnsZoneType = dnsZoneType;
+            Sku = sku;
             Identity = identity;
             CustomInit();
         }
@@ -110,12 +137,6 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
-
-        /// <summary>
-        /// Gets or sets the private cloud SKU
-        /// </summary>
-        [JsonProperty(PropertyName = "sku")]
-        public Sku Sku { get; set; }
 
         /// <summary>
         /// Gets or sets the default cluster used for management
@@ -151,9 +172,21 @@ namespace Microsoft.Azure.Management.Avs.Models
         public Encryption Encryption { get; set; }
 
         /// <summary>
+        /// Gets or sets array of additional networks noncontiguous with
+        /// networkBlock. Networks must be
+        /// unique and non-overlapping across VNet in your subscription,
+        /// on-premise, and
+        /// this privateCloud networkBlock attribute. Make sure the CIDR format
+        /// conforms to
+        /// (A.B.C.D/X).
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.extendedNetworkBlocks")]
+        public IList<string> ExtendedNetworkBlocks { get; set; }
+
+        /// <summary>
         /// Gets the provisioning state. Possible values include: 'Succeeded',
-        /// 'Failed', 'Cancelled', 'Pending', 'Building', 'Deleting',
-        /// 'Updating'
+        /// 'Failed', 'Canceled', 'Cancelled', 'Pending', 'Building',
+        /// 'Deleting', 'Updating'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
         public string ProvisioningState { get; private set; }
@@ -172,9 +205,10 @@ namespace Microsoft.Azure.Management.Avs.Models
 
         /// <summary>
         /// Gets or sets the block of addresses should be unique across VNet in
-        /// your subscription as well as on-premise. Make sure the CIDR format
-        /// is conformed to (A.B.C.D/X) where A,B,C,D are between 0 and 255,
-        /// and X is between 0 and 22
+        /// your subscription as
+        /// well as on-premise. Make sure the CIDR format is conformed to
+        /// (A.B.C.D/X) where
+        /// A,B,C,D are between 0 and 255, and X is between 0 and 22
         /// </summary>
         [JsonProperty(PropertyName = "properties.networkBlock")]
         public string NetworkBlock { get; set; }
@@ -233,16 +267,47 @@ namespace Microsoft.Azure.Management.Avs.Models
 
         /// <summary>
         /// Gets or sets a secondary expressRoute circuit from a separate AZ.
-        /// Only present in a stretched private cloud
+        /// Only present in a
+        /// stretched private cloud
         /// </summary>
         [JsonProperty(PropertyName = "properties.secondaryCircuit")]
         public Circuit SecondaryCircuit { get; set; }
 
         /// <summary>
-        /// Gets or sets the identity of the private cloud, if configured.
+        /// Gets flag to indicate whether the private cloud has the quota for
+        /// provisioned NSX
+        /// Public IP count raised from 64 to 1024. Possible values include:
+        /// 'Enabled', 'Disabled'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.nsxPublicIpQuotaRaised")]
+        public string NsxPublicIpQuotaRaised { get; private set; }
+
+        /// <summary>
+        /// Gets or sets azure resource ID of the virtual network
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.virtualNetworkId")]
+        public string VirtualNetworkId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of DNS zone to use. Possible values include:
+        /// 'Public', 'Private'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.dnsZoneType")]
+        public string DnsZoneType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the SKU (Stock Keeping Unit) assigned to this
+        /// resource.
+        /// </summary>
+        [JsonProperty(PropertyName = "sku")]
+        public Sku Sku { get; set; }
+
+        /// <summary>
+        /// Gets or sets the managed service identities assigned to this
+        /// resource.
         /// </summary>
         [JsonProperty(PropertyName = "identity")]
-        public PrivateCloudIdentity Identity { get; set; }
+        public SystemAssignedServiceIdentity Identity { get; set; }
 
         /// <summary>
         /// Validate the object.
@@ -250,19 +315,28 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <exception cref="ValidationException">
         /// Thrown if validation fails
         /// </exception>
-        public virtual void Validate()
+        public override void Validate()
         {
-            if (Sku == null)
+            base.Validate();
+            if (ManagementCluster == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "Sku");
+                throw new ValidationException(ValidationRules.CannotBeNull, "ManagementCluster");
             }
             if (NetworkBlock == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "NetworkBlock");
             }
+            if (Sku == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "Sku");
+            }
             if (Sku != null)
             {
                 Sku.Validate();
+            }
+            if (Identity != null)
+            {
+                Identity.Validate();
             }
         }
     }

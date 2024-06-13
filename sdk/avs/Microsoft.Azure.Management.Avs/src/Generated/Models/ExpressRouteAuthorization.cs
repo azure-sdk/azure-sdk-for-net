@@ -19,7 +19,7 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// ExpressRoute Circuit Authorization
     /// </summary>
     [Rest.Serialization.JsonTransformation]
-    public partial class ExpressRouteAuthorization : Resource
+    public partial class ExpressRouteAuthorization : ProxyResource
     {
         /// <summary>
         /// Initializes a new instance of the ExpressRouteAuthorization class.
@@ -32,20 +32,25 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Initializes a new instance of the ExpressRouteAuthorization class.
         /// </summary>
-        /// <param name="id">Resource ID.</param>
-        /// <param name="name">Resource name.</param>
-        /// <param name="type">Resource type.</param>
-        /// <param name="provisioningState">The state of the  ExpressRoute
+        /// <param name="id">Fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="systemData">Azure Resource Manager metadata containing
+        /// createdBy and modifiedBy information.</param>
+        /// <param name="provisioningState">The state of the ExpressRoute
         /// Circuit Authorization provisioning. Possible values include:
-        /// 'Succeeded', 'Failed', 'Updating'</param>
+        /// 'Succeeded', 'Failed', 'Canceled', 'Updating'</param>
         /// <param name="expressRouteAuthorizationId">The ID of the
         /// ExpressRoute Circuit Authorization</param>
         /// <param name="expressRouteAuthorizationKey">The key of the
         /// ExpressRoute Circuit Authorization</param>
         /// <param name="expressRouteId">The ID of the ExpressRoute
         /// Circuit</param>
-        public ExpressRouteAuthorization(string id = default(string), string name = default(string), string type = default(string), string provisioningState = default(string), string expressRouteAuthorizationId = default(string), string expressRouteAuthorizationKey = default(string), string expressRouteId = default(string))
-            : base(id, name, type)
+        public ExpressRouteAuthorization(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string provisioningState = default(string), string expressRouteAuthorizationId = default(string), string expressRouteAuthorizationKey = default(string), string expressRouteId = default(string))
+            : base(id, name, type, systemData)
         {
             ProvisioningState = provisioningState;
             ExpressRouteAuthorizationId = expressRouteAuthorizationId;
@@ -60,9 +65,9 @@ namespace Microsoft.Azure.Management.Avs.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets the state of the  ExpressRoute Circuit Authorization
+        /// Gets the state of the ExpressRoute Circuit Authorization
         /// provisioning. Possible values include: 'Succeeded', 'Failed',
-        /// 'Updating'
+        /// 'Canceled', 'Updating'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
         public string ProvisioningState { get; private set; }
