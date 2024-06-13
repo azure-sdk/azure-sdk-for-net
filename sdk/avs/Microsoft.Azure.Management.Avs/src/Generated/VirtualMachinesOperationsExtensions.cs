@@ -22,7 +22,7 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class VirtualMachinesOperationsExtensions
     {
             /// <summary>
-            /// List of virtual machines in a private cloud cluster
+            /// List VirtualMachine resources by Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -34,7 +34,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             public static IPage<VirtualMachine> List(this IVirtualMachinesOperations operations, string resourceGroupName, string privateCloudName, string clusterName)
             {
@@ -42,7 +42,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List of virtual machines in a private cloud cluster
+            /// List VirtualMachine resources by Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -54,7 +54,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -68,7 +68,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a virtual machine by id in a private cloud cluster
+            /// Get a VirtualMachine
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -80,10 +80,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='virtualMachineId'>
-            /// Virtual Machine identifier
+            /// ID of the virtual machine.
             /// </param>
             public static VirtualMachine Get(this IVirtualMachinesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string virtualMachineId)
             {
@@ -91,7 +91,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a virtual machine by id in a private cloud cluster
+            /// Get a VirtualMachine
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -103,10 +103,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='virtualMachineId'>
-            /// Virtual Machine identifier
+            /// ID of the virtual machine.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -132,17 +132,17 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='virtualMachineId'>
-            /// Virtual Machine identifier
+            /// ID of the virtual machine.
             /// </param>
             /// <param name='restrictMovement'>
-            /// Whether VM DRS-driven movement is restricted (Enabled) or not (Disabled)
+            /// The body type of the operation request.
             /// </param>
-            public static void RestrictMovement(this IVirtualMachinesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string virtualMachineId, VirtualMachineRestrictMovement restrictMovement)
+            public static VirtualMachinesRestrictMovementHeaders RestrictMovement(this IVirtualMachinesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string virtualMachineId, VirtualMachineRestrictMovement restrictMovement)
             {
-                operations.RestrictMovementAsync(resourceGroupName, privateCloudName, clusterName, virtualMachineId, restrictMovement).GetAwaiter().GetResult();
+                return operations.RestrictMovementAsync(resourceGroupName, privateCloudName, clusterName, virtualMachineId, restrictMovement).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -158,20 +158,23 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='virtualMachineId'>
-            /// Virtual Machine identifier
+            /// ID of the virtual machine.
             /// </param>
             /// <param name='restrictMovement'>
-            /// Whether VM DRS-driven movement is restricted (Enabled) or not (Disabled)
+            /// The body type of the operation request.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RestrictMovementAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string virtualMachineId, VirtualMachineRestrictMovement restrictMovement, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesRestrictMovementHeaders> RestrictMovementAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string virtualMachineId, VirtualMachineRestrictMovement restrictMovement, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.RestrictMovementWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, virtualMachineId, restrictMovement, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.RestrictMovementWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, virtualMachineId, restrictMovement, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -187,17 +190,17 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='virtualMachineId'>
-            /// Virtual Machine identifier
+            /// ID of the virtual machine.
             /// </param>
             /// <param name='restrictMovement'>
-            /// Whether VM DRS-driven movement is restricted (Enabled) or not (Disabled)
+            /// The body type of the operation request.
             /// </param>
-            public static void BeginRestrictMovement(this IVirtualMachinesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string virtualMachineId, VirtualMachineRestrictMovement restrictMovement)
+            public static VirtualMachinesRestrictMovementHeaders BeginRestrictMovement(this IVirtualMachinesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string virtualMachineId, VirtualMachineRestrictMovement restrictMovement)
             {
-                operations.BeginRestrictMovementAsync(resourceGroupName, privateCloudName, clusterName, virtualMachineId, restrictMovement).GetAwaiter().GetResult();
+                return operations.BeginRestrictMovementAsync(resourceGroupName, privateCloudName, clusterName, virtualMachineId, restrictMovement).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -213,24 +216,27 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='virtualMachineId'>
-            /// Virtual Machine identifier
+            /// ID of the virtual machine.
             /// </param>
             /// <param name='restrictMovement'>
-            /// Whether VM DRS-driven movement is restricted (Enabled) or not (Disabled)
+            /// The body type of the operation request.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginRestrictMovementAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string virtualMachineId, VirtualMachineRestrictMovement restrictMovement, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesRestrictMovementHeaders> BeginRestrictMovementAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string virtualMachineId, VirtualMachineRestrictMovement restrictMovement, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginRestrictMovementWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, virtualMachineId, restrictMovement, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginRestrictMovementWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, virtualMachineId, restrictMovement, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// List of virtual machines in a private cloud cluster
+            /// List VirtualMachine resources by Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -244,7 +250,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List of virtual machines in a private cloud cluster
+            /// List VirtualMachine resources by Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.

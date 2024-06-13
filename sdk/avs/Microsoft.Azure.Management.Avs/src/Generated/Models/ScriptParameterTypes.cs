@@ -16,11 +16,29 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class ScriptParameterTypes
     {
+        /// <summary>
+        /// is string
+        /// </summary>
         public const string String = "String";
+        /// <summary>
+        /// is secure string
+        /// </summary>
         public const string SecureString = "SecureString";
+        /// <summary>
+        /// is credential
+        /// </summary>
         public const string Credential = "Credential";
+        /// <summary>
+        /// is int
+        /// </summary>
         public const string Int = "Int";
+        /// <summary>
+        /// is bool
+        /// </summary>
         public const string Bool = "Bool";
+        /// <summary>
+        /// is float
+        /// </summary>
         public const string Float = "Float";
     }
 }
