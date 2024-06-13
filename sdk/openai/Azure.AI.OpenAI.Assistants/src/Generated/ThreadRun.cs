@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace Azure.AI.OpenAI.Assistants
 {
-    /// <summary> Data representing a single evaluation run of an assistant thread. </summary>
+    /// <summary> Data representing a single evaluation run of an assistant thread. And. </summary>
     public partial class ThreadRun
     {
         /// <summary>
