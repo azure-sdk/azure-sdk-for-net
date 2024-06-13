@@ -16,9 +16,21 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class ScriptOutputStreamType
     {
+        /// <summary>
+        /// is information
+        /// </summary>
         public const string Information = "Information";
+        /// <summary>
+        /// is warning
+        /// </summary>
         public const string Warning = "Warning";
+        /// <summary>
+        /// is output
+        /// </summary>
         public const string Output = "Output";
+        /// <summary>
+        /// is error
+        /// </summary>
         public const string Error = "Error";
     }
 }

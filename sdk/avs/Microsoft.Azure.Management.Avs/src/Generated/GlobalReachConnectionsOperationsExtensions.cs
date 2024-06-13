@@ -22,7 +22,7 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class GlobalReachConnectionsOperationsExtensions
     {
             /// <summary>
-            /// List global reach connections in a private cloud
+            /// List GlobalReachConnection resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -39,7 +39,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List global reach connections in a private cloud
+            /// List GlobalReachConnection resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -62,7 +62,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a global reach connection by name in a private cloud
+            /// Get a GlobalReachConnection
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -74,7 +74,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='globalReachConnectionName'>
-            /// Name of the global reach connection in the private cloud
+            /// Name of the global reach connection
             /// </param>
             public static GlobalReachConnection Get(this IGlobalReachConnectionsOperations operations, string resourceGroupName, string privateCloudName, string globalReachConnectionName)
             {
@@ -82,7 +82,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a global reach connection by name in a private cloud
+            /// Get a GlobalReachConnection
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -94,7 +94,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='globalReachConnectionName'>
-            /// Name of the global reach connection in the private cloud
+            /// Name of the global reach connection
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -108,7 +108,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a global reach connection in a private cloud
+            /// Create a GlobalReachConnection
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -117,13 +117,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='globalReachConnectionName'>
-            /// Name of the global reach connection in the private cloud
+            /// Name of the global reach connection
             /// </param>
             /// <param name='globalReachConnection'>
-            /// A global reach connection in the private cloud
+            /// Resource create parameters.
             /// </param>
             public static GlobalReachConnection CreateOrUpdate(this IGlobalReachConnectionsOperations operations, string resourceGroupName, string privateCloudName, string globalReachConnectionName, GlobalReachConnection globalReachConnection)
             {
@@ -131,7 +131,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a global reach connection in a private cloud
+            /// Create a GlobalReachConnection
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -140,13 +140,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='globalReachConnectionName'>
-            /// Name of the global reach connection in the private cloud
+            /// Name of the global reach connection
             /// </param>
             /// <param name='globalReachConnection'>
-            /// A global reach connection in the private cloud
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -160,7 +160,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a global reach connection in a private cloud
+            /// Delete a GlobalReachConnection
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -172,15 +172,15 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='globalReachConnectionName'>
-            /// Name of the global reach connection in the private cloud
+            /// Name of the global reach connection
             /// </param>
-            public static void Delete(this IGlobalReachConnectionsOperations operations, string resourceGroupName, string privateCloudName, string globalReachConnectionName)
+            public static GlobalReachConnectionsDeleteHeaders Delete(this IGlobalReachConnectionsOperations operations, string resourceGroupName, string privateCloudName, string globalReachConnectionName)
             {
-                operations.DeleteAsync(resourceGroupName, privateCloudName, globalReachConnectionName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, privateCloudName, globalReachConnectionName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a global reach connection in a private cloud
+            /// Delete a GlobalReachConnection
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -192,18 +192,21 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='globalReachConnectionName'>
-            /// Name of the global reach connection in the private cloud
+            /// Name of the global reach connection
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IGlobalReachConnectionsOperations operations, string resourceGroupName, string privateCloudName, string globalReachConnectionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<GlobalReachConnectionsDeleteHeaders> DeleteAsync(this IGlobalReachConnectionsOperations operations, string resourceGroupName, string privateCloudName, string globalReachConnectionName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, globalReachConnectionName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, globalReachConnectionName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Create or update a global reach connection in a private cloud
+            /// Create a GlobalReachConnection
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -212,13 +215,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='globalReachConnectionName'>
-            /// Name of the global reach connection in the private cloud
+            /// Name of the global reach connection
             /// </param>
             /// <param name='globalReachConnection'>
-            /// A global reach connection in the private cloud
+            /// Resource create parameters.
             /// </param>
             public static GlobalReachConnection BeginCreateOrUpdate(this IGlobalReachConnectionsOperations operations, string resourceGroupName, string privateCloudName, string globalReachConnectionName, GlobalReachConnection globalReachConnection)
             {
@@ -226,7 +229,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a global reach connection in a private cloud
+            /// Create a GlobalReachConnection
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -235,13 +238,13 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='privateCloudName'>
-            /// The name of the private cloud.
+            /// Name of the private cloud
             /// </param>
             /// <param name='globalReachConnectionName'>
-            /// Name of the global reach connection in the private cloud
+            /// Name of the global reach connection
             /// </param>
             /// <param name='globalReachConnection'>
-            /// A global reach connection in the private cloud
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -255,7 +258,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a global reach connection in a private cloud
+            /// Delete a GlobalReachConnection
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -267,15 +270,15 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='globalReachConnectionName'>
-            /// Name of the global reach connection in the private cloud
+            /// Name of the global reach connection
             /// </param>
-            public static void BeginDelete(this IGlobalReachConnectionsOperations operations, string resourceGroupName, string privateCloudName, string globalReachConnectionName)
+            public static GlobalReachConnectionsDeleteHeaders BeginDelete(this IGlobalReachConnectionsOperations operations, string resourceGroupName, string privateCloudName, string globalReachConnectionName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, privateCloudName, globalReachConnectionName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, privateCloudName, globalReachConnectionName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a global reach connection in a private cloud
+            /// Delete a GlobalReachConnection
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -287,18 +290,21 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='globalReachConnectionName'>
-            /// Name of the global reach connection in the private cloud
+            /// Name of the global reach connection
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IGlobalReachConnectionsOperations operations, string resourceGroupName, string privateCloudName, string globalReachConnectionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<GlobalReachConnectionsDeleteHeaders> BeginDeleteAsync(this IGlobalReachConnectionsOperations operations, string resourceGroupName, string privateCloudName, string globalReachConnectionName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, globalReachConnectionName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, globalReachConnectionName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// List global reach connections in a private cloud
+            /// List GlobalReachConnection resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -312,7 +318,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List global reach connections in a private cloud
+            /// List GlobalReachConnection resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.

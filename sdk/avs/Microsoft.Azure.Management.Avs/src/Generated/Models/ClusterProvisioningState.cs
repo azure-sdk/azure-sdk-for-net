@@ -16,10 +16,29 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class ClusterProvisioningState
     {
+        /// <summary>
+        /// Resource has been created.
+        /// </summary>
         public const string Succeeded = "Succeeded";
+        /// <summary>
+        /// Resource creation failed.
+        /// </summary>
         public const string Failed = "Failed";
+        /// <summary>
+        /// Resource creation was canceled.
+        /// </summary>
+        public const string Canceled = "Canceled";
+        /// <summary>
+        /// is cancelled
+        /// </summary>
         public const string Cancelled = "Cancelled";
+        /// <summary>
+        /// is deleting
+        /// </summary>
         public const string Deleting = "Deleting";
+        /// <summary>
+        /// is updating
+        /// </summary>
         public const string Updating = "Updating";
     }
 }
