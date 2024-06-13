@@ -27,6 +27,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         private const string JsonValue = "Json";
         private const string CustomClrValue = "CustomClr";
         private const string ParquetValue = "Parquet";
+        private const string DeltaValue = "Delta";
 
         /// <summary> Csv. </summary>
         public static EventSerializationType Csv { get; } = new EventSerializationType(CsvValue);
@@ -38,6 +39,8 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         public static EventSerializationType CustomClr { get; } = new EventSerializationType(CustomClrValue);
         /// <summary> Parquet. </summary>
         public static EventSerializationType Parquet { get; } = new EventSerializationType(ParquetValue);
+        /// <summary> Delta. </summary>
+        public static EventSerializationType Delta { get; } = new EventSerializationType(DeltaValue);
         /// <summary> Determines if two <see cref="EventSerializationType"/> values are the same. </summary>
         public static bool operator ==(EventSerializationType left, EventSerializationType right) => left.Equals(right);
         /// <summary> Determines if two <see cref="EventSerializationType"/> values are not the same. </summary>

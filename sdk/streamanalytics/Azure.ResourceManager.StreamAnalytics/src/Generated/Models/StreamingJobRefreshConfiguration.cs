@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="refreshInterval"> The refresh interval. </param>
         /// <param name="refreshType"> This property indicates which data refresh option to use, Blocking or Nonblocking. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal StreamingJobRefreshConfiguration(string pathPattern, string dateFormat, string timeFormat, string refreshInterval, DataRefreshType? refreshType, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal StreamingJobRefreshConfiguration(string pathPattern, string dateFormat, string timeFormat, string refreshInterval, UpdatableUdfRefreshType? refreshType, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             PathPattern = pathPattern;
             DateFormat = dateFormat;
@@ -76,6 +76,6 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <summary> The refresh interval. </summary>
         public string RefreshInterval { get; set; }
         /// <summary> This property indicates which data refresh option to use, Blocking or Nonblocking. </summary>
-        public DataRefreshType? RefreshType { get; set; }
+        public UpdatableUdfRefreshType? RefreshType { get; set; }
     }
 }
