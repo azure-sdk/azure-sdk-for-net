@@ -6,12 +6,13 @@ Run `dotnet build /t:GenerateCode` to generate code.
 > see https://aka.ms/autorest
 
 ``` yaml
-input-file:
-- https://github.com/Azure/azure-rest-api-specs/blob/afa158ef56a05f6603924f4a493817cec332b113/specification/purview/data-plane/Azure.Analytics.Purview.Workflow/preview/2023-10-01-preview/purviewWorkflow.json
+require:
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/purview/data-plane/readme.md
 security: AADToken
 security-scopes: https://purview.azure.net/.default
 
 ```
+
 
 
 
