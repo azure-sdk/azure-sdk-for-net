@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.SecurityCenter
         }
 
         private readonly ClientDiagnostics _sensitivitySettingClientDiagnostics;
-        private readonly SecurityCenterRestOperations _sensitivitySettingRestClient;
+        private readonly SensitivitySettingsRestOperations _sensitivitySettingRestClient;
         private readonly SensitivitySettingData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.SecurityCenter
         {
             _sensitivitySettingClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.SecurityCenter", ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ResourceType, out string sensitivitySettingApiVersion);
-            _sensitivitySettingRestClient = new SecurityCenterRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, sensitivitySettingApiVersion);
+            _sensitivitySettingRestClient = new SensitivitySettingsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, sensitivitySettingApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -95,7 +95,7 @@ namespace Azure.ResourceManager.SecurityCenter
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetSensitivitySettings</description>
+        /// <description>SensitivitySettings_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -114,7 +114,7 @@ namespace Azure.ResourceManager.SecurityCenter
             scope.Start();
             try
             {
-                var response = await _sensitivitySettingRestClient.GetSensitivitySettingsAsync(cancellationToken).ConfigureAwait(false);
+                var response = await _sensitivitySettingRestClient.GetAsync(cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new SensitivitySettingResource(Client, response.Value), response.GetRawResponse());
@@ -135,7 +135,7 @@ namespace Azure.ResourceManager.SecurityCenter
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetSensitivitySettings</description>
+        /// <description>SensitivitySettings_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.SecurityCenter
             scope.Start();
             try
             {
-                var response = _sensitivitySettingRestClient.GetSensitivitySettings(cancellationToken);
+                var response = _sensitivitySettingRestClient.Get(cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new SensitivitySettingResource(Client, response.Value), response.GetRawResponse());
@@ -167,7 +167,7 @@ namespace Azure.ResourceManager.SecurityCenter
         }
 
         /// <summary>
-        /// Updates data sensitivity settings for sensitive data discovery
+        /// Create or update data sensitivity settings for sensitive data discovery
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -175,7 +175,7 @@ namespace Azure.ResourceManager.SecurityCenter
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>UpdateSensitivitySettings</description>
+        /// <description>SensitivitySettings_CreateOrUpdate</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -199,8 +199,8 @@ namespace Azure.ResourceManager.SecurityCenter
             scope.Start();
             try
             {
-                var response = await _sensitivitySettingRestClient.UpdateSensitivitySettingsAsync(content, cancellationToken).ConfigureAwait(false);
-                var uri = _sensitivitySettingRestClient.CreateUpdateSensitivitySettingsRequestUri(content);
+                var response = await _sensitivitySettingRestClient.CreateOrUpdateAsync(content, cancellationToken).ConfigureAwait(false);
+                var uri = _sensitivitySettingRestClient.CreateCreateOrUpdateRequestUri(content);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new SecurityCenterArmOperation<SensitivitySettingResource>(Response.FromValue(new SensitivitySettingResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
@@ -215,7 +215,7 @@ namespace Azure.ResourceManager.SecurityCenter
         }
 
         /// <summary>
-        /// Updates data sensitivity settings for sensitive data discovery
+        /// Create or update data sensitivity settings for sensitive data discovery
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -223,7 +223,7 @@ namespace Azure.ResourceManager.SecurityCenter
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>UpdateSensitivitySettings</description>
+        /// <description>SensitivitySettings_CreateOrUpdate</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -247,8 +247,8 @@ namespace Azure.ResourceManager.SecurityCenter
             scope.Start();
             try
             {
-                var response = _sensitivitySettingRestClient.UpdateSensitivitySettings(content, cancellationToken);
-                var uri = _sensitivitySettingRestClient.CreateUpdateSensitivitySettingsRequestUri(content);
+                var response = _sensitivitySettingRestClient.CreateOrUpdate(content, cancellationToken);
+                var uri = _sensitivitySettingRestClient.CreateCreateOrUpdateRequestUri(content);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new SecurityCenterArmOperation<SensitivitySettingResource>(Response.FromValue(new SensitivitySettingResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
