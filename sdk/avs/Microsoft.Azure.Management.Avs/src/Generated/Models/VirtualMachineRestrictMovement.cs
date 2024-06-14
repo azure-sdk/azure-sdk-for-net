@@ -31,8 +31,9 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// Initializes a new instance of the VirtualMachineRestrictMovement
         /// class.
         /// </summary>
-        /// <param name="restrictMovement">Possible values include: 'Enabled',
-        /// 'Disabled'</param>
+        /// <param name="restrictMovement">Whether VM DRS-driven movement is
+        /// restricted (enabled) or not (disabled). Possible values include:
+        /// 'Enabled', 'Disabled'</param>
         public VirtualMachineRestrictMovement(string restrictMovement = default(string))
         {
             RestrictMovement = restrictMovement;
@@ -45,7 +46,8 @@ namespace Microsoft.Azure.Management.Avs.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets possible values include: 'Enabled', 'Disabled'
+        /// Gets or sets whether VM DRS-driven movement is restricted (enabled)
+        /// or not (disabled). Possible values include: 'Enabled', 'Disabled'
         /// </summary>
         [JsonProperty(PropertyName = "restrictMovement")]
         public string RestrictMovement { get; set; }
