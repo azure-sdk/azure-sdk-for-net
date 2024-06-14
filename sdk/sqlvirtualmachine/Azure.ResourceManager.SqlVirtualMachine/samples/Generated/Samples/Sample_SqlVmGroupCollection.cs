@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetsASQLVirtualMachineGroup()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/GetSqlVirtualMachineGroup.json
+            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2023-10-01/examples/GetSqlVirtualMachineGroup.json
             // this example is just showing the usage of "SqlVirtualMachineGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetsASQLVirtualMachineGroup()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/GetSqlVirtualMachineGroup.json
+            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2023-10-01/examples/GetSqlVirtualMachineGroup.json
             // this example is just showing the usage of "SqlVirtualMachineGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -85,7 +85,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetsASQLVirtualMachineGroup()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/GetSqlVirtualMachineGroup.json
+            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2023-10-01/examples/GetSqlVirtualMachineGroup.json
             // this example is just showing the usage of "SqlVirtualMachineGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -127,7 +127,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreatesOrUpdatesASQLVirtualMachineGroup()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/CreateOrUpdateSqlVirtualMachineGroup.json
+            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2023-10-01/examples/CreateOrUpdateSqlVirtualMachineGroup.json
             // this example is just showing the usage of "SqlVirtualMachineGroups_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -158,6 +158,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
                     ClusterBootstrapAccount = "testrpadmin",
                     ClusterOperatorAccount = "testrp@testdomain.com",
                     SqlServiceAccount = "sqlservice@testdomain.com",
+                    IsSqlServiceAccountGmsa = false,
                     StorageAccountUri = new Uri("https://storgact.blob.core.windows.net/"),
                     StorageAccountPrimaryKey = "<primary storage access key>",
                     ClusterSubnetType = SqlVmClusterSubnetType.MultiSubnet,
@@ -182,7 +183,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_GetsAllSQLVirtualMachineGroupsInAResourceGroup()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/ListByResourceGroupSqlVirtualMachineGroup.json
+            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2023-10-01/examples/ListByResourceGroupSqlVirtualMachineGroup.json
             // this example is just showing the usage of "SqlVirtualMachineGroups_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

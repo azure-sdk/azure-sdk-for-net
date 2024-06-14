@@ -57,8 +57,9 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         /// <param name="isSqlSystemDBOnDataDisk"> SQL Server SystemDb Storage on DataPool if true. </param>
         /// <param name="diskConfigurationType"> Disk configuration to apply to SQL Server. </param>
         /// <param name="storageWorkloadType"> Storage workload type. </param>
+        /// <param name="enableStorageConfigBlade"> Enable SQL IaaS Agent storage configuration blade in Azure Portal. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SqlVmStorageConfigurationSettings(SqlStorageSettings sqlDataSettings, SqlStorageSettings sqlLogSettings, SqlTempDBSettings sqlTempDBSettings, bool? isSqlSystemDBOnDataDisk, SqlVmDiskConfigurationType? diskConfigurationType, SqlVmStorageWorkloadType? storageWorkloadType, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SqlVmStorageConfigurationSettings(SqlStorageSettings sqlDataSettings, SqlStorageSettings sqlLogSettings, SqlTempDBSettings sqlTempDBSettings, bool? isSqlSystemDBOnDataDisk, SqlVmDiskConfigurationType? diskConfigurationType, SqlVmStorageWorkloadType? storageWorkloadType, bool? enableStorageConfigBlade, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             SqlDataSettings = sqlDataSettings;
             SqlLogSettings = sqlLogSettings;
@@ -66,6 +67,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             IsSqlSystemDBOnDataDisk = isSqlSystemDBOnDataDisk;
             DiskConfigurationType = diskConfigurationType;
             StorageWorkloadType = storageWorkloadType;
+            EnableStorageConfigBlade = enableStorageConfigBlade;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -81,5 +83,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         public SqlVmDiskConfigurationType? DiskConfigurationType { get; set; }
         /// <summary> Storage workload type. </summary>
         public SqlVmStorageWorkloadType? StorageWorkloadType { get; set; }
+        /// <summary> Enable SQL IaaS Agent storage configuration blade in Azure Portal. </summary>
+        public bool? EnableStorageConfigBlade { get; set; }
     }
 }

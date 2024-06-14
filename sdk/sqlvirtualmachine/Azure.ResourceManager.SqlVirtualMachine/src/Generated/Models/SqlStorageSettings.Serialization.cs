@@ -41,6 +41,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                 writer.WritePropertyName("defaultFilePath"u8);
                 writer.WriteStringValue(DefaultFilePath);
             }
+            if (Optional.IsDefined(UseStoragePool))
+            {
+                writer.WritePropertyName("useStoragePool"u8);
+                writer.WriteBooleanValue(UseStoragePool.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -81,6 +86,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             }
             IList<int> luns = default;
             string defaultFilePath = default;
+            bool? useStoragePool = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -104,13 +110,22 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                     defaultFilePath = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("useStoragePool"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    useStoragePool = property.Value.GetBoolean();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new SqlStorageSettings(luns ?? new ChangeTrackingList<int>(), defaultFilePath, serializedAdditionalRawData);
+            return new SqlStorageSettings(luns ?? new ChangeTrackingList<int>(), defaultFilePath, useStoragePool, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<SqlStorageSettings>.Write(ModelReaderWriterOptions options)

@@ -37,6 +37,8 @@ namespace Azure.ResourceManager.SqlVirtualMachine
 
         private readonly ClientDiagnostics _sqlVmSqlVirtualMachinesClientDiagnostics;
         private readonly SqlVirtualMachinesRestOperations _sqlVmSqlVirtualMachinesRestClient;
+        private readonly ClientDiagnostics _sqlVmTroubleshootClientDiagnostics;
+        private readonly SqlVirtualMachineTroubleshootRestOperations _sqlVmTroubleshootRestClient;
         private readonly SqlVmData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -64,6 +66,8 @@ namespace Azure.ResourceManager.SqlVirtualMachine
             _sqlVmSqlVirtualMachinesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.SqlVirtualMachine", ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ResourceType, out string sqlVmSqlVirtualMachinesApiVersion);
             _sqlVmSqlVirtualMachinesRestClient = new SqlVirtualMachinesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, sqlVmSqlVirtualMachinesApiVersion);
+            _sqlVmTroubleshootClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.SqlVirtualMachine", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _sqlVmTroubleshootRestClient = new SqlVirtualMachineTroubleshootRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -103,7 +107,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -144,7 +148,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -185,7 +189,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -227,7 +231,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -257,7 +261,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         }
 
         /// <summary>
-        /// Updates a SQL virtual machine.
+        /// Updates SQL virtual machine tags.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -269,7 +273,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -290,7 +294,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
             try
             {
                 var response = await _sqlVmSqlVirtualMachinesRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, cancellationToken).ConfigureAwait(false);
-                var operation = new SqlVirtualMachineArmOperation<SqlVmResource>(new SqlVmOperationSource(Client), _sqlVmSqlVirtualMachinesClientDiagnostics, Pipeline, _sqlVmSqlVirtualMachinesRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch).Request, response, OperationFinalStateVia.Location);
+                var operation = new SqlVirtualMachineArmOperation<SqlVmResource>(new SqlVmOperationSource(Client), _sqlVmSqlVirtualMachinesClientDiagnostics, Pipeline, _sqlVmSqlVirtualMachinesRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -303,7 +307,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         }
 
         /// <summary>
-        /// Updates a SQL virtual machine.
+        /// Updates SQL virtual machine tags.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -315,7 +319,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -336,7 +340,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
             try
             {
                 var response = _sqlVmSqlVirtualMachinesRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, cancellationToken);
-                var operation = new SqlVirtualMachineArmOperation<SqlVmResource>(new SqlVmOperationSource(Client), _sqlVmSqlVirtualMachinesClientDiagnostics, Pipeline, _sqlVmSqlVirtualMachinesRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch).Request, response, OperationFinalStateVia.Location);
+                var operation = new SqlVirtualMachineArmOperation<SqlVmResource>(new SqlVmOperationSource(Client), _sqlVmSqlVirtualMachinesClientDiagnostics, Pipeline, _sqlVmSqlVirtualMachinesRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -349,91 +353,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         }
 
         /// <summary>
-        /// Uninstalls and reinstalls the SQL Iaas Extension.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SqlVirtualMachine/sqlVirtualMachines/{sqlVirtualMachineName}/redeploy</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>SqlVirtualMachines_Redeploy</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="SqlVmResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<ArmOperation> RedeployAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
-        {
-            using var scope = _sqlVmSqlVirtualMachinesClientDiagnostics.CreateScope("SqlVmResource.Redeploy");
-            scope.Start();
-            try
-            {
-                var response = await _sqlVmSqlVirtualMachinesRestClient.RedeployAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new SqlVirtualMachineArmOperation(_sqlVmSqlVirtualMachinesClientDiagnostics, Pipeline, _sqlVmSqlVirtualMachinesRestClient.CreateRedeployRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
-                if (waitUntil == WaitUntil.Completed)
-                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
-                return operation;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Uninstalls and reinstalls the SQL Iaas Extension.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SqlVirtualMachine/sqlVirtualMachines/{sqlVirtualMachineName}/redeploy</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>SqlVirtualMachines_Redeploy</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="SqlVmResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual ArmOperation Redeploy(WaitUntil waitUntil, CancellationToken cancellationToken = default)
-        {
-            using var scope = _sqlVmSqlVirtualMachinesClientDiagnostics.CreateScope("SqlVmResource.Redeploy");
-            scope.Start();
-            try
-            {
-                var response = _sqlVmSqlVirtualMachinesRestClient.Redeploy(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
-                var operation = new SqlVirtualMachineArmOperation(_sqlVmSqlVirtualMachinesClientDiagnostics, Pipeline, _sqlVmSqlVirtualMachinesRestClient.CreateRedeployRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
-                if (waitUntil == WaitUntil.Completed)
-                    operation.WaitForCompletionResponse(cancellationToken);
-                return operation;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Starts Assessment on SQL virtual machine.
+        /// Starts SQL best practices Assessment on SQL virtual machine.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -445,7 +365,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -475,7 +395,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         }
 
         /// <summary>
-        /// Starts Assessment on SQL virtual machine.
+        /// Starts SQL best practices Assessment on SQL virtual machine.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -487,7 +407,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -517,6 +437,266 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         }
 
         /// <summary>
+        /// Starts SQL best practices Assessment with Disk Config rules on SQL virtual machine
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SqlVirtualMachine/sqlVirtualMachines/{sqlVirtualMachineName}/fetchDCAssessment</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SqlVirtualMachines_FetchDCAssessment</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SqlVmResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="content"> Disk Config Assessment property. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual async Task<ArmOperation> FetchDCAssessmentAsync(WaitUntil waitUntil, DiskConfigAssessmentContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _sqlVmSqlVirtualMachinesClientDiagnostics.CreateScope("SqlVmResource.FetchDCAssessment");
+            scope.Start();
+            try
+            {
+                var response = await _sqlVmSqlVirtualMachinesRestClient.FetchDCAssessmentAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken).ConfigureAwait(false);
+                var operation = new SqlVirtualMachineArmOperation(_sqlVmSqlVirtualMachinesClientDiagnostics, Pipeline, _sqlVmSqlVirtualMachinesRestClient.CreateFetchDCAssessmentRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Starts SQL best practices Assessment with Disk Config rules on SQL virtual machine
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SqlVirtualMachine/sqlVirtualMachines/{sqlVirtualMachineName}/fetchDCAssessment</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SqlVirtualMachines_FetchDCAssessment</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SqlVmResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="content"> Disk Config Assessment property. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual ArmOperation FetchDCAssessment(WaitUntil waitUntil, DiskConfigAssessmentContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _sqlVmSqlVirtualMachinesClientDiagnostics.CreateScope("SqlVmResource.FetchDCAssessment");
+            scope.Start();
+            try
+            {
+                var response = _sqlVmSqlVirtualMachinesRestClient.FetchDCAssessment(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken);
+                var operation = new SqlVirtualMachineArmOperation(_sqlVmSqlVirtualMachinesClientDiagnostics, Pipeline, _sqlVmSqlVirtualMachinesRestClient.CreateFetchDCAssessmentRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Uninstalls and reinstalls the SQL IaaS Extension.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SqlVirtualMachine/sqlVirtualMachines/{sqlVirtualMachineName}/redeploy</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SqlVirtualMachines_Redeploy</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SqlVmResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<ArmOperation> RedeployAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        {
+            using var scope = _sqlVmSqlVirtualMachinesClientDiagnostics.CreateScope("SqlVmResource.Redeploy");
+            scope.Start();
+            try
+            {
+                var response = await _sqlVmSqlVirtualMachinesRestClient.RedeployAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new SqlVirtualMachineArmOperation(_sqlVmSqlVirtualMachinesClientDiagnostics, Pipeline, _sqlVmSqlVirtualMachinesRestClient.CreateRedeployRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Uninstalls and reinstalls the SQL IaaS Extension.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SqlVirtualMachine/sqlVirtualMachines/{sqlVirtualMachineName}/redeploy</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SqlVirtualMachines_Redeploy</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SqlVmResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual ArmOperation Redeploy(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        {
+            using var scope = _sqlVmSqlVirtualMachinesClientDiagnostics.CreateScope("SqlVmResource.Redeploy");
+            scope.Start();
+            try
+            {
+                var response = _sqlVmSqlVirtualMachinesRestClient.Redeploy(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                var operation = new SqlVirtualMachineArmOperation(_sqlVmSqlVirtualMachinesClientDiagnostics, Pipeline, _sqlVmSqlVirtualMachinesRestClient.CreateRedeployRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Starts SQL virtual machine troubleshooting.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SqlVirtualMachine/sqlVirtualMachines/{sqlVirtualMachineName}/troubleshoot</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SqlVirtualMachineTroubleshoot_Troubleshoot</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="sqlVmTroubleshooting"> The SQL virtual machine troubleshooting entity. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="sqlVmTroubleshooting"/> is null. </exception>
+        public virtual async Task<ArmOperation<SqlVmTroubleshooting>> TroubleshootSqlVirtualMachineTroubleshootAsync(WaitUntil waitUntil, SqlVmTroubleshooting sqlVmTroubleshooting, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(sqlVmTroubleshooting, nameof(sqlVmTroubleshooting));
+
+            using var scope = _sqlVmTroubleshootClientDiagnostics.CreateScope("SqlVmResource.TroubleshootSqlVirtualMachineTroubleshoot");
+            scope.Start();
+            try
+            {
+                var response = await _sqlVmTroubleshootRestClient.TroubleshootAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sqlVmTroubleshooting, cancellationToken).ConfigureAwait(false);
+                var operation = new SqlVirtualMachineArmOperation<SqlVmTroubleshooting>(new SqlVmTroubleshootingOperationSource(), _sqlVmTroubleshootClientDiagnostics, Pipeline, _sqlVmTroubleshootRestClient.CreateTroubleshootRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sqlVmTroubleshooting).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Starts SQL virtual machine troubleshooting.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SqlVirtualMachine/sqlVirtualMachines/{sqlVirtualMachineName}/troubleshoot</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SqlVirtualMachineTroubleshoot_Troubleshoot</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="sqlVmTroubleshooting"> The SQL virtual machine troubleshooting entity. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="sqlVmTroubleshooting"/> is null. </exception>
+        public virtual ArmOperation<SqlVmTroubleshooting> TroubleshootSqlVirtualMachineTroubleshoot(WaitUntil waitUntil, SqlVmTroubleshooting sqlVmTroubleshooting, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(sqlVmTroubleshooting, nameof(sqlVmTroubleshooting));
+
+            using var scope = _sqlVmTroubleshootClientDiagnostics.CreateScope("SqlVmResource.TroubleshootSqlVirtualMachineTroubleshoot");
+            scope.Start();
+            try
+            {
+                var response = _sqlVmTroubleshootRestClient.Troubleshoot(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sqlVmTroubleshooting, cancellationToken);
+                var operation = new SqlVirtualMachineArmOperation<SqlVmTroubleshooting>(new SqlVmTroubleshootingOperationSource(), _sqlVmTroubleshootClientDiagnostics, Pipeline, _sqlVmTroubleshootRestClient.CreateTroubleshootRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sqlVmTroubleshooting).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Add a tag to the current resource.
         /// <list type="bullet">
         /// <item>
@@ -529,7 +709,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -591,7 +771,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -653,7 +833,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -710,7 +890,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -767,7 +947,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -827,7 +1007,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

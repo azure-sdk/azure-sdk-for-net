@@ -56,18 +56,20 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         /// <param name="clusterBootstrapAccount"> Account name used for creating cluster (at minimum needs permissions to 'Create Computer Objects' in domain). </param>
         /// <param name="clusterOperatorAccount"> Account name used for operating cluster i.e. will be part of administrators group on all the participating virtual machines in the cluster. </param>
         /// <param name="sqlServiceAccount"> Account name under which SQL service will run on all participating SQL virtual machines in the cluster. </param>
+        /// <param name="isSqlServiceAccountGmsa"> The flag to check if SQL service account is GMSA. </param>
         /// <param name="fileShareWitnessPath"> Optional path for fileshare witness. </param>
         /// <param name="storageAccountUri"> Fully qualified ARM resource id of the witness storage account. </param>
         /// <param name="storageAccountPrimaryKey"> Primary key of the witness storage account. </param>
         /// <param name="clusterSubnetType"> Cluster subnet type. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal WindowsServerFailoverClusterDomainProfile(string domainFqdn, string organizationalUnitPath, string clusterBootstrapAccount, string clusterOperatorAccount, string sqlServiceAccount, string fileShareWitnessPath, Uri storageAccountUri, string storageAccountPrimaryKey, SqlVmClusterSubnetType? clusterSubnetType, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal WindowsServerFailoverClusterDomainProfile(string domainFqdn, string organizationalUnitPath, string clusterBootstrapAccount, string clusterOperatorAccount, string sqlServiceAccount, bool? isSqlServiceAccountGmsa, string fileShareWitnessPath, Uri storageAccountUri, string storageAccountPrimaryKey, SqlVmClusterSubnetType? clusterSubnetType, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             DomainFqdn = domainFqdn;
             OrganizationalUnitPath = organizationalUnitPath;
             ClusterBootstrapAccount = clusterBootstrapAccount;
             ClusterOperatorAccount = clusterOperatorAccount;
             SqlServiceAccount = sqlServiceAccount;
+            IsSqlServiceAccountGmsa = isSqlServiceAccountGmsa;
             FileShareWitnessPath = fileShareWitnessPath;
             StorageAccountUri = storageAccountUri;
             StorageAccountPrimaryKey = storageAccountPrimaryKey;
@@ -85,6 +87,8 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         public string ClusterOperatorAccount { get; set; }
         /// <summary> Account name under which SQL service will run on all participating SQL virtual machines in the cluster. </summary>
         public string SqlServiceAccount { get; set; }
+        /// <summary> The flag to check if SQL service account is GMSA. </summary>
+        public bool? IsSqlServiceAccountGmsa { get; set; }
         /// <summary> Optional path for fileshare witness. </summary>
         public string FileShareWitnessPath { get; set; }
         /// <summary> Fully qualified ARM resource id of the witness storage account. </summary>

@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.SqlVirtualMachine.Models
 {
-    /// <summary> Configure SQL best practices Assessment for databases in your SQL virtual machine. </summary>
-    public partial class SqlVmAssessmentSettings
+    /// <summary> Enable AAD authentication for SQL VM. </summary>
+    internal partial class AADAuthenticationSettings
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,29 +45,21 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SqlVmAssessmentSettings"/>. </summary>
-        public SqlVmAssessmentSettings()
+        /// <summary> Initializes a new instance of <see cref="AADAuthenticationSettings"/>. </summary>
+        public AADAuthenticationSettings()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="SqlVmAssessmentSettings"/>. </summary>
-        /// <param name="isEnabled"> Enable or disable SQL best practices Assessment feature on SQL virtual machine. </param>
-        /// <param name="runImmediately"> Run SQL best practices Assessment immediately on SQL virtual machine. </param>
-        /// <param name="schedule"> Schedule for SQL best practices Assessment. </param>
+        /// <summary> Initializes a new instance of <see cref="AADAuthenticationSettings"/>. </summary>
+        /// <param name="clientId"> The client Id of the Managed Identity to query Microsoft Graph API. An empty string must be used for the system assigned Managed Identity. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SqlVmAssessmentSettings(bool? isEnabled, bool? runImmediately, SqlVmAssessmentSchedule schedule, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AADAuthenticationSettings(string clientId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            IsEnabled = isEnabled;
-            RunImmediately = runImmediately;
-            Schedule = schedule;
+            ClientId = clientId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Enable or disable SQL best practices Assessment feature on SQL virtual machine. </summary>
-        public bool? IsEnabled { get; set; }
-        /// <summary> Run SQL best practices Assessment immediately on SQL virtual machine. </summary>
-        public bool? RunImmediately { get; set; }
-        /// <summary> Schedule for SQL best practices Assessment. </summary>
-        public SqlVmAssessmentSchedule Schedule { get; set; }
+        /// <summary> The client Id of the Managed Identity to query Microsoft Graph API. An empty string must be used for the system assigned Managed Identity. </summary>
+        public string ClientId { get; set; }
     }
 }
