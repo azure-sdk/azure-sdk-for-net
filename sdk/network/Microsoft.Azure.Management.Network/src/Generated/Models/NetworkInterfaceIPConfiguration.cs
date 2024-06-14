@@ -48,7 +48,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="loadBalancerInboundNatRules">A list of references of
         /// LoadBalancerInboundNatRules.</param>
         /// <param name="privateIPAddress">Private IP address of the IP
-        /// configuration.</param>
+        /// configuration. It can be a single IP address or a CIDR block in the
+        /// format &lt;address&gt;/&lt;prefix-length&gt;.</param>
+        /// <param name="privateIPAddressPrefixLength">The private IP address
+        /// prefix length. If specified and the allocation method is dynamic,
+        /// the service will allocate a CIDR block instead of a single IP
+        /// address.</param>
         /// <param name="privateIPAllocationMethod">The private IP address
         /// allocation method. Possible values include: 'Static',
         /// 'Dynamic'</param>
@@ -73,7 +78,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
         /// <param name="type">Resource type.</param>
-        public NetworkInterfaceIPConfiguration(string id = default(string), SubResource gatewayLoadBalancer = default(SubResource), IList<VirtualNetworkTap> virtualNetworkTaps = default(IList<VirtualNetworkTap>), IList<ApplicationGatewayBackendAddressPool> applicationGatewayBackendAddressPools = default(IList<ApplicationGatewayBackendAddressPool>), IList<BackendAddressPool> loadBalancerBackendAddressPools = default(IList<BackendAddressPool>), IList<InboundNatRule> loadBalancerInboundNatRules = default(IList<InboundNatRule>), string privateIPAddress = default(string), string privateIPAllocationMethod = default(string), string privateIPAddressVersion = default(string), Subnet subnet = default(Subnet), bool? primary = default(bool?), PublicIPAddress publicIPAddress = default(PublicIPAddress), IList<ApplicationSecurityGroup> applicationSecurityGroups = default(IList<ApplicationSecurityGroup>), string provisioningState = default(string), NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties privateLinkConnectionProperties = default(NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties), string name = default(string), string etag = default(string), string type = default(string))
+        public NetworkInterfaceIPConfiguration(string id = default(string), SubResource gatewayLoadBalancer = default(SubResource), IList<VirtualNetworkTap> virtualNetworkTaps = default(IList<VirtualNetworkTap>), IList<ApplicationGatewayBackendAddressPool> applicationGatewayBackendAddressPools = default(IList<ApplicationGatewayBackendAddressPool>), IList<BackendAddressPool> loadBalancerBackendAddressPools = default(IList<BackendAddressPool>), IList<InboundNatRule> loadBalancerInboundNatRules = default(IList<InboundNatRule>), string privateIPAddress = default(string), int? privateIPAddressPrefixLength = default(int?), string privateIPAllocationMethod = default(string), string privateIPAddressVersion = default(string), Subnet subnet = default(Subnet), bool? primary = default(bool?), PublicIPAddress publicIPAddress = default(PublicIPAddress), IList<ApplicationSecurityGroup> applicationSecurityGroups = default(IList<ApplicationSecurityGroup>), string provisioningState = default(string), NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties privateLinkConnectionProperties = default(NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties), string name = default(string), string etag = default(string), string type = default(string))
             : base(id)
         {
             GatewayLoadBalancer = gatewayLoadBalancer;
@@ -82,6 +87,7 @@ namespace Microsoft.Azure.Management.Network.Models
             LoadBalancerBackendAddressPools = loadBalancerBackendAddressPools;
             LoadBalancerInboundNatRules = loadBalancerInboundNatRules;
             PrivateIPAddress = privateIPAddress;
+            PrivateIPAddressPrefixLength = privateIPAddressPrefixLength;
             PrivateIPAllocationMethod = privateIPAllocationMethod;
             PrivateIPAddressVersion = privateIPAddressVersion;
             Subnet = subnet;
@@ -134,10 +140,20 @@ namespace Microsoft.Azure.Management.Network.Models
         public IList<InboundNatRule> LoadBalancerInboundNatRules { get; set; }
 
         /// <summary>
-        /// Gets or sets private IP address of the IP configuration.
+        /// Gets or sets private IP address of the IP configuration. It can be
+        /// a single IP address or a CIDR block in the format
+        /// &amp;lt;address&amp;gt;/&amp;lt;prefix-length&amp;gt;.
         /// </summary>
         [JsonProperty(PropertyName = "properties.privateIPAddress")]
         public string PrivateIPAddress { get; set; }
+
+        /// <summary>
+        /// Gets or sets the private IP address prefix length. If specified and
+        /// the allocation method is dynamic, the service will allocate a CIDR
+        /// block instead of a single IP address.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.privateIPAddressPrefixLength")]
+        public int? PrivateIPAddressPrefixLength { get; set; }
 
         /// <summary>
         /// Gets or sets the private IP address allocation method. Possible
@@ -213,5 +229,42 @@ namespace Microsoft.Azure.Management.Network.Models
         [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
 
+        /// <summary>
+        /// Validate the object.
+        /// </summary>
+        /// <exception cref="ValidationException">
+        /// Thrown if validation fails
+        /// </exception>
+        public virtual void Validate()
+        {
+            if (VirtualNetworkTaps != null)
+            {
+                foreach (var element in VirtualNetworkTaps)
+                {
+                    if (element != null)
+                    {
+                        element.Validate();
+                    }
+                }
+            }
+            if (LoadBalancerInboundNatRules != null)
+            {
+                foreach (var element1 in LoadBalancerInboundNatRules)
+                {
+                    if (element1 != null)
+                    {
+                        element1.Validate();
+                    }
+                }
+            }
+            if (PrivateIPAddressPrefixLength > 128)
+            {
+                throw new ValidationException(ValidationRules.InclusiveMaximum, "PrivateIPAddressPrefixLength", 128);
+            }
+            if (PrivateIPAddressPrefixLength < 1)
+            {
+                throw new ValidationException(ValidationRules.InclusiveMinimum, "PrivateIPAddressPrefixLength", 1);
+            }
+        }
     }
 }
