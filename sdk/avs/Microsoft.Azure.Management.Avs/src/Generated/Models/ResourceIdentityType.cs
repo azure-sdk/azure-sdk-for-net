@@ -10,13 +10,45 @@
 
 namespace Microsoft.Azure.Management.Avs.Models
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+    using System.Runtime;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Defines values for ResourceIdentityType.
     /// </summary>
-    public static class ResourceIdentityType
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum ResourceIdentityType
     {
-        public const string SystemAssigned = "SystemAssigned";
-        public const string None = "None";
+        [EnumMember(Value = "SystemAssigned")]
+        SystemAssigned
+    }
+    internal static class ResourceIdentityTypeEnumExtension
+    {
+        internal static string ToSerializedValue(this ResourceIdentityType? value)
+        {
+            return value == null ? null : ((ResourceIdentityType)value).ToSerializedValue();
+        }
+
+        internal static string ToSerializedValue(this ResourceIdentityType value)
+        {
+            switch( value )
+            {
+                case ResourceIdentityType.SystemAssigned:
+                    return "SystemAssigned";
+            }
+            return null;
+        }
+
+        internal static ResourceIdentityType? ParseResourceIdentityType(this string value)
+        {
+            switch( value )
+            {
+                case "SystemAssigned":
+                    return ResourceIdentityType.SystemAssigned;
+            }
+            return null;
+        }
     }
 }

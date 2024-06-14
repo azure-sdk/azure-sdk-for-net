@@ -16,12 +16,37 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class DatastoreProvisioningState
     {
+        /// <summary>
+        /// Resource has been created.
+        /// </summary>
         public const string Succeeded = "Succeeded";
+        /// <summary>
+        /// Resource creation failed.
+        /// </summary>
         public const string Failed = "Failed";
+        /// <summary>
+        /// Resource creation was canceled.
+        /// </summary>
+        public const string Canceled = "Canceled";
+        /// <summary>
+        /// is cancelled
+        /// </summary>
         public const string Cancelled = "Cancelled";
+        /// <summary>
+        /// is pending
+        /// </summary>
         public const string Pending = "Pending";
+        /// <summary>
+        /// is creating
+        /// </summary>
         public const string Creating = "Creating";
+        /// <summary>
+        /// is updating
+        /// </summary>
         public const string Updating = "Updating";
+        /// <summary>
+        /// is deleting
+        /// </summary>
         public const string Deleting = "Deleting";
     }
 }
