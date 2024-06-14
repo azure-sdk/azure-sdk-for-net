@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.ResourceManager.ElasticSan.Models;
 
 namespace Azure.ResourceManager.ElasticSan
 {
@@ -64,7 +65,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -113,7 +114,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -162,7 +163,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -171,10 +172,11 @@ namespace Azure.ResourceManager.ElasticSan
         /// </list>
         /// </summary>
         /// <param name="volumeName"> The name of the Volume. </param>
+        /// <param name="xmsAccessSoftDeletedResources"> Optional, used to get soft deleted volumes if set to true. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="volumeName"/> is null. </exception>
-        public virtual async Task<Response<ElasticSanVolumeResource>> GetAsync(string volumeName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ElasticSanVolumeResource>> GetAsync(string volumeName, XmsAccessSoftDeletedResource? xmsAccessSoftDeletedResources = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(volumeName, nameof(volumeName));
 
@@ -182,7 +184,7 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = await _elasticSanVolumeVolumesRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, cancellationToken).ConfigureAwait(false);
+                var response = await _elasticSanVolumeVolumesRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, xmsAccessSoftDeletedResources, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ElasticSanVolumeResource(Client, response.Value), response.GetRawResponse());
@@ -207,7 +209,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -216,10 +218,11 @@ namespace Azure.ResourceManager.ElasticSan
         /// </list>
         /// </summary>
         /// <param name="volumeName"> The name of the Volume. </param>
+        /// <param name="xmsAccessSoftDeletedResources"> Optional, used to get soft deleted volumes if set to true. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="volumeName"/> is null. </exception>
-        public virtual Response<ElasticSanVolumeResource> Get(string volumeName, CancellationToken cancellationToken = default)
+        public virtual Response<ElasticSanVolumeResource> Get(string volumeName, XmsAccessSoftDeletedResource? xmsAccessSoftDeletedResources = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(volumeName, nameof(volumeName));
 
@@ -227,7 +230,7 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = _elasticSanVolumeVolumesRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, cancellationToken);
+                var response = _elasticSanVolumeVolumesRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, xmsAccessSoftDeletedResources, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ElasticSanVolumeResource(Client, response.Value), response.GetRawResponse());
@@ -252,7 +255,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -260,12 +263,13 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="xmsAccessSoftDeletedResources"> Optional, used to get soft deleted volumes if set to true. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="ElasticSanVolumeResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<ElasticSanVolumeResource> GetAllAsync(CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<ElasticSanVolumeResource> GetAllAsync(XmsAccessSoftDeletedResource? xmsAccessSoftDeletedResources = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _elasticSanVolumeVolumesRestClient.CreateListByVolumeGroupRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _elasticSanVolumeVolumesRestClient.CreateListByVolumeGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _elasticSanVolumeVolumesRestClient.CreateListByVolumeGroupRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, xmsAccessSoftDeletedResources);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _elasticSanVolumeVolumesRestClient.CreateListByVolumeGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, xmsAccessSoftDeletedResources);
             return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ElasticSanVolumeResource(Client, ElasticSanVolumeData.DeserializeElasticSanVolumeData(e)), _elasticSanVolumeVolumesClientDiagnostics, Pipeline, "ElasticSanVolumeCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -282,7 +286,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -290,12 +294,13 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="xmsAccessSoftDeletedResources"> Optional, used to get soft deleted volumes if set to true. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="ElasticSanVolumeResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<ElasticSanVolumeResource> GetAll(CancellationToken cancellationToken = default)
+        public virtual Pageable<ElasticSanVolumeResource> GetAll(XmsAccessSoftDeletedResource? xmsAccessSoftDeletedResources = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _elasticSanVolumeVolumesRestClient.CreateListByVolumeGroupRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _elasticSanVolumeVolumesRestClient.CreateListByVolumeGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _elasticSanVolumeVolumesRestClient.CreateListByVolumeGroupRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, xmsAccessSoftDeletedResources);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _elasticSanVolumeVolumesRestClient.CreateListByVolumeGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, xmsAccessSoftDeletedResources);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ElasticSanVolumeResource(Client, ElasticSanVolumeData.DeserializeElasticSanVolumeData(e)), _elasticSanVolumeVolumesClientDiagnostics, Pipeline, "ElasticSanVolumeCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -312,7 +317,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -321,10 +326,11 @@ namespace Azure.ResourceManager.ElasticSan
         /// </list>
         /// </summary>
         /// <param name="volumeName"> The name of the Volume. </param>
+        /// <param name="xmsAccessSoftDeletedResources"> Optional, used to get soft deleted volumes if set to true. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="volumeName"/> is null. </exception>
-        public virtual async Task<Response<bool>> ExistsAsync(string volumeName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<bool>> ExistsAsync(string volumeName, XmsAccessSoftDeletedResource? xmsAccessSoftDeletedResources = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(volumeName, nameof(volumeName));
 
@@ -332,7 +338,7 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = await _elasticSanVolumeVolumesRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _elasticSanVolumeVolumesRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, xmsAccessSoftDeletedResources, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -355,7 +361,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -364,10 +370,11 @@ namespace Azure.ResourceManager.ElasticSan
         /// </list>
         /// </summary>
         /// <param name="volumeName"> The name of the Volume. </param>
+        /// <param name="xmsAccessSoftDeletedResources"> Optional, used to get soft deleted volumes if set to true. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="volumeName"/> is null. </exception>
-        public virtual Response<bool> Exists(string volumeName, CancellationToken cancellationToken = default)
+        public virtual Response<bool> Exists(string volumeName, XmsAccessSoftDeletedResource? xmsAccessSoftDeletedResources = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(volumeName, nameof(volumeName));
 
@@ -375,7 +382,7 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = _elasticSanVolumeVolumesRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, cancellationToken: cancellationToken);
+                var response = _elasticSanVolumeVolumesRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, xmsAccessSoftDeletedResources, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -398,7 +405,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -407,10 +414,11 @@ namespace Azure.ResourceManager.ElasticSan
         /// </list>
         /// </summary>
         /// <param name="volumeName"> The name of the Volume. </param>
+        /// <param name="xmsAccessSoftDeletedResources"> Optional, used to get soft deleted volumes if set to true. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="volumeName"/> is null. </exception>
-        public virtual async Task<NullableResponse<ElasticSanVolumeResource>> GetIfExistsAsync(string volumeName, CancellationToken cancellationToken = default)
+        public virtual async Task<NullableResponse<ElasticSanVolumeResource>> GetIfExistsAsync(string volumeName, XmsAccessSoftDeletedResource? xmsAccessSoftDeletedResources = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(volumeName, nameof(volumeName));
 
@@ -418,7 +426,7 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = await _elasticSanVolumeVolumesRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _elasticSanVolumeVolumesRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, xmsAccessSoftDeletedResources, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     return new NoValueResponse<ElasticSanVolumeResource>(response.GetRawResponse());
                 return Response.FromValue(new ElasticSanVolumeResource(Client, response.Value), response.GetRawResponse());
@@ -443,7 +451,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -452,10 +460,11 @@ namespace Azure.ResourceManager.ElasticSan
         /// </list>
         /// </summary>
         /// <param name="volumeName"> The name of the Volume. </param>
+        /// <param name="xmsAccessSoftDeletedResources"> Optional, used to get soft deleted volumes if set to true. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="volumeName"/> is null. </exception>
-        public virtual NullableResponse<ElasticSanVolumeResource> GetIfExists(string volumeName, CancellationToken cancellationToken = default)
+        public virtual NullableResponse<ElasticSanVolumeResource> GetIfExists(string volumeName, XmsAccessSoftDeletedResource? xmsAccessSoftDeletedResources = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(volumeName, nameof(volumeName));
 
@@ -463,7 +472,7 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = _elasticSanVolumeVolumesRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, cancellationToken: cancellationToken);
+                var response = _elasticSanVolumeVolumesRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, xmsAccessSoftDeletedResources, cancellationToken: cancellationToken);
                 if (response.Value == null)
                     return new NoValueResponse<ElasticSanVolumeResource>(response.GetRawResponse());
                 return Response.FromValue(new ElasticSanVolumeResource(Client, response.Value), response.GetRawResponse());

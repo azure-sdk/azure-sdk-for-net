@@ -57,14 +57,16 @@ namespace Azure.ResourceManager.ElasticSan.Models
         /// <param name="encryption"> Type of encryption. </param>
         /// <param name="encryptionProperties"> Encryption Properties describing Key Vault and Identity information. </param>
         /// <param name="networkAcls"> A collection of rules governing the accessibility from specific network locations. </param>
+        /// <param name="deleteRetentionPolicy"> The retention policy for the deleted volumes. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ElasticSanVolumeGroupPatch(ManagedServiceIdentity identity, ElasticSanStorageTargetType? protocolType, ElasticSanEncryptionType? encryption, ElasticSanEncryptionProperties encryptionProperties, NetworkRuleSet networkAcls, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ElasticSanVolumeGroupPatch(ManagedServiceIdentity identity, ElasticSanStorageTargetType? protocolType, ElasticSanEncryptionType? encryption, ElasticSanEncryptionProperties encryptionProperties, NetworkRuleSet networkAcls, DeleteRetentionPolicy deleteRetentionPolicy, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Identity = identity;
             ProtocolType = protocolType;
             Encryption = encryption;
             EncryptionProperties = encryptionProperties;
             NetworkAcls = networkAcls;
+            DeleteRetentionPolicy = deleteRetentionPolicy;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -88,5 +90,8 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 return NetworkAcls.VirtualNetworkRules;
             }
         }
+
+        /// <summary> The retention policy for the deleted volumes. </summary>
+        public DeleteRetentionPolicy DeleteRetentionPolicy { get; set; }
     }
 }

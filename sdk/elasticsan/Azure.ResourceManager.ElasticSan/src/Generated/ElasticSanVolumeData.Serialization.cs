@@ -67,6 +67,11 @@ namespace Azure.ResourceManager.ElasticSan
                 writer.WritePropertyName("storageTarget"u8);
                 writer.WriteObjectValue(StorageTarget, options);
             }
+            if (Optional.IsDefined(SoftDeleteEnabled))
+            {
+                writer.WritePropertyName("softDeleteEnabled"u8);
+                writer.WriteBooleanValue(SoftDeleteEnabled.Value);
+            }
             if (Optional.IsDefined(ManagedBy))
             {
                 writer.WritePropertyName("managedBy"u8);
@@ -124,6 +129,7 @@ namespace Azure.ResourceManager.ElasticSan
             ElasticSanVolumeDataSourceInfo creationData = default;
             long sizeGiB = default;
             IscsiTargetInfo storageTarget = default;
+            bool? softDeleteEnabled = default;
             ManagedByInfo managedBy = default;
             ElasticSanProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -195,6 +201,15 @@ namespace Azure.ResourceManager.ElasticSan
                             storageTarget = IscsiTargetInfo.DeserializeIscsiTargetInfo(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("softDeleteEnabled"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            softDeleteEnabled = property0.Value.GetBoolean();
+                            continue;
+                        }
                         if (property0.NameEquals("managedBy"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -231,6 +246,7 @@ namespace Azure.ResourceManager.ElasticSan
                 creationData,
                 sizeGiB,
                 storageTarget,
+                softDeleteEnabled,
                 managedBy,
                 provisioningState,
                 serializedAdditionalRawData);

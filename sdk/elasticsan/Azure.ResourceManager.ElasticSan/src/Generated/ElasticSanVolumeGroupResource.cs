@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -118,13 +118,14 @@ namespace Azure.ResourceManager.ElasticSan
         /// </list>
         /// </summary>
         /// <param name="volumeName"> The name of the Volume. </param>
+        /// <param name="xmsAccessSoftDeletedResources"> Optional, used to get soft deleted volumes if set to true. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="volumeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<ElasticSanVolumeResource>> GetElasticSanVolumeAsync(string volumeName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ElasticSanVolumeResource>> GetElasticSanVolumeAsync(string volumeName, XmsAccessSoftDeletedResource? xmsAccessSoftDeletedResources = null, CancellationToken cancellationToken = default)
         {
-            return await GetElasticSanVolumes().GetAsync(volumeName, cancellationToken).ConfigureAwait(false);
+            return await GetElasticSanVolumes().GetAsync(volumeName, xmsAccessSoftDeletedResources, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -140,7 +141,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -149,13 +150,14 @@ namespace Azure.ResourceManager.ElasticSan
         /// </list>
         /// </summary>
         /// <param name="volumeName"> The name of the Volume. </param>
+        /// <param name="xmsAccessSoftDeletedResources"> Optional, used to get soft deleted volumes if set to true. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="volumeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<ElasticSanVolumeResource> GetElasticSanVolume(string volumeName, CancellationToken cancellationToken = default)
+        public virtual Response<ElasticSanVolumeResource> GetElasticSanVolume(string volumeName, XmsAccessSoftDeletedResource? xmsAccessSoftDeletedResources = null, CancellationToken cancellationToken = default)
         {
-            return GetElasticSanVolumes().Get(volumeName, cancellationToken);
+            return GetElasticSanVolumes().Get(volumeName, xmsAccessSoftDeletedResources, cancellationToken);
         }
 
         /// <summary> Gets a collection of ElasticSanSnapshotResources in the ElasticSanVolumeGroup. </summary>
@@ -178,7 +180,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -209,7 +211,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -240,7 +242,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -248,14 +250,15 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="xmsAccessSoftDeletedResources"> Optional, used to get soft deleted volume groups if set to true. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<ElasticSanVolumeGroupResource>> GetAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ElasticSanVolumeGroupResource>> GetAsync(XmsAccessSoftDeletedResource? xmsAccessSoftDeletedResources = null, CancellationToken cancellationToken = default)
         {
             using var scope = _elasticSanVolumeGroupVolumeGroupsClientDiagnostics.CreateScope("ElasticSanVolumeGroupResource.Get");
             scope.Start();
             try
             {
-                var response = await _elasticSanVolumeGroupVolumeGroupsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _elasticSanVolumeGroupVolumeGroupsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, xmsAccessSoftDeletedResources, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ElasticSanVolumeGroupResource(Client, response.Value), response.GetRawResponse());
@@ -280,7 +283,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -288,14 +291,15 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="xmsAccessSoftDeletedResources"> Optional, used to get soft deleted volume groups if set to true. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<ElasticSanVolumeGroupResource> Get(CancellationToken cancellationToken = default)
+        public virtual Response<ElasticSanVolumeGroupResource> Get(XmsAccessSoftDeletedResource? xmsAccessSoftDeletedResources = null, CancellationToken cancellationToken = default)
         {
             using var scope = _elasticSanVolumeGroupVolumeGroupsClientDiagnostics.CreateScope("ElasticSanVolumeGroupResource.Get");
             scope.Start();
             try
             {
-                var response = _elasticSanVolumeGroupVolumeGroupsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                var response = _elasticSanVolumeGroupVolumeGroupsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, xmsAccessSoftDeletedResources, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ElasticSanVolumeGroupResource(Client, response.Value), response.GetRawResponse());
@@ -320,7 +324,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -329,15 +333,16 @@ namespace Azure.ResourceManager.ElasticSan
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="purge"> Optional, used to purge soft deleted volume groups if set to true. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, Purge? purge = null, CancellationToken cancellationToken = default)
         {
             using var scope = _elasticSanVolumeGroupVolumeGroupsClientDiagnostics.CreateScope("ElasticSanVolumeGroupResource.Delete");
             scope.Start();
             try
             {
-                var response = await _elasticSanVolumeGroupVolumeGroupsRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new ElasticSanArmOperation(_elasticSanVolumeGroupVolumeGroupsClientDiagnostics, Pipeline, _elasticSanVolumeGroupVolumeGroupsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var response = await _elasticSanVolumeGroupVolumeGroupsRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, purge, cancellationToken).ConfigureAwait(false);
+                var operation = new ElasticSanArmOperation(_elasticSanVolumeGroupVolumeGroupsClientDiagnostics, Pipeline, _elasticSanVolumeGroupVolumeGroupsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, purge).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -362,7 +367,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -371,15 +376,16 @@ namespace Azure.ResourceManager.ElasticSan
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="purge"> Optional, used to purge soft deleted volume groups if set to true. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual ArmOperation Delete(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        public virtual ArmOperation Delete(WaitUntil waitUntil, Purge? purge = null, CancellationToken cancellationToken = default)
         {
             using var scope = _elasticSanVolumeGroupVolumeGroupsClientDiagnostics.CreateScope("ElasticSanVolumeGroupResource.Delete");
             scope.Start();
             try
             {
-                var response = _elasticSanVolumeGroupVolumeGroupsRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
-                var operation = new ElasticSanArmOperation(_elasticSanVolumeGroupVolumeGroupsClientDiagnostics, Pipeline, _elasticSanVolumeGroupVolumeGroupsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var response = _elasticSanVolumeGroupVolumeGroupsRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, purge, cancellationToken);
+                var operation = new ElasticSanArmOperation(_elasticSanVolumeGroupVolumeGroupsClientDiagnostics, Pipeline, _elasticSanVolumeGroupVolumeGroupsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, purge).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
@@ -404,7 +410,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -450,7 +456,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2024-06-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
