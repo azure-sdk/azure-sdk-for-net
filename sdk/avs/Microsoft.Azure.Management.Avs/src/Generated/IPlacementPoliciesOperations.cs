@@ -24,7 +24,7 @@ namespace Microsoft.Azure.Management.Avs
     public partial interface IPlacementPoliciesOperations
     {
         /// <summary>
-        /// List placement policies in a private cloud cluster
+        /// List PlacementPolicy resources by Cluster
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -33,7 +33,7 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -41,7 +41,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -52,7 +52,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<IPage<PlacementPolicy>>> ListWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Get a placement policy by name in a private cloud cluster
+        /// Get a PlacementPolicy
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -61,11 +61,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='placementPolicyName'>
-        /// Name of the VMware vSphere Distributed Resource Scheduler (DRS)
-        /// placement policy
+        /// Name of the placement policy.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -73,7 +72,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -84,7 +83,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<PlacementPolicy>> GetWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create or update a placement policy in a private cloud cluster
+        /// Create a PlacementPolicy
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -93,14 +92,13 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='placementPolicyName'>
-        /// Name of the VMware vSphere Distributed Resource Scheduler (DRS)
-        /// placement policy
+        /// Name of the placement policy.
         /// </param>
         /// <param name='placementPolicy'>
-        /// A placement policy in the private cloud cluster
+        /// Resource create parameters.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -108,7 +106,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -117,9 +115,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<PlacementPolicy>> CreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, PlacementPolicy placementPolicy, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<PlacementPolicy,PlacementPoliciesCreateOrUpdateHeaders>> CreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, PlacementPolicy placementPolicy, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Update a placement policy in a private cloud cluster
+        /// Update a PlacementPolicy
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -128,14 +126,13 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='placementPolicyName'>
-        /// Name of the VMware vSphere Distributed Resource Scheduler (DRS)
-        /// placement policy
+        /// Name of the placement policy.
         /// </param>
         /// <param name='placementPolicyUpdate'>
-        /// The placement policy properties that may be updated
+        /// The placement policy properties to be updated.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -143,7 +140,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -152,9 +149,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<PlacementPolicy>> UpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, PlacementPolicyUpdate placementPolicyUpdate, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<PlacementPolicy,PlacementPoliciesUpdateHeaders>> UpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, PlacementPolicyUpdate placementPolicyUpdate, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete a placement policy in a private cloud cluster
+        /// Delete a PlacementPolicy
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -163,11 +160,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='placementPolicyName'>
-        /// Name of the VMware vSphere Distributed Resource Scheduler (DRS)
-        /// placement policy
+        /// Name of the placement policy.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -175,15 +171,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<PlacementPoliciesDeleteHeaders>> DeleteWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create or update a placement policy in a private cloud cluster
+        /// Create a PlacementPolicy
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -192,14 +188,13 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='placementPolicyName'>
-        /// Name of the VMware vSphere Distributed Resource Scheduler (DRS)
-        /// placement policy
+        /// Name of the placement policy.
         /// </param>
         /// <param name='placementPolicy'>
-        /// A placement policy in the private cloud cluster
+        /// Resource create parameters.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -207,7 +202,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -216,9 +211,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<PlacementPolicy>> BeginCreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, PlacementPolicy placementPolicy, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<PlacementPolicy,PlacementPoliciesCreateOrUpdateHeaders>> BeginCreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, PlacementPolicy placementPolicy, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Update a placement policy in a private cloud cluster
+        /// Update a PlacementPolicy
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -227,14 +222,13 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='placementPolicyName'>
-        /// Name of the VMware vSphere Distributed Resource Scheduler (DRS)
-        /// placement policy
+        /// Name of the placement policy.
         /// </param>
         /// <param name='placementPolicyUpdate'>
-        /// The placement policy properties that may be updated
+        /// The placement policy properties to be updated.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -242,7 +236,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -251,9 +245,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<PlacementPolicy>> BeginUpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, PlacementPolicyUpdate placementPolicyUpdate, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<PlacementPolicy,PlacementPoliciesUpdateHeaders>> BeginUpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, PlacementPolicyUpdate placementPolicyUpdate, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete a placement policy in a private cloud cluster
+        /// Delete a PlacementPolicy
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -262,11 +256,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='placementPolicyName'>
-        /// Name of the VMware vSphere Distributed Resource Scheduler (DRS)
-        /// placement policy
+        /// Name of the placement policy.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -274,15 +267,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginDeleteWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<PlacementPoliciesDeleteHeaders>> BeginDeleteWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// List placement policies in a private cloud cluster
+        /// List PlacementPolicy resources by Cluster
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.
@@ -293,7 +286,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">

@@ -16,9 +16,21 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class HcxEnterpriseSiteStatus
     {
+        /// <summary>
+        /// is available
+        /// </summary>
         public const string Available = "Available";
+        /// <summary>
+        /// is consumed
+        /// </summary>
         public const string Consumed = "Consumed";
+        /// <summary>
+        /// is deactivated
+        /// </summary>
         public const string Deactivated = "Deactivated";
+        /// <summary>
+        /// is deleted
+        /// </summary>
         public const string Deleted = "Deleted";
     }
 }

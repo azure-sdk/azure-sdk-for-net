@@ -29,17 +29,26 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Initializes a new instance of the Endpoints class.
         /// </summary>
-        /// <param name="nsxtManager">Endpoint for the NSX-T Data Center
+        /// <param name="nsxtManager">Endpoint FQDN for the NSX-T Data Center
         /// manager</param>
-        /// <param name="vcsa">Endpoint for Virtual Center Server
+        /// <param name="vcsa">Endpoint FQDN for Virtual Center Server
         /// Appliance</param>
-        /// <param name="hcxCloudManager">Endpoint for the HCX Cloud
+        /// <param name="hcxCloudManager">Endpoint FQDN for the HCX Cloud
         /// Manager</param>
-        public Endpoints(string nsxtManager = default(string), string vcsa = default(string), string hcxCloudManager = default(string))
+        /// <param name="nsxtManagerIp">Endpoint IP for the NSX-T Data Center
+        /// manager</param>
+        /// <param name="vcenterIp">Endpoint IP for Virtual Center Server
+        /// Appliance</param>
+        /// <param name="hcxCloudManagerIp">Endpoint IP for the HCX Cloud
+        /// Manager</param>
+        public Endpoints(string nsxtManager = default(string), string vcsa = default(string), string hcxCloudManager = default(string), string nsxtManagerIp = default(string), string vcenterIp = default(string), string hcxCloudManagerIp = default(string))
         {
             NsxtManager = nsxtManager;
             Vcsa = vcsa;
             HcxCloudManager = hcxCloudManager;
+            NsxtManagerIp = nsxtManagerIp;
+            VcenterIp = vcenterIp;
+            HcxCloudManagerIp = hcxCloudManagerIp;
             CustomInit();
         }
 
@@ -49,22 +58,40 @@ namespace Microsoft.Azure.Management.Avs.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets endpoint for the NSX-T Data Center manager
+        /// Gets endpoint FQDN for the NSX-T Data Center manager
         /// </summary>
         [JsonProperty(PropertyName = "nsxtManager")]
         public string NsxtManager { get; private set; }
 
         /// <summary>
-        /// Gets endpoint for Virtual Center Server Appliance
+        /// Gets endpoint FQDN for Virtual Center Server Appliance
         /// </summary>
         [JsonProperty(PropertyName = "vcsa")]
         public string Vcsa { get; private set; }
 
         /// <summary>
-        /// Gets endpoint for the HCX Cloud Manager
+        /// Gets endpoint FQDN for the HCX Cloud Manager
         /// </summary>
         [JsonProperty(PropertyName = "hcxCloudManager")]
         public string HcxCloudManager { get; private set; }
+
+        /// <summary>
+        /// Gets endpoint IP for the NSX-T Data Center manager
+        /// </summary>
+        [JsonProperty(PropertyName = "nsxtManagerIp")]
+        public string NsxtManagerIp { get; private set; }
+
+        /// <summary>
+        /// Gets endpoint IP for Virtual Center Server Appliance
+        /// </summary>
+        [JsonProperty(PropertyName = "vcenterIp")]
+        public string VcenterIp { get; private set; }
+
+        /// <summary>
+        /// Gets endpoint IP for the HCX Cloud Manager
+        /// </summary>
+        [JsonProperty(PropertyName = "hcxCloudManagerIp")]
+        public string HcxCloudManagerIp { get; private set; }
 
     }
 }

@@ -24,7 +24,7 @@ namespace Microsoft.Azure.Management.Avs
     public partial interface IDatastoresOperations
     {
         /// <summary>
-        /// List datastores in a private cloud cluster
+        /// List Datastore resources by Cluster
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -33,7 +33,7 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -41,7 +41,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -52,7 +52,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<IPage<Datastore>>> ListWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Get a datastore in a private cloud cluster
+        /// Get a Datastore
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -61,10 +61,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='datastoreName'>
-        /// Name of the datastore in the private cloud cluster
+        /// Name of the datastore
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -72,7 +72,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -83,7 +83,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<Datastore>> GetWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string datastoreName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create or update a datastore in a private cloud cluster
+        /// Create a Datastore
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -92,13 +92,13 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='datastoreName'>
-        /// Name of the datastore in the private cloud cluster
+        /// Name of the datastore
         /// </param>
         /// <param name='datastore'>
-        /// A datastore in a private cloud cluster
+        /// Resource create parameters.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -106,7 +106,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -115,9 +115,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<Datastore>> CreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string datastoreName, Datastore datastore, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<Datastore,DatastoresCreateOrUpdateHeaders>> CreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string datastoreName, Datastore datastore, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete a datastore in a private cloud cluster
+        /// Delete a Datastore
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -126,10 +126,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='datastoreName'>
-        /// Name of the datastore in the private cloud cluster
+        /// Name of the datastore
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -137,15 +137,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string datastoreName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<DatastoresDeleteHeaders>> DeleteWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string datastoreName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create or update a datastore in a private cloud cluster
+        /// Create a Datastore
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -154,13 +154,13 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='datastoreName'>
-        /// Name of the datastore in the private cloud cluster
+        /// Name of the datastore
         /// </param>
         /// <param name='datastore'>
-        /// A datastore in a private cloud cluster
+        /// Resource create parameters.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -168,7 +168,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -177,9 +177,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<Datastore>> BeginCreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string datastoreName, Datastore datastore, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<Datastore,DatastoresCreateOrUpdateHeaders>> BeginCreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string datastoreName, Datastore datastore, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete a datastore in a private cloud cluster
+        /// Delete a Datastore
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -188,10 +188,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='clusterName'>
-        /// Name of the cluster in the private cloud
+        /// Name of the cluster
         /// </param>
         /// <param name='datastoreName'>
-        /// Name of the datastore in the private cloud cluster
+        /// Name of the datastore
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -199,15 +199,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginDeleteWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string datastoreName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<DatastoresDeleteHeaders>> BeginDeleteWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string clusterName, string datastoreName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// List datastores in a private cloud cluster
+        /// List Datastore resources by Cluster
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.
@@ -218,7 +218,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">

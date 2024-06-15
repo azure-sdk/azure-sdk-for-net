@@ -32,19 +32,29 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Initializes a new instance of the VirtualMachine class.
         /// </summary>
-        /// <param name="id">Resource ID.</param>
-        /// <param name="name">Resource name.</param>
-        /// <param name="type">Resource type.</param>
+        /// <param name="id">Fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="systemData">Azure Resource Manager metadata containing
+        /// createdBy and modifiedBy information.</param>
+        /// <param name="provisioningState">The provisioning state of the
+        /// resource. Possible values include: 'Succeeded', 'Failed',
+        /// 'Canceled'</param>
         /// <param name="displayName">Display name of the VM.</param>
         /// <param name="moRefId">Virtual machine managed object reference
         /// id</param>
         /// <param name="folderPath">Path to virtual machine's folder starting
         /// from datacenter virtual machine folder</param>
-        /// <param name="restrictMovement">Possible values include: 'Enabled',
-        /// 'Disabled'</param>
-        public VirtualMachine(string id = default(string), string name = default(string), string type = default(string), string displayName = default(string), string moRefId = default(string), string folderPath = default(string), string restrictMovement = default(string))
-            : base(id, name, type)
+        /// <param name="restrictMovement">Whether VM DRS-driven movement is
+        /// restricted (enabled) or not (disabled). Possible values include:
+        /// 'Enabled', 'Disabled'</param>
+        public VirtualMachine(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string provisioningState = default(string), string displayName = default(string), string moRefId = default(string), string folderPath = default(string), string restrictMovement = default(string))
+            : base(id, name, type, systemData)
         {
+            ProvisioningState = provisioningState;
             DisplayName = displayName;
             MoRefId = moRefId;
             FolderPath = folderPath;
@@ -56,6 +66,13 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
+
+        /// <summary>
+        /// Gets the provisioning state of the resource. Possible values
+        /// include: 'Succeeded', 'Failed', 'Canceled'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.provisioningState")]
+        public string ProvisioningState { get; private set; }
 
         /// <summary>
         /// Gets display name of the VM.
@@ -77,7 +94,8 @@ namespace Microsoft.Azure.Management.Avs.Models
         public string FolderPath { get; private set; }
 
         /// <summary>
-        /// Gets possible values include: 'Enabled', 'Disabled'
+        /// Gets whether VM DRS-driven movement is restricted (enabled) or not
+        /// (disabled). Possible values include: 'Enabled', 'Disabled'
         /// </summary>
         [JsonProperty(PropertyName = "properties.restrictMovement")]
         public string RestrictMovement { get; private set; }

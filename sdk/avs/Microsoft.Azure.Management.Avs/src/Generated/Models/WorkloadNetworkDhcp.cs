@@ -29,12 +29,18 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Initializes a new instance of the WorkloadNetworkDhcp class.
         /// </summary>
-        /// <param name="id">Resource ID.</param>
-        /// <param name="name">Resource name.</param>
-        /// <param name="type">Resource type.</param>
-        /// <param name="properties">DHCP properties.</param>
-        public WorkloadNetworkDhcp(string id = default(string), string name = default(string), string type = default(string), WorkloadNetworkDhcpEntity properties = default(WorkloadNetworkDhcpEntity))
-            : base(id, name, type)
+        /// <param name="id">Fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="systemData">Azure Resource Manager metadata containing
+        /// createdBy and modifiedBy information.</param>
+        /// <param name="properties">The resource-specific properties for this
+        /// resource.</param>
+        public WorkloadNetworkDhcp(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), WorkloadNetworkDhcpEntity properties = default(WorkloadNetworkDhcpEntity))
+            : base(id, name, type, systemData)
         {
             Properties = properties;
             CustomInit();
@@ -46,7 +52,7 @@ namespace Microsoft.Azure.Management.Avs.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets DHCP properties.
+        /// Gets or sets the resource-specific properties for this resource.
         /// </summary>
         [JsonProperty(PropertyName = "properties")]
         public WorkloadNetworkDhcpEntity Properties { get; set; }
