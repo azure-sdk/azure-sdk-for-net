@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ContainerService.Models
 {
-    /// <summary> OS option property. </summary>
-    public partial class ContainerServiceOSOptionProperty
+    /// <summary> components of given Kubernetes version. </summary>
+    public partial class ComponentsByRelease
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,37 +45,26 @@ namespace Azure.ResourceManager.ContainerService.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceOSOptionProperty"/>. </summary>
-        /// <param name="osType"> The OS type. </param>
-        /// <param name="enableFipsImage"> Whether the image is FIPS-enabled. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="osType"/> is null. </exception>
-        internal ContainerServiceOSOptionProperty(string osType, bool enableFipsImage)
+        /// <summary> Initializes a new instance of <see cref="ComponentsByRelease"/>. </summary>
+        internal ComponentsByRelease()
         {
-            Argument.AssertNotNull(osType, nameof(osType));
-
-            OSType = osType;
-            EnableFipsImage = enableFipsImage;
+            Components = new ChangeTrackingList<Component>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceOSOptionProperty"/>. </summary>
-        /// <param name="osType"> The OS type. </param>
-        /// <param name="enableFipsImage"> Whether the image is FIPS-enabled. </param>
+        /// <summary> Initializes a new instance of <see cref="ComponentsByRelease"/>. </summary>
+        /// <param name="kubernetesVersion"> The Kubernetes version (major.minor). </param>
+        /// <param name="components"> components of current or upgraded Kubernetes version in the cluster. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ContainerServiceOSOptionProperty(string osType, bool enableFipsImage, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ComponentsByRelease(string kubernetesVersion, IReadOnlyList<Component> components, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            OSType = osType;
-            EnableFipsImage = enableFipsImage;
+            KubernetesVersion = kubernetesVersion;
+            Components = components;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceOSOptionProperty"/> for deserialization. </summary>
-        internal ContainerServiceOSOptionProperty()
-        {
-        }
-
-        /// <summary> The OS type. </summary>
-        public string OSType { get; }
-        /// <summary> Whether the image is FIPS-enabled. </summary>
-        public bool EnableFipsImage { get; }
+        /// <summary> The Kubernetes version (major.minor). </summary>
+        public string KubernetesVersion { get; }
+        /// <summary> components of current or upgraded Kubernetes version in the cluster. </summary>
+        public IReadOnlyList<Component> Components { get; }
     }
 }

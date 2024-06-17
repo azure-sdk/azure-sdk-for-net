@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Azure.Core;
 using Azure.ResourceManager.ContainerService.Models;
 using Azure.ResourceManager.Models;
@@ -15,10 +14,10 @@ using Azure.ResourceManager.Models;
 namespace Azure.ResourceManager.ContainerService
 {
     /// <summary>
-    /// A class representing the OSOptionProfile data model.
-    /// The OS option profile.
+    /// A class representing the SafeguardsAvailableVersion data model.
+    /// Available Safeguards Version
     /// </summary>
-    public partial class OSOptionProfileData : ResourceData
+    public partial class SafeguardsAvailableVersionData : ResourceData
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -52,35 +51,35 @@ namespace Azure.ResourceManager.ContainerService
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="OSOptionProfileData"/>. </summary>
-        /// <param name="osOptionPropertyList"> The list of OS options. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="osOptionPropertyList"/> is null. </exception>
-        internal OSOptionProfileData(IEnumerable<ContainerServiceOSOptionProperty> osOptionPropertyList)
+        /// <summary> Initializes a new instance of <see cref="SafeguardsAvailableVersionData"/>. </summary>
+        /// <param name="properties"> Whether the version is default or not and support info. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
+        public SafeguardsAvailableVersionData(SafeguardsAvailableVersionsProperties properties)
         {
-            Argument.AssertNotNull(osOptionPropertyList, nameof(osOptionPropertyList));
+            Argument.AssertNotNull(properties, nameof(properties));
 
-            OSOptionPropertyList = osOptionPropertyList.ToList();
+            Properties = properties;
         }
 
-        /// <summary> Initializes a new instance of <see cref="OSOptionProfileData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SafeguardsAvailableVersionData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="osOptionPropertyList"> The list of OS options. </param>
+        /// <param name="properties"> Whether the version is default or not and support info. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal OSOptionProfileData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IReadOnlyList<ContainerServiceOSOptionProperty> osOptionPropertyList, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal SafeguardsAvailableVersionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SafeguardsAvailableVersionsProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            OSOptionPropertyList = osOptionPropertyList;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="OSOptionProfileData"/> for deserialization. </summary>
-        internal OSOptionProfileData()
+        /// <summary> Initializes a new instance of <see cref="SafeguardsAvailableVersionData"/> for deserialization. </summary>
+        internal SafeguardsAvailableVersionData()
         {
         }
 
-        /// <summary> The list of OS options. </summary>
-        public IReadOnlyList<ContainerServiceOSOptionProperty> OSOptionPropertyList { get; }
+        /// <summary> Whether the version is default or not and support info. </summary>
+        public SafeguardsAvailableVersionsProperties Properties { get; set; }
     }
 }
