@@ -448,7 +448,7 @@ namespace Azure.ResourceManager.DataFactory
         }
 
         /// <summary>
-        /// Updates a factory's repo information.
+        /// Updates a factory's repo information. testtest
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -485,7 +485,7 @@ namespace Azure.ResourceManager.DataFactory
         }
 
         /// <summary>
-        /// Updates a factory's repo information.
+        /// Updates a factory's repo information. testtest
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
