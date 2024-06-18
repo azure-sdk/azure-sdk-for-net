@@ -43,6 +43,16 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("identity"u8);
                 JsonSerializer.Serialize(writer, Identity);
             }
+            if (Optional.IsCollectionDefined(Zones))
+            {
+                writer.WritePropertyName("zones"u8);
+                writer.WriteStartArray();
+                foreach (var item in Zones)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -158,6 +168,7 @@ namespace Azure.ResourceManager.Compute.Models
             ComputeSku sku = default;
             ComputePlan plan = default;
             ManagedServiceIdentity identity = default;
+            IList<string> zones = default;
             IDictionary<string, string> tags = default;
             VirtualMachineScaleSetUpgradePolicy upgradePolicy = default;
             AutomaticRepairsPolicy automaticRepairsPolicy = default;
@@ -200,6 +211,20 @@ namespace Azure.ResourceManager.Compute.Models
                         continue;
                     }
                     identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
+                    continue;
+                }
+                if (property.NameEquals("zones"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    zones = array;
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -348,6 +373,7 @@ namespace Azure.ResourceManager.Compute.Models
                 sku,
                 plan,
                 identity,
+                zones ?? new ChangeTrackingList<string>(),
                 upgradePolicy,
                 automaticRepairsPolicy,
                 virtualMachineProfile,
