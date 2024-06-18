@@ -1714,158 +1714,6 @@ namespace Azure.ResourceManager.SecurityCenter
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="DevOpsOrgResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="DevOpsOrgResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsOrgResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetDevOpsOrgResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="DevOpsOrgResource"/> object. </returns>
-        public static DevOpsOrgResource GetDevOpsOrgResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableSecurityCenterArmClient(client).GetDevOpsOrgResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="DevOpsProjectResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="DevOpsProjectResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsProjectResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetDevOpsProjectResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="DevOpsProjectResource"/> object. </returns>
-        public static DevOpsProjectResource GetDevOpsProjectResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableSecurityCenterArmClient(client).GetDevOpsProjectResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="DevOpsRepositoryResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="DevOpsRepositoryResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsRepositoryResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetDevOpsRepositoryResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="DevOpsRepositoryResource"/> object. </returns>
-        public static DevOpsRepositoryResource GetDevOpsRepositoryResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableSecurityCenterArmClient(client).GetDevOpsRepositoryResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="DevOpsConfigurationResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="DevOpsConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsConfigurationResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetDevOpsConfigurationResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="DevOpsConfigurationResource"/> object. </returns>
-        public static DevOpsConfigurationResource GetDevOpsConfigurationResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableSecurityCenterArmClient(client).GetDevOpsConfigurationResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="SecurityConnectorGitHubOwnerResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SecurityConnectorGitHubOwnerResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitHubOwnerResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetSecurityConnectorGitHubOwnerResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="SecurityConnectorGitHubOwnerResource"/> object. </returns>
-        public static SecurityConnectorGitHubOwnerResource GetSecurityConnectorGitHubOwnerResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableSecurityCenterArmClient(client).GetSecurityConnectorGitHubOwnerResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="SecurityConnectorGitHubRepositoryResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SecurityConnectorGitHubRepositoryResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitHubRepositoryResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetSecurityConnectorGitHubRepositoryResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="SecurityConnectorGitHubRepositoryResource"/> object. </returns>
-        public static SecurityConnectorGitHubRepositoryResource GetSecurityConnectorGitHubRepositoryResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableSecurityCenterArmClient(client).GetSecurityConnectorGitHubRepositoryResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="SecurityConnectorGitLabGroupResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SecurityConnectorGitLabGroupResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitLabGroupResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetSecurityConnectorGitLabGroupResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="SecurityConnectorGitLabGroupResource"/> object. </returns>
-        public static SecurityConnectorGitLabGroupResource GetSecurityConnectorGitLabGroupResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableSecurityCenterArmClient(client).GetSecurityConnectorGitLabGroupResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="SecurityConnectorGitLabProjectResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SecurityConnectorGitLabProjectResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitLabProjectResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetSecurityConnectorGitLabProjectResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="SecurityConnectorGitLabProjectResource"/> object. </returns>
-        public static SecurityConnectorGitLabProjectResource GetSecurityConnectorGitLabProjectResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableSecurityCenterArmClient(client).GetSecurityConnectorGitLabProjectResource(id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="SecurityConnectorResource" /> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="SecurityConnectorResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
@@ -2281,6 +2129,158 @@ namespace Azure.ResourceManager.SecurityCenter
             Argument.AssertNotNull(client, nameof(client));
 
             return GetMockableSecurityCenterArmClient(client).GetSecurityCenterApiCollectionResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="DevOpsOrgResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DevOpsOrgResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsOrgResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetDevOpsOrgResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="DevOpsOrgResource"/> object. </returns>
+        public static DevOpsOrgResource GetDevOpsOrgResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableSecurityCenterArmClient(client).GetDevOpsOrgResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="DevOpsProjectResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DevOpsProjectResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsProjectResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetDevOpsProjectResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="DevOpsProjectResource"/> object. </returns>
+        public static DevOpsProjectResource GetDevOpsProjectResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableSecurityCenterArmClient(client).GetDevOpsProjectResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="DevOpsRepositoryResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DevOpsRepositoryResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsRepositoryResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetDevOpsRepositoryResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="DevOpsRepositoryResource"/> object. </returns>
+        public static DevOpsRepositoryResource GetDevOpsRepositoryResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableSecurityCenterArmClient(client).GetDevOpsRepositoryResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="DevOpsConfigurationResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DevOpsConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsConfigurationResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetDevOpsConfigurationResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="DevOpsConfigurationResource"/> object. </returns>
+        public static DevOpsConfigurationResource GetDevOpsConfigurationResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableSecurityCenterArmClient(client).GetDevOpsConfigurationResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SecurityConnectorGitHubOwnerResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SecurityConnectorGitHubOwnerResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitHubOwnerResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetSecurityConnectorGitHubOwnerResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="SecurityConnectorGitHubOwnerResource"/> object. </returns>
+        public static SecurityConnectorGitHubOwnerResource GetSecurityConnectorGitHubOwnerResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableSecurityCenterArmClient(client).GetSecurityConnectorGitHubOwnerResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SecurityConnectorGitHubRepositoryResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SecurityConnectorGitHubRepositoryResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitHubRepositoryResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetSecurityConnectorGitHubRepositoryResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="SecurityConnectorGitHubRepositoryResource"/> object. </returns>
+        public static SecurityConnectorGitHubRepositoryResource GetSecurityConnectorGitHubRepositoryResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableSecurityCenterArmClient(client).GetSecurityConnectorGitHubRepositoryResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SecurityConnectorGitLabGroupResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SecurityConnectorGitLabGroupResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitLabGroupResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetSecurityConnectorGitLabGroupResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="SecurityConnectorGitLabGroupResource"/> object. </returns>
+        public static SecurityConnectorGitLabGroupResource GetSecurityConnectorGitLabGroupResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableSecurityCenterArmClient(client).GetSecurityConnectorGitLabGroupResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SecurityConnectorGitLabProjectResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SecurityConnectorGitLabProjectResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitLabProjectResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetSecurityConnectorGitLabProjectResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="SecurityConnectorGitLabProjectResource"/> object. </returns>
+        public static SecurityConnectorGitLabProjectResource GetSecurityConnectorGitLabProjectResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableSecurityCenterArmClient(client).GetSecurityConnectorGitLabProjectResource(id);
         }
 
         /// <summary>

@@ -1314,102 +1314,6 @@ namespace Azure.ResourceManager.SecurityCenter.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="DevOpsOrgResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="DevOpsOrgResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsOrgResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="DevOpsOrgResource"/> object. </returns>
-        public virtual DevOpsOrgResource GetDevOpsOrgResource(ResourceIdentifier id)
-        {
-            DevOpsOrgResource.ValidateResourceId(id);
-            return new DevOpsOrgResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="DevOpsProjectResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="DevOpsProjectResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsProjectResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="DevOpsProjectResource"/> object. </returns>
-        public virtual DevOpsProjectResource GetDevOpsProjectResource(ResourceIdentifier id)
-        {
-            DevOpsProjectResource.ValidateResourceId(id);
-            return new DevOpsProjectResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="DevOpsRepositoryResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="DevOpsRepositoryResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsRepositoryResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="DevOpsRepositoryResource"/> object. </returns>
-        public virtual DevOpsRepositoryResource GetDevOpsRepositoryResource(ResourceIdentifier id)
-        {
-            DevOpsRepositoryResource.ValidateResourceId(id);
-            return new DevOpsRepositoryResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="DevOpsConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="DevOpsConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsConfigurationResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="DevOpsConfigurationResource"/> object. </returns>
-        public virtual DevOpsConfigurationResource GetDevOpsConfigurationResource(ResourceIdentifier id)
-        {
-            DevOpsConfigurationResource.ValidateResourceId(id);
-            return new DevOpsConfigurationResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="SecurityConnectorGitHubOwnerResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SecurityConnectorGitHubOwnerResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitHubOwnerResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SecurityConnectorGitHubOwnerResource"/> object. </returns>
-        public virtual SecurityConnectorGitHubOwnerResource GetSecurityConnectorGitHubOwnerResource(ResourceIdentifier id)
-        {
-            SecurityConnectorGitHubOwnerResource.ValidateResourceId(id);
-            return new SecurityConnectorGitHubOwnerResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="SecurityConnectorGitHubRepositoryResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SecurityConnectorGitHubRepositoryResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitHubRepositoryResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SecurityConnectorGitHubRepositoryResource"/> object. </returns>
-        public virtual SecurityConnectorGitHubRepositoryResource GetSecurityConnectorGitHubRepositoryResource(ResourceIdentifier id)
-        {
-            SecurityConnectorGitHubRepositoryResource.ValidateResourceId(id);
-            return new SecurityConnectorGitHubRepositoryResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="SecurityConnectorGitLabGroupResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SecurityConnectorGitLabGroupResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitLabGroupResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SecurityConnectorGitLabGroupResource"/> object. </returns>
-        public virtual SecurityConnectorGitLabGroupResource GetSecurityConnectorGitLabGroupResource(ResourceIdentifier id)
-        {
-            SecurityConnectorGitLabGroupResource.ValidateResourceId(id);
-            return new SecurityConnectorGitLabGroupResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="SecurityConnectorGitLabProjectResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SecurityConnectorGitLabProjectResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitLabProjectResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SecurityConnectorGitLabProjectResource"/> object. </returns>
-        public virtual SecurityConnectorGitLabProjectResource GetSecurityConnectorGitLabProjectResource(ResourceIdentifier id)
-        {
-            SecurityConnectorGitLabProjectResource.ValidateResourceId(id);
-            return new SecurityConnectorGitLabProjectResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="SecurityConnectorResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="SecurityConnectorResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -1671,6 +1575,102 @@ namespace Azure.ResourceManager.SecurityCenter.Mocking
         {
             SecurityCenterApiCollectionResource.ValidateResourceId(id);
             return new SecurityCenterApiCollectionResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="DevOpsOrgResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DevOpsOrgResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsOrgResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="DevOpsOrgResource"/> object. </returns>
+        public virtual DevOpsOrgResource GetDevOpsOrgResource(ResourceIdentifier id)
+        {
+            DevOpsOrgResource.ValidateResourceId(id);
+            return new DevOpsOrgResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="DevOpsProjectResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DevOpsProjectResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsProjectResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="DevOpsProjectResource"/> object. </returns>
+        public virtual DevOpsProjectResource GetDevOpsProjectResource(ResourceIdentifier id)
+        {
+            DevOpsProjectResource.ValidateResourceId(id);
+            return new DevOpsProjectResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="DevOpsRepositoryResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DevOpsRepositoryResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsRepositoryResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="DevOpsRepositoryResource"/> object. </returns>
+        public virtual DevOpsRepositoryResource GetDevOpsRepositoryResource(ResourceIdentifier id)
+        {
+            DevOpsRepositoryResource.ValidateResourceId(id);
+            return new DevOpsRepositoryResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="DevOpsConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DevOpsConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="DevOpsConfigurationResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="DevOpsConfigurationResource"/> object. </returns>
+        public virtual DevOpsConfigurationResource GetDevOpsConfigurationResource(ResourceIdentifier id)
+        {
+            DevOpsConfigurationResource.ValidateResourceId(id);
+            return new DevOpsConfigurationResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SecurityConnectorGitHubOwnerResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SecurityConnectorGitHubOwnerResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitHubOwnerResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SecurityConnectorGitHubOwnerResource"/> object. </returns>
+        public virtual SecurityConnectorGitHubOwnerResource GetSecurityConnectorGitHubOwnerResource(ResourceIdentifier id)
+        {
+            SecurityConnectorGitHubOwnerResource.ValidateResourceId(id);
+            return new SecurityConnectorGitHubOwnerResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SecurityConnectorGitHubRepositoryResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SecurityConnectorGitHubRepositoryResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitHubRepositoryResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SecurityConnectorGitHubRepositoryResource"/> object. </returns>
+        public virtual SecurityConnectorGitHubRepositoryResource GetSecurityConnectorGitHubRepositoryResource(ResourceIdentifier id)
+        {
+            SecurityConnectorGitHubRepositoryResource.ValidateResourceId(id);
+            return new SecurityConnectorGitHubRepositoryResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SecurityConnectorGitLabGroupResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SecurityConnectorGitLabGroupResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitLabGroupResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SecurityConnectorGitLabGroupResource"/> object. </returns>
+        public virtual SecurityConnectorGitLabGroupResource GetSecurityConnectorGitLabGroupResource(ResourceIdentifier id)
+        {
+            SecurityConnectorGitLabGroupResource.ValidateResourceId(id);
+            return new SecurityConnectorGitLabGroupResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SecurityConnectorGitLabProjectResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SecurityConnectorGitLabProjectResource.CreateResourceIdentifier" /> to create a <see cref="SecurityConnectorGitLabProjectResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SecurityConnectorGitLabProjectResource"/> object. </returns>
+        public virtual SecurityConnectorGitLabProjectResource GetSecurityConnectorGitLabProjectResource(ResourceIdentifier id)
+        {
+            SecurityConnectorGitLabProjectResource.ValidateResourceId(id);
+            return new SecurityConnectorGitLabProjectResource(Client, id);
         }
     }
 }

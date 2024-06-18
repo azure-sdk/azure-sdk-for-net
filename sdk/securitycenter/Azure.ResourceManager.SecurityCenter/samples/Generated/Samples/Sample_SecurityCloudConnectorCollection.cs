@@ -248,7 +248,7 @@ namespace Azure.ResourceManager.SecurityCenter.Samples
                         Secret = "<secret>",
                     },
                 },
-                AuthenticationDetails = new AwsCredsAuthenticationDetailsProperties("AKIARPZCNODDNAEQFSOE", "<awsSecretAccessKey>"),
+                AuthenticationDetails = new AwsCredsAuthenticationDetailsProperties("<awsAccessKeyId>", "<awsSecretAccessKey>"),
             };
             ArmOperation<SecurityCloudConnectorResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, connectorName, data);
             SecurityCloudConnectorResource result = lro.Value;
