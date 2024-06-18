@@ -66,11 +66,13 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="sku">The Azure Firewall Resource SKU.</param>
         /// <param name="additionalProperties">The additional properties used
         /// to further config this azure firewall.</param>
+        /// <param name="autoscaleConfiguration">Properties to manually scale
+        /// this azure firewall.</param>
         /// <param name="zones">A list of availability zones denoting where the
         /// resource needs to come from.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public AzureFirewall(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<AzureFirewallApplicationRuleCollection> applicationRuleCollections = default(IList<AzureFirewallApplicationRuleCollection>), IList<AzureFirewallNatRuleCollection> natRuleCollections = default(IList<AzureFirewallNatRuleCollection>), IList<AzureFirewallNetworkRuleCollection> networkRuleCollections = default(IList<AzureFirewallNetworkRuleCollection>), IList<AzureFirewallIPConfiguration> ipConfigurations = default(IList<AzureFirewallIPConfiguration>), AzureFirewallIPConfiguration managementIpConfiguration = default(AzureFirewallIPConfiguration), string provisioningState = default(string), string threatIntelMode = default(string), SubResource virtualHub = default(SubResource), SubResource firewallPolicy = default(SubResource), HubIPAddresses hubIPAddresses = default(HubIPAddresses), IList<AzureFirewallIpGroups> ipGroups = default(IList<AzureFirewallIpGroups>), AzureFirewallSku sku = default(AzureFirewallSku), IDictionary<string, string> additionalProperties = default(IDictionary<string, string>), IList<string> zones = default(IList<string>), string etag = default(string))
+        public AzureFirewall(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<AzureFirewallApplicationRuleCollection> applicationRuleCollections = default(IList<AzureFirewallApplicationRuleCollection>), IList<AzureFirewallNatRuleCollection> natRuleCollections = default(IList<AzureFirewallNatRuleCollection>), IList<AzureFirewallNetworkRuleCollection> networkRuleCollections = default(IList<AzureFirewallNetworkRuleCollection>), IList<AzureFirewallIPConfiguration> ipConfigurations = default(IList<AzureFirewallIPConfiguration>), AzureFirewallIPConfiguration managementIpConfiguration = default(AzureFirewallIPConfiguration), string provisioningState = default(string), string threatIntelMode = default(string), SubResource virtualHub = default(SubResource), SubResource firewallPolicy = default(SubResource), HubIPAddresses hubIPAddresses = default(HubIPAddresses), IList<AzureFirewallIpGroups> ipGroups = default(IList<AzureFirewallIpGroups>), AzureFirewallSku sku = default(AzureFirewallSku), IDictionary<string, string> additionalProperties = default(IDictionary<string, string>), AzureFirewallAutoscaleConfiguration autoscaleConfiguration = default(AzureFirewallAutoscaleConfiguration), IList<string> zones = default(IList<string>), string etag = default(string))
             : base(id, name, type, location, tags)
         {
             ApplicationRuleCollections = applicationRuleCollections;
@@ -86,6 +88,7 @@ namespace Microsoft.Azure.Management.Network.Models
             IpGroups = ipGroups;
             Sku = sku;
             AdditionalProperties = additionalProperties;
+            AutoscaleConfiguration = autoscaleConfiguration;
             Zones = zones;
             Etag = etag;
             CustomInit();
@@ -184,6 +187,12 @@ namespace Microsoft.Azure.Management.Network.Models
         public IDictionary<string, string> AdditionalProperties { get; set; }
 
         /// <summary>
+        /// Gets or sets properties to manually scale this azure firewall.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.autoscaleConfiguration")]
+        public AzureFirewallAutoscaleConfiguration AutoscaleConfiguration { get; set; }
+
+        /// <summary>
         /// Gets or sets a list of availability zones denoting where the
         /// resource needs to come from.
         /// </summary>
@@ -197,5 +206,48 @@ namespace Microsoft.Azure.Management.Network.Models
         [JsonProperty(PropertyName = "etag")]
         public string Etag { get; private set; }
 
+        /// <summary>
+        /// Validate the object.
+        /// </summary>
+        /// <exception cref="ValidationException">
+        /// Thrown if validation fails
+        /// </exception>
+        public virtual void Validate()
+        {
+            if (ApplicationRuleCollections != null)
+            {
+                foreach (var element in ApplicationRuleCollections)
+                {
+                    if (element != null)
+                    {
+                        element.Validate();
+                    }
+                }
+            }
+            if (NatRuleCollections != null)
+            {
+                foreach (var element1 in NatRuleCollections)
+                {
+                    if (element1 != null)
+                    {
+                        element1.Validate();
+                    }
+                }
+            }
+            if (NetworkRuleCollections != null)
+            {
+                foreach (var element2 in NetworkRuleCollections)
+                {
+                    if (element2 != null)
+                    {
+                        element2.Validate();
+                    }
+                }
+            }
+            if (AutoscaleConfiguration != null)
+            {
+                AutoscaleConfiguration.Validate();
+            }
+        }
     }
 }
