@@ -4197,9 +4197,10 @@ namespace Azure.ResourceManager.Compute.Models
     }
     public partial class ComputeSecurityPostureReference : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ComputeSecurityPostureReference>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ComputeSecurityPostureReference>
     {
-        public ComputeSecurityPostureReference() { }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.VirtualMachineExtensionData> ExcludeExtensions { get { throw null; } }
+        public ComputeSecurityPostureReference(Azure.Core.ResourceIdentifier id) { }
+        public System.Collections.Generic.IList<string> ExcludeExtensions { get { throw null; } }
         public Azure.Core.ResourceIdentifier Id { get { throw null; } set { } }
+        public bool? IsOverridable { get { throw null; } set { } }
         Azure.ResourceManager.Compute.Models.ComputeSecurityPostureReference System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ComputeSecurityPostureReference>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ComputeSecurityPostureReference>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.Compute.Models.ComputeSecurityPostureReference System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ComputeSecurityPostureReference>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -6083,24 +6084,6 @@ namespace Azure.ResourceManager.Compute.Models
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ManagedDiskPatch>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct Mode : System.IEquatable<Azure.ResourceManager.Compute.Models.Mode>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public Mode(string value) { throw null; }
-        public static Azure.ResourceManager.Compute.Models.Mode Audit { get { throw null; } }
-        public static Azure.ResourceManager.Compute.Models.Mode Enforce { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.Compute.Models.Mode other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.Compute.Models.Mode left, Azure.ResourceManager.Compute.Models.Mode right) { throw null; }
-        public static implicit operator Azure.ResourceManager.Compute.Models.Mode (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.Compute.Models.Mode left, Azure.ResourceManager.Compute.Models.Mode right) { throw null; }
-        public override string ToString() { throw null; }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct NetworkAccessPolicy : System.IEquatable<Azure.ResourceManager.Compute.Models.NetworkAccessPolicy>
     {
         private readonly object _dummy;
@@ -6501,7 +6484,6 @@ namespace Azure.ResourceManager.Compute.Models
         public ProxyAgentSettings() { }
         public bool? Enabled { get { throw null; } set { } }
         public int? KeyIncarnationId { get { throw null; } set { } }
-        public Azure.ResourceManager.Compute.Models.Mode? Mode { get { throw null; } set { } }
         Azure.ResourceManager.Compute.Models.ProxyAgentSettings System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettings>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettings>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.Compute.Models.ProxyAgentSettings System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettings>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -7112,6 +7094,18 @@ namespace Azure.ResourceManager.Compute.Models
         public static implicit operator Azure.ResourceManager.Compute.Models.SecurityEncryptionType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Compute.Models.SecurityEncryptionType left, Azure.ResourceManager.Compute.Models.SecurityEncryptionType right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class SecurityPostureReferenceUpdate : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.SecurityPostureReferenceUpdate>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.SecurityPostureReferenceUpdate>
+    {
+        public SecurityPostureReferenceUpdate() { }
+        public System.Collections.Generic.IList<string> ExcludeExtensions { get { throw null; } }
+        public string Id { get { throw null; } set { } }
+        public bool? IsOverridable { get { throw null; } set { } }
+        Azure.ResourceManager.Compute.Models.SecurityPostureReferenceUpdate System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.SecurityPostureReferenceUpdate>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.SecurityPostureReferenceUpdate>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.SecurityPostureReferenceUpdate System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.SecurityPostureReferenceUpdate>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.SecurityPostureReferenceUpdate>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.SecurityPostureReferenceUpdate>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public partial class SecurityProfile : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.SecurityProfile>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.SecurityProfile>
     {
@@ -8874,6 +8868,7 @@ namespace Azure.ResourceManager.Compute.Models
         public Azure.ResourceManager.Compute.Models.ComputeScheduledEventsProfile ScheduledEventsProfile { get { throw null; } set { } }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public Azure.ResourceManager.Compute.Models.TerminateNotificationProfile ScheduledEventsTerminateNotificationProfile { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.SecurityPostureReferenceUpdate SecurityPostureReference { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.SecurityProfile SecurityProfile { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetUpdateStorageProfile StorageProfile { get { throw null; } set { } }
         public string UserData { get { throw null; } set { } }

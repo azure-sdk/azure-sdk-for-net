@@ -31,11 +31,6 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("enabled"u8);
                 writer.WriteBooleanValue(Enabled.Value);
             }
-            if (Optional.IsDefined(Mode))
-            {
-                writer.WritePropertyName("mode"u8);
-                writer.WriteStringValue(Mode.Value.ToString());
-            }
             if (Optional.IsDefined(KeyIncarnationId))
             {
                 writer.WritePropertyName("keyIncarnationId"u8);
@@ -80,7 +75,6 @@ namespace Azure.ResourceManager.Compute.Models
                 return null;
             }
             bool? enabled = default;
-            Mode? mode = default;
             int? keyIncarnationId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -93,15 +87,6 @@ namespace Azure.ResourceManager.Compute.Models
                         continue;
                     }
                     enabled = property.Value.GetBoolean();
-                    continue;
-                }
-                if (property.NameEquals("mode"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    mode = new Mode(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("keyIncarnationId"u8))
@@ -119,7 +104,7 @@ namespace Azure.ResourceManager.Compute.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ProxyAgentSettings(enabled, mode, keyIncarnationId, serializedAdditionalRawData);
+            return new ProxyAgentSettings(enabled, keyIncarnationId, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ProxyAgentSettings>.Write(ModelReaderWriterOptions options)

@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    /// <summary> Specifies ProxyAgent settings while creating the virtual machine. Minimum api-version: 2024-03-01. </summary>
-    public partial class ProxyAgentSettings
+    /// <summary> Specifies the security posture to be used in the scale set. Minimum api-version: 2023-03-01. </summary>
+    public partial class SecurityPostureReferenceUpdate
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,25 +45,30 @@ namespace Azure.ResourceManager.Compute.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ProxyAgentSettings"/>. </summary>
-        public ProxyAgentSettings()
+        /// <summary> Initializes a new instance of <see cref="SecurityPostureReferenceUpdate"/>. </summary>
+        public SecurityPostureReferenceUpdate()
         {
+            ExcludeExtensions = new ChangeTrackingList<string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="ProxyAgentSettings"/>. </summary>
-        /// <param name="enabled"> Specifies whether ProxyAgent feature should be enabled on the virtual machine or virtual machine scale set. </param>
-        /// <param name="keyIncarnationId"> Increase the value of this property allows user to reset the key used for securing communication channel between guest and host. </param>
+        /// <summary> Initializes a new instance of <see cref="SecurityPostureReferenceUpdate"/>. </summary>
+        /// <param name="id"> The security posture reference id in the form of /CommunityGalleries/{communityGalleryName}/securityPostures/{securityPostureName}/versions/{major.minor.patch}|latest. </param>
+        /// <param name="excludeExtensions"> The list of virtual machine extension names to exclude when applying the security posture. </param>
+        /// <param name="isOverridable"> Whether the security posture can be overridden by the user. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ProxyAgentSettings(bool? enabled, int? keyIncarnationId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SecurityPostureReferenceUpdate(string id, IList<string> excludeExtensions, bool? isOverridable, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Enabled = enabled;
-            KeyIncarnationId = keyIncarnationId;
+            Id = id;
+            ExcludeExtensions = excludeExtensions;
+            IsOverridable = isOverridable;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Specifies whether ProxyAgent feature should be enabled on the virtual machine or virtual machine scale set. </summary>
-        public bool? Enabled { get; set; }
-        /// <summary> Increase the value of this property allows user to reset the key used for securing communication channel between guest and host. </summary>
-        public int? KeyIncarnationId { get; set; }
+        /// <summary> The security posture reference id in the form of /CommunityGalleries/{communityGalleryName}/securityPostures/{securityPostureName}/versions/{major.minor.patch}|latest. </summary>
+        public string Id { get; set; }
+        /// <summary> The list of virtual machine extension names to exclude when applying the security posture. </summary>
+        public IList<string> ExcludeExtensions { get; }
+        /// <summary> Whether the security posture can be overridden by the user. </summary>
+        public bool? IsOverridable { get; set; }
     }
 }
