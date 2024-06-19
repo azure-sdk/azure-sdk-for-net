@@ -161,8 +161,7 @@ namespace Azure.ResourceManager.Kusto.Samples
 new KustoLanguageExtension()
 {
 LanguageExtensionName = KustoLanguageExtensionName.Python,
-LanguageExtensionImageName = new KustoLanguageExtensionImageName("Python_Custom_Image"),
-LanguageExtensionCustomImageName = "customImage8",
+LanguageExtensionImageName = KustoLanguageExtensionImageName.Python3_10_8,
 },new KustoLanguageExtension()
 {
 LanguageExtensionName = KustoLanguageExtensionName.R,
