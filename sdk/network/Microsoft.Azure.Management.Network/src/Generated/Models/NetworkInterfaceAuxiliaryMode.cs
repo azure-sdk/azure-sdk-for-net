@@ -19,5 +19,6 @@ namespace Microsoft.Azure.Management.Network.Models
         public const string None = "None";
         public const string MaxConnections = "MaxConnections";
         public const string Floating = "Floating";
+        public const string AcceleratedConnections = "AcceleratedConnections";
     }
 }
