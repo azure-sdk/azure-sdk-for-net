@@ -24,7 +24,7 @@ namespace Microsoft.Azure.Management.Avs
     public partial interface IWorkloadNetworksOperations
     {
         /// <summary>
-        /// List of segments in a private cloud workload network.
+        /// List WorkloadNetwork resources by PrivateCloud
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -38,7 +38,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -47,9 +47,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<IPage<WorkloadNetworkSegment>>> ListSegmentsWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IPage<WorkloadNetwork>>> ListWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Get a segment by id in a private cloud workload network.
+        /// Get a WorkloadNetwork
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -57,17 +57,13 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='privateCloudName'>
         /// Name of the private cloud
         /// </param>
-        /// <param name='segmentId'>
-        /// NSX Segment identifier. Generally the same as the Segment's display
-        /// name
-        /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
         /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -76,100 +72,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkSegment>> GetSegmentWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string segmentId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetwork>> GetWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create a segment by id in a private cloud workload network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='segmentId'>
-        /// NSX Segment identifier. Generally the same as the Segment's display
-        /// name
-        /// </param>
-        /// <param name='workloadNetworkSegment'>
-        /// NSX Segment
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkSegment>> CreateSegmentsWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Create or update a segment by id in a private cloud workload
-        /// network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='segmentId'>
-        /// NSX Segment identifier. Generally the same as the Segment's display
-        /// name
-        /// </param>
-        /// <param name='workloadNetworkSegment'>
-        /// NSX Segment
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkSegment>> UpdateSegmentsWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Delete a segment by id in a private cloud workload network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='segmentId'>
-        /// NSX Segment identifier. Generally the same as the Segment's display
-        /// name
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse> DeleteSegmentWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string segmentId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// List dhcp in a private cloud workload network.
+        /// List WorkloadNetworkDhcp resources by WorkloadNetwork
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -183,7 +88,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -194,13 +99,13 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<IPage<WorkloadNetworkDhcp>>> ListDhcpWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Get dhcp by id in a private cloud workload network.
+        /// Get a WorkloadNetworkDhcp
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='dhcpId'>
-        /// NSX DHCP identifier. Generally the same as the DHCP display name
+        /// The ID of the DHCP configuration
         /// </param>
         /// <param name='privateCloudName'>
         /// Name of the private cloud
@@ -211,7 +116,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -222,7 +127,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<WorkloadNetworkDhcp>> GetDhcpWithHttpMessagesAsync(string resourceGroupName, string dhcpId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create dhcp by id in a private cloud workload network.
+        /// Create a WorkloadNetworkDhcp
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -231,10 +136,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='dhcpId'>
-        /// NSX DHCP identifier. Generally the same as the DHCP display name
+        /// The ID of the DHCP configuration
         /// </param>
         /// <param name='workloadNetworkDhcp'>
-        /// NSX DHCP
+        /// Resource create parameters.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -242,7 +147,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -251,9 +156,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkDhcp>> CreateDhcpWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkDhcp,WorkloadNetworksCreateDhcpHeaders>> CreateDhcpWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create or update dhcp by id in a private cloud workload network.
+        /// Update a WorkloadNetworkDhcp
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -262,10 +167,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='dhcpId'>
-        /// NSX DHCP identifier. Generally the same as the DHCP display name
+        /// The ID of the DHCP configuration
         /// </param>
         /// <param name='workloadNetworkDhcp'>
-        /// NSX DHCP
+        /// The resource properties to be updated.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -273,7 +178,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -282,9 +187,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkDhcp>> UpdateDhcpWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkDhcp,WorkloadNetworksUpdateDhcpHeaders>> UpdateDhcpWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete dhcp by id in a private cloud workload network.
+        /// Delete a WorkloadNetworkDhcp
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -293,7 +198,7 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='dhcpId'>
-        /// NSX DHCP identifier. Generally the same as the DHCP display name
+        /// The ID of the DHCP configuration
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -301,15 +206,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> DeleteDhcpWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dhcpId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<WorkloadNetworksDeleteDhcpHeaders>> DeleteDhcpWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dhcpId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// List of gateways in a private cloud workload network.
+        /// List WorkloadNetworkDnsService resources by WorkloadNetwork
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -323,408 +228,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<IPage<WorkloadNetworkGateway>>> ListGatewaysWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Get a gateway by id in a private cloud workload network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='gatewayId'>
-        /// NSX Gateway identifier. Generally the same as the Gateway's display
-        /// name
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkGateway>> GetGatewayWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string gatewayId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// List of port mirroring profiles in a private cloud workload
-        /// network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<IPage<WorkloadNetworkPortMirroring>>> ListPortMirroringWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Get a port mirroring profile by id in a private cloud workload
-        /// network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='portMirroringId'>
-        /// NSX Port Mirroring identifier. Generally the same as the Port
-        /// Mirroring display name
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkPortMirroring>> GetPortMirroringWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string portMirroringId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Create a port mirroring profile by id in a private cloud workload
-        /// network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='portMirroringId'>
-        /// NSX Port Mirroring identifier. Generally the same as the Port
-        /// Mirroring display name
-        /// </param>
-        /// <param name='workloadNetworkPortMirroring'>
-        /// NSX port mirroring
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkPortMirroring>> CreatePortMirroringWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Create or update a port mirroring profile by id in a private cloud
-        /// workload network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='portMirroringId'>
-        /// NSX Port Mirroring identifier. Generally the same as the Port
-        /// Mirroring display name
-        /// </param>
-        /// <param name='workloadNetworkPortMirroring'>
-        /// NSX port mirroring
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkPortMirroring>> UpdatePortMirroringWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Delete a port mirroring profile by id in a private cloud workload
-        /// network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='portMirroringId'>
-        /// NSX Port Mirroring identifier. Generally the same as the Port
-        /// Mirroring display name
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse> DeletePortMirroringWithHttpMessagesAsync(string resourceGroupName, string portMirroringId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// List of vm groups in a private cloud workload network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<IPage<WorkloadNetworkVMGroup>>> ListVMGroupsWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Get a vm group by id in a private cloud workload network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='vmGroupId'>
-        /// NSX VM Group identifier. Generally the same as the VM Group's
-        /// display name
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkVMGroup>> GetVMGroupWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string vmGroupId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Create a vm group by id in a private cloud workload network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='vmGroupId'>
-        /// NSX VM Group identifier. Generally the same as the VM Group's
-        /// display name
-        /// </param>
-        /// <param name='workloadNetworkVMGroup'>
-        /// NSX VM Group
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkVMGroup>> CreateVMGroupWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Create or update a vm group by id in a private cloud workload
-        /// network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='vmGroupId'>
-        /// NSX VM Group identifier. Generally the same as the VM Group's
-        /// display name
-        /// </param>
-        /// <param name='workloadNetworkVMGroup'>
-        /// NSX VM Group
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkVMGroup>> UpdateVMGroupWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Delete a vm group by id in a private cloud workload network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='vmGroupId'>
-        /// NSX VM Group identifier. Generally the same as the VM Group's
-        /// display name
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse> DeleteVMGroupWithHttpMessagesAsync(string resourceGroupName, string vmGroupId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// List of virtual machines in a private cloud workload network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<IPage<WorkloadNetworkVirtualMachine>>> ListVirtualMachinesWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Get a virtual machine by id in a private cloud workload network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='virtualMachineId'>
-        /// Virtual Machine identifier
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkVirtualMachine>> GetVirtualMachineWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string virtualMachineId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// List of DNS services in a private cloud workload network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -735,7 +239,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<IPage<WorkloadNetworkDnsService>>> ListDnsServicesWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Get a DNS service by id in a private cloud workload network.
+        /// Get a WorkloadNetworkDnsService
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -744,8 +248,7 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='dnsServiceId'>
-        /// NSX DNS Service identifier. Generally the same as the DNS Service's
-        /// display name
+        /// ID of the DNS service.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -753,7 +256,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -764,7 +267,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<WorkloadNetworkDnsService>> GetDnsServiceWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsServiceId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create a DNS service by id in a private cloud workload network.
+        /// Create a WorkloadNetworkDnsService
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -773,11 +276,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='dnsServiceId'>
-        /// NSX DNS Service identifier. Generally the same as the DNS Service's
-        /// display name
+        /// ID of the DNS service.
         /// </param>
         /// <param name='workloadNetworkDnsService'>
-        /// NSX DNS Service
+        /// Resource create parameters.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -785,7 +287,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -794,10 +296,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkDnsService>> CreateDnsServiceWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkDnsService,WorkloadNetworksCreateDnsServiceHeaders>> CreateDnsServiceWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create or update a DNS service by id in a private cloud workload
-        /// network.
+        /// Update a WorkloadNetworkDnsService
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -806,11 +307,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='dnsServiceId'>
-        /// NSX DNS Service identifier. Generally the same as the DNS Service's
-        /// display name
+        /// ID of the DNS service.
         /// </param>
         /// <param name='workloadNetworkDnsService'>
-        /// NSX DNS Service
+        /// The resource properties to be updated.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -818,7 +318,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -827,16 +327,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkDnsService>> UpdateDnsServiceWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkDnsService,WorkloadNetworksUpdateDnsServiceHeaders>> UpdateDnsServiceWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete a DNS service by id in a private cloud workload network.
+        /// Delete a WorkloadNetworkDnsService
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='dnsServiceId'>
-        /// NSX DNS Service identifier. Generally the same as the DNS Service's
-        /// display name
+        /// ID of the DNS service.
         /// </param>
         /// <param name='privateCloudName'>
         /// Name of the private cloud
@@ -847,15 +346,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> DeleteDnsServiceWithHttpMessagesAsync(string resourceGroupName, string dnsServiceId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<WorkloadNetworksDeleteDnsServiceHeaders>> DeleteDnsServiceWithHttpMessagesAsync(string resourceGroupName, string dnsServiceId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// List of DNS zones in a private cloud workload network.
+        /// List WorkloadNetworkDnsZone resources by WorkloadNetwork
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -869,7 +368,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -880,7 +379,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<IPage<WorkloadNetworkDnsZone>>> ListDnsZonesWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Get a DNS zone by id in a private cloud workload network.
+        /// Get a WorkloadNetworkDnsZone
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -889,8 +388,7 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='dnsZoneId'>
-        /// NSX DNS Zone identifier. Generally the same as the DNS Zone's
-        /// display name
+        /// ID of the DNS zone.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -898,7 +396,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -909,7 +407,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<WorkloadNetworkDnsZone>> GetDnsZoneWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsZoneId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create a DNS zone by id in a private cloud workload network.
+        /// Create a WorkloadNetworkDnsZone
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -918,11 +416,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='dnsZoneId'>
-        /// NSX DNS Zone identifier. Generally the same as the DNS Zone's
-        /// display name
+        /// ID of the DNS zone.
         /// </param>
         /// <param name='workloadNetworkDnsZone'>
-        /// NSX DNS Zone
+        /// Resource create parameters.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -930,7 +427,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -939,10 +436,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkDnsZone>> CreateDnsZoneWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkDnsZone,WorkloadNetworksCreateDnsZoneHeaders>> CreateDnsZoneWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create or update a DNS zone by id in a private cloud workload
-        /// network.
+        /// Update a WorkloadNetworkDnsZone
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -951,11 +447,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='dnsZoneId'>
-        /// NSX DNS Zone identifier. Generally the same as the DNS Zone's
-        /// display name
+        /// ID of the DNS zone.
         /// </param>
         /// <param name='workloadNetworkDnsZone'>
-        /// NSX DNS Zone
+        /// The resource properties to be updated.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -963,7 +458,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -972,16 +467,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkDnsZone>> UpdateDnsZoneWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkDnsZone,WorkloadNetworksUpdateDnsZoneHeaders>> UpdateDnsZoneWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete a DNS zone by id in a private cloud workload network.
+        /// Delete a WorkloadNetworkDnsZone
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='dnsZoneId'>
-        /// NSX DNS Zone identifier. Generally the same as the DNS Zone's
-        /// display name
+        /// ID of the DNS zone.
         /// </param>
         /// <param name='privateCloudName'>
         /// Name of the private cloud
@@ -992,15 +486,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> DeleteDnsZoneWithHttpMessagesAsync(string resourceGroupName, string dnsZoneId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<WorkloadNetworksDeleteDnsZoneHeaders>> DeleteDnsZoneWithHttpMessagesAsync(string resourceGroupName, string dnsZoneId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// List of Public IP Blocks in a private cloud workload network.
+        /// List WorkloadNetworkGateway resources by WorkloadNetwork
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1014,7 +508,200 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<IPage<WorkloadNetworkGateway>>> ListGatewaysWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Get a WorkloadNetworkGateway
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='gatewayId'>
+        /// The ID of the NSX Gateway
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<WorkloadNetworkGateway>> GetGatewayWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string gatewayId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// List WorkloadNetworkPortMirroring resources by WorkloadNetwork
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<IPage<WorkloadNetworkPortMirroring>>> ListPortMirroringWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Get a WorkloadNetworkPortMirroring
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='portMirroringId'>
+        /// ID of the NSX port mirroring profile.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<WorkloadNetworkPortMirroring>> GetPortMirroringWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string portMirroringId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Create a WorkloadNetworkPortMirroring
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='portMirroringId'>
+        /// ID of the NSX port mirroring profile.
+        /// </param>
+        /// <param name='workloadNetworkPortMirroring'>
+        /// Resource create parameters.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<WorkloadNetworkPortMirroring,WorkloadNetworksCreatePortMirroringHeaders>> CreatePortMirroringWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Update a WorkloadNetworkPortMirroring
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='portMirroringId'>
+        /// ID of the NSX port mirroring profile.
+        /// </param>
+        /// <param name='workloadNetworkPortMirroring'>
+        /// The resource properties to be updated.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<WorkloadNetworkPortMirroring,WorkloadNetworksUpdatePortMirroringHeaders>> UpdatePortMirroringWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Delete a WorkloadNetworkPortMirroring
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='portMirroringId'>
+        /// ID of the NSX port mirroring profile.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationHeaderResponse<WorkloadNetworksDeletePortMirroringHeaders>> DeletePortMirroringWithHttpMessagesAsync(string resourceGroupName, string portMirroringId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// List WorkloadNetworkPublicIP resources by WorkloadNetwork
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1025,7 +712,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<IPage<WorkloadNetworkPublicIP>>> ListPublicIPsWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Get a Public IP Block by id in a private cloud workload network.
+        /// Get a WorkloadNetworkPublicIP
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1034,8 +721,7 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='publicIPId'>
-        /// NSX Public IP Block identifier. Generally the same as the Public IP
-        /// Block's display name
+        /// ID of the DNS zone.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1043,7 +729,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1054,7 +740,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<WorkloadNetworkPublicIP>> GetPublicIPWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string publicIPId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create a Public IP Block by id in a private cloud workload network.
+        /// Create a WorkloadNetworkPublicIP
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1063,11 +749,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='publicIPId'>
-        /// NSX Public IP Block identifier. Generally the same as the Public IP
-        /// Block's display name
+        /// ID of the DNS zone.
         /// </param>
         /// <param name='workloadNetworkPublicIP'>
-        /// NSX Public IP Block
+        /// Resource create parameters.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1075,7 +760,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1084,16 +769,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkPublicIP>> CreatePublicIPWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string publicIPId, WorkloadNetworkPublicIP workloadNetworkPublicIP, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkPublicIP,WorkloadNetworksCreatePublicIPHeaders>> CreatePublicIPWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string publicIPId, WorkloadNetworkPublicIP workloadNetworkPublicIP, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete a Public IP Block by id in a private cloud workload network.
+        /// Delete a WorkloadNetworkPublicIP
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='publicIPId'>
-        /// NSX Public IP Block identifier. Generally the same as the Public IP
-        /// Block's display name
+        /// ID of the DNS zone.
         /// </param>
         /// <param name='privateCloudName'>
         /// Name of the private cloud
@@ -1104,15 +788,40 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> DeletePublicIPWithHttpMessagesAsync(string resourceGroupName, string publicIPId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<WorkloadNetworksDeletePublicIPHeaders>> DeletePublicIPWithHttpMessagesAsync(string resourceGroupName, string publicIPId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create a segment by id in a private cloud workload network.
+        /// List WorkloadNetworkSegment resources by WorkloadNetwork
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<IPage<WorkloadNetworkSegment>>> ListSegmentsWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Get a WorkloadNetworkSegment
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1121,11 +830,38 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='segmentId'>
-        /// NSX Segment identifier. Generally the same as the Segment's display
-        /// name
+        /// The ID of the NSX Segment
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<WorkloadNetworkSegment>> GetSegmentWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string segmentId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Create a WorkloadNetworkSegment
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='segmentId'>
+        /// The ID of the NSX Segment
         /// </param>
         /// <param name='workloadNetworkSegment'>
-        /// NSX Segment
+        /// Resource create parameters.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1133,7 +869,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1142,10 +878,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkSegment>> BeginCreateSegmentsWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkSegment,WorkloadNetworksCreateSegmentsHeaders>> CreateSegmentsWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create or update a segment by id in a private cloud workload
-        /// network.
+        /// Update a WorkloadNetworkSegment
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1154,11 +889,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='segmentId'>
-        /// NSX Segment identifier. Generally the same as the Segment's display
-        /// name
+        /// The ID of the NSX Segment
         /// </param>
         /// <param name='workloadNetworkSegment'>
-        /// NSX Segment
+        /// The resource properties to be updated.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1166,7 +900,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1175,9 +909,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkSegment>> BeginUpdateSegmentsWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkSegment,WorkloadNetworksUpdateSegmentsHeaders>> UpdateSegmentsWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete a segment by id in a private cloud workload network.
+        /// Delete a WorkloadNetworkSegment
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1186,8 +920,7 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='segmentId'>
-        /// NSX Segment identifier. Generally the same as the Segment's display
-        /// name
+        /// The ID of the NSX Segment
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1195,15 +928,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginDeleteSegmentWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string segmentId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<WorkloadNetworksDeleteSegmentHeaders>> DeleteSegmentWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string segmentId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create dhcp by id in a private cloud workload network.
+        /// List WorkloadNetworkVirtualMachine resources by WorkloadNetwork
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1211,19 +944,13 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='privateCloudName'>
         /// Name of the private cloud
         /// </param>
-        /// <param name='dhcpId'>
-        /// NSX DHCP identifier. Generally the same as the DHCP display name
-        /// </param>
-        /// <param name='workloadNetworkDhcp'>
-        /// NSX DHCP
-        /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
         /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1232,9 +959,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkDhcp>> BeginCreateDhcpWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IPage<WorkloadNetworkVirtualMachine>>> ListVirtualMachinesWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create or update dhcp by id in a private cloud workload network.
+        /// Get a WorkloadNetworkVirtualMachine
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1242,11 +969,8 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='privateCloudName'>
         /// Name of the private cloud
         /// </param>
-        /// <param name='dhcpId'>
-        /// NSX DHCP identifier. Generally the same as the DHCP display name
-        /// </param>
-        /// <param name='workloadNetworkDhcp'>
-        /// NSX DHCP
+        /// <param name='virtualMachineId'>
+        /// ID of the virtual machine.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1254,7 +978,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1263,9 +987,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkDhcp>> BeginUpdateDhcpWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkVirtualMachine>> GetVirtualMachineWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string virtualMachineId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete dhcp by id in a private cloud workload network.
+        /// List WorkloadNetworkVMGroup resources by WorkloadNetwork
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1273,46 +997,13 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='privateCloudName'>
         /// Name of the private cloud
         /// </param>
-        /// <param name='dhcpId'>
-        /// NSX DHCP identifier. Generally the same as the DHCP display name
-        /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
         /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse> BeginDeleteDhcpWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dhcpId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Create a port mirroring profile by id in a private cloud workload
-        /// network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='portMirroringId'>
-        /// NSX Port Mirroring identifier. Generally the same as the Port
-        /// Mirroring display name
-        /// </param>
-        /// <param name='workloadNetworkPortMirroring'>
-        /// NSX port mirroring
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1321,69 +1012,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkPortMirroring>> BeginCreatePortMirroringWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IPage<WorkloadNetworkVMGroup>>> ListVMGroupsWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create or update a port mirroring profile by id in a private cloud
-        /// workload network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='portMirroringId'>
-        /// NSX Port Mirroring identifier. Generally the same as the Port
-        /// Mirroring display name
-        /// </param>
-        /// <param name='workloadNetworkPortMirroring'>
-        /// NSX port mirroring
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkPortMirroring>> BeginUpdatePortMirroringWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Delete a port mirroring profile by id in a private cloud workload
-        /// network.
-        /// </summary>
-        /// <param name='resourceGroupName'>
-        /// The name of the resource group. The name is case insensitive.
-        /// </param>
-        /// <param name='portMirroringId'>
-        /// NSX Port Mirroring identifier. Generally the same as the Port
-        /// Mirroring display name
-        /// </param>
-        /// <param name='privateCloudName'>
-        /// Name of the private cloud
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse> BeginDeletePortMirroringWithHttpMessagesAsync(string resourceGroupName, string portMirroringId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// Create a vm group by id in a private cloud workload network.
+        /// Get a WorkloadNetworkVMGroup
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1392,11 +1023,38 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='vmGroupId'>
-        /// NSX VM Group identifier. Generally the same as the VM Group's
-        /// display name
+        /// ID of the VM group.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<WorkloadNetworkVMGroup>> GetVMGroupWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string vmGroupId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Create a WorkloadNetworkVMGroup
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='vmGroupId'>
+        /// ID of the VM group.
         /// </param>
         /// <param name='workloadNetworkVMGroup'>
-        /// NSX VM Group
+        /// Resource create parameters.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1404,7 +1062,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1413,10 +1071,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkVMGroup>> BeginCreateVMGroupWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkVMGroup,WorkloadNetworksCreateVMGroupHeaders>> CreateVMGroupWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create or update a vm group by id in a private cloud workload
-        /// network.
+        /// Update a WorkloadNetworkVMGroup
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1425,11 +1082,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='vmGroupId'>
-        /// NSX VM Group identifier. Generally the same as the VM Group's
-        /// display name
+        /// ID of the VM group.
         /// </param>
         /// <param name='workloadNetworkVMGroup'>
-        /// NSX VM Group
+        /// The resource properties to be updated.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1437,7 +1093,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1446,16 +1102,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkVMGroup>> BeginUpdateVMGroupWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkVMGroup,WorkloadNetworksUpdateVMGroupHeaders>> UpdateVMGroupWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete a vm group by id in a private cloud workload network.
+        /// Delete a WorkloadNetworkVMGroup
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='vmGroupId'>
-        /// NSX VM Group identifier. Generally the same as the VM Group's
-        /// display name
+        /// ID of the VM group.
         /// </param>
         /// <param name='privateCloudName'>
         /// Name of the private cloud
@@ -1466,15 +1121,102 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginDeleteVMGroupWithHttpMessagesAsync(string resourceGroupName, string vmGroupId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<WorkloadNetworksDeleteVMGroupHeaders>> DeleteVMGroupWithHttpMessagesAsync(string resourceGroupName, string vmGroupId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create a DNS service by id in a private cloud workload network.
+        /// Create a WorkloadNetworkDhcp
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='dhcpId'>
+        /// The ID of the DHCP configuration
+        /// </param>
+        /// <param name='workloadNetworkDhcp'>
+        /// Resource create parameters.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<WorkloadNetworkDhcp,WorkloadNetworksCreateDhcpHeaders>> BeginCreateDhcpWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Update a WorkloadNetworkDhcp
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='dhcpId'>
+        /// The ID of the DHCP configuration
+        /// </param>
+        /// <param name='workloadNetworkDhcp'>
+        /// The resource properties to be updated.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<WorkloadNetworkDhcp,WorkloadNetworksUpdateDhcpHeaders>> BeginUpdateDhcpWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Delete a WorkloadNetworkDhcp
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='dhcpId'>
+        /// The ID of the DHCP configuration
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationHeaderResponse<WorkloadNetworksDeleteDhcpHeaders>> BeginDeleteDhcpWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dhcpId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Create a WorkloadNetworkDnsService
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1483,11 +1225,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='dnsServiceId'>
-        /// NSX DNS Service identifier. Generally the same as the DNS Service's
-        /// display name
+        /// ID of the DNS service.
         /// </param>
         /// <param name='workloadNetworkDnsService'>
-        /// NSX DNS Service
+        /// Resource create parameters.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1495,7 +1236,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1504,10 +1245,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkDnsService>> BeginCreateDnsServiceWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkDnsService,WorkloadNetworksCreateDnsServiceHeaders>> BeginCreateDnsServiceWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create or update a DNS service by id in a private cloud workload
-        /// network.
+        /// Update a WorkloadNetworkDnsService
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1516,11 +1256,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='dnsServiceId'>
-        /// NSX DNS Service identifier. Generally the same as the DNS Service's
-        /// display name
+        /// ID of the DNS service.
         /// </param>
         /// <param name='workloadNetworkDnsService'>
-        /// NSX DNS Service
+        /// The resource properties to be updated.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1528,7 +1267,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1537,16 +1276,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkDnsService>> BeginUpdateDnsServiceWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkDnsService,WorkloadNetworksUpdateDnsServiceHeaders>> BeginUpdateDnsServiceWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete a DNS service by id in a private cloud workload network.
+        /// Delete a WorkloadNetworkDnsService
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='dnsServiceId'>
-        /// NSX DNS Service identifier. Generally the same as the DNS Service's
-        /// display name
+        /// ID of the DNS service.
         /// </param>
         /// <param name='privateCloudName'>
         /// Name of the private cloud
@@ -1557,15 +1295,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginDeleteDnsServiceWithHttpMessagesAsync(string resourceGroupName, string dnsServiceId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<WorkloadNetworksDeleteDnsServiceHeaders>> BeginDeleteDnsServiceWithHttpMessagesAsync(string resourceGroupName, string dnsServiceId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create a DNS zone by id in a private cloud workload network.
+        /// Create a WorkloadNetworkDnsZone
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1574,11 +1312,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='dnsZoneId'>
-        /// NSX DNS Zone identifier. Generally the same as the DNS Zone's
-        /// display name
+        /// ID of the DNS zone.
         /// </param>
         /// <param name='workloadNetworkDnsZone'>
-        /// NSX DNS Zone
+        /// Resource create parameters.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1586,7 +1323,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1595,10 +1332,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkDnsZone>> BeginCreateDnsZoneWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkDnsZone,WorkloadNetworksCreateDnsZoneHeaders>> BeginCreateDnsZoneWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create or update a DNS zone by id in a private cloud workload
-        /// network.
+        /// Update a WorkloadNetworkDnsZone
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1607,11 +1343,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='dnsZoneId'>
-        /// NSX DNS Zone identifier. Generally the same as the DNS Zone's
-        /// display name
+        /// ID of the DNS zone.
         /// </param>
         /// <param name='workloadNetworkDnsZone'>
-        /// NSX DNS Zone
+        /// The resource properties to be updated.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1619,7 +1354,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1628,16 +1363,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkDnsZone>> BeginUpdateDnsZoneWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkDnsZone,WorkloadNetworksUpdateDnsZoneHeaders>> BeginUpdateDnsZoneWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete a DNS zone by id in a private cloud workload network.
+        /// Delete a WorkloadNetworkDnsZone
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='dnsZoneId'>
-        /// NSX DNS Zone identifier. Generally the same as the DNS Zone's
-        /// display name
+        /// ID of the DNS zone.
         /// </param>
         /// <param name='privateCloudName'>
         /// Name of the private cloud
@@ -1648,15 +1382,102 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginDeleteDnsZoneWithHttpMessagesAsync(string resourceGroupName, string dnsZoneId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<WorkloadNetworksDeleteDnsZoneHeaders>> BeginDeleteDnsZoneWithHttpMessagesAsync(string resourceGroupName, string dnsZoneId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create a Public IP Block by id in a private cloud workload network.
+        /// Create a WorkloadNetworkPortMirroring
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='portMirroringId'>
+        /// ID of the NSX port mirroring profile.
+        /// </param>
+        /// <param name='workloadNetworkPortMirroring'>
+        /// Resource create parameters.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<WorkloadNetworkPortMirroring,WorkloadNetworksCreatePortMirroringHeaders>> BeginCreatePortMirroringWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Update a WorkloadNetworkPortMirroring
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='portMirroringId'>
+        /// ID of the NSX port mirroring profile.
+        /// </param>
+        /// <param name='workloadNetworkPortMirroring'>
+        /// The resource properties to be updated.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<WorkloadNetworkPortMirroring,WorkloadNetworksUpdatePortMirroringHeaders>> BeginUpdatePortMirroringWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Delete a WorkloadNetworkPortMirroring
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='portMirroringId'>
+        /// ID of the NSX port mirroring profile.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationHeaderResponse<WorkloadNetworksDeletePortMirroringHeaders>> BeginDeletePortMirroringWithHttpMessagesAsync(string resourceGroupName, string portMirroringId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Create a WorkloadNetworkPublicIP
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -1665,11 +1486,10 @@ namespace Microsoft.Azure.Management.Avs
         /// Name of the private cloud
         /// </param>
         /// <param name='publicIPId'>
-        /// NSX Public IP Block identifier. Generally the same as the Public IP
-        /// Block's display name
+        /// ID of the DNS zone.
         /// </param>
         /// <param name='workloadNetworkPublicIP'>
-        /// NSX Public IP Block
+        /// Resource create parameters.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1677,7 +1497,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1686,16 +1506,15 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<WorkloadNetworkPublicIP>> BeginCreatePublicIPWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string publicIPId, WorkloadNetworkPublicIP workloadNetworkPublicIP, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<WorkloadNetworkPublicIP,WorkloadNetworksCreatePublicIPHeaders>> BeginCreatePublicIPWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string publicIPId, WorkloadNetworkPublicIP workloadNetworkPublicIP, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete a Public IP Block by id in a private cloud workload network.
+        /// Delete a WorkloadNetworkPublicIP
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='publicIPId'>
-        /// NSX Public IP Block identifier. Generally the same as the Public IP
-        /// Block's display name
+        /// ID of the DNS zone.
         /// </param>
         /// <param name='privateCloudName'>
         /// Name of the private cloud
@@ -1706,15 +1525,189 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginDeletePublicIPWithHttpMessagesAsync(string resourceGroupName, string publicIPId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<WorkloadNetworksDeletePublicIPHeaders>> BeginDeletePublicIPWithHttpMessagesAsync(string resourceGroupName, string publicIPId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// List of segments in a private cloud workload network.
+        /// Create a WorkloadNetworkSegment
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='segmentId'>
+        /// The ID of the NSX Segment
+        /// </param>
+        /// <param name='workloadNetworkSegment'>
+        /// Resource create parameters.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<WorkloadNetworkSegment,WorkloadNetworksCreateSegmentsHeaders>> BeginCreateSegmentsWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Update a WorkloadNetworkSegment
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='segmentId'>
+        /// The ID of the NSX Segment
+        /// </param>
+        /// <param name='workloadNetworkSegment'>
+        /// The resource properties to be updated.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<WorkloadNetworkSegment,WorkloadNetworksUpdateSegmentsHeaders>> BeginUpdateSegmentsWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Delete a WorkloadNetworkSegment
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='segmentId'>
+        /// The ID of the NSX Segment
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationHeaderResponse<WorkloadNetworksDeleteSegmentHeaders>> BeginDeleteSegmentWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string segmentId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Create a WorkloadNetworkVMGroup
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='vmGroupId'>
+        /// ID of the VM group.
+        /// </param>
+        /// <param name='workloadNetworkVMGroup'>
+        /// Resource create parameters.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<WorkloadNetworkVMGroup,WorkloadNetworksCreateVMGroupHeaders>> BeginCreateVMGroupWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Update a WorkloadNetworkVMGroup
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='vmGroupId'>
+        /// ID of the VM group.
+        /// </param>
+        /// <param name='workloadNetworkVMGroup'>
+        /// The resource properties to be updated.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<WorkloadNetworkVMGroup,WorkloadNetworksUpdateVMGroupHeaders>> BeginUpdateVMGroupWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Delete a WorkloadNetworkVMGroup
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name='vmGroupId'>
+        /// ID of the VM group.
+        /// </param>
+        /// <param name='privateCloudName'>
+        /// Name of the private cloud
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationHeaderResponse<WorkloadNetworksDeleteVMGroupHeaders>> BeginDeleteVMGroupWithHttpMessagesAsync(string resourceGroupName, string vmGroupId, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// List WorkloadNetwork resources by PrivateCloud
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.
@@ -1725,7 +1718,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1734,9 +1727,9 @@ namespace Microsoft.Azure.Management.Avs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<IPage<WorkloadNetworkSegment>>> ListSegmentsNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IPage<WorkloadNetwork>>> ListNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// List dhcp in a private cloud workload network.
+        /// List WorkloadNetworkDhcp resources by WorkloadNetwork
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.
@@ -1747,7 +1740,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1758,7 +1751,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<IPage<WorkloadNetworkDhcp>>> ListDhcpNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// List of gateways in a private cloud workload network.
+        /// List WorkloadNetworkDnsService resources by WorkloadNetwork
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.
@@ -1769,96 +1762,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<IPage<WorkloadNetworkGateway>>> ListGatewaysNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// List of port mirroring profiles in a private cloud workload
-        /// network.
-        /// </summary>
-        /// <param name='nextPageLink'>
-        /// The NextLink from the previous successful call to List operation.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<IPage<WorkloadNetworkPortMirroring>>> ListPortMirroringNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// List of vm groups in a private cloud workload network.
-        /// </summary>
-        /// <param name='nextPageLink'>
-        /// The NextLink from the previous successful call to List operation.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<IPage<WorkloadNetworkVMGroup>>> ListVMGroupsNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// List of virtual machines in a private cloud workload network.
-        /// </summary>
-        /// <param name='nextPageLink'>
-        /// The NextLink from the previous successful call to List operation.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<IPage<WorkloadNetworkVirtualMachine>>> ListVirtualMachinesNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// List of DNS services in a private cloud workload network.
-        /// </summary>
-        /// <param name='nextPageLink'>
-        /// The NextLink from the previous successful call to List operation.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1869,7 +1773,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<IPage<WorkloadNetworkDnsService>>> ListDnsServicesNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// List of DNS zones in a private cloud workload network.
+        /// List WorkloadNetworkDnsZone resources by WorkloadNetwork
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.
@@ -1880,7 +1784,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1891,7 +1795,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<IPage<WorkloadNetworkDnsZone>>> ListDnsZonesNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// List of Public IP Blocks in a private cloud workload network.
+        /// List WorkloadNetworkGateway resources by WorkloadNetwork
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.
@@ -1902,7 +1806,51 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<IPage<WorkloadNetworkGateway>>> ListGatewaysNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// List WorkloadNetworkPortMirroring resources by WorkloadNetwork
+        /// </summary>
+        /// <param name='nextPageLink'>
+        /// The NextLink from the previous successful call to List operation.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<IPage<WorkloadNetworkPortMirroring>>> ListPortMirroringNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// List WorkloadNetworkPublicIP resources by WorkloadNetwork
+        /// </summary>
+        /// <param name='nextPageLink'>
+        /// The NextLink from the previous successful call to List operation.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -1912,5 +1860,71 @@ namespace Microsoft.Azure.Management.Avs
         /// Thrown when a required parameter is null
         /// </exception>
         Task<AzureOperationResponse<IPage<WorkloadNetworkPublicIP>>> ListPublicIPsNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// List WorkloadNetworkSegment resources by WorkloadNetwork
+        /// </summary>
+        /// <param name='nextPageLink'>
+        /// The NextLink from the previous successful call to List operation.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<IPage<WorkloadNetworkSegment>>> ListSegmentsNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// List WorkloadNetworkVirtualMachine resources by WorkloadNetwork
+        /// </summary>
+        /// <param name='nextPageLink'>
+        /// The NextLink from the previous successful call to List operation.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<IPage<WorkloadNetworkVirtualMachine>>> ListVirtualMachinesNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// List WorkloadNetworkVMGroup resources by WorkloadNetwork
+        /// </summary>
+        /// <param name='nextPageLink'>
+        /// The NextLink from the previous successful call to List operation.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<IPage<WorkloadNetworkVMGroup>>> ListVMGroupsNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

@@ -22,7 +22,7 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class WorkloadNetworksOperationsExtensions
     {
             /// <summary>
-            /// List of segments in a private cloud workload network.
+            /// List WorkloadNetwork resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -33,13 +33,13 @@ namespace Microsoft.Azure.Management.Avs
             /// <param name='privateCloudName'>
             /// Name of the private cloud
             /// </param>
-            public static IPage<WorkloadNetworkSegment> ListSegments(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName)
+            public static IPage<WorkloadNetwork> List(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName)
             {
-                return operations.ListSegmentsAsync(resourceGroupName, privateCloudName).GetAwaiter().GetResult();
+                return operations.ListAsync(resourceGroupName, privateCloudName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// List of segments in a private cloud workload network.
+            /// List WorkloadNetwork resources by PrivateCloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -53,16 +53,16 @@ namespace Microsoft.Azure.Management.Avs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IPage<WorkloadNetworkSegment>> ListSegmentsAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IPage<WorkloadNetwork>> ListAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ListSegmentsWithHttpMessagesAsync(resourceGroupName, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListWithHttpMessagesAsync(resourceGroupName, privateCloudName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
             }
 
             /// <summary>
-            /// Get a segment by id in a private cloud workload network.
+            /// Get a WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -73,16 +73,13 @@ namespace Microsoft.Azure.Management.Avs
             /// <param name='privateCloudName'>
             /// Name of the private cloud
             /// </param>
-            /// <param name='segmentId'>
-            /// NSX Segment identifier. Generally the same as the Segment's display name
-            /// </param>
-            public static WorkloadNetworkSegment GetSegment(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId)
+            public static WorkloadNetwork Get(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName)
             {
-                return operations.GetSegmentAsync(resourceGroupName, privateCloudName, segmentId).GetAwaiter().GetResult();
+                return operations.GetAsync(resourceGroupName, privateCloudName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Get a segment by id in a private cloud workload network.
+            /// Get a WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -92,170 +89,20 @@ namespace Microsoft.Azure.Management.Avs
             /// </param>
             /// <param name='privateCloudName'>
             /// Name of the private cloud
-            /// </param>
-            /// <param name='segmentId'>
-            /// NSX Segment identifier. Generally the same as the Segment's display name
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<WorkloadNetworkSegment> GetSegmentAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkloadNetwork> GetAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetSegmentWithHttpMessagesAsync(resourceGroupName, privateCloudName, segmentId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetWithHttpMessagesAsync(resourceGroupName, privateCloudName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
             }
 
             /// <summary>
-            /// Create a segment by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='segmentId'>
-            /// NSX Segment identifier. Generally the same as the Segment's display name
-            /// </param>
-            /// <param name='workloadNetworkSegment'>
-            /// NSX Segment
-            /// </param>
-            public static WorkloadNetworkSegment CreateSegments(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment)
-            {
-                return operations.CreateSegmentsAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Create a segment by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='segmentId'>
-            /// NSX Segment identifier. Generally the same as the Segment's display name
-            /// </param>
-            /// <param name='workloadNetworkSegment'>
-            /// NSX Segment
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<WorkloadNetworkSegment> CreateSegmentsAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.CreateSegmentsWithHttpMessagesAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Create or update a segment by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='segmentId'>
-            /// NSX Segment identifier. Generally the same as the Segment's display name
-            /// </param>
-            /// <param name='workloadNetworkSegment'>
-            /// NSX Segment
-            /// </param>
-            public static WorkloadNetworkSegment UpdateSegments(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment)
-            {
-                return operations.UpdateSegmentsAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Create or update a segment by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='segmentId'>
-            /// NSX Segment identifier. Generally the same as the Segment's display name
-            /// </param>
-            /// <param name='workloadNetworkSegment'>
-            /// NSX Segment
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<WorkloadNetworkSegment> UpdateSegmentsAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.UpdateSegmentsWithHttpMessagesAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Delete a segment by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='segmentId'>
-            /// NSX Segment identifier. Generally the same as the Segment's display name
-            /// </param>
-            public static void DeleteSegment(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId)
-            {
-                operations.DeleteSegmentAsync(resourceGroupName, privateCloudName, segmentId).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Delete a segment by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='segmentId'>
-            /// NSX Segment identifier. Generally the same as the Segment's display name
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task DeleteSegmentAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                (await operations.DeleteSegmentWithHttpMessagesAsync(resourceGroupName, privateCloudName, segmentId, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <summary>
-            /// List dhcp in a private cloud workload network.
+            /// List WorkloadNetworkDhcp resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -272,7 +119,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List dhcp in a private cloud workload network.
+            /// List WorkloadNetworkDhcp resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -295,7 +142,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get dhcp by id in a private cloud workload network.
+            /// Get a WorkloadNetworkDhcp
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -304,7 +151,7 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='dhcpId'>
-            /// NSX DHCP identifier. Generally the same as the DHCP display name
+            /// The ID of the DHCP configuration
             /// </param>
             /// <param name='privateCloudName'>
             /// Name of the private cloud
@@ -315,7 +162,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get dhcp by id in a private cloud workload network.
+            /// Get a WorkloadNetworkDhcp
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -324,7 +171,7 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='dhcpId'>
-            /// NSX DHCP identifier. Generally the same as the DHCP display name
+            /// The ID of the DHCP configuration
             /// </param>
             /// <param name='privateCloudName'>
             /// Name of the private cloud
@@ -341,7 +188,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create dhcp by id in a private cloud workload network.
+            /// Create a WorkloadNetworkDhcp
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -353,10 +200,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dhcpId'>
-            /// NSX DHCP identifier. Generally the same as the DHCP display name
+            /// The ID of the DHCP configuration
             /// </param>
             /// <param name='workloadNetworkDhcp'>
-            /// NSX DHCP
+            /// Resource create parameters.
             /// </param>
             public static WorkloadNetworkDhcp CreateDhcp(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp)
             {
@@ -364,7 +211,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create dhcp by id in a private cloud workload network.
+            /// Create a WorkloadNetworkDhcp
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -376,10 +223,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dhcpId'>
-            /// NSX DHCP identifier. Generally the same as the DHCP display name
+            /// The ID of the DHCP configuration
             /// </param>
             /// <param name='workloadNetworkDhcp'>
-            /// NSX DHCP
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -393,7 +240,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update dhcp by id in a private cloud workload network.
+            /// Update a WorkloadNetworkDhcp
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -405,10 +252,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dhcpId'>
-            /// NSX DHCP identifier. Generally the same as the DHCP display name
+            /// The ID of the DHCP configuration
             /// </param>
             /// <param name='workloadNetworkDhcp'>
-            /// NSX DHCP
+            /// The resource properties to be updated.
             /// </param>
             public static WorkloadNetworkDhcp UpdateDhcp(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp)
             {
@@ -416,7 +263,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update dhcp by id in a private cloud workload network.
+            /// Update a WorkloadNetworkDhcp
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -428,10 +275,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dhcpId'>
-            /// NSX DHCP identifier. Generally the same as the DHCP display name
+            /// The ID of the DHCP configuration
             /// </param>
             /// <param name='workloadNetworkDhcp'>
-            /// NSX DHCP
+            /// The resource properties to be updated.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -445,7 +292,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete dhcp by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkDhcp
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -457,15 +304,15 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dhcpId'>
-            /// NSX DHCP identifier. Generally the same as the DHCP display name
+            /// The ID of the DHCP configuration
             /// </param>
-            public static void DeleteDhcp(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dhcpId)
+            public static WorkloadNetworksDeleteDhcpHeaders DeleteDhcp(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dhcpId)
             {
-                operations.DeleteDhcpAsync(resourceGroupName, privateCloudName, dhcpId).GetAwaiter().GetResult();
+                return operations.DeleteDhcpAsync(resourceGroupName, privateCloudName, dhcpId).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete dhcp by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkDhcp
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -477,666 +324,21 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dhcpId'>
-            /// NSX DHCP identifier. Generally the same as the DHCP display name
+            /// The ID of the DHCP configuration
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteDhcpAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dhcpId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkloadNetworksDeleteDhcpHeaders> DeleteDhcpAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dhcpId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteDhcpWithHttpMessagesAsync(resourceGroupName, privateCloudName, dhcpId, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <summary>
-            /// List of gateways in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            public static IPage<WorkloadNetworkGateway> ListGateways(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName)
-            {
-                return operations.ListGatewaysAsync(resourceGroupName, privateCloudName).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// List of gateways in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<IPage<WorkloadNetworkGateway>> ListGatewaysAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ListGatewaysWithHttpMessagesAsync(resourceGroupName, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.DeleteDhcpWithHttpMessagesAsync(resourceGroupName, privateCloudName, dhcpId, null, cancellationToken).ConfigureAwait(false))
                 {
-                    return _result.Body;
+                    return _result.Headers;
                 }
             }
 
             /// <summary>
-            /// Get a gateway by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='gatewayId'>
-            /// NSX Gateway identifier. Generally the same as the Gateway's display name
-            /// </param>
-            public static WorkloadNetworkGateway GetGateway(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string gatewayId)
-            {
-                return operations.GetGatewayAsync(resourceGroupName, privateCloudName, gatewayId).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Get a gateway by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='gatewayId'>
-            /// NSX Gateway identifier. Generally the same as the Gateway's display name
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<WorkloadNetworkGateway> GetGatewayAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string gatewayId, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.GetGatewayWithHttpMessagesAsync(resourceGroupName, privateCloudName, gatewayId, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// List of port mirroring profiles in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            public static IPage<WorkloadNetworkPortMirroring> ListPortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName)
-            {
-                return operations.ListPortMirroringAsync(resourceGroupName, privateCloudName).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// List of port mirroring profiles in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<IPage<WorkloadNetworkPortMirroring>> ListPortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ListPortMirroringWithHttpMessagesAsync(resourceGroupName, privateCloudName, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Get a port mirroring profile by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='portMirroringId'>
-            /// NSX Port Mirroring identifier. Generally the same as the Port Mirroring
-            /// display name
-            /// </param>
-            public static WorkloadNetworkPortMirroring GetPortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId)
-            {
-                return operations.GetPortMirroringAsync(resourceGroupName, privateCloudName, portMirroringId).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Get a port mirroring profile by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='portMirroringId'>
-            /// NSX Port Mirroring identifier. Generally the same as the Port Mirroring
-            /// display name
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<WorkloadNetworkPortMirroring> GetPortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.GetPortMirroringWithHttpMessagesAsync(resourceGroupName, privateCloudName, portMirroringId, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Create a port mirroring profile by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='portMirroringId'>
-            /// NSX Port Mirroring identifier. Generally the same as the Port Mirroring
-            /// display name
-            /// </param>
-            /// <param name='workloadNetworkPortMirroring'>
-            /// NSX port mirroring
-            /// </param>
-            public static WorkloadNetworkPortMirroring CreatePortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring)
-            {
-                return operations.CreatePortMirroringAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Create a port mirroring profile by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='portMirroringId'>
-            /// NSX Port Mirroring identifier. Generally the same as the Port Mirroring
-            /// display name
-            /// </param>
-            /// <param name='workloadNetworkPortMirroring'>
-            /// NSX port mirroring
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<WorkloadNetworkPortMirroring> CreatePortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.CreatePortMirroringWithHttpMessagesAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Create or update a port mirroring profile by id in a private cloud workload
-            /// network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='portMirroringId'>
-            /// NSX Port Mirroring identifier. Generally the same as the Port Mirroring
-            /// display name
-            /// </param>
-            /// <param name='workloadNetworkPortMirroring'>
-            /// NSX port mirroring
-            /// </param>
-            public static WorkloadNetworkPortMirroring UpdatePortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring)
-            {
-                return operations.UpdatePortMirroringAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Create or update a port mirroring profile by id in a private cloud workload
-            /// network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='portMirroringId'>
-            /// NSX Port Mirroring identifier. Generally the same as the Port Mirroring
-            /// display name
-            /// </param>
-            /// <param name='workloadNetworkPortMirroring'>
-            /// NSX port mirroring
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<WorkloadNetworkPortMirroring> UpdatePortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.UpdatePortMirroringWithHttpMessagesAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Delete a port mirroring profile by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='portMirroringId'>
-            /// NSX Port Mirroring identifier. Generally the same as the Port Mirroring
-            /// display name
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            public static void DeletePortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string portMirroringId, string privateCloudName)
-            {
-                operations.DeletePortMirroringAsync(resourceGroupName, portMirroringId, privateCloudName).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Delete a port mirroring profile by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='portMirroringId'>
-            /// NSX Port Mirroring identifier. Generally the same as the Port Mirroring
-            /// display name
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task DeletePortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string portMirroringId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                (await operations.DeletePortMirroringWithHttpMessagesAsync(resourceGroupName, portMirroringId, privateCloudName, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <summary>
-            /// List of vm groups in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            public static IPage<WorkloadNetworkVMGroup> ListVMGroups(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName)
-            {
-                return operations.ListVMGroupsAsync(resourceGroupName, privateCloudName).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// List of vm groups in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<IPage<WorkloadNetworkVMGroup>> ListVMGroupsAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ListVMGroupsWithHttpMessagesAsync(resourceGroupName, privateCloudName, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Get a vm group by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='vmGroupId'>
-            /// NSX VM Group identifier. Generally the same as the VM Group's display name
-            /// </param>
-            public static WorkloadNetworkVMGroup GetVMGroup(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId)
-            {
-                return operations.GetVMGroupAsync(resourceGroupName, privateCloudName, vmGroupId).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Get a vm group by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='vmGroupId'>
-            /// NSX VM Group identifier. Generally the same as the VM Group's display name
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<WorkloadNetworkVMGroup> GetVMGroupAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.GetVMGroupWithHttpMessagesAsync(resourceGroupName, privateCloudName, vmGroupId, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Create a vm group by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='vmGroupId'>
-            /// NSX VM Group identifier. Generally the same as the VM Group's display name
-            /// </param>
-            /// <param name='workloadNetworkVMGroup'>
-            /// NSX VM Group
-            /// </param>
-            public static WorkloadNetworkVMGroup CreateVMGroup(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup)
-            {
-                return operations.CreateVMGroupAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Create a vm group by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='vmGroupId'>
-            /// NSX VM Group identifier. Generally the same as the VM Group's display name
-            /// </param>
-            /// <param name='workloadNetworkVMGroup'>
-            /// NSX VM Group
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<WorkloadNetworkVMGroup> CreateVMGroupAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.CreateVMGroupWithHttpMessagesAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Create or update a vm group by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='vmGroupId'>
-            /// NSX VM Group identifier. Generally the same as the VM Group's display name
-            /// </param>
-            /// <param name='workloadNetworkVMGroup'>
-            /// NSX VM Group
-            /// </param>
-            public static WorkloadNetworkVMGroup UpdateVMGroup(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup)
-            {
-                return operations.UpdateVMGroupAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Create or update a vm group by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='vmGroupId'>
-            /// NSX VM Group identifier. Generally the same as the VM Group's display name
-            /// </param>
-            /// <param name='workloadNetworkVMGroup'>
-            /// NSX VM Group
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<WorkloadNetworkVMGroup> UpdateVMGroupAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.UpdateVMGroupWithHttpMessagesAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Delete a vm group by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='vmGroupId'>
-            /// NSX VM Group identifier. Generally the same as the VM Group's display name
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            public static void DeleteVMGroup(this IWorkloadNetworksOperations operations, string resourceGroupName, string vmGroupId, string privateCloudName)
-            {
-                operations.DeleteVMGroupAsync(resourceGroupName, vmGroupId, privateCloudName).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Delete a vm group by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='vmGroupId'>
-            /// NSX VM Group identifier. Generally the same as the VM Group's display name
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task DeleteVMGroupAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string vmGroupId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                (await operations.DeleteVMGroupWithHttpMessagesAsync(resourceGroupName, vmGroupId, privateCloudName, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <summary>
-            /// List of virtual machines in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            public static IPage<WorkloadNetworkVirtualMachine> ListVirtualMachines(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName)
-            {
-                return operations.ListVirtualMachinesAsync(resourceGroupName, privateCloudName).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// List of virtual machines in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<IPage<WorkloadNetworkVirtualMachine>> ListVirtualMachinesAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ListVirtualMachinesWithHttpMessagesAsync(resourceGroupName, privateCloudName, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Get a virtual machine by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='virtualMachineId'>
-            /// Virtual Machine identifier
-            /// </param>
-            public static WorkloadNetworkVirtualMachine GetVirtualMachine(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string virtualMachineId)
-            {
-                return operations.GetVirtualMachineAsync(resourceGroupName, privateCloudName, virtualMachineId).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Get a virtual machine by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='virtualMachineId'>
-            /// Virtual Machine identifier
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<WorkloadNetworkVirtualMachine> GetVirtualMachineAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string virtualMachineId, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.GetVirtualMachineWithHttpMessagesAsync(resourceGroupName, privateCloudName, virtualMachineId, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// List of DNS services in a private cloud workload network.
+            /// List WorkloadNetworkDnsService resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1153,7 +355,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List of DNS services in a private cloud workload network.
+            /// List WorkloadNetworkDnsService resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1176,7 +378,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a DNS service by id in a private cloud workload network.
+            /// Get a WorkloadNetworkDnsService
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1188,8 +390,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsServiceId'>
-            /// NSX DNS Service identifier. Generally the same as the DNS Service's display
-            /// name
+            /// ID of the DNS service.
             /// </param>
             public static WorkloadNetworkDnsService GetDnsService(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dnsServiceId)
             {
@@ -1197,7 +398,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a DNS service by id in a private cloud workload network.
+            /// Get a WorkloadNetworkDnsService
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1209,8 +410,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsServiceId'>
-            /// NSX DNS Service identifier. Generally the same as the DNS Service's display
-            /// name
+            /// ID of the DNS service.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -1224,7 +424,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create a DNS service by id in a private cloud workload network.
+            /// Create a WorkloadNetworkDnsService
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1236,11 +436,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsServiceId'>
-            /// NSX DNS Service identifier. Generally the same as the DNS Service's display
-            /// name
+            /// ID of the DNS service.
             /// </param>
             /// <param name='workloadNetworkDnsService'>
-            /// NSX DNS Service
+            /// Resource create parameters.
             /// </param>
             public static WorkloadNetworkDnsService CreateDnsService(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService)
             {
@@ -1248,7 +447,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create a DNS service by id in a private cloud workload network.
+            /// Create a WorkloadNetworkDnsService
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1260,11 +459,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsServiceId'>
-            /// NSX DNS Service identifier. Generally the same as the DNS Service's display
-            /// name
+            /// ID of the DNS service.
             /// </param>
             /// <param name='workloadNetworkDnsService'>
-            /// NSX DNS Service
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -1278,7 +476,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a DNS service by id in a private cloud workload network.
+            /// Update a WorkloadNetworkDnsService
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1290,11 +488,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsServiceId'>
-            /// NSX DNS Service identifier. Generally the same as the DNS Service's display
-            /// name
+            /// ID of the DNS service.
             /// </param>
             /// <param name='workloadNetworkDnsService'>
-            /// NSX DNS Service
+            /// The resource properties to be updated.
             /// </param>
             public static WorkloadNetworkDnsService UpdateDnsService(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService)
             {
@@ -1302,7 +499,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a DNS service by id in a private cloud workload network.
+            /// Update a WorkloadNetworkDnsService
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1314,11 +511,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsServiceId'>
-            /// NSX DNS Service identifier. Generally the same as the DNS Service's display
-            /// name
+            /// ID of the DNS service.
             /// </param>
             /// <param name='workloadNetworkDnsService'>
-            /// NSX DNS Service
+            /// The resource properties to be updated.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -1332,7 +528,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a DNS service by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkDnsService
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1341,19 +537,18 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='dnsServiceId'>
-            /// NSX DNS Service identifier. Generally the same as the DNS Service's display
-            /// name
+            /// ID of the DNS service.
             /// </param>
             /// <param name='privateCloudName'>
             /// Name of the private cloud
             /// </param>
-            public static void DeleteDnsService(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsServiceId, string privateCloudName)
+            public static WorkloadNetworksDeleteDnsServiceHeaders DeleteDnsService(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsServiceId, string privateCloudName)
             {
-                operations.DeleteDnsServiceAsync(resourceGroupName, dnsServiceId, privateCloudName).GetAwaiter().GetResult();
+                return operations.DeleteDnsServiceAsync(resourceGroupName, dnsServiceId, privateCloudName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a DNS service by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkDnsService
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1362,8 +557,7 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='dnsServiceId'>
-            /// NSX DNS Service identifier. Generally the same as the DNS Service's display
-            /// name
+            /// ID of the DNS service.
             /// </param>
             /// <param name='privateCloudName'>
             /// Name of the private cloud
@@ -1371,13 +565,16 @@ namespace Microsoft.Azure.Management.Avs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteDnsServiceAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsServiceId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkloadNetworksDeleteDnsServiceHeaders> DeleteDnsServiceAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsServiceId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteDnsServiceWithHttpMessagesAsync(resourceGroupName, dnsServiceId, privateCloudName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteDnsServiceWithHttpMessagesAsync(resourceGroupName, dnsServiceId, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// List of DNS zones in a private cloud workload network.
+            /// List WorkloadNetworkDnsZone resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1394,7 +591,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List of DNS zones in a private cloud workload network.
+            /// List WorkloadNetworkDnsZone resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1417,7 +614,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a DNS zone by id in a private cloud workload network.
+            /// Get a WorkloadNetworkDnsZone
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1429,7 +626,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsZoneId'>
-            /// NSX DNS Zone identifier. Generally the same as the DNS Zone's display name
+            /// ID of the DNS zone.
             /// </param>
             public static WorkloadNetworkDnsZone GetDnsZone(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dnsZoneId)
             {
@@ -1437,7 +634,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a DNS zone by id in a private cloud workload network.
+            /// Get a WorkloadNetworkDnsZone
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1449,7 +646,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsZoneId'>
-            /// NSX DNS Zone identifier. Generally the same as the DNS Zone's display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -1463,7 +660,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create a DNS zone by id in a private cloud workload network.
+            /// Create a WorkloadNetworkDnsZone
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1475,10 +672,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsZoneId'>
-            /// NSX DNS Zone identifier. Generally the same as the DNS Zone's display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='workloadNetworkDnsZone'>
-            /// NSX DNS Zone
+            /// Resource create parameters.
             /// </param>
             public static WorkloadNetworkDnsZone CreateDnsZone(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone)
             {
@@ -1486,7 +683,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create a DNS zone by id in a private cloud workload network.
+            /// Create a WorkloadNetworkDnsZone
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1498,10 +695,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsZoneId'>
-            /// NSX DNS Zone identifier. Generally the same as the DNS Zone's display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='workloadNetworkDnsZone'>
-            /// NSX DNS Zone
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -1515,7 +712,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a DNS zone by id in a private cloud workload network.
+            /// Update a WorkloadNetworkDnsZone
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1527,10 +724,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsZoneId'>
-            /// NSX DNS Zone identifier. Generally the same as the DNS Zone's display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='workloadNetworkDnsZone'>
-            /// NSX DNS Zone
+            /// The resource properties to be updated.
             /// </param>
             public static WorkloadNetworkDnsZone UpdateDnsZone(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone)
             {
@@ -1538,7 +735,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a DNS zone by id in a private cloud workload network.
+            /// Update a WorkloadNetworkDnsZone
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1550,10 +747,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsZoneId'>
-            /// NSX DNS Zone identifier. Generally the same as the DNS Zone's display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='workloadNetworkDnsZone'>
-            /// NSX DNS Zone
+            /// The resource properties to be updated.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -1567,7 +764,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a DNS zone by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkDnsZone
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1576,18 +773,18 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='dnsZoneId'>
-            /// NSX DNS Zone identifier. Generally the same as the DNS Zone's display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='privateCloudName'>
             /// Name of the private cloud
             /// </param>
-            public static void DeleteDnsZone(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsZoneId, string privateCloudName)
+            public static WorkloadNetworksDeleteDnsZoneHeaders DeleteDnsZone(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsZoneId, string privateCloudName)
             {
-                operations.DeleteDnsZoneAsync(resourceGroupName, dnsZoneId, privateCloudName).GetAwaiter().GetResult();
+                return operations.DeleteDnsZoneAsync(resourceGroupName, dnsZoneId, privateCloudName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a DNS zone by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkDnsZone
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1596,7 +793,7 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='dnsZoneId'>
-            /// NSX DNS Zone identifier. Generally the same as the DNS Zone's display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='privateCloudName'>
             /// Name of the private cloud
@@ -1604,13 +801,338 @@ namespace Microsoft.Azure.Management.Avs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteDnsZoneAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsZoneId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkloadNetworksDeleteDnsZoneHeaders> DeleteDnsZoneAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsZoneId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteDnsZoneWithHttpMessagesAsync(resourceGroupName, dnsZoneId, privateCloudName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteDnsZoneWithHttpMessagesAsync(resourceGroupName, dnsZoneId, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// List of Public IP Blocks in a private cloud workload network.
+            /// List WorkloadNetworkGateway resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            public static IPage<WorkloadNetworkGateway> ListGateways(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName)
+            {
+                return operations.ListGatewaysAsync(resourceGroupName, privateCloudName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkGateway resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<WorkloadNetworkGateway>> ListGatewaysAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListGatewaysWithHttpMessagesAsync(resourceGroupName, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Get a WorkloadNetworkGateway
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='gatewayId'>
+            /// The ID of the NSX Gateway
+            /// </param>
+            public static WorkloadNetworkGateway GetGateway(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string gatewayId)
+            {
+                return operations.GetGatewayAsync(resourceGroupName, privateCloudName, gatewayId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Get a WorkloadNetworkGateway
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='gatewayId'>
+            /// The ID of the NSX Gateway
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworkGateway> GetGatewayAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string gatewayId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetGatewayWithHttpMessagesAsync(resourceGroupName, privateCloudName, gatewayId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkPortMirroring resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            public static IPage<WorkloadNetworkPortMirroring> ListPortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName)
+            {
+                return operations.ListPortMirroringAsync(resourceGroupName, privateCloudName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkPortMirroring resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<WorkloadNetworkPortMirroring>> ListPortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListPortMirroringWithHttpMessagesAsync(resourceGroupName, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Get a WorkloadNetworkPortMirroring
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='portMirroringId'>
+            /// ID of the NSX port mirroring profile.
+            /// </param>
+            public static WorkloadNetworkPortMirroring GetPortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId)
+            {
+                return operations.GetPortMirroringAsync(resourceGroupName, privateCloudName, portMirroringId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Get a WorkloadNetworkPortMirroring
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='portMirroringId'>
+            /// ID of the NSX port mirroring profile.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworkPortMirroring> GetPortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetPortMirroringWithHttpMessagesAsync(resourceGroupName, privateCloudName, portMirroringId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Create a WorkloadNetworkPortMirroring
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='portMirroringId'>
+            /// ID of the NSX port mirroring profile.
+            /// </param>
+            /// <param name='workloadNetworkPortMirroring'>
+            /// Resource create parameters.
+            /// </param>
+            public static WorkloadNetworkPortMirroring CreatePortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring)
+            {
+                return operations.CreatePortMirroringAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Create a WorkloadNetworkPortMirroring
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='portMirroringId'>
+            /// ID of the NSX port mirroring profile.
+            /// </param>
+            /// <param name='workloadNetworkPortMirroring'>
+            /// Resource create parameters.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworkPortMirroring> CreatePortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.CreatePortMirroringWithHttpMessagesAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Update a WorkloadNetworkPortMirroring
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='portMirroringId'>
+            /// ID of the NSX port mirroring profile.
+            /// </param>
+            /// <param name='workloadNetworkPortMirroring'>
+            /// The resource properties to be updated.
+            /// </param>
+            public static WorkloadNetworkPortMirroring UpdatePortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring)
+            {
+                return operations.UpdatePortMirroringAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Update a WorkloadNetworkPortMirroring
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='portMirroringId'>
+            /// ID of the NSX port mirroring profile.
+            /// </param>
+            /// <param name='workloadNetworkPortMirroring'>
+            /// The resource properties to be updated.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworkPortMirroring> UpdatePortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.UpdatePortMirroringWithHttpMessagesAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Delete a WorkloadNetworkPortMirroring
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='portMirroringId'>
+            /// ID of the NSX port mirroring profile.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            public static WorkloadNetworksDeletePortMirroringHeaders DeletePortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string portMirroringId, string privateCloudName)
+            {
+                return operations.DeletePortMirroringAsync(resourceGroupName, portMirroringId, privateCloudName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Delete a WorkloadNetworkPortMirroring
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='portMirroringId'>
+            /// ID of the NSX port mirroring profile.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworksDeletePortMirroringHeaders> DeletePortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string portMirroringId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.DeletePortMirroringWithHttpMessagesAsync(resourceGroupName, portMirroringId, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkPublicIP resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1627,7 +1149,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List of Public IP Blocks in a private cloud workload network.
+            /// List WorkloadNetworkPublicIP resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1650,7 +1172,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a Public IP Block by id in a private cloud workload network.
+            /// Get a WorkloadNetworkPublicIP
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1662,8 +1184,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='publicIPId'>
-            /// NSX Public IP Block identifier. Generally the same as the Public IP Block's
-            /// display name
+            /// ID of the DNS zone.
             /// </param>
             public static WorkloadNetworkPublicIP GetPublicIP(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string publicIPId)
             {
@@ -1671,7 +1192,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a Public IP Block by id in a private cloud workload network.
+            /// Get a WorkloadNetworkPublicIP
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1683,8 +1204,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='publicIPId'>
-            /// NSX Public IP Block identifier. Generally the same as the Public IP Block's
-            /// display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -1698,7 +1218,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create a Public IP Block by id in a private cloud workload network.
+            /// Create a WorkloadNetworkPublicIP
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1710,11 +1230,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='publicIPId'>
-            /// NSX Public IP Block identifier. Generally the same as the Public IP Block's
-            /// display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='workloadNetworkPublicIP'>
-            /// NSX Public IP Block
+            /// Resource create parameters.
             /// </param>
             public static WorkloadNetworkPublicIP CreatePublicIP(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string publicIPId, WorkloadNetworkPublicIP workloadNetworkPublicIP)
             {
@@ -1722,7 +1241,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create a Public IP Block by id in a private cloud workload network.
+            /// Create a WorkloadNetworkPublicIP
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1734,11 +1253,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='publicIPId'>
-            /// NSX Public IP Block identifier. Generally the same as the Public IP Block's
-            /// display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='workloadNetworkPublicIP'>
-            /// NSX Public IP Block
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -1752,7 +1270,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a Public IP Block by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkPublicIP
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1761,19 +1279,18 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='publicIPId'>
-            /// NSX Public IP Block identifier. Generally the same as the Public IP Block's
-            /// display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='privateCloudName'>
             /// Name of the private cloud
             /// </param>
-            public static void DeletePublicIP(this IWorkloadNetworksOperations operations, string resourceGroupName, string publicIPId, string privateCloudName)
+            public static WorkloadNetworksDeletePublicIPHeaders DeletePublicIP(this IWorkloadNetworksOperations operations, string resourceGroupName, string publicIPId, string privateCloudName)
             {
-                operations.DeletePublicIPAsync(resourceGroupName, publicIPId, privateCloudName).GetAwaiter().GetResult();
+                return operations.DeletePublicIPAsync(resourceGroupName, publicIPId, privateCloudName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a Public IP Block by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkPublicIP
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1782,8 +1299,7 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='publicIPId'>
-            /// NSX Public IP Block identifier. Generally the same as the Public IP Block's
-            /// display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='privateCloudName'>
             /// Name of the private cloud
@@ -1791,13 +1307,16 @@ namespace Microsoft.Azure.Management.Avs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeletePublicIPAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string publicIPId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkloadNetworksDeletePublicIPHeaders> DeletePublicIPAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string publicIPId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeletePublicIPWithHttpMessagesAsync(resourceGroupName, publicIPId, privateCloudName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeletePublicIPWithHttpMessagesAsync(resourceGroupName, publicIPId, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Create a segment by id in a private cloud workload network.
+            /// List WorkloadNetworkSegment resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1808,19 +1327,13 @@ namespace Microsoft.Azure.Management.Avs
             /// <param name='privateCloudName'>
             /// Name of the private cloud
             /// </param>
-            /// <param name='segmentId'>
-            /// NSX Segment identifier. Generally the same as the Segment's display name
-            /// </param>
-            /// <param name='workloadNetworkSegment'>
-            /// NSX Segment
-            /// </param>
-            public static WorkloadNetworkSegment BeginCreateSegments(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment)
+            public static IPage<WorkloadNetworkSegment> ListSegments(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName)
             {
-                return operations.BeginCreateSegmentsAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment).GetAwaiter().GetResult();
+                return operations.ListSegmentsAsync(resourceGroupName, privateCloudName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Create a segment by id in a private cloud workload network.
+            /// List WorkloadNetworkSegment resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1831,25 +1344,19 @@ namespace Microsoft.Azure.Management.Avs
             /// <param name='privateCloudName'>
             /// Name of the private cloud
             /// </param>
-            /// <param name='segmentId'>
-            /// NSX Segment identifier. Generally the same as the Segment's display name
-            /// </param>
-            /// <param name='workloadNetworkSegment'>
-            /// NSX Segment
-            /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<WorkloadNetworkSegment> BeginCreateSegmentsAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IPage<WorkloadNetworkSegment>> ListSegmentsAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.BeginCreateSegmentsWithHttpMessagesAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListSegmentsWithHttpMessagesAsync(resourceGroupName, privateCloudName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
             }
 
             /// <summary>
-            /// Create or update a segment by id in a private cloud workload network.
+            /// Get a WorkloadNetworkSegment
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1861,18 +1368,15 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='segmentId'>
-            /// NSX Segment identifier. Generally the same as the Segment's display name
+            /// The ID of the NSX Segment
             /// </param>
-            /// <param name='workloadNetworkSegment'>
-            /// NSX Segment
-            /// </param>
-            public static WorkloadNetworkSegment BeginUpdateSegments(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment)
+            public static WorkloadNetworkSegment GetSegment(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId)
             {
-                return operations.BeginUpdateSegmentsAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment).GetAwaiter().GetResult();
+                return operations.GetSegmentAsync(resourceGroupName, privateCloudName, segmentId).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Create or update a segment by id in a private cloud workload network.
+            /// Get a WorkloadNetworkSegment
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1884,24 +1388,21 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='segmentId'>
-            /// NSX Segment identifier. Generally the same as the Segment's display name
-            /// </param>
-            /// <param name='workloadNetworkSegment'>
-            /// NSX Segment
+            /// The ID of the NSX Segment
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<WorkloadNetworkSegment> BeginUpdateSegmentsAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkloadNetworkSegment> GetSegmentAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.BeginUpdateSegmentsWithHttpMessagesAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetSegmentWithHttpMessagesAsync(resourceGroupName, privateCloudName, segmentId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
             }
 
             /// <summary>
-            /// Delete a segment by id in a private cloud workload network.
+            /// Create a WorkloadNetworkSegment
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1913,15 +1414,18 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='segmentId'>
-            /// NSX Segment identifier. Generally the same as the Segment's display name
+            /// The ID of the NSX Segment
             /// </param>
-            public static void BeginDeleteSegment(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId)
+            /// <param name='workloadNetworkSegment'>
+            /// Resource create parameters.
+            /// </param>
+            public static WorkloadNetworkSegment CreateSegments(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment)
             {
-                operations.BeginDeleteSegmentAsync(resourceGroupName, privateCloudName, segmentId).GetAwaiter().GetResult();
+                return operations.CreateSegmentsAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a segment by id in a private cloud workload network.
+            /// Create a WorkloadNetworkSegment
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1933,18 +1437,444 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='segmentId'>
-            /// NSX Segment identifier. Generally the same as the Segment's display name
+            /// The ID of the NSX Segment
+            /// </param>
+            /// <param name='workloadNetworkSegment'>
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteSegmentAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkloadNetworkSegment> CreateSegmentsAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteSegmentWithHttpMessagesAsync(resourceGroupName, privateCloudName, segmentId, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.CreateSegmentsWithHttpMessagesAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
             }
 
             /// <summary>
-            /// Create dhcp by id in a private cloud workload network.
+            /// Update a WorkloadNetworkSegment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='segmentId'>
+            /// The ID of the NSX Segment
+            /// </param>
+            /// <param name='workloadNetworkSegment'>
+            /// The resource properties to be updated.
+            /// </param>
+            public static WorkloadNetworkSegment UpdateSegments(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment)
+            {
+                return operations.UpdateSegmentsAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Update a WorkloadNetworkSegment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='segmentId'>
+            /// The ID of the NSX Segment
+            /// </param>
+            /// <param name='workloadNetworkSegment'>
+            /// The resource properties to be updated.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworkSegment> UpdateSegmentsAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.UpdateSegmentsWithHttpMessagesAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Delete a WorkloadNetworkSegment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='segmentId'>
+            /// The ID of the NSX Segment
+            /// </param>
+            public static WorkloadNetworksDeleteSegmentHeaders DeleteSegment(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId)
+            {
+                return operations.DeleteSegmentAsync(resourceGroupName, privateCloudName, segmentId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Delete a WorkloadNetworkSegment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='segmentId'>
+            /// The ID of the NSX Segment
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworksDeleteSegmentHeaders> DeleteSegmentAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.DeleteSegmentWithHttpMessagesAsync(resourceGroupName, privateCloudName, segmentId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkVirtualMachine resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            public static IPage<WorkloadNetworkVirtualMachine> ListVirtualMachines(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName)
+            {
+                return operations.ListVirtualMachinesAsync(resourceGroupName, privateCloudName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkVirtualMachine resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<WorkloadNetworkVirtualMachine>> ListVirtualMachinesAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListVirtualMachinesWithHttpMessagesAsync(resourceGroupName, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Get a WorkloadNetworkVirtualMachine
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='virtualMachineId'>
+            /// ID of the virtual machine.
+            /// </param>
+            public static WorkloadNetworkVirtualMachine GetVirtualMachine(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string virtualMachineId)
+            {
+                return operations.GetVirtualMachineAsync(resourceGroupName, privateCloudName, virtualMachineId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Get a WorkloadNetworkVirtualMachine
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='virtualMachineId'>
+            /// ID of the virtual machine.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworkVirtualMachine> GetVirtualMachineAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string virtualMachineId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetVirtualMachineWithHttpMessagesAsync(resourceGroupName, privateCloudName, virtualMachineId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkVMGroup resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            public static IPage<WorkloadNetworkVMGroup> ListVMGroups(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName)
+            {
+                return operations.ListVMGroupsAsync(resourceGroupName, privateCloudName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkVMGroup resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<WorkloadNetworkVMGroup>> ListVMGroupsAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListVMGroupsWithHttpMessagesAsync(resourceGroupName, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Get a WorkloadNetworkVMGroup
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='vmGroupId'>
+            /// ID of the VM group.
+            /// </param>
+            public static WorkloadNetworkVMGroup GetVMGroup(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId)
+            {
+                return operations.GetVMGroupAsync(resourceGroupName, privateCloudName, vmGroupId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Get a WorkloadNetworkVMGroup
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='vmGroupId'>
+            /// ID of the VM group.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworkVMGroup> GetVMGroupAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetVMGroupWithHttpMessagesAsync(resourceGroupName, privateCloudName, vmGroupId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Create a WorkloadNetworkVMGroup
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='vmGroupId'>
+            /// ID of the VM group.
+            /// </param>
+            /// <param name='workloadNetworkVMGroup'>
+            /// Resource create parameters.
+            /// </param>
+            public static WorkloadNetworkVMGroup CreateVMGroup(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup)
+            {
+                return operations.CreateVMGroupAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Create a WorkloadNetworkVMGroup
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='vmGroupId'>
+            /// ID of the VM group.
+            /// </param>
+            /// <param name='workloadNetworkVMGroup'>
+            /// Resource create parameters.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworkVMGroup> CreateVMGroupAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.CreateVMGroupWithHttpMessagesAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Update a WorkloadNetworkVMGroup
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='vmGroupId'>
+            /// ID of the VM group.
+            /// </param>
+            /// <param name='workloadNetworkVMGroup'>
+            /// The resource properties to be updated.
+            /// </param>
+            public static WorkloadNetworkVMGroup UpdateVMGroup(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup)
+            {
+                return operations.UpdateVMGroupAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Update a WorkloadNetworkVMGroup
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='vmGroupId'>
+            /// ID of the VM group.
+            /// </param>
+            /// <param name='workloadNetworkVMGroup'>
+            /// The resource properties to be updated.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworkVMGroup> UpdateVMGroupAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.UpdateVMGroupWithHttpMessagesAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Delete a WorkloadNetworkVMGroup
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='vmGroupId'>
+            /// ID of the VM group.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            public static WorkloadNetworksDeleteVMGroupHeaders DeleteVMGroup(this IWorkloadNetworksOperations operations, string resourceGroupName, string vmGroupId, string privateCloudName)
+            {
+                return operations.DeleteVMGroupAsync(resourceGroupName, vmGroupId, privateCloudName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Delete a WorkloadNetworkVMGroup
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='vmGroupId'>
+            /// ID of the VM group.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworksDeleteVMGroupHeaders> DeleteVMGroupAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string vmGroupId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.DeleteVMGroupWithHttpMessagesAsync(resourceGroupName, vmGroupId, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
+            }
+
+            /// <summary>
+            /// Create a WorkloadNetworkDhcp
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1956,10 +1886,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dhcpId'>
-            /// NSX DHCP identifier. Generally the same as the DHCP display name
+            /// The ID of the DHCP configuration
             /// </param>
             /// <param name='workloadNetworkDhcp'>
-            /// NSX DHCP
+            /// Resource create parameters.
             /// </param>
             public static WorkloadNetworkDhcp BeginCreateDhcp(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp)
             {
@@ -1967,7 +1897,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create dhcp by id in a private cloud workload network.
+            /// Create a WorkloadNetworkDhcp
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -1979,10 +1909,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dhcpId'>
-            /// NSX DHCP identifier. Generally the same as the DHCP display name
+            /// The ID of the DHCP configuration
             /// </param>
             /// <param name='workloadNetworkDhcp'>
-            /// NSX DHCP
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -1996,7 +1926,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update dhcp by id in a private cloud workload network.
+            /// Update a WorkloadNetworkDhcp
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2008,10 +1938,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dhcpId'>
-            /// NSX DHCP identifier. Generally the same as the DHCP display name
+            /// The ID of the DHCP configuration
             /// </param>
             /// <param name='workloadNetworkDhcp'>
-            /// NSX DHCP
+            /// The resource properties to be updated.
             /// </param>
             public static WorkloadNetworkDhcp BeginUpdateDhcp(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp)
             {
@@ -2019,7 +1949,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update dhcp by id in a private cloud workload network.
+            /// Update a WorkloadNetworkDhcp
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2031,10 +1961,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dhcpId'>
-            /// NSX DHCP identifier. Generally the same as the DHCP display name
+            /// The ID of the DHCP configuration
             /// </param>
             /// <param name='workloadNetworkDhcp'>
-            /// NSX DHCP
+            /// The resource properties to be updated.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -2048,7 +1978,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete dhcp by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkDhcp
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2060,15 +1990,15 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dhcpId'>
-            /// NSX DHCP identifier. Generally the same as the DHCP display name
+            /// The ID of the DHCP configuration
             /// </param>
-            public static void BeginDeleteDhcp(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dhcpId)
+            public static WorkloadNetworksDeleteDhcpHeaders BeginDeleteDhcp(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dhcpId)
             {
-                operations.BeginDeleteDhcpAsync(resourceGroupName, privateCloudName, dhcpId).GetAwaiter().GetResult();
+                return operations.BeginDeleteDhcpAsync(resourceGroupName, privateCloudName, dhcpId).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete dhcp by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkDhcp
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2080,320 +2010,21 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dhcpId'>
-            /// NSX DHCP identifier. Generally the same as the DHCP display name
+            /// The ID of the DHCP configuration
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteDhcpAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dhcpId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkloadNetworksDeleteDhcpHeaders> BeginDeleteDhcpAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dhcpId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteDhcpWithHttpMessagesAsync(resourceGroupName, privateCloudName, dhcpId, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <summary>
-            /// Create a port mirroring profile by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='portMirroringId'>
-            /// NSX Port Mirroring identifier. Generally the same as the Port Mirroring
-            /// display name
-            /// </param>
-            /// <param name='workloadNetworkPortMirroring'>
-            /// NSX port mirroring
-            /// </param>
-            public static WorkloadNetworkPortMirroring BeginCreatePortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring)
-            {
-                return operations.BeginCreatePortMirroringAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Create a port mirroring profile by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='portMirroringId'>
-            /// NSX Port Mirroring identifier. Generally the same as the Port Mirroring
-            /// display name
-            /// </param>
-            /// <param name='workloadNetworkPortMirroring'>
-            /// NSX port mirroring
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<WorkloadNetworkPortMirroring> BeginCreatePortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.BeginCreatePortMirroringWithHttpMessagesAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.BeginDeleteDhcpWithHttpMessagesAsync(resourceGroupName, privateCloudName, dhcpId, null, cancellationToken).ConfigureAwait(false))
                 {
-                    return _result.Body;
+                    return _result.Headers;
                 }
             }
 
             /// <summary>
-            /// Create or update a port mirroring profile by id in a private cloud workload
-            /// network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='portMirroringId'>
-            /// NSX Port Mirroring identifier. Generally the same as the Port Mirroring
-            /// display name
-            /// </param>
-            /// <param name='workloadNetworkPortMirroring'>
-            /// NSX port mirroring
-            /// </param>
-            public static WorkloadNetworkPortMirroring BeginUpdatePortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring)
-            {
-                return operations.BeginUpdatePortMirroringAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Create or update a port mirroring profile by id in a private cloud workload
-            /// network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='portMirroringId'>
-            /// NSX Port Mirroring identifier. Generally the same as the Port Mirroring
-            /// display name
-            /// </param>
-            /// <param name='workloadNetworkPortMirroring'>
-            /// NSX port mirroring
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<WorkloadNetworkPortMirroring> BeginUpdatePortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.BeginUpdatePortMirroringWithHttpMessagesAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Delete a port mirroring profile by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='portMirroringId'>
-            /// NSX Port Mirroring identifier. Generally the same as the Port Mirroring
-            /// display name
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            public static void BeginDeletePortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string portMirroringId, string privateCloudName)
-            {
-                operations.BeginDeletePortMirroringAsync(resourceGroupName, portMirroringId, privateCloudName).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Delete a port mirroring profile by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='portMirroringId'>
-            /// NSX Port Mirroring identifier. Generally the same as the Port Mirroring
-            /// display name
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task BeginDeletePortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string portMirroringId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                (await operations.BeginDeletePortMirroringWithHttpMessagesAsync(resourceGroupName, portMirroringId, privateCloudName, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <summary>
-            /// Create a vm group by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='vmGroupId'>
-            /// NSX VM Group identifier. Generally the same as the VM Group's display name
-            /// </param>
-            /// <param name='workloadNetworkVMGroup'>
-            /// NSX VM Group
-            /// </param>
-            public static WorkloadNetworkVMGroup BeginCreateVMGroup(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup)
-            {
-                return operations.BeginCreateVMGroupAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Create a vm group by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='vmGroupId'>
-            /// NSX VM Group identifier. Generally the same as the VM Group's display name
-            /// </param>
-            /// <param name='workloadNetworkVMGroup'>
-            /// NSX VM Group
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<WorkloadNetworkVMGroup> BeginCreateVMGroupAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.BeginCreateVMGroupWithHttpMessagesAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Create or update a vm group by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='vmGroupId'>
-            /// NSX VM Group identifier. Generally the same as the VM Group's display name
-            /// </param>
-            /// <param name='workloadNetworkVMGroup'>
-            /// NSX VM Group
-            /// </param>
-            public static WorkloadNetworkVMGroup BeginUpdateVMGroup(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup)
-            {
-                return operations.BeginUpdateVMGroupAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Create or update a vm group by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='vmGroupId'>
-            /// NSX VM Group identifier. Generally the same as the VM Group's display name
-            /// </param>
-            /// <param name='workloadNetworkVMGroup'>
-            /// NSX VM Group
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<WorkloadNetworkVMGroup> BeginUpdateVMGroupAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.BeginUpdateVMGroupWithHttpMessagesAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Delete a vm group by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='vmGroupId'>
-            /// NSX VM Group identifier. Generally the same as the VM Group's display name
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            public static void BeginDeleteVMGroup(this IWorkloadNetworksOperations operations, string resourceGroupName, string vmGroupId, string privateCloudName)
-            {
-                operations.BeginDeleteVMGroupAsync(resourceGroupName, vmGroupId, privateCloudName).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Delete a vm group by id in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='resourceGroupName'>
-            /// The name of the resource group. The name is case insensitive.
-            /// </param>
-            /// <param name='vmGroupId'>
-            /// NSX VM Group identifier. Generally the same as the VM Group's display name
-            /// </param>
-            /// <param name='privateCloudName'>
-            /// Name of the private cloud
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task BeginDeleteVMGroupAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string vmGroupId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                (await operations.BeginDeleteVMGroupWithHttpMessagesAsync(resourceGroupName, vmGroupId, privateCloudName, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <summary>
-            /// Create a DNS service by id in a private cloud workload network.
+            /// Create a WorkloadNetworkDnsService
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2405,11 +2036,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsServiceId'>
-            /// NSX DNS Service identifier. Generally the same as the DNS Service's display
-            /// name
+            /// ID of the DNS service.
             /// </param>
             /// <param name='workloadNetworkDnsService'>
-            /// NSX DNS Service
+            /// Resource create parameters.
             /// </param>
             public static WorkloadNetworkDnsService BeginCreateDnsService(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService)
             {
@@ -2417,7 +2047,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create a DNS service by id in a private cloud workload network.
+            /// Create a WorkloadNetworkDnsService
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2429,11 +2059,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsServiceId'>
-            /// NSX DNS Service identifier. Generally the same as the DNS Service's display
-            /// name
+            /// ID of the DNS service.
             /// </param>
             /// <param name='workloadNetworkDnsService'>
-            /// NSX DNS Service
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -2447,7 +2076,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a DNS service by id in a private cloud workload network.
+            /// Update a WorkloadNetworkDnsService
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2459,11 +2088,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsServiceId'>
-            /// NSX DNS Service identifier. Generally the same as the DNS Service's display
-            /// name
+            /// ID of the DNS service.
             /// </param>
             /// <param name='workloadNetworkDnsService'>
-            /// NSX DNS Service
+            /// The resource properties to be updated.
             /// </param>
             public static WorkloadNetworkDnsService BeginUpdateDnsService(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService)
             {
@@ -2471,7 +2099,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a DNS service by id in a private cloud workload network.
+            /// Update a WorkloadNetworkDnsService
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2483,11 +2111,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsServiceId'>
-            /// NSX DNS Service identifier. Generally the same as the DNS Service's display
-            /// name
+            /// ID of the DNS service.
             /// </param>
             /// <param name='workloadNetworkDnsService'>
-            /// NSX DNS Service
+            /// The resource properties to be updated.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -2501,7 +2128,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a DNS service by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkDnsService
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2510,19 +2137,18 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='dnsServiceId'>
-            /// NSX DNS Service identifier. Generally the same as the DNS Service's display
-            /// name
+            /// ID of the DNS service.
             /// </param>
             /// <param name='privateCloudName'>
             /// Name of the private cloud
             /// </param>
-            public static void BeginDeleteDnsService(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsServiceId, string privateCloudName)
+            public static WorkloadNetworksDeleteDnsServiceHeaders BeginDeleteDnsService(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsServiceId, string privateCloudName)
             {
-                operations.BeginDeleteDnsServiceAsync(resourceGroupName, dnsServiceId, privateCloudName).GetAwaiter().GetResult();
+                return operations.BeginDeleteDnsServiceAsync(resourceGroupName, dnsServiceId, privateCloudName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a DNS service by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkDnsService
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2531,8 +2157,7 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='dnsServiceId'>
-            /// NSX DNS Service identifier. Generally the same as the DNS Service's display
-            /// name
+            /// ID of the DNS service.
             /// </param>
             /// <param name='privateCloudName'>
             /// Name of the private cloud
@@ -2540,13 +2165,16 @@ namespace Microsoft.Azure.Management.Avs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteDnsServiceAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsServiceId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkloadNetworksDeleteDnsServiceHeaders> BeginDeleteDnsServiceAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsServiceId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteDnsServiceWithHttpMessagesAsync(resourceGroupName, dnsServiceId, privateCloudName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteDnsServiceWithHttpMessagesAsync(resourceGroupName, dnsServiceId, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Create a DNS zone by id in a private cloud workload network.
+            /// Create a WorkloadNetworkDnsZone
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2558,10 +2186,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsZoneId'>
-            /// NSX DNS Zone identifier. Generally the same as the DNS Zone's display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='workloadNetworkDnsZone'>
-            /// NSX DNS Zone
+            /// Resource create parameters.
             /// </param>
             public static WorkloadNetworkDnsZone BeginCreateDnsZone(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone)
             {
@@ -2569,7 +2197,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create a DNS zone by id in a private cloud workload network.
+            /// Create a WorkloadNetworkDnsZone
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2581,10 +2209,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsZoneId'>
-            /// NSX DNS Zone identifier. Generally the same as the DNS Zone's display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='workloadNetworkDnsZone'>
-            /// NSX DNS Zone
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -2598,7 +2226,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a DNS zone by id in a private cloud workload network.
+            /// Update a WorkloadNetworkDnsZone
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2610,10 +2238,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsZoneId'>
-            /// NSX DNS Zone identifier. Generally the same as the DNS Zone's display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='workloadNetworkDnsZone'>
-            /// NSX DNS Zone
+            /// The resource properties to be updated.
             /// </param>
             public static WorkloadNetworkDnsZone BeginUpdateDnsZone(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone)
             {
@@ -2621,7 +2249,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a DNS zone by id in a private cloud workload network.
+            /// Update a WorkloadNetworkDnsZone
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2633,10 +2261,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='dnsZoneId'>
-            /// NSX DNS Zone identifier. Generally the same as the DNS Zone's display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='workloadNetworkDnsZone'>
-            /// NSX DNS Zone
+            /// The resource properties to be updated.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -2650,7 +2278,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a DNS zone by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkDnsZone
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2659,18 +2287,18 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='dnsZoneId'>
-            /// NSX DNS Zone identifier. Generally the same as the DNS Zone's display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='privateCloudName'>
             /// Name of the private cloud
             /// </param>
-            public static void BeginDeleteDnsZone(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsZoneId, string privateCloudName)
+            public static WorkloadNetworksDeleteDnsZoneHeaders BeginDeleteDnsZone(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsZoneId, string privateCloudName)
             {
-                operations.BeginDeleteDnsZoneAsync(resourceGroupName, dnsZoneId, privateCloudName).GetAwaiter().GetResult();
+                return operations.BeginDeleteDnsZoneAsync(resourceGroupName, dnsZoneId, privateCloudName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a DNS zone by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkDnsZone
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2679,7 +2307,7 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='dnsZoneId'>
-            /// NSX DNS Zone identifier. Generally the same as the DNS Zone's display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='privateCloudName'>
             /// Name of the private cloud
@@ -2687,13 +2315,166 @@ namespace Microsoft.Azure.Management.Avs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteDnsZoneAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsZoneId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkloadNetworksDeleteDnsZoneHeaders> BeginDeleteDnsZoneAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string dnsZoneId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteDnsZoneWithHttpMessagesAsync(resourceGroupName, dnsZoneId, privateCloudName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteDnsZoneWithHttpMessagesAsync(resourceGroupName, dnsZoneId, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Create a Public IP Block by id in a private cloud workload network.
+            /// Create a WorkloadNetworkPortMirroring
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='portMirroringId'>
+            /// ID of the NSX port mirroring profile.
+            /// </param>
+            /// <param name='workloadNetworkPortMirroring'>
+            /// Resource create parameters.
+            /// </param>
+            public static WorkloadNetworkPortMirroring BeginCreatePortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring)
+            {
+                return operations.BeginCreatePortMirroringAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Create a WorkloadNetworkPortMirroring
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='portMirroringId'>
+            /// ID of the NSX port mirroring profile.
+            /// </param>
+            /// <param name='workloadNetworkPortMirroring'>
+            /// Resource create parameters.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworkPortMirroring> BeginCreatePortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginCreatePortMirroringWithHttpMessagesAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Update a WorkloadNetworkPortMirroring
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='portMirroringId'>
+            /// ID of the NSX port mirroring profile.
+            /// </param>
+            /// <param name='workloadNetworkPortMirroring'>
+            /// The resource properties to be updated.
+            /// </param>
+            public static WorkloadNetworkPortMirroring BeginUpdatePortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring)
+            {
+                return operations.BeginUpdatePortMirroringAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Update a WorkloadNetworkPortMirroring
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='portMirroringId'>
+            /// ID of the NSX port mirroring profile.
+            /// </param>
+            /// <param name='workloadNetworkPortMirroring'>
+            /// The resource properties to be updated.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworkPortMirroring> BeginUpdatePortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginUpdatePortMirroringWithHttpMessagesAsync(resourceGroupName, privateCloudName, portMirroringId, workloadNetworkPortMirroring, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Delete a WorkloadNetworkPortMirroring
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='portMirroringId'>
+            /// ID of the NSX port mirroring profile.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            public static WorkloadNetworksDeletePortMirroringHeaders BeginDeletePortMirroring(this IWorkloadNetworksOperations operations, string resourceGroupName, string portMirroringId, string privateCloudName)
+            {
+                return operations.BeginDeletePortMirroringAsync(resourceGroupName, portMirroringId, privateCloudName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Delete a WorkloadNetworkPortMirroring
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='portMirroringId'>
+            /// ID of the NSX port mirroring profile.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworksDeletePortMirroringHeaders> BeginDeletePortMirroringAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string portMirroringId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginDeletePortMirroringWithHttpMessagesAsync(resourceGroupName, portMirroringId, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
+            }
+
+            /// <summary>
+            /// Create a WorkloadNetworkPublicIP
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2705,11 +2486,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='publicIPId'>
-            /// NSX Public IP Block identifier. Generally the same as the Public IP Block's
-            /// display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='workloadNetworkPublicIP'>
-            /// NSX Public IP Block
+            /// Resource create parameters.
             /// </param>
             public static WorkloadNetworkPublicIP BeginCreatePublicIP(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string publicIPId, WorkloadNetworkPublicIP workloadNetworkPublicIP)
             {
@@ -2717,7 +2497,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create a Public IP Block by id in a private cloud workload network.
+            /// Create a WorkloadNetworkPublicIP
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2729,11 +2509,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='publicIPId'>
-            /// NSX Public IP Block identifier. Generally the same as the Public IP Block's
-            /// display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='workloadNetworkPublicIP'>
-            /// NSX Public IP Block
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -2747,7 +2526,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a Public IP Block by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkPublicIP
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2756,19 +2535,18 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='publicIPId'>
-            /// NSX Public IP Block identifier. Generally the same as the Public IP Block's
-            /// display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='privateCloudName'>
             /// Name of the private cloud
             /// </param>
-            public static void BeginDeletePublicIP(this IWorkloadNetworksOperations operations, string resourceGroupName, string publicIPId, string privateCloudName)
+            public static WorkloadNetworksDeletePublicIPHeaders BeginDeletePublicIP(this IWorkloadNetworksOperations operations, string resourceGroupName, string publicIPId, string privateCloudName)
             {
-                operations.BeginDeletePublicIPAsync(resourceGroupName, publicIPId, privateCloudName).GetAwaiter().GetResult();
+                return operations.BeginDeletePublicIPAsync(resourceGroupName, publicIPId, privateCloudName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a Public IP Block by id in a private cloud workload network.
+            /// Delete a WorkloadNetworkPublicIP
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2777,8 +2555,7 @@ namespace Microsoft.Azure.Management.Avs
             /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='publicIPId'>
-            /// NSX Public IP Block identifier. Generally the same as the Public IP Block's
-            /// display name
+            /// ID of the DNS zone.
             /// </param>
             /// <param name='privateCloudName'>
             /// Name of the private cloud
@@ -2786,47 +2563,350 @@ namespace Microsoft.Azure.Management.Avs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeletePublicIPAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string publicIPId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkloadNetworksDeletePublicIPHeaders> BeginDeletePublicIPAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string publicIPId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeletePublicIPWithHttpMessagesAsync(resourceGroupName, publicIPId, privateCloudName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeletePublicIPWithHttpMessagesAsync(resourceGroupName, publicIPId, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// List of segments in a private cloud workload network.
+            /// Create a WorkloadNetworkSegment
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='nextPageLink'>
-            /// The NextLink from the previous successful call to List operation.
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
-            public static IPage<WorkloadNetworkSegment> ListSegmentsNext(this IWorkloadNetworksOperations operations, string nextPageLink)
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='segmentId'>
+            /// The ID of the NSX Segment
+            /// </param>
+            /// <param name='workloadNetworkSegment'>
+            /// Resource create parameters.
+            /// </param>
+            public static WorkloadNetworkSegment BeginCreateSegments(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment)
             {
-                return operations.ListSegmentsNextAsync(nextPageLink).GetAwaiter().GetResult();
+                return operations.BeginCreateSegmentsAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// List of segments in a private cloud workload network.
+            /// Create a WorkloadNetworkSegment
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='nextPageLink'>
-            /// The NextLink from the previous successful call to List operation.
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='segmentId'>
+            /// The ID of the NSX Segment
+            /// </param>
+            /// <param name='workloadNetworkSegment'>
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IPage<WorkloadNetworkSegment>> ListSegmentsNextAsync(this IWorkloadNetworksOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkloadNetworkSegment> BeginCreateSegmentsAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ListSegmentsNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.BeginCreateSegmentsWithHttpMessagesAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
             }
 
             /// <summary>
-            /// List dhcp in a private cloud workload network.
+            /// Update a WorkloadNetworkSegment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='segmentId'>
+            /// The ID of the NSX Segment
+            /// </param>
+            /// <param name='workloadNetworkSegment'>
+            /// The resource properties to be updated.
+            /// </param>
+            public static WorkloadNetworkSegment BeginUpdateSegments(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment)
+            {
+                return operations.BeginUpdateSegmentsAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Update a WorkloadNetworkSegment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='segmentId'>
+            /// The ID of the NSX Segment
+            /// </param>
+            /// <param name='workloadNetworkSegment'>
+            /// The resource properties to be updated.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworkSegment> BeginUpdateSegmentsAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, WorkloadNetworkSegment workloadNetworkSegment, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginUpdateSegmentsWithHttpMessagesAsync(resourceGroupName, privateCloudName, segmentId, workloadNetworkSegment, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Delete a WorkloadNetworkSegment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='segmentId'>
+            /// The ID of the NSX Segment
+            /// </param>
+            public static WorkloadNetworksDeleteSegmentHeaders BeginDeleteSegment(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId)
+            {
+                return operations.BeginDeleteSegmentAsync(resourceGroupName, privateCloudName, segmentId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Delete a WorkloadNetworkSegment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='segmentId'>
+            /// The ID of the NSX Segment
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworksDeleteSegmentHeaders> BeginDeleteSegmentAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string segmentId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginDeleteSegmentWithHttpMessagesAsync(resourceGroupName, privateCloudName, segmentId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
+            }
+
+            /// <summary>
+            /// Create a WorkloadNetworkVMGroup
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='vmGroupId'>
+            /// ID of the VM group.
+            /// </param>
+            /// <param name='workloadNetworkVMGroup'>
+            /// Resource create parameters.
+            /// </param>
+            public static WorkloadNetworkVMGroup BeginCreateVMGroup(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup)
+            {
+                return operations.BeginCreateVMGroupAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Create a WorkloadNetworkVMGroup
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='vmGroupId'>
+            /// ID of the VM group.
+            /// </param>
+            /// <param name='workloadNetworkVMGroup'>
+            /// Resource create parameters.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworkVMGroup> BeginCreateVMGroupAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginCreateVMGroupWithHttpMessagesAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Update a WorkloadNetworkVMGroup
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='vmGroupId'>
+            /// ID of the VM group.
+            /// </param>
+            /// <param name='workloadNetworkVMGroup'>
+            /// The resource properties to be updated.
+            /// </param>
+            public static WorkloadNetworkVMGroup BeginUpdateVMGroup(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup)
+            {
+                return operations.BeginUpdateVMGroupAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Update a WorkloadNetworkVMGroup
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='vmGroupId'>
+            /// ID of the VM group.
+            /// </param>
+            /// <param name='workloadNetworkVMGroup'>
+            /// The resource properties to be updated.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworkVMGroup> BeginUpdateVMGroupAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string privateCloudName, string vmGroupId, WorkloadNetworkVMGroup workloadNetworkVMGroup, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginUpdateVMGroupWithHttpMessagesAsync(resourceGroupName, privateCloudName, vmGroupId, workloadNetworkVMGroup, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Delete a WorkloadNetworkVMGroup
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='vmGroupId'>
+            /// ID of the VM group.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            public static WorkloadNetworksDeleteVMGroupHeaders BeginDeleteVMGroup(this IWorkloadNetworksOperations operations, string resourceGroupName, string vmGroupId, string privateCloudName)
+            {
+                return operations.BeginDeleteVMGroupAsync(resourceGroupName, vmGroupId, privateCloudName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Delete a WorkloadNetworkVMGroup
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='vmGroupId'>
+            /// ID of the VM group.
+            /// </param>
+            /// <param name='privateCloudName'>
+            /// Name of the private cloud
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<WorkloadNetworksDeleteVMGroupHeaders> BeginDeleteVMGroupAsync(this IWorkloadNetworksOperations operations, string resourceGroupName, string vmGroupId, string privateCloudName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginDeleteVMGroupWithHttpMessagesAsync(resourceGroupName, vmGroupId, privateCloudName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
+            }
+
+            /// <summary>
+            /// List WorkloadNetwork resources by PrivateCloud
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            public static IPage<WorkloadNetwork> ListNext(this IWorkloadNetworksOperations operations, string nextPageLink)
+            {
+                return operations.ListNextAsync(nextPageLink).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// List WorkloadNetwork resources by PrivateCloud
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<WorkloadNetwork>> ListNextAsync(this IWorkloadNetworksOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkDhcp resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2840,7 +2920,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List dhcp in a private cloud workload network.
+            /// List WorkloadNetworkDhcp resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -2860,143 +2940,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List of gateways in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='nextPageLink'>
-            /// The NextLink from the previous successful call to List operation.
-            /// </param>
-            public static IPage<WorkloadNetworkGateway> ListGatewaysNext(this IWorkloadNetworksOperations operations, string nextPageLink)
-            {
-                return operations.ListGatewaysNextAsync(nextPageLink).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// List of gateways in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='nextPageLink'>
-            /// The NextLink from the previous successful call to List operation.
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<IPage<WorkloadNetworkGateway>> ListGatewaysNextAsync(this IWorkloadNetworksOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ListGatewaysNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// List of port mirroring profiles in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='nextPageLink'>
-            /// The NextLink from the previous successful call to List operation.
-            /// </param>
-            public static IPage<WorkloadNetworkPortMirroring> ListPortMirroringNext(this IWorkloadNetworksOperations operations, string nextPageLink)
-            {
-                return operations.ListPortMirroringNextAsync(nextPageLink).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// List of port mirroring profiles in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='nextPageLink'>
-            /// The NextLink from the previous successful call to List operation.
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<IPage<WorkloadNetworkPortMirroring>> ListPortMirroringNextAsync(this IWorkloadNetworksOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ListPortMirroringNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// List of vm groups in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='nextPageLink'>
-            /// The NextLink from the previous successful call to List operation.
-            /// </param>
-            public static IPage<WorkloadNetworkVMGroup> ListVMGroupsNext(this IWorkloadNetworksOperations operations, string nextPageLink)
-            {
-                return operations.ListVMGroupsNextAsync(nextPageLink).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// List of vm groups in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='nextPageLink'>
-            /// The NextLink from the previous successful call to List operation.
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<IPage<WorkloadNetworkVMGroup>> ListVMGroupsNextAsync(this IWorkloadNetworksOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ListVMGroupsNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// List of virtual machines in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='nextPageLink'>
-            /// The NextLink from the previous successful call to List operation.
-            /// </param>
-            public static IPage<WorkloadNetworkVirtualMachine> ListVirtualMachinesNext(this IWorkloadNetworksOperations operations, string nextPageLink)
-            {
-                return operations.ListVirtualMachinesNextAsync(nextPageLink).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// List of virtual machines in a private cloud workload network.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='nextPageLink'>
-            /// The NextLink from the previous successful call to List operation.
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<IPage<WorkloadNetworkVirtualMachine>> ListVirtualMachinesNextAsync(this IWorkloadNetworksOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ListVirtualMachinesNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// List of DNS services in a private cloud workload network.
+            /// List WorkloadNetworkDnsService resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -3010,7 +2954,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List of DNS services in a private cloud workload network.
+            /// List WorkloadNetworkDnsService resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -3030,7 +2974,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List of DNS zones in a private cloud workload network.
+            /// List WorkloadNetworkDnsZone resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -3044,7 +2988,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List of DNS zones in a private cloud workload network.
+            /// List WorkloadNetworkDnsZone resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -3064,7 +3008,75 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List of Public IP Blocks in a private cloud workload network.
+            /// List WorkloadNetworkGateway resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            public static IPage<WorkloadNetworkGateway> ListGatewaysNext(this IWorkloadNetworksOperations operations, string nextPageLink)
+            {
+                return operations.ListGatewaysNextAsync(nextPageLink).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkGateway resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<WorkloadNetworkGateway>> ListGatewaysNextAsync(this IWorkloadNetworksOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListGatewaysNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkPortMirroring resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            public static IPage<WorkloadNetworkPortMirroring> ListPortMirroringNext(this IWorkloadNetworksOperations operations, string nextPageLink)
+            {
+                return operations.ListPortMirroringNextAsync(nextPageLink).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkPortMirroring resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<WorkloadNetworkPortMirroring>> ListPortMirroringNextAsync(this IWorkloadNetworksOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListPortMirroringNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkPublicIP resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -3078,7 +3090,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List of Public IP Blocks in a private cloud workload network.
+            /// List WorkloadNetworkPublicIP resources by WorkloadNetwork
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -3092,6 +3104,108 @@ namespace Microsoft.Azure.Management.Avs
             public static async Task<IPage<WorkloadNetworkPublicIP>> ListPublicIPsNextAsync(this IWorkloadNetworksOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.ListPublicIPsNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkSegment resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            public static IPage<WorkloadNetworkSegment> ListSegmentsNext(this IWorkloadNetworksOperations operations, string nextPageLink)
+            {
+                return operations.ListSegmentsNextAsync(nextPageLink).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkSegment resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<WorkloadNetworkSegment>> ListSegmentsNextAsync(this IWorkloadNetworksOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListSegmentsNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkVirtualMachine resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            public static IPage<WorkloadNetworkVirtualMachine> ListVirtualMachinesNext(this IWorkloadNetworksOperations operations, string nextPageLink)
+            {
+                return operations.ListVirtualMachinesNextAsync(nextPageLink).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkVirtualMachine resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<WorkloadNetworkVirtualMachine>> ListVirtualMachinesNextAsync(this IWorkloadNetworksOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListVirtualMachinesNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkVMGroup resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            public static IPage<WorkloadNetworkVMGroup> ListVMGroupsNext(this IWorkloadNetworksOperations operations, string nextPageLink)
+            {
+                return operations.ListVMGroupsNextAsync(nextPageLink).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// List WorkloadNetworkVMGroup resources by WorkloadNetwork
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<WorkloadNetworkVMGroup>> ListVMGroupsNextAsync(this IWorkloadNetworksOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListVMGroupsNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
