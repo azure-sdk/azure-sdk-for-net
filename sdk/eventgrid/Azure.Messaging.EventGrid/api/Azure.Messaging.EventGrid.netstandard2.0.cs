@@ -80,7 +80,9 @@ namespace Azure.Messaging.EventGrid
         public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveButtonReplyContent AcsMessageInteractiveButtonReplyContent(string buttonId = null, string title = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveContent AcsMessageInteractiveContent(Azure.Messaging.EventGrid.SystemEvents.AcsInteractiveReplyKind? replyKind = default(Azure.Messaging.EventGrid.SystemEvents.AcsInteractiveReplyKind?), Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveButtonReplyContent buttonReply = null, Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveListReplyContent listReply = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveListReplyContent AcsMessageInteractiveListReplyContent(string listItemId = null, string title = null, string description = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageLanguageDetection AcsMessageLanguageDetection(string language = null, string confidenceScore = null, string translation = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageMediaContent AcsMessageMediaContent(string mimeType = null, string mediaId = null, string fileName = null, string caption = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageSentiment AcsMessageSentiment(int? score = default(int?), string description = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsMicrosoftTeamsAppIdentifier AcsMicrosoftTeamsAppIdentifier(string appId = null, Azure.Messaging.EventGrid.SystemEvents.CommunicationCloudEnvironmentModel? cloud = default(Azure.Messaging.EventGrid.SystemEvents.CommunicationCloudEnvironmentModel?)) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public static Azure.Messaging.EventGrid.SystemEvents.AcsRecordingChunkInfoProperties AcsRecordingChunkInfoProperties(string documentId, long? index, string endReason, string metadataLocation, string contentLocation) { throw null; }
@@ -1041,6 +1043,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public static bool operator !=(Azure.Messaging.EventGrid.SystemEvents.AcsInteractiveReplyKind left, Azure.Messaging.EventGrid.SystemEvents.AcsInteractiveReplyKind right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class AcsMessageAnalysisCompleted : Azure.Messaging.EventGrid.SystemEvents.AcsMessageEventData
+    {
+        internal AcsMessageAnalysisCompleted() { }
+        public Azure.Messaging.EventGrid.SystemEvents.AcsMessageChannelKind? ChannelKind { get { throw null; } }
+        public string IntentAnalysis { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<string> KeyPhraseExtraction { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.AcsMessageLanguageDetection LanguageDetection { get { throw null; } }
+        public string OriginalMessage { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.AcsMessageSentiment Sentiments { get { throw null; } }
+    }
     public partial class AcsMessageButtonContent
     {
         internal AcsMessageButtonContent() { }
@@ -1127,6 +1139,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public string ListItemId { get { throw null; } }
         public string Title { get { throw null; } }
     }
+    public partial class AcsMessageLanguageDetection
+    {
+        internal AcsMessageLanguageDetection() { }
+        public string ConfidenceScore { get { throw null; } }
+        public string Language { get { throw null; } }
+        public string Translation { get { throw null; } }
+    }
     public partial class AcsMessageMediaContent
     {
         internal AcsMessageMediaContent() { }
@@ -1144,6 +1163,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public Azure.Messaging.EventGrid.SystemEvents.AcsMessageContext Context { get { throw null; } }
         public Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveContent InteractiveContent { get { throw null; } }
         public Azure.Messaging.EventGrid.SystemEvents.AcsMessageMediaContent MediaContent { get { throw null; } }
+    }
+    public partial class AcsMessageSentiment
+    {
+        internal AcsMessageSentiment() { }
+        public string Description { get { throw null; } }
+        public int? Score { get { throw null; } }
     }
     public partial class AcsMicrosoftTeamsAppIdentifier
     {
