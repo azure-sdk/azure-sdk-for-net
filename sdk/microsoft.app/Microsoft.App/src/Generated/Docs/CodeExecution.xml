@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="ExecuteCodeAsync(Guid,string,string,string,CodeExecutionRequest,CancellationToken)">
+      <example>
+This sample shows how to call ExecuteCodeAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new AppClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2023-08-01-preview");
+
+CodeExecutionRequest codeExecutionRequest = new CodeExecutionRequest(new CodeExecutionRequestProperties(CodeInputType.Inline, ExecutionType.Synchronous, "<code>", 1234L));
+Response<CodeExecutionResponse> response = await client.ExecuteCodeAsync(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), "<resourceGroupName>", "<sessionPoolName>", "<identifier>", codeExecutionRequest);
+]]></code>
+This sample shows how to call ExecuteCodeAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new AppClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2023-08-01-preview");
+
+CodeExecutionRequest codeExecutionRequest = new CodeExecutionRequest(new CodeExecutionRequestProperties(CodeInputType.Inline, ExecutionType.Synchronous, "<code>", 1234L));
+Response<CodeExecutionResponse> response = await client.ExecuteCodeAsync(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), "<resourceGroupName>", "<sessionPoolName>", "<identifier>", codeExecutionRequest);
+]]></code></example>
+    </member>
+    <member name="ExecuteCode(Guid,string,string,string,CodeExecutionRequest,CancellationToken)">
+      <example>
+This sample shows how to call ExecuteCode.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new AppClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2023-08-01-preview");
+
+CodeExecutionRequest codeExecutionRequest = new CodeExecutionRequest(new CodeExecutionRequestProperties(CodeInputType.Inline, ExecutionType.Synchronous, "<code>", 1234L));
+Response<CodeExecutionResponse> response = client.ExecuteCode(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), "<resourceGroupName>", "<sessionPoolName>", "<identifier>", codeExecutionRequest);
+]]></code>
+This sample shows how to call ExecuteCode with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new AppClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2023-08-01-preview");
+
+CodeExecutionRequest codeExecutionRequest = new CodeExecutionRequest(new CodeExecutionRequestProperties(CodeInputType.Inline, ExecutionType.Synchronous, "<code>", 1234L));
+Response<CodeExecutionResponse> response = client.ExecuteCode(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), "<resourceGroupName>", "<sessionPoolName>", "<identifier>", codeExecutionRequest);
+]]></code></example>
+    </member>
+    <member name="ExecuteCodeAsync(Guid,string,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call ExecuteCodeAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new AppClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2023-08-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    properties = new
+    {
+        codeInputType = "inline",
+        executionType = "synchronous",
+        code = "<code>",
+        timeoutInSeconds = 1234L,
+    },
+});
+Response response = await client.ExecuteCodeAsync(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), "<resourceGroupName>", "<sessionPoolName>", "<identifier>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("stdout").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("stderr").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("result").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("executionTimeInMilliseconds").ToString());
+]]></code>
+This sample shows how to call ExecuteCodeAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new AppClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2023-08-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    properties = new
+    {
+        codeInputType = "inline",
+        executionType = "synchronous",
+        code = "<code>",
+        timeoutInSeconds = 1234L,
+    },
+});
+Response response = await client.ExecuteCodeAsync(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), "<resourceGroupName>", "<sessionPoolName>", "<identifier>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("stdout").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("stderr").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("result").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("executionTimeInMilliseconds").ToString());
+]]></code></example>
+    </member>
+    <member name="ExecuteCode(Guid,string,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call ExecuteCode and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new AppClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2023-08-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    properties = new
+    {
+        codeInputType = "inline",
+        executionType = "synchronous",
+        code = "<code>",
+        timeoutInSeconds = 1234L,
+    },
+});
+Response response = client.ExecuteCode(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), "<resourceGroupName>", "<sessionPoolName>", "<identifier>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("stdout").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("stderr").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("result").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("executionTimeInMilliseconds").ToString());
+]]></code>
+This sample shows how to call ExecuteCode with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new AppClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2023-08-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    properties = new
+    {
+        codeInputType = "inline",
+        executionType = "synchronous",
+        code = "<code>",
+        timeoutInSeconds = 1234L,
+    },
+});
+Response response = client.ExecuteCode(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), "<resourceGroupName>", "<sessionPoolName>", "<identifier>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("stdout").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("stderr").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("result").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("executionTimeInMilliseconds").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
