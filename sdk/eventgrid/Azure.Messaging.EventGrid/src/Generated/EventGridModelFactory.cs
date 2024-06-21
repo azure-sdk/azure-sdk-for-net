@@ -3534,6 +3534,25 @@ namespace Azure.Messaging.EventGrid
             return new AcsMessageInteractiveListReplyContent(listItemId, title, description);
         }
 
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsMessageLanguageDetection"/>. </summary>
+        /// <param name="language"> The language of the message. </param>
+        /// <param name="confidenceScore"> The confidence score of the language detected. </param>
+        /// <param name="translation"> The translation of the message. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsMessageLanguageDetection"/> instance for mocking. </returns>
+        public static AcsMessageLanguageDetection AcsMessageLanguageDetection(string language = null, string confidenceScore = null, string translation = null)
+        {
+            return new AcsMessageLanguageDetection(language, confidenceScore, translation);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsMessageSentiment"/>. </summary>
+        /// <param name="score"> The score of the analysis. </param>
+        /// <param name="description"> The description of the analysis. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsMessageSentiment"/> instance for mocking. </returns>
+        public static AcsMessageSentiment AcsMessageSentiment(int? score = null, string description = null)
+        {
+            return new AcsMessageSentiment(score, description);
+        }
+
         /// <summary> Initializes a new instance of <see cref="SystemEvents.PolicyInsightsPolicyStateCreatedEventData"/>. </summary>
         /// <param name="timestamp"> The time that the resource was scanned by Azure Policy in the Universal ISO 8601 DateTime format yyyy-MM-ddTHH:mm:ss.fffffffZ. </param>
         /// <param name="policyAssignmentId"> The resource ID of the policy assignment. </param>
