@@ -5,7 +5,8 @@
       <example>
 This sample shows how to call CloseAllConnectionsAsync.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.CloseAllConnectionsAsync();
 
@@ -13,7 +14,8 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseAllConnectionsAsync with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.CloseAllConnectionsAsync(excluded: new string[] { "<excluded>" }, reason: "<reason>");
 
@@ -24,7 +26,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call CloseAllConnections.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.CloseAllConnections();
 
@@ -32,18 +35,20 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseAllConnections with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.CloseAllConnections(excluded: new string[] { "<excluded>" }, reason: "<reason>");
 
 Console.WriteLine(response.Status);
 ]]></code></example>
     </member>
-    <member name="SendToAllAsync(RequestContent,ContentType,IEnumerable{string},string,RequestContext)">
+    <member name="SendToAllAsync(RequestContent,ContentType,IEnumerable{string},string,int?,RequestContext)">
       <example>
 This sample shows how to call SendToAllAsync.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
 Response response = await client.SendToAllAsync(content, new ContentType("application/json"));
@@ -52,19 +57,21 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call SendToAllAsync with all parameters and request content.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-Response response = await client.SendToAllAsync(content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>");
+Response response = await client.SendToAllAsync(content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>", messageTtlSeconds: 1234);
 
 Console.WriteLine(response.Status);
 ]]></code></example>
     </member>
-    <member name="SendToAll(RequestContent,ContentType,IEnumerable{string},string,RequestContext)">
+    <member name="SendToAll(RequestContent,ContentType,IEnumerable{string},string,int?,RequestContext)">
       <example>
 This sample shows how to call SendToAll.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
 Response response = client.SendToAll(content, new ContentType("application/json"));
@@ -73,10 +80,11 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call SendToAll with all parameters and request content.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-Response response = client.SendToAll(content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>");
+Response response = client.SendToAll(content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>", messageTtlSeconds: 1234);
 
 Console.WriteLine(response.Status);
 ]]></code></example>
@@ -85,7 +93,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call CloseConnectionAsync.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.CloseConnectionAsync("<connectionId>");
 
@@ -93,7 +102,8 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseConnectionAsync with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.CloseConnectionAsync("<connectionId>", reason: "<reason>");
 
@@ -104,7 +114,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call CloseConnection.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.CloseConnection("<connectionId>");
 
@@ -112,18 +123,20 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseConnection with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.CloseConnection("<connectionId>", reason: "<reason>");
 
 Console.WriteLine(response.Status);
 ]]></code></example>
     </member>
-    <member name="SendToConnectionAsync(string,RequestContent,ContentType,RequestContext)">
+    <member name="SendToConnectionAsync(string,RequestContent,ContentType,int?,RequestContext)">
       <example>
 This sample shows how to call SendToConnectionAsync.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
 Response response = await client.SendToConnectionAsync("<connectionId>", content, new ContentType("application/json"));
@@ -132,19 +145,21 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call SendToConnectionAsync with all parameters and request content.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-Response response = await client.SendToConnectionAsync("<connectionId>", content, new ContentType("application/json"));
+Response response = await client.SendToConnectionAsync("<connectionId>", content, new ContentType("application/json"), messageTtlSeconds: 1234);
 
 Console.WriteLine(response.Status);
 ]]></code></example>
     </member>
-    <member name="SendToConnection(string,RequestContent,ContentType,RequestContext)">
+    <member name="SendToConnection(string,RequestContent,ContentType,int?,RequestContext)">
       <example>
 This sample shows how to call SendToConnection.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
 Response response = client.SendToConnection("<connectionId>", content, new ContentType("application/json"));
@@ -153,10 +168,11 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call SendToConnection with all parameters and request content.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-Response response = client.SendToConnection("<connectionId>", content, new ContentType("application/json"));
+Response response = client.SendToConnection("<connectionId>", content, new ContentType("application/json"), messageTtlSeconds: 1234);
 
 Console.WriteLine(response.Status);
 ]]></code></example>
@@ -165,7 +181,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call RemoveConnectionFromAllGroupsAsync.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.RemoveConnectionFromAllGroupsAsync("<connectionId>");
 
@@ -173,7 +190,8 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call RemoveConnectionFromAllGroupsAsync with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.RemoveConnectionFromAllGroupsAsync("<connectionId>");
 
@@ -184,7 +202,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call RemoveConnectionFromAllGroups.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.RemoveConnectionFromAllGroups("<connectionId>");
 
@@ -192,7 +211,8 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call RemoveConnectionFromAllGroups with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.RemoveConnectionFromAllGroups("<connectionId>");
 
@@ -203,7 +223,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call CloseGroupConnectionsAsync.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.CloseGroupConnectionsAsync("<group>");
 
@@ -211,7 +232,8 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseGroupConnectionsAsync with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.CloseGroupConnectionsAsync("<group>", excluded: new string[] { "<excluded>" }, reason: "<reason>");
 
@@ -222,7 +244,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call CloseGroupConnections.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.CloseGroupConnections("<group>");
 
@@ -230,18 +253,20 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseGroupConnections with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.CloseGroupConnections("<group>", excluded: new string[] { "<excluded>" }, reason: "<reason>");
 
 Console.WriteLine(response.Status);
 ]]></code></example>
     </member>
-    <member name="SendToGroupAsync(string,RequestContent,ContentType,IEnumerable{string},string,RequestContext)">
+    <member name="SendToGroupAsync(string,RequestContent,ContentType,IEnumerable{string},string,int?,RequestContext)">
       <example>
 This sample shows how to call SendToGroupAsync.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
 Response response = await client.SendToGroupAsync("<group>", content, new ContentType("application/json"));
@@ -250,19 +275,21 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call SendToGroupAsync with all parameters and request content.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-Response response = await client.SendToGroupAsync("<group>", content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>");
+Response response = await client.SendToGroupAsync("<group>", content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>", messageTtlSeconds: 1234);
 
 Console.WriteLine(response.Status);
 ]]></code></example>
     </member>
-    <member name="SendToGroup(string,RequestContent,ContentType,IEnumerable{string},string,RequestContext)">
+    <member name="SendToGroup(string,RequestContent,ContentType,IEnumerable{string},string,int?,RequestContext)">
       <example>
 This sample shows how to call SendToGroup.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
 Response response = client.SendToGroup("<group>", content, new ContentType("application/json"));
@@ -271,10 +298,11 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call SendToGroup with all parameters and request content.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-Response response = client.SendToGroup("<group>", content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>");
+Response response = client.SendToGroup("<group>", content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>", messageTtlSeconds: 1234);
 
 Console.WriteLine(response.Status);
 ]]></code></example>
@@ -283,7 +311,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call RemoveConnectionFromGroupAsync.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.RemoveConnectionFromGroupAsync("<group>", "<connectionId>");
 
@@ -291,7 +320,8 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call RemoveConnectionFromGroupAsync with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.RemoveConnectionFromGroupAsync("<group>", "<connectionId>");
 
@@ -302,7 +332,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call RemoveConnectionFromGroup.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.RemoveConnectionFromGroup("<group>", "<connectionId>");
 
@@ -310,7 +341,8 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call RemoveConnectionFromGroup with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.RemoveConnectionFromGroup("<group>", "<connectionId>");
 
@@ -321,7 +353,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call AddConnectionToGroupAsync.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.AddConnectionToGroupAsync("<group>", "<connectionId>");
 
@@ -329,7 +362,8 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call AddConnectionToGroupAsync with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.AddConnectionToGroupAsync("<group>", "<connectionId>");
 
@@ -340,7 +374,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call AddConnectionToGroup.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.AddConnectionToGroup("<group>", "<connectionId>");
 
@@ -348,7 +383,8 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call AddConnectionToGroup with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.AddConnectionToGroup("<group>", "<connectionId>");
 
@@ -359,7 +395,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call CloseUserConnectionsAsync.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.CloseUserConnectionsAsync("<userId>");
 
@@ -367,7 +404,8 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseUserConnectionsAsync with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.CloseUserConnectionsAsync("<userId>", excluded: new string[] { "<excluded>" }, reason: "<reason>");
 
@@ -378,7 +416,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call CloseUserConnections.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.CloseUserConnections("<userId>");
 
@@ -386,18 +425,20 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseUserConnections with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.CloseUserConnections("<userId>", excluded: new string[] { "<excluded>" }, reason: "<reason>");
 
 Console.WriteLine(response.Status);
 ]]></code></example>
     </member>
-    <member name="SendToUserAsync(string,RequestContent,ContentType,string,RequestContext)">
+    <member name="SendToUserAsync(string,RequestContent,ContentType,string,int?,RequestContext)">
       <example>
 This sample shows how to call SendToUserAsync.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
 Response response = await client.SendToUserAsync("<userId>", content, new ContentType("application/json"));
@@ -406,19 +447,21 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call SendToUserAsync with all parameters and request content.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-Response response = await client.SendToUserAsync("<userId>", content, new ContentType("application/json"), filter: "<filter>");
+Response response = await client.SendToUserAsync("<userId>", content, new ContentType("application/json"), filter: "<filter>", messageTtlSeconds: 1234);
 
 Console.WriteLine(response.Status);
 ]]></code></example>
     </member>
-    <member name="SendToUser(string,RequestContent,ContentType,string,RequestContext)">
+    <member name="SendToUser(string,RequestContent,ContentType,string,int?,RequestContext)">
       <example>
 This sample shows how to call SendToUser.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
 Response response = client.SendToUser("<userId>", content, new ContentType("application/json"));
@@ -427,10 +470,11 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call SendToUser with all parameters and request content.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-Response response = client.SendToUser("<userId>", content, new ContentType("application/json"), filter: "<filter>");
+Response response = client.SendToUser("<userId>", content, new ContentType("application/json"), filter: "<filter>", messageTtlSeconds: 1234);
 
 Console.WriteLine(response.Status);
 ]]></code></example>
@@ -439,7 +483,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call RemoveUserFromAllGroupsAsync.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.RemoveUserFromAllGroupsAsync("<userId>");
 
@@ -447,7 +492,8 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call RemoveUserFromAllGroupsAsync with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = await client.RemoveUserFromAllGroupsAsync("<userId>");
 
@@ -458,7 +504,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call RemoveUserFromAllGroups.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.RemoveUserFromAllGroups("<userId>");
 
@@ -466,7 +513,8 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call RemoveUserFromAllGroups with all parameters.
 <code><![CDATA[
-WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
 Response response = client.RemoveUserFromAllGroups("<userId>");
 

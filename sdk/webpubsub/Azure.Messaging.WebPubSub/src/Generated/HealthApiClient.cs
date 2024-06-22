@@ -17,7 +17,7 @@ namespace Azure.Messaging.WebPubSub
     internal partial class HealthApiClient
     {
         private readonly HttpPipeline _pipeline;
-        private readonly string _endpoint;
+        private readonly Uri _endpoint;
         private readonly string _apiVersion;
 
         /// <summary> The ClientDiagnostics is used to provide tracing support for the client library. </summary>
@@ -34,7 +34,7 @@ namespace Azure.Messaging.WebPubSub
         /// <summary> Initializes a new instance of HealthApiClient. </summary>
         /// <param name="endpoint"> HTTP or HTTPS endpoint for the Web PubSub service instance. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> is null. </exception>
-        public HealthApiClient(string endpoint) : this(endpoint, new WebPubSubServiceClientOptions())
+        public HealthApiClient(Uri endpoint) : this(endpoint, new WebPubSubServiceClientOptions())
         {
         }
 
@@ -42,7 +42,7 @@ namespace Azure.Messaging.WebPubSub
         /// <param name="endpoint"> HTTP or HTTPS endpoint for the Web PubSub service instance. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> is null. </exception>
-        public HealthApiClient(string endpoint, WebPubSubServiceClientOptions options)
+        public HealthApiClient(Uri endpoint, WebPubSubServiceClientOptions options)
         {
             Argument.AssertNotNull(endpoint, nameof(endpoint));
             options ??= new WebPubSubServiceClientOptions();
@@ -119,7 +119,7 @@ namespace Azure.Messaging.WebPubSub
             var request = message.Request;
             request.Method = RequestMethod.Head;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.Reset(_endpoint);
             uri.AppendPath("/api/health", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;

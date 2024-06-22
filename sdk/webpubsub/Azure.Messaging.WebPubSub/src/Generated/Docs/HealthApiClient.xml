@@ -5,7 +5,8 @@
       <example>
 This sample shows how to call GetServiceStatusAsync.
 <code><![CDATA[
-HealthApiClient client = new HealthApiClient("<Endpoint>");
+Uri endpoint = new Uri("<endpoint>");
+HealthApiClient client = new HealthApiClient(endpoint);
 
 Response response = await client.GetServiceStatusAsync();
 
@@ -13,7 +14,8 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call GetServiceStatusAsync with all request content.
 <code><![CDATA[
-HealthApiClient client = new HealthApiClient("<Endpoint>");
+Uri endpoint = new Uri("<endpoint>");
+HealthApiClient client = new HealthApiClient(endpoint);
 
 Response response = await client.GetServiceStatusAsync();
 
@@ -24,7 +26,8 @@ Console.WriteLine(response.Status);
       <example>
 This sample shows how to call GetServiceStatus.
 <code><![CDATA[
-HealthApiClient client = new HealthApiClient("<Endpoint>");
+Uri endpoint = new Uri("<endpoint>");
+HealthApiClient client = new HealthApiClient(endpoint);
 
 Response response = client.GetServiceStatus();
 
@@ -32,7 +35,8 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call GetServiceStatus with all request content.
 <code><![CDATA[
-HealthApiClient client = new HealthApiClient("<Endpoint>");
+Uri endpoint = new Uri("<endpoint>");
+HealthApiClient client = new HealthApiClient(endpoint);
 
 Response response = client.GetServiceStatus();
 

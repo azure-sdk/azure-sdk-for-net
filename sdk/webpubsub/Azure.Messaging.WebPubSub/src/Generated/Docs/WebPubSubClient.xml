@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="AddConnectionsToGroupsAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AddConnectionsToGroupsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubClient client = new WebPubSubClient(endpoint);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.AddConnectionsToGroupsAsync("<hub>", content);
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call AddConnectionsToGroupsAsync with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubClient client = new WebPubSubClient(endpoint);
+
+using RequestContent content = RequestContent.Create(new
+{
+    groups = new object[]
+    {
+        "<groups>"
+    },
+    filter = "<filter>",
+});
+Response response = await client.AddConnectionsToGroupsAsync("<hub>", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="AddConnectionsToGroups(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AddConnectionsToGroups.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubClient client = new WebPubSubClient(endpoint);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.AddConnectionsToGroups("<hub>", content);
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call AddConnectionsToGroups with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubClient client = new WebPubSubClient(endpoint);
+
+using RequestContent content = RequestContent.Create(new
+{
+    groups = new object[]
+    {
+        "<groups>"
+    },
+    filter = "<filter>",
+});
+Response response = client.AddConnectionsToGroups("<hub>", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="RemoveConnectionsFromGroupsAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call RemoveConnectionsFromGroupsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubClient client = new WebPubSubClient(endpoint);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.RemoveConnectionsFromGroupsAsync("<hub>", content);
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call RemoveConnectionsFromGroupsAsync with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubClient client = new WebPubSubClient(endpoint);
+
+using RequestContent content = RequestContent.Create(new
+{
+    groups = new object[]
+    {
+        "<groups>"
+    },
+    filter = "<filter>",
+});
+Response response = await client.RemoveConnectionsFromGroupsAsync("<hub>", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="RemoveConnectionsFromGroups(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call RemoveConnectionsFromGroups.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubClient client = new WebPubSubClient(endpoint);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.RemoveConnectionsFromGroups("<hub>", content);
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call RemoveConnectionsFromGroups with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+WebPubSubClient client = new WebPubSubClient(endpoint);
+
+using RequestContent content = RequestContent.Create(new
+{
+    groups = new object[]
+    {
+        "<groups>"
+    },
+    filter = "<filter>",
+});
+Response response = client.RemoveConnectionsFromGroups("<hub>", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+  </members>
+</doc>

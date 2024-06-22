@@ -20,7 +20,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_CloseAllConnections_ShortVersion()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.CloseAllConnections();
 
@@ -31,7 +32,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_CloseAllConnections_ShortVersion_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.CloseAllConnectionsAsync();
 
@@ -42,7 +44,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_CloseAllConnections_AllParameters()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.CloseAllConnections(excluded: new string[] { "<excluded>" }, reason: "<reason>");
 
@@ -53,7 +56,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_CloseAllConnections_AllParameters_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.CloseAllConnectionsAsync(excluded: new string[] { "<excluded>" }, reason: "<reason>");
 
@@ -64,7 +68,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_SendToAll_ShortVersion()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
             Response response = client.SendToAll(content, new ContentType("application/json"));
@@ -76,7 +81,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_SendToAll_ShortVersion_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
             Response response = await client.SendToAllAsync(content, new ContentType("application/json"));
@@ -88,10 +94,11 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_SendToAll_AllParameters()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-            Response response = client.SendToAll(content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>");
+            Response response = client.SendToAll(content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>", messageTtlSeconds: 1234);
 
             Console.WriteLine(response.Status);
         }
@@ -100,10 +107,11 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_SendToAll_AllParameters_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-            Response response = await client.SendToAllAsync(content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>");
+            Response response = await client.SendToAllAsync(content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>", messageTtlSeconds: 1234);
 
             Console.WriteLine(response.Status);
         }
@@ -112,7 +120,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_CloseConnection_ShortVersion()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.CloseConnection("<connectionId>");
 
@@ -123,7 +132,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_CloseConnection_ShortVersion_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.CloseConnectionAsync("<connectionId>");
 
@@ -134,7 +144,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_CloseConnection_AllParameters()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.CloseConnection("<connectionId>", reason: "<reason>");
 
@@ -145,7 +156,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_CloseConnection_AllParameters_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.CloseConnectionAsync("<connectionId>", reason: "<reason>");
 
@@ -156,7 +168,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_SendToConnection_ShortVersion()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
             Response response = client.SendToConnection("<connectionId>", content, new ContentType("application/json"));
@@ -168,7 +181,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_SendToConnection_ShortVersion_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
             Response response = await client.SendToConnectionAsync("<connectionId>", content, new ContentType("application/json"));
@@ -180,10 +194,11 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_SendToConnection_AllParameters()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-            Response response = client.SendToConnection("<connectionId>", content, new ContentType("application/json"));
+            Response response = client.SendToConnection("<connectionId>", content, new ContentType("application/json"), messageTtlSeconds: 1234);
 
             Console.WriteLine(response.Status);
         }
@@ -192,10 +207,11 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_SendToConnection_AllParameters_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-            Response response = await client.SendToConnectionAsync("<connectionId>", content, new ContentType("application/json"));
+            Response response = await client.SendToConnectionAsync("<connectionId>", content, new ContentType("application/json"), messageTtlSeconds: 1234);
 
             Console.WriteLine(response.Status);
         }
@@ -204,7 +220,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_RemoveConnectionFromAllGroups_ShortVersion()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.RemoveConnectionFromAllGroups("<connectionId>");
 
@@ -215,7 +232,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_RemoveConnectionFromAllGroups_ShortVersion_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.RemoveConnectionFromAllGroupsAsync("<connectionId>");
 
@@ -226,7 +244,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_RemoveConnectionFromAllGroups_AllParameters()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.RemoveConnectionFromAllGroups("<connectionId>");
 
@@ -237,7 +256,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_RemoveConnectionFromAllGroups_AllParameters_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.RemoveConnectionFromAllGroupsAsync("<connectionId>");
 
@@ -248,7 +268,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_CloseGroupConnections_ShortVersion()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.CloseGroupConnections("<group>");
 
@@ -259,7 +280,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_CloseGroupConnections_ShortVersion_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.CloseGroupConnectionsAsync("<group>");
 
@@ -270,7 +292,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_CloseGroupConnections_AllParameters()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.CloseGroupConnections("<group>", excluded: new string[] { "<excluded>" }, reason: "<reason>");
 
@@ -281,7 +304,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_CloseGroupConnections_AllParameters_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.CloseGroupConnectionsAsync("<group>", excluded: new string[] { "<excluded>" }, reason: "<reason>");
 
@@ -292,7 +316,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_SendToGroup_ShortVersion()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
             Response response = client.SendToGroup("<group>", content, new ContentType("application/json"));
@@ -304,7 +329,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_SendToGroup_ShortVersion_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
             Response response = await client.SendToGroupAsync("<group>", content, new ContentType("application/json"));
@@ -316,10 +342,11 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_SendToGroup_AllParameters()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-            Response response = client.SendToGroup("<group>", content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>");
+            Response response = client.SendToGroup("<group>", content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>", messageTtlSeconds: 1234);
 
             Console.WriteLine(response.Status);
         }
@@ -328,10 +355,11 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_SendToGroup_AllParameters_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-            Response response = await client.SendToGroupAsync("<group>", content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>");
+            Response response = await client.SendToGroupAsync("<group>", content, new ContentType("application/json"), excluded: new string[] { "<excluded>" }, filter: "<filter>", messageTtlSeconds: 1234);
 
             Console.WriteLine(response.Status);
         }
@@ -340,7 +368,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_RemoveConnectionFromGroup_ShortVersion()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.RemoveConnectionFromGroup("<group>", "<connectionId>");
 
@@ -351,7 +380,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_RemoveConnectionFromGroup_ShortVersion_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.RemoveConnectionFromGroupAsync("<group>", "<connectionId>");
 
@@ -362,7 +392,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_RemoveConnectionFromGroup_AllParameters()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.RemoveConnectionFromGroup("<group>", "<connectionId>");
 
@@ -373,7 +404,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_RemoveConnectionFromGroup_AllParameters_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.RemoveConnectionFromGroupAsync("<group>", "<connectionId>");
 
@@ -384,7 +416,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_AddConnectionToGroup_ShortVersion()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.AddConnectionToGroup("<group>", "<connectionId>");
 
@@ -395,7 +428,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_AddConnectionToGroup_ShortVersion_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.AddConnectionToGroupAsync("<group>", "<connectionId>");
 
@@ -406,7 +440,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_AddConnectionToGroup_AllParameters()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.AddConnectionToGroup("<group>", "<connectionId>");
 
@@ -417,7 +452,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_AddConnectionToGroup_AllParameters_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.AddConnectionToGroupAsync("<group>", "<connectionId>");
 
@@ -428,7 +464,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_CloseUserConnections_ShortVersion()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.CloseUserConnections("<userId>");
 
@@ -439,7 +476,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_CloseUserConnections_ShortVersion_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.CloseUserConnectionsAsync("<userId>");
 
@@ -450,7 +488,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_CloseUserConnections_AllParameters()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.CloseUserConnections("<userId>", excluded: new string[] { "<excluded>" }, reason: "<reason>");
 
@@ -461,7 +500,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_CloseUserConnections_AllParameters_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.CloseUserConnectionsAsync("<userId>", excluded: new string[] { "<excluded>" }, reason: "<reason>");
 
@@ -472,7 +512,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_SendToUser_ShortVersion()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
             Response response = client.SendToUser("<userId>", content, new ContentType("application/json"));
@@ -484,7 +525,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_SendToUser_ShortVersion_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
             Response response = await client.SendToUserAsync("<userId>", content, new ContentType("application/json"));
@@ -496,10 +538,11 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_SendToUser_AllParameters()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-            Response response = client.SendToUser("<userId>", content, new ContentType("application/json"), filter: "<filter>");
+            Response response = client.SendToUser("<userId>", content, new ContentType("application/json"), filter: "<filter>", messageTtlSeconds: 1234);
 
             Console.WriteLine(response.Status);
         }
@@ -508,10 +551,11 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_SendToUser_AllParameters_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             using RequestContent content = RequestContent.Create(File.OpenRead("<filePath>"));
-            Response response = await client.SendToUserAsync("<userId>", content, new ContentType("application/json"), filter: "<filter>");
+            Response response = await client.SendToUserAsync("<userId>", content, new ContentType("application/json"), filter: "<filter>", messageTtlSeconds: 1234);
 
             Console.WriteLine(response.Status);
         }
@@ -520,7 +564,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_RemoveUserFromAllGroups_ShortVersion()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.RemoveUserFromAllGroups("<userId>");
 
@@ -531,7 +576,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_RemoveUserFromAllGroups_ShortVersion_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.RemoveUserFromAllGroupsAsync("<userId>");
 
@@ -542,7 +588,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_RemoveUserFromAllGroups_AllParameters()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = client.RemoveUserFromAllGroups("<userId>");
 
@@ -553,7 +600,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_RemoveUserFromAllGroups_AllParameters_Async()
         {
-            WebPubSubServiceClient client = new WebPubSubServiceClient("<Endpoint>", "<Hub>");
+            Uri endpoint = new Uri("<endpoint>");
+            WebPubSubServiceClient client = new WebPubSubServiceClient(endpoint, "<Hub>");
 
             Response response = await client.RemoveUserFromAllGroupsAsync("<userId>");
 
