@@ -16,10 +16,25 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class DnsServiceLogLevelEnum
     {
+        /// <summary>
+        /// is debug
+        /// </summary>
         public const string DEBUG = "DEBUG";
+        /// <summary>
+        /// is info
+        /// </summary>
         public const string INFO = "INFO";
+        /// <summary>
+        /// is warning
+        /// </summary>
         public const string WARNING = "WARNING";
+        /// <summary>
+        /// is error
+        /// </summary>
         public const string ERROR = "ERROR";
+        /// <summary>
+        /// is fatal
+        /// </summary>
         public const string FATAL = "FATAL";
     }
 }

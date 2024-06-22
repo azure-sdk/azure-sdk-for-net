@@ -47,14 +47,14 @@ namespace Microsoft.Azure.Management.Avs
         public ServiceClientCredentials Credentials { get; private set; }
 
         /// <summary>
+        /// The ID of the target subscription. The value must be an UUID.
+        /// </summary>
+        public System.Guid SubscriptionId { get; set; }
+
+        /// <summary>
         /// The API version to use for this operation.
         /// </summary>
         public string ApiVersion { get; private set; }
-
-        /// <summary>
-        /// The ID of the target subscription.
-        /// </summary>
-        public string SubscriptionId { get; set; }
 
         /// <summary>
         /// The preferred language for the response.
@@ -90,6 +90,21 @@ namespace Microsoft.Azure.Management.Avs
         public virtual IPrivateCloudsOperations PrivateClouds { get; private set; }
 
         /// <summary>
+        /// Gets the IAddonsOperations.
+        /// </summary>
+        public virtual IAddonsOperations Addons { get; private set; }
+
+        /// <summary>
+        /// Gets the IAuthorizationsOperations.
+        /// </summary>
+        public virtual IAuthorizationsOperations Authorizations { get; private set; }
+
+        /// <summary>
+        /// Gets the ICloudLinksOperations.
+        /// </summary>
+        public virtual ICloudLinksOperations CloudLinks { get; private set; }
+
+        /// <summary>
         /// Gets the IClustersOperations.
         /// </summary>
         public virtual IClustersOperations Clusters { get; private set; }
@@ -100,34 +115,9 @@ namespace Microsoft.Azure.Management.Avs
         public virtual IDatastoresOperations Datastores { get; private set; }
 
         /// <summary>
-        /// Gets the IHcxEnterpriseSitesOperations.
+        /// Gets the IPlacementPoliciesOperations.
         /// </summary>
-        public virtual IHcxEnterpriseSitesOperations HcxEnterpriseSites { get; private set; }
-
-        /// <summary>
-        /// Gets the IAuthorizationsOperations.
-        /// </summary>
-        public virtual IAuthorizationsOperations Authorizations { get; private set; }
-
-        /// <summary>
-        /// Gets the IGlobalReachConnectionsOperations.
-        /// </summary>
-        public virtual IGlobalReachConnectionsOperations GlobalReachConnections { get; private set; }
-
-        /// <summary>
-        /// Gets the IWorkloadNetworksOperations.
-        /// </summary>
-        public virtual IWorkloadNetworksOperations WorkloadNetworks { get; private set; }
-
-        /// <summary>
-        /// Gets the ICloudLinksOperations.
-        /// </summary>
-        public virtual ICloudLinksOperations CloudLinks { get; private set; }
-
-        /// <summary>
-        /// Gets the IAddonsOperations.
-        /// </summary>
-        public virtual IAddonsOperations Addons { get; private set; }
+        public virtual IPlacementPoliciesOperations PlacementPolicies { get; private set; }
 
         /// <summary>
         /// Gets the IVirtualMachinesOperations.
@@ -135,9 +125,24 @@ namespace Microsoft.Azure.Management.Avs
         public virtual IVirtualMachinesOperations VirtualMachines { get; private set; }
 
         /// <summary>
-        /// Gets the IPlacementPoliciesOperations.
+        /// Gets the IGlobalReachConnectionsOperations.
         /// </summary>
-        public virtual IPlacementPoliciesOperations PlacementPolicies { get; private set; }
+        public virtual IGlobalReachConnectionsOperations GlobalReachConnections { get; private set; }
+
+        /// <summary>
+        /// Gets the IHcxEnterpriseSitesOperations.
+        /// </summary>
+        public virtual IHcxEnterpriseSitesOperations HcxEnterpriseSites { get; private set; }
+
+        /// <summary>
+        /// Gets the IIscsiPathsOperations.
+        /// </summary>
+        public virtual IIscsiPathsOperations IscsiPaths { get; private set; }
+
+        /// <summary>
+        /// Gets the IScriptExecutionsOperations.
+        /// </summary>
+        public virtual IScriptExecutionsOperations ScriptExecutions { get; private set; }
 
         /// <summary>
         /// Gets the IScriptPackagesOperations.
@@ -150,9 +155,9 @@ namespace Microsoft.Azure.Management.Avs
         public virtual IScriptCmdletsOperations ScriptCmdlets { get; private set; }
 
         /// <summary>
-        /// Gets the IScriptExecutionsOperations.
+        /// Gets the IWorkloadNetworksOperations.
         /// </summary>
-        public virtual IScriptExecutionsOperations ScriptExecutions { get; private set; }
+        public virtual IWorkloadNetworksOperations WorkloadNetworks { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the AvsClient class.
@@ -398,21 +403,22 @@ namespace Microsoft.Azure.Management.Avs
             Operations = new Operations(this);
             Locations = new LocationsOperations(this);
             PrivateClouds = new PrivateCloudsOperations(this);
+            Addons = new AddonsOperations(this);
+            Authorizations = new AuthorizationsOperations(this);
+            CloudLinks = new CloudLinksOperations(this);
             Clusters = new ClustersOperations(this);
             Datastores = new DatastoresOperations(this);
-            HcxEnterpriseSites = new HcxEnterpriseSitesOperations(this);
-            Authorizations = new AuthorizationsOperations(this);
-            GlobalReachConnections = new GlobalReachConnectionsOperations(this);
-            WorkloadNetworks = new WorkloadNetworksOperations(this);
-            CloudLinks = new CloudLinksOperations(this);
-            Addons = new AddonsOperations(this);
-            VirtualMachines = new VirtualMachinesOperations(this);
             PlacementPolicies = new PlacementPoliciesOperations(this);
+            VirtualMachines = new VirtualMachinesOperations(this);
+            GlobalReachConnections = new GlobalReachConnectionsOperations(this);
+            HcxEnterpriseSites = new HcxEnterpriseSitesOperations(this);
+            IscsiPaths = new IscsiPathsOperations(this);
+            ScriptExecutions = new ScriptExecutionsOperations(this);
             ScriptPackages = new ScriptPackagesOperations(this);
             ScriptCmdlets = new ScriptCmdletsOperations(this);
-            ScriptExecutions = new ScriptExecutionsOperations(this);
+            WorkloadNetworks = new WorkloadNetworksOperations(this);
             BaseUri = new System.Uri("https://management.azure.com");
-            ApiVersion = "2021-12-01";
+            ApiVersion = "2023-09-01";
             AcceptLanguage = "en-US";
             LongRunningOperationRetryTimeout = 30;
             GenerateClientRequestId = true;
@@ -444,12 +450,12 @@ namespace Microsoft.Azure.Management.Avs
             };
             SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<AddonProperties>("addonType"));
             DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<AddonProperties>("addonType"));
-            SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<WorkloadNetworkDhcpEntity>("dhcpType"));
-            DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<WorkloadNetworkDhcpEntity>("dhcpType"));
             SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<PlacementPolicyProperties>("type"));
             DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<PlacementPolicyProperties>("type"));
             SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<ScriptExecutionParameter>("type"));
             DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<ScriptExecutionParameter>("type"));
+            SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<WorkloadNetworkDhcpEntity>("dhcpType"));
+            DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<WorkloadNetworkDhcpEntity>("dhcpType"));
             CustomInitialize();
             DeserializationSettings.Converters.Add(new TransformationJsonConverter());
             DeserializationSettings.Converters.Add(new CloudErrorJsonConverter());

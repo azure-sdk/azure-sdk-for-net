@@ -22,7 +22,7 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class DatastoresOperationsExtensions
     {
             /// <summary>
-            /// List datastores in a private cloud cluster
+            /// List Datastore resources by Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -34,7 +34,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             public static IPage<Datastore> List(this IDatastoresOperations operations, string resourceGroupName, string privateCloudName, string clusterName)
             {
@@ -42,7 +42,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List datastores in a private cloud cluster
+            /// List Datastore resources by Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -54,7 +54,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -68,7 +68,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a datastore in a private cloud cluster
+            /// Get a Datastore
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -80,10 +80,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='datastoreName'>
-            /// Name of the datastore in the private cloud cluster
+            /// Name of the datastore
             /// </param>
             public static Datastore Get(this IDatastoresOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string datastoreName)
             {
@@ -91,7 +91,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a datastore in a private cloud cluster
+            /// Get a Datastore
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -103,10 +103,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='datastoreName'>
-            /// Name of the datastore in the private cloud cluster
+            /// Name of the datastore
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -120,7 +120,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a datastore in a private cloud cluster
+            /// Create a Datastore
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -132,13 +132,13 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='datastoreName'>
-            /// Name of the datastore in the private cloud cluster
+            /// Name of the datastore
             /// </param>
             /// <param name='datastore'>
-            /// A datastore in a private cloud cluster
+            /// Resource create parameters.
             /// </param>
             public static Datastore CreateOrUpdate(this IDatastoresOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string datastoreName, Datastore datastore)
             {
@@ -146,7 +146,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a datastore in a private cloud cluster
+            /// Create a Datastore
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -158,13 +158,13 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='datastoreName'>
-            /// Name of the datastore in the private cloud cluster
+            /// Name of the datastore
             /// </param>
             /// <param name='datastore'>
-            /// A datastore in a private cloud cluster
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -178,7 +178,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a datastore in a private cloud cluster
+            /// Delete a Datastore
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -190,18 +190,18 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='datastoreName'>
-            /// Name of the datastore in the private cloud cluster
+            /// Name of the datastore
             /// </param>
-            public static void Delete(this IDatastoresOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string datastoreName)
+            public static DatastoresDeleteHeaders Delete(this IDatastoresOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string datastoreName)
             {
-                operations.DeleteAsync(resourceGroupName, privateCloudName, clusterName, datastoreName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, privateCloudName, clusterName, datastoreName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a datastore in a private cloud cluster
+            /// Delete a Datastore
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -213,21 +213,24 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='datastoreName'>
-            /// Name of the datastore in the private cloud cluster
+            /// Name of the datastore
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IDatastoresOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string datastoreName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<DatastoresDeleteHeaders> DeleteAsync(this IDatastoresOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string datastoreName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, datastoreName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, datastoreName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Create or update a datastore in a private cloud cluster
+            /// Create a Datastore
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -239,13 +242,13 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='datastoreName'>
-            /// Name of the datastore in the private cloud cluster
+            /// Name of the datastore
             /// </param>
             /// <param name='datastore'>
-            /// A datastore in a private cloud cluster
+            /// Resource create parameters.
             /// </param>
             public static Datastore BeginCreateOrUpdate(this IDatastoresOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string datastoreName, Datastore datastore)
             {
@@ -253,7 +256,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a datastore in a private cloud cluster
+            /// Create a Datastore
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -265,13 +268,13 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='datastoreName'>
-            /// Name of the datastore in the private cloud cluster
+            /// Name of the datastore
             /// </param>
             /// <param name='datastore'>
-            /// A datastore in a private cloud cluster
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -285,7 +288,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a datastore in a private cloud cluster
+            /// Delete a Datastore
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -297,18 +300,18 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='datastoreName'>
-            /// Name of the datastore in the private cloud cluster
+            /// Name of the datastore
             /// </param>
-            public static void BeginDelete(this IDatastoresOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string datastoreName)
+            public static DatastoresDeleteHeaders BeginDelete(this IDatastoresOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string datastoreName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, privateCloudName, clusterName, datastoreName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, privateCloudName, clusterName, datastoreName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a datastore in a private cloud cluster
+            /// Delete a Datastore
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -320,21 +323,24 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='datastoreName'>
-            /// Name of the datastore in the private cloud cluster
+            /// Name of the datastore
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IDatastoresOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string datastoreName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<DatastoresDeleteHeaders> BeginDeleteAsync(this IDatastoresOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string datastoreName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, datastoreName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, datastoreName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// List datastores in a private cloud cluster
+            /// List Datastore resources by Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -348,7 +354,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List datastores in a private cloud cluster
+            /// List Datastore resources by Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.

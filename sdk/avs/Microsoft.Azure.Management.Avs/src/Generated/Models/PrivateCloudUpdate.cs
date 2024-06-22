@@ -34,7 +34,11 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Initializes a new instance of the PrivateCloudUpdate class.
         /// </summary>
-        /// <param name="tags">Resource tags</param>
+        /// <param name="tags">Resource tags.</param>
+        /// <param name="sku">The SKU (Stock Keeping Unit) assigned to this
+        /// resource.</param>
+        /// <param name="identity">The managed service identities assigned to
+        /// this resource.</param>
         /// <param name="managementCluster">The default cluster used for
         /// management</param>
         /// <param name="internet">Connectivity to internet is enabled or
@@ -45,17 +49,27 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// distributed across availability zones</param>
         /// <param name="encryption">Customer managed key encryption, can be
         /// enabled or disabled</param>
-        /// <param name="identity">The identity of the private cloud, if
-        /// configured.</param>
-        public PrivateCloudUpdate(IDictionary<string, string> tags = default(IDictionary<string, string>), ManagementCluster managementCluster = default(ManagementCluster), string internet = default(string), IList<IdentitySource> identitySources = default(IList<IdentitySource>), AvailabilityProperties availability = default(AvailabilityProperties), Encryption encryption = default(Encryption), PrivateCloudIdentity identity = default(PrivateCloudIdentity))
+        /// <param name="extendedNetworkBlocks">Array of additional networks
+        /// noncontiguous with networkBlock. Networks must be
+        /// unique and non-overlapping across VNet in your subscription,
+        /// on-premise, and
+        /// this privateCloud networkBlock attribute. Make sure the CIDR format
+        /// conforms to
+        /// (A.B.C.D/X).</param>
+        /// <param name="dnsZoneType">The type of DNS zone to use. Possible
+        /// values include: 'Public', 'Private'</param>
+        public PrivateCloudUpdate(IDictionary<string, string> tags = default(IDictionary<string, string>), AzureResourceManagerCommonTypesSkuUpdate sku = default(AzureResourceManagerCommonTypesSkuUpdate), AzureResourceManagerCommonTypesSystemAssignedServiceIdentityUpdate identity = default(AzureResourceManagerCommonTypesSystemAssignedServiceIdentityUpdate), ManagementCluster managementCluster = default(ManagementCluster), string internet = default(string), IList<IdentitySource> identitySources = default(IList<IdentitySource>), AvailabilityProperties availability = default(AvailabilityProperties), Encryption encryption = default(Encryption), IList<string> extendedNetworkBlocks = default(IList<string>), string dnsZoneType = default(string))
         {
             Tags = tags;
+            Sku = sku;
+            Identity = identity;
             ManagementCluster = managementCluster;
             Internet = internet;
             IdentitySources = identitySources;
             Availability = availability;
             Encryption = encryption;
-            Identity = identity;
+            ExtendedNetworkBlocks = extendedNetworkBlocks;
+            DnsZoneType = dnsZoneType;
             CustomInit();
         }
 
@@ -65,10 +79,24 @@ namespace Microsoft.Azure.Management.Avs.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets resource tags
+        /// Gets or sets resource tags.
         /// </summary>
         [JsonProperty(PropertyName = "tags")]
         public IDictionary<string, string> Tags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the SKU (Stock Keeping Unit) assigned to this
+        /// resource.
+        /// </summary>
+        [JsonProperty(PropertyName = "sku")]
+        public AzureResourceManagerCommonTypesSkuUpdate Sku { get; set; }
+
+        /// <summary>
+        /// Gets or sets the managed service identities assigned to this
+        /// resource.
+        /// </summary>
+        [JsonProperty(PropertyName = "identity")]
+        public AzureResourceManagerCommonTypesSystemAssignedServiceIdentityUpdate Identity { get; set; }
 
         /// <summary>
         /// Gets or sets the default cluster used for management
@@ -104,10 +132,23 @@ namespace Microsoft.Azure.Management.Avs.Models
         public Encryption Encryption { get; set; }
 
         /// <summary>
-        /// Gets or sets the identity of the private cloud, if configured.
+        /// Gets or sets array of additional networks noncontiguous with
+        /// networkBlock. Networks must be
+        /// unique and non-overlapping across VNet in your subscription,
+        /// on-premise, and
+        /// this privateCloud networkBlock attribute. Make sure the CIDR format
+        /// conforms to
+        /// (A.B.C.D/X).
         /// </summary>
-        [JsonProperty(PropertyName = "identity")]
-        public PrivateCloudIdentity Identity { get; set; }
+        [JsonProperty(PropertyName = "properties.extendedNetworkBlocks")]
+        public IList<string> ExtendedNetworkBlocks { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of DNS zone to use. Possible values include:
+        /// 'Public', 'Private'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.dnsZoneType")]
+        public string DnsZoneType { get; set; }
 
     }
 }

@@ -22,7 +22,7 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class PlacementPoliciesOperationsExtensions
     {
             /// <summary>
-            /// List placement policies in a private cloud cluster
+            /// List PlacementPolicy resources by Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -34,7 +34,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             public static IPage<PlacementPolicy> List(this IPlacementPoliciesOperations operations, string resourceGroupName, string privateCloudName, string clusterName)
             {
@@ -42,7 +42,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List placement policies in a private cloud cluster
+            /// List PlacementPolicy resources by Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -54,7 +54,7 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -68,7 +68,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a placement policy by name in a private cloud cluster
+            /// Get a PlacementPolicy
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -80,11 +80,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='placementPolicyName'>
-            /// Name of the VMware vSphere Distributed Resource Scheduler (DRS) placement
-            /// policy
+            /// Name of the placement policy.
             /// </param>
             public static PlacementPolicy Get(this IPlacementPoliciesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName)
             {
@@ -92,7 +91,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get a placement policy by name in a private cloud cluster
+            /// Get a PlacementPolicy
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -104,11 +103,10 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='placementPolicyName'>
-            /// Name of the VMware vSphere Distributed Resource Scheduler (DRS) placement
-            /// policy
+            /// Name of the placement policy.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -122,7 +120,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a placement policy in a private cloud cluster
+            /// Create a PlacementPolicy
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -134,14 +132,13 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='placementPolicyName'>
-            /// Name of the VMware vSphere Distributed Resource Scheduler (DRS) placement
-            /// policy
+            /// Name of the placement policy.
             /// </param>
             /// <param name='placementPolicy'>
-            /// A placement policy in the private cloud cluster
+            /// Resource create parameters.
             /// </param>
             public static PlacementPolicy CreateOrUpdate(this IPlacementPoliciesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, PlacementPolicy placementPolicy)
             {
@@ -149,7 +146,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a placement policy in a private cloud cluster
+            /// Create a PlacementPolicy
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -161,14 +158,13 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='placementPolicyName'>
-            /// Name of the VMware vSphere Distributed Resource Scheduler (DRS) placement
-            /// policy
+            /// Name of the placement policy.
             /// </param>
             /// <param name='placementPolicy'>
-            /// A placement policy in the private cloud cluster
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -182,7 +178,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Update a placement policy in a private cloud cluster
+            /// Update a PlacementPolicy
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -194,14 +190,13 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='placementPolicyName'>
-            /// Name of the VMware vSphere Distributed Resource Scheduler (DRS) placement
-            /// policy
+            /// Name of the placement policy.
             /// </param>
             /// <param name='placementPolicyUpdate'>
-            /// The placement policy properties that may be updated
+            /// The placement policy properties to be updated.
             /// </param>
             public static PlacementPolicy Update(this IPlacementPoliciesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, PlacementPolicyUpdate placementPolicyUpdate)
             {
@@ -209,7 +204,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Update a placement policy in a private cloud cluster
+            /// Update a PlacementPolicy
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -221,14 +216,13 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='placementPolicyName'>
-            /// Name of the VMware vSphere Distributed Resource Scheduler (DRS) placement
-            /// policy
+            /// Name of the placement policy.
             /// </param>
             /// <param name='placementPolicyUpdate'>
-            /// The placement policy properties that may be updated
+            /// The placement policy properties to be updated.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -242,7 +236,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a placement policy in a private cloud cluster
+            /// Delete a PlacementPolicy
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -254,19 +248,18 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='placementPolicyName'>
-            /// Name of the VMware vSphere Distributed Resource Scheduler (DRS) placement
-            /// policy
+            /// Name of the placement policy.
             /// </param>
-            public static void Delete(this IPlacementPoliciesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName)
+            public static PlacementPoliciesDeleteHeaders Delete(this IPlacementPoliciesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName)
             {
-                operations.DeleteAsync(resourceGroupName, privateCloudName, clusterName, placementPolicyName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, privateCloudName, clusterName, placementPolicyName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a placement policy in a private cloud cluster
+            /// Delete a PlacementPolicy
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -278,22 +271,24 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='placementPolicyName'>
-            /// Name of the VMware vSphere Distributed Resource Scheduler (DRS) placement
-            /// policy
+            /// Name of the placement policy.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IPlacementPoliciesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<PlacementPoliciesDeleteHeaders> DeleteAsync(this IPlacementPoliciesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, placementPolicyName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, placementPolicyName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Create or update a placement policy in a private cloud cluster
+            /// Create a PlacementPolicy
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -305,14 +300,13 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='placementPolicyName'>
-            /// Name of the VMware vSphere Distributed Resource Scheduler (DRS) placement
-            /// policy
+            /// Name of the placement policy.
             /// </param>
             /// <param name='placementPolicy'>
-            /// A placement policy in the private cloud cluster
+            /// Resource create parameters.
             /// </param>
             public static PlacementPolicy BeginCreateOrUpdate(this IPlacementPoliciesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, PlacementPolicy placementPolicy)
             {
@@ -320,7 +314,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update a placement policy in a private cloud cluster
+            /// Create a PlacementPolicy
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -332,14 +326,13 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='placementPolicyName'>
-            /// Name of the VMware vSphere Distributed Resource Scheduler (DRS) placement
-            /// policy
+            /// Name of the placement policy.
             /// </param>
             /// <param name='placementPolicy'>
-            /// A placement policy in the private cloud cluster
+            /// Resource create parameters.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -353,7 +346,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Update a placement policy in a private cloud cluster
+            /// Update a PlacementPolicy
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -365,14 +358,13 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='placementPolicyName'>
-            /// Name of the VMware vSphere Distributed Resource Scheduler (DRS) placement
-            /// policy
+            /// Name of the placement policy.
             /// </param>
             /// <param name='placementPolicyUpdate'>
-            /// The placement policy properties that may be updated
+            /// The placement policy properties to be updated.
             /// </param>
             public static PlacementPolicy BeginUpdate(this IPlacementPoliciesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, PlacementPolicyUpdate placementPolicyUpdate)
             {
@@ -380,7 +372,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Update a placement policy in a private cloud cluster
+            /// Update a PlacementPolicy
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -392,14 +384,13 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='placementPolicyName'>
-            /// Name of the VMware vSphere Distributed Resource Scheduler (DRS) placement
-            /// policy
+            /// Name of the placement policy.
             /// </param>
             /// <param name='placementPolicyUpdate'>
-            /// The placement policy properties that may be updated
+            /// The placement policy properties to be updated.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -413,7 +404,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete a placement policy in a private cloud cluster
+            /// Delete a PlacementPolicy
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -425,19 +416,18 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='placementPolicyName'>
-            /// Name of the VMware vSphere Distributed Resource Scheduler (DRS) placement
-            /// policy
+            /// Name of the placement policy.
             /// </param>
-            public static void BeginDelete(this IPlacementPoliciesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName)
+            public static PlacementPoliciesDeleteHeaders BeginDelete(this IPlacementPoliciesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, privateCloudName, clusterName, placementPolicyName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, privateCloudName, clusterName, placementPolicyName).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete a placement policy in a private cloud cluster
+            /// Delete a PlacementPolicy
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -449,22 +439,24 @@ namespace Microsoft.Azure.Management.Avs
             /// Name of the private cloud
             /// </param>
             /// <param name='clusterName'>
-            /// Name of the cluster in the private cloud
+            /// Name of the cluster
             /// </param>
             /// <param name='placementPolicyName'>
-            /// Name of the VMware vSphere Distributed Resource Scheduler (DRS) placement
-            /// policy
+            /// Name of the placement policy.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IPlacementPoliciesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<PlacementPoliciesDeleteHeaders> BeginDeleteAsync(this IPlacementPoliciesOperations operations, string resourceGroupName, string privateCloudName, string clusterName, string placementPolicyName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, placementPolicyName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, privateCloudName, clusterName, placementPolicyName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// List placement policies in a private cloud cluster
+            /// List PlacementPolicy resources by Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -478,7 +470,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List placement policies in a private cloud cluster
+            /// List PlacementPolicy resources by Cluster
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
