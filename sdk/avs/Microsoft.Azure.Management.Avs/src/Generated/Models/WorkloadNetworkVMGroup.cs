@@ -34,20 +34,25 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Initializes a new instance of the WorkloadNetworkVMGroup class.
         /// </summary>
-        /// <param name="id">Resource ID.</param>
-        /// <param name="name">Resource name.</param>
-        /// <param name="type">Resource type.</param>
+        /// <param name="id">Fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="systemData">Azure Resource Manager metadata containing
+        /// createdBy and modifiedBy information.</param>
         /// <param name="displayName">Display name of the VM group.</param>
         /// <param name="members">Virtual machine members of this
         /// group.</param>
         /// <param name="status">VM Group status. Possible values include:
         /// 'SUCCESS', 'FAILURE'</param>
         /// <param name="provisioningState">The provisioning state. Possible
-        /// values include: 'Succeeded', 'Failed', 'Building', 'Deleting',
-        /// 'Updating'</param>
+        /// values include: 'Succeeded', 'Failed', 'Canceled', 'Building',
+        /// 'Deleting', 'Updating'</param>
         /// <param name="revision">NSX revision number.</param>
-        public WorkloadNetworkVMGroup(string id = default(string), string name = default(string), string type = default(string), string displayName = default(string), IList<string> members = default(IList<string>), string status = default(string), string provisioningState = default(string), long? revision = default(long?))
-            : base(id, name, type)
+        public WorkloadNetworkVMGroup(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string displayName = default(string), IList<string> members = default(IList<string>), string status = default(string), string provisioningState = default(string), long? revision = default(long?))
+            : base(id, name, type, systemData)
         {
             DisplayName = displayName;
             Members = members;
@@ -82,7 +87,7 @@ namespace Microsoft.Azure.Management.Avs.Models
 
         /// <summary>
         /// Gets the provisioning state. Possible values include: 'Succeeded',
-        /// 'Failed', 'Building', 'Deleting', 'Updating'
+        /// 'Failed', 'Canceled', 'Building', 'Deleting', 'Updating'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
         public string ProvisioningState { get; private set; }

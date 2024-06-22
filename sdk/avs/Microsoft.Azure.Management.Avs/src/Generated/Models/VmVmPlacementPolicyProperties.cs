@@ -43,8 +43,8 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <param name="displayName">Display name of the placement
         /// policy</param>
         /// <param name="provisioningState">The provisioning state. Possible
-        /// values include: 'Succeeded', 'Failed', 'Building', 'Deleting',
-        /// 'Updating'</param>
+        /// values include: 'Succeeded', 'Failed', 'Canceled', 'Building',
+        /// 'Deleting', 'Updating'</param>
         public VmVmPlacementPolicyProperties(IList<string> vmMembers, string affinityType, string state = default(string), string displayName = default(string), string provisioningState = default(string))
             : base(state, displayName, provisioningState)
         {

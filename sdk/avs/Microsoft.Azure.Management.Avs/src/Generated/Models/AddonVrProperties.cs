@@ -34,7 +34,7 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// count</param>
         /// <param name="provisioningState">The state of the addon
         /// provisioning. Possible values include: 'Succeeded', 'Failed',
-        /// 'Cancelled', 'Building', 'Deleting', 'Updating'</param>
+        /// 'Canceled', 'Cancelled', 'Building', 'Deleting', 'Updating'</param>
         public AddonVrProperties(int vrsCount, string provisioningState = default(string))
             : base(provisioningState)
         {

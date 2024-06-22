@@ -16,7 +16,13 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class OptionalParamEnum
     {
+        /// <summary>
+        /// is optional
+        /// </summary>
         public const string Optional = "Optional";
+        /// <summary>
+        /// is required
+        /// </summary>
         public const string Required = "Required";
     }
 }

@@ -16,7 +16,13 @@ namespace Microsoft.Azure.Management.Avs.Models
     /// </summary>
     public static class PlacementPolicyState
     {
+        /// <summary>
+        /// is enabled
+        /// </summary>
         public const string Enabled = "Enabled";
+        /// <summary>
+        /// is disabled
+        /// </summary>
         public const string Disabled = "Disabled";
     }
 }
