@@ -7,11 +7,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.Health.Insights.RadiologyInsights
 {
-    /// <summary> visit/encounter information. </summary>
-    public partial class Encounter
+    /// <summary> Quality Measure Options. </summary>
+    public partial class QualityMeasureOptions
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,45 +46,31 @@ namespace Azure.Health.Insights.RadiologyInsights
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="Encounter"/>. </summary>
-        /// <param name="id"> The id of the visit. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="id"/> is null. </exception>
-        public Encounter(string id)
+        /// <summary> Initializes a new instance of <see cref="QualityMeasureOptions"/>. </summary>
+        /// <param name="measureTypes"> Id(s) of the MIPS measures that need to be evaluated in the document. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="measureTypes"/> is null. </exception>
+        public QualityMeasureOptions(IEnumerable<QualityMeasureType> measureTypes)
         {
-            Argument.AssertNotNull(id, nameof(id));
+            Argument.AssertNotNull(measureTypes, nameof(measureTypes));
 
-            Id = id;
+            MeasureTypes = measureTypes.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="Encounter"/>. </summary>
-        /// <param name="id"> The id of the visit. </param>
-        /// <param name="period">
-        /// Time period of the visit.
-        /// In case of admission, use timePeriod.start to indicate the admission time and timePeriod.end to indicate the discharge time.
-        /// </param>
-        /// <param name="class"> The class of the encounter. </param>
+        /// <summary> Initializes a new instance of <see cref="QualityMeasureOptions"/>. </summary>
+        /// <param name="measureTypes"> Id(s) of the MIPS measures that need to be evaluated in the document. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal Encounter(string id, TimePeriod period, EncounterClass? @class, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal QualityMeasureOptions(IList<QualityMeasureType> measureTypes, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Id = id;
-            Period = period;
-            Class = @class;
+            MeasureTypes = measureTypes;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="Encounter"/> for deserialization. </summary>
-        internal Encounter()
+        /// <summary> Initializes a new instance of <see cref="QualityMeasureOptions"/> for deserialization. </summary>
+        internal QualityMeasureOptions()
         {
         }
 
-        /// <summary> The id of the visit. </summary>
-        public string Id { get; }
-        /// <summary>
-        /// Time period of the visit.
-        /// In case of admission, use timePeriod.start to indicate the admission time and timePeriod.end to indicate the discharge time.
-        /// </summary>
-        public TimePeriod Period { get; set; }
-        /// <summary> The class of the encounter. </summary>
-        public EncounterClass? Class { get; set; }
+        /// <summary> Id(s) of the MIPS measures that need to be evaluated in the document. </summary>
+        public IList<QualityMeasureType> MeasureTypes { get; }
     }
 }

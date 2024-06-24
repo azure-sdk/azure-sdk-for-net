@@ -23,7 +23,7 @@ namespace Azure.Health.Insights.RadiologyInsights
     ///   - RadiologyProcedure
     ///   - FollowupCommunication
     /// Please note <see cref="RadiologyInsightsInference"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="AgeMismatchInference"/>, <see cref="CompleteOrderDiscrepancyInference"/>, <see cref="CriticalResultInference"/>, <see cref="FindingInference"/>, <see cref="FollowupCommunicationInference"/>, <see cref="FollowupRecommendationInference"/>, <see cref="LateralityDiscrepancyInference"/>, <see cref="LimitedOrderDiscrepancyInference"/>, <see cref="RadiologyProcedureInference"/> and <see cref="SexMismatchInference"/>.
+    /// The available derived classes include <see cref="AgeMismatchInference"/>, <see cref="CompleteOrderDiscrepancyInference"/>, <see cref="CriticalResultInference"/>, <see cref="FindingInference"/>, <see cref="FollowupCommunicationInference"/>, <see cref="FollowupRecommendationInference"/>, <see cref="GuidanceInference"/>, <see cref="LateralityDiscrepancyInference"/>, <see cref="LimitedOrderDiscrepancyInference"/>, <see cref="QualityMeasureInference"/>, <see cref="RadiologyProcedureInference"/>, <see cref="ScoringAndAssessmentInference"/> and <see cref="SexMismatchInference"/>.
     /// </summary>
     public abstract partial class RadiologyInsightsInference
     {
@@ -69,7 +69,7 @@ namespace Azure.Health.Insights.RadiologyInsights
         /// <param name="kind"> Discriminator. </param>
         /// <param name="extension"> Additional Content defined by implementations. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal RadiologyInsightsInference(RadiologyInsightsInferenceType kind, IReadOnlyList<FhirR4Extension> extension, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal RadiologyInsightsInference(RadiologyInsightsInferenceType kind, IList<FhirR4Extension> extension, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Kind = kind;
             Extension = extension;
@@ -79,6 +79,6 @@ namespace Azure.Health.Insights.RadiologyInsights
         /// <summary> Discriminator. </summary>
         internal RadiologyInsightsInferenceType Kind { get; set; }
         /// <summary> Additional Content defined by implementations. </summary>
-        public IReadOnlyList<FhirR4Extension> Extension { get; }
+        public IList<FhirR4Extension> Extension { get; }
     }
 }
