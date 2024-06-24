@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Health.Insights.RadiologyInsights
 {
-    /// <summary> The content of the patient document. </summary>
-    public partial class DocumentContent
+    /// <summary> A value, represented as a string because it can contain alphanumeric or mathematical characters, along with the optional unit. Used by ScoringAndAssessmentInference. </summary>
+    public partial class AssessmentStringValueWithUnit
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,49 +45,35 @@ namespace Azure.Health.Insights.RadiologyInsights
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="DocumentContent"/>. </summary>
-        /// <param name="sourceType">
-        /// The type of the content's source.
-        /// In case the source type is 'inline', the content is given as a string (for instance, text).
-        /// In case the source type is 'reference', the content is given as a URI.
-        /// </param>
-        /// <param name="value"> The content of the document, given either inline (as a string) or as a reference (URI). </param>
+        /// <summary> Initializes a new instance of <see cref="AssessmentStringValueWithUnit"/>. </summary>
+        /// <param name="value"> String value. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
-        public DocumentContent(DocumentContentSourceType sourceType, string value)
+        public AssessmentStringValueWithUnit(string value)
         {
             Argument.AssertNotNull(value, nameof(value));
 
-            SourceType = sourceType;
             Value = value;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DocumentContent"/>. </summary>
-        /// <param name="sourceType">
-        /// The type of the content's source.
-        /// In case the source type is 'inline', the content is given as a string (for instance, text).
-        /// In case the source type is 'reference', the content is given as a URI.
-        /// </param>
-        /// <param name="value"> The content of the document, given either inline (as a string) or as a reference (URI). </param>
+        /// <summary> Initializes a new instance of <see cref="AssessmentStringValueWithUnit"/>. </summary>
+        /// <param name="value"> String value. </param>
+        /// <param name="unit"> Unit. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DocumentContent(DocumentContentSourceType sourceType, string value, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AssessmentStringValueWithUnit(string value, string unit, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            SourceType = sourceType;
             Value = value;
+            Unit = unit;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DocumentContent"/> for deserialization. </summary>
-        internal DocumentContent()
+        /// <summary> Initializes a new instance of <see cref="AssessmentStringValueWithUnit"/> for deserialization. </summary>
+        internal AssessmentStringValueWithUnit()
         {
         }
 
-        /// <summary>
-        /// The type of the content's source.
-        /// In case the source type is 'inline', the content is given as a string (for instance, text).
-        /// In case the source type is 'reference', the content is given as a URI.
-        /// </summary>
-        public DocumentContentSourceType SourceType { get; }
-        /// <summary> The content of the document, given either inline (as a string) or as a reference (URI). </summary>
-        public string Value { get; }
+        /// <summary> String value. </summary>
+        public string Value { get; set; }
+        /// <summary> Unit. </summary>
+        public string Unit { get; set; }
     }
 }

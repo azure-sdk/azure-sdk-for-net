@@ -13,23 +13,26 @@ using Azure.Core;
 
 namespace Azure.Health.Insights.RadiologyInsights
 {
-    public partial class DocumentContent : IUtf8JsonSerializable, IJsonModel<DocumentContent>
+    public partial class AssessmentStringValueWithUnit : IUtf8JsonSerializable, IJsonModel<AssessmentStringValueWithUnit>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<DocumentContent>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AssessmentStringValueWithUnit>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<DocumentContent>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<AssessmentStringValueWithUnit>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<DocumentContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AssessmentStringValueWithUnit>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(DocumentContent)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(AssessmentStringValueWithUnit)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("sourceType"u8);
-            writer.WriteStringValue(SourceType.ToString());
             writer.WritePropertyName("value"u8);
             writer.WriteStringValue(Value);
+            if (Optional.IsDefined(Unit))
+            {
+                writer.WritePropertyName("unit"u8);
+                writer.WriteStringValue(Unit);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -48,19 +51,19 @@ namespace Azure.Health.Insights.RadiologyInsights
             writer.WriteEndObject();
         }
 
-        DocumentContent IJsonModel<DocumentContent>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        AssessmentStringValueWithUnit IJsonModel<AssessmentStringValueWithUnit>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<DocumentContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AssessmentStringValueWithUnit>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(DocumentContent)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(AssessmentStringValueWithUnit)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeDocumentContent(document.RootElement, options);
+            return DeserializeAssessmentStringValueWithUnit(document.RootElement, options);
         }
 
-        internal static DocumentContent DeserializeDocumentContent(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static AssessmentStringValueWithUnit DeserializeAssessmentStringValueWithUnit(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -68,20 +71,20 @@ namespace Azure.Health.Insights.RadiologyInsights
             {
                 return null;
             }
-            DocumentContentSourceType sourceType = default;
             string value = default;
+            string unit = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("sourceType"u8))
-                {
-                    sourceType = new DocumentContentSourceType(property.Value.GetString());
-                    continue;
-                }
                 if (property.NameEquals("value"u8))
                 {
                     value = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("unit"u8))
+                {
+                    unit = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -90,46 +93,46 @@ namespace Azure.Health.Insights.RadiologyInsights
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new DocumentContent(sourceType, value, serializedAdditionalRawData);
+            return new AssessmentStringValueWithUnit(value, unit, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<DocumentContent>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<AssessmentStringValueWithUnit>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<DocumentContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AssessmentStringValueWithUnit>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(DocumentContent)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AssessmentStringValueWithUnit)} does not support writing '{options.Format}' format.");
             }
         }
 
-        DocumentContent IPersistableModel<DocumentContent>.Create(BinaryData data, ModelReaderWriterOptions options)
+        AssessmentStringValueWithUnit IPersistableModel<AssessmentStringValueWithUnit>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<DocumentContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AssessmentStringValueWithUnit>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeDocumentContent(document.RootElement, options);
+                        return DeserializeAssessmentStringValueWithUnit(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(DocumentContent)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AssessmentStringValueWithUnit)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<DocumentContent>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<AssessmentStringValueWithUnit>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static DocumentContent FromResponse(Response response)
+        internal static AssessmentStringValueWithUnit FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeDocumentContent(document.RootElement);
+            return DeserializeAssessmentStringValueWithUnit(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
