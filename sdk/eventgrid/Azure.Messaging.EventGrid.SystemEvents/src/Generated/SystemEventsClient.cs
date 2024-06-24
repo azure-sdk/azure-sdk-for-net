@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Threading;
 using Azure.Core;
 using Azure.Core.Pipeline;
 
@@ -36,6 +37,175 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
             ClientDiagnostics = new ClientDiagnostics(options, true);
             _pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>(), Array.Empty<HttpPipelinePolicy>(), new ResponseClassifier());
+        }
+
+        private ApiCenter _cachedApiCenter;
+        private ApiManagement _cachedApiManagement;
+        private AppConfiguration _cachedAppConfiguration;
+        private AVS _cachedAVS;
+        private AzureCommunicationServices _cachedAzureCommunicationServices;
+        private ContainerRegistry _cachedContainerRegistry;
+        private ContainerService _cachedContainerService;
+        private DataBox _cachedDataBox;
+        private EventHub _cachedEventHub;
+        private Maps _cachedMaps;
+        private IotHub _cachedIotHub;
+        private HealthcareApis _cachedHealthcareApis;
+        private KeyVault _cachedKeyVault;
+        private MachineLearningServices _cachedMachineLearningServices;
+        private MediaServices _cachedMediaServices;
+        private PolicyInsights _cachedPolicyInsights;
+        private RedisCache _cachedRedisCache;
+        private Resources _cachedResources;
+        private ServiceBus _cachedServiceBus;
+        private SignalRService _cachedSignalRService;
+        private Storage _cachedStorage;
+        private Web _cachedWeb;
+        private EventGrid _cachedEventGrid;
+        private ResourceNotifications _cachedResourceNotifications;
+
+        /// <summary> Initializes a new instance of ApiCenter. </summary>
+        public virtual ApiCenter GetApiCenterClient()
+        {
+            return Volatile.Read(ref _cachedApiCenter) ?? Interlocked.CompareExchange(ref _cachedApiCenter, new ApiCenter(ClientDiagnostics, _pipeline), null) ?? _cachedApiCenter;
+        }
+
+        /// <summary> Initializes a new instance of ApiManagement. </summary>
+        public virtual ApiManagement GetApiManagementClient()
+        {
+            return Volatile.Read(ref _cachedApiManagement) ?? Interlocked.CompareExchange(ref _cachedApiManagement, new ApiManagement(ClientDiagnostics, _pipeline), null) ?? _cachedApiManagement;
+        }
+
+        /// <summary> Initializes a new instance of AppConfiguration. </summary>
+        public virtual AppConfiguration GetAppConfigurationClient()
+        {
+            return Volatile.Read(ref _cachedAppConfiguration) ?? Interlocked.CompareExchange(ref _cachedAppConfiguration, new AppConfiguration(ClientDiagnostics, _pipeline), null) ?? _cachedAppConfiguration;
+        }
+
+        /// <summary> Initializes a new instance of AVS. </summary>
+        public virtual AVS GetAVSClient()
+        {
+            return Volatile.Read(ref _cachedAVS) ?? Interlocked.CompareExchange(ref _cachedAVS, new AVS(ClientDiagnostics, _pipeline), null) ?? _cachedAVS;
+        }
+
+        /// <summary> Initializes a new instance of AzureCommunicationServices. </summary>
+        public virtual AzureCommunicationServices GetAzureCommunicationServicesClient()
+        {
+            return Volatile.Read(ref _cachedAzureCommunicationServices) ?? Interlocked.CompareExchange(ref _cachedAzureCommunicationServices, new AzureCommunicationServices(ClientDiagnostics, _pipeline), null) ?? _cachedAzureCommunicationServices;
+        }
+
+        /// <summary> Initializes a new instance of ContainerRegistry. </summary>
+        public virtual ContainerRegistry GetContainerRegistryClient()
+        {
+            return Volatile.Read(ref _cachedContainerRegistry) ?? Interlocked.CompareExchange(ref _cachedContainerRegistry, new ContainerRegistry(ClientDiagnostics, _pipeline), null) ?? _cachedContainerRegistry;
+        }
+
+        /// <summary> Initializes a new instance of ContainerService. </summary>
+        public virtual ContainerService GetContainerServiceClient()
+        {
+            return Volatile.Read(ref _cachedContainerService) ?? Interlocked.CompareExchange(ref _cachedContainerService, new ContainerService(ClientDiagnostics, _pipeline), null) ?? _cachedContainerService;
+        }
+
+        /// <summary> Initializes a new instance of DataBox. </summary>
+        public virtual DataBox GetDataBoxClient()
+        {
+            return Volatile.Read(ref _cachedDataBox) ?? Interlocked.CompareExchange(ref _cachedDataBox, new DataBox(ClientDiagnostics, _pipeline), null) ?? _cachedDataBox;
+        }
+
+        /// <summary> Initializes a new instance of EventHub. </summary>
+        public virtual EventHub GetEventHubClient()
+        {
+            return Volatile.Read(ref _cachedEventHub) ?? Interlocked.CompareExchange(ref _cachedEventHub, new EventHub(ClientDiagnostics, _pipeline), null) ?? _cachedEventHub;
+        }
+
+        /// <summary> Initializes a new instance of Maps. </summary>
+        public virtual Maps GetMapsClient()
+        {
+            return Volatile.Read(ref _cachedMaps) ?? Interlocked.CompareExchange(ref _cachedMaps, new Maps(ClientDiagnostics, _pipeline), null) ?? _cachedMaps;
+        }
+
+        /// <summary> Initializes a new instance of IotHub. </summary>
+        public virtual IotHub GetIotHubClient()
+        {
+            return Volatile.Read(ref _cachedIotHub) ?? Interlocked.CompareExchange(ref _cachedIotHub, new IotHub(ClientDiagnostics, _pipeline), null) ?? _cachedIotHub;
+        }
+
+        /// <summary> Initializes a new instance of HealthcareApis. </summary>
+        public virtual HealthcareApis GetHealthcareApisClient()
+        {
+            return Volatile.Read(ref _cachedHealthcareApis) ?? Interlocked.CompareExchange(ref _cachedHealthcareApis, new HealthcareApis(ClientDiagnostics, _pipeline), null) ?? _cachedHealthcareApis;
+        }
+
+        /// <summary> Initializes a new instance of KeyVault. </summary>
+        public virtual KeyVault GetKeyVaultClient()
+        {
+            return Volatile.Read(ref _cachedKeyVault) ?? Interlocked.CompareExchange(ref _cachedKeyVault, new KeyVault(ClientDiagnostics, _pipeline), null) ?? _cachedKeyVault;
+        }
+
+        /// <summary> Initializes a new instance of MachineLearningServices. </summary>
+        public virtual MachineLearningServices GetMachineLearningServicesClient()
+        {
+            return Volatile.Read(ref _cachedMachineLearningServices) ?? Interlocked.CompareExchange(ref _cachedMachineLearningServices, new MachineLearningServices(ClientDiagnostics, _pipeline), null) ?? _cachedMachineLearningServices;
+        }
+
+        /// <summary> Initializes a new instance of MediaServices. </summary>
+        public virtual MediaServices GetMediaServicesClient()
+        {
+            return Volatile.Read(ref _cachedMediaServices) ?? Interlocked.CompareExchange(ref _cachedMediaServices, new MediaServices(ClientDiagnostics, _pipeline), null) ?? _cachedMediaServices;
+        }
+
+        /// <summary> Initializes a new instance of PolicyInsights. </summary>
+        public virtual PolicyInsights GetPolicyInsightsClient()
+        {
+            return Volatile.Read(ref _cachedPolicyInsights) ?? Interlocked.CompareExchange(ref _cachedPolicyInsights, new PolicyInsights(ClientDiagnostics, _pipeline), null) ?? _cachedPolicyInsights;
+        }
+
+        /// <summary> Initializes a new instance of RedisCache. </summary>
+        public virtual RedisCache GetRedisCacheClient()
+        {
+            return Volatile.Read(ref _cachedRedisCache) ?? Interlocked.CompareExchange(ref _cachedRedisCache, new RedisCache(ClientDiagnostics, _pipeline), null) ?? _cachedRedisCache;
+        }
+
+        /// <summary> Initializes a new instance of Resources. </summary>
+        public virtual Resources GetResourcesClient()
+        {
+            return Volatile.Read(ref _cachedResources) ?? Interlocked.CompareExchange(ref _cachedResources, new Resources(ClientDiagnostics, _pipeline), null) ?? _cachedResources;
+        }
+
+        /// <summary> Initializes a new instance of ServiceBus. </summary>
+        public virtual ServiceBus GetServiceBusClient()
+        {
+            return Volatile.Read(ref _cachedServiceBus) ?? Interlocked.CompareExchange(ref _cachedServiceBus, new ServiceBus(ClientDiagnostics, _pipeline), null) ?? _cachedServiceBus;
+        }
+
+        /// <summary> Initializes a new instance of SignalRService. </summary>
+        public virtual SignalRService GetSignalRServiceClient()
+        {
+            return Volatile.Read(ref _cachedSignalRService) ?? Interlocked.CompareExchange(ref _cachedSignalRService, new SignalRService(ClientDiagnostics, _pipeline), null) ?? _cachedSignalRService;
+        }
+
+        /// <summary> Initializes a new instance of Storage. </summary>
+        public virtual Storage GetStorageClient()
+        {
+            return Volatile.Read(ref _cachedStorage) ?? Interlocked.CompareExchange(ref _cachedStorage, new Storage(ClientDiagnostics, _pipeline), null) ?? _cachedStorage;
+        }
+
+        /// <summary> Initializes a new instance of Web. </summary>
+        public virtual Web GetWebClient()
+        {
+            return Volatile.Read(ref _cachedWeb) ?? Interlocked.CompareExchange(ref _cachedWeb, new Web(ClientDiagnostics, _pipeline), null) ?? _cachedWeb;
+        }
+
+        /// <summary> Initializes a new instance of EventGrid. </summary>
+        public virtual EventGrid GetEventGridClient()
+        {
+            return Volatile.Read(ref _cachedEventGrid) ?? Interlocked.CompareExchange(ref _cachedEventGrid, new EventGrid(ClientDiagnostics, _pipeline), null) ?? _cachedEventGrid;
+        }
+
+        /// <summary> Initializes a new instance of ResourceNotifications. </summary>
+        public virtual ResourceNotifications GetResourceNotificationsClient()
+        {
+            return Volatile.Read(ref _cachedResourceNotifications) ?? Interlocked.CompareExchange(ref _cachedResourceNotifications, new ResourceNotifications(ClientDiagnostics, _pipeline), null) ?? _cachedResourceNotifications;
         }
     }
 }
