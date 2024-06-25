@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ContainerService.Models
 {
-    /// <summary> OS option property. </summary>
-    public partial class ContainerServiceOSOptionProperty
+    /// <summary> The cost analysis configuration for the cluster. </summary>
+    internal partial class ManagedClusterCostAnalysis
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,37 +45,21 @@ namespace Azure.ResourceManager.ContainerService.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceOSOptionProperty"/>. </summary>
-        /// <param name="osType"> The OS type. </param>
-        /// <param name="enableFipsImage"> Whether the image is FIPS-enabled. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="osType"/> is null. </exception>
-        internal ContainerServiceOSOptionProperty(string osType, bool enableFipsImage)
+        /// <summary> Initializes a new instance of <see cref="ManagedClusterCostAnalysis"/>. </summary>
+        public ManagedClusterCostAnalysis()
         {
-            Argument.AssertNotNull(osType, nameof(osType));
-
-            OSType = osType;
-            EnableFipsImage = enableFipsImage;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceOSOptionProperty"/>. </summary>
-        /// <param name="osType"> The OS type. </param>
-        /// <param name="enableFipsImage"> Whether the image is FIPS-enabled. </param>
+        /// <summary> Initializes a new instance of <see cref="ManagedClusterCostAnalysis"/>. </summary>
+        /// <param name="enabled"> The Managed Cluster sku.tier must be set to 'Standard' or 'Premium' to enable this feature. Enabling this will add Kubernetes Namespace and Deployment details to the Cost Analysis views in the Azure portal. If not specified, the default is false. For more information see aka.ms/aks/docs/cost-analysis. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ContainerServiceOSOptionProperty(string osType, bool enableFipsImage, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ManagedClusterCostAnalysis(bool? enabled, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            OSType = osType;
-            EnableFipsImage = enableFipsImage;
+            Enabled = enabled;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceOSOptionProperty"/> for deserialization. </summary>
-        internal ContainerServiceOSOptionProperty()
-        {
-        }
-
-        /// <summary> The OS type. </summary>
-        public string OSType { get; }
-        /// <summary> Whether the image is FIPS-enabled. </summary>
-        public bool EnableFipsImage { get; }
+        /// <summary> The Managed Cluster sku.tier must be set to 'Standard' or 'Premium' to enable this feature. Enabling this will add Kubernetes Namespace and Deployment details to the Cost Analysis views in the Azure portal. If not specified, the default is false. For more information see aka.ms/aks/docs/cost-analysis. </summary>
+        public bool? Enabled { get; set; }
     }
 }

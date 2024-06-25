@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ContainerService.Models
 {
-    /// <summary> Istio egress gateway configuration. </summary>
-    public partial class IstioEgressGateway
+    /// <summary> Ingress profile for the container service cluster. </summary>
+    internal partial class ManagedClusterIngressProfile
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,28 +45,21 @@ namespace Azure.ResourceManager.ContainerService.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="IstioEgressGateway"/>. </summary>
-        /// <param name="isEnabled"> Whether to enable the egress gateway. </param>
-        public IstioEgressGateway(bool isEnabled)
+        /// <summary> Initializes a new instance of <see cref="ManagedClusterIngressProfile"/>. </summary>
+        public ManagedClusterIngressProfile()
         {
-            IsEnabled = isEnabled;
         }
 
-        /// <summary> Initializes a new instance of <see cref="IstioEgressGateway"/>. </summary>
-        /// <param name="isEnabled"> Whether to enable the egress gateway. </param>
+        /// <summary> Initializes a new instance of <see cref="ManagedClusterIngressProfile"/>. </summary>
+        /// <param name="webAppRouting"> App Routing settings for the ingress profile. You can find an overview and onboarding guide for this feature at https://learn.microsoft.com/en-us/azure/aks/app-routing?tabs=default%2Cdeploy-app-default. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IstioEgressGateway(bool isEnabled, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ManagedClusterIngressProfile(ManagedClusterIngressProfileWebAppRouting webAppRouting, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            IsEnabled = isEnabled;
+            WebAppRouting = webAppRouting;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="IstioEgressGateway"/> for deserialization. </summary>
-        internal IstioEgressGateway()
-        {
-        }
-
-        /// <summary> Whether to enable the egress gateway. </summary>
-        public bool IsEnabled { get; set; }
+        /// <summary> App Routing settings for the ingress profile. You can find an overview and onboarding guide for this feature at https://learn.microsoft.com/en-us/azure/aks/app-routing?tabs=default%2Cdeploy-app-default. </summary>
+        public ManagedClusterIngressProfileWebAppRouting WebAppRouting { get; set; }
     }
 }

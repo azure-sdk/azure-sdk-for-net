@@ -287,6 +287,11 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("networkProfile"u8);
                 writer.WriteObjectValue(NetworkProfile, options);
             }
+            if (Optional.IsDefined(WindowsProfile))
+            {
+                writer.WritePropertyName("windowsProfile"u8);
+                writer.WriteObjectValue(WindowsProfile, options);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -373,6 +378,7 @@ namespace Azure.ResourceManager.ContainerService
             ResourceIdentifier capacityReservationGroupId = default;
             ResourceIdentifier hostGroupId = default;
             AgentPoolNetworkProfile networkProfile = default;
+            AgentPoolWindowsProfile windowsProfile = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -797,6 +803,15 @@ namespace Azure.ResourceManager.ContainerService
                             networkProfile = AgentPoolNetworkProfile.DeserializeAgentPoolNetworkProfile(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("windowsProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            windowsProfile = AgentPoolWindowsProfile.DeserializeAgentPoolWindowsProfile(property0.Value, options);
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -854,6 +869,7 @@ namespace Azure.ResourceManager.ContainerService
                 capacityReservationGroupId,
                 hostGroupId,
                 networkProfile,
+                windowsProfile,
                 serializedAdditionalRawData);
         }
 
