@@ -26,6 +26,16 @@ namespace Azure.ResourceManager.BotService.Models
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(Id))
+            {
+                writer.WritePropertyName("id"u8);
+                writer.WriteStringValue(Id);
+            }
+            if (Optional.IsDefined(Name))
+            {
+                writer.WritePropertyName("name"u8);
+                writer.WriteStringValue(Name);
+            }
             if (Optional.IsDefined(ClientId))
             {
                 writer.WritePropertyName("clientId"u8);
@@ -109,6 +119,8 @@ namespace Azure.ResourceManager.BotService.Models
             {
                 return null;
             }
+            string id = default;
+            string name = default;
             string clientId = default;
             string settingId = default;
             string clientSecret = default;
@@ -121,6 +133,16 @@ namespace Azure.ResourceManager.BotService.Models
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("id"u8))
+                {
+                    id = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("name"u8))
+                {
+                    name = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("clientId"u8))
                 {
                     clientId = property.Value.GetString();
@@ -177,6 +199,8 @@ namespace Azure.ResourceManager.BotService.Models
             }
             serializedAdditionalRawData = rawDataDictionary;
             return new BotConnectionSettingProperties(
+                id,
+                name,
                 clientId,
                 settingId,
                 clientSecret,
