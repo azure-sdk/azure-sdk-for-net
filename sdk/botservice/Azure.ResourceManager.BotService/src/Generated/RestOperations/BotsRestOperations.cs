@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.BotService
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2022-09-15";
+            _apiVersion = apiVersion ?? "2023-09-15-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 

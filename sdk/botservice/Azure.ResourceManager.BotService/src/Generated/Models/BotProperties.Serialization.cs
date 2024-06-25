@@ -218,6 +218,16 @@ namespace Azure.ResourceManager.BotService.Models
                 }
                 writer.WriteEndArray();
             }
+            if (options.Format != "W" && Optional.IsCollectionDefined(NetworkSecurityPerimeterConfigurations))
+            {
+                writer.WritePropertyName("networkSecurityPerimeterConfigurations"u8);
+                writer.WriteStartArray();
+                foreach (var item in NetworkSecurityPerimeterConfigurations)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
+            }
             if (Optional.IsDefined(OpenWithHint))
             {
                 writer.WritePropertyName("openWithHint"u8);
@@ -307,6 +317,7 @@ namespace Azure.ResourceManager.BotService.Models
             string schemaTransformationVersion = default;
             ResourceIdentifier storageResourceId = default;
             IReadOnlyList<BotServicePrivateEndpointConnectionData> privateEndpointConnections = default;
+            IReadOnlyList<NetworkSecurityPerimeterConfigurationData> networkSecurityPerimeterConfigurations = default;
             string openWithHint = default;
             string appPasswordHint = default;
             string provisioningState = default;
@@ -582,6 +593,20 @@ namespace Azure.ResourceManager.BotService.Models
                     privateEndpointConnections = array;
                     continue;
                 }
+                if (property.NameEquals("networkSecurityPerimeterConfigurations"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<NetworkSecurityPerimeterConfigurationData> array = new List<NetworkSecurityPerimeterConfigurationData>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(NetworkSecurityPerimeterConfigurationData.DeserializeNetworkSecurityPerimeterConfigurationData(item, options));
+                    }
+                    networkSecurityPerimeterConfigurations = array;
+                    continue;
+                }
                 if (property.NameEquals("openWithHint"u8))
                 {
                     openWithHint = property.Value.GetString();
@@ -640,6 +665,7 @@ namespace Azure.ResourceManager.BotService.Models
                 schemaTransformationVersion,
                 storageResourceId,
                 privateEndpointConnections ?? new ChangeTrackingList<BotServicePrivateEndpointConnectionData>(),
+                networkSecurityPerimeterConfigurations ?? new ChangeTrackingList<NetworkSecurityPerimeterConfigurationData>(),
                 openWithHint,
                 appPasswordHint,
                 provisioningState,
