@@ -2516,7 +2516,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public static Azure.Messaging.EventGrid.SystemEvents.StorageBlobDeletedEventData StorageBlobDeletedEventData(string api = null, string clientRequestId = null, string requestId = null, string contentType = null, string blobType = null, string url = null, string sequencer = null, string identity = null, System.Collections.Generic.IReadOnlyDictionary<string, System.BinaryData> storageDiagnostics = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.StorageBlobInventoryPolicyCompletedEventData StorageBlobInventoryPolicyCompletedEventData(System.DateTimeOffset scheduleDateTime = default(System.DateTimeOffset), string accountName = null, string ruleName = null, string policyRunStatus = null, string policyRunStatusMessage = null, string policyRunId = null, string manifestBlobUrl = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.StorageBlobRenamedEventData StorageBlobRenamedEventData(string api = null, string clientRequestId = null, string requestId = null, string sourceUrl = null, string destinationUrl = null, string sequencer = null, string identity = null, System.Collections.Generic.IReadOnlyDictionary<string, System.BinaryData> storageDiagnostics = null) { throw null; }
-        public static Azure.Messaging.EventGrid.SystemEvents.StorageBlobTierChangedEventData StorageBlobTierChangedEventData(string api = null, string clientRequestId = null, string requestId = null, string contentType = null, long? contentLength = default(long?), string blobType = null, string url = null, string sequencer = null, string identity = null, System.Collections.Generic.IReadOnlyDictionary<string, System.BinaryData> storageDiagnostics = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.StorageBlobTierChangedEventData StorageBlobTierChangedEventData(string api = null, string clientRequestId = null, string requestId = null, string contentType = null, long? contentLength = default(long?), string blobType = null, string accessTier = null, string previousTier = null, string url = null, string sequencer = null, string identity = null, System.Collections.Generic.IReadOnlyDictionary<string, System.BinaryData> storageDiagnostics = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.StorageDirectoryCreatedEventData StorageDirectoryCreatedEventData(string api = null, string clientRequestId = null, string requestId = null, string eTag = null, string url = null, string sequencer = null, string identity = null, System.Collections.Generic.IReadOnlyDictionary<string, System.BinaryData> storageDiagnostics = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.StorageDirectoryDeletedEventData StorageDirectoryDeletedEventData(string api = null, string clientRequestId = null, string requestId = null, string url = null, string recursive = null, string sequencer = null, string identity = null, System.Collections.Generic.IReadOnlyDictionary<string, System.BinaryData> storageDiagnostics = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.StorageDirectoryRenamedEventData StorageDirectoryRenamedEventData(string api = null, string clientRequestId = null, string requestId = null, string sourceUrl = null, string destinationUrl = null, string sequencer = null, string identity = null, System.Collections.Generic.IReadOnlyDictionary<string, System.BinaryData> storageDiagnostics = null) { throw null; }
@@ -4282,12 +4282,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class StorageBlobTierChangedEventData : System.ClientModel.Primitives.IJsonModel<Azure.Messaging.EventGrid.SystemEvents.StorageBlobTierChangedEventData>, System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.StorageBlobTierChangedEventData>
     {
         internal StorageBlobTierChangedEventData() { }
+        public string AccessTier { get { throw null; } }
         public string Api { get { throw null; } }
         public string BlobType { get { throw null; } }
         public string ClientRequestId { get { throw null; } }
         public long? ContentLength { get { throw null; } }
         public string ContentType { get { throw null; } }
         public string Identity { get { throw null; } }
+        public string PreviousTier { get { throw null; } }
         public string RequestId { get { throw null; } }
         public string Sequencer { get { throw null; } }
         public System.Collections.Generic.IReadOnlyDictionary<string, System.BinaryData> StorageDiagnostics { get { throw null; } }
