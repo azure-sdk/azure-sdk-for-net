@@ -31,7 +31,7 @@ namespace Azure.AI.Translation.Text
             writer.WritePropertyName("displayText"u8);
             writer.WriteStringValue(DisplayText);
             writer.WritePropertyName("numExamples"u8);
-            writer.WriteNumberValue(ExamplesCount);
+            writer.WriteNumberValue(NumExamples);
             writer.WritePropertyName("frequencyCount"u8);
             writer.WriteNumberValue(FrequencyCount);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
