@@ -13,6 +13,8 @@ namespace Microsoft.Azure.Management.Network
     using Microsoft.Rest;
     using Microsoft.Rest.Azure;
     using Models;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -76,7 +78,7 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='connectionName'>
             /// The name of the virtual hub bgp connection.
             /// </param>
-            public static PeerRouteList ListLearnedRoutes(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName)
+            public static IDictionary<string, IList<PeerRoute>> ListLearnedRoutes(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName)
             {
                 return operations.ListLearnedRoutesAsync(resourceGroupName, hubName, connectionName).GetAwaiter().GetResult();
             }
@@ -99,7 +101,7 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<PeerRouteList> ListLearnedRoutesAsync(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IDictionary<string, IList<PeerRoute>>> ListLearnedRoutesAsync(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.ListLearnedRoutesWithHttpMessagesAsync(resourceGroupName, hubName, connectionName, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -123,7 +125,7 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='connectionName'>
             /// The name of the virtual hub bgp connection.
             /// </param>
-            public static PeerRouteList ListAdvertisedRoutes(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName)
+            public static IDictionary<string, IList<PeerRoute>> ListAdvertisedRoutes(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName)
             {
                 return operations.ListAdvertisedRoutesAsync(resourceGroupName, hubName, connectionName).GetAwaiter().GetResult();
             }
@@ -147,7 +149,7 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<PeerRouteList> ListAdvertisedRoutesAsync(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IDictionary<string, IList<PeerRoute>>> ListAdvertisedRoutesAsync(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.ListAdvertisedRoutesWithHttpMessagesAsync(resourceGroupName, hubName, connectionName, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -170,7 +172,7 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='connectionName'>
             /// The name of the virtual hub bgp connection.
             /// </param>
-            public static PeerRouteList BeginListLearnedRoutes(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName)
+            public static IDictionary<string, IList<PeerRoute>> BeginListLearnedRoutes(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName)
             {
                 return operations.BeginListLearnedRoutesAsync(resourceGroupName, hubName, connectionName).GetAwaiter().GetResult();
             }
@@ -193,7 +195,7 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<PeerRouteList> BeginListLearnedRoutesAsync(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IDictionary<string, IList<PeerRoute>>> BeginListLearnedRoutesAsync(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.BeginListLearnedRoutesWithHttpMessagesAsync(resourceGroupName, hubName, connectionName, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -217,7 +219,7 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='connectionName'>
             /// The name of the virtual hub bgp connection.
             /// </param>
-            public static PeerRouteList BeginListAdvertisedRoutes(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName)
+            public static IDictionary<string, IList<PeerRoute>> BeginListAdvertisedRoutes(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName)
             {
                 return operations.BeginListAdvertisedRoutesAsync(resourceGroupName, hubName, connectionName).GetAwaiter().GetResult();
             }
@@ -241,7 +243,7 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<PeerRouteList> BeginListAdvertisedRoutesAsync(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IDictionary<string, IList<PeerRoute>>> BeginListAdvertisedRoutesAsync(this IVirtualHubBgpConnectionsOperations operations, string resourceGroupName, string hubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.BeginListAdvertisedRoutesWithHttpMessagesAsync(resourceGroupName, hubName, connectionName, null, cancellationToken).ConfigureAwait(false))
                 {

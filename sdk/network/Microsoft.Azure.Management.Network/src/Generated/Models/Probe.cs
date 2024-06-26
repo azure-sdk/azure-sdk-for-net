@@ -50,6 +50,10 @@ namespace Microsoft.Azure.Management.Network.Models
         /// (in seconds) which allows two full probes before taking the
         /// instance out of rotation. The default value is 15, the minimum
         /// value is 5.</param>
+        /// <param name="noHealthyBackendsBehavior">Determines how new
+        /// connections are handled by the load balancer when all backend
+        /// instances are probed down. Possible values include:
+        /// 'AllProbedDown', 'AllProbedUp'</param>
         /// <param name="numberOfProbes">The number of probes where if no
         /// response, will result in stopping further traffic from being
         /// delivered to the endpoint. This values allows endpoints to be taken
@@ -73,13 +77,14 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
         /// <param name="type">Type of the resource.</param>
-        public Probe(string protocol, int port, string id = default(string), IList<SubResource> loadBalancingRules = default(IList<SubResource>), int? intervalInSeconds = default(int?), int? numberOfProbes = default(int?), int? probeThreshold = default(int?), string requestPath = default(string), string provisioningState = default(string), string name = default(string), string etag = default(string), string type = default(string))
+        public Probe(string protocol, int port, string id = default(string), IList<SubResource> loadBalancingRules = default(IList<SubResource>), int? intervalInSeconds = default(int?), string noHealthyBackendsBehavior = default(string), int? numberOfProbes = default(int?), int? probeThreshold = default(int?), string requestPath = default(string), string provisioningState = default(string), string name = default(string), string etag = default(string), string type = default(string))
             : base(id)
         {
             LoadBalancingRules = loadBalancingRules;
             Protocol = protocol;
             Port = port;
             IntervalInSeconds = intervalInSeconds;
+            NoHealthyBackendsBehavior = noHealthyBackendsBehavior;
             NumberOfProbes = numberOfProbes;
             ProbeThreshold = probeThreshold;
             RequestPath = requestPath;
@@ -127,6 +132,14 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.intervalInSeconds")]
         public int? IntervalInSeconds { get; set; }
+
+        /// <summary>
+        /// Gets or sets determines how new connections are handled by the load
+        /// balancer when all backend instances are probed down. Possible
+        /// values include: 'AllProbedDown', 'AllProbedUp'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.NoHealthyBackendsBehavior")]
+        public string NoHealthyBackendsBehavior { get; set; }
 
         /// <summary>
         /// Gets or sets the number of probes where if no response, will result

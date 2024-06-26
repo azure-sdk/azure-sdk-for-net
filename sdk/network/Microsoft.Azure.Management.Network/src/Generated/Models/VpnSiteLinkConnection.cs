@@ -71,13 +71,15 @@ namespace Microsoft.Azure.Management.Network.Models
         /// 'Succeeded', 'Updating', 'Deleting', 'Failed'</param>
         /// <param name="ingressNatRules">List of ingress NatRules.</param>
         /// <param name="egressNatRules">List of egress NatRules.</param>
+        /// <param name="dpdTimeoutSeconds">Dead Peer Detection timeout in
+        /// seconds for VpnLink connection.</param>
         /// <param name="name">The name of the resource that is unique within a
         /// resource group. This name can be used to access the
         /// resource.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
         /// <param name="type">Resource type.</param>
-        public VpnSiteLinkConnection(string id = default(string), SubResource vpnSiteLink = default(SubResource), int? routingWeight = default(int?), string vpnLinkConnectionMode = default(string), string connectionStatus = default(string), string vpnConnectionProtocolType = default(string), long? ingressBytesTransferred = default(long?), long? egressBytesTransferred = default(long?), int? connectionBandwidth = default(int?), string sharedKey = default(string), bool? enableBgp = default(bool?), IList<GatewayCustomBgpIpAddressIpConfiguration> vpnGatewayCustomBgpAddresses = default(IList<GatewayCustomBgpIpAddressIpConfiguration>), bool? usePolicyBasedTrafficSelectors = default(bool?), IList<IpsecPolicy> ipsecPolicies = default(IList<IpsecPolicy>), bool? enableRateLimiting = default(bool?), bool? useLocalAzureIpAddress = default(bool?), string provisioningState = default(string), IList<SubResource> ingressNatRules = default(IList<SubResource>), IList<SubResource> egressNatRules = default(IList<SubResource>), string name = default(string), string etag = default(string), string type = default(string))
+        public VpnSiteLinkConnection(string id = default(string), SubResource vpnSiteLink = default(SubResource), int? routingWeight = default(int?), string vpnLinkConnectionMode = default(string), string connectionStatus = default(string), string vpnConnectionProtocolType = default(string), long? ingressBytesTransferred = default(long?), long? egressBytesTransferred = default(long?), int? connectionBandwidth = default(int?), string sharedKey = default(string), bool? enableBgp = default(bool?), IList<GatewayCustomBgpIpAddressIpConfiguration> vpnGatewayCustomBgpAddresses = default(IList<GatewayCustomBgpIpAddressIpConfiguration>), bool? usePolicyBasedTrafficSelectors = default(bool?), IList<IpsecPolicy> ipsecPolicies = default(IList<IpsecPolicy>), bool? enableRateLimiting = default(bool?), bool? useLocalAzureIpAddress = default(bool?), string provisioningState = default(string), IList<SubResource> ingressNatRules = default(IList<SubResource>), IList<SubResource> egressNatRules = default(IList<SubResource>), int? dpdTimeoutSeconds = default(int?), string name = default(string), string etag = default(string), string type = default(string))
             : base(id)
         {
             VpnSiteLink = vpnSiteLink;
@@ -98,6 +100,7 @@ namespace Microsoft.Azure.Management.Network.Models
             ProvisioningState = provisioningState;
             IngressNatRules = ingressNatRules;
             EgressNatRules = egressNatRules;
+            DpdTimeoutSeconds = dpdTimeoutSeconds;
             Name = name;
             Etag = etag;
             Type = type;
@@ -222,6 +225,13 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.egressNatRules")]
         public IList<SubResource> EgressNatRules { get; set; }
+
+        /// <summary>
+        /// Gets or sets dead Peer Detection timeout in seconds for VpnLink
+        /// connection.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.dpdTimeoutSeconds")]
+        public int? DpdTimeoutSeconds { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the resource that is unique within a
