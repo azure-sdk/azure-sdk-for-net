@@ -54,12 +54,8 @@ namespace Azure.Analytics.Purview.DataMap
         /// <summary>
         /// Get all glossaries. Recommend using limit/offset to get pagination result.
         /// Recommend using 'ignoreTermsAndCategories=true' and fetch terms/categories
-        /// separately using
-        ///
-        ///  'GET /datamap/api/atlas/v2/glossary/{glossaryId}/terms'
-        /// and
-        ///
-        ///  'GET '/datamap/api/atlas/v2/glossary/{glossaryId}/categories'.
+        /// separately using 'GET /datamap/api/atlas/v2/glossary/{glossaryId}/terms'
+        /// and 'GET '/datamap/api/atlas/v2/glossary/{glossaryId}/categories'.
         /// </summary>
         /// <param name="limit"> The page size - by default there is no paging. </param>
         /// <param name="offset"> The offset for pagination purpose. </param>
@@ -85,12 +81,8 @@ namespace Azure.Analytics.Purview.DataMap
         /// <summary>
         /// Get all glossaries. Recommend using limit/offset to get pagination result.
         /// Recommend using 'ignoreTermsAndCategories=true' and fetch terms/categories
-        /// separately using
-        ///
-        ///  'GET /datamap/api/atlas/v2/glossary/{glossaryId}/terms'
-        /// and
-        ///
-        ///  'GET '/datamap/api/atlas/v2/glossary/{glossaryId}/categories'.
+        /// separately using 'GET /datamap/api/atlas/v2/glossary/{glossaryId}/terms'
+        /// and 'GET '/datamap/api/atlas/v2/glossary/{glossaryId}/categories'.
         /// </summary>
         /// <param name="limit"> The page size - by default there is no paging. </param>
         /// <param name="offset"> The offset for pagination purpose. </param>
@@ -116,12 +108,8 @@ namespace Azure.Analytics.Purview.DataMap
         /// <summary>
         /// [Protocol Method] Get all glossaries. Recommend using limit/offset to get pagination result.
         /// Recommend using 'ignoreTermsAndCategories=true' and fetch terms/categories
-        /// separately using
-        ///
-        ///  'GET /datamap/api/atlas/v2/glossary/{glossaryId}/terms'
-        /// and
-        ///
-        ///  'GET '/datamap/api/atlas/v2/glossary/{glossaryId}/categories'.
+        /// separately using 'GET /datamap/api/atlas/v2/glossary/{glossaryId}/terms'
+        /// and 'GET '/datamap/api/atlas/v2/glossary/{glossaryId}/categories'.
         /// <list type="bullet">
         /// <item>
         /// <description>
@@ -162,12 +150,8 @@ namespace Azure.Analytics.Purview.DataMap
         /// <summary>
         /// [Protocol Method] Get all glossaries. Recommend using limit/offset to get pagination result.
         /// Recommend using 'ignoreTermsAndCategories=true' and fetch terms/categories
-        /// separately using
-        ///
-        ///  'GET /datamap/api/atlas/v2/glossary/{glossaryId}/terms'
-        /// and
-        ///
-        ///  'GET '/datamap/api/atlas/v2/glossary/{glossaryId}/categories'.
+        /// separately using 'GET /datamap/api/atlas/v2/glossary/{glossaryId}/terms'
+        /// and 'GET '/datamap/api/atlas/v2/glossary/{glossaryId}/categories'.
         /// <list type="bullet">
         /// <item>
         /// <description>
