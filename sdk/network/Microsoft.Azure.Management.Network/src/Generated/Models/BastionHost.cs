@@ -43,6 +43,8 @@ namespace Microsoft.Azure.Management.Network.Models
         /// resource.</param>
         /// <param name="dnsName">FQDN for the endpoint on which bastion host
         /// is accessible.</param>
+        /// <param name="virtualNetwork">Reference to an existing virtual
+        /// network required for Developer Bastion Host only.</param>
         /// <param name="provisioningState">The provisioning state of the
         /// bastion host resource. Possible values include: 'Succeeded',
         /// 'Updating', 'Deleting', 'Failed'</param>
@@ -58,14 +60,22 @@ namespace Microsoft.Azure.Management.Network.Models
         /// the Bastion Host resource.</param>
         /// <param name="enableTunneling">Enable/Disable Tunneling feature of
         /// the Bastion Host resource.</param>
+        /// <param name="enableKerberos">Enable/Disable Kerberos feature of the
+        /// Bastion Host resource.</param>
+        /// <param name="enableSessionRecording">Enable/Disable Session
+        /// Recording feature of the Bastion Host resource.</param>
+        /// <param name="zones">A list of availability zones denoting where the
+        /// resource needs to come from.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
         /// <param name="sku">The sku of this Bastion Host.</param>
-        public BastionHost(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<BastionHostIPConfiguration> ipConfigurations = default(IList<BastionHostIPConfiguration>), string dnsName = default(string), string provisioningState = default(string), int? scaleUnits = default(int?), bool? disableCopyPaste = default(bool?), bool? enableFileCopy = default(bool?), bool? enableIpConnect = default(bool?), bool? enableShareableLink = default(bool?), bool? enableTunneling = default(bool?), string etag = default(string), Sku sku = default(Sku))
+        public BastionHost(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<BastionHostIPConfiguration> ipConfigurations = default(IList<BastionHostIPConfiguration>), string dnsName = default(string), SubResource virtualNetwork = default(SubResource), BastionHostPropertiesFormatNetworkAcls networkAcls = default(BastionHostPropertiesFormatNetworkAcls), string provisioningState = default(string), int? scaleUnits = default(int?), bool? disableCopyPaste = default(bool?), bool? enableFileCopy = default(bool?), bool? enableIpConnect = default(bool?), bool? enableShareableLink = default(bool?), bool? enableTunneling = default(bool?), bool? enableKerberos = default(bool?), bool? enableSessionRecording = default(bool?), IList<string> zones = default(IList<string>), string etag = default(string), Sku sku = default(Sku))
             : base(id, name, type, location, tags)
         {
             IpConfigurations = ipConfigurations;
             DnsName = dnsName;
+            VirtualNetwork = virtualNetwork;
+            NetworkAcls = networkAcls;
             ProvisioningState = provisioningState;
             ScaleUnits = scaleUnits;
             DisableCopyPaste = disableCopyPaste;
@@ -73,6 +83,9 @@ namespace Microsoft.Azure.Management.Network.Models
             EnableIpConnect = enableIpConnect;
             EnableShareableLink = enableShareableLink;
             EnableTunneling = enableTunneling;
+            EnableKerberos = enableKerberos;
+            EnableSessionRecording = enableSessionRecording;
+            Zones = zones;
             Etag = etag;
             Sku = sku;
             CustomInit();
@@ -95,6 +108,18 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.dnsName")]
         public string DnsName { get; set; }
+
+        /// <summary>
+        /// Gets or sets reference to an existing virtual network required for
+        /// Developer Bastion Host only.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.virtualNetwork")]
+        public SubResource VirtualNetwork { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.networkAcls")]
+        public BastionHostPropertiesFormatNetworkAcls NetworkAcls { get; set; }
 
         /// <summary>
         /// Gets the provisioning state of the bastion host resource. Possible
@@ -143,6 +168,27 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.enableTunneling")]
         public bool? EnableTunneling { get; set; }
+
+        /// <summary>
+        /// Gets or sets enable/Disable Kerberos feature of the Bastion Host
+        /// resource.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.enableKerberos")]
+        public bool? EnableKerberos { get; set; }
+
+        /// <summary>
+        /// Gets or sets enable/Disable Session Recording feature of the
+        /// Bastion Host resource.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.enableSessionRecording")]
+        public bool? EnableSessionRecording { get; set; }
+
+        /// <summary>
+        /// Gets or sets a list of availability zones denoting where the
+        /// resource needs to come from.
+        /// </summary>
+        [JsonProperty(PropertyName = "zones")]
+        public IList<string> Zones { get; set; }
 
         /// <summary>
         /// Gets a unique read-only string that changes whenever the resource
