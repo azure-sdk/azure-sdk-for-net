@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.HybridCompute.Models
 {
-    /// <summary> Describes a network interface. </summary>
-    public partial class HybridComputeNetworkInterface
+    /// <summary> Status of the hotpatch capability enrollment or disenrollment. </summary>
+    public partial class PatchSettingsStatus
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,34 +45,25 @@ namespace Azure.ResourceManager.HybridCompute.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="HybridComputeNetworkInterface"/>. </summary>
-        internal HybridComputeNetworkInterface()
+        /// <summary> Initializes a new instance of <see cref="PatchSettingsStatus"/>. </summary>
+        internal PatchSettingsStatus()
         {
-            IPAddresses = new ChangeTrackingList<HybridComputeIPAddress>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="HybridComputeNetworkInterface"/>. </summary>
-        /// <param name="macAddress"> Represents MAC address of the network interface. </param>
-        /// <param name="id"> Represents the ID of the network interface. </param>
-        /// <param name="name"> Represents the name of the network interface. </param>
-        /// <param name="ipAddresses"> The list of IP addresses in this interface. </param>
+        /// <summary> Initializes a new instance of <see cref="PatchSettingsStatus"/>. </summary>
+        /// <param name="hotpatchEnablementStatus"> Indicates the current status of the hotpatch being enabled or disabled. </param>
+        /// <param name="error"> The errors that were encountered during the hotpatch capability enrollment or disenrollment. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HybridComputeNetworkInterface(string macAddress, string id, string name, IReadOnlyList<HybridComputeIPAddress> ipAddresses, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PatchSettingsStatus(HotpatchEnablementStatus? hotpatchEnablementStatus, ResponseError error, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            MacAddress = macAddress;
-            Id = id;
-            Name = name;
-            IPAddresses = ipAddresses;
+            HotpatchEnablementStatus = hotpatchEnablementStatus;
+            Error = error;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Represents MAC address of the network interface. </summary>
-        public string MacAddress { get; }
-        /// <summary> Represents the ID of the network interface. </summary>
-        public string Id { get; }
-        /// <summary> Represents the name of the network interface. </summary>
-        public string Name { get; }
-        /// <summary> The list of IP addresses in this interface. </summary>
-        public IReadOnlyList<HybridComputeIPAddress> IPAddresses { get; }
+        /// <summary> Indicates the current status of the hotpatch being enabled or disabled. </summary>
+        public HotpatchEnablementStatus? HotpatchEnablementStatus { get; }
+        /// <summary> The errors that were encountered during the hotpatch capability enrollment or disenrollment. </summary>
+        public ResponseError Error { get; }
     }
 }

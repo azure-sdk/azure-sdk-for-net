@@ -98,6 +98,21 @@ namespace Azure.ResourceManager.HybridCompute
                 writer.WritePropertyName("serviceStatuses"u8);
                 writer.WriteObjectValue(ServiceStatuses, options);
             }
+            if (Optional.IsDefined(HardwareProfile))
+            {
+                writer.WritePropertyName("hardwareProfile"u8);
+                writer.WriteObjectValue(HardwareProfile, options);
+            }
+            if (Optional.IsDefined(StorageProfile))
+            {
+                writer.WritePropertyName("storageProfile"u8);
+                writer.WriteObjectValue(StorageProfile, options);
+            }
+            if (Optional.IsDefined(FirmwareProfile))
+            {
+                writer.WritePropertyName("firmwareProfile"u8);
+                writer.WriteObjectValue(FirmwareProfile, options);
+            }
             if (Optional.IsDefined(CloudMetadata))
             {
                 writer.WritePropertyName("cloudMetadata"u8);
@@ -305,6 +320,9 @@ namespace Azure.ResourceManager.HybridCompute
             HybridComputeLocation locationData = default;
             AgentConfiguration agentConfiguration = default;
             HybridComputeServiceStatuses serviceStatuses = default;
+            HardwareProfile hardwareProfile = default;
+            StorageProfile storageProfile = default;
+            FirmwareProfile firmwareProfile = default;
             HybridComputeCloudMetadata cloudMetadata = default;
             AgentUpgrade agentUpgrade = default;
             HybridComputeOSProfile osProfile = default;
@@ -446,6 +464,33 @@ namespace Azure.ResourceManager.HybridCompute
                                 continue;
                             }
                             serviceStatuses = HybridComputeServiceStatuses.DeserializeHybridComputeServiceStatuses(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("hardwareProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            hardwareProfile = HardwareProfile.DeserializeHardwareProfile(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("storageProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            storageProfile = StorageProfile.DeserializeStorageProfile(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("firmwareProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            firmwareProfile = FirmwareProfile.DeserializeFirmwareProfile(property0.Value, options);
                             continue;
                         }
                         if (property0.NameEquals("cloudMetadata"u8))
@@ -681,6 +726,9 @@ namespace Azure.ResourceManager.HybridCompute
                 locationData,
                 agentConfiguration,
                 serviceStatuses,
+                hardwareProfile,
+                storageProfile,
+                firmwareProfile,
                 cloudMetadata,
                 agentUpgrade,
                 osProfile,

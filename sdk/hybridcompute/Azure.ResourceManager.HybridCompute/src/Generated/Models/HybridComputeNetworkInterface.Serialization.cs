@@ -26,6 +26,21 @@ namespace Azure.ResourceManager.HybridCompute.Models
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(MacAddress))
+            {
+                writer.WritePropertyName("macAddress"u8);
+                writer.WriteStringValue(MacAddress);
+            }
+            if (Optional.IsDefined(Id))
+            {
+                writer.WritePropertyName("id"u8);
+                writer.WriteStringValue(Id);
+            }
+            if (Optional.IsDefined(Name))
+            {
+                writer.WritePropertyName("name"u8);
+                writer.WriteStringValue(Name);
+            }
             if (Optional.IsCollectionDefined(IPAddresses))
             {
                 writer.WritePropertyName("ipAddresses"u8);
@@ -74,11 +89,29 @@ namespace Azure.ResourceManager.HybridCompute.Models
             {
                 return null;
             }
+            string macAddress = default;
+            string id = default;
+            string name = default;
             IReadOnlyList<HybridComputeIPAddress> ipAddresses = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("macAddress"u8))
+                {
+                    macAddress = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("id"u8))
+                {
+                    id = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("name"u8))
+                {
+                    name = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("ipAddresses"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -99,7 +132,7 @@ namespace Azure.ResourceManager.HybridCompute.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new HybridComputeNetworkInterface(ipAddresses ?? new ChangeTrackingList<HybridComputeIPAddress>(), serializedAdditionalRawData);
+            return new HybridComputeNetworkInterface(macAddress, id, name, ipAddresses ?? new ChangeTrackingList<HybridComputeIPAddress>(), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<HybridComputeNetworkInterface>.Write(ModelReaderWriterOptions options)
