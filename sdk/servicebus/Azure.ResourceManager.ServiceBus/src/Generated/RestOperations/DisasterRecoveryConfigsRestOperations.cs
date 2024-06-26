@@ -194,14 +194,13 @@ namespace Azure.ResourceManager.ServiceBus
             switch (message.Response.Status)
             {
                 case 200:
+                case 201:
                     {
                         ServiceBusDisasterRecoveryData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
                         value = ServiceBusDisasterRecoveryData.DeserializeServiceBusDisasterRecoveryData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
-                case 201:
-                    return Response.FromValue((ServiceBusDisasterRecoveryData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
@@ -229,14 +228,13 @@ namespace Azure.ResourceManager.ServiceBus
             switch (message.Response.Status)
             {
                 case 200:
+                case 201:
                     {
                         ServiceBusDisasterRecoveryData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
                         value = ServiceBusDisasterRecoveryData.DeserializeServiceBusDisasterRecoveryData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
-                case 201:
-                    return Response.FromValue((ServiceBusDisasterRecoveryData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
