@@ -1777,11 +1777,7 @@ namespace Azure.Analytics.Purview.DataMap
             }
         }
 
-        /// <summary>
-        /// Create all atlas type definitions in bulk, only new definitions will be
-        /// created.
-        /// Any changes to the existing definitions will be discarded.
-        /// </summary>
+        /// <summary> Create all atlas type definitions in bulk. Please avoid recreating existing types. </summary>
         /// <param name="atlasTypesDef"> The definitions of types. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="atlasTypesDef"/> is null. </exception>
@@ -1796,11 +1792,7 @@ namespace Azure.Analytics.Purview.DataMap
             return Response.FromValue(AtlasTypesDef.FromResponse(response), response);
         }
 
-        /// <summary>
-        /// Create all atlas type definitions in bulk, only new definitions will be
-        /// created.
-        /// Any changes to the existing definitions will be discarded.
-        /// </summary>
+        /// <summary> Create all atlas type definitions in bulk. Please avoid recreating existing types. </summary>
         /// <param name="atlasTypesDef"> The definitions of types. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="atlasTypesDef"/> is null. </exception>
@@ -1816,9 +1808,7 @@ namespace Azure.Analytics.Purview.DataMap
         }
 
         /// <summary>
-        /// [Protocol Method] Create all atlas type definitions in bulk, only new definitions will be
-        /// created.
-        /// Any changes to the existing definitions will be discarded.
+        /// [Protocol Method] Create all atlas type definitions in bulk. Please avoid recreating existing types.
         /// <list type="bullet">
         /// <item>
         /// <description>
@@ -1857,9 +1847,7 @@ namespace Azure.Analytics.Purview.DataMap
         }
 
         /// <summary>
-        /// [Protocol Method] Create all atlas type definitions in bulk, only new definitions will be
-        /// created.
-        /// Any changes to the existing definitions will be discarded.
+        /// [Protocol Method] Create all atlas type definitions in bulk. Please avoid recreating existing types.
         /// <list type="bullet">
         /// <item>
         /// <description>
