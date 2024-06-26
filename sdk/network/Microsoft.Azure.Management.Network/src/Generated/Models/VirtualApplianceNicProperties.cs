@@ -31,14 +31,21 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Initializes a new instance of the VirtualApplianceNicProperties
         /// class.
         /// </summary>
+        /// <param name="nicType">NIC type - PublicNic, PrivateNic, or
+        /// AdditionalNic. Possible values include: 'PublicNic', 'PrivateNic',
+        /// 'AdditionalNic'</param>
         /// <param name="name">NIC name.</param>
         /// <param name="publicIpAddress">Public IP address.</param>
         /// <param name="privateIpAddress">Private IP address.</param>
-        public VirtualApplianceNicProperties(string name = default(string), string publicIpAddress = default(string), string privateIpAddress = default(string))
+        /// <param name="instanceName">Instance on which nic is
+        /// attached.</param>
+        public VirtualApplianceNicProperties(string nicType = default(string), string name = default(string), string publicIpAddress = default(string), string privateIpAddress = default(string), string instanceName = default(string))
         {
+            NicType = nicType;
             Name = name;
             PublicIpAddress = publicIpAddress;
             PrivateIpAddress = privateIpAddress;
+            InstanceName = instanceName;
             CustomInit();
         }
 
@@ -46,6 +53,13 @@ namespace Microsoft.Azure.Management.Network.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
+
+        /// <summary>
+        /// Gets NIC type - PublicNic, PrivateNic, or AdditionalNic. Possible
+        /// values include: 'PublicNic', 'PrivateNic', 'AdditionalNic'
+        /// </summary>
+        [JsonProperty(PropertyName = "nicType")]
+        public string NicType { get; private set; }
 
         /// <summary>
         /// Gets NIC name.
@@ -64,6 +78,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "privateIpAddress")]
         public string PrivateIpAddress { get; private set; }
+
+        /// <summary>
+        /// Gets instance on which nic is attached.
+        /// </summary>
+        [JsonProperty(PropertyName = "instanceName")]
+        public string InstanceName { get; private set; }
 
     }
 }

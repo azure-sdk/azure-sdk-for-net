@@ -34,13 +34,16 @@ namespace Microsoft.Azure.Management.Network.Models
         /// class.
         /// </summary>
         /// <param name="service">The type of the endpoint service.</param>
+        /// <param name="networkIdentifier">SubResource as network
+        /// identifier.</param>
         /// <param name="locations">A list of locations.</param>
         /// <param name="provisioningState">The provisioning state of the
         /// service endpoint resource. Possible values include: 'Succeeded',
         /// 'Updating', 'Deleting', 'Failed'</param>
-        public ServiceEndpointPropertiesFormat(string service = default(string), IList<string> locations = default(IList<string>), string provisioningState = default(string))
+        public ServiceEndpointPropertiesFormat(string service = default(string), SubResource networkIdentifier = default(SubResource), IList<string> locations = default(IList<string>), string provisioningState = default(string))
         {
             Service = service;
+            NetworkIdentifier = networkIdentifier;
             Locations = locations;
             ProvisioningState = provisioningState;
             CustomInit();
@@ -56,6 +59,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "service")]
         public string Service { get; set; }
+
+        /// <summary>
+        /// Gets or sets subResource as network identifier.
+        /// </summary>
+        [JsonProperty(PropertyName = "networkIdentifier")]
+        public SubResource NetworkIdentifier { get; set; }
 
         /// <summary>
         /// Gets or sets a list of locations.

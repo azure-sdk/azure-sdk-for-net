@@ -12,6 +12,8 @@ namespace Microsoft.Azure.Management.Network.Models
 {
     using Microsoft.Rest;
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
@@ -30,17 +32,26 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <summary>
         /// Initializes a new instance of the InboundSecurityRules class.
         /// </summary>
+        /// <param name="name">Name of the rule.</param>
         /// <param name="protocol">Protocol. This should be either TCP or UDP.
         /// Possible values include: 'TCP', 'UDP'</param>
-        /// <param name="sourceAddressPrefix">The CIDR or source IP range. Only
-        /// /30, /31 and /32 Ip ranges are allowed.</param>
+        /// <param name="sourceAddressPrefix">The CIDR or source IP
+        /// range.</param>
         /// <param name="destinationPortRange">NVA port ranges to be opened up.
         /// One needs to provide specific ports.</param>
-        public InboundSecurityRules(string protocol = default(string), string sourceAddressPrefix = default(string), int? destinationPortRange = default(int?))
+        /// <param name="destinationPortRanges">NVA port ranges to be opened
+        /// up. One can provide a range of ports. Allowed port value between 0
+        /// and 65535.</param>
+        /// <param name="appliesOn">Public IP name in case of Permanent Rule
+        /// type &amp; Interface Name in case of Auto Expire Rule type</param>
+        public InboundSecurityRules(string name = default(string), string protocol = default(string), string sourceAddressPrefix = default(string), int? destinationPortRange = default(int?), IList<string> destinationPortRanges = default(IList<string>), IList<string> appliesOn = default(IList<string>))
         {
+            Name = name;
             Protocol = protocol;
             SourceAddressPrefix = sourceAddressPrefix;
             DestinationPortRange = destinationPortRange;
+            DestinationPortRanges = destinationPortRanges;
+            AppliesOn = appliesOn;
             CustomInit();
         }
 
@@ -50,6 +61,12 @@ namespace Microsoft.Azure.Management.Network.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets name of the rule.
+        /// </summary>
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
+
+        /// <summary>
         /// Gets or sets protocol. This should be either TCP or UDP. Possible
         /// values include: 'TCP', 'UDP'
         /// </summary>
@@ -57,8 +74,7 @@ namespace Microsoft.Azure.Management.Network.Models
         public string Protocol { get; set; }
 
         /// <summary>
-        /// Gets or sets the CIDR or source IP range. Only /30, /31 and /32 Ip
-        /// ranges are allowed.
+        /// Gets or sets the CIDR or source IP range.
         /// </summary>
         [JsonProperty(PropertyName = "sourceAddressPrefix")]
         public string SourceAddressPrefix { get; set; }
@@ -69,6 +85,20 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "destinationPortRange")]
         public int? DestinationPortRange { get; set; }
+
+        /// <summary>
+        /// Gets or sets NVA port ranges to be opened up. One can provide a
+        /// range of ports. Allowed port value between 0 and 65535.
+        /// </summary>
+        [JsonProperty(PropertyName = "destinationPortRanges")]
+        public IList<string> DestinationPortRanges { get; set; }
+
+        /// <summary>
+        /// Gets or sets public IP name in case of Permanent Rule type
+        /// &amp;amp; Interface Name in case of Auto Expire Rule type
+        /// </summary>
+        [JsonProperty(PropertyName = "appliesOn")]
+        public IList<string> AppliesOn { get; set; }
 
         /// <summary>
         /// Validate the object.
