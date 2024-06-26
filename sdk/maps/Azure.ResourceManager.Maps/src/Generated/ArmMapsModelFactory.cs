@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.Maps.Models
         /// <param name="location"> The location. </param>
         /// <param name="sku"> The SKU of this account. </param>
         /// <param name="kind"> Get or Set Kind property. </param>
-        /// <param name="identity"> Sets the identity property for maps account. </param>
+        /// <param name="identity"> Managed service identity (system assigned and/or user assigned identities). </param>
         /// <param name="properties"> The map account properties. </param>
         /// <returns> A new <see cref="Maps.MapsAccountData"/> instance for mocking. </returns>
         public static MapsAccountData MapsAccountData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, MapsSku sku = null, MapsAccountKind? kind = null, ManagedServiceIdentity identity = null, MapsAccountProperties properties = null)
@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.Maps.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.MapsSku"/>. </summary>
-        /// <param name="name"> The name of the SKU, in standard format (such as S0). </param>
+        /// <param name="name"> The name of the SKU, in standard format (such as G2). </param>
         /// <param name="tier"> Gets the sku tier. This is based on the SKU name. </param>
         /// <returns> A new <see cref="Models.MapsSku"/> instance for mocking. </returns>
         public static MapsSku MapsSku(MapsSkuName name = default, string tier = null)
@@ -56,16 +56,22 @@ namespace Azure.ResourceManager.Maps.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.MapsAccountProperties"/>. </summary>
-        /// <param name="uniqueId"> A unique identifier for the maps account. </param>
-        /// <param name="disableLocalAuth"> Allows toggle functionality on Azure Policy to disable Azure Maps local authentication support. This will disable Shared Keys authentication from any usage. </param>
-        /// <param name="provisioningState"> The provisioning state of the Map account resource. </param>
-        /// <param name="linkedResources"> Sets the resources to be used for Managed Identities based operations for the Map account resource. </param>
+        /// <param name="uniqueId"> A unique identifier for the Maps Account. </param>
+        /// <param name="disableLocalAuth"> Allows toggle functionality on Azure Policy to disable Azure Maps local authentication support. This will disable Shared Keys and Shared Access Signature Token authentication from any usage. </param>
+        /// <param name="provisioningState"> The provisioning state of the Maps account resource, Account updates can only be performed on terminal states. Terminal states: `Succeeded` and `Failed`. </param>
+        /// <param name="linkedResources"> The array of associated resources to the Maps account. Linked resource in the array cannot individually update, you must update all linked resources in the array together. These resources may be used on operations on the Azure Maps REST API. Access is controlled by the Maps Account Managed Identity(s) permissions to those resource(s). </param>
         /// <param name="corsRulesValue"> Specifies CORS rules for the Blob service. You can include up to five CorsRule elements in the request. If no CorsRule elements are included in the request body, all CORS rules will be deleted, and CORS will be disabled for the Blob service. </param>
+        /// <param name="encryption"> All encryption configuration for a resource. </param>
+        /// <param name="privateEndpointConnections"> List of private endpoint connections associated with the Maps Account. </param>
+        /// <param name="publicNetworkAccess"> Property to specify whether the Maps Account will accept traffic from public internet. If set to 'disabled' all traffic except private endpoint traffic and that that originates from trusted services will be blocked. </param>
+        /// <param name="locations"> List of additional data processing regions for the Maps Account, which may result in requests being processed in another geography. Some features or results may be restricted to specific regions. By default, Maps REST APIs process requests according to the account location or the [geographic scope](https://learn.microsoft.com/en-us/azure/azure-maps/geographic-scope). </param>
         /// <returns> A new <see cref="Models.MapsAccountProperties"/> instance for mocking. </returns>
-        public static MapsAccountProperties MapsAccountProperties(Guid? uniqueId = null, bool? disableLocalAuth = null, string provisioningState = null, IEnumerable<MapsLinkedResource> linkedResources = null, IEnumerable<MapsCorsRule> corsRulesValue = null)
+        public static MapsAccountProperties MapsAccountProperties(Guid? uniqueId = null, bool? disableLocalAuth = null, string provisioningState = null, IEnumerable<MapsLinkedResource> linkedResources = null, IEnumerable<MapsCorsRule> corsRulesValue = null, Encryption encryption = null, IEnumerable<MapsPrivateEndpointConnectionData> privateEndpointConnections = null, PublicNetworkAccess? publicNetworkAccess = null, IEnumerable<LocationsItem> locations = null)
         {
             linkedResources ??= new List<MapsLinkedResource>();
             corsRulesValue ??= new List<MapsCorsRule>();
+            privateEndpointConnections ??= new List<MapsPrivateEndpointConnectionData>();
+            locations ??= new List<LocationsItem>();
 
             return new MapsAccountProperties(
                 uniqueId,
@@ -73,6 +79,36 @@ namespace Azure.ResourceManager.Maps.Models
                 provisioningState,
                 linkedResources?.ToList(),
                 corsRulesValue != null ? new CorsRules(corsRulesValue?.ToList(), serializedAdditionalRawData: null) : null,
+                encryption,
+                privateEndpointConnections?.ToList(),
+                publicNetworkAccess,
+                locations?.ToList(),
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Maps.MapsPrivateEndpointConnectionData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="groupIds"> The group ids for the private endpoint resource. </param>
+        /// <param name="privateEndpointId"> The private endpoint resource. </param>
+        /// <param name="connectionState"> A collection of information about the state of the connection between service consumer and provider. </param>
+        /// <param name="provisioningState"> The provisioning state of the private endpoint connection resource. </param>
+        /// <returns> A new <see cref="Maps.MapsPrivateEndpointConnectionData"/> instance for mocking. </returns>
+        public static MapsPrivateEndpointConnectionData MapsPrivateEndpointConnectionData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IEnumerable<string> groupIds = null, ResourceIdentifier privateEndpointId = null, MapsPrivateLinkServiceConnectionState connectionState = null, MapsPrivateEndpointConnectionProvisioningState? provisioningState = null)
+        {
+            groupIds ??= new List<string>();
+
+            return new MapsPrivateEndpointConnectionData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                groupIds?.ToList(),
+                privateEndpointId != null ? ResourceManagerModelFactory.SubResource(privateEndpointId) : null,
+                connectionState,
+                provisioningState,
                 serializedAdditionalRawData: null);
         }
 
@@ -80,18 +116,24 @@ namespace Azure.ResourceManager.Maps.Models
         /// <param name="tags"> Gets or sets a list of key value pairs that describe the resource. These tags can be used in viewing and grouping this resource (across resource groups). A maximum of 15 tags can be provided for a resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. </param>
         /// <param name="kind"> Get or Set Kind property. </param>
         /// <param name="sku"> The SKU of this account. </param>
-        /// <param name="identity"> Sets the identity property for maps account. </param>
-        /// <param name="uniqueId"> A unique identifier for the maps account. </param>
-        /// <param name="disableLocalAuth"> Allows toggle functionality on Azure Policy to disable Azure Maps local authentication support. This will disable Shared Keys authentication from any usage. </param>
-        /// <param name="provisioningState"> The provisioning state of the Map account resource. </param>
-        /// <param name="linkedResources"> Sets the resources to be used for Managed Identities based operations for the Map account resource. </param>
+        /// <param name="identity"> Managed service identity (system assigned and/or user assigned identities). </param>
+        /// <param name="uniqueId"> A unique identifier for the Maps Account. </param>
+        /// <param name="disableLocalAuth"> Allows toggle functionality on Azure Policy to disable Azure Maps local authentication support. This will disable Shared Keys and Shared Access Signature Token authentication from any usage. </param>
+        /// <param name="provisioningState"> The provisioning state of the Maps account resource, Account updates can only be performed on terminal states. Terminal states: `Succeeded` and `Failed`. </param>
+        /// <param name="linkedResources"> The array of associated resources to the Maps account. Linked resource in the array cannot individually update, you must update all linked resources in the array together. These resources may be used on operations on the Azure Maps REST API. Access is controlled by the Maps Account Managed Identity(s) permissions to those resource(s). </param>
         /// <param name="corsRulesValue"> Specifies CORS rules for the Blob service. You can include up to five CorsRule elements in the request. If no CorsRule elements are included in the request body, all CORS rules will be deleted, and CORS will be disabled for the Blob service. </param>
+        /// <param name="encryption"> All encryption configuration for a resource. </param>
+        /// <param name="privateEndpointConnections"> List of private endpoint connections associated with the Maps Account. </param>
+        /// <param name="publicNetworkAccess"> Property to specify whether the Maps Account will accept traffic from public internet. If set to 'disabled' all traffic except private endpoint traffic and that that originates from trusted services will be blocked. </param>
+        /// <param name="locations"> List of additional data processing regions for the Maps Account, which may result in requests being processed in another geography. Some features or results may be restricted to specific regions. By default, Maps REST APIs process requests according to the account location or the [geographic scope](https://learn.microsoft.com/en-us/azure/azure-maps/geographic-scope). </param>
         /// <returns> A new <see cref="Models.MapsAccountPatch"/> instance for mocking. </returns>
-        public static MapsAccountPatch MapsAccountPatch(IDictionary<string, string> tags = null, MapsAccountKind? kind = null, MapsSku sku = null, ManagedServiceIdentity identity = null, Guid? uniqueId = null, bool? disableLocalAuth = null, string provisioningState = null, IEnumerable<MapsLinkedResource> linkedResources = null, IEnumerable<MapsCorsRule> corsRulesValue = null)
+        public static MapsAccountPatch MapsAccountPatch(IDictionary<string, string> tags = null, MapsAccountKind? kind = null, MapsSku sku = null, ManagedServiceIdentity identity = null, Guid? uniqueId = null, bool? disableLocalAuth = null, string provisioningState = null, IEnumerable<MapsLinkedResource> linkedResources = null, IEnumerable<MapsCorsRule> corsRulesValue = null, Encryption encryption = null, IEnumerable<MapsPrivateEndpointConnectionData> privateEndpointConnections = null, PublicNetworkAccess? publicNetworkAccess = null, IEnumerable<LocationsItem> locations = null)
         {
             tags ??= new Dictionary<string, string>();
             linkedResources ??= new List<MapsLinkedResource>();
             corsRulesValue ??= new List<MapsCorsRule>();
+            privateEndpointConnections ??= new List<MapsPrivateEndpointConnectionData>();
+            locations ??= new List<LocationsItem>();
 
             return new MapsAccountPatch(
                 tags,
@@ -103,16 +145,20 @@ namespace Azure.ResourceManager.Maps.Models
                 provisioningState,
                 linkedResources?.ToList(),
                 corsRulesValue != null ? new CorsRules(corsRulesValue?.ToList(), serializedAdditionalRawData: null) : null,
+                encryption,
+                privateEndpointConnections?.ToList(),
+                publicNetworkAccess,
+                locations?.ToList(),
                 serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.MapsAccountSasContent"/>. </summary>
-        /// <param name="signingKey"> The Map account key to use for signing. </param>
-        /// <param name="principalId"> The principal Id also known as the object Id of a User Assigned Managed Identity currently assigned to the Map Account. To assign a Managed Identity of the account, use operation Create or Update an assign a User Assigned Identity resource Id. </param>
+        /// <param name="signingKey"> The Maps account key to use for signing. Picking `primaryKey` or `secondaryKey` will use the Maps account Shared Keys, and using `managedIdentity` will use the auto-renewed private key to sign the SAS. </param>
+        /// <param name="principalId"> The principal Id also known as the object Id of a User Assigned Managed Identity currently assigned to the Maps Account. To assign a Managed Identity of the account, use operation Create or Update an assign a User Assigned Identity resource Id. </param>
         /// <param name="regions"> Optional, allows control of which region locations are permitted access to Azure Maps REST APIs with the SAS token. Example: "eastus", "westus2". Omitting this parameter will allow all region locations to be accessible. </param>
         /// <param name="maxRatePerSecond"> Required parameter which represents the desired maximum request per second to allowed for the given SAS token. This does not guarantee perfect accuracy in measurements but provides application safe guards of abuse with eventual enforcement. </param>
-        /// <param name="start"> The date time offset of when the token validity begins. For example "2017-05-24T10:42:03.1567373Z". </param>
-        /// <param name="expiry"> The date time offset of when the token validity expires. For example "2017-05-24T10:42:03.1567373Z". </param>
+        /// <param name="start"> The date time offset of when the token validity begins. For example "2017-05-24T10:42:03.1567373Z". Maximum duration allowed is 24 hours between `start` and `expiry`. </param>
+        /// <param name="expiry"> The date time offset of when the token validity expires. For example "2017-05-24T10:42:03.1567373Z". Maximum duration allowed is 24 hours between `start` and `expiry`. </param>
         /// <returns> A new <see cref="Models.MapsAccountSasContent"/> instance for mocking. </returns>
         public static MapsAccountSasContent MapsAccountSasContent(MapsSigningKey signingKey = default, string principalId = null, IEnumerable<string> regions = null, int maxRatePerSecond = default, string start = null, string expiry = null)
         {
@@ -174,22 +220,57 @@ namespace Azure.ResourceManager.Maps.Models
         /// <summary> Initializes a new instance of <see cref="Models.MapsCreatorProperties"/>. </summary>
         /// <param name="provisioningState"> The state of the resource provisioning, terminal states: Succeeded, Failed, Canceled. </param>
         /// <param name="storageUnits"> The storage units to be allocated. Integer values from 1 to 100, inclusive. </param>
+        /// <param name="totalStorageUnitSizeInBytes"> The total allocated storage unit size in bytes for the creator resource. </param>
+        /// <param name="consumedStorageUnitSizeInBytes"> The consumed storage unit size in bytes for the creator resource. </param>
         /// <returns> A new <see cref="Models.MapsCreatorProperties"/> instance for mocking. </returns>
-        public static MapsCreatorProperties MapsCreatorProperties(string provisioningState = null, int storageUnits = default)
+        public static MapsCreatorProperties MapsCreatorProperties(string provisioningState = null, int storageUnits = default, int? totalStorageUnitSizeInBytes = null, int? consumedStorageUnitSizeInBytes = null)
         {
-            return new MapsCreatorProperties(provisioningState, storageUnits, serializedAdditionalRawData: null);
+            return new MapsCreatorProperties(provisioningState, storageUnits, totalStorageUnitSizeInBytes, consumedStorageUnitSizeInBytes, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.MapsCreatorPatch"/>. </summary>
         /// <param name="tags"> Gets or sets a list of key value pairs that describe the resource. These tags can be used in viewing and grouping this resource (across resource groups). A maximum of 15 tags can be provided for a resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. </param>
         /// <param name="provisioningState"> The state of the resource provisioning, terminal states: Succeeded, Failed, Canceled. </param>
         /// <param name="storageUnits"> The storage units to be allocated. Integer values from 1 to 100, inclusive. </param>
+        /// <param name="totalStorageUnitSizeInBytes"> The total allocated storage unit size in bytes for the creator resource. </param>
+        /// <param name="consumedStorageUnitSizeInBytes"> The consumed storage unit size in bytes for the creator resource. </param>
         /// <returns> A new <see cref="Models.MapsCreatorPatch"/> instance for mocking. </returns>
-        public static MapsCreatorPatch MapsCreatorPatch(IDictionary<string, string> tags = null, string provisioningState = null, int? storageUnits = null)
+        public static MapsCreatorPatch MapsCreatorPatch(IDictionary<string, string> tags = null, string provisioningState = null, int? storageUnits = null, int? totalStorageUnitSizeInBytes = null, int? consumedStorageUnitSizeInBytes = null)
         {
             tags ??= new Dictionary<string, string>();
 
-            return new MapsCreatorPatch(tags, provisioningState, storageUnits, serializedAdditionalRawData: null);
+            return new MapsCreatorPatch(
+                tags,
+                provisioningState,
+                storageUnits,
+                totalStorageUnitSizeInBytes,
+                consumedStorageUnitSizeInBytes,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Maps.MapsPrivateLinkResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="groupId"> The private link resource group id. </param>
+        /// <param name="requiredMembers"> The private link resource required member names. </param>
+        /// <param name="requiredZoneNames"> The private link resource private link DNS zone name. </param>
+        /// <returns> A new <see cref="Maps.MapsPrivateLinkResourceData"/> instance for mocking. </returns>
+        public static MapsPrivateLinkResourceData MapsPrivateLinkResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string groupId = null, IEnumerable<string> requiredMembers = null, IEnumerable<string> requiredZoneNames = null)
+        {
+            requiredMembers ??= new List<string>();
+            requiredZoneNames ??= new List<string>();
+
+            return new MapsPrivateLinkResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                groupId,
+                requiredMembers?.ToList(),
+                requiredZoneNames?.ToList(),
+                serializedAdditionalRawData: null);
         }
     }
 }
