@@ -7,7 +7,7 @@ azure-arm: true
 csharp: true
 library-name: HDInsightContainers
 namespace: Azure.ResourceManager.HDInsight.Containers
-require: https://github.com/Azure/azure-rest-api-specs/blob/a434a5a7ee851abc96218443e66a5ebb57911fee/specification/hdinsight/resource-manager/Microsoft.HDInsight/HDInsightOnAks/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/080a39145101b59ccf8a8e82973678569bc0808b/specification/hdinsight/resource-manager/Microsoft.HDInsight/HDInsightOnAks/readme.md
 # tag: package-preview-2023-11
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
