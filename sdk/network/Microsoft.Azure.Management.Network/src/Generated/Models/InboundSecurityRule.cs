@@ -35,6 +35,10 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Initializes a new instance of the InboundSecurityRule class.
         /// </summary>
         /// <param name="id">Resource ID.</param>
+        /// <param name="ruleType">Rule Type. This should be either AutoExpire
+        /// or Permanent. Auto Expire Rule only creates NSG rules. Permanent
+        /// Rule creates NSG rule and SLB LB Rule. Possible values include:
+        /// 'AutoExpire', 'Permanent'</param>
         /// <param name="rules">List of allowed rules.</param>
         /// <param name="provisioningState">The provisioning state of the
         /// resource. Possible values include: 'Succeeded', 'Updating',
@@ -43,9 +47,10 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
         /// <param name="type">NVA inbound security rule type.</param>
-        public InboundSecurityRule(string id = default(string), IList<InboundSecurityRules> rules = default(IList<InboundSecurityRules>), string provisioningState = default(string), string name = default(string), string etag = default(string), string type = default(string))
+        public InboundSecurityRule(string id = default(string), string ruleType = default(string), IList<InboundSecurityRules> rules = default(IList<InboundSecurityRules>), string provisioningState = default(string), string name = default(string), string etag = default(string), string type = default(string))
             : base(id)
         {
+            RuleType = ruleType;
             Rules = rules;
             ProvisioningState = provisioningState;
             Name = name;
@@ -58,6 +63,15 @@ namespace Microsoft.Azure.Management.Network.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
+
+        /// <summary>
+        /// Gets or sets rule Type. This should be either AutoExpire or
+        /// Permanent. Auto Expire Rule only creates NSG rules. Permanent Rule
+        /// creates NSG rule and SLB LB Rule. Possible values include:
+        /// 'AutoExpire', 'Permanent'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.ruleType")]
+        public string RuleType { get; set; }
 
         /// <summary>
         /// Gets or sets list of allowed rules.
