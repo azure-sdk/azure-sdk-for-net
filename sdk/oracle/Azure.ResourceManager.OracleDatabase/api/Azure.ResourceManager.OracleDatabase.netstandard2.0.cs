@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.OracleDatabase
     public partial class AutonomousDatabaseCharacterSetData : Azure.ResourceManager.Models.ResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.AutonomousDatabaseCharacterSetData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OracleDatabase.AutonomousDatabaseCharacterSetData>
     {
         public AutonomousDatabaseCharacterSetData() { }
-        public string AutonomousDatabaseCharacterSet { get { throw null; } set { } }
+        public string AutonomousDatabaseCharacterSet { get { throw null; } }
         Azure.ResourceManager.OracleDatabase.AutonomousDatabaseCharacterSetData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.AutonomousDatabaseCharacterSetData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.AutonomousDatabaseCharacterSetData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.OracleDatabase.AutonomousDatabaseCharacterSetData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OracleDatabase.AutonomousDatabaseCharacterSetData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -131,7 +131,7 @@ namespace Azure.ResourceManager.OracleDatabase
     public partial class AutonomousDatabaseNationalCharacterSetData : Azure.ResourceManager.Models.ResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.AutonomousDatabaseNationalCharacterSetData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OracleDatabase.AutonomousDatabaseNationalCharacterSetData>
     {
         public AutonomousDatabaseNationalCharacterSetData() { }
-        public string AutonomousDatabaseNationalCharacterSet { get { throw null; } set { } }
+        public string AutonomousDatabaseNationalCharacterSet { get { throw null; } }
         Azure.ResourceManager.OracleDatabase.AutonomousDatabaseNationalCharacterSetData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.AutonomousDatabaseNationalCharacterSetData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.AutonomousDatabaseNationalCharacterSetData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.OracleDatabase.AutonomousDatabaseNationalCharacterSetData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OracleDatabase.AutonomousDatabaseNationalCharacterSetData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -678,7 +678,7 @@ namespace Azure.ResourceManager.OracleDatabase
     public partial class OracleGIVersionData : Azure.ResourceManager.Models.ResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.OracleGIVersionData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OracleDatabase.OracleGIVersionData>
     {
         public OracleGIVersionData() { }
-        public string OracleGIVersion { get { throw null; } set { } }
+        public string OracleGIVersion { get { throw null; } }
         Azure.ResourceManager.OracleDatabase.OracleGIVersionData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.OracleGIVersionData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.OracleGIVersionData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.OracleDatabase.OracleGIVersionData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OracleDatabase.OracleGIVersionData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -756,7 +756,7 @@ namespace Azure.ResourceManager.OracleDatabase
     public partial class OracleSystemVersionData : Azure.ResourceManager.Models.ResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.OracleSystemVersionData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OracleDatabase.OracleSystemVersionData>
     {
         public OracleSystemVersionData() { }
-        public string OracleSystemVersion { get { throw null; } set { } }
+        public string OracleSystemVersion { get { throw null; } }
         Azure.ResourceManager.OracleDatabase.OracleSystemVersionData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.OracleSystemVersionData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.OracleSystemVersionData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.OracleDatabase.OracleSystemVersionData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OracleDatabase.OracleSystemVersionData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -889,11 +889,11 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         public static Azure.ResourceManager.OracleDatabase.OracleDBServerData OracleDBServerData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.OracleDatabase.Models.OracleDBServerProperties properties = null) { throw null; }
         public static Azure.ResourceManager.OracleDatabase.Models.OracleDBServerProperties OracleDBServerProperties(Azure.Core.ResourceIdentifier ocid = null, string displayName = null, Azure.Core.ResourceIdentifier compartmentId = null, Azure.Core.ResourceIdentifier exadataInfrastructureId = null, int? cpuCoreCount = default(int?), Azure.ResourceManager.OracleDatabase.Models.DBServerPatchingDetails dbServerPatchingDetails = null, int? maxMemoryInGbs = default(int?), int? dbNodeStorageSizeInGbs = default(int?), System.Collections.Generic.IEnumerable<Azure.Core.ResourceIdentifier> vmClusterIds = null, System.Collections.Generic.IEnumerable<Azure.Core.ResourceIdentifier> dbNodeIds = null, string lifecycleDetails = null, Azure.ResourceManager.OracleDatabase.Models.DBServerProvisioningState? lifecycleState = default(Azure.ResourceManager.OracleDatabase.Models.DBServerProvisioningState?), int? maxCpuCount = default(int?), System.Collections.Generic.IEnumerable<Azure.Core.ResourceIdentifier> autonomousVmClusterIds = null, System.Collections.Generic.IEnumerable<Azure.Core.ResourceIdentifier> autonomousVirtualMachineIds = null, int? maxDBNodeStorageInGbs = default(int?), int? memorySizeInGbs = default(int?), string shape = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), Azure.ResourceManager.OracleDatabase.Models.OracleDatabaseResourceProvisioningState? provisioningState = default(Azure.ResourceManager.OracleDatabase.Models.OracleDatabaseResourceProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.OracleDatabase.OracleDBSystemShapeData OracleDBSystemShapeData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.OracleDatabase.Models.OracleDBSystemShapeProperties properties = null) { throw null; }
-        public static Azure.ResourceManager.OracleDatabase.Models.OracleDBSystemShapeProperties OracleDBSystemShapeProperties(string shapeFamily = null, int availableCoreCount = 0, int? minimumCoreCount = default(int?), int? runtimeMinimumCoreCount = default(int?), int? coreCountIncrement = default(int?), int? minStorageCount = default(int?), int? maxStorageCount = default(int?), double? availableDataStoragePerServerInTbs = default(double?), int? availableMemoryPerNodeInGbs = default(int?), int? availableDBNodePerNodeInGbs = default(int?), int? minCoreCountPerNode = default(int?), int? availableMemoryInGbs = default(int?), int? minMemoryPerNodeInGbs = default(int?), int? availableDBNodeStorageInGbs = default(int?), int? minDBNodeStoragePerNodeInGbs = default(int?), int? availableDataStorageInTbs = default(int?), int? minDataStorageInTbs = default(int?), int? minimumNodeCount = default(int?), int? maximumNodeCount = default(int?), int? availableCoreCountPerNode = default(int?)) { throw null; }
+        public static Azure.ResourceManager.OracleDatabase.Models.OracleDBSystemShapeProperties OracleDBSystemShapeProperties(string shapeFamily = null, int? availableCoreCount = default(int?), int? minimumCoreCount = default(int?), int? runtimeMinimumCoreCount = default(int?), int? coreCountIncrement = default(int?), int? minStorageCount = default(int?), int? maxStorageCount = default(int?), double? availableDataStoragePerServerInTbs = default(double?), int? availableMemoryPerNodeInGbs = default(int?), int? availableDBNodePerNodeInGbs = default(int?), int? minCoreCountPerNode = default(int?), int? availableMemoryInGbs = default(int?), int? minMemoryPerNodeInGbs = default(int?), int? availableDBNodeStorageInGbs = default(int?), int? minDBNodeStoragePerNodeInGbs = default(int?), int? availableDataStorageInTbs = default(int?), int? minDataStorageInTbs = default(int?), int? minimumNodeCount = default(int?), int? maximumNodeCount = default(int?), int? availableCoreCountPerNode = default(int?)) { throw null; }
         public static Azure.ResourceManager.OracleDatabase.OracleDnsPrivateViewData OracleDnsPrivateViewData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateViewProperties properties = null) { throw null; }
-        public static Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateViewProperties OracleDnsPrivateViewProperties(Azure.Core.ResourceIdentifier ocid = null, string displayName = null, bool isProtected = false, Azure.ResourceManager.OracleDatabase.Models.DnsPrivateViewsLifecycleState? lifecycleState = default(Azure.ResourceManager.OracleDatabase.Models.DnsPrivateViewsLifecycleState?), string self = null, System.DateTimeOffset createdOn = default(System.DateTimeOffset), System.DateTimeOffset updatedOn = default(System.DateTimeOffset), Azure.ResourceManager.OracleDatabase.Models.OracleDatabaseResourceProvisioningState? provisioningState = default(Azure.ResourceManager.OracleDatabase.Models.OracleDatabaseResourceProvisioningState?)) { throw null; }
+        public static Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateViewProperties OracleDnsPrivateViewProperties(Azure.Core.ResourceIdentifier ocid = null, string displayName = null, bool? isProtected = default(bool?), Azure.ResourceManager.OracleDatabase.Models.DnsPrivateViewsLifecycleState? lifecycleState = default(Azure.ResourceManager.OracleDatabase.Models.DnsPrivateViewsLifecycleState?), string self = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? updatedOn = default(System.DateTimeOffset?), Azure.ResourceManager.OracleDatabase.Models.OracleDatabaseResourceProvisioningState? provisioningState = default(Azure.ResourceManager.OracleDatabase.Models.OracleDatabaseResourceProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.OracleDatabase.OracleDnsPrivateZoneData OracleDnsPrivateZoneData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneProperties properties = null) { throw null; }
-        public static Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneProperties OracleDnsPrivateZoneProperties(Azure.Core.ResourceIdentifier ocid = null, bool isProtected = false, Azure.ResourceManager.OracleDatabase.Models.DnsPrivateZonesLifecycleState? lifecycleState = default(Azure.ResourceManager.OracleDatabase.Models.DnsPrivateZonesLifecycleState?), string self = null, int serial = 0, string version = null, Azure.Core.ResourceIdentifier viewId = null, Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneType zoneType = default(Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneType), System.DateTimeOffset createdOn = default(System.DateTimeOffset), Azure.ResourceManager.OracleDatabase.Models.OracleDatabaseResourceProvisioningState? provisioningState = default(Azure.ResourceManager.OracleDatabase.Models.OracleDatabaseResourceProvisioningState?)) { throw null; }
+        public static Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneProperties OracleDnsPrivateZoneProperties(Azure.Core.ResourceIdentifier ocid = null, bool? isProtected = default(bool?), Azure.ResourceManager.OracleDatabase.Models.DnsPrivateZonesLifecycleState? lifecycleState = default(Azure.ResourceManager.OracleDatabase.Models.DnsPrivateZonesLifecycleState?), string self = null, int? serial = default(int?), string version = null, Azure.Core.ResourceIdentifier viewId = null, Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneType? zoneType = default(Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneType?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), Azure.ResourceManager.OracleDatabase.Models.OracleDatabaseResourceProvisioningState? provisioningState = default(Azure.ResourceManager.OracleDatabase.Models.OracleDatabaseResourceProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.OracleDatabase.OracleGIVersionData OracleGIVersionData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string oracleGIVersion = null) { throw null; }
         public static Azure.ResourceManager.OracleDatabase.OracleSubscriptionData OracleSubscriptionData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.OracleDatabase.Models.OracleSubscriptionProperties properties = null, Azure.ResourceManager.Models.ArmPlan plan = null) { throw null; }
         public static Azure.ResourceManager.OracleDatabase.Models.OracleSubscriptionProperties OracleSubscriptionProperties(Azure.ResourceManager.OracleDatabase.Models.OracleSubscriptionProvisioningState? provisioningState = default(Azure.ResourceManager.OracleDatabase.Models.OracleSubscriptionProvisioningState?), string saasSubscriptionId = null, Azure.Core.ResourceIdentifier cloudAccountId = null, Azure.ResourceManager.OracleDatabase.Models.CloudAccountProvisioningState? cloudAccountState = default(Azure.ResourceManager.OracleDatabase.Models.CloudAccountProvisioningState?), string termUnit = null, string productCode = null, Azure.ResourceManager.OracleDatabase.Models.OracleSubscriptionUpdateIntent? intent = default(Azure.ResourceManager.OracleDatabase.Models.OracleSubscriptionUpdateIntent?)) { throw null; }
@@ -1377,7 +1377,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
     }
     public partial class AutonomousDBVersionProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.Models.AutonomousDBVersionProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OracleDatabase.Models.AutonomousDBVersionProperties>
     {
-        public AutonomousDBVersionProperties(string version) { }
+        public AutonomousDBVersionProperties() { }
         public Azure.ResourceManager.OracleDatabase.Models.AutonomousDatabaseWorkloadType? DBWorkload { get { throw null; } }
         public bool? IsDefaultForFree { get { throw null; } }
         public bool? IsDefaultForPaid { get { throw null; } }
@@ -1550,7 +1550,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
     }
     public partial class CloudVmClusterDBNodeProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.Models.CloudVmClusterDBNodeProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OracleDatabase.Models.CloudVmClusterDBNodeProperties>
     {
-        public CloudVmClusterDBNodeProperties(Azure.Core.ResourceIdentifier ocid, Azure.Core.ResourceIdentifier dbSystemId) { }
+        public CloudVmClusterDBNodeProperties() { }
         public string AdditionalDetails { get { throw null; } }
         public Azure.Core.ResourceIdentifier BackupIPId { get { throw null; } }
         public Azure.Core.ResourceIdentifier BackupVnic2Id { get { throw null; } }
@@ -2443,8 +2443,8 @@ namespace Azure.ResourceManager.OracleDatabase.Models
     }
     public partial class OracleDBSystemShapeProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.Models.OracleDBSystemShapeProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OracleDatabase.Models.OracleDBSystemShapeProperties>
     {
-        public OracleDBSystemShapeProperties(int availableCoreCount) { }
-        public int AvailableCoreCount { get { throw null; } }
+        public OracleDBSystemShapeProperties() { }
+        public int? AvailableCoreCount { get { throw null; } }
         public int? AvailableCoreCountPerNode { get { throw null; } }
         public int? AvailableDataStorageInTbs { get { throw null; } }
         public double? AvailableDataStoragePerServerInTbs { get { throw null; } }
@@ -2472,15 +2472,15 @@ namespace Azure.ResourceManager.OracleDatabase.Models
     }
     public partial class OracleDnsPrivateViewProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateViewProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateViewProperties>
     {
-        public OracleDnsPrivateViewProperties(Azure.Core.ResourceIdentifier ocid, bool isProtected, string self, System.DateTimeOffset createdOn, System.DateTimeOffset updatedOn) { }
-        public System.DateTimeOffset CreatedOn { get { throw null; } }
+        public OracleDnsPrivateViewProperties() { }
+        public System.DateTimeOffset? CreatedOn { get { throw null; } }
         public string DisplayName { get { throw null; } }
-        public bool IsProtected { get { throw null; } }
+        public bool? IsProtected { get { throw null; } }
         public Azure.ResourceManager.OracleDatabase.Models.DnsPrivateViewsLifecycleState? LifecycleState { get { throw null; } }
         public Azure.Core.ResourceIdentifier Ocid { get { throw null; } }
         public Azure.ResourceManager.OracleDatabase.Models.OracleDatabaseResourceProvisioningState? ProvisioningState { get { throw null; } }
         public string Self { get { throw null; } }
-        public System.DateTimeOffset UpdatedOn { get { throw null; } }
+        public System.DateTimeOffset? UpdatedOn { get { throw null; } }
         Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateViewProperties System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateViewProperties>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateViewProperties>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateViewProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateViewProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -2489,17 +2489,17 @@ namespace Azure.ResourceManager.OracleDatabase.Models
     }
     public partial class OracleDnsPrivateZoneProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneProperties>
     {
-        public OracleDnsPrivateZoneProperties(Azure.Core.ResourceIdentifier ocid, bool isProtected, string self, int serial, string version, Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneType zoneType, System.DateTimeOffset createdOn) { }
-        public System.DateTimeOffset CreatedOn { get { throw null; } }
-        public bool IsProtected { get { throw null; } }
+        public OracleDnsPrivateZoneProperties() { }
+        public System.DateTimeOffset? CreatedOn { get { throw null; } }
+        public bool? IsProtected { get { throw null; } }
         public Azure.ResourceManager.OracleDatabase.Models.DnsPrivateZonesLifecycleState? LifecycleState { get { throw null; } }
         public Azure.Core.ResourceIdentifier Ocid { get { throw null; } }
         public Azure.ResourceManager.OracleDatabase.Models.OracleDatabaseResourceProvisioningState? ProvisioningState { get { throw null; } }
         public string Self { get { throw null; } }
-        public int Serial { get { throw null; } }
+        public int? Serial { get { throw null; } }
         public string Version { get { throw null; } }
         public Azure.Core.ResourceIdentifier ViewId { get { throw null; } }
-        public Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneType ZoneType { get { throw null; } }
+        public Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneType? ZoneType { get { throw null; } }
         Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneProperties System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneProperties>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneProperties>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OracleDatabase.Models.OracleDnsPrivateZoneProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }

@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
             }
 
             writer.WriteStartObject();
-            if (options.Format != "W")
+            if (options.Format != "W" && Optional.IsDefined(Ocid))
             {
                 writer.WritePropertyName("ocid"u8);
                 writer.WriteStringValue(Ocid);
@@ -66,7 +66,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 writer.WritePropertyName("dbServerId"u8);
                 writer.WriteStringValue(DBServerId);
             }
-            if (options.Format != "W")
+            if (options.Format != "W" && Optional.IsDefined(DBSystemId))
             {
                 writer.WritePropertyName("dbSystemId"u8);
                 writer.WriteStringValue(DBSystemId);
@@ -208,6 +208,10 @@ namespace Azure.ResourceManager.OracleDatabase.Models
             {
                 if (property.NameEquals("ocid"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     ocid = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }
@@ -272,6 +276,10 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 }
                 if (property.NameEquals("dbSystemId"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     dbSystemId = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }

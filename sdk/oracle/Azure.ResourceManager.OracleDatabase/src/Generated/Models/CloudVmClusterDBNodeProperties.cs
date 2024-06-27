@@ -47,12 +47,8 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="CloudVmClusterDBNodeProperties"/>. </summary>
-        /// <param name="ocid"> DbNode OCID. </param>
-        /// <param name="dbSystemId"> The OCID of the DB system. </param>
-        public CloudVmClusterDBNodeProperties(ResourceIdentifier ocid, ResourceIdentifier dbSystemId)
+        public CloudVmClusterDBNodeProperties()
         {
-            Ocid = ocid;
-            DBSystemId = dbSystemId;
         }
 
         /// <summary> Initializes a new instance of <see cref="CloudVmClusterDBNodeProperties"/>. </summary>
@@ -106,11 +102,6 @@ namespace Azure.ResourceManager.OracleDatabase.Models
             VnicId = vnicId;
             ProvisioningState = provisioningState;
             _serializedAdditionalRawData = serializedAdditionalRawData;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="CloudVmClusterDBNodeProperties"/> for deserialization. </summary>
-        internal CloudVmClusterDBNodeProperties()
-        {
         }
 
         /// <summary> DbNode OCID. </summary>
