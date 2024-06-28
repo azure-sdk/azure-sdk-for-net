@@ -26,7 +26,7 @@ namespace Azure.AI.ContentSafety.Samples
 
             using RequestContent content = RequestContent.Create(new
             {
-                text = "<text>",
+                text2 = "<text2>",
             });
             Response response = client.AnalyzeText(content);
 
@@ -44,7 +44,7 @@ namespace Azure.AI.ContentSafety.Samples
 
             using RequestContent content = RequestContent.Create(new
             {
-                text = "<text>",
+                text2 = "<text2>",
             });
             Response response = await client.AnalyzeTextAsync(content);
 
@@ -60,7 +60,7 @@ namespace Azure.AI.ContentSafety.Samples
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            AnalyzeTextOptions options = new AnalyzeTextOptions("<text>");
+            AnalyzeTextOptions options = new AnalyzeTextOptions("<text2>");
             Response<AnalyzeTextResult> response = client.AnalyzeText(options);
         }
 
@@ -72,7 +72,7 @@ namespace Azure.AI.ContentSafety.Samples
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            AnalyzeTextOptions options = new AnalyzeTextOptions("<text>");
+            AnalyzeTextOptions options = new AnalyzeTextOptions("<text2>");
             Response<AnalyzeTextResult> response = await client.AnalyzeTextAsync(options);
         }
 
@@ -86,7 +86,7 @@ namespace Azure.AI.ContentSafety.Samples
 
             using RequestContent content = RequestContent.Create(new
             {
-                text = "<text>",
+                text2 = "<text2>",
                 categories = new object[]
             {
 "Hate"
@@ -118,7 +118,7 @@ namespace Azure.AI.ContentSafety.Samples
 
             using RequestContent content = RequestContent.Create(new
             {
-                text = "<text>",
+                text2 = "<text2>",
                 categories = new object[]
             {
 "Hate"
@@ -148,7 +148,7 @@ namespace Azure.AI.ContentSafety.Samples
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            AnalyzeTextOptions options = new AnalyzeTextOptions("<text>")
+            AnalyzeTextOptions options = new AnalyzeTextOptions("<text2>")
             {
                 Categories = { TextCategory.Hate },
                 BlocklistNames = { "<blocklistNames>" },
@@ -166,7 +166,7 @@ namespace Azure.AI.ContentSafety.Samples
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            AnalyzeTextOptions options = new AnalyzeTextOptions("<text>")
+            AnalyzeTextOptions options = new AnalyzeTextOptions("<text2>")
             {
                 Categories = { TextCategory.Hate },
                 BlocklistNames = { "<blocklistNames>" },
@@ -322,6 +322,246 @@ namespace Azure.AI.ContentSafety.Samples
                 OutputType = AnalyzeImageOutputType.FourSeverityLevels,
             };
             Response<AnalyzeImageResult> response = await client.AnalyzeImageAsync(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_DetectTextJailbreak_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                text = "<text>",
+            });
+            Response response = client.DetectTextJailbreak(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("jailbreakAnalysis").GetProperty("detected").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_DetectTextJailbreak_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                text = "<text>",
+            });
+            Response response = await client.DetectTextJailbreakAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("jailbreakAnalysis").GetProperty("detected").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_DetectTextJailbreak_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            AnalyzeTextJailbreakOptions options = new AnalyzeTextJailbreakOptions("<text>");
+            Response<AnalyzeTextJailbreakResult> response = client.DetectTextJailbreak(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_DetectTextJailbreak_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            AnalyzeTextJailbreakOptions options = new AnalyzeTextJailbreakOptions("<text>");
+            Response<AnalyzeTextJailbreakResult> response = await client.DetectTextJailbreakAsync(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_DetectTextJailbreak_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                text = "<text>",
+            });
+            Response response = client.DetectTextJailbreak(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("jailbreakAnalysis").GetProperty("detected").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_DetectTextJailbreak_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                text = "<text>",
+            });
+            Response response = await client.DetectTextJailbreakAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("jailbreakAnalysis").GetProperty("detected").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_DetectTextJailbreak_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            AnalyzeTextJailbreakOptions options = new AnalyzeTextJailbreakOptions("<text>");
+            Response<AnalyzeTextJailbreakResult> response = client.DetectTextJailbreak(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_DetectTextJailbreak_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            AnalyzeTextJailbreakOptions options = new AnalyzeTextJailbreakOptions("<text>");
+            Response<AnalyzeTextJailbreakResult> response = await client.DetectTextJailbreakAsync(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_DetectTextProtectedMaterial_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                text = "<text>",
+            });
+            Response response = client.DetectTextProtectedMaterial(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_DetectTextProtectedMaterial_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                text = "<text>",
+            });
+            Response response = await client.DetectTextProtectedMaterialAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_DetectTextProtectedMaterial_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            AnalyzeTextProtectedMaterialOptions options = new AnalyzeTextProtectedMaterialOptions("<text>");
+            Response<AnalyzeTextProtectedMaterialResult> response = client.DetectTextProtectedMaterial(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_DetectTextProtectedMaterial_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            AnalyzeTextProtectedMaterialOptions options = new AnalyzeTextProtectedMaterialOptions("<text>");
+            Response<AnalyzeTextProtectedMaterialResult> response = await client.DetectTextProtectedMaterialAsync(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_DetectTextProtectedMaterial_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                text = "<text>",
+            });
+            Response response = client.DetectTextProtectedMaterial(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_DetectTextProtectedMaterial_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                text = "<text>",
+            });
+            Response response = await client.DetectTextProtectedMaterialAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_DetectTextProtectedMaterial_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            AnalyzeTextProtectedMaterialOptions options = new AnalyzeTextProtectedMaterialOptions("<text>");
+            Response<AnalyzeTextProtectedMaterialResult> response = client.DetectTextProtectedMaterial(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_DetectTextProtectedMaterial_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            AnalyzeTextProtectedMaterialOptions options = new AnalyzeTextProtectedMaterialOptions("<text>");
+            Response<AnalyzeTextProtectedMaterialResult> response = await client.DetectTextProtectedMaterialAsync(options);
         }
     }
 }
