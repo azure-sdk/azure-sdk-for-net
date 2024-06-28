@@ -7,11 +7,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.ResourceManager.OracleDatabase.Models
 {
-    /// <summary> System Version Resource model. </summary>
-    internal partial class OracleSystemVersionProperties
+    /// <summary> Azure Subscriptions model. </summary>
+    public partial class AzureSubscriptions
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,21 +46,31 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="OracleSystemVersionProperties"/>. </summary>
-        public OracleSystemVersionProperties()
+        /// <summary> Initializes a new instance of <see cref="AzureSubscriptions"/>. </summary>
+        /// <param name="azureSubscriptionIds"> Azure Subscription Ids to be updated. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="azureSubscriptionIds"/> is null. </exception>
+        public AzureSubscriptions(IEnumerable<string> azureSubscriptionIds)
         {
+            Argument.AssertNotNull(azureSubscriptionIds, nameof(azureSubscriptionIds));
+
+            AzureSubscriptionIds = azureSubscriptionIds.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="OracleSystemVersionProperties"/>. </summary>
-        /// <param name="systemVersion"> A valid Oracle System Version. </param>
+        /// <summary> Initializes a new instance of <see cref="AzureSubscriptions"/>. </summary>
+        /// <param name="azureSubscriptionIds"> Azure Subscription Ids to be updated. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal OracleSystemVersionProperties(string systemVersion, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AzureSubscriptions(IList<string> azureSubscriptionIds, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            SystemVersion = systemVersion;
+            AzureSubscriptionIds = azureSubscriptionIds;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> A valid Oracle System Version. </summary>
-        public string SystemVersion { get; }
+        /// <summary> Initializes a new instance of <see cref="AzureSubscriptions"/> for deserialization. </summary>
+        internal AzureSubscriptions()
+        {
+        }
+
+        /// <summary> Azure Subscription Ids to be updated. </summary>
+        public IList<string> AzureSubscriptionIds { get; }
     }
 }
