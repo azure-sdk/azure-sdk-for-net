@@ -19,6 +19,5 @@ namespace Microsoft.Azure.Management.Network.Models
         public const string None = "None";
         public const string Up = "Up";
         public const string Down = "Down";
-        public const string Drain = "Drain";
     }
 }

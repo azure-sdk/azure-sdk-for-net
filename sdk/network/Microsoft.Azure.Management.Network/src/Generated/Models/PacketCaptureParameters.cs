@@ -49,7 +49,14 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="timeLimitInSeconds">Maximum duration of the capture
         /// session in seconds.</param>
         /// <param name="filters">A list of packet capture filters.</param>
-        public PacketCaptureParameters(string target, PacketCaptureStorageLocation storageLocation, PacketCaptureMachineScope scope = default(PacketCaptureMachineScope), PacketCaptureTargetType? targetType = default(PacketCaptureTargetType?), long? bytesToCapturePerPacket = default(long?), long? totalBytesPerSession = default(long?), int? timeLimitInSeconds = default(int?), IList<PacketCaptureFilter> filters = default(IList<PacketCaptureFilter>))
+        /// <param name="continuousCapture">This continuous capture is a
+        /// nullable boolean, which can hold 'null', 'true' or 'false' value.
+        /// If we do not pass this parameter, it would be consider as 'null',
+        /// default value is 'null'.</param>
+        /// <param name="captureSettings">The capture setting holds the
+        /// 'FileCount', 'FileSizeInBytes', 'SessionTimeLimitInSeconds'
+        /// values.</param>
+        public PacketCaptureParameters(string target, PacketCaptureStorageLocation storageLocation, PacketCaptureMachineScope scope = default(PacketCaptureMachineScope), PacketCaptureTargetType? targetType = default(PacketCaptureTargetType?), long? bytesToCapturePerPacket = default(long?), long? totalBytesPerSession = default(long?), int? timeLimitInSeconds = default(int?), IList<PacketCaptureFilter> filters = default(IList<PacketCaptureFilter>), bool? continuousCapture = default(bool?), PacketCaptureSettings captureSettings = default(PacketCaptureSettings))
         {
             Target = target;
             Scope = scope;
@@ -59,6 +66,8 @@ namespace Microsoft.Azure.Management.Network.Models
             TimeLimitInSeconds = timeLimitInSeconds;
             StorageLocation = storageLocation;
             Filters = filters;
+            ContinuousCapture = continuousCapture;
+            CaptureSettings = captureSettings;
             CustomInit();
         }
 
@@ -122,6 +131,21 @@ namespace Microsoft.Azure.Management.Network.Models
         public IList<PacketCaptureFilter> Filters { get; set; }
 
         /// <summary>
+        /// Gets or sets this continuous capture is a nullable boolean, which
+        /// can hold 'null', 'true' or 'false' value. If we do not pass this
+        /// parameter, it would be consider as 'null', default value is 'null'.
+        /// </summary>
+        [JsonProperty(PropertyName = "continuousCapture")]
+        public bool? ContinuousCapture { get; set; }
+
+        /// <summary>
+        /// Gets or sets the capture setting holds the 'FileCount',
+        /// 'FileSizeInBytes', 'SessionTimeLimitInSeconds' values.
+        /// </summary>
+        [JsonProperty(PropertyName = "captureSettings")]
+        public PacketCaptureSettings CaptureSettings { get; set; }
+
+        /// <summary>
         /// Validate the object.
         /// </summary>
         /// <exception cref="ValidationException">
@@ -160,6 +184,10 @@ namespace Microsoft.Azure.Management.Network.Models
             if (TimeLimitInSeconds < 0)
             {
                 throw new ValidationException(ValidationRules.InclusiveMinimum, "TimeLimitInSeconds", 0);
+            }
+            if (CaptureSettings != null)
+            {
+                CaptureSettings.Validate();
             }
         }
     }
