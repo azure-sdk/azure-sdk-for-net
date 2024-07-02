@@ -14,6 +14,7 @@ using Azure.Messaging.ServiceBus;
 using Azure.Messaging.ServiceBus.Administration;
 using Azure.Messaging.ServiceBus.Tests;
 using Microsoft.Azure.WebJobs.Host.TestCommon;
+using Microsoft.Azure.WebJobs.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -98,7 +99,7 @@ namespace Microsoft.Azure.WebJobs.Host.EndToEndTests
             SecondaryNamespaceQueueScope = await CreateWithQueue(
                 enablePartitioning: false,
                 enableSession: _isSession,
-                overrideNamespace: ServiceBusTestEnvironment.Instance.ServiceBusSecondaryNamespace,
+                useSecondaryNamespace: true,
                 lockDuration: TimeSpan.FromSeconds(15));
             _topicSubscriptionCalled1 = new ManualResetEvent(initialState: false);
             _topicSubscriptionCalled2 = new ManualResetEvent(initialState: false);

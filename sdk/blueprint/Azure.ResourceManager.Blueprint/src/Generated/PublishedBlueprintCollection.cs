@@ -9,17 +9,15 @@ using System;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
-using Azure.ResourceManager;
 
 namespace Azure.ResourceManager.Blueprint
 {
     /// <summary>
-    /// A class representing a collection of <see cref="PublishedBlueprintResource" /> and their operations.
-    /// Each <see cref="PublishedBlueprintResource" /> in the collection will belong to the same instance of <see cref="BlueprintResource" />.
-    /// To get a <see cref="PublishedBlueprintCollection" /> instance call the GetPublishedBlueprints method from an instance of <see cref="BlueprintResource" />.
+    /// A class representing a collection of <see cref="PublishedBlueprintResource"/> and their operations.
+    /// Each <see cref="PublishedBlueprintResource"/> in the collection will belong to the same instance of <see cref="BlueprintResource"/>.
+    /// To get a <see cref="PublishedBlueprintCollection"/> instance call the GetPublishedBlueprints method from an instance of <see cref="BlueprintResource"/>.
     /// </summary>
     public partial class PublishedBlueprintCollection : ArmCollection
     {
@@ -61,6 +59,14 @@ namespace Azure.ResourceManager.Blueprint
         /// <term>Operation Id</term>
         /// <description>PublishedBlueprints_Create</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2018-11-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="PublishedBlueprintResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
@@ -79,7 +85,9 @@ namespace Azure.ResourceManager.Blueprint
             try
             {
                 var response = await _publishedBlueprintRestClient.CreateAsync(Id.Parent, Id.Name, versionId, data, cancellationToken).ConfigureAwait(false);
-                var operation = new BlueprintArmOperation<PublishedBlueprintResource>(Response.FromValue(new PublishedBlueprintResource(Client, response), response.GetRawResponse()));
+                var uri = _publishedBlueprintRestClient.CreateCreateRequestUri(Id.Parent, Id.Name, versionId, data);
+                var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
+                var operation = new BlueprintArmOperation<PublishedBlueprintResource>(Response.FromValue(new PublishedBlueprintResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -102,6 +110,14 @@ namespace Azure.ResourceManager.Blueprint
         /// <term>Operation Id</term>
         /// <description>PublishedBlueprints_Create</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2018-11-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="PublishedBlueprintResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
@@ -120,7 +136,9 @@ namespace Azure.ResourceManager.Blueprint
             try
             {
                 var response = _publishedBlueprintRestClient.Create(Id.Parent, Id.Name, versionId, data, cancellationToken);
-                var operation = new BlueprintArmOperation<PublishedBlueprintResource>(Response.FromValue(new PublishedBlueprintResource(Client, response), response.GetRawResponse()));
+                var uri = _publishedBlueprintRestClient.CreateCreateRequestUri(Id.Parent, Id.Name, versionId, data);
+                var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
+                var operation = new BlueprintArmOperation<PublishedBlueprintResource>(Response.FromValue(new PublishedBlueprintResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -142,6 +160,14 @@ namespace Azure.ResourceManager.Blueprint
         /// <item>
         /// <term>Operation Id</term>
         /// <description>PublishedBlueprints_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2018-11-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="PublishedBlueprintResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -180,6 +206,14 @@ namespace Azure.ResourceManager.Blueprint
         /// <term>Operation Id</term>
         /// <description>PublishedBlueprints_Get</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2018-11-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="PublishedBlueprintResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="versionId"> Version of the published blueprint definition. </param>
@@ -217,6 +251,14 @@ namespace Azure.ResourceManager.Blueprint
         /// <term>Operation Id</term>
         /// <description>PublishedBlueprints_Get</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2018-11-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="PublishedBlueprintResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="versionId"> Version of the published blueprint definition. </param>
@@ -252,6 +294,14 @@ namespace Azure.ResourceManager.Blueprint
         /// <term>Operation Id</term>
         /// <description>PublishedBlueprints_Get</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2018-11-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="PublishedBlueprintResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="versionId"> Version of the published blueprint definition. </param>
@@ -286,6 +336,14 @@ namespace Azure.ResourceManager.Blueprint
         /// <item>
         /// <term>Operation Id</term>
         /// <description>PublishedBlueprints_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2018-11-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="PublishedBlueprintResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -323,6 +381,14 @@ namespace Azure.ResourceManager.Blueprint
         /// <item>
         /// <term>Operation Id</term>
         /// <description>PublishedBlueprints_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2018-11-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="PublishedBlueprintResource"/></description>
         /// </item>
         /// </list>
         /// </summary>

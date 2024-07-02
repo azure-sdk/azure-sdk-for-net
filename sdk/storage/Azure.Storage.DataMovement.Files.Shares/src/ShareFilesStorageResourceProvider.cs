@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
@@ -64,7 +65,7 @@ namespace Azure.Storage.DataMovement.Files.Shares
         }
 
         /// <inheritdoc/>
-        protected override string TypeId => "share";
+        protected override string ProviderId => "share";
 
         private readonly CredentialType _credentialType;
         private readonly GetStorageSharedKeyCredential _getStorageSharedKeyCredential;
@@ -222,19 +223,43 @@ namespace Azure.Storage.DataMovement.Files.Shares
 
         #region Abstract Class Implementation
         /// <inheritdoc/>
-        protected override async Task<StorageResource> FromSourceAsync(DataTransferProperties properties, CancellationToken cancellationToken)
-            => await FromTransferPropertiesAsync(properties, getSource: true, cancellationToken).ConfigureAwait(false);
+        protected override Task<StorageResource> FromSourceAsync(DataTransferProperties properties, CancellationToken cancellationToken)
+        {
+            // Source share file data currently empty, so no specific properties to grab
+
+            return Task.FromResult(properties.IsContainer
+                ? FromDirectory(properties.SourceUri.AbsoluteUri)
+                : FromFile(properties.SourceUri.AbsoluteUri));
+        }
 
         /// <inheritdoc/>
-        protected override async Task<StorageResource> FromDestinationAsync(DataTransferProperties properties, CancellationToken cancellationToken)
-            => await FromTransferPropertiesAsync(properties, getSource: false, cancellationToken).ConfigureAwait(false);
-
-        private Task<StorageResource> FromTransferPropertiesAsync(
-            DataTransferProperties properties,
-            bool getSource,
-            CancellationToken cancellationToken)
+        protected override Task<StorageResource> FromDestinationAsync(DataTransferProperties properties, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            ShareFileDestinationCheckpointData checkpointData;
+            using (MemoryStream stream = new(properties.DestinationCheckpointData))
+            {
+                checkpointData = ShareFileDestinationCheckpointData.Deserialize(stream);
+            }
+
+            ShareFileStorageResourceOptions options = new()
+            {
+                FileAttributes = checkpointData.FileAttributes,
+                FilePermissionKey = checkpointData.FilePermissionKey,
+                CacheControl = checkpointData.CacheControl,
+                ContentDisposition = checkpointData.ContentDisposition,
+                ContentEncoding = checkpointData.ContentEncoding,
+                ContentLanguage = checkpointData.ContentLanguage,
+                ContentType = checkpointData.ContentType,
+                FileCreatedOn = checkpointData.FileCreatedOn,
+                FileLastWrittenOn = checkpointData.FileLastWrittenOn,
+                FileChangedOn = checkpointData.FileChangedOn,
+                DirectoryMetadata = checkpointData.DirectoryMetadata,
+                FileMetadata = checkpointData.FileMetadata,
+            };
+
+            return Task.FromResult(properties.IsContainer
+                ? FromDirectory(properties.DestinationUri.AbsoluteUri, options)
+                : FromFile(properties.DestinationUri.AbsoluteUri, options));
         }
 
         /// <summary>

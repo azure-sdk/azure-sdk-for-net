@@ -7,14 +7,13 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.Search.Documents.Indexes.Models
 {
-    /// <summary> Allows you to generate a vector embedding for a given text input using the Azure Open AI service. </summary>
+    /// <summary> Allows you to generate a vector embedding for a given text input using the Azure OpenAI resource. </summary>
     public partial class AzureOpenAIEmbeddingSkill : SearchIndexerSkill
     {
-        /// <summary> Initializes a new instance of AzureOpenAIEmbeddingSkill. </summary>
+        /// <summary> Initializes a new instance of <see cref="AzureOpenAIEmbeddingSkill"/>. </summary>
         /// <param name="inputs"> Inputs of the skills could be a column in the source data set, or the output of an upstream skill. </param>
         /// <param name="outputs"> The output of a skill is either a field in a search index, or a value that can be consumed as an input by another skill. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="inputs"/> or <paramref name="outputs"/> is null. </exception>
@@ -26,35 +25,41 @@ namespace Azure.Search.Documents.Indexes.Models
             ODataType = "#Microsoft.Skills.Text.AzureOpenAIEmbeddingSkill";
         }
 
-        /// <summary> Initializes a new instance of AzureOpenAIEmbeddingSkill. </summary>
-        /// <param name="oDataType"> Identifies the concrete type of the skill. </param>
+        /// <summary> Initializes a new instance of <see cref="AzureOpenAIEmbeddingSkill"/>. </summary>
+        /// <param name="oDataType"> A URI fragment specifying the type of skill. </param>
         /// <param name="name"> The name of the skill which uniquely identifies it within the skillset. A skill with no name defined will be given a default name of its 1-based index in the skills array, prefixed with the character '#'. </param>
         /// <param name="description"> The description of the skill which describes the inputs, outputs, and usage of the skill. </param>
         /// <param name="context"> Represents the level at which operations take place, such as the document root or document content (for example, /document or /document/content). The default is /document. </param>
         /// <param name="inputs"> Inputs of the skills could be a column in the source data set, or the output of an upstream skill. </param>
         /// <param name="outputs"> The output of a skill is either a field in a search index, or a value that can be consumed as an input by another skill. </param>
-        /// <param name="resourceUri"> The resource uri for your Azure Open AI resource. </param>
-        /// <param name="deploymentId"> ID of your Azure Open AI model deployment on the designated resource. </param>
-        /// <param name="apiKey"> API key for the designated Azure Open AI resource. </param>
+        /// <param name="dimensions"> The number of dimensions the resulting output embeddings should have. Only supported in text-embedding-3 and later models. </param>
+        /// <param name="resourceUri"> The resource URI of the Azure OpenAI resource. </param>
+        /// <param name="deploymentId"> ID of the Azure OpenAI model deployment on the designated resource. </param>
+        /// <param name="apiKey"> API key of the designated Azure OpenAI resource. </param>
         /// <param name="authIdentity">
         /// The user-assigned managed identity used for outbound connections.
         /// Please note <see cref="SearchIndexerDataIdentity"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="SearchIndexerDataNoneIdentity"/> and <see cref="SearchIndexerDataUserAssignedIdentity"/>.
         /// </param>
-        internal AzureOpenAIEmbeddingSkill(string oDataType, string name, string description, string context, IList<InputFieldMappingEntry> inputs, IList<OutputFieldMappingEntry> outputs, Uri resourceUri, string deploymentId, string apiKey, SearchIndexerDataIdentity authIdentity) : base(oDataType, name, description, context, inputs, outputs)
+        /// <param name="modelName"> The name of the embedding model that is deployed at the provided deploymentId path. </param>
+        internal AzureOpenAIEmbeddingSkill(string oDataType, string name, string description, string context, IList<InputFieldMappingEntry> inputs, IList<OutputFieldMappingEntry> outputs, int? dimensions, Uri resourceUri, string deploymentId, string apiKey, SearchIndexerDataIdentity authIdentity, AzureOpenAIModelName? modelName) : base(oDataType, name, description, context, inputs, outputs)
         {
+            Dimensions = dimensions;
             ResourceUri = resourceUri;
             DeploymentId = deploymentId;
             ApiKey = apiKey;
             AuthIdentity = authIdentity;
+            ModelName = modelName;
             ODataType = oDataType ?? "#Microsoft.Skills.Text.AzureOpenAIEmbeddingSkill";
         }
 
-        /// <summary> The resource uri for your Azure Open AI resource. </summary>
+        /// <summary> The number of dimensions the resulting output embeddings should have. Only supported in text-embedding-3 and later models. </summary>
+        public int? Dimensions { get; set; }
+        /// <summary> The resource URI of the Azure OpenAI resource. </summary>
         public Uri ResourceUri { get; set; }
-        /// <summary> ID of your Azure Open AI model deployment on the designated resource. </summary>
+        /// <summary> ID of the Azure OpenAI model deployment on the designated resource. </summary>
         public string DeploymentId { get; set; }
-        /// <summary> API key for the designated Azure Open AI resource. </summary>
+        /// <summary> API key of the designated Azure OpenAI resource. </summary>
         public string ApiKey { get; set; }
         /// <summary>
         /// The user-assigned managed identity used for outbound connections.
@@ -62,5 +67,7 @@ namespace Azure.Search.Documents.Indexes.Models
         /// The available derived classes include <see cref="SearchIndexerDataNoneIdentity"/> and <see cref="SearchIndexerDataUserAssignedIdentity"/>.
         /// </summary>
         public SearchIndexerDataIdentity AuthIdentity { get; set; }
+        /// <summary> The name of the embedding model that is deployed at the provided deploymentId path. </summary>
+        public AzureOpenAIModelName? ModelName { get; set; }
     }
 }

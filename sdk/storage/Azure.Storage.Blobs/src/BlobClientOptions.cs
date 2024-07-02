@@ -131,7 +131,22 @@ namespace Azure.Storage.Blobs
             /// <summary>
             /// The 2023-11-03 service version.
             /// </summary>
-            V2023_11_03 = 20
+            V2023_11_03 = 20,
+
+            /// <summary>
+            /// The 2024-02-04 service version.
+            /// </summary>
+            V2024_02_04 = 21,
+
+            /// <summary>
+            /// The 2024-05-04 service version.
+            /// </summary>
+            V2024_05_04 = 22,
+
+            /// <summary>
+            /// The 2024-08-04 service version.
+            /// </summary>
+            V2024_08_04 = 23
 #pragma warning restore CA1707 // Identifiers should not contain underscores
         }
 
@@ -177,6 +192,11 @@ namespace Azure.Storage.Blobs
         /// Defaults to true for backwards compatibility.
         /// </summary>
         public bool TrimBlobNameSlashes { get; set; } = Constants.DefaultTrimBlobNameSlashes;
+
+        /// <summary>
+        /// Behavior options for setting HTTP header <c>Expect: 100-continue</c> on requests.
+        /// </summary>
+        public Request100ContinueOptions Request100ContinueOptions { get; set; }
 
         #region Advanced Options
         internal ClientSideEncryptionOptions _clientSideEncryptionOptions;
@@ -286,6 +306,8 @@ namespace Azure.Storage.Blobs
             Diagnostics.LoggedHeaderNames.Add("x-ms-source-if-unmodified-since");
             Diagnostics.LoggedHeaderNames.Add("x-ms-tag-count");
             Diagnostics.LoggedHeaderNames.Add("x-ms-encryption-key-sha256");
+            Diagnostics.LoggedHeaderNames.Add("x-ms-copy-source-error-code");
+            Diagnostics.LoggedHeaderNames.Add("x-ms-copy-source-status-code");
 
             Diagnostics.LoggedQueryParameters.Add("comp");
             Diagnostics.LoggedQueryParameters.Add("maxresults");
@@ -329,7 +351,7 @@ namespace Azure.Storage.Blobs
         /// <returns>An HttpPipeline to use for Storage requests.</returns>
         internal HttpPipeline Build(HttpPipelinePolicy authentication = null)
         {
-            return this.Build(authentication, GeoRedundantSecondaryUri);
+            return this.Build(authentication, GeoRedundantSecondaryUri, Request100ContinueOptions);
         }
 
         /// <summary>
@@ -339,7 +361,7 @@ namespace Azure.Storage.Blobs
         /// <returns>An HttpPipeline to use for Storage requests.</returns>
         internal HttpPipeline Build(object credentials)
         {
-            return this.Build(credentials, GeoRedundantSecondaryUri);
+            return this.Build(credentials, GeoRedundantSecondaryUri, Request100ContinueOptions);
         }
 
         /// <inheritdoc />

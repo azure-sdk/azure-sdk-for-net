@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,11 +15,13 @@ namespace Azure.Storage.DataMovement.Tests
 
         public override Uri Uri { get; }
 
+        public override string ProviderId => "mock";
+
         protected internal override string ResourceId => "MemoryBuffer";
 
         protected internal override DataTransferOrder TransferType => DataTransferOrder.Unordered;
 
-        protected internal override long MaxChunkSize => long.MaxValue;
+        protected internal override long MaxSupportedChunkSize => long.MaxValue;
 
         protected internal override long? Length => Buffer.Length;
 
@@ -27,7 +30,10 @@ namespace Azure.Storage.DataMovement.Tests
             Uri = uri ?? new Uri($"memory://localhost/mycontainer/mypath-{Guid.NewGuid()}/resource-item-{Guid.NewGuid()}");
         }
 
-        protected internal override Task CompleteTransferAsync(bool overwrite, CancellationToken cancellationToken = default)
+        protected internal override Task CompleteTransferAsync(
+            bool overwrite,
+            StorageResourceCompleteTransferOptions completeTransferOptions,
+            CancellationToken cancellationToken = default)
         {
             return Task.CompletedTask;
         }
@@ -66,14 +72,14 @@ namespace Azure.Storage.DataMovement.Tests
             throw new NotImplementedException();
         }
 
+        protected internal override Task<StorageResourceItemProperties> GetPropertiesAsync(CancellationToken token = default)
+        {
+            return Task.FromResult(new StorageResourceItemProperties(Buffer.Length, new ETag("etag"), DateTimeOffset.UtcNow, default));
+        }
+
         protected internal override StorageResourceCheckpointData GetDestinationCheckpointData()
         {
             throw new NotImplementedException();
-        }
-
-        protected internal override Task<StorageResourceProperties> GetPropertiesAsync(CancellationToken token = default)
-        {
-            return Task.FromResult(new StorageResourceProperties(default, default, Buffer.Length, default));
         }
 
         protected internal override StorageResourceCheckpointData GetSourceCheckpointData()

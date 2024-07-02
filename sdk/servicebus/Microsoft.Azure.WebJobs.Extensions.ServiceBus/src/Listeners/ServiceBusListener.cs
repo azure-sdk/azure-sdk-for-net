@@ -30,6 +30,7 @@ namespace Microsoft.Azure.WebJobs.ServiceBus.Listeners
         private readonly string _entityPath;
         private readonly bool _isSessionsEnabled;
         private readonly bool _autoCompleteMessages;
+        private readonly int _maxMessageBatchSize;
         private readonly CancellationTokenSource _stoppingCancellationTokenSource;
         private readonly CancellationTokenSource _functionExecutionCancellationTokenSource;
         private readonly ServiceBusOptions _serviceBusOptions;
@@ -75,6 +76,7 @@ namespace Microsoft.Azure.WebJobs.ServiceBus.Listeners
             string entityPath,
             bool isSessionsEnabled,
             bool autoCompleteMessages,
+            int maxMessageBatchSize,
             ITriggeredFunctionExecutor triggerExecutor,
             ServiceBusOptions options,
             string connection,
@@ -88,6 +90,7 @@ namespace Microsoft.Azure.WebJobs.ServiceBus.Listeners
             _entityPath = entityPath;
             _isSessionsEnabled = isSessionsEnabled;
             _autoCompleteMessages = autoCompleteMessages;
+            _maxMessageBatchSize = maxMessageBatchSize;
             _triggerExecutor = triggerExecutor;
             _stoppingCancellationTokenSource = new CancellationTokenSource();
             _functionExecutionCancellationTokenSource = new CancellationTokenSource();
@@ -168,7 +171,7 @@ namespace Microsoft.Azure.WebJobs.ServiceBus.Listeners
 
             if (_supportMinBatchSize)
             {
-                _cachedMessagesManager = new(options.MaxMessageBatchSize, options.MinMessageBatchSize);
+                _cachedMessagesManager = new(_maxMessageBatchSize, options.MinMessageBatchSize);
                 _cachedMessagesGuard = new SemaphoreSlim(1, 1);
             }
         }
@@ -305,12 +308,8 @@ namespace Microsoft.Azure.WebJobs.ServiceBus.Listeners
             _stoppingCancellationTokenSource.Cancel();
             _functionExecutionCancellationTokenSource.Cancel();
 
-            if (_batchReceiver.IsValueCreated)
-            {
-#pragma warning disable AZC0102 // Do not use GetAwaiter().GetResult().
-                _batchReceiver.Value.CloseAsync(CancellationToken.None).GetAwaiter().GetResult();
-#pragma warning restore AZC0102 // Do not use GetAwaiter().GetResult().
-            }
+            // ServiceBusClient and receivers will be disposed in CachedClientCleanupService, so as not to dispose it while it's still in
+            // use by other listeners. Processors are disposed here as they cannot be shared amongst listeners.
 
             if (_messageProcessor.IsValueCreated)
             {
@@ -323,13 +322,6 @@ namespace Microsoft.Azure.WebJobs.ServiceBus.Listeners
             {
 #pragma warning disable AZC0102 // Do not use GetAwaiter().GetResult().
                 _sessionMessageProcessor.Value.Processor.CloseAsync(CancellationToken.None).GetAwaiter().GetResult();
-#pragma warning restore AZC0102 // Do not use GetAwaiter().GetResult().
-            }
-
-            if (_client.IsValueCreated)
-            {
-#pragma warning disable AZC0102 // Do not use GetAwaiter().GetResult().
-                _client.Value.DisposeAsync().AsTask().GetAwaiter().GetResult();
 #pragma warning restore AZC0102 // Do not use GetAwaiter().GetResult().
             }
 
@@ -392,6 +384,10 @@ namespace Microsoft.Azure.WebJobs.ServiceBus.Listeners
             {
                 var actions = new ServiceBusSessionMessageActions(args);
                 _messagingProvider.ActionsCache.TryAdd(args.Message.LockToken, (args.Message, actions));
+                if (_isSessionsEnabled)
+                {
+                    _messagingProvider.SessionActionsCache.TryAdd(args.Message.SessionId, actions);
+                }
 
                 if (!await _sessionMessageProcessor.Value.BeginProcessingMessageAsync(actions, args.Message, linkedCts.Token)
                     .ConfigureAwait(false))
@@ -419,6 +415,10 @@ namespace Microsoft.Azure.WebJobs.ServiceBus.Listeners
                 {
                     receiveActions.EndExecutionScope();
                     _messagingProvider.ActionsCache.TryRemove(args.Message.LockToken, out _);
+                    if (_isSessionsEnabled)
+                    {
+                        _messagingProvider.SessionActionsCache.TryRemove(args.Message.SessionId, out _);
+                    }
                 }
             }
         }
@@ -476,7 +476,7 @@ namespace Microsoft.Azure.WebJobs.ServiceBus.Listeners
 
                             // Processing messages from a new session, create a new message cache for that session
                              _cachedMessagesManager = new ServiceBusMessageManager(
-                                    maxBatchSize: _serviceBusOptions.MaxMessageBatchSize,
+                                    maxBatchSize: _maxMessageBatchSize,
                                     minBatchSize: _serviceBusOptions.MinMessageBatchSize);
                         }
                         catch (ServiceBusException ex)
@@ -491,7 +491,7 @@ namespace Microsoft.Azure.WebJobs.ServiceBus.Listeners
                     TimeSpan? maxWaitTime = _isSessionsEnabled ? _serviceBusOptions.SessionIdleTimeout : null;
 
                     var messages = await receiver.ReceiveMessagesAsync(
-                        _serviceBusOptions.MaxMessageBatchSize,
+                        _maxMessageBatchSize,
                         maxWaitTime,
                         cancellationTokenSource.Token).ConfigureAwait(false);
 
@@ -504,6 +504,10 @@ namespace Microsoft.Azure.WebJobs.ServiceBus.Listeners
                         foreach (var message in messages)
                         {
                             _messagingProvider.ActionsCache.TryAdd(message.LockToken, (message, messageActions));
+                            if (_isSessionsEnabled)
+                            {
+                                _messagingProvider.SessionActionsCache.TryAdd(message.SessionId, (ServiceBusSessionMessageActions)messageActions);
+                            }
                         }
 
                         var receiveActions = new ServiceBusReceiveActions(receiver);
@@ -728,6 +732,10 @@ namespace Microsoft.Azure.WebJobs.ServiceBus.Listeners
                 foreach (var message in input.Messages)
                 {
                     _messagingProvider.ActionsCache.TryRemove(message.LockToken, out _);
+                    if (_isSessionsEnabled)
+                    {
+                        _messagingProvider.SessionActionsCache.TryRemove(message.SessionId, out _);
+                    }
                 }
             }
         }

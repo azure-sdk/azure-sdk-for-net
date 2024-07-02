@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.Developer.DevCenter
 {
-    /// <summary> Client options for DevCenter library clients. </summary>
+    /// <summary> Client options for Azure.Developer.DevCenter library clients. </summary>
     public partial class DevCenterClientOptions : ClientOptions
     {
         private const ServiceVersion LatestVersion = ServiceVersion.V2023_04_01;

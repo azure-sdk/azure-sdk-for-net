@@ -1,6 +1,41 @@
 # Release History
 
-## 12.17.0-beta.1 (Unreleased)
+## 12.19.0-beta.2 (Unreleased)
+
+### Features Added
+
+### Breaking Changes
+
+### Bugs Fixed
+
+### Other Changes
+
+## 12.19.0-beta.1 (2024-06-11)
+- Added support for service version 2024-08-04.
+- Added more detailed messaging for authorization failure cases.
+- Added support for snapshot management on NFS shares.
+
+## 12.18.0 (2024-05-13)
+- Includes all features from 12.18.0-beta.1 and 12.18.0-beta.2.
+- Fixed bug where `ShareClient` and `ShareFileClient` did not throw an exception on empty/null share container names and file names, respectively, when constructing a client.
+
+## 12.18.0-beta.2 (2024-04-15)
+- Added support for service version 2024-05-04.
+- Added ability to retrieve file handle client name with ShareFile/DirectoryClient.GetHandles() and .GetHandlesAsync().
+- Added ability to call ShareFileClient.GetRangeListDiff() and .GetRangeListDiffAsync() on a file that has been renamed.
+- Fixed bug where on `ShareDirectoryClient` and `ShareFileClient`, calling `.Rename(..)` will throw a 403 Authentication Error, if the source storage client was instantiated with a SAS on the `Uri`, will not pass the SAS to the destination client, when the destination does not have any credentials.
+
+## 12.18.0-beta.1 (2023-12-05)
+- Added support for service version 2024-02-04.
+
+## 12.17.1 (2023-11-13)
+- Distributed tracing with `ActivitySource` is stable and no longer requires the [Experimental feature-flag](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/Diagnostics.md).
+
+## 12.17.0 (2023-11-06)
+- Includes all features from 12.17.0-beta.1.
+- Fixed bug where the x-ms-file-request-intent request header was not being sent for ShareFileClient.UploadRangeFromUri() and .UploadRangeFromUriAsync().
+
+## 12.17.0-beta.1 (2023-10-16)
 - Added support for service version 2023-11-03.
 - Added support for ShareClientOptions.Audience
 

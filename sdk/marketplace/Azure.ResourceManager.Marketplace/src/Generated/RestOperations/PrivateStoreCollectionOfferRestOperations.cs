@@ -9,7 +9,6 @@ using System;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager.Marketplace.Models;
@@ -35,6 +34,19 @@ namespace Azure.ResourceManager.Marketplace
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
             _apiVersion = apiVersion ?? "2023-01-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
+        }
+
+        internal RequestUriBuilder CreateListRequestUri(Guid privateStoreId, Guid collectionId)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/providers/Microsoft.Marketplace/privateStores/", false);
+            uri.AppendPath(privateStoreId, true);
+            uri.AppendPath("/collections/", false);
+            uri.AppendPath(collectionId, true);
+            uri.AppendPath("/offers", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            return uri;
         }
 
         internal HttpMessage CreateListRequest(Guid privateStoreId, Guid collectionId)
@@ -100,6 +112,19 @@ namespace Azure.ResourceManager.Marketplace
             }
         }
 
+        internal RequestUriBuilder CreateListByContextsRequestUri(Guid privateStoreId, Guid collectionId, CollectionOffersByAllContextsPayload payload)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/providers/Microsoft.Marketplace/privateStores/", false);
+            uri.AppendPath(privateStoreId, true);
+            uri.AppendPath("/collections/", false);
+            uri.AppendPath(collectionId, true);
+            uri.AppendPath("/mapOffersToContexts", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            return uri;
+        }
+
         internal HttpMessage CreateListByContextsRequest(Guid privateStoreId, Guid collectionId, CollectionOffersByAllContextsPayload payload)
         {
             var message = _pipeline.CreateMessage();
@@ -119,7 +144,7 @@ namespace Azure.ResourceManager.Marketplace
             {
                 request.Headers.Add("Content-Type", "application/json");
                 var content = new Utf8JsonRequestContent();
-                content.JsonWriter.WriteObjectValue(payload);
+                content.JsonWriter.WriteObjectValue(payload, ModelSerializationExtensions.WireOptions);
                 request.Content = content;
             }
             _userAgent.Apply(message);
@@ -129,7 +154,7 @@ namespace Azure.ResourceManager.Marketplace
         /// <summary> Get a list of all offers in the given collection according to the required contexts. </summary>
         /// <param name="privateStoreId"> The store ID - must use the tenant ID. </param>
         /// <param name="collectionId"> The collection ID. </param>
-        /// <param name="payload"> The CollectionOffersByAllContextsPayload to use. </param>
+        /// <param name="payload"> The <see cref="CollectionOffersByAllContextsPayload"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async Task<Response<CollectionOffersByContextList>> ListByContextsAsync(Guid privateStoreId, Guid collectionId, CollectionOffersByAllContextsPayload payload = null, CancellationToken cancellationToken = default)
         {
@@ -152,7 +177,7 @@ namespace Azure.ResourceManager.Marketplace
         /// <summary> Get a list of all offers in the given collection according to the required contexts. </summary>
         /// <param name="privateStoreId"> The store ID - must use the tenant ID. </param>
         /// <param name="collectionId"> The collection ID. </param>
-        /// <param name="payload"> The CollectionOffersByAllContextsPayload to use. </param>
+        /// <param name="payload"> The <see cref="CollectionOffersByAllContextsPayload"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public Response<CollectionOffersByContextList> ListByContexts(Guid privateStoreId, Guid collectionId, CollectionOffersByAllContextsPayload payload = null, CancellationToken cancellationToken = default)
         {
@@ -170,6 +195,20 @@ namespace Azure.ResourceManager.Marketplace
                 default:
                     throw new RequestFailedException(message.Response);
             }
+        }
+
+        internal RequestUriBuilder CreateGetRequestUri(Guid privateStoreId, Guid collectionId, string offerId)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/providers/Microsoft.Marketplace/privateStores/", false);
+            uri.AppendPath(privateStoreId, true);
+            uri.AppendPath("/collections/", false);
+            uri.AppendPath(collectionId, true);
+            uri.AppendPath("/offers/", false);
+            uri.AppendPath(offerId, true);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            return uri;
         }
 
         internal HttpMessage CreateGetRequest(Guid privateStoreId, Guid collectionId, string offerId)
@@ -250,6 +289,20 @@ namespace Azure.ResourceManager.Marketplace
             }
         }
 
+        internal RequestUriBuilder CreateCreateOrUpdateRequestUri(Guid privateStoreId, Guid collectionId, string offerId, PrivateStoreOfferData data)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/providers/Microsoft.Marketplace/privateStores/", false);
+            uri.AppendPath(privateStoreId, true);
+            uri.AppendPath("/collections/", false);
+            uri.AppendPath(collectionId, true);
+            uri.AppendPath("/offers/", false);
+            uri.AppendPath(offerId, true);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            return uri;
+        }
+
         internal HttpMessage CreateCreateOrUpdateRequest(Guid privateStoreId, Guid collectionId, string offerId, PrivateStoreOfferData data)
         {
             var message = _pipeline.CreateMessage();
@@ -268,7 +321,7 @@ namespace Azure.ResourceManager.Marketplace
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
             var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(data);
+            content.JsonWriter.WriteObjectValue(data, ModelSerializationExtensions.WireOptions);
             request.Content = content;
             _userAgent.Apply(message);
             return message;
@@ -278,7 +331,7 @@ namespace Azure.ResourceManager.Marketplace
         /// <param name="privateStoreId"> The store ID - must use the tenant ID. </param>
         /// <param name="collectionId"> The collection ID. </param>
         /// <param name="offerId"> The offer ID to update or delete. </param>
-        /// <param name="data"> The PrivateStoreOffer to use. </param>
+        /// <param name="data"> The <see cref="PrivateStoreOfferData"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="offerId"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="offerId"/> is an empty string, and was expected to be non-empty. </exception>
@@ -307,7 +360,7 @@ namespace Azure.ResourceManager.Marketplace
         /// <param name="privateStoreId"> The store ID - must use the tenant ID. </param>
         /// <param name="collectionId"> The collection ID. </param>
         /// <param name="offerId"> The offer ID to update or delete. </param>
-        /// <param name="data"> The PrivateStoreOffer to use. </param>
+        /// <param name="data"> The <see cref="PrivateStoreOfferData"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="offerId"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="offerId"/> is an empty string, and was expected to be non-empty. </exception>
@@ -330,6 +383,20 @@ namespace Azure.ResourceManager.Marketplace
                 default:
                     throw new RequestFailedException(message.Response);
             }
+        }
+
+        internal RequestUriBuilder CreateDeleteRequestUri(Guid privateStoreId, Guid collectionId, string offerId)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/providers/Microsoft.Marketplace/privateStores/", false);
+            uri.AppendPath(privateStoreId, true);
+            uri.AppendPath("/collections/", false);
+            uri.AppendPath(collectionId, true);
+            uri.AppendPath("/offers/", false);
+            uri.AppendPath(offerId, true);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            return uri;
         }
 
         internal HttpMessage CreateDeleteRequest(Guid privateStoreId, Guid collectionId, string offerId)
@@ -398,6 +465,20 @@ namespace Azure.ResourceManager.Marketplace
             }
         }
 
+        internal RequestUriBuilder CreatePostRequestUri(Guid privateStoreId, Guid collectionId, string offerId, PrivateStoreOperation? payload)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/providers/Microsoft.Marketplace/privateStores/", false);
+            uri.AppendPath(privateStoreId, true);
+            uri.AppendPath("/collections/", false);
+            uri.AppendPath(collectionId, true);
+            uri.AppendPath("/offers/", false);
+            uri.AppendPath(offerId, true);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            return uri;
+        }
+
         internal HttpMessage CreatePostRequest(Guid privateStoreId, Guid collectionId, string offerId, PrivateStoreOperation? payload)
         {
             var message = _pipeline.CreateMessage();
@@ -429,7 +510,7 @@ namespace Azure.ResourceManager.Marketplace
         /// <param name="privateStoreId"> The store ID - must use the tenant ID. </param>
         /// <param name="collectionId"> The collection ID. </param>
         /// <param name="offerId"> The offer ID to update or delete. </param>
-        /// <param name="payload"> The PrivateStoreOperation to use. </param>
+        /// <param name="payload"> The <see cref="PrivateStoreOperation"/>? to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="offerId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="offerId"/> is an empty string, and was expected to be non-empty. </exception>
@@ -452,7 +533,7 @@ namespace Azure.ResourceManager.Marketplace
         /// <param name="privateStoreId"> The store ID - must use the tenant ID. </param>
         /// <param name="collectionId"> The collection ID. </param>
         /// <param name="offerId"> The offer ID to update or delete. </param>
-        /// <param name="payload"> The PrivateStoreOperation to use. </param>
+        /// <param name="payload"> The <see cref="PrivateStoreOperation"/>? to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="offerId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="offerId"/> is an empty string, and was expected to be non-empty. </exception>
@@ -469,6 +550,21 @@ namespace Azure.ResourceManager.Marketplace
                 default:
                     throw new RequestFailedException(message.Response);
             }
+        }
+
+        internal RequestUriBuilder CreateUpsertOfferWithMultiContextRequestUri(Guid privateStoreId, Guid collectionId, string offerId, MultiContextAndPlansContent content)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/providers/Microsoft.Marketplace/privateStores/", false);
+            uri.AppendPath(privateStoreId, true);
+            uri.AppendPath("/collections/", false);
+            uri.AppendPath(collectionId, true);
+            uri.AppendPath("/offers/", false);
+            uri.AppendPath(offerId, true);
+            uri.AppendPath("/upsertOfferWithMultiContext", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            return uri;
         }
 
         internal HttpMessage CreateUpsertOfferWithMultiContextRequest(Guid privateStoreId, Guid collectionId, string offerId, MultiContextAndPlansContent content)
@@ -492,7 +588,7 @@ namespace Azure.ResourceManager.Marketplace
             {
                 request.Headers.Add("Content-Type", "application/json");
                 var content0 = new Utf8JsonRequestContent();
-                content0.JsonWriter.WriteObjectValue(content);
+                content0.JsonWriter.WriteObjectValue(content, ModelSerializationExtensions.WireOptions);
                 request.Content = content0;
             }
             _userAgent.Apply(message);
@@ -503,7 +599,7 @@ namespace Azure.ResourceManager.Marketplace
         /// <param name="privateStoreId"> The store ID - must use the tenant ID. </param>
         /// <param name="collectionId"> The collection ID. </param>
         /// <param name="offerId"> The offer ID to update or delete. </param>
-        /// <param name="content"> The MultiContextAndPlansContent to use. </param>
+        /// <param name="content"> The <see cref="MultiContextAndPlansContent"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="offerId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="offerId"/> is an empty string, and was expected to be non-empty. </exception>
@@ -531,7 +627,7 @@ namespace Azure.ResourceManager.Marketplace
         /// <param name="privateStoreId"> The store ID - must use the tenant ID. </param>
         /// <param name="collectionId"> The collection ID. </param>
         /// <param name="offerId"> The offer ID to update or delete. </param>
-        /// <param name="content"> The MultiContextAndPlansContent to use. </param>
+        /// <param name="content"> The <see cref="MultiContextAndPlansContent"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="offerId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="offerId"/> is an empty string, and was expected to be non-empty. </exception>
@@ -553,6 +649,14 @@ namespace Azure.ResourceManager.Marketplace
                 default:
                     throw new RequestFailedException(message.Response);
             }
+        }
+
+        internal RequestUriBuilder CreateListNextPageRequestUri(string nextLink, Guid privateStoreId, Guid collectionId)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRawNextLink(nextLink, false);
+            return uri;
         }
 
         internal HttpMessage CreateListNextPageRequest(string nextLink, Guid privateStoreId, Guid collectionId)
@@ -621,6 +725,14 @@ namespace Azure.ResourceManager.Marketplace
             }
         }
 
+        internal RequestUriBuilder CreateListByContextsNextPageRequestUri(string nextLink, Guid privateStoreId, Guid collectionId, CollectionOffersByAllContextsPayload payload)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRawNextLink(nextLink, false);
+            return uri;
+        }
+
         internal HttpMessage CreateListByContextsNextPageRequest(string nextLink, Guid privateStoreId, Guid collectionId, CollectionOffersByAllContextsPayload payload)
         {
             var message = _pipeline.CreateMessage();
@@ -639,7 +751,7 @@ namespace Azure.ResourceManager.Marketplace
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="privateStoreId"> The store ID - must use the tenant ID. </param>
         /// <param name="collectionId"> The collection ID. </param>
-        /// <param name="payload"> The CollectionOffersByAllContextsPayload to use. </param>
+        /// <param name="payload"> The <see cref="CollectionOffersByAllContextsPayload"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> is null. </exception>
         public async Task<Response<CollectionOffersByContextList>> ListByContextsNextPageAsync(string nextLink, Guid privateStoreId, Guid collectionId, CollectionOffersByAllContextsPayload payload = null, CancellationToken cancellationToken = default)
@@ -666,7 +778,7 @@ namespace Azure.ResourceManager.Marketplace
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="privateStoreId"> The store ID - must use the tenant ID. </param>
         /// <param name="collectionId"> The collection ID. </param>
-        /// <param name="payload"> The CollectionOffersByAllContextsPayload to use. </param>
+        /// <param name="payload"> The <see cref="CollectionOffersByAllContextsPayload"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> is null. </exception>
         public Response<CollectionOffersByContextList> ListByContextsNextPage(string nextLink, Guid privateStoreId, Guid collectionId, CollectionOffersByAllContextsPayload payload = null, CancellationToken cancellationToken = default)

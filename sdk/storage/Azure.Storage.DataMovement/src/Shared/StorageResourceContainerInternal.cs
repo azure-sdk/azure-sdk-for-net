@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Azure.Storage.DataMovement
 {
@@ -18,7 +19,13 @@ namespace Azure.Storage.DataMovement
             CancellationToken cancellationToken = default)
             => GetStorageResourcesAsync(cancellationToken);
 
-        internal StorageResourceItem GetStorageResourceReferenceInternal(string path)
-            => GetStorageResourceReference(path);
+        internal StorageResourceItem GetStorageResourceReferenceInternal(string path, string resourceId)
+            => GetStorageResourceReference(path, resourceId);
+
+        internal Task CreateIfNotExistsInternalAsync(CancellationToken cancellationToken = default)
+            => CreateIfNotExistsAsync(cancellationToken);
+
+        internal StorageResourceContainer GetChildStorageResourceContainerInternal(string path)
+            => GetChildStorageResourceContainer(path);
     }
 }

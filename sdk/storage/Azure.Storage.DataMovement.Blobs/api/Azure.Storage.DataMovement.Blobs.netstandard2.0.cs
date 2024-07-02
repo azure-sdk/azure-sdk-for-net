@@ -31,7 +31,7 @@ namespace Azure.Storage.DataMovement.Blobs
         public BlobsStorageResourceProvider(Azure.Storage.DataMovement.Blobs.BlobsStorageResourceProvider.GetStorageSharedKeyCredential getStorageSharedKeyCredentialAsync) { }
         public BlobsStorageResourceProvider(Azure.Storage.DataMovement.Blobs.BlobsStorageResourceProvider.GetTokenCredential getTokenCredentialAsync) { }
         public BlobsStorageResourceProvider(Azure.Storage.StorageSharedKeyCredential credential) { }
-        protected override string TypeId { get { throw null; } }
+        protected override string ProviderId { get { throw null; } }
         public Azure.Storage.DataMovement.StorageResource FromBlob(string blobUri, Azure.Storage.DataMovement.Blobs.BlobStorageResourceOptions options = null) { throw null; }
         public Azure.Storage.DataMovement.StorageResource FromClient(Azure.Storage.Blobs.BlobContainerClient client, Azure.Storage.DataMovement.Blobs.BlobStorageResourceContainerOptions options = null) { throw null; }
         public Azure.Storage.DataMovement.StorageResource FromClient(Azure.Storage.Blobs.Specialized.AppendBlobClient client, Azure.Storage.DataMovement.Blobs.AppendBlobStorageResourceOptions options = null) { throw null; }
@@ -40,28 +40,27 @@ namespace Azure.Storage.DataMovement.Blobs
         public Azure.Storage.DataMovement.StorageResource FromContainer(string containerUri, Azure.Storage.DataMovement.Blobs.BlobStorageResourceContainerOptions options = null) { throw null; }
         protected override System.Threading.Tasks.Task<Azure.Storage.DataMovement.StorageResource> FromDestinationAsync(Azure.Storage.DataMovement.DataTransferProperties properties, System.Threading.CancellationToken cancellationToken) { throw null; }
         protected override System.Threading.Tasks.Task<Azure.Storage.DataMovement.StorageResource> FromSourceAsync(Azure.Storage.DataMovement.DataTransferProperties properties, System.Threading.CancellationToken cancellationToken) { throw null; }
-        public delegate Azure.AzureSasCredential GetAzureSasCredential(string uri, bool readOnly);
-        public delegate Azure.Storage.StorageSharedKeyCredential GetStorageSharedKeyCredential(string uri, bool readOnly);
-        public delegate Azure.Core.TokenCredential GetTokenCredential(string uri, bool readOnly);
+        public delegate Azure.AzureSasCredential GetAzureSasCredential(System.Uri uri, bool readOnly);
+        public delegate Azure.Storage.StorageSharedKeyCredential GetStorageSharedKeyCredential(System.Uri uri, bool readOnly);
+        public delegate Azure.Core.TokenCredential GetTokenCredential(System.Uri uri, bool readOnly);
     }
     public partial class BlobStorageResourceContainerOptions
     {
         public BlobStorageResourceContainerOptions() { }
         public string BlobDirectoryPrefix { get { throw null; } set { } }
         public Azure.Storage.DataMovement.Blobs.BlobStorageResourceOptions BlobOptions { get { throw null; } set { } }
-        public Azure.Storage.Blobs.Models.BlobType BlobType { get { throw null; } set { } }
+        public Azure.Storage.DataMovement.DataTransferProperty<Azure.Storage.Blobs.Models.BlobType?> BlobType { get { throw null; } set { } }
     }
     public partial class BlobStorageResourceOptions
     {
         public BlobStorageResourceOptions() { }
         public Azure.Storage.Blobs.Models.AccessTier? AccessTier { get { throw null; } set { } }
-        public Azure.Storage.Blobs.Models.BlobImmutabilityPolicy DestinationImmutabilityPolicy { get { throw null; } set { } }
-        public Azure.Storage.DownloadTransferValidationOptions DownloadTransferValidationOptions { get { throw null; } set { } }
-        public Azure.Storage.Blobs.Models.BlobHttpHeaders HttpHeaders { get { throw null; } set { } }
-        public bool? LegalHold { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, string> Metadata { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } set { } }
-        public Azure.Storage.UploadTransferValidationOptions UploadTransferValidationOptions { get { throw null; } set { } }
+        public Azure.Storage.DataMovement.DataTransferProperty<string> CacheControl { get { throw null; } set { } }
+        public Azure.Storage.DataMovement.DataTransferProperty<string> ContentDisposition { get { throw null; } set { } }
+        public Azure.Storage.DataMovement.DataTransferProperty<string> ContentEncoding { get { throw null; } set { } }
+        public Azure.Storage.DataMovement.DataTransferProperty<string> ContentLanguage { get { throw null; } set { } }
+        public Azure.Storage.DataMovement.DataTransferProperty<string> ContentType { get { throw null; } set { } }
+        public Azure.Storage.DataMovement.DataTransferProperty<System.Collections.Generic.IDictionary<string, string>> Metadata { get { throw null; } set { } }
     }
     public partial class BlockBlobStorageResourceOptions : Azure.Storage.DataMovement.Blobs.BlobStorageResourceOptions
     {

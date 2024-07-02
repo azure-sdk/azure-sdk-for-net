@@ -14,11 +14,13 @@ namespace Azure.Storage.DataMovement.Files.Shares
     internal class ShareDirectoryStorageResourceContainer : StorageResourceContainerInternal
     {
         internal ShareFileStorageResourceOptions ResourceOptions { get; set; }
-        internal PathScanner PathScanner { get; set; }
+        internal PathScanner PathScanner { get; set; } = PathScanner.Singleton.Value;
 
         internal ShareDirectoryClient ShareDirectoryClient { get; }
 
         public override Uri Uri => ShareDirectoryClient.Uri;
+
+        public override string ProviderId => "share";
 
         internal ShareDirectoryStorageResourceContainer(ShareDirectoryClient shareDirectoryClient, ShareFileStorageResourceOptions options)
         {
@@ -26,7 +28,7 @@ namespace Azure.Storage.DataMovement.Files.Shares
             ResourceOptions = options;
         }
 
-        protected override StorageResourceItem GetStorageResourceReference(string path)
+        protected override StorageResourceItem GetStorageResourceReference(string path, string resourceId)
         {
             List<string> pathSegments = path.Split('/').Where(s => !string.IsNullOrEmpty(s)).ToList();
             ShareDirectoryClient dir = ShareDirectoryClient;
@@ -41,11 +43,52 @@ namespace Azure.Storage.DataMovement.Files.Shares
         protected override async IAsyncEnumerable<StorageResource> GetStorageResourcesAsync(
             [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
-            await foreach (ShareFileClient client in PathScanner.ScanFilesAsync(
+            await foreach ((ShareDirectoryClient dir, ShareFileClient file) in PathScanner.ScanAsync(
                 ShareDirectoryClient, cancellationToken).ConfigureAwait(false))
             {
-                yield return new ShareFileStorageResource(client, ResourceOptions);
+                if (file != default)
+                {
+                    yield return new ShareFileStorageResource(file, ResourceOptions);
+                }
+                else
+                {
+                    yield return new ShareDirectoryStorageResourceContainer(dir, ResourceOptions);
+                }
             }
         }
+
+        protected override StorageResourceCheckpointData GetSourceCheckpointData()
+        {
+            return new ShareFileSourceCheckpointData();
+        }
+
+        protected override StorageResourceCheckpointData GetDestinationCheckpointData()
+        {
+            return new ShareFileDestinationCheckpointData(
+                contentType: ResourceOptions?.ContentType,
+                contentEncoding: ResourceOptions?.ContentEncoding,
+                contentLanguage: ResourceOptions?.ContentLanguage,
+                contentDisposition: ResourceOptions?.ContentDisposition,
+                cacheControl: ResourceOptions?.CacheControl,
+                fileAttributes: ResourceOptions?.FileAttributes,
+                filePermissionKey: ResourceOptions?.FilePermissionKey,
+                fileCreatedOn: ResourceOptions?.FileCreatedOn,
+                fileLastWrittenOn: ResourceOptions?.FileLastWrittenOn,
+                fileChangedOn: ResourceOptions?.FileChangedOn,
+                fileMetadata: ResourceOptions?.FileMetadata,
+                directoryMetadata: ResourceOptions?.DirectoryMetadata);
+        }
+
+        protected override async Task CreateIfNotExistsAsync(CancellationToken cancellationToken = default)
+        {
+            await ShareDirectoryClient.CreateIfNotExistsAsync(
+                metadata: default,
+                smbProperties: default,
+                filePermission: default,
+                cancellationToken: cancellationToken).ConfigureAwait(false);
+        }
+
+        protected override StorageResourceContainer GetChildStorageResourceContainer(string path)
+            => new ShareDirectoryStorageResourceContainer(ShareDirectoryClient.GetSubdirectoryClient(path), ResourceOptions);
     }
 }

@@ -1,5 +1,50 @@
 # Release History
 
+## 1.5.0-beta.1 (Unreleased)
+
+### Features Added
+
+### Breaking Changes
+
+### Bugs Fixed
+
+### Other Changes
+
+## 1.4.1 (2024-04-17)
+
+### Bugs Fixed
+- Fixed a bug introduced in version 1.3.0 where the `GetConfigurationSetting` method incorrectly logged 304 responses as failures in distributed tracing.
+
+## 1.4.0 (2024-04-10)
+
+### Features Added
+
+- Added `ConfigurationSettingPageableExtensions` class to support new `Pageable<ConfigurationSetting>.AsPages` and `AsyncPageable<ConfigurationSetting>.AsPages` extension methods. This replaces `SettingSelector.MatchConditions`.
+
+### Breaking Changes
+
+- Removed property `MatchConditions` from `SettingSelector`.
+
+## 1.4.0-beta.1 (2024-03-07)
+
+### Features Added
+
+- Added property `MatchConditions` to `SettingSelector` which allows specifying request conditions to `GetConfigurationSettings` requests.
+
+## 1.3.0 (2023-11-08)
+
+### Features Added
+
+- Added configuration settings snapshot feature which allow users to create a point-in-time snapshot of their configuration store.
+
+### Breaking Changes
+
+- Renamed `key` tag reported on `ConfigurationClient` activities to `az.appconfiguration.key` following OpenTelemetry attribute naming conventions.
+  
+### Bugs Fixed
+
+### Other Changes
+
 ## 1.3.0-beta.3 (2023-10-09)
 
 ### Features Added

@@ -12,18 +12,16 @@ using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Autorest.CSharp.Core;
-using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
-using Azure.ResourceManager;
 using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.KubernetesConfiguration
 {
     /// <summary>
-    /// A class representing a collection of <see cref="KubernetesSourceControlConfigurationResource" /> and their operations.
-    /// Each <see cref="KubernetesSourceControlConfigurationResource" /> in the collection will belong to the same instance of <see cref="ResourceGroupResource" />.
-    /// To get a <see cref="KubernetesSourceControlConfigurationCollection" /> instance call the GetKubernetesSourceControlConfigurations method from an instance of <see cref="ResourceGroupResource" />.
+    /// A class representing a collection of <see cref="KubernetesSourceControlConfigurationResource"/> and their operations.
+    /// Each <see cref="KubernetesSourceControlConfigurationResource"/> in the collection will belong to the same instance of <see cref="ResourceGroupResource"/>.
+    /// To get a <see cref="KubernetesSourceControlConfigurationCollection"/> instance call the GetKubernetesSourceControlConfigurations method from an instance of <see cref="ResourceGroupResource"/>.
     /// </summary>
     public partial class KubernetesSourceControlConfigurationCollection : ArmCollection, IEnumerable<KubernetesSourceControlConfigurationResource>, IAsyncEnumerable<KubernetesSourceControlConfigurationResource>
     {
@@ -76,6 +74,14 @@ namespace Azure.ResourceManager.KubernetesConfiguration
         /// <term>Operation Id</term>
         /// <description>SourceControlConfigurations_CreateOrUpdate</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2022-11-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="KubernetesSourceControlConfigurationResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
@@ -94,7 +100,9 @@ namespace Azure.ResourceManager.KubernetesConfiguration
             try
             {
                 var response = await _kubernetesSourceControlConfigurationSourceControlConfigurationsRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, _clusterRp, _clusterResourceName, _clusterName, sourceControlConfigurationName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new KubernetesConfigurationArmOperation<KubernetesSourceControlConfigurationResource>(Response.FromValue(new KubernetesSourceControlConfigurationResource(Client, response), response.GetRawResponse()));
+                var uri = _kubernetesSourceControlConfigurationSourceControlConfigurationsRestClient.CreateCreateOrUpdateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, _clusterRp, _clusterResourceName, _clusterName, sourceControlConfigurationName, data);
+                var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
+                var operation = new KubernetesConfigurationArmOperation<KubernetesSourceControlConfigurationResource>(Response.FromValue(new KubernetesSourceControlConfigurationResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -117,6 +125,14 @@ namespace Azure.ResourceManager.KubernetesConfiguration
         /// <term>Operation Id</term>
         /// <description>SourceControlConfigurations_CreateOrUpdate</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2022-11-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="KubernetesSourceControlConfigurationResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
@@ -135,7 +151,9 @@ namespace Azure.ResourceManager.KubernetesConfiguration
             try
             {
                 var response = _kubernetesSourceControlConfigurationSourceControlConfigurationsRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, _clusterRp, _clusterResourceName, _clusterName, sourceControlConfigurationName, data, cancellationToken);
-                var operation = new KubernetesConfigurationArmOperation<KubernetesSourceControlConfigurationResource>(Response.FromValue(new KubernetesSourceControlConfigurationResource(Client, response), response.GetRawResponse()));
+                var uri = _kubernetesSourceControlConfigurationSourceControlConfigurationsRestClient.CreateCreateOrUpdateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, _clusterRp, _clusterResourceName, _clusterName, sourceControlConfigurationName, data);
+                var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
+                var operation = new KubernetesConfigurationArmOperation<KubernetesSourceControlConfigurationResource>(Response.FromValue(new KubernetesSourceControlConfigurationResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -157,6 +175,14 @@ namespace Azure.ResourceManager.KubernetesConfiguration
         /// <item>
         /// <term>Operation Id</term>
         /// <description>SourceControlConfigurations_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2022-11-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="KubernetesSourceControlConfigurationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -195,6 +221,14 @@ namespace Azure.ResourceManager.KubernetesConfiguration
         /// <term>Operation Id</term>
         /// <description>SourceControlConfigurations_Get</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2022-11-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="KubernetesSourceControlConfigurationResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="sourceControlConfigurationName"> Name of the Source Control Configuration. </param>
@@ -232,10 +266,18 @@ namespace Azure.ResourceManager.KubernetesConfiguration
         /// <term>Operation Id</term>
         /// <description>SourceControlConfigurations_List</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2022-11-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="KubernetesSourceControlConfigurationResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="KubernetesSourceControlConfigurationResource" /> that may take multiple service requests to iterate over. </returns>
+        /// <returns> An async collection of <see cref="KubernetesSourceControlConfigurationResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<KubernetesSourceControlConfigurationResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => _kubernetesSourceControlConfigurationSourceControlConfigurationsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, _clusterRp, _clusterResourceName, _clusterName);
@@ -254,10 +296,18 @@ namespace Azure.ResourceManager.KubernetesConfiguration
         /// <term>Operation Id</term>
         /// <description>SourceControlConfigurations_List</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2022-11-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="KubernetesSourceControlConfigurationResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="KubernetesSourceControlConfigurationResource" /> that may take multiple service requests to iterate over. </returns>
+        /// <returns> A collection of <see cref="KubernetesSourceControlConfigurationResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<KubernetesSourceControlConfigurationResource> GetAll(CancellationToken cancellationToken = default)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => _kubernetesSourceControlConfigurationSourceControlConfigurationsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, _clusterRp, _clusterResourceName, _clusterName);
@@ -275,6 +325,14 @@ namespace Azure.ResourceManager.KubernetesConfiguration
         /// <item>
         /// <term>Operation Id</term>
         /// <description>SourceControlConfigurations_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2022-11-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="KubernetesSourceControlConfigurationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -311,6 +369,14 @@ namespace Azure.ResourceManager.KubernetesConfiguration
         /// <term>Operation Id</term>
         /// <description>SourceControlConfigurations_Get</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2022-11-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="KubernetesSourceControlConfigurationResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="sourceControlConfigurationName"> Name of the Source Control Configuration. </param>
@@ -345,6 +411,14 @@ namespace Azure.ResourceManager.KubernetesConfiguration
         /// <item>
         /// <term>Operation Id</term>
         /// <description>SourceControlConfigurations_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2022-11-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="KubernetesSourceControlConfigurationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -382,6 +456,14 @@ namespace Azure.ResourceManager.KubernetesConfiguration
         /// <item>
         /// <term>Operation Id</term>
         /// <description>SourceControlConfigurations_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2022-11-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="KubernetesSourceControlConfigurationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>

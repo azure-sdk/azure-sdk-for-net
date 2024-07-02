@@ -1,6 +1,6 @@
 # Release History
 
-## 1.0.0-beta.9 (Unreleased)
+## 2.0.0-beta.3 (Unreleased)
 
 ### Features Added
 
@@ -9,6 +9,351 @@
 ### Bugs Fixed
 
 ### Other Changes
+
+## 2.0.0-beta.2 (2024-06-14)
+
+### Features Added
+
+- Per changes to the [OpenAI .NET client library](https://github.com/openai/openai-dotnet), most convenience methods now provide the direct ability to provide optional `CancellationTokens`, removing the need to use protocol methods
+
+### Breaking Changes
+
+- In support of `CancellationToken`s in methods, an overriden method signature for streaming chat completions was changed and a new minimum version dependency of 2.0.0-beta.5 is established for the OpenAI dependency. These styles of breaks will be extraordinarily rare.
+
+### Bugs Fixed
+
+- See breaking changes: when streaming chat completions, an error of "Unrecognized request argument supplied: stream_options" is introduced when using Azure.AI.OpenAI 2.0.0-beta.1 with OpenAI 2.0.0-beta.5+. This is fixed with the new version.
+
+## 2.0.0-beta.1 (2024-06-07)
+
+**Please note**: This update brings a *major* set of changes to the Azure.AI.OpenAI library.
+
+With the release of the official [OpenAI .NET client library](https://github.com/openai/openai-dotnet), the `Azure.AI.OpenAI` library has migrated to become a companion to OpenAI's package that offers Azure client configuration and strongly-typed extension support for Azure-specific request and response models.
+
+**We'd love your feedback:** our goal is to move the new `OpenAI` .NET library and its refreshed `Azure.AI.OpenAI` companion into a General Availability status as quickly as we can; we've heard loud and clear that the perpetual preview/prerelease status is an adoption blocker. To reach that goal, your feedback -- either on the issues here, in `azure-sdk-for-net`, or the issues on the new `openai-dotnet` OpenAI repository -- will be invaluable.
+
+### Features Added
+
+**OpenAI parity**: built on the OpenAI .NET library, full parity support is available for the breadth of common features, including:
+
+- Assistants V2 with streaming
+- Audio transcription/translation and text-to-speech generation
+- (Coming soon) Batch
+- Chat completion
+- Embeddings
+- Files
+- Fine-tuning
+- Image generation with dall-e-3
+- Vector stores
+
+**Azure OpenAI**: updated to the latest `2024-05-01-preview` service API, new features include:
+
+- Assistants v2 with streaming
+- Improved configuration for On Your Data
+- Expanded Responsible AI content filter annotations
+
+### Breaking Changes
+
+Given the nature of this update, breaking changes are extensive. Please see the README and the [OpenAI library README](https://github.com/openai/openai-dotnet/blob/master/README.md) for usage details. OpenAI's library carries forward many of the same design concepts as the Azure.AI.OpenAI library used as a standalone library, but considerable improvements have been made to the surface that will require significant code adjustments.
+
+## 1.0.0-beta.17 (2024-05-03)
+
+### Features Added
+
+- Image input support for `gpt-4-turbo` chat completions now works with image data in addition to internet URLs.
+  Images may be now be used as `gpt-4-turbo` message content items via one of three constructors:
+  - `ChatMessageImageContent(Uri)` -- the existing constructor, used for URL-based image references
+  - `ChatMessageImageContent(Stream,string)` -- (new) used with a stream and known MIME type (like `image/png`)
+  - `ChatMessageImageContent(BinaryData,string)` -- (new) used with a BinaryData instance and known MIME type
+  Please see the [readme example](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/openai/Azure.AI.OpenAI/README.md#chat-with-images-using-gpt-4-turbo) for more details.
+
+### Breaking Changes
+
+- Public visibility of the `ChatMessageImageUrl` type is removed to promote more flexible use of data sources in
+  `ChatMessageImageContent`. Code that previously created a `ChatMessageImageUrl` using a `Uri` should simply provide
+  the `Uri` to the `ChatMessageImageContent` constructor directly.
+
+## 1.0.0-beta.16 (2024-04-11)
+
+### Features Added
+
+**Audio**
+
+- `GetAudioTranscription()` now supports word-level timestamp granularities via `AudioTranscriptionOptions`:
+  - The `Verbose` option for `ResponseFormat` must be used for any timing information to be populated
+  - `TimestampGranularityFlags` accepts a combination of the `.Word` and `.Segment` granularity values in
+    `AudioTimestampGranularity`, joined when needed via the single-pipe `|` operator
+    - For example, `TimestampGranularityFlags = AudioTimestampGranularity.Word | AudioTimestampGranularity.Segment`
+      will request that both word-level and segment-level timestamps are provided on the transcription result
+  - If not otherwise specified, `Verbose` format will default to using segment-level timestamp information
+  - Corresponding word-level information is found on the `.Words` collection of `AudioTranscription`, peer to the
+    existing `.Segments` collection
+  - Note that word-level timing information incurs a small amount of additional processingly latency; segment-level
+    timestamps do not encounter this behavior
+- `GenerateSpeechFromText()` can now use `Wav` and `Pcm` values from `SpeechGenerationResponseFormat`, these new
+  options providing alternative uncompressed formats to `Flac`
+
+**Chat**
+
+- `ChatCompletions` and `StreamingChatCompletionsUpdate` now include the reported `Model` value from the response
+- Log probability information is now included in `StreamingChatCompletionsUpdate` when `logprobs` are requested on
+  `GetChatCompletionsStreaming()`
+- [AOAI] Custom Blocklist information in content filter results is now represented in a more structured
+  `ContentFilterDetailedResults` type
+- [AOAI] A new `IndirectAttack` content filter entry is now present on content filter results for prompts
+
+### Breaking Changes
+
+- [AOAI] `AzureChatExtensionMessageContext`'s `RequestContentFilterResults`  now uses the new
+  `ContentFilterDetailedResults` type, changed from the previous `IReadOnlyList<ContentFilterBlockListIdResult>`. The
+  previous list is now present on `CustomBlockLists.Details`, supplemented with a new `CustomBlockLists.Filtered`
+  property.
+
+### Bugs Fixed
+
+- [AOAI] An issue that sometimes caused `StreamingChatCompletionUpdates` from Azure OpenAI to inappropriately exclude
+  top-level information like `Id` and `CreatedAt` has been addressed
+
+## 1.0.0-beta.15 (2024-03-20)
+
+This release targets the latest `2024-03-01-preview` service API label and brings support for the `Dimensions` property when using new embedding models.
+
+### Features Added
+
+- `EmbeddingsOptions` now includes the `Dimensions` property, new to Azure OpenAI's `2024-03-01-preview` service API.
+
+### Bugs Fixed
+
+- Several issues with the `ImageGenerations` response object being treated as writeable are fixed:
+  - `ImageGenerations` no longer has an erroneous public constructor
+  - `ImageGenerations.Created` no longer has a public setter
+  - `ImageGenerations.Data` is now an `IReadOnlyList` instead of an `IList`
+  - A corresponding replacement factory method for mocks is added to `AzureOpenAIModelFactory`
+
+## 1.0.0-beta.14 (2024-03-04)
+
+### Features Added
+
+- Text-to-speech using OpenAI TTS models is now supported. See [OpenAI's API reference](https://platform.openai.com/docs/api-reference/audio/createSpeech) or the [Azure OpenAI quickstart](https://learn.microsoft.com/azure/ai-services/openai/text-to-speech-quickstart) for detailed overview and background information.
+  - The new method `GenerateSpeechFromText` exposes this capability on `OpenAIClient`.
+  - Text-to-speech converts text into lifelike spoken audio in a chosen voice, together with other optional configurations.
+  - This method works for both Azure OpenAI and non-Azure `api.openai.com` client configurations
+
+### Breaking Changes
+
+"On Your Data" changes:
+
+- Introduced a new type `AzureChatExtensionDataSourceResponseCitation` for a more structured representation of citation data.
+- Correspondingly, updated `AzureChatExtensionsMessageContext`:
+  - Replaced `Messages` with `Citations` of type `AzureChatExtensionDataSourceResponseCitation`.
+  - Added `Intent` as a string type.
+- Renamed "AzureCognitiveSearch" to "AzureSearch":
+  - `AzureCognitiveSearchChatExtensionConfiguration` is now `AzureSearchChatExtensionConfiguration`.
+  - `AzureCognitiveSearchIndexFieldMappingOptions` is now `AzureSearchIndexFieldMappingOptions`.
+- Check the project README for updated code snippets.
+
+### Other Changes
+
+- New properties in `ChatCompletionsOptions`:
+  - `EnableLogProbabilities`: Allows retrieval of log probabilities (REST: `logprobs`)
+  - `LogProbabilitiesPerToken`: The number of most likely tokens to return per token (REST: `top_logprobs`)
+- Introduced a new property in `CompletionsOptions`:
+  - `Suffix`: Defines the suffix that follows the completion of inserted text (REST: `suffix`)
+- Image generation response now includes content filtering details (specific to Azure OpenAI endpoint):
+  - `ImageGenerationData.ContentFilterResults`: Information about the content filtering results. (REST: `content_filter_results`)
+  - `ImageGenerationData.PromptFilterResults`: Information about the content filtering category (REST: `prompt_filter_results`)
+  
+## 1.0.0-beta.13 (2024-02-01)
+
+### Breaking Changes
+
+- Removed the setter of the `Functions` property of the `ChatCompletionsOptions` class as per the guidelines for collection properties.
+
+### Bugs Fixed
+
+- Addressed an issue with the public constructor for `ChatCompletionsFunctionToolCall` that failed to set the tool call type in the corresponding request.
+
+## 1.0.0-beta.12 (2023-12-15)
+
+Like beta.11, beta.12 is another release that brings further refinements and fixes. It remains based on the `2023-12-01-preview` service API version for Azure OpenAI and does not add any new service capabilities.
+
+### Features Added
+
+**Updates for using streaming tool calls:**
+
+- A new .NET-specific `StreamingToolCallUpdate` type has been added to better represent streaming tool call updates
+  when using chat tools.
+  - This new type includes an explicit `ToolCallIndex` property, reflecting `index` in the REST schema, to allow
+    resilient deserialization of parallel function tool calling.
+- A convenience constructor has been added for `ChatRequestAssistantMessage` that can automatically populate from a prior
+  `ChatResponseMessage` when using non-streaming chat completions.
+- A public constructor has been added for `ChatCompletionsFunctionToolCall` to allow more intuitive reconstruction of
+  `ChatCompletionsToolCall` instances for use in `ChatRequestAssistantMessage` instances made from streaming responses.
+
+**Other additions:**
+
+- To facilitate reuse of user message contents, `ChatRequestUserMessage` now provides a public `Content` property (`string`) as well as a public `MultimodalContentItems` property (`IList<ChatMessageContentItem`).
+  - `Content` is the conventional plain-text content and will be populated as non-null when the a `ChatRequestUserMessage()` constructor accepting a string is used to instantiate the message.
+  - `MultimodalContentItems` is the new compound content type, currently only usable with `gpt-4-vision-preview`, that allows hybrid use of text and image references. It will be populated when an appropriate `ChatRequestUserMessage()` constructor accepting a collection of `ChatMessageContentItem` instances is used.
+  - `Role` is also restored to common visibility to `ChatRequestUserMessage`.
+
+### Breaking Changes
+
+- The type of `ToolCallUpdate` on `StreamingChatCompletionsUpdate` has been changed from the non-streaming
+  `ChatCompletionsToolCall` to the new `StreamingToolCallUpdate` type. The conversion is straightforward:
+  - `ToolCallUpdate.Id` remains unchanged.
+  - Instead of casting `ToolCallUpdate` to `ChatCompletionsFunctionToolCall`, cast it to `StreamingToolCallUpdate`.
+  - Update cast instance use of `functionToolCallUpdate.Arguments` to accumulate `functionToolCallUpdate.ArgumentsUpdate`.
+- Removed the parameterized constructor of the `ChatCompletionsOptions` class that only received the messages as a parameter in favor of the parameterized constructor that receives the deployment name as well. This makes it consistent with the implementation of other Options classes.
+- Removed the setter of the `Input` property of the `EmbeddingsOptions` class as per the guidelines for collection properties.
+
+### Bugs fixed
+
+- [[QUERY] Azure.AI.OpenAI_1.0.0-beta.10 no longer exposes message content on base ChatRequestMessage](https://github.com/Azure/azure-sdk-for-net/issues/40634)
+- [[BUG] Null Reference Exception in OpenAIClient.GetChatCompletionsAsync](https://github.com/Azure/azure-sdk-for-net/issues/40810)
+
+## 1.0.0-beta.11 (2023-12-07)
+
+This is a fast-following bug fix update to address some of the biggest issues reported by the community. Thank you
+sharing your experiences!
+
+### Breaking Changes
+
+- The type of `ChatCompletionsOptions.ToolChoice` has been updated from `BinaryData` to a new `ChatCompletionsToolChoice` type. Please use `ChatCompletionsToolChoice.None`, `ChatCompletionsToolChoice.Auto`, or provide a reference to a function or function tool definition to migrate.
+
+### Bugs Fixed
+
+- `ChatCompletionsOptions.ResponseFormat` now serializes correctly and will not result in "not of type 'object" errors
+- `ChatCompletionsOptions.FunctionCall` is fixed to again work with `FunctionDefinition.None` and `FunctionDefinition.Auto` instead of resulting in not finding a named "none" or "auto" function
+- `ChatCompletionsOptions.ToolChoice` previously defaulted to a `BinaryData` type and has now been corrected to use a custom `ChatCompletionsToolChoice` type that parallels `FunctionDefinition` for older function calling.
+
+## 1.0.0-beta.10 (2023-12-06)
+
+Following OpenAI's November Dev Day and Microsoft's 2023 Ignite conference, this update brings a slew of new
+features and changes to the SDK.
+
+### Features Added
+
+- `-1106` model feature support for `gpt-35-turbo` and `gpt-4-turbo`, including use of `seed`, `system_fingerprint`,
+    parallel function calling via tools, "JSON mode" for guaranteed function outputs, and more
+- `dall-e-3` image generation capabilities via `GetImageGenerations`, featuring higher model quality, automatic prompt
+    revisions by `gpt-4`, and customizable quality/style settings
+- Greatly expanded "On Your Data" capabilities in Azure OpenAI, including many new data source options and authentication
+    mechanisms
+- Early support for `gpt-4-vision-preview`, which allows the hybrid use of text and images as input to enable scenarios
+    like "describe this image for me"
+- Support for Azure enhancements to `gpt-4-vision-preview` results that include grounding and OCR features
+
+### Breaking Changes
+
+`ChatMessage` changes:
+
+- The singular `ChatMessage` type has been replaced by `ChatRequestMessage` and `ChatResponseMessage`, the former of
+    which is an abstract, polymorphic type with concrete derivations like `ChatRequestSystemMessage` and
+    `ChatRequestUserMessage`. This requires conversion from old `ChatMessages` into the new types. While this is
+    usually a straightforward string replacement, converting a response message into a request message (e.g. when
+    propagating an assistant response to continue the conversation) will require creating a new instance of the
+    appropriate request message with the response message's data. See the examples for details.
+
+Dall-e-3:
+
+- Azure OpenAI now uses `dall-e-3` model deployments for its image generation API and such a valid deployment must
+    be provided into the options for the `GetImageGenerations` method to receive results.
+
+### Other changes
+
+- Audio transcription and translation (via `GetAudioTranscription()` and `GetAudioTranslation()` now allow specification of an optional `Filename` in addition to the binary audio data. This is used purely as an identifier and does not functionally alter the transcription/translation behavior in any way.
+
+## 1.0.0-beta.9 (2023-11-06)
+
+### Breaking Changes
+
+This update includes a number of version-to-version breaking changes to the API.
+
+#### Streaming for completions and chat completions
+
+Streaming Completions and Streaming Chat Completions have been significantly updated to use simpler, shallower usage
+patterns and data representations. The goal of these changes is to make streaming much easier to consume in common
+cases while still retaining full functionality in more complex ones (e.g. with multiple choices requested).
+- A new `StreamingResponse<T>` type is introduced that implicitly exposes an `IAsyncEnumerable<T>` derived from
+  the underlying response.
+- `OpenAI.GetCompletionsStreaming()` now returns a `StreamingResponse<Completions>` that may be directly
+  enumerated over. `StreamingCompletions`, `StreamingChoice`, and the corresponding methods are removed.
+- Because Chat Completions use a distinct structure for their streaming response messages, a new
+  `StreamingChatCompletionsUpdate` type is introduced that encapsulates this update data.
+- Correspondingly, `OpenAI.GetChatCompletionsStreaming()` now returns a
+  `StreamingResponse<StreamingChatCompletionsUpdate>` that may be enumerated over directly.
+  `StreamingChatCompletions`, `StreamingChatChoice`, and related methods are removed.
+- For more information, please see
+  [the related pull request description](https://github.com/Azure/azure-sdk-for-net/pull/39347) as well as the
+  updated snippets in the project README.
+
+#### `deploymentOrModelName` moved to `*Options.DeploymentName`
+
+`deploymentOrModelName` and related method parameters on `OpenAIClient` have been moved to `DeploymentName`
+properties in the corresponding method options. This is intended to promote consistency across scenario,
+language, and Azure/non-Azure OpenAI use.
+
+As an example, the following:
+
+```csharp
+ChatCompletionsOptions chatCompletionsOptions = new()
+{
+    Messages = { new(ChatRole.User, "Hello, assistant!") },
+};
+Response<ChatCompletions> response = client.GetChatCompletions("gpt-4", chatCompletionsOptions);
+```
+
+...is now re-written as:
+
+```csharp
+ChatCompletionsOptions chatCompletionsOptions = new()
+{
+    DeploymentName = "gpt-4",
+    Messages = { new(ChatRole.User, "Hello, assistant!") },
+};
+Response<ChatCompletions> response = client.GetChatCompletions(chatCompletionsOptions);
+```
+
+#### Consistency in complex method options type constructors
+
+With the migration of `DeploymentName` into method complex options types, these options types have now been snapped to
+follow a common pattern: each complex options type will feature a default constructor that allows `init`-style setting
+of properties as well as a single additional constructor that accepts *all* required parameters for the corresponding
+method. Existing constructors that no longer meet that "all" requirement, including those impacted by the addition of
+`DeploymentName`, have been removed. The "convenience" constructors that represented required parameter data
+differently -- for example, `EmbeddingsOptions(string)`, have also been removed in favor of the consistent "set of
+directly provide" choice.
+
+More exhaustively, *removed* are:
+
+- `AudioTranscriptionOptions(BinaryData)`
+- `AudioTranslationOptions(BinaryData)`
+- `ChatCompletionsOptions(IEnumerable<ChatMessage>)`
+- `CompletionsOptions(IEnumerable<string>)`
+- `EmbeddingsOptions(string)`
+- `EmbeddingsOptions(IEnumerable<string>)`
+
+And *added* as replacements are:
+
+- `AudioTranscriptionOptions(string, BinaryData)`
+- `AudioTranslationOptions(string, BinaryData)`
+- `ChatCompletionsOptions(string, IEnumerable<ChatMessage>)`
+- `CompletionsOptions(string, IEnumerable<string>)`
+- `EmbeddingsOptions(string, IEnumerable<string>)`
+
+#### Embeddings now represented as `ReadOnlyMemory<float>`
+
+Changed the representation of embeddings (specifically, the type of the `Embedding` property of the `EmbeddingItem` class)
+from `IReadOnlyList<float>` to `ReadOnlyMemory<float>` as part of a broader effort to establish consistency across the
+.NET ecosystem.
+
+#### `SearchKey` and `EmbeddingKey` properties replaced by `SetSearchKey` and `SetEmbeddingKey` methods
+
+Replaced the `SearchKey` and `EmbeddingKey` properties of the `AzureCognitiveSearchChatExtensionConfiguration` class with
+new `SetSearchKey` and `SetEmbeddingKey` methods respectively. These methods simplify the configuration of the Azure Cognitive
+Search chat extension by receiving a plain string instead of an `AzureKeyCredential`, promote more sensible key and secret
+management, and align with the Azure SDK guidelines.
 
 ## 1.0.0-beta.8 (2023-09-21)
 

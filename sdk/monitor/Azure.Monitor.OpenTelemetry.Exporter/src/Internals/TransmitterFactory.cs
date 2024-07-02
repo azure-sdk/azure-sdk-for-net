@@ -15,22 +15,21 @@ namespace Azure.Monitor.OpenTelemetry.Exporter.Internals
     internal sealed class TransmitterFactory
     {
         public static readonly TransmitterFactory Instance = new();
-        public static readonly IPlatform platform = new DefaultPlatform();
 
-        internal readonly Dictionary<string, AzureMonitorTransmitter> _transmitters = new();
+        internal readonly Dictionary<string, ITransmitter> _transmitters = new();
         private readonly object _lockObj = new();
 
-        public AzureMonitorTransmitter Get(AzureMonitorExporterOptions azureMonitorExporterOptions)
+        public ITransmitter Get(AzureMonitorExporterOptions azureMonitorExporterOptions)
         {
             var key = azureMonitorExporterOptions.ConnectionString ?? string.Empty;
 
-            if (!_transmitters.TryGetValue(key, out AzureMonitorTransmitter? transmitter))
+            if (!_transmitters.TryGetValue(key, out ITransmitter? transmitter))
             {
                 lock (_lockObj)
                 {
                     if (!_transmitters.TryGetValue(key, out transmitter))
                     {
-                        transmitter = new AzureMonitorTransmitter(azureMonitorExporterOptions, platform);
+                        transmitter = new AzureMonitorTransmitter(azureMonitorExporterOptions, new DefaultPlatform());
 
                         _transmitters.Add(key, transmitter);
                     }
@@ -38,6 +37,14 @@ namespace Azure.Monitor.OpenTelemetry.Exporter.Internals
             }
 
             return transmitter;
+        }
+
+        internal void Set(string connectionString, ITransmitter transmitter)
+        {
+            lock (_lockObj)
+            {
+                _transmitters[connectionString] = transmitter;
+            }
         }
     }
 }

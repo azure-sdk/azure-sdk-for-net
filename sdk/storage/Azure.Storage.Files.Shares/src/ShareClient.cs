@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.Storage.Common;
 using Azure.Storage.Files.Shares.Models;
 using Azure.Storage.Sas;
 using Metadata = System.Collections.Generic.IDictionary<string, string>;
@@ -91,8 +92,8 @@ namespace Azure.Storage.Files.Shares
         }
 
         /// <summary>
-        /// Determines whether the client is able to generate a SAS.
-        /// If the client is authenticated with a <see cref="StorageSharedKeyCredential"/>.
+        /// Indicates whether the client is able to generate a SAS uri.
+        /// Client can generate a SAS url if it is authenticated with a <see cref="StorageSharedKeyCredential"/>.
         /// </summary>
         public virtual bool CanGenerateSasUri => ClientConfiguration.SharedKeyCredential != null;
 
@@ -154,6 +155,7 @@ namespace Azure.Storage.Files.Shares
             string shareName,
             ShareClientOptions options)
         {
+            Argument.AssertNotNullOrWhiteSpace(shareName, nameof(shareName));
             options ??= new ShareClientOptions();
             var conn = StorageConnectionString.Parse(connectionString);
             ShareUriBuilder uriBuilder = new ShareUriBuilder(conn.FileEndpoint) { ShareName = shareName };
@@ -346,7 +348,10 @@ namespace Azure.Storage.Files.Shares
                 sasCredential: sasCredential,
                 tokenCredential: tokenCredential,
                 clientDiagnostics: new ClientDiagnostics(options),
-                clientOptions: options);
+                clientOptions: options)
+            {
+                Audience = options.Audience ?? ShareAudience.DefaultAudience,
+            };
             _shareRestClient = BuildShareRestClient(shareUri);
         }
 
@@ -365,6 +370,7 @@ namespace Azure.Storage.Files.Shares
             Uri shareUri,
             ShareClientConfiguration clientConfiguration)
         {
+            Argument.AssertNotNull(shareUri, nameof(shareUri));
             _uri = shareUri;
             _clientConfiguration = clientConfiguration;
             _shareRestClient = BuildShareRestClient(shareUri);
@@ -480,6 +486,7 @@ namespace Azure.Storage.Files.Shares
                 options?.AccessTier,
                 options?.Protocols,
                 options?.RootSquash,
+                options?.EnableSnapshotVirtualDirectoryAccess,
                 async: false,
                 cancellationToken)
                 .EnsureCompleted();
@@ -517,6 +524,7 @@ namespace Azure.Storage.Files.Shares
                 options?.AccessTier,
                 options?.Protocols,
                 options?.RootSquash,
+                options?.EnableSnapshotVirtualDirectoryAccess,
                 async: true,
                 cancellationToken)
                 .ConfigureAwait(false);
@@ -559,6 +567,7 @@ namespace Azure.Storage.Files.Shares
                 accessTier: default,
                 enabledProtocols: default,
                 rootSquash: default,
+                enableSnapshotVirtualDirectoryAccess: default,
                 async: false,
                 cancellationToken)
                 .EnsureCompleted();
@@ -601,6 +610,7 @@ namespace Azure.Storage.Files.Shares
                 accessTier: default,
                 enabledProtocols: default,
                 rootSquash: default,
+                enableSnapshotVirtualDirectoryAccess: default,
                 async: true,
                 cancellationToken)
                 .ConfigureAwait(false);
@@ -629,6 +639,11 @@ namespace Azure.Storage.Files.Shares
         /// <param name="rootSquash">
         /// Squash root to set on the share.
         /// </param>
+        /// <param name="enableSnapshotVirtualDirectoryAccess">
+        /// Optional. Supported in version 2023-08-03 and above.
+        /// Specifies whether the snapshot virtual directory should be accessible at the root of share mount point when NFS is enabled.
+        /// If not specified, the default is true.
+        /// </param>
         /// <param name="async">
         /// Whether to invoke the operation asynchronously.
         /// </param>
@@ -653,6 +668,7 @@ namespace Azure.Storage.Files.Shares
             ShareAccessTier? accessTier,
             ShareProtocols? enabledProtocols,
             ShareRootSquash? rootSquash,
+            bool? enableSnapshotVirtualDirectoryAccess,
             bool async,
             CancellationToken cancellationToken,
             string operationName = default)
@@ -681,6 +697,7 @@ namespace Azure.Storage.Files.Shares
                             accessTier: accessTier,
                             enabledProtocols: enabledProtocols.ToShareEnableProtocolsString(),
                             rootSquash: rootSquash,
+                            enableSnapshotVirtualDirectoryAccess: enableSnapshotVirtualDirectoryAccess,
                             cancellationToken: cancellationToken)
                             .ConfigureAwait(false);
                     }
@@ -692,6 +709,7 @@ namespace Azure.Storage.Files.Shares
                             accessTier: accessTier,
                             enabledProtocols: enabledProtocols.ToShareEnableProtocolsString(),
                             rootSquash: rootSquash,
+                            enableSnapshotVirtualDirectoryAccess: enableSnapshotVirtualDirectoryAccess,
                             cancellationToken: cancellationToken);
                     }
 
@@ -748,6 +766,7 @@ namespace Azure.Storage.Files.Shares
                 options?.AccessTier,
                 options?.Protocols,
                 options?.RootSquash,
+                options?.EnableSnapshotVirtualDirectoryAccess,
                 async: false,
                 cancellationToken).EnsureCompleted();
 
@@ -784,6 +803,7 @@ namespace Azure.Storage.Files.Shares
                 options?.AccessTier,
                 options?.Protocols,
                 options?.RootSquash,
+                options?.EnableSnapshotVirtualDirectoryAccess,
                 async: true,
                 cancellationToken).ConfigureAwait(false);
 
@@ -825,6 +845,7 @@ namespace Azure.Storage.Files.Shares
                 accessTier: default,
                 enabledProtocols: default,
                 squashRoot: default,
+                enableSnapshotVirtualDirectoryAccess: default,
                 async: false,
                 cancellationToken).EnsureCompleted();
 
@@ -865,6 +886,7 @@ namespace Azure.Storage.Files.Shares
                 accessTier: default,
                 enabledProtocols: default,
                 squashRoot: default,
+                enableSnapshotVirtualDirectoryAccess: default,
                 async: true,
                 cancellationToken).ConfigureAwait(false);
 
@@ -892,6 +914,11 @@ namespace Azure.Storage.Files.Shares
         /// <param name="squashRoot">
         /// Squash root to set on the share.
         /// </param>
+        /// <param name="enableSnapshotVirtualDirectoryAccess">
+        /// Optional. Supported in version 2023-08-03 and above.
+        /// Specifies whether the snapshot virtual directory should be accessible at the root of share mount point when NFS is enabled.
+        /// If not specified, the default is true.
+        /// </param>
         /// <param name="async">
         /// Whether to invoke the operation asynchronously.
         /// </param>
@@ -913,6 +940,7 @@ namespace Azure.Storage.Files.Shares
             ShareAccessTier? accessTier,
             ShareProtocols? enabledProtocols,
             ShareRootSquash? squashRoot,
+            bool? enableSnapshotVirtualDirectoryAccess,
             bool async,
             CancellationToken cancellationToken)
         {
@@ -932,6 +960,7 @@ namespace Azure.Storage.Files.Shares
                         accessTier,
                         enabledProtocols,
                         squashRoot,
+                        enableSnapshotVirtualDirectoryAccess,
                         async,
                         cancellationToken,
                         operationName: $"{nameof(ShareClient)}.{nameof(CreateIfNotExists)}")
@@ -1897,6 +1926,7 @@ namespace Azure.Storage.Files.Shares
                 quotaInGB: options?.QuotaInGB,
                 accessTier: options?.AccessTier,
                 rootSquash: options?.RootSquash,
+                enableSnapshotVirtualDirectoryAccess: options?.EnableSnapshotVirtualDirectoryAccess,
                 conditions: options?.Conditions,
                 operationName: $"{nameof(ShareClient)}.{nameof(SetProperties)}",
                 async: false,
@@ -1932,6 +1962,7 @@ namespace Azure.Storage.Files.Shares
                 quotaInGB: options?.QuotaInGB,
                 accessTier: options?.AccessTier,
                 rootSquash: options?.RootSquash,
+                enableSnapshotVirtualDirectoryAccess: options?.EnableSnapshotVirtualDirectoryAccess,
                 conditions: options?.Conditions,
                 operationName: $"{nameof(ShareClient)}.{nameof(SetProperties)}",
                 async: true,
@@ -1954,6 +1985,11 @@ namespace Azure.Storage.Files.Shares
         /// </param>
         /// <param name="rootSquash">
         /// The root squash to set for the share.  Only valid for NFS shares.
+        /// </param>
+        /// <param name="enableSnapshotVirtualDirectoryAccess">
+        /// Optional. Supported in version 2023-08-03 and above.
+        /// Specifies whether the snapshot virtual directory should be accessible at the root of share mount point when NFS is enabled.
+        /// If not specified, the default is true.
         /// </param>
         /// <param name="conditions">
         /// Optional <see cref="ShareFileRequestConditions"/> to add conditions
@@ -1981,6 +2017,7 @@ namespace Azure.Storage.Files.Shares
             int? quotaInGB,
             ShareAccessTier? accessTier,
             ShareRootSquash? rootSquash,
+            bool? enableSnapshotVirtualDirectoryAccess,
             ShareFileRequestConditions conditions,
             string operationName,
             bool async,
@@ -2009,6 +2046,7 @@ namespace Azure.Storage.Files.Shares
                             quota: quotaInGB,
                             accessTier: accessTier,
                             rootSquash: rootSquash,
+                            enableSnapshotVirtualDirectoryAccess: enableSnapshotVirtualDirectoryAccess,
                             leaseAccessConditions: conditions,
                             cancellationToken: cancellationToken)
                             .ConfigureAwait(false);
@@ -2019,6 +2057,7 @@ namespace Azure.Storage.Files.Shares
                             quota: quotaInGB,
                             accessTier: accessTier,
                             rootSquash: rootSquash,
+                            enableSnapshotVirtualDirectoryAccess: enableSnapshotVirtualDirectoryAccess,
                             leaseAccessConditions: conditions,
                             cancellationToken: cancellationToken);
                     }
@@ -2079,6 +2118,7 @@ namespace Azure.Storage.Files.Shares
                 quotaInGB: quotaInGB,
                 accessTier: default,
                 rootSquash: default,
+                enableSnapshotVirtualDirectoryAccess: default,
                 conditions: conditions,
                 operationName: $"{nameof(ShareClient)}.{nameof(SetQuota)}",
                 async: false,
@@ -2121,6 +2161,7 @@ namespace Azure.Storage.Files.Shares
                 quotaInGB: quotaInGB,
                 accessTier: default,
                 rootSquash: default,
+                enableSnapshotVirtualDirectoryAccess: default,
                 conditions: conditions,
                 operationName: $"{nameof(ShareClient)}.{nameof(SetQuota)}",
                 async: true,
@@ -2161,6 +2202,7 @@ namespace Azure.Storage.Files.Shares
                 quotaInGB: quotaInGB,
                 accessTier: default,
                 rootSquash: default,
+                enableSnapshotVirtualDirectoryAccess: default,
                 conditions: default,
                 operationName: $"{nameof(ShareClient)}.{nameof(SetQuota)}",
                 async: false,
@@ -2200,6 +2242,7 @@ namespace Azure.Storage.Files.Shares
                 quotaInGB: quotaInGB,
                 accessTier: default,
                 rootSquash: default,
+                enableSnapshotVirtualDirectoryAccess: default,
                 conditions: default,
                 operationName: $"{nameof(ShareClient)}.{nameof(SetQuota)}",
                 async: true,
@@ -2686,6 +2729,7 @@ namespace Azure.Storage.Files.Shares
         /// A <see cref="RequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
+        [CallerShouldAudit("https://aka.ms/azsdk/callershouldaudit/storage-files-shares")]
         public virtual Response<ShareInfo> SetAccessPolicy(
             IEnumerable<ShareSignedIdentifier> permissions,
             ShareFileRequestConditions conditions = default,
@@ -2726,6 +2770,7 @@ namespace Azure.Storage.Files.Shares
         /// A <see cref="RequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
+        [CallerShouldAudit("https://aka.ms/azsdk/callershouldaudit/storage-files-shares")]
         public virtual async Task<Response<ShareInfo>> SetAccessPolicyAsync(
             IEnumerable<ShareSignedIdentifier> permissions,
             ShareFileRequestConditions conditions = default,
@@ -2763,7 +2808,7 @@ namespace Azure.Storage.Files.Shares
         /// a failure occurs.
         /// </remarks>
         [EditorBrowsable(EditorBrowsableState.Never)]
-
+        [CallerShouldAudit("https://aka.ms/azsdk/callershouldaudit/storage-files-shares")]
 #pragma warning disable AZC0002 // DO ensure all service methods, both asynchronous and synchronous, take an optional CancellationToken parameter called cancellationToken.
         public virtual Response<ShareInfo> SetAccessPolicy(
 #pragma warning restore AZC0002 // DO ensure all service methods, both asynchronous and synchronous, take an optional CancellationToken parameter called cancellationToken.
@@ -2802,7 +2847,7 @@ namespace Azure.Storage.Files.Shares
         /// a failure occurs.
         /// </remarks>
         [EditorBrowsable(EditorBrowsableState.Never)]
-
+        [CallerShouldAudit("https://aka.ms/azsdk/callershouldaudit/storage-files-shares")]
 #pragma warning disable AZC0002 // DO ensure all service methods, both asynchronous and synchronous, take an optional CancellationToken parameter called cancellationToken.
         public virtual async Task<Response<ShareInfo>> SetAccessPolicyAsync(
 #pragma warning restore AZC0002 // DO ensure all service methods, both asynchronous and synchronous, take an optional CancellationToken parameter called cancellationToken.
@@ -3107,6 +3152,7 @@ namespace Azure.Storage.Files.Shares
         #region GetPermission
         /// <summary>
         /// Gets the file permission in Security Descriptor Definition Language (SDDL).
+        /// Note that this API is not applicable for Share Snapshots.
         /// </summary>
         /// <param name="filePermissionKey">
         /// The file permission key.
@@ -3129,6 +3175,7 @@ namespace Azure.Storage.Files.Shares
 
         /// <summary>
         /// Gets the file permission in Security Descriptor Definition Language (SDDL).
+        /// Note that this API is not applicable for Share Snapshots.
         /// </summary>
         /// <param name="filePermissionKey">
         /// The file permission key.
@@ -3218,6 +3265,7 @@ namespace Azure.Storage.Files.Shares
         /// <returns>
         /// A <see cref="Response{PermissionInfo}"/> with ID of the newly created file permission.
         /// </returns>
+        [CallerShouldAudit("https://aka.ms/azsdk/callershouldaudit/storage-files-shares")]
         public virtual Response<PermissionInfo> CreatePermission(
             string permission,
             CancellationToken cancellationToken = default) =>
@@ -3243,6 +3291,7 @@ namespace Azure.Storage.Files.Shares
         /// <returns>
         /// A <see cref="Response{PermissionInfo}"/> with ID of the newly created file permission.
         /// </returns>
+        [CallerShouldAudit("https://aka.ms/azsdk/callershouldaudit/storage-files-shares")]
         public virtual async Task<Response<PermissionInfo>> CreatePermissionAsync(
             string permission,
             CancellationToken cancellationToken = default) =>
@@ -3500,6 +3549,7 @@ namespace Azure.Storage.Files.Shares
         /// <remarks>
         /// A <see cref="Exception"/> will be thrown if a failure occurs.
         /// </remarks>
+        [CallerShouldAudit("https://aka.ms/azsdk/callershouldaudit/storage-files-shares")]
         public virtual Uri GenerateSasUri(ShareSasPermissions permissions, DateTimeOffset expiresOn) =>
             GenerateSasUri(new ShareSasBuilder(permissions, expiresOn) { ShareName = Name });
 
@@ -3525,6 +3575,7 @@ namespace Azure.Storage.Files.Shares
         /// <remarks>
         /// A <see cref="Exception"/> will be thrown if a failure occurs.
         /// </remarks>
+        [CallerShouldAudit("https://aka.ms/azsdk/callershouldaudit/storage-files-shares")]
         public virtual Uri GenerateSasUri(ShareSasBuilder builder)
         {
             builder = builder ?? throw Errors.ArgumentNull(nameof(builder));

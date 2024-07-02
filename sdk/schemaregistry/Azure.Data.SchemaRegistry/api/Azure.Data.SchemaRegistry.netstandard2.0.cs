@@ -45,11 +45,12 @@ namespace Azure.Data.SchemaRegistry
     }
     public partial class SchemaRegistryClientOptions : Azure.Core.ClientOptions
     {
-        public SchemaRegistryClientOptions(Azure.Data.SchemaRegistry.SchemaRegistryClientOptions.ServiceVersion version = Azure.Data.SchemaRegistry.SchemaRegistryClientOptions.ServiceVersion.V2022_10) { }
+        public SchemaRegistryClientOptions(Azure.Data.SchemaRegistry.SchemaRegistryClientOptions.ServiceVersion version = Azure.Data.SchemaRegistry.SchemaRegistryClientOptions.ServiceVersion.V2023_07) { }
         public enum ServiceVersion
         {
             V2021_10 = 1,
             V2022_10 = 2,
+            V2023_07 = 3,
         }
     }
     public static partial class SchemaRegistryModelFactory
@@ -67,16 +68,22 @@ namespace Azure.Data.SchemaRegistry
         public string Definition { get { throw null; } }
         public Azure.Data.SchemaRegistry.SchemaProperties Properties { get { throw null; } }
     }
+    public abstract partial class SchemaValidator
+    {
+        protected SchemaValidator() { }
+        public abstract string GenerateSchema(System.Type dataType);
+        public abstract bool TryValidate(object data, System.Type dataType, string schemaDefinition, out System.Collections.Generic.IEnumerable<System.Exception> validationErrors);
+    }
 }
 namespace Azure.Data.SchemaRegistry.Serialization
 {
     public partial class SchemaRegistrySerializer
     {
         protected SchemaRegistrySerializer() { }
-        public SchemaRegistrySerializer(Azure.Data.SchemaRegistry.SchemaRegistryClient client, Azure.Core.SchemaValidator schemaValidator) { }
-        public SchemaRegistrySerializer(Azure.Data.SchemaRegistry.SchemaRegistryClient client, Azure.Core.SchemaValidator schemaValidator, Azure.Data.SchemaRegistry.Serialization.SchemaRegistrySerializerOptions serializerOptions) { }
-        public SchemaRegistrySerializer(Azure.Data.SchemaRegistry.SchemaRegistryClient client, string groupName, Azure.Core.SchemaValidator schemaValidator) { }
-        public SchemaRegistrySerializer(Azure.Data.SchemaRegistry.SchemaRegistryClient client, string groupName, Azure.Core.SchemaValidator schemaValidator, Azure.Data.SchemaRegistry.Serialization.SchemaRegistrySerializerOptions serializerOptions) { }
+        public SchemaRegistrySerializer(Azure.Data.SchemaRegistry.SchemaRegistryClient client, Azure.Data.SchemaRegistry.SchemaValidator schemaValidator) { }
+        public SchemaRegistrySerializer(Azure.Data.SchemaRegistry.SchemaRegistryClient client, Azure.Data.SchemaRegistry.SchemaValidator schemaValidator, Azure.Data.SchemaRegistry.Serialization.SchemaRegistrySerializerOptions serializerOptions) { }
+        public SchemaRegistrySerializer(Azure.Data.SchemaRegistry.SchemaRegistryClient client, Azure.Data.SchemaRegistry.SchemaValidator schemaValidator, string groupName) { }
+        public SchemaRegistrySerializer(Azure.Data.SchemaRegistry.SchemaRegistryClient client, Azure.Data.SchemaRegistry.SchemaValidator schemaValidator, string groupName, Azure.Data.SchemaRegistry.Serialization.SchemaRegistrySerializerOptions serializerOptions) { }
         public object Deserialize(Azure.Messaging.MessageContent content, System.Type dataType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public System.Threading.Tasks.ValueTask<object> DeserializeAsync(Azure.Messaging.MessageContent content, System.Type dataType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public System.Threading.Tasks.ValueTask<TData> DeserializeAsync<TData>(Azure.Messaging.MessageContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }

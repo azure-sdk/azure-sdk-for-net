@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.Storage.Common;
 using Azure.Storage.Cryptography;
 using Azure.Storage.Queues.Models;
 using Azure.Storage.Queues.Specialized;
@@ -133,8 +134,8 @@ namespace Azure.Storage.Queues
         }
 
         /// <summary>
-        /// Determines whether the client is able to generate a SAS.
-        /// If the client is authenticated with a <see cref="StorageSharedKeyCredential"/>.
+        /// Indicates whether the client is able to generate a SAS uri.
+        /// Client can generate a SAS url if it is authenticated with a <see cref="StorageSharedKeyCredential"/>.
         /// </summary>
         public virtual bool CanGenerateSasUri => ClientConfiguration.SharedKeyCredential != null;
 
@@ -191,6 +192,7 @@ namespace Azure.Storage.Queues
         /// </param>
         public QueueClient(string connectionString, string queueName, QueueClientOptions options)
         {
+            Argument.AssertNotNullOrEmpty(queueName, nameof(queueName));
             StorageConnectionString conn = StorageConnectionString.Parse(connectionString);
             QueueUriBuilder uriBuilder = new QueueUriBuilder(conn.QueueEndpoint)
             {
@@ -3130,6 +3132,7 @@ namespace Azure.Storage.Queues
         /// <remarks>
         /// A <see cref="Exception"/> will be thrown if a failure occurs.
         /// </remarks>
+        [CallerShouldAudit("https://aka.ms/azsdk/callershouldaudit/storage-queues")]
         public virtual Uri GenerateSasUri(QueueSasPermissions permissions, DateTimeOffset expiresOn)
             => GenerateSasUri(new QueueSasBuilder(permissions, expiresOn) { QueueName = Name });
 
@@ -3151,6 +3154,7 @@ namespace Azure.Storage.Queues
         /// <remarks>
         /// A <see cref="Exception"/> will be thrown if a failure occurs.
         /// </remarks>
+        [CallerShouldAudit("https://aka.ms/azsdk/callershouldaudit/storage-queues")]
         public virtual Uri GenerateSasUri(
             QueueSasBuilder builder)
         {

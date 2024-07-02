@@ -4,7 +4,7 @@ Run `dotnet build /t:GenerateCode` to generate code.
 
 ``` yaml
 title: EventGridClient
-require: https://github.com/Azure/azure-rest-api-specs/blob/20312e2b31df58f0ea7560e87062d62aa92f0a14/specification/eventgrid/data-plane/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/5bc43b02efc097affda7d0bf23285f24433d6364/specification/eventgrid/data-plane/readme.md
 generation1-convenience-client: true
 model-factory-for-hlc:
 - MediaJobOutputAsset
@@ -95,7 +95,7 @@ directive:
     const namespace = "Azure.Messaging.EventGrid.SystemEvents";
     for (var path in $)
     {
-      if (!path.includes("CloudEvent") && !path.includes("EventGridEvent"))
+      if (!path.includes("CloudEventEvent") && !path.includes("EventGridEvent"))
       {
         $[path]["x-namespace"] = namespace;
       }
@@ -147,6 +147,10 @@ directive:
           $[path]["properties"]["status"]["x-namespace"] = namespace;
           $[path]["properties"]["summaryReportBlobUrl"]["x-ms-client-name"] = "SummaryReportBlobUri";
       }
+      if (path.includes("StorageTaskAssignmentCompletedEventData"))
+      {
+          $[path]["properties"]["status"]["x-namespace"] = namespace;
+      }
       if (path.includes("EventGridMQTTClientCreatedOrUpdatedEventData"))
       {
           $[path]["properties"]["state"]["x-namespace"] = namespace;
@@ -154,6 +158,28 @@ directive:
       if (path.includes("EventGridMQTTClientSessionDisconnectedEventData"))
       {
           $[path]["properties"]["disconnectionReason"]["x-namespace"] = namespace;
+      }
+      if (path.includes("AcsRouterJobReceivedEventData"))
+      {
+          $[path]["properties"]["jobStatus"]["x-namespace"] = namespace;
+      }
+      if (path.includes("AcsRouterWorkerSelector"))
+      {
+          $[path]["properties"]["labelOperator"]["x-namespace"] = namespace;
+          $[path]["properties"]["state"]["x-namespace"] = namespace;
+      }
+      if (path.includes("AcsMessageDeliveryStatusUpdatedEventData"))
+      {
+          $[path]["properties"]["status"]["x-namespace"] = namespace;
+          $[path]["properties"]["channelType"]["x-namespace"] = namespace;
+      }
+      if (path.includes("AcsRouterWorkerUpdatedEventData"))
+      {
+          $[path]["properties"]["updatedWorkerProperties"]["items"]["x-namespace"] = namespace;
+      }
+      if (path.includes("AcsMessageInteractiveContent"))
+      {
+          $[path]["properties"]["type"]["x-namespace"] = namespace;
       }
     }
 ```

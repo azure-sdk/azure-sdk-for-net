@@ -1150,7 +1150,7 @@ namespace Azure.Data.Tables
                                 cancellationToken: cancellationToken)
                             .ConfigureAwait(false);
 
-                        return Page.FromValues(
+                        return Page<T>.FromValues(
                             response.Value.Value.ToTableEntityList<T>(),
                             CreateContinuationTokenFromHeaders(response.Headers),
                             response.GetRawResponse());
@@ -1177,7 +1177,7 @@ namespace Azure.Data.Tables
                                 cancellationToken: cancellationToken)
                             .ConfigureAwait(false);
 
-                        return Page.FromValues(
+                        return Page<T>.FromValues(
                             response.Value.Value.ToTableEntityList<T>(),
                             CreateContinuationTokenFromHeaders(response.Headers),
                             response.GetRawResponse());
@@ -1232,7 +1232,7 @@ namespace Azure.Data.Tables
                             queryOptions: queryOptions,
                             cancellationToken: cancellationToken);
 
-                        return Page.FromValues(
+                        return Page<T>.FromValues(
                             response.Value.Value.ToTableEntityList<T>(),
                             CreateContinuationTokenFromHeaders(response.Headers),
                             response.GetRawResponse());
@@ -1260,7 +1260,7 @@ namespace Azure.Data.Tables
                             nextRowKey: NextRowKey,
                             cancellationToken: cancellationToken);
 
-                        return Page.FromValues(
+                        return Page<T>.FromValues(
                             response.Value.Value.ToTableEntityList<T>(),
                             CreateContinuationTokenFromHeaders(response.Headers),
                             response.GetRawResponse());
@@ -1407,6 +1407,7 @@ namespace Azure.Data.Tables
         /// <param name="tableAcl"> the access policies for the table. </param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> controlling the request lifetime.</param>
         /// <exception cref="RequestFailedException">The server returned an error. See <see cref="Exception.Message"/> for details returned from the server.</exception>
+        [CallerShouldAudit("https://aka.ms/azsdk/callershouldaudit/data-tables")]
         public virtual async Task<Response> SetAccessPolicyAsync(IEnumerable<TableSignedIdentifier> tableAcl, CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _diagnostics.CreateScope($"{nameof(TableClient)}.{nameof(SetAccessPolicy)}");
@@ -1426,6 +1427,7 @@ namespace Azure.Data.Tables
         /// <param name="tableAcl"> the access policies for the table. </param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> controlling the request lifetime.</param>
         /// <exception cref="RequestFailedException">The server returned an error. See <see cref="Exception.Message"/> for details returned from the server.</exception>
+        [CallerShouldAudit("https://aka.ms/azsdk/callershouldaudit/data-tables")]
         public virtual Response SetAccessPolicy(IEnumerable<TableSignedIdentifier> tableAcl, CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _diagnostics.CreateScope($"{nameof(TableClient)}.{nameof(SetAccessPolicy)}");
@@ -1510,6 +1512,7 @@ namespace Azure.Data.Tables
         /// </param>
         /// <returns> A <see cref="TableSasBuilder"/> on successfully deleting. </returns>
         /// <remarks> An <see cref="Exception"/> will be thrown if a failure occurs. </remarks>
+        [CallerShouldAudit("https://aka.ms/azsdk/callershouldaudit/data-tables")]
         public virtual Uri GenerateSasUri(TableSasPermissions permissions, DateTimeOffset expiresOn)
             => GenerateSasUri(new TableSasBuilder(Name, permissions, expiresOn) { TableName = Name });
 
@@ -1525,6 +1528,7 @@ namespace Azure.Data.Tables
         /// <param name="builder"> Used to generate a Shared Access Signature (SAS). </param>
         /// <returns> A <see cref="TableSasBuilder"/> on successfully deleting. </returns>
         /// <remarks> An <see cref="Exception"/> will be thrown if a failure occurs. </remarks>
+        [CallerShouldAudit("https://aka.ms/azsdk/callershouldaudit/data-tables")]
         public virtual Uri GenerateSasUri(
             TableSasBuilder builder)
         {
@@ -1561,19 +1565,23 @@ namespace Azure.Data.Tables
             try
             {
                 Argument.AssertNotNull(transactionalBatch, nameof(transactionalBatch));
-                List<TableTransactionAction> batchItems = transactionalBatch.ToList();
-                if (!batchItems.Any())
+
+                using (IEnumerator<TableTransactionAction> batchEnumerator = transactionalBatch.GetEnumerator())
                 {
-                    throw new InvalidOperationException(TableConstants.ExceptionMessages.BatchIsEmpty);
+                    if (!batchEnumerator.MoveNext())
+                    {
+                        throw new InvalidOperationException(TableConstants.ExceptionMessages.BatchIsEmpty);
+                    }
+
+                    Dictionary<string, HttpMessage> requestLookup = new();
+
+                    var _batch = BuildChangeSet(_batchOperations, batchEnumerator, requestLookup, batchId, changesetId);
+                    var request = _tableOperations.CreateBatchRequest(_batch, null, null);
+
+                    return async
+                        ? await _tableOperations.SendBatchRequestAsync(request, cancellationToken).ConfigureAwait(false)
+                        : _tableOperations.SendBatchRequest(request, cancellationToken);
                 }
-                Dictionary<string, HttpMessage> requestLookup = new();
-
-                var _batch = BuildChangeSet(_batchOperations, batchItems, requestLookup, batchId, changesetId);
-                var request = _tableOperations.CreateBatchRequest(_batch, null, null);
-
-                return async
-                    ? await _tableOperations.SendBatchRequestAsync(request, cancellationToken).ConfigureAwait(false)
-                    : _tableOperations.SendBatchRequest(request, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -1588,15 +1596,18 @@ namespace Azure.Data.Tables
         /// <returns></returns>
         private MultipartContent BuildChangeSet(
             TableRestClient batchOperations,
-            IEnumerable<TableTransactionAction> batch,
+            IEnumerator<TableTransactionAction> batchEnumerator,
             Dictionary<string, HttpMessage> requestLookup,
             Guid batchId,
             Guid changesetId)
         {
             var batchContent = TableRestClient.CreateBatchContent(batchId);
             var changeset = batchContent.AddChangeset(changesetId);
-            foreach (var item in batch)
+
+            do
             {
+                TableTransactionAction item = batchEnumerator.Current;
+
                 //var item = batch._requestLookup[key];
                 HttpMessage message = item.ActionType switch
                 {
@@ -1621,7 +1632,8 @@ namespace Azure.Data.Tables
                 };
                 requestLookup[item.Entity.RowKey] = message;
                 changeset.AddContent(new RequestRequestContent(message!.Request));
-            }
+            } while (batchEnumerator.MoveNext());
+
             return batchContent;
         }
 

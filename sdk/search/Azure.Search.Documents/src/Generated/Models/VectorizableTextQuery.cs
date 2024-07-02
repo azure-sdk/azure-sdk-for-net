@@ -5,30 +5,41 @@
 
 #nullable disable
 
+using System;
+
 namespace Azure.Search.Documents.Models
 {
     /// <summary> The query parameters to use for vector search when a text value that needs to be vectorized is provided. </summary>
     public partial class VectorizableTextQuery : VectorQuery
     {
-        /// <summary> Initializes a new instance of VectorizableTextQuery. </summary>
-        public VectorizableTextQuery()
+        /// <summary> Initializes a new instance of <see cref="VectorizableTextQuery"/>. </summary>
+        /// <param name="text"> The text to be vectorized to perform a vector search query. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="text"/> is null. </exception>
+        public VectorizableTextQuery(string text)
         {
+            Argument.AssertNotNull(text, nameof(text));
+
+            Text = text;
             Kind = VectorQueryKind.Text;
         }
 
-        /// <summary> Initializes a new instance of VectorizableTextQuery. </summary>
+        /// <summary> Initializes a new instance of <see cref="VectorizableTextQuery"/>. </summary>
         /// <param name="kind"> The kind of vector query being performed. </param>
         /// <param name="kNearestNeighborsCount"> Number of nearest neighbors to return as top hits. </param>
         /// <param name="fieldsRaw"> Vector Fields of type Collection(Edm.Single) to be included in the vector searched. </param>
         /// <param name="exhaustive"> When true, triggers an exhaustive k-nearest neighbor search across all vectors within the vector index. Useful for scenarios where exact matches are critical, such as determining ground truth values. </param>
+        /// <param name="oversampling"> Oversampling factor. Minimum value is 1. It overrides the 'defaultOversampling' parameter configured in the index definition. It can be set only when 'rerankWithOriginalVectors' is true. This parameter is only permitted when a compression method is used on the underlying vector field. </param>
+        /// <param name="weight"> Relative weight of the vector query when compared to other vector query and/or the text query within the same search request. This value is used when combining the results of multiple ranking lists produced by the different vector queries and/or the results retrieved through the text query. The higher the weight, the higher the documents that matched that query will be in the final ranking. Default is 1.0 and the value needs to be a positive number larger than zero. </param>
+        /// <param name="threshold">
+        /// The threshold used for vector queries. Note this can only be set if all 'fields' use the same similarity metric.
+        /// Please note <see cref="VectorThreshold"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="SearchScoreThreshold"/> and <see cref="VectorSimilarityThreshold"/>.
+        /// </param>
         /// <param name="text"> The text to be vectorized to perform a vector search query. </param>
-        internal VectorizableTextQuery(VectorQueryKind kind, int? kNearestNeighborsCount, string fieldsRaw, bool? exhaustive, string text) : base(kind, kNearestNeighborsCount, fieldsRaw, exhaustive)
+        internal VectorizableTextQuery(VectorQueryKind kind, int? kNearestNeighborsCount, string fieldsRaw, bool? exhaustive, double? oversampling, float? weight, VectorThreshold threshold, string text) : base(kind, kNearestNeighborsCount, fieldsRaw, exhaustive, oversampling, weight, threshold)
         {
             Text = text;
             Kind = kind;
         }
-
-        /// <summary> The text to be vectorized to perform a vector search query. </summary>
-        public string Text { get; set; }
     }
 }

@@ -1,136 +1,259 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using System;
 using System.IO;
 using System.Text;
-using Azure.Core;
 using Azure.Storage.Blobs.Models;
-using static Azure.Storage.DataMovement.JobPlanExtensions;
+using Azure.Storage.Common;
 using Metadata = System.Collections.Generic.IDictionary<string, string>;
 using Tags = System.Collections.Generic.IDictionary<string, string>;
 
 namespace Azure.Storage.DataMovement.Blobs
 {
-    internal class BlobDestinationCheckpointData : StorageResourceCheckpointData
+    internal class BlobDestinationCheckpointData : BlobCheckpointData
     {
         /// <summary>
-        /// Schema version.
+        /// The type of blob.
         /// </summary>
-        public int Version;
-
-        /// <summary>
-        /// The type of the destination blob.
-        /// </summary>
-        public BlobType BlobType;
+        public DataTransferProperty<BlobType?> BlobType;
+        public bool PreserveBlobType;
+        public BlobType? BlobTypeValue;
 
         /// <summary>
         /// The content headers for the destination blob.
         /// </summary>
-        public BlobHttpHeaders ContentHeaders;
-        private byte[] _contentTypeBytes;
-        private byte[] _contentEncodingBytes;
-        private byte[] _contentLanguageBytes;
-        private byte[] _contentDispositionBytes;
-        private byte[] _cacheControlBytes;
+        public DataTransferProperty<string> CacheControl;
+        public bool PreserveCacheControl;
+        public byte[] CacheControlBytes;
+
+        public DataTransferProperty<string> ContentDisposition;
+        public bool PreserveContentDisposition;
+        public byte[] ContentDispositionBytes;
+
+        public DataTransferProperty<string> ContentEncoding;
+        public bool PreserveContentEncoding;
+        public byte[] ContentEncodingBytes;
+
+        public DataTransferProperty<string> ContentLanguage;
+        public bool PreserveContentLanguage;
+        public byte[] ContentLanguageBytes;
+
+        public DataTransferProperty<string> ContentType;
+        public bool PreserveContentType;
+        public byte[] ContentTypeBytes;
 
         /// <summary>
         /// The access tier of the destination blob.
         /// </summary>
-        public AccessTier? AccessTier;
+        public AccessTier? AccessTierValue;
 
         /// <summary>
-        /// The metadate for the destination blob.
+        /// The metadata for the destination blob.
         /// </summary>
-        public Metadata Metadata;
-        private byte[] _metadataBytes;
+        public DataTransferProperty<Metadata> Metadata;
+        public bool PreserveMetadata;
+        public byte[] MetadataBytes;
 
         /// <summary>
         /// The Blob tags for the destination blob.
         /// </summary>
-        public Tags Tags;
-        private byte[] _tagsBytes;
-
-        /// <summary>
-        /// The encryption scope to use when uploading the destination blob.
-        /// </summary>
-        public string CpkScope;
-        private byte[] _cpkScopeBytes;
+        public DataTransferProperty<Tags> Tags;
+        public bool PreserveTags;
+        public byte[] TagsBytes;
 
         public override int Length => CalculateLength();
 
         public BlobDestinationCheckpointData(
-            BlobType blobType,
-            BlobHttpHeaders contentHeaders,
+            DataTransferProperty<BlobType?> blobType,
+            DataTransferProperty<string> contentType,
+            DataTransferProperty<string> contentEncoding,
+            DataTransferProperty<string> contentLanguage,
+            DataTransferProperty<string> contentDisposition,
+            DataTransferProperty<string> cacheControl,
             AccessTier? accessTier,
-            Metadata metadata,
-            Tags blobTags,
-            string cpkScope)
+            DataTransferProperty<Metadata> metadata,
+            DataTransferProperty<Tags> tags)
+            : base(DataMovementBlobConstants.DestinationCheckpointData.SchemaVersion)
         {
-            Version = DataMovementBlobConstants.DestinationJobPartHeader.SchemaVersion;
             BlobType = blobType;
-            ContentHeaders = contentHeaders;
-            _contentTypeBytes = ContentHeaders?.ContentType != default ? Encoding.UTF8.GetBytes(ContentHeaders.ContentType) : new byte[0];
-            _contentEncodingBytes = ContentHeaders?.ContentEncoding != default ? Encoding.UTF8.GetBytes(ContentHeaders.ContentEncoding) : new byte[0];
-            _contentLanguageBytes = ContentHeaders?.ContentLanguage != default ? Encoding.UTF8.GetBytes(ContentHeaders.ContentLanguage) : new byte[0];
-            _contentDispositionBytes = ContentHeaders?.ContentDisposition != default ? Encoding.UTF8.GetBytes(ContentHeaders.ContentDisposition) : new byte[0];
-            _cacheControlBytes = ContentHeaders?.CacheControl != default ? Encoding.UTF8.GetBytes(ContentHeaders.CacheControl) : new byte[0];
-            AccessTier = accessTier;
+            PreserveBlobType = blobType?.Preserve ?? true;
+            BlobTypeValue = blobType?.Value != default ? blobType.Value : default;
+
+            AccessTierValue = accessTier;
+
+            CacheControl = cacheControl;
+            PreserveCacheControl = cacheControl?.Preserve ?? true;
+            CacheControlBytes = cacheControl?.Value != default ? Encoding.UTF8.GetBytes(cacheControl.Value) : Array.Empty<byte>();
+
+            ContentDisposition = contentDisposition;
+            PreserveContentDisposition = contentDisposition?.Preserve ?? true;
+            ContentDispositionBytes = contentDisposition?.Value != default ? Encoding.UTF8.GetBytes(contentDisposition.Value) : Array.Empty<byte>();
+
+            ContentEncoding = contentEncoding;
+            PreserveContentEncoding = contentEncoding?.Preserve ?? true;
+            ContentEncodingBytes = contentEncoding?.Value != default ? Encoding.UTF8.GetBytes(contentEncoding.Value) : Array.Empty<byte>();
+
+            ContentLanguage = contentLanguage;
+            PreserveContentLanguage = contentLanguage?.Preserve ?? true;
+            ContentLanguageBytes = contentLanguage?.Value != default ? Encoding.UTF8.GetBytes(contentLanguage.Value) : Array.Empty<byte>();
+
+            ContentType = contentType;
+            PreserveContentType = contentType?.Preserve ?? true;
+            ContentTypeBytes = contentType?.Value != default ? Encoding.UTF8.GetBytes(contentType.Value) : Array.Empty<byte>();
+
             Metadata = metadata;
-            _metadataBytes = Metadata != default ? Encoding.UTF8.GetBytes(Metadata.DictionaryToString()) : new byte[0];
-            Tags = blobTags;
-            _tagsBytes = Tags != default ? Encoding.UTF8.GetBytes(Tags.DictionaryToString()) : new byte[0];
-            CpkScope = cpkScope;
-            _cpkScopeBytes = CpkScope != default ? Encoding.UTF8.GetBytes(CpkScope) : new byte[0];
+            PreserveMetadata = metadata?.Preserve ?? true;
+            MetadataBytes = metadata?.Value != default ? Encoding.UTF8.GetBytes(metadata.Value.DictionaryToString()) : Array.Empty<byte>();
+
+            Tags = tags;
+            PreserveTags = tags?.Preserve ?? false;
+            TagsBytes = tags?.Value != default ? Encoding.UTF8.GetBytes(tags.Value.DictionaryToString()) : Array.Empty<byte>();
         }
 
         protected override void Serialize(Stream stream)
         {
             Argument.AssertNotNull(stream, nameof(stream));
 
-            int currentVariableLengthIndex = DataMovementBlobConstants.DestinationJobPartHeader.VariableLengthStartIndex;
+            int currentVariableLengthIndex = DataMovementBlobConstants.DestinationCheckpointData.VariableLengthStartIndex;
             BinaryWriter writer = new BinaryWriter(stream);
 
             // Version
             writer.Write(Version);
 
             // BlobType
-            writer.Write((byte)BlobType);
+            writer.Write(PreserveBlobType);
+            if (!PreserveBlobType)
+            {
+                writer.Write((byte)BlobTypeValue);
+            }
+            else
+            {
+                writer.Write((byte)0);
+            }
 
-            // ContentType offset/length
-            WriteVariableLengthFieldInfo(writer, _contentTypeBytes, ref currentVariableLengthIndex);
+            // Preserve Content Type
+            writer.Write(PreserveContentType);
+            if (!PreserveContentType)
+            {
+                // Content Type offset/length
+                writer.WriteVariableLengthFieldInfo(ContentTypeBytes.Length, ref currentVariableLengthIndex);
+            }
+            else
+            {
+                // Padding
+                writer.WriteEmptyLengthOffset();
+            }
 
-            // ContentEncoding offset/length
-            WriteVariableLengthFieldInfo(writer, _contentEncodingBytes, ref currentVariableLengthIndex);
+            // Preserve Content Encoding
+            writer.Write(PreserveContentEncoding);
+            if (!PreserveContentEncoding)
+            {
+                // ContentEncoding offset/length
+                writer.WriteVariableLengthFieldInfo(ContentEncodingBytes.Length, ref currentVariableLengthIndex);
+            }
+            else
+            {
+                // Padding
+                writer.WriteEmptyLengthOffset();
+            }
 
-            // ContentLanguage offset/length
-            WriteVariableLengthFieldInfo(writer, _contentLanguageBytes, ref currentVariableLengthIndex);
+            // Preserve Content Language
+            writer.Write(PreserveContentLanguage);
+            if (!PreserveContentLanguage)
+            {
+                // ContentLanguage offset/length
+                writer.WriteVariableLengthFieldInfo(ContentLanguageBytes.Length, ref currentVariableLengthIndex);
+            }
+            else
+            {
+                // Padding
+                writer.WriteEmptyLengthOffset();
+            }
 
-            // ContentDisposition offset/length
-            WriteVariableLengthFieldInfo(writer, _contentDispositionBytes, ref currentVariableLengthIndex);
+            // Preserve Content Disposition
+            writer.Write(PreserveContentDisposition);
+            if (!PreserveContentDisposition)
+            {
+                // ContentDisposition offset/length
+                writer.WriteVariableLengthFieldInfo(ContentDispositionBytes.Length, ref currentVariableLengthIndex);
+            }
+            else
+            {
+                // Padding
+                writer.WriteEmptyLengthOffset();
+            }
 
-            // CacheControl offset/length
-            WriteVariableLengthFieldInfo(writer, _cacheControlBytes, ref currentVariableLengthIndex);
+            // Preserve Cache Control
+            writer.Write(PreserveCacheControl);
+            if (!PreserveCacheControl)
+            {
+                // CacheControl offset/length
+                writer.WriteVariableLengthFieldInfo(CacheControlBytes.Length, ref currentVariableLengthIndex);
+            }
+            else
+            {
+                // Padding
+                writer.WriteEmptyLengthOffset();
+            }
 
             // AccessTier
-            writer.Write((byte)AccessTier.ToJobPlanAccessTier());
+            writer.Write((byte)AccessTierValue.ToJobPlanAccessTier());
 
-            // Metadata offset/length
-            WriteVariableLengthFieldInfo(writer, _metadataBytes, ref currentVariableLengthIndex);
+            // Preserve Metadata
+            writer.Write(PreserveMetadata);
+            if (!PreserveMetadata)
+            {
+                // Metadata offset/length
+                writer.WriteVariableLengthFieldInfo(MetadataBytes.Length, ref currentVariableLengthIndex);
+            }
+            else
+            {
+                // Padding
+                writer.WriteEmptyLengthOffset();
+            }
 
-            // Tags offset/length
-            WriteVariableLengthFieldInfo(writer, _tagsBytes, ref currentVariableLengthIndex);
+            // Preserve Blob Tags
+            writer.Write(PreserveTags);
+            if (!PreserveTags)
+            {
+                // Tags offset/length
+                writer.WriteVariableLengthFieldInfo(TagsBytes.Length, ref currentVariableLengthIndex);
+            }
+            else
+            {
+                // Padding
+                writer.WriteEmptyLengthOffset();
+            }
 
-            // CpkScope offset/length
-            WriteVariableLengthFieldInfo(writer, _cpkScopeBytes, ref currentVariableLengthIndex);
-
-            writer.Write(_contentTypeBytes);
-            writer.Write(_contentEncodingBytes);
-            writer.Write(_contentLanguageBytes);
-            writer.Write(_contentDispositionBytes);
-            writer.Write(_cacheControlBytes);
-            writer.Write(_metadataBytes);
-            writer.Write(_tagsBytes);
-            writer.Write(_cpkScopeBytes);
+            if (!PreserveContentType)
+            {
+                writer.Write(ContentTypeBytes);
+            }
+            if (!PreserveContentEncoding)
+            {
+                writer.Write(ContentEncodingBytes);
+            }
+            if (!PreserveContentLanguage)
+            {
+                writer.Write(ContentLanguageBytes);
+            }
+            if (!PreserveContentDisposition)
+            {
+                writer.Write(ContentDispositionBytes);
+            }
+            if (!PreserveCacheControl)
+            {
+                writer.Write(CacheControlBytes);
+            }
+            if (!PreserveMetadata)
+            {
+                writer.Write(MetadataBytes);
+            }
+            if (!PreserveTags)
+            {
+                writer.Write(TagsBytes);
+            }
         }
 
         internal static BlobDestinationCheckpointData Deserialize(Stream stream)
@@ -141,47 +264,60 @@ namespace Azure.Storage.DataMovement.Blobs
 
             // Version
             int version = reader.ReadInt32();
-            CheckSchemaVersion(version);
+            if (version != DataMovementBlobConstants.DestinationCheckpointData.SchemaVersion)
+            {
+                throw Errors.UnsupportedJobSchemaVersionHeader(version.ToString());
+            }
 
+            // Index Values
             // BlobType
+            bool preserveBlobType = reader.ReadBoolean();
             BlobType blobType = (BlobType)reader.ReadByte();
 
-            // ContentType offset/length
+            // Preserve Content Type and offset/length
+            bool preserveContentType = reader.ReadBoolean();
             int contentTypeOffset = reader.ReadInt32();
             int contentTypeLength = reader.ReadInt32();
 
-            // ContentEncoding offset/length
+            // Preserve Content Encoding and offset/length
+            bool preserveContentEncoding = reader.ReadBoolean();
             int contentEncodingOffset = reader.ReadInt32();
             int contentEncodingLength = reader.ReadInt32();
 
-            // ContentLanguage offset/length
+            // Preserve Content Language and offset/length
+            bool preserveContentLanguage = reader.ReadBoolean();
             int contentLanguageOffset = reader.ReadInt32();
             int contentLanguageLength = reader.ReadInt32();
 
-            // ContentDisposition offset/length
+            // Preserve ContentDisposition and offset/length
+            bool preserveContentDisposition = reader.ReadBoolean();
             int contentDispositionOffset = reader.ReadInt32();
             int contentDispositionLength = reader.ReadInt32();
 
-            // CacheControl offset/length
+            // Preserve CacheControl and offset/length
+            bool preserveCacheControl = reader.ReadBoolean();
             int cacheControlOffset = reader.ReadInt32();
             int cacheControlLength = reader.ReadInt32();
 
             // AccessTier
+            AccessTier? accessTier = default;
             JobPlanAccessTier jobPlanAccessTier = (JobPlanAccessTier)reader.ReadByte();
-            AccessTier accessTier = new AccessTier(jobPlanAccessTier.ToString());
+            if (!jobPlanAccessTier.Equals(JobPlanAccessTier.None))
+            {
+                accessTier = new AccessTier(jobPlanAccessTier.ToString());
+            }
 
-            // Metadata offset/length
+            // Preserve Metadata and offset/length
+            bool preserveMetadata = reader.ReadBoolean();
             int metadataOffset = reader.ReadInt32();
             int metadataLength = reader.ReadInt32();
 
-            // Tags offset/length
+            // Preserve Tags and offset/length
+            bool preserveTags = reader.ReadBoolean();
             int tagsOffset = reader.ReadInt32();
             int tagsLength = reader.ReadInt32();
 
-            // CpkScope offset/length
-            int cpkScopeOffset = reader.ReadInt32();
-            int cpkScopeLength = reader.ReadInt32();
-
+            // Values
             // ContentType
             string contentType = null;
             if (contentTypeOffset > 0)
@@ -238,53 +374,52 @@ namespace Azure.Storage.DataMovement.Blobs
                 tagsString = reader.ReadBytes(tagsLength).AsString();
             }
 
-            // CpkScope
-            string cpkScope = null;
-            if (cpkScopeOffset > 0)
-            {
-                reader.BaseStream.Position = cpkScopeOffset;
-                cpkScope = reader.ReadBytes(cpkScopeLength).AsString();
-            }
-
-            BlobHttpHeaders contentHeaders = new BlobHttpHeaders()
-            {
-                ContentType = contentType,
-                ContentEncoding = contentEncoding,
-                ContentLanguage = contentLanguage,
-                ContentDisposition = contentDisposition,
-                CacheControl = cacheControl,
-            };
-
             return new BlobDestinationCheckpointData(
-                blobType,
-                contentHeaders,
-                accessTier,
-                metadataString.ToDictionary(nameof(metadataString)),
-                tagsString.ToDictionary(nameof(tagsString)),
-                cpkScope);
+                blobType: preserveBlobType ? new(preserveBlobType) : new(blobType),
+                contentType: preserveContentType ? new(preserveContentType) : new(contentType),
+                contentEncoding: preserveContentEncoding ? new(preserveContentEncoding): new(contentEncoding),
+                contentLanguage: preserveContentLanguage ? new(preserveContentLanguage) : new(contentLanguage),
+                contentDisposition: preserveContentDisposition ? new(preserveContentDisposition) : new(contentDisposition),
+                cacheControl: preserveCacheControl ? new(preserveCacheControl): new(cacheControl),
+                accessTier: accessTier,
+                metadata: preserveMetadata ? new(preserveMetadata) : new(metadataString.ToDictionary(nameof(metadataString))),
+                tags: preserveTags ? new(preserveTags) : new(tagsString.ToDictionary(nameof(tagsString))));
         }
 
         private int CalculateLength()
         {
-            // Length is fixed size fields plus length of each variable length field
-            int length = DataMovementBlobConstants.DestinationJobPartHeader.VariableLengthStartIndex;
-            length += _contentTypeBytes.Length;
-            length += _contentEncodingBytes.Length;
-            length += _contentLanguageBytes.Length;
-            length += _contentDispositionBytes.Length;
-            length += _cacheControlBytes.Length;
-            length += _metadataBytes.Length;
-            length += _tagsBytes.Length;
-            length += _cpkScopeBytes.Length;
-            return length;
-        }
-
-        private static void CheckSchemaVersion(int version)
-        {
-            if (version != DataMovementBlobConstants.DestinationJobPartHeader.SchemaVersion)
+            // Length is calculated based on whether the property is preserved.
+            // If the property is preserved, the property's length is added to the total length.
+            int length = DataMovementBlobConstants.DestinationCheckpointData.VariableLengthStartIndex;
+            if (!PreserveContentType)
             {
-                throw Errors.UnsupportedJobSchemaVersionHeader(version.ToString());
+                length += ContentTypeBytes.Length;
             }
+            if (!PreserveContentEncoding)
+            {
+                length += ContentEncodingBytes.Length;
+            }
+            if (!PreserveContentLanguage)
+            {
+                length += ContentLanguageBytes.Length;
+            }
+            if (!PreserveContentDisposition)
+            {
+                length += ContentDispositionBytes.Length;
+            }
+            if (!PreserveCacheControl)
+            {
+                length += CacheControlBytes.Length;
+            }
+            if (!PreserveMetadata)
+            {
+                length += MetadataBytes.Length;
+            }
+            if (!PreserveTags)
+            {
+                length += TagsBytes.Length;
+            }
+            return length;
         }
     }
 }

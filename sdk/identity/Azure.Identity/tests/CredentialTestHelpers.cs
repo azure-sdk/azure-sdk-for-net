@@ -17,7 +17,6 @@ using Azure.Core.TestFramework;
 using Azure.Identity.Tests.Mock;
 using Microsoft.Identity.Client;
 using NUnit.Framework;
-using Castle.DynamicProxy;
 
 namespace Azure.Identity.Tests
 {
@@ -39,12 +38,16 @@ namespace Azure.Identity.Tests
             return (token, expiresOn, json);
         }
 
-        public static (string Token, DateTimeOffset ExpiresOn, string Json) CreateTokenForAzureCliExpiresIn(int seconds = 30)
+        public static (string Token, string Json) CreateTokenForAzureCliExpiresOn(DateTimeOffset expiresOn, bool includeExpiresOn)
         {
-            var expiresOn = DateTimeOffset.UtcNow + TimeSpan.FromSeconds(seconds);
+            const string expiresOnStringFormat = "yyyy-MM-dd HH:mm:ss.ffffff";
+
+            var expiresOnString = expiresOn.ToLocalTime().ToString(expiresOnStringFormat);
             var token = TokenGenerator.GenerateToken(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), expiresOn.UtcDateTime);
-            var json = $"{{ \"accessToken\": \"{token}\", \"expiresIn\": {seconds} }}";
-            return (token, expiresOn, json);
+            var json = includeExpiresOn ?
+                $$"""{ "accessToken": "{{token}}", "expiresOn": "{{expiresOnString}}", "expires_on": {{expiresOn.ToUnixTimeSeconds()}} }""" :
+                $$"""{ "accessToken": "{{token}}", "expiresOn": "{{expiresOnString}}" }""";
+            return (token, json);
         }
 
         public static (string Token, DateTimeOffset ExpiresOn, string Json) CreateTokenForAzureDeveloperCli() => CreateTokenForAzureDeveloperCli(TimeSpan.FromSeconds(30));
@@ -483,7 +486,7 @@ namespace Azure.Identity.Tests
         {
             var uid = objectId ?? "myuid";
             var tid = tenantId ?? "myutid";
-            return CredentialTestHelpers.MsalEncode($"{{\"uid\":\"{uid}\",\"utid\":\"{tid}\"}}");
+            return MsalEncode($"{{\"uid\":\"{uid}\",\"utid\":\"{tid}\"}}");
         }
 
         public static string CreateMsalIdToken(string uniqueId, string displayableId, string tenantId)
@@ -500,7 +503,7 @@ namespace Azure.Identity.Tests
                         "\"sub\": \"K4_SGGxKqW1SxUAmhg6C1F6VPiFzcx-Qd80ehIEdFus\"," +
                         "\"tid\": \"" + tenantId + "\"," +
                         "\"ver\": \"2.0\"}";
-            return string.Format(CultureInfo.InvariantCulture, "someheader.{0}.somesignature", CredentialTestHelpers.MsalEncode(id));
+            return string.Format(CultureInfo.InvariantCulture, "someheader.{0}.somesignature", MsalEncode(id));
         }
 
         public static bool ExtractMsalDisableInstanceDiscoveryProperty(TokenCredential cred)
@@ -615,6 +618,58 @@ namespace Azure.Identity.Tests
                 bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
 
             return Base64Url.Encode(bytes);
+        }
+
+        internal static string CreateMockInstanceDiscoveryResponse()
+        {
+            return """
+{
+    "tenant_discovery_endpoint": "https://login.microsoftonline.com/a0287521-e002-0026-7112-207c0c000000/v2.0/.well-known/openid-configuration",
+    "api-version": "1.1",
+    "metadata": [
+        {
+            "preferred_network": "login.microsoftonline.com",
+            "preferred_cache": "login.windows.net",
+            "aliases": [
+                "login.microsoftonline.com",
+                "login.windows.net",
+                "login.microsoft.com",
+                "sts.windows.net"
+            ]
+        },
+        {
+            "preferred_network": "login.partner.microsoftonline.cn",
+            "preferred_cache": "login.partner.microsoftonline.cn",
+            "aliases": [
+                "login.partner.microsoftonline.cn",
+                "login.chinacloudapi.cn"
+            ]
+        },
+        {
+            "preferred_network": "login.microsoftonline.de",
+            "preferred_cache": "login.microsoftonline.de",
+            "aliases": [
+                "login.microsoftonline.de"
+            ]
+        },
+        {
+            "preferred_network": "login.microsoftonline.us",
+            "preferred_cache": "login.microsoftonline.us",
+            "aliases": [
+                "login.microsoftonline.us",
+                "login.usgovcloudapi.net"
+            ]
+        },
+        {
+            "preferred_network": "login-us.microsoftonline.com",
+            "preferred_cache": "login-us.microsoftonline.com",
+            "aliases": [
+                "login-us.microsoftonline.com"
+            ]
+        }
+    ]
+}
+""";
         }
 
         private sealed class RefreshTokenRetriever

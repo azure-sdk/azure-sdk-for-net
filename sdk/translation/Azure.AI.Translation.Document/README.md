@@ -370,6 +370,42 @@ foreach (DocumentStatusResult document in operation.GetValues())
     }
 }
 ```
+#### Create SingleDocumentTranslationClient with API Key Credential
+Once you have the value for the API key, create an `AzureKeyCredential`. This will allow you to
+update the API key without creating a new client.
+
+With the value of the endpoint and an `AzureKeyCredential`, you can create the [SingleDocumentTranslationClient][documenttranslation_client_class]:
+
+```C# Snippet:CreateSingleDocumentTranslationClient
+string endpoint = "<Document Translator Resource Endpoint>";
+string apiKey = "<Document Translator Resource API Key>";
+SingleDocumentTranslationClient client = new SingleDocumentTranslationClient(new Uri(endpoint), new AzureKeyCredential(apiKey));
+```
+
+### Single Document Translation
+Start a single document translation.
+
+```C# Snippet:StartSingleDocumentTranslation
+try
+{
+    string filePath = Path.Combine("TestData", "test-input.txt");
+    using Stream fileStream = File.OpenRead(filePath);
+    var sourceDocument = new MultipartFormFileData(Path.GetFileName(filePath), fileStream, "text/html");
+    DocumentTranslateContent content = new DocumentTranslateContent(sourceDocument);
+    var response = client.DocumentTranslate("hi", content);
+
+    var requestString = File.ReadAllText(filePath);
+    var responseString = Encoding.UTF8.GetString(response.Value.ToArray());
+
+    Console.WriteLine($"Request string for translation: {requestString}");
+    Console.WriteLine($"Response string after translation: {responseString}");
+}
+catch (RequestFailedException exception)
+{
+    Console.WriteLine($"Error Code: {exception.ErrorCode}");
+    Console.WriteLine($"Message: {exception.Message}");
+}
+```
 
 ## Troubleshooting
 
@@ -469,7 +505,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct][code_of_con
 [documenttranslation_client_class]: https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/translation/Azure.AI.Translation.Document/src/DocumentTranslationClient.cs
 [azure_identity]: https://github.com/Azure/azure-sdk-for-net/blob/master/sdk/identity/Azure.Identity/README.md
 [DefaultAzureCredential]: https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/identity/Azure.Identity/README.md#defaultazurecredential
-[register_aad_app]: https://docs.microsoft.com/azure/cognitive-services/authentication#assign-a-role-to-a-service-principal
+[register_aad_app]: https://learn.microsoft.com/azure/app-service/configure-authentication-provider-aad?tabs=workforce-tenant#--option-1-create-a-new-app-registration-automatically
 [aad_grant_access]: https://docs.microsoft.com/azure/cognitive-services/authentication#assign-a-role-to-a-service-principal
 [custom_subdomain]: https://docs.microsoft.com/azure/cognitive-services/authentication#create-a-resource-with-a-custom-subdomain
 [cognitive_auth]: https://docs.microsoft.com/azure/cognitive-services/authentication

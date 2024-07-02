@@ -8,15 +8,54 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Azure.Core;
 
 namespace Azure.ResourceManager.ContainerServiceFleet.Models
 {
-    /// <summary> The UpdateRunStrategy configures the sequence of Stages and Groups in which the clusters will be updated. </summary>
+    /// <summary>
+    /// Defines the update sequence of the clusters via stages and groups.
+    ///
+    /// Stages within a run are executed sequentially one after another.
+    /// Groups within a stage are executed in parallel.
+    /// Member clusters within a group are updated sequentially one after another.
+    ///
+    /// A valid strategy contains no duplicate groups within or across stages.
+    /// </summary>
     internal partial class ContainerServiceFleetUpdateRunStrategy
     {
-        /// <summary> Initializes a new instance of ContainerServiceFleetUpdateRunStrategy. </summary>
-        /// <param name="stages"> The list of stages that compose this update run. </param>
+        /// <summary>
+        /// Keeps track of any properties unknown to the library.
+        /// <para>
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// </para>
+        /// <para>
+        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
+        /// </para>
+        /// <para>
+        /// Examples:
+        /// <list type="bullet">
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson("foo")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("\"foo\"")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// </list>
+        /// </para>
+        /// </summary>
+        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+
+        /// <summary> Initializes a new instance of <see cref="ContainerServiceFleetUpdateRunStrategy"/>. </summary>
+        /// <param name="stages"> The list of stages that compose this update run. Min size: 1. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="stages"/> is null. </exception>
         public ContainerServiceFleetUpdateRunStrategy(IEnumerable<ContainerServiceFleetUpdateStage> stages)
         {
@@ -25,14 +64,21 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
             Stages = stages.ToList();
         }
 
-        /// <summary> Initializes a new instance of ContainerServiceFleetUpdateRunStrategy. </summary>
-        /// <param name="stages"> The list of stages that compose this update run. </param>
-        internal ContainerServiceFleetUpdateRunStrategy(IList<ContainerServiceFleetUpdateStage> stages)
+        /// <summary> Initializes a new instance of <see cref="ContainerServiceFleetUpdateRunStrategy"/>. </summary>
+        /// <param name="stages"> The list of stages that compose this update run. Min size: 1. </param>
+        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
+        internal ContainerServiceFleetUpdateRunStrategy(IList<ContainerServiceFleetUpdateStage> stages, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Stages = stages;
+            _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The list of stages that compose this update run. </summary>
+        /// <summary> Initializes a new instance of <see cref="ContainerServiceFleetUpdateRunStrategy"/> for deserialization. </summary>
+        internal ContainerServiceFleetUpdateRunStrategy()
+        {
+        }
+
+        /// <summary> The list of stages that compose this update run. Min size: 1. </summary>
         public IList<ContainerServiceFleetUpdateStage> Stages { get; }
     }
 }
