@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -32,6 +33,7 @@ namespace Azure.Storage.DataMovement.Tests
 
                 // Assert
                 Assert.AreEqual(path, storageResource.Uri.LocalPath);
+                Assert.AreEqual(Uri.UriSchemeFile, storageResource.Uri.Scheme);
             }
         }
 
@@ -45,7 +47,10 @@ namespace Azure.Storage.DataMovement.Tests
                 new LocalDirectoryStorageResourceContainer("   "));
 
             Assert.Catch<ArgumentException>(() =>
-                new LocalDirectoryStorageResourceContainer(default));
+                new LocalDirectoryStorageResourceContainer(path: default));
+
+            Assert.Catch<ArgumentException>(() =>
+                new LocalDirectoryStorageResourceContainer(uri: default));
         }
 
         [Test]
@@ -93,7 +98,7 @@ namespace Azure.Storage.DataMovement.Tests
             StorageResourceContainer containerResource = new LocalDirectoryStorageResourceContainer(folderPath);
             foreach (string fileName in fileNames)
             {
-                StorageResourceItem resource = containerResource.GetStorageResourceReference(fileName);
+                StorageResourceItem resource = containerResource.GetStorageResourceReference(fileName, default);
                 // Assert
                 await resource.GetPropertiesAsync().ConfigureAwait(false);
             }
@@ -125,10 +130,25 @@ namespace Azure.Storage.DataMovement.Tests
             StorageResourceContainer containerResource = new LocalDirectoryStorageResourceContainer(folderPath);
             foreach (string fileName in fileNames)
             {
-                StorageResourceItem resource = containerResource.GetStorageResourceReference(fileName);
+                StorageResourceItem resource = containerResource.GetStorageResourceReference(fileName, default);
                 // Assert
                 await resource.GetPropertiesAsync().ConfigureAwait(false);
             }
+        }
+
+        [Test]
+        public void GetChildStorageResourceContainer()
+        {
+            using DisposingLocalDirectory test = DisposingLocalDirectory.GetTestDirectory();
+            string folderPath = test.DirectoryPath;
+
+            StorageResourceContainer container = new LocalDirectoryStorageResourceContainer(folderPath);
+
+            string childPath = "childPath";
+            StorageResourceContainer childContainer = container.GetChildStorageResourceContainer(childPath);
+
+            string fullPath = Path.Combine(folderPath, childPath);
+            Assert.AreEqual(childContainer.Uri, new Uri(fullPath));
         }
     }
 }

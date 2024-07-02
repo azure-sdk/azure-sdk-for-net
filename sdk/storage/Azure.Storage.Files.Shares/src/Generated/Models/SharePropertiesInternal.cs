@@ -6,14 +6,14 @@
 #nullable disable
 
 using System;
-using Azure.Core;
+using Azure.Storage.Common;
 
 namespace Azure.Storage.Files.Shares.Models
 {
     /// <summary> Properties of a share. </summary>
     internal partial class SharePropertiesInternal
     {
-        /// <summary> Initializes a new instance of SharePropertiesInternal. </summary>
+        /// <summary> Initializes a new instance of <see cref="SharePropertiesInternal"/>. </summary>
         /// <param name="lastModified"></param>
         /// <param name="etag"></param>
         /// <param name="quota"></param>
@@ -27,7 +27,7 @@ namespace Azure.Storage.Files.Shares.Models
             Quota = quota;
         }
 
-        /// <summary> Initializes a new instance of SharePropertiesInternal. </summary>
+        /// <summary> Initializes a new instance of <see cref="SharePropertiesInternal"/>. </summary>
         /// <param name="lastModified"></param>
         /// <param name="etag"></param>
         /// <param name="quota"></param>
@@ -46,7 +46,8 @@ namespace Azure.Storage.Files.Shares.Models
         /// <param name="leaseDuration"> When a share is leased, specifies whether the lease is of infinite or fixed duration. </param>
         /// <param name="enabledProtocols"></param>
         /// <param name="rootSquash"></param>
-        internal SharePropertiesInternal(DateTimeOffset lastModified, string etag, int quota, int? provisionedIops, int? provisionedIngressMBps, int? provisionedEgressMBps, int? provisionedBandwidthMiBps, DateTimeOffset? nextAllowedQuotaDowngradeTime, DateTimeOffset? deletedTime, int? remainingRetentionDays, string accessTier, DateTimeOffset? accessTierChangeTime, string accessTierTransitionState, ShareLeaseStatus? leaseStatus, ShareLeaseState? leaseState, ShareLeaseDuration? leaseDuration, string enabledProtocols, ShareRootSquash? rootSquash)
+        /// <param name="enableSnapshotVirtualDirectoryAccess"></param>
+        internal SharePropertiesInternal(DateTimeOffset lastModified, string etag, int quota, int? provisionedIops, int? provisionedIngressMBps, int? provisionedEgressMBps, int? provisionedBandwidthMiBps, DateTimeOffset? nextAllowedQuotaDowngradeTime, DateTimeOffset? deletedTime, int? remainingRetentionDays, string accessTier, DateTimeOffset? accessTierChangeTime, string accessTierTransitionState, ShareLeaseStatus? leaseStatus, ShareLeaseState? leaseState, ShareLeaseDuration? leaseDuration, string enabledProtocols, ShareRootSquash? rootSquash, bool? enableSnapshotVirtualDirectoryAccess)
         {
             LastModified = lastModified;
             Etag = etag;
@@ -66,6 +67,7 @@ namespace Azure.Storage.Files.Shares.Models
             LeaseDuration = leaseDuration;
             EnabledProtocols = enabledProtocols;
             RootSquash = rootSquash;
+            EnableSnapshotVirtualDirectoryAccess = enableSnapshotVirtualDirectoryAccess;
         }
 
         /// <summary> Gets the last modified. </summary>
@@ -104,5 +106,7 @@ namespace Azure.Storage.Files.Shares.Models
         public string EnabledProtocols { get; }
         /// <summary> Gets the root squash. </summary>
         public ShareRootSquash? RootSquash { get; }
+        /// <summary> Gets the enable snapshot virtual directory access. </summary>
+        public bool? EnableSnapshotVirtualDirectoryAccess { get; }
     }
 }

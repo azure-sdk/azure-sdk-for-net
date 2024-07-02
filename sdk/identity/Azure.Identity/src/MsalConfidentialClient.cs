@@ -15,8 +15,8 @@ namespace Azure.Identity
         internal readonly string _clientSecret;
         internal readonly bool _includeX5CClaimHeader;
         internal readonly IX509Certificate2Provider _certificateProvider;
-        private readonly Func<string> _assertionCallback;
-        private readonly Func<CancellationToken, Task<string>> _asyncAssertionCallback;
+        private readonly Func<string> _clientAssertionCallback;
+        private readonly Func<CancellationToken, Task<string>> _clientAssertionCallbackAsync;
         private readonly Func<AppTokenProviderParameters, Task<AppTokenProviderResult>> _appTokenProviderCallback;
 
         internal string RedirectUrl { get; }
@@ -44,13 +44,13 @@ namespace Azure.Identity
         public MsalConfidentialClient(CredentialPipeline pipeline, string tenantId, string clientId, Func<string> assertionCallback, TokenCredentialOptions options)
             : base(pipeline, tenantId, clientId, options)
         {
-            _assertionCallback = assertionCallback;
+            _clientAssertionCallback = assertionCallback;
         }
 
         public MsalConfidentialClient(CredentialPipeline pipeline, string tenantId, string clientId, Func<CancellationToken, Task<string>> assertionCallback, TokenCredentialOptions options)
             : base(pipeline, tenantId, clientId, options)
         {
-            _asyncAssertionCallback = assertionCallback;
+            _clientAssertionCallbackAsync = assertionCallback;
         }
 
         public MsalConfidentialClient(CredentialPipeline pipeline, string tenantId, string clientId, Func<AppTokenProviderParameters, Task<AppTokenProviderResult>> appTokenProviderCallback, TokenCredentialOptions options)
@@ -102,22 +102,22 @@ namespace Azure.Identity
                 confClientBuilder.WithClientSecret(_clientSecret);
             }
 
-            if (_assertionCallback != null)
+            if (_clientAssertionCallback != null)
             {
-                if (_asyncAssertionCallback != null)
+                if (_clientAssertionCallbackAsync != null)
                 {
-                    throw new InvalidOperationException($"Cannot set both {nameof(_assertionCallback)} and {nameof(_asyncAssertionCallback)}");
+                    throw new InvalidOperationException($"Cannot set both {nameof(_clientAssertionCallback)} and {nameof(_clientAssertionCallbackAsync)}");
                 }
-                confClientBuilder.WithClientAssertion(_assertionCallback);
+                confClientBuilder.WithClientAssertion(_clientAssertionCallback);
             }
 
-            if (_asyncAssertionCallback != null)
+            if (_clientAssertionCallbackAsync != null)
             {
-                if (_assertionCallback != null)
+                if (_clientAssertionCallback != null)
                 {
-                    throw new InvalidOperationException($"Cannot set both {nameof(_assertionCallback)} and {nameof(_asyncAssertionCallback)}");
+                    throw new InvalidOperationException($"Cannot set both {nameof(_clientAssertionCallback)} and {nameof(_clientAssertionCallbackAsync)}");
                 }
-                confClientBuilder.WithClientAssertion(_asyncAssertionCallback);
+                confClientBuilder.WithClientAssertion(_clientAssertionCallbackAsync);
             }
 
             if (_certificateProvider != null)
@@ -143,11 +143,12 @@ namespace Azure.Identity
         public virtual async ValueTask<AuthenticationResult> AcquireTokenForClientAsync(
             string[] scopes,
             string tenantId,
+            string claims,
             bool enableCae,
             bool async,
             CancellationToken cancellationToken)
         {
-            var result = await AcquireTokenForClientCoreAsync(scopes, tenantId, enableCae, async, cancellationToken).ConfigureAwait(false);
+            var result = await AcquireTokenForClientCoreAsync(scopes, tenantId, claims, enableCae, async, cancellationToken).ConfigureAwait(false);
             LogAccountDetails(result);
             return result;
         }
@@ -155,6 +156,7 @@ namespace Azure.Identity
         public virtual async ValueTask<AuthenticationResult> AcquireTokenForClientCoreAsync(
             string[] scopes,
             string tenantId,
+            string claims,
             bool enableCae,
             bool async,
             CancellationToken cancellationToken)
@@ -167,7 +169,15 @@ namespace Azure.Identity
 
             if (!string.IsNullOrEmpty(tenantId))
             {
-                builder.WithAuthority(AuthorityHost.AbsoluteUri, tenantId);
+                UriBuilder uriBuilder = new UriBuilder(AuthorityHost)
+                {
+                    Path = tenantId
+                };
+                builder.WithTenantIdFromAuthority(uriBuilder.Uri);
+            }
+            if (!string.IsNullOrEmpty(claims))
+            {
+                builder.WithClaims(claims);
             }
             return await builder
                 .ExecuteAsync(async, cancellationToken)
@@ -179,11 +189,12 @@ namespace Azure.Identity
             AuthenticationAccount account,
             string tenantId,
             string redirectUri,
+            string claims,
             bool enableCae,
             bool async,
             CancellationToken cancellationToken)
         {
-            var result = await AcquireTokenSilentCoreAsync(scopes, account, tenantId, redirectUri, enableCae, async, cancellationToken).ConfigureAwait(false);
+            var result = await AcquireTokenSilentCoreAsync(scopes, account, tenantId, redirectUri, claims, enableCae, async, cancellationToken).ConfigureAwait(false);
             LogAccountDetails(result);
             return result;
         }
@@ -193,6 +204,7 @@ namespace Azure.Identity
             AuthenticationAccount account,
             string tenantId,
             string redirectUri,
+            string claims,
             bool enableCae,
             bool async,
             CancellationToken cancellationToken)
@@ -202,7 +214,15 @@ namespace Azure.Identity
             var builder = client.AcquireTokenSilent(scopes, account);
             if (!string.IsNullOrEmpty(tenantId))
             {
-                builder.WithAuthority(AuthorityHost.AbsoluteUri, tenantId);
+                UriBuilder uriBuilder = new UriBuilder(AuthorityHost)
+                {
+                    Path = tenantId
+                };
+                builder.WithTenantIdFromAuthority(uriBuilder.Uri);
+            }
+            if (!string.IsNullOrEmpty(claims))
+            {
+                builder.WithClaims(claims);
             }
             return await builder
                 .ExecuteAsync(async, cancellationToken)
@@ -214,11 +234,12 @@ namespace Azure.Identity
             string code,
             string tenantId,
             string redirectUri,
+            string claims,
             bool enableCae,
             bool async,
             CancellationToken cancellationToken)
         {
-            var result = await AcquireTokenByAuthorizationCodeCoreAsync(scopes, code, tenantId, redirectUri, enableCae, async, cancellationToken).ConfigureAwait(false);
+            var result = await AcquireTokenByAuthorizationCodeCoreAsync(scopes: scopes, code: code, tenantId: tenantId, redirectUri: redirectUri, claims: claims, enableCae: enableCae, async, cancellationToken).ConfigureAwait(false);
             LogAccountDetails(result);
             return result;
         }
@@ -228,6 +249,7 @@ namespace Azure.Identity
             string code,
             string tenantId,
             string redirectUri,
+            string claims,
             bool enableCae,
             bool async,
             CancellationToken cancellationToken)
@@ -238,7 +260,15 @@ namespace Azure.Identity
 
             if (!string.IsNullOrEmpty(tenantId))
             {
-                builder.WithAuthority(AuthorityHost.AbsoluteUri, tenantId);
+                UriBuilder uriBuilder = new UriBuilder(AuthorityHost)
+                {
+                    Path = tenantId
+                };
+                builder.WithTenantIdFromAuthority(uriBuilder.Uri);
+            }
+            if (!string.IsNullOrEmpty(claims))
+            {
+                builder.WithClaims(claims);
             }
             return await builder
                 .ExecuteAsync(async, cancellationToken)
@@ -249,11 +279,12 @@ namespace Azure.Identity
             string[] scopes,
             string tenantId,
             UserAssertion userAssertionValue,
+            string claims,
             bool enableCae,
             bool async,
             CancellationToken cancellationToken)
         {
-            var result = await AcquireTokenOnBehalfOfCoreAsync(scopes, tenantId, userAssertionValue, enableCae, async, cancellationToken).ConfigureAwait(false);
+            var result = await AcquireTokenOnBehalfOfCoreAsync(scopes, tenantId, userAssertionValue, claims, enableCae, async, cancellationToken).ConfigureAwait(false);
             LogAccountDetails(result);
             return result;
         }
@@ -262,6 +293,7 @@ namespace Azure.Identity
             string[] scopes,
             string tenantId,
             UserAssertion userAssertionValue,
+            string claims,
             bool enableCae,
             bool async,
             CancellationToken cancellationToken)
@@ -274,7 +306,15 @@ namespace Azure.Identity
 
             if (!string.IsNullOrEmpty(tenantId))
             {
-                builder.WithAuthority(AuthorityHost.AbsoluteUri, tenantId);
+                UriBuilder uriBuilder = new UriBuilder(AuthorityHost)
+                {
+                    Path = tenantId
+                };
+                builder.WithTenantIdFromAuthority(uriBuilder.Uri);
+            }
+            if (!string.IsNullOrEmpty(claims))
+            {
+                builder.WithClaims(claims);
             }
             return await builder
                 .ExecuteAsync(async, cancellationToken)

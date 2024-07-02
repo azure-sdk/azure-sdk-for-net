@@ -3,11 +3,12 @@
 Run `dotnet build /t:GenerateCode` to generate code.
 
 ```yaml
+
 azure-arm: true
 library-name: Network
 namespace: Azure.ResourceManager.Network
-require: https://github.com/Azure/azure-rest-api-specs/blob/0762e82bcccef4a032e29dda5e4c07fd7cc822a6/specification/network/resource-manager/readme.md
-# tag: package-2023-05
+require: https://github.com/Azure/azure-rest-api-specs/blob/d1f4d6fcf1bbb2e71a32bb2079de12f17fedf56a/specification/network/resource-manager/readme.md
+# tag: package-2023-11
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
@@ -17,8 +18,8 @@ sample-gen:
     # Not support generate samples from customized operations
     - VirtualMachineScaleSets_ListPublicIPAddresses
     - VirtualMachineScaleSets_ListNetworkInterfaces
-    - VirtualMachineScaleSets_ListIpConfigurations
-    - VirtualMachineScaleSets_GetIpConfiguration
+    - VirtualMachineScaleSets_ListIPConfigurations
+    - VirtualMachineScaleSets_GetIPConfiguration
     - VirtualMachineScaleSets_GetPublicIPAddress
     - VirtualMachineScaleSetVMs_ListPublicIPAddresses
     - VirtualMachineScaleSetVMs_ListNetworkInterfaces
@@ -26,19 +27,23 @@ sample-gen:
 skip-csproj: true
 modelerfour:
   flatten-payloads: false
+use-model-reader-writer: true
 model-namespace: true
 public-clients: false
 head-as-boolean: false
 resource-model-requires-type: false
 
-#mgmt-debug:
+# mgmt-debug:
 #  show-serialized-names: true
 
 rename-mapping:
+  ConnectionMonitorEndpoint.subscriptionId: -|uuid
   ConnectionMonitor: ConnectionMonitorInput
   ConnectionMonitorResult: ConnectionMonitor
   PacketCapture: PacketCaptureInput
+  PacketCapture.properties.continuousCapture: IsContinuousCapture
   PacketCaptureResult: PacketCapture
+  PacketCaptureResult.properties.continuousCapture: IsContinuousCapture
   IPConfigurationBgpPeeringAddress.ipconfigurationId: IPConfigurationId
   VirtualNetworkGatewayNatRule.properties.type: VpnNatRuleType
   SubResource: NetworkSubResource
@@ -83,7 +88,6 @@ rename-mapping:
   Resource: NetworkTrackedResourceData
   ConnectivityIssue.context: Contexts
   VpnClientConnectionHealthDetail.vpnConnectionDuration: vpnConnectionDurationInSeconds
-  VpnClientConnectionHealthDetail.VpnConnectionTime: vpnConnectedOn
   TunnelConnectionHealth.lastConnectionEstablishedUtcTime: lastConnectionEstablishedOn
   ConnectivityIssue.type: ConnectivityIssueType
   HttpHeader: NetworkWatcherHttpHeader
@@ -100,9 +104,7 @@ rename-mapping:
   AuthenticationMethod: NetworkAuthenticationMethod
   ConnectionStateSnapshot.connectionState: NetworkConnectionState
   ConnectivityInformation.connectionStatus: NetworkConnectionStatus
-  DscpConfigurationPropertiesFormat.protocol: NetworkProtocolType
   CustomDnsConfigPropertiesFormat: CustomDnsConfigProperties
-  ProtocolCustomSettingsFormat: ProtocolCustomSettings
   ServiceEndpointPropertiesFormat: ServiceEndpointProperties
   ConnectionStatus: NetworkConnectionStatus
   IssueType: ConnectivityIssueType
@@ -150,7 +152,9 @@ rename-mapping:
   SignatureOverridesFilterValuesResponse: SignatureOverridesFilterValuesResult
   SlotType: SwapSlotType
   UseHubGateway: HubGatewayUsageFlag
+  VirtualApplianceIPConfigurationProperties.primary: IsPrimary
   VirtualNetworkEncryption.enabled: IsEnabled
+  VirtualNetworkPeering.properties.peerCompleteVnets: AreCompleteVnetsPeered
   VpnPolicyMemberAttributeType.AADGroupId: AadGroupId
   CustomIpPrefix.properties.customIpPrefixParent: ParentCustomIpPrefix
   CustomIpPrefix.properties.childCustomIpPrefixes: ChildCustomIpPrefixList
@@ -191,6 +195,7 @@ rename-mapping:
   SyncMode: BackendAddressSyncMode
   MigratedPools: MigrateLoadBalancerToIPBasedResult
   IPRule: BastionHostIPRule
+  NetworkVirtualApplianceConnection.properties.routingConfiguration: ConnectionRoutingConfiguration
 
 keep-plural-resource-data:
 - PolicySignaturesOverridesForIdps
@@ -299,15 +304,17 @@ override-operation-name:
   VirtualHubs_GetEffectiveVirtualHubRoutes: GetVirtualHubEffectiveRoutes
   VirtualHubs_GetOutboundRoutes: GetVirtualHubOutboundRoutes
   VirtualHubs_GetInboundRoutes: GetVirtualHubInboundRoutes
-  generatevirtualwanvpnserverconfigurationvpnprofile: GenerateVirtualWanVpnServerConfigurationVpnProfile
   VirtualMachineScaleSets_ListNetworkInterfaces: GetNetworkInterfaces
   VirtualMachineScaleSets_ListPublicIPAddresses: GetPublicIPAddresses
   VirtualMachineScaleSets_GetPublicIPAddress: GetPublicIPAddress
   VirtualMachineScaleSets_GetNetworkInterface: GetNetworkInterface
   VirtualMachineScaleSets_ListIpConfigurations: GetIPConfigurations
-  VirtualMachineScaleSets_GetIpConfiguration: GetIPConfiguration
   VirtualMachineScaleSetVMs_ListNetworkInterfaces: GetNetworkInterfaces
   VirtualMachineScaleSetVMs_ListPublicIPAddresses: GetPublicIPAddresses
+  Generatevirtualwanvpnserverconfigurationvpnprofile: GenerateVirtualWanVpnServerConfigurationVpnProfile
+
+suppress-abstract-base-class:
+- BaseAdminRuleData
 
 directive:
   - remove-operation: 'PutBastionShareableLink'
@@ -601,4 +608,5 @@ directive:
   #     {
   #         delete $[param];
   #     }
+
 ```

@@ -10,7 +10,6 @@ using System.IO;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.Data.SchemaRegistry.Models;
@@ -52,7 +51,7 @@ namespace Azure.Data.SchemaRegistry
             uri.AppendPath(id, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
-            request.Headers.Add("Accept", "application/json; serialization=Avro, application/json; serialization=Json, application/octet-stream");
+            request.Headers.Add("Accept", "application/json; serialization=Avro, application/json; serialization=json, application/octet-stream");
             return message;
         }
 

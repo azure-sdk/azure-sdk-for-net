@@ -438,7 +438,13 @@ namespace Azure.ResourceManager.NetApp.Tests
             remoteCapactiyPoolData.Tags.InitializeFrom(DefaultTags);
             CapacityPoolResource remoteCapacityPool = (await remoteCapacityPoolCollection.CreateOrUpdateAsync(WaitUntil.Completed, _pool1Name, remoteCapactiyPoolData)).Value;
             //Create the remote volume with dataProtection
-            NetAppReplicationObject replication = new(null, NetAppEndpointType.Destination, NetAppReplicationSchedule.TenMinutely, volumeResource1.Id, RemoteLocation);
+            NetAppReplicationObject replication = new()
+            {
+                EndpointType = NetAppEndpointType.Destination,
+                RemoteVolumeResourceId = volumeResource1.Id,
+                ReplicationSchedule = NetAppReplicationSchedule.TenMinutely,
+                RemoteVolumeRegion = RemoteLocation
+            };
             NetAppVolumeDataProtection dataProtectionProperties = new NetAppVolumeDataProtection() { Replication = replication };
             NetAppVolumeCollection remoteVolumeCollection = remoteCapacityPool.GetNetAppVolumes();
             NetAppVolumeResource remoteVolume = await CreateVolume(RemoteLocation, NetAppFileServiceLevel.Premium, _defaultUsageThreshold, volumeCollection: remoteVolumeCollection, dataProtection: dataProtectionProperties, volumeName: volumeName2);
@@ -471,6 +477,7 @@ namespace Azure.ResourceManager.NetApp.Tests
             replicationList.Should().NotBeNullOrEmpty();
             replicationList.Should().HaveCount(1);
 
+            await LiveDelay(5000);
             //Break Replication
             ArmOperation breakReplicationOperation = (await remoteVolume.BreakReplicationAsync(WaitUntil.Completed, new()));
             Assert.IsTrue(breakReplicationOperation.HasCompleted);

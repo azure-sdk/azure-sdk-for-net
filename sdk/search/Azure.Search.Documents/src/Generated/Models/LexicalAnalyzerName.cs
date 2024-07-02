@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.Search.Documents.Indexes.Models
 {
-    /// <summary> Defines the names of all text analyzers supported by Azure Cognitive Search. </summary>
+    /// <summary> Defines the names of all text analyzers supported by the search engine. </summary>
     public readonly partial struct LexicalAnalyzerName : IEquatable<LexicalAnalyzerName>
     {
         private readonly string _value;
@@ -317,7 +317,7 @@ namespace Azure.Search.Documents.Indexes.Models
 
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+        public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
         /// <inheritdoc />
         public override string ToString() => _value;
     }

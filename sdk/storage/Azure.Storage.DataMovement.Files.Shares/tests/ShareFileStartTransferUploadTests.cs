@@ -8,6 +8,7 @@ using Azure.Storage.DataMovement.Tests;
 using Azure.Storage.Files.Shares;
 using Azure.Storage.Files.Shares.Tests;
 using System.IO;
+using Azure.Core.TestFramework;
 
 namespace Azure.Storage.DataMovement.Files.Shares.Tests
 {
@@ -21,6 +22,9 @@ namespace Azure.Storage.DataMovement.Files.Shares.Tests
     {
         private const string _fileResourcePrefix = "test-file-";
         private const string _expectedOverwriteExceptionMessage = "Cannot overwrite file.";
+        // When the file is created, the last modified time is set to the current time.
+        // We need to set the last modified time to a fixed value to make the test recordable/predictable.
+        private readonly DateTimeOffset? _defaultFileLastWrittenOn = new DateTimeOffset(2024, 11, 24, 11, 23, 45, TimeSpan.FromHours(10));
 
         public ShareFileStartTransferUploadTests(bool async, ShareClientOptions.ServiceVersion serviceVersion)
             : base(async, _expectedOverwriteExceptionMessage, _fileResourcePrefix, null /* RecordedTestMode.Record /* to re-record */)
@@ -38,18 +42,18 @@ namespace Azure.Storage.DataMovement.Files.Shares.Tests
             ShareClient container,
             long? resourceLength = null,
             bool createResource = false,
-            string resourceName = null,
+            string objectName = null,
             ShareClientOptions options = null,
             Stream contents = default)
         {
-            resourceName ??= GetNewObjectName();
+            objectName ??= GetNewObjectName();
             if (createResource)
             {
                 if (!resourceLength.HasValue)
                 {
                     throw new InvalidOperationException($"Cannot create share file without size specified. Either set {nameof(createResource)} to false or specify a {nameof(resourceLength)}.");
                 }
-                ShareFileClient fileClient = container.GetRootDirectoryClient().GetFileClient(resourceName);
+                ShareFileClient fileClient = container.GetRootDirectoryClient().GetFileClient(objectName);
                 await fileClient.CreateAsync(resourceLength.Value);
 
                 if (contents != default)
@@ -59,11 +63,21 @@ namespace Azure.Storage.DataMovement.Files.Shares.Tests
 
                 return fileClient;
             }
-            return container.GetRootDirectoryClient().GetFileClient(resourceName);
+            return container.GetRootDirectoryClient().GetFileClient(objectName);
         }
 
-        protected override StorageResourceItem GetStorageResourceItem(ShareFileClient resourceClient)
-            => new ShareFileStorageResource(resourceClient);
+        protected override StorageResourceItem GetStorageResourceItem(ShareFileClient objectClient)
+        {
+            ShareFileStorageResourceOptions options = new();
+            if (Mode == RecordedTestMode.Record ||
+                Mode == RecordedTestMode.Playback)
+            {
+                options.FileLastWrittenOn = new(_defaultFileLastWrittenOn);
+            }
+            return new ShareFileStorageResource(
+                objectClient,
+                options);
+        }
 
         protected override Task<Stream> OpenReadAsync(ShareFileClient objectClient)
             => objectClient.OpenReadAsync();

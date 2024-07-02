@@ -18,12 +18,14 @@ namespace Azure.Storage.DataMovement.Tests
 
         public override Uri Uri { get; }
 
+        public override string ProviderId => "mock";
+
         public MemoryStorageResourceContainer(Uri uri)
         {
             Uri = uri ?? new Uri($"memory://localhost/mycontainer/mypath-{Guid.NewGuid()}/resource-item-{Guid.NewGuid()}");
         }
 
-        protected internal override StorageResourceItem GetStorageResourceReference(string path)
+        protected internal override StorageResourceItem GetStorageResourceReference(string path, string resourceId)
         {
             UriBuilder builder = new(Uri);
             builder.Path = string.Join("/", new List<string>()
@@ -50,6 +52,16 @@ namespace Azure.Storage.DataMovement.Tests
             {
                 yield return await Task.FromResult(storageResource);
             }
+        }
+
+        protected internal override StorageResourceCheckpointData GetDestinationCheckpointData()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected internal override StorageResourceCheckpointData GetSourceCheckpointData()
+        {
+            throw new NotImplementedException();
         }
 
         private IEnumerable<StorageResource> GetStorageResources(bool includeContainers)
@@ -80,6 +92,16 @@ namespace Azure.Storage.DataMovement.Tests
                     }
                 }
             }
+        }
+
+        protected internal override Task CreateIfNotExistsAsync(CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected internal override StorageResourceContainer GetChildStorageResourceContainer(string path)
+        {
+            throw new NotImplementedException();
         }
     }
 }

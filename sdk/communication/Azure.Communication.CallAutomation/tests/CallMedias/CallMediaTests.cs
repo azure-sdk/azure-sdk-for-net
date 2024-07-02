@@ -69,10 +69,10 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
             "The third test string to be recognized by cognition service"
         };
 
-        private static RecognizeChoice _recognizeChoice1 = new RecognizeChoice("testLabel1", s_strings);
-        private static RecognizeChoice _recognizeChoice2 = new RecognizeChoice("testLabel2", s_strings);
+        private static RecognitionChoice _recognizeChoice1 = new RecognitionChoice("testLabel1", s_strings);
+        private static RecognitionChoice _recognizeChoice2 = new RecognitionChoice("testLabel2", s_strings);
 
-        private static readonly List<RecognizeChoice> s_recognizeChoices = new List<RecognizeChoice>()
+        private static readonly List<RecognitionChoice> s_recognizeChoices = new List<RecognitionChoice>()
         {
             _recognizeChoice1,
             _recognizeChoice2
@@ -98,7 +98,7 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
             Prompt = new TextSource("PlayTTS test text.")
             {
                 SourceLocale = "en-US",
-                VoiceGender = GenderType.Female,
+                VoiceKind = VoiceKind.Female,
                 VoiceName = "LULU"
             },
             SpeechLanguage = "en-US",
@@ -115,7 +115,7 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
             Prompt = new TextSource("PlayTTS test text.")
             {
                 SourceLocale = "en-US",
-                VoiceGender = GenderType.Female,
+                VoiceKind = VoiceKind.Female,
                 VoiceName = "LULU"
             },
             SpeechLanguage = "en-US",
@@ -132,7 +132,7 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
             Prompt = new TextSource("PlayTTS test text.")
             {
                 SourceLocale = "en-US",
-                VoiceGender = GenderType.Female,
+                VoiceKind = VoiceKind.Female,
                 VoiceName = "LULU"
             },
             SpeechLanguage= "en-US",
@@ -143,10 +143,28 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
 
         private static readonly StartHoldMusicOptions _startHoldMusicOptions = new StartHoldMusicOptions(new CommunicationUserIdentifier("targetUserId"), _textSource)
         {
-            OperationContext = "operationContext"
+            OperationContext = "operationContext",
         };
 
         private static readonly StopHoldMusicOptions _stopHoldMusicOptions = new StopHoldMusicOptions(new CommunicationUserIdentifier("targetUserId"))
+        {
+            OperationContext = "operationContext"
+        };
+
+        private static readonly HoldOptions _holdOptions = new HoldOptions(new CommunicationUserIdentifier("targetUserId"))
+        {
+            OperationContext = "operationContext",
+            PlaySourceInfo = _textSource,
+            OperationCallbackUri = new Uri("https://localhost")
+        };
+
+        private static readonly HoldOptions _holdOptionsNoMusic = new HoldOptions(new CommunicationUserIdentifier("targetUserId"))
+        {
+            OperationContext = "operationContext",
+            OperationCallbackUri = new Uri("https://localhost")
+        };
+
+        private static readonly UnholdOptions _unholdOptions = new UnholdOptions(new CommunicationUserIdentifier("targetUserId"))
         {
             OperationContext = "operationContext"
         };
@@ -159,9 +177,9 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
             _fileSource.PlaySourceCacheId = "playSourceId";
         }
 
-        private CallMedia GetCallMedia(int responseCode)
+        private CallMedia GetCallMedia(int responseCode, object? responseContent = null)
         {
-            CallAutomationClient callAutomationClient = CreateMockCallAutomationClient(responseCode);
+            CallAutomationClient callAutomationClient = CreateMockCallAutomationClient(responseCode, responseContent);
             return callAutomationClient.GetCallConnection("callConnectionId").GetCallMedia();
         }
 
@@ -193,9 +211,9 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
         }
 
         [TestCaseSource(nameof(TestData_SendDtmfOperationsAsync))]
-        public async Task SendDtmfOperationsAsync_Return202Accepted(Func<CallMedia, Task<Response<SendDtmfResult>>> operation)
+        public async Task SendDtmfOperationsAsync_Return202Accepted(Func<CallMedia, Task<Response<SendDtmfTonesResult>>> operation)
         {
-            _callMedia = GetCallMedia(202);
+            _callMedia = GetCallMedia(202, "{ \"operationContext\": \"operationContext\" }");
             var result = await operation(_callMedia);
             Assert.IsNotNull(result);
             Assert.AreEqual((int)HttpStatusCode.Accepted, result.GetRawResponse().Status);
@@ -237,8 +255,8 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
             Assert.AreEqual((int)HttpStatusCode.Accepted, result.Status);
         }
 
-        [TestCaseSource(nameof(TestData_UpdateTranscriptionDataOperationsAsync))]
-        public async Task UpdateTranscriptionDataOperationsAsync_Return202Accepted(Func<CallMedia, Task<Response>> operation)
+        [TestCaseSource(nameof(TestData_UpdateTranscriptionOperationsAsync))]
+        public async Task UpdateTranscriptionOperationsAsync_Return202Accepted(Func<CallMedia, Task<Response>> operation)
         {
             _callMedia = GetCallMedia(202);
             var result = await operation(_callMedia);
@@ -248,6 +266,15 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
 
         [TestCaseSource(nameof(TestData_PlayOperations))]
         public void MediaOperations_Return202Accepted(Func<CallMedia, Response<PlayResult>> operation)
+        {
+            _callMedia = GetCallMedia(202);
+            var result = operation(_callMedia);
+            Assert.IsNotNull(result);
+            Assert.AreEqual((int)HttpStatusCode.Accepted, result.GetRawResponse().Status);
+        }
+
+        [TestCaseSource(nameof(TestData_PlayOperations_WithBargeIn))]
+        public void MediaOperationsWithBargeIn_Return202Accepted(Func<CallMedia, Response<PlayResult>> operation)
         {
             _callMedia = GetCallMedia(202);
             var result = operation(_callMedia);
@@ -274,9 +301,9 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
         }
 
         [TestCaseSource(nameof(TestData_SendDtmfOperations))]
-        public void SendDtmfOperations_Return202Accepted(Func<CallMedia, Response<SendDtmfResult>> operation)
+        public void SendDtmfOperations_Return202Accepted(Func<CallMedia, Response<SendDtmfTonesResult>> operation)
         {
-            _callMedia = GetCallMedia(202);
+            _callMedia = GetCallMedia(202, "{ \"operationContext\": \"operationContext\" }");
             var result = operation(_callMedia);
             Assert.IsNotNull(result);
             Assert.AreEqual((int)HttpStatusCode.Accepted, result.GetRawResponse().Status);
@@ -318,8 +345,8 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
             Assert.AreEqual((int)HttpStatusCode.Accepted, result.Status);
         }
 
-        [TestCaseSource(nameof(TestData_UpdateTranscriptionDataOperations))]
-        public void UpdateTranscriptionDataOperations_Return202Accepted(Func<CallMedia, Response> operation)
+        [TestCaseSource(nameof(TestData_UpdateTranscriptionOperations))]
+        public void UpdateTranscriptionOperations_Return202Accepted(Func<CallMedia, Response> operation)
         {
             _callMedia = GetCallMedia(202);
             var result = operation(_callMedia);
@@ -358,7 +385,7 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
         }
 
         [TestCaseSource(nameof(TestData_SendDtmfOperationsAsync))]
-        public void SendDtmfOperationsAsync_Return404NotFound(Func<CallMedia, Task<Response<SendDtmfResult>>> operation)
+        public void SendDtmfOperationsAsync_Return404NotFound(Func<CallMedia, Task<Response<SendDtmfTonesResult>>> operation)
         {
             _callMedia = GetCallMedia(404);
             RequestFailedException? ex = Assert.ThrowsAsync<RequestFailedException>(
@@ -397,8 +424,8 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
             Assert.AreEqual(ex?.Status, 404);
         }
 
-        [TestCaseSource(nameof(TestData_UpdateTranscriptionDataOperationsAsync))]
-        public void UpdateTranscriptionDataOperationsAsync_Return404NotFound(Func<CallMedia, Task<Response>> operation)
+        [TestCaseSource(nameof(TestData_UpdateTranscriptionOperationsAsync))]
+        public void UpdateTranscriptionOperationsAsync_Return404NotFound(Func<CallMedia, Task<Response>> operation)
         {
             _callMedia = GetCallMedia(404);
             RequestFailedException? ex = Assert.ThrowsAsync<RequestFailedException>(
@@ -438,7 +465,7 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
         }
 
         [TestCaseSource(nameof(TestData_SendDtmfOperations))]
-        public void SendDtmfOperations_Return404NotFound(Func<CallMedia, Response<SendDtmfResult>> operation)
+        public void SendDtmfOperations_Return404NotFound(Func<CallMedia, Response<SendDtmfTonesResult>> operation)
         {
             _callMedia = GetCallMedia(404);
             RequestFailedException? ex = Assert.Throws<RequestFailedException>(
@@ -507,8 +534,8 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
             Assert.AreEqual(ex?.Status, 404);
         }
 
-        [TestCaseSource(nameof(TestData_UpdateTranscriptionDataOperations))]
-        public void UpdateTranscriptionDataOperations_Return404NotFound(Func<CallMedia, Response> operation)
+        [TestCaseSource(nameof(TestData_UpdateTranscriptionOperations))]
+        public void UpdateTranscriptionOperations_Return404NotFound(Func<CallMedia, Response> operation)
         {
             _callMedia = GetCallMedia(404);
             RequestFailedException? ex = Assert.Throws<RequestFailedException>(
@@ -562,6 +589,34 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
                 new Func<CallMedia, Task<Response<PlayResult>>>?[]
                 {
                    callMedia => callMedia.PlayToAllAsync(_ssmlPlayToAllOptions)
+                },
+            };
+        }
+
+        private static IEnumerable<object?[]> TestData_PlayOperations_WithBargeIn()
+        {
+            return new[]
+            {
+                new Func<CallMedia, Response<PlayResult>>?[]
+                {
+                   callMedia => {
+                       _filePlayToAllOptions.InterruptCallMediaOperation = true;
+                       return callMedia.PlayToAll(_filePlayToAllOptions);
+                    }
+                },
+                new Func<CallMedia, Response<PlayResult>>?[]
+                {
+                   callMedia => {
+                       _textPlayToAllOptions.InterruptCallMediaOperation = true;
+                       return callMedia.PlayToAll(_textPlayToAllOptions);
+                    }
+                },
+                new Func<CallMedia, Response<PlayResult>>?[]
+                {
+                   callMedia => {
+                       _ssmlPlayToAllOptions.InterruptCallMediaOperation = true;
+                       return callMedia.PlayToAll(_ssmlPlayToAllOptions);
+                    }
                 },
             };
         }
@@ -677,12 +732,11 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
         {
             return new[]
             {
-                new Func<CallMedia, Response<SendDtmfResult>>?[]
+                new Func<CallMedia, Response<SendDtmfTonesResult>>?[]
                 {
-                   callMedia => callMedia.SendDtmf(
+                   callMedia => callMedia.SendDtmfTones(
                        new DtmfTone[] { DtmfTone.One, DtmfTone.Two, DtmfTone.Three, DtmfTone.Pound },
-                       new CommunicationUserIdentifier("targetUserId"),
-                       "context"
+                       new CommunicationUserIdentifier("targetUserId")
                        )
                 }
             };
@@ -692,9 +746,9 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
         {
             return new[]
             {
-                new Func<CallMedia, Task<Response<SendDtmfResult>>>?[]
+                new Func<CallMedia, Task<Response<SendDtmfTonesResult>>>?[]
                 {
-                   callMedia => callMedia.SendDtmfAsync(
+                   callMedia => callMedia.SendDtmfTonesAsync(
                        new DtmfTone[] { DtmfTone.One, DtmfTone.Two, DtmfTone.Three, DtmfTone.Pound },
                        new CommunicationUserIdentifier("targetUserId")
                        )
@@ -746,6 +800,7 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
             };
         }
 
+        [Obsolete]
         private static IEnumerable<object?[]> TestData_HoldOperationsAsync()
         {
             return new[]
@@ -756,11 +811,20 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
                 },
                 new Func<CallMedia, Task<Response>>?[]
                 {
-                   callMedia => callMedia.StopHoldMusicAsync(_stopHoldMusicOptions)
+                   callMedia => callMedia.HoldAsync(_holdOptions)
+                },
+                new Func<CallMedia, Task<Response>>?[]
+                {
+                   callMedia => callMedia.HoldAsync(_holdOptionsNoMusic)
+                },
+                new Func<CallMedia, Task<Response>>?[]
+                {
+                   callMedia => callMedia.UnholdAsync(_unholdOptions)
                 }
             };
         }
 
+        [Obsolete]
         private static IEnumerable<object?[]> TestData_HoldOperations()
         {
             return new[]
@@ -771,7 +835,15 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
                 },
                 new Func<CallMedia, Response>?[]
                 {
-                   callMedia => callMedia.StopHoldMusic(_stopHoldMusicOptions)
+                   callMedia => callMedia.Hold(_holdOptions)
+                },
+                new Func<CallMedia, Response>?[]
+                {
+                   callMedia => callMedia.Hold(_holdOptionsNoMusic)
+                },
+                new Func<CallMedia, Response>?[]
+                {
+                   callMedia => callMedia.Unhold(_unholdOptions)
                 }
             };
         }
@@ -820,24 +892,24 @@ namespace Azure.Communication.CallAutomation.Tests.CallMedias
             };
         }
 
-        private static IEnumerable<object?[]> TestData_UpdateTranscriptionDataOperations()
+        private static IEnumerable<object?[]> TestData_UpdateTranscriptionOperations()
         {
             return new[]
             {
                 new Func<CallMedia, Response>?[]
                 {
-                   callMedia => callMedia.UpdateTranscriptionData("locale")
+                   callMedia => callMedia.UpdateTranscription("locale")
                 }
             };
         }
 
-        private static IEnumerable<object?[]> TestData_UpdateTranscriptionDataOperationsAsync()
+        private static IEnumerable<object?[]> TestData_UpdateTranscriptionOperationsAsync()
         {
             return new[]
             {
                 new Func<CallMedia, Task<Response>>?[]
                 {
-                   callMedia => callMedia.UpdateTranscriptionDataAsync("locale")
+                   callMedia => callMedia.UpdateTranscriptionAsync("locale")
                 }
             };
         }

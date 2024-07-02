@@ -12,18 +12,16 @@ using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Autorest.CSharp.Core;
-using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
-using Azure.ResourceManager;
 using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.PowerBIDedicated
 {
     /// <summary>
-    /// A class representing a collection of <see cref="AutoScaleVCoreResource" /> and their operations.
-    /// Each <see cref="AutoScaleVCoreResource" /> in the collection will belong to the same instance of <see cref="ResourceGroupResource" />.
-    /// To get an <see cref="AutoScaleVCoreCollection" /> instance call the GetAutoScaleVCores method from an instance of <see cref="ResourceGroupResource" />.
+    /// A class representing a collection of <see cref="AutoScaleVCoreResource"/> and their operations.
+    /// Each <see cref="AutoScaleVCoreResource"/> in the collection will belong to the same instance of <see cref="ResourceGroupResource"/>.
+    /// To get an <see cref="AutoScaleVCoreCollection"/> instance call the GetAutoScaleVCores method from an instance of <see cref="ResourceGroupResource"/>.
     /// </summary>
     public partial class AutoScaleVCoreCollection : ArmCollection, IEnumerable<AutoScaleVCoreResource>, IAsyncEnumerable<AutoScaleVCoreResource>
     {
@@ -65,6 +63,14 @@ namespace Azure.ResourceManager.PowerBIDedicated
         /// <term>Operation Id</term>
         /// <description>AutoScaleVCores_Create</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-01-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AutoScaleVCoreResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
@@ -83,7 +89,9 @@ namespace Azure.ResourceManager.PowerBIDedicated
             try
             {
                 var response = await _autoScaleVCoreRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, vcoreName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new PowerBIDedicatedArmOperation<AutoScaleVCoreResource>(Response.FromValue(new AutoScaleVCoreResource(Client, response), response.GetRawResponse()));
+                var uri = _autoScaleVCoreRestClient.CreateCreateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, vcoreName, data);
+                var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
+                var operation = new PowerBIDedicatedArmOperation<AutoScaleVCoreResource>(Response.FromValue(new AutoScaleVCoreResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -106,6 +114,14 @@ namespace Azure.ResourceManager.PowerBIDedicated
         /// <term>Operation Id</term>
         /// <description>AutoScaleVCores_Create</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-01-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AutoScaleVCoreResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
@@ -124,7 +140,9 @@ namespace Azure.ResourceManager.PowerBIDedicated
             try
             {
                 var response = _autoScaleVCoreRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, vcoreName, data, cancellationToken);
-                var operation = new PowerBIDedicatedArmOperation<AutoScaleVCoreResource>(Response.FromValue(new AutoScaleVCoreResource(Client, response), response.GetRawResponse()));
+                var uri = _autoScaleVCoreRestClient.CreateCreateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, vcoreName, data);
+                var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
+                var operation = new PowerBIDedicatedArmOperation<AutoScaleVCoreResource>(Response.FromValue(new AutoScaleVCoreResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -146,6 +164,14 @@ namespace Azure.ResourceManager.PowerBIDedicated
         /// <item>
         /// <term>Operation Id</term>
         /// <description>AutoScaleVCores_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-01-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AutoScaleVCoreResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -184,6 +210,14 @@ namespace Azure.ResourceManager.PowerBIDedicated
         /// <term>Operation Id</term>
         /// <description>AutoScaleVCores_Get</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-01-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AutoScaleVCoreResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="vcoreName"> The name of the auto scale v-core. It must be a minimum of 3 characters, and a maximum of 63. </param>
@@ -221,10 +255,18 @@ namespace Azure.ResourceManager.PowerBIDedicated
         /// <term>Operation Id</term>
         /// <description>AutoScaleVCores_ListByResourceGroup</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-01-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AutoScaleVCoreResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="AutoScaleVCoreResource" /> that may take multiple service requests to iterate over. </returns>
+        /// <returns> An async collection of <see cref="AutoScaleVCoreResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<AutoScaleVCoreResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => _autoScaleVCoreRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName);
@@ -242,10 +284,18 @@ namespace Azure.ResourceManager.PowerBIDedicated
         /// <term>Operation Id</term>
         /// <description>AutoScaleVCores_ListByResourceGroup</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-01-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AutoScaleVCoreResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="AutoScaleVCoreResource" /> that may take multiple service requests to iterate over. </returns>
+        /// <returns> A collection of <see cref="AutoScaleVCoreResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<AutoScaleVCoreResource> GetAll(CancellationToken cancellationToken = default)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => _autoScaleVCoreRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName);
@@ -262,6 +312,14 @@ namespace Azure.ResourceManager.PowerBIDedicated
         /// <item>
         /// <term>Operation Id</term>
         /// <description>AutoScaleVCores_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-01-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AutoScaleVCoreResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -298,6 +356,14 @@ namespace Azure.ResourceManager.PowerBIDedicated
         /// <term>Operation Id</term>
         /// <description>AutoScaleVCores_Get</description>
         /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-01-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AutoScaleVCoreResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="vcoreName"> The name of the auto scale v-core. It must be a minimum of 3 characters, and a maximum of 63. </param>
@@ -332,6 +398,14 @@ namespace Azure.ResourceManager.PowerBIDedicated
         /// <item>
         /// <term>Operation Id</term>
         /// <description>AutoScaleVCores_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-01-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AutoScaleVCoreResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -369,6 +443,14 @@ namespace Azure.ResourceManager.PowerBIDedicated
         /// <item>
         /// <term>Operation Id</term>
         /// <description>AutoScaleVCores_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-01-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AutoScaleVCoreResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
