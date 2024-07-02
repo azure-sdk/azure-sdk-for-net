@@ -74,9 +74,11 @@ namespace Microsoft.Azure.Management.Network.Models
         /// this VNET.</param>
         /// <param name="flowLogs">A collection of references to flow log
         /// resources.</param>
+        /// <param name="privateEndpointVNetPolicies">Private Endpoint VNet
+        /// Policies. Possible values include: 'Disabled', 'Basic'</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public VirtualNetwork(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), ExtendedLocation extendedLocation = default(ExtendedLocation), AddressSpace addressSpace = default(AddressSpace), DhcpOptions dhcpOptions = default(DhcpOptions), int? flowTimeoutInMinutes = default(int?), IList<Subnet> subnets = default(IList<Subnet>), IList<VirtualNetworkPeering> virtualNetworkPeerings = default(IList<VirtualNetworkPeering>), string resourceGuid = default(string), string provisioningState = default(string), bool? enableDdosProtection = default(bool?), bool? enableVmProtection = default(bool?), SubResource ddosProtectionPlan = default(SubResource), VirtualNetworkBgpCommunities bgpCommunities = default(VirtualNetworkBgpCommunities), VirtualNetworkEncryption encryption = default(VirtualNetworkEncryption), IList<SubResource> ipAllocations = default(IList<SubResource>), IList<FlowLog> flowLogs = default(IList<FlowLog>), string etag = default(string))
+        public VirtualNetwork(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), ExtendedLocation extendedLocation = default(ExtendedLocation), AddressSpace addressSpace = default(AddressSpace), DhcpOptions dhcpOptions = default(DhcpOptions), int? flowTimeoutInMinutes = default(int?), IList<Subnet> subnets = default(IList<Subnet>), IList<VirtualNetworkPeering> virtualNetworkPeerings = default(IList<VirtualNetworkPeering>), string resourceGuid = default(string), string provisioningState = default(string), bool? enableDdosProtection = default(bool?), bool? enableVmProtection = default(bool?), SubResource ddosProtectionPlan = default(SubResource), VirtualNetworkBgpCommunities bgpCommunities = default(VirtualNetworkBgpCommunities), VirtualNetworkEncryption encryption = default(VirtualNetworkEncryption), IList<SubResource> ipAllocations = default(IList<SubResource>), IList<FlowLog> flowLogs = default(IList<FlowLog>), string privateEndpointVNetPolicies = default(string), string etag = default(string))
             : base(id, name, type, location, tags)
         {
             ExtendedLocation = extendedLocation;
@@ -94,6 +96,7 @@ namespace Microsoft.Azure.Management.Network.Models
             Encryption = encryption;
             IpAllocations = ipAllocations;
             FlowLogs = flowLogs;
+            PrivateEndpointVNetPolicies = privateEndpointVNetPolicies;
             Etag = etag;
             CustomInit();
         }
@@ -203,6 +206,13 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.flowLogs")]
         public IList<FlowLog> FlowLogs { get; private set; }
+
+        /// <summary>
+        /// Gets private Endpoint VNet Policies. Possible values include:
+        /// 'Disabled', 'Basic'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.privateEndpointVNetPolicies")]
+        public string PrivateEndpointVNetPolicies { get; private set; }
 
         /// <summary>
         /// Gets a unique read-only string that changes whenever the resource
