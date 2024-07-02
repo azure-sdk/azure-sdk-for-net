@@ -13,6 +13,8 @@ namespace Microsoft.Azure.Management.Network.Models
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
@@ -52,6 +54,10 @@ namespace Microsoft.Azure.Management.Network.Models
         /// different region (preview). See here to register for the preview
         /// and learn more
         /// (https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-create-peering).</param>
+        /// <param name="localAddressSpace">The local address space of the
+        /// local virtual network that is peered.</param>
+        /// <param name="localVirtualNetworkAddressSpace">The current local
+        /// address space of the local virtual network that is peered.</param>
         /// <param name="remoteAddressSpace">The reference to the address space
         /// peered with the remote virtual network.</param>
         /// <param name="remoteVirtualNetworkAddressSpace">The reference to the
@@ -74,13 +80,21 @@ namespace Microsoft.Azure.Management.Network.Models
         /// provisioning state of the remote gateway.</param>
         /// <param name="resourceGuid">The resourceGuid property of the Virtual
         /// Network peering resource.</param>
+        /// <param name="peerCompleteVnets">Whether complete virtual network
+        /// address space is peered.</param>
+        /// <param name="enableOnlyIPv6Peering">Whether only Ipv6 address space
+        /// is peered for subnet peering.</param>
+        /// <param name="localSubnetNames">List of local subnet names that are
+        /// subnet peered with remote virtual network.</param>
+        /// <param name="remoteSubnetNames">List of remote subnet names from
+        /// remote virtual network that are subnet peered.</param>
         /// <param name="name">The name of the resource that is unique within a
         /// resource group. This name can be used to access the
         /// resource.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
         /// <param name="type">Resource type.</param>
-        public VirtualNetworkPeering(string id = default(string), bool? allowVirtualNetworkAccess = default(bool?), bool? allowForwardedTraffic = default(bool?), bool? allowGatewayTransit = default(bool?), bool? useRemoteGateways = default(bool?), SubResource remoteVirtualNetwork = default(SubResource), AddressSpace remoteAddressSpace = default(AddressSpace), AddressSpace remoteVirtualNetworkAddressSpace = default(AddressSpace), VirtualNetworkBgpCommunities remoteBgpCommunities = default(VirtualNetworkBgpCommunities), VirtualNetworkEncryption remoteVirtualNetworkEncryption = default(VirtualNetworkEncryption), string peeringState = default(string), string peeringSyncLevel = default(string), string provisioningState = default(string), bool? doNotVerifyRemoteGateways = default(bool?), string resourceGuid = default(string), string name = default(string), string etag = default(string), string type = default(string))
+        public VirtualNetworkPeering(string id = default(string), bool? allowVirtualNetworkAccess = default(bool?), bool? allowForwardedTraffic = default(bool?), bool? allowGatewayTransit = default(bool?), bool? useRemoteGateways = default(bool?), SubResource remoteVirtualNetwork = default(SubResource), AddressSpace localAddressSpace = default(AddressSpace), AddressSpace localVirtualNetworkAddressSpace = default(AddressSpace), AddressSpace remoteAddressSpace = default(AddressSpace), AddressSpace remoteVirtualNetworkAddressSpace = default(AddressSpace), VirtualNetworkBgpCommunities remoteBgpCommunities = default(VirtualNetworkBgpCommunities), VirtualNetworkEncryption remoteVirtualNetworkEncryption = default(VirtualNetworkEncryption), string peeringState = default(string), string peeringSyncLevel = default(string), string provisioningState = default(string), bool? doNotVerifyRemoteGateways = default(bool?), string resourceGuid = default(string), bool? peerCompleteVnets = default(bool?), bool? enableOnlyIPv6Peering = default(bool?), IList<string> localSubnetNames = default(IList<string>), IList<string> remoteSubnetNames = default(IList<string>), string name = default(string), string etag = default(string), string type = default(string))
             : base(id)
         {
             AllowVirtualNetworkAccess = allowVirtualNetworkAccess;
@@ -88,6 +102,8 @@ namespace Microsoft.Azure.Management.Network.Models
             AllowGatewayTransit = allowGatewayTransit;
             UseRemoteGateways = useRemoteGateways;
             RemoteVirtualNetwork = remoteVirtualNetwork;
+            LocalAddressSpace = localAddressSpace;
+            LocalVirtualNetworkAddressSpace = localVirtualNetworkAddressSpace;
             RemoteAddressSpace = remoteAddressSpace;
             RemoteVirtualNetworkAddressSpace = remoteVirtualNetworkAddressSpace;
             RemoteBgpCommunities = remoteBgpCommunities;
@@ -97,6 +113,10 @@ namespace Microsoft.Azure.Management.Network.Models
             ProvisioningState = provisioningState;
             DoNotVerifyRemoteGateways = doNotVerifyRemoteGateways;
             ResourceGuid = resourceGuid;
+            PeerCompleteVnets = peerCompleteVnets;
+            EnableOnlyIPv6Peering = enableOnlyIPv6Peering;
+            LocalSubnetNames = localSubnetNames;
+            RemoteSubnetNames = remoteSubnetNames;
             Name = name;
             Etag = etag;
             Type = type;
@@ -149,6 +169,20 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.remoteVirtualNetwork")]
         public SubResource RemoteVirtualNetwork { get; set; }
+
+        /// <summary>
+        /// Gets or sets the local address space of the local virtual network
+        /// that is peered.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.localAddressSpace")]
+        public AddressSpace LocalAddressSpace { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current local address space of the local virtual
+        /// network that is peered.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.localVirtualNetworkAddressSpace")]
+        public AddressSpace LocalVirtualNetworkAddressSpace { get; set; }
 
         /// <summary>
         /// Gets or sets the reference to the address space peered with the
@@ -213,6 +247,34 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.resourceGuid")]
         public string ResourceGuid { get; private set; }
+
+        /// <summary>
+        /// Gets or sets whether complete virtual network address space is
+        /// peered.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.peerCompleteVnets")]
+        public bool? PeerCompleteVnets { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether only Ipv6 address space is peered for subnet
+        /// peering.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.enableOnlyIPv6Peering")]
+        public bool? EnableOnlyIPv6Peering { get; set; }
+
+        /// <summary>
+        /// Gets or sets list of local subnet names that are subnet peered with
+        /// remote virtual network.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.localSubnetNames")]
+        public IList<string> LocalSubnetNames { get; set; }
+
+        /// <summary>
+        /// Gets or sets list of remote subnet names from remote virtual
+        /// network that are subnet peered.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.remoteSubnetNames")]
+        public IList<string> RemoteSubnetNames { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the resource that is unique within a

@@ -27,9 +27,13 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            public static IPage<ExpressRouteCrossConnection> List(this IExpressRouteCrossConnectionsOperations operations)
+            /// <param name='filter'>
+            /// The filter to apply on the operation. For example, you can use $filter=name
+            /// eq '{circuitServiceKey}'.
+            /// </param>
+            public static IPage<ExpressRouteCrossConnection> List(this IExpressRouteCrossConnectionsOperations operations, string filter = default(string))
             {
-                return operations.ListAsync().GetAwaiter().GetResult();
+                return operations.ListAsync(filter).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -38,12 +42,16 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='filter'>
+            /// The filter to apply on the operation. For example, you can use $filter=name
+            /// eq '{circuitServiceKey}'.
+            /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IPage<ExpressRouteCrossConnection>> ListAsync(this IExpressRouteCrossConnectionsOperations operations, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IPage<ExpressRouteCrossConnection>> ListAsync(this IExpressRouteCrossConnectionsOperations operations, string filter = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ListWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListWithHttpMessagesAsync(filter, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
