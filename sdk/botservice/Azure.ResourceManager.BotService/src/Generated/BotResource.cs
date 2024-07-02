@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -152,7 +152,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -188,7 +188,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -219,7 +219,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -257,7 +257,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -288,7 +288,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -306,6 +306,75 @@ namespace Azure.ResourceManager.BotService
             return GetBotServicePrivateEndpointConnections().Get(privateEndpointConnectionName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of NetworkSecurityPerimeterConfigurationResources in the Bot. </summary>
+        /// <returns> An object representing collection of NetworkSecurityPerimeterConfigurationResources and their operations over a NetworkSecurityPerimeterConfigurationResource. </returns>
+        public virtual NetworkSecurityPerimeterConfigurationCollection GetNetworkSecurityPerimeterConfigurations()
+        {
+            return GetCachedClient(client => new NetworkSecurityPerimeterConfigurationCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Gets the specified Network Security Perimeter configuration associated with the Bot.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BotService/botServices/{resourceName}/networkSecurityPerimeterConfigurations/{networkSecurityPerimeterConfigurationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>NetworkSecurityPerimeterConfigurations_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-09-15-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="NetworkSecurityPerimeterConfigurationResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="networkSecurityPerimeterConfigurationName"> The resource association Name. Composed of parameter guid and association name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="networkSecurityPerimeterConfigurationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="networkSecurityPerimeterConfigurationName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<NetworkSecurityPerimeterConfigurationResource>> GetNetworkSecurityPerimeterConfigurationAsync(string networkSecurityPerimeterConfigurationName, CancellationToken cancellationToken = default)
+        {
+            return await GetNetworkSecurityPerimeterConfigurations().GetAsync(networkSecurityPerimeterConfigurationName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the specified Network Security Perimeter configuration associated with the Bot.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BotService/botServices/{resourceName}/networkSecurityPerimeterConfigurations/{networkSecurityPerimeterConfigurationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>NetworkSecurityPerimeterConfigurations_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-09-15-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="NetworkSecurityPerimeterConfigurationResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="networkSecurityPerimeterConfigurationName"> The resource association Name. Composed of parameter guid and association name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="networkSecurityPerimeterConfigurationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="networkSecurityPerimeterConfigurationName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<NetworkSecurityPerimeterConfigurationResource> GetNetworkSecurityPerimeterConfiguration(string networkSecurityPerimeterConfigurationName, CancellationToken cancellationToken = default)
+        {
+            return GetNetworkSecurityPerimeterConfigurations().Get(networkSecurityPerimeterConfigurationName, cancellationToken);
+        }
+
         /// <summary>
         /// Returns a BotService specified by the parameters.
         /// <list type="bullet">
@@ -319,7 +388,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -359,7 +428,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -399,7 +468,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -443,7 +512,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -487,7 +556,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -529,7 +598,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -571,7 +640,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -610,7 +679,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -649,7 +718,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -683,7 +752,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -717,7 +786,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -742,7 +811,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -767,7 +836,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -829,7 +898,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -891,7 +960,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -948,7 +1017,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1005,7 +1074,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1065,7 +1134,7 @@ namespace Azure.ResourceManager.BotService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-09-15</description>
+        /// <description>2023-09-15-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

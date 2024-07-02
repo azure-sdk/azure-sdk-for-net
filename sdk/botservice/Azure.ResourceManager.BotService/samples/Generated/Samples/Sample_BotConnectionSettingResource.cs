@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.BotService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetBotConnectionServiceProviders_ListAuthServiceProviders()
         {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/ListServiceProviders.json
+            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/preview/2023-09-15-preview/examples/ListServiceProviders.json
             // this example is just showing the usage of "BotConnection_ListServiceProviders" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.BotService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetWithSecrets_ListConnectionSettingWithSecrets()
         {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/GetConnection.json
+            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/preview/2023-09-15-preview/examples/GetConnection.json
             // this example is just showing the usage of "BotConnection_ListWithSecrets" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -81,7 +81,7 @@ namespace Azure.ResourceManager.BotService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_UpdateConnectionSetting()
         {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/UpdateConnection.json
+            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/preview/2023-09-15-preview/examples/UpdateConnection.json
             // this example is just showing the usage of "BotConnection_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -103,6 +103,8 @@ namespace Azure.ResourceManager.BotService.Samples
             {
                 Properties = new BotConnectionSettingProperties()
                 {
+                    Id = "sampleId",
+                    Name = "sampleName",
                     ClientId = "sampleclientid",
                     ClientSecret = "samplesecret",
                     Scopes = "samplescope",
@@ -137,7 +139,7 @@ Value = "value2",
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetConnectionSetting()
         {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/GetConnection.json
+            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/preview/2023-09-15-preview/examples/GetConnection.json
             // this example is just showing the usage of "BotConnection_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -169,7 +171,7 @@ Value = "value2",
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteConnectionSetting()
         {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/DeleteConnection.json
+            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/preview/2023-09-15-preview/examples/DeleteConnection.json
             // this example is just showing the usage of "BotConnection_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
