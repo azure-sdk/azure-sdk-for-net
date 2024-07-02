@@ -1,0 +1,8 @@
+{
+  "output-folder": ".",
+  "namespace": "Azure.Communication.JobRouter",
+  "library-name": "Azure.Communication.JobRouter",
+  "model-namespace": false,
+  "flavor": "azure",
+  "use-model-reader-writer": true
+}

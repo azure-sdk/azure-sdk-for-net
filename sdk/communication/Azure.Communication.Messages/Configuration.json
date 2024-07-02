@@ -1,0 +1,8 @@
+{
+  "output-folder": ".",
+  "namespace": "Azure.Communication.Messages",
+  "library-name": "Azure.Communication.Messages",
+  "model-namespace": false,
+  "flavor": "azure",
+  "use-model-reader-writer": true
+}
