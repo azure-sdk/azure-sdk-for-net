@@ -157,3 +157,4 @@ $outputJson = [PSCustomObject]@{
     packages = $generatedSDKPackages
 }
 $outputJson | ConvertTo-Json -depth 100 | Out-File $outputJsonFile
+exit $LASTEXITCODE
