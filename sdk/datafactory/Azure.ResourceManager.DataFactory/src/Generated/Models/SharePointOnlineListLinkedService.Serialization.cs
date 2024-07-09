@@ -80,8 +80,21 @@ namespace Azure.ResourceManager.DataFactory.Models
             JsonSerializer.Serialize(writer, TenantId);
             writer.WritePropertyName("servicePrincipalId"u8);
             JsonSerializer.Serialize(writer, ServicePrincipalId);
-            writer.WritePropertyName("servicePrincipalKey"u8);
-            JsonSerializer.Serialize(writer, ServicePrincipalKey);
+            if (Optional.IsDefined(ServicePrincipalKey))
+            {
+                writer.WritePropertyName("servicePrincipalKey"u8);
+                JsonSerializer.Serialize(writer, ServicePrincipalKey);
+            }
+            if (Optional.IsDefined(ServicePrincipalCredentialType))
+            {
+                writer.WritePropertyName("servicePrincipalCredentialType"u8);
+                JsonSerializer.Serialize(writer, ServicePrincipalCredentialType);
+            }
+            if (Optional.IsDefined(ServicePrincipalCredential))
+            {
+                writer.WritePropertyName("servicePrincipalCredential"u8);
+                JsonSerializer.Serialize(writer, ServicePrincipalCredential);
+            }
             if (Optional.IsDefined(EncryptedCredential))
             {
                 writer.WritePropertyName("encryptedCredential"u8);
@@ -132,6 +145,8 @@ namespace Azure.ResourceManager.DataFactory.Models
             DataFactoryElement<string> tenantId = default;
             DataFactoryElement<string> servicePrincipalId = default;
             DataFactorySecret servicePrincipalKey = default;
+            DataFactoryElement<string> servicePrincipalCredentialType = default;
+            DataFactorySecret servicePrincipalCredential = default;
             string encryptedCredential = default;
             IDictionary<string, BinaryData> additionalProperties = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -217,7 +232,29 @@ namespace Azure.ResourceManager.DataFactory.Models
                         }
                         if (property0.NameEquals("servicePrincipalKey"u8))
                         {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
                             servicePrincipalKey = JsonSerializer.Deserialize<DataFactorySecret>(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("servicePrincipalCredentialType"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            servicePrincipalCredentialType = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("servicePrincipalCredential"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            servicePrincipalCredential = JsonSerializer.Deserialize<DataFactorySecret>(property0.Value.GetRawText());
                             continue;
                         }
                         if (property0.NameEquals("encryptedCredential"u8))
@@ -242,6 +279,8 @@ namespace Azure.ResourceManager.DataFactory.Models
                 tenantId,
                 servicePrincipalId,
                 servicePrincipalKey,
+                servicePrincipalCredentialType,
+                servicePrincipalCredential,
                 encryptedCredential);
         }
 
