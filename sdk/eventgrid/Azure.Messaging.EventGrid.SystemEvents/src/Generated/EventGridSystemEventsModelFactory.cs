@@ -2123,6 +2123,44 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             return new AcsMessageInteractiveListReplyContent(listItemId, title, description, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsMessageAnalysisCompletedEventData"/>. </summary>
+        /// <param name="from"> The message sender. </param>
+        /// <param name="to"> The message recipient. </param>
+        /// <param name="receivedTimestamp"> The time message was received. </param>
+        /// <param name="error"> The channel event error. </param>
+        /// <param name="originalMessage"> The original message received. </param>
+        /// <param name="channelKind"> The analysed message channel kind. </param>
+        /// <param name="intentAnalysis"> The intent of the analysed message. </param>
+        /// <param name="extractedKeyPhrases"> List of key phrases extracted. </param>
+        /// <param name="languageDetection"> The analysed message language detection. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsMessageAnalysisCompletedEventData"/> instance for mocking. </returns>
+        public static AcsMessageAnalysisCompletedEventData AcsMessageAnalysisCompletedEventData(string @from = null, string to = null, DateTimeOffset receivedTimestamp = default, AcsMessageChannelEventError error = null, string originalMessage = null, AcsMessageChannelKind channelKind = default, string intentAnalysis = null, IEnumerable<string> extractedKeyPhrases = null, AcsMessageLanguageDetection languageDetection = null)
+        {
+            extractedKeyPhrases ??= new List<string>();
+
+            return new AcsMessageAnalysisCompletedEventData(
+                @from,
+                to,
+                receivedTimestamp,
+                error,
+                serializedAdditionalRawData: null,
+                originalMessage,
+                channelKind,
+                intentAnalysis,
+                extractedKeyPhrases?.ToList(),
+                languageDetection);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsMessageLanguageDetection"/>. </summary>
+        /// <param name="language"> The language of the message. </param>
+        /// <param name="confidenceScore"> The confidence score of the language detected. </param>
+        /// <param name="translation"> The translation of the message. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsMessageLanguageDetection"/> instance for mocking. </returns>
+        public static AcsMessageLanguageDetection AcsMessageLanguageDetection(string language = null, double confidenceScore = default, string translation = null)
+        {
+            return new AcsMessageLanguageDetection(language, confidenceScore, translation, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="SystemEvents.ContainerRegistryEventData"/>. </summary>
         /// <param name="id"> The event ID. </param>
         /// <param name="timestamp"> The time at which the event occurred. </param>

@@ -393,6 +393,20 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public static bool operator !=(Azure.Messaging.EventGrid.SystemEvents.AcsInteractiveReplyKind left, Azure.Messaging.EventGrid.SystemEvents.AcsInteractiveReplyKind right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class AcsMessageAnalysisCompletedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsMessageEventData, System.ClientModel.Primitives.IJsonModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageAnalysisCompletedEventData>, System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageAnalysisCompletedEventData>
+    {
+        internal AcsMessageAnalysisCompletedEventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.AcsMessageChannelKind ChannelKind { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<string> ExtractedKeyPhrases { get { throw null; } }
+        public string IntentAnalysis { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.AcsMessageLanguageDetection LanguageDetection { get { throw null; } }
+        public string OriginalMessage { get { throw null; } }
+        Azure.Messaging.EventGrid.SystemEvents.AcsMessageAnalysisCompletedEventData System.ClientModel.Primitives.IJsonModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageAnalysisCompletedEventData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageAnalysisCompletedEventData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.Messaging.EventGrid.SystemEvents.AcsMessageAnalysisCompletedEventData System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageAnalysisCompletedEventData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageAnalysisCompletedEventData>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageAnalysisCompletedEventData>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
     public partial class AcsMessageButtonContent : System.ClientModel.Primitives.IJsonModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageButtonContent>, System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageButtonContent>
     {
         internal AcsMessageButtonContent() { }
@@ -524,6 +538,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveListReplyContent System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveListReplyContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveListReplyContent>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveListReplyContent>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class AcsMessageLanguageDetection : System.ClientModel.Primitives.IJsonModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageLanguageDetection>, System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageLanguageDetection>
+    {
+        internal AcsMessageLanguageDetection() { }
+        public double ConfidenceScore { get { throw null; } }
+        public string Language { get { throw null; } }
+        public string Translation { get { throw null; } }
+        Azure.Messaging.EventGrid.SystemEvents.AcsMessageLanguageDetection System.ClientModel.Primitives.IJsonModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageLanguageDetection>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageLanguageDetection>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.Messaging.EventGrid.SystemEvents.AcsMessageLanguageDetection System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageLanguageDetection>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageLanguageDetection>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageLanguageDetection>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public partial class AcsMessageMediaContent : System.ClientModel.Primitives.IJsonModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageMediaContent>, System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.AcsMessageMediaContent>
     {
@@ -2284,6 +2310,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public static Azure.Messaging.EventGrid.SystemEvents.AcsEmailEngagementTrackingReportReceivedEventData AcsEmailEngagementTrackingReportReceivedEventData(string sender = null, string recipient = null, string messageId = null, System.DateTimeOffset userActionTimestamp = default(System.DateTimeOffset), string engagementContext = null, string userAgent = null, Azure.Messaging.EventGrid.SystemEvents.AcsUserEngagement engagement = default(Azure.Messaging.EventGrid.SystemEvents.AcsUserEngagement)) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsIncomingCallCustomContext AcsIncomingCallCustomContext(System.Collections.Generic.IReadOnlyDictionary<string, string> sipHeaders = null, System.Collections.Generic.IReadOnlyDictionary<string, string> voipHeaders = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsIncomingCallEventData AcsIncomingCallEventData(Azure.Messaging.EventGrid.SystemEvents.CommunicationIdentifierModel toCommunicationIdentifier = null, Azure.Messaging.EventGrid.SystemEvents.CommunicationIdentifierModel fromCommunicationIdentifier = null, string serverCallId = null, string callerDisplayName = null, Azure.Messaging.EventGrid.SystemEvents.AcsIncomingCallCustomContext customContext = null, string incomingCallContext = null, string correlationId = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageAnalysisCompletedEventData AcsMessageAnalysisCompletedEventData(string from = null, string to = null, System.DateTimeOffset receivedTimestamp = default(System.DateTimeOffset), Azure.Messaging.EventGrid.SystemEvents.AcsMessageChannelEventError error = null, string originalMessage = null, Azure.Messaging.EventGrid.SystemEvents.AcsMessageChannelKind channelKind = default(Azure.Messaging.EventGrid.SystemEvents.AcsMessageChannelKind), string intentAnalysis = null, System.Collections.Generic.IEnumerable<string> extractedKeyPhrases = null, Azure.Messaging.EventGrid.SystemEvents.AcsMessageLanguageDetection languageDetection = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageButtonContent AcsMessageButtonContent(string text = null, string payload = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageChannelEventError AcsMessageChannelEventError(string channelCode = null, string channelMessage = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageContext AcsMessageContext(string from = null, string messageId = null) { throw null; }
@@ -2292,6 +2319,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveButtonReplyContent AcsMessageInteractiveButtonReplyContent(string buttonId = null, string title = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveContent AcsMessageInteractiveContent(Azure.Messaging.EventGrid.SystemEvents.AcsInteractiveReplyKind replyKind = default(Azure.Messaging.EventGrid.SystemEvents.AcsInteractiveReplyKind), Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveButtonReplyContent buttonReply = null, Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveListReplyContent listReply = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveListReplyContent AcsMessageInteractiveListReplyContent(string listItemId = null, string title = null, string description = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageLanguageDetection AcsMessageLanguageDetection(string language = null, double confidenceScore = 0, string translation = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageMediaContent AcsMessageMediaContent(string mimeType = null, string mediaId = null, string fileName = null, string caption = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsMessageReceivedEventData AcsMessageReceivedEventData(string from = null, string to = null, System.DateTimeOffset receivedTimestamp = default(System.DateTimeOffset), Azure.Messaging.EventGrid.SystemEvents.AcsMessageChannelEventError error = null, string content = null, Azure.Messaging.EventGrid.SystemEvents.AcsMessageChannelKind channelKind = default(Azure.Messaging.EventGrid.SystemEvents.AcsMessageChannelKind), Azure.Messaging.EventGrid.SystemEvents.AcsMessageMediaContent mediaContent = null, Azure.Messaging.EventGrid.SystemEvents.AcsMessageContext context = null, Azure.Messaging.EventGrid.SystemEvents.AcsMessageButtonContent button = null, Azure.Messaging.EventGrid.SystemEvents.AcsMessageInteractiveContent interactiveContent = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsRecordingChunkInfoProperties AcsRecordingChunkInfoProperties(string documentId = null, long? index = default(long?), string endReason = null, string metadataLocation = null, string contentLocation = null, string deleteLocation = null) { throw null; }
@@ -4519,6 +4547,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public const string AcsEmailDeliveryReportReceived = "Microsoft.Communication.EmailDeliveryReportReceived";
         public const string AcsEmailEngagementTrackingReportReceived = "Microsoft.Communication.EmailEngagementTrackingReportReceived";
         public const string AcsIncomingCall = "Microsoft.Communication.IncomingCall";
+        public const string AcsMessageAnalysisCompleted = "Microsoft.Communication.AdvancedMessageAnalysisCompleted";
         public const string AcsMessageDeliveryStatusUpdated = "Microsoft.Communication.AdvancedMessageDeliveryStatusUpdated";
         public const string AcsMessageReceived = "Microsoft.Communication.AdvancedMessageReceived";
         public const string AcsRecordingFileStatusUpdated = "Microsoft.Communication.RecordingFileStatusUpdated";
