@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.DataFactory
             return message;
         }
 
-        /// <summary> Lists factories under the specified subscription. </summary>
+        /// <summary> Lists factories under the specified subscription. test 1. </summary>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.DataFactory
             }
         }
 
-        /// <summary> Lists factories under the specified subscription. </summary>
+        /// <summary> Lists factories under the specified subscription. test 1. </summary>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
@@ -912,7 +912,7 @@ namespace Azure.ResourceManager.DataFactory
             return message;
         }
 
-        /// <summary> Lists factories under the specified subscription. </summary>
+        /// <summary> Lists factories under the specified subscription. test 1. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -939,7 +939,7 @@ namespace Azure.ResourceManager.DataFactory
             }
         }
 
-        /// <summary> Lists factories under the specified subscription. </summary>
+        /// <summary> Lists factories under the specified subscription. test 1. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
