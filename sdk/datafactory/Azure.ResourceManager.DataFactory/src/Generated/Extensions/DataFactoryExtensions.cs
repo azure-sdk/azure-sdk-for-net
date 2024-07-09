@@ -376,7 +376,7 @@ namespace Azure.ResourceManager.DataFactory
         }
 
         /// <summary>
-        /// Lists factories under the specified subscription.
+        /// Lists factories under the specified subscription. test 1
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -412,7 +412,7 @@ namespace Azure.ResourceManager.DataFactory
         }
 
         /// <summary>
-        /// Lists factories under the specified subscription.
+        /// Lists factories under the specified subscription. test 1
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
