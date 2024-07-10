@@ -35,18 +35,6 @@ namespace Azure.ResourceManager.ContainerService.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="OSOptionProfileResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="OSOptionProfileResource.CreateResourceIdentifier" /> to create an <see cref="OSOptionProfileResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="OSOptionProfileResource"/> object. </returns>
-        public virtual OSOptionProfileResource GetOSOptionProfileResource(ResourceIdentifier id)
-        {
-            OSOptionProfileResource.ValidateResourceId(id);
-            return new OSOptionProfileResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="ManagedClusterUpgradeProfileResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="ManagedClusterUpgradeProfileResource.CreateResourceIdentifier" /> to create a <see cref="ManagedClusterUpgradeProfileResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
