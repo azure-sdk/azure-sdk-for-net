@@ -52,6 +52,7 @@ namespace Azure.ResourceManager.TrustedSigning.Models
 
         /// <summary> Initializes a new instance of <see cref="TrustedSigningCertificate"/>. </summary>
         /// <param name="serialNumber"> Serial number of the certificate. </param>
+        /// <param name="enhancedKeyUsage"> Enhanced key usage of the certificate. </param>
         /// <param name="subjectName"> Subject name of the certificate. </param>
         /// <param name="thumbprint"> Thumbprint of the certificate. </param>
         /// <param name="createOn"> Certificate created date. </param>
@@ -64,9 +65,10 @@ namespace Azure.ResourceManager.TrustedSigning.Models
         /// <param name="statusRevocationStatus"> Status of the revocation. </param>
         /// <param name="failureReason"> Reason for the revocation failure. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TrustedSigningCertificate(string serialNumber, string subjectName, string thumbprint, DateTimeOffset? createOn, DateTimeOffset? expireOn, TrustedSigningCertificateStatus? status, DateTimeOffset? requestedOn, DateTimeOffset? effectiveOn, string reason, string remarks, CertificateRevocationStatus? statusRevocationStatus, string failureReason, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TrustedSigningCertificate(string serialNumber, string enhancedKeyUsage, string subjectName, string thumbprint, DateTimeOffset? createOn, DateTimeOffset? expireOn, TrustedSigningCertificateStatus? status, DateTimeOffset? requestedOn, DateTimeOffset? effectiveOn, string reason, string remarks, CertificateRevocationStatus? statusRevocationStatus, string failureReason, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             SerialNumber = serialNumber;
+            EnhancedKeyUsage = enhancedKeyUsage;
             SubjectName = subjectName;
             Thumbprint = thumbprint;
             CreateOn = createOn;
@@ -83,6 +85,8 @@ namespace Azure.ResourceManager.TrustedSigning.Models
 
         /// <summary> Serial number of the certificate. </summary>
         public string SerialNumber { get; }
+        /// <summary> Enhanced key usage of the certificate. </summary>
+        public string EnhancedKeyUsage { get; }
         /// <summary> Subject name of the certificate. </summary>
         public string SubjectName { get; }
         /// <summary> Thumbprint of the certificate. </summary>
