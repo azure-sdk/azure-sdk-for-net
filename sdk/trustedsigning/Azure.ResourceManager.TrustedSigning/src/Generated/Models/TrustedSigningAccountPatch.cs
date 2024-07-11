@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.TrustedSigning.Models
         /// <param name="tags"> Resource tags. </param>
         /// <param name="sku"> SKU of the trusted signing account. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TrustedSigningAccountPatch(IDictionary<string, string> tags, TrustedSigningAccountSku sku, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TrustedSigningAccountPatch(IDictionary<string, string> tags, AccountSkuPatch sku, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Tags = tags;
             Sku = sku;
@@ -65,14 +65,16 @@ namespace Azure.ResourceManager.TrustedSigning.Models
         /// <summary> Resource tags. </summary>
         public IDictionary<string, string> Tags { get; }
         /// <summary> SKU of the trusted signing account. </summary>
-        internal TrustedSigningAccountSku Sku { get; set; }
+        internal AccountSkuPatch Sku { get; set; }
         /// <summary> Name of the SKU. </summary>
         public TrustedSigningSkuName? SkuName
         {
-            get => Sku is null ? default(TrustedSigningSkuName?) : Sku.Name;
+            get => Sku is null ? default : Sku.Name;
             set
             {
-                Sku = value.HasValue ? new TrustedSigningAccountSku(value.Value) : null;
+                if (Sku is null)
+                    Sku = new AccountSkuPatch();
+                Sku.Name = value;
             }
         }
     }
