@@ -27,6 +27,7 @@ namespace Azure.ResourceManager.TrustedSigning.Models
         private const string PrivateTrustCIPolicyValue = "PrivateTrustCIPolicy";
         private const string VbsEnclaveValue = "VBSEnclave";
         private const string PublicTrustTestValue = "PublicTrustTest";
+        private const string C2PAContentCredentialsValue = "C2PAContentCredentials";
 
         /// <summary> Used for signing files which are distributed publicly. </summary>
         public static CertificateProfileType PublicTrust { get; } = new CertificateProfileType(PublicTrustValue);
@@ -38,6 +39,8 @@ namespace Azure.ResourceManager.TrustedSigning.Models
         public static CertificateProfileType VbsEnclave { get; } = new CertificateProfileType(VbsEnclaveValue);
         /// <summary> Used for signing files for testing purpose. </summary>
         public static CertificateProfileType PublicTrustTest { get; } = new CertificateProfileType(PublicTrustTestValue);
+        /// <summary> Used for signing content files. </summary>
+        public static CertificateProfileType C2PAContentCredentials { get; } = new CertificateProfileType(C2PAContentCredentialsValue);
         /// <summary> Determines if two <see cref="CertificateProfileType"/> values are the same. </summary>
         public static bool operator ==(CertificateProfileType left, CertificateProfileType right) => left.Equals(right);
         /// <summary> Determines if two <see cref="CertificateProfileType"/> values are not the same. </summary>

@@ -84,7 +84,7 @@ namespace Azure.ResourceManager.TrustedSigning.Models
                 return null;
             }
             IDictionary<string, string> tags = default;
-            TrustedSigningAccountSku sku = default;
+            AccountSkuPatch sku = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -118,7 +118,7 @@ namespace Azure.ResourceManager.TrustedSigning.Models
                             {
                                 continue;
                             }
-                            sku = TrustedSigningAccountSku.DeserializeTrustedSigningAccountSku(property0.Value, options);
+                            sku = AccountSkuPatch.DeserializeAccountSkuPatch(property0.Value, options);
                             continue;
                         }
                     }
