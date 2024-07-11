@@ -116,6 +116,11 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("resiliencyPolicy"u8);
                 writer.WriteObjectValue(ResiliencyPolicy, options);
             }
+            if (Optional.IsDefined(ZonalPlatformFaultDomainAlignMode))
+            {
+                writer.WritePropertyName("zonalPlatformFaultDomainAlignMode"u8);
+                writer.WriteStringValue(ZonalPlatformFaultDomainAlignMode.Value.ToString());
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -171,6 +176,7 @@ namespace Azure.ResourceManager.Compute.Models
             VirtualMachineScaleSetPriorityMixPolicy priorityMixPolicy = default;
             SpotRestorePolicy spotRestorePolicy = default;
             ResiliencyPolicy resiliencyPolicy = default;
+            ZonalPlatformFaultDomainAlignMode? zonalPlatformFaultDomainAlignMode = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -333,6 +339,15 @@ namespace Azure.ResourceManager.Compute.Models
                             resiliencyPolicy = ResiliencyPolicy.DeserializeResiliencyPolicy(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("zonalPlatformFaultDomainAlignMode"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            zonalPlatformFaultDomainAlignMode = new ZonalPlatformFaultDomainAlignMode(property0.Value.GetString());
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -359,7 +374,8 @@ namespace Azure.ResourceManager.Compute.Models
                 proximityPlacementGroup,
                 priorityMixPolicy,
                 spotRestorePolicy,
-                resiliencyPolicy);
+                resiliencyPolicy,
+                zonalPlatformFaultDomainAlignMode);
         }
 
         BinaryData IPersistableModel<VirtualMachineScaleSetPatch>.Write(ModelReaderWriterOptions options)
