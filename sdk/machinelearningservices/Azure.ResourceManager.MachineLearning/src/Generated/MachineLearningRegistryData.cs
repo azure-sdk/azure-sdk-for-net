@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// <param name="location"> The location. </param>
         public MachineLearningRegistryData(AzureLocation location) : base(location)
         {
-            PrivateEndpointConnections = new ChangeTrackingList<RegistryPrivateEndpointConnection>();
+            RegistryPrivateEndpointConnections = new ChangeTrackingList<RegistryPrivateEndpointConnection>();
             RegionDetails = new ChangeTrackingList<RegistryRegionArmDetails>();
         }
 
@@ -70,14 +70,14 @@ namespace Azure.ResourceManager.MachineLearning
         /// <param name="intellectualPropertyPublisher"> IntellectualPropertyPublisher for the registry. </param>
         /// <param name="managedResourceGroup"> ResourceId of the managed RG if the registry has system created resources. </param>
         /// <param name="mlFlowRegistryUri"> MLFlow Registry URI for the Registry. </param>
-        /// <param name="privateEndpointConnections"> Private endpoint connections info used for pending connections in private link portal. </param>
+        /// <param name="registryPrivateEndpointConnections"> Private endpoint connections info used for pending connections in private link portal. </param>
         /// <param name="publicNetworkAccess">
         /// Is the Registry accessible from the internet?
         /// Possible values: "Enabled" or "Disabled"
         /// </param>
         /// <param name="regionDetails"> Details of each region the registry is in. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MachineLearningRegistryData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, string kind, MachineLearningSku sku, Uri discoveryUri, string intellectualPropertyPublisher, ArmResourceId managedResourceGroup, Uri mlFlowRegistryUri, IList<RegistryPrivateEndpointConnection> privateEndpointConnections, string publicNetworkAccess, IList<RegistryRegionArmDetails> regionDetails, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal MachineLearningRegistryData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, string kind, MachineLearningSku sku, Uri discoveryUri, string intellectualPropertyPublisher, ArmResourceId managedResourceGroup, Uri mlFlowRegistryUri, IList<RegistryPrivateEndpointConnection> registryPrivateEndpointConnections, string publicNetworkAccess, IList<RegistryRegionArmDetails> regionDetails, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             Identity = identity;
             Kind = kind;
@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.MachineLearning
             IntellectualPropertyPublisher = intellectualPropertyPublisher;
             ManagedResourceGroup = managedResourceGroup;
             MlFlowRegistryUri = mlFlowRegistryUri;
-            PrivateEndpointConnections = privateEndpointConnections;
+            RegistryPrivateEndpointConnections = registryPrivateEndpointConnections;
             PublicNetworkAccess = publicNetworkAccess;
             RegionDetails = regionDetails;
             _serializedAdditionalRawData = serializedAdditionalRawData;
@@ -127,7 +127,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// <summary> MLFlow Registry URI for the Registry. </summary>
         public Uri MlFlowRegistryUri { get; set; }
         /// <summary> Private endpoint connections info used for pending connections in private link portal. </summary>
-        public IList<RegistryPrivateEndpointConnection> PrivateEndpointConnections { get; set; }
+        public IList<RegistryPrivateEndpointConnection> RegistryPrivateEndpointConnections { get; set; }
         /// <summary>
         /// Is the Registry accessible from the internet?
         /// Possible values: "Enabled" or "Disabled"
