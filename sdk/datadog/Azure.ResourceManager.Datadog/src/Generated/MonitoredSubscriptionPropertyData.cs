@@ -7,11 +7,17 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.Core;
+using Azure.ResourceManager.Datadog.Models;
+using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.Datadog.Models
+namespace Azure.ResourceManager.Datadog
 {
-    /// <summary> Includes name, email and optionally, phone number. User Information can't be null. </summary>
-    public partial class UserInfo
+    /// <summary>
+    /// A class representing the MonitoredSubscriptionProperty data model.
+    /// The request to update subscriptions needed to be monitored by the Datadog monitor resource.
+    /// </summary>
+    public partial class MonitoredSubscriptionPropertyData : ResourceData
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,29 +51,25 @@ namespace Azure.ResourceManager.Datadog.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="UserInfo"/>. </summary>
-        public UserInfo()
+        /// <summary> Initializes a new instance of <see cref="MonitoredSubscriptionPropertyData"/>. </summary>
+        public MonitoredSubscriptionPropertyData()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="UserInfo"/>. </summary>
-        /// <param name="name"> Name of the user. </param>
-        /// <param name="emailAddress"> Email of the user used by Datadog for contacting them if needed. </param>
-        /// <param name="phoneNumber"> Phone number of the user used by Datadog for contacting them if needed. </param>
+        /// <summary> Initializes a new instance of <see cref="MonitoredSubscriptionPropertyData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="properties"> The request to update subscriptions needed to be monitored by the Datadog monitor resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UserInfo(string name, string emailAddress, string phoneNumber, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal MonitoredSubscriptionPropertyData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SubscriptionList properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            Name = name;
-            EmailAddress = emailAddress;
-            PhoneNumber = phoneNumber;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Name of the user. </summary>
-        public string Name { get; set; }
-        /// <summary> Email of the user used by Datadog for contacting them if needed. </summary>
-        public string EmailAddress { get; set; }
-        /// <summary> Phone number of the user used by Datadog for contacting them if needed. </summary>
-        public string PhoneNumber { get; set; }
+        /// <summary> The request to update subscriptions needed to be monitored by the Datadog monitor resource. </summary>
+        public SubscriptionList Properties { get; set; }
     }
 }
