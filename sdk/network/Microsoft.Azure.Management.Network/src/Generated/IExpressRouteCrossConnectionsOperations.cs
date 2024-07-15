@@ -26,6 +26,10 @@ namespace Microsoft.Azure.Management.Network
         /// <summary>
         /// Retrieves all the ExpressRouteCrossConnections in a subscription.
         /// </summary>
+        /// <param name='filter'>
+        /// The filter to apply on the operation. For example, you can use
+        /// $filter=name eq '{circuitServiceKey}'.
+        /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
         /// </param>
@@ -41,7 +45,7 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<IPage<ExpressRouteCrossConnection>>> ListWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IPage<ExpressRouteCrossConnection>>> ListWithHttpMessagesAsync(string filter = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Retrieves all the ExpressRouteCrossConnections in a resource group.
         /// </summary>
