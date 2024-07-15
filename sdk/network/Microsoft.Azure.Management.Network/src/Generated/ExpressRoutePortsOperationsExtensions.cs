@@ -33,9 +33,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='expressRoutePortName'>
             /// The name of the ExpressRoutePort resource.
             /// </param>
-            public static void Delete(this IExpressRoutePortsOperations operations, string resourceGroupName, string expressRoutePortName)
+            public static ExpressRoutePortsDeleteHeaders Delete(this IExpressRoutePortsOperations operations, string resourceGroupName, string expressRoutePortName)
             {
-                operations.DeleteAsync(resourceGroupName, expressRoutePortName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, expressRoutePortName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -53,9 +53,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IExpressRoutePortsOperations operations, string resourceGroupName, string expressRoutePortName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ExpressRoutePortsDeleteHeaders> DeleteAsync(this IExpressRoutePortsOperations operations, string resourceGroupName, string expressRoutePortName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, expressRoutePortName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, expressRoutePortName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -312,9 +315,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='expressRoutePortName'>
             /// The name of the ExpressRoutePort resource.
             /// </param>
-            public static void BeginDelete(this IExpressRoutePortsOperations operations, string resourceGroupName, string expressRoutePortName)
+            public static ExpressRoutePortsDeleteHeaders BeginDelete(this IExpressRoutePortsOperations operations, string resourceGroupName, string expressRoutePortName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, expressRoutePortName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, expressRoutePortName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -332,9 +335,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IExpressRoutePortsOperations operations, string resourceGroupName, string expressRoutePortName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ExpressRoutePortsDeleteHeaders> BeginDeleteAsync(this IExpressRoutePortsOperations operations, string resourceGroupName, string expressRoutePortName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, expressRoutePortName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, expressRoutePortName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
