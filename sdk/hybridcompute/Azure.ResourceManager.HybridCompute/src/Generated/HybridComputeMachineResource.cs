@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -172,75 +172,6 @@ namespace Azure.ResourceManager.HybridCompute
             return GetHybridComputeMachineExtensions().Get(extensionName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of MachineRunCommandResources in the HybridComputeMachine. </summary>
-        /// <returns> An object representing collection of MachineRunCommandResources and their operations over a MachineRunCommandResource. </returns>
-        public virtual MachineRunCommandCollection GetMachineRunCommands()
-        {
-            return GetCachedClient(client => new MachineRunCommandCollection(client, Id));
-        }
-
-        /// <summary>
-        /// The operation to get a run command.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HybridCompute/machines/{machineName}/runCommands/{runCommandName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>MachineRunCommands_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="MachineRunCommandResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="runCommandName"> The name of the run command. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="runCommandName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="runCommandName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<MachineRunCommandResource>> GetMachineRunCommandAsync(string runCommandName, CancellationToken cancellationToken = default)
-        {
-            return await GetMachineRunCommands().GetAsync(runCommandName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// The operation to get a run command.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HybridCompute/machines/{machineName}/runCommands/{runCommandName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>MachineRunCommands_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="MachineRunCommandResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="runCommandName"> The name of the run command. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="runCommandName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="runCommandName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<MachineRunCommandResource> GetMachineRunCommand(string runCommandName, CancellationToken cancellationToken = default)
-        {
-            return GetMachineRunCommands().Get(runCommandName, cancellationToken);
-        }
-
         /// <summary>
         /// Retrieves information about the model view or the instance view of a hybrid machine.
         /// <list type="bullet">
@@ -254,7 +185,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -295,7 +226,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -336,7 +267,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -380,7 +311,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -424,7 +355,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -466,7 +397,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -508,7 +439,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -550,7 +481,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -592,7 +523,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -638,7 +569,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -684,7 +615,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -726,7 +657,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -768,7 +699,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -802,7 +733,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -836,7 +767,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -874,7 +805,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -912,7 +843,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -974,7 +905,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1036,7 +967,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1093,7 +1024,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1150,7 +1081,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1210,7 +1141,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

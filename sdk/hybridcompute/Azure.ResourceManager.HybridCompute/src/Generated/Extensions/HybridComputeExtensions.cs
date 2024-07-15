@@ -110,25 +110,6 @@ namespace Azure.ResourceManager.HybridCompute
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="MachineRunCommandResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="MachineRunCommandResource.CreateResourceIdentifier" /> to create a <see cref="MachineRunCommandResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableHybridComputeArmClient.GetMachineRunCommandResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="MachineRunCommandResource"/> object. </returns>
-        public static MachineRunCommandResource GetMachineRunCommandResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableHybridComputeArmClient(client).GetMachineRunCommandResource(id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="HybridComputePrivateLinkScopeResource" /> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="HybridComputePrivateLinkScopeResource.CreateResourceIdentifier" /> to create a <see cref="HybridComputePrivateLinkScopeResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
@@ -234,7 +215,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -272,7 +253,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -327,7 +308,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -366,7 +347,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -422,7 +403,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -460,7 +441,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -519,7 +500,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -560,7 +541,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -601,7 +582,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -637,7 +618,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -673,7 +654,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -709,7 +690,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -745,7 +726,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -781,7 +762,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -817,7 +798,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -855,7 +836,7 @@ namespace Azure.ResourceManager.HybridCompute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-03-31-preview</description>
+        /// <description>2024-07-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
