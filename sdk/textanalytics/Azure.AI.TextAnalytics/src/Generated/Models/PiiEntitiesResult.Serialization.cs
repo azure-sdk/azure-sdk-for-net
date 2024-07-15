@@ -8,61 +8,23 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.AI.TextAnalytics.Models;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics
 {
-    internal partial class PiiEntitiesResult : IUtf8JsonSerializable
+    internal partial class PiiEntitiesResult
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("documents"u8);
-            writer.WriteStartArray();
-            foreach (var item in Documents)
-            {
-                writer.WriteObjectValue(item);
-            }
-            writer.WriteEndArray();
-            writer.WritePropertyName("errors"u8);
-            writer.WriteStartArray();
-            foreach (var item in Errors)
-            {
-                writer.WriteObjectValue(item);
-            }
-            writer.WriteEndArray();
-            if (Optional.IsDefined(Statistics))
-            {
-                writer.WritePropertyName("statistics"u8);
-                writer.WriteObjectValue(Statistics);
-            }
-            writer.WritePropertyName("modelVersion"u8);
-            writer.WriteStringValue(ModelVersion);
-            writer.WriteEndObject();
-        }
-
         internal static PiiEntitiesResult DeserializePiiEntitiesResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            IList<PiiResultDocumentsItem> documents = default;
-            IList<DocumentError> errors = default;
+            IReadOnlyList<DocumentError> errors = default;
             TextDocumentBatchStatistics statistics = default;
             string modelVersion = default;
+            IReadOnlyList<PiiEntitiesDocumentResult> documents = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("documents"u8))
-                {
-                    List<PiiResultDocumentsItem> array = new List<PiiResultDocumentsItem>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(PiiResultDocumentsItem.DeserializePiiResultDocumentsItem(item));
-                    }
-                    documents = array;
-                    continue;
-                }
                 if (property.NameEquals("errors"u8))
                 {
                     List<DocumentError> array = new List<DocumentError>();
@@ -87,24 +49,26 @@ namespace Azure.AI.TextAnalytics
                     modelVersion = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("documents"u8))
+                {
+                    List<PiiEntitiesDocumentResult> array = new List<PiiEntitiesDocumentResult>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(PiiEntitiesDocumentResult.DeserializePiiEntitiesDocumentResult(item));
+                    }
+                    documents = array;
+                    continue;
+                }
             }
             return new PiiEntitiesResult(errors, statistics, modelVersion, documents);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static new PiiEntitiesResult FromResponse(Response response)
+        internal static PiiEntitiesResult FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializePiiEntitiesResult(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal override RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }
