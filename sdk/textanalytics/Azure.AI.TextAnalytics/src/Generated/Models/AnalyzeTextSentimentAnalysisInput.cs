@@ -7,7 +7,7 @@
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The AnalyzeTextSentimentAnalysisInput. </summary>
+    /// <summary> Contains the analyze text SentimentAnalysis task input. </summary>
     internal partial class AnalyzeTextSentimentAnalysisInput : AnalyzeTextTask
     {
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextSentimentAnalysisInput"/>. </summary>
@@ -17,9 +17,9 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextSentimentAnalysisInput"/>. </summary>
-        /// <param name="kind"> Enumeration of supported Text Analysis tasks. </param>
-        /// <param name="analysisInput"></param>
-        /// <param name="parameters"> Supported parameters for a Sentiment Analysis task. </param>
+        /// <param name="kind"> The kind of task to perform. </param>
+        /// <param name="analysisInput"> Contains the input documents. </param>
+        /// <param name="parameters"> Sentiment Analysis task parameters. </param>
         internal AnalyzeTextSentimentAnalysisInput(AnalyzeTextTaskKind kind, MultiLanguageAnalysisInput analysisInput, SentimentAnalysisTaskParameters parameters) : base(kind)
         {
             AnalysisInput = analysisInput;
@@ -27,9 +27,9 @@ namespace Azure.AI.TextAnalytics.Models
             Kind = kind;
         }
 
-        /// <summary> Gets or sets the analysis input. </summary>
+        /// <summary> Contains the input documents. </summary>
         public MultiLanguageAnalysisInput AnalysisInput { get; set; }
-        /// <summary> Supported parameters for a Sentiment Analysis task. </summary>
+        /// <summary> Sentiment Analysis task parameters. </summary>
         public SentimentAnalysisTaskParameters Parameters { get; set; }
     }
 }

@@ -9,15 +9,15 @@ using System;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The HealthcareLROResult. </summary>
+    /// <summary> Healthcare Analyze Text long tunning operation result object. </summary>
     internal partial class HealthcareLROResult : AnalyzeTextLROResult
     {
         /// <summary> Initializes a new instance of <see cref="HealthcareLROResult"/>. </summary>
-        /// <param name="lastUpdateDateTime"></param>
-        /// <param name="status"></param>
-        /// <param name="results"></param>
+        /// <param name="lastUpdateDateTime"> The last updated time in UTC for the task. </param>
+        /// <param name="status"> The status of the task at the mentioned last update time. </param>
+        /// <param name="results"> Results of the task. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="results"/> is null. </exception>
-        public HealthcareLROResult(DateTimeOffset lastUpdateDateTime, TextAnalyticsOperationStatus status, HealthcareResult results) : base(lastUpdateDateTime, status)
+        internal HealthcareLROResult(DateTimeOffset lastUpdateDateTime, TextAnalyticsOperationStatus status, HealthcareResult results) : base(lastUpdateDateTime, status)
         {
             Argument.AssertNotNull(results, nameof(results));
 
@@ -26,18 +26,18 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="HealthcareLROResult"/>. </summary>
-        /// <param name="lastUpdateDateTime"></param>
-        /// <param name="status"></param>
-        /// <param name="kind"> Enumeration of supported Text Analysis long-running operation task results. </param>
-        /// <param name="taskName"></param>
-        /// <param name="results"></param>
-        internal HealthcareLROResult(DateTimeOffset lastUpdateDateTime, TextAnalyticsOperationStatus status, AnalyzeTextLROResultsKind kind, string taskName, HealthcareResult results) : base(lastUpdateDateTime, status, kind, taskName)
+        /// <param name="lastUpdateDateTime"> The last updated time in UTC for the task. </param>
+        /// <param name="status"> The status of the task at the mentioned last update time. </param>
+        /// <param name="taskName"> task name. </param>
+        /// <param name="kind"> Kind of the task. </param>
+        /// <param name="results"> Results of the task. </param>
+        internal HealthcareLROResult(DateTimeOffset lastUpdateDateTime, TextAnalyticsOperationStatus status, string taskName, AnalyzeTextLROResultsKind kind, HealthcareResult results) : base(lastUpdateDateTime, status, taskName, kind)
         {
             Results = results;
             Kind = kind;
         }
 
-        /// <summary> Gets or sets the results. </summary>
-        public HealthcareResult Results { get; set; }
+        /// <summary> Results of the task. </summary>
+        public HealthcareResult Results { get; }
     }
 }

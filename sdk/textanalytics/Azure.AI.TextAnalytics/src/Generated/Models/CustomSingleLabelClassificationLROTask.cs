@@ -17,16 +17,16 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="CustomSingleLabelClassificationLROTask"/>. </summary>
-        /// <param name="taskName"></param>
-        /// <param name="kind"> Enumeration of supported long-running Text Analysis tasks. </param>
-        /// <param name="parameters"> Supported parameters for a Custom Single Classification task. </param>
+        /// <param name="taskName"> task name. </param>
+        /// <param name="kind"> The kind of task to perform. </param>
+        /// <param name="parameters"> Task parameters. </param>
         internal CustomSingleLabelClassificationLROTask(string taskName, AnalyzeTextLROTaskKind kind, CustomSingleLabelClassificationTaskParameters parameters) : base(taskName, kind)
         {
             Parameters = parameters;
             Kind = kind;
         }
 
-        /// <summary> Supported parameters for a Custom Single Classification task. </summary>
+        /// <summary> Task parameters. </summary>
         public CustomSingleLabelClassificationTaskParameters Parameters { get; set; }
     }
 }

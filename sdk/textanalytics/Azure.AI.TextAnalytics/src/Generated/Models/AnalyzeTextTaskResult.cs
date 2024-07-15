@@ -8,7 +8,7 @@
 namespace Azure.AI.TextAnalytics.Models
 {
     /// <summary>
-    /// The AnalyzeTextTaskResult.
+    /// The result object for the analyze task.
     /// Please note <see cref="AnalyzeTextTaskResult"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
     /// The available derived classes include <see cref="EntityLinkingTaskResult"/>, <see cref="EntitiesTaskResult"/>, <see cref="KeyPhraseTaskResult"/>, <see cref="LanguageDetectionTaskResult"/>, <see cref="PiiTaskResult"/> and <see cref="SentimentTaskResult"/>.
     /// </summary>
@@ -20,13 +20,13 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextTaskResult"/>. </summary>
-        /// <param name="kind"> Enumeration of supported Text Analysis task results. </param>
+        /// <param name="kind"> The kind of task result. </param>
         internal AnalyzeTextTaskResult(AnalyzeTextTaskResultsKind kind)
         {
             Kind = kind;
         }
 
-        /// <summary> Enumeration of supported Text Analysis task results. </summary>
+        /// <summary> The kind of task result. </summary>
         internal AnalyzeTextTaskResultsKind Kind { get; set; }
     }
 }

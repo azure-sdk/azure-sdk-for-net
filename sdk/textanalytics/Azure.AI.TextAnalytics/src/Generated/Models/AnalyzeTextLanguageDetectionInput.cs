@@ -7,7 +7,7 @@
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The AnalyzeTextLanguageDetectionInput. </summary>
+    /// <summary> Contains the language detection document analysis task input. </summary>
     internal partial class AnalyzeTextLanguageDetectionInput : AnalyzeTextTask
     {
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextLanguageDetectionInput"/>. </summary>
@@ -17,9 +17,9 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextLanguageDetectionInput"/>. </summary>
-        /// <param name="kind"> Enumeration of supported Text Analysis tasks. </param>
-        /// <param name="analysisInput"></param>
-        /// <param name="parameters"> Supported parameters for a Language Detection task. </param>
+        /// <param name="kind"> The kind of task to perform. </param>
+        /// <param name="analysisInput"> Documents to be analyzed. </param>
+        /// <param name="parameters"> task parameters. </param>
         internal AnalyzeTextLanguageDetectionInput(AnalyzeTextTaskKind kind, LanguageDetectionAnalysisInput analysisInput, LanguageDetectionTaskParameters parameters) : base(kind)
         {
             AnalysisInput = analysisInput;
@@ -27,9 +27,9 @@ namespace Azure.AI.TextAnalytics.Models
             Kind = kind;
         }
 
-        /// <summary> Gets or sets the analysis input. </summary>
+        /// <summary> Documents to be analyzed. </summary>
         public LanguageDetectionAnalysisInput AnalysisInput { get; set; }
-        /// <summary> Supported parameters for a Language Detection task. </summary>
+        /// <summary> task parameters. </summary>
         public LanguageDetectionTaskParameters Parameters { get; set; }
     }
 }

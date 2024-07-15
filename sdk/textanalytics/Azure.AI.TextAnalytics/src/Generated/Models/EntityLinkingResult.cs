@@ -11,20 +11,22 @@ using System.Linq;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The EntityLinkingResult. </summary>
-    internal partial class EntityLinkingResult : PreBuiltResult
+    /// <summary> Entity linking result. </summary>
+    internal partial class EntityLinkingResult
     {
         /// <summary> Initializes a new instance of <see cref="EntityLinkingResult"/>. </summary>
         /// <param name="errors"> Errors by document id. </param>
         /// <param name="modelVersion"> This field indicates which model is used for scoring. </param>
         /// <param name="documents"> Response by document. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="errors"/>, <paramref name="modelVersion"/> or <paramref name="documents"/> is null. </exception>
-        public EntityLinkingResult(IEnumerable<DocumentError> errors, string modelVersion, IEnumerable<EntityLinkingResultDocumentsItem> documents) : base(errors, modelVersion)
+        internal EntityLinkingResult(IEnumerable<DocumentError> errors, string modelVersion, IEnumerable<LinkedEntitiesDocumentResult> documents)
         {
             Argument.AssertNotNull(errors, nameof(errors));
             Argument.AssertNotNull(modelVersion, nameof(modelVersion));
             Argument.AssertNotNull(documents, nameof(documents));
 
+            Errors = errors.ToList();
+            ModelVersion = modelVersion;
             Documents = documents.ToList();
         }
 
@@ -33,12 +35,21 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the request payload. </param>
         /// <param name="modelVersion"> This field indicates which model is used for scoring. </param>
         /// <param name="documents"> Response by document. </param>
-        internal EntityLinkingResult(IList<DocumentError> errors, TextDocumentBatchStatistics statistics, string modelVersion, IList<EntityLinkingResultDocumentsItem> documents) : base(errors, statistics, modelVersion)
+        internal EntityLinkingResult(IReadOnlyList<DocumentError> errors, TextDocumentBatchStatistics statistics, string modelVersion, IReadOnlyList<LinkedEntitiesDocumentResult> documents)
         {
+            Errors = errors;
+            Statistics = statistics;
+            ModelVersion = modelVersion;
             Documents = documents;
         }
 
+        /// <summary> Errors by document id. </summary>
+        public IReadOnlyList<DocumentError> Errors { get; }
+        /// <summary> if showStats=true was specified in the request this field will contain information about the request payload. </summary>
+        public TextDocumentBatchStatistics Statistics { get; }
+        /// <summary> This field indicates which model is used for scoring. </summary>
+        public string ModelVersion { get; }
         /// <summary> Response by document. </summary>
-        public IList<EntityLinkingResultDocumentsItem> Documents { get; }
+        public IReadOnlyList<LinkedEntitiesDocumentResult> Documents { get; }
     }
 }

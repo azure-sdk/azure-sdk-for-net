@@ -9,11 +9,11 @@ using System;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The KeyPhraseTaskResult. </summary>
+    /// <summary> Contains the analyze text KeyPhraseExtraction task result. </summary>
     internal partial class KeyPhraseTaskResult : AnalyzeTextTaskResult
     {
         /// <summary> Initializes a new instance of <see cref="KeyPhraseTaskResult"/>. </summary>
-        /// <param name="results"></param>
+        /// <param name="results"> The list of Key phrase extraction results. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="results"/> is null. </exception>
         internal KeyPhraseTaskResult(KeyPhraseResult results)
         {
@@ -24,15 +24,15 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="KeyPhraseTaskResult"/>. </summary>
-        /// <param name="kind"> Enumeration of supported Text Analysis task results. </param>
-        /// <param name="results"></param>
+        /// <param name="kind"> The kind of task result. </param>
+        /// <param name="results"> The list of Key phrase extraction results. </param>
         internal KeyPhraseTaskResult(AnalyzeTextTaskResultsKind kind, KeyPhraseResult results) : base(kind)
         {
             Results = results;
             Kind = kind;
         }
 
-        /// <summary> Gets the results. </summary>
+        /// <summary> The list of Key phrase extraction results. </summary>
         public KeyPhraseResult Results { get; }
     }
 }

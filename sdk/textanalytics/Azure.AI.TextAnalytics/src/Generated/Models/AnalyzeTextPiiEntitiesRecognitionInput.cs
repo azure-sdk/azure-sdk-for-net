@@ -7,7 +7,7 @@
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The AnalyzeTextPiiEntitiesRecognitionInput. </summary>
+    /// <summary> Contains the analyze text PIIEntityRecognition task input. </summary>
     internal partial class AnalyzeTextPiiEntitiesRecognitionInput : AnalyzeTextTask
     {
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextPiiEntitiesRecognitionInput"/>. </summary>
@@ -17,9 +17,9 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextPiiEntitiesRecognitionInput"/>. </summary>
-        /// <param name="kind"> Enumeration of supported Text Analysis tasks. </param>
-        /// <param name="analysisInput"></param>
-        /// <param name="parameters"> Supported parameters for a PII Entities Recognition task. </param>
+        /// <param name="kind"> The kind of task to perform. </param>
+        /// <param name="analysisInput"> Contains the input documents. </param>
+        /// <param name="parameters"> Pii task parameters. </param>
         internal AnalyzeTextPiiEntitiesRecognitionInput(AnalyzeTextTaskKind kind, MultiLanguageAnalysisInput analysisInput, PiiTaskParameters parameters) : base(kind)
         {
             AnalysisInput = analysisInput;
@@ -27,9 +27,9 @@ namespace Azure.AI.TextAnalytics.Models
             Kind = kind;
         }
 
-        /// <summary> Gets or sets the analysis input. </summary>
+        /// <summary> Contains the input documents. </summary>
         public MultiLanguageAnalysisInput AnalysisInput { get; set; }
-        /// <summary> Supported parameters for a PII Entities Recognition task. </summary>
+        /// <summary> Pii task parameters. </summary>
         public PiiTaskParameters Parameters { get; set; }
     }
 }
