@@ -9,7 +9,7 @@ using System;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The Entity. </summary>
+    /// <summary> Defines the detected entity object containing the entity category and entity text detected, etc. </summary>
     internal partial class Entity
     {
         /// <summary> Initializes a new instance of <see cref="Entity"/>. </summary>
@@ -19,7 +19,7 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="length"> Length for the entity text. Use of different 'stringIndexType' values can affect the length returned. </param>
         /// <param name="confidenceScore"> Confidence score between 0 and 1 of the extracted entity. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="text"/> or <paramref name="category"/> is null. </exception>
-        public Entity(string text, string category, int offset, int length, double confidenceScore)
+        internal Entity(string text, string category, int offset, int length, double confidenceScore)
         {
             Argument.AssertNotNull(text, nameof(text));
             Argument.AssertNotNull(category, nameof(category));
@@ -49,16 +49,16 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Entity text as appears in the request. </summary>
-        public string Text { get; set; }
+        public string Text { get; }
         /// <summary> Entity type. </summary>
-        public string Category { get; set; }
+        public string Category { get; }
         /// <summary> (Optional) Entity sub type. </summary>
-        public string Subcategory { get; set; }
+        public string Subcategory { get; }
         /// <summary> Start position for the entity text. Use of different 'stringIndexType' values can affect the offset returned. </summary>
-        public int Offset { get; set; }
+        public int Offset { get; }
         /// <summary> Length for the entity text. Use of different 'stringIndexType' values can affect the length returned. </summary>
-        public int Length { get; set; }
+        public int Length { get; }
         /// <summary> Confidence score between 0 and 1 of the extracted entity. </summary>
-        public double ConfidenceScore { get; set; }
+        public double ConfidenceScore { get; }
     }
 }

@@ -6,26 +6,11 @@
 #nullable disable
 
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics
 {
-    public partial struct LinkedEntityMatch : IUtf8JsonSerializable
+    public partial struct LinkedEntityMatch
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("confidenceScore"u8);
-            writer.WriteNumberValue(ConfidenceScore);
-            writer.WritePropertyName("text"u8);
-            writer.WriteStringValue(Text);
-            writer.WritePropertyName("offset"u8);
-            writer.WriteNumberValue(Offset);
-            writer.WritePropertyName("length"u8);
-            writer.WriteNumberValue(Length);
-            writer.WriteEndObject();
-        }
-
         internal static LinkedEntityMatch DeserializeLinkedEntityMatch(JsonElement element)
         {
             double confidenceScore = default;
@@ -64,14 +49,6 @@ namespace Azure.AI.TextAnalytics
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializeLinkedEntityMatch(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }

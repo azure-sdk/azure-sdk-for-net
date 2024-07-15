@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.AI.TextAnalytics
 {
-    /// <summary> The sorting criteria to use for the results of Extractive Summarization. </summary>
+    /// <summary> Specifies how to sort the extracted summaries. </summary>
     public readonly partial struct ExtractiveSummarySentencesOrder : IEquatable<ExtractiveSummarySentencesOrder>
     {
         private readonly string _value;

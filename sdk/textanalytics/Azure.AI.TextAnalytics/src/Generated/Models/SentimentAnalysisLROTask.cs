@@ -17,16 +17,16 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="SentimentAnalysisLROTask"/>. </summary>
-        /// <param name="taskName"></param>
-        /// <param name="kind"> Enumeration of supported long-running Text Analysis tasks. </param>
-        /// <param name="parameters"> Supported parameters for a Sentiment Analysis task. </param>
+        /// <param name="taskName"> task name. </param>
+        /// <param name="kind"> The kind of task to perform. </param>
+        /// <param name="parameters"> Parameters for the Sentiment Analysis task. </param>
         internal SentimentAnalysisLROTask(string taskName, AnalyzeTextLROTaskKind kind, SentimentAnalysisTaskParameters parameters) : base(taskName, kind)
         {
             Parameters = parameters;
             Kind = kind;
         }
 
-        /// <summary> Supported parameters for a Sentiment Analysis task. </summary>
+        /// <summary> Parameters for the Sentiment Analysis task. </summary>
         public SentimentAnalysisTaskParameters Parameters { get; set; }
     }
 }

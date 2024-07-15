@@ -8,7 +8,7 @@
 namespace Azure.AI.TextAnalytics.Models
 {
     /// <summary> Supported parameters for a Sentiment Analysis task. </summary>
-    internal partial class SentimentAnalysisTaskParameters : PreBuiltTaskParameters
+    internal partial class SentimentAnalysisTaskParameters
     {
         /// <summary> Initializes a new instance of <see cref="SentimentAnalysisTaskParameters"/>. </summary>
         public SentimentAnalysisTaskParameters()
@@ -16,19 +16,25 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="SentimentAnalysisTaskParameters"/>. </summary>
-        /// <param name="loggingOptOut"></param>
-        /// <param name="modelVersion"></param>
-        /// <param name="opinionMining"></param>
-        /// <param name="stringIndexType"> Specifies the method used to interpret string offsets.  Defaults to Text Elements (Graphemes) according to Unicode v8.0.0. For additional information see https://aka.ms/text-analytics-offsets. </param>
-        internal SentimentAnalysisTaskParameters(bool? loggingOptOut, string modelVersion, bool? opinionMining, StringIndexType? stringIndexType) : base(loggingOptOut, modelVersion)
+        /// <param name="loggingOptOut"> logging opt out. </param>
+        /// <param name="modelVersion"> model version. </param>
+        /// <param name="opinionMining"> Whether to use opinion mining in the request or not. </param>
+        /// <param name="stringIndexType"> Specifies the method used to interpret string offsets. </param>
+        internal SentimentAnalysisTaskParameters(bool? loggingOptOut, string modelVersion, bool? opinionMining, StringIndexType? stringIndexType)
         {
+            LoggingOptOut = loggingOptOut;
+            ModelVersion = modelVersion;
             OpinionMining = opinionMining;
             StringIndexType = stringIndexType;
         }
 
-        /// <summary> Gets or sets the opinion mining. </summary>
+        /// <summary> logging opt out. </summary>
+        public bool? LoggingOptOut { get; set; }
+        /// <summary> model version. </summary>
+        public string ModelVersion { get; set; }
+        /// <summary> Whether to use opinion mining in the request or not. </summary>
         public bool? OpinionMining { get; set; }
-        /// <summary> Specifies the method used to interpret string offsets.  Defaults to Text Elements (Graphemes) according to Unicode v8.0.0. For additional information see https://aka.ms/text-analytics-offsets. </summary>
+        /// <summary> Specifies the method used to interpret string offsets. </summary>
         public StringIndexType? StringIndexType { get; set; }
     }
 }

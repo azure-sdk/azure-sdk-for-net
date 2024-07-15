@@ -15,6 +15,16 @@ namespace Azure.AI.TextAnalytics.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
+            if (Optional.IsDefined(LoggingOptOut))
+            {
+                writer.WritePropertyName("loggingOptOut"u8);
+                writer.WriteBooleanValue(LoggingOptOut.Value);
+            }
+            if (Optional.IsDefined(ModelVersion))
+            {
+                writer.WritePropertyName("modelVersion"u8);
+                writer.WriteStringValue(ModelVersion);
+            }
             if (Optional.IsDefined(OpinionMining))
             {
                 writer.WritePropertyName("opinionMining"u8);
@@ -25,77 +35,11 @@ namespace Azure.AI.TextAnalytics.Models
                 writer.WritePropertyName("stringIndexType"u8);
                 writer.WriteStringValue(StringIndexType.Value.ToString());
             }
-            if (Optional.IsDefined(ModelVersion))
-            {
-                writer.WritePropertyName("modelVersion"u8);
-                writer.WriteStringValue(ModelVersion);
-            }
-            if (Optional.IsDefined(LoggingOptOut))
-            {
-                writer.WritePropertyName("loggingOptOut"u8);
-                writer.WriteBooleanValue(LoggingOptOut.Value);
-            }
             writer.WriteEndObject();
         }
 
-        internal static SentimentAnalysisTaskParameters DeserializeSentimentAnalysisTaskParameters(JsonElement element)
-        {
-            if (element.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            bool? opinionMining = default;
-            StringIndexType? stringIndexType = default;
-            string modelVersion = default;
-            bool? loggingOptOut = default;
-            foreach (var property in element.EnumerateObject())
-            {
-                if (property.NameEquals("opinionMining"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    opinionMining = property.Value.GetBoolean();
-                    continue;
-                }
-                if (property.NameEquals("stringIndexType"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    stringIndexType = new StringIndexType(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("modelVersion"u8))
-                {
-                    modelVersion = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("loggingOptOut"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    loggingOptOut = property.Value.GetBoolean();
-                    continue;
-                }
-            }
-            return new SentimentAnalysisTaskParameters(loggingOptOut, modelVersion, opinionMining, stringIndexType);
-        }
-
-        /// <summary> Deserializes the model from a raw response. </summary>
-        /// <param name="response"> The response to deserialize the model from. </param>
-        internal static new SentimentAnalysisTaskParameters FromResponse(Response response)
-        {
-            using var document = JsonDocument.Parse(response.Content);
-            return DeserializeSentimentAnalysisTaskParameters(document.RootElement);
-        }
-
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal override RequestContent ToRequestContent()
+        internal virtual RequestContent ToRequestContent()
         {
             var content = new Utf8JsonRequestContent();
             content.JsonWriter.WriteObjectValue(this);
