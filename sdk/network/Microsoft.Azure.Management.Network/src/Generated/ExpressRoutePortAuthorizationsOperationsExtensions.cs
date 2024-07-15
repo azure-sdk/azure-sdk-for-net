@@ -36,9 +36,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='authorizationName'>
             /// The name of the authorization.
             /// </param>
-            public static void Delete(this IExpressRoutePortAuthorizationsOperations operations, string resourceGroupName, string expressRoutePortName, string authorizationName)
+            public static ExpressRoutePortAuthorizationsDeleteHeaders Delete(this IExpressRoutePortAuthorizationsOperations operations, string resourceGroupName, string expressRoutePortName, string authorizationName)
             {
-                operations.DeleteAsync(resourceGroupName, expressRoutePortName, authorizationName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, expressRoutePortName, authorizationName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -59,9 +59,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IExpressRoutePortAuthorizationsOperations operations, string resourceGroupName, string expressRoutePortName, string authorizationName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ExpressRoutePortAuthorizationsDeleteHeaders> DeleteAsync(this IExpressRoutePortAuthorizationsOperations operations, string resourceGroupName, string expressRoutePortName, string authorizationName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, expressRoutePortName, authorizationName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, expressRoutePortName, authorizationName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -219,9 +222,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='authorizationName'>
             /// The name of the authorization.
             /// </param>
-            public static void BeginDelete(this IExpressRoutePortAuthorizationsOperations operations, string resourceGroupName, string expressRoutePortName, string authorizationName)
+            public static ExpressRoutePortAuthorizationsDeleteHeaders BeginDelete(this IExpressRoutePortAuthorizationsOperations operations, string resourceGroupName, string expressRoutePortName, string authorizationName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, expressRoutePortName, authorizationName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, expressRoutePortName, authorizationName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -242,9 +245,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IExpressRoutePortAuthorizationsOperations operations, string resourceGroupName, string expressRoutePortName, string authorizationName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ExpressRoutePortAuthorizationsDeleteHeaders> BeginDeleteAsync(this IExpressRoutePortAuthorizationsOperations operations, string resourceGroupName, string expressRoutePortName, string authorizationName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, expressRoutePortName, authorizationName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, expressRoutePortName, authorizationName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
