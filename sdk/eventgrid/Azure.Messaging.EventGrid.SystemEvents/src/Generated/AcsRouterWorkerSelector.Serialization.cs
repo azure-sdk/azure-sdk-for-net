@@ -31,8 +31,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("key"u8);
                 writer.WriteStringValue(Key);
             }
-            writer.WritePropertyName("labelOperator"u8);
-            writer.WriteStringValue(LabelOperator.ToString());
+            if (Optional.IsDefined(LabelOperator))
+            {
+                writer.WritePropertyName("labelOperator"u8);
+                writer.WriteStringValue(LabelOperator.Value.ToString());
+            }
             writer.WritePropertyName("value"u8);
 #if NET6_0_OR_GREATER
 				writer.WriteRawValue(LabelValue);
@@ -44,8 +47,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 #endif
             writer.WritePropertyName("ttlSeconds"u8);
             writer.WriteNumberValue(TimeToLive);
-            writer.WritePropertyName("state"u8);
-            writer.WriteStringValue(SelectorState.ToString());
+            if (Optional.IsDefined(SelectorState))
+            {
+                writer.WritePropertyName("state"u8);
+                writer.WriteStringValue(SelectorState.Value.ToString());
+            }
             writer.WritePropertyName("expirationTime"u8);
             writer.WriteStringValue(ExpirationTime, "O");
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -87,10 +93,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             string key = default;
-            AcsRouterLabelOperator labelOperator = default;
+            AcsRouterLabelOperator? labelOperator = default;
             BinaryData value = default;
             double ttlSeconds = default;
-            AcsRouterWorkerSelectorState state = default;
+            AcsRouterWorkerSelectorState? state = default;
             DateTimeOffset expirationTime = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -103,6 +109,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("labelOperator"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     labelOperator = new AcsRouterLabelOperator(property.Value.GetString());
                     continue;
                 }
@@ -118,6 +128,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("state"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     state = new AcsRouterWorkerSelectorState(property.Value.GetString());
                     continue;
                 }

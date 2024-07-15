@@ -26,8 +26,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("jobStatus"u8);
-            writer.WriteStringValue(JobStatus.ToString());
+            if (Optional.IsDefined(JobStatus))
+            {
+                writer.WritePropertyName("jobStatus"u8);
+                writer.WriteStringValue(JobStatus.Value.ToString());
+            }
             if (Optional.IsDefined(ClassificationPolicyId))
             {
                 writer.WritePropertyName("classificationPolicyId"u8);
@@ -123,7 +126,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            AcsRouterJobStatus jobStatus = default;
+            AcsRouterJobStatus? jobStatus = default;
             string classificationPolicyId = default;
             int? priority = default;
             IReadOnlyList<AcsRouterWorkerSelector> requestedWorkerSelectors = default;
@@ -141,6 +144,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("jobStatus"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     jobStatus = new AcsRouterJobStatus(property.Value.GetString());
                     continue;
                 }

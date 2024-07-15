@@ -26,8 +26,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("status"u8);
-            writer.WriteStringValue(Status.ToString());
+            if (Optional.IsDefined(Status))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(Status.Value.ToString());
+            }
             writer.WritePropertyName("completedDateTime"u8);
             writer.WriteStringValue(CompletedDateTime, "O");
             if (Optional.IsDefined(TaskExecutionId))
@@ -80,7 +83,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            StorageTaskCompletedStatus status = default;
+            StorageTaskCompletedStatus? status = default;
             DateTimeOffset completedDateTime = default;
             string taskExecutionId = default;
             string taskName = default;
@@ -91,6 +94,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("status"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     status = new StorageTaskCompletedStatus(property.Value.GetString());
                     continue;
                 }

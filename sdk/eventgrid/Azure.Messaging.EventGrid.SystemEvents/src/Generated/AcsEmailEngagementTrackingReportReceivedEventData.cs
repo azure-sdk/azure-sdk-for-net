@@ -47,11 +47,9 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         /// <summary> Initializes a new instance of <see cref="AcsEmailEngagementTrackingReportReceivedEventData"/>. </summary>
         /// <param name="userActionTimestamp"> The time at which the user interacted with the email. </param>
-        /// <param name="engagement"> The type of engagement user have with email. </param>
-        internal AcsEmailEngagementTrackingReportReceivedEventData(DateTimeOffset userActionTimestamp, AcsUserEngagement engagement)
+        internal AcsEmailEngagementTrackingReportReceivedEventData(DateTimeOffset userActionTimestamp)
         {
             UserActionTimestamp = userActionTimestamp;
-            Engagement = engagement;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsEmailEngagementTrackingReportReceivedEventData"/>. </summary>
@@ -63,7 +61,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="userAgent"> The user agent interacting with the email. </param>
         /// <param name="engagement"> The type of engagement user have with email. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AcsEmailEngagementTrackingReportReceivedEventData(string sender, string recipient, string messageId, DateTimeOffset userActionTimestamp, string engagementContext, string userAgent, AcsUserEngagement engagement, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AcsEmailEngagementTrackingReportReceivedEventData(string sender, string recipient, string messageId, DateTimeOffset userActionTimestamp, string engagementContext, string userAgent, AcsUserEngagement? engagement, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Sender = sender;
             Recipient = recipient;
@@ -93,6 +91,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> The user agent interacting with the email. </summary>
         public string UserAgent { get; }
         /// <summary> The type of engagement user have with email. </summary>
-        public AcsUserEngagement Engagement { get; }
+        public AcsUserEngagement? Engagement { get; }
     }
 }

@@ -35,12 +35,21 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("recordingDurationMs"u8);
                 writer.WriteNumberValue(RecordingDurationMs.Value);
             }
-            writer.WritePropertyName("recordingContentType"u8);
-            writer.WriteStringValue(RecordingContentType.ToString());
-            writer.WritePropertyName("recordingChannelType"u8);
-            writer.WriteStringValue(RecordingChannelKind.ToString());
-            writer.WritePropertyName("recordingFormatType"u8);
-            writer.WriteStringValue(RecordingFormatType.ToString());
+            if (Optional.IsDefined(RecordingContentType))
+            {
+                writer.WritePropertyName("recordingContentType"u8);
+                writer.WriteStringValue(RecordingContentType.Value.ToString());
+            }
+            if (Optional.IsDefined(RecordingChannelKind))
+            {
+                writer.WritePropertyName("recordingChannelType"u8);
+                writer.WriteStringValue(RecordingChannelKind.Value.ToString());
+            }
+            if (Optional.IsDefined(RecordingFormatType))
+            {
+                writer.WritePropertyName("recordingFormatType"u8);
+                writer.WriteStringValue(RecordingFormatType.Value.ToString());
+            }
             if (Optional.IsDefined(SessionEndReason))
             {
                 writer.WritePropertyName("sessionEndReason"u8);
@@ -87,9 +96,9 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             AcsRecordingStorageInfoProperties recordingStorageInfo = default;
             DateTimeOffset recordingStartTime = default;
             long? recordingDurationMs = default;
-            RecordingContentType recordingContentType = default;
-            RecordingChannelType recordingChannelType = default;
-            RecordingFormatType recordingFormatType = default;
+            RecordingContentType? recordingContentType = default;
+            RecordingChannelType? recordingChannelType = default;
+            RecordingFormatType? recordingFormatType = default;
             string sessionEndReason = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -116,16 +125,28 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("recordingContentType"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     recordingContentType = new RecordingContentType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("recordingChannelType"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     recordingChannelType = new RecordingChannelType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("recordingFormatType"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     recordingFormatType = new RecordingFormatType(property.Value.GetString());
                     continue;
                 }
