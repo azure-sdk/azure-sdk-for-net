@@ -22,7 +22,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetApiKeys_MonitorsListApiKeys()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/ApiKeys_List.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/ApiKeys_List.json
             // this example is just showing the usage of "Monitors_ListApiKeys" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetDefaultKey_MonitorsGetDefaultKey()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/ApiKeys_GetDefaultKey.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/ApiKeys_GetDefaultKey.json
             // this example is just showing the usage of "Monitors_GetDefaultKey" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task SetDefaultKey_MonitorsSetDefaultKey()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/ApiKeys_SetDefaultKey.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/ApiKeys_SetDefaultKey.json
             // this example is just showing the usage of "Monitors_SetDefaultKey" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -96,7 +96,8 @@ namespace Azure.ResourceManager.Datadog.Samples
             DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
 
             // invoke the operation
-            await datadogMonitorResource.SetDefaultKeyAsync();
+            DatadogApiKey body = new DatadogApiKey("1111111111111111aaaaaaaaaaaaaaaa");
+            await datadogMonitorResource.SetDefaultKeyAsync(body: body);
 
             Console.WriteLine($"Succeeded");
         }
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetHosts_MonitorsListHosts()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/Hosts_List.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/Hosts_List.json
             // this example is just showing the usage of "Monitors_ListHosts" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -136,7 +137,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetLinkedResources_MonitorsListLinkedResources()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/LinkedResources_List.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/LinkedResources_List.json
             // this example is just showing the usage of "Monitors_ListLinkedResources" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -166,7 +167,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetMonitoredResources_MonitorsListMonitoredResources()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/MonitoredResources_List.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/MonitoredResources_List.json
             // this example is just showing the usage of "Monitors_ListMonitoredResources" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -196,7 +197,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetDatadogMonitorResources_MonitorsList()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/Monitors_List.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/Monitors_List.json
             // this example is just showing the usage of "Monitors_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -228,7 +229,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_MonitorsGet()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/Monitors_Get.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/Monitors_Get.json
             // this example is just showing the usage of "Monitors_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -259,7 +260,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_MonitorsUpdate()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/Monitors_Update.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/Monitors_Update.json
             // this example is just showing the usage of "Monitors_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -276,7 +277,17 @@ namespace Azure.ResourceManager.Datadog.Samples
             DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
 
             // invoke the operation
-            DatadogMonitorResourcePatch patch = new DatadogMonitorResourcePatch();
+            DatadogMonitorResourcePatch patch = new DatadogMonitorResourcePatch()
+            {
+                Properties = new MonitorUpdateProperties()
+                {
+                    MonitoringStatus = MonitoringStatus.Enabled,
+                },
+                Tags =
+{
+["Environment"] = "Dev",
+},
+            };
             ArmOperation<DatadogMonitorResource> lro = await datadogMonitorResource.UpdateAsync(WaitUntil.Completed, patch);
             DatadogMonitorResource result = lro.Value;
 
@@ -292,7 +303,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_MonitorsDelete()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/Monitors_Delete.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/Monitors_Delete.json
             // this example is just showing the usage of "Monitors_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -319,7 +330,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task RefreshSetPasswordLink_MonitorsRefreshSetPasswordLink()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/RefreshSetPassword_Get.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/RefreshSetPassword_Get.json
             // this example is just showing the usage of "Monitors_RefreshSetPasswordLink" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

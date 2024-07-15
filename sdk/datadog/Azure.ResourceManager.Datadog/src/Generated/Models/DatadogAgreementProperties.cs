@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.Datadog.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="DatadogAgreementProperties"/>. </summary>
-        public DatadogAgreementProperties()
+        internal DatadogAgreementProperties()
         {
         }
 
@@ -74,20 +74,20 @@ namespace Azure.ResourceManager.Datadog.Models
         }
 
         /// <summary> Publisher identifier string. </summary>
-        public string Publisher { get; set; }
+        public string Publisher { get; }
         /// <summary> Product identifier string. </summary>
-        public string Product { get; set; }
+        public string Product { get; }
         /// <summary> Plan identifier string. </summary>
-        public string Plan { get; set; }
+        public string Plan { get; }
         /// <summary> Link to HTML with Microsoft and Publisher terms. </summary>
-        public string LicenseTextLink { get; set; }
+        public string LicenseTextLink { get; }
         /// <summary> Link to the privacy policy of the publisher. </summary>
-        public string PrivacyPolicyLink { get; set; }
+        public string PrivacyPolicyLink { get; }
         /// <summary> Date and time in UTC of when the terms were accepted. This is empty if Accepted is false. </summary>
-        public DateTimeOffset? RetrieveDatetime { get; set; }
+        public DateTimeOffset? RetrieveDatetime { get; }
         /// <summary> Terms signature. </summary>
-        public string Signature { get; set; }
+        public string Signature { get; }
         /// <summary> If any version of the terms have been accepted, otherwise false. </summary>
-        public bool? Accepted { get; set; }
+        public bool? Accepted { get; }
     }
 }

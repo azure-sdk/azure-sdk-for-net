@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Datadog.Models
 {
-    internal partial class MonitorUpdateProperties : IUtf8JsonSerializable, IJsonModel<MonitorUpdateProperties>
+    public partial class MonitorUpdateProperties : IUtf8JsonSerializable, IJsonModel<MonitorUpdateProperties>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<MonitorUpdateProperties>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
@@ -30,6 +30,11 @@ namespace Azure.ResourceManager.Datadog.Models
             {
                 writer.WritePropertyName("monitoringStatus"u8);
                 writer.WriteStringValue(MonitoringStatus.Value.ToString());
+            }
+            if (Optional.IsDefined(Cspm))
+            {
+                writer.WritePropertyName("cspm"u8);
+                writer.WriteBooleanValue(Cspm.Value);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -70,6 +75,7 @@ namespace Azure.ResourceManager.Datadog.Models
                 return null;
             }
             MonitoringStatus? monitoringStatus = default;
+            bool? cspm = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -83,13 +89,22 @@ namespace Azure.ResourceManager.Datadog.Models
                     monitoringStatus = new MonitoringStatus(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("cspm"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    cspm = property.Value.GetBoolean();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new MonitorUpdateProperties(monitoringStatus, serializedAdditionalRawData);
+            return new MonitorUpdateProperties(monitoringStatus, cspm, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<MonitorUpdateProperties>.Write(ModelReaderWriterOptions options)

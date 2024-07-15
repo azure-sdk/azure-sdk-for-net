@@ -48,7 +48,7 @@ namespace Azure.ResourceManager.Datadog.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="DatadogAgreementResourceProperties"/>. </summary>
-        public DatadogAgreementResourceProperties()
+        internal DatadogAgreementResourceProperties()
         {
         }
 
@@ -66,6 +66,6 @@ namespace Azure.ResourceManager.Datadog.Models
         }
 
         /// <summary> Represents the properties of the resource. </summary>
-        public DatadogAgreementProperties Properties { get; set; }
+        public DatadogAgreementProperties Properties { get; }
     }
 }

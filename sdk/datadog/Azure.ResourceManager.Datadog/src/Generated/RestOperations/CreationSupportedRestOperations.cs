@@ -15,20 +15,20 @@ using Azure.ResourceManager.Datadog.Models;
 
 namespace Azure.ResourceManager.Datadog
 {
-    internal partial class MarketplaceAgreementsRestOperations
+    internal partial class CreationSupportedRestOperations
     {
         private readonly TelemetryDetails _userAgent;
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
 
-        /// <summary> Initializes a new instance of MarketplaceAgreementsRestOperations. </summary>
+        /// <summary> Initializes a new instance of CreationSupportedRestOperations. </summary>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="applicationId"> The application id to use for user agent. </param>
         /// <param name="endpoint"> server parameter. </param>
         /// <param name="apiVersion"> Api Version. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="pipeline"/> or <paramref name="apiVersion"/> is null. </exception>
-        public MarketplaceAgreementsRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
+        public CreationSupportedRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
@@ -36,18 +36,19 @@ namespace Azure.ResourceManager.Datadog
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal RequestUriBuilder CreateListRequestUri(string subscriptionId)
+        internal RequestUriBuilder CreateListRequestUri(string subscriptionId, string datadogOrganizationId)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/subscriptions/", false);
             uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/providers/Microsoft.Datadog/agreements", false);
+            uri.AppendPath("/providers/Microsoft.Datadog/subscriptionStatuses", false);
             uri.AppendQuery("api-version", _apiVersion, true);
+            uri.AppendQuery("datadogOrganizationId", datadogOrganizationId, true);
             return uri;
         }
 
-        internal HttpMessage CreateListRequest(string subscriptionId)
+        internal HttpMessage CreateListRequest(string subscriptionId, string datadogOrganizationId)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -56,32 +57,35 @@ namespace Azure.ResourceManager.Datadog
             uri.Reset(_endpoint);
             uri.AppendPath("/subscriptions/", false);
             uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/providers/Microsoft.Datadog/agreements", false);
+            uri.AppendPath("/providers/Microsoft.Datadog/subscriptionStatuses", false);
             uri.AppendQuery("api-version", _apiVersion, true);
+            uri.AppendQuery("datadogOrganizationId", datadogOrganizationId, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);
             return message;
         }
 
-        /// <summary> List Datadog marketplace agreements in the subscription. </summary>
+        /// <summary> Informs if the current subscription is being already monitored for selected Datadog organization. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="datadogOrganizationId"> Datadog Organization Id. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="datadogOrganizationId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<DatadogAgreementResourceListResponse>> ListAsync(string subscriptionId, CancellationToken cancellationToken = default)
+        public async Task<Response<CreateResourceSupportedResponseList>> ListAsync(string subscriptionId, string datadogOrganizationId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNull(datadogOrganizationId, nameof(datadogOrganizationId));
 
-            using var message = CreateListRequest(subscriptionId);
+            using var message = CreateListRequest(subscriptionId, datadogOrganizationId);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        DatadogAgreementResourceListResponse value = default;
+                        CreateResourceSupportedResponseList value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = DatadogAgreementResourceListResponse.DeserializeDatadogAgreementResourceListResponse(document.RootElement);
+                        value = CreateResourceSupportedResponseList.DeserializeCreateResourceSupportedResponseList(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -89,24 +93,26 @@ namespace Azure.ResourceManager.Datadog
             }
         }
 
-        /// <summary> List Datadog marketplace agreements in the subscription. </summary>
+        /// <summary> Informs if the current subscription is being already monitored for selected Datadog organization. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="datadogOrganizationId"> Datadog Organization Id. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="datadogOrganizationId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<DatadogAgreementResourceListResponse> List(string subscriptionId, CancellationToken cancellationToken = default)
+        public Response<CreateResourceSupportedResponseList> List(string subscriptionId, string datadogOrganizationId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNull(datadogOrganizationId, nameof(datadogOrganizationId));
 
-            using var message = CreateListRequest(subscriptionId);
+            using var message = CreateListRequest(subscriptionId, datadogOrganizationId);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        DatadogAgreementResourceListResponse value = default;
+                        CreateResourceSupportedResponseList value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = DatadogAgreementResourceListResponse.DeserializeDatadogAgreementResourceListResponse(document.RootElement);
+                        value = CreateResourceSupportedResponseList.DeserializeCreateResourceSupportedResponseList(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -114,48 +120,56 @@ namespace Azure.ResourceManager.Datadog
             }
         }
 
-        internal RequestUriBuilder CreateListNextPageRequestUri(string nextLink, string subscriptionId)
+        internal RequestUriBuilder CreateGetRequestUri(string subscriptionId, string datadogOrganizationId)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRawNextLink(nextLink, false);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/providers/Microsoft.Datadog/subscriptionStatuses/default", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            uri.AppendQuery("datadogOrganizationId", datadogOrganizationId, true);
             return uri;
         }
 
-        internal HttpMessage CreateListNextPageRequest(string nextLink, string subscriptionId)
+        internal HttpMessage CreateGetRequest(string subscriptionId, string datadogOrganizationId)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRawNextLink(nextLink, false);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/providers/Microsoft.Datadog/subscriptionStatuses/default", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            uri.AppendQuery("datadogOrganizationId", datadogOrganizationId, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);
             return message;
         }
 
-        /// <summary> List Datadog marketplace agreements in the subscription. </summary>
-        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <summary> Informs if the current subscription is being already monitored for selected Datadog organization. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="datadogOrganizationId"> Datadog Organization Id. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="datadogOrganizationId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<DatadogAgreementResourceListResponse>> ListNextPageAsync(string nextLink, string subscriptionId, CancellationToken cancellationToken = default)
+        public async Task<Response<CreateResourceSupportedResponse>> GetAsync(string subscriptionId, string datadogOrganizationId, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNull(datadogOrganizationId, nameof(datadogOrganizationId));
 
-            using var message = CreateListNextPageRequest(nextLink, subscriptionId);
+            using var message = CreateGetRequest(subscriptionId, datadogOrganizationId);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        DatadogAgreementResourceListResponse value = default;
+                        CreateResourceSupportedResponse value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = DatadogAgreementResourceListResponse.DeserializeDatadogAgreementResourceListResponse(document.RootElement);
+                        value = CreateResourceSupportedResponse.DeserializeCreateResourceSupportedResponse(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -163,26 +177,26 @@ namespace Azure.ResourceManager.Datadog
             }
         }
 
-        /// <summary> List Datadog marketplace agreements in the subscription. </summary>
-        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <summary> Informs if the current subscription is being already monitored for selected Datadog organization. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="datadogOrganizationId"> Datadog Organization Id. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="datadogOrganizationId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<DatadogAgreementResourceListResponse> ListNextPage(string nextLink, string subscriptionId, CancellationToken cancellationToken = default)
+        public Response<CreateResourceSupportedResponse> Get(string subscriptionId, string datadogOrganizationId, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNull(datadogOrganizationId, nameof(datadogOrganizationId));
 
-            using var message = CreateListNextPageRequest(nextLink, subscriptionId);
+            using var message = CreateGetRequest(subscriptionId, datadogOrganizationId);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        DatadogAgreementResourceListResponse value = default;
+                        CreateResourceSupportedResponse value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = DatadogAgreementResourceListResponse.DeserializeDatadogAgreementResourceListResponse(document.RootElement);
+                        value = CreateResourceSupportedResponse.DeserializeCreateResourceSupportedResponse(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:

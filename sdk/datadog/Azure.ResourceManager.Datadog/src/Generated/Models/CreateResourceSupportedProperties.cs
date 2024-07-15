@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Datadog.Models
 {
-    /// <summary> Includes name, email and optionally, phone number. User Information can't be null. </summary>
-    public partial class UserInfo
+    /// <summary> Datadog resource can be created or not properties. </summary>
+    public partial class CreateResourceSupportedProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,29 +45,25 @@ namespace Azure.ResourceManager.Datadog.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="UserInfo"/>. </summary>
-        public UserInfo()
+        /// <summary> Initializes a new instance of <see cref="CreateResourceSupportedProperties"/>. </summary>
+        internal CreateResourceSupportedProperties()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="UserInfo"/>. </summary>
-        /// <param name="name"> Name of the user. </param>
-        /// <param name="emailAddress"> Email of the user used by Datadog for contacting them if needed. </param>
-        /// <param name="phoneNumber"> Phone number of the user used by Datadog for contacting them if needed. </param>
+        /// <summary> Initializes a new instance of <see cref="CreateResourceSupportedProperties"/>. </summary>
+        /// <param name="name"> The ARM id of the subscription. </param>
+        /// <param name="creationSupported"> Indicates if selected subscription supports Datadog resource creation, if not it is already being monitored for the selected organization via multi subscription feature. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UserInfo(string name, string emailAddress, string phoneNumber, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CreateResourceSupportedProperties(string name, bool? creationSupported, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
-            EmailAddress = emailAddress;
-            PhoneNumber = phoneNumber;
+            CreationSupported = creationSupported;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Name of the user. </summary>
-        public string Name { get; set; }
-        /// <summary> Email of the user used by Datadog for contacting them if needed. </summary>
-        public string EmailAddress { get; set; }
-        /// <summary> Phone number of the user used by Datadog for contacting them if needed. </summary>
-        public string PhoneNumber { get; set; }
+        /// <summary> The ARM id of the subscription. </summary>
+        public string Name { get; }
+        /// <summary> Indicates if selected subscription supports Datadog resource creation, if not it is already being monitored for the selected organization via multi subscription feature. </summary>
+        public bool? CreationSupported { get; }
     }
 }
