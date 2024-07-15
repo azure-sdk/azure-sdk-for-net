@@ -6,30 +6,11 @@
 #nullable disable
 
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class SentenceAssessment : IUtf8JsonSerializable
+    internal partial class SentenceAssessment
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("sentiment"u8);
-            writer.WriteStringValue(Sentiment);
-            writer.WritePropertyName("confidenceScores"u8);
-            writer.WriteObjectValue(ConfidenceScores);
-            writer.WritePropertyName("offset"u8);
-            writer.WriteNumberValue(Offset);
-            writer.WritePropertyName("length"u8);
-            writer.WriteNumberValue(Length);
-            writer.WritePropertyName("text"u8);
-            writer.WriteStringValue(Text);
-            writer.WritePropertyName("isNegated"u8);
-            writer.WriteBooleanValue(IsNegated);
-            writer.WriteEndObject();
-        }
-
         internal static SentenceAssessment DeserializeSentenceAssessment(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -90,14 +71,6 @@ namespace Azure.AI.TextAnalytics.Models
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializeSentenceAssessment(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal virtual RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }

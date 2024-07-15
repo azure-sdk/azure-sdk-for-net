@@ -23,30 +23,17 @@ namespace Azure.AI.TextAnalytics
         }
 
         private const string AbbreviationValue = "Abbreviation";
-        private const string BodySiteOfConditionValue = "BodySiteOfCondition";
-        private const string BodySiteOfTreatmentValue = "BodySiteOfTreatment";
-        private const string CourseOfConditionValue = "CourseOfCondition";
-        private const string CourseOfExaminationValue = "CourseOfExamination";
-        private const string CourseOfMedicationValue = "CourseOfMedication";
-        private const string CourseOfTreatmentValue = "CourseOfTreatment";
         private const string DirectionOfBodyStructureValue = "DirectionOfBodyStructure";
         private const string DirectionOfConditionValue = "DirectionOfCondition";
         private const string DirectionOfExaminationValue = "DirectionOfExamination";
         private const string DirectionOfTreatmentValue = "DirectionOfTreatment";
         private const string DosageOfMedicationValue = "DosageOfMedication";
-        private const string ExaminationFindsConditionValue = "ExaminationFindsCondition";
-        private const string ExpressionOfGeneValue = "ExpressionOfGene";
-        private const string ExpressionOfVariantValue = "ExpressionOfVariant";
         private const string FormOfMedicationValue = "FormOfMedication";
-        private const string FrequencyOfConditionValue = "FrequencyOfCondition";
         private const string FrequencyOfMedicationValue = "FrequencyOfMedication";
         private const string FrequencyOfTreatmentValue = "FrequencyOfTreatment";
-        private const string MutationTypeOfGeneValue = "MutationTypeOfGene";
-        private const string MutationTypeOfVariantValue = "MutationTypeOfVariant";
         private const string QualifierOfConditionValue = "QualifierOfCondition";
         private const string RelationOfExaminationValue = "RelationOfExamination";
         private const string RouteOfMedicationValue = "RouteOfMedication";
-        private const string ScaleOfConditionValue = "ScaleOfCondition";
         private const string TimeOfConditionValue = "TimeOfCondition";
         private const string TimeOfEventValue = "TimeOfEvent";
         private const string TimeOfExaminationValue = "TimeOfExamination";
@@ -56,77 +43,90 @@ namespace Azure.AI.TextAnalytics
         private const string UnitOfExaminationValue = "UnitOfExamination";
         private const string ValueOfConditionValue = "ValueOfCondition";
         private const string ValueOfExaminationValue = "ValueOfExamination";
+        private const string BodySiteOfConditionValue = "BodySiteOfCondition";
+        private const string BodySiteOfTreatmentValue = "BodySiteOfTreatment";
+        private const string CourseOfConditionValue = "CourseOfCondition";
+        private const string CourseOfExaminationValue = "CourseOfExamination";
+        private const string CourseOfMedicationValue = "CourseOfMedication";
+        private const string CourseOfTreatmentValue = "CourseOfTreatment";
+        private const string ExaminationFindsConditionValue = "ExaminationFindsCondition";
+        private const string ExpressionOfGeneValue = "ExpressionOfGene";
+        private const string ExpressionOfVariantValue = "ExpressionOfVariant";
+        private const string FrequencyOfConditionValue = "FrequencyOfCondition";
+        private const string MutationTypeOfGeneValue = "MutationTypeOfGene";
+        private const string MutationTypeOfVariantValue = "MutationTypeOfVariant";
+        private const string ScaleOfConditionValue = "ScaleOfCondition";
         private const string VariantOfGeneValue = "VariantOfGene";
 
         /// <summary> Abbreviation. </summary>
         public static HealthcareEntityRelationType Abbreviation { get; } = new HealthcareEntityRelationType(AbbreviationValue);
-        /// <summary> BodySiteOfCondition. </summary>
-        public static HealthcareEntityRelationType BodySiteOfCondition { get; } = new HealthcareEntityRelationType(BodySiteOfConditionValue);
-        /// <summary> BodySiteOfTreatment. </summary>
-        public static HealthcareEntityRelationType BodySiteOfTreatment { get; } = new HealthcareEntityRelationType(BodySiteOfTreatmentValue);
-        /// <summary> CourseOfCondition. </summary>
-        public static HealthcareEntityRelationType CourseOfCondition { get; } = new HealthcareEntityRelationType(CourseOfConditionValue);
-        /// <summary> CourseOfExamination. </summary>
-        public static HealthcareEntityRelationType CourseOfExamination { get; } = new HealthcareEntityRelationType(CourseOfExaminationValue);
-        /// <summary> CourseOfMedication. </summary>
-        public static HealthcareEntityRelationType CourseOfMedication { get; } = new HealthcareEntityRelationType(CourseOfMedicationValue);
-        /// <summary> CourseOfTreatment. </summary>
-        public static HealthcareEntityRelationType CourseOfTreatment { get; } = new HealthcareEntityRelationType(CourseOfTreatmentValue);
-        /// <summary> DirectionOfBodyStructure. </summary>
+        /// <summary> Direction of body structure. </summary>
         public static HealthcareEntityRelationType DirectionOfBodyStructure { get; } = new HealthcareEntityRelationType(DirectionOfBodyStructureValue);
-        /// <summary> DirectionOfCondition. </summary>
+        /// <summary> Direction of condition. </summary>
         public static HealthcareEntityRelationType DirectionOfCondition { get; } = new HealthcareEntityRelationType(DirectionOfConditionValue);
-        /// <summary> DirectionOfExamination. </summary>
+        /// <summary> Direction of examination. </summary>
         public static HealthcareEntityRelationType DirectionOfExamination { get; } = new HealthcareEntityRelationType(DirectionOfExaminationValue);
-        /// <summary> DirectionOfTreatment. </summary>
+        /// <summary> Direction of treatment. </summary>
         public static HealthcareEntityRelationType DirectionOfTreatment { get; } = new HealthcareEntityRelationType(DirectionOfTreatmentValue);
-        /// <summary> DosageOfMedication. </summary>
+        /// <summary> Dosage of medication. </summary>
         public static HealthcareEntityRelationType DosageOfMedication { get; } = new HealthcareEntityRelationType(DosageOfMedicationValue);
-        /// <summary> ExaminationFindsCondition. </summary>
-        public static HealthcareEntityRelationType ExaminationFindsCondition { get; } = new HealthcareEntityRelationType(ExaminationFindsConditionValue);
-        /// <summary> ExpressionOfGene. </summary>
-        public static HealthcareEntityRelationType ExpressionOfGene { get; } = new HealthcareEntityRelationType(ExpressionOfGeneValue);
-        /// <summary> ExpressionOfVariant. </summary>
-        public static HealthcareEntityRelationType ExpressionOfVariant { get; } = new HealthcareEntityRelationType(ExpressionOfVariantValue);
-        /// <summary> FormOfMedication. </summary>
+        /// <summary> Form of medication. </summary>
         public static HealthcareEntityRelationType FormOfMedication { get; } = new HealthcareEntityRelationType(FormOfMedicationValue);
-        /// <summary> FrequencyOfCondition. </summary>
-        public static HealthcareEntityRelationType FrequencyOfCondition { get; } = new HealthcareEntityRelationType(FrequencyOfConditionValue);
-        /// <summary> FrequencyOfMedication. </summary>
+        /// <summary> Frequency of medication. </summary>
         public static HealthcareEntityRelationType FrequencyOfMedication { get; } = new HealthcareEntityRelationType(FrequencyOfMedicationValue);
-        /// <summary> FrequencyOfTreatment. </summary>
+        /// <summary> Frequency of treatment. </summary>
         public static HealthcareEntityRelationType FrequencyOfTreatment { get; } = new HealthcareEntityRelationType(FrequencyOfTreatmentValue);
-        /// <summary> MutationTypeOfGene. </summary>
-        public static HealthcareEntityRelationType MutationTypeOfGene { get; } = new HealthcareEntityRelationType(MutationTypeOfGeneValue);
-        /// <summary> MutationTypeOfVariant. </summary>
-        public static HealthcareEntityRelationType MutationTypeOfVariant { get; } = new HealthcareEntityRelationType(MutationTypeOfVariantValue);
-        /// <summary> QualifierOfCondition. </summary>
+        /// <summary> Qualifier of condition. </summary>
         public static HealthcareEntityRelationType QualifierOfCondition { get; } = new HealthcareEntityRelationType(QualifierOfConditionValue);
-        /// <summary> RelationOfExamination. </summary>
+        /// <summary> Relation of examination. </summary>
         public static HealthcareEntityRelationType RelationOfExamination { get; } = new HealthcareEntityRelationType(RelationOfExaminationValue);
-        /// <summary> RouteOfMedication. </summary>
+        /// <summary> Route of medication. </summary>
         public static HealthcareEntityRelationType RouteOfMedication { get; } = new HealthcareEntityRelationType(RouteOfMedicationValue);
-        /// <summary> ScaleOfCondition. </summary>
-        public static HealthcareEntityRelationType ScaleOfCondition { get; } = new HealthcareEntityRelationType(ScaleOfConditionValue);
-        /// <summary> TimeOfCondition. </summary>
+        /// <summary> Time of condition. </summary>
         public static HealthcareEntityRelationType TimeOfCondition { get; } = new HealthcareEntityRelationType(TimeOfConditionValue);
-        /// <summary> TimeOfEvent. </summary>
+        /// <summary> Time of event. </summary>
         public static HealthcareEntityRelationType TimeOfEvent { get; } = new HealthcareEntityRelationType(TimeOfEventValue);
-        /// <summary> TimeOfExamination. </summary>
+        /// <summary> Time of examination. </summary>
         public static HealthcareEntityRelationType TimeOfExamination { get; } = new HealthcareEntityRelationType(TimeOfExaminationValue);
-        /// <summary> TimeOfMedication. </summary>
+        /// <summary> Time of medication. </summary>
         public static HealthcareEntityRelationType TimeOfMedication { get; } = new HealthcareEntityRelationType(TimeOfMedicationValue);
-        /// <summary> TimeOfTreatment. </summary>
+        /// <summary> Time of treatment. </summary>
         public static HealthcareEntityRelationType TimeOfTreatment { get; } = new HealthcareEntityRelationType(TimeOfTreatmentValue);
-        /// <summary> UnitOfCondition. </summary>
+        /// <summary> Unit of condition. </summary>
         public static HealthcareEntityRelationType UnitOfCondition { get; } = new HealthcareEntityRelationType(UnitOfConditionValue);
-        /// <summary> UnitOfExamination. </summary>
+        /// <summary> Unit of examination. </summary>
         public static HealthcareEntityRelationType UnitOfExamination { get; } = new HealthcareEntityRelationType(UnitOfExaminationValue);
-        /// <summary> ValueOfCondition. </summary>
+        /// <summary> Value of condition. </summary>
         public static HealthcareEntityRelationType ValueOfCondition { get; } = new HealthcareEntityRelationType(ValueOfConditionValue);
-        /// <summary> ValueOfExamination. </summary>
+        /// <summary> Value of examination. </summary>
         public static HealthcareEntityRelationType ValueOfExamination { get; } = new HealthcareEntityRelationType(ValueOfExaminationValue);
-        /// <summary> VariantOfGene. </summary>
+        /// <summary> Body site of condition. </summary>
+        public static HealthcareEntityRelationType BodySiteOfCondition { get; } = new HealthcareEntityRelationType(BodySiteOfConditionValue);
+        /// <summary> Body site of treatment. </summary>
+        public static HealthcareEntityRelationType BodySiteOfTreatment { get; } = new HealthcareEntityRelationType(BodySiteOfTreatmentValue);
+        /// <summary> Course of condition. </summary>
+        public static HealthcareEntityRelationType CourseOfCondition { get; } = new HealthcareEntityRelationType(CourseOfConditionValue);
+        /// <summary> Course of examination. </summary>
+        public static HealthcareEntityRelationType CourseOfExamination { get; } = new HealthcareEntityRelationType(CourseOfExaminationValue);
+        /// <summary> Course of medication. </summary>
+        public static HealthcareEntityRelationType CourseOfMedication { get; } = new HealthcareEntityRelationType(CourseOfMedicationValue);
+        /// <summary> Course of treatment. </summary>
+        public static HealthcareEntityRelationType CourseOfTreatment { get; } = new HealthcareEntityRelationType(CourseOfTreatmentValue);
+        /// <summary> Examination finds condition. </summary>
+        public static HealthcareEntityRelationType ExaminationFindsCondition { get; } = new HealthcareEntityRelationType(ExaminationFindsConditionValue);
+        /// <summary> Expression of gene. </summary>
+        public static HealthcareEntityRelationType ExpressionOfGene { get; } = new HealthcareEntityRelationType(ExpressionOfGeneValue);
+        /// <summary> Expression of variant. </summary>
+        public static HealthcareEntityRelationType ExpressionOfVariant { get; } = new HealthcareEntityRelationType(ExpressionOfVariantValue);
+        /// <summary> Frequency of condition. </summary>
+        public static HealthcareEntityRelationType FrequencyOfCondition { get; } = new HealthcareEntityRelationType(FrequencyOfConditionValue);
+        /// <summary> Mutation type of gene. </summary>
+        public static HealthcareEntityRelationType MutationTypeOfGene { get; } = new HealthcareEntityRelationType(MutationTypeOfGeneValue);
+        /// <summary> Mutation type of variant. </summary>
+        public static HealthcareEntityRelationType MutationTypeOfVariant { get; } = new HealthcareEntityRelationType(MutationTypeOfVariantValue);
+        /// <summary> Scale of condition. </summary>
+        public static HealthcareEntityRelationType ScaleOfCondition { get; } = new HealthcareEntityRelationType(ScaleOfConditionValue);
+        /// <summary> Variant of gene. </summary>
         public static HealthcareEntityRelationType VariantOfGene { get; } = new HealthcareEntityRelationType(VariantOfGeneValue);
         /// <summary> Determines if two <see cref="HealthcareEntityRelationType"/> values are the same. </summary>
         public static bool operator ==(HealthcareEntityRelationType left, HealthcareEntityRelationType right) => left.Equals(right);
