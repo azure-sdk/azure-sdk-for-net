@@ -41,7 +41,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("messageId"u8);
                 writer.WriteStringValue(MessageId);
             }
-            writer.WritePropertyName("userActionTimeStamp"u8);
+            writer.WritePropertyName("userActionTimestamp"u8);
             writer.WriteStringValue(UserActionTimestamp, "O");
             if (Optional.IsDefined(EngagementContext))
             {
@@ -53,8 +53,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("userAgent"u8);
                 writer.WriteStringValue(UserAgent);
             }
-            writer.WritePropertyName("engagementType"u8);
-            writer.WriteStringValue(Engagement.ToString());
+            if (Optional.IsDefined(Engagement))
+            {
+                writer.WritePropertyName("engagementType"u8);
+                writer.WriteStringValue(Engagement.Value.ToString());
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -96,10 +99,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             string sender = default;
             string recipient = default;
             string messageId = default;
-            DateTimeOffset userActionTimeStamp = default;
+            DateTimeOffset userActionTimestamp = default;
             string engagementContext = default;
             string userAgent = default;
-            AcsUserEngagement engagementType = default;
+            AcsUserEngagement? engagementType = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -119,9 +122,9 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     messageId = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("userActionTimeStamp"u8))
+                if (property.NameEquals("userActionTimestamp"u8))
                 {
-                    userActionTimeStamp = property.Value.GetDateTimeOffset("O");
+                    userActionTimestamp = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
                 if (property.NameEquals("engagementContext"u8))
@@ -136,6 +139,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("engagementType"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     engagementType = new AcsUserEngagement(property.Value.GetString());
                     continue;
                 }
@@ -149,7 +156,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 sender,
                 recipient,
                 messageId,
-                userActionTimeStamp,
+                userActionTimestamp,
                 engagementContext,
                 userAgent,
                 engagementType,

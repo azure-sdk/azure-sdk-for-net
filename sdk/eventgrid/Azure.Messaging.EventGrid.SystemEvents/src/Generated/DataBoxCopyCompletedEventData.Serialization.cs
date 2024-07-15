@@ -31,8 +31,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("serialNumber"u8);
                 writer.WriteStringValue(SerialNumber);
             }
-            writer.WritePropertyName("stageName"u8);
-            writer.WriteStringValue(StageName.ToString());
+            if (Optional.IsDefined(StageName))
+            {
+                writer.WritePropertyName("stageName"u8);
+                writer.WriteStringValue(StageName.Value.ToString());
+            }
             writer.WritePropertyName("stageTime"u8);
             writer.WriteStringValue(StageTime, "O");
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -74,7 +77,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             string serialNumber = default;
-            DataBoxStageName stageName = default;
+            DataBoxStageName? stageName = default;
             DateTimeOffset stageTime = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -87,6 +90,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("stageName"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     stageName = new DataBoxStageName(property.Value.GetString());
                     continue;
                 }
