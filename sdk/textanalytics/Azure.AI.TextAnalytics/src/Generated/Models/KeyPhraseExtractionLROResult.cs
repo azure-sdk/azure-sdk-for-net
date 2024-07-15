@@ -9,15 +9,15 @@ using System;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The KeyPhraseExtractionLROResult. </summary>
+    /// <summary> Contains the analyze text KeyPhraseExtraction LRO task. </summary>
     internal partial class KeyPhraseExtractionLROResult : AnalyzeTextLROResult
     {
         /// <summary> Initializes a new instance of <see cref="KeyPhraseExtractionLROResult"/>. </summary>
-        /// <param name="lastUpdateDateTime"></param>
-        /// <param name="status"></param>
-        /// <param name="results"></param>
+        /// <param name="lastUpdateDateTime"> The last updated time in UTC for the task. </param>
+        /// <param name="status"> The status of the task at the mentioned last update time. </param>
+        /// <param name="results"> The list of Key phrase extraction results. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="results"/> is null. </exception>
-        public KeyPhraseExtractionLROResult(DateTimeOffset lastUpdateDateTime, TextAnalyticsOperationStatus status, KeyPhraseResult results) : base(lastUpdateDateTime, status)
+        internal KeyPhraseExtractionLROResult(DateTimeOffset lastUpdateDateTime, TextAnalyticsOperationStatus status, KeyPhraseResult results) : base(lastUpdateDateTime, status)
         {
             Argument.AssertNotNull(results, nameof(results));
 
@@ -26,18 +26,18 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="KeyPhraseExtractionLROResult"/>. </summary>
-        /// <param name="lastUpdateDateTime"></param>
-        /// <param name="status"></param>
-        /// <param name="kind"> Enumeration of supported Text Analysis long-running operation task results. </param>
-        /// <param name="taskName"></param>
-        /// <param name="results"></param>
-        internal KeyPhraseExtractionLROResult(DateTimeOffset lastUpdateDateTime, TextAnalyticsOperationStatus status, AnalyzeTextLROResultsKind kind, string taskName, KeyPhraseResult results) : base(lastUpdateDateTime, status, kind, taskName)
+        /// <param name="lastUpdateDateTime"> The last updated time in UTC for the task. </param>
+        /// <param name="status"> The status of the task at the mentioned last update time. </param>
+        /// <param name="taskName"> task name. </param>
+        /// <param name="kind"> Kind of the task. </param>
+        /// <param name="results"> The list of Key phrase extraction results. </param>
+        internal KeyPhraseExtractionLROResult(DateTimeOffset lastUpdateDateTime, TextAnalyticsOperationStatus status, string taskName, AnalyzeTextLROResultsKind kind, KeyPhraseResult results) : base(lastUpdateDateTime, status, taskName, kind)
         {
             Results = results;
             Kind = kind;
         }
 
-        /// <summary> Gets or sets the results. </summary>
-        public KeyPhraseResult Results { get; set; }
+        /// <summary> The list of Key phrase extraction results. </summary>
+        public KeyPhraseResult Results { get; }
     }
 }

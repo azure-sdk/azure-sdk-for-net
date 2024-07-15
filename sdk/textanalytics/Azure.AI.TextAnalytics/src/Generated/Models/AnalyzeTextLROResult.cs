@@ -10,33 +10,41 @@ using System;
 namespace Azure.AI.TextAnalytics.Models
 {
     /// <summary>
-    /// The AnalyzeTextLROResult.
+    /// Contains the AnalyzeText long running operation result object.
     /// Please note <see cref="AnalyzeTextLROResult"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
     /// The available derived classes include <see cref="AbstractiveSummarizationLROResult"/>, <see cref="CustomEntityRecognitionLROResult"/>, <see cref="CustomMultiLabelClassificationLROResult"/>, <see cref="CustomSingleLabelClassificationLROResult"/>, <see cref="EntityLinkingLROResult"/>, <see cref="EntityRecognitionLROResult"/>, <see cref="ExtractiveSummarizationLROResult"/>, <see cref="HealthcareLROResult"/>, <see cref="KeyPhraseExtractionLROResult"/>, <see cref="PiiEntityRecognitionLROResult"/> and <see cref="SentimentLROResult"/>.
     /// </summary>
-    internal abstract partial class AnalyzeTextLROResult : TaskState
+    internal abstract partial class AnalyzeTextLROResult
     {
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextLROResult"/>. </summary>
-        /// <param name="lastUpdateDateTime"></param>
-        /// <param name="status"></param>
-        protected AnalyzeTextLROResult(DateTimeOffset lastUpdateDateTime, TextAnalyticsOperationStatus status) : base(lastUpdateDateTime, status)
+        /// <param name="lastUpdateDateTime"> The last updated time in UTC for the task. </param>
+        /// <param name="status"> The status of the task at the mentioned last update time. </param>
+        protected AnalyzeTextLROResult(DateTimeOffset lastUpdateDateTime, TextAnalyticsOperationStatus status)
         {
+            LastUpdateDateTime = lastUpdateDateTime;
+            Status = status;
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextLROResult"/>. </summary>
-        /// <param name="lastUpdateDateTime"></param>
-        /// <param name="status"></param>
-        /// <param name="kind"> Enumeration of supported Text Analysis long-running operation task results. </param>
-        /// <param name="taskName"></param>
-        internal AnalyzeTextLROResult(DateTimeOffset lastUpdateDateTime, TextAnalyticsOperationStatus status, AnalyzeTextLROResultsKind kind, string taskName) : base(lastUpdateDateTime, status)
+        /// <param name="lastUpdateDateTime"> The last updated time in UTC for the task. </param>
+        /// <param name="status"> The status of the task at the mentioned last update time. </param>
+        /// <param name="taskName"> task name. </param>
+        /// <param name="kind"> Kind of the task. </param>
+        internal AnalyzeTextLROResult(DateTimeOffset lastUpdateDateTime, TextAnalyticsOperationStatus status, string taskName, AnalyzeTextLROResultsKind kind)
         {
-            Kind = kind;
+            LastUpdateDateTime = lastUpdateDateTime;
+            Status = status;
             TaskName = taskName;
+            Kind = kind;
         }
 
-        /// <summary> Enumeration of supported Text Analysis long-running operation task results. </summary>
+        /// <summary> The last updated time in UTC for the task. </summary>
+        public DateTimeOffset LastUpdateDateTime { get; }
+        /// <summary> The status of the task at the mentioned last update time. </summary>
+        public TextAnalyticsOperationStatus Status { get; }
+        /// <summary> task name. </summary>
+        public string TaskName { get; }
+        /// <summary> Kind of the task. </summary>
         internal AnalyzeTextLROResultsKind Kind { get; set; }
-        /// <summary> Gets or sets the task name. </summary>
-        public string TaskName { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="id"> The ID of the input document. </param>
         /// <param name="error"> Error encountered. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="id"/> or <paramref name="error"/> is null. </exception>
-        public DocumentError(string id, Error error)
+        internal DocumentError(string id, Error error)
         {
             Argument.AssertNotNull(id, nameof(id));
             Argument.AssertNotNull(error, nameof(error));
@@ -26,8 +26,8 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> The ID of the input document. </summary>
-        public string Id { get; set; }
+        public string Id { get; }
         /// <summary> Error encountered. </summary>
-        public Error Error { get; set; }
+        public Error Error { get; }
     }
 }

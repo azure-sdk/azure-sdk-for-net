@@ -10,21 +10,20 @@ using System.Collections.Generic;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The error object. </summary>
+    /// <summary> The error response object returned when the service encounters some errors during processing the request. </summary>
     internal partial class Error
     {
         /// <summary> Initializes a new instance of <see cref="Error"/>. </summary>
         /// <param name="code"> One of a server-defined set of error codes. </param>
         /// <param name="message"> A human-readable representation of the error. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="message"/> is null. </exception>
-        public Error(ErrorCode code, string message)
+        internal Error(ErrorCode code, string message)
         {
             Argument.AssertNotNull(message, nameof(message));
 
             Code = code;
             Message = message;
             Details = new ChangeTrackingList<Error>();
-            AdditionalProperties = new ChangeTrackingDictionary<string, object>();
         }
 
         /// <summary> Initializes a new instance of <see cref="Error"/>. </summary>
@@ -33,28 +32,24 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="target"> The target of the error. </param>
         /// <param name="details"> An array of details about specific errors that led to this reported error. </param>
         /// <param name="innererror"> An object containing more specific information than the current object about the error. </param>
-        /// <param name="additionalProperties"> Additional Properties. </param>
-        internal Error(ErrorCode code, string message, string target, IList<Error> details, InnerErrorModel innererror, IDictionary<string, object> additionalProperties)
+        internal Error(ErrorCode code, string message, string target, IReadOnlyList<Error> details, InnerErrorModel innererror)
         {
             Code = code;
             Message = message;
             Target = target;
             Details = details;
             Innererror = innererror;
-            AdditionalProperties = additionalProperties;
         }
 
         /// <summary> One of a server-defined set of error codes. </summary>
-        public ErrorCode Code { get; set; }
+        public ErrorCode Code { get; }
         /// <summary> A human-readable representation of the error. </summary>
-        public string Message { get; set; }
+        public string Message { get; }
         /// <summary> The target of the error. </summary>
-        public string Target { get; set; }
+        public string Target { get; }
         /// <summary> An array of details about specific errors that led to this reported error. </summary>
-        public IList<Error> Details { get; }
+        public IReadOnlyList<Error> Details { get; }
         /// <summary> An object containing more specific information than the current object about the error. </summary>
-        public InnerErrorModel Innererror { get; set; }
-        /// <summary> Additional Properties. </summary>
-        public IDictionary<string, object> AdditionalProperties { get; }
+        public InnerErrorModel Innererror { get; }
     }
 }

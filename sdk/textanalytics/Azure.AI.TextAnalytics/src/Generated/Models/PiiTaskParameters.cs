@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Azure.AI.TextAnalytics.Models
 {
     /// <summary> Supported parameters for a PII Entities Recognition task. </summary>
-    internal partial class PiiTaskParameters : PreBuiltTaskParameters
+    internal partial class PiiTaskParameters
     {
         /// <summary> Initializes a new instance of <see cref="PiiTaskParameters"/>. </summary>
         public PiiTaskParameters()
@@ -19,21 +19,27 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="PiiTaskParameters"/>. </summary>
-        /// <param name="loggingOptOut"></param>
-        /// <param name="modelVersion"></param>
-        /// <param name="domain"> The PII domain used for PII Entity Recognition. </param>
-        /// <param name="piiCategories"> (Optional) describes the PII categories to return. </param>
-        /// <param name="stringIndexType"> Specifies the method used to interpret string offsets.  Defaults to Text Elements (Graphemes) according to Unicode v8.0.0. For additional information see https://aka.ms/text-analytics-offsets. </param>
-        internal PiiTaskParameters(bool? loggingOptOut, string modelVersion, PiiDomain? domain, IList<PiiEntityCategory> piiCategories, StringIndexType? stringIndexType) : base(loggingOptOut, modelVersion)
+        /// <param name="loggingOptOut"> logging opt out. </param>
+        /// <param name="modelVersion"> model version. </param>
+        /// <param name="domain"> Domain for PII task. </param>
+        /// <param name="piiCategories"> Enumeration of PII categories to be returned in the response. </param>
+        /// <param name="stringIndexType"> StringIndexType to be used for analysis. </param>
+        internal PiiTaskParameters(bool? loggingOptOut, string modelVersion, PiiDomain? domain, IList<PiiEntityCategory> piiCategories, StringIndexType? stringIndexType)
         {
+            LoggingOptOut = loggingOptOut;
+            ModelVersion = modelVersion;
             Domain = domain;
             PiiCategories = piiCategories;
             StringIndexType = stringIndexType;
         }
 
-        /// <summary> The PII domain used for PII Entity Recognition. </summary>
+        /// <summary> logging opt out. </summary>
+        public bool? LoggingOptOut { get; set; }
+        /// <summary> model version. </summary>
+        public string ModelVersion { get; set; }
+        /// <summary> Domain for PII task. </summary>
         public PiiDomain? Domain { get; set; }
-        /// <summary> Specifies the method used to interpret string offsets.  Defaults to Text Elements (Graphemes) according to Unicode v8.0.0. For additional information see https://aka.ms/text-analytics-offsets. </summary>
+        /// <summary> StringIndexType to be used for analysis. </summary>
         public StringIndexType? StringIndexType { get; set; }
     }
 }

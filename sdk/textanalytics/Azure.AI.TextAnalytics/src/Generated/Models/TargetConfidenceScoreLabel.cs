@@ -13,15 +13,15 @@ namespace Azure.AI.TextAnalytics.Models
         /// <summary> Initializes a new instance of <see cref="TargetConfidenceScoreLabel"/>. </summary>
         /// <param name="positive"> Confidence score for positive sentiment. </param>
         /// <param name="negative"> Confidence score for negative sentiment. </param>
-        public TargetConfidenceScoreLabel(double positive, double negative)
+        internal TargetConfidenceScoreLabel(double positive, double negative)
         {
             Positive = positive;
             Negative = negative;
         }
 
         /// <summary> Confidence score for positive sentiment. </summary>
-        public double Positive { get; set; }
+        public double Positive { get; }
         /// <summary> Confidence score for negative sentiment. </summary>
-        public double Negative { get; set; }
+        public double Negative { get; }
     }
 }

@@ -9,14 +9,14 @@ using System;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The DocumentWarning. </summary>
+    /// <summary> Contains the warnings object with warnings encountered for the processed document. </summary>
     internal partial class DocumentWarning
     {
         /// <summary> Initializes a new instance of <see cref="DocumentWarning"/>. </summary>
-        /// <param name="code"> Error code. </param>
+        /// <param name="code"> Warning code. </param>
         /// <param name="message"> Warning message. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="message"/> is null. </exception>
-        public DocumentWarning(WarningCodeValue code, string message)
+        internal DocumentWarning(WarningCodeValue code, string message)
         {
             Argument.AssertNotNull(message, nameof(message));
 
@@ -25,7 +25,7 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="DocumentWarning"/>. </summary>
-        /// <param name="code"> Error code. </param>
+        /// <param name="code"> Warning code. </param>
         /// <param name="message"> Warning message. </param>
         /// <param name="targetRef"> A JSON pointer reference indicating the target object. </param>
         internal DocumentWarning(WarningCodeValue code, string message, string targetRef)
@@ -35,11 +35,11 @@ namespace Azure.AI.TextAnalytics.Models
             TargetRef = targetRef;
         }
 
-        /// <summary> Error code. </summary>
-        public WarningCodeValue Code { get; set; }
+        /// <summary> Warning code. </summary>
+        public WarningCodeValue Code { get; }
         /// <summary> Warning message. </summary>
-        public string Message { get; set; }
+        public string Message { get; }
         /// <summary> A JSON pointer reference indicating the target object. </summary>
-        public string TargetRef { get; set; }
+        public string TargetRef { get; }
     }
 }
