@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Azure.Core;
@@ -308,6 +309,456 @@ namespace Azure.Analytics.Defender.Easm.Samples
             EasmClient client = new EasmClient(endpoint, credential);
 
             Response<AssetResource> response = await client.GetAssetResourceAsync("<assetId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetAssetsExport_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                fileName = "<fileName>",
+                columns = new object[]
+            {
+"<columns>"
+            },
+            });
+            Response response = client.GetAssetsExport(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetAssetsExport_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                fileName = "<fileName>",
+                columns = new object[]
+            {
+"<columns>"
+            },
+            });
+            Response response = await client.GetAssetsExportAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetAssetsExport_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            AssetsExportRequest body = new AssetsExportRequest("<fileName>", new string[] { "<columns>" });
+            Response<TaskResource> response = client.GetAssetsExport(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetAssetsExport_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            AssetsExportRequest body = new AssetsExportRequest("<fileName>", new string[] { "<columns>" });
+            Response<TaskResource> response = await client.GetAssetsExportAsync(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetAssetsExport_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                fileName = "<fileName>",
+                columns = new object[]
+            {
+"<columns>"
+            },
+            });
+            Response response = client.GetAssetsExport(content, filter: "<filter>", orderby: "<orderby>");
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("startedAt").ToString());
+            Console.WriteLine(result.GetProperty("completedAt").ToString());
+            Console.WriteLine(result.GetProperty("lastPolledAt").ToString());
+            Console.WriteLine(result.GetProperty("state").ToString());
+            Console.WriteLine(result.GetProperty("phase").ToString());
+            Console.WriteLine(result.GetProperty("reason").ToString());
+            Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetAssetsExport_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                fileName = "<fileName>",
+                columns = new object[]
+            {
+"<columns>"
+            },
+            });
+            Response response = await client.GetAssetsExportAsync(content, filter: "<filter>", orderby: "<orderby>");
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("startedAt").ToString());
+            Console.WriteLine(result.GetProperty("completedAt").ToString());
+            Console.WriteLine(result.GetProperty("lastPolledAt").ToString());
+            Console.WriteLine(result.GetProperty("state").ToString());
+            Console.WriteLine(result.GetProperty("phase").ToString());
+            Console.WriteLine(result.GetProperty("reason").ToString());
+            Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetAssetsExport_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            AssetsExportRequest body = new AssetsExportRequest("<fileName>", new string[] { "<columns>" });
+            Response<TaskResource> response = client.GetAssetsExport(body, filter: "<filter>", orderby: "<orderby>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetAssetsExport_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            AssetsExportRequest body = new AssetsExportRequest("<fileName>", new string[] { "<columns>" });
+            Response<TaskResource> response = await client.GetAssetsExportAsync(body, filter: "<filter>", orderby: "<orderby>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetObservations_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = client.GetObservations("<assetId>", null, null, null, null, null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("totalElements").ToString());
+            Console.WriteLine(result.GetProperty("prioritySummary").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("types")[0].ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("priority").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("cvssScoreV2").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("cvssScoreV3").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetObservations_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = await client.GetObservationsAsync("<assetId>", null, null, null, null, null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("totalElements").ToString());
+            Console.WriteLine(result.GetProperty("prioritySummary").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("types")[0].ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("priority").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("cvssScoreV2").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("cvssScoreV3").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetObservations_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<ObservationPageResult> response = client.GetObservations("<assetId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetObservations_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<ObservationPageResult> response = await client.GetObservationsAsync("<assetId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetObservations_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = client.GetObservations("<assetId>", "<filter>", "<orderby>", 1234, 1234, null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("totalElements").ToString());
+            Console.WriteLine(result.GetProperty("prioritySummary").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("types")[0].ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("priority").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("cvssScoreV2").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("cvssScoreV3").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetObservations_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = await client.GetObservationsAsync("<assetId>", "<filter>", "<orderby>", 1234, 1234, null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("totalElements").ToString());
+            Console.WriteLine(result.GetProperty("prioritySummary").GetProperty("<key>").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("types")[0].ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("priority").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("cvssScoreV2").ToString());
+            Console.WriteLine(result.GetProperty("value")[0].GetProperty("cvssScoreV3").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetObservations_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<ObservationPageResult> response = client.GetObservations("<assetId>", filter: "<filter>", orderby: "<orderby>", skip: 1234, maxpagesize: 1234);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetObservations_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<ObservationPageResult> response = await client.GetObservationsAsync("<assetId>", filter: "<filter>", orderby: "<orderby>", skip: 1234, maxpagesize: 1234);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetDeltaSummary_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = client.GetDeltaSummary(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("summary").GetProperty("range").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("removed").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("added").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("difference").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("kind").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("removed").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("added").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("difference").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("date").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("count").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("kind").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("removed").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("added").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("difference").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetDeltaSummary_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = await client.GetDeltaSummaryAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("summary").GetProperty("range").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("removed").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("added").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("difference").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("kind").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("removed").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("added").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("difference").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("date").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("count").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("kind").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("removed").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("added").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("difference").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetDeltaSummary_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            DeltaSummaryRequest body = new DeltaSummaryRequest();
+            Response<DeltaSummaryResult> response = client.GetDeltaSummary(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetDeltaSummary_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            DeltaSummaryRequest body = new DeltaSummaryRequest();
+            Response<DeltaSummaryResult> response = await client.GetDeltaSummaryAsync(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetDeltaSummary_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                priorDays = 1234,
+                date = "<date>",
+            });
+            Response response = client.GetDeltaSummary(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("summary").GetProperty("range").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("removed").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("added").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("difference").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("kind").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("removed").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("added").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("difference").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("date").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("count").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("kind").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("removed").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("added").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("difference").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetDeltaSummary_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                priorDays = 1234,
+                date = "<date>",
+            });
+            Response response = await client.GetDeltaSummaryAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("summary").GetProperty("range").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("removed").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("added").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("difference").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("kind").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("removed").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("added").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("kindSummaries")[0].GetProperty("difference").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("date").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("count").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("kind").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("removed").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("added").ToString());
+            Console.WriteLine(result.GetProperty("daily")[0].GetProperty("deltas")[0].GetProperty("difference").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetDeltaSummary_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            DeltaSummaryRequest body = new DeltaSummaryRequest
+            {
+                PriorDays = 1234,
+                Date = "<date>",
+            };
+            Response<DeltaSummaryResult> response = client.GetDeltaSummary(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetDeltaSummary_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            DeltaSummaryRequest body = new DeltaSummaryRequest
+            {
+                PriorDays = 1234,
+                Date = "<date>",
+            };
+            Response<DeltaSummaryResult> response = await client.GetDeltaSummaryAsync(body);
         }
 
         [Test]
@@ -840,14 +1291,14 @@ namespace Azure.Analytics.Defender.Easm.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_EasmClient_ValidateDiscoveryGroup_ShortVersion()
+        public void Example_EasmClient_ValidateDiscoGroup_ShortVersion()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
             using RequestContent content = RequestContent.Create(new object());
-            Response response = client.ValidateDiscoveryGroup(content);
+            Response response = client.ValidateDiscoGroup(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -855,14 +1306,14 @@ namespace Azure.Analytics.Defender.Easm.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_EasmClient_ValidateDiscoveryGroup_ShortVersion_Async()
+        public async Task Example_EasmClient_ValidateDiscoGroup_ShortVersion_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
             using RequestContent content = RequestContent.Create(new object());
-            Response response = await client.ValidateDiscoveryGroupAsync(content);
+            Response response = await client.ValidateDiscoGroupAsync(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.ToString());
@@ -870,31 +1321,31 @@ namespace Azure.Analytics.Defender.Easm.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_EasmClient_ValidateDiscoveryGroup_ShortVersion_Convenience()
+        public void Example_EasmClient_ValidateDiscoGroup_ShortVersion_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
             DiscoveryGroupPayload body = new DiscoveryGroupPayload();
-            Response<ValidateResult> response = client.ValidateDiscoveryGroup(body);
+            Response<ValidateResult> response = client.ValidateDiscoGroup(body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_EasmClient_ValidateDiscoveryGroup_ShortVersion_Convenience_Async()
+        public async Task Example_EasmClient_ValidateDiscoGroup_ShortVersion_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
             DiscoveryGroupPayload body = new DiscoveryGroupPayload();
-            Response<ValidateResult> response = await client.ValidateDiscoveryGroupAsync(body);
+            Response<ValidateResult> response = await client.ValidateDiscoGroupAsync(body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_EasmClient_ValidateDiscoveryGroup_AllParameters()
+        public void Example_EasmClient_ValidateDiscoGroup_AllParameters()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
@@ -924,7 +1375,7 @@ null
             },
                 templateId = "<templateId>",
             });
-            Response response = client.ValidateDiscoveryGroup(content);
+            Response response = client.ValidateDiscoGroup(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
@@ -936,7 +1387,7 @@ null
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_EasmClient_ValidateDiscoveryGroup_AllParameters_Async()
+        public async Task Example_EasmClient_ValidateDiscoGroup_AllParameters_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
@@ -966,7 +1417,7 @@ null
             },
                 templateId = "<templateId>",
             });
-            Response response = await client.ValidateDiscoveryGroupAsync(content);
+            Response response = await client.ValidateDiscoGroupAsync(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
@@ -978,7 +1429,7 @@ null
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_EasmClient_ValidateDiscoveryGroup_AllParameters_Convenience()
+        public void Example_EasmClient_ValidateDiscoGroup_AllParameters_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
@@ -999,12 +1450,12 @@ Name = "<name>",
                 Excludes = { default },
                 TemplateId = "<templateId>",
             };
-            Response<ValidateResult> response = client.ValidateDiscoveryGroup(body);
+            Response<ValidateResult> response = client.ValidateDiscoGroup(body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_EasmClient_ValidateDiscoveryGroup_AllParameters_Convenience_Async()
+        public async Task Example_EasmClient_ValidateDiscoGroup_AllParameters_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
@@ -1025,18 +1476,18 @@ Name = "<name>",
                 Excludes = { default },
                 TemplateId = "<templateId>",
             };
-            Response<ValidateResult> response = await client.ValidateDiscoveryGroupAsync(body);
+            Response<ValidateResult> response = await client.ValidateDiscoGroupAsync(body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoGroup_GetDiscoveryGroup_ShortVersion()
+        public void Example_DiscoGroup_GetDiscoGroup_ShortVersion()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response response = client.GetDiscoveryGroup("<groupName>", null);
+            Response response = client.GetDiscoGroup("<groupName>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("name").ToString());
@@ -1044,13 +1495,13 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoGroup_GetDiscoveryGroup_ShortVersion_Async()
+        public async Task Example_DiscoGroup_GetDiscoGroup_ShortVersion_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response response = await client.GetDiscoveryGroupAsync("<groupName>", null);
+            Response response = await client.GetDiscoGroupAsync("<groupName>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("name").ToString());
@@ -1058,35 +1509,35 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoGroup_GetDiscoveryGroup_ShortVersion_Convenience()
+        public void Example_DiscoGroup_GetDiscoGroup_ShortVersion_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response<DiscoveryGroup> response = client.GetDiscoveryGroup("<groupName>");
+            Response<DiscoveryGroup> response = client.GetDiscoGroup("<groupName>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoGroup_GetDiscoveryGroup_ShortVersion_Convenience_Async()
+        public async Task Example_DiscoGroup_GetDiscoGroup_ShortVersion_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response<DiscoveryGroup> response = await client.GetDiscoveryGroupAsync("<groupName>");
+            Response<DiscoveryGroup> response = await client.GetDiscoGroupAsync("<groupName>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoGroup_GetDiscoveryGroup_AllParameters()
+        public void Example_DiscoGroup_GetDiscoGroup_AllParameters()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response response = client.GetDiscoveryGroup("<groupName>", null);
+            Response response = client.GetDiscoGroup("<groupName>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("id").ToString());
@@ -1117,13 +1568,13 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoGroup_GetDiscoveryGroup_AllParameters_Async()
+        public async Task Example_DiscoGroup_GetDiscoGroup_AllParameters_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response response = await client.GetDiscoveryGroupAsync("<groupName>", null);
+            Response response = await client.GetDiscoGroupAsync("<groupName>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("id").ToString());
@@ -1154,36 +1605,88 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoGroup_GetDiscoveryGroup_AllParameters_Convenience()
+        public void Example_DiscoGroup_GetDiscoGroup_AllParameters_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response<DiscoveryGroup> response = client.GetDiscoveryGroup("<groupName>");
+            Response<DiscoveryGroup> response = client.GetDiscoGroup("<groupName>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoGroup_GetDiscoveryGroup_AllParameters_Convenience_Async()
+        public async Task Example_DiscoGroup_GetDiscoGroup_AllParameters_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response<DiscoveryGroup> response = await client.GetDiscoveryGroupAsync("<groupName>");
+            Response<DiscoveryGroup> response = await client.GetDiscoGroupAsync("<groupName>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoGroup_CreateOrReplaceDiscoveryGroup_ShortVersion()
+        public void Example_DiscoGroup_DeleteDiscoGroup_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = client.DeleteDiscoGroup("<groupName>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_DiscoGroup_DeleteDiscoGroup_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = await client.DeleteDiscoGroupAsync("<groupName>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_DiscoGroup_DeleteDiscoGroup_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = client.DeleteDiscoGroup("<groupName>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_DiscoGroup_DeleteDiscoGroup_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = await client.DeleteDiscoGroupAsync("<groupName>");
+
+            Console.WriteLine(response.Status);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_DiscoGroup_CreateOrReplaceDiscoGroup_ShortVersion()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
             using RequestContent content = RequestContent.Create(new object());
-            Response response = client.CreateOrReplaceDiscoveryGroup("<groupName>", content);
+            Response response = client.CreateOrReplaceDiscoGroup("<groupName>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("name").ToString());
@@ -1191,14 +1694,14 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoGroup_CreateOrReplaceDiscoveryGroup_ShortVersion_Async()
+        public async Task Example_DiscoGroup_CreateOrReplaceDiscoGroup_ShortVersion_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
             using RequestContent content = RequestContent.Create(new object());
-            Response response = await client.CreateOrReplaceDiscoveryGroupAsync("<groupName>", content);
+            Response response = await client.CreateOrReplaceDiscoGroupAsync("<groupName>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("name").ToString());
@@ -1206,31 +1709,31 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoGroup_CreateOrReplaceDiscoveryGroup_ShortVersion_Convenience()
+        public void Example_DiscoGroup_CreateOrReplaceDiscoGroup_ShortVersion_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
             DiscoveryGroupPayload body = new DiscoveryGroupPayload();
-            Response<DiscoveryGroup> response = client.CreateOrReplaceDiscoveryGroup("<groupName>", body);
+            Response<DiscoveryGroup> response = client.CreateOrReplaceDiscoGroup("<groupName>", body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoGroup_CreateOrReplaceDiscoveryGroup_ShortVersion_Convenience_Async()
+        public async Task Example_DiscoGroup_CreateOrReplaceDiscoGroup_ShortVersion_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
             DiscoveryGroupPayload body = new DiscoveryGroupPayload();
-            Response<DiscoveryGroup> response = await client.CreateOrReplaceDiscoveryGroupAsync("<groupName>", body);
+            Response<DiscoveryGroup> response = await client.CreateOrReplaceDiscoGroupAsync("<groupName>", body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoGroup_CreateOrReplaceDiscoveryGroup_AllParameters()
+        public void Example_DiscoGroup_CreateOrReplaceDiscoGroup_AllParameters()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
@@ -1260,7 +1763,7 @@ null
             },
                 templateId = "<templateId>",
             });
-            Response response = client.CreateOrReplaceDiscoveryGroup("<groupName>", content);
+            Response response = client.CreateOrReplaceDiscoGroup("<groupName>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("id").ToString());
@@ -1291,7 +1794,7 @@ null
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoGroup_CreateOrReplaceDiscoveryGroup_AllParameters_Async()
+        public async Task Example_DiscoGroup_CreateOrReplaceDiscoGroup_AllParameters_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
@@ -1321,7 +1824,7 @@ null
             },
                 templateId = "<templateId>",
             });
-            Response response = await client.CreateOrReplaceDiscoveryGroupAsync("<groupName>", content);
+            Response response = await client.CreateOrReplaceDiscoGroupAsync("<groupName>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("id").ToString());
@@ -1352,7 +1855,7 @@ null
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoGroup_CreateOrReplaceDiscoveryGroup_AllParameters_Convenience()
+        public void Example_DiscoGroup_CreateOrReplaceDiscoGroup_AllParameters_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
@@ -1373,12 +1876,12 @@ Name = "<name>",
                 Excludes = { default },
                 TemplateId = "<templateId>",
             };
-            Response<DiscoveryGroup> response = client.CreateOrReplaceDiscoveryGroup("<groupName>", body);
+            Response<DiscoveryGroup> response = client.CreateOrReplaceDiscoGroup("<groupName>", body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoGroup_CreateOrReplaceDiscoveryGroup_AllParameters_Convenience_Async()
+        public async Task Example_DiscoGroup_CreateOrReplaceDiscoGroup_AllParameters_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
@@ -1399,70 +1902,240 @@ Name = "<name>",
                 Excludes = { default },
                 TemplateId = "<templateId>",
             };
-            Response<DiscoveryGroup> response = await client.CreateOrReplaceDiscoveryGroupAsync("<groupName>", body);
+            Response<DiscoveryGroup> response = await client.CreateOrReplaceDiscoGroupAsync("<groupName>", body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_EasmClient_RunDiscoveryGroup_ShortVersion()
+        public void Example_EasmClient_RunDiscoGroup_ShortVersion()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response response = client.RunDiscoveryGroup("<groupName>");
+            Response response = client.RunDiscoGroup("<groupName>");
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_EasmClient_RunDiscoveryGroup_ShortVersion_Async()
+        public async Task Example_EasmClient_RunDiscoGroup_ShortVersion_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response response = await client.RunDiscoveryGroupAsync("<groupName>");
+            Response response = await client.RunDiscoGroupAsync("<groupName>");
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_EasmClient_RunDiscoveryGroup_AllParameters()
+        public void Example_EasmClient_RunDiscoGroup_AllParameters()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response response = client.RunDiscoveryGroup("<groupName>");
+            Response response = client.RunDiscoGroup("<groupName>");
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_EasmClient_RunDiscoveryGroup_AllParameters_Async()
+        public async Task Example_EasmClient_RunDiscoGroup_AllParameters_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response response = await client.RunDiscoveryGroupAsync("<groupName>");
+            Response response = await client.RunDiscoGroupAsync("<groupName>");
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoTemplate_GetDiscoveryTemplate_ShortVersion()
+        public void Example_EasmClient_GetAssetChainSummary_ShortVersion()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response response = client.GetDiscoveryTemplate("<templateId>", null);
+            using RequestContent content = RequestContent.Create(new
+            {
+                assetChainSource = "DISCO_GROUP",
+                sourceIds = new object[]
+            {
+"<sourceIds>"
+            },
+            });
+            Response response = client.GetAssetChainSummary(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("affectedAssetsSummary")[0].GetProperty("kind").ToString());
+            Console.WriteLine(result.GetProperty("affectedAssetsSummary")[0].GetProperty("affectedCount").ToString());
+            Console.WriteLine(result.GetProperty("affectedGroupsSummary")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("affectedGroupsSummary")[0].GetProperty("name").ToString());
+            Console.WriteLine(result.GetProperty("affectedGroupsSummary")[0].GetProperty("displayName").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetAssetChainSummary_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                assetChainSource = "DISCO_GROUP",
+                sourceIds = new object[]
+            {
+"<sourceIds>"
+            },
+            });
+            Response response = await client.GetAssetChainSummaryAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("affectedAssetsSummary")[0].GetProperty("kind").ToString());
+            Console.WriteLine(result.GetProperty("affectedAssetsSummary")[0].GetProperty("affectedCount").ToString());
+            Console.WriteLine(result.GetProperty("affectedGroupsSummary")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("affectedGroupsSummary")[0].GetProperty("name").ToString());
+            Console.WriteLine(result.GetProperty("affectedGroupsSummary")[0].GetProperty("displayName").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetAssetChainSummary_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            AssetChainRequest body = new AssetChainRequest(AssetChainSource.DISCOGROUP, new string[] { "<sourceIds>" });
+            Response<AssetChainSummaryResult> response = client.GetAssetChainSummary(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetAssetChainSummary_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            AssetChainRequest body = new AssetChainRequest(AssetChainSource.DISCOGROUP, new string[] { "<sourceIds>" });
+            Response<AssetChainSummaryResult> response = await client.GetAssetChainSummaryAsync(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetAssetChainSummary_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                assetChainSource = "DISCO_GROUP",
+                sourceIds = new object[]
+            {
+"<sourceIds>"
+            },
+            });
+            Response response = client.GetAssetChainSummary(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("affectedAssetsSummary")[0].GetProperty("kind").ToString());
+            Console.WriteLine(result.GetProperty("affectedAssetsSummary")[0].GetProperty("affectedCount").ToString());
+            Console.WriteLine(result.GetProperty("affectedGroupsSummary")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("affectedGroupsSummary")[0].GetProperty("name").ToString());
+            Console.WriteLine(result.GetProperty("affectedGroupsSummary")[0].GetProperty("displayName").ToString());
+            Console.WriteLine(result.GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("value").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetAssetChainSummary_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                assetChainSource = "DISCO_GROUP",
+                sourceIds = new object[]
+            {
+"<sourceIds>"
+            },
+            });
+            Response response = await client.GetAssetChainSummaryAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("affectedAssetsSummary")[0].GetProperty("kind").ToString());
+            Console.WriteLine(result.GetProperty("affectedAssetsSummary")[0].GetProperty("affectedCount").ToString());
+            Console.WriteLine(result.GetProperty("affectedGroupsSummary")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("affectedGroupsSummary")[0].GetProperty("name").ToString());
+            Console.WriteLine(result.GetProperty("affectedGroupsSummary")[0].GetProperty("displayName").ToString());
+            Console.WriteLine(result.GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("value").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetAssetChainSummary_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            AssetChainRequest body = new AssetChainRequest(AssetChainSource.DISCOGROUP, new string[] { "<sourceIds>" });
+            Response<AssetChainSummaryResult> response = client.GetAssetChainSummary(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetAssetChainSummary_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            AssetChainRequest body = new AssetChainRequest(AssetChainSource.DISCOGROUP, new string[] { "<sourceIds>" });
+            Response<AssetChainSummaryResult> response = await client.GetAssetChainSummaryAsync(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_DismissAssetChain_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                assetChainSource = "DISCO_GROUP",
+                sourceIds = new object[]
+            {
+"<sourceIds>"
+            },
+            });
+            Response response = client.DismissAssetChain(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("id").ToString());
@@ -1470,13 +2143,21 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoTemplate_GetDiscoveryTemplate_ShortVersion_Async()
+        public async Task Example_EasmClient_DismissAssetChain_ShortVersion_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response response = await client.GetDiscoveryTemplateAsync("<templateId>", null);
+            using RequestContent content = RequestContent.Create(new
+            {
+                assetChainSource = "DISCO_GROUP",
+                sourceIds = new object[]
+            {
+"<sourceIds>"
+            },
+            });
+            Response response = await client.DismissAssetChainAsync(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("id").ToString());
@@ -1484,35 +2165,169 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoTemplate_GetDiscoveryTemplate_ShortVersion_Convenience()
+        public void Example_EasmClient_DismissAssetChain_ShortVersion_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response<DiscoveryTemplate> response = client.GetDiscoveryTemplate("<templateId>");
+            AssetChainRequest body = new AssetChainRequest(AssetChainSource.DISCOGROUP, new string[] { "<sourceIds>" });
+            Response<TaskResource> response = client.DismissAssetChain(body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoTemplate_GetDiscoveryTemplate_ShortVersion_Convenience_Async()
+        public async Task Example_EasmClient_DismissAssetChain_ShortVersion_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response<DiscoveryTemplate> response = await client.GetDiscoveryTemplateAsync("<templateId>");
+            AssetChainRequest body = new AssetChainRequest(AssetChainSource.DISCOGROUP, new string[] { "<sourceIds>" });
+            Response<TaskResource> response = await client.DismissAssetChainAsync(body);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoTemplate_GetDiscoveryTemplate_AllParameters()
+        public void Example_EasmClient_DismissAssetChain_AllParameters()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response response = client.GetDiscoveryTemplate("<templateId>", null);
+            using RequestContent content = RequestContent.Create(new
+            {
+                assetChainSource = "DISCO_GROUP",
+                sourceIds = new object[]
+            {
+"<sourceIds>"
+            },
+            });
+            Response response = client.DismissAssetChain(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("startedAt").ToString());
+            Console.WriteLine(result.GetProperty("completedAt").ToString());
+            Console.WriteLine(result.GetProperty("lastPolledAt").ToString());
+            Console.WriteLine(result.GetProperty("state").ToString());
+            Console.WriteLine(result.GetProperty("phase").ToString());
+            Console.WriteLine(result.GetProperty("reason").ToString());
+            Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_DismissAssetChain_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                assetChainSource = "DISCO_GROUP",
+                sourceIds = new object[]
+            {
+"<sourceIds>"
+            },
+            });
+            Response response = await client.DismissAssetChainAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("startedAt").ToString());
+            Console.WriteLine(result.GetProperty("completedAt").ToString());
+            Console.WriteLine(result.GetProperty("lastPolledAt").ToString());
+            Console.WriteLine(result.GetProperty("state").ToString());
+            Console.WriteLine(result.GetProperty("phase").ToString());
+            Console.WriteLine(result.GetProperty("reason").ToString());
+            Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_DismissAssetChain_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            AssetChainRequest body = new AssetChainRequest(AssetChainSource.DISCOGROUP, new string[] { "<sourceIds>" });
+            Response<TaskResource> response = client.DismissAssetChain(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_DismissAssetChain_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            AssetChainRequest body = new AssetChainRequest(AssetChainSource.DISCOGROUP, new string[] { "<sourceIds>" });
+            Response<TaskResource> response = await client.DismissAssetChainAsync(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_DiscoTemplate_GetDiscoTemplate_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = client.GetDiscoTemplate("<templateId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_DiscoTemplate_GetDiscoTemplate_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = await client.GetDiscoTemplateAsync("<templateId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_DiscoTemplate_GetDiscoTemplate_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<DiscoveryTemplate> response = client.GetDiscoTemplate("<templateId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_DiscoTemplate_GetDiscoTemplate_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<DiscoveryTemplate> response = await client.GetDiscoTemplateAsync("<templateId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_DiscoTemplate_GetDiscoTemplate_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = client.GetDiscoTemplate("<templateId>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("id").ToString());
@@ -1530,13 +2345,13 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoTemplate_GetDiscoveryTemplate_AllParameters_Async()
+        public async Task Example_DiscoTemplate_GetDiscoTemplate_AllParameters_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response response = await client.GetDiscoveryTemplateAsync("<templateId>", null);
+            Response response = await client.GetDiscoTemplateAsync("<templateId>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("id").ToString());
@@ -1554,24 +2369,24 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoTemplate_GetDiscoveryTemplate_AllParameters_Convenience()
+        public void Example_DiscoTemplate_GetDiscoTemplate_AllParameters_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response<DiscoveryTemplate> response = client.GetDiscoveryTemplate("<templateId>");
+            Response<DiscoveryTemplate> response = client.GetDiscoTemplate("<templateId>");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoTemplate_GetDiscoveryTemplate_AllParameters_Convenience_Async()
+        public async Task Example_DiscoTemplate_GetDiscoTemplate_AllParameters_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            Response<DiscoveryTemplate> response = await client.GetDiscoveryTemplateAsync("<templateId>");
+            Response<DiscoveryTemplate> response = await client.GetDiscoTemplateAsync("<templateId>");
         }
 
         [Test]
@@ -2034,6 +2849,154 @@ Name = "<name>",
                 LabelName = "<labelName>",
             };
             Response<ReportAssetSummaryResult> response = await client.GetSummaryAsync(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetSnapshotExport_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = client.GetSnapshotExport(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetSnapshotExport_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = await client.GetSnapshotExportAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetSnapshotExport_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            ReportAssetSnapshotExportPayload body = new ReportAssetSnapshotExportPayload();
+            Response<TaskResource> response = client.GetSnapshotExport(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetSnapshotExport_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            ReportAssetSnapshotExportPayload body = new ReportAssetSnapshotExportPayload();
+            Response<TaskResource> response = await client.GetSnapshotExportAsync(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetSnapshotExport_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                metric = "<metric>",
+                fileName = "<fileName>",
+                columns = new object[]
+            {
+"<columns>"
+            },
+            });
+            Response response = client.GetSnapshotExport(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("startedAt").ToString());
+            Console.WriteLine(result.GetProperty("completedAt").ToString());
+            Console.WriteLine(result.GetProperty("lastPolledAt").ToString());
+            Console.WriteLine(result.GetProperty("state").ToString());
+            Console.WriteLine(result.GetProperty("phase").ToString());
+            Console.WriteLine(result.GetProperty("reason").ToString());
+            Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetSnapshotExport_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                metric = "<metric>",
+                fileName = "<fileName>",
+                columns = new object[]
+            {
+"<columns>"
+            },
+            });
+            Response response = await client.GetSnapshotExportAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("startedAt").ToString());
+            Console.WriteLine(result.GetProperty("completedAt").ToString());
+            Console.WriteLine(result.GetProperty("lastPolledAt").ToString());
+            Console.WriteLine(result.GetProperty("state").ToString());
+            Console.WriteLine(result.GetProperty("phase").ToString());
+            Console.WriteLine(result.GetProperty("reason").ToString());
+            Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetSnapshotExport_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            ReportAssetSnapshotExportPayload body = new ReportAssetSnapshotExportPayload
+            {
+                Metric = "<metric>",
+                FileName = "<fileName>",
+                Columns = { "<columns>" },
+            };
+            Response<TaskResource> response = client.GetSnapshotExport(body);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetSnapshotExport_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            ReportAssetSnapshotExportPayload body = new ReportAssetSnapshotExportPayload
+            {
+                Metric = "<metric>",
+                FileName = "<fileName>",
+                Columns = { "<columns>" },
+            };
+            Response<TaskResource> response = await client.GetSnapshotExportAsync(body);
         }
 
         [Test]
@@ -2558,13 +3521,381 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_RunTask_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = client.RunTask("<taskId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_RunTask_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = await client.RunTaskAsync("<taskId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_RunTask_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<TaskResource> response = client.RunTask("<taskId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_RunTask_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<TaskResource> response = await client.RunTaskAsync("<taskId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_RunTask_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = client.RunTask("<taskId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("startedAt").ToString());
+            Console.WriteLine(result.GetProperty("completedAt").ToString());
+            Console.WriteLine(result.GetProperty("lastPolledAt").ToString());
+            Console.WriteLine(result.GetProperty("state").ToString());
+            Console.WriteLine(result.GetProperty("phase").ToString());
+            Console.WriteLine(result.GetProperty("reason").ToString());
+            Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_RunTask_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = await client.RunTaskAsync("<taskId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("startedAt").ToString());
+            Console.WriteLine(result.GetProperty("completedAt").ToString());
+            Console.WriteLine(result.GetProperty("lastPolledAt").ToString());
+            Console.WriteLine(result.GetProperty("state").ToString());
+            Console.WriteLine(result.GetProperty("phase").ToString());
+            Console.WriteLine(result.GetProperty("reason").ToString());
+            Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_RunTask_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<TaskResource> response = client.RunTask("<taskId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_RunTask_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<TaskResource> response = await client.RunTaskAsync("<taskId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_DownloadTask_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = client.DownloadTask("<taskId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_DownloadTask_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = await client.DownloadTaskAsync("<taskId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_DownloadTask_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<TaskResource> response = client.DownloadTask("<taskId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_DownloadTask_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<TaskResource> response = await client.DownloadTaskAsync("<taskId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_DownloadTask_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = client.DownloadTask("<taskId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("startedAt").ToString());
+            Console.WriteLine(result.GetProperty("completedAt").ToString());
+            Console.WriteLine(result.GetProperty("lastPolledAt").ToString());
+            Console.WriteLine(result.GetProperty("state").ToString());
+            Console.WriteLine(result.GetProperty("phase").ToString());
+            Console.WriteLine(result.GetProperty("reason").ToString());
+            Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_DownloadTask_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = await client.DownloadTaskAsync("<taskId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("startedAt").ToString());
+            Console.WriteLine(result.GetProperty("completedAt").ToString());
+            Console.WriteLine(result.GetProperty("lastPolledAt").ToString());
+            Console.WriteLine(result.GetProperty("state").ToString());
+            Console.WriteLine(result.GetProperty("phase").ToString());
+            Console.WriteLine(result.GetProperty("reason").ToString());
+            Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_DownloadTask_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<TaskResource> response = client.DownloadTask("<taskId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_DownloadTask_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<TaskResource> response = await client.DownloadTaskAsync("<taskId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_CisaCveResult_GetCisaCve_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = client.GetCisaCve("<cveId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("cveId").ToString());
+            Console.WriteLine(result.GetProperty("vendorProject").ToString());
+            Console.WriteLine(result.GetProperty("product").ToString());
+            Console.WriteLine(result.GetProperty("vulnerabilityName").ToString());
+            Console.WriteLine(result.GetProperty("shortDescription").ToString());
+            Console.WriteLine(result.GetProperty("requiredAction").ToString());
+            Console.WriteLine(result.GetProperty("notes").ToString());
+            Console.WriteLine(result.GetProperty("dateAdded").ToString());
+            Console.WriteLine(result.GetProperty("dueDate").ToString());
+            Console.WriteLine(result.GetProperty("updatedAt").ToString());
+            Console.WriteLine(result.GetProperty("count").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_CisaCveResult_GetCisaCve_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = await client.GetCisaCveAsync("<cveId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("cveId").ToString());
+            Console.WriteLine(result.GetProperty("vendorProject").ToString());
+            Console.WriteLine(result.GetProperty("product").ToString());
+            Console.WriteLine(result.GetProperty("vulnerabilityName").ToString());
+            Console.WriteLine(result.GetProperty("shortDescription").ToString());
+            Console.WriteLine(result.GetProperty("requiredAction").ToString());
+            Console.WriteLine(result.GetProperty("notes").ToString());
+            Console.WriteLine(result.GetProperty("dateAdded").ToString());
+            Console.WriteLine(result.GetProperty("dueDate").ToString());
+            Console.WriteLine(result.GetProperty("updatedAt").ToString());
+            Console.WriteLine(result.GetProperty("count").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_CisaCveResult_GetCisaCve_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<CisaCveResult> response = client.GetCisaCve("<cveId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_CisaCveResult_GetCisaCve_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<CisaCveResult> response = await client.GetCisaCveAsync("<cveId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_CisaCveResult_GetCisaCve_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = client.GetCisaCve("<cveId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("cveId").ToString());
+            Console.WriteLine(result.GetProperty("vendorProject").ToString());
+            Console.WriteLine(result.GetProperty("product").ToString());
+            Console.WriteLine(result.GetProperty("vulnerabilityName").ToString());
+            Console.WriteLine(result.GetProperty("shortDescription").ToString());
+            Console.WriteLine(result.GetProperty("requiredAction").ToString());
+            Console.WriteLine(result.GetProperty("notes").ToString());
+            Console.WriteLine(result.GetProperty("dateAdded").ToString());
+            Console.WriteLine(result.GetProperty("dueDate").ToString());
+            Console.WriteLine(result.GetProperty("updatedAt").ToString());
+            Console.WriteLine(result.GetProperty("count").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_CisaCveResult_GetCisaCve_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response response = await client.GetCisaCveAsync("<cveId>", null);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("cveId").ToString());
+            Console.WriteLine(result.GetProperty("vendorProject").ToString());
+            Console.WriteLine(result.GetProperty("product").ToString());
+            Console.WriteLine(result.GetProperty("vulnerabilityName").ToString());
+            Console.WriteLine(result.GetProperty("shortDescription").ToString());
+            Console.WriteLine(result.GetProperty("requiredAction").ToString());
+            Console.WriteLine(result.GetProperty("notes").ToString());
+            Console.WriteLine(result.GetProperty("dateAdded").ToString());
+            Console.WriteLine(result.GetProperty("dueDate").ToString());
+            Console.WriteLine(result.GetProperty("updatedAt").ToString());
+            Console.WriteLine(result.GetProperty("count").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_CisaCveResult_GetCisaCve_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<CisaCveResult> response = client.GetCisaCve("<cveId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_CisaCveResult_GetCisaCve_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            Response<CisaCveResult> response = await client.GetCisaCveAsync("<cveId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
         public void Example_AssetResource_GetAssetResources_ShortVersion()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            foreach (BinaryData item in client.GetAssetResources(null, null, null, null, null, null))
+            foreach (BinaryData item in client.GetAssetResources(null, null, null, null, null, null, null, null, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.GetProperty("kind").ToString());
@@ -2580,7 +3911,7 @@ Name = "<name>",
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            await foreach (BinaryData item in client.GetAssetResourcesAsync(null, null, null, null, null, null))
+            await foreach (BinaryData item in client.GetAssetResourcesAsync(null, null, null, null, null, null, null, null, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.GetProperty("kind").ToString());
@@ -2622,7 +3953,7 @@ Name = "<name>",
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            foreach (BinaryData item in client.GetAssetResources("<filter>", "<orderby>", 1234, 1234, "<mark>", null))
+            foreach (BinaryData item in client.GetAssetResources("<filter>", "<orderby>", 1234, 1234, "<mark>", "id", new string[] { "<responseIncludes>" }, true, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.GetProperty("kind").ToString());
@@ -2654,7 +3985,7 @@ Name = "<name>",
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            await foreach (BinaryData item in client.GetAssetResourcesAsync("<filter>", "<orderby>", 1234, 1234, "<mark>", null))
+            await foreach (BinaryData item in client.GetAssetResourcesAsync("<filter>", "<orderby>", 1234, 1234, "<mark>", "id", new string[] { "<responseIncludes>" }, true, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.GetProperty("kind").ToString());
@@ -2686,7 +4017,7 @@ Name = "<name>",
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            foreach (AssetResource item in client.GetAssetResources(filter: "<filter>", orderby: "<orderby>", skip: 1234, maxpagesize: 1234, mark: "<mark>"))
+            foreach (AssetResource item in client.GetAssetResources(filter: "<filter>", orderby: "<orderby>", skip: 1234, maxpagesize: 1234, mark: "<mark>", responseType: AssetResponseType.Id, responseIncludes: new string[] { "<responseIncludes>" }, recentOnly: true))
             {
             }
         }
@@ -2699,7 +4030,171 @@ Name = "<name>",
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            await foreach (AssetResource item in client.GetAssetResourcesAsync(filter: "<filter>", orderby: "<orderby>", skip: 1234, maxpagesize: 1234, mark: "<mark>"))
+            await foreach (AssetResource item in client.GetAssetResourcesAsync(filter: "<filter>", orderby: "<orderby>", skip: 1234, maxpagesize: 1234, mark: "<mark>", responseType: AssetResponseType.Id, responseIncludes: new string[] { "<responseIncludes>" }, recentOnly: true))
+            {
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetDeltaDetails_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                deltaDetailType = "added",
+                kind = "page",
+            });
+            foreach (BinaryData item in client.GetDeltaDetails(content))
+            {
+                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+                Console.WriteLine(result.GetProperty("kind").ToString());
+                Console.WriteLine(result.GetProperty("name").ToString());
+                Console.WriteLine(result.GetProperty("createdAt").ToString());
+                Console.WriteLine(result.GetProperty("updatedAt").ToString());
+                Console.WriteLine(result.GetProperty("state").ToString());
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetDeltaDetails_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                deltaDetailType = "added",
+                kind = "page",
+            });
+            await foreach (BinaryData item in client.GetDeltaDetailsAsync(content))
+            {
+                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+                Console.WriteLine(result.GetProperty("kind").ToString());
+                Console.WriteLine(result.GetProperty("name").ToString());
+                Console.WriteLine(result.GetProperty("createdAt").ToString());
+                Console.WriteLine(result.GetProperty("updatedAt").ToString());
+                Console.WriteLine(result.GetProperty("state").ToString());
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetDeltaDetails_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            DeltaDetailsRequest body = new DeltaDetailsRequest(DeltaDetailType.Added, GlobalAssetType.Page);
+            foreach (DeltaResult item in client.GetDeltaDetails(body))
+            {
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetDeltaDetails_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            DeltaDetailsRequest body = new DeltaDetailsRequest(DeltaDetailType.Added, GlobalAssetType.Page);
+            await foreach (DeltaResult item in client.GetDeltaDetailsAsync(body))
+            {
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetDeltaDetails_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                deltaDetailType = "added",
+                priorDays = 1234,
+                kind = "page",
+                date = "<date>",
+            });
+            foreach (BinaryData item in client.GetDeltaDetails(content, skip: 1234, maxpagesize: 1234))
+            {
+                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+                Console.WriteLine(result.GetProperty("kind").ToString());
+                Console.WriteLine(result.GetProperty("name").ToString());
+                Console.WriteLine(result.GetProperty("createdAt").ToString());
+                Console.WriteLine(result.GetProperty("updatedAt").ToString());
+                Console.WriteLine(result.GetProperty("state").ToString());
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetDeltaDetails_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                deltaDetailType = "added",
+                priorDays = 1234,
+                kind = "page",
+                date = "<date>",
+            });
+            await foreach (BinaryData item in client.GetDeltaDetailsAsync(content, skip: 1234, maxpagesize: 1234))
+            {
+                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+                Console.WriteLine(result.GetProperty("kind").ToString());
+                Console.WriteLine(result.GetProperty("name").ToString());
+                Console.WriteLine(result.GetProperty("createdAt").ToString());
+                Console.WriteLine(result.GetProperty("updatedAt").ToString());
+                Console.WriteLine(result.GetProperty("state").ToString());
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetDeltaDetails_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            DeltaDetailsRequest body = new DeltaDetailsRequest(DeltaDetailType.Added, GlobalAssetType.Page)
+            {
+                PriorDays = 1234,
+                Date = "<date>",
+            };
+            foreach (DeltaResult item in client.GetDeltaDetails(body, skip: 1234, maxpagesize: 1234))
+            {
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_EasmClient_GetDeltaDetails_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            DeltaDetailsRequest body = new DeltaDetailsRequest(DeltaDetailType.Added, GlobalAssetType.Page)
+            {
+                PriorDays = 1234,
+                Date = "<date>",
+            };
+            await foreach (DeltaResult item in client.GetDeltaDetailsAsync(body, skip: 1234, maxpagesize: 1234))
             {
             }
         }
@@ -2842,13 +4337,13 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoGroup_GetDiscoveryGroups_ShortVersion()
+        public void Example_DiscoGroup_GetDiscoGroups_ShortVersion()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            foreach (BinaryData item in client.GetDiscoveryGroups(null, null, null, null))
+            foreach (BinaryData item in client.GetDiscoGroups(null, null, null, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.GetProperty("name").ToString());
@@ -2857,13 +4352,13 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoGroup_GetDiscoveryGroups_ShortVersion_Async()
+        public async Task Example_DiscoGroup_GetDiscoGroups_ShortVersion_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            await foreach (BinaryData item in client.GetDiscoveryGroupsAsync(null, null, null, null))
+            await foreach (BinaryData item in client.GetDiscoGroupsAsync(null, null, null, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.GetProperty("name").ToString());
@@ -2872,39 +4367,39 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoGroup_GetDiscoveryGroups_ShortVersion_Convenience()
+        public void Example_DiscoGroup_GetDiscoGroups_ShortVersion_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            foreach (DiscoveryGroup item in client.GetDiscoveryGroups())
+            foreach (DiscoveryGroup item in client.GetDiscoGroups())
             {
             }
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoGroup_GetDiscoveryGroups_ShortVersion_Convenience_Async()
+        public async Task Example_DiscoGroup_GetDiscoGroups_ShortVersion_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            await foreach (DiscoveryGroup item in client.GetDiscoveryGroupsAsync())
+            await foreach (DiscoveryGroup item in client.GetDiscoGroupsAsync())
             {
             }
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoGroup_GetDiscoveryGroups_AllParameters()
+        public void Example_DiscoGroup_GetDiscoGroups_AllParameters()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            foreach (BinaryData item in client.GetDiscoveryGroups("<filter>", 1234, 1234, null))
+            foreach (BinaryData item in client.GetDiscoGroups("<filter>", 1234, 1234, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.GetProperty("id").ToString());
@@ -2936,13 +4431,13 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoGroup_GetDiscoveryGroups_AllParameters_Async()
+        public async Task Example_DiscoGroup_GetDiscoGroups_AllParameters_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            await foreach (BinaryData item in client.GetDiscoveryGroupsAsync("<filter>", 1234, 1234, null))
+            await foreach (BinaryData item in client.GetDiscoGroupsAsync("<filter>", 1234, 1234, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.GetProperty("id").ToString());
@@ -2974,54 +4469,39 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoGroup_GetDiscoveryGroups_AllParameters_Convenience()
+        public void Example_DiscoGroup_GetDiscoGroups_AllParameters_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            foreach (DiscoveryGroup item in client.GetDiscoveryGroups(filter: "<filter>", skip: 1234, maxpagesize: 1234))
+            foreach (DiscoveryGroup item in client.GetDiscoGroups(filter: "<filter>", skip: 1234, maxpagesize: 1234))
             {
             }
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoGroup_GetDiscoveryGroups_AllParameters_Convenience_Async()
+        public async Task Example_DiscoGroup_GetDiscoGroups_AllParameters_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            await foreach (DiscoveryGroup item in client.GetDiscoveryGroupsAsync(filter: "<filter>", skip: 1234, maxpagesize: 1234))
+            await foreach (DiscoveryGroup item in client.GetDiscoGroupsAsync(filter: "<filter>", skip: 1234, maxpagesize: 1234))
             {
             }
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_EasmClient_GetDiscoveryGroupRuns_ShortVersion()
+        public void Example_EasmClient_GetRuns_ShortVersion()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            foreach (BinaryData item in client.GetDiscoveryGroupRuns("<groupName>", null, null, null, null))
-            {
-                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
-                Console.WriteLine(result.ToString());
-            }
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_EasmClient_GetDiscoveryGroupRuns_ShortVersion_Async()
-        {
-            Uri endpoint = new Uri("<https://my-service.azure.com>");
-            TokenCredential credential = new DefaultAzureCredential();
-            EasmClient client = new EasmClient(endpoint, credential);
-
-            await foreach (BinaryData item in client.GetDiscoveryGroupRunsAsync("<groupName>", null, null, null, null))
+            foreach (BinaryData item in client.GetRuns("<groupName>", null, null, null, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.ToString());
@@ -3030,39 +4510,54 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_EasmClient_GetDiscoveryGroupRuns_ShortVersion_Convenience()
+        public async Task Example_EasmClient_GetRuns_ShortVersion_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            foreach (DiscoveryRunResult item in client.GetDiscoveryGroupRuns("<groupName>"))
+            await foreach (BinaryData item in client.GetRunsAsync("<groupName>", null, null, null, null))
+            {
+                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+                Console.WriteLine(result.ToString());
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_EasmClient_GetRuns_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            foreach (DiscoveryRunResult item in client.GetRuns("<groupName>"))
             {
             }
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_EasmClient_GetDiscoveryGroupRuns_ShortVersion_Convenience_Async()
+        public async Task Example_EasmClient_GetRuns_ShortVersion_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            await foreach (DiscoveryRunResult item in client.GetDiscoveryGroupRunsAsync("<groupName>"))
+            await foreach (DiscoveryRunResult item in client.GetRunsAsync("<groupName>"))
             {
             }
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_EasmClient_GetDiscoveryGroupRuns_AllParameters()
+        public void Example_EasmClient_GetRuns_AllParameters()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            foreach (BinaryData item in client.GetDiscoveryGroupRuns("<groupName>", "<filter>", 1234, 1234, null))
+            foreach (BinaryData item in client.GetRuns("<groupName>", "<filter>", 1234, 1234, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.GetProperty("submittedDate").ToString());
@@ -3081,13 +4576,13 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_EasmClient_GetDiscoveryGroupRuns_AllParameters_Async()
+        public async Task Example_EasmClient_GetRuns_AllParameters_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            await foreach (BinaryData item in client.GetDiscoveryGroupRunsAsync("<groupName>", "<filter>", 1234, 1234, null))
+            await foreach (BinaryData item in client.GetRunsAsync("<groupName>", "<filter>", 1234, 1234, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.GetProperty("submittedDate").ToString());
@@ -3106,54 +4601,39 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_EasmClient_GetDiscoveryGroupRuns_AllParameters_Convenience()
+        public void Example_EasmClient_GetRuns_AllParameters_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            foreach (DiscoveryRunResult item in client.GetDiscoveryGroupRuns("<groupName>", filter: "<filter>", skip: 1234, maxpagesize: 1234))
+            foreach (DiscoveryRunResult item in client.GetRuns("<groupName>", filter: "<filter>", skip: 1234, maxpagesize: 1234))
             {
             }
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_EasmClient_GetDiscoveryGroupRuns_AllParameters_Convenience_Async()
+        public async Task Example_EasmClient_GetRuns_AllParameters_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            await foreach (DiscoveryRunResult item in client.GetDiscoveryGroupRunsAsync("<groupName>", filter: "<filter>", skip: 1234, maxpagesize: 1234))
+            await foreach (DiscoveryRunResult item in client.GetRunsAsync("<groupName>", filter: "<filter>", skip: 1234, maxpagesize: 1234))
             {
             }
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoTemplate_GetDiscoveryTemplates_ShortVersion()
+        public void Example_DiscoTemplate_GetDiscoTemplates_ShortVersion()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            foreach (BinaryData item in client.GetDiscoveryTemplates(null, null, null, null))
-            {
-                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
-                Console.WriteLine(result.GetProperty("id").ToString());
-            }
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoTemplate_GetDiscoveryTemplates_ShortVersion_Async()
-        {
-            Uri endpoint = new Uri("<https://my-service.azure.com>");
-            TokenCredential credential = new DefaultAzureCredential();
-            EasmClient client = new EasmClient(endpoint, credential);
-
-            await foreach (BinaryData item in client.GetDiscoveryTemplatesAsync(null, null, null, null))
+            foreach (BinaryData item in client.GetDiscoTemplates(null, null, null, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.GetProperty("id").ToString());
@@ -3162,64 +4642,54 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoTemplate_GetDiscoveryTemplates_ShortVersion_Convenience()
+        public async Task Example_DiscoTemplate_GetDiscoTemplates_ShortVersion_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            foreach (DiscoveryTemplate item in client.GetDiscoveryTemplates())
-            {
-            }
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoTemplate_GetDiscoveryTemplates_ShortVersion_Convenience_Async()
-        {
-            Uri endpoint = new Uri("<https://my-service.azure.com>");
-            TokenCredential credential = new DefaultAzureCredential();
-            EasmClient client = new EasmClient(endpoint, credential);
-
-            await foreach (DiscoveryTemplate item in client.GetDiscoveryTemplatesAsync())
-            {
-            }
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoTemplate_GetDiscoveryTemplates_AllParameters()
-        {
-            Uri endpoint = new Uri("<https://my-service.azure.com>");
-            TokenCredential credential = new DefaultAzureCredential();
-            EasmClient client = new EasmClient(endpoint, credential);
-
-            foreach (BinaryData item in client.GetDiscoveryTemplates("<filter>", 1234, 1234, null))
+            await foreach (BinaryData item in client.GetDiscoTemplatesAsync(null, null, null, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.GetProperty("id").ToString());
-                Console.WriteLine(result.GetProperty("name").ToString());
-                Console.WriteLine(result.GetProperty("displayName").ToString());
-                Console.WriteLine(result.GetProperty("industry").ToString());
-                Console.WriteLine(result.GetProperty("region").ToString());
-                Console.WriteLine(result.GetProperty("countryCode").ToString());
-                Console.WriteLine(result.GetProperty("stateCode").ToString());
-                Console.WriteLine(result.GetProperty("city").ToString());
-                Console.WriteLine(result.GetProperty("seeds")[0].GetProperty("kind").ToString());
-                Console.WriteLine(result.GetProperty("seeds")[0].GetProperty("name").ToString());
-                Console.WriteLine(result.GetProperty("names")[0].ToString());
             }
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoTemplate_GetDiscoveryTemplates_AllParameters_Async()
+        public void Example_DiscoTemplate_GetDiscoTemplates_ShortVersion_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            await foreach (BinaryData item in client.GetDiscoveryTemplatesAsync("<filter>", 1234, 1234, null))
+            foreach (DiscoveryTemplate item in client.GetDiscoTemplates())
+            {
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_DiscoTemplate_GetDiscoTemplates_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            await foreach (DiscoveryTemplate item in client.GetDiscoTemplatesAsync())
+            {
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_DiscoTemplate_GetDiscoTemplates_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            foreach (BinaryData item in client.GetDiscoTemplates("<filter>", 1234, 1234, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
                 Console.WriteLine(result.GetProperty("id").ToString());
@@ -3238,26 +4708,51 @@ Name = "<name>",
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_DiscoTemplate_GetDiscoveryTemplates_AllParameters_Convenience()
+        public async Task Example_DiscoTemplate_GetDiscoTemplates_AllParameters_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            foreach (DiscoveryTemplate item in client.GetDiscoveryTemplates(filter: "<filter>", skip: 1234, maxpagesize: 1234))
+            await foreach (BinaryData item in client.GetDiscoTemplatesAsync("<filter>", 1234, 1234, null))
+            {
+                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+                Console.WriteLine(result.GetProperty("id").ToString());
+                Console.WriteLine(result.GetProperty("name").ToString());
+                Console.WriteLine(result.GetProperty("displayName").ToString());
+                Console.WriteLine(result.GetProperty("industry").ToString());
+                Console.WriteLine(result.GetProperty("region").ToString());
+                Console.WriteLine(result.GetProperty("countryCode").ToString());
+                Console.WriteLine(result.GetProperty("stateCode").ToString());
+                Console.WriteLine(result.GetProperty("city").ToString());
+                Console.WriteLine(result.GetProperty("seeds")[0].GetProperty("kind").ToString());
+                Console.WriteLine(result.GetProperty("seeds")[0].GetProperty("name").ToString());
+                Console.WriteLine(result.GetProperty("names")[0].ToString());
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_DiscoTemplate_GetDiscoTemplates_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            foreach (DiscoveryTemplate item in client.GetDiscoTemplates(filter: "<filter>", skip: 1234, maxpagesize: 1234))
             {
             }
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_DiscoTemplate_GetDiscoveryTemplates_AllParameters_Convenience_Async()
+        public async Task Example_DiscoTemplate_GetDiscoTemplates_AllParameters_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             TokenCredential credential = new DefaultAzureCredential();
             EasmClient client = new EasmClient(endpoint, credential);
 
-            await foreach (DiscoveryTemplate item in client.GetDiscoveryTemplatesAsync(filter: "<filter>", skip: 1234, maxpagesize: 1234))
+            await foreach (DiscoveryTemplate item in client.GetDiscoTemplatesAsync(filter: "<filter>", skip: 1234, maxpagesize: 1234))
             {
             }
         }
@@ -3504,6 +4999,158 @@ Name = "<name>",
             EasmClient client = new EasmClient(endpoint, credential);
 
             await foreach (TaskResource item in client.GetTasksAsync(filter: "<filter>", orderby: "<orderby>", skip: 1234, maxpagesize: 1234))
+            {
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_CisaCveResult_GetCisaCves_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            foreach (BinaryData item in client.GetCisaCves(null))
+            {
+                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+                Console.WriteLine(result.GetProperty("cveId").ToString());
+                Console.WriteLine(result.GetProperty("vendorProject").ToString());
+                Console.WriteLine(result.GetProperty("product").ToString());
+                Console.WriteLine(result.GetProperty("vulnerabilityName").ToString());
+                Console.WriteLine(result.GetProperty("shortDescription").ToString());
+                Console.WriteLine(result.GetProperty("requiredAction").ToString());
+                Console.WriteLine(result.GetProperty("notes").ToString());
+                Console.WriteLine(result.GetProperty("dateAdded").ToString());
+                Console.WriteLine(result.GetProperty("dueDate").ToString());
+                Console.WriteLine(result.GetProperty("updatedAt").ToString());
+                Console.WriteLine(result.GetProperty("count").ToString());
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_CisaCveResult_GetCisaCves_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            await foreach (BinaryData item in client.GetCisaCvesAsync(null))
+            {
+                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+                Console.WriteLine(result.GetProperty("cveId").ToString());
+                Console.WriteLine(result.GetProperty("vendorProject").ToString());
+                Console.WriteLine(result.GetProperty("product").ToString());
+                Console.WriteLine(result.GetProperty("vulnerabilityName").ToString());
+                Console.WriteLine(result.GetProperty("shortDescription").ToString());
+                Console.WriteLine(result.GetProperty("requiredAction").ToString());
+                Console.WriteLine(result.GetProperty("notes").ToString());
+                Console.WriteLine(result.GetProperty("dateAdded").ToString());
+                Console.WriteLine(result.GetProperty("dueDate").ToString());
+                Console.WriteLine(result.GetProperty("updatedAt").ToString());
+                Console.WriteLine(result.GetProperty("count").ToString());
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_CisaCveResult_GetCisaCves_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            foreach (CisaCveResult item in client.GetCisaCves())
+            {
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_CisaCveResult_GetCisaCves_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            await foreach (CisaCveResult item in client.GetCisaCvesAsync())
+            {
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_CisaCveResult_GetCisaCves_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            foreach (BinaryData item in client.GetCisaCves(null))
+            {
+                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+                Console.WriteLine(result.GetProperty("cveId").ToString());
+                Console.WriteLine(result.GetProperty("vendorProject").ToString());
+                Console.WriteLine(result.GetProperty("product").ToString());
+                Console.WriteLine(result.GetProperty("vulnerabilityName").ToString());
+                Console.WriteLine(result.GetProperty("shortDescription").ToString());
+                Console.WriteLine(result.GetProperty("requiredAction").ToString());
+                Console.WriteLine(result.GetProperty("notes").ToString());
+                Console.WriteLine(result.GetProperty("dateAdded").ToString());
+                Console.WriteLine(result.GetProperty("dueDate").ToString());
+                Console.WriteLine(result.GetProperty("updatedAt").ToString());
+                Console.WriteLine(result.GetProperty("count").ToString());
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_CisaCveResult_GetCisaCves_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            await foreach (BinaryData item in client.GetCisaCvesAsync(null))
+            {
+                JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+                Console.WriteLine(result.GetProperty("cveId").ToString());
+                Console.WriteLine(result.GetProperty("vendorProject").ToString());
+                Console.WriteLine(result.GetProperty("product").ToString());
+                Console.WriteLine(result.GetProperty("vulnerabilityName").ToString());
+                Console.WriteLine(result.GetProperty("shortDescription").ToString());
+                Console.WriteLine(result.GetProperty("requiredAction").ToString());
+                Console.WriteLine(result.GetProperty("notes").ToString());
+                Console.WriteLine(result.GetProperty("dateAdded").ToString());
+                Console.WriteLine(result.GetProperty("dueDate").ToString());
+                Console.WriteLine(result.GetProperty("updatedAt").ToString());
+                Console.WriteLine(result.GetProperty("count").ToString());
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_CisaCveResult_GetCisaCves_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            foreach (CisaCveResult item in client.GetCisaCves())
+            {
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_CisaCveResult_GetCisaCves_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            TokenCredential credential = new DefaultAzureCredential();
+            EasmClient client = new EasmClient(endpoint, credential);
+
+            await foreach (CisaCveResult item in client.GetCisaCvesAsync())
             {
             }
         }
