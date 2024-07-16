@@ -11,14 +11,14 @@ using System.Collections.Generic;
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
     /// <summary> Event data for Microsoft.EventGrid.MQTTClientSessionConnected event. </summary>
-    public partial class EventGridMQTTClientSessionConnectedEventData : EventGridMQTTClientEventData
+    public partial class EventGridMqttClientSessionConnectedEventData : EventGridMqttClientEventData
     {
-        /// <summary> Initializes a new instance of <see cref="EventGridMQTTClientSessionConnectedEventData"/>. </summary>
-        internal EventGridMQTTClientSessionConnectedEventData()
+        /// <summary> Initializes a new instance of <see cref="EventGridMqttClientSessionConnectedEventData"/>. </summary>
+        internal EventGridMqttClientSessionConnectedEventData()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="EventGridMQTTClientSessionConnectedEventData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="EventGridMqttClientSessionConnectedEventData"/>. </summary>
         /// <param name="clientAuthenticationName">
         /// Unique identifier for the MQTT client that the client presents to the service
         /// for authentication. This case-sensitive string can be up to 128 characters
@@ -36,7 +36,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// disconnected events. Latest event will have a sequence number that is higher
         /// than the previous event.
         /// </param>
-        internal EventGridMQTTClientSessionConnectedEventData(string clientAuthenticationName, string clientName, string namespaceName, IDictionary<string, BinaryData> serializedAdditionalRawData, string clientSessionName, long? sequenceNumber) : base(clientAuthenticationName, clientName, namespaceName, serializedAdditionalRawData)
+        internal EventGridMqttClientSessionConnectedEventData(string clientAuthenticationName, string clientName, string namespaceName, IDictionary<string, BinaryData> serializedAdditionalRawData, string clientSessionName, long? sequenceNumber) : base(clientAuthenticationName, clientName, namespaceName, serializedAdditionalRawData)
         {
             ClientSessionName = clientSessionName;
             SequenceNumber = sequenceNumber;
