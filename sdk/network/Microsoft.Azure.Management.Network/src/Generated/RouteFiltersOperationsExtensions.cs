@@ -33,9 +33,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='routeFilterName'>
             /// The name of the route filter.
             /// </param>
-            public static void Delete(this IRouteFiltersOperations operations, string resourceGroupName, string routeFilterName)
+            public static RouteFiltersDeleteHeaders Delete(this IRouteFiltersOperations operations, string resourceGroupName, string routeFilterName)
             {
-                operations.DeleteAsync(resourceGroupName, routeFilterName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, routeFilterName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -53,9 +53,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IRouteFiltersOperations operations, string resourceGroupName, string routeFilterName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<RouteFiltersDeleteHeaders> DeleteAsync(this IRouteFiltersOperations operations, string resourceGroupName, string routeFilterName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, routeFilterName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, routeFilterName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -270,9 +273,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='routeFilterName'>
             /// The name of the route filter.
             /// </param>
-            public static void BeginDelete(this IRouteFiltersOperations operations, string resourceGroupName, string routeFilterName)
+            public static RouteFiltersDeleteHeaders BeginDelete(this IRouteFiltersOperations operations, string resourceGroupName, string routeFilterName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, routeFilterName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, routeFilterName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -290,9 +293,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IRouteFiltersOperations operations, string resourceGroupName, string routeFilterName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<RouteFiltersDeleteHeaders> BeginDeleteAsync(this IRouteFiltersOperations operations, string resourceGroupName, string routeFilterName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, routeFilterName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, routeFilterName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
