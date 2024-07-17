@@ -2765,6 +2765,7 @@ namespace Azure.ResourceManager.DataFactory.Models
         public CommonDataServiceForAppsLinkedService(Azure.Core.Expressions.DataFactory.DataFactoryElement<string> deploymentType, Azure.Core.Expressions.DataFactory.DataFactoryElement<string> authenticationType) { }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> AuthenticationType { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> DeploymentType { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Domain { get { throw null; } set { } }
         public string EncryptedCredential { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> HostName { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> OrganizationName { get { throw null; } set { } }
@@ -2873,6 +2874,18 @@ namespace Azure.ResourceManager.DataFactory.Models
         Azure.ResourceManager.DataFactory.Models.ConnectionStateProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataFactory.Models.ConnectionStateProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataFactory.Models.ConnectionStateProperties>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataFactory.Models.ConnectionStateProperties>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class ContinuationSettingsReference : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataFactory.Models.ContinuationSettingsReference>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataFactory.Models.ContinuationSettingsReference>
+    {
+        public ContinuationSettingsReference() { }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<int> ContinuationTtlInMinutes { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> CustomizedCheckpointKey { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> IdleCondition { get { throw null; } set { } }
+        Azure.ResourceManager.DataFactory.Models.ContinuationSettingsReference System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataFactory.Models.ContinuationSettingsReference>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataFactory.Models.ContinuationSettingsReference>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.DataFactory.Models.ContinuationSettingsReference System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataFactory.Models.ContinuationSettingsReference>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataFactory.Models.ContinuationSettingsReference>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataFactory.Models.ContinuationSettingsReference>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public partial class ControlActivity : Azure.ResourceManager.DataFactory.Models.PipelineActivity, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataFactory.Models.ControlActivity>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataFactory.Models.ControlActivity>
     {
@@ -4890,6 +4903,7 @@ namespace Azure.ResourceManager.DataFactory.Models
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> AuthenticationType { get { throw null; } set { } }
         public Azure.ResourceManager.DataFactory.Models.DataFactoryCredentialReference Credential { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> DeploymentType { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Domain { get { throw null; } set { } }
         public string EncryptedCredential { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> HostName { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> OrganizationName { get { throw null; } set { } }
@@ -4945,6 +4959,7 @@ namespace Azure.ResourceManager.DataFactory.Models
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> AuthenticationType { get { throw null; } set { } }
         public Azure.ResourceManager.DataFactory.Models.DataFactoryCredentialReference Credential { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> DeploymentType { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Domain { get { throw null; } set { } }
         public string EncryptedCredential { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> HostName { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> OrganizationName { get { throw null; } set { } }
@@ -5145,6 +5160,7 @@ namespace Azure.ResourceManager.DataFactory.Models
     {
         public ExecuteDataFlowActivity(string name, Azure.ResourceManager.DataFactory.Models.DataFlowReference dataFlow) : base (default(string)) { }
         public Azure.ResourceManager.DataFactory.Models.ExecuteDataFlowActivityComputeType Compute { get { throw null; } set { } }
+        public Azure.ResourceManager.DataFactory.Models.ContinuationSettingsReference ContinuationSettings { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<bool> ContinueOnError { get { throw null; } set { } }
         public Azure.ResourceManager.DataFactory.Models.DataFlowReference DataFlow { get { throw null; } set { } }
         public Azure.ResourceManager.DataFactory.Models.IntegrationRuntimeReference IntegrationRuntime { get { throw null; } set { } }
@@ -5218,6 +5234,7 @@ namespace Azure.ResourceManager.DataFactory.Models
     {
         public ExecuteWranglingDataflowActivity(string name, Azure.ResourceManager.DataFactory.Models.DataFlowReference dataFlow) : base (default(string)) { }
         public Azure.ResourceManager.DataFactory.Models.ExecuteDataFlowActivityComputeType Compute { get { throw null; } set { } }
+        public Azure.ResourceManager.DataFactory.Models.ContinuationSettingsReference ContinuationSettings { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<bool> ContinueOnError { get { throw null; } set { } }
         public Azure.ResourceManager.DataFactory.Models.DataFlowReference DataFlow { get { throw null; } set { } }
         public Azure.ResourceManager.DataFactory.Models.IntegrationRuntimeReference IntegrationRuntime { get { throw null; } set { } }
@@ -10425,6 +10442,7 @@ namespace Azure.ResourceManager.DataFactory.Models
         public SnowflakeExportCopyCommand() { }
         public System.Collections.Generic.IDictionary<string, System.BinaryData> AdditionalCopyOptions { get { throw null; } }
         public System.Collections.Generic.IDictionary<string, System.BinaryData> AdditionalFormatOptions { get { throw null; } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> StorageIntegration { get { throw null; } set { } }
         Azure.ResourceManager.DataFactory.Models.SnowflakeExportCopyCommand System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataFactory.Models.SnowflakeExportCopyCommand>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataFactory.Models.SnowflakeExportCopyCommand>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataFactory.Models.SnowflakeExportCopyCommand System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataFactory.Models.SnowflakeExportCopyCommand>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -10436,6 +10454,7 @@ namespace Azure.ResourceManager.DataFactory.Models
         public SnowflakeImportCopyCommand() { }
         public System.Collections.Generic.IDictionary<string, System.BinaryData> AdditionalCopyOptions { get { throw null; } }
         public System.Collections.Generic.IDictionary<string, System.BinaryData> AdditionalFormatOptions { get { throw null; } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> StorageIntegration { get { throw null; } set { } }
         Azure.ResourceManager.DataFactory.Models.SnowflakeImportCopyCommand System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataFactory.Models.SnowflakeImportCopyCommand>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataFactory.Models.SnowflakeImportCopyCommand>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.DataFactory.Models.SnowflakeImportCopyCommand System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataFactory.Models.SnowflakeImportCopyCommand>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -10808,6 +10827,7 @@ namespace Azure.ResourceManager.DataFactory.Models
         private readonly int _dummyPrimitive;
         public SqlServerAuthenticationType(string value) { throw null; }
         public static Azure.ResourceManager.DataFactory.Models.SqlServerAuthenticationType Sql { get { throw null; } }
+        public static Azure.ResourceManager.DataFactory.Models.SqlServerAuthenticationType UserAssignedManagedIdentity { get { throw null; } }
         public static Azure.ResourceManager.DataFactory.Models.SqlServerAuthenticationType Windows { get { throw null; } }
         public bool Equals(Azure.ResourceManager.DataFactory.Models.SqlServerAuthenticationType other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
@@ -10832,6 +10852,7 @@ namespace Azure.ResourceManager.DataFactory.Models
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<int> ConnectRetryCount { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<int> ConnectRetryInterval { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<int> ConnectTimeout { get { throw null; } set { } }
+        public Azure.ResourceManager.DataFactory.Models.DataFactoryCredentialReference Credential { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Database { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Encrypt { get { throw null; } set { } }
         public string EncryptedCredential { get { throw null; } set { } }
