@@ -46,7 +46,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
             if (Optional.IsDefined(Identity))
             {
                 writer.WritePropertyName("identity"u8);
-                JsonSerializer.Serialize(writer, Identity);
+                var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                JsonSerializer.Serialize(writer, Identity, serializeOptions);
             }
             if (Optional.IsDefined(Sku))
             {
@@ -126,8 +127,15 @@ namespace Azure.ResourceManager.DesktopVirtualization
             writer.WriteStringValue(ApplicationGroupType.ToString());
             if (options.Format != "W" && Optional.IsDefined(IsCloudPCResource))
             {
-                writer.WritePropertyName("cloudPcResource"u8);
-                writer.WriteBooleanValue(IsCloudPCResource.Value);
+                if (IsCloudPCResource != null)
+                {
+                    writer.WritePropertyName("cloudPcResource"u8);
+                    writer.WriteBooleanValue(IsCloudPCResource.Value);
+                }
+                else
+                {
+                    writer.WriteNull("cloudPcResource");
+                }
             }
             if (Optional.IsDefined(ShowInFeed))
             {
@@ -226,7 +234,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
                     {
                         continue;
                     }
-                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
+                    var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText(), serializeOptions);
                     continue;
                 }
                 if (property.NameEquals("sku"u8))
@@ -338,6 +347,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
+                                cloudPCResource = null;
                                 continue;
                             }
                             cloudPCResource = property0.Value.GetBoolean();

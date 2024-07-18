@@ -130,6 +130,16 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 writer.WritePropertyName("updateErrorMessage"u8);
                 writer.WriteStringValue(UpdateErrorMessage);
             }
+            if (options.Format != "W" && Optional.IsDefined(LastSessionHostUpdateOn))
+            {
+                writer.WritePropertyName("lastSessionHostUpdateTime"u8);
+                writer.WriteStringValue(LastSessionHostUpdateOn.Value, "O");
+            }
+            if (options.Format != "W" && Optional.IsDefined(SessionHostConfiguration))
+            {
+                writer.WritePropertyName("sessionHostConfiguration"u8);
+                writer.WriteStringValue(SessionHostConfiguration);
+            }
             if (options.Format != "W" && Optional.IsCollectionDefined(SessionHostHealthCheckResults))
             {
                 writer.WritePropertyName("sessionHostHealthCheckResults"u8);
@@ -199,6 +209,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
             SessionHostUpdateState? updateState = default;
             DateTimeOffset? lastUpdateTime = default;
             string updateErrorMessage = default;
+            DateTimeOffset? lastSessionHostUpdateTime = default;
+            string sessionHostConfiguration = default;
             IReadOnlyList<SessionHostHealthCheckReport> sessionHostHealthCheckResults = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -349,6 +361,20 @@ namespace Azure.ResourceManager.DesktopVirtualization
                             updateErrorMessage = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("lastSessionHostUpdateTime"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            lastSessionHostUpdateTime = property0.Value.GetDateTimeOffset("O");
+                            continue;
+                        }
+                        if (property0.NameEquals("sessionHostConfiguration"u8))
+                        {
+                            sessionHostConfiguration = property0.Value.GetString();
+                            continue;
+                        }
                         if (property0.NameEquals("sessionHostHealthCheckResults"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -393,6 +419,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 updateState,
                 lastUpdateTime,
                 updateErrorMessage,
+                lastSessionHostUpdateTime,
+                sessionHostConfiguration,
                 sessionHostHealthCheckResults ?? new ChangeTrackingList<SessionHostHealthCheckReport>(),
                 serializedAdditionalRawData);
         }
