@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
         /// <param name="source"> Optional. Deployment model source ARM resource ID. </param>
         /// <param name="callRateLimit"> The call rate limit Cognitive Services account. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        /// <param name="baseModel"> Base Model Identifier. </param>
+        /// <param name="baseModel"> Properties of Cognitive Services account deployment model. </param>
         /// <param name="isDefaultVersion"> If the model is default version. </param>
         /// <param name="skus"> The list of Model Sku. </param>
         /// <param name="maxCapacity"> The max capacity. </param>
@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
             SystemData = systemData;
         }
 
-        /// <summary> Base Model Identifier. </summary>
+        /// <summary> Properties of Cognitive Services account deployment model. </summary>
         [WirePath("baseModel")]
         public CognitiveServicesAccountDeploymentModel BaseModel { get; set; }
         /// <summary> If the model is default version. </summary>
