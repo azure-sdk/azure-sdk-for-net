@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Batch.Models
 {
-    /// <summary> Deployment configuration properties. </summary>
-    internal partial class BatchDeploymentConfiguration
+    /// <summary> The entry of path and mount mode you want to mount into task container. </summary>
+    public partial class ContainerHostBatchBindMountEntry
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,21 +45,25 @@ namespace Azure.ResourceManager.Batch.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="BatchDeploymentConfiguration"/>. </summary>
-        public BatchDeploymentConfiguration()
+        /// <summary> Initializes a new instance of <see cref="ContainerHostBatchBindMountEntry"/>. </summary>
+        public ContainerHostBatchBindMountEntry()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="BatchDeploymentConfiguration"/>. </summary>
-        /// <param name="vmConfiguration"> The configuration for compute nodes in a pool based on the Azure Virtual Machines infrastructure. </param>
+        /// <summary> Initializes a new instance of <see cref="ContainerHostBatchBindMountEntry"/>. </summary>
+        /// <param name="source"> The paths which will be mounted to container task's container. </param>
+        /// <param name="isReadOnly"> For Linux, if you mount this path as a read/write mode, this does not mean that all users in container have the read/write access for the path, it depends on the access in host VM. If this path is mounted read-only, all users within the container will not be able to modify the path. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BatchDeploymentConfiguration(BatchVmConfiguration vmConfiguration, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ContainerHostBatchBindMountEntry(ContainerHostDataPath? source, bool? isReadOnly, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            VmConfiguration = vmConfiguration;
+            Source = source;
+            IsReadOnly = isReadOnly;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The configuration for compute nodes in a pool based on the Azure Virtual Machines infrastructure. </summary>
-        public BatchVmConfiguration VmConfiguration { get; set; }
+        /// <summary> The paths which will be mounted to container task's container. </summary>
+        public ContainerHostDataPath? Source { get; set; }
+        /// <summary> For Linux, if you mount this path as a read/write mode, this does not mean that all users in container have the read/write access for the path, it depends on the access in host VM. If this path is mounted read-only, all users within the container will not be able to modify the path. </summary>
+        public bool? IsReadOnly { get; set; }
     }
 }

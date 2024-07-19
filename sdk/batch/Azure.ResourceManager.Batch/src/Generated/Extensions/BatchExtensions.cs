@@ -215,7 +215,7 @@ namespace Azure.ResourceManager.Batch
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-07-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -253,7 +253,7 @@ namespace Azure.ResourceManager.Batch
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-07-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -291,7 +291,7 @@ namespace Azure.ResourceManager.Batch
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-07-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -327,7 +327,7 @@ namespace Azure.ResourceManager.Batch
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-07-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -363,7 +363,7 @@ namespace Azure.ResourceManager.Batch
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-07-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -395,7 +395,7 @@ namespace Azure.ResourceManager.Batch
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-07-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -427,7 +427,7 @@ namespace Azure.ResourceManager.Batch
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-07-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -462,7 +462,7 @@ namespace Azure.ResourceManager.Batch
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-07-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -485,76 +485,6 @@ namespace Azure.ResourceManager.Batch
         }
 
         /// <summary>
-        /// Gets the list of Batch supported Cloud Service VM sizes available at the given location.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Batch/locations/{locationName}/cloudServiceSkus</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Location_ListSupportedCloudServiceSkus</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableBatchSubscriptionResource.GetBatchSupportedCloudServiceSkus(AzureLocation,int?,string,CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="locationName"> The region for which to retrieve Batch service supported SKUs. </param>
-        /// <param name="maxresults"> The maximum number of items to return in the response. </param>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are "familyName". </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
-        /// <returns> An async collection of <see cref="BatchSupportedSku"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<BatchSupportedSku> GetBatchSupportedCloudServiceSkusAsync(this SubscriptionResource subscriptionResource, AzureLocation locationName, int? maxresults = null, string filter = null, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
-
-            return GetMockableBatchSubscriptionResource(subscriptionResource).GetBatchSupportedCloudServiceSkusAsync(locationName, maxresults, filter, cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets the list of Batch supported Cloud Service VM sizes available at the given location.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Batch/locations/{locationName}/cloudServiceSkus</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Location_ListSupportedCloudServiceSkus</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableBatchSubscriptionResource.GetBatchSupportedCloudServiceSkus(AzureLocation,int?,string,CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="locationName"> The region for which to retrieve Batch service supported SKUs. </param>
-        /// <param name="maxresults"> The maximum number of items to return in the response. </param>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are "familyName". </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
-        /// <returns> A collection of <see cref="BatchSupportedSku"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<BatchSupportedSku> GetBatchSupportedCloudServiceSkus(this SubscriptionResource subscriptionResource, AzureLocation locationName, int? maxresults = null, string filter = null, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
-
-            return GetMockableBatchSubscriptionResource(subscriptionResource).GetBatchSupportedCloudServiceSkus(locationName, maxresults, filter, cancellationToken);
-        }
-
-        /// <summary>
         /// Checks whether the Batch account name is available in the specified region.
         /// <list type="bullet">
         /// <item>
@@ -567,7 +497,7 @@ namespace Azure.ResourceManager.Batch
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-07-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -600,7 +530,7 @@ namespace Azure.ResourceManager.Batch
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-02-01</description>
+        /// <description>2024-07-01</description>
         /// </item>
         /// </list>
         /// <item>
