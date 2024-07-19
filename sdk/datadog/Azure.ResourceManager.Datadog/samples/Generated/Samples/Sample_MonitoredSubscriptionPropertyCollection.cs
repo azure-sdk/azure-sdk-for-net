@@ -13,15 +13,15 @@ using Azure.ResourceManager.Datadog.Models;
 
 namespace Azure.ResourceManager.Datadog.Samples
 {
-    public partial class Sample_MonitoringTagRuleCollection
+    public partial class Sample_MonitoredSubscriptionPropertyCollection
     {
-        // TagRules_List
+        // Monitors_GetMonitoredSubscriptions
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAll_TagRulesList()
+        public async Task GetAll_MonitorsGetMonitoredSubscriptions()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/TagRules_List.json
-            // this example is just showing the usage of "TagRules_List" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/MonitoredSubscriptions_List.json
+            // this example is just showing the usage of "MonitoredSubscriptions_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -36,15 +36,15 @@ namespace Azure.ResourceManager.Datadog.Samples
             ResourceIdentifier datadogMonitorResourceId = DatadogMonitorResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, monitorName);
             DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
 
-            // get the collection of this MonitoringTagRuleResource
-            MonitoringTagRuleCollection collection = datadogMonitorResource.GetMonitoringTagRules();
+            // get the collection of this MonitoredSubscriptionPropertyResource
+            MonitoredSubscriptionPropertyCollection collection = datadogMonitorResource.GetMonitoredSubscriptionProperties();
 
             // invoke the operation and iterate over the result
-            await foreach (MonitoringTagRuleResource item in collection.GetAllAsync())
+            await foreach (MonitoredSubscriptionPropertyResource item in collection.GetAllAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                MonitoringTagRuleData resourceData = item.Data;
+                MonitoredSubscriptionPropertyData resourceData = item.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
@@ -52,13 +52,13 @@ namespace Azure.ResourceManager.Datadog.Samples
             Console.WriteLine($"Succeeded");
         }
 
-        // TagRules_CreateOrUpdate
+        // Monitors_GetMonitoredSubscriptions
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task CreateOrUpdate_TagRulesCreateOrUpdate()
+        public async Task Get_MonitorsGetMonitoredSubscriptions()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/TagRules_CreateOrUpdate.json
-            // this example is just showing the usage of "TagRules_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/MonitoredSubscriptions_Get.json
+            // this example is just showing the usage of "MonitoredSubscriptions_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -73,21 +73,139 @@ namespace Azure.ResourceManager.Datadog.Samples
             ResourceIdentifier datadogMonitorResourceId = DatadogMonitorResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, monitorName);
             DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
 
-            // get the collection of this MonitoringTagRuleResource
-            MonitoringTagRuleCollection collection = datadogMonitorResource.GetMonitoringTagRules();
+            // get the collection of this MonitoredSubscriptionPropertyResource
+            MonitoredSubscriptionPropertyCollection collection = datadogMonitorResource.GetMonitoredSubscriptionProperties();
 
             // invoke the operation
-            string ruleSetName = "default";
-            MonitoringTagRuleData data = new MonitoringTagRuleData()
+            string configurationName = "default";
+            MonitoredSubscriptionPropertyResource result = await collection.GetAsync(configurationName);
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            MonitoredSubscriptionPropertyData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        // Monitors_GetMonitoredSubscriptions
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task Exists_MonitorsGetMonitoredSubscriptions()
+        {
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/MonitoredSubscriptions_Get.json
+            // this example is just showing the usage of "MonitoredSubscriptions_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this DatadogMonitorResource created on azure
+            // for more information of creating DatadogMonitorResource, please refer to the document of DatadogMonitorResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string monitorName = "myMonitor";
+            ResourceIdentifier datadogMonitorResourceId = DatadogMonitorResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, monitorName);
+            DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
+
+            // get the collection of this MonitoredSubscriptionPropertyResource
+            MonitoredSubscriptionPropertyCollection collection = datadogMonitorResource.GetMonitoredSubscriptionProperties();
+
+            // invoke the operation
+            string configurationName = "default";
+            bool result = await collection.ExistsAsync(configurationName);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        // Monitors_GetMonitoredSubscriptions
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetIfExists_MonitorsGetMonitoredSubscriptions()
+        {
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/MonitoredSubscriptions_Get.json
+            // this example is just showing the usage of "MonitoredSubscriptions_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this DatadogMonitorResource created on azure
+            // for more information of creating DatadogMonitorResource, please refer to the document of DatadogMonitorResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string monitorName = "myMonitor";
+            ResourceIdentifier datadogMonitorResourceId = DatadogMonitorResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, monitorName);
+            DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
+
+            // get the collection of this MonitoredSubscriptionPropertyResource
+            MonitoredSubscriptionPropertyCollection collection = datadogMonitorResource.GetMonitoredSubscriptionProperties();
+
+            // invoke the operation
+            string configurationName = "default";
+            NullableResponse<MonitoredSubscriptionPropertyResource> response = await collection.GetIfExistsAsync(configurationName);
+            MonitoredSubscriptionPropertyResource result = response.HasValue ? response.Value : null;
+
+            if (result == null)
             {
-                Properties = new MonitoringTagRulesProperties()
+                Console.WriteLine($"Succeeded with null as result");
+            }
+            else
+            {
+                // the variable result is a resource, you could call other operations on this instance as well
+                // but just for demo, we get its data from this resource instance
+                MonitoredSubscriptionPropertyData resourceData = result.Data;
+                // for demo we just print out the id
+                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+            }
+        }
+
+        // Monitors_AddMonitoredSubscriptions
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task CreateOrUpdate_MonitorsAddMonitoredSubscriptions()
+        {
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/MonitoredSubscriptions_CreateorUpdate.json
+            // this example is just showing the usage of "MonitoredSubscriptions_CreateorUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this DatadogMonitorResource created on azure
+            // for more information of creating DatadogMonitorResource, please refer to the document of DatadogMonitorResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string monitorName = "myMonitor";
+            ResourceIdentifier datadogMonitorResourceId = DatadogMonitorResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, monitorName);
+            DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
+
+            // get the collection of this MonitoredSubscriptionPropertyResource
+            MonitoredSubscriptionPropertyCollection collection = datadogMonitorResource.GetMonitoredSubscriptionProperties();
+
+            // invoke the operation
+            string configurationName = "default";
+            MonitoredSubscriptionPropertyData data = new MonitoredSubscriptionPropertyData()
+            {
+                Properties = new SubscriptionList()
                 {
-                    LogRules = new LogRules()
-                    {
-                        SendAadLogs = false,
-                        SendSubscriptionLogs = true,
-                        SendResourceLogs = true,
-                        FilteringTags =
+                    Operation = Operation.AddBegin,
+                    MonitoredSubscriptionList =
+{
+new MonitoredSubscription()
+{
+SubscriptionId = "/subscriptions/00000000-0000-0000-0000-000000000000",
+Status = Status.Active,
+TagRules = new MonitoringTagRulesProperties()
+{
+LogRules = new LogRules()
+{
+SendAadLogs = false,
+SendSubscriptionLogs = true,
+SendResourceLogs = true,
+FilteringTags =
 {
 new FilteringTag()
 {
@@ -101,130 +219,55 @@ Value = "Dev",
 Action = TagAction.Exclude,
 }
 },
-                    },
-                    MetricRulesFilteringTags =
+},
+MetricRulesFilteringTags =
 {
 },
-                    Automuting = true,
+Automuting = true,
+},
+},new MonitoredSubscription()
+{
+SubscriptionId = "/subscriptions/00000000-0000-0000-0000-000000000001",
+Status = Status.Failed,
+TagRules = new MonitoringTagRulesProperties()
+{
+LogRules = new LogRules()
+{
+SendAadLogs = false,
+SendSubscriptionLogs = true,
+SendResourceLogs = true,
+FilteringTags =
+{
+new FilteringTag()
+{
+Name = "Environment",
+Value = "Prod",
+Action = TagAction.Include,
+},new FilteringTag()
+{
+Name = "Environment",
+Value = "Dev",
+Action = TagAction.Exclude,
+}
+},
+},
+MetricRulesFilteringTags =
+{
+},
+Automuting = true,
+},
+}
+},
                 },
             };
-            ArmOperation<MonitoringTagRuleResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, ruleSetName, data);
-            MonitoringTagRuleResource result = lro.Value;
+            ArmOperation<MonitoredSubscriptionPropertyResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, configurationName, data);
+            MonitoredSubscriptionPropertyResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            MonitoringTagRuleData resourceData = result.Data;
+            MonitoredSubscriptionPropertyData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        // TagRules_Get
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Get_TagRulesGet()
-        {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/TagRules_Get.json
-            // this example is just showing the usage of "TagRules_Get" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this DatadogMonitorResource created on azure
-            // for more information of creating DatadogMonitorResource, please refer to the document of DatadogMonitorResource
-            string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "myResourceGroup";
-            string monitorName = "myMonitor";
-            ResourceIdentifier datadogMonitorResourceId = DatadogMonitorResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, monitorName);
-            DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
-
-            // get the collection of this MonitoringTagRuleResource
-            MonitoringTagRuleCollection collection = datadogMonitorResource.GetMonitoringTagRules();
-
-            // invoke the operation
-            string ruleSetName = "default";
-            MonitoringTagRuleResource result = await collection.GetAsync(ruleSetName);
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            MonitoringTagRuleData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        // TagRules_Get
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Exists_TagRulesGet()
-        {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/TagRules_Get.json
-            // this example is just showing the usage of "TagRules_Get" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this DatadogMonitorResource created on azure
-            // for more information of creating DatadogMonitorResource, please refer to the document of DatadogMonitorResource
-            string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "myResourceGroup";
-            string monitorName = "myMonitor";
-            ResourceIdentifier datadogMonitorResourceId = DatadogMonitorResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, monitorName);
-            DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
-
-            // get the collection of this MonitoringTagRuleResource
-            MonitoringTagRuleCollection collection = datadogMonitorResource.GetMonitoringTagRules();
-
-            // invoke the operation
-            string ruleSetName = "default";
-            bool result = await collection.ExistsAsync(ruleSetName);
-
-            Console.WriteLine($"Succeeded: {result}");
-        }
-
-        // TagRules_Get
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetIfExists_TagRulesGet()
-        {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/TagRules_Get.json
-            // this example is just showing the usage of "TagRules_Get" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this DatadogMonitorResource created on azure
-            // for more information of creating DatadogMonitorResource, please refer to the document of DatadogMonitorResource
-            string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "myResourceGroup";
-            string monitorName = "myMonitor";
-            ResourceIdentifier datadogMonitorResourceId = DatadogMonitorResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, monitorName);
-            DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
-
-            // get the collection of this MonitoringTagRuleResource
-            MonitoringTagRuleCollection collection = datadogMonitorResource.GetMonitoringTagRules();
-
-            // invoke the operation
-            string ruleSetName = "default";
-            NullableResponse<MonitoringTagRuleResource> response = await collection.GetIfExistsAsync(ruleSetName);
-            MonitoringTagRuleResource result = response.HasValue ? response.Value : null;
-
-            if (result == null)
-            {
-                Console.WriteLine($"Succeeded with null as result");
-            }
-            else
-            {
-                // the variable result is a resource, you could call other operations on this instance as well
-                // but just for demo, we get its data from this resource instance
-                MonitoringTagRuleData resourceData = result.Data;
-                // for demo we just print out the id
-                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-            }
         }
     }
 }
