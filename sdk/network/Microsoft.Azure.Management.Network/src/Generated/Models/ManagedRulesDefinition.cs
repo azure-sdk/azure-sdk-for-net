@@ -34,10 +34,13 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         /// <param name="managedRuleSets">The managed rule sets that are
         /// associated with the policy.</param>
+        /// <param name="exceptions">The exceptions that are applied on the
+        /// policy.</param>
         /// <param name="exclusions">The Exclusions that are applied on the
         /// policy.</param>
-        public ManagedRulesDefinition(IList<ManagedRuleSet> managedRuleSets, IList<OwaspCrsExclusionEntry> exclusions = default(IList<OwaspCrsExclusionEntry>))
+        public ManagedRulesDefinition(IList<ManagedRuleSet> managedRuleSets, IList<ExceptionEntry> exceptions = default(IList<ExceptionEntry>), IList<OwaspCrsExclusionEntry> exclusions = default(IList<OwaspCrsExclusionEntry>))
         {
+            Exceptions = exceptions;
             Exclusions = exclusions;
             ManagedRuleSets = managedRuleSets;
             CustomInit();
@@ -47,6 +50,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
+
+        /// <summary>
+        /// Gets or sets the exceptions that are applied on the policy.
+        /// </summary>
+        [JsonProperty(PropertyName = "exceptions")]
+        public IList<ExceptionEntry> Exceptions { get; set; }
 
         /// <summary>
         /// Gets or sets the Exclusions that are applied on the policy.
@@ -73,9 +82,9 @@ namespace Microsoft.Azure.Management.Network.Models
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "ManagedRuleSets");
             }
-            if (Exclusions != null)
+            if (Exceptions != null)
             {
-                foreach (var element in Exclusions)
+                foreach (var element in Exceptions)
                 {
                     if (element != null)
                     {
@@ -83,13 +92,23 @@ namespace Microsoft.Azure.Management.Network.Models
                     }
                 }
             }
-            if (ManagedRuleSets != null)
+            if (Exclusions != null)
             {
-                foreach (var element1 in ManagedRuleSets)
+                foreach (var element1 in Exclusions)
                 {
                     if (element1 != null)
                     {
                         element1.Validate();
+                    }
+                }
+            }
+            if (ManagedRuleSets != null)
+            {
+                foreach (var element2 in ManagedRuleSets)
+                {
+                    if (element2 != null)
+                    {
+                        element2.Validate();
                     }
                 }
             }

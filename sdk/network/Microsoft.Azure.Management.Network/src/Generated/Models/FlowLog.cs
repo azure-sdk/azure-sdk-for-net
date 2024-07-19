@@ -45,6 +45,10 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="tags">Resource tags.</param>
         /// <param name="targetResourceGuid">Guid of network security group to
         /// which flow log will be applied.</param>
+        /// <param name="enabledFilteringCriteria">Optional field to filter
+        /// network traffic logs based on SrcIP, SrcPort, DstIP, DstPort,
+        /// Protocol, Encryption, Direction and Action. If not specified, all
+        /// network traffic will be logged.</param>
         /// <param name="enabled">Flag to enable/disable flow logging.</param>
         /// <param name="retentionPolicy">Parameters that define the retention
         /// policy for flow log.</param>
@@ -57,18 +61,21 @@ namespace Microsoft.Azure.Management.Network.Models
         /// 'Failed'</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public FlowLog(string targetResourceId, string storageId, string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), string targetResourceGuid = default(string), bool? enabled = default(bool?), RetentionPolicyParameters retentionPolicy = default(RetentionPolicyParameters), FlowLogFormatParameters format = default(FlowLogFormatParameters), TrafficAnalyticsProperties flowAnalyticsConfiguration = default(TrafficAnalyticsProperties), string provisioningState = default(string), string etag = default(string))
+        /// <param name="identity">FlowLog resource Managed Identity</param>
+        public FlowLog(string targetResourceId, string storageId, string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), string targetResourceGuid = default(string), string enabledFilteringCriteria = default(string), bool? enabled = default(bool?), RetentionPolicyParameters retentionPolicy = default(RetentionPolicyParameters), FlowLogFormatParameters format = default(FlowLogFormatParameters), TrafficAnalyticsProperties flowAnalyticsConfiguration = default(TrafficAnalyticsProperties), string provisioningState = default(string), string etag = default(string), ManagedServiceIdentity identity = default(ManagedServiceIdentity))
             : base(id, name, type, location, tags)
         {
             TargetResourceId = targetResourceId;
             TargetResourceGuid = targetResourceGuid;
             StorageId = storageId;
+            EnabledFilteringCriteria = enabledFilteringCriteria;
             Enabled = enabled;
             RetentionPolicy = retentionPolicy;
             Format = format;
             FlowAnalyticsConfiguration = flowAnalyticsConfiguration;
             ProvisioningState = provisioningState;
             Etag = etag;
+            Identity = identity;
             CustomInit();
         }
 
@@ -97,6 +104,14 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.storageId")]
         public string StorageId { get; set; }
+
+        /// <summary>
+        /// Gets or sets optional field to filter network traffic logs based on
+        /// SrcIP, SrcPort, DstIP, DstPort, Protocol, Encryption, Direction and
+        /// Action. If not specified, all network traffic will be logged.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.enabledFilteringCriteria")]
+        public string EnabledFilteringCriteria { get; set; }
 
         /// <summary>
         /// Gets or sets flag to enable/disable flow logging.
@@ -137,6 +152,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "etag")]
         public string Etag { get; private set; }
+
+        /// <summary>
+        /// Gets or sets flowLog resource Managed Identity
+        /// </summary>
+        [JsonProperty(PropertyName = "identity")]
+        public ManagedServiceIdentity Identity { get; set; }
 
         /// <summary>
         /// Validate the object.
