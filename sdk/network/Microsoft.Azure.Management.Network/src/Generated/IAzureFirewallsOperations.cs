@@ -195,6 +195,31 @@ namespace Microsoft.Azure.Management.Network
         /// </exception>
         Task<AzureOperationResponse<IPPrefixesList>> ListLearnedPrefixesWithHttpMessagesAsync(string resourceGroupName, string azureFirewallName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
+        /// Runs a packet capture on AzureFirewall.
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group.
+        /// </param>
+        /// <param name='azureFirewallName'>
+        /// The name of the Azure Firewall.
+        /// </param>
+        /// <param name='parameters'>
+        /// Parameters supplied to run packet capture on azure firewall.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationHeaderResponse<AzureFirewallsPacketCaptureHeaders>> PacketCaptureMethodWithHttpMessagesAsync(string resourceGroupName, string azureFirewallName, FirewallPacketCaptureParameters parameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
         /// Deletes the specified Azure Firewall.
         /// </summary>
         /// <param name='resourceGroupName'>
@@ -299,6 +324,31 @@ namespace Microsoft.Azure.Management.Network
         /// Thrown when a required parameter is null
         /// </exception>
         Task<AzureOperationResponse<IPPrefixesList>> BeginListLearnedPrefixesWithHttpMessagesAsync(string resourceGroupName, string azureFirewallName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Runs a packet capture on AzureFirewall.
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group.
+        /// </param>
+        /// <param name='azureFirewallName'>
+        /// The name of the Azure Firewall.
+        /// </param>
+        /// <param name='parameters'>
+        /// Parameters supplied to run packet capture on azure firewall.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationHeaderResponse<AzureFirewallsPacketCaptureHeaders>> BeginPacketCaptureMethodWithHttpMessagesAsync(string resourceGroupName, string azureFirewallName, FirewallPacketCaptureParameters parameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Lists all Azure Firewalls in a resource group.
         /// </summary>

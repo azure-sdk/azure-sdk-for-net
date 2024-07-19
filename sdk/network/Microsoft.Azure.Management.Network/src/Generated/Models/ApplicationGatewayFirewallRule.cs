@@ -41,14 +41,18 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="action">The string representation of the web
         /// application firewall rule action. Possible values include: 'None',
         /// 'AnomalyScoring', 'Allow', 'Block', 'Log'</param>
+        /// <param name="sensitivity">The string representation of the web
+        /// application firewall rule sensitivity. Possible values include:
+        /// 'None', 'Low', 'Medium', 'High'</param>
         /// <param name="description">The description of the web application
         /// firewall rule.</param>
-        public ApplicationGatewayFirewallRule(int ruleId, string ruleIdString = default(string), string state = default(string), string action = default(string), string description = default(string))
+        public ApplicationGatewayFirewallRule(int ruleId, string ruleIdString = default(string), string state = default(string), string action = default(string), string sensitivity = default(string), string description = default(string))
         {
             RuleId = ruleId;
             RuleIdString = ruleIdString;
             State = state;
             Action = action;
+            Sensitivity = sensitivity;
             Description = description;
             CustomInit();
         }
@@ -85,6 +89,14 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "action")]
         public string Action { get; set; }
+
+        /// <summary>
+        /// Gets or sets the string representation of the web application
+        /// firewall rule sensitivity. Possible values include: 'None', 'Low',
+        /// 'Medium', 'High'
+        /// </summary>
+        [JsonProperty(PropertyName = "sensitivity")]
+        public string Sensitivity { get; set; }
 
         /// <summary>
         /// Gets or sets the description of the web application firewall rule.

@@ -39,6 +39,8 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="type">Resource type.</param>
         /// <param name="location">Resource location.</param>
         /// <param name="tags">Resource tags.</param>
+        /// <param name="autoScaleConfiguration">Autoscale configuration for
+        /// virutal network gateway</param>
         /// <param name="ipConfigurations">IP configurations for virtual
         /// network gateway.</param>
         /// <param name="gatewayType">The type of this virtual network gateway.
@@ -99,13 +101,23 @@ namespace Microsoft.Azure.Management.Network.Models
         /// accept traffic from other Azure Virtual Networks. This
         /// configuration does not support connectivity to Azure Virtual
         /// WAN.</param>
+        /// <param name="adminState">Property to indicate if the Express Route
+        /// Gateway serves traffic when there are multiple Express Route
+        /// Gateways in the vnet. Possible values include: 'Enabled',
+        /// 'Disabled'</param>
+        /// <param name="resiliencyModel">Property to indicate if the Express
+        /// Route Gateway has resiliency model of MultiHomed or SingleHomed.
+        /// Possible values include: 'SingleHomed', 'MultiHomed'</param>
         /// <param name="extendedLocation">The extended location of type local
         /// virtual network gateway.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public VirtualNetworkGateway(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<VirtualNetworkGatewayIPConfiguration> ipConfigurations = default(IList<VirtualNetworkGatewayIPConfiguration>), string gatewayType = default(string), string vpnType = default(string), string vpnGatewayGeneration = default(string), bool? enableBgp = default(bool?), bool? enablePrivateIpAddress = default(bool?), bool? activeActive = default(bool?), bool? disableIPSecReplayProtection = default(bool?), SubResource gatewayDefaultSite = default(SubResource), VirtualNetworkGatewaySku sku = default(VirtualNetworkGatewaySku), VpnClientConfiguration vpnClientConfiguration = default(VpnClientConfiguration), IList<VirtualNetworkGatewayPolicyGroup> virtualNetworkGatewayPolicyGroups = default(IList<VirtualNetworkGatewayPolicyGroup>), BgpSettings bgpSettings = default(BgpSettings), AddressSpace customRoutes = default(AddressSpace), string resourceGuid = default(string), string provisioningState = default(string), bool? enableDnsForwarding = default(bool?), string inboundDnsForwardingEndpoint = default(string), string vNetExtendedLocationResourceId = default(string), IList<VirtualNetworkGatewayNatRule> natRules = default(IList<VirtualNetworkGatewayNatRule>), bool? enableBgpRouteTranslationForNat = default(bool?), bool? allowVirtualWanTraffic = default(bool?), bool? allowRemoteVnetTraffic = default(bool?), ExtendedLocation extendedLocation = default(ExtendedLocation), string etag = default(string))
+        /// <param name="identity">The identity of the virtual network gateway,
+        /// if configured.</param>
+        public VirtualNetworkGateway(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), VirtualNetworkGatewayAutoScaleConfiguration autoScaleConfiguration = default(VirtualNetworkGatewayAutoScaleConfiguration), IList<VirtualNetworkGatewayIPConfiguration> ipConfigurations = default(IList<VirtualNetworkGatewayIPConfiguration>), string gatewayType = default(string), string vpnType = default(string), string vpnGatewayGeneration = default(string), bool? enableBgp = default(bool?), bool? enablePrivateIpAddress = default(bool?), bool? activeActive = default(bool?), bool? disableIPSecReplayProtection = default(bool?), SubResource gatewayDefaultSite = default(SubResource), VirtualNetworkGatewaySku sku = default(VirtualNetworkGatewaySku), VpnClientConfiguration vpnClientConfiguration = default(VpnClientConfiguration), IList<VirtualNetworkGatewayPolicyGroup> virtualNetworkGatewayPolicyGroups = default(IList<VirtualNetworkGatewayPolicyGroup>), BgpSettings bgpSettings = default(BgpSettings), AddressSpace customRoutes = default(AddressSpace), string resourceGuid = default(string), string provisioningState = default(string), bool? enableDnsForwarding = default(bool?), string inboundDnsForwardingEndpoint = default(string), string vNetExtendedLocationResourceId = default(string), IList<VirtualNetworkGatewayNatRule> natRules = default(IList<VirtualNetworkGatewayNatRule>), bool? enableBgpRouteTranslationForNat = default(bool?), bool? allowVirtualWanTraffic = default(bool?), bool? allowRemoteVnetTraffic = default(bool?), string adminState = default(string), string resiliencyModel = default(string), ExtendedLocation extendedLocation = default(ExtendedLocation), string etag = default(string), ManagedServiceIdentity identity = default(ManagedServiceIdentity))
             : base(id, name, type, location, tags)
         {
+            AutoScaleConfiguration = autoScaleConfiguration;
             IpConfigurations = ipConfigurations;
             GatewayType = gatewayType;
             VpnType = vpnType;
@@ -129,8 +141,11 @@ namespace Microsoft.Azure.Management.Network.Models
             EnableBgpRouteTranslationForNat = enableBgpRouteTranslationForNat;
             AllowVirtualWanTraffic = allowVirtualWanTraffic;
             AllowRemoteVnetTraffic = allowRemoteVnetTraffic;
+            AdminState = adminState;
+            ResiliencyModel = resiliencyModel;
             ExtendedLocation = extendedLocation;
             Etag = etag;
+            Identity = identity;
             CustomInit();
         }
 
@@ -138,6 +153,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
+
+        /// <summary>
+        /// Gets or sets autoscale configuration for virutal network gateway
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.autoScaleConfiguration")]
+        public VirtualNetworkGatewayAutoScaleConfiguration AutoScaleConfiguration { get; set; }
 
         /// <summary>
         /// Gets or sets IP configurations for virtual network gateway.
@@ -300,6 +321,22 @@ namespace Microsoft.Azure.Management.Network.Models
         public bool? AllowRemoteVnetTraffic { get; set; }
 
         /// <summary>
+        /// Gets or sets property to indicate if the Express Route Gateway
+        /// serves traffic when there are multiple Express Route Gateways in
+        /// the vnet. Possible values include: 'Enabled', 'Disabled'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.adminState")]
+        public string AdminState { get; set; }
+
+        /// <summary>
+        /// Gets or sets property to indicate if the Express Route Gateway has
+        /// resiliency model of MultiHomed or SingleHomed. Possible values
+        /// include: 'SingleHomed', 'MultiHomed'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.resiliencyModel")]
+        public string ResiliencyModel { get; set; }
+
+        /// <summary>
         /// Gets or sets the extended location of type local virtual network
         /// gateway.
         /// </summary>
@@ -312,6 +349,13 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "etag")]
         public string Etag { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the identity of the virtual network gateway, if
+        /// configured.
+        /// </summary>
+        [JsonProperty(PropertyName = "identity")]
+        public ManagedServiceIdentity Identity { get; set; }
 
         /// <summary>
         /// Validate the object.

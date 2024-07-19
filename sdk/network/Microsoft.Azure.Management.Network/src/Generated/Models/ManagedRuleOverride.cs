@@ -36,12 +36,16 @@ namespace Microsoft.Azure.Management.Network.Models
         /// 'Enabled'</param>
         /// <param name="action">Describes the override action to be applied
         /// when rule matches. Possible values include: 'AnomalyScoring',
-        /// 'Allow', 'Block', 'Log'</param>
-        public ManagedRuleOverride(string ruleId, string state = default(string), string action = default(string))
+        /// 'Allow', 'Block', 'Log', 'JSChallenge'</param>
+        /// <param name="sensitivity">Describes the override sensitivity to be
+        /// applied when rule matches. Possible values include: 'None', 'Low',
+        /// 'Medium', 'High'</param>
+        public ManagedRuleOverride(string ruleId, string state = default(string), string action = default(string), string sensitivity = default(string))
         {
             RuleId = ruleId;
             State = state;
             Action = action;
+            Sensitivity = sensitivity;
             CustomInit();
         }
 
@@ -66,10 +70,18 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <summary>
         /// Gets or sets describes the override action to be applied when rule
         /// matches. Possible values include: 'AnomalyScoring', 'Allow',
-        /// 'Block', 'Log'
+        /// 'Block', 'Log', 'JSChallenge'
         /// </summary>
         [JsonProperty(PropertyName = "action")]
         public string Action { get; set; }
+
+        /// <summary>
+        /// Gets or sets describes the override sensitivity to be applied when
+        /// rule matches. Possible values include: 'None', 'Low', 'Medium',
+        /// 'High'
+        /// </summary>
+        [JsonProperty(PropertyName = "sensitivity")]
+        public string Sensitivity { get; set; }
 
         /// <summary>
         /// Validate the object.
