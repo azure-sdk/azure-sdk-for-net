@@ -62,6 +62,7 @@ namespace Azure.ResourceManager.ContainerService
             KubernetesVersion = kubernetesVersion;
             OSType = osType;
             Upgrades = new ChangeTrackingList<AgentPoolUpgradeProfilePropertiesUpgradesItem>();
+            ComponentsByReleases = new ChangeTrackingList<ComponentsByRelease>();
         }
 
         /// <summary> Initializes a new instance of <see cref="AgentPoolUpgradeProfileData"/>. </summary>
@@ -72,13 +73,15 @@ namespace Azure.ResourceManager.ContainerService
         /// <param name="kubernetesVersion"> The Kubernetes version (major.minor.patch). </param>
         /// <param name="osType"> The operating system type. The default is Linux. </param>
         /// <param name="upgrades"> List of orchestrator types and versions available for upgrade. </param>
+        /// <param name="componentsByReleases"> List of components grouped by kubernetes major.minor version. </param>
         /// <param name="latestNodeImageVersion"> The latest AKS supported node image version. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AgentPoolUpgradeProfileData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string kubernetesVersion, ContainerServiceOSType osType, IReadOnlyList<AgentPoolUpgradeProfilePropertiesUpgradesItem> upgrades, string latestNodeImageVersion, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal AgentPoolUpgradeProfileData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string kubernetesVersion, ContainerServiceOSType osType, IReadOnlyList<AgentPoolUpgradeProfilePropertiesUpgradesItem> upgrades, IReadOnlyList<ComponentsByRelease> componentsByReleases, string latestNodeImageVersion, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             KubernetesVersion = kubernetesVersion;
             OSType = osType;
             Upgrades = upgrades;
+            ComponentsByReleases = componentsByReleases;
             LatestNodeImageVersion = latestNodeImageVersion;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -94,6 +97,8 @@ namespace Azure.ResourceManager.ContainerService
         public ContainerServiceOSType OSType { get; }
         /// <summary> List of orchestrator types and versions available for upgrade. </summary>
         public IReadOnlyList<AgentPoolUpgradeProfilePropertiesUpgradesItem> Upgrades { get; }
+        /// <summary> List of components grouped by kubernetes major.minor version. </summary>
+        public IReadOnlyList<ComponentsByRelease> ComponentsByReleases { get; }
         /// <summary> The latest AKS supported node image version. </summary>
         public string LatestNodeImageVersion { get; }
     }
