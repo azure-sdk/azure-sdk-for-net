@@ -38,6 +38,8 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="authorizationKey">The authorization key.</param>
         /// <param name="authorizationUseStatus">The authorization use status.
         /// Possible values include: 'Available', 'InUse'</param>
+        /// <param name="connectionResourceUri">The reference to the
+        /// ExpressRoute connection resource using the authorization.</param>
         /// <param name="provisioningState">The provisioning state of the
         /// authorization resource. Possible values include: 'Succeeded',
         /// 'Updating', 'Deleting', 'Failed'</param>
@@ -47,11 +49,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
         /// <param name="type">Type of the resource.</param>
-        public ExpressRouteCircuitAuthorization(string id = default(string), string authorizationKey = default(string), string authorizationUseStatus = default(string), string provisioningState = default(string), string name = default(string), string etag = default(string), string type = default(string))
+        public ExpressRouteCircuitAuthorization(string id = default(string), string authorizationKey = default(string), string authorizationUseStatus = default(string), string connectionResourceUri = default(string), string provisioningState = default(string), string name = default(string), string etag = default(string), string type = default(string))
             : base(id)
         {
             AuthorizationKey = authorizationKey;
             AuthorizationUseStatus = authorizationUseStatus;
+            ConnectionResourceUri = connectionResourceUri;
             ProvisioningState = provisioningState;
             Name = name;
             Etag = etag;
@@ -76,6 +79,13 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.authorizationUseStatus")]
         public string AuthorizationUseStatus { get; set; }
+
+        /// <summary>
+        /// Gets the reference to the ExpressRoute connection resource using
+        /// the authorization.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.connectionResourceUri")]
+        public string ConnectionResourceUri { get; private set; }
 
         /// <summary>
         /// Gets the provisioning state of the authorization resource. Possible

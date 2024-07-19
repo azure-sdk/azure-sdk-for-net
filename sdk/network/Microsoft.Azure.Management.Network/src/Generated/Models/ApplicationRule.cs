@@ -48,7 +48,9 @@ namespace Microsoft.Azure.Management.Network.Models
         /// rule.</param>
         /// <param name="webCategories">List of destination azure web
         /// categories.</param>
-        public ApplicationRule(string name = default(string), string description = default(string), IList<string> sourceAddresses = default(IList<string>), IList<string> destinationAddresses = default(IList<string>), IList<FirewallPolicyRuleApplicationProtocol> protocols = default(IList<FirewallPolicyRuleApplicationProtocol>), IList<string> targetFqdns = default(IList<string>), IList<string> targetUrls = default(IList<string>), IList<string> fqdnTags = default(IList<string>), IList<string> sourceIpGroups = default(IList<string>), bool? terminateTLS = default(bool?), IList<string> webCategories = default(IList<string>))
+        /// <param name="httpHeadersToInsert">List of HTTP/S headers to
+        /// insert.</param>
+        public ApplicationRule(string name = default(string), string description = default(string), IList<string> sourceAddresses = default(IList<string>), IList<string> destinationAddresses = default(IList<string>), IList<FirewallPolicyRuleApplicationProtocol> protocols = default(IList<FirewallPolicyRuleApplicationProtocol>), IList<string> targetFqdns = default(IList<string>), IList<string> targetUrls = default(IList<string>), IList<string> fqdnTags = default(IList<string>), IList<string> sourceIpGroups = default(IList<string>), bool? terminateTLS = default(bool?), IList<string> webCategories = default(IList<string>), IList<FirewallPolicyHttpHeaderToInsert> httpHeadersToInsert = default(IList<FirewallPolicyHttpHeaderToInsert>))
             : base(name, description)
         {
             SourceAddresses = sourceAddresses;
@@ -60,6 +62,7 @@ namespace Microsoft.Azure.Management.Network.Models
             SourceIpGroups = sourceIpGroups;
             TerminateTLS = terminateTLS;
             WebCategories = webCategories;
+            HttpHeadersToInsert = httpHeadersToInsert;
             CustomInit();
         }
 
@@ -121,6 +124,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "webCategories")]
         public IList<string> WebCategories { get; set; }
+
+        /// <summary>
+        /// Gets or sets list of HTTP/S headers to insert.
+        /// </summary>
+        [JsonProperty(PropertyName = "httpHeadersToInsert")]
+        public IList<FirewallPolicyHttpHeaderToInsert> HttpHeadersToInsert { get; set; }
 
     }
 }
