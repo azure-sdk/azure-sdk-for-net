@@ -33,22 +33,46 @@ namespace Azure.ResourceManager.MachineLearning.Models
                 writer.WritePropertyName("category"u8);
                 writer.WriteStringValue(Category.Value.ToString());
             }
+            if (options.Format != "W" && Optional.IsDefined(CreatedByWorkspaceArmId))
+            {
+                writer.WritePropertyName("createdByWorkspaceArmId"u8);
+                writer.WriteStringValue(CreatedByWorkspaceArmId);
+            }
             if (Optional.IsDefined(ExpiryOn))
             {
                 writer.WritePropertyName("expiryTime"u8);
                 writer.WriteStringValue(ExpiryOn.Value, "O");
             }
-            if (Optional.IsDefined(Metadata))
+            if (options.Format != "W" && Optional.IsDefined(Group))
+            {
+                writer.WritePropertyName("group"u8);
+                writer.WriteStringValue(Group.Value.ToString());
+            }
+            if (Optional.IsDefined(IsSharedToAll))
+            {
+                writer.WritePropertyName("isSharedToAll"u8);
+                writer.WriteBooleanValue(IsSharedToAll.Value);
+            }
+            if (Optional.IsCollectionDefined(Metadata))
             {
                 writer.WritePropertyName("metadata"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Metadata);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Metadata))
+                writer.WriteStartObject();
+                foreach (var item in Metadata)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
                 }
-#endif
+                writer.WriteEndObject();
+            }
+            if (Optional.IsCollectionDefined(SharedUserList))
+            {
+                writer.WritePropertyName("sharedUserList"u8);
+                writer.WriteStartArray();
+                foreach (var item in SharedUserList)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
             }
             if (Optional.IsDefined(Target))
             {
@@ -97,11 +121,14 @@ namespace Azure.ResourceManager.MachineLearning.Models
             {
                 switch (discriminator.GetString())
                 {
+                    case "AAD": return AadAuthTypeWorkspaceConnectionProperties.DeserializeAadAuthTypeWorkspaceConnectionProperties(element, options);
                     case "AccessKey": return AccessKeyAuthTypeWorkspaceConnectionProperties.DeserializeAccessKeyAuthTypeWorkspaceConnectionProperties(element, options);
+                    case "AccountKey": return AccountKeyAuthTypeWorkspaceConnectionProperties.DeserializeAccountKeyAuthTypeWorkspaceConnectionProperties(element, options);
                     case "ApiKey": return ApiKeyAuthWorkspaceConnectionProperties.DeserializeApiKeyAuthWorkspaceConnectionProperties(element, options);
                     case "CustomKeys": return CustomKeysWorkspaceConnectionProperties.DeserializeCustomKeysWorkspaceConnectionProperties(element, options);
                     case "ManagedIdentity": return MachineLearningManagedIdentityAuthTypeWorkspaceConnection.DeserializeMachineLearningManagedIdentityAuthTypeWorkspaceConnection(element, options);
                     case "None": return MachineLearningNoneAuthTypeWorkspaceConnection.DeserializeMachineLearningNoneAuthTypeWorkspaceConnection(element, options);
+                    case "OAuth2": return OAuth2AuthTypeWorkspaceConnectionProperties.DeserializeOAuth2AuthTypeWorkspaceConnectionProperties(element, options);
                     case "PAT": return MachineLearningPatAuthTypeWorkspaceConnection.DeserializeMachineLearningPatAuthTypeWorkspaceConnection(element, options);
                     case "SAS": return MachineLearningSasAuthTypeWorkspaceConnection.DeserializeMachineLearningSasAuthTypeWorkspaceConnection(element, options);
                     case "ServicePrincipal": return ServicePrincipalAuthTypeWorkspaceConnectionProperties.DeserializeServicePrincipalAuthTypeWorkspaceConnectionProperties(element, options);

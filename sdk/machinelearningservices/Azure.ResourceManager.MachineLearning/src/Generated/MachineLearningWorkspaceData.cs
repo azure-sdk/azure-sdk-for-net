@@ -58,6 +58,7 @@ namespace Azure.ResourceManager.MachineLearning
             AssociatedWorkspaces = new ChangeTrackingList<string>();
             ContainerRegistries = new ChangeTrackingList<string>();
             ExistingWorkspaces = new ChangeTrackingList<string>();
+            IPAllowlist = new ChangeTrackingList<string>();
             KeyVaults = new ChangeTrackingList<string>();
             PrivateEndpointConnections = new ChangeTrackingList<MachineLearningPrivateEndpointConnectionData>();
             SharedPrivateLinkResources = new ChangeTrackingList<MachineLearningSharedPrivateLinkResource>();
@@ -82,6 +83,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// <param name="description"> The description of this workspace. </param>
         /// <param name="discoveryUri"> Url for the discovery service to identify regional endpoints for machine learning experimentation services. </param>
         /// <param name="enableDataIsolation"></param>
+        /// <param name="enableSoftwareBillOfMaterials"> Flag to tell if SoftwareBillOfMaterials should be enabled for this workspace. </param>
         /// <param name="encryption"></param>
         /// <param name="existingWorkspaces"></param>
         /// <param name="featureStoreSettings"> Settings for feature store type workspace. </param>
@@ -89,6 +91,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// <param name="isHbiWorkspace"> The flag to signal HBI data in the workspace and reduce diagnostic data collected by the service. </param>
         /// <param name="hubResourceId"></param>
         /// <param name="imageBuildCompute"> The compute name for image build. </param>
+        /// <param name="ipAllowlist"> The list of IPv4  addresses that are allowed to access the workspace. </param>
         /// <param name="keyVault"> ARM id of the key vault associated with this workspace. This cannot be changed once the workspace has been created. </param>
         /// <param name="keyVaults"></param>
         /// <param name="managedNetwork"> Managed Network settings for a machine learning workspace. </param>
@@ -99,6 +102,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// <param name="privateLinkCount"> Count of private connections in the workspace. </param>
         /// <param name="provisioningState"> The current deployment state of workspace resource. The provisioningState is to indicate states for resource provisioning. </param>
         /// <param name="publicNetworkAccessType"> Whether requests from Public Network are allowed. </param>
+        /// <param name="serverlessComputeSettings"> Settings for serverless compute in a workspace. </param>
         /// <param name="serviceManagedResourcesSettings"> The service managed resource settings. </param>
         /// <param name="serviceProvisionedResourceGroup"> The name of the managed resource group created by workspace RP in customer subscription if the workspace is CMK workspace. </param>
         /// <param name="sharedPrivateLinkResources"> The list of shared private link resources in this workspace. </param>
@@ -112,7 +116,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// <param name="workspaceHubConfig"> WorkspaceHub's configuration object. </param>
         /// <param name="workspaceId"> The immutable id associated with this workspace. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MachineLearningWorkspaceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, string kind, MachineLearningSku sku, bool? allowPublicAccessWhenBehindVnet, string applicationInsights, IList<string> associatedWorkspaces, IList<string> containerRegistries, string containerRegistry, string description, Uri discoveryUri, bool? enableDataIsolation, MachineLearningEncryptionSetting encryption, IList<string> existingWorkspaces, FeatureStoreSettings featureStoreSettings, string friendlyName, bool? isHbiWorkspace, ResourceIdentifier hubResourceId, string imageBuildCompute, string keyVault, IList<string> keyVaults, ManagedNetworkSettings managedNetwork, Uri mlFlowTrackingUri, MachineLearningNotebookResourceInfo notebookInfo, string primaryUserAssignedIdentity, IReadOnlyList<MachineLearningPrivateEndpointConnectionData> privateEndpointConnections, int? privateLinkCount, MachineLearningProvisioningState? provisioningState, MachineLearningPublicNetworkAccessType? publicNetworkAccessType, ServiceManagedResourcesSettings serviceManagedResourcesSettings, string serviceProvisionedResourceGroup, IList<MachineLearningSharedPrivateLinkResource> sharedPrivateLinkResources, int? softDeleteRetentionInDays, string storageAccount, IList<string> storageAccounts, bool? isStorageHnsEnabled, string systemDatastoresAuthMode, Guid? tenantId, bool? isV1LegacyMode, WorkspaceHubConfig workspaceHubConfig, string workspaceId, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal MachineLearningWorkspaceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, string kind, MachineLearningSku sku, bool? allowPublicAccessWhenBehindVnet, string applicationInsights, IList<string> associatedWorkspaces, IList<string> containerRegistries, string containerRegistry, string description, Uri discoveryUri, bool? enableDataIsolation, bool? enableSoftwareBillOfMaterials, MachineLearningEncryptionSetting encryption, IList<string> existingWorkspaces, FeatureStoreSettings featureStoreSettings, string friendlyName, bool? isHbiWorkspace, ResourceIdentifier hubResourceId, string imageBuildCompute, IList<string> ipAllowlist, string keyVault, IList<string> keyVaults, ManagedNetworkSettings managedNetwork, Uri mlFlowTrackingUri, MachineLearningNotebookResourceInfo notebookInfo, string primaryUserAssignedIdentity, IReadOnlyList<MachineLearningPrivateEndpointConnectionData> privateEndpointConnections, int? privateLinkCount, MachineLearningProvisioningState? provisioningState, MachineLearningPublicNetworkAccessType? publicNetworkAccessType, ServerlessComputeSettings serverlessComputeSettings, ServiceManagedResourcesSettings serviceManagedResourcesSettings, string serviceProvisionedResourceGroup, IList<MachineLearningSharedPrivateLinkResource> sharedPrivateLinkResources, int? softDeleteRetentionInDays, string storageAccount, IList<string> storageAccounts, bool? isStorageHnsEnabled, string systemDatastoresAuthMode, Guid? tenantId, bool? isV1LegacyMode, WorkspaceHubConfig workspaceHubConfig, string workspaceId, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             Identity = identity;
             Kind = kind;
@@ -125,6 +129,7 @@ namespace Azure.ResourceManager.MachineLearning
             Description = description;
             DiscoveryUri = discoveryUri;
             EnableDataIsolation = enableDataIsolation;
+            EnableSoftwareBillOfMaterials = enableSoftwareBillOfMaterials;
             Encryption = encryption;
             ExistingWorkspaces = existingWorkspaces;
             FeatureStoreSettings = featureStoreSettings;
@@ -132,6 +137,7 @@ namespace Azure.ResourceManager.MachineLearning
             IsHbiWorkspace = isHbiWorkspace;
             HubResourceId = hubResourceId;
             ImageBuildCompute = imageBuildCompute;
+            IPAllowlist = ipAllowlist;
             KeyVault = keyVault;
             KeyVaults = keyVaults;
             ManagedNetwork = managedNetwork;
@@ -142,6 +148,7 @@ namespace Azure.ResourceManager.MachineLearning
             PrivateLinkCount = privateLinkCount;
             ProvisioningState = provisioningState;
             PublicNetworkAccessType = publicNetworkAccessType;
+            ServerlessComputeSettings = serverlessComputeSettings;
             ServiceManagedResourcesSettings = serviceManagedResourcesSettings;
             ServiceProvisionedResourceGroup = serviceProvisionedResourceGroup;
             SharedPrivateLinkResources = sharedPrivateLinkResources;
@@ -184,6 +191,8 @@ namespace Azure.ResourceManager.MachineLearning
         public Uri DiscoveryUri { get; set; }
         /// <summary> Gets or sets the enable data isolation. </summary>
         public bool? EnableDataIsolation { get; set; }
+        /// <summary> Flag to tell if SoftwareBillOfMaterials should be enabled for this workspace. </summary>
+        public bool? EnableSoftwareBillOfMaterials { get; set; }
         /// <summary> Gets or sets the encryption. </summary>
         public MachineLearningEncryptionSetting Encryption { get; set; }
         /// <summary> Gets the existing workspaces. </summary>
@@ -198,6 +207,8 @@ namespace Azure.ResourceManager.MachineLearning
         public ResourceIdentifier HubResourceId { get; set; }
         /// <summary> The compute name for image build. </summary>
         public string ImageBuildCompute { get; set; }
+        /// <summary> The list of IPv4  addresses that are allowed to access the workspace. </summary>
+        public IList<string> IPAllowlist { get; }
         /// <summary> ARM id of the key vault associated with this workspace. This cannot be changed once the workspace has been created. </summary>
         public string KeyVault { get; set; }
         /// <summary> Gets the key vaults. </summary>
@@ -218,6 +229,8 @@ namespace Azure.ResourceManager.MachineLearning
         public MachineLearningProvisioningState? ProvisioningState { get; }
         /// <summary> Whether requests from Public Network are allowed. </summary>
         public MachineLearningPublicNetworkAccessType? PublicNetworkAccessType { get; set; }
+        /// <summary> Settings for serverless compute in a workspace. </summary>
+        public ServerlessComputeSettings ServerlessComputeSettings { get; set; }
         /// <summary> The service managed resource settings. </summary>
         internal ServiceManagedResourcesSettings ServiceManagedResourcesSettings { get; set; }
         /// <summary> Gets or sets the cosmos db collections throughput. </summary>

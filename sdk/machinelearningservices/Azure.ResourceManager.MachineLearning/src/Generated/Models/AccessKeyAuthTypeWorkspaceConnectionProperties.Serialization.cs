@@ -38,22 +38,46 @@ namespace Azure.ResourceManager.MachineLearning.Models
                 writer.WritePropertyName("category"u8);
                 writer.WriteStringValue(Category.Value.ToString());
             }
+            if (options.Format != "W" && Optional.IsDefined(CreatedByWorkspaceArmId))
+            {
+                writer.WritePropertyName("createdByWorkspaceArmId"u8);
+                writer.WriteStringValue(CreatedByWorkspaceArmId);
+            }
             if (Optional.IsDefined(ExpiryOn))
             {
                 writer.WritePropertyName("expiryTime"u8);
                 writer.WriteStringValue(ExpiryOn.Value, "O");
             }
-            if (Optional.IsDefined(Metadata))
+            if (options.Format != "W" && Optional.IsDefined(Group))
+            {
+                writer.WritePropertyName("group"u8);
+                writer.WriteStringValue(Group.Value.ToString());
+            }
+            if (Optional.IsDefined(IsSharedToAll))
+            {
+                writer.WritePropertyName("isSharedToAll"u8);
+                writer.WriteBooleanValue(IsSharedToAll.Value);
+            }
+            if (Optional.IsCollectionDefined(Metadata))
             {
                 writer.WritePropertyName("metadata"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Metadata);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Metadata))
+                writer.WriteStartObject();
+                foreach (var item in Metadata)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
                 }
-#endif
+                writer.WriteEndObject();
+            }
+            if (Optional.IsCollectionDefined(SharedUserList))
+            {
+                writer.WritePropertyName("sharedUserList"u8);
+                writer.WriteStartArray();
+                foreach (var item in SharedUserList)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
             }
             if (Optional.IsDefined(Target))
             {
@@ -101,8 +125,12 @@ namespace Azure.ResourceManager.MachineLearning.Models
             WorkspaceConnectionAccessKey credentials = default;
             MachineLearningConnectionAuthType authType = default;
             MachineLearningConnectionCategory? category = default;
+            ResourceIdentifier createdByWorkspaceArmId = default;
             DateTimeOffset? expiryTime = default;
-            BinaryData metadata = default;
+            ConnectionGroup? group = default;
+            bool? isSharedToAll = default;
+            IDictionary<string, string> metadata = default;
+            IList<string> sharedUserList = default;
             string target = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -131,6 +159,15 @@ namespace Azure.ResourceManager.MachineLearning.Models
                     category = new MachineLearningConnectionCategory(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("createdByWorkspaceArmId"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    createdByWorkspaceArmId = new ResourceIdentifier(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("expiryTime"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -140,13 +177,50 @@ namespace Azure.ResourceManager.MachineLearning.Models
                     expiryTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
+                if (property.NameEquals("group"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    group = new ConnectionGroup(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("isSharedToAll"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    isSharedToAll = property.Value.GetBoolean();
+                    continue;
+                }
                 if (property.NameEquals("metadata"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    metadata = BinaryData.FromString(property.Value.GetRawText());
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        dictionary.Add(property0.Name, property0.Value.GetString());
+                    }
+                    metadata = dictionary;
+                    continue;
+                }
+                if (property.NameEquals("sharedUserList"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    sharedUserList = array;
                     continue;
                 }
                 if (property.NameEquals("target"u8))
@@ -163,8 +237,12 @@ namespace Azure.ResourceManager.MachineLearning.Models
             return new AccessKeyAuthTypeWorkspaceConnectionProperties(
                 authType,
                 category,
+                createdByWorkspaceArmId,
                 expiryTime,
-                metadata,
+                group,
+                isSharedToAll,
+                metadata ?? new ChangeTrackingDictionary<string, string>(),
+                sharedUserList ?? new ChangeTrackingList<string>(),
                 target,
                 serializedAdditionalRawData,
                 credentials);
