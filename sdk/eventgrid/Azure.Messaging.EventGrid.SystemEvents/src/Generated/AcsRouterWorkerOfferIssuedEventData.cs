@@ -14,23 +14,33 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsRouterWorkerOfferIssuedEventData : AcsRouterWorkerEventData
     {
         /// <summary> Initializes a new instance of <see cref="AcsRouterWorkerOfferIssuedEventData"/>. </summary>
+        /// <param name="jobId"> Router Event Job ID. </param>
+        /// <param name="channelReference"> Router Event Channel Reference. </param>
+        /// <param name="channelId"> Router Event Channel ID. </param>
+        /// <param name="workerId"> Router Worker events Worker Id. </param>
+        /// <param name="queueId"> Router Worker Offer Issued Queue Id. </param>
+        /// <param name="offerId"> Router Worker Offer Issued Offer Id. </param>
         /// <param name="workerLabels"> Router Worker Offer Issued Worker Labels. </param>
-        /// <param name="offeredOn"> Router Worker Offer Issued Time in UTC. </param>
-        /// <param name="expiresOn"> Router Worker Offer Issued Expiration Time in UTC. </param>
         /// <param name="workerTags"> Router Worker Offer Issued Worker Tags. </param>
         /// <param name="jobLabels"> Router Worker Offer Issued Job Labels. </param>
         /// <param name="jobTags"> Router Worker Offer Issued Job Tags. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="workerLabels"/>, <paramref name="workerTags"/>, <paramref name="jobLabels"/> or <paramref name="jobTags"/> is null. </exception>
-        internal AcsRouterWorkerOfferIssuedEventData(IReadOnlyDictionary<string, string> workerLabels, DateTimeOffset offeredOn, DateTimeOffset expiresOn, IReadOnlyDictionary<string, string> workerTags, IReadOnlyDictionary<string, string> jobLabels, IReadOnlyDictionary<string, string> jobTags)
+        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/>, <paramref name="channelReference"/>, <paramref name="channelId"/>, <paramref name="workerId"/>, <paramref name="queueId"/>, <paramref name="offerId"/>, <paramref name="workerLabels"/>, <paramref name="workerTags"/>, <paramref name="jobLabels"/> or <paramref name="jobTags"/> is null. </exception>
+        internal AcsRouterWorkerOfferIssuedEventData(string jobId, string channelReference, string channelId, string workerId, string queueId, string offerId, IReadOnlyDictionary<string, string> workerLabels, IReadOnlyDictionary<string, string> workerTags, IReadOnlyDictionary<string, string> jobLabels, IReadOnlyDictionary<string, string> jobTags) : base(jobId, channelReference, channelId, workerId)
         {
+            Argument.AssertNotNull(jobId, nameof(jobId));
+            Argument.AssertNotNull(channelReference, nameof(channelReference));
+            Argument.AssertNotNull(channelId, nameof(channelId));
+            Argument.AssertNotNull(workerId, nameof(workerId));
+            Argument.AssertNotNull(queueId, nameof(queueId));
+            Argument.AssertNotNull(offerId, nameof(offerId));
             Argument.AssertNotNull(workerLabels, nameof(workerLabels));
             Argument.AssertNotNull(workerTags, nameof(workerTags));
             Argument.AssertNotNull(jobLabels, nameof(jobLabels));
             Argument.AssertNotNull(jobTags, nameof(jobTags));
 
+            QueueId = queueId;
+            OfferId = offerId;
             WorkerLabels = workerLabels;
-            OfferedOn = offeredOn;
-            ExpiresOn = expiresOn;
             WorkerTags = workerTags;
             JobLabels = jobLabels;
             JobTags = jobTags;
@@ -51,7 +61,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="workerTags"> Router Worker Offer Issued Worker Tags. </param>
         /// <param name="jobLabels"> Router Worker Offer Issued Job Labels. </param>
         /// <param name="jobTags"> Router Worker Offer Issued Job Tags. </param>
-        internal AcsRouterWorkerOfferIssuedEventData(string jobId, string channelReference, string channelId, IDictionary<string, BinaryData> serializedAdditionalRawData, string workerId, string queueId, string offerId, int? jobPriority, IReadOnlyDictionary<string, string> workerLabels, DateTimeOffset offeredOn, DateTimeOffset expiresOn, IReadOnlyDictionary<string, string> workerTags, IReadOnlyDictionary<string, string> jobLabels, IReadOnlyDictionary<string, string> jobTags) : base(jobId, channelReference, channelId, serializedAdditionalRawData, workerId)
+        internal AcsRouterWorkerOfferIssuedEventData(string jobId, string channelReference, string channelId, IDictionary<string, BinaryData> serializedAdditionalRawData, string workerId, string queueId, string offerId, int? jobPriority, IReadOnlyDictionary<string, string> workerLabels, DateTimeOffset? offeredOn, DateTimeOffset? expiresOn, IReadOnlyDictionary<string, string> workerTags, IReadOnlyDictionary<string, string> jobLabels, IReadOnlyDictionary<string, string> jobTags) : base(jobId, channelReference, channelId, serializedAdditionalRawData, workerId)
         {
             QueueId = queueId;
             OfferId = offerId;
@@ -78,9 +88,9 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> Router Worker Offer Issued Worker Labels. </summary>
         public IReadOnlyDictionary<string, string> WorkerLabels { get; }
         /// <summary> Router Worker Offer Issued Time in UTC. </summary>
-        public DateTimeOffset OfferedOn { get; }
+        public DateTimeOffset? OfferedOn { get; }
         /// <summary> Router Worker Offer Issued Expiration Time in UTC. </summary>
-        public DateTimeOffset ExpiresOn { get; }
+        public DateTimeOffset? ExpiresOn { get; }
         /// <summary> Router Worker Offer Issued Worker Tags. </summary>
         public IReadOnlyDictionary<string, string> WorkerTags { get; }
         /// <summary> Router Worker Offer Issued Job Labels. </summary>

@@ -14,13 +14,31 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsRouterJobClosedEventData : AcsRouterJobEventData
     {
         /// <summary> Initializes a new instance of <see cref="AcsRouterJobClosedEventData"/>. </summary>
+        /// <param name="jobId"> Router Event Job ID. </param>
+        /// <param name="channelReference"> Router Event Channel Reference. </param>
+        /// <param name="channelId"> Router Event Channel ID. </param>
+        /// <param name="queueId"> Router Job events Queue Id. </param>
         /// <param name="labels"> Router Job events Labels. </param>
         /// <param name="tags"> Router Jobs events Tags. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="labels"/> or <paramref name="tags"/> is null. </exception>
-        internal AcsRouterJobClosedEventData(IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags) : base(labels, tags)
+        /// <param name="assignmentId"> Router Job Closed Assignment Id. </param>
+        /// <param name="workerId"> Router Job Closed Worker Id. </param>
+        /// <param name="dispositionCode"> Router Job Closed Disposition Code. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/>, <paramref name="channelReference"/>, <paramref name="channelId"/>, <paramref name="queueId"/>, <paramref name="labels"/>, <paramref name="tags"/>, <paramref name="assignmentId"/>, <paramref name="workerId"/> or <paramref name="dispositionCode"/> is null. </exception>
+        internal AcsRouterJobClosedEventData(string jobId, string channelReference, string channelId, string queueId, IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags, string assignmentId, string workerId, string dispositionCode) : base(jobId, channelReference, channelId, queueId, labels, tags)
         {
+            Argument.AssertNotNull(jobId, nameof(jobId));
+            Argument.AssertNotNull(channelReference, nameof(channelReference));
+            Argument.AssertNotNull(channelId, nameof(channelId));
+            Argument.AssertNotNull(queueId, nameof(queueId));
             Argument.AssertNotNull(labels, nameof(labels));
             Argument.AssertNotNull(tags, nameof(tags));
+            Argument.AssertNotNull(assignmentId, nameof(assignmentId));
+            Argument.AssertNotNull(workerId, nameof(workerId));
+            Argument.AssertNotNull(dispositionCode, nameof(dispositionCode));
+
+            AssignmentId = assignmentId;
+            WorkerId = workerId;
+            DispositionCode = dispositionCode;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterJobClosedEventData"/>. </summary>

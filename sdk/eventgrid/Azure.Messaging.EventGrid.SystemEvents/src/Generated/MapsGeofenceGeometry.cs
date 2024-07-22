@@ -46,8 +46,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MapsGeofenceGeometry"/>. </summary>
-        internal MapsGeofenceGeometry()
+        /// <param name="deviceId"> ID of the device. </param>
+        /// <param name="geometryId"> The unique ID for the geofence geometry. </param>
+        /// <param name="udId"> The unique id returned from user upload service when uploading a geofence. Will not be included in geofencing post API. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deviceId"/>, <paramref name="geometryId"/> or <paramref name="udId"/> is null. </exception>
+        internal MapsGeofenceGeometry(string deviceId, string geometryId, string udId)
         {
+            Argument.AssertNotNull(deviceId, nameof(deviceId));
+            Argument.AssertNotNull(geometryId, nameof(geometryId));
+            Argument.AssertNotNull(udId, nameof(udId));
+
+            DeviceId = deviceId;
+            GeometryId = geometryId;
+            UdId = udId;
         }
 
         /// <summary> Initializes a new instance of <see cref="MapsGeofenceGeometry"/>. </summary>
@@ -67,6 +78,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             NearestLon = nearestLon;
             UdId = udId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="MapsGeofenceGeometry"/> for deserialization. </summary>
+        internal MapsGeofenceGeometry()
+        {
         }
 
         /// <summary> ID of the device. </summary>

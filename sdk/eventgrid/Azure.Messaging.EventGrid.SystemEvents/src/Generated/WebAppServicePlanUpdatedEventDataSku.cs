@@ -46,8 +46,25 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="WebAppServicePlanUpdatedEventDataSku"/>. </summary>
-        internal WebAppServicePlanUpdatedEventDataSku()
+        /// <param name="name"> name of app service plan sku. </param>
+        /// <param name="tier"> tier of app service plan sku. </param>
+        /// <param name="size"> size of app service plan sku. </param>
+        /// <param name="family"> family of app service plan sku. </param>
+        /// <param name="capacity"> capacity of app service plan sku. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/>, <paramref name="tier"/>, <paramref name="size"/>, <paramref name="family"/> or <paramref name="capacity"/> is null. </exception>
+        internal WebAppServicePlanUpdatedEventDataSku(string name, string tier, string size, string family, string capacity)
         {
+            Argument.AssertNotNull(name, nameof(name));
+            Argument.AssertNotNull(tier, nameof(tier));
+            Argument.AssertNotNull(size, nameof(size));
+            Argument.AssertNotNull(family, nameof(family));
+            Argument.AssertNotNull(capacity, nameof(capacity));
+
+            Name = name;
+            Tier = tier;
+            Size = size;
+            Family = family;
+            Capacity = capacity;
         }
 
         /// <summary> Initializes a new instance of <see cref="WebAppServicePlanUpdatedEventDataSku"/>. </summary>
@@ -65,6 +82,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             Family = family;
             Capacity = capacity;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="WebAppServicePlanUpdatedEventDataSku"/> for deserialization. </summary>
+        internal WebAppServicePlanUpdatedEventDataSku()
+        {
         }
 
         /// <summary> name of app service plan sku. </summary>

@@ -46,8 +46,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsMessageInteractiveButtonReplyContent"/>. </summary>
-        internal AcsMessageInteractiveButtonReplyContent()
+        /// <param name="buttonId"> The ID of the button. </param>
+        /// <param name="title"> The title of the button. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="buttonId"/> or <paramref name="title"/> is null. </exception>
+        internal AcsMessageInteractiveButtonReplyContent(string buttonId, string title)
         {
+            Argument.AssertNotNull(buttonId, nameof(buttonId));
+            Argument.AssertNotNull(title, nameof(title));
+
+            ButtonId = buttonId;
+            Title = title;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsMessageInteractiveButtonReplyContent"/>. </summary>
@@ -59,6 +67,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             ButtonId = buttonId;
             Title = title;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AcsMessageInteractiveButtonReplyContent"/> for deserialization. </summary>
+        internal AcsMessageInteractiveButtonReplyContent()
+        {
         }
 
         /// <summary> The ID of the button. </summary>

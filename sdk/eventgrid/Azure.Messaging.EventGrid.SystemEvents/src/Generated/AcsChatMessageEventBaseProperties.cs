@@ -15,16 +15,27 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     {
         /// <summary> Initializes a new instance of <see cref="AcsChatMessageEventBaseProperties"/>. </summary>
         /// <param name="recipientCommunicationIdentifier"> The communication identifier of the target user. </param>
+        /// <param name="transactionId"> The transaction id will be used as co-relation vector. </param>
+        /// <param name="threadId"> The chat thread id. </param>
+        /// <param name="messageId"> The chat message id. </param>
         /// <param name="senderCommunicationIdentifier"> The communication identifier of the sender. </param>
-        /// <param name="composeTime"> The original compose time of the message. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="recipientCommunicationIdentifier"/> or <paramref name="senderCommunicationIdentifier"/> is null. </exception>
-        internal AcsChatMessageEventBaseProperties(CommunicationIdentifierModel recipientCommunicationIdentifier, CommunicationIdentifierModel senderCommunicationIdentifier, DateTimeOffset composeTime) : base(recipientCommunicationIdentifier)
+        /// <param name="senderDisplayName"> The display name of the sender. </param>
+        /// <param name="type"> The type of the message. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="recipientCommunicationIdentifier"/>, <paramref name="transactionId"/>, <paramref name="threadId"/>, <paramref name="messageId"/>, <paramref name="senderCommunicationIdentifier"/>, <paramref name="senderDisplayName"/> or <paramref name="type"/> is null. </exception>
+        internal AcsChatMessageEventBaseProperties(CommunicationIdentifierModel recipientCommunicationIdentifier, string transactionId, string threadId, string messageId, CommunicationIdentifierModel senderCommunicationIdentifier, string senderDisplayName, string type) : base(recipientCommunicationIdentifier, transactionId, threadId)
         {
             Argument.AssertNotNull(recipientCommunicationIdentifier, nameof(recipientCommunicationIdentifier));
+            Argument.AssertNotNull(transactionId, nameof(transactionId));
+            Argument.AssertNotNull(threadId, nameof(threadId));
+            Argument.AssertNotNull(messageId, nameof(messageId));
             Argument.AssertNotNull(senderCommunicationIdentifier, nameof(senderCommunicationIdentifier));
+            Argument.AssertNotNull(senderDisplayName, nameof(senderDisplayName));
+            Argument.AssertNotNull(type, nameof(type));
 
+            MessageId = messageId;
             SenderCommunicationIdentifier = senderCommunicationIdentifier;
-            ComposeTime = composeTime;
+            SenderDisplayName = senderDisplayName;
+            Type = type;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsChatMessageEventBaseProperties"/>. </summary>
@@ -38,7 +49,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="composeTime"> The original compose time of the message. </param>
         /// <param name="type"> The type of the message. </param>
         /// <param name="version"> The version of the message. </param>
-        internal AcsChatMessageEventBaseProperties(CommunicationIdentifierModel recipientCommunicationIdentifier, string transactionId, string threadId, IDictionary<string, BinaryData> serializedAdditionalRawData, string messageId, CommunicationIdentifierModel senderCommunicationIdentifier, string senderDisplayName, DateTimeOffset composeTime, string type, long? version) : base(recipientCommunicationIdentifier, transactionId, threadId, serializedAdditionalRawData)
+        internal AcsChatMessageEventBaseProperties(CommunicationIdentifierModel recipientCommunicationIdentifier, string transactionId, string threadId, IDictionary<string, BinaryData> serializedAdditionalRawData, string messageId, CommunicationIdentifierModel senderCommunicationIdentifier, string senderDisplayName, DateTimeOffset? composeTime, string type, long? version) : base(recipientCommunicationIdentifier, transactionId, threadId, serializedAdditionalRawData)
         {
             MessageId = messageId;
             SenderCommunicationIdentifier = senderCommunicationIdentifier;
@@ -60,7 +71,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> The display name of the sender. </summary>
         public string SenderDisplayName { get; }
         /// <summary> The original compose time of the message. </summary>
-        public DateTimeOffset ComposeTime { get; }
+        public DateTimeOffset? ComposeTime { get; }
         /// <summary> The type of the message. </summary>
         public string Type { get; }
         /// <summary> The version of the message. </summary>

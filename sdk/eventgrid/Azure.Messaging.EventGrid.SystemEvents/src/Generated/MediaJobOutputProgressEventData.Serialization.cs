@@ -26,11 +26,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Label))
-            {
-                writer.WritePropertyName("label"u8);
-                writer.WriteStringValue(Label);
-            }
+            writer.WritePropertyName("label"u8);
+            writer.WriteStringValue(Label);
             if (Optional.IsDefined(Progress))
             {
                 writer.WritePropertyName("progress"u8);

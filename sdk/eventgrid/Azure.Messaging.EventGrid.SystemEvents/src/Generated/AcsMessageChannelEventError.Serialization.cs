@@ -26,16 +26,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(ChannelCode))
-            {
-                writer.WritePropertyName("channelCode"u8);
-                writer.WriteStringValue(ChannelCode);
-            }
-            if (Optional.IsDefined(ChannelMessage))
-            {
-                writer.WritePropertyName("channelMessage"u8);
-                writer.WriteStringValue(ChannelMessage);
-            }
+            writer.WritePropertyName("channelCode"u8);
+            writer.WriteStringValue(ChannelCode);
+            writer.WritePropertyName("channelMessage"u8);
+            writer.WriteStringValue(ChannelMessage);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

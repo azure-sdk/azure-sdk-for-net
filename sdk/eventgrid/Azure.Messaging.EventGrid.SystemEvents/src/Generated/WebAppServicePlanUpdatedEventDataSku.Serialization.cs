@@ -26,31 +26,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Name))
-            {
-                writer.WritePropertyName("name"u8);
-                writer.WriteStringValue(Name);
-            }
-            if (Optional.IsDefined(Tier))
-            {
-                writer.WritePropertyName("Tier"u8);
-                writer.WriteStringValue(Tier);
-            }
-            if (Optional.IsDefined(Size))
-            {
-                writer.WritePropertyName("Size"u8);
-                writer.WriteStringValue(Size);
-            }
-            if (Optional.IsDefined(Family))
-            {
-                writer.WritePropertyName("Family"u8);
-                writer.WriteStringValue(Family);
-            }
-            if (Optional.IsDefined(Capacity))
-            {
-                writer.WritePropertyName("Capacity"u8);
-                writer.WriteStringValue(Capacity);
-            }
+            writer.WritePropertyName("name"u8);
+            writer.WriteStringValue(Name);
+            writer.WritePropertyName("Tier"u8);
+            writer.WriteStringValue(Tier);
+            writer.WritePropertyName("Size"u8);
+            writer.WriteStringValue(Size);
+            writer.WritePropertyName("Family"u8);
+            writer.WriteStringValue(Family);
+            writer.WritePropertyName("Capacity"u8);
+            writer.WriteStringValue(Capacity);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

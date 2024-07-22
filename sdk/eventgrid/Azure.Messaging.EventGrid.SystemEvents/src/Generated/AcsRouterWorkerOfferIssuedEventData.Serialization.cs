@@ -26,16 +26,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(QueueId))
-            {
-                writer.WritePropertyName("queueId"u8);
-                writer.WriteStringValue(QueueId);
-            }
-            if (Optional.IsDefined(OfferId))
-            {
-                writer.WritePropertyName("offerId"u8);
-                writer.WriteStringValue(OfferId);
-            }
+            writer.WritePropertyName("queueId"u8);
+            writer.WriteStringValue(QueueId);
+            writer.WritePropertyName("offerId"u8);
+            writer.WriteStringValue(OfferId);
             if (Optional.IsDefined(JobPriority))
             {
                 writer.WritePropertyName("jobPriority"u8);
@@ -49,10 +43,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteStringValue(item.Value);
             }
             writer.WriteEndObject();
-            writer.WritePropertyName("offeredOn"u8);
-            writer.WriteStringValue(OfferedOn, "O");
-            writer.WritePropertyName("expiresOn"u8);
-            writer.WriteStringValue(ExpiresOn, "O");
+            if (Optional.IsDefined(OfferedOn))
+            {
+                writer.WritePropertyName("offeredOn"u8);
+                writer.WriteStringValue(OfferedOn.Value, "O");
+            }
+            if (Optional.IsDefined(ExpiresOn))
+            {
+                writer.WritePropertyName("expiresOn"u8);
+                writer.WriteStringValue(ExpiresOn.Value, "O");
+            }
             writer.WritePropertyName("workerTags"u8);
             writer.WriteStartObject();
             foreach (var item in WorkerTags)
@@ -77,26 +77,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteStringValue(item.Value);
             }
             writer.WriteEndObject();
-            if (Optional.IsDefined(WorkerId))
-            {
-                writer.WritePropertyName("workerId"u8);
-                writer.WriteStringValue(WorkerId);
-            }
-            if (Optional.IsDefined(JobId))
-            {
-                writer.WritePropertyName("jobId"u8);
-                writer.WriteStringValue(JobId);
-            }
-            if (Optional.IsDefined(ChannelReference))
-            {
-                writer.WritePropertyName("channelReference"u8);
-                writer.WriteStringValue(ChannelReference);
-            }
-            if (Optional.IsDefined(ChannelId))
-            {
-                writer.WritePropertyName("channelId"u8);
-                writer.WriteStringValue(ChannelId);
-            }
+            writer.WritePropertyName("workerId"u8);
+            writer.WriteStringValue(WorkerId);
+            writer.WritePropertyName("jobId"u8);
+            writer.WriteStringValue(JobId);
+            writer.WritePropertyName("channelReference"u8);
+            writer.WriteStringValue(ChannelReference);
+            writer.WritePropertyName("channelId"u8);
+            writer.WriteStringValue(ChannelId);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -139,8 +127,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             string offerId = default;
             int? jobPriority = default;
             IReadOnlyDictionary<string, string> workerLabels = default;
-            DateTimeOffset offeredOn = default;
-            DateTimeOffset expiresOn = default;
+            DateTimeOffset? offeredOn = default;
+            DateTimeOffset? expiresOn = default;
             IReadOnlyDictionary<string, string> workerTags = default;
             IReadOnlyDictionary<string, string> jobLabels = default;
             IReadOnlyDictionary<string, string> jobTags = default;
@@ -183,11 +171,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("offeredOn"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     offeredOn = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
                 if (property.NameEquals("expiresOn"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     expiresOn = property.Value.GetDateTimeOffset("O");
                     continue;
                 }

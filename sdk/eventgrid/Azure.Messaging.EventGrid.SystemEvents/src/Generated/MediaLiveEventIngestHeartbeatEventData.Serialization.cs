@@ -26,26 +26,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(TrackType))
-            {
-                writer.WritePropertyName("trackType"u8);
-                writer.WriteStringValue(TrackType);
-            }
-            if (Optional.IsDefined(TrackName))
-            {
-                writer.WritePropertyName("trackName"u8);
-                writer.WriteStringValue(TrackName);
-            }
-            if (Optional.IsDefined(TranscriptionLanguage))
-            {
-                writer.WritePropertyName("transcriptionLanguage"u8);
-                writer.WriteStringValue(TranscriptionLanguage);
-            }
-            if (Optional.IsDefined(TranscriptionState))
-            {
-                writer.WritePropertyName("transcriptionState"u8);
-                writer.WriteStringValue(TranscriptionState);
-            }
+            writer.WritePropertyName("trackType"u8);
+            writer.WriteStringValue(TrackType);
+            writer.WritePropertyName("trackName"u8);
+            writer.WriteStringValue(TrackName);
+            writer.WritePropertyName("transcriptionLanguage"u8);
+            writer.WriteStringValue(TranscriptionLanguage);
+            writer.WritePropertyName("transcriptionState"u8);
+            writer.WriteStringValue(TranscriptionState);
             if (Optional.IsDefined(Bitrate))
             {
                 writer.WritePropertyName("bitrate"u8);
@@ -56,26 +44,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("incomingBitrate"u8);
                 writer.WriteNumberValue(IncomingBitrate.Value);
             }
-            if (Optional.IsDefined(IngestDriftValue))
-            {
-                writer.WritePropertyName("ingestDriftValue"u8);
-                writer.WriteStringValue(IngestDriftValue);
-            }
-            if (Optional.IsDefined(LastFragmentArrivalTime))
-            {
-                writer.WritePropertyName("lastFragmentArrivalTime"u8);
-                writer.WriteStringValue(LastFragmentArrivalTime);
-            }
-            if (Optional.IsDefined(LastTimestamp))
-            {
-                writer.WritePropertyName("lastTimestamp"u8);
-                writer.WriteStringValue(LastTimestamp);
-            }
-            if (Optional.IsDefined(Timescale))
-            {
-                writer.WritePropertyName("timescale"u8);
-                writer.WriteStringValue(Timescale);
-            }
+            writer.WritePropertyName("ingestDriftValue"u8);
+            writer.WriteStringValue(IngestDriftValue);
+            writer.WritePropertyName("lastFragmentArrivalTime"u8);
+            writer.WriteStringValue(LastFragmentArrivalTime);
+            writer.WritePropertyName("lastTimestamp"u8);
+            writer.WriteStringValue(LastTimestamp);
+            writer.WritePropertyName("timescale"u8);
+            writer.WriteStringValue(Timescale);
             if (Optional.IsDefined(OverlapCount))
             {
                 writer.WritePropertyName("overlapCount"u8);
@@ -96,11 +72,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("unexpectedBitrate"u8);
                 writer.WriteBooleanValue(UnexpectedBitrate.Value);
             }
-            if (Optional.IsDefined(State))
-            {
-                writer.WritePropertyName("state"u8);
-                writer.WriteStringValue(State);
-            }
+            writer.WritePropertyName("state"u8);
+            writer.WriteStringValue(State);
             if (Optional.IsDefined(Healthy))
             {
                 writer.WritePropertyName("healthy"u8);

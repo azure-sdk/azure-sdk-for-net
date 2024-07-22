@@ -46,8 +46,25 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ContainerRegistryEventRequest"/>. </summary>
-        internal ContainerRegistryEventRequest()
+        /// <param name="id"> The ID of the request that initiated the event. </param>
+        /// <param name="addr"> The IP or hostname and possibly port of the client connection that initiated the event. This is the RemoteAddr from the standard http request. </param>
+        /// <param name="host"> The externally accessible hostname of the registry instance, as specified by the http host header on incoming requests. </param>
+        /// <param name="method"> The request method that generated the event. </param>
+        /// <param name="useragent"> The user agent header of the request. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="id"/>, <paramref name="addr"/>, <paramref name="host"/>, <paramref name="method"/> or <paramref name="useragent"/> is null. </exception>
+        internal ContainerRegistryEventRequest(string id, string addr, string host, string method, string useragent)
         {
+            Argument.AssertNotNull(id, nameof(id));
+            Argument.AssertNotNull(addr, nameof(addr));
+            Argument.AssertNotNull(host, nameof(host));
+            Argument.AssertNotNull(method, nameof(method));
+            Argument.AssertNotNull(useragent, nameof(useragent));
+
+            Id = id;
+            Addr = addr;
+            Host = host;
+            Method = method;
+            Useragent = useragent;
         }
 
         /// <summary> Initializes a new instance of <see cref="ContainerRegistryEventRequest"/>. </summary>
@@ -65,6 +82,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             Method = method;
             Useragent = useragent;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContainerRegistryEventRequest"/> for deserialization. </summary>
+        internal ContainerRegistryEventRequest()
+        {
         }
 
         /// <summary> The ID of the request that initiated the event. </summary>

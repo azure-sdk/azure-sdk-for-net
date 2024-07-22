@@ -26,11 +26,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(KubernetesVersion))
-            {
-                writer.WritePropertyName("kubernetesVersion"u8);
-                writer.WriteStringValue(KubernetesVersion);
-            }
+            writer.WritePropertyName("kubernetesVersion"u8);
+            writer.WriteStringValue(KubernetesVersion);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

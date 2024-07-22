@@ -14,8 +14,17 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AvsClusterUpdatedEventData : AvsClusterEventData
     {
         /// <summary> Initializes a new instance of <see cref="AvsClusterUpdatedEventData"/>. </summary>
-        internal AvsClusterUpdatedEventData()
+        /// <param name="operationId"> Id of the operation that caused this event. </param>
+        /// <param name="addedHostNames"> Hosts added to the cluster in this event, if any. </param>
+        /// <param name="removedHostNames"> Hosts removed from the cluster in this event, if any. </param>
+        /// <param name="inMaintenanceHostNames"> Hosts in Maintenance mode in the cluster, if any. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="operationId"/>, <paramref name="addedHostNames"/>, <paramref name="removedHostNames"/> or <paramref name="inMaintenanceHostNames"/> is null. </exception>
+        internal AvsClusterUpdatedEventData(string operationId, IEnumerable<string> addedHostNames, IEnumerable<string> removedHostNames, IEnumerable<string> inMaintenanceHostNames) : base(operationId, addedHostNames, removedHostNames, inMaintenanceHostNames)
         {
+            Argument.AssertNotNull(operationId, nameof(operationId));
+            Argument.AssertNotNull(addedHostNames, nameof(addedHostNames));
+            Argument.AssertNotNull(removedHostNames, nameof(removedHostNames));
+            Argument.AssertNotNull(inMaintenanceHostNames, nameof(inMaintenanceHostNames));
         }
 
         /// <summary> Initializes a new instance of <see cref="AvsClusterUpdatedEventData"/>. </summary>
@@ -25,6 +34,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="inMaintenanceHostNames"> Hosts in Maintenance mode in the cluster, if any. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal AvsClusterUpdatedEventData(string operationId, IReadOnlyList<string> addedHostNames, IReadOnlyList<string> removedHostNames, IReadOnlyList<string> inMaintenanceHostNames, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(operationId, addedHostNames, removedHostNames, inMaintenanceHostNames, serializedAdditionalRawData)
+        {
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AvsClusterUpdatedEventData"/> for deserialization. </summary>
+        internal AvsClusterUpdatedEventData()
         {
         }
     }

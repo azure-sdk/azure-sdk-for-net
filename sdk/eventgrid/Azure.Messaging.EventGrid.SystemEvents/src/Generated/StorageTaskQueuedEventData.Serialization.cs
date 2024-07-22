@@ -26,13 +26,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("queuedDateTime"u8);
-            writer.WriteStringValue(QueuedDateTime, "O");
-            if (Optional.IsDefined(TaskExecutionId))
+            if (Optional.IsDefined(QueuedDateTime))
             {
-                writer.WritePropertyName("taskExecutionId"u8);
-                writer.WriteStringValue(TaskExecutionId);
+                writer.WritePropertyName("queuedDateTime"u8);
+                writer.WriteStringValue(QueuedDateTime.Value, "O");
             }
+            writer.WritePropertyName("taskExecutionId"u8);
+            writer.WriteStringValue(TaskExecutionId);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -71,7 +71,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            DateTimeOffset queuedDateTime = default;
+            DateTimeOffset? queuedDateTime = default;
             string taskExecutionId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -79,6 +79,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("queuedDateTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     queuedDateTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }

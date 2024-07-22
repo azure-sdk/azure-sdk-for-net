@@ -26,31 +26,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(IngestUrl))
-            {
-                writer.WritePropertyName("ingestUrl"u8);
-                writer.WriteStringValue(IngestUrl);
-            }
-            if (Optional.IsDefined(StreamId))
-            {
-                writer.WritePropertyName("streamId"u8);
-                writer.WriteStringValue(StreamId);
-            }
-            if (Optional.IsDefined(EncoderIp))
-            {
-                writer.WritePropertyName("encoderIp"u8);
-                writer.WriteStringValue(EncoderIp);
-            }
-            if (Optional.IsDefined(EncoderPort))
-            {
-                writer.WritePropertyName("encoderPort"u8);
-                writer.WriteStringValue(EncoderPort);
-            }
-            if (Optional.IsDefined(ResultCode))
-            {
-                writer.WritePropertyName("resultCode"u8);
-                writer.WriteStringValue(ResultCode);
-            }
+            writer.WritePropertyName("ingestUrl"u8);
+            writer.WriteStringValue(IngestUrl);
+            writer.WritePropertyName("streamId"u8);
+            writer.WriteStringValue(StreamId);
+            writer.WritePropertyName("encoderIp"u8);
+            writer.WriteStringValue(EncoderIp);
+            writer.WritePropertyName("encoderPort"u8);
+            writer.WriteStringValue(EncoderPort);
+            writer.WritePropertyName("resultCode"u8);
+            writer.WriteStringValue(ResultCode);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

@@ -46,8 +46,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsMessageChannelEventError"/>. </summary>
-        internal AcsMessageChannelEventError()
+        /// <param name="channelCode"> The channel error code. </param>
+        /// <param name="channelMessage"> The channel error message. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="channelCode"/> or <paramref name="channelMessage"/> is null. </exception>
+        internal AcsMessageChannelEventError(string channelCode, string channelMessage)
         {
+            Argument.AssertNotNull(channelCode, nameof(channelCode));
+            Argument.AssertNotNull(channelMessage, nameof(channelMessage));
+
+            ChannelCode = channelCode;
+            ChannelMessage = channelMessage;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsMessageChannelEventError"/>. </summary>
@@ -59,6 +67,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             ChannelCode = channelCode;
             ChannelMessage = channelMessage;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AcsMessageChannelEventError"/> for deserialization. </summary>
+        internal AcsMessageChannelEventError()
+        {
         }
 
         /// <summary> The channel error code. </summary>

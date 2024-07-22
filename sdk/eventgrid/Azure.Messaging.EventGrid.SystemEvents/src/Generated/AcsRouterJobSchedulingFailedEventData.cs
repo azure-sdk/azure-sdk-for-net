@@ -15,22 +15,31 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsRouterJobSchedulingFailedEventData : AcsRouterJobEventData
     {
         /// <summary> Initializes a new instance of <see cref="AcsRouterJobSchedulingFailedEventData"/>. </summary>
+        /// <param name="jobId"> Router Event Job ID. </param>
+        /// <param name="channelReference"> Router Event Channel Reference. </param>
+        /// <param name="channelId"> Router Event Channel ID. </param>
+        /// <param name="queueId"> Router Job events Queue Id. </param>
         /// <param name="labels"> Router Job events Labels. </param>
         /// <param name="tags"> Router Jobs events Tags. </param>
         /// <param name="expiredAttachedWorkerSelectors"> Router Job Scheduling Failed Attached Worker Selector Expired. </param>
         /// <param name="expiredRequestedWorkerSelectors"> Router Job Scheduling Failed Requested Worker Selector Expired. </param>
-        /// <param name="scheduledOn"> Router Job Scheduling Failed Scheduled Time in UTC. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="labels"/>, <paramref name="tags"/>, <paramref name="expiredAttachedWorkerSelectors"/> or <paramref name="expiredRequestedWorkerSelectors"/> is null. </exception>
-        internal AcsRouterJobSchedulingFailedEventData(IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags, IEnumerable<AcsRouterWorkerSelector> expiredAttachedWorkerSelectors, IEnumerable<AcsRouterWorkerSelector> expiredRequestedWorkerSelectors, DateTimeOffset scheduledOn) : base(labels, tags)
+        /// <param name="failureReason"> Router Job Scheduling Failed Reason. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/>, <paramref name="channelReference"/>, <paramref name="channelId"/>, <paramref name="queueId"/>, <paramref name="labels"/>, <paramref name="tags"/>, <paramref name="expiredAttachedWorkerSelectors"/>, <paramref name="expiredRequestedWorkerSelectors"/> or <paramref name="failureReason"/> is null. </exception>
+        internal AcsRouterJobSchedulingFailedEventData(string jobId, string channelReference, string channelId, string queueId, IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags, IEnumerable<AcsRouterWorkerSelector> expiredAttachedWorkerSelectors, IEnumerable<AcsRouterWorkerSelector> expiredRequestedWorkerSelectors, string failureReason) : base(jobId, channelReference, channelId, queueId, labels, tags)
         {
+            Argument.AssertNotNull(jobId, nameof(jobId));
+            Argument.AssertNotNull(channelReference, nameof(channelReference));
+            Argument.AssertNotNull(channelId, nameof(channelId));
+            Argument.AssertNotNull(queueId, nameof(queueId));
             Argument.AssertNotNull(labels, nameof(labels));
             Argument.AssertNotNull(tags, nameof(tags));
             Argument.AssertNotNull(expiredAttachedWorkerSelectors, nameof(expiredAttachedWorkerSelectors));
             Argument.AssertNotNull(expiredRequestedWorkerSelectors, nameof(expiredRequestedWorkerSelectors));
+            Argument.AssertNotNull(failureReason, nameof(failureReason));
 
             ExpiredAttachedWorkerSelectors = expiredAttachedWorkerSelectors.ToList();
             ExpiredRequestedWorkerSelectors = expiredRequestedWorkerSelectors.ToList();
-            ScheduledOn = scheduledOn;
+            FailureReason = failureReason;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterJobSchedulingFailedEventData"/>. </summary>
@@ -46,7 +55,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="expiredRequestedWorkerSelectors"> Router Job Scheduling Failed Requested Worker Selector Expired. </param>
         /// <param name="scheduledOn"> Router Job Scheduling Failed Scheduled Time in UTC. </param>
         /// <param name="failureReason"> Router Job Scheduling Failed Reason. </param>
-        internal AcsRouterJobSchedulingFailedEventData(string jobId, string channelReference, string channelId, IDictionary<string, BinaryData> serializedAdditionalRawData, string queueId, IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags, int? priority, IReadOnlyList<AcsRouterWorkerSelector> expiredAttachedWorkerSelectors, IReadOnlyList<AcsRouterWorkerSelector> expiredRequestedWorkerSelectors, DateTimeOffset scheduledOn, string failureReason) : base(jobId, channelReference, channelId, serializedAdditionalRawData, queueId, labels, tags)
+        internal AcsRouterJobSchedulingFailedEventData(string jobId, string channelReference, string channelId, IDictionary<string, BinaryData> serializedAdditionalRawData, string queueId, IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags, int? priority, IReadOnlyList<AcsRouterWorkerSelector> expiredAttachedWorkerSelectors, IReadOnlyList<AcsRouterWorkerSelector> expiredRequestedWorkerSelectors, DateTimeOffset? scheduledOn, string failureReason) : base(jobId, channelReference, channelId, serializedAdditionalRawData, queueId, labels, tags)
         {
             Priority = priority;
             ExpiredAttachedWorkerSelectors = expiredAttachedWorkerSelectors;
@@ -67,7 +76,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> Router Job Scheduling Failed Requested Worker Selector Expired. </summary>
         public IReadOnlyList<AcsRouterWorkerSelector> ExpiredRequestedWorkerSelectors { get; }
         /// <summary> Router Job Scheduling Failed Scheduled Time in UTC. </summary>
-        public DateTimeOffset ScheduledOn { get; }
+        public DateTimeOffset? ScheduledOn { get; }
         /// <summary> Router Job Scheduling Failed Reason. </summary>
         public string FailureReason { get; }
     }

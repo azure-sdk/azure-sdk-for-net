@@ -26,8 +26,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("createTime"u8);
-            writer.WriteStringValue(CreateTime, "O");
+            if (Optional.IsDefined(CreateTime))
+            {
+                writer.WritePropertyName("createTime"u8);
+                writer.WriteStringValue(CreateTime.Value, "O");
+            }
             if (Optional.IsDefined(Version))
             {
                 writer.WritePropertyName("version"u8);
@@ -35,16 +38,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
             writer.WritePropertyName("recipientCommunicationIdentifier"u8);
             writer.WriteObjectValue(RecipientCommunicationIdentifier, options);
-            if (Optional.IsDefined(TransactionId))
-            {
-                writer.WritePropertyName("transactionId"u8);
-                writer.WriteStringValue(TransactionId);
-            }
-            if (Optional.IsDefined(ThreadId))
-            {
-                writer.WritePropertyName("threadId"u8);
-                writer.WriteStringValue(ThreadId);
-            }
+            writer.WritePropertyName("transactionId"u8);
+            writer.WriteStringValue(TransactionId);
+            writer.WritePropertyName("threadId"u8);
+            writer.WriteStringValue(ThreadId);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -83,7 +80,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            DateTimeOffset createTime = default;
+            DateTimeOffset? createTime = default;
             long? version = default;
             CommunicationIdentifierModel recipientCommunicationIdentifier = default;
             string transactionId = default;
@@ -94,6 +91,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("createTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     createTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }

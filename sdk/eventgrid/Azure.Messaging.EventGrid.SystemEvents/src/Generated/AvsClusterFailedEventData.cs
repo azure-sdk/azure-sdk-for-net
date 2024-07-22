@@ -14,8 +14,21 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AvsClusterFailedEventData : AvsClusterEventData
     {
         /// <summary> Initializes a new instance of <see cref="AvsClusterFailedEventData"/>. </summary>
-        internal AvsClusterFailedEventData()
+        /// <param name="operationId"> Id of the operation that caused this event. </param>
+        /// <param name="addedHostNames"> Hosts added to the cluster in this event, if any. </param>
+        /// <param name="removedHostNames"> Hosts removed from the cluster in this event, if any. </param>
+        /// <param name="inMaintenanceHostNames"> Hosts in Maintenance mode in the cluster, if any. </param>
+        /// <param name="failureMessage"> Failure reason of an event. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="operationId"/>, <paramref name="addedHostNames"/>, <paramref name="removedHostNames"/>, <paramref name="inMaintenanceHostNames"/> or <paramref name="failureMessage"/> is null. </exception>
+        internal AvsClusterFailedEventData(string operationId, IEnumerable<string> addedHostNames, IEnumerable<string> removedHostNames, IEnumerable<string> inMaintenanceHostNames, string failureMessage) : base(operationId, addedHostNames, removedHostNames, inMaintenanceHostNames)
         {
+            Argument.AssertNotNull(operationId, nameof(operationId));
+            Argument.AssertNotNull(addedHostNames, nameof(addedHostNames));
+            Argument.AssertNotNull(removedHostNames, nameof(removedHostNames));
+            Argument.AssertNotNull(inMaintenanceHostNames, nameof(inMaintenanceHostNames));
+            Argument.AssertNotNull(failureMessage, nameof(failureMessage));
+
+            FailureMessage = failureMessage;
         }
 
         /// <summary> Initializes a new instance of <see cref="AvsClusterFailedEventData"/>. </summary>
@@ -28,6 +41,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         internal AvsClusterFailedEventData(string operationId, IReadOnlyList<string> addedHostNames, IReadOnlyList<string> removedHostNames, IReadOnlyList<string> inMaintenanceHostNames, IDictionary<string, BinaryData> serializedAdditionalRawData, string failureMessage) : base(operationId, addedHostNames, removedHostNames, inMaintenanceHostNames, serializedAdditionalRawData)
         {
             FailureMessage = failureMessage;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AvsClusterFailedEventData"/> for deserialization. </summary>
+        internal AvsClusterFailedEventData()
+        {
         }
 
         /// <summary> Failure reason of an event. </summary>

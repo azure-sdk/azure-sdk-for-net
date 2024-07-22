@@ -26,13 +26,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("jobStatus"u8);
-            writer.WriteStringValue(JobStatus.ToString());
-            if (Optional.IsDefined(ClassificationPolicyId))
+            if (Optional.IsDefined(JobStatus))
             {
-                writer.WritePropertyName("classificationPolicyId"u8);
-                writer.WriteStringValue(ClassificationPolicyId);
+                writer.WritePropertyName("jobStatus"u8);
+                writer.WriteStringValue(JobStatus.Value.ToString());
             }
+            writer.WritePropertyName("classificationPolicyId"u8);
+            writer.WriteStringValue(ClassificationPolicyId);
             if (Optional.IsDefined(Priority))
             {
                 writer.WritePropertyName("priority"u8);
@@ -45,15 +45,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteObjectValue(item, options);
             }
             writer.WriteEndArray();
-            writer.WritePropertyName("scheduledOn"u8);
-            writer.WriteStringValue(ScheduledOn, "O");
+            if (Optional.IsDefined(ScheduledOn))
+            {
+                writer.WritePropertyName("scheduledOn"u8);
+                writer.WriteStringValue(ScheduledOn.Value, "O");
+            }
             writer.WritePropertyName("unavailableForMatching"u8);
             writer.WriteBooleanValue(UnavailableForMatching);
-            if (Optional.IsDefined(QueueId))
-            {
-                writer.WritePropertyName("queueId"u8);
-                writer.WriteStringValue(QueueId);
-            }
+            writer.WritePropertyName("queueId"u8);
+            writer.WriteStringValue(QueueId);
             writer.WritePropertyName("labels"u8);
             writer.WriteStartObject();
             foreach (var item in Labels)
@@ -70,21 +70,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteStringValue(item.Value);
             }
             writer.WriteEndObject();
-            if (Optional.IsDefined(JobId))
-            {
-                writer.WritePropertyName("jobId"u8);
-                writer.WriteStringValue(JobId);
-            }
-            if (Optional.IsDefined(ChannelReference))
-            {
-                writer.WritePropertyName("channelReference"u8);
-                writer.WriteStringValue(ChannelReference);
-            }
-            if (Optional.IsDefined(ChannelId))
-            {
-                writer.WritePropertyName("channelId"u8);
-                writer.WriteStringValue(ChannelId);
-            }
+            writer.WritePropertyName("jobId"u8);
+            writer.WriteStringValue(JobId);
+            writer.WritePropertyName("channelReference"u8);
+            writer.WriteStringValue(ChannelReference);
+            writer.WritePropertyName("channelId"u8);
+            writer.WriteStringValue(ChannelId);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -123,11 +114,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            AcsRouterJobStatus jobStatus = default;
+            AcsRouterJobStatus? jobStatus = default;
             string classificationPolicyId = default;
             int? priority = default;
             IReadOnlyList<AcsRouterWorkerSelector> requestedWorkerSelectors = default;
-            DateTimeOffset scheduledOn = default;
+            DateTimeOffset? scheduledOn = default;
             bool unavailableForMatching = default;
             string queueId = default;
             IReadOnlyDictionary<string, string> labels = default;
@@ -141,6 +132,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("jobStatus"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     jobStatus = new AcsRouterJobStatus(property.Value.GetString());
                     continue;
                 }
@@ -170,6 +165,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("scheduledOn"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     scheduledOn = property.Value.GetDateTimeOffset("O");
                     continue;
                 }

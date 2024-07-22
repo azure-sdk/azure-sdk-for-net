@@ -46,8 +46,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsMessageInteractiveListReplyContent"/>. </summary>
-        internal AcsMessageInteractiveListReplyContent()
+        /// <param name="listItemId"> The ID of the selected list item. </param>
+        /// <param name="title"> The title of the selected list item. </param>
+        /// <param name="description"> The description of the selected row. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="listItemId"/>, <paramref name="title"/> or <paramref name="description"/> is null. </exception>
+        internal AcsMessageInteractiveListReplyContent(string listItemId, string title, string description)
         {
+            Argument.AssertNotNull(listItemId, nameof(listItemId));
+            Argument.AssertNotNull(title, nameof(title));
+            Argument.AssertNotNull(description, nameof(description));
+
+            ListItemId = listItemId;
+            Title = title;
+            Description = description;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsMessageInteractiveListReplyContent"/>. </summary>
@@ -61,6 +72,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             Title = title;
             Description = description;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AcsMessageInteractiveListReplyContent"/> for deserialization. </summary>
+        internal AcsMessageInteractiveListReplyContent()
+        {
         }
 
         /// <summary> The ID of the selected list item. </summary>

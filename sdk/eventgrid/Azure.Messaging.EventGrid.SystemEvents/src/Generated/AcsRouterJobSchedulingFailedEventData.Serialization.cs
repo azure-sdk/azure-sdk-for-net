@@ -45,18 +45,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteObjectValue(item, options);
             }
             writer.WriteEndArray();
-            writer.WritePropertyName("scheduledOn"u8);
-            writer.WriteStringValue(ScheduledOn, "O");
-            if (Optional.IsDefined(FailureReason))
+            if (Optional.IsDefined(ScheduledOn))
             {
-                writer.WritePropertyName("failureReason"u8);
-                writer.WriteStringValue(FailureReason);
+                writer.WritePropertyName("scheduledOn"u8);
+                writer.WriteStringValue(ScheduledOn.Value, "O");
             }
-            if (Optional.IsDefined(QueueId))
-            {
-                writer.WritePropertyName("queueId"u8);
-                writer.WriteStringValue(QueueId);
-            }
+            writer.WritePropertyName("failureReason"u8);
+            writer.WriteStringValue(FailureReason);
+            writer.WritePropertyName("queueId"u8);
+            writer.WriteStringValue(QueueId);
             writer.WritePropertyName("labels"u8);
             writer.WriteStartObject();
             foreach (var item in Labels)
@@ -73,21 +70,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteStringValue(item.Value);
             }
             writer.WriteEndObject();
-            if (Optional.IsDefined(JobId))
-            {
-                writer.WritePropertyName("jobId"u8);
-                writer.WriteStringValue(JobId);
-            }
-            if (Optional.IsDefined(ChannelReference))
-            {
-                writer.WritePropertyName("channelReference"u8);
-                writer.WriteStringValue(ChannelReference);
-            }
-            if (Optional.IsDefined(ChannelId))
-            {
-                writer.WritePropertyName("channelId"u8);
-                writer.WriteStringValue(ChannelId);
-            }
+            writer.WritePropertyName("jobId"u8);
+            writer.WriteStringValue(JobId);
+            writer.WritePropertyName("channelReference"u8);
+            writer.WriteStringValue(ChannelReference);
+            writer.WritePropertyName("channelId"u8);
+            writer.WriteStringValue(ChannelId);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -129,7 +117,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             int? priority = default;
             IReadOnlyList<AcsRouterWorkerSelector> expiredAttachedWorkerSelectors = default;
             IReadOnlyList<AcsRouterWorkerSelector> expiredRequestedWorkerSelectors = default;
-            DateTimeOffset scheduledOn = default;
+            DateTimeOffset? scheduledOn = default;
             string failureReason = default;
             string queueId = default;
             IReadOnlyDictionary<string, string> labels = default;
@@ -172,6 +160,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("scheduledOn"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     scheduledOn = property.Value.GetDateTimeOffset("O");
                     continue;
                 }

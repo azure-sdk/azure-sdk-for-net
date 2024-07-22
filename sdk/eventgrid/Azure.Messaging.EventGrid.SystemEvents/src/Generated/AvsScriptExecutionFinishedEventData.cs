@@ -14,10 +14,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AvsScriptExecutionFinishedEventData : AvsScriptExecutionEventData
     {
         /// <summary> Initializes a new instance of <see cref="AvsScriptExecutionFinishedEventData"/>. </summary>
+        /// <param name="operationId"> Id of the operation that caused this event. </param>
+        /// <param name="cmdletId"> Cmdlet referenced in the execution that caused this event. </param>
+        /// <param name="output"> Stdout outputs from the execution, if any. </param>
         /// <param name="namedOutputs"> Named outputs of completed execution, if any. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="namedOutputs"/> is null. </exception>
-        internal AvsScriptExecutionFinishedEventData(IReadOnlyDictionary<string, string> namedOutputs)
+        /// <exception cref="ArgumentNullException"> <paramref name="operationId"/>, <paramref name="cmdletId"/>, <paramref name="output"/> or <paramref name="namedOutputs"/> is null. </exception>
+        internal AvsScriptExecutionFinishedEventData(string operationId, string cmdletId, IEnumerable<string> output, IReadOnlyDictionary<string, string> namedOutputs) : base(operationId, cmdletId, output)
         {
+            Argument.AssertNotNull(operationId, nameof(operationId));
+            Argument.AssertNotNull(cmdletId, nameof(cmdletId));
+            Argument.AssertNotNull(output, nameof(output));
             Argument.AssertNotNull(namedOutputs, nameof(namedOutputs));
 
             NamedOutputs = namedOutputs;

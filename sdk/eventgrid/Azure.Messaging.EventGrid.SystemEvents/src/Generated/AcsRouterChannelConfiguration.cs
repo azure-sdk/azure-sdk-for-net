@@ -46,8 +46,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterChannelConfiguration"/>. </summary>
-        internal AcsRouterChannelConfiguration()
+        /// <param name="channelId"> Channel ID for Router Job. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="channelId"/> is null. </exception>
+        internal AcsRouterChannelConfiguration(string channelId)
         {
+            Argument.AssertNotNull(channelId, nameof(channelId));
+
+            ChannelId = channelId;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterChannelConfiguration"/>. </summary>
@@ -61,6 +66,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             CapacityCostPerJob = capacityCostPerJob;
             MaxNumberOfJobs = maxNumberOfJobs;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AcsRouterChannelConfiguration"/> for deserialization. </summary>
+        internal AcsRouterChannelConfiguration()
+        {
         }
 
         /// <summary> Channel ID for Router Job. </summary>

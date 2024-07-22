@@ -46,17 +46,20 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="StorageTaskAssignmentQueuedEventData"/>. </summary>
-        /// <param name="queuedOn"> The time at which a storage task was queued. </param>
-        internal StorageTaskAssignmentQueuedEventData(DateTimeOffset queuedOn)
+        /// <param name="taskExecutionId"> The execution id for a storage task. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="taskExecutionId"/> is null. </exception>
+        internal StorageTaskAssignmentQueuedEventData(string taskExecutionId)
         {
-            QueuedOn = queuedOn;
+            Argument.AssertNotNull(taskExecutionId, nameof(taskExecutionId));
+
+            TaskExecutionId = taskExecutionId;
         }
 
         /// <summary> Initializes a new instance of <see cref="StorageTaskAssignmentQueuedEventData"/>. </summary>
         /// <param name="queuedOn"> The time at which a storage task was queued. </param>
         /// <param name="taskExecutionId"> The execution id for a storage task. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal StorageTaskAssignmentQueuedEventData(DateTimeOffset queuedOn, string taskExecutionId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal StorageTaskAssignmentQueuedEventData(DateTimeOffset? queuedOn, string taskExecutionId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             QueuedOn = queuedOn;
             TaskExecutionId = taskExecutionId;
@@ -69,7 +72,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         }
 
         /// <summary> The time at which a storage task was queued. </summary>
-        public DateTimeOffset QueuedOn { get; }
+        public DateTimeOffset? QueuedOn { get; }
         /// <summary> The execution id for a storage task. </summary>
         public string TaskExecutionId { get; }
     }

@@ -46,8 +46,25 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ContainerRegistryEventTarget"/>. </summary>
-        internal ContainerRegistryEventTarget()
+        /// <param name="mediaType"> The MIME type of the referenced object. </param>
+        /// <param name="digest"> The digest of the content, as defined by the Registry V2 HTTP API Specification. </param>
+        /// <param name="repository"> The repository name. </param>
+        /// <param name="url"> The direct URL to the content. </param>
+        /// <param name="tag"> The tag name. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="mediaType"/>, <paramref name="digest"/>, <paramref name="repository"/>, <paramref name="url"/> or <paramref name="tag"/> is null. </exception>
+        internal ContainerRegistryEventTarget(string mediaType, string digest, string repository, string url, string tag)
         {
+            Argument.AssertNotNull(mediaType, nameof(mediaType));
+            Argument.AssertNotNull(digest, nameof(digest));
+            Argument.AssertNotNull(repository, nameof(repository));
+            Argument.AssertNotNull(url, nameof(url));
+            Argument.AssertNotNull(tag, nameof(tag));
+
+            MediaType = mediaType;
+            Digest = digest;
+            Repository = repository;
+            Url = url;
+            Tag = tag;
         }
 
         /// <summary> Initializes a new instance of <see cref="ContainerRegistryEventTarget"/>. </summary>
@@ -69,6 +86,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             Url = url;
             Tag = tag;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContainerRegistryEventTarget"/> for deserialization. </summary>
+        internal ContainerRegistryEventTarget()
+        {
         }
 
         /// <summary> The MIME type of the referenced object. </summary>

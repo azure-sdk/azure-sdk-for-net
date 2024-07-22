@@ -48,17 +48,29 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> Initializes a new instance of <see cref="AcsIncomingCallEventData"/>. </summary>
         /// <param name="toCommunicationIdentifier"> The communication identifier of the target user. </param>
         /// <param name="fromCommunicationIdentifier"> The communication identifier of the user who initiated the call. </param>
+        /// <param name="serverCallId"> The Id of the server call. </param>
+        /// <param name="callerDisplayName"> Display name of caller. </param>
         /// <param name="customContext"> Custom Context of Incoming Call. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="toCommunicationIdentifier"/>, <paramref name="fromCommunicationIdentifier"/> or <paramref name="customContext"/> is null. </exception>
-        internal AcsIncomingCallEventData(CommunicationIdentifierModel toCommunicationIdentifier, CommunicationIdentifierModel fromCommunicationIdentifier, AcsIncomingCallCustomContext customContext)
+        /// <param name="incomingCallContext"> Signed incoming call context. </param>
+        /// <param name="correlationId"> CorrelationId (CallId). </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="toCommunicationIdentifier"/>, <paramref name="fromCommunicationIdentifier"/>, <paramref name="serverCallId"/>, <paramref name="callerDisplayName"/>, <paramref name="customContext"/>, <paramref name="incomingCallContext"/> or <paramref name="correlationId"/> is null. </exception>
+        internal AcsIncomingCallEventData(CommunicationIdentifierModel toCommunicationIdentifier, CommunicationIdentifierModel fromCommunicationIdentifier, string serverCallId, string callerDisplayName, AcsIncomingCallCustomContext customContext, string incomingCallContext, string correlationId)
         {
             Argument.AssertNotNull(toCommunicationIdentifier, nameof(toCommunicationIdentifier));
             Argument.AssertNotNull(fromCommunicationIdentifier, nameof(fromCommunicationIdentifier));
+            Argument.AssertNotNull(serverCallId, nameof(serverCallId));
+            Argument.AssertNotNull(callerDisplayName, nameof(callerDisplayName));
             Argument.AssertNotNull(customContext, nameof(customContext));
+            Argument.AssertNotNull(incomingCallContext, nameof(incomingCallContext));
+            Argument.AssertNotNull(correlationId, nameof(correlationId));
 
             ToCommunicationIdentifier = toCommunicationIdentifier;
             FromCommunicationIdentifier = fromCommunicationIdentifier;
+            ServerCallId = serverCallId;
+            CallerDisplayName = callerDisplayName;
             CustomContext = customContext;
+            IncomingCallContext = incomingCallContext;
+            CorrelationId = correlationId;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsIncomingCallEventData"/>. </summary>

@@ -26,26 +26,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Key))
-            {
-                writer.WritePropertyName("key"u8);
-                writer.WriteStringValue(Key);
-            }
-            if (Optional.IsDefined(Label))
-            {
-                writer.WritePropertyName("label"u8);
-                writer.WriteStringValue(Label);
-            }
-            if (Optional.IsDefined(Etag))
-            {
-                writer.WritePropertyName("etag"u8);
-                writer.WriteStringValue(Etag);
-            }
-            if (Optional.IsDefined(SyncToken))
-            {
-                writer.WritePropertyName("syncToken"u8);
-                writer.WriteStringValue(SyncToken);
-            }
+            writer.WritePropertyName("key"u8);
+            writer.WriteStringValue(Key);
+            writer.WritePropertyName("label"u8);
+            writer.WriteStringValue(Label);
+            writer.WritePropertyName("etag"u8);
+            writer.WriteStringValue(Etag);
+            writer.WritePropertyName("syncToken"u8);
+            writer.WriteStringValue(SyncToken);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

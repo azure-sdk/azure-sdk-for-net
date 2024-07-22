@@ -49,12 +49,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MediaJobOutputProgressEventData"/>. </summary>
+        /// <param name="label"> Gets the Job output label. </param>
         /// <param name="jobCorrelationData"> Gets the Job correlation data. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="jobCorrelationData"/> is null. </exception>
-        internal MediaJobOutputProgressEventData(IReadOnlyDictionary<string, string> jobCorrelationData)
+        /// <exception cref="ArgumentNullException"> <paramref name="label"/> or <paramref name="jobCorrelationData"/> is null. </exception>
+        internal MediaJobOutputProgressEventData(string label, IReadOnlyDictionary<string, string> jobCorrelationData)
         {
+            Argument.AssertNotNull(label, nameof(label));
             Argument.AssertNotNull(jobCorrelationData, nameof(jobCorrelationData));
 
+            Label = label;
             JobCorrelationData = jobCorrelationData;
         }
 

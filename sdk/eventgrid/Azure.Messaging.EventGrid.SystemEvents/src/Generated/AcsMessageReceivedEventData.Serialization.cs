@@ -26,11 +26,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Content))
-            {
-                writer.WritePropertyName("content"u8);
-                writer.WriteStringValue(Content);
-            }
+            writer.WritePropertyName("content"u8);
+            writer.WriteStringValue(Content);
             writer.WritePropertyName("channelType"u8);
             writer.WriteStringValue(ChannelKind.ToString());
             writer.WritePropertyName("media"u8);
@@ -41,18 +38,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             writer.WriteObjectValue(Button, options);
             writer.WritePropertyName("interactive"u8);
             writer.WriteObjectValue(InteractiveContent, options);
-            if (Optional.IsDefined(From))
+            writer.WritePropertyName("from"u8);
+            writer.WriteStringValue(From);
+            writer.WritePropertyName("to"u8);
+            writer.WriteStringValue(To);
+            if (Optional.IsDefined(ReceivedTimestamp))
             {
-                writer.WritePropertyName("from"u8);
-                writer.WriteStringValue(From);
+                writer.WritePropertyName("receivedTimeStamp"u8);
+                writer.WriteStringValue(ReceivedTimestamp.Value, "O");
             }
-            if (Optional.IsDefined(To))
-            {
-                writer.WritePropertyName("to"u8);
-                writer.WriteStringValue(To);
-            }
-            writer.WritePropertyName("receivedTimeStamp"u8);
-            writer.WriteStringValue(ReceivedTimestamp, "O");
             writer.WritePropertyName("error"u8);
             writer.WriteObjectValue(Error, options);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -101,7 +95,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             AcsMessageInteractiveContent interactive = default;
             string @from = default;
             string to = default;
-            DateTimeOffset receivedTimeStamp = default;
+            DateTimeOffset? receivedTimeStamp = default;
             AcsMessageChannelEventError error = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -149,6 +143,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("receivedTimeStamp"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     receivedTimeStamp = property.Value.GetDateTimeOffset("O");
                     continue;
                 }

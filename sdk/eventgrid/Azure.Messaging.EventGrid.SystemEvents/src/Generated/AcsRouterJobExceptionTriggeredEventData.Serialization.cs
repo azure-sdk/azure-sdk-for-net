@@ -26,21 +26,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(RuleKey))
-            {
-                writer.WritePropertyName("ruleKey"u8);
-                writer.WriteStringValue(RuleKey);
-            }
-            if (Optional.IsDefined(ExceptionRuleId))
-            {
-                writer.WritePropertyName("exceptionRuleId"u8);
-                writer.WriteStringValue(ExceptionRuleId);
-            }
-            if (Optional.IsDefined(QueueId))
-            {
-                writer.WritePropertyName("queueId"u8);
-                writer.WriteStringValue(QueueId);
-            }
+            writer.WritePropertyName("ruleKey"u8);
+            writer.WriteStringValue(RuleKey);
+            writer.WritePropertyName("exceptionRuleId"u8);
+            writer.WriteStringValue(ExceptionRuleId);
+            writer.WritePropertyName("queueId"u8);
+            writer.WriteStringValue(QueueId);
             writer.WritePropertyName("labels"u8);
             writer.WriteStartObject();
             foreach (var item in Labels)
@@ -57,21 +48,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteStringValue(item.Value);
             }
             writer.WriteEndObject();
-            if (Optional.IsDefined(JobId))
-            {
-                writer.WritePropertyName("jobId"u8);
-                writer.WriteStringValue(JobId);
-            }
-            if (Optional.IsDefined(ChannelReference))
-            {
-                writer.WritePropertyName("channelReference"u8);
-                writer.WriteStringValue(ChannelReference);
-            }
-            if (Optional.IsDefined(ChannelId))
-            {
-                writer.WritePropertyName("channelId"u8);
-                writer.WriteStringValue(ChannelId);
-            }
+            writer.WritePropertyName("jobId"u8);
+            writer.WriteStringValue(JobId);
+            writer.WritePropertyName("channelReference"u8);
+            writer.WriteStringValue(ChannelReference);
+            writer.WritePropertyName("channelId"u8);
+            writer.WriteStringValue(ChannelId);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

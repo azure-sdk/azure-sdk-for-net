@@ -26,16 +26,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Scope))
-            {
-                writer.WritePropertyName("scope"u8);
-                writer.WriteStringValue(Scope);
-            }
-            if (Optional.IsDefined(Action))
-            {
-                writer.WritePropertyName("action"u8);
-                writer.WriteStringValue(Action);
-            }
+            writer.WritePropertyName("scope"u8);
+            writer.WriteStringValue(Scope);
+            writer.WritePropertyName("action"u8);
+            writer.WriteStringValue(Action);
             writer.WritePropertyName("evidence"u8);
             writer.WriteStartObject();
             foreach (var item in Evidence)

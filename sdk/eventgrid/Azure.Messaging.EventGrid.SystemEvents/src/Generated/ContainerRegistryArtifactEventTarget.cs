@@ -46,8 +46,22 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ContainerRegistryArtifactEventTarget"/>. </summary>
-        internal ContainerRegistryArtifactEventTarget()
+        /// <param name="mediaType"> The MIME type of the artifact. </param>
+        /// <param name="digest"> The digest of the artifact. </param>
+        /// <param name="repository"> The repository name of the artifact. </param>
+        /// <param name="tag"> The tag of the artifact. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="mediaType"/>, <paramref name="digest"/>, <paramref name="repository"/> or <paramref name="tag"/> is null. </exception>
+        internal ContainerRegistryArtifactEventTarget(string mediaType, string digest, string repository, string tag)
         {
+            Argument.AssertNotNull(mediaType, nameof(mediaType));
+            Argument.AssertNotNull(digest, nameof(digest));
+            Argument.AssertNotNull(repository, nameof(repository));
+            Argument.AssertNotNull(tag, nameof(tag));
+
+            MediaType = mediaType;
+            Digest = digest;
+            Repository = repository;
+            Tag = tag;
         }
 
         /// <summary> Initializes a new instance of <see cref="ContainerRegistryArtifactEventTarget"/>. </summary>
@@ -69,6 +83,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             Name = name;
             Version = version;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContainerRegistryArtifactEventTarget"/> for deserialization. </summary>
+        internal ContainerRegistryArtifactEventTarget()
+        {
         }
 
         /// <summary> The MIME type of the artifact. </summary>

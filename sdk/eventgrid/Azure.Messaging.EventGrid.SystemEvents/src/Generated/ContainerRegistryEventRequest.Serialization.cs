@@ -26,31 +26,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Id))
-            {
-                writer.WritePropertyName("id"u8);
-                writer.WriteStringValue(Id);
-            }
-            if (Optional.IsDefined(Addr))
-            {
-                writer.WritePropertyName("addr"u8);
-                writer.WriteStringValue(Addr);
-            }
-            if (Optional.IsDefined(Host))
-            {
-                writer.WritePropertyName("host"u8);
-                writer.WriteStringValue(Host);
-            }
-            if (Optional.IsDefined(Method))
-            {
-                writer.WritePropertyName("method"u8);
-                writer.WriteStringValue(Method);
-            }
-            if (Optional.IsDefined(Useragent))
-            {
-                writer.WritePropertyName("useragent"u8);
-                writer.WriteStringValue(Useragent);
-            }
+            writer.WritePropertyName("id"u8);
+            writer.WriteStringValue(Id);
+            writer.WritePropertyName("addr"u8);
+            writer.WriteStringValue(Addr);
+            writer.WritePropertyName("host"u8);
+            writer.WriteStringValue(Host);
+            writer.WritePropertyName("method"u8);
+            writer.WriteStringValue(Method);
+            writer.WritePropertyName("useragent"u8);
+            writer.WriteStringValue(Useragent);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

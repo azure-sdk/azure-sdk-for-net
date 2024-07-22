@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
@@ -46,11 +47,22 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AvsClusterEventData"/>. </summary>
-        internal AvsClusterEventData()
+        /// <param name="operationId"> Id of the operation that caused this event. </param>
+        /// <param name="addedHostNames"> Hosts added to the cluster in this event, if any. </param>
+        /// <param name="removedHostNames"> Hosts removed from the cluster in this event, if any. </param>
+        /// <param name="inMaintenanceHostNames"> Hosts in Maintenance mode in the cluster, if any. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="operationId"/>, <paramref name="addedHostNames"/>, <paramref name="removedHostNames"/> or <paramref name="inMaintenanceHostNames"/> is null. </exception>
+        internal AvsClusterEventData(string operationId, IEnumerable<string> addedHostNames, IEnumerable<string> removedHostNames, IEnumerable<string> inMaintenanceHostNames)
         {
-            AddedHostNames = new ChangeTrackingList<string>();
-            RemovedHostNames = new ChangeTrackingList<string>();
-            InMaintenanceHostNames = new ChangeTrackingList<string>();
+            Argument.AssertNotNull(operationId, nameof(operationId));
+            Argument.AssertNotNull(addedHostNames, nameof(addedHostNames));
+            Argument.AssertNotNull(removedHostNames, nameof(removedHostNames));
+            Argument.AssertNotNull(inMaintenanceHostNames, nameof(inMaintenanceHostNames));
+
+            OperationId = operationId;
+            AddedHostNames = addedHostNames.ToList();
+            RemovedHostNames = removedHostNames.ToList();
+            InMaintenanceHostNames = inMaintenanceHostNames.ToList();
         }
 
         /// <summary> Initializes a new instance of <see cref="AvsClusterEventData"/>. </summary>
@@ -66,6 +78,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             RemovedHostNames = removedHostNames;
             InMaintenanceHostNames = inMaintenanceHostNames;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AvsClusterEventData"/> for deserialization. </summary>
+        internal AvsClusterEventData()
+        {
         }
 
         /// <summary> Id of the operation that caused this event. </summary>

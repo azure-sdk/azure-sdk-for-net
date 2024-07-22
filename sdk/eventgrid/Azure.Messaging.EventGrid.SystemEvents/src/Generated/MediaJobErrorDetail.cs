@@ -46,8 +46,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MediaJobErrorDetail"/>. </summary>
-        internal MediaJobErrorDetail()
+        /// <param name="code"> Code describing the error detail. </param>
+        /// <param name="message"> A human-readable representation of the error. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="code"/> or <paramref name="message"/> is null. </exception>
+        internal MediaJobErrorDetail(string code, string message)
         {
+            Argument.AssertNotNull(code, nameof(code));
+            Argument.AssertNotNull(message, nameof(message));
+
+            Code = code;
+            Message = message;
         }
 
         /// <summary> Initializes a new instance of <see cref="MediaJobErrorDetail"/>. </summary>
@@ -59,6 +67,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             Code = code;
             Message = message;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="MediaJobErrorDetail"/> for deserialization. </summary>
+        internal MediaJobErrorDetail()
+        {
         }
 
         /// <summary> Code describing the error detail. </summary>

@@ -46,8 +46,25 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventIncomingDataChunkDroppedEventData"/>. </summary>
-        internal MediaLiveEventIncomingDataChunkDroppedEventData()
+        /// <param name="timestamp"> Gets the timestamp of the data chunk dropped. </param>
+        /// <param name="trackType"> Gets the type of the track (Audio / Video). </param>
+        /// <param name="timescale"> Gets the timescale of the Timestamp. </param>
+        /// <param name="resultCode"> Gets the result code for fragment drop operation. </param>
+        /// <param name="trackName"> Gets the name of the track for which fragment is dropped. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="timestamp"/>, <paramref name="trackType"/>, <paramref name="timescale"/>, <paramref name="resultCode"/> or <paramref name="trackName"/> is null. </exception>
+        internal MediaLiveEventIncomingDataChunkDroppedEventData(string timestamp, string trackType, string timescale, string resultCode, string trackName)
         {
+            Argument.AssertNotNull(timestamp, nameof(timestamp));
+            Argument.AssertNotNull(trackType, nameof(trackType));
+            Argument.AssertNotNull(timescale, nameof(timescale));
+            Argument.AssertNotNull(resultCode, nameof(resultCode));
+            Argument.AssertNotNull(trackName, nameof(trackName));
+
+            Timestamp = timestamp;
+            TrackType = trackType;
+            Timescale = timescale;
+            ResultCode = resultCode;
+            TrackName = trackName;
         }
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventIncomingDataChunkDroppedEventData"/>. </summary>
@@ -67,6 +84,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             ResultCode = resultCode;
             TrackName = trackName;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="MediaLiveEventIncomingDataChunkDroppedEventData"/> for deserialization. </summary>
+        internal MediaLiveEventIncomingDataChunkDroppedEventData()
+        {
         }
 
         /// <summary> Gets the timestamp of the data chunk dropped. </summary>

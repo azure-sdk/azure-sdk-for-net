@@ -46,12 +46,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ApiCenterApiDefinitionAddedEventData"/>. </summary>
+        /// <param name="title"> API definition title. </param>
+        /// <param name="description"> API definition description. </param>
         /// <param name="specification"> API definition specification. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="specification"/> is null. </exception>
-        internal ApiCenterApiDefinitionAddedEventData(ApiCenterApiSpecification specification)
+        /// <exception cref="ArgumentNullException"> <paramref name="title"/>, <paramref name="description"/> or <paramref name="specification"/> is null. </exception>
+        internal ApiCenterApiDefinitionAddedEventData(string title, string description, ApiCenterApiSpecification specification)
         {
+            Argument.AssertNotNull(title, nameof(title));
+            Argument.AssertNotNull(description, nameof(description));
             Argument.AssertNotNull(specification, nameof(specification));
 
+            Title = title;
+            Description = description;
             Specification = specification;
         }
 

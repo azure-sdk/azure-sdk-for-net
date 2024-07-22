@@ -26,11 +26,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(DisplayName))
-            {
-                writer.WritePropertyName("displayName"u8);
-                writer.WriteStringValue(DisplayName);
-            }
+            writer.WritePropertyName("displayName"u8);
+            writer.WriteStringValue(DisplayName);
             writer.WritePropertyName("participantCommunicationIdentifier"u8);
             writer.WriteObjectValue(ParticipantCommunicationIdentifier, options);
             writer.WritePropertyName("metadata"u8);

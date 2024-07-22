@@ -46,8 +46,37 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventIngestHeartbeatEventData"/>. </summary>
-        internal MediaLiveEventIngestHeartbeatEventData()
+        /// <param name="trackType"> Gets the type of the track (Audio / Video). </param>
+        /// <param name="trackName"> Gets the track name. </param>
+        /// <param name="transcriptionLanguage"> Gets the Live Transcription language. </param>
+        /// <param name="transcriptionState"> Gets the Live Transcription state. </param>
+        /// <param name="ingestDriftValue"> Gets the track ingest drift value. </param>
+        /// <param name="lastFragmentArrivalTime"> Gets the arrival UTC time of the last fragment. </param>
+        /// <param name="lastTimestamp"> Gets the last timestamp. </param>
+        /// <param name="timescale"> Gets the timescale of the last timestamp. </param>
+        /// <param name="state"> Gets the state of the live event. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="trackType"/>, <paramref name="trackName"/>, <paramref name="transcriptionLanguage"/>, <paramref name="transcriptionState"/>, <paramref name="ingestDriftValue"/>, <paramref name="lastFragmentArrivalTime"/>, <paramref name="lastTimestamp"/>, <paramref name="timescale"/> or <paramref name="state"/> is null. </exception>
+        internal MediaLiveEventIngestHeartbeatEventData(string trackType, string trackName, string transcriptionLanguage, string transcriptionState, string ingestDriftValue, string lastFragmentArrivalTime, string lastTimestamp, string timescale, string state)
         {
+            Argument.AssertNotNull(trackType, nameof(trackType));
+            Argument.AssertNotNull(trackName, nameof(trackName));
+            Argument.AssertNotNull(transcriptionLanguage, nameof(transcriptionLanguage));
+            Argument.AssertNotNull(transcriptionState, nameof(transcriptionState));
+            Argument.AssertNotNull(ingestDriftValue, nameof(ingestDriftValue));
+            Argument.AssertNotNull(lastFragmentArrivalTime, nameof(lastFragmentArrivalTime));
+            Argument.AssertNotNull(lastTimestamp, nameof(lastTimestamp));
+            Argument.AssertNotNull(timescale, nameof(timescale));
+            Argument.AssertNotNull(state, nameof(state));
+
+            TrackType = trackType;
+            TrackName = trackName;
+            TranscriptionLanguage = transcriptionLanguage;
+            TranscriptionState = transcriptionState;
+            IngestDriftValue = ingestDriftValue;
+            LastFragmentArrivalTime = lastFragmentArrivalTime;
+            LastTimestamp = lastTimestamp;
+            Timescale = timescale;
+            State = state;
         }
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventIngestHeartbeatEventData"/>. </summary>
@@ -87,6 +116,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             State = state;
             Healthy = healthy;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="MediaLiveEventIngestHeartbeatEventData"/> for deserialization. </summary>
+        internal MediaLiveEventIngestHeartbeatEventData()
+        {
         }
 
         /// <summary> Gets the type of the track (Audio / Video). </summary>

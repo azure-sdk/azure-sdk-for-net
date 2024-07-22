@@ -46,8 +46,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ApiManagementGatewayHostnameConfigurationUpdatedEventData"/>. </summary>
-        internal ApiManagementGatewayHostnameConfigurationUpdatedEventData()
+        /// <param name="resourceUri"> The fully qualified ID of the resource that the compliance state change is for, including the resource name and resource type. Uses the format, `/subscriptions/&lt;SubscriptionID&gt;/resourceGroups/&lt;ResourceGroup&gt;/Microsoft.ApiManagement/service/&lt;ServiceName&gt;/gateways/&lt;GatewayName&gt;/hostnameConfigurations/&lt;ResourceName&gt;`. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
+        internal ApiManagementGatewayHostnameConfigurationUpdatedEventData(string resourceUri)
         {
+            Argument.AssertNotNull(resourceUri, nameof(resourceUri));
+
+            ResourceUri = resourceUri;
         }
 
         /// <summary> Initializes a new instance of <see cref="ApiManagementGatewayHostnameConfigurationUpdatedEventData"/>. </summary>
@@ -57,6 +62,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         {
             ResourceUri = resourceUri;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ApiManagementGatewayHostnameConfigurationUpdatedEventData"/> for deserialization. </summary>
+        internal ApiManagementGatewayHostnameConfigurationUpdatedEventData()
+        {
         }
 
         /// <summary> The fully qualified ID of the resource that the compliance state change is for, including the resource name and resource type. Uses the format, `/subscriptions/&lt;SubscriptionID&gt;/resourceGroups/&lt;ResourceGroup&gt;/Microsoft.ApiManagement/service/&lt;ServiceName&gt;/gateways/&lt;GatewayName&gt;/hostnameConfigurations/&lt;ResourceName&gt;`. </summary>

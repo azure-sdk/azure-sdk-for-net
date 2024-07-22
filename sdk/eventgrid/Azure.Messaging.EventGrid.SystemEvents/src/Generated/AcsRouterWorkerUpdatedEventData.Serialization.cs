@@ -26,11 +26,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(WorkerId))
-            {
-                writer.WritePropertyName("workerId"u8);
-                writer.WriteStringValue(WorkerId);
-            }
+            writer.WritePropertyName("workerId"u8);
+            writer.WriteStringValue(WorkerId);
             writer.WritePropertyName("queueAssignments"u8);
             writer.WriteStartArray();
             foreach (var item in QueueAssignments)

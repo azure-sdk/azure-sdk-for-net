@@ -26,41 +26,29 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(OperationId))
+            writer.WritePropertyName("operationId"u8);
+            writer.WriteStringValue(OperationId);
+            writer.WritePropertyName("addedHostNames"u8);
+            writer.WriteStartArray();
+            foreach (var item in AddedHostNames)
             {
-                writer.WritePropertyName("operationId"u8);
-                writer.WriteStringValue(OperationId);
+                writer.WriteStringValue(item);
             }
-            if (Optional.IsCollectionDefined(AddedHostNames))
+            writer.WriteEndArray();
+            writer.WritePropertyName("removedHostNames"u8);
+            writer.WriteStartArray();
+            foreach (var item in RemovedHostNames)
             {
-                writer.WritePropertyName("addedHostNames"u8);
-                writer.WriteStartArray();
-                foreach (var item in AddedHostNames)
-                {
-                    writer.WriteStringValue(item);
-                }
-                writer.WriteEndArray();
+                writer.WriteStringValue(item);
             }
-            if (Optional.IsCollectionDefined(RemovedHostNames))
+            writer.WriteEndArray();
+            writer.WritePropertyName("inMaintenanceHostNames"u8);
+            writer.WriteStartArray();
+            foreach (var item in InMaintenanceHostNames)
             {
-                writer.WritePropertyName("removedHostNames"u8);
-                writer.WriteStartArray();
-                foreach (var item in RemovedHostNames)
-                {
-                    writer.WriteStringValue(item);
-                }
-                writer.WriteEndArray();
+                writer.WriteStringValue(item);
             }
-            if (Optional.IsCollectionDefined(InMaintenanceHostNames))
-            {
-                writer.WritePropertyName("inMaintenanceHostNames"u8);
-                writer.WriteStartArray();
-                foreach (var item in InMaintenanceHostNames)
-                {
-                    writer.WriteStringValue(item);
-                }
-                writer.WriteEndArray();
-            }
+            writer.WriteEndArray();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -114,10 +102,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("addedHostNames"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -128,10 +112,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("removedHostNames"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -142,10 +122,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("inMaintenanceHostNames"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -160,7 +136,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AvsClusterCreatedEventData(operationId, addedHostNames ?? new ChangeTrackingList<string>(), removedHostNames ?? new ChangeTrackingList<string>(), inMaintenanceHostNames ?? new ChangeTrackingList<string>(), serializedAdditionalRawData);
+            return new AvsClusterCreatedEventData(operationId, addedHostNames, removedHostNames, inMaintenanceHostNames, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AvsClusterCreatedEventData>.Write(ModelReaderWriterOptions options)

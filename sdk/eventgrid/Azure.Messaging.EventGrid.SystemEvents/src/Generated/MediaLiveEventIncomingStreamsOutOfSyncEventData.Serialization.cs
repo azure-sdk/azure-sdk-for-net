@@ -26,36 +26,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(MinLastTimestamp))
-            {
-                writer.WritePropertyName("minLastTimestamp"u8);
-                writer.WriteStringValue(MinLastTimestamp);
-            }
-            if (Optional.IsDefined(TypeOfStreamWithMinLastTimestamp))
-            {
-                writer.WritePropertyName("typeOfStreamWithMinLastTimestamp"u8);
-                writer.WriteStringValue(TypeOfStreamWithMinLastTimestamp);
-            }
-            if (Optional.IsDefined(MaxLastTimestamp))
-            {
-                writer.WritePropertyName("maxLastTimestamp"u8);
-                writer.WriteStringValue(MaxLastTimestamp);
-            }
-            if (Optional.IsDefined(TypeOfStreamWithMaxLastTimestamp))
-            {
-                writer.WritePropertyName("typeOfStreamWithMaxLastTimestamp"u8);
-                writer.WriteStringValue(TypeOfStreamWithMaxLastTimestamp);
-            }
-            if (Optional.IsDefined(TimescaleOfMinLastTimestamp))
-            {
-                writer.WritePropertyName("timescaleOfMinLastTimestamp"u8);
-                writer.WriteStringValue(TimescaleOfMinLastTimestamp);
-            }
-            if (Optional.IsDefined(TimescaleOfMaxLastTimestamp))
-            {
-                writer.WritePropertyName("timescaleOfMaxLastTimestamp"u8);
-                writer.WriteStringValue(TimescaleOfMaxLastTimestamp);
-            }
+            writer.WritePropertyName("minLastTimestamp"u8);
+            writer.WriteStringValue(MinLastTimestamp);
+            writer.WritePropertyName("typeOfStreamWithMinLastTimestamp"u8);
+            writer.WriteStringValue(TypeOfStreamWithMinLastTimestamp);
+            writer.WritePropertyName("maxLastTimestamp"u8);
+            writer.WriteStringValue(MaxLastTimestamp);
+            writer.WritePropertyName("typeOfStreamWithMaxLastTimestamp"u8);
+            writer.WriteStringValue(TypeOfStreamWithMaxLastTimestamp);
+            writer.WritePropertyName("timescaleOfMinLastTimestamp"u8);
+            writer.WriteStringValue(TimescaleOfMinLastTimestamp);
+            writer.WritePropertyName("timescaleOfMaxLastTimestamp"u8);
+            writer.WriteStringValue(TimescaleOfMaxLastTimestamp);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

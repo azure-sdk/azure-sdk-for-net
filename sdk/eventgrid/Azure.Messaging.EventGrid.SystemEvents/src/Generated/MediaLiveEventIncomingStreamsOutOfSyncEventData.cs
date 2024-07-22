@@ -46,8 +46,28 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventIncomingStreamsOutOfSyncEventData"/>. </summary>
-        internal MediaLiveEventIncomingStreamsOutOfSyncEventData()
+        /// <param name="minLastTimestamp"> Gets the minimum last timestamp received. </param>
+        /// <param name="typeOfStreamWithMinLastTimestamp"> Gets the type of stream with minimum last timestamp. </param>
+        /// <param name="maxLastTimestamp"> Gets the maximum timestamp among all the tracks (audio or video). </param>
+        /// <param name="typeOfStreamWithMaxLastTimestamp"> Gets the type of stream with maximum last timestamp. </param>
+        /// <param name="timescaleOfMinLastTimestamp"> Gets the timescale in which \"MinLastTimestamp\" is represented. </param>
+        /// <param name="timescaleOfMaxLastTimestamp"> Gets the timescale in which \"MaxLastTimestamp\" is represented. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="minLastTimestamp"/>, <paramref name="typeOfStreamWithMinLastTimestamp"/>, <paramref name="maxLastTimestamp"/>, <paramref name="typeOfStreamWithMaxLastTimestamp"/>, <paramref name="timescaleOfMinLastTimestamp"/> or <paramref name="timescaleOfMaxLastTimestamp"/> is null. </exception>
+        internal MediaLiveEventIncomingStreamsOutOfSyncEventData(string minLastTimestamp, string typeOfStreamWithMinLastTimestamp, string maxLastTimestamp, string typeOfStreamWithMaxLastTimestamp, string timescaleOfMinLastTimestamp, string timescaleOfMaxLastTimestamp)
         {
+            Argument.AssertNotNull(minLastTimestamp, nameof(minLastTimestamp));
+            Argument.AssertNotNull(typeOfStreamWithMinLastTimestamp, nameof(typeOfStreamWithMinLastTimestamp));
+            Argument.AssertNotNull(maxLastTimestamp, nameof(maxLastTimestamp));
+            Argument.AssertNotNull(typeOfStreamWithMaxLastTimestamp, nameof(typeOfStreamWithMaxLastTimestamp));
+            Argument.AssertNotNull(timescaleOfMinLastTimestamp, nameof(timescaleOfMinLastTimestamp));
+            Argument.AssertNotNull(timescaleOfMaxLastTimestamp, nameof(timescaleOfMaxLastTimestamp));
+
+            MinLastTimestamp = minLastTimestamp;
+            TypeOfStreamWithMinLastTimestamp = typeOfStreamWithMinLastTimestamp;
+            MaxLastTimestamp = maxLastTimestamp;
+            TypeOfStreamWithMaxLastTimestamp = typeOfStreamWithMaxLastTimestamp;
+            TimescaleOfMinLastTimestamp = timescaleOfMinLastTimestamp;
+            TimescaleOfMaxLastTimestamp = timescaleOfMaxLastTimestamp;
         }
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventIncomingStreamsOutOfSyncEventData"/>. </summary>
@@ -67,6 +87,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             TimescaleOfMinLastTimestamp = timescaleOfMinLastTimestamp;
             TimescaleOfMaxLastTimestamp = timescaleOfMaxLastTimestamp;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="MediaLiveEventIncomingStreamsOutOfSyncEventData"/> for deserialization. </summary>
+        internal MediaLiveEventIncomingStreamsOutOfSyncEventData()
+        {
         }
 
         /// <summary> Gets the minimum last timestamp received. </summary>

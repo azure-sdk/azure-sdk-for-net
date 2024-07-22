@@ -15,16 +15,27 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsRouterJobClassificationFailedEventData : AcsRouterJobEventData
     {
         /// <summary> Initializes a new instance of <see cref="AcsRouterJobClassificationFailedEventData"/>. </summary>
+        /// <param name="jobId"> Router Event Job ID. </param>
+        /// <param name="channelReference"> Router Event Channel Reference. </param>
+        /// <param name="channelId"> Router Event Channel ID. </param>
+        /// <param name="queueId"> Router Job events Queue Id. </param>
         /// <param name="labels"> Router Job events Labels. </param>
         /// <param name="tags"> Router Jobs events Tags. </param>
+        /// <param name="classificationPolicyId"> Router Job Classification Policy Id. </param>
         /// <param name="errors"> Router Job Classification Failed Errors. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="labels"/>, <paramref name="tags"/> or <paramref name="errors"/> is null. </exception>
-        internal AcsRouterJobClassificationFailedEventData(IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags, IEnumerable<AcsRouterCommunicationError> errors) : base(labels, tags)
+        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/>, <paramref name="channelReference"/>, <paramref name="channelId"/>, <paramref name="queueId"/>, <paramref name="labels"/>, <paramref name="tags"/>, <paramref name="classificationPolicyId"/> or <paramref name="errors"/> is null. </exception>
+        internal AcsRouterJobClassificationFailedEventData(string jobId, string channelReference, string channelId, string queueId, IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags, string classificationPolicyId, IEnumerable<AcsRouterCommunicationError> errors) : base(jobId, channelReference, channelId, queueId, labels, tags)
         {
+            Argument.AssertNotNull(jobId, nameof(jobId));
+            Argument.AssertNotNull(channelReference, nameof(channelReference));
+            Argument.AssertNotNull(channelId, nameof(channelId));
+            Argument.AssertNotNull(queueId, nameof(queueId));
             Argument.AssertNotNull(labels, nameof(labels));
             Argument.AssertNotNull(tags, nameof(tags));
+            Argument.AssertNotNull(classificationPolicyId, nameof(classificationPolicyId));
             Argument.AssertNotNull(errors, nameof(errors));
 
+            ClassificationPolicyId = classificationPolicyId;
             Errors = errors.ToList();
         }
 

@@ -47,18 +47,21 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterWorkerRegisteredEventData"/>. </summary>
+        /// <param name="workerId"> Router Worker Registered Worker Id. </param>
         /// <param name="queueAssignments"> Router Worker Registered Queue Info. </param>
         /// <param name="channelConfigurations"> Router Worker Registered Channel Configuration. </param>
         /// <param name="labels"> Router Worker Registered Labels. </param>
         /// <param name="tags"> Router Worker Registered Tags. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="queueAssignments"/>, <paramref name="channelConfigurations"/>, <paramref name="labels"/> or <paramref name="tags"/> is null. </exception>
-        internal AcsRouterWorkerRegisteredEventData(IEnumerable<AcsRouterQueueDetails> queueAssignments, IEnumerable<AcsRouterChannelConfiguration> channelConfigurations, IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags)
+        /// <exception cref="ArgumentNullException"> <paramref name="workerId"/>, <paramref name="queueAssignments"/>, <paramref name="channelConfigurations"/>, <paramref name="labels"/> or <paramref name="tags"/> is null. </exception>
+        internal AcsRouterWorkerRegisteredEventData(string workerId, IEnumerable<AcsRouterQueueDetails> queueAssignments, IEnumerable<AcsRouterChannelConfiguration> channelConfigurations, IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags)
         {
+            Argument.AssertNotNull(workerId, nameof(workerId));
             Argument.AssertNotNull(queueAssignments, nameof(queueAssignments));
             Argument.AssertNotNull(channelConfigurations, nameof(channelConfigurations));
             Argument.AssertNotNull(labels, nameof(labels));
             Argument.AssertNotNull(tags, nameof(tags));
 
+            WorkerId = workerId;
             QueueAssignments = queueAssignments.ToList();
             ChannelConfigurations = channelConfigurations.ToList();
             Labels = labels;

@@ -26,28 +26,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Message))
+            writer.WritePropertyName("message"u8);
+            writer.WriteStringValue(Message);
+            if (Optional.IsDefined(ReceivedTimestamp))
             {
-                writer.WritePropertyName("message"u8);
-                writer.WriteStringValue(Message);
+                writer.WritePropertyName("receivedTimestamp"u8);
+                writer.WriteStringValue(ReceivedTimestamp.Value, "O");
             }
-            writer.WritePropertyName("receivedTimestamp"u8);
-            writer.WriteStringValue(ReceivedTimestamp, "O");
-            if (Optional.IsDefined(MessageId))
-            {
-                writer.WritePropertyName("messageId"u8);
-                writer.WriteStringValue(MessageId);
-            }
-            if (Optional.IsDefined(From))
-            {
-                writer.WritePropertyName("from"u8);
-                writer.WriteStringValue(From);
-            }
-            if (Optional.IsDefined(To))
-            {
-                writer.WritePropertyName("to"u8);
-                writer.WriteStringValue(To);
-            }
+            writer.WritePropertyName("messageId"u8);
+            writer.WriteStringValue(MessageId);
+            writer.WritePropertyName("from"u8);
+            writer.WriteStringValue(From);
+            writer.WritePropertyName("to"u8);
+            writer.WriteStringValue(To);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -87,7 +78,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             string message = default;
-            DateTimeOffset receivedTimestamp = default;
+            DateTimeOffset? receivedTimestamp = default;
             string messageId = default;
             string @from = default;
             string to = default;
@@ -102,6 +93,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("receivedTimestamp"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     receivedTimestamp = property.Value.GetDateTimeOffset("O");
                     continue;
                 }

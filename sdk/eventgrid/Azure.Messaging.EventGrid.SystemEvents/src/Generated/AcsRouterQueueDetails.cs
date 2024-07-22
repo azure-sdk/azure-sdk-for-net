@@ -46,12 +46,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterQueueDetails"/>. </summary>
+        /// <param name="id"> Router Queue Id. </param>
+        /// <param name="name"> Router Queue Name. </param>
         /// <param name="labels"> Router Queue Labels. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="labels"/> is null. </exception>
-        internal AcsRouterQueueDetails(IReadOnlyDictionary<string, string> labels)
+        /// <exception cref="ArgumentNullException"> <paramref name="id"/>, <paramref name="name"/> or <paramref name="labels"/> is null. </exception>
+        internal AcsRouterQueueDetails(string id, string name, IReadOnlyDictionary<string, string> labels)
         {
+            Argument.AssertNotNull(id, nameof(id));
+            Argument.AssertNotNull(name, nameof(name));
             Argument.AssertNotNull(labels, nameof(labels));
 
+            Id = id;
+            Name = name;
             Labels = labels;
         }
 

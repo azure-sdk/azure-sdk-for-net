@@ -26,20 +26,20 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("status"u8);
-            writer.WriteStringValue(Status.ToString());
-            writer.WritePropertyName("completedDateTime"u8);
-            writer.WriteStringValue(CompletedDateTime, "O");
-            if (Optional.IsDefined(TaskExecutionId))
+            if (Optional.IsDefined(Status))
             {
-                writer.WritePropertyName("taskExecutionId"u8);
-                writer.WriteStringValue(TaskExecutionId);
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(Status.Value.ToString());
             }
-            if (Optional.IsDefined(TaskName))
+            if (Optional.IsDefined(CompletedDateTime))
             {
-                writer.WritePropertyName("taskName"u8);
-                writer.WriteStringValue(TaskName);
+                writer.WritePropertyName("completedDateTime"u8);
+                writer.WriteStringValue(CompletedDateTime.Value, "O");
             }
+            writer.WritePropertyName("taskExecutionId"u8);
+            writer.WriteStringValue(TaskExecutionId);
+            writer.WritePropertyName("taskName"u8);
+            writer.WriteStringValue(TaskName);
             writer.WritePropertyName("summaryReportBlobUrl"u8);
             writer.WriteStringValue(SummaryReportBlobUrl.AbsoluteUri);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -80,8 +80,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            StorageTaskCompletedStatus status = default;
-            DateTimeOffset completedDateTime = default;
+            StorageTaskCompletedStatus? status = default;
+            DateTimeOffset? completedDateTime = default;
             string taskExecutionId = default;
             string taskName = default;
             Uri summaryReportBlobUrl = default;
@@ -91,11 +91,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("status"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     status = new StorageTaskCompletedStatus(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("completedDateTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     completedDateTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }

@@ -28,36 +28,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             writer.WriteStartObject();
             writer.WritePropertyName("appEventTypeDetail"u8);
             writer.WriteObjectValue(AppEventTypeDetail, options);
-            if (Optional.IsDefined(Name))
-            {
-                writer.WritePropertyName("name"u8);
-                writer.WriteStringValue(Name);
-            }
-            if (Optional.IsDefined(ClientRequestId))
-            {
-                writer.WritePropertyName("clientRequestId"u8);
-                writer.WriteStringValue(ClientRequestId);
-            }
-            if (Optional.IsDefined(CorrelationRequestId))
-            {
-                writer.WritePropertyName("correlationRequestId"u8);
-                writer.WriteStringValue(CorrelationRequestId);
-            }
-            if (Optional.IsDefined(RequestId))
-            {
-                writer.WritePropertyName("requestId"u8);
-                writer.WriteStringValue(RequestId);
-            }
-            if (Optional.IsDefined(Address))
-            {
-                writer.WritePropertyName("address"u8);
-                writer.WriteStringValue(Address);
-            }
-            if (Optional.IsDefined(Verb))
-            {
-                writer.WritePropertyName("verb"u8);
-                writer.WriteStringValue(Verb);
-            }
+            writer.WritePropertyName("name"u8);
+            writer.WriteStringValue(Name);
+            writer.WritePropertyName("clientRequestId"u8);
+            writer.WriteStringValue(ClientRequestId);
+            writer.WritePropertyName("correlationRequestId"u8);
+            writer.WriteStringValue(CorrelationRequestId);
+            writer.WritePropertyName("requestId"u8);
+            writer.WriteStringValue(RequestId);
+            writer.WritePropertyName("address"u8);
+            writer.WriteStringValue(Address);
+            writer.WritePropertyName("verb"u8);
+            writer.WriteStringValue(Verb);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

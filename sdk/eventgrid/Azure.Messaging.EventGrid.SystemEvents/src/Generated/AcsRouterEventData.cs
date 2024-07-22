@@ -46,8 +46,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterEventData"/>. </summary>
-        internal AcsRouterEventData()
+        /// <param name="jobId"> Router Event Job ID. </param>
+        /// <param name="channelReference"> Router Event Channel Reference. </param>
+        /// <param name="channelId"> Router Event Channel ID. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/>, <paramref name="channelReference"/> or <paramref name="channelId"/> is null. </exception>
+        internal AcsRouterEventData(string jobId, string channelReference, string channelId)
         {
+            Argument.AssertNotNull(jobId, nameof(jobId));
+            Argument.AssertNotNull(channelReference, nameof(channelReference));
+            Argument.AssertNotNull(channelId, nameof(channelId));
+
+            JobId = jobId;
+            ChannelReference = channelReference;
+            ChannelId = channelId;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterEventData"/>. </summary>
@@ -61,6 +72,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             ChannelReference = channelReference;
             ChannelId = channelId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AcsRouterEventData"/> for deserialization. </summary>
+        internal AcsRouterEventData()
+        {
         }
 
         /// <summary> Router Event Job ID. </summary>

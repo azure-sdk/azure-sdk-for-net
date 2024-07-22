@@ -26,40 +26,31 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(DataDriftId))
-            {
-                writer.WritePropertyName("dataDriftId"u8);
-                writer.WriteStringValue(DataDriftId);
-            }
-            if (Optional.IsDefined(DataDriftName))
-            {
-                writer.WritePropertyName("dataDriftName"u8);
-                writer.WriteStringValue(DataDriftName);
-            }
-            if (Optional.IsDefined(RunId))
-            {
-                writer.WritePropertyName("runId"u8);
-                writer.WriteStringValue(RunId);
-            }
-            if (Optional.IsDefined(BaseDatasetId))
-            {
-                writer.WritePropertyName("baseDatasetId"u8);
-                writer.WriteStringValue(BaseDatasetId);
-            }
-            if (Optional.IsDefined(TargetDatasetId))
-            {
-                writer.WritePropertyName("targetDatasetId"u8);
-                writer.WriteStringValue(TargetDatasetId);
-            }
+            writer.WritePropertyName("dataDriftId"u8);
+            writer.WriteStringValue(DataDriftId);
+            writer.WritePropertyName("dataDriftName"u8);
+            writer.WriteStringValue(DataDriftName);
+            writer.WritePropertyName("runId"u8);
+            writer.WriteStringValue(RunId);
+            writer.WritePropertyName("baseDatasetId"u8);
+            writer.WriteStringValue(BaseDatasetId);
+            writer.WritePropertyName("targetDatasetId"u8);
+            writer.WriteStringValue(TargetDatasetId);
             if (Optional.IsDefined(DriftCoefficient))
             {
                 writer.WritePropertyName("driftCoefficient"u8);
                 writer.WriteNumberValue(DriftCoefficient.Value);
             }
-            writer.WritePropertyName("startTime"u8);
-            writer.WriteStringValue(StartTime, "O");
-            writer.WritePropertyName("endTime"u8);
-            writer.WriteStringValue(EndTime, "O");
+            if (Optional.IsDefined(StartTime))
+            {
+                writer.WritePropertyName("startTime"u8);
+                writer.WriteStringValue(StartTime.Value, "O");
+            }
+            if (Optional.IsDefined(EndTime))
+            {
+                writer.WritePropertyName("endTime"u8);
+                writer.WriteStringValue(EndTime.Value, "O");
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -104,8 +95,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             string baseDatasetId = default;
             string targetDatasetId = default;
             double? driftCoefficient = default;
-            DateTimeOffset startTime = default;
-            DateTimeOffset endTime = default;
+            DateTimeOffset? startTime = default;
+            DateTimeOffset? endTime = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -146,11 +137,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("startTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     startTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
                 if (property.NameEquals("endTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     endTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }

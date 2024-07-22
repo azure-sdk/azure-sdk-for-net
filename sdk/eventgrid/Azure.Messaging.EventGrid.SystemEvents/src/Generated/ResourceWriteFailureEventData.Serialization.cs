@@ -26,41 +26,20 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(TenantId))
-            {
-                writer.WritePropertyName("tenantId"u8);
-                writer.WriteStringValue(TenantId);
-            }
-            if (Optional.IsDefined(SubscriptionId))
-            {
-                writer.WritePropertyName("subscriptionId"u8);
-                writer.WriteStringValue(SubscriptionId);
-            }
-            if (Optional.IsDefined(ResourceGroup))
-            {
-                writer.WritePropertyName("resourceGroup"u8);
-                writer.WriteStringValue(ResourceGroup);
-            }
-            if (Optional.IsDefined(ResourceProvider))
-            {
-                writer.WritePropertyName("resourceProvider"u8);
-                writer.WriteStringValue(ResourceProvider);
-            }
-            if (Optional.IsDefined(ResourceUri))
-            {
-                writer.WritePropertyName("resourceUri"u8);
-                writer.WriteStringValue(ResourceUri);
-            }
-            if (Optional.IsDefined(OperationName))
-            {
-                writer.WritePropertyName("operationName"u8);
-                writer.WriteStringValue(OperationName);
-            }
-            if (Optional.IsDefined(Status))
-            {
-                writer.WritePropertyName("status"u8);
-                writer.WriteStringValue(Status);
-            }
+            writer.WritePropertyName("tenantId"u8);
+            writer.WriteStringValue(TenantId);
+            writer.WritePropertyName("subscriptionId"u8);
+            writer.WriteStringValue(SubscriptionId);
+            writer.WritePropertyName("resourceGroup"u8);
+            writer.WriteStringValue(ResourceGroup);
+            writer.WritePropertyName("resourceProvider"u8);
+            writer.WriteStringValue(ResourceProvider);
+            writer.WritePropertyName("resourceUri"u8);
+            writer.WriteStringValue(ResourceUri);
+            writer.WritePropertyName("operationName"u8);
+            writer.WriteStringValue(OperationName);
+            writer.WritePropertyName("status"u8);
+            writer.WriteStringValue(Status);
             writer.WritePropertyName("authorization"u8);
             writer.WriteObjectValue(Authorization, options);
             writer.WritePropertyName("claims"u8);
@@ -71,11 +50,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteStringValue(item.Value);
             }
             writer.WriteEndObject();
-            if (Optional.IsDefined(CorrelationId))
-            {
-                writer.WritePropertyName("correlationId"u8);
-                writer.WriteStringValue(CorrelationId);
-            }
+            writer.WritePropertyName("correlationId"u8);
+            writer.WriteStringValue(CorrelationId);
             writer.WritePropertyName("httpRequest"u8);
             writer.WriteObjectValue(HttpRequest, options);
             if (options.Format != "W" && _serializedAdditionalRawData != null)

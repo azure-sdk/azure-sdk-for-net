@@ -26,21 +26,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(DeviceId))
-            {
-                writer.WritePropertyName("deviceId"u8);
-                writer.WriteStringValue(DeviceId);
-            }
-            if (Optional.IsDefined(ModuleId))
-            {
-                writer.WritePropertyName("moduleId"u8);
-                writer.WriteStringValue(ModuleId);
-            }
-            if (Optional.IsDefined(HubName))
-            {
-                writer.WritePropertyName("hubName"u8);
-                writer.WriteStringValue(HubName);
-            }
+            writer.WritePropertyName("deviceId"u8);
+            writer.WriteStringValue(DeviceId);
+            writer.WritePropertyName("moduleId"u8);
+            writer.WriteStringValue(ModuleId);
+            writer.WritePropertyName("hubName"u8);
+            writer.WriteStringValue(HubName);
             writer.WritePropertyName("deviceConnectionStateEventInfo"u8);
             writer.WriteObjectValue(DeviceConnectionStateEventInfo, options);
             if (options.Format != "W" && _serializedAdditionalRawData != null)

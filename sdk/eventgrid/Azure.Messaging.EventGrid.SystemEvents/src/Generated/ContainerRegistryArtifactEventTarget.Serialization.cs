@@ -26,31 +26,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(MediaType))
-            {
-                writer.WritePropertyName("mediaType"u8);
-                writer.WriteStringValue(MediaType);
-            }
+            writer.WritePropertyName("mediaType"u8);
+            writer.WriteStringValue(MediaType);
             if (Optional.IsDefined(Size))
             {
                 writer.WritePropertyName("size"u8);
                 writer.WriteNumberValue(Size.Value);
             }
-            if (Optional.IsDefined(Digest))
-            {
-                writer.WritePropertyName("digest"u8);
-                writer.WriteStringValue(Digest);
-            }
-            if (Optional.IsDefined(Repository))
-            {
-                writer.WritePropertyName("repository"u8);
-                writer.WriteStringValue(Repository);
-            }
-            if (Optional.IsDefined(Tag))
-            {
-                writer.WritePropertyName("tag"u8);
-                writer.WriteStringValue(Tag);
-            }
+            writer.WritePropertyName("digest"u8);
+            writer.WriteStringValue(Digest);
+            writer.WritePropertyName("repository"u8);
+            writer.WriteStringValue(Repository);
+            writer.WritePropertyName("tag"u8);
+            writer.WriteStringValue(Tag);
             if (Optional.IsDefined(Name))
             {
                 writer.WritePropertyName("name"u8);

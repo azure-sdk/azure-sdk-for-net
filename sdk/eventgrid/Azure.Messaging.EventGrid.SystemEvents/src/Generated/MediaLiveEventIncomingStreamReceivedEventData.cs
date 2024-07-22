@@ -46,8 +46,34 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventIncomingStreamReceivedEventData"/>. </summary>
-        internal MediaLiveEventIncomingStreamReceivedEventData()
+        /// <param name="ingestUrl"> Gets the ingest URL provided by the live event. </param>
+        /// <param name="trackType"> Gets the type of the track (Audio / Video). </param>
+        /// <param name="trackName"> Gets the track name. </param>
+        /// <param name="encoderIp"> Gets the remote IP. </param>
+        /// <param name="encoderPort"> Gets the remote port. </param>
+        /// <param name="timestamp"> Gets the first timestamp of the data chunk received. </param>
+        /// <param name="duration"> Gets the duration of the first data chunk. </param>
+        /// <param name="timescale"> Gets the timescale in which timestamp is represented. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="ingestUrl"/>, <paramref name="trackType"/>, <paramref name="trackName"/>, <paramref name="encoderIp"/>, <paramref name="encoderPort"/>, <paramref name="timestamp"/>, <paramref name="duration"/> or <paramref name="timescale"/> is null. </exception>
+        internal MediaLiveEventIncomingStreamReceivedEventData(string ingestUrl, string trackType, string trackName, string encoderIp, string encoderPort, string timestamp, string duration, string timescale)
         {
+            Argument.AssertNotNull(ingestUrl, nameof(ingestUrl));
+            Argument.AssertNotNull(trackType, nameof(trackType));
+            Argument.AssertNotNull(trackName, nameof(trackName));
+            Argument.AssertNotNull(encoderIp, nameof(encoderIp));
+            Argument.AssertNotNull(encoderPort, nameof(encoderPort));
+            Argument.AssertNotNull(timestamp, nameof(timestamp));
+            Argument.AssertNotNull(duration, nameof(duration));
+            Argument.AssertNotNull(timescale, nameof(timescale));
+
+            IngestUrl = ingestUrl;
+            TrackType = trackType;
+            TrackName = trackName;
+            EncoderIp = encoderIp;
+            EncoderPort = encoderPort;
+            Timestamp = timestamp;
+            Duration = duration;
+            Timescale = timescale;
         }
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventIncomingStreamReceivedEventData"/>. </summary>
@@ -73,6 +99,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             Duration = duration;
             Timescale = timescale;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="MediaLiveEventIncomingStreamReceivedEventData"/> for deserialization. </summary>
+        internal MediaLiveEventIncomingStreamReceivedEventData()
+        {
         }
 
         /// <summary> Gets the ingest URL provided by the live event. </summary>

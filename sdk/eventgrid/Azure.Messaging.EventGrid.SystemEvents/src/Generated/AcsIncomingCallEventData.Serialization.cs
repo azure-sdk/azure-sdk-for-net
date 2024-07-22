@@ -30,28 +30,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             writer.WriteObjectValue(ToCommunicationIdentifier, options);
             writer.WritePropertyName("from"u8);
             writer.WriteObjectValue(FromCommunicationIdentifier, options);
-            if (Optional.IsDefined(ServerCallId))
-            {
-                writer.WritePropertyName("serverCallId"u8);
-                writer.WriteStringValue(ServerCallId);
-            }
-            if (Optional.IsDefined(CallerDisplayName))
-            {
-                writer.WritePropertyName("callerDisplayName"u8);
-                writer.WriteStringValue(CallerDisplayName);
-            }
+            writer.WritePropertyName("serverCallId"u8);
+            writer.WriteStringValue(ServerCallId);
+            writer.WritePropertyName("callerDisplayName"u8);
+            writer.WriteStringValue(CallerDisplayName);
             writer.WritePropertyName("customContext"u8);
             writer.WriteObjectValue(CustomContext, options);
-            if (Optional.IsDefined(IncomingCallContext))
-            {
-                writer.WritePropertyName("incomingCallContext"u8);
-                writer.WriteStringValue(IncomingCallContext);
-            }
-            if (Optional.IsDefined(CorrelationId))
-            {
-                writer.WritePropertyName("correlationId"u8);
-                writer.WriteStringValue(CorrelationId);
-            }
+            writer.WritePropertyName("incomingCallContext"u8);
+            writer.WriteStringValue(IncomingCallContext);
+            writer.WritePropertyName("correlationId"u8);
+            writer.WriteStringValue(CorrelationId);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

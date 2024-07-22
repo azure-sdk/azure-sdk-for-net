@@ -26,51 +26,27 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(IngestUrl))
-            {
-                writer.WritePropertyName("ingestUrl"u8);
-                writer.WriteStringValue(IngestUrl);
-            }
-            if (Optional.IsDefined(TrackType))
-            {
-                writer.WritePropertyName("trackType"u8);
-                writer.WriteStringValue(TrackType);
-            }
-            if (Optional.IsDefined(TrackName))
-            {
-                writer.WritePropertyName("trackName"u8);
-                writer.WriteStringValue(TrackName);
-            }
+            writer.WritePropertyName("ingestUrl"u8);
+            writer.WriteStringValue(IngestUrl);
+            writer.WritePropertyName("trackType"u8);
+            writer.WriteStringValue(TrackType);
+            writer.WritePropertyName("trackName"u8);
+            writer.WriteStringValue(TrackName);
             if (Optional.IsDefined(Bitrate))
             {
                 writer.WritePropertyName("bitrate"u8);
                 writer.WriteNumberValue(Bitrate.Value);
             }
-            if (Optional.IsDefined(EncoderIp))
-            {
-                writer.WritePropertyName("encoderIp"u8);
-                writer.WriteStringValue(EncoderIp);
-            }
-            if (Optional.IsDefined(EncoderPort))
-            {
-                writer.WritePropertyName("encoderPort"u8);
-                writer.WriteStringValue(EncoderPort);
-            }
-            if (Optional.IsDefined(Timestamp))
-            {
-                writer.WritePropertyName("timestamp"u8);
-                writer.WriteStringValue(Timestamp);
-            }
-            if (Optional.IsDefined(Duration))
-            {
-                writer.WritePropertyName("duration"u8);
-                writer.WriteStringValue(Duration);
-            }
-            if (Optional.IsDefined(Timescale))
-            {
-                writer.WritePropertyName("timescale"u8);
-                writer.WriteStringValue(Timescale);
-            }
+            writer.WritePropertyName("encoderIp"u8);
+            writer.WriteStringValue(EncoderIp);
+            writer.WritePropertyName("encoderPort"u8);
+            writer.WriteStringValue(EncoderPort);
+            writer.WritePropertyName("timestamp"u8);
+            writer.WriteStringValue(Timestamp);
+            writer.WritePropertyName("duration"u8);
+            writer.WriteStringValue(Duration);
+            writer.WritePropertyName("timescale"u8);
+            writer.WriteStringValue(Timescale);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

@@ -26,27 +26,24 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("deleteTime"u8);
-            writer.WriteStringValue(DeleteTime, "O");
-            if (Optional.IsDefined(MessageId))
+            if (Optional.IsDefined(DeleteTime))
             {
-                writer.WritePropertyName("messageId"u8);
-                writer.WriteStringValue(MessageId);
+                writer.WritePropertyName("deleteTime"u8);
+                writer.WriteStringValue(DeleteTime.Value, "O");
             }
+            writer.WritePropertyName("messageId"u8);
+            writer.WriteStringValue(MessageId);
             writer.WritePropertyName("senderCommunicationIdentifier"u8);
             writer.WriteObjectValue(SenderCommunicationIdentifier, options);
-            if (Optional.IsDefined(SenderDisplayName))
+            writer.WritePropertyName("senderDisplayName"u8);
+            writer.WriteStringValue(SenderDisplayName);
+            if (Optional.IsDefined(ComposeTime))
             {
-                writer.WritePropertyName("senderDisplayName"u8);
-                writer.WriteStringValue(SenderDisplayName);
+                writer.WritePropertyName("composeTime"u8);
+                writer.WriteStringValue(ComposeTime.Value, "O");
             }
-            writer.WritePropertyName("composeTime"u8);
-            writer.WriteStringValue(ComposeTime, "O");
-            if (Optional.IsDefined(Type))
-            {
-                writer.WritePropertyName("type"u8);
-                writer.WriteStringValue(Type);
-            }
+            writer.WritePropertyName("type"u8);
+            writer.WriteStringValue(Type);
             if (Optional.IsDefined(Version))
             {
                 writer.WritePropertyName("version"u8);
@@ -54,16 +51,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
             writer.WritePropertyName("recipientCommunicationIdentifier"u8);
             writer.WriteObjectValue(RecipientCommunicationIdentifier, options);
-            if (Optional.IsDefined(TransactionId))
-            {
-                writer.WritePropertyName("transactionId"u8);
-                writer.WriteStringValue(TransactionId);
-            }
-            if (Optional.IsDefined(ThreadId))
-            {
-                writer.WritePropertyName("threadId"u8);
-                writer.WriteStringValue(ThreadId);
-            }
+            writer.WritePropertyName("transactionId"u8);
+            writer.WriteStringValue(TransactionId);
+            writer.WritePropertyName("threadId"u8);
+            writer.WriteStringValue(ThreadId);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -102,11 +93,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            DateTimeOffset deleteTime = default;
+            DateTimeOffset? deleteTime = default;
             string messageId = default;
             CommunicationIdentifierModel senderCommunicationIdentifier = default;
             string senderDisplayName = default;
-            DateTimeOffset composeTime = default;
+            DateTimeOffset? composeTime = default;
             string type = default;
             long? version = default;
             CommunicationIdentifierModel recipientCommunicationIdentifier = default;
@@ -118,6 +109,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("deleteTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     deleteTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
@@ -138,6 +133,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("composeTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     composeTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }

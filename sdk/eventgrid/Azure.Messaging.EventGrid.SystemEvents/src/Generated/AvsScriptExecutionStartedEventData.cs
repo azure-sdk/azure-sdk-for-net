@@ -14,8 +14,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AvsScriptExecutionStartedEventData : AvsScriptExecutionEventData
     {
         /// <summary> Initializes a new instance of <see cref="AvsScriptExecutionStartedEventData"/>. </summary>
-        internal AvsScriptExecutionStartedEventData()
+        /// <param name="operationId"> Id of the operation that caused this event. </param>
+        /// <param name="cmdletId"> Cmdlet referenced in the execution that caused this event. </param>
+        /// <param name="output"> Stdout outputs from the execution, if any. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="operationId"/>, <paramref name="cmdletId"/> or <paramref name="output"/> is null. </exception>
+        internal AvsScriptExecutionStartedEventData(string operationId, string cmdletId, IEnumerable<string> output) : base(operationId, cmdletId, output)
         {
+            Argument.AssertNotNull(operationId, nameof(operationId));
+            Argument.AssertNotNull(cmdletId, nameof(cmdletId));
+            Argument.AssertNotNull(output, nameof(output));
         }
 
         /// <summary> Initializes a new instance of <see cref="AvsScriptExecutionStartedEventData"/>. </summary>
@@ -24,6 +31,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="output"> Stdout outputs from the execution, if any. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal AvsScriptExecutionStartedEventData(string operationId, string cmdletId, IReadOnlyList<string> output, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(operationId, cmdletId, output, serializedAdditionalRawData)
+        {
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AvsScriptExecutionStartedEventData"/> for deserialization. </summary>
+        internal AvsScriptExecutionStartedEventData()
         {
         }
     }

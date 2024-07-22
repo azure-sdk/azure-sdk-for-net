@@ -46,8 +46,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsMessageContext"/>. </summary>
-        internal AcsMessageContext()
+        /// <param name="from"> The WhatsApp ID for the customer who replied to an inbound message. </param>
+        /// <param name="messageId"> The message ID for the sent message for an inbound reply. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="from"/> or <paramref name="messageId"/> is null. </exception>
+        internal AcsMessageContext(string @from, string messageId)
         {
+            Argument.AssertNotNull(@from, nameof(@from));
+            Argument.AssertNotNull(messageId, nameof(messageId));
+
+            From = @from;
+            MessageId = messageId;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsMessageContext"/>. </summary>
@@ -59,6 +67,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             From = @from;
             MessageId = messageId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AcsMessageContext"/> for deserialization. </summary>
+        internal AcsMessageContext()
+        {
         }
 
         /// <summary> The WhatsApp ID for the customer who replied to an inbound message. </summary>

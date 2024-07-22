@@ -26,16 +26,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(DeliveryStatus))
-            {
-                writer.WritePropertyName("deliveryStatus"u8);
-                writer.WriteStringValue(DeliveryStatus);
-            }
-            if (Optional.IsDefined(DeliveryStatusDetails))
-            {
-                writer.WritePropertyName("deliveryStatusDetails"u8);
-                writer.WriteStringValue(DeliveryStatusDetails);
-            }
+            writer.WritePropertyName("deliveryStatus"u8);
+            writer.WriteStringValue(DeliveryStatus);
+            writer.WritePropertyName("deliveryStatusDetails"u8);
+            writer.WriteStringValue(DeliveryStatusDetails);
             writer.WritePropertyName("deliveryAttempts"u8);
             writer.WriteStartArray();
             foreach (var item in DeliveryAttempts)
@@ -43,28 +37,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteObjectValue(item, options);
             }
             writer.WriteEndArray();
-            writer.WritePropertyName("receivedTimestamp"u8);
-            writer.WriteStringValue(ReceivedTimestamp, "O");
-            if (Optional.IsDefined(Tag))
+            if (Optional.IsDefined(ReceivedTimestamp))
             {
-                writer.WritePropertyName("tag"u8);
-                writer.WriteStringValue(Tag);
+                writer.WritePropertyName("receivedTimestamp"u8);
+                writer.WriteStringValue(ReceivedTimestamp.Value, "O");
             }
-            if (Optional.IsDefined(MessageId))
-            {
-                writer.WritePropertyName("messageId"u8);
-                writer.WriteStringValue(MessageId);
-            }
-            if (Optional.IsDefined(From))
-            {
-                writer.WritePropertyName("from"u8);
-                writer.WriteStringValue(From);
-            }
-            if (Optional.IsDefined(To))
-            {
-                writer.WritePropertyName("to"u8);
-                writer.WriteStringValue(To);
-            }
+            writer.WritePropertyName("tag"u8);
+            writer.WriteStringValue(Tag);
+            writer.WritePropertyName("messageId"u8);
+            writer.WriteStringValue(MessageId);
+            writer.WritePropertyName("from"u8);
+            writer.WriteStringValue(From);
+            writer.WritePropertyName("to"u8);
+            writer.WriteStringValue(To);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -106,7 +91,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             string deliveryStatus = default;
             string deliveryStatusDetails = default;
             IReadOnlyList<AcsSmsDeliveryAttemptProperties> deliveryAttempts = default;
-            DateTimeOffset receivedTimestamp = default;
+            DateTimeOffset? receivedTimestamp = default;
             string tag = default;
             string messageId = default;
             string @from = default;
@@ -137,6 +122,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("receivedTimestamp"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     receivedTimestamp = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
