@@ -26,11 +26,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(NodePoolName))
-            {
-                writer.WritePropertyName("nodePoolName"u8);
-                writer.WriteStringValue(NodePoolName);
-            }
+            writer.WritePropertyName("nodePoolName"u8);
+            writer.WriteStringValue(NodePoolName);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

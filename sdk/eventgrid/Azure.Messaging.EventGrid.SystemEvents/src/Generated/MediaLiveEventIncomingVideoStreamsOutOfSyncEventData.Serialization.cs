@@ -26,31 +26,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(FirstTimestamp))
-            {
-                writer.WritePropertyName("firstTimestamp"u8);
-                writer.WriteStringValue(FirstTimestamp);
-            }
-            if (Optional.IsDefined(FirstDuration))
-            {
-                writer.WritePropertyName("firstDuration"u8);
-                writer.WriteStringValue(FirstDuration);
-            }
-            if (Optional.IsDefined(SecondTimestamp))
-            {
-                writer.WritePropertyName("secondTimestamp"u8);
-                writer.WriteStringValue(SecondTimestamp);
-            }
-            if (Optional.IsDefined(SecondDuration))
-            {
-                writer.WritePropertyName("secondDuration"u8);
-                writer.WriteStringValue(SecondDuration);
-            }
-            if (Optional.IsDefined(Timescale))
-            {
-                writer.WritePropertyName("timescale"u8);
-                writer.WriteStringValue(Timescale);
-            }
+            writer.WritePropertyName("firstTimestamp"u8);
+            writer.WriteStringValue(FirstTimestamp);
+            writer.WritePropertyName("firstDuration"u8);
+            writer.WriteStringValue(FirstDuration);
+            writer.WritePropertyName("secondTimestamp"u8);
+            writer.WriteStringValue(SecondTimestamp);
+            writer.WritePropertyName("secondDuration"u8);
+            writer.WriteStringValue(SecondDuration);
+            writer.WritePropertyName("timescale"u8);
+            writer.WriteStringValue(Timescale);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

@@ -26,26 +26,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(MimeType))
-            {
-                writer.WritePropertyName("mimeType"u8);
-                writer.WriteStringValue(MimeType);
-            }
-            if (Optional.IsDefined(MediaId))
-            {
-                writer.WritePropertyName("id"u8);
-                writer.WriteStringValue(MediaId);
-            }
-            if (Optional.IsDefined(FileName))
-            {
-                writer.WritePropertyName("fileName"u8);
-                writer.WriteStringValue(FileName);
-            }
-            if (Optional.IsDefined(Caption))
-            {
-                writer.WritePropertyName("caption"u8);
-                writer.WriteStringValue(Caption);
-            }
+            writer.WritePropertyName("mimeType"u8);
+            writer.WriteStringValue(MimeType);
+            writer.WritePropertyName("id"u8);
+            writer.WriteStringValue(MediaId);
+            writer.WritePropertyName("fileName"u8);
+            writer.WriteStringValue(FileName);
+            writer.WritePropertyName("caption"u8);
+            writer.WriteStringValue(Caption);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

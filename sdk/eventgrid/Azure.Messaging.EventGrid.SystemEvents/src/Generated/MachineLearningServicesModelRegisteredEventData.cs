@@ -46,14 +46,20 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MachineLearningServicesModelRegisteredEventData"/>. </summary>
+        /// <param name="modelName"> The name of the model that was registered. </param>
+        /// <param name="modelVersion"> The version of the model that was registered. </param>
         /// <param name="modelTags"> The tags of the model that was registered. </param>
         /// <param name="modelProperties"> The properties of the model that was registered. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="modelTags"/> or <paramref name="modelProperties"/> is null. </exception>
-        internal MachineLearningServicesModelRegisteredEventData(IReadOnlyDictionary<string, BinaryData> modelTags, IReadOnlyDictionary<string, BinaryData> modelProperties)
+        /// <exception cref="ArgumentNullException"> <paramref name="modelName"/>, <paramref name="modelVersion"/>, <paramref name="modelTags"/> or <paramref name="modelProperties"/> is null. </exception>
+        internal MachineLearningServicesModelRegisteredEventData(string modelName, string modelVersion, IReadOnlyDictionary<string, BinaryData> modelTags, IReadOnlyDictionary<string, BinaryData> modelProperties)
         {
+            Argument.AssertNotNull(modelName, nameof(modelName));
+            Argument.AssertNotNull(modelVersion, nameof(modelVersion));
             Argument.AssertNotNull(modelTags, nameof(modelTags));
             Argument.AssertNotNull(modelProperties, nameof(modelProperties));
 
+            ModelName = modelName;
+            ModelVersion = modelVersion;
             ModelTags = modelTags;
             ModelProperties = modelProperties;
         }

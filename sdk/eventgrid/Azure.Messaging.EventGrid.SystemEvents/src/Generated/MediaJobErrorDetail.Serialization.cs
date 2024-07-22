@@ -26,16 +26,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Code))
-            {
-                writer.WritePropertyName("code"u8);
-                writer.WriteStringValue(Code);
-            }
-            if (Optional.IsDefined(Message))
-            {
-                writer.WritePropertyName("message"u8);
-                writer.WriteStringValue(Message);
-            }
+            writer.WritePropertyName("code"u8);
+            writer.WriteStringValue(Code);
+            writer.WritePropertyName("message"u8);
+            writer.WriteStringValue(Message);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

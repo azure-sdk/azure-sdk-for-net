@@ -46,18 +46,42 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ResourceDeleteCancelEventData"/>. </summary>
+        /// <param name="tenantId"> The tenant ID of the resource. </param>
+        /// <param name="subscriptionId"> The subscription ID of the resource. </param>
+        /// <param name="resourceGroup"> The resource group of the resource. </param>
+        /// <param name="resourceProvider"> The resource provider performing the operation. </param>
+        /// <param name="resourceUri"> The URI of the resource in the operation. </param>
+        /// <param name="operationName"> The operation that was performed. </param>
+        /// <param name="status"> The status of the operation. </param>
         /// <param name="authorization"> The requested authorization for the operation. </param>
         /// <param name="claims"> The properties of the claims. </param>
+        /// <param name="correlationId"> An operation ID used for troubleshooting. </param>
         /// <param name="httpRequest"> The details of the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="authorization"/>, <paramref name="claims"/> or <paramref name="httpRequest"/> is null. </exception>
-        internal ResourceDeleteCancelEventData(ResourceAuthorization authorization, IReadOnlyDictionary<string, string> claims, ResourceHttpRequest httpRequest)
+        /// <exception cref="ArgumentNullException"> <paramref name="tenantId"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/>, <paramref name="resourceProvider"/>, <paramref name="resourceUri"/>, <paramref name="operationName"/>, <paramref name="status"/>, <paramref name="authorization"/>, <paramref name="claims"/>, <paramref name="correlationId"/> or <paramref name="httpRequest"/> is null. </exception>
+        internal ResourceDeleteCancelEventData(string tenantId, string subscriptionId, string resourceGroup, string resourceProvider, string resourceUri, string operationName, string status, ResourceAuthorization authorization, IReadOnlyDictionary<string, string> claims, string correlationId, ResourceHttpRequest httpRequest)
         {
+            Argument.AssertNotNull(tenantId, nameof(tenantId));
+            Argument.AssertNotNull(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNull(resourceGroup, nameof(resourceGroup));
+            Argument.AssertNotNull(resourceProvider, nameof(resourceProvider));
+            Argument.AssertNotNull(resourceUri, nameof(resourceUri));
+            Argument.AssertNotNull(operationName, nameof(operationName));
+            Argument.AssertNotNull(status, nameof(status));
             Argument.AssertNotNull(authorization, nameof(authorization));
             Argument.AssertNotNull(claims, nameof(claims));
+            Argument.AssertNotNull(correlationId, nameof(correlationId));
             Argument.AssertNotNull(httpRequest, nameof(httpRequest));
 
+            TenantId = tenantId;
+            SubscriptionId = subscriptionId;
+            ResourceGroup = resourceGroup;
+            ResourceProvider = resourceProvider;
+            ResourceUri = resourceUri;
+            OperationName = operationName;
+            Status = status;
             Authorization = authorization;
             Claims = claims;
+            CorrelationId = correlationId;
             HttpRequest = httpRequest;
         }
 

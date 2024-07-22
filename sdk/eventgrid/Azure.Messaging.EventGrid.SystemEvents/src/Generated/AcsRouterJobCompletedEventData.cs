@@ -14,13 +14,28 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsRouterJobCompletedEventData : AcsRouterJobEventData
     {
         /// <summary> Initializes a new instance of <see cref="AcsRouterJobCompletedEventData"/>. </summary>
+        /// <param name="jobId"> Router Event Job ID. </param>
+        /// <param name="channelReference"> Router Event Channel Reference. </param>
+        /// <param name="channelId"> Router Event Channel ID. </param>
+        /// <param name="queueId"> Router Job events Queue Id. </param>
         /// <param name="labels"> Router Job events Labels. </param>
         /// <param name="tags"> Router Jobs events Tags. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="labels"/> or <paramref name="tags"/> is null. </exception>
-        internal AcsRouterJobCompletedEventData(IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags) : base(labels, tags)
+        /// <param name="assignmentId"> Router Job Completed Assignment Id. </param>
+        /// <param name="workerId"> Router Job Completed Worker Id. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/>, <paramref name="channelReference"/>, <paramref name="channelId"/>, <paramref name="queueId"/>, <paramref name="labels"/>, <paramref name="tags"/>, <paramref name="assignmentId"/> or <paramref name="workerId"/> is null. </exception>
+        internal AcsRouterJobCompletedEventData(string jobId, string channelReference, string channelId, string queueId, IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags, string assignmentId, string workerId) : base(jobId, channelReference, channelId, queueId, labels, tags)
         {
+            Argument.AssertNotNull(jobId, nameof(jobId));
+            Argument.AssertNotNull(channelReference, nameof(channelReference));
+            Argument.AssertNotNull(channelId, nameof(channelId));
+            Argument.AssertNotNull(queueId, nameof(queueId));
             Argument.AssertNotNull(labels, nameof(labels));
             Argument.AssertNotNull(tags, nameof(tags));
+            Argument.AssertNotNull(assignmentId, nameof(assignmentId));
+            Argument.AssertNotNull(workerId, nameof(workerId));
+
+            AssignmentId = assignmentId;
+            WorkerId = workerId;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterJobCompletedEventData"/>. </summary>

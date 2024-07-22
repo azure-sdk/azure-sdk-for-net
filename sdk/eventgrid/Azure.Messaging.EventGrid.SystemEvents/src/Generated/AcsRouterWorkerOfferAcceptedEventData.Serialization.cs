@@ -26,21 +26,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(QueueId))
-            {
-                writer.WritePropertyName("queueId"u8);
-                writer.WriteStringValue(QueueId);
-            }
-            if (Optional.IsDefined(OfferId))
-            {
-                writer.WritePropertyName("offerId"u8);
-                writer.WriteStringValue(OfferId);
-            }
-            if (Optional.IsDefined(AssignmentId))
-            {
-                writer.WritePropertyName("assignmentId"u8);
-                writer.WriteStringValue(AssignmentId);
-            }
+            writer.WritePropertyName("queueId"u8);
+            writer.WriteStringValue(QueueId);
+            writer.WritePropertyName("offerId"u8);
+            writer.WriteStringValue(OfferId);
+            writer.WritePropertyName("assignmentId"u8);
+            writer.WriteStringValue(AssignmentId);
             if (Optional.IsDefined(JobPriority))
             {
                 writer.WritePropertyName("jobPriority"u8);
@@ -78,26 +69,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteStringValue(item.Value);
             }
             writer.WriteEndObject();
-            if (Optional.IsDefined(WorkerId))
-            {
-                writer.WritePropertyName("workerId"u8);
-                writer.WriteStringValue(WorkerId);
-            }
-            if (Optional.IsDefined(JobId))
-            {
-                writer.WritePropertyName("jobId"u8);
-                writer.WriteStringValue(JobId);
-            }
-            if (Optional.IsDefined(ChannelReference))
-            {
-                writer.WritePropertyName("channelReference"u8);
-                writer.WriteStringValue(ChannelReference);
-            }
-            if (Optional.IsDefined(ChannelId))
-            {
-                writer.WritePropertyName("channelId"u8);
-                writer.WriteStringValue(ChannelId);
-            }
+            writer.WritePropertyName("workerId"u8);
+            writer.WriteStringValue(WorkerId);
+            writer.WritePropertyName("jobId"u8);
+            writer.WriteStringValue(JobId);
+            writer.WritePropertyName("channelReference"u8);
+            writer.WriteStringValue(ChannelReference);
+            writer.WritePropertyName("channelId"u8);
+            writer.WriteStringValue(ChannelId);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

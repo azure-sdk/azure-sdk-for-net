@@ -15,13 +15,21 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsRouterJobWorkerSelectorsExpiredEventData : AcsRouterJobEventData
     {
         /// <summary> Initializes a new instance of <see cref="AcsRouterJobWorkerSelectorsExpiredEventData"/>. </summary>
+        /// <param name="jobId"> Router Event Job ID. </param>
+        /// <param name="channelReference"> Router Event Channel Reference. </param>
+        /// <param name="channelId"> Router Event Channel ID. </param>
+        /// <param name="queueId"> Router Job events Queue Id. </param>
         /// <param name="labels"> Router Job events Labels. </param>
         /// <param name="tags"> Router Jobs events Tags. </param>
         /// <param name="expiredRequestedWorkerSelectors"> Router Job Worker Selectors Expired Requested Worker Selectors. </param>
         /// <param name="expiredAttachedWorkerSelectors"> Router Job Worker Selectors Expired Attached Worker Selectors. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="labels"/>, <paramref name="tags"/>, <paramref name="expiredRequestedWorkerSelectors"/> or <paramref name="expiredAttachedWorkerSelectors"/> is null. </exception>
-        internal AcsRouterJobWorkerSelectorsExpiredEventData(IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags, IEnumerable<AcsRouterWorkerSelector> expiredRequestedWorkerSelectors, IEnumerable<AcsRouterWorkerSelector> expiredAttachedWorkerSelectors) : base(labels, tags)
+        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/>, <paramref name="channelReference"/>, <paramref name="channelId"/>, <paramref name="queueId"/>, <paramref name="labels"/>, <paramref name="tags"/>, <paramref name="expiredRequestedWorkerSelectors"/> or <paramref name="expiredAttachedWorkerSelectors"/> is null. </exception>
+        internal AcsRouterJobWorkerSelectorsExpiredEventData(string jobId, string channelReference, string channelId, string queueId, IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags, IEnumerable<AcsRouterWorkerSelector> expiredRequestedWorkerSelectors, IEnumerable<AcsRouterWorkerSelector> expiredAttachedWorkerSelectors) : base(jobId, channelReference, channelId, queueId, labels, tags)
         {
+            Argument.AssertNotNull(jobId, nameof(jobId));
+            Argument.AssertNotNull(channelReference, nameof(channelReference));
+            Argument.AssertNotNull(channelId, nameof(channelId));
+            Argument.AssertNotNull(queueId, nameof(queueId));
             Argument.AssertNotNull(labels, nameof(labels));
             Argument.AssertNotNull(tags, nameof(tags));
             Argument.AssertNotNull(expiredRequestedWorkerSelectors, nameof(expiredRequestedWorkerSelectors));

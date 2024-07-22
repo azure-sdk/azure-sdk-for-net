@@ -47,20 +47,23 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterWorkerUpdatedEventData"/>. </summary>
+        /// <param name="workerId"> Router Worker Updated Worker Id. </param>
         /// <param name="queueAssignments"> Router Worker Updated Queue Info. </param>
         /// <param name="channelConfigurations"> Router Worker Updated Channel Configuration. </param>
         /// <param name="labels"> Router Worker Updated Labels. </param>
         /// <param name="tags"> Router Worker Updated Tags. </param>
         /// <param name="updatedWorkerProperties"> Router Worker Properties Updated. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="queueAssignments"/>, <paramref name="channelConfigurations"/>, <paramref name="labels"/>, <paramref name="tags"/> or <paramref name="updatedWorkerProperties"/> is null. </exception>
-        internal AcsRouterWorkerUpdatedEventData(IEnumerable<AcsRouterQueueDetails> queueAssignments, IEnumerable<AcsRouterChannelConfiguration> channelConfigurations, IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags, IEnumerable<AcsRouterUpdatedWorkerProperty> updatedWorkerProperties)
+        /// <exception cref="ArgumentNullException"> <paramref name="workerId"/>, <paramref name="queueAssignments"/>, <paramref name="channelConfigurations"/>, <paramref name="labels"/>, <paramref name="tags"/> or <paramref name="updatedWorkerProperties"/> is null. </exception>
+        internal AcsRouterWorkerUpdatedEventData(string workerId, IEnumerable<AcsRouterQueueDetails> queueAssignments, IEnumerable<AcsRouterChannelConfiguration> channelConfigurations, IReadOnlyDictionary<string, string> labels, IReadOnlyDictionary<string, string> tags, IEnumerable<AcsRouterUpdatedWorkerProperty> updatedWorkerProperties)
         {
+            Argument.AssertNotNull(workerId, nameof(workerId));
             Argument.AssertNotNull(queueAssignments, nameof(queueAssignments));
             Argument.AssertNotNull(channelConfigurations, nameof(channelConfigurations));
             Argument.AssertNotNull(labels, nameof(labels));
             Argument.AssertNotNull(tags, nameof(tags));
             Argument.AssertNotNull(updatedWorkerProperties, nameof(updatedWorkerProperties));
 
+            WorkerId = workerId;
             QueueAssignments = queueAssignments.ToList();
             ChannelConfigurations = channelConfigurations.ToList();
             Labels = labels;

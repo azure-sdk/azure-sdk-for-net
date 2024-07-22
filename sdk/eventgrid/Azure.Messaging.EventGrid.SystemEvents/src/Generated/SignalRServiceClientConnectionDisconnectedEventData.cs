@@ -46,10 +46,22 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="SignalRServiceClientConnectionDisconnectedEventData"/>. </summary>
-        /// <param name="timestamp"> The time at which the event occurred. </param>
-        internal SignalRServiceClientConnectionDisconnectedEventData(DateTimeOffset timestamp)
+        /// <param name="hubName"> The hub of connected client connection. </param>
+        /// <param name="connectionId"> The connection Id of connected client connection. </param>
+        /// <param name="userId"> The user Id of connected client connection. </param>
+        /// <param name="errorMessage"> The message of error that cause the client connection disconnected. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="hubName"/>, <paramref name="connectionId"/>, <paramref name="userId"/> or <paramref name="errorMessage"/> is null. </exception>
+        internal SignalRServiceClientConnectionDisconnectedEventData(string hubName, string connectionId, string userId, string errorMessage)
         {
-            Timestamp = timestamp;
+            Argument.AssertNotNull(hubName, nameof(hubName));
+            Argument.AssertNotNull(connectionId, nameof(connectionId));
+            Argument.AssertNotNull(userId, nameof(userId));
+            Argument.AssertNotNull(errorMessage, nameof(errorMessage));
+
+            HubName = hubName;
+            ConnectionId = connectionId;
+            UserId = userId;
+            ErrorMessage = errorMessage;
         }
 
         /// <summary> Initializes a new instance of <see cref="SignalRServiceClientConnectionDisconnectedEventData"/>. </summary>
@@ -59,7 +71,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="userId"> The user Id of connected client connection. </param>
         /// <param name="errorMessage"> The message of error that cause the client connection disconnected. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SignalRServiceClientConnectionDisconnectedEventData(DateTimeOffset timestamp, string hubName, string connectionId, string userId, string errorMessage, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SignalRServiceClientConnectionDisconnectedEventData(DateTimeOffset? timestamp, string hubName, string connectionId, string userId, string errorMessage, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Timestamp = timestamp;
             HubName = hubName;
@@ -75,7 +87,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         }
 
         /// <summary> The time at which the event occurred. </summary>
-        public DateTimeOffset Timestamp { get; }
+        public DateTimeOffset? Timestamp { get; }
         /// <summary> The hub of connected client connection. </summary>
         public string HubName { get; }
         /// <summary> The connection Id of connected client connection. </summary>

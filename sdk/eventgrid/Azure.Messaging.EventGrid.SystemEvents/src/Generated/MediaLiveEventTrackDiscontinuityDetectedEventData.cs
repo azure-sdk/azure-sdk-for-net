@@ -46,8 +46,28 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventTrackDiscontinuityDetectedEventData"/>. </summary>
-        internal MediaLiveEventTrackDiscontinuityDetectedEventData()
+        /// <param name="trackType"> Gets the type of the track (Audio / Video). </param>
+        /// <param name="trackName"> Gets the track name. </param>
+        /// <param name="previousTimestamp"> Gets the timestamp of the previous fragment. </param>
+        /// <param name="newTimestamp"> Gets the timestamp of the current fragment. </param>
+        /// <param name="timescale"> Gets the timescale in which both timestamps and discontinuity gap are represented. </param>
+        /// <param name="discontinuityGap"> Gets the discontinuity gap between PreviousTimestamp and NewTimestamp. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="trackType"/>, <paramref name="trackName"/>, <paramref name="previousTimestamp"/>, <paramref name="newTimestamp"/>, <paramref name="timescale"/> or <paramref name="discontinuityGap"/> is null. </exception>
+        internal MediaLiveEventTrackDiscontinuityDetectedEventData(string trackType, string trackName, string previousTimestamp, string newTimestamp, string timescale, string discontinuityGap)
         {
+            Argument.AssertNotNull(trackType, nameof(trackType));
+            Argument.AssertNotNull(trackName, nameof(trackName));
+            Argument.AssertNotNull(previousTimestamp, nameof(previousTimestamp));
+            Argument.AssertNotNull(newTimestamp, nameof(newTimestamp));
+            Argument.AssertNotNull(timescale, nameof(timescale));
+            Argument.AssertNotNull(discontinuityGap, nameof(discontinuityGap));
+
+            TrackType = trackType;
+            TrackName = trackName;
+            PreviousTimestamp = previousTimestamp;
+            NewTimestamp = newTimestamp;
+            Timescale = timescale;
+            DiscontinuityGap = discontinuityGap;
         }
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventTrackDiscontinuityDetectedEventData"/>. </summary>
@@ -69,6 +89,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             Timescale = timescale;
             DiscontinuityGap = discontinuityGap;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="MediaLiveEventTrackDiscontinuityDetectedEventData"/> for deserialization. </summary>
+        internal MediaLiveEventTrackDiscontinuityDetectedEventData()
+        {
         }
 
         /// <summary> Gets the type of the track (Audio / Video). </summary>

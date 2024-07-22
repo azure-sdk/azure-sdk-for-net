@@ -46,8 +46,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterWorkerDeregisteredEventData"/>. </summary>
-        internal AcsRouterWorkerDeregisteredEventData()
+        /// <param name="workerId"> Router Worker Deregistered Worker Id. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workerId"/> is null. </exception>
+        internal AcsRouterWorkerDeregisteredEventData(string workerId)
         {
+            Argument.AssertNotNull(workerId, nameof(workerId));
+
+            WorkerId = workerId;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterWorkerDeregisteredEventData"/>. </summary>
@@ -57,6 +62,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         {
             WorkerId = workerId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AcsRouterWorkerDeregisteredEventData"/> for deserialization. </summary>
+        internal AcsRouterWorkerDeregisteredEventData()
+        {
         }
 
         /// <summary> Router Worker Deregistered Worker Id. </summary>

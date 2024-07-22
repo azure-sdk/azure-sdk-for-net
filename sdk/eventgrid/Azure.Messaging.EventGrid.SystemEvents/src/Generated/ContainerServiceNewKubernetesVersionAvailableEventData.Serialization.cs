@@ -26,26 +26,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(LatestSupportedKubernetesVersion))
-            {
-                writer.WritePropertyName("latestSupportedKubernetesVersion"u8);
-                writer.WriteStringValue(LatestSupportedKubernetesVersion);
-            }
-            if (Optional.IsDefined(LatestStableKubernetesVersion))
-            {
-                writer.WritePropertyName("latestStableKubernetesVersion"u8);
-                writer.WriteStringValue(LatestStableKubernetesVersion);
-            }
-            if (Optional.IsDefined(LowestMinorKubernetesVersion))
-            {
-                writer.WritePropertyName("lowestMinorKubernetesVersion"u8);
-                writer.WriteStringValue(LowestMinorKubernetesVersion);
-            }
-            if (Optional.IsDefined(LatestPreviewKubernetesVersion))
-            {
-                writer.WritePropertyName("latestPreviewKubernetesVersion"u8);
-                writer.WriteStringValue(LatestPreviewKubernetesVersion);
-            }
+            writer.WritePropertyName("latestSupportedKubernetesVersion"u8);
+            writer.WriteStringValue(LatestSupportedKubernetesVersion);
+            writer.WritePropertyName("latestStableKubernetesVersion"u8);
+            writer.WriteStringValue(LatestStableKubernetesVersion);
+            writer.WritePropertyName("lowestMinorKubernetesVersion"u8);
+            writer.WriteStringValue(LowestMinorKubernetesVersion);
+            writer.WritePropertyName("latestPreviewKubernetesVersion"u8);
+            writer.WriteStringValue(LatestPreviewKubernetesVersion);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

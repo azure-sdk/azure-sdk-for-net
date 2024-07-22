@@ -46,8 +46,25 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventEncoderDisconnectedEventData"/>. </summary>
-        internal MediaLiveEventEncoderDisconnectedEventData()
+        /// <param name="ingestUrl"> Gets the ingest URL provided by the live event. </param>
+        /// <param name="streamId"> Gets the stream Id. </param>
+        /// <param name="encoderIp"> Gets the remote IP. </param>
+        /// <param name="encoderPort"> Gets the remote port. </param>
+        /// <param name="resultCode"> Gets the result code. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="ingestUrl"/>, <paramref name="streamId"/>, <paramref name="encoderIp"/>, <paramref name="encoderPort"/> or <paramref name="resultCode"/> is null. </exception>
+        internal MediaLiveEventEncoderDisconnectedEventData(string ingestUrl, string streamId, string encoderIp, string encoderPort, string resultCode)
         {
+            Argument.AssertNotNull(ingestUrl, nameof(ingestUrl));
+            Argument.AssertNotNull(streamId, nameof(streamId));
+            Argument.AssertNotNull(encoderIp, nameof(encoderIp));
+            Argument.AssertNotNull(encoderPort, nameof(encoderPort));
+            Argument.AssertNotNull(resultCode, nameof(resultCode));
+
+            IngestUrl = ingestUrl;
+            StreamId = streamId;
+            EncoderIp = encoderIp;
+            EncoderPort = encoderPort;
+            ResultCode = resultCode;
         }
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventEncoderDisconnectedEventData"/>. </summary>
@@ -65,6 +82,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             EncoderPort = encoderPort;
             ResultCode = resultCode;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="MediaLiveEventEncoderDisconnectedEventData"/> for deserialization. </summary>
+        internal MediaLiveEventEncoderDisconnectedEventData()
+        {
         }
 
         /// <summary> Gets the ingest URL provided by the live event. </summary>

@@ -36,11 +36,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("successCount"u8);
                 writer.WriteNumberValue(SuccessCount.Value);
             }
-            if (Optional.IsDefined(ErrorList))
-            {
-                writer.WritePropertyName("errorList"u8);
-                writer.WriteStringValue(ErrorList);
-            }
+            writer.WritePropertyName("errorList"u8);
+            writer.WriteStringValue(ErrorList);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

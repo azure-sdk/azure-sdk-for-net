@@ -26,21 +26,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Code))
-            {
-                writer.WritePropertyName("code"u8);
-                writer.WriteStringValue(Code);
-            }
-            if (Optional.IsDefined(Message))
-            {
-                writer.WritePropertyName("message"u8);
-                writer.WriteStringValue(Message);
-            }
-            if (Optional.IsDefined(Target))
-            {
-                writer.WritePropertyName("target"u8);
-                writer.WriteStringValue(Target);
-            }
+            writer.WritePropertyName("code"u8);
+            writer.WriteStringValue(Code);
+            writer.WritePropertyName("message"u8);
+            writer.WriteStringValue(Message);
+            writer.WritePropertyName("target"u8);
+            writer.WriteStringValue(Target);
             writer.WritePropertyName("innererror"u8);
             writer.WriteObjectValue(Innererror, options);
             writer.WritePropertyName("details"u8);

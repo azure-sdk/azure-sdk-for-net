@@ -26,11 +26,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(ScheduleTime))
-            {
-                writer.WritePropertyName("scheduleTime"u8);
-                writer.WriteStringValue(ScheduleTime);
-            }
+            writer.WritePropertyName("scheduleTime"u8);
+            writer.WriteStringValue(ScheduleTime);
             writer.WritePropertyName("deleteSummary"u8);
             writer.WriteObjectValue(DeleteSummary, options);
             writer.WritePropertyName("tierToCoolSummary"u8);

@@ -26,16 +26,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(ModelName))
-            {
-                writer.WritePropertyName("modelName"u8);
-                writer.WriteStringValue(ModelName);
-            }
-            if (Optional.IsDefined(ModelVersion))
-            {
-                writer.WritePropertyName("modelVersion"u8);
-                writer.WriteStringValue(ModelVersion);
-            }
+            writer.WritePropertyName("modelName"u8);
+            writer.WriteStringValue(ModelName);
+            writer.WritePropertyName("modelVersion"u8);
+            writer.WriteStringValue(ModelVersion);
             writer.WritePropertyName("modelTags"u8);
             writer.WriteStartObject();
             foreach (var item in ModelTags)

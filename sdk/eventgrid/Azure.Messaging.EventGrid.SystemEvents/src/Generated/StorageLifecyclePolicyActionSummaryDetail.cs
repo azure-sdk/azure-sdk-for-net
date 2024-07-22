@@ -46,8 +46,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="StorageLifecyclePolicyActionSummaryDetail"/>. </summary>
-        internal StorageLifecyclePolicyActionSummaryDetail()
+        /// <param name="errorList"> Error messages of this action if any. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="errorList"/> is null. </exception>
+        internal StorageLifecyclePolicyActionSummaryDetail(string errorList)
         {
+            Argument.AssertNotNull(errorList, nameof(errorList));
+
+            ErrorList = errorList;
         }
 
         /// <summary> Initializes a new instance of <see cref="StorageLifecyclePolicyActionSummaryDetail"/>. </summary>
@@ -61,6 +66,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             SuccessCount = successCount;
             ErrorList = errorList;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="StorageLifecyclePolicyActionSummaryDetail"/> for deserialization. </summary>
+        internal StorageLifecyclePolicyActionSummaryDetail()
+        {
         }
 
         /// <summary> Total number of objects to be acted on by this action. </summary>

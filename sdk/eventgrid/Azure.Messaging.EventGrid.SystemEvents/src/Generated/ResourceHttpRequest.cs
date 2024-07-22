@@ -46,8 +46,22 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ResourceHttpRequest"/>. </summary>
-        internal ResourceHttpRequest()
+        /// <param name="clientRequestId"> The client request ID. </param>
+        /// <param name="clientIpAddress"> The client IP address. </param>
+        /// <param name="method"> The request method. </param>
+        /// <param name="url"> The url used in the request. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="clientRequestId"/>, <paramref name="clientIpAddress"/>, <paramref name="method"/> or <paramref name="url"/> is null. </exception>
+        internal ResourceHttpRequest(string clientRequestId, string clientIpAddress, string method, string url)
         {
+            Argument.AssertNotNull(clientRequestId, nameof(clientRequestId));
+            Argument.AssertNotNull(clientIpAddress, nameof(clientIpAddress));
+            Argument.AssertNotNull(method, nameof(method));
+            Argument.AssertNotNull(url, nameof(url));
+
+            ClientRequestId = clientRequestId;
+            ClientIpAddress = clientIpAddress;
+            Method = method;
+            Url = url;
         }
 
         /// <summary> Initializes a new instance of <see cref="ResourceHttpRequest"/>. </summary>
@@ -63,6 +77,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             Method = method;
             Url = url;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ResourceHttpRequest"/> for deserialization. </summary>
+        internal ResourceHttpRequest()
+        {
         }
 
         /// <summary> The client request ID. </summary>

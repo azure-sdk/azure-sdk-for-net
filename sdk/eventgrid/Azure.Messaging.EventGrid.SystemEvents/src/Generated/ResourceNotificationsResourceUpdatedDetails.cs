@@ -49,14 +49,26 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ResourceNotificationsResourceUpdatedDetails"/>. </summary>
+        /// <param name="id"> id of the resource for which the event is being emitted. </param>
+        /// <param name="name"> name of the resource for which the event is being emitted. </param>
+        /// <param name="type"> the type of the resource for which the event is being emitted. </param>
+        /// <param name="location"> the location of the resource for which the event is being emitted. </param>
         /// <param name="tags"> the tags on the resource for which the event is being emitted. </param>
         /// <param name="properties"> properties in the payload of the resource for which the event is being emitted. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="tags"/> or <paramref name="properties"/> is null. </exception>
-        internal ResourceNotificationsResourceUpdatedDetails(IReadOnlyDictionary<string, string> tags, IReadOnlyDictionary<string, BinaryData> properties)
+        /// <exception cref="ArgumentNullException"> <paramref name="id"/>, <paramref name="name"/>, <paramref name="type"/>, <paramref name="location"/>, <paramref name="tags"/> or <paramref name="properties"/> is null. </exception>
+        internal ResourceNotificationsResourceUpdatedDetails(string id, string name, string type, string location, IReadOnlyDictionary<string, string> tags, IReadOnlyDictionary<string, BinaryData> properties)
         {
+            Argument.AssertNotNull(id, nameof(id));
+            Argument.AssertNotNull(name, nameof(name));
+            Argument.AssertNotNull(type, nameof(type));
+            Argument.AssertNotNull(location, nameof(location));
             Argument.AssertNotNull(tags, nameof(tags));
             Argument.AssertNotNull(properties, nameof(properties));
 
+            Id = id;
+            Name = name;
+            Type = type;
+            Location = location;
             Tags = tags;
             Properties = properties;
         }

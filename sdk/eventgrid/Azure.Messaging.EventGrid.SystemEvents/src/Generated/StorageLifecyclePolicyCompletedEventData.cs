@@ -46,16 +46,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="StorageLifecyclePolicyCompletedEventData"/>. </summary>
+        /// <param name="scheduleTime"> The time the policy task was scheduled. </param>
         /// <param name="deleteSummary"> Execution statistics of a specific policy action in a Blob Management cycle. </param>
         /// <param name="tierToCoolSummary"> Execution statistics of a specific policy action in a Blob Management cycle. </param>
         /// <param name="tierToArchiveSummary"> Execution statistics of a specific policy action in a Blob Management cycle. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="deleteSummary"/>, <paramref name="tierToCoolSummary"/> or <paramref name="tierToArchiveSummary"/> is null. </exception>
-        internal StorageLifecyclePolicyCompletedEventData(StorageLifecyclePolicyActionSummaryDetail deleteSummary, StorageLifecyclePolicyActionSummaryDetail tierToCoolSummary, StorageLifecyclePolicyActionSummaryDetail tierToArchiveSummary)
+        /// <exception cref="ArgumentNullException"> <paramref name="scheduleTime"/>, <paramref name="deleteSummary"/>, <paramref name="tierToCoolSummary"/> or <paramref name="tierToArchiveSummary"/> is null. </exception>
+        internal StorageLifecyclePolicyCompletedEventData(string scheduleTime, StorageLifecyclePolicyActionSummaryDetail deleteSummary, StorageLifecyclePolicyActionSummaryDetail tierToCoolSummary, StorageLifecyclePolicyActionSummaryDetail tierToArchiveSummary)
         {
+            Argument.AssertNotNull(scheduleTime, nameof(scheduleTime));
             Argument.AssertNotNull(deleteSummary, nameof(deleteSummary));
             Argument.AssertNotNull(tierToCoolSummary, nameof(tierToCoolSummary));
             Argument.AssertNotNull(tierToArchiveSummary, nameof(tierToArchiveSummary));
 
+            ScheduleTime = scheduleTime;
             DeleteSummary = deleteSummary;
             TierToCoolSummary = tierToCoolSummary;
             TierToArchiveSummary = tierToArchiveSummary;

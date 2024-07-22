@@ -46,8 +46,22 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsMessageMediaContent"/>. </summary>
-        internal AcsMessageMediaContent()
+        /// <param name="mimeType"> The MIME type of the file this media represents. </param>
+        /// <param name="mediaId"> The media identifier. </param>
+        /// <param name="fileName"> The filename of the underlying media file as specified when uploaded. </param>
+        /// <param name="caption"> The caption for the media object, if supported and provided. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="mimeType"/>, <paramref name="mediaId"/>, <paramref name="fileName"/> or <paramref name="caption"/> is null. </exception>
+        internal AcsMessageMediaContent(string mimeType, string mediaId, string fileName, string caption)
         {
+            Argument.AssertNotNull(mimeType, nameof(mimeType));
+            Argument.AssertNotNull(mediaId, nameof(mediaId));
+            Argument.AssertNotNull(fileName, nameof(fileName));
+            Argument.AssertNotNull(caption, nameof(caption));
+
+            MimeType = mimeType;
+            MediaId = mediaId;
+            FileName = fileName;
+            Caption = caption;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsMessageMediaContent"/>. </summary>
@@ -63,6 +77,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             FileName = fileName;
             Caption = caption;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AcsMessageMediaContent"/> for deserialization. </summary>
+        internal AcsMessageMediaContent()
+        {
         }
 
         /// <summary> The MIME type of the file this media represents. </summary>

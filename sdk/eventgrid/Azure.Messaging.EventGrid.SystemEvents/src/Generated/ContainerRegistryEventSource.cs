@@ -46,8 +46,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ContainerRegistryEventSource"/>. </summary>
-        internal ContainerRegistryEventSource()
+        /// <param name="addr"> The IP or hostname and the port of the registry node that generated the event. Generally, this will be resolved by os.Hostname() along with the running port. </param>
+        /// <param name="instanceID"> The running instance of an application. Changes after each restart. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="addr"/> or <paramref name="instanceID"/> is null. </exception>
+        internal ContainerRegistryEventSource(string addr, string instanceID)
         {
+            Argument.AssertNotNull(addr, nameof(addr));
+            Argument.AssertNotNull(instanceID, nameof(instanceID));
+
+            Addr = addr;
+            InstanceID = instanceID;
         }
 
         /// <summary> Initializes a new instance of <see cref="ContainerRegistryEventSource"/>. </summary>
@@ -59,6 +67,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             Addr = addr;
             InstanceID = instanceID;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContainerRegistryEventSource"/> for deserialization. </summary>
+        internal ContainerRegistryEventSource()
+        {
         }
 
         /// <summary> The IP or hostname and the port of the registry node that generated the event. Generally, this will be resolved by os.Hostname() along with the running port. </summary>

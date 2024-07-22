@@ -46,8 +46,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsEmailDeliveryReportStatusDetails"/>. </summary>
-        internal AcsEmailDeliveryReportStatusDetails()
+        /// <param name="statusMessage"> Detailed status message. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="statusMessage"/> is null. </exception>
+        internal AcsEmailDeliveryReportStatusDetails(string statusMessage)
         {
+            Argument.AssertNotNull(statusMessage, nameof(statusMessage));
+
+            StatusMessage = statusMessage;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsEmailDeliveryReportStatusDetails"/>. </summary>
@@ -57,6 +62,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         {
             StatusMessage = statusMessage;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AcsEmailDeliveryReportStatusDetails"/> for deserialization. </summary>
+        internal AcsEmailDeliveryReportStatusDetails()
+        {
         }
 
         /// <summary> Detailed status message. </summary>

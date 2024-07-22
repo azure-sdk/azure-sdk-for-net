@@ -14,22 +14,28 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsMessageReceivedEventData : AcsMessageEventData
     {
         /// <summary> Initializes a new instance of <see cref="AcsMessageReceivedEventData"/>. </summary>
-        /// <param name="receivedTimestamp"> The time message was received. </param>
+        /// <param name="from"> The message sender. </param>
+        /// <param name="to"> The message recipient. </param>
         /// <param name="error"> The channel event error. </param>
+        /// <param name="content"> The message content. </param>
         /// <param name="channelKind"> The message channel type. </param>
         /// <param name="mediaContent"> The received message media content. </param>
         /// <param name="context"> The received message context. </param>
         /// <param name="button"> The received message button content. </param>
         /// <param name="interactiveContent"> The received message interactive content. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="error"/>, <paramref name="mediaContent"/>, <paramref name="context"/>, <paramref name="button"/> or <paramref name="interactiveContent"/> is null. </exception>
-        internal AcsMessageReceivedEventData(DateTimeOffset receivedTimestamp, AcsMessageChannelEventError error, AcsMessageChannelKind channelKind, AcsMessageMediaContent mediaContent, AcsMessageContext context, AcsMessageButtonContent button, AcsMessageInteractiveContent interactiveContent) : base(receivedTimestamp, error)
+        /// <exception cref="ArgumentNullException"> <paramref name="from"/>, <paramref name="to"/>, <paramref name="error"/>, <paramref name="content"/>, <paramref name="mediaContent"/>, <paramref name="context"/>, <paramref name="button"/> or <paramref name="interactiveContent"/> is null. </exception>
+        internal AcsMessageReceivedEventData(string @from, string to, AcsMessageChannelEventError error, string content, AcsMessageChannelKind channelKind, AcsMessageMediaContent mediaContent, AcsMessageContext context, AcsMessageButtonContent button, AcsMessageInteractiveContent interactiveContent) : base(@from, to, error)
         {
+            Argument.AssertNotNull(@from, nameof(@from));
+            Argument.AssertNotNull(to, nameof(to));
             Argument.AssertNotNull(error, nameof(error));
+            Argument.AssertNotNull(content, nameof(content));
             Argument.AssertNotNull(mediaContent, nameof(mediaContent));
             Argument.AssertNotNull(context, nameof(context));
             Argument.AssertNotNull(button, nameof(button));
             Argument.AssertNotNull(interactiveContent, nameof(interactiveContent));
 
+            Content = content;
             ChannelKind = channelKind;
             MediaContent = mediaContent;
             Context = context;
@@ -49,7 +55,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="context"> The received message context. </param>
         /// <param name="button"> The received message button content. </param>
         /// <param name="interactiveContent"> The received message interactive content. </param>
-        internal AcsMessageReceivedEventData(string @from, string to, DateTimeOffset receivedTimestamp, AcsMessageChannelEventError error, IDictionary<string, BinaryData> serializedAdditionalRawData, string content, AcsMessageChannelKind channelKind, AcsMessageMediaContent mediaContent, AcsMessageContext context, AcsMessageButtonContent button, AcsMessageInteractiveContent interactiveContent) : base(@from, to, receivedTimestamp, error, serializedAdditionalRawData)
+        internal AcsMessageReceivedEventData(string @from, string to, DateTimeOffset? receivedTimestamp, AcsMessageChannelEventError error, IDictionary<string, BinaryData> serializedAdditionalRawData, string content, AcsMessageChannelKind channelKind, AcsMessageMediaContent mediaContent, AcsMessageContext context, AcsMessageButtonContent button, AcsMessageInteractiveContent interactiveContent) : base(@from, to, receivedTimestamp, error, serializedAdditionalRawData)
         {
             Content = content;
             ChannelKind = channelKind;

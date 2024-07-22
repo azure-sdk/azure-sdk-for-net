@@ -26,41 +26,20 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Api))
-            {
-                writer.WritePropertyName("api"u8);
-                writer.WriteStringValue(Api);
-            }
-            if (Optional.IsDefined(ClientRequestId))
-            {
-                writer.WritePropertyName("clientRequestId"u8);
-                writer.WriteStringValue(ClientRequestId);
-            }
-            if (Optional.IsDefined(RequestId))
-            {
-                writer.WritePropertyName("requestId"u8);
-                writer.WriteStringValue(RequestId);
-            }
-            if (Optional.IsDefined(SourceUrl))
-            {
-                writer.WritePropertyName("sourceUrl"u8);
-                writer.WriteStringValue(SourceUrl);
-            }
-            if (Optional.IsDefined(DestinationUrl))
-            {
-                writer.WritePropertyName("destinationUrl"u8);
-                writer.WriteStringValue(DestinationUrl);
-            }
-            if (Optional.IsDefined(Sequencer))
-            {
-                writer.WritePropertyName("sequencer"u8);
-                writer.WriteStringValue(Sequencer);
-            }
-            if (Optional.IsDefined(Identity))
-            {
-                writer.WritePropertyName("identity"u8);
-                writer.WriteStringValue(Identity);
-            }
+            writer.WritePropertyName("api"u8);
+            writer.WriteStringValue(Api);
+            writer.WritePropertyName("clientRequestId"u8);
+            writer.WriteStringValue(ClientRequestId);
+            writer.WritePropertyName("requestId"u8);
+            writer.WriteStringValue(RequestId);
+            writer.WritePropertyName("sourceUrl"u8);
+            writer.WriteStringValue(SourceUrl);
+            writer.WritePropertyName("destinationUrl"u8);
+            writer.WriteStringValue(DestinationUrl);
+            writer.WritePropertyName("sequencer"u8);
+            writer.WriteStringValue(Sequencer);
+            writer.WritePropertyName("identity"u8);
+            writer.WriteStringValue(Identity);
             writer.WritePropertyName("storageDiagnostics"u8);
             writer.WriteStartObject();
             foreach (var item in StorageDiagnostics)

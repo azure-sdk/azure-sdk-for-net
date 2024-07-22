@@ -46,12 +46,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ResourceAuthorization"/>. </summary>
+        /// <param name="scope"> The scope of the authorization. </param>
+        /// <param name="action"> The action being requested. </param>
         /// <param name="evidence"> The evidence for the authorization. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="evidence"/> is null. </exception>
-        internal ResourceAuthorization(IReadOnlyDictionary<string, string> evidence)
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/>, <paramref name="action"/> or <paramref name="evidence"/> is null. </exception>
+        internal ResourceAuthorization(string scope, string action, IReadOnlyDictionary<string, string> evidence)
         {
+            Argument.AssertNotNull(scope, nameof(scope));
+            Argument.AssertNotNull(action, nameof(action));
             Argument.AssertNotNull(evidence, nameof(evidence));
 
+            Scope = scope;
+            Action = action;
             Evidence = evidence;
         }
 

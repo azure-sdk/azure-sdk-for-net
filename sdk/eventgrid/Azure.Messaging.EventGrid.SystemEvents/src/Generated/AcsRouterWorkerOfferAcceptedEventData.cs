@@ -14,18 +14,35 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsRouterWorkerOfferAcceptedEventData : AcsRouterWorkerEventData
     {
         /// <summary> Initializes a new instance of <see cref="AcsRouterWorkerOfferAcceptedEventData"/>. </summary>
+        /// <param name="jobId"> Router Event Job ID. </param>
+        /// <param name="channelReference"> Router Event Channel Reference. </param>
+        /// <param name="channelId"> Router Event Channel ID. </param>
+        /// <param name="workerId"> Router Worker events Worker Id. </param>
+        /// <param name="queueId"> Router Worker Offer Accepted Queue Id. </param>
+        /// <param name="offerId"> Router Worker Offer Accepted Offer Id. </param>
+        /// <param name="assignmentId"> Router Worker Offer Accepted Assignment Id. </param>
         /// <param name="workerLabels"> Router Worker Offer Accepted Worker Labels. </param>
         /// <param name="workerTags"> Router Worker Offer Accepted Worker Tags. </param>
         /// <param name="jobLabels"> Router Worker Offer Accepted Job Labels. </param>
         /// <param name="jobTags"> Router Worker Offer Accepted Job Tags. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="workerLabels"/>, <paramref name="workerTags"/>, <paramref name="jobLabels"/> or <paramref name="jobTags"/> is null. </exception>
-        internal AcsRouterWorkerOfferAcceptedEventData(IReadOnlyDictionary<string, string> workerLabels, IReadOnlyDictionary<string, string> workerTags, IReadOnlyDictionary<string, string> jobLabels, IReadOnlyDictionary<string, string> jobTags)
+        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/>, <paramref name="channelReference"/>, <paramref name="channelId"/>, <paramref name="workerId"/>, <paramref name="queueId"/>, <paramref name="offerId"/>, <paramref name="assignmentId"/>, <paramref name="workerLabels"/>, <paramref name="workerTags"/>, <paramref name="jobLabels"/> or <paramref name="jobTags"/> is null. </exception>
+        internal AcsRouterWorkerOfferAcceptedEventData(string jobId, string channelReference, string channelId, string workerId, string queueId, string offerId, string assignmentId, IReadOnlyDictionary<string, string> workerLabels, IReadOnlyDictionary<string, string> workerTags, IReadOnlyDictionary<string, string> jobLabels, IReadOnlyDictionary<string, string> jobTags) : base(jobId, channelReference, channelId, workerId)
         {
+            Argument.AssertNotNull(jobId, nameof(jobId));
+            Argument.AssertNotNull(channelReference, nameof(channelReference));
+            Argument.AssertNotNull(channelId, nameof(channelId));
+            Argument.AssertNotNull(workerId, nameof(workerId));
+            Argument.AssertNotNull(queueId, nameof(queueId));
+            Argument.AssertNotNull(offerId, nameof(offerId));
+            Argument.AssertNotNull(assignmentId, nameof(assignmentId));
             Argument.AssertNotNull(workerLabels, nameof(workerLabels));
             Argument.AssertNotNull(workerTags, nameof(workerTags));
             Argument.AssertNotNull(jobLabels, nameof(jobLabels));
             Argument.AssertNotNull(jobTags, nameof(jobTags));
 
+            QueueId = queueId;
+            OfferId = offerId;
+            AssignmentId = assignmentId;
             WorkerLabels = workerLabels;
             WorkerTags = workerTags;
             JobLabels = jobLabels;

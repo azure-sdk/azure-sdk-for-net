@@ -46,8 +46,22 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventEncoderConnectedEventData"/>. </summary>
-        internal MediaLiveEventEncoderConnectedEventData()
+        /// <param name="ingestUrl"> Gets the ingest URL provided by the live event. </param>
+        /// <param name="streamId"> Gets the stream Id. </param>
+        /// <param name="encoderIp"> Gets the remote IP. </param>
+        /// <param name="encoderPort"> Gets the remote port. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="ingestUrl"/>, <paramref name="streamId"/>, <paramref name="encoderIp"/> or <paramref name="encoderPort"/> is null. </exception>
+        internal MediaLiveEventEncoderConnectedEventData(string ingestUrl, string streamId, string encoderIp, string encoderPort)
         {
+            Argument.AssertNotNull(ingestUrl, nameof(ingestUrl));
+            Argument.AssertNotNull(streamId, nameof(streamId));
+            Argument.AssertNotNull(encoderIp, nameof(encoderIp));
+            Argument.AssertNotNull(encoderPort, nameof(encoderPort));
+
+            IngestUrl = ingestUrl;
+            StreamId = streamId;
+            EncoderIp = encoderIp;
+            EncoderPort = encoderPort;
         }
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventEncoderConnectedEventData"/>. </summary>
@@ -63,6 +77,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             EncoderIp = encoderIp;
             EncoderPort = encoderPort;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="MediaLiveEventEncoderConnectedEventData"/> for deserialization. </summary>
+        internal MediaLiveEventEncoderConnectedEventData()
+        {
         }
 
         /// <summary> Gets the ingest URL provided by the live event. </summary>

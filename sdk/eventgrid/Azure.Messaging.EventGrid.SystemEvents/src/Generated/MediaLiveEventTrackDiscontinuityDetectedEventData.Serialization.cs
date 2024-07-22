@@ -26,41 +26,23 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(TrackType))
-            {
-                writer.WritePropertyName("trackType"u8);
-                writer.WriteStringValue(TrackType);
-            }
-            if (Optional.IsDefined(TrackName))
-            {
-                writer.WritePropertyName("trackName"u8);
-                writer.WriteStringValue(TrackName);
-            }
+            writer.WritePropertyName("trackType"u8);
+            writer.WriteStringValue(TrackType);
+            writer.WritePropertyName("trackName"u8);
+            writer.WriteStringValue(TrackName);
             if (Optional.IsDefined(Bitrate))
             {
                 writer.WritePropertyName("bitrate"u8);
                 writer.WriteNumberValue(Bitrate.Value);
             }
-            if (Optional.IsDefined(PreviousTimestamp))
-            {
-                writer.WritePropertyName("previousTimestamp"u8);
-                writer.WriteStringValue(PreviousTimestamp);
-            }
-            if (Optional.IsDefined(NewTimestamp))
-            {
-                writer.WritePropertyName("newTimestamp"u8);
-                writer.WriteStringValue(NewTimestamp);
-            }
-            if (Optional.IsDefined(Timescale))
-            {
-                writer.WritePropertyName("timescale"u8);
-                writer.WriteStringValue(Timescale);
-            }
-            if (Optional.IsDefined(DiscontinuityGap))
-            {
-                writer.WritePropertyName("discontinuityGap"u8);
-                writer.WriteStringValue(DiscontinuityGap);
-            }
+            writer.WritePropertyName("previousTimestamp"u8);
+            writer.WriteStringValue(PreviousTimestamp);
+            writer.WritePropertyName("newTimestamp"u8);
+            writer.WriteStringValue(NewTimestamp);
+            writer.WritePropertyName("timescale"u8);
+            writer.WriteStringValue(Timescale);
+            writer.WritePropertyName("discontinuityGap"u8);
+            writer.WriteStringValue(DiscontinuityGap);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

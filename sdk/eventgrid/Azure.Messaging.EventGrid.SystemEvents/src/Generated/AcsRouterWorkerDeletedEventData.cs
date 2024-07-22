@@ -14,8 +14,17 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsRouterWorkerDeletedEventData : AcsRouterWorkerEventData
     {
         /// <summary> Initializes a new instance of <see cref="AcsRouterWorkerDeletedEventData"/>. </summary>
-        internal AcsRouterWorkerDeletedEventData()
+        /// <param name="jobId"> Router Event Job ID. </param>
+        /// <param name="channelReference"> Router Event Channel Reference. </param>
+        /// <param name="channelId"> Router Event Channel ID. </param>
+        /// <param name="workerId"> Router Worker events Worker Id. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/>, <paramref name="channelReference"/>, <paramref name="channelId"/> or <paramref name="workerId"/> is null. </exception>
+        internal AcsRouterWorkerDeletedEventData(string jobId, string channelReference, string channelId, string workerId) : base(jobId, channelReference, channelId, workerId)
         {
+            Argument.AssertNotNull(jobId, nameof(jobId));
+            Argument.AssertNotNull(channelReference, nameof(channelReference));
+            Argument.AssertNotNull(channelId, nameof(channelId));
+            Argument.AssertNotNull(workerId, nameof(workerId));
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterWorkerDeletedEventData"/>. </summary>
@@ -25,6 +34,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="workerId"> Router Worker events Worker Id. </param>
         internal AcsRouterWorkerDeletedEventData(string jobId, string channelReference, string channelId, IDictionary<string, BinaryData> serializedAdditionalRawData, string workerId) : base(jobId, channelReference, channelId, serializedAdditionalRawData, workerId)
+        {
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AcsRouterWorkerDeletedEventData"/> for deserialization. </summary>
+        internal AcsRouterWorkerDeletedEventData()
         {
         }
     }

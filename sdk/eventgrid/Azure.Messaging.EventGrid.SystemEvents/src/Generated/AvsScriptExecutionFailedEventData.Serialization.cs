@@ -26,31 +26,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(FailureMessage))
+            writer.WritePropertyName("failureMessage"u8);
+            writer.WriteStringValue(FailureMessage);
+            writer.WritePropertyName("operationId"u8);
+            writer.WriteStringValue(OperationId);
+            writer.WritePropertyName("cmdletId"u8);
+            writer.WriteStringValue(CmdletId);
+            writer.WritePropertyName("output"u8);
+            writer.WriteStartArray();
+            foreach (var item in Output)
             {
-                writer.WritePropertyName("failureMessage"u8);
-                writer.WriteStringValue(FailureMessage);
+                writer.WriteStringValue(item);
             }
-            if (Optional.IsDefined(OperationId))
-            {
-                writer.WritePropertyName("operationId"u8);
-                writer.WriteStringValue(OperationId);
-            }
-            if (Optional.IsDefined(CmdletId))
-            {
-                writer.WritePropertyName("cmdletId"u8);
-                writer.WriteStringValue(CmdletId);
-            }
-            if (Optional.IsCollectionDefined(Output))
-            {
-                writer.WritePropertyName("output"u8);
-                writer.WriteStartArray();
-                foreach (var item in Output)
-                {
-                    writer.WriteStringValue(item);
-                }
-                writer.WriteEndArray();
-            }
+            writer.WriteEndArray();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -114,10 +102,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("output"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -132,7 +116,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AvsScriptExecutionFailedEventData(operationId, cmdletId, output ?? new ChangeTrackingList<string>(), serializedAdditionalRawData, failureMessage);
+            return new AvsScriptExecutionFailedEventData(operationId, cmdletId, output, serializedAdditionalRawData, failureMessage);
         }
 
         BinaryData IPersistableModel<AvsScriptExecutionFailedEventData>.Write(ModelReaderWriterOptions options)

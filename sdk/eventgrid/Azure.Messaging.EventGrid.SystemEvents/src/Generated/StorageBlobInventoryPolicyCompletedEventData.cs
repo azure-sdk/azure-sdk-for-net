@@ -46,10 +46,28 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="StorageBlobInventoryPolicyCompletedEventData"/>. </summary>
-        /// <param name="scheduleDateTime"> The time at which inventory policy was scheduled. </param>
-        internal StorageBlobInventoryPolicyCompletedEventData(DateTimeOffset scheduleDateTime)
+        /// <param name="accountName"> The account name for which inventory policy is registered. </param>
+        /// <param name="ruleName"> The rule name for inventory policy. </param>
+        /// <param name="policyRunStatus"> The status of inventory run, it can be Succeeded/PartiallySucceeded/Failed. </param>
+        /// <param name="policyRunStatusMessage"> The status message for inventory run. </param>
+        /// <param name="policyRunId"> The policy run id for inventory run. </param>
+        /// <param name="manifestBlobUrl"> The blob URL for manifest file for inventory run. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/>, <paramref name="ruleName"/>, <paramref name="policyRunStatus"/>, <paramref name="policyRunStatusMessage"/>, <paramref name="policyRunId"/> or <paramref name="manifestBlobUrl"/> is null. </exception>
+        internal StorageBlobInventoryPolicyCompletedEventData(string accountName, string ruleName, string policyRunStatus, string policyRunStatusMessage, string policyRunId, string manifestBlobUrl)
         {
-            ScheduleDateTime = scheduleDateTime;
+            Argument.AssertNotNull(accountName, nameof(accountName));
+            Argument.AssertNotNull(ruleName, nameof(ruleName));
+            Argument.AssertNotNull(policyRunStatus, nameof(policyRunStatus));
+            Argument.AssertNotNull(policyRunStatusMessage, nameof(policyRunStatusMessage));
+            Argument.AssertNotNull(policyRunId, nameof(policyRunId));
+            Argument.AssertNotNull(manifestBlobUrl, nameof(manifestBlobUrl));
+
+            AccountName = accountName;
+            RuleName = ruleName;
+            PolicyRunStatus = policyRunStatus;
+            PolicyRunStatusMessage = policyRunStatusMessage;
+            PolicyRunId = policyRunId;
+            ManifestBlobUrl = manifestBlobUrl;
         }
 
         /// <summary> Initializes a new instance of <see cref="StorageBlobInventoryPolicyCompletedEventData"/>. </summary>
@@ -61,7 +79,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="policyRunId"> The policy run id for inventory run. </param>
         /// <param name="manifestBlobUrl"> The blob URL for manifest file for inventory run. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal StorageBlobInventoryPolicyCompletedEventData(DateTimeOffset scheduleDateTime, string accountName, string ruleName, string policyRunStatus, string policyRunStatusMessage, string policyRunId, string manifestBlobUrl, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal StorageBlobInventoryPolicyCompletedEventData(DateTimeOffset? scheduleDateTime, string accountName, string ruleName, string policyRunStatus, string policyRunStatusMessage, string policyRunId, string manifestBlobUrl, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ScheduleDateTime = scheduleDateTime;
             AccountName = accountName;
@@ -79,7 +97,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         }
 
         /// <summary> The time at which inventory policy was scheduled. </summary>
-        public DateTimeOffset ScheduleDateTime { get; }
+        public DateTimeOffset? ScheduleDateTime { get; }
         /// <summary> The account name for which inventory policy is registered. </summary>
         public string AccountName { get; }
         /// <summary> The rule name for inventory policy. </summary>

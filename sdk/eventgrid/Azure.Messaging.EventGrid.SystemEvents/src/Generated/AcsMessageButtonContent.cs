@@ -46,8 +46,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsMessageButtonContent"/>. </summary>
-        internal AcsMessageButtonContent()
+        /// <param name="text"> The Text of the button. </param>
+        /// <param name="payload"> The Payload of the button which was clicked by the user, setup by the business. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="text"/> or <paramref name="payload"/> is null. </exception>
+        internal AcsMessageButtonContent(string text, string payload)
         {
+            Argument.AssertNotNull(text, nameof(text));
+            Argument.AssertNotNull(payload, nameof(payload));
+
+            Text = text;
+            Payload = payload;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsMessageButtonContent"/>. </summary>
@@ -59,6 +67,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             Text = text;
             Payload = payload;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AcsMessageButtonContent"/> for deserialization. </summary>
+        internal AcsMessageButtonContent()
+        {
         }
 
         /// <summary> The Text of the button. </summary>

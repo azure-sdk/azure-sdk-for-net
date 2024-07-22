@@ -46,14 +46,17 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsChatThreadParticipantProperties"/>. </summary>
+        /// <param name="displayName"> The name of the user. </param>
         /// <param name="participantCommunicationIdentifier"> The communication identifier of the user. </param>
         /// <param name="metadata"> The metadata of the user. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="participantCommunicationIdentifier"/> or <paramref name="metadata"/> is null. </exception>
-        internal AcsChatThreadParticipantProperties(CommunicationIdentifierModel participantCommunicationIdentifier, IReadOnlyDictionary<string, string> metadata)
+        /// <exception cref="ArgumentNullException"> <paramref name="displayName"/>, <paramref name="participantCommunicationIdentifier"/> or <paramref name="metadata"/> is null. </exception>
+        internal AcsChatThreadParticipantProperties(string displayName, CommunicationIdentifierModel participantCommunicationIdentifier, IReadOnlyDictionary<string, string> metadata)
         {
+            Argument.AssertNotNull(displayName, nameof(displayName));
             Argument.AssertNotNull(participantCommunicationIdentifier, nameof(participantCommunicationIdentifier));
             Argument.AssertNotNull(metadata, nameof(metadata));
 
+            DisplayName = displayName;
             ParticipantCommunicationIdentifier = participantCommunicationIdentifier;
             Metadata = metadata;
         }

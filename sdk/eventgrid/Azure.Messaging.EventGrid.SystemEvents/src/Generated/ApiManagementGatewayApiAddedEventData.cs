@@ -46,8 +46,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ApiManagementGatewayApiAddedEventData"/>. </summary>
-        internal ApiManagementGatewayApiAddedEventData()
+        /// <param name="resourceUri"> The fully qualified ID of the resource that the compliance state change is for, including the resource name and resource type. Uses the format, `/subscriptions/&lt;SubscriptionID&gt;/resourceGroups/&lt;ResourceGroup&gt;/Microsoft.ApiManagement/service/&lt;ServiceName&gt;/gateways/&lt;GatewayName&gt;/apis/&lt;ResourceName&gt;`. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
+        internal ApiManagementGatewayApiAddedEventData(string resourceUri)
         {
+            Argument.AssertNotNull(resourceUri, nameof(resourceUri));
+
+            ResourceUri = resourceUri;
         }
 
         /// <summary> Initializes a new instance of <see cref="ApiManagementGatewayApiAddedEventData"/>. </summary>
@@ -57,6 +62,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         {
             ResourceUri = resourceUri;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ApiManagementGatewayApiAddedEventData"/> for deserialization. </summary>
+        internal ApiManagementGatewayApiAddedEventData()
+        {
         }
 
         /// <summary> The fully qualified ID of the resource that the compliance state change is for, including the resource name and resource type. Uses the format, `/subscriptions/&lt;SubscriptionID&gt;/resourceGroups/&lt;ResourceGroup&gt;/Microsoft.ApiManagement/service/&lt;ServiceName&gt;/gateways/&lt;GatewayName&gt;/apis/&lt;ResourceName&gt;`. </summary>

@@ -14,8 +14,24 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsRouterWorkerOfferRevokedEventData : AcsRouterWorkerEventData
     {
         /// <summary> Initializes a new instance of <see cref="AcsRouterWorkerOfferRevokedEventData"/>. </summary>
-        internal AcsRouterWorkerOfferRevokedEventData()
+        /// <param name="jobId"> Router Event Job ID. </param>
+        /// <param name="channelReference"> Router Event Channel Reference. </param>
+        /// <param name="channelId"> Router Event Channel ID. </param>
+        /// <param name="workerId"> Router Worker events Worker Id. </param>
+        /// <param name="queueId"> Router Worker Offer Revoked Queue Id. </param>
+        /// <param name="offerId"> Router Worker Offer Revoked Offer Id. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/>, <paramref name="channelReference"/>, <paramref name="channelId"/>, <paramref name="workerId"/>, <paramref name="queueId"/> or <paramref name="offerId"/> is null. </exception>
+        internal AcsRouterWorkerOfferRevokedEventData(string jobId, string channelReference, string channelId, string workerId, string queueId, string offerId) : base(jobId, channelReference, channelId, workerId)
         {
+            Argument.AssertNotNull(jobId, nameof(jobId));
+            Argument.AssertNotNull(channelReference, nameof(channelReference));
+            Argument.AssertNotNull(channelId, nameof(channelId));
+            Argument.AssertNotNull(workerId, nameof(workerId));
+            Argument.AssertNotNull(queueId, nameof(queueId));
+            Argument.AssertNotNull(offerId, nameof(offerId));
+
+            QueueId = queueId;
+            OfferId = offerId;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterWorkerOfferRevokedEventData"/>. </summary>
@@ -30,6 +46,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         {
             QueueId = queueId;
             OfferId = offerId;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AcsRouterWorkerOfferRevokedEventData"/> for deserialization. </summary>
+        internal AcsRouterWorkerOfferRevokedEventData()
+        {
         }
 
         /// <summary> Router Worker Offer Revoked Queue Id. </summary>

@@ -26,11 +26,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(StatusMessage))
-            {
-                writer.WritePropertyName("statusMessage"u8);
-                writer.WriteStringValue(StatusMessage);
-            }
+            writer.WritePropertyName("statusMessage"u8);
+            writer.WriteStringValue(StatusMessage);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

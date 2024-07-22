@@ -26,38 +26,23 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("scheduleDateTime"u8);
-            writer.WriteStringValue(ScheduleDateTime, "O");
-            if (Optional.IsDefined(AccountName))
+            if (Optional.IsDefined(ScheduleDateTime))
             {
-                writer.WritePropertyName("accountName"u8);
-                writer.WriteStringValue(AccountName);
+                writer.WritePropertyName("scheduleDateTime"u8);
+                writer.WriteStringValue(ScheduleDateTime.Value, "O");
             }
-            if (Optional.IsDefined(RuleName))
-            {
-                writer.WritePropertyName("ruleName"u8);
-                writer.WriteStringValue(RuleName);
-            }
-            if (Optional.IsDefined(PolicyRunStatus))
-            {
-                writer.WritePropertyName("policyRunStatus"u8);
-                writer.WriteStringValue(PolicyRunStatus);
-            }
-            if (Optional.IsDefined(PolicyRunStatusMessage))
-            {
-                writer.WritePropertyName("policyRunStatusMessage"u8);
-                writer.WriteStringValue(PolicyRunStatusMessage);
-            }
-            if (Optional.IsDefined(PolicyRunId))
-            {
-                writer.WritePropertyName("policyRunId"u8);
-                writer.WriteStringValue(PolicyRunId);
-            }
-            if (Optional.IsDefined(ManifestBlobUrl))
-            {
-                writer.WritePropertyName("manifestBlobUrl"u8);
-                writer.WriteStringValue(ManifestBlobUrl);
-            }
+            writer.WritePropertyName("accountName"u8);
+            writer.WriteStringValue(AccountName);
+            writer.WritePropertyName("ruleName"u8);
+            writer.WriteStringValue(RuleName);
+            writer.WritePropertyName("policyRunStatus"u8);
+            writer.WriteStringValue(PolicyRunStatus);
+            writer.WritePropertyName("policyRunStatusMessage"u8);
+            writer.WriteStringValue(PolicyRunStatusMessage);
+            writer.WritePropertyName("policyRunId"u8);
+            writer.WriteStringValue(PolicyRunId);
+            writer.WritePropertyName("manifestBlobUrl"u8);
+            writer.WriteStringValue(ManifestBlobUrl);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -96,7 +81,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            DateTimeOffset scheduleDateTime = default;
+            DateTimeOffset? scheduleDateTime = default;
             string accountName = default;
             string ruleName = default;
             string policyRunStatus = default;
@@ -109,6 +94,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("scheduleDateTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     scheduleDateTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }

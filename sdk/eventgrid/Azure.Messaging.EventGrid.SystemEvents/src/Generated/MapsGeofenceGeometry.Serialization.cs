@@ -26,21 +26,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(DeviceId))
-            {
-                writer.WritePropertyName("deviceId"u8);
-                writer.WriteStringValue(DeviceId);
-            }
+            writer.WritePropertyName("deviceId"u8);
+            writer.WriteStringValue(DeviceId);
             if (Optional.IsDefined(Distance))
             {
                 writer.WritePropertyName("distance"u8);
                 writer.WriteNumberValue(Distance.Value);
             }
-            if (Optional.IsDefined(GeometryId))
-            {
-                writer.WritePropertyName("geometryId"u8);
-                writer.WriteStringValue(GeometryId);
-            }
+            writer.WritePropertyName("geometryId"u8);
+            writer.WriteStringValue(GeometryId);
             if (Optional.IsDefined(NearestLat))
             {
                 writer.WritePropertyName("nearestLat"u8);
@@ -51,11 +45,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("nearestLon"u8);
                 writer.WriteNumberValue(NearestLon.Value);
             }
-            if (Optional.IsDefined(UdId))
-            {
-                writer.WritePropertyName("udId"u8);
-                writer.WriteStringValue(UdId);
-            }
+            writer.WritePropertyName("udId"u8);
+            writer.WriteStringValue(UdId);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

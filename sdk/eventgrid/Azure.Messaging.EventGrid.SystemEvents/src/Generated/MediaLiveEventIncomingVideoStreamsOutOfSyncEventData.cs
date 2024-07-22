@@ -46,8 +46,25 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventIncomingVideoStreamsOutOfSyncEventData"/>. </summary>
-        internal MediaLiveEventIncomingVideoStreamsOutOfSyncEventData()
+        /// <param name="firstTimestamp"> Gets the first timestamp received for one of the quality levels. </param>
+        /// <param name="firstDuration"> Gets the duration of the data chunk with first timestamp. </param>
+        /// <param name="secondTimestamp"> Gets the timestamp received for some other quality levels. </param>
+        /// <param name="secondDuration"> Gets the duration of the data chunk with second timestamp. </param>
+        /// <param name="timescale"> Gets the timescale in which both the timestamps and durations are represented. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="firstTimestamp"/>, <paramref name="firstDuration"/>, <paramref name="secondTimestamp"/>, <paramref name="secondDuration"/> or <paramref name="timescale"/> is null. </exception>
+        internal MediaLiveEventIncomingVideoStreamsOutOfSyncEventData(string firstTimestamp, string firstDuration, string secondTimestamp, string secondDuration, string timescale)
         {
+            Argument.AssertNotNull(firstTimestamp, nameof(firstTimestamp));
+            Argument.AssertNotNull(firstDuration, nameof(firstDuration));
+            Argument.AssertNotNull(secondTimestamp, nameof(secondTimestamp));
+            Argument.AssertNotNull(secondDuration, nameof(secondDuration));
+            Argument.AssertNotNull(timescale, nameof(timescale));
+
+            FirstTimestamp = firstTimestamp;
+            FirstDuration = firstDuration;
+            SecondTimestamp = secondTimestamp;
+            SecondDuration = secondDuration;
+            Timescale = timescale;
         }
 
         /// <summary> Initializes a new instance of <see cref="MediaLiveEventIncomingVideoStreamsOutOfSyncEventData"/>. </summary>
@@ -65,6 +82,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             SecondDuration = secondDuration;
             Timescale = timescale;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="MediaLiveEventIncomingVideoStreamsOutOfSyncEventData"/> for deserialization. </summary>
+        internal MediaLiveEventIncomingVideoStreamsOutOfSyncEventData()
+        {
         }
 
         /// <summary> Gets the first timestamp received for one of the quality levels. </summary>

@@ -26,41 +26,26 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(MediaType))
-            {
-                writer.WritePropertyName("mediaType"u8);
-                writer.WriteStringValue(MediaType);
-            }
+            writer.WritePropertyName("mediaType"u8);
+            writer.WriteStringValue(MediaType);
             if (Optional.IsDefined(Size))
             {
                 writer.WritePropertyName("size"u8);
                 writer.WriteNumberValue(Size.Value);
             }
-            if (Optional.IsDefined(Digest))
-            {
-                writer.WritePropertyName("digest"u8);
-                writer.WriteStringValue(Digest);
-            }
+            writer.WritePropertyName("digest"u8);
+            writer.WriteStringValue(Digest);
             if (Optional.IsDefined(Length))
             {
                 writer.WritePropertyName("length"u8);
                 writer.WriteNumberValue(Length.Value);
             }
-            if (Optional.IsDefined(Repository))
-            {
-                writer.WritePropertyName("repository"u8);
-                writer.WriteStringValue(Repository);
-            }
-            if (Optional.IsDefined(Url))
-            {
-                writer.WritePropertyName("url"u8);
-                writer.WriteStringValue(Url);
-            }
-            if (Optional.IsDefined(Tag))
-            {
-                writer.WritePropertyName("tag"u8);
-                writer.WriteStringValue(Tag);
-            }
+            writer.WritePropertyName("repository"u8);
+            writer.WriteStringValue(Repository);
+            writer.WritePropertyName("url"u8);
+            writer.WriteStringValue(Url);
+            writer.WritePropertyName("tag"u8);
+            writer.WriteStringValue(Tag);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

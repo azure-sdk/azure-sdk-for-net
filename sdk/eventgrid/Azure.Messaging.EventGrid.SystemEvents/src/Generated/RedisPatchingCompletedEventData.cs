@@ -46,10 +46,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="RedisPatchingCompletedEventData"/>. </summary>
-        /// <param name="timestamp"> The time at which the event occurred. </param>
-        internal RedisPatchingCompletedEventData(DateTimeOffset timestamp)
+        /// <param name="name"> The name of this event. </param>
+        /// <param name="status"> The status of this event. Failed or  succeeded. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="status"/> is null. </exception>
+        internal RedisPatchingCompletedEventData(string name, string status)
         {
-            Timestamp = timestamp;
+            Argument.AssertNotNull(name, nameof(name));
+            Argument.AssertNotNull(status, nameof(status));
+
+            Name = name;
+            Status = status;
         }
 
         /// <summary> Initializes a new instance of <see cref="RedisPatchingCompletedEventData"/>. </summary>
@@ -57,7 +63,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="name"> The name of this event. </param>
         /// <param name="status"> The status of this event. Failed or  succeeded. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal RedisPatchingCompletedEventData(DateTimeOffset timestamp, string name, string status, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal RedisPatchingCompletedEventData(DateTimeOffset? timestamp, string name, string status, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Timestamp = timestamp;
             Name = name;
@@ -71,7 +77,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         }
 
         /// <summary> The time at which the event occurred. </summary>
-        public DateTimeOffset Timestamp { get; }
+        public DateTimeOffset? Timestamp { get; }
         /// <summary> The name of this event. </summary>
         public string Name { get; }
         /// <summary> The status of this event. Failed or  succeeded. </summary>

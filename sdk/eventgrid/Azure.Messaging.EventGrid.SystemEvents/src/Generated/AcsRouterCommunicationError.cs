@@ -47,14 +47,23 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterCommunicationError"/>. </summary>
+        /// <param name="code"> Router Communication Error Code. </param>
+        /// <param name="message"> Router Communication Error Message. </param>
+        /// <param name="target"> Router Communication Error Target. </param>
         /// <param name="innererror"> Router Communication Inner Error. </param>
         /// <param name="details"> List of Router Communication Errors. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="innererror"/> or <paramref name="details"/> is null. </exception>
-        internal AcsRouterCommunicationError(AcsRouterCommunicationError innererror, IEnumerable<AcsRouterCommunicationError> details)
+        /// <exception cref="ArgumentNullException"> <paramref name="code"/>, <paramref name="message"/>, <paramref name="target"/>, <paramref name="innererror"/> or <paramref name="details"/> is null. </exception>
+        internal AcsRouterCommunicationError(string code, string message, string target, AcsRouterCommunicationError innererror, IEnumerable<AcsRouterCommunicationError> details)
         {
+            Argument.AssertNotNull(code, nameof(code));
+            Argument.AssertNotNull(message, nameof(message));
+            Argument.AssertNotNull(target, nameof(target));
             Argument.AssertNotNull(innererror, nameof(innererror));
             Argument.AssertNotNull(details, nameof(details));
 
+            Code = code;
+            Message = message;
+            Target = target;
             Innererror = innererror;
             Details = details.ToList();
         }

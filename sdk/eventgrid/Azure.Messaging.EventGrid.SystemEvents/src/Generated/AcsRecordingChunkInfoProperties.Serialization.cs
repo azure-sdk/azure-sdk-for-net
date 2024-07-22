@@ -26,36 +26,21 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(DocumentId))
-            {
-                writer.WritePropertyName("documentId"u8);
-                writer.WriteStringValue(DocumentId);
-            }
+            writer.WritePropertyName("documentId"u8);
+            writer.WriteStringValue(DocumentId);
             if (Optional.IsDefined(Index))
             {
                 writer.WritePropertyName("index"u8);
                 writer.WriteNumberValue(Index.Value);
             }
-            if (Optional.IsDefined(EndReason))
-            {
-                writer.WritePropertyName("endReason"u8);
-                writer.WriteStringValue(EndReason);
-            }
-            if (Optional.IsDefined(MetadataLocation))
-            {
-                writer.WritePropertyName("metadataLocation"u8);
-                writer.WriteStringValue(MetadataLocation);
-            }
-            if (Optional.IsDefined(ContentLocation))
-            {
-                writer.WritePropertyName("contentLocation"u8);
-                writer.WriteStringValue(ContentLocation);
-            }
-            if (Optional.IsDefined(DeleteLocation))
-            {
-                writer.WritePropertyName("deleteLocation"u8);
-                writer.WriteStringValue(DeleteLocation);
-            }
+            writer.WritePropertyName("endReason"u8);
+            writer.WriteStringValue(EndReason);
+            writer.WritePropertyName("metadataLocation"u8);
+            writer.WriteStringValue(MetadataLocation);
+            writer.WritePropertyName("contentLocation"u8);
+            writer.WriteStringValue(ContentLocation);
+            writer.WritePropertyName("deleteLocation"u8);
+            writer.WriteStringValue(DeleteLocation);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
