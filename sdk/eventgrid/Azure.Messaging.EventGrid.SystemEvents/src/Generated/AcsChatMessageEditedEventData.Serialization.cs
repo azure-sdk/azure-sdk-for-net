@@ -39,8 +39,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteStringValue(item.Value);
             }
             writer.WriteEndObject();
-            writer.WritePropertyName("editTime"u8);
-            writer.WriteStringValue(EditTime, "O");
+            if (Optional.IsDefined(EditTime))
+            {
+                writer.WritePropertyName("editTime"u8);
+                writer.WriteStringValue(EditTime.Value, "O");
+            }
             if (Optional.IsDefined(MessageId))
             {
                 writer.WritePropertyName("messageId"u8);
@@ -53,8 +56,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("senderDisplayName"u8);
                 writer.WriteStringValue(SenderDisplayName);
             }
-            writer.WritePropertyName("composeTime"u8);
-            writer.WriteStringValue(ComposeTime, "O");
+            if (Optional.IsDefined(ComposeTime))
+            {
+                writer.WritePropertyName("composeTime"u8);
+                writer.WriteStringValue(ComposeTime.Value, "O");
+            }
             if (Optional.IsDefined(Type))
             {
                 writer.WritePropertyName("type"u8);
@@ -117,11 +123,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
             string messageBody = default;
             IReadOnlyDictionary<string, string> metadata = default;
-            DateTimeOffset editTime = default;
+            DateTimeOffset? editTime = default;
             string messageId = default;
             CommunicationIdentifierModel senderCommunicationIdentifier = default;
             string senderDisplayName = default;
-            DateTimeOffset composeTime = default;
+            DateTimeOffset? composeTime = default;
             string type = default;
             long? version = default;
             CommunicationIdentifierModel recipientCommunicationIdentifier = default;
@@ -148,6 +154,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("editTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     editTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
@@ -168,6 +178,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("composeTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     composeTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
