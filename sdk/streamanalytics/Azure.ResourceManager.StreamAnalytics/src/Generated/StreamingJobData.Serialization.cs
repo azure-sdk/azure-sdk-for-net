@@ -28,6 +28,11 @@ namespace Azure.ResourceManager.StreamAnalytics
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(Sku))
+            {
+                writer.WritePropertyName("sku"u8);
+                writer.WriteObjectValue(Sku, options);
+            }
             if (Optional.IsDefined(Identity))
             {
                 writer.WritePropertyName("identity"u8);
@@ -69,10 +74,10 @@ namespace Azure.ResourceManager.StreamAnalytics
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(Sku))
+            if (Optional.IsDefined(SkuPropertiesSku))
             {
                 writer.WritePropertyName("sku"u8);
-                writer.WriteObjectValue(Sku, options);
+                writer.WriteObjectValue(SkuPropertiesSku, options);
             }
             if (options.Format != "W" && Optional.IsDefined(JobId))
             {
@@ -218,6 +223,11 @@ namespace Azure.ResourceManager.StreamAnalytics
                     writer.WriteNull("cluster");
                 }
             }
+            if (Optional.IsDefined(SubnetResourceId))
+            {
+                writer.WritePropertyName("subnetResourceId"u8);
+                writer.WriteStringValue(SubnetResourceId);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -257,14 +267,15 @@ namespace Azure.ResourceManager.StreamAnalytics
             {
                 return null;
             }
+            StreamAnalyticsSku sku = default;
             ManagedServiceIdentity identity = default;
             IDictionary<string, string> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
-            ResourceType type = default;
+            Core.ResourceType type = default;
             SystemData systemData = default;
-            StreamAnalyticsSku sku = default;
+            StreamAnalyticsSku sku0 = default;
             Guid? jobId = default;
             string provisioningState = default;
             string jobState = default;
@@ -288,10 +299,20 @@ namespace Azure.ResourceManager.StreamAnalytics
             StreamingJobContentStoragePolicy? contentStoragePolicy = default;
             StreamingJobExternal externals = default;
             ClusterInfo cluster = default;
+            string subnetResourceId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("sku"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sku = StreamAnalyticsSku.DeserializeStreamAnalyticsSku(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("identity"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -333,7 +354,7 @@ namespace Azure.ResourceManager.StreamAnalytics
                 }
                 if (property.NameEquals("type"u8))
                 {
-                    type = new ResourceType(property.Value.GetString());
+                    type = new Core.ResourceType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("systemData"u8))
@@ -360,7 +381,7 @@ namespace Azure.ResourceManager.StreamAnalytics
                             {
                                 continue;
                             }
-                            sku = StreamAnalyticsSku.DeserializeStreamAnalyticsSku(property0.Value, options);
+                            sku0 = StreamAnalyticsSku.DeserializeStreamAnalyticsSku(property0.Value, options);
                             continue;
                         }
                         if (property0.NameEquals("jobId"u8))
@@ -579,6 +600,11 @@ namespace Azure.ResourceManager.StreamAnalytics
                             cluster = ClusterInfo.DeserializeClusterInfo(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("subnetResourceId"u8))
+                        {
+                            subnetResourceId = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -595,8 +621,9 @@ namespace Azure.ResourceManager.StreamAnalytics
                 systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
-                identity,
                 sku,
+                identity,
+                sku0,
                 jobId,
                 provisioningState,
                 jobState,
@@ -620,6 +647,7 @@ namespace Azure.ResourceManager.StreamAnalytics
                 contentStoragePolicy,
                 externals,
                 cluster,
+                subnetResourceId,
                 serializedAdditionalRawData);
         }
 

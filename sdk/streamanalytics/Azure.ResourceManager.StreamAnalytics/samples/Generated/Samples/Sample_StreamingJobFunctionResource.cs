@@ -236,8 +236,8 @@ namespace Azure.ResourceManager.StreamAnalytics.Samples
             // this example assumes you already have this StreamingJobFunctionResource created on azure
             // for more information of creating StreamingJobFunctionResource, please refer to the document of StreamingJobFunctionResource
             string subscriptionId = "56b5e0a9-b645-407d-99b0-c64f86013e3d";
-            string resourceGroupName = "sjrg7";
-            string jobName = "sj9093";
+            string resourceGroupName = "sjrg";
+            string jobName = "sjName";
             string functionName = "function588";
             ResourceIdentifier streamingJobFunctionResourceId = StreamingJobFunctionResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, jobName, functionName);
             StreamingJobFunctionResource streamingJobFunction = client.GetStreamingJobFunctionResource(streamingJobFunctionResourceId);
