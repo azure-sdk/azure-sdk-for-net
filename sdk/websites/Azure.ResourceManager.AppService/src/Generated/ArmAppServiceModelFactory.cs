@@ -45,7 +45,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="appServiceCertificateNotRenewableReasons"> Reasons why App Service Certificate is not renewable at the current moment. </param>
         /// <param name="nextAutoRenewTimeStamp"> Time stamp when the certificate would be auto renewed next. </param>
         /// <param name="contact"> Contact info. </param>
-        /// <param name="kind"> Kind of resource. </param>
+        /// <param name="kind"> Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/Things_You_Should_Know/kind_property.md#app-service-resource-kind-reference for details supported values for kind. </param>
         /// <returns> A new <see cref="AppService.AppServiceCertificateOrderData"/> instance for mocking. </returns>
         public static AppServiceCertificateOrderData AppServiceCertificateOrderData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, IDictionary<string, AppServiceCertificateProperties> certificates = null, string distinguishedName = null, string domainVerificationToken = null, int? validityInYears = null, int? keySize = null, CertificateProductType? productType = null, bool? isAutoRenew = null, ProvisioningState? provisioningState = null, CertificateOrderStatus? status = null, AppServiceCertificateDetails signedCertificate = null, string csr = null, AppServiceCertificateDetails intermediate = null, AppServiceCertificateDetails root = null, string serialNumber = null, DateTimeOffset? lastCertificateIssuedOn = null, DateTimeOffset? expireOn = null, bool? isPrivateKeyExternal = null, IEnumerable<AppServiceCertificateNotRenewableReason> appServiceCertificateNotRenewableReasons = null, DateTimeOffset? nextAutoRenewTimeStamp = null, CertificateOrderContact contact = null, string kind = null)
         {
@@ -202,7 +202,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="keyVaultId"> Key Vault resource Id. </param>
         /// <param name="keyVaultSecretName"> Key Vault secret name. </param>
         /// <param name="provisioningState"> Status of the Key Vault secret. </param>
-        /// <param name="kind"> Kind of resource. </param>
+        /// <param name="kind"> Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/Things_You_Should_Know/kind_property.md#app-service-resource-kind-reference for details supported values for kind. </param>
         /// <returns> A new <see cref="AppService.AppServiceCertificateData"/> instance for mocking. </returns>
         public static AppServiceCertificateData AppServiceCertificateData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ResourceIdentifier keyVaultId = null, string keyVaultSecretName = null, KeyVaultSecretStatus? provisioningState = null, string kind = null)
         {
@@ -592,7 +592,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="dnsZoneId"> Azure DNS Zone to use. </param>
         /// <param name="targetDnsType"> Target DNS type (would be used for migration). </param>
         /// <param name="authCode"></param>
-        /// <param name="kind"> Kind of resource. </param>
+        /// <param name="kind"> Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/Things_You_Should_Know/kind_property.md#app-service-resource-kind-reference for details supported values for kind. </param>
         /// <returns> A new <see cref="AppService.AppServiceDomainData"/> instance for mocking. </returns>
         public static AppServiceDomainData AppServiceDomainData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, RegistrationContactInfo contactAdmin = null, RegistrationContactInfo contactBilling = null, RegistrationContactInfo contactRegistrant = null, RegistrationContactInfo contactTech = null, AppServiceDomainStatus? registrationStatus = null, ProvisioningState? provisioningState = null, IEnumerable<string> nameServers = null, bool? isDomainPrivacyEnabled = null, DateTimeOffset? createdOn = null, DateTimeOffset? expireOn = null, DateTimeOffset? lastRenewedOn = null, bool? isAutoRenew = null, bool? isDnsRecordManagementReady = null, IEnumerable<AppServiceHostName> managedHostNames = null, DomainPurchaseConsent consent = null, IEnumerable<DomainNotRenewableReason> domainNotRenewableReasons = null, AppServiceDnsType? dnsType = null, string dnsZoneId = null, AppServiceDnsType? targetDnsType = null, string authCode = null, string kind = null)
         {
@@ -810,7 +810,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="customDnsSuffixConfiguration"> Full view of the custom domain suffix configuration for ASEv3. </param>
         /// <param name="networkingConfiguration"> Full view of networking configuration for an ASE. </param>
         /// <param name="upgradeAvailability"> Whether an upgrade is available for this App Service Environment. </param>
-        /// <param name="kind"> Kind of resource. </param>
+        /// <param name="kind"> Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/Things_You_Should_Know/kind_property.md#app-service-resource-kind-reference for details supported values for kind. </param>
         /// <returns> A new <see cref="AppService.AppServiceEnvironmentData"/> instance for mocking. </returns>
         public static AppServiceEnvironmentData AppServiceEnvironmentData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ProvisioningState? provisioningState = null, HostingEnvironmentStatus? status = null, AppServiceVirtualNetworkProfile virtualNetwork = null, LoadBalancingMode? internalLoadBalancingMode = null, string multiSize = null, int? multiRoleCount = null, int? ipSslAddressCount = null, string dnsSuffix = null, int? maximumNumberOfMachines = null, int? frontEndScaleFactor = null, bool? isSuspended = null, IEnumerable<AppServiceNameValuePair> clusterSettings = null, IEnumerable<string> userWhitelistedIPRanges = null, bool? hasLinuxWorkers = null, AppServiceEnvironmentUpgradePreference? upgradePreference = null, int? dedicatedHostCount = null, bool? isZoneRedundant = null, CustomDnsSuffixConfigurationData customDnsSuffixConfiguration = null, AseV3NetworkingConfigurationData networkingConfiguration = null, AppServiceEnvironmentUpgradeAvailability? upgradeAvailability = null, string kind = null)
         {
@@ -1406,7 +1406,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// If &lt;code&gt;true&lt;/code&gt;, this App Service Plan will perform availability zone balancing.
         /// If &lt;code&gt;false&lt;/code&gt;, this App Service Plan will not perform availability zone balancing.
         /// </param>
-        /// <param name="kind"> Kind of resource. </param>
+        /// <param name="kind"> Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/Things_You_Should_Know/kind_property.md#app-service-resource-kind-reference for details supported values for kind. </param>
         /// <returns> A new <see cref="AppService.AppServicePlanData"/> instance for mocking. </returns>
         public static AppServicePlanData AppServicePlanData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, AppServiceSkuDescription sku = null, ExtendedLocation extendedLocation = null, string workerTierName = null, AppServicePlanStatus? status = null, string subscription = null, HostingEnvironmentProfile hostingEnvironmentProfile = null, int? maximumNumberOfWorkers = null, int? numberOfWorkers = null, string geoRegion = null, bool? isPerSiteScaling = null, bool? isElasticScaleEnabled = null, int? maximumElasticWorkerCount = null, int? numberOfSites = null, bool? isSpot = null, DateTimeOffset? spotExpireOn = null, DateTimeOffset? freeOfferExpireOn = null, string resourceGroup = null, bool? isReserved = null, bool? isXenon = null, bool? isHyperV = null, int? targetWorkerCount = null, int? targetWorkerSizeId = null, ProvisioningState? provisioningState = null, KubeEnvironmentProfile kubeEnvironmentProfile = null, bool? isZoneRedundant = null, string kind = null)
         {
@@ -1516,6 +1516,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// - ClientCertEnabled: true and ClientCertMode: Optional means ClientCert is optional or accepted.
         /// </param>
         /// <param name="clientCertExclusionPaths"> client certificate authentication comma-separated exclusion paths. </param>
+        /// <param name="endToEndEncryptionEnabled"> Whether to use end to end encryption between the FrontEnd and the Worker. </param>
         /// <param name="isHostNameDisabled">
         /// &lt;code&gt;true&lt;/code&gt; to disable the public hostnames of the app; otherwise, &lt;code&gt;false&lt;/code&gt;.
         ///  If &lt;code&gt;true&lt;/code&gt;, the app is only accessible via API management process.
@@ -1544,14 +1545,16 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="publicNetworkAccess"> Property to allow or block all public traffic. Allowed Values: 'Enabled', 'Disabled' or an empty string. </param>
         /// <param name="isStorageAccountRequired"> Checks if Customer provided storage account is required. </param>
         /// <param name="keyVaultReferenceIdentity"> Identity to use for Key Vault Reference authentication. </param>
+        /// <param name="autoGeneratedDomainNameLabelScope"> Specifies the DNL scope of the default hostname. </param>
         /// <param name="virtualNetworkSubnetId">
         /// Azure Resource Manager ID of the Virtual network and subnet to be joined by Regional VNET Integration.
         /// This must be of the form /subscriptions/{subscriptionName}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{vnetName}/subnets/{subnetName}
         /// </param>
         /// <param name="managedEnvironmentId"> Azure Resource Manager ID of the customer's selected Managed Environment on which to host this app. This must be of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.App/managedEnvironments/{managedEnvironmentName}. </param>
-        /// <param name="kind"> Kind of resource. </param>
+        /// <param name="sku"> Current SKU of application based on associated App Service Plan. Some valid SKU values are Free, Shared, Basic, Dynamic, FlexConsumption, Standard, Premium, PremiumV2, PremiumV3, Isolated, IsolatedV2. </param>
+        /// <param name="kind"> Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/Things_You_Should_Know/kind_property.md#app-service-resource-kind-reference for details supported values for kind. </param>
         /// <returns> A new <see cref="AppService.WebSiteData"/> instance for mocking. </returns>
-        public static WebSiteData WebSiteData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, ExtendedLocation extendedLocation = null, string state = null, IEnumerable<string> hostNames = null, string repositorySiteName = null, AppServiceUsageState? usageState = null, bool? isEnabled = null, IEnumerable<string> enabledHostNames = null, WebSiteAvailabilityState? availabilityState = null, IEnumerable<HostNameSslState> hostNameSslStates = null, ResourceIdentifier appServicePlanId = null, bool? isReserved = null, bool? isXenon = null, bool? isHyperV = null, DateTimeOffset? lastModifiedTimeUtc = null, SiteDnsConfig dnsConfiguration = null, bool? isVnetRouteAllEnabled = null, bool? isVnetImagePullEnabled = null, bool? isVnetContentShareEnabled = null, bool? isVnetBackupRestoreEnabled = null, SiteConfigProperties siteConfig = null, FunctionAppConfig functionAppConfig = null, AppDaprConfig daprConfig = null, string workloadProfileName = null, FunctionAppResourceConfig resourceConfig = null, IEnumerable<string> trafficManagerHostNames = null, bool? isScmSiteAlsoStopped = null, string targetSwapSlot = null, HostingEnvironmentProfile hostingEnvironmentProfile = null, bool? isClientAffinityEnabled = null, bool? isClientCertEnabled = null, ClientCertMode? clientCertMode = null, string clientCertExclusionPaths = null, bool? isHostNameDisabled = null, string customDomainVerificationId = null, string outboundIPAddresses = null, string possibleOutboundIPAddresses = null, int? containerSize = null, int? dailyMemoryTimeQuota = null, DateTimeOffset? suspendOn = null, int? maxNumberOfWorkers = null, CloningInfo cloningInfo = null, string resourceGroup = null, bool? isDefaultContainer = null, string defaultHostName = null, SlotSwapStatus slotSwapStatus = null, bool? isHttpsOnly = null, RedundancyMode? redundancyMode = null, Guid? inProgressOperationId = null, string publicNetworkAccess = null, bool? isStorageAccountRequired = null, string keyVaultReferenceIdentity = null, ResourceIdentifier virtualNetworkSubnetId = null, string managedEnvironmentId = null, string kind = null)
+        public static WebSiteData WebSiteData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, ExtendedLocation extendedLocation = null, string state = null, IEnumerable<string> hostNames = null, string repositorySiteName = null, AppServiceUsageState? usageState = null, bool? isEnabled = null, IEnumerable<string> enabledHostNames = null, WebSiteAvailabilityState? availabilityState = null, IEnumerable<HostNameSslState> hostNameSslStates = null, ResourceIdentifier appServicePlanId = null, bool? isReserved = null, bool? isXenon = null, bool? isHyperV = null, DateTimeOffset? lastModifiedTimeUtc = null, SiteDnsConfig dnsConfiguration = null, bool? isVnetRouteAllEnabled = null, bool? isVnetImagePullEnabled = null, bool? isVnetContentShareEnabled = null, bool? isVnetBackupRestoreEnabled = null, SiteConfigProperties siteConfig = null, FunctionAppConfig functionAppConfig = null, AppDaprConfig daprConfig = null, string workloadProfileName = null, FunctionAppResourceConfig resourceConfig = null, IEnumerable<string> trafficManagerHostNames = null, bool? isScmSiteAlsoStopped = null, string targetSwapSlot = null, HostingEnvironmentProfile hostingEnvironmentProfile = null, bool? isClientAffinityEnabled = null, bool? isClientCertEnabled = null, ClientCertMode? clientCertMode = null, string clientCertExclusionPaths = null, bool? endToEndEncryptionEnabled = null, bool? isHostNameDisabled = null, string customDomainVerificationId = null, string outboundIPAddresses = null, string possibleOutboundIPAddresses = null, int? containerSize = null, int? dailyMemoryTimeQuota = null, DateTimeOffset? suspendOn = null, int? maxNumberOfWorkers = null, CloningInfo cloningInfo = null, string resourceGroup = null, bool? isDefaultContainer = null, string defaultHostName = null, SlotSwapStatus slotSwapStatus = null, bool? isHttpsOnly = null, RedundancyMode? redundancyMode = null, Guid? inProgressOperationId = null, string publicNetworkAccess = null, bool? isStorageAccountRequired = null, string keyVaultReferenceIdentity = null, AutoGeneratedDomainNameLabelScope? autoGeneratedDomainNameLabelScope = null, ResourceIdentifier virtualNetworkSubnetId = null, string managedEnvironmentId = null, string sku = null, string kind = null)
         {
             tags ??= new Dictionary<string, string>();
             hostNames ??= new List<string>();
@@ -1599,6 +1602,7 @@ namespace Azure.ResourceManager.AppService.Models
                 isClientCertEnabled,
                 clientCertMode,
                 clientCertExclusionPaths,
+                endToEndEncryptionEnabled,
                 isHostNameDisabled,
                 customDomainVerificationId,
                 outboundIPAddresses,
@@ -1618,8 +1622,10 @@ namespace Azure.ResourceManager.AppService.Models
                 publicNetworkAccess,
                 isStorageAccountRequired,
                 keyVaultReferenceIdentity,
+                autoGeneratedDomainNameLabelScope,
                 virtualNetworkSubnetId,
                 managedEnvironmentId,
+                sku,
                 kind,
                 serializedAdditionalRawData: null);
         }
@@ -2222,7 +2228,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="serverFarmId"> Resource ID of the associated App Service plan, formatted as: "/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}". </param>
         /// <param name="canonicalName"> CNAME of the certificate to be issued via free certificate. </param>
         /// <param name="domainValidationMethod"> Method of domain validation for free cert. </param>
-        /// <param name="kind"> Kind of resource. </param>
+        /// <param name="kind"> Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/Things_You_Should_Know/kind_property.md#app-service-resource-kind-reference for details supported values for kind. </param>
         /// <returns> A new <see cref="AppService.AppCertificateData"/> instance for mocking. </returns>
         public static AppCertificateData AppCertificateData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, string password = null, string friendlyName = null, string subjectName = null, IEnumerable<string> hostNames = null, byte[] pfxBlob = null, string siteName = null, string selfLink = null, string issuer = null, DateTimeOffset? issueOn = null, DateTimeOffset? expireOn = null, string thumbprintString = null, bool? isValid = null, byte[] cerBlob = null, string publicKeyHash = null, HostingEnvironmentProfile hostingEnvironmentProfile = null, ResourceIdentifier keyVaultId = null, string keyVaultSecretName = null, KeyVaultSecretStatus? keyVaultSecretStatus = null, ResourceIdentifier serverFarmId = null, string canonicalName = null, string domainValidationMethod = null, string kind = null)
         {
@@ -2550,7 +2556,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// </param>
         /// <param name="containerAppsConfiguration"> Cluster configuration for Container Apps Environments to configure Dapr Instrumentation Key and VNET Configuration. </param>
         /// <param name="aksResourceId"></param>
-        /// <param name="kind"> Kind of resource. </param>
+        /// <param name="kind"> Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/Things_You_Should_Know/kind_property.md#app-service-resource-kind-reference for details supported values for kind. </param>
         /// <returns> A new <see cref="AppService.KubeEnvironmentData"/> instance for mocking. </returns>
         public static KubeEnvironmentData KubeEnvironmentData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ExtendedLocation extendedLocation = null, KubeEnvironmentProvisioningState? provisioningState = null, string deploymentErrors = null, bool? isInternalLoadBalancerEnabled = null, string defaultDomain = null, string staticIP = null, string environmentType = null, ArcConfiguration arcConfiguration = null, AppLogsConfiguration appLogsConfiguration = null, ContainerAppsConfiguration containerAppsConfiguration = null, ResourceIdentifier aksResourceId = null, string kind = null)
         {
@@ -3577,7 +3583,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="enterpriseGradeCdnStatus"> State indicating the status of the enterprise grade CDN serving traffic to the static web app. </param>
         /// <param name="publicNetworkAccess"> State indicating whether public traffic are allowed or not for a static web app. Allowed Values: 'Enabled', 'Disabled' or an empty string. </param>
         /// <param name="databaseConnections"> Database connections for the static site. </param>
-        /// <param name="kind"> Kind of resource. </param>
+        /// <param name="kind"> Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/Things_You_Should_Know/kind_property.md#app-service-resource-kind-reference for details supported values for kind. </param>
         /// <returns> A new <see cref="AppService.StaticSiteData"/> instance for mocking. </returns>
         public static StaticSiteData StaticSiteData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, AppServiceSkuDescription sku = null, ManagedServiceIdentity identity = null, string defaultHostname = null, Uri repositoryUri = null, string branch = null, IEnumerable<string> customDomains = null, string repositoryToken = null, StaticSiteBuildProperties buildProperties = null, IEnumerable<ResponseMessageEnvelopeRemotePrivateEndpointConnection> privateEndpointConnections = null, StagingEnvironmentPolicy? stagingEnvironmentPolicy = null, bool? allowConfigFileUpdates = null, StaticSiteTemplate templateProperties = null, string contentDistributionEndpoint = null, string keyVaultReferenceIdentity = null, IEnumerable<StaticSiteUserProvidedFunctionAppData> userProvidedFunctionApps = null, IEnumerable<StaticSiteLinkedBackendInfo> linkedBackends = null, string provider = null, EnterpriseGradeCdnStatus? enterpriseGradeCdnStatus = null, string publicNetworkAccess = null, IEnumerable<StaticSiteDatabaseConnectionOverview> databaseConnections = null, string kind = null)
         {
@@ -5482,9 +5488,10 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="consoleUri"> Link to the console to web app instance. </param>
         /// <param name="healthCheckUrlString"> Link to the console to web app instance. </param>
         /// <param name="containers"> Dictionary of &lt;ContainerInfo&gt;. </param>
+        /// <param name="physicalZone"> The physical zone that the instance is in. </param>
         /// <param name="kind"> Kind of resource. </param>
         /// <returns> A new <see cref="AppService.WebSiteInstanceStatusData"/> instance for mocking. </returns>
-        public static WebSiteInstanceStatusData WebSiteInstanceStatusData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SiteRuntimeState? state = null, Uri statusUri = null, Uri detectorUri = null, Uri consoleUri = null, string healthCheckUrlString = null, IDictionary<string, ContainerInfo> containers = null, string kind = null)
+        public static WebSiteInstanceStatusData WebSiteInstanceStatusData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SiteRuntimeState? state = null, Uri statusUri = null, Uri detectorUri = null, Uri consoleUri = null, string healthCheckUrlString = null, IDictionary<string, ContainerInfo> containers = null, string physicalZone = null, string kind = null)
         {
             containers ??= new Dictionary<string, ContainerInfo>();
 
@@ -5499,6 +5506,7 @@ namespace Azure.ResourceManager.AppService.Models
                 consoleUri,
                 healthCheckUrlString,
                 containers,
+                physicalZone,
                 kind,
                 serializedAdditionalRawData: null);
         }
@@ -5939,7 +5947,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="vendor"> Premier add on Vendor. </param>
         /// <param name="marketplacePublisher"> Premier add on Marketplace publisher. </param>
         /// <param name="marketplaceOffer"> Premier add on Marketplace offer. </param>
-        /// <param name="kind"> Kind of resource. </param>
+        /// <param name="kind"> Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/Things_You_Should_Know/kind_property.md#app-service-resource-kind-reference for details supported values for kind. </param>
         /// <returns> A new <see cref="AppService.PremierAddOnData"/> instance for mocking. </returns>
         public static PremierAddOnData PremierAddOnData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, string sku = null, string product = null, string vendor = null, string marketplacePublisher = null, string marketplaceOffer = null, string kind = null)
         {
