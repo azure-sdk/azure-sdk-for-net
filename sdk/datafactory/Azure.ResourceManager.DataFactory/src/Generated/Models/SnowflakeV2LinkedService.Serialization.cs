@@ -90,6 +90,11 @@ namespace Azure.ResourceManager.DataFactory.Models
             JsonSerializer.Serialize(writer, Database);
             writer.WritePropertyName("warehouse"u8);
             JsonSerializer.Serialize(writer, Warehouse);
+            if (Optional.IsDefined(Role))
+            {
+                writer.WritePropertyName("role"u8);
+                JsonSerializer.Serialize(writer, Role);
+            }
             if (Optional.IsDefined(AuthenticationType))
             {
                 writer.WritePropertyName("authenticationType"u8);
@@ -176,6 +181,7 @@ namespace Azure.ResourceManager.DataFactory.Models
             DataFactorySecret password = default;
             DataFactoryElement<string> database = default;
             DataFactoryElement<string> warehouse = default;
+            DataFactoryElement<string> role = default;
             SnowflakeAuthenticationType? authenticationType = default;
             DataFactoryElement<string> clientId = default;
             DataFactorySecret clientSecret = default;
@@ -284,6 +290,15 @@ namespace Azure.ResourceManager.DataFactory.Models
                             warehouse = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
                             continue;
                         }
+                        if (property0.NameEquals("role"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            role = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
+                            continue;
+                        }
                         if (property0.NameEquals("authenticationType"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -370,6 +385,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                 password,
                 database,
                 warehouse,
+                role,
                 authenticationType,
                 clientId,
                 clientSecret,

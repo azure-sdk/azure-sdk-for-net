@@ -43,6 +43,7 @@ namespace Azure.ResourceManager.DataFactory.Models
         /// <param name="password"> The Azure key vault secret reference of password in connection string. </param>
         /// <param name="database"> The name of the Snowflake database. </param>
         /// <param name="warehouse"> The name of the Snowflake warehouse. </param>
+        /// <param name="role"> The name of the Snowflake role. </param>
         /// <param name="authenticationType"> The type used for authentication. Type: string. </param>
         /// <param name="clientId"> The client ID of the application registered in Azure Active Directory for AADServicePrincipal authentication. </param>
         /// <param name="clientSecret"> The Azure key vault secret reference of client secret for AADServicePrincipal authentication. </param>
@@ -51,13 +52,14 @@ namespace Azure.ResourceManager.DataFactory.Models
         /// <param name="privateKey"> The Azure key vault secret reference of privateKey for KeyPair auth. </param>
         /// <param name="privateKeyPassphrase"> The Azure key vault secret reference of private key password for KeyPair auth with encrypted private key. </param>
         /// <param name="encryptedCredential"> The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager. Type: string. </param>
-        internal SnowflakeV2LinkedService(string linkedServiceType, IntegrationRuntimeReference connectVia, string description, IDictionary<string, EntityParameterSpecification> parameters, IList<BinaryData> annotations, IDictionary<string, BinaryData> additionalProperties, DataFactoryElement<string> accountIdentifier, DataFactoryElement<string> user, DataFactorySecret password, DataFactoryElement<string> database, DataFactoryElement<string> warehouse, SnowflakeAuthenticationType? authenticationType, DataFactoryElement<string> clientId, DataFactorySecret clientSecret, DataFactoryElement<string> tenantId, DataFactoryElement<string> scope, DataFactorySecret privateKey, DataFactorySecret privateKeyPassphrase, string encryptedCredential) : base(linkedServiceType, connectVia, description, parameters, annotations, additionalProperties)
+        internal SnowflakeV2LinkedService(string linkedServiceType, IntegrationRuntimeReference connectVia, string description, IDictionary<string, EntityParameterSpecification> parameters, IList<BinaryData> annotations, IDictionary<string, BinaryData> additionalProperties, DataFactoryElement<string> accountIdentifier, DataFactoryElement<string> user, DataFactorySecret password, DataFactoryElement<string> database, DataFactoryElement<string> warehouse, DataFactoryElement<string> role, SnowflakeAuthenticationType? authenticationType, DataFactoryElement<string> clientId, DataFactorySecret clientSecret, DataFactoryElement<string> tenantId, DataFactoryElement<string> scope, DataFactorySecret privateKey, DataFactorySecret privateKeyPassphrase, string encryptedCredential) : base(linkedServiceType, connectVia, description, parameters, annotations, additionalProperties)
         {
             AccountIdentifier = accountIdentifier;
             User = user;
             Password = password;
             Database = database;
             Warehouse = warehouse;
+            Role = role;
             AuthenticationType = authenticationType;
             ClientId = clientId;
             ClientSecret = clientSecret;
@@ -84,6 +86,8 @@ namespace Azure.ResourceManager.DataFactory.Models
         public DataFactoryElement<string> Database { get; set; }
         /// <summary> The name of the Snowflake warehouse. </summary>
         public DataFactoryElement<string> Warehouse { get; set; }
+        /// <summary> The name of the Snowflake role. </summary>
+        public DataFactoryElement<string> Role { get; set; }
         /// <summary> The type used for authentication. Type: string. </summary>
         public SnowflakeAuthenticationType? AuthenticationType { get; set; }
         /// <summary> The client ID of the application registered in Azure Active Directory for AADServicePrincipal authentication. </summary>
