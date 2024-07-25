@@ -4723,6 +4723,19 @@ namespace Azure.ResourceManager.CosmosDB.Models
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.CosmosDB.Models.CosmosMongoDataTransferDataSourceSink>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.CosmosDB.Models.CosmosMongoDataTransferDataSourceSink>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
+    public partial class CosmosMongoVCoreDataTransferDataSourceSink : Azure.ResourceManager.CosmosDB.Models.DataTransferDataSourceSink, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.CosmosDB.Models.CosmosMongoVCoreDataTransferDataSourceSink>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.CosmosDB.Models.CosmosMongoVCoreDataTransferDataSourceSink>
+    {
+        public CosmosMongoVCoreDataTransferDataSourceSink(string databaseName, string collectionName) { }
+        public string CollectionName { get { throw null; } set { } }
+        public System.Uri ConnectionStringKeyVaultUri { get { throw null; } set { } }
+        public string DatabaseName { get { throw null; } set { } }
+        public string HostName { get { throw null; } set { } }
+        Azure.ResourceManager.CosmosDB.Models.CosmosMongoVCoreDataTransferDataSourceSink System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.CosmosDB.Models.CosmosMongoVCoreDataTransferDataSourceSink>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.CosmosDB.Models.CosmosMongoVCoreDataTransferDataSourceSink>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.CosmosDB.Models.CosmosMongoVCoreDataTransferDataSourceSink System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.CosmosDB.Models.CosmosMongoVCoreDataTransferDataSourceSink>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.CosmosDB.Models.CosmosMongoVCoreDataTransferDataSourceSink>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.CosmosDB.Models.CosmosMongoVCoreDataTransferDataSourceSink>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
     public partial class CosmosSqlDataTransferDataSourceSink : Azure.ResourceManager.CosmosDB.Models.BaseCosmosDataTransferDataSourceSink, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.CosmosDB.Models.CosmosSqlDataTransferDataSourceSink>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.CosmosDB.Models.CosmosSqlDataTransferDataSourceSink>
     {
         public CosmosSqlDataTransferDataSourceSink(string databaseName, string containerName) { }
