@@ -51,10 +51,10 @@ namespace Azure.AI.OpenAI.Assistants
         /// <param name="annotations">
         /// A list of annotations associated with this text.
         /// Please note <see cref="MessageTextAnnotation"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="MessageTextFileCitationAnnotation"/> and <see cref="MessageTextFilePathAnnotation"/>.
+        /// The available derived classes include <see cref="MessageTextFileCitationAnnotation"/>, <see cref="MessageTextFilePathAnnotation"/> and <see cref="MessageTextUrlCitationAnnotation"/>.
         /// </param>
         /// <exception cref="ArgumentNullException"> <paramref name="text"/> or <paramref name="annotations"/> is null. </exception>
-        internal InternalMessageTextDetails(string text, IEnumerable<MessageTextAnnotation> annotations)
+        public InternalMessageTextDetails(string text, IEnumerable<MessageTextAnnotation> annotations)
         {
             Argument.AssertNotNull(text, nameof(text));
             Argument.AssertNotNull(annotations, nameof(annotations));
@@ -68,10 +68,10 @@ namespace Azure.AI.OpenAI.Assistants
         /// <param name="annotations">
         /// A list of annotations associated with this text.
         /// Please note <see cref="MessageTextAnnotation"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="MessageTextFileCitationAnnotation"/> and <see cref="MessageTextFilePathAnnotation"/>.
+        /// The available derived classes include <see cref="MessageTextFileCitationAnnotation"/>, <see cref="MessageTextFilePathAnnotation"/> and <see cref="MessageTextUrlCitationAnnotation"/>.
         /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal InternalMessageTextDetails(string text, IReadOnlyList<MessageTextAnnotation> annotations, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal InternalMessageTextDetails(string text, IList<MessageTextAnnotation> annotations, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Text = text;
             Annotations = annotations;
@@ -84,12 +84,12 @@ namespace Azure.AI.OpenAI.Assistants
         }
 
         /// <summary> The text data. </summary>
-        public string Text { get; }
+        public string Text { get; set; }
         /// <summary>
         /// A list of annotations associated with this text.
         /// Please note <see cref="MessageTextAnnotation"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="MessageTextFileCitationAnnotation"/> and <see cref="MessageTextFilePathAnnotation"/>.
+        /// The available derived classes include <see cref="MessageTextFileCitationAnnotation"/>, <see cref="MessageTextFilePathAnnotation"/> and <see cref="MessageTextUrlCitationAnnotation"/>.
         /// </summary>
-        public IReadOnlyList<MessageTextAnnotation> Annotations { get; }
+        public IList<MessageTextAnnotation> Annotations { get; }
     }
 }
