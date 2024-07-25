@@ -112,6 +112,7 @@ new
 {
 description = "<description>",
 text = "<text>",
+isRegex = true,
 }
             },
             });
@@ -121,6 +122,7 @@ text = "<text>",
             Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("blocklistItemId").ToString());
             Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("description").ToString());
             Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("text").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("isRegex").ToString());
         }
 
         [Test]
@@ -139,6 +141,7 @@ new
 {
 description = "<description>",
 text = "<text>",
+isRegex = true,
 }
             },
             });
@@ -148,6 +151,7 @@ text = "<text>",
             Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("blocklistItemId").ToString());
             Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("description").ToString());
             Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("text").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("isRegex").ToString());
         }
 
         [Test]
@@ -163,6 +167,7 @@ text = "<text>",
 new TextBlocklistItem("<text>")
 {
 Description = "<description>",
+IsRegex = true,
 }
             });
             Response<AddOrUpdateTextBlocklistItemsResult> response = client.AddOrUpdateBlocklistItems("<Name>", options);
@@ -181,6 +186,7 @@ Description = "<description>",
 new TextBlocklistItem("<text>")
 {
 Description = "<description>",
+IsRegex = true,
 }
             });
             Response<AddOrUpdateTextBlocklistItemsResult> response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", options);
@@ -482,6 +488,7 @@ Description = "<description>",
             Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
             Console.WriteLine(result.GetProperty("description").ToString());
             Console.WriteLine(result.GetProperty("text").ToString());
+            Console.WriteLine(result.GetProperty("isRegex").ToString());
         }
 
         [Test]
@@ -498,6 +505,7 @@ Description = "<description>",
             Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
             Console.WriteLine(result.GetProperty("description").ToString());
             Console.WriteLine(result.GetProperty("text").ToString());
+            Console.WriteLine(result.GetProperty("isRegex").ToString());
         }
 
         [Test]
@@ -722,6 +730,7 @@ Description = "<description>",
                 Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
                 Console.WriteLine(result.GetProperty("description").ToString());
                 Console.WriteLine(result.GetProperty("text").ToString());
+                Console.WriteLine(result.GetProperty("isRegex").ToString());
             }
         }
 
@@ -739,6 +748,7 @@ Description = "<description>",
                 Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
                 Console.WriteLine(result.GetProperty("description").ToString());
                 Console.WriteLine(result.GetProperty("text").ToString());
+                Console.WriteLine(result.GetProperty("isRegex").ToString());
             }
         }
 

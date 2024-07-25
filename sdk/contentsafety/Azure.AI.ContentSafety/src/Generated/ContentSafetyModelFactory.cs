@@ -97,14 +97,47 @@ namespace Azure.AI.ContentSafety
             return new ImageCategoriesAnalysis(category, severity, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.AnalyzeTextJailbreakResult"/>. </summary>
+        /// <param name="jailbreakAnalysis"> Analysis result for jailbreak. </param>
+        /// <returns> A new <see cref="ContentSafety.AnalyzeTextJailbreakResult"/> instance for mocking. </returns>
+        public static AnalyzeTextJailbreakResult AnalyzeTextJailbreakResult(JailbreakAnalysisResult jailbreakAnalysis = null)
+        {
+            return new AnalyzeTextJailbreakResult(jailbreakAnalysis, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.JailbreakAnalysisResult"/>. </summary>
+        /// <param name="detected"> Analysis result for jailbreak. </param>
+        /// <returns> A new <see cref="ContentSafety.JailbreakAnalysisResult"/> instance for mocking. </returns>
+        public static JailbreakAnalysisResult JailbreakAnalysisResult(bool detected = default)
+        {
+            return new JailbreakAnalysisResult(detected, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.AnalyzeTextProtectedMaterialResult"/>. </summary>
+        /// <param name="protectedMaterialAnalysis"> Analysis result for protected material. </param>
+        /// <returns> A new <see cref="ContentSafety.AnalyzeTextProtectedMaterialResult"/> instance for mocking. </returns>
+        public static AnalyzeTextProtectedMaterialResult AnalyzeTextProtectedMaterialResult(ProtectedMaterialAnalysisResult protectedMaterialAnalysis = null)
+        {
+            return new AnalyzeTextProtectedMaterialResult(protectedMaterialAnalysis, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.ProtectedMaterialAnalysisResult"/>. </summary>
+        /// <param name="detected"> Analysis result for protected material.. </param>
+        /// <returns> A new <see cref="ContentSafety.ProtectedMaterialAnalysisResult"/> instance for mocking. </returns>
+        public static ProtectedMaterialAnalysisResult ProtectedMaterialAnalysisResult(bool detected = default)
+        {
+            return new ProtectedMaterialAnalysisResult(detected, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="ContentSafety.TextBlocklistItem"/>. </summary>
         /// <param name="blocklistItemId"> The service will generate a BlocklistItemId, which will be a UUID. </param>
         /// <param name="description"> BlocklistItem description. </param>
         /// <param name="text"> BlocklistItem content. </param>
+        /// <param name="isRegex"> Optional setting. true means this item is a regex matched term, false means this item is an exact matched term. Default value is false. </param>
         /// <returns> A new <see cref="ContentSafety.TextBlocklistItem"/> instance for mocking. </returns>
-        public static TextBlocklistItem TextBlocklistItem(string blocklistItemId = null, string description = null, string text = null)
+        public static TextBlocklistItem TextBlocklistItem(string blocklistItemId = null, string description = null, string text = null, bool? isRegex = null)
         {
-            return new TextBlocklistItem(blocklistItemId, description, text, serializedAdditionalRawData: null);
+            return new TextBlocklistItem(blocklistItemId, description, text, isRegex, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="ContentSafety.AddOrUpdateTextBlocklistItemsResult"/>. </summary>

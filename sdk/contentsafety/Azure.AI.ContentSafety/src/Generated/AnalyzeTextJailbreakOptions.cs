@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.ContentSafety
 {
-    /// <summary> Item in a TextBlocklist. </summary>
-    public partial class TextBlocklistItem
+    /// <summary> The text jailbreak analysis request. </summary>
+    public partial class AnalyzeTextJailbreakOptions
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,43 +45,31 @@ namespace Azure.AI.ContentSafety
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="TextBlocklistItem"/>. </summary>
-        /// <param name="text"> BlocklistItem content. </param>
+        /// <summary> Initializes a new instance of <see cref="AnalyzeTextJailbreakOptions"/>. </summary>
+        /// <param name="text"> The text needs to be analyzed if it attempt to jailbreak. We support a maximum of 1k Unicode characters (Unicode code points) in the text of one request. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="text"/> is null. </exception>
-        public TextBlocklistItem(string text)
+        public AnalyzeTextJailbreakOptions(string text)
         {
             Argument.AssertNotNull(text, nameof(text));
 
             Text = text;
         }
 
-        /// <summary> Initializes a new instance of <see cref="TextBlocklistItem"/>. </summary>
-        /// <param name="blocklistItemId"> The service will generate a BlocklistItemId, which will be a UUID. </param>
-        /// <param name="description"> BlocklistItem description. </param>
-        /// <param name="text"> BlocklistItem content. </param>
-        /// <param name="isRegex"> Optional setting. true means this item is a regex matched term, false means this item is an exact matched term. Default value is false. </param>
+        /// <summary> Initializes a new instance of <see cref="AnalyzeTextJailbreakOptions"/>. </summary>
+        /// <param name="text"> The text needs to be analyzed if it attempt to jailbreak. We support a maximum of 1k Unicode characters (Unicode code points) in the text of one request. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TextBlocklistItem(string blocklistItemId, string description, string text, bool? isRegex, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AnalyzeTextJailbreakOptions(string text, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            BlocklistItemId = blocklistItemId;
-            Description = description;
             Text = text;
-            IsRegex = isRegex;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="TextBlocklistItem"/> for deserialization. </summary>
-        internal TextBlocklistItem()
+        /// <summary> Initializes a new instance of <see cref="AnalyzeTextJailbreakOptions"/> for deserialization. </summary>
+        internal AnalyzeTextJailbreakOptions()
         {
         }
 
-        /// <summary> The service will generate a BlocklistItemId, which will be a UUID. </summary>
-        public string BlocklistItemId { get; }
-        /// <summary> BlocklistItem description. </summary>
-        public string Description { get; set; }
-        /// <summary> BlocklistItem content. </summary>
-        public string Text { get; set; }
-        /// <summary> Optional setting. true means this item is a regex matched term, false means this item is an exact matched term. Default value is false. </summary>
-        public bool? IsRegex { get; set; }
+        /// <summary> The text needs to be analyzed if it attempt to jailbreak. We support a maximum of 1k Unicode characters (Unicode code points) in the text of one request. </summary>
+        public string Text { get; }
     }
 }
