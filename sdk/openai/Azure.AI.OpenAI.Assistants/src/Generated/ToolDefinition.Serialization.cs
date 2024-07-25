@@ -70,9 +70,10 @@ namespace Azure.AI.OpenAI.Assistants
             {
                 switch (discriminator.GetString())
                 {
+                    case "browser": return BingSearchToolDefinition.DeserializeBingSearchToolDefinition(element, options);
                     case "code_interpreter": return CodeInterpreterToolDefinition.DeserializeCodeInterpreterToolDefinition(element, options);
+                    case "file_search": return FileSearchToolDefinition.DeserializeFileSearchToolDefinition(element, options);
                     case "function": return FunctionToolDefinition.DeserializeFunctionToolDefinition(element, options);
-                    case "retrieval": return RetrievalToolDefinition.DeserializeRetrievalToolDefinition(element, options);
                 }
             }
             return UnknownToolDefinition.DeserializeUnknownToolDefinition(element, options);
