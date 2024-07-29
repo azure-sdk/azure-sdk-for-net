@@ -15,16 +15,16 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.HybridCompute.Models
 {
-    internal partial class GatewaysListResult : IUtf8JsonSerializable, IJsonModel<GatewaysListResult>
+    internal partial class LicenseProfilesListResult : IUtf8JsonSerializable, IJsonModel<LicenseProfilesListResult>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<GatewaysListResult>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<LicenseProfilesListResult>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<GatewaysListResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<LicenseProfilesListResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<GatewaysListResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<LicenseProfilesListResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(GatewaysListResult)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(LicenseProfilesListResult)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -58,19 +58,19 @@ namespace Azure.ResourceManager.HybridCompute.Models
             writer.WriteEndObject();
         }
 
-        GatewaysListResult IJsonModel<GatewaysListResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        LicenseProfilesListResult IJsonModel<LicenseProfilesListResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<GatewaysListResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<LicenseProfilesListResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(GatewaysListResult)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(LicenseProfilesListResult)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeGatewaysListResult(document.RootElement, options);
+            return DeserializeLicenseProfilesListResult(document.RootElement, options);
         }
 
-        internal static GatewaysListResult DeserializeGatewaysListResult(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static LicenseProfilesListResult DeserializeLicenseProfilesListResult(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.HybridCompute.Models
             {
                 return null;
             }
-            IReadOnlyList<HybridComputeGatewayData> value = default;
+            IReadOnlyList<LicenseProfileData> value = default;
             string nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -86,10 +86,10 @@ namespace Azure.ResourceManager.HybridCompute.Models
             {
                 if (property.NameEquals("value"u8))
                 {
-                    List<HybridComputeGatewayData> array = new List<HybridComputeGatewayData>();
+                    List<LicenseProfileData> array = new List<LicenseProfileData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(HybridComputeGatewayData.DeserializeHybridComputeGatewayData(item, options));
+                        array.Add(LicenseProfileData.DeserializeLicenseProfileData(item, options));
                     }
                     value = array;
                     continue;
@@ -105,7 +105,7 @@ namespace Azure.ResourceManager.HybridCompute.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new GatewaysListResult(value, nextLink, serializedAdditionalRawData);
+            return new LicenseProfilesListResult(value, nextLink, serializedAdditionalRawData);
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)
@@ -169,9 +169,9 @@ namespace Azure.ResourceManager.HybridCompute.Models
             return BinaryData.FromString(builder.ToString());
         }
 
-        BinaryData IPersistableModel<GatewaysListResult>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<LicenseProfilesListResult>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<GatewaysListResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<LicenseProfilesListResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
@@ -180,26 +180,26 @@ namespace Azure.ResourceManager.HybridCompute.Models
                 case "bicep":
                     return SerializeBicep(options);
                 default:
-                    throw new FormatException($"The model {nameof(GatewaysListResult)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(LicenseProfilesListResult)} does not support writing '{options.Format}' format.");
             }
         }
 
-        GatewaysListResult IPersistableModel<GatewaysListResult>.Create(BinaryData data, ModelReaderWriterOptions options)
+        LicenseProfilesListResult IPersistableModel<LicenseProfilesListResult>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<GatewaysListResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<LicenseProfilesListResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeGatewaysListResult(document.RootElement, options);
+                        return DeserializeLicenseProfilesListResult(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(GatewaysListResult)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(LicenseProfilesListResult)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<GatewaysListResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<LicenseProfilesListResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
