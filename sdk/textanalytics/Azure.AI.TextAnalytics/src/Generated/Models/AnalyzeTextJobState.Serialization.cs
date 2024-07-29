@@ -19,32 +19,18 @@ namespace Azure.AI.TextAnalytics.Models
             {
                 return null;
             }
-            AnalyzeTasks tasks = default;
-            TextDocumentBatchStatistics statistics = default;
             string displayName = default;
             DateTimeOffset createdDateTime = default;
             DateTimeOffset? expirationDateTime = default;
-            string jobId = default;
+            Guid jobId = default;
             DateTimeOffset lastUpdatedDateTime = default;
             TextAnalyticsOperationStatus status = default;
             IReadOnlyList<Error> errors = default;
             string nextLink = default;
+            Tasks tasks = default;
+            TextDocumentBatchStatistics statistics = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("tasks"u8))
-                {
-                    tasks = AnalyzeTasks.DeserializeAnalyzeTasks(property.Value);
-                    continue;
-                }
-                if (property.NameEquals("statistics"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    statistics = TextDocumentBatchStatistics.DeserializeTextDocumentBatchStatistics(property.Value);
-                    continue;
-                }
                 if (property.NameEquals("displayName"u8))
                 {
                     displayName = property.Value.GetString();
@@ -66,7 +52,7 @@ namespace Azure.AI.TextAnalytics.Models
                 }
                 if (property.NameEquals("jobId"u8))
                 {
-                    jobId = property.Value.GetString();
+                    jobId = property.Value.GetGuid();
                     continue;
                 }
                 if (property.NameEquals("lastUpdatedDateTime"u8))
@@ -98,6 +84,20 @@ namespace Azure.AI.TextAnalytics.Models
                     nextLink = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("tasks"u8))
+                {
+                    tasks = Tasks.DeserializeTasks(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("statistics"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    statistics = TextDocumentBatchStatistics.DeserializeTextDocumentBatchStatistics(property.Value);
+                    continue;
+                }
             }
             return new AnalyzeTextJobState(
                 displayName,
@@ -114,7 +114,7 @@ namespace Azure.AI.TextAnalytics.Models
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static new AnalyzeTextJobState FromResponse(Response response)
+        internal static AnalyzeTextJobState FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializeAnalyzeTextJobState(document.RootElement);

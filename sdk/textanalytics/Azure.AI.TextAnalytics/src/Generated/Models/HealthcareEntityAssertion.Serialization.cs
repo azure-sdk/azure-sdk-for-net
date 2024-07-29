@@ -6,33 +6,11 @@
 #nullable disable
 
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics
 {
-    public partial class HealthcareEntityAssertion : IUtf8JsonSerializable
+    public partial class HealthcareEntityAssertion
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            if (Optional.IsDefined(Conditionality))
-            {
-                writer.WritePropertyName("conditionality"u8);
-                writer.WriteStringValue(Conditionality.Value.ToSerialString());
-            }
-            if (Optional.IsDefined(Certainty))
-            {
-                writer.WritePropertyName("certainty"u8);
-                writer.WriteStringValue(Certainty.Value.ToSerialString());
-            }
-            if (Optional.IsDefined(Association))
-            {
-                writer.WritePropertyName("association"u8);
-                writer.WriteStringValue(Association.Value.ToSerialString());
-            }
-            writer.WriteEndObject();
-        }
-
         internal static HealthcareEntityAssertion DeserializeHealthcareEntityAssertion(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -81,14 +59,6 @@ namespace Azure.AI.TextAnalytics
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializeHealthcareEntityAssertion(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal virtual RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }
