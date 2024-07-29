@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> Specifies the method used to interpret string offsets.  Defaults to Text Elements (Graphemes) according to Unicode v8.0.0. For additional information see https://aka.ms/text-analytics-offsets. </summary>
+    /// <summary> String index type. </summary>
     internal readonly partial struct StringIndexType : IEquatable<StringIndexType>
     {
         private readonly string _value;
