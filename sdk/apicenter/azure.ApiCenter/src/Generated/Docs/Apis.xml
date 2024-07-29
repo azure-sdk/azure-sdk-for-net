@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetApisAsync(int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetApisAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response<PagedApiAll> response = await client.GetApisAsync();
+]]></code>
+This sample shows how to call GetApisAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response<PagedApiAll> response = await client.GetApisAsync(top: 1234, skip: 1234, maxpagesize: 1234);
+]]></code></example>
+    </member>
+    <member name="GetApis(int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetApis.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response<PagedApiAll> response = client.GetApis();
+]]></code>
+This sample shows how to call GetApis with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response<PagedApiAll> response = client.GetApis(top: 1234, skip: 1234, maxpagesize: 1234);
+]]></code></example>
+    </member>
+    <member name="GetApisAsync(int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetApisAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response response = await client.GetApisAsync(null, null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("kind").ToString());
+]]></code>
+This sample shows how to call GetApisAsync with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response response = await client.GetApisAsync(1234, 1234, 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("summary").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("lifecycleStage").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("termsOfService").GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("license").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("license").GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("license").GetProperty("identifier").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("externalDocumentation")[0].GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("externalDocumentation")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("externalDocumentation")[0].GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("contacts")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("contacts")[0].GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("contacts")[0].GetProperty("email").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("customProperties").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("lastUpdated").ToString());
+Console.WriteLine(result.GetProperty("nextLink").ToString());
+]]></code></example>
+    </member>
+    <member name="GetApis(int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetApis and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response response = client.GetApis(null, null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("kind").ToString());
+]]></code>
+This sample shows how to call GetApis with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response response = client.GetApis(1234, 1234, 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("summary").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("lifecycleStage").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("termsOfService").GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("license").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("license").GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("license").GetProperty("identifier").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("externalDocumentation")[0].GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("externalDocumentation")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("externalDocumentation")[0].GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("contacts")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("contacts")[0].GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("contacts")[0].GetProperty("email").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("customProperties").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("lastUpdated").ToString());
+Console.WriteLine(result.GetProperty("nextLink").ToString());
+]]></code></example>
+    </member>
+    <member name="GetApiAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetApiAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response<GetResponse1> response = await client.GetApiAsync("<workspaceName>", "<apiName>");
+]]></code>
+This sample shows how to call GetApiAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response<GetResponse1> response = await client.GetApiAsync("<workspaceName>", "<apiName>");
+]]></code></example>
+    </member>
+    <member name="GetApi(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetApi.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response<GetResponse1> response = client.GetApi("<workspaceName>", "<apiName>");
+]]></code>
+This sample shows how to call GetApi with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response<GetResponse1> response = client.GetApi("<workspaceName>", "<apiName>");
+]]></code></example>
+    </member>
+    <member name="GetApiAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetApiAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response response = await client.GetApiAsync("<workspaceName>", "<apiName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("kind").ToString());
+]]></code>
+This sample shows how to call GetApiAsync with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response response = await client.GetApiAsync("<workspaceName>", "<apiName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("summary").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("lifecycleStage").ToString());
+Console.WriteLine(result.GetProperty("termsOfService").GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("license").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("license").GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("license").GetProperty("identifier").ToString());
+Console.WriteLine(result.GetProperty("externalDocumentation")[0].GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("externalDocumentation")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("externalDocumentation")[0].GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("email").ToString());
+Console.WriteLine(result.GetProperty("customProperties").ToString());
+Console.WriteLine(result.GetProperty("lastUpdated").ToString());
+]]></code></example>
+    </member>
+    <member name="GetApi(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetApi and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response response = client.GetApi("<workspaceName>", "<apiName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("kind").ToString());
+]]></code>
+This sample shows how to call GetApi with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+Response response = client.GetApi("<workspaceName>", "<apiName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("summary").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("lifecycleStage").ToString());
+Console.WriteLine(result.GetProperty("termsOfService").GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("license").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("license").GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("license").GetProperty("identifier").ToString());
+Console.WriteLine(result.GetProperty("externalDocumentation")[0].GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("externalDocumentation")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("externalDocumentation")[0].GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("email").ToString());
+Console.WriteLine(result.GetProperty("customProperties").ToString());
+Console.WriteLine(result.GetProperty("lastUpdated").ToString());
+]]></code></example>
+    </member>
+    <member name="GetApisAsync(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetApisAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+await foreach (Api item in client.GetApisAsync("<workspaceName>"))
+{
+}
+]]></code>
+This sample shows how to call GetApisAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+await foreach (Api item in client.GetApisAsync("<workspaceName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetApis(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetApis.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+foreach (Api item in client.GetApis("<workspaceName>"))
+{
+}
+]]></code>
+This sample shows how to call GetApis with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+foreach (Api item in client.GetApis("<workspaceName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetApisAsync(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetApisAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+await foreach (BinaryData item in client.GetApisAsync("<workspaceName>", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("kind").ToString());
+}
+]]></code>
+This sample shows how to call GetApisAsync with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+await foreach (BinaryData item in client.GetApisAsync("<workspaceName>", 1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("summary").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("lifecycleStage").ToString());
+    Console.WriteLine(result.GetProperty("termsOfService").GetProperty("url").ToString());
+    Console.WriteLine(result.GetProperty("license").GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("license").GetProperty("url").ToString());
+    Console.WriteLine(result.GetProperty("license").GetProperty("identifier").ToString());
+    Console.WriteLine(result.GetProperty("externalDocumentation")[0].GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("externalDocumentation")[0].GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("externalDocumentation")[0].GetProperty("url").ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("url").ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("email").ToString());
+    Console.WriteLine(result.GetProperty("customProperties").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdated").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetApis(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetApis and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+foreach (BinaryData item in client.GetApis("<workspaceName>", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("kind").ToString());
+}
+]]></code>
+This sample shows how to call GetApis with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Apis client = new DataApiClient("<serviceName>", credential).GetApisClient(apiVersion: "2024-02-01-preview");
+
+foreach (BinaryData item in client.GetApis("<workspaceName>", 1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("summary").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("lifecycleStage").ToString());
+    Console.WriteLine(result.GetProperty("termsOfService").GetProperty("url").ToString());
+    Console.WriteLine(result.GetProperty("license").GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("license").GetProperty("url").ToString());
+    Console.WriteLine(result.GetProperty("license").GetProperty("identifier").ToString());
+    Console.WriteLine(result.GetProperty("externalDocumentation")[0].GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("externalDocumentation")[0].GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("externalDocumentation")[0].GetProperty("url").ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("url").ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("email").ToString());
+    Console.WriteLine(result.GetProperty("customProperties").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdated").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>

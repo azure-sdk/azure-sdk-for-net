@@ -1,0 +1,4 @@
+directory: specification/apicenter/ApiCenter.DataApi
+commit: 00428da37e8013f0ccf055030a9c4a25070cbb0d
+repo: test-repo-billy/azure-rest-api-specs
+additionalDirectories: 
