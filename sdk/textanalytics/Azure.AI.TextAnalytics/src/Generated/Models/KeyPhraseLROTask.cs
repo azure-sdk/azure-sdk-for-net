@@ -17,16 +17,16 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="KeyPhraseLROTask"/>. </summary>
-        /// <param name="taskName"></param>
-        /// <param name="kind"> Enumeration of supported long-running Text Analysis tasks. </param>
-        /// <param name="parameters"> Supported parameters for a Key Phrase Extraction task. </param>
+        /// <param name="taskName"> task name. </param>
+        /// <param name="kind"> The kind of task to perform. </param>
+        /// <param name="parameters"> Key phrase extraction task parameters. </param>
         internal KeyPhraseLROTask(string taskName, AnalyzeTextLROTaskKind kind, KeyPhraseTaskParameters parameters) : base(taskName, kind)
         {
             Parameters = parameters;
             Kind = kind;
         }
 
-        /// <summary> Supported parameters for a Key Phrase Extraction task. </summary>
+        /// <summary> Key phrase extraction task parameters. </summary>
         public KeyPhraseTaskParameters Parameters { get; set; }
     }
 }

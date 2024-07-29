@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The MultiLanguageAnalysisInput. </summary>
+    /// <summary> Collection of input documents to be analyzed by the service. </summary>
     internal partial class MultiLanguageAnalysisInput
     {
         /// <summary> Initializes a new instance of <see cref="MultiLanguageAnalysisInput"/>. </summary>
@@ -19,13 +19,13 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="MultiLanguageAnalysisInput"/>. </summary>
-        /// <param name="documents"></param>
+        /// <param name="documents"> The input documents to be analyzed. </param>
         internal MultiLanguageAnalysisInput(IList<MultiLanguageInput> documents)
         {
             Documents = documents;
         }
 
-        /// <summary> Gets the documents. </summary>
+        /// <summary> The input documents to be analyzed. </summary>
         public IList<MultiLanguageInput> Documents { get; }
     }
 }
