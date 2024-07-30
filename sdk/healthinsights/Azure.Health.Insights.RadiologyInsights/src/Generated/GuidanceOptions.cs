@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Health.Insights.RadiologyInsights
 {
-    /// <summary> Procedure information. </summary>
-    public partial class OrderedProcedure
+    /// <summary> Guidance options. </summary>
+    public partial class GuidanceOptions
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,30 +45,28 @@ namespace Azure.Health.Insights.RadiologyInsights
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="OrderedProcedure"/>. </summary>
-        public OrderedProcedure()
+        /// <summary> Initializes a new instance of <see cref="GuidanceOptions"/>. </summary>
+        /// <param name="showGuidanceInHistory"> If this is true, also show guidances from a clinical history section i.e. if the first token of the associated finding's clinical indicator is in this section. Default is false. </param>
+        public GuidanceOptions(bool showGuidanceInHistory)
         {
-            Extension = new ChangeTrackingList<FhirR4Extension>();
+            ShowGuidanceInHistory = showGuidanceInHistory;
         }
 
-        /// <summary> Initializes a new instance of <see cref="OrderedProcedure"/>. </summary>
-        /// <param name="code"> Procedure code. </param>
-        /// <param name="description"> Procedure description. </param>
-        /// <param name="extension"> Additional Content defined by implementations. </param>
+        /// <summary> Initializes a new instance of <see cref="GuidanceOptions"/>. </summary>
+        /// <param name="showGuidanceInHistory"> If this is true, also show guidances from a clinical history section i.e. if the first token of the associated finding's clinical indicator is in this section. Default is false. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal OrderedProcedure(FhirR4CodeableConcept code, string description, IList<FhirR4Extension> extension, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal GuidanceOptions(bool showGuidanceInHistory, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Code = code;
-            Description = description;
-            Extension = extension;
+            ShowGuidanceInHistory = showGuidanceInHistory;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Procedure code. </summary>
-        public FhirR4CodeableConcept Code { get; set; }
-        /// <summary> Procedure description. </summary>
-        public string Description { get; set; }
-        /// <summary> Additional Content defined by implementations. </summary>
-        public IList<FhirR4Extension> Extension { get; }
+        /// <summary> Initializes a new instance of <see cref="GuidanceOptions"/> for deserialization. </summary>
+        internal GuidanceOptions()
+        {
+        }
+
+        /// <summary> If this is true, also show guidances from a clinical history section i.e. if the first token of the associated finding's clinical indicator is in this section. Default is false. </summary>
+        public bool ShowGuidanceInHistory { get; set; }
     }
 }

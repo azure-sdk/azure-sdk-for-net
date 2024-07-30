@@ -13,38 +13,35 @@ using Azure.Core;
 
 namespace Azure.Health.Insights.RadiologyInsights
 {
-    public partial class ImagingProcedureRecommendation : IUtf8JsonSerializable, IJsonModel<ImagingProcedureRecommendation>
+    public partial class QualityMeasureInference : IUtf8JsonSerializable, IJsonModel<QualityMeasureInference>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ImagingProcedureRecommendation>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<QualityMeasureInference>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<ImagingProcedureRecommendation>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<QualityMeasureInference>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ImagingProcedureRecommendation>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<QualityMeasureInference>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ImagingProcedureRecommendation)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(QualityMeasureInference)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(ProcedureCodes))
+            writer.WritePropertyName("qualityMeasureDenominator"u8);
+            writer.WriteStringValue(QualityMeasureDenominator);
+            writer.WritePropertyName("complianceType"u8);
+            writer.WriteStringValue(ComplianceType.ToString());
+            if (Optional.IsCollectionDefined(QualityCriteria))
             {
-                writer.WritePropertyName("procedureCodes"u8);
+                writer.WritePropertyName("qualityCriteria"u8);
                 writer.WriteStartArray();
-                foreach (var item in ProcedureCodes)
+                foreach (var item in QualityCriteria)
                 {
-                    writer.WriteObjectValue(item, options);
+                    writer.WriteStringValue(item);
                 }
                 writer.WriteEndArray();
             }
-            writer.WritePropertyName("imagingProcedures"u8);
-            writer.WriteStartArray();
-            foreach (var item in ImagingProcedures)
-            {
-                writer.WriteObjectValue(item, options);
-            }
-            writer.WriteEndArray();
             writer.WritePropertyName("kind"u8);
-            writer.WriteStringValue(Kind);
+            writer.WriteStringValue(Kind.ToString());
             if (Optional.IsCollectionDefined(Extension))
             {
                 writer.WritePropertyName("extension"u8);
@@ -73,19 +70,19 @@ namespace Azure.Health.Insights.RadiologyInsights
             writer.WriteEndObject();
         }
 
-        ImagingProcedureRecommendation IJsonModel<ImagingProcedureRecommendation>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        QualityMeasureInference IJsonModel<QualityMeasureInference>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ImagingProcedureRecommendation>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<QualityMeasureInference>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ImagingProcedureRecommendation)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(QualityMeasureInference)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeImagingProcedureRecommendation(document.RootElement, options);
+            return DeserializeQualityMeasureInference(document.RootElement, options);
         }
 
-        internal static ImagingProcedureRecommendation DeserializeImagingProcedureRecommendation(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static QualityMeasureInference DeserializeQualityMeasureInference(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -93,41 +90,42 @@ namespace Azure.Health.Insights.RadiologyInsights
             {
                 return null;
             }
-            IReadOnlyList<FhirR4CodeableConcept> procedureCodes = default;
-            IReadOnlyList<ImagingProcedure> imagingProcedures = default;
-            string kind = default;
+            string qualityMeasureDenominator = default;
+            QualityMeasureComplianceType complianceType = default;
+            IReadOnlyList<string> qualityCriteria = default;
+            RadiologyInsightsInferenceType kind = default;
             IReadOnlyList<FhirR4Extension> extension = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("procedureCodes"u8))
+                if (property.NameEquals("qualityMeasureDenominator"u8))
+                {
+                    qualityMeasureDenominator = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("complianceType"u8))
+                {
+                    complianceType = new QualityMeasureComplianceType(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("qualityCriteria"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    List<FhirR4CodeableConcept> array = new List<FhirR4CodeableConcept>();
+                    List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(FhirR4CodeableConcept.DeserializeFhirR4CodeableConcept(item, options));
+                        array.Add(item.GetString());
                     }
-                    procedureCodes = array;
-                    continue;
-                }
-                if (property.NameEquals("imagingProcedures"u8))
-                {
-                    List<ImagingProcedure> array = new List<ImagingProcedure>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(ImagingProcedure.DeserializeImagingProcedure(item, options));
-                    }
-                    imagingProcedures = array;
+                    qualityCriteria = array;
                     continue;
                 }
                 if (property.NameEquals("kind"u8))
                 {
-                    kind = property.Value.GetString();
+                    kind = new RadiologyInsightsInferenceType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("extension"u8))
@@ -150,46 +148,52 @@ namespace Azure.Health.Insights.RadiologyInsights
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ImagingProcedureRecommendation(kind, extension ?? new ChangeTrackingList<FhirR4Extension>(), serializedAdditionalRawData, procedureCodes ?? new ChangeTrackingList<FhirR4CodeableConcept>(), imagingProcedures);
+            return new QualityMeasureInference(
+                kind,
+                extension ?? new ChangeTrackingList<FhirR4Extension>(),
+                serializedAdditionalRawData,
+                qualityMeasureDenominator,
+                complianceType,
+                qualityCriteria ?? new ChangeTrackingList<string>());
         }
 
-        BinaryData IPersistableModel<ImagingProcedureRecommendation>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<QualityMeasureInference>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ImagingProcedureRecommendation>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<QualityMeasureInference>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(ImagingProcedureRecommendation)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(QualityMeasureInference)} does not support writing '{options.Format}' format.");
             }
         }
 
-        ImagingProcedureRecommendation IPersistableModel<ImagingProcedureRecommendation>.Create(BinaryData data, ModelReaderWriterOptions options)
+        QualityMeasureInference IPersistableModel<QualityMeasureInference>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ImagingProcedureRecommendation>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<QualityMeasureInference>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeImagingProcedureRecommendation(document.RootElement, options);
+                        return DeserializeQualityMeasureInference(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ImagingProcedureRecommendation)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(QualityMeasureInference)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ImagingProcedureRecommendation>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<QualityMeasureInference>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static new ImagingProcedureRecommendation FromResponse(Response response)
+        internal static new QualityMeasureInference FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeImagingProcedureRecommendation(document.RootElement);
+            return DeserializeQualityMeasureInference(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>

@@ -13,23 +13,23 @@ using Azure.Core;
 
 namespace Azure.Health.Insights.RadiologyInsights
 {
-    public partial class DocumentContent : IUtf8JsonSerializable, IJsonModel<DocumentContent>
+    public partial class AssessmentValueRange : IUtf8JsonSerializable, IJsonModel<AssessmentValueRange>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<DocumentContent>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AssessmentValueRange>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<DocumentContent>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<AssessmentValueRange>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<DocumentContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AssessmentValueRange>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(DocumentContent)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(AssessmentValueRange)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("sourceType"u8);
-            writer.WriteStringValue(SourceType.ToString());
-            writer.WritePropertyName("value"u8);
-            writer.WriteStringValue(Value);
+            writer.WritePropertyName("minimum"u8);
+            writer.WriteStringValue(Minimum);
+            writer.WritePropertyName("maximum"u8);
+            writer.WriteStringValue(Maximum);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -48,19 +48,19 @@ namespace Azure.Health.Insights.RadiologyInsights
             writer.WriteEndObject();
         }
 
-        DocumentContent IJsonModel<DocumentContent>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        AssessmentValueRange IJsonModel<AssessmentValueRange>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<DocumentContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AssessmentValueRange>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(DocumentContent)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(AssessmentValueRange)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeDocumentContent(document.RootElement, options);
+            return DeserializeAssessmentValueRange(document.RootElement, options);
         }
 
-        internal static DocumentContent DeserializeDocumentContent(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static AssessmentValueRange DeserializeAssessmentValueRange(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -68,20 +68,20 @@ namespace Azure.Health.Insights.RadiologyInsights
             {
                 return null;
             }
-            DocumentContentSourceType sourceType = default;
-            string value = default;
+            string minimum = default;
+            string maximum = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("sourceType"u8))
+                if (property.NameEquals("minimum"u8))
                 {
-                    sourceType = new DocumentContentSourceType(property.Value.GetString());
+                    minimum = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("value"u8))
+                if (property.NameEquals("maximum"u8))
                 {
-                    value = property.Value.GetString();
+                    maximum = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -90,46 +90,46 @@ namespace Azure.Health.Insights.RadiologyInsights
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new DocumentContent(sourceType, value, serializedAdditionalRawData);
+            return new AssessmentValueRange(minimum, maximum, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<DocumentContent>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<AssessmentValueRange>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<DocumentContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AssessmentValueRange>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(DocumentContent)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AssessmentValueRange)} does not support writing '{options.Format}' format.");
             }
         }
 
-        DocumentContent IPersistableModel<DocumentContent>.Create(BinaryData data, ModelReaderWriterOptions options)
+        AssessmentValueRange IPersistableModel<AssessmentValueRange>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<DocumentContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AssessmentValueRange>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeDocumentContent(document.RootElement, options);
+                        return DeserializeAssessmentValueRange(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(DocumentContent)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AssessmentValueRange)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<DocumentContent>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<AssessmentValueRange>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static DocumentContent FromResponse(Response response)
+        internal static AssessmentValueRange FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeDocumentContent(document.RootElement);
+            return DeserializeAssessmentValueRange(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
