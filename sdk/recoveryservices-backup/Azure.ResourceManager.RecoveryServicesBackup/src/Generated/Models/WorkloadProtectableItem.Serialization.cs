@@ -93,6 +93,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     case "AzureFileShare": return FileShareProtectableItem.DeserializeFileShareProtectableItem(element, options);
                     case "AzureVmWorkloadProtectableItem": return VmWorkloadProtectableItem.DeserializeVmWorkloadProtectableItem(element, options);
                     case "HanaHSRContainer": return VmWorkloadSapHanaHsrProtectableItem.DeserializeVmWorkloadSapHanaHsrProtectableItem(element, options);
+                    case "HanaScaleoutContainer": return AzureVmWorkloadSapHanaScaleoutProtectableItem.DeserializeAzureVmWorkloadSapHanaScaleoutProtectableItem(element, options);
                     case "IaaSVMProtectableItem": return IaasVmProtectableItem.DeserializeIaasVmProtectableItem(element, options);
                     case "Microsoft.ClassicCompute/virtualMachines": return IaasClassicComputeVmProtectableItem.DeserializeIaasClassicComputeVmProtectableItem(element, options);
                     case "Microsoft.Compute/virtualMachines": return IaasComputeVmProtectableItem.DeserializeIaasComputeVmProtectableItem(element, options);
