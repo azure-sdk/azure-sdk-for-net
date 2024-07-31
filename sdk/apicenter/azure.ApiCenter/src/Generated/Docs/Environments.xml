@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetEnvironmentsAsync(int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetEnvironmentsAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response<PagedEnvironmentAll> response = await client.GetEnvironmentsAsync();
+]]></code>
+This sample shows how to call GetEnvironmentsAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response<PagedEnvironmentAll> response = await client.GetEnvironmentsAsync(top: 1234, skip: 1234, maxpagesize: 1234);
+]]></code></example>
+    </member>
+    <member name="GetEnvironments(int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetEnvironments.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response<PagedEnvironmentAll> response = client.GetEnvironments();
+]]></code>
+This sample shows how to call GetEnvironments with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response<PagedEnvironmentAll> response = client.GetEnvironments(top: 1234, skip: 1234, maxpagesize: 1234);
+]]></code></example>
+    </member>
+    <member name="GetEnvironmentsAsync(int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetEnvironmentsAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response response = await client.GetEnvironmentsAsync(null, null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("kind").ToString());
+]]></code>
+This sample shows how to call GetEnvironmentsAsync with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response response = await client.GetEnvironmentsAsync(1234, 1234, 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("server").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("server").GetProperty("managementPortalUris")[0].ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("onboarding").GetProperty("instructions").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("onboarding").GetProperty("developerPortalUris")[0].ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("customProperties").ToString());
+Console.WriteLine(result.GetProperty("nextLink").ToString());
+]]></code></example>
+    </member>
+    <member name="GetEnvironments(int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetEnvironments and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response response = client.GetEnvironments(null, null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("kind").ToString());
+]]></code>
+This sample shows how to call GetEnvironments with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response response = client.GetEnvironments(1234, 1234, 1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("server").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("server").GetProperty("managementPortalUris")[0].ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("onboarding").GetProperty("instructions").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("onboarding").GetProperty("developerPortalUris")[0].ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("customProperties").ToString());
+Console.WriteLine(result.GetProperty("nextLink").ToString());
+]]></code></example>
+    </member>
+    <member name="GetEnvironmentAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetEnvironmentAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response<GetResponse> response = await client.GetEnvironmentAsync("<workspaceName>", "<environmentName>");
+]]></code>
+This sample shows how to call GetEnvironmentAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response<GetResponse> response = await client.GetEnvironmentAsync("<workspaceName>", "<environmentName>");
+]]></code></example>
+    </member>
+    <member name="GetEnvironment(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetEnvironment.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response<GetResponse> response = client.GetEnvironment("<workspaceName>", "<environmentName>");
+]]></code>
+This sample shows how to call GetEnvironment with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response<GetResponse> response = client.GetEnvironment("<workspaceName>", "<environmentName>");
+]]></code></example>
+    </member>
+    <member name="GetEnvironmentAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetEnvironmentAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response response = await client.GetEnvironmentAsync("<workspaceName>", "<environmentName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("kind").ToString());
+]]></code>
+This sample shows how to call GetEnvironmentAsync with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response response = await client.GetEnvironmentAsync("<workspaceName>", "<environmentName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("server").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("server").GetProperty("managementPortalUris")[0].ToString());
+Console.WriteLine(result.GetProperty("onboarding").GetProperty("instructions").ToString());
+Console.WriteLine(result.GetProperty("onboarding").GetProperty("developerPortalUris")[0].ToString());
+Console.WriteLine(result.GetProperty("customProperties").ToString());
+]]></code></example>
+    </member>
+    <member name="GetEnvironment(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetEnvironment and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response response = client.GetEnvironment("<workspaceName>", "<environmentName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("kind").ToString());
+]]></code>
+This sample shows how to call GetEnvironment with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+Response response = client.GetEnvironment("<workspaceName>", "<environmentName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("server").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("server").GetProperty("managementPortalUris")[0].ToString());
+Console.WriteLine(result.GetProperty("onboarding").GetProperty("instructions").ToString());
+Console.WriteLine(result.GetProperty("onboarding").GetProperty("developerPortalUris")[0].ToString());
+Console.WriteLine(result.GetProperty("customProperties").ToString());
+]]></code></example>
+    </member>
+    <member name="GetEnvironmentsAsync(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetEnvironmentsAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+await foreach (Environment item in client.GetEnvironmentsAsync("<workspaceName>"))
+{
+}
+]]></code>
+This sample shows how to call GetEnvironmentsAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+await foreach (Environment item in client.GetEnvironmentsAsync("<workspaceName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetEnvironments(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetEnvironments.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+foreach (Environment item in client.GetEnvironments("<workspaceName>"))
+{
+}
+]]></code>
+This sample shows how to call GetEnvironments with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+foreach (Environment item in client.GetEnvironments("<workspaceName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetEnvironmentsAsync(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetEnvironmentsAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+await foreach (BinaryData item in client.GetEnvironmentsAsync("<workspaceName>", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("kind").ToString());
+}
+]]></code>
+This sample shows how to call GetEnvironmentsAsync with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+await foreach (BinaryData item in client.GetEnvironmentsAsync("<workspaceName>", 1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("server").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("server").GetProperty("managementPortalUris")[0].ToString());
+    Console.WriteLine(result.GetProperty("onboarding").GetProperty("instructions").ToString());
+    Console.WriteLine(result.GetProperty("onboarding").GetProperty("developerPortalUris")[0].ToString());
+    Console.WriteLine(result.GetProperty("customProperties").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetEnvironments(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetEnvironments and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+foreach (BinaryData item in client.GetEnvironments("<workspaceName>", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("kind").ToString());
+}
+]]></code>
+This sample shows how to call GetEnvironments with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+Environments client = new DataApiClient("<serviceName>", credential).GetEnvironmentsClient(apiVersion: "2024-02-01-preview");
+
+foreach (BinaryData item in client.GetEnvironments("<workspaceName>", 1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("server").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("server").GetProperty("managementPortalUris")[0].ToString());
+    Console.WriteLine(result.GetProperty("onboarding").GetProperty("instructions").ToString());
+    Console.WriteLine(result.GetProperty("onboarding").GetProperty("developerPortalUris")[0].ToString());
+    Console.WriteLine(result.GetProperty("customProperties").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>

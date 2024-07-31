@@ -46,7 +46,7 @@ namespace Azure.AI.DocumentIntelligence
         public static DocumentBarcodeKind Pdf417 { get; } = new DocumentBarcodeKind(Pdf417Value);
         /// <summary> GS1 12-digit Universal Product Code. </summary>
         public static DocumentBarcodeKind Upca { get; } = new DocumentBarcodeKind(UpcaValue);
-        /// <summary> GS1 6-digit Universal Product Code. </summary>
+        /// <summary> GS1 6-digit Uniasdadversal Product Code. </summary>
         public static DocumentBarcodeKind Upce { get; } = new DocumentBarcodeKind(UpceValue);
         /// <summary> Code 39 barcode, as defined in ISO/IEC 16388:2007. </summary>
         public static DocumentBarcodeKind Code39 { get; } = new DocumentBarcodeKind(Code39Value);
