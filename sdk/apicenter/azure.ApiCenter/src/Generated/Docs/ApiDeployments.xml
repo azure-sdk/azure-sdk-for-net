@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetDeploymentAsync(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetDeploymentAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+Response<GetDeploymentResponse> response = await client.GetDeploymentAsync("<workspaceName>", "<apiName>", "<deploymentName>");
+]]></code>
+This sample shows how to call GetDeploymentAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+Response<GetDeploymentResponse> response = await client.GetDeploymentAsync("<workspaceName>", "<apiName>", "<deploymentName>");
+]]></code></example>
+    </member>
+    <member name="GetDeployment(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetDeployment.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+Response<GetDeploymentResponse> response = client.GetDeployment("<workspaceName>", "<apiName>", "<deploymentName>");
+]]></code>
+This sample shows how to call GetDeployment with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+Response<GetDeploymentResponse> response = client.GetDeployment("<workspaceName>", "<apiName>", "<deploymentName>");
+]]></code></example>
+    </member>
+    <member name="GetDeploymentAsync(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetDeploymentAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+Response response = await client.GetDeploymentAsync("<workspaceName>", "<apiName>", "<deploymentName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("environment").ToString());
+Console.WriteLine(result.GetProperty("server").GetProperty("runtimeUris")[0].ToString());
+]]></code>
+This sample shows how to call GetDeploymentAsync with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+Response response = await client.GetDeploymentAsync("<workspaceName>", "<apiName>", "<deploymentName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("environment").ToString());
+Console.WriteLine(result.GetProperty("server").GetProperty("runtimeUris")[0].ToString());
+Console.WriteLine(result.GetProperty("customProperties").ToString());
+Console.WriteLine(result.GetProperty("recommended").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDeployment(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetDeployment and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+Response response = client.GetDeployment("<workspaceName>", "<apiName>", "<deploymentName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("environment").ToString());
+Console.WriteLine(result.GetProperty("server").GetProperty("runtimeUris")[0].ToString());
+]]></code>
+This sample shows how to call GetDeployment with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+Response response = client.GetDeployment("<workspaceName>", "<apiName>", "<deploymentName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("environment").ToString());
+Console.WriteLine(result.GetProperty("server").GetProperty("runtimeUris")[0].ToString());
+Console.WriteLine(result.GetProperty("customProperties").ToString());
+Console.WriteLine(result.GetProperty("recommended").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDeploymentsAsync(string,string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetDeploymentsAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+await foreach (ApiDeployment item in client.GetDeploymentsAsync("<workspaceName>", "<apiName>"))
+{
+}
+]]></code>
+This sample shows how to call GetDeploymentsAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+await foreach (ApiDeployment item in client.GetDeploymentsAsync("<workspaceName>", "<apiName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetDeployments(string,string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetDeployments.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+foreach (ApiDeployment item in client.GetDeployments("<workspaceName>", "<apiName>"))
+{
+}
+]]></code>
+This sample shows how to call GetDeployments with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+foreach (ApiDeployment item in client.GetDeployments("<workspaceName>", "<apiName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetDeploymentsAsync(string,string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetDeploymentsAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+await foreach (BinaryData item in client.GetDeploymentsAsync("<workspaceName>", "<apiName>", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("environment").ToString());
+    Console.WriteLine(result.GetProperty("server").GetProperty("runtimeUris")[0].ToString());
+}
+]]></code>
+This sample shows how to call GetDeploymentsAsync with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+await foreach (BinaryData item in client.GetDeploymentsAsync("<workspaceName>", "<apiName>", 1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("environment").ToString());
+    Console.WriteLine(result.GetProperty("server").GetProperty("runtimeUris")[0].ToString());
+    Console.WriteLine(result.GetProperty("customProperties").ToString());
+    Console.WriteLine(result.GetProperty("recommended").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetDeployments(string,string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetDeployments and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+foreach (BinaryData item in client.GetDeployments("<workspaceName>", "<apiName>", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("environment").ToString());
+    Console.WriteLine(result.GetProperty("server").GetProperty("runtimeUris")[0].ToString());
+}
+]]></code>
+This sample shows how to call GetDeployments with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDeployments client = new DataApiClient("<serviceName>", credential).GetApiDeploymentsClient(apiVersion: "2024-02-01-preview");
+
+foreach (BinaryData item in client.GetDeployments("<workspaceName>", "<apiName>", 1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("environment").ToString());
+    Console.WriteLine(result.GetProperty("server").GetProperty("runtimeUris")[0].ToString());
+    Console.WriteLine(result.GetProperty("customProperties").ToString());
+    Console.WriteLine(result.GetProperty("recommended").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>

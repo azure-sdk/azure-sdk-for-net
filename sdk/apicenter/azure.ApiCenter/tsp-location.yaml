@@ -1,4 +1,4 @@
-directory: specification/ai/DocumentIntelligence
+directory: specification/apicenter/ApiCenter.DataApi
 commit: f0222b49d7311e310c648e62d9ae3eb420e63313
 repo: test-repo-billy/azure-rest-api-specs
 additionalDirectories: 
