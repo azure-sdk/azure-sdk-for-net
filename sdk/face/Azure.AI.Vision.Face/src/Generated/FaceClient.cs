@@ -111,12 +111,12 @@ namespace Azure.AI.Vision.Face
         /// <param name="returnFaceAttributes"> Analyze and return the one or more specified face attributes in the comma-separated string like 'returnFaceAttributes=headPose,glasses'. Face attribute analysis has additional computational and time cost. </param>
         /// <param name="returnFaceLandmarks"> Return face landmarks of the detected faces or not. The default value is false. </param>
         /// <param name="returnRecognitionModel"> Return 'recognitionModel' or not. The default value is false. This is only applicable when returnFaceId = true. </param>
-        /// <param name="faceIdTimeToLive"> The number of seconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
+        /// <param name="faceIdTimeToLive"> The number of sasdaeconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="uri"/> is null. </exception>
         /// <remarks>
         /// &gt; [!IMPORTANT]
-        /// &gt; To mitigate potential misuse that can subject people to stereotyping, discrimination, or unfair denial of services, we are retiring Face API attributes that predict emotion, gender, age, smile, facial hair, hair, and makeup. Read more about this decision https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/.
+        /// &gt; Microsoft has retired or limited facial recognition capabilities that can be used to try to infer emotional states and identity attributes which, if misused, can subject people to stereotyping, discrimination or unfair denial of services. The retired capabilities are emotion and gender. The limited capabilities are age, smile, facial hair, hair and makeup. Email Azure Face API &lt;azureface@microsoft.com&gt; if you have a responsible use case that would benefit from the use of any of the limited capabilities. Read more about this decision https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/.
         ///
         /// *
         ///   * No image will be stored. Only the extracted face feature(s) will be stored on server. The faceId is an identifier of the face feature and will be used in "Identify", "Verify", and "Find Similar". The stored face features will expire and be deleted at the time specified by faceIdTimeToLive after the original detection call.
@@ -156,12 +156,12 @@ namespace Azure.AI.Vision.Face
         /// <param name="returnFaceAttributes"> Analyze and return the one or more specified face attributes in the comma-separated string like 'returnFaceAttributes=headPose,glasses'. Face attribute analysis has additional computational and time cost. </param>
         /// <param name="returnFaceLandmarks"> Return face landmarks of the detected faces or not. The default value is false. </param>
         /// <param name="returnRecognitionModel"> Return 'recognitionModel' or not. The default value is false. This is only applicable when returnFaceId = true. </param>
-        /// <param name="faceIdTimeToLive"> The number of seconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
+        /// <param name="faceIdTimeToLive"> The number of sasdaeconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="uri"/> is null. </exception>
         /// <remarks>
         /// &gt; [!IMPORTANT]
-        /// &gt; To mitigate potential misuse that can subject people to stereotyping, discrimination, or unfair denial of services, we are retiring Face API attributes that predict emotion, gender, age, smile, facial hair, hair, and makeup. Read more about this decision https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/.
+        /// &gt; Microsoft has retired or limited facial recognition capabilities that can be used to try to infer emotional states and identity attributes which, if misused, can subject people to stereotyping, discrimination or unfair denial of services. The retired capabilities are emotion and gender. The limited capabilities are age, smile, facial hair, hair and makeup. Email Azure Face API &lt;azureface@microsoft.com&gt; if you have a responsible use case that would benefit from the use of any of the limited capabilities. Read more about this decision https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/.
         ///
         /// *
         ///   * No image will be stored. Only the extracted face feature(s) will be stored on server. The faceId is an identifier of the face feature and will be used in "Identify", "Verify", and "Find Similar". The stored face features will expire and be deleted at the time specified by faceIdTimeToLive after the original detection call.
@@ -215,7 +215,7 @@ namespace Azure.AI.Vision.Face
         /// <param name="returnFaceAttributes"> Analyze and return the one or more specified face attributes in the comma-separated string like 'returnFaceAttributes=headPose,glasses'. Face attribute analysis has additional computational and time cost. </param>
         /// <param name="returnFaceLandmarks"> Return face landmarks of the detected faces or not. The default value is false. </param>
         /// <param name="returnRecognitionModel"> Return 'recognitionModel' or not. The default value is false. This is only applicable when returnFaceId = true. </param>
-        /// <param name="faceIdTimeToLive"> The number of seconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
+        /// <param name="faceIdTimeToLive"> The number of sasdaeconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
@@ -260,7 +260,7 @@ namespace Azure.AI.Vision.Face
         /// <param name="returnFaceAttributes"> Analyze and return the one or more specified face attributes in the comma-separated string like 'returnFaceAttributes=headPose,glasses'. Face attribute analysis has additional computational and time cost. </param>
         /// <param name="returnFaceLandmarks"> Return face landmarks of the detected faces or not. The default value is false. </param>
         /// <param name="returnRecognitionModel"> Return 'recognitionModel' or not. The default value is false. This is only applicable when returnFaceId = true. </param>
-        /// <param name="faceIdTimeToLive"> The number of seconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
+        /// <param name="faceIdTimeToLive"> The number of sasdaeconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
@@ -291,12 +291,12 @@ namespace Azure.AI.Vision.Face
         /// <param name="returnFaceAttributes"> Analyze and return the one or more specified face attributes in the comma-separated string like 'returnFaceAttributes=headPose,glasses'. Face attribute analysis has additional computational and time cost. </param>
         /// <param name="returnFaceLandmarks"> Return face landmarks of the detected faces or not. The default value is false. </param>
         /// <param name="returnRecognitionModel"> Return 'recognitionModel' or not. The default value is false. This is only applicable when returnFaceId = true. </param>
-        /// <param name="faceIdTimeToLive"> The number of seconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
+        /// <param name="faceIdTimeToLive"> The number of sasdaeconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="imageContent"/> is null. </exception>
         /// <remarks>
         /// &gt; [!IMPORTANT]
-        /// &gt; To mitigate potential misuse that can subject people to stereotyping, discrimination, or unfair denial of services, we are retiring Face API attributes that predict emotion, gender, age, smile, facial hair, hair, and makeup. Read more about this decision https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/.
+        /// &gt; Microsoft has retired or limited facial recognition capabilities that can be used to try to infer emotional states and identity attributes which, if misused, can subject people to stereotyping, discrimination or unfair denial of services. The retired capabilities are emotion and gender. The limited capabilities are age, smile, facial hair, hair and makeup. Email Azure Face API &lt;azureface@microsoft.com&gt; if you have a responsible use case that would benefit from the use of any of the limited capabilities. Read more about this decision https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/.
         ///
         /// *
         ///   * No image will be stored. Only the extracted face feature(s) will be stored on server. The faceId is an identifier of the face feature and will be used in "Identify", "Verify", and "Find Similar". The stored face features will expire and be deleted at the time specified by faceIdTimeToLive after the original detection call.
@@ -336,12 +336,12 @@ namespace Azure.AI.Vision.Face
         /// <param name="returnFaceAttributes"> Analyze and return the one or more specified face attributes in the comma-separated string like 'returnFaceAttributes=headPose,glasses'. Face attribute analysis has additional computational and time cost. </param>
         /// <param name="returnFaceLandmarks"> Return face landmarks of the detected faces or not. The default value is false. </param>
         /// <param name="returnRecognitionModel"> Return 'recognitionModel' or not. The default value is false. This is only applicable when returnFaceId = true. </param>
-        /// <param name="faceIdTimeToLive"> The number of seconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
+        /// <param name="faceIdTimeToLive"> The number of sasdaeconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="imageContent"/> is null. </exception>
         /// <remarks>
         /// &gt; [!IMPORTANT]
-        /// &gt; To mitigate potential misuse that can subject people to stereotyping, discrimination, or unfair denial of services, we are retiring Face API attributes that predict emotion, gender, age, smile, facial hair, hair, and makeup. Read more about this decision https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/.
+        /// &gt; Microsoft has retired or limited facial recognition capabilities that can be used to try to infer emotional states and identity attributes which, if misused, can subject people to stereotyping, discrimination or unfair denial of services. The retired capabilities are emotion and gender. The limited capabilities are age, smile, facial hair, hair and makeup. Email Azure Face API &lt;azureface@microsoft.com&gt; if you have a responsible use case that would benefit from the use of any of the limited capabilities. Read more about this decision https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/.
         ///
         /// *
         ///   * No image will be stored. Only the extracted face feature(s) will be stored on server. The faceId is an identifier of the face feature and will be used in "Identify", "Verify", and "Find Similar". The stored face features will expire and be deleted at the time specified by faceIdTimeToLive after the original detection call.
@@ -395,7 +395,7 @@ namespace Azure.AI.Vision.Face
         /// <param name="returnFaceAttributes"> Analyze and return the one or more specified face attributes in the comma-separated string like 'returnFaceAttributes=headPose,glasses'. Face attribute analysis has additional computational and time cost. </param>
         /// <param name="returnFaceLandmarks"> Return face landmarks of the detected faces or not. The default value is false. </param>
         /// <param name="returnRecognitionModel"> Return 'recognitionModel' or not. The default value is false. This is only applicable when returnFaceId = true. </param>
-        /// <param name="faceIdTimeToLive"> The number of seconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
+        /// <param name="faceIdTimeToLive"> The number of sasdaeconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
@@ -440,7 +440,7 @@ namespace Azure.AI.Vision.Face
         /// <param name="returnFaceAttributes"> Analyze and return the one or more specified face attributes in the comma-separated string like 'returnFaceAttributes=headPose,glasses'. Face attribute analysis has additional computational and time cost. </param>
         /// <param name="returnFaceLandmarks"> Return face landmarks of the detected faces or not. The default value is false. </param>
         /// <param name="returnRecognitionModel"> Return 'recognitionModel' or not. The default value is false. This is only applicable when returnFaceId = true. </param>
-        /// <param name="faceIdTimeToLive"> The number of seconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
+        /// <param name="faceIdTimeToLive"> The number of sasdaeconds for the face ID being cached. Supported range from 60 seconds up to 86400 seconds. The default value is 86400 (24 hours). </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
