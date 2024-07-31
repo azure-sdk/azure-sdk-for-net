@@ -118,11 +118,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 writer.WritePropertyName("cpuUsage"u8);
                 writer.WriteNumberValue(CpuUsage.Value);
             }
-            if (Optional.IsDefined(IsLatestModel))
-            {
-                writer.WritePropertyName("isLatestModel"u8);
-                writer.WriteBooleanValue(IsLatestModel.Value);
-            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -178,7 +173,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
             long? memoryFreeKB = default;
             long? memoryTotalKB = default;
             double? cpuUsage = default;
-            bool? isLatestModel = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -317,15 +311,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                     cpuUsage = property.Value.GetDouble();
                     continue;
                 }
-                if (property.NameEquals("isLatestModel"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    isLatestModel = property.Value.GetBoolean();
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -350,7 +335,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 memoryFreeKB,
                 memoryTotalKB,
                 cpuUsage,
-                isLatestModel,
                 serializedAdditionalRawData);
         }
 
@@ -686,22 +670,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 {
                     builder.Append("  cpuUsage: ");
                     builder.AppendLine($"'{CpuUsage.Value.ToString()}'");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(IsLatestModel), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("  isLatestModel: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(IsLatestModel))
-                {
-                    builder.Append("  isLatestModel: ");
-                    var boolValue = IsLatestModel.Value == true ? "true" : "false";
-                    builder.AppendLine($"{boolValue}");
                 }
             }
 

@@ -63,11 +63,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(SourceBackupLocation))
-            {
-                writer.WritePropertyName("sourceBackupLocation"u8);
-                writer.WriteStringValue(SourceBackupLocation);
-            }
             if (Optional.IsDefined(RestoreSource))
             {
                 writer.WritePropertyName("restoreSource"u8);
@@ -125,7 +120,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
             IList<DatabaseRestoreResourceInfo> databasesToRestore = default;
             IList<GremlinDatabaseRestoreResourceInfo> gremlinDatabasesToRestore = default;
             IList<string> tablesToRestore = default;
-            string sourceBackupLocation = default;
             string restoreSource = default;
             DateTimeOffset? restoreTimestampInUtc = default;
             bool? restoreWithTtlDisabled = default;
@@ -184,11 +178,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                     tablesToRestore = array;
                     continue;
                 }
-                if (property.NameEquals("sourceBackupLocation"u8))
-                {
-                    sourceBackupLocation = property.Value.GetString();
-                    continue;
-                }
                 if (property.NameEquals("restoreSource"u8))
                 {
                     restoreSource = property.Value.GetString();
@@ -226,8 +215,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 restoreMode,
                 databasesToRestore ?? new ChangeTrackingList<DatabaseRestoreResourceInfo>(),
                 gremlinDatabasesToRestore ?? new ChangeTrackingList<GremlinDatabaseRestoreResourceInfo>(),
-                tablesToRestore ?? new ChangeTrackingList<string>(),
-                sourceBackupLocation);
+                tablesToRestore ?? new ChangeTrackingList<string>());
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)
@@ -334,29 +322,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                             }
                         }
                         builder.AppendLine("  ]");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(SourceBackupLocation), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("  sourceBackupLocation: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(SourceBackupLocation))
-                {
-                    builder.Append("  sourceBackupLocation: ");
-                    if (SourceBackupLocation.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{SourceBackupLocation}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{SourceBackupLocation}'");
                     }
                 }
             }
