@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetDefinitionAsync(string,string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetDefinitionAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response<GetDefinitionResponse> response = await client.GetDefinitionAsync("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>");
+]]></code>
+This sample shows how to call GetDefinitionAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response<GetDefinitionResponse> response = await client.GetDefinitionAsync("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>");
+]]></code></example>
+    </member>
+    <member name="GetDefinition(string,string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetDefinition.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response<GetDefinitionResponse> response = client.GetDefinition("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>");
+]]></code>
+This sample shows how to call GetDefinition with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response<GetDefinitionResponse> response = client.GetDefinition("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>");
+]]></code></example>
+    </member>
+    <member name="GetDefinitionAsync(string,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetDefinitionAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response response = await client.GetDefinitionAsync("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+]]></code>
+This sample shows how to call GetDefinitionAsync with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response response = await client.GetDefinitionAsync("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("specification").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("specification").GetProperty("version").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDefinition(string,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetDefinition and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response response = client.GetDefinition("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+]]></code>
+This sample shows how to call GetDefinition with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response response = client.GetDefinition("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("specification").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("specification").GetProperty("version").ToString());
+]]></code></example>
+    </member>
+    <member name="GetExportSpecificationOperationStatusAsync(string,string,string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetExportSpecificationOperationStatusAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response<ResourceOperationStatusApiSpecExportResultApiSpecExportResultError> response = await client.GetExportSpecificationOperationStatusAsync("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", "<operationId>");
+]]></code>
+This sample shows how to call GetExportSpecificationOperationStatusAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response<ResourceOperationStatusApiSpecExportResultApiSpecExportResultError> response = await client.GetExportSpecificationOperationStatusAsync("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", "<operationId>");
+]]></code></example>
+    </member>
+    <member name="GetExportSpecificationOperationStatus(string,string,string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetExportSpecificationOperationStatus.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response<ResourceOperationStatusApiSpecExportResultApiSpecExportResultError> response = client.GetExportSpecificationOperationStatus("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", "<operationId>");
+]]></code>
+This sample shows how to call GetExportSpecificationOperationStatus with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response<ResourceOperationStatusApiSpecExportResultApiSpecExportResultError> response = client.GetExportSpecificationOperationStatus("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", "<operationId>");
+]]></code></example>
+    </member>
+    <member name="GetExportSpecificationOperationStatusAsync(string,string,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetExportSpecificationOperationStatusAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response response = await client.GetExportSpecificationOperationStatusAsync("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", "<operationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call GetExportSpecificationOperationStatusAsync with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response response = await client.GetExportSpecificationOperationStatusAsync("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", "<operationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("definitionName").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("format").ToString());
+]]></code></example>
+    </member>
+    <member name="GetExportSpecificationOperationStatus(string,string,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetExportSpecificationOperationStatus and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response response = client.GetExportSpecificationOperationStatus("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", "<operationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call GetExportSpecificationOperationStatus with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Response response = client.GetExportSpecificationOperationStatus("<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", "<operationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("definitionName").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("format").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDefinitionsAsync(string,string,string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetDefinitionsAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+await foreach (ApiDefinition item in client.GetDefinitionsAsync("<workspaceName>", "<apiName>", "<versionName>"))
+{
+}
+]]></code>
+This sample shows how to call GetDefinitionsAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+await foreach (ApiDefinition item in client.GetDefinitionsAsync("<workspaceName>", "<apiName>", "<versionName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetDefinitions(string,string,string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetDefinitions.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+foreach (ApiDefinition item in client.GetDefinitions("<workspaceName>", "<apiName>", "<versionName>"))
+{
+}
+]]></code>
+This sample shows how to call GetDefinitions with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+foreach (ApiDefinition item in client.GetDefinitions("<workspaceName>", "<apiName>", "<versionName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetDefinitionsAsync(string,string,string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetDefinitionsAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+await foreach (BinaryData item in client.GetDefinitionsAsync("<workspaceName>", "<apiName>", "<versionName>", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+}
+]]></code>
+This sample shows how to call GetDefinitionsAsync with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+await foreach (BinaryData item in client.GetDefinitionsAsync("<workspaceName>", "<apiName>", "<versionName>", 1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("specification").GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("specification").GetProperty("version").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetDefinitions(string,string,string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetDefinitions and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+foreach (BinaryData item in client.GetDefinitions("<workspaceName>", "<apiName>", "<versionName>", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+}
+]]></code>
+This sample shows how to call GetDefinitions with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+foreach (BinaryData item in client.GetDefinitions("<workspaceName>", "<apiName>", "<versionName>", 1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("specification").GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("specification").GetProperty("version").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="ExportSpecificationAsync(WaitUntil,string,string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call ExportSpecificationAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Operation<ApiSpecExportResult> operation = await client.ExportSpecificationAsync(WaitUntil.Completed, "<workspaceName>", "<apiName>", "<versionName>", "<definitionName>");
+ApiSpecExportResult responseData = operation.Value;
+]]></code>
+This sample shows how to call ExportSpecificationAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Operation<ApiSpecExportResult> operation = await client.ExportSpecificationAsync(WaitUntil.Completed, "<workspaceName>", "<apiName>", "<versionName>", "<definitionName>");
+ApiSpecExportResult responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="ExportSpecification(WaitUntil,string,string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call ExportSpecification.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Operation<ApiSpecExportResult> operation = client.ExportSpecification(WaitUntil.Completed, "<workspaceName>", "<apiName>", "<versionName>", "<definitionName>");
+ApiSpecExportResult responseData = operation.Value;
+]]></code>
+This sample shows how to call ExportSpecification with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Operation<ApiSpecExportResult> operation = client.ExportSpecification(WaitUntil.Completed, "<workspaceName>", "<apiName>", "<versionName>", "<definitionName>");
+ApiSpecExportResult responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="ExportSpecificationAsync(WaitUntil,string,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call ExportSpecificationAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Operation<BinaryData> operation = await client.ExportSpecificationAsync(WaitUntil.Completed, "<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", null);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("definitionName").ToString());
+Console.WriteLine(result.GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("format").ToString());
+]]></code>
+This sample shows how to call ExportSpecificationAsync with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Operation<BinaryData> operation = await client.ExportSpecificationAsync(WaitUntil.Completed, "<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", null);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("definitionName").ToString());
+Console.WriteLine(result.GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("format").ToString());
+]]></code></example>
+    </member>
+    <member name="ExportSpecification(WaitUntil,string,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call ExportSpecification and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Operation<BinaryData> operation = client.ExportSpecification(WaitUntil.Completed, "<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", null);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("definitionName").ToString());
+Console.WriteLine(result.GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("format").ToString());
+]]></code>
+This sample shows how to call ExportSpecification with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+ApiDefinitions client = new DataApiClient("<serviceName>", credential).GetApiDefinitionsClient(apiVersion: "2024-02-01-preview");
+
+Operation<BinaryData> operation = client.ExportSpecification(WaitUntil.Completed, "<workspaceName>", "<apiName>", "<versionName>", "<definitionName>", null);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("definitionName").ToString());
+Console.WriteLine(result.GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("format").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
