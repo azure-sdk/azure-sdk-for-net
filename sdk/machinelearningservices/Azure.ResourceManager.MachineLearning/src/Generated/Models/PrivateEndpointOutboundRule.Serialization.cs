@@ -31,6 +31,21 @@ namespace Azure.ResourceManager.MachineLearning.Models
                 writer.WritePropertyName("destination"u8);
                 writer.WriteObjectValue(Destination, options);
             }
+            if (options.Format != "W" && Optional.IsDefined(ParentRuleName))
+            {
+                writer.WritePropertyName("parentRuleName"u8);
+                writer.WriteStringValue(ParentRuleName);
+            }
+            if (Optional.IsCollectionDefined(ParentRuleNames))
+            {
+                writer.WritePropertyName("parentRuleNames"u8);
+                writer.WriteStartArray();
+                foreach (var item in ParentRuleNames)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (Optional.IsDefined(Category))
             {
                 writer.WritePropertyName("category"u8);
@@ -82,6 +97,8 @@ namespace Azure.ResourceManager.MachineLearning.Models
                 return null;
             }
             PrivateEndpointDestination destination = default;
+            string parentRuleName = default;
+            IList<string> parentRuleNames = default;
             OutboundRuleCategory? category = default;
             OutboundRuleStatus? status = default;
             OutboundRuleType type = default;
@@ -96,6 +113,25 @@ namespace Azure.ResourceManager.MachineLearning.Models
                         continue;
                     }
                     destination = PrivateEndpointDestination.DeserializePrivateEndpointDestination(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("parentRuleName"u8))
+                {
+                    parentRuleName = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("parentRuleNames"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    parentRuleNames = array;
                     continue;
                 }
                 if (property.NameEquals("category"u8))
@@ -127,7 +163,14 @@ namespace Azure.ResourceManager.MachineLearning.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new PrivateEndpointOutboundRule(category, status, type, serializedAdditionalRawData, destination);
+            return new PrivateEndpointOutboundRule(
+                category,
+                status,
+                type,
+                serializedAdditionalRawData,
+                destination,
+                parentRuleName,
+                parentRuleNames ?? new ChangeTrackingList<string>());
         }
 
         BinaryData IPersistableModel<PrivateEndpointOutboundRule>.Write(ModelReaderWriterOptions options)
