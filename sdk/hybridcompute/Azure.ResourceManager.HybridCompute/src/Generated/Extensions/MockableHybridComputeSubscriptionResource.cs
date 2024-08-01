@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-20-preview</description>
+        /// <description>2024-07-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -113,7 +113,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-20-preview</description>
+        /// <description>2024-07-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -135,6 +135,98 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         }
 
         /// <summary>
+        /// The operation to validate a license.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HybridCompute/validateLicense</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Licenses_ValidateLicense</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-31-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="HybridComputeLicenseResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="data"> Parameters supplied to the license validation operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
+        public virtual async Task<ArmOperation<HybridComputeLicenseResource>> ValidateLicenseLicenseAsync(WaitUntil waitUntil, HybridComputeLicenseData data, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(data, nameof(data));
+
+            using var scope = HybridComputeLicenseLicensesClientDiagnostics.CreateScope("MockableHybridComputeSubscriptionResource.ValidateLicenseLicense");
+            scope.Start();
+            try
+            {
+                var response = await HybridComputeLicenseLicensesRestClient.ValidateLicenseAsync(Id.SubscriptionId, data, cancellationToken).ConfigureAwait(false);
+                var operation = new HybridComputeArmOperation<HybridComputeLicenseResource>(new HybridComputeLicenseOperationSource(Client), HybridComputeLicenseLicensesClientDiagnostics, Pipeline, HybridComputeLicenseLicensesRestClient.CreateValidateLicenseRequest(Id.SubscriptionId, data).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// The operation to validate a license.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HybridCompute/validateLicense</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Licenses_ValidateLicense</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-31-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="HybridComputeLicenseResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="data"> Parameters supplied to the license validation operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
+        public virtual ArmOperation<HybridComputeLicenseResource> ValidateLicenseLicense(WaitUntil waitUntil, HybridComputeLicenseData data, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(data, nameof(data));
+
+            using var scope = HybridComputeLicenseLicensesClientDiagnostics.CreateScope("MockableHybridComputeSubscriptionResource.ValidateLicenseLicense");
+            scope.Start();
+            try
+            {
+                var response = HybridComputeLicenseLicensesRestClient.ValidateLicense(Id.SubscriptionId, data, cancellationToken);
+                var operation = new HybridComputeArmOperation<HybridComputeLicenseResource>(new HybridComputeLicenseOperationSource(Client), HybridComputeLicenseLicensesClientDiagnostics, Pipeline, HybridComputeLicenseLicensesRestClient.CreateValidateLicenseRequest(Id.SubscriptionId, data).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// The operation to get all licenses of a non-Azure machine
         /// <list type="bullet">
         /// <item>
@@ -147,7 +239,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-20-preview</description>
+        /// <description>2024-07-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -177,7 +269,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-20-preview</description>
+        /// <description>2024-07-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -207,7 +299,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-20-preview</description>
+        /// <description>2024-07-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -237,7 +329,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-20-preview</description>
+        /// <description>2024-07-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -267,7 +359,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-20-preview</description>
+        /// <description>2024-07-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -297,7 +389,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-20-preview</description>
+        /// <description>2024-07-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -327,7 +419,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-20-preview</description>
+        /// <description>2024-07-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -357,7 +449,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-20-preview</description>
+        /// <description>2024-07-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -387,7 +479,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-20-preview</description>
+        /// <description>2024-07-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -431,7 +523,7 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-20-preview</description>
+        /// <description>2024-07-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
