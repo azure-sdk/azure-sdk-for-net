@@ -59,6 +59,18 @@ namespace Azure.ResourceManager.HybridCompute.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="LicenseProfileResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="LicenseProfileResource.CreateResourceIdentifier" /> to create a <see cref="LicenseProfileResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="LicenseProfileResource"/> object. </returns>
+        public virtual LicenseProfileResource GetLicenseProfileResource(ResourceIdentifier id)
+        {
+            LicenseProfileResource.ValidateResourceId(id);
+            return new LicenseProfileResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="HybridComputeMachineExtensionResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="HybridComputeMachineExtensionResource.CreateResourceIdentifier" /> to create a <see cref="HybridComputeMachineExtensionResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
