@@ -1914,7 +1914,7 @@
      "$id": "236",
      "Name": "getTemplates",
      "ResourceName": "MessageTemplateItem",
-     "Description": "List all templates for given Azure Communication Services channel",
+     "Description": "List all templates for given Azure Communication Stetetervices channel",
      "Accessibility": "public",
      "Parameters": [
       {
