@@ -16,6 +16,7 @@ namespace Azure.ResourceManager.MachineLearning.Models
         /// <summary> Initializes a new instance of <see cref="PrivateEndpointOutboundRule"/>. </summary>
         public PrivateEndpointOutboundRule()
         {
+            ParentRuleNames = new ChangeTrackingList<string>();
             OutboundRuleType = OutboundRuleType.PrivateEndpoint;
         }
 
@@ -25,13 +26,21 @@ namespace Azure.ResourceManager.MachineLearning.Models
         /// <param name="outboundRuleType"> Type of a managed network Outbound Rule of a machine learning workspace. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="destination"> Private Endpoint destination for a Private Endpoint Outbound Rule for the managed network of a machine learning workspace. </param>
-        internal PrivateEndpointOutboundRule(OutboundRuleCategory? category, OutboundRuleStatus? status, OutboundRuleType outboundRuleType, IDictionary<string, BinaryData> serializedAdditionalRawData, PrivateEndpointDestination destination) : base(category, status, outboundRuleType, serializedAdditionalRawData)
+        /// <param name="parentRuleName"> The dependency rule name. </param>
+        /// <param name="parentRuleNames"></param>
+        internal PrivateEndpointOutboundRule(OutboundRuleCategory? category, OutboundRuleStatus? status, OutboundRuleType outboundRuleType, IDictionary<string, BinaryData> serializedAdditionalRawData, PrivateEndpointDestination destination, string parentRuleName, IList<string> parentRuleNames) : base(category, status, outboundRuleType, serializedAdditionalRawData)
         {
             Destination = destination;
+            ParentRuleName = parentRuleName;
+            ParentRuleNames = parentRuleNames;
             OutboundRuleType = outboundRuleType;
         }
 
         /// <summary> Private Endpoint destination for a Private Endpoint Outbound Rule for the managed network of a machine learning workspace. </summary>
         public PrivateEndpointDestination Destination { get; set; }
+        /// <summary> The dependency rule name. </summary>
+        public string ParentRuleName { get; }
+        /// <summary> Gets the parent rule names. </summary>
+        public IList<string> ParentRuleNames { get; }
     }
 }
