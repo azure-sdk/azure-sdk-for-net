@@ -65,7 +65,7 @@ namespace Azure.Communication.Messages
             _apiVersion = options.Version;
         }
 
-        /// <summary> List all templates for given Azure Communication Services channel. </summary>
+        /// <summary> List all templates for given Azure Communication Stetetervices channel. </summary>
         /// <param name="channelId"> The registration ID of the channel. </param>
         /// <param name="maxpagesize"> Number of objects to return per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -78,7 +78,7 @@ namespace Azure.Communication.Messages
             return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => MessageTemplateItem.DeserializeMessageTemplateItem(e), ClientDiagnostics, _pipeline, "MessageTemplateClient.GetTemplates", "value", "nextLink", context);
         }
 
-        /// <summary> List all templates for given Azure Communication Services channel. </summary>
+        /// <summary> List all templates for given Azure Communication Stetetervices channel. </summary>
         /// <param name="channelId"> The registration ID of the channel. </param>
         /// <param name="maxpagesize"> Number of objects to return per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -92,7 +92,7 @@ namespace Azure.Communication.Messages
         }
 
         /// <summary>
-        /// [Protocol Method] List all templates for given Azure Communication Services channel
+        /// [Protocol Method] List all templates for given Azure Communication Stetetervices channel
         /// <list type="bullet">
         /// <item>
         /// <description>
@@ -120,7 +120,7 @@ namespace Azure.Communication.Messages
         }
 
         /// <summary>
-        /// [Protocol Method] List all templates for given Azure Communication Services channel
+        /// [Protocol Method] List all templates for given Azure Communication Stetetervices channel
         /// <list type="bullet">
         /// <item>
         /// <description>
