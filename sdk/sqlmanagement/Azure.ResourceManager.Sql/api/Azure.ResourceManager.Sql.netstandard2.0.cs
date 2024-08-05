@@ -287,16 +287,17 @@ namespace Azure.ResourceManager.Sql
     public partial class DistributedAvailabilityGroupData : Azure.ResourceManager.Models.ResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.DistributedAvailabilityGroupData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.DistributedAvailabilityGroupData>
     {
         public DistributedAvailabilityGroupData() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupDatabase> Databases { get { throw null; } }
         public System.Guid? DistributedAvailabilityGroupId { get { throw null; } }
-        public string LastHardenedLsn { get { throw null; } }
-        public string LinkState { get { throw null; } }
-        public string PrimaryAvailabilityGroupName { get { throw null; } set { } }
-        public Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupReplicationMode? ReplicationMode { get { throw null; } set { } }
-        public string SecondaryAvailabilityGroupName { get { throw null; } set { } }
-        public string SourceEndpoint { get { throw null; } set { } }
-        public System.Guid? SourceReplicaId { get { throw null; } }
-        public string TargetDatabase { get { throw null; } set { } }
-        public System.Guid? TargetReplicaId { get { throw null; } }
+        public string DistributedAvailabilityGroupName { get { throw null; } }
+        public Azure.ResourceManager.Sql.Models.FailoverModeType? FailoverMode { get { throw null; } set { } }
+        public string InstanceAvailabilityGroupName { get { throw null; } set { } }
+        public Azure.ResourceManager.Sql.Models.LinkRole? InstanceLinkRole { get { throw null; } set { } }
+        public string PartnerAvailabilityGroupName { get { throw null; } set { } }
+        public string PartnerEndpoint { get { throw null; } set { } }
+        public Azure.ResourceManager.Sql.Models.LinkRole? PartnerLinkRole { get { throw null; } }
+        public Azure.ResourceManager.Sql.Models.ReplicationModeType? ReplicationMode { get { throw null; } set { } }
+        public Azure.ResourceManager.Sql.Models.SeedingModeType? SeedingMode { get { throw null; } set { } }
         Azure.ResourceManager.Sql.DistributedAvailabilityGroupData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.DistributedAvailabilityGroupData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.DistributedAvailabilityGroupData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.Sql.DistributedAvailabilityGroupData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.DistributedAvailabilityGroupData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -312,8 +313,12 @@ namespace Azure.ResourceManager.Sql
         public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string managedInstanceName, string distributedAvailabilityGroupName) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Sql.DistributedAvailabilityGroupResource> Failover(Azure.WaitUntil waitUntil, Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupsFailoverContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Sql.DistributedAvailabilityGroupResource>> FailoverAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupsFailoverContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Sql.DistributedAvailabilityGroupResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Sql.DistributedAvailabilityGroupResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Sql.DistributedAvailabilityGroupResource> SetRole(Azure.WaitUntil waitUntil, Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupSetRole distributedAvailabilityGroupSetRole, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Sql.DistributedAvailabilityGroupResource>> SetRoleAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupSetRole distributedAvailabilityGroupSetRole, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         Azure.ResourceManager.Sql.DistributedAvailabilityGroupData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.DistributedAvailabilityGroupData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.DistributedAvailabilityGroupData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.Sql.DistributedAvailabilityGroupData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.DistributedAvailabilityGroupData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -6992,6 +6997,7 @@ namespace Azure.ResourceManager.Sql.Models
         public static Azure.ResourceManager.Sql.Models.AutomaticTuningServerOptions AutomaticTuningServerOptions(Azure.ResourceManager.Sql.Models.AutomaticTuningOptionModeDesired? desiredState = default(Azure.ResourceManager.Sql.Models.AutomaticTuningOptionModeDesired?), Azure.ResourceManager.Sql.Models.AutomaticTuningOptionModeActual? actualState = default(Azure.ResourceManager.Sql.Models.AutomaticTuningOptionModeActual?), int? reasonCode = default(int?), Azure.ResourceManager.Sql.Models.AutomaticTuningServerReason? reasonDesc = default(Azure.ResourceManager.Sql.Models.AutomaticTuningServerReason?)) { throw null; }
         public static Azure.ResourceManager.Sql.Models.AutoPauseDelayTimeRange AutoPauseDelayTimeRange(int? minValue = default(int?), int? maxValue = default(int?), int? stepSize = default(int?), int? @default = default(int?), Azure.ResourceManager.Sql.Models.PauseDelayTimeUnit? unit = default(Azure.ResourceManager.Sql.Models.PauseDelayTimeUnit?), int? doNotPauseValue = default(int?)) { throw null; }
         public static Azure.ResourceManager.Sql.BackupShortTermRetentionPolicyData BackupShortTermRetentionPolicyData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, int? retentionDays = default(int?), Azure.ResourceManager.Sql.Models.DiffBackupIntervalInHours? diffBackupIntervalInHours = default(Azure.ResourceManager.Sql.Models.DiffBackupIntervalInHours?)) { throw null; }
+        public static Azure.ResourceManager.Sql.Models.CertificateInfo CertificateInfo(string certificateName = null, System.DateTimeOffset? expiryOn = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.ResourceManager.Sql.DatabaseAdvancedThreatProtectionData DatabaseAdvancedThreatProtectionData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.Sql.Models.AdvancedThreatProtectionState? state = default(Azure.ResourceManager.Sql.Models.AdvancedThreatProtectionState?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.ResourceManager.Sql.DatabaseColumnData DatabaseColumnData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.Sql.Models.SqlColumnDataType? columnType = default(Azure.ResourceManager.Sql.Models.SqlColumnDataType?), Azure.ResourceManager.Sql.Models.TableTemporalType? temporalType = default(Azure.ResourceManager.Sql.Models.TableTemporalType?), bool? isMemoryOptimized = default(bool?), bool? isComputed = default(bool?)) { throw null; }
         public static Azure.ResourceManager.Sql.Models.DatabaseExportDefinition DatabaseExportDefinition(Azure.ResourceManager.Sql.Models.StorageKeyType storageKeyType = default(Azure.ResourceManager.Sql.Models.StorageKeyType), string storageKey = null, System.Uri storageUri = null, string administratorLogin = null, string administratorLoginPassword = null, string authenticationType = null, Azure.ResourceManager.Sql.Models.NetworkIsolationSettings networkIsolation = null) { throw null; }
@@ -7009,7 +7015,8 @@ namespace Azure.ResourceManager.Sql.Models
         public static Azure.ResourceManager.Sql.Models.DataMaskingRule DataMaskingRule(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?), string kind = null, string aliasName = null, Azure.ResourceManager.Sql.Models.DataMaskingRuleState? ruleState = default(Azure.ResourceManager.Sql.Models.DataMaskingRuleState?), string schemaName = null, string tableName = null, string columnName = null, Azure.ResourceManager.Sql.Models.DataMaskingFunction? maskingFunction = default(Azure.ResourceManager.Sql.Models.DataMaskingFunction?), string numberFrom = null, string numberTo = null, string prefixSize = null, string suffixSize = null, string replacementString = null) { throw null; }
         public static Azure.ResourceManager.Sql.DataWarehouseUserActivityData DataWarehouseUserActivityData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, int? activeQueriesCount = default(int?)) { throw null; }
         public static Azure.ResourceManager.Sql.DeletedServerData DeletedServerData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string version = null, System.DateTimeOffset? deletedOn = default(System.DateTimeOffset?), Azure.Core.ResourceIdentifier originalId = null, string fullyQualifiedDomainName = null) { throw null; }
-        public static Azure.ResourceManager.Sql.DistributedAvailabilityGroupData DistributedAvailabilityGroupData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string targetDatabase = null, string sourceEndpoint = null, string primaryAvailabilityGroupName = null, string secondaryAvailabilityGroupName = null, Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupReplicationMode? replicationMode = default(Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupReplicationMode?), System.Guid? distributedAvailabilityGroupId = default(System.Guid?), System.Guid? sourceReplicaId = default(System.Guid?), System.Guid? targetReplicaId = default(System.Guid?), string linkState = null, string lastHardenedLsn = null) { throw null; }
+        public static Azure.ResourceManager.Sql.DistributedAvailabilityGroupData DistributedAvailabilityGroupData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string distributedAvailabilityGroupName = null, System.Guid? distributedAvailabilityGroupId = default(System.Guid?), Azure.ResourceManager.Sql.Models.ReplicationModeType? replicationMode = default(Azure.ResourceManager.Sql.Models.ReplicationModeType?), Azure.ResourceManager.Sql.Models.LinkRole? partnerLinkRole = default(Azure.ResourceManager.Sql.Models.LinkRole?), string partnerAvailabilityGroupName = null, string partnerEndpoint = null, Azure.ResourceManager.Sql.Models.LinkRole? instanceLinkRole = default(Azure.ResourceManager.Sql.Models.LinkRole?), string instanceAvailabilityGroupName = null, Azure.ResourceManager.Sql.Models.FailoverModeType? failoverMode = default(Azure.ResourceManager.Sql.Models.FailoverModeType?), Azure.ResourceManager.Sql.Models.SeedingModeType? seedingMode = default(Azure.ResourceManager.Sql.Models.SeedingModeType?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupDatabase> databases = null) { throw null; }
+        public static Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupDatabase DistributedAvailabilityGroupDatabase(string databaseName = null, System.Guid? instanceReplicaId = default(System.Guid?), System.Guid? partnerReplicaId = default(System.Guid?), string replicaState = null, string seedingProgress = null, Azure.ResourceManager.Sql.Models.ReplicaSynchronizationHealth? synchronizationHealth = default(Azure.ResourceManager.Sql.Models.ReplicaSynchronizationHealth?), Azure.ResourceManager.Sql.Models.ReplicaConnectedState? connectedState = default(Azure.ResourceManager.Sql.Models.ReplicaConnectedState?), string lastReceivedLsn = null, System.DateTimeOffset? lastReceivedOn = default(System.DateTimeOffset?), string lastSentLsn = null, System.DateTimeOffset? lastSentOn = default(System.DateTimeOffset?), string lastCommitLsn = null, System.DateTimeOffset? lastCommitOn = default(System.DateTimeOffset?), string lastHardenedLsn = null, System.DateTimeOffset? lastHardenedOn = default(System.DateTimeOffset?), string lastBackupLsn = null, System.DateTimeOffset? lastBackupOn = default(System.DateTimeOffset?), string mostRecentLinkError = null, Azure.ResourceManager.Sql.Models.CertificateInfo partnerAuthCertValidity = null, int? instanceSendReplicationLagSeconds = default(int?), int? instanceRedoReplicationLagSeconds = default(int?)) { throw null; }
         public static Azure.ResourceManager.Sql.Models.EditionCapability EditionCapability(string name = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Sql.Models.ServiceObjectiveCapability> supportedServiceLevelObjectives = null, bool? isZoneRedundant = default(bool?), Azure.ResourceManager.Sql.Models.ReadScaleCapability readScale = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Sql.Models.StorageCapability> supportedStorageCapabilities = null, Azure.ResourceManager.Sql.Models.SqlCapabilityStatus? status = default(Azure.ResourceManager.Sql.Models.SqlCapabilityStatus?), string reason = null) { throw null; }
         public static Azure.ResourceManager.Sql.Models.ElasticPoolActivity ElasticPoolActivity(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?), System.DateTimeOffset? endOn = default(System.DateTimeOffset?), int? errorCode = default(int?), string errorMessage = null, int? errorSeverity = default(int?), string operation = null, System.Guid? operationId = default(System.Guid?), int? percentComplete = default(int?), int? requestedDatabaseDtuMax = default(int?), int? requestedDatabaseDtuMin = default(int?), int? requestedDtu = default(int?), string requestedElasticPoolName = null, long? requestedStorageLimitInGB = default(long?), string elasticPoolName = null, string serverName = null, System.DateTimeOffset? startOn = default(System.DateTimeOffset?), string state = null, int? requestedStorageLimitInMB = default(int?), int? requestedDatabaseDtuGuarantee = default(int?), int? requestedDatabaseDtuCap = default(int?), int? requestedDtuGuarantee = default(int?)) { throw null; }
         public static Azure.ResourceManager.Sql.ElasticPoolData ElasticPoolData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.Sql.Models.SqlSku sku = null, string kind = null, Azure.ResourceManager.Sql.Models.ElasticPoolState? state = default(Azure.ResourceManager.Sql.Models.ElasticPoolState?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), long? maxSizeBytes = default(long?), double? minCapacity = default(double?), Azure.ResourceManager.Sql.Models.ElasticPoolPerDatabaseSettings perDatabaseSettings = null, bool? isZoneRedundant = default(bool?), Azure.ResourceManager.Sql.Models.ElasticPoolLicenseType? licenseType = default(Azure.ResourceManager.Sql.Models.ElasticPoolLicenseType?), Azure.Core.ResourceIdentifier maintenanceConfigurationId = null, int? highAvailabilityReplicaCount = default(int?), Azure.ResourceManager.Sql.Models.SqlAlwaysEncryptedEnclaveType? preferredEnclaveType = default(Azure.ResourceManager.Sql.Models.SqlAlwaysEncryptedEnclaveType?), Azure.ResourceManager.Sql.Models.SqlAvailabilityZoneType? availabilityZone = default(Azure.ResourceManager.Sql.Models.SqlAvailabilityZoneType?)) { throw null; }
@@ -7371,6 +7378,17 @@ namespace Azure.ResourceManager.Sql.Models
         public static bool operator !=(Azure.ResourceManager.Sql.Models.CatalogCollationType left, Azure.ResourceManager.Sql.Models.CatalogCollationType right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class CertificateInfo : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.Models.CertificateInfo>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.CertificateInfo>
+    {
+        internal CertificateInfo() { }
+        public string CertificateName { get { throw null; } }
+        public System.DateTimeOffset? ExpiryOn { get { throw null; } }
+        Azure.ResourceManager.Sql.Models.CertificateInfo System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.Models.CertificateInfo>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.Models.CertificateInfo>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Sql.Models.CertificateInfo System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.CertificateInfo>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.CertificateInfo>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.CertificateInfo>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
     public partial class ChangeLongTermRetentionBackupAccessTierParameters : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.Models.ChangeLongTermRetentionBackupAccessTierParameters>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.ChangeLongTermRetentionBackupAccessTierParameters>
     {
         public ChangeLongTermRetentionBackupAccessTierParameters(string backupStorageAccessTier, string operationMode) { }
@@ -7716,23 +7734,56 @@ namespace Azure.ResourceManager.Sql.Models
         public static bool operator !=(Azure.ResourceManager.Sql.Models.DiffBackupIntervalInHours left, Azure.ResourceManager.Sql.Models.DiffBackupIntervalInHours right) { throw null; }
         public override string ToString() { throw null; }
     }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct DistributedAvailabilityGroupReplicationMode : System.IEquatable<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupReplicationMode>
+    public partial class DistributedAvailabilityGroupDatabase : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupDatabase>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupDatabase>
     {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public DistributedAvailabilityGroupReplicationMode(string value) { throw null; }
-        public static Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupReplicationMode Async { get { throw null; } }
-        public static Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupReplicationMode Sync { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupReplicationMode other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupReplicationMode left, Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupReplicationMode right) { throw null; }
-        public static implicit operator Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupReplicationMode (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupReplicationMode left, Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupReplicationMode right) { throw null; }
-        public override string ToString() { throw null; }
+        public DistributedAvailabilityGroupDatabase() { }
+        public Azure.ResourceManager.Sql.Models.ReplicaConnectedState? ConnectedState { get { throw null; } }
+        public string DatabaseName { get { throw null; } set { } }
+        public int? InstanceRedoReplicationLagSeconds { get { throw null; } }
+        public System.Guid? InstanceReplicaId { get { throw null; } }
+        public int? InstanceSendReplicationLagSeconds { get { throw null; } }
+        public string LastBackupLsn { get { throw null; } }
+        public System.DateTimeOffset? LastBackupOn { get { throw null; } }
+        public string LastCommitLsn { get { throw null; } }
+        public System.DateTimeOffset? LastCommitOn { get { throw null; } }
+        public string LastHardenedLsn { get { throw null; } }
+        public System.DateTimeOffset? LastHardenedOn { get { throw null; } }
+        public string LastReceivedLsn { get { throw null; } }
+        public System.DateTimeOffset? LastReceivedOn { get { throw null; } }
+        public string LastSentLsn { get { throw null; } }
+        public System.DateTimeOffset? LastSentOn { get { throw null; } }
+        public string MostRecentLinkError { get { throw null; } }
+        public Azure.ResourceManager.Sql.Models.CertificateInfo PartnerAuthCertValidity { get { throw null; } }
+        public System.Guid? PartnerReplicaId { get { throw null; } }
+        public string ReplicaState { get { throw null; } }
+        public string SeedingProgress { get { throw null; } }
+        public Azure.ResourceManager.Sql.Models.ReplicaSynchronizationHealth? SynchronizationHealth { get { throw null; } }
+        Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupDatabase System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupDatabase>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupDatabase>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupDatabase System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupDatabase>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupDatabase>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupDatabase>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class DistributedAvailabilityGroupSetRole : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupSetRole>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupSetRole>
+    {
+        public DistributedAvailabilityGroupSetRole(Azure.ResourceManager.Sql.Models.InstanceRole instanceRole, Azure.ResourceManager.Sql.Models.RoleChangeType roleChangeType) { }
+        public Azure.ResourceManager.Sql.Models.InstanceRole InstanceRole { get { throw null; } }
+        public Azure.ResourceManager.Sql.Models.RoleChangeType RoleChangeType { get { throw null; } }
+        Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupSetRole System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupSetRole>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupSetRole>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupSetRole System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupSetRole>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupSetRole>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupSetRole>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class DistributedAvailabilityGroupsFailoverContent : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupsFailoverContent>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupsFailoverContent>
+    {
+        public DistributedAvailabilityGroupsFailoverContent(Azure.ResourceManager.Sql.Models.FailoverType failoverType) { }
+        public Azure.ResourceManager.Sql.Models.FailoverType FailoverType { get { throw null; } }
+        Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupsFailoverContent System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupsFailoverContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupsFailoverContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupsFailoverContent System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupsFailoverContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupsFailoverContent>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.DistributedAvailabilityGroupsFailoverContent>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct DnsRefreshConfigurationPropertiesStatus : System.IEquatable<Azure.ResourceManager.Sql.Models.DnsRefreshConfigurationPropertiesStatus>
@@ -8108,6 +8159,42 @@ namespace Azure.ResourceManager.Sql.Models
         public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct FailoverModeType : System.IEquatable<Azure.ResourceManager.Sql.Models.FailoverModeType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public FailoverModeType(string value) { throw null; }
+        public static Azure.ResourceManager.Sql.Models.FailoverModeType Manual { get { throw null; } }
+        public static Azure.ResourceManager.Sql.Models.FailoverModeType None { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Sql.Models.FailoverModeType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Sql.Models.FailoverModeType left, Azure.ResourceManager.Sql.Models.FailoverModeType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Sql.Models.FailoverModeType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Sql.Models.FailoverModeType left, Azure.ResourceManager.Sql.Models.FailoverModeType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct FailoverType : System.IEquatable<Azure.ResourceManager.Sql.Models.FailoverType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public FailoverType(string value) { throw null; }
+        public static Azure.ResourceManager.Sql.Models.FailoverType ForcedAllowDataLoss { get { throw null; } }
+        public static Azure.ResourceManager.Sql.Models.FailoverType Planned { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Sql.Models.FailoverType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Sql.Models.FailoverType left, Azure.ResourceManager.Sql.Models.FailoverType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Sql.Models.FailoverType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Sql.Models.FailoverType left, Azure.ResourceManager.Sql.Models.FailoverType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct FreeLimitExhaustionBehavior : System.IEquatable<Azure.ResourceManager.Sql.Models.FreeLimitExhaustionBehavior>
     {
         private readonly object _dummy;
@@ -8351,6 +8438,24 @@ namespace Azure.ResourceManager.Sql.Models
         Azure.ResourceManager.Sql.Models.InstancePoolVcoresCapability System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.InstancePoolVcoresCapability>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.InstancePoolVcoresCapability>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.InstancePoolVcoresCapability>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct InstanceRole : System.IEquatable<Azure.ResourceManager.Sql.Models.InstanceRole>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public InstanceRole(string value) { throw null; }
+        public static Azure.ResourceManager.Sql.Models.InstanceRole Primary { get { throw null; } }
+        public static Azure.ResourceManager.Sql.Models.InstanceRole Secondary { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Sql.Models.InstanceRole other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Sql.Models.InstanceRole left, Azure.ResourceManager.Sql.Models.InstanceRole right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Sql.Models.InstanceRole (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Sql.Models.InstanceRole left, Azure.ResourceManager.Sql.Models.InstanceRole right) { throw null; }
+        public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct JobAgentState : System.IEquatable<Azure.ResourceManager.Sql.Models.JobAgentState>
@@ -8601,6 +8706,24 @@ namespace Azure.ResourceManager.Sql.Models
         Azure.ResourceManager.Sql.Models.LicenseTypeCapability System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.LicenseTypeCapability>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.LicenseTypeCapability>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.LicenseTypeCapability>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct LinkRole : System.IEquatable<Azure.ResourceManager.Sql.Models.LinkRole>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public LinkRole(string value) { throw null; }
+        public static Azure.ResourceManager.Sql.Models.LinkRole Primary { get { throw null; } }
+        public static Azure.ResourceManager.Sql.Models.LinkRole Secondary { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Sql.Models.LinkRole other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Sql.Models.LinkRole left, Azure.ResourceManager.Sql.Models.LinkRole right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Sql.Models.LinkRole (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Sql.Models.LinkRole left, Azure.ResourceManager.Sql.Models.LinkRole right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public partial class LogSizeCapability : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Sql.Models.LogSizeCapability>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.LogSizeCapability>
     {
@@ -9822,6 +9945,43 @@ namespace Azure.ResourceManager.Sql.Models
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Sql.Models.RefreshExternalGovernanceStatusOperationResult>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ReplicaConnectedState : System.IEquatable<Azure.ResourceManager.Sql.Models.ReplicaConnectedState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ReplicaConnectedState(string value) { throw null; }
+        public static Azure.ResourceManager.Sql.Models.ReplicaConnectedState Connected { get { throw null; } }
+        public static Azure.ResourceManager.Sql.Models.ReplicaConnectedState Disconnected { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Sql.Models.ReplicaConnectedState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Sql.Models.ReplicaConnectedState left, Azure.ResourceManager.Sql.Models.ReplicaConnectedState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Sql.Models.ReplicaConnectedState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Sql.Models.ReplicaConnectedState left, Azure.ResourceManager.Sql.Models.ReplicaConnectedState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ReplicaSynchronizationHealth : System.IEquatable<Azure.ResourceManager.Sql.Models.ReplicaSynchronizationHealth>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ReplicaSynchronizationHealth(string value) { throw null; }
+        public static Azure.ResourceManager.Sql.Models.ReplicaSynchronizationHealth Healthy { get { throw null; } }
+        public static Azure.ResourceManager.Sql.Models.ReplicaSynchronizationHealth NOTHealthy { get { throw null; } }
+        public static Azure.ResourceManager.Sql.Models.ReplicaSynchronizationHealth PartiallyHealthy { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Sql.Models.ReplicaSynchronizationHealth other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Sql.Models.ReplicaSynchronizationHealth left, Azure.ResourceManager.Sql.Models.ReplicaSynchronizationHealth right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Sql.Models.ReplicaSynchronizationHealth (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Sql.Models.ReplicaSynchronizationHealth left, Azure.ResourceManager.Sql.Models.ReplicaSynchronizationHealth right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct ReplicationLinkState : System.IEquatable<Azure.ResourceManager.Sql.Models.ReplicationLinkState>
     {
         private readonly object _dummy;
@@ -9858,6 +10018,24 @@ namespace Azure.ResourceManager.Sql.Models
         public static bool operator ==(Azure.ResourceManager.Sql.Models.ReplicationLinkType left, Azure.ResourceManager.Sql.Models.ReplicationLinkType right) { throw null; }
         public static implicit operator Azure.ResourceManager.Sql.Models.ReplicationLinkType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Sql.Models.ReplicationLinkType left, Azure.ResourceManager.Sql.Models.ReplicationLinkType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ReplicationModeType : System.IEquatable<Azure.ResourceManager.Sql.Models.ReplicationModeType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ReplicationModeType(string value) { throw null; }
+        public static Azure.ResourceManager.Sql.Models.ReplicationModeType Async { get { throw null; } }
+        public static Azure.ResourceManager.Sql.Models.ReplicationModeType Sync { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Sql.Models.ReplicationModeType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Sql.Models.ReplicationModeType left, Azure.ResourceManager.Sql.Models.ReplicationModeType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Sql.Models.ReplicationModeType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Sql.Models.ReplicationModeType left, Azure.ResourceManager.Sql.Models.ReplicationModeType right) { throw null; }
         public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
@@ -9911,6 +10089,24 @@ namespace Azure.ResourceManager.Sql.Models
     {
         Continuous = 0,
         Discrete = 1,
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct RoleChangeType : System.IEquatable<Azure.ResourceManager.Sql.Models.RoleChangeType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public RoleChangeType(string value) { throw null; }
+        public static Azure.ResourceManager.Sql.Models.RoleChangeType Forced { get { throw null; } }
+        public static Azure.ResourceManager.Sql.Models.RoleChangeType Planned { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Sql.Models.RoleChangeType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Sql.Models.RoleChangeType left, Azure.ResourceManager.Sql.Models.RoleChangeType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Sql.Models.RoleChangeType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Sql.Models.RoleChangeType left, Azure.ResourceManager.Sql.Models.RoleChangeType right) { throw null; }
+        public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct SampleSchemaName : System.IEquatable<Azure.ResourceManager.Sql.Models.SampleSchemaName>
@@ -10000,6 +10196,24 @@ namespace Azure.ResourceManager.Sql.Models
         Undefined = 0,
         SqlInjectionVulnerability = 1,
         SqlInjectionExploit = 2,
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct SeedingModeType : System.IEquatable<Azure.ResourceManager.Sql.Models.SeedingModeType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public SeedingModeType(string value) { throw null; }
+        public static Azure.ResourceManager.Sql.Models.SeedingModeType Automatic { get { throw null; } }
+        public static Azure.ResourceManager.Sql.Models.SeedingModeType Manual { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Sql.Models.SeedingModeType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Sql.Models.SeedingModeType left, Azure.ResourceManager.Sql.Models.SeedingModeType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Sql.Models.SeedingModeType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Sql.Models.SeedingModeType left, Azure.ResourceManager.Sql.Models.SeedingModeType right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public enum SensitivityLabelRank
     {

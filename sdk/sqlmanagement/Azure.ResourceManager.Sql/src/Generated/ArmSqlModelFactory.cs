@@ -3260,35 +3260,98 @@ namespace Azure.ResourceManager.Sql.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="targetDatabase"> The name of the target database. </param>
-        /// <param name="sourceEndpoint"> The source endpoint. </param>
-        /// <param name="primaryAvailabilityGroupName"> The primary availability group name. </param>
-        /// <param name="secondaryAvailabilityGroupName"> The secondary availability group name. </param>
-        /// <param name="replicationMode"> The replication mode of a distributed availability group. Parameter will be ignored during link creation. </param>
-        /// <param name="distributedAvailabilityGroupId"> The distributed availability group id. </param>
-        /// <param name="sourceReplicaId"> The source replica id. </param>
-        /// <param name="targetReplicaId"> The target replica id. </param>
-        /// <param name="linkState"> The link state. </param>
-        /// <param name="lastHardenedLsn"> The last hardened lsn. </param>
+        /// <param name="distributedAvailabilityGroupName"> Name of the distributed availability group. </param>
+        /// <param name="distributedAvailabilityGroupId"> ID of the distributed availability group. </param>
+        /// <param name="replicationMode"> Replication mode of the link. </param>
+        /// <param name="partnerLinkRole"> SQL server side link role. </param>
+        /// <param name="partnerAvailabilityGroupName"> SQL server side availability group name. </param>
+        /// <param name="partnerEndpoint"> SQL server side endpoint - IP or DNS resolvable name. </param>
+        /// <param name="instanceLinkRole"> Managed instance side link role. </param>
+        /// <param name="instanceAvailabilityGroupName"> Managed instance side availability group name. </param>
+        /// <param name="failoverMode"> The link failover mode - can be Manual if intended to be used for two-way failover with a supported SQL Server, or None for one-way failover to Azure. </param>
+        /// <param name="seedingMode"> Database seeding mode – can be Automatic (default), or Manual for supported scenarios. </param>
+        /// <param name="databases"> Databases in the distributed availability group. </param>
         /// <returns> A new <see cref="Sql.DistributedAvailabilityGroupData"/> instance for mocking. </returns>
-        public static DistributedAvailabilityGroupData DistributedAvailabilityGroupData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string targetDatabase = null, string sourceEndpoint = null, string primaryAvailabilityGroupName = null, string secondaryAvailabilityGroupName = null, DistributedAvailabilityGroupReplicationMode? replicationMode = null, Guid? distributedAvailabilityGroupId = null, Guid? sourceReplicaId = null, Guid? targetReplicaId = null, string linkState = null, string lastHardenedLsn = null)
+        public static DistributedAvailabilityGroupData DistributedAvailabilityGroupData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string distributedAvailabilityGroupName = null, Guid? distributedAvailabilityGroupId = null, ReplicationModeType? replicationMode = null, LinkRole? partnerLinkRole = null, string partnerAvailabilityGroupName = null, string partnerEndpoint = null, LinkRole? instanceLinkRole = null, string instanceAvailabilityGroupName = null, FailoverModeType? failoverMode = null, SeedingModeType? seedingMode = null, IEnumerable<DistributedAvailabilityGroupDatabase> databases = null)
         {
+            databases ??= new List<DistributedAvailabilityGroupDatabase>();
+
             return new DistributedAvailabilityGroupData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                targetDatabase,
-                sourceEndpoint,
-                primaryAvailabilityGroupName,
-                secondaryAvailabilityGroupName,
-                replicationMode,
+                distributedAvailabilityGroupName,
                 distributedAvailabilityGroupId,
-                sourceReplicaId,
-                targetReplicaId,
-                linkState,
-                lastHardenedLsn,
+                replicationMode,
+                partnerLinkRole,
+                partnerAvailabilityGroupName,
+                partnerEndpoint,
+                instanceLinkRole,
+                instanceAvailabilityGroupName,
+                failoverMode,
+                seedingMode,
+                databases?.ToList(),
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.DistributedAvailabilityGroupDatabase"/>. </summary>
+        /// <param name="databaseName"> The name of the database in link. </param>
+        /// <param name="instanceReplicaId"> Managed instance replica id. </param>
+        /// <param name="partnerReplicaId"> SQL server replica id. </param>
+        /// <param name="replicaState"> Current link state. </param>
+        /// <param name="seedingProgress"> Seeding progress. </param>
+        /// <param name="synchronizationHealth"> Link health state. </param>
+        /// <param name="connectedState"> Link connected state. </param>
+        /// <param name="lastReceivedLsn"> Last received LSN. </param>
+        /// <param name="lastReceivedOn"> Last received LSN time. </param>
+        /// <param name="lastSentLsn"> Last sent LSN. </param>
+        /// <param name="lastSentOn"> Last sent LSN time. </param>
+        /// <param name="lastCommitLsn"> Last commit LSN. </param>
+        /// <param name="lastCommitOn"> Last commit LSN time. </param>
+        /// <param name="lastHardenedLsn"> Last hardened LSN. </param>
+        /// <param name="lastHardenedOn"> Last hardened LSN time. </param>
+        /// <param name="lastBackupLsn"> Last backup LSN. </param>
+        /// <param name="lastBackupOn"> Last backup LSN time. </param>
+        /// <param name="mostRecentLinkError"> The most recent link connection error description. </param>
+        /// <param name="partnerAuthCertValidity"> SQL server certificate validity. </param>
+        /// <param name="instanceSendReplicationLagSeconds"> Replication lag when Managed Instance link side is primary. </param>
+        /// <param name="instanceRedoReplicationLagSeconds"> Redo lag when Managed Instance link side is primary. </param>
+        /// <returns> A new <see cref="Models.DistributedAvailabilityGroupDatabase"/> instance for mocking. </returns>
+        public static DistributedAvailabilityGroupDatabase DistributedAvailabilityGroupDatabase(string databaseName = null, Guid? instanceReplicaId = null, Guid? partnerReplicaId = null, string replicaState = null, string seedingProgress = null, ReplicaSynchronizationHealth? synchronizationHealth = null, ReplicaConnectedState? connectedState = null, string lastReceivedLsn = null, DateTimeOffset? lastReceivedOn = null, string lastSentLsn = null, DateTimeOffset? lastSentOn = null, string lastCommitLsn = null, DateTimeOffset? lastCommitOn = null, string lastHardenedLsn = null, DateTimeOffset? lastHardenedOn = null, string lastBackupLsn = null, DateTimeOffset? lastBackupOn = null, string mostRecentLinkError = null, CertificateInfo partnerAuthCertValidity = null, int? instanceSendReplicationLagSeconds = null, int? instanceRedoReplicationLagSeconds = null)
+        {
+            return new DistributedAvailabilityGroupDatabase(
+                databaseName,
+                instanceReplicaId,
+                partnerReplicaId,
+                replicaState,
+                seedingProgress,
+                synchronizationHealth,
+                connectedState,
+                lastReceivedLsn,
+                lastReceivedOn,
+                lastSentLsn,
+                lastSentOn,
+                lastCommitLsn,
+                lastCommitOn,
+                lastHardenedLsn,
+                lastHardenedOn,
+                lastBackupLsn,
+                lastBackupOn,
+                mostRecentLinkError,
+                partnerAuthCertValidity,
+                instanceSendReplicationLagSeconds,
+                instanceRedoReplicationLagSeconds,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.CertificateInfo"/>. </summary>
+        /// <param name="certificateName"> The certificate name. </param>
+        /// <param name="expiryOn"> The certificate expiry date. </param>
+        /// <returns> A new <see cref="Models.CertificateInfo"/> instance for mocking. </returns>
+        public static CertificateInfo CertificateInfo(string certificateName = null, DateTimeOffset? expiryOn = null)
+        {
+            return new CertificateInfo(certificateName, expiryOn, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Sql.ServerTrustCertificateData"/>. </summary>
