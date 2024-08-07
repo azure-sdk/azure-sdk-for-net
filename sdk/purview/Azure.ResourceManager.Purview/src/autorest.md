@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: Purview
 namespace: Azure.ResourceManager.Purview
-require: https://github.com/Azure/azure-rest-api-specs/blob/86a89f22f5e18449a3fde7c00a416f18c19b70f9/specification/purview/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/purview/resource-manager/readme.md
 #tag: package-2023-05-01-preview
 output-folder: $(this-folder)/Generated
 clear-output-folder: true

@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.Purview.Models
 
         /// <summary> Initializes a new instance of <see cref="PurviewUsage"/>. </summary>
         /// <param name="currentValue"> Current usage quota value. </param>
-        /// <param name="id"> Fully qualified resource Id. </param>
+        /// <param name="id"> Fully qualified ARM resource Id. </param>
         /// <param name="limit"> Usage quota limit. </param>
         /// <param name="name"> Quota name. </param>
         /// <param name="unit"> Quota usage unit. </param>
@@ -69,7 +69,7 @@ namespace Azure.ResourceManager.Purview.Models
 
         /// <summary> Current usage quota value. </summary>
         public int? CurrentValue { get; }
-        /// <summary> Fully qualified resource Id. </summary>
+        /// <summary> Fully qualified ARM resource Id. </summary>
         public string Id { get; }
         /// <summary> Usage quota limit. </summary>
         public int? Limit { get; }
