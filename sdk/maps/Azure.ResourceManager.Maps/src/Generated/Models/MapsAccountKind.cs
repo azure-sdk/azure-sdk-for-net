@@ -22,11 +22,8 @@ namespace Azure.ResourceManager.Maps.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string Gen1Value = "Gen1";
         private const string Gen2Value = "Gen2";
 
-        /// <summary> Gen1. </summary>
-        public static MapsAccountKind Gen1 { get; } = new MapsAccountKind(Gen1Value);
         /// <summary> Gen2. </summary>
         public static MapsAccountKind Gen2 { get; } = new MapsAccountKind(Gen2Value);
         /// <summary> Determines if two <see cref="MapsAccountKind"/> values are the same. </summary>
