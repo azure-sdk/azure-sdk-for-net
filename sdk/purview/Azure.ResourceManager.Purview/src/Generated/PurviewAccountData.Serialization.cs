@@ -108,11 +108,6 @@ namespace Azure.ResourceManager.Purview
                 writer.WritePropertyName("friendlyName"u8);
                 writer.WriteStringValue(FriendlyName);
             }
-            if (Optional.IsDefined(IngestionStorage))
-            {
-                writer.WritePropertyName("ingestionStorage"u8);
-                writer.WriteObjectValue(IngestionStorage, options);
-            }
             if (Optional.IsDefined(ManagedEventHubState))
             {
                 writer.WritePropertyName("managedEventHubState"u8);
@@ -207,7 +202,6 @@ namespace Azure.ResourceManager.Purview
             string createdByObjectId = default;
             PurviewAccountEndpoint endpoints = default;
             string friendlyName = default;
-            PurviewIngestionStorage ingestionStorage = default;
             PurviewManagedEventHubState? managedEventHubState = default;
             string managedResourceGroupName = default;
             PurviewManagedResource managedResources = default;
@@ -340,15 +334,6 @@ namespace Azure.ResourceManager.Purview
                             friendlyName = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("ingestionStorage"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            ingestionStorage = PurviewIngestionStorage.DeserializePurviewIngestionStorage(property0.Value, options);
-                            continue;
-                        }
                         if (property0.NameEquals("managedEventHubState"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -437,7 +422,6 @@ namespace Azure.ResourceManager.Purview
                 createdByObjectId,
                 endpoints,
                 friendlyName,
-                ingestionStorage,
                 managedEventHubState,
                 managedResourceGroupName,
                 managedResources,

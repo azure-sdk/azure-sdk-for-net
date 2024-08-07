@@ -62,31 +62,29 @@ namespace Azure.ResourceManager.Purview
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="consumerGroup"> Consumer group for hook event hub. </param>
-        /// <param name="credentials"> Credentials to access the event streaming service attached to the purview account. </param>
-        /// <param name="eventHubPartitionId"> Optional partition Id for notification event hub. If not set, all partitions will be leveraged. </param>
+        /// <param name="credentials"> Credentials to access event hub. </param>
         /// <param name="eventHubResourceId"></param>
         /// <param name="eventHubType"> The event hub type. </param>
         /// <param name="eventStreamingState"> The state of the event streaming service. </param>
         /// <param name="eventStreamingType"> The event streaming service type. </param>
+        /// <param name="eventHubPartitionId"> Optional partition Id for notification event hub. If not set, all partitions will be leveraged. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PurviewKafkaConfigurationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string consumerGroup, PurviewCredentials credentials, string eventHubPartitionId, ResourceIdentifier eventHubResourceId, PurviewKafkaEventHubType? eventHubType, PurviewEventStreamingState? eventStreamingState, PurviewEventStreamingType? eventStreamingType, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal PurviewKafkaConfigurationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string consumerGroup, PurviewCredentials credentials, ResourceIdentifier eventHubResourceId, PurviewKafkaEventHubType? eventHubType, PurviewEventStreamingState? eventStreamingState, PurviewEventStreamingType? eventStreamingType, string eventHubPartitionId, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             ConsumerGroup = consumerGroup;
             Credentials = credentials;
-            EventHubPartitionId = eventHubPartitionId;
             EventHubResourceId = eventHubResourceId;
             EventHubType = eventHubType;
             EventStreamingState = eventStreamingState;
             EventStreamingType = eventStreamingType;
+            EventHubPartitionId = eventHubPartitionId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> Consumer group for hook event hub. </summary>
         public string ConsumerGroup { get; set; }
-        /// <summary> Credentials to access the event streaming service attached to the purview account. </summary>
+        /// <summary> Credentials to access event hub. </summary>
         public PurviewCredentials Credentials { get; set; }
-        /// <summary> Optional partition Id for notification event hub. If not set, all partitions will be leveraged. </summary>
-        public string EventHubPartitionId { get; set; }
         /// <summary> Gets or sets the event hub resource id. </summary>
         public ResourceIdentifier EventHubResourceId { get; set; }
         /// <summary> The event hub type. </summary>
@@ -95,5 +93,7 @@ namespace Azure.ResourceManager.Purview
         public PurviewEventStreamingState? EventStreamingState { get; set; }
         /// <summary> The event streaming service type. </summary>
         public PurviewEventStreamingType? EventStreamingType { get; set; }
+        /// <summary> Optional partition Id for notification event hub. If not set, all partitions will be leveraged. </summary>
+        public string EventHubPartitionId { get; set; }
     }
 }

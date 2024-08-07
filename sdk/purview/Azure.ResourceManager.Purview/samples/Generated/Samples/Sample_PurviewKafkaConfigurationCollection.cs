@@ -15,50 +15,12 @@ namespace Azure.ResourceManager.Purview.Samples
 {
     public partial class Sample_PurviewKafkaConfigurationCollection
     {
-        // KafkaConfigurations_ListByAccount
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAll_KafkaConfigurationsListByAccount()
-        {
-            // Generated from example definition: specification/purview/resource-manager/Microsoft.Purview/preview/2023-05-01-preview/examples/KafkaConfigurations_ListByAccount.json
-            // this example is just showing the usage of "KafkaConfigurations_ListByAccount" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this PurviewAccountResource created on azure
-            // for more information of creating PurviewAccountResource, please refer to the document of PurviewAccountResource
-            string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
-            string resourceGroupName = "rgpurview";
-            string accountName = "account1";
-            ResourceIdentifier purviewAccountResourceId = PurviewAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            PurviewAccountResource purviewAccount = client.GetPurviewAccountResource(purviewAccountResourceId);
-
-            // get the collection of this PurviewKafkaConfigurationResource
-            PurviewKafkaConfigurationCollection collection = purviewAccount.GetPurviewKafkaConfigurations();
-
-            // invoke the operation and iterate over the result
-            string skipToken = "token";
-            await foreach (PurviewKafkaConfigurationResource item in collection.GetAllAsync(skipToken: skipToken))
-            {
-                // the variable item is a resource, you could call other operations on this instance as well
-                // but just for demo, we get its data from this resource instance
-                PurviewKafkaConfigurationData resourceData = item.Data;
-                // for demo we just print out the id
-                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-            }
-
-            Console.WriteLine($"Succeeded");
-        }
-
         // KafkaConfigurations_Get
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_KafkaConfigurationsGet()
         {
-            // Generated from example definition: specification/purview/resource-manager/Microsoft.Purview/preview/2023-05-01-preview/examples/KafkaConfigurations_Get.json
+            // Generated from example definition: specification/purview/resource-manager/Microsoft.Purview/stable/2021-12-01/examples/KafkaConfigurations_Get.json
             // this example is just showing the usage of "KafkaConfigurations_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -93,7 +55,7 @@ namespace Azure.ResourceManager.Purview.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_KafkaConfigurationsGet()
         {
-            // Generated from example definition: specification/purview/resource-manager/Microsoft.Purview/preview/2023-05-01-preview/examples/KafkaConfigurations_Get.json
+            // Generated from example definition: specification/purview/resource-manager/Microsoft.Purview/stable/2021-12-01/examples/KafkaConfigurations_Get.json
             // this example is just showing the usage of "KafkaConfigurations_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -124,7 +86,7 @@ namespace Azure.ResourceManager.Purview.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_KafkaConfigurationsGet()
         {
-            // Generated from example definition: specification/purview/resource-manager/Microsoft.Purview/preview/2023-05-01-preview/examples/KafkaConfigurations_Get.json
+            // Generated from example definition: specification/purview/resource-manager/Microsoft.Purview/stable/2021-12-01/examples/KafkaConfigurations_Get.json
             // this example is just showing the usage of "KafkaConfigurations_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -167,7 +129,7 @@ namespace Azure.ResourceManager.Purview.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_KafkaConfigurationsCreateOrUpdate()
         {
-            // Generated from example definition: specification/purview/resource-manager/Microsoft.Purview/preview/2023-05-01-preview/examples/KafkaConfigurations_CreateOrUpdate.json
+            // Generated from example definition: specification/purview/resource-manager/Microsoft.Purview/stable/2021-12-01/examples/KafkaConfigurations_CreateOrUpdate.json
             // this example is just showing the usage of "KafkaConfigurations_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -196,11 +158,11 @@ namespace Azure.ResourceManager.Purview.Samples
                     IdentityId = "/subscriptions/47e8596d-ee73-4eb2-b6b4-cc13c2b87ssd/resourceGroups/testRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/testId",
                     CredentialsType = PurviewCredentialsType.UserAssigned,
                 },
-                EventHubPartitionId = "partitionId",
                 EventHubResourceId = new ResourceIdentifier("/subscriptions/225be6fe-ec1c-4d51-a368-f69348d2e6c5/resourceGroups/testRG/providers/Microsoft.EventHub/namespaces/eventHubNameSpaceName"),
                 EventHubType = PurviewKafkaEventHubType.Notification,
                 EventStreamingState = PurviewEventStreamingState.Enabled,
                 EventStreamingType = PurviewEventStreamingType.Azure,
+                EventHubPartitionId = "partitionId",
             };
             ArmOperation<PurviewKafkaConfigurationResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, kafkaConfigurationName, data);
             PurviewKafkaConfigurationResource result = lro.Value;
@@ -210,6 +172,44 @@ namespace Azure.ResourceManager.Purview.Samples
             PurviewKafkaConfigurationData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        // KafkaConfigurations_ListByAccount
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetAll_KafkaConfigurationsListByAccount()
+        {
+            // Generated from example definition: specification/purview/resource-manager/Microsoft.Purview/stable/2021-12-01/examples/KafkaConfigurations_ListByAccount.json
+            // this example is just showing the usage of "KafkaConfigurations_ListByAccount" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this PurviewAccountResource created on azure
+            // for more information of creating PurviewAccountResource, please refer to the document of PurviewAccountResource
+            string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
+            string resourceGroupName = "rgpurview";
+            string accountName = "account1";
+            ResourceIdentifier purviewAccountResourceId = PurviewAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
+            PurviewAccountResource purviewAccount = client.GetPurviewAccountResource(purviewAccountResourceId);
+
+            // get the collection of this PurviewKafkaConfigurationResource
+            PurviewKafkaConfigurationCollection collection = purviewAccount.GetPurviewKafkaConfigurations();
+
+            // invoke the operation and iterate over the result
+            string skipToken = "token";
+            await foreach (PurviewKafkaConfigurationResource item in collection.GetAllAsync(skipToken: skipToken))
+            {
+                // the variable item is a resource, you could call other operations on this instance as well
+                // but just for demo, we get its data from this resource instance
+                PurviewKafkaConfigurationData resourceData = item.Data;
+                // for demo we just print out the id
+                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+            }
+
+            Console.WriteLine($"Succeeded");
         }
     }
 }
