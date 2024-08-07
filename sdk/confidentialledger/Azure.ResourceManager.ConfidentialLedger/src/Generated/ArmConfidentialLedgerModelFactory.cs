@@ -61,8 +61,12 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         /// <param name="ledgerSku"> SKU associated with the ledger. </param>
         /// <param name="aadBasedSecurityPrincipals"> Array of all AAD based Security Principals. </param>
         /// <param name="certBasedSecurityPrincipals"> Array of all cert based Security Principals. </param>
+        /// <param name="hostLevel"> CCF Property for the logging level for the untrusted host: Trace, Debug, Info, Fail, Fatal. </param>
+        /// <param name="maxBodySizeInMb"> CCF Property for the maximum size of the http request body: 1MB, 5MB, 10MB. </param>
+        /// <param name="subjectName"> CCF Property for the subject name to include in the node certificate. Default: CN=CCF Node. </param>
+        /// <param name="nodeCount"> Number of CCF nodes in the ACC Ledger. </param>
         /// <returns> A new <see cref="Models.ConfidentialLedgerProperties"/> instance for mocking. </returns>
-        public static ConfidentialLedgerProperties ConfidentialLedgerProperties(string ledgerName = null, Uri ledgerUri = null, Uri identityServiceUri = null, string ledgerInternalNamespace = null, ConfidentialLedgerRunningState? runningState = null, ConfidentialLedgerType? ledgerType = null, ConfidentialLedgerProvisioningState? provisioningState = null, ConfidentialLedgerSku? ledgerSku = null, IEnumerable<AadBasedSecurityPrincipal> aadBasedSecurityPrincipals = null, IEnumerable<CertBasedSecurityPrincipal> certBasedSecurityPrincipals = null)
+        public static ConfidentialLedgerProperties ConfidentialLedgerProperties(string ledgerName = null, Uri ledgerUri = null, Uri identityServiceUri = null, string ledgerInternalNamespace = null, ConfidentialLedgerRunningState? runningState = null, ConfidentialLedgerType? ledgerType = null, ConfidentialLedgerProvisioningState? provisioningState = null, ConfidentialLedgerSku? ledgerSku = null, IEnumerable<AadBasedSecurityPrincipal> aadBasedSecurityPrincipals = null, IEnumerable<CertBasedSecurityPrincipal> certBasedSecurityPrincipals = null, string hostLevel = null, int? maxBodySizeInMb = null, string subjectName = null, int? nodeCount = null)
         {
             aadBasedSecurityPrincipals ??= new List<AadBasedSecurityPrincipal>();
             certBasedSecurityPrincipals ??= new List<CertBasedSecurityPrincipal>();
@@ -78,6 +82,10 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                 ledgerSku,
                 aadBasedSecurityPrincipals?.ToList(),
                 certBasedSecurityPrincipals?.ToList(),
+                hostLevel,
+                maxBodySizeInMb,
+                subjectName,
+                nodeCount,
                 serializedAdditionalRawData: null);
         }
 
