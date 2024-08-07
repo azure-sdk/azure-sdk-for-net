@@ -60,11 +60,6 @@ namespace Azure.ResourceManager.Purview
                 writer.WritePropertyName("credentials"u8);
                 writer.WriteObjectValue(Credentials, options);
             }
-            if (Optional.IsDefined(EventHubPartitionId))
-            {
-                writer.WritePropertyName("eventHubPartitionId"u8);
-                writer.WriteStringValue(EventHubPartitionId);
-            }
             if (Optional.IsDefined(EventHubResourceId))
             {
                 writer.WritePropertyName("eventHubResourceId"u8);
@@ -84,6 +79,11 @@ namespace Azure.ResourceManager.Purview
             {
                 writer.WritePropertyName("eventStreamingType"u8);
                 writer.WriteStringValue(EventStreamingType.Value.ToString());
+            }
+            if (Optional.IsDefined(EventHubPartitionId))
+            {
+                writer.WritePropertyName("eventHubPartitionId"u8);
+                writer.WriteStringValue(EventHubPartitionId);
             }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -130,11 +130,11 @@ namespace Azure.ResourceManager.Purview
             SystemData systemData = default;
             string consumerGroup = default;
             PurviewCredentials credentials = default;
-            string eventHubPartitionId = default;
             ResourceIdentifier eventHubResourceId = default;
             PurviewKafkaEventHubType? eventHubType = default;
             PurviewEventStreamingState? eventStreamingState = default;
             PurviewEventStreamingType? eventStreamingType = default;
+            string eventHubPartitionId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -186,11 +186,6 @@ namespace Azure.ResourceManager.Purview
                             credentials = PurviewCredentials.DeserializePurviewCredentials(property0.Value, options);
                             continue;
                         }
-                        if (property0.NameEquals("eventHubPartitionId"u8))
-                        {
-                            eventHubPartitionId = property0.Value.GetString();
-                            continue;
-                        }
                         if (property0.NameEquals("eventHubResourceId"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -227,6 +222,11 @@ namespace Azure.ResourceManager.Purview
                             eventStreamingType = new PurviewEventStreamingType(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("eventHubPartitionId"u8))
+                        {
+                            eventHubPartitionId = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -243,11 +243,11 @@ namespace Azure.ResourceManager.Purview
                 systemData,
                 consumerGroup,
                 credentials,
-                eventHubPartitionId,
                 eventHubResourceId,
                 eventHubType,
                 eventStreamingState,
                 eventStreamingType,
+                eventHubPartitionId,
                 serializedAdditionalRawData);
         }
 

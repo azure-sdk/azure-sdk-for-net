@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Purview.Models
 {
-    /// <summary> List of usage information. </summary>
+    /// <summary> Response for usage get request. </summary>
     internal partial class UsageList
     {
         /// <summary>
@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.Purview.Models
 
         /// <summary> Initializes a new instance of <see cref="UsageList"/>. </summary>
         /// <param name="value"> Collection of usage values. </param>
-        /// <param name="nextLink"> The Url of next link. </param>
+        /// <param name="nextLink"> The Url of next result page. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal UsageList(IReadOnlyList<PurviewUsage> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.Purview.Models
 
         /// <summary> Collection of usage values. </summary>
         public IReadOnlyList<PurviewUsage> Value { get; }
-        /// <summary> The Url of next link. </summary>
+        /// <summary> The Url of next result page. </summary>
         public string NextLink { get; }
     }
 }
