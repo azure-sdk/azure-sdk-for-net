@@ -54,13 +54,15 @@ namespace Azure.ResourceManager.ContainerService.Models
         /// <summary> Initializes a new instance of <see cref="KubernetesVersion"/>. </summary>
         /// <param name="version"> major.minor version of Kubernetes release. </param>
         /// <param name="capabilities"> Capabilities on this Kubernetes version. </param>
+        /// <param name="isDefault"> Whether this version is default. </param>
         /// <param name="isPreview"> Whether this version is in preview mode. </param>
         /// <param name="patchVersions"> Patch versions of Kubernetes release. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal KubernetesVersion(string version, KubernetesVersionCapabilities capabilities, bool? isPreview, IReadOnlyDictionary<string, KubernetesPatchVersion> patchVersions, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal KubernetesVersion(string version, KubernetesVersionCapabilities capabilities, bool? isDefault, bool? isPreview, IReadOnlyDictionary<string, KubernetesPatchVersion> patchVersions, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Version = version;
             Capabilities = capabilities;
+            IsDefault = isDefault;
             IsPreview = isPreview;
             PatchVersions = patchVersions;
             _serializedAdditionalRawData = serializedAdditionalRawData;
@@ -76,6 +78,8 @@ namespace Azure.ResourceManager.ContainerService.Models
             get => Capabilities?.SupportPlan;
         }
 
+        /// <summary> Whether this version is default. </summary>
+        public bool? IsDefault { get; }
         /// <summary> Whether this version is in preview mode. </summary>
         public bool? IsPreview { get; }
         /// <summary> Patch versions of Kubernetes release. </summary>
