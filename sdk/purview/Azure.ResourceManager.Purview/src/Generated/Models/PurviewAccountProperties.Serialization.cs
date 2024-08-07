@@ -61,11 +61,6 @@ namespace Azure.ResourceManager.Purview.Models
                 writer.WritePropertyName("friendlyName"u8);
                 writer.WriteStringValue(FriendlyName);
             }
-            if (Optional.IsDefined(IngestionStorage))
-            {
-                writer.WritePropertyName("ingestionStorage"u8);
-                writer.WriteObjectValue(IngestionStorage, options);
-            }
             if (Optional.IsDefined(ManagedEventHubState))
             {
                 writer.WritePropertyName("managedEventHubState"u8);
@@ -151,7 +146,6 @@ namespace Azure.ResourceManager.Purview.Models
             string createdByObjectId = default;
             PurviewAccountEndpoint endpoints = default;
             string friendlyName = default;
-            PurviewIngestionStorage ingestionStorage = default;
             PurviewManagedEventHubState? managedEventHubState = default;
             string managedResourceGroupName = default;
             PurviewManagedResource managedResources = default;
@@ -212,15 +206,6 @@ namespace Azure.ResourceManager.Purview.Models
                 if (property.NameEquals("friendlyName"u8))
                 {
                     friendlyName = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("ingestionStorage"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    ingestionStorage = PurviewIngestionStorage.DeserializePurviewIngestionStorage(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("managedEventHubState"u8))
@@ -301,7 +286,6 @@ namespace Azure.ResourceManager.Purview.Models
                 createdByObjectId,
                 endpoints,
                 friendlyName,
-                ingestionStorage,
                 managedEventHubState,
                 managedResourceGroupName,
                 managedResources,

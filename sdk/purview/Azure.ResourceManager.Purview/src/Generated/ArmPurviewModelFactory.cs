@@ -26,13 +26,15 @@ namespace Azure.ResourceManager.Purview.Models
         /// <param name="location"> The location. </param>
         /// <param name="sku"> Gets or sets the Sku. </param>
         /// <param name="accountStatus"> Gets or sets the status of the account. </param>
-        /// <param name="cloudConnectorsAwsExternalId"> External Cloud Service connectors. </param>
+        /// <param name="cloudConnectorsAwsExternalId">
+        /// Cloud connectors.
+        /// External cloud identifier used as part of scanning configuration.
+        /// </param>
         /// <param name="createdOn"> Gets the time at which the entity was created. </param>
         /// <param name="createdBy"> Gets the creator of the entity. </param>
         /// <param name="createdByObjectId"> Gets the creators of the entity's object id. </param>
         /// <param name="endpoints"> The URIs that are the public endpoints of the account. </param>
         /// <param name="friendlyName"> Gets or sets the friendly name. </param>
-        /// <param name="ingestionStorage"> Ingestion Storage Account Info. </param>
         /// <param name="managedEventHubState"> Gets or sets the state of managed eventhub. If enabled managed eventhub will be created, if disabled the managed eventhub will be removed. </param>
         /// <param name="managedResourceGroupName"> Gets or sets the managed resource group name. </param>
         /// <param name="managedResources"> Gets the resource identifiers of the managed resources. </param>
@@ -40,9 +42,9 @@ namespace Azure.ResourceManager.Purview.Models
         /// <param name="privateEndpointConnections"> Gets the private endpoint connections information. </param>
         /// <param name="provisioningState"> Gets or sets the state of the provisioning. </param>
         /// <param name="publicNetworkAccess"> Gets or sets the public network access. </param>
-        /// <param name="identity"> The Managed Identity of the resource. Current supported identity types: None, SystemAssigned, UserAssigned. </param>
+        /// <param name="identity"> Identity Info on the tracked resource. Current supported identity types: None, SystemAssigned, UserAssigned. </param>
         /// <returns> A new <see cref="Purview.PurviewAccountData"/> instance for mocking. </returns>
-        public static PurviewAccountData PurviewAccountData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, PurviewAccountSku sku = null, PurviewAccountStatus accountStatus = null, string cloudConnectorsAwsExternalId = null, DateTimeOffset? createdOn = null, string createdBy = null, string createdByObjectId = null, PurviewAccountEndpoint endpoints = null, string friendlyName = null, PurviewIngestionStorage ingestionStorage = null, PurviewManagedEventHubState? managedEventHubState = null, string managedResourceGroupName = null, PurviewManagedResource managedResources = null, ManagedResourcesPublicNetworkAccess? managedResourcesPublicNetworkAccess = null, IEnumerable<PurviewPrivateEndpointConnectionData> privateEndpointConnections = null, PurviewProvisioningState? provisioningState = null, PurviewPublicNetworkAccess? publicNetworkAccess = null, ManagedServiceIdentity identity = null)
+        public static PurviewAccountData PurviewAccountData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, PurviewAccountSku sku = null, PurviewAccountStatus accountStatus = null, string cloudConnectorsAwsExternalId = null, DateTimeOffset? createdOn = null, string createdBy = null, string createdByObjectId = null, PurviewAccountEndpoint endpoints = null, string friendlyName = null, PurviewManagedEventHubState? managedEventHubState = null, string managedResourceGroupName = null, PurviewManagedResource managedResources = null, ManagedResourcesPublicNetworkAccess? managedResourcesPublicNetworkAccess = null, IEnumerable<PurviewPrivateEndpointConnectionData> privateEndpointConnections = null, PurviewProvisioningState? provisioningState = null, PurviewPublicNetworkAccess? publicNetworkAccess = null, ManagedServiceIdentity identity = null)
         {
             tags ??= new Dictionary<string, string>();
             privateEndpointConnections ??= new List<PurviewPrivateEndpointConnectionData>();
@@ -62,7 +64,6 @@ namespace Azure.ResourceManager.Purview.Models
                 createdByObjectId,
                 endpoints,
                 friendlyName,
-                ingestionStorage,
                 managedEventHubState,
                 managedResourceGroupName,
                 managedResources,
@@ -76,13 +77,15 @@ namespace Azure.ResourceManager.Purview.Models
 
         /// <summary> Initializes a new instance of <see cref="Models.PurviewAccountProperties"/>. </summary>
         /// <param name="accountStatus"> Gets or sets the status of the account. </param>
-        /// <param name="cloudConnectorsAwsExternalId"> External Cloud Service connectors. </param>
+        /// <param name="cloudConnectorsAwsExternalId">
+        /// Cloud connectors.
+        /// External cloud identifier used as part of scanning configuration.
+        /// </param>
         /// <param name="createdOn"> Gets the time at which the entity was created. </param>
         /// <param name="createdBy"> Gets the creator of the entity. </param>
         /// <param name="createdByObjectId"> Gets the creators of the entity's object id. </param>
         /// <param name="endpoints"> The URIs that are the public endpoints of the account. </param>
         /// <param name="friendlyName"> Gets or sets the friendly name. </param>
-        /// <param name="ingestionStorage"> Ingestion Storage Account Info. </param>
         /// <param name="managedEventHubState"> Gets or sets the state of managed eventhub. If enabled managed eventhub will be created, if disabled the managed eventhub will be removed. </param>
         /// <param name="managedResourceGroupName"> Gets or sets the managed resource group name. </param>
         /// <param name="managedResources"> Gets the resource identifiers of the managed resources. </param>
@@ -91,7 +94,7 @@ namespace Azure.ResourceManager.Purview.Models
         /// <param name="provisioningState"> Gets or sets the state of the provisioning. </param>
         /// <param name="publicNetworkAccess"> Gets or sets the public network access. </param>
         /// <returns> A new <see cref="Models.PurviewAccountProperties"/> instance for mocking. </returns>
-        public static PurviewAccountProperties PurviewAccountProperties(PurviewAccountStatus accountStatus = null, string cloudConnectorsAwsExternalId = null, DateTimeOffset? createdOn = null, string createdBy = null, string createdByObjectId = null, PurviewAccountEndpoint endpoints = null, string friendlyName = null, PurviewIngestionStorage ingestionStorage = null, PurviewManagedEventHubState? managedEventHubState = null, string managedResourceGroupName = null, PurviewManagedResource managedResources = null, ManagedResourcesPublicNetworkAccess? managedResourcesPublicNetworkAccess = null, IEnumerable<PurviewPrivateEndpointConnectionData> privateEndpointConnections = null, PurviewProvisioningState? provisioningState = null, PurviewPublicNetworkAccess? publicNetworkAccess = null)
+        public static PurviewAccountProperties PurviewAccountProperties(PurviewAccountStatus accountStatus = null, string cloudConnectorsAwsExternalId = null, DateTimeOffset? createdOn = null, string createdBy = null, string createdByObjectId = null, PurviewAccountEndpoint endpoints = null, string friendlyName = null, PurviewManagedEventHubState? managedEventHubState = null, string managedResourceGroupName = null, PurviewManagedResource managedResources = null, ManagedResourcesPublicNetworkAccess? managedResourcesPublicNetworkAccess = null, IEnumerable<PurviewPrivateEndpointConnectionData> privateEndpointConnections = null, PurviewProvisioningState? provisioningState = null, PurviewPublicNetworkAccess? publicNetworkAccess = null)
         {
             privateEndpointConnections ??= new List<PurviewPrivateEndpointConnectionData>();
 
@@ -103,7 +106,6 @@ namespace Azure.ResourceManager.Purview.Models
                 createdByObjectId,
                 endpoints,
                 friendlyName,
-                ingestionStorage,
                 managedEventHubState,
                 managedResourceGroupName,
                 managedResources,
@@ -121,16 +123,6 @@ namespace Azure.ResourceManager.Purview.Models
         public static PurviewAccountStatus PurviewAccountStatus(PurviewAccountProvisioningState? accountProvisioningState = null, ResponseError errorDetails = null)
         {
             return new PurviewAccountStatus(accountProvisioningState, errorDetails, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.PurviewIngestionStorage"/>. </summary>
-        /// <param name="id"> Gets or sets the Id. </param>
-        /// <param name="primaryEndpoint"> Gets or sets the primary endpoint. </param>
-        /// <param name="publicNetworkAccess"> Gets or sets the public network access setting. </param>
-        /// <returns> A new <see cref="Models.PurviewIngestionStorage"/> instance for mocking. </returns>
-        public static PurviewIngestionStorage PurviewIngestionStorage(string id = null, string primaryEndpoint = null, PurviewPublicNetworkAccess? publicNetworkAccess = null)
-        {
-            return new PurviewIngestionStorage(id, primaryEndpoint, publicNetworkAccess, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.PurviewManagedResource"/>. </summary>
@@ -174,15 +166,6 @@ namespace Azure.ResourceManager.Purview.Models
             return new PurviewAccountSku(capacity, name, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.PurviewAccountAccessKey"/>. </summary>
-        /// <param name="atlasKafkaPrimaryEndpoint"> Gets or sets the primary connection string. </param>
-        /// <param name="atlasKafkaSecondaryEndpoint"> Gets or sets the secondary connection string. </param>
-        /// <returns> A new <see cref="Models.PurviewAccountAccessKey"/> instance for mocking. </returns>
-        public static PurviewAccountAccessKey PurviewAccountAccessKey(string atlasKafkaPrimaryEndpoint = null, string atlasKafkaSecondaryEndpoint = null)
-        {
-            return new PurviewAccountAccessKey(atlasKafkaPrimaryEndpoint, atlasKafkaSecondaryEndpoint, serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="Models.PurviewBatchFeatureStatus"/>. </summary>
         /// <param name="features"> Features with enabled status. </param>
         /// <returns> A new <see cref="Models.PurviewBatchFeatureStatus"/> instance for mocking. </returns>
@@ -193,29 +176,20 @@ namespace Azure.ResourceManager.Purview.Models
             return new PurviewBatchFeatureStatus(features, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.PrivateEndpointConnectionStatusUpdateResult"/>. </summary>
-        /// <param name="privateEndpointId"> The private endpoint resource identifier. </param>
-        /// <param name="status"> The private endpoint connection status. </param>
-        /// <returns> A new <see cref="Models.PrivateEndpointConnectionStatusUpdateResult"/> instance for mocking. </returns>
-        public static PrivateEndpointConnectionStatusUpdateResult PrivateEndpointConnectionStatusUpdateResult(string privateEndpointId = null, string status = null)
-        {
-            return new PrivateEndpointConnectionStatusUpdateResult(privateEndpointId, status, serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="Purview.PurviewKafkaConfigurationData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="consumerGroup"> Consumer group for hook event hub. </param>
-        /// <param name="credentials"> Credentials to access the event streaming service attached to the purview account. </param>
-        /// <param name="eventHubPartitionId"> Optional partition Id for notification event hub. If not set, all partitions will be leveraged. </param>
+        /// <param name="credentials"> Credentials to access event hub. </param>
         /// <param name="eventHubResourceId"></param>
         /// <param name="eventHubType"> The event hub type. </param>
         /// <param name="eventStreamingState"> The state of the event streaming service. </param>
         /// <param name="eventStreamingType"> The event streaming service type. </param>
+        /// <param name="eventHubPartitionId"> Optional partition Id for notification event hub. If not set, all partitions will be leveraged. </param>
         /// <returns> A new <see cref="Purview.PurviewKafkaConfigurationData"/> instance for mocking. </returns>
-        public static PurviewKafkaConfigurationData PurviewKafkaConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string consumerGroup = null, PurviewCredentials credentials = null, string eventHubPartitionId = null, ResourceIdentifier eventHubResourceId = null, PurviewKafkaEventHubType? eventHubType = null, PurviewEventStreamingState? eventStreamingState = null, PurviewEventStreamingType? eventStreamingType = null)
+        public static PurviewKafkaConfigurationData PurviewKafkaConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string consumerGroup = null, PurviewCredentials credentials = null, ResourceIdentifier eventHubResourceId = null, PurviewKafkaEventHubType? eventHubType = null, PurviewEventStreamingState? eventStreamingState = null, PurviewEventStreamingType? eventStreamingType = null, string eventHubPartitionId = null)
         {
             return new PurviewKafkaConfigurationData(
                 id,
@@ -224,11 +198,11 @@ namespace Azure.ResourceManager.Purview.Models
                 systemData,
                 consumerGroup,
                 credentials,
-                eventHubPartitionId,
                 eventHubResourceId,
                 eventHubType,
                 eventStreamingState,
                 eventStreamingType,
+                eventHubPartitionId,
                 serializedAdditionalRawData: null);
         }
 
@@ -275,7 +249,7 @@ namespace Azure.ResourceManager.Purview.Models
 
         /// <summary> Initializes a new instance of <see cref="Models.PurviewUsage"/>. </summary>
         /// <param name="currentValue"> Current usage quota value. </param>
-        /// <param name="id"> Fully qualified resource Id. </param>
+        /// <param name="id"> Fully qualified ARM resource Id. </param>
         /// <param name="limit"> Usage quota limit. </param>
         /// <param name="name"> Quota name. </param>
         /// <param name="unit"> Quota usage unit. </param>
@@ -336,7 +310,7 @@ namespace Azure.ResourceManager.Purview.Models
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static PurviewAccountData PurviewAccountData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, PurviewAccountSku sku, string cloudConnectorsAwsExternalId, DateTimeOffset? createdOn, string createdBy, string createdByObjectId, PurviewAccountEndpoint endpoints, string friendlyName, string managedResourceGroupName, PurviewManagedResource managedResources, IEnumerable<PurviewPrivateEndpointConnectionData> privateEndpointConnections, PurviewProvisioningState? provisioningState, PurviewPublicNetworkAccess? publicNetworkAccess, ManagedServiceIdentity identity)
         {
-            return PurviewAccountData(id: id, name: name, resourceType: resourceType, systemData: systemData, tags: tags, location: location, sku: sku, accountStatus: default, cloudConnectorsAwsExternalId: cloudConnectorsAwsExternalId, createdOn: createdOn, createdBy: createdBy, createdByObjectId: createdByObjectId, endpoints: endpoints, friendlyName: friendlyName, ingestionStorage: default, managedEventHubState: default, managedResourceGroupName: managedResourceGroupName, managedResources: managedResources, managedResourcesPublicNetworkAccess: default, privateEndpointConnections: privateEndpointConnections, provisioningState: provisioningState, publicNetworkAccess: publicNetworkAccess, identity: identity);
+            return PurviewAccountData(id: id, name: name, resourceType: resourceType, systemData: systemData, tags: tags, location: location, sku: sku, accountStatus: default, cloudConnectorsAwsExternalId: cloudConnectorsAwsExternalId, createdOn: createdOn, createdBy: createdBy, createdByObjectId: createdByObjectId, endpoints: endpoints, friendlyName: friendlyName, managedEventHubState: default, managedResourceGroupName: managedResourceGroupName, managedResources: managedResources, managedResourcesPublicNetworkAccess: default, privateEndpointConnections: privateEndpointConnections, provisioningState: provisioningState, publicNetworkAccess: publicNetworkAccess, identity: identity);
         }
     }
 }

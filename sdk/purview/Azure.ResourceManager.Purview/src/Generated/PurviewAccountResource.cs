@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager.Purview.Models;
@@ -40,8 +39,6 @@ namespace Azure.ResourceManager.Purview
         private readonly AccountsRestOperations _purviewAccountAccountsRestClient;
         private readonly ClientDiagnostics _featuresClientDiagnostics;
         private readonly FeaturesRestOperations _featuresRestClient;
-        private readonly ClientDiagnostics _ingestionPrivateEndpointConnectionsClientDiagnostics;
-        private readonly IngestionPrivateEndpointConnectionsRestOperations _ingestionPrivateEndpointConnectionsRestClient;
         private readonly PurviewAccountData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -71,8 +68,6 @@ namespace Azure.ResourceManager.Purview
             _purviewAccountAccountsRestClient = new AccountsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, purviewAccountAccountsApiVersion);
             _featuresClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Purview", ProviderConstants.DefaultProviderNamespace, Diagnostics);
             _featuresRestClient = new FeaturesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
-            _ingestionPrivateEndpointConnectionsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Purview", ProviderConstants.DefaultProviderNamespace, Diagnostics);
-            _ingestionPrivateEndpointConnectionsRestClient = new IngestionPrivateEndpointConnectionsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -119,7 +114,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -150,7 +145,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -188,7 +183,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -219,7 +214,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -257,7 +252,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -288,7 +283,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -319,7 +314,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -359,7 +354,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -399,7 +394,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -441,7 +436,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -483,7 +478,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -529,7 +524,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -575,7 +570,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -617,7 +612,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -647,82 +642,6 @@ namespace Azure.ResourceManager.Purview
         }
 
         /// <summary>
-        /// List the authorization keys associated with this account.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Purview/accounts/{accountName}/listkeys</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Accounts_ListKeys</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="PurviewAccountResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<PurviewAccountAccessKey>> GetKeysAsync(CancellationToken cancellationToken = default)
-        {
-            using var scope = _purviewAccountAccountsClientDiagnostics.CreateScope("PurviewAccountResource.GetKeys");
-            scope.Start();
-            try
-            {
-                var response = await _purviewAccountAccountsRestClient.ListKeysAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// List the authorization keys associated with this account.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Purview/accounts/{accountName}/listkeys</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Accounts_ListKeys</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="PurviewAccountResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<PurviewAccountAccessKey> GetKeys(CancellationToken cancellationToken = default)
-        {
-            using var scope = _purviewAccountAccountsClientDiagnostics.CreateScope("PurviewAccountResource.GetKeys");
-            scope.Start();
-            try
-            {
-                var response = _purviewAccountAccountsRestClient.ListKeys(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Gets details from a list of feature names.
         /// <list type="bullet">
         /// <item>
@@ -735,7 +654,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -773,7 +692,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -799,134 +718,6 @@ namespace Azure.ResourceManager.Purview
         }
 
         /// <summary>
-        /// Lists all ingestion private endpoint connections
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Purview/accounts/{accountName}/ingestionPrivateEndpointConnections</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>IngestionPrivateEndpointConnections_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="PurviewPrivateEndpointConnectionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<PurviewPrivateEndpointConnectionResource> GetIngestionPrivateEndpointConnectionsAsync(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _ingestionPrivateEndpointConnectionsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _ingestionPrivateEndpointConnectionsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new PurviewPrivateEndpointConnectionResource(Client, PurviewPrivateEndpointConnectionData.DeserializePurviewPrivateEndpointConnectionData(e)), _ingestionPrivateEndpointConnectionsClientDiagnostics, Pipeline, "PurviewAccountResource.GetIngestionPrivateEndpointConnections", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Lists all ingestion private endpoint connections
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Purview/accounts/{accountName}/ingestionPrivateEndpointConnections</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>IngestionPrivateEndpointConnections_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="PurviewPrivateEndpointConnectionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<PurviewPrivateEndpointConnectionResource> GetIngestionPrivateEndpointConnections(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _ingestionPrivateEndpointConnectionsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _ingestionPrivateEndpointConnectionsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new PurviewPrivateEndpointConnectionResource(Client, PurviewPrivateEndpointConnectionData.DeserializePurviewPrivateEndpointConnectionData(e)), _ingestionPrivateEndpointConnectionsClientDiagnostics, Pipeline, "PurviewAccountResource.GetIngestionPrivateEndpointConnections", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Update ingestion private endpoint connection status
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Purview/accounts/{accountName}/ingestionPrivateEndpointConnectionStatus</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>IngestionPrivateEndpointConnections_UpdateStatus</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="content"> The ingestion private endpoint connection status update request. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual async Task<Response<PrivateEndpointConnectionStatusUpdateResult>> UpdateStatusIngestionPrivateEndpointConnectionAsync(PrivateEndpointConnectionStatusUpdateContent content, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(content, nameof(content));
-
-            using var scope = _ingestionPrivateEndpointConnectionsClientDiagnostics.CreateScope("PurviewAccountResource.UpdateStatusIngestionPrivateEndpointConnection");
-            scope.Start();
-            try
-            {
-                var response = await _ingestionPrivateEndpointConnectionsRestClient.UpdateStatusAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken).ConfigureAwait(false);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Update ingestion private endpoint connection status
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Purview/accounts/{accountName}/ingestionPrivateEndpointConnectionStatus</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>IngestionPrivateEndpointConnections_UpdateStatus</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="content"> The ingestion private endpoint connection status update request. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual Response<PrivateEndpointConnectionStatusUpdateResult> UpdateStatusIngestionPrivateEndpointConnection(PrivateEndpointConnectionStatusUpdateContent content, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(content, nameof(content));
-
-            using var scope = _ingestionPrivateEndpointConnectionsClientDiagnostics.CreateScope("PurviewAccountResource.UpdateStatusIngestionPrivateEndpointConnection");
-            scope.Start();
-            try
-            {
-                var response = _ingestionPrivateEndpointConnectionsRestClient.UpdateStatus(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Add a tag to the current resource.
         /// <list type="bullet">
         /// <item>
@@ -939,7 +730,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1001,7 +792,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1063,7 +854,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1120,7 +911,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1177,7 +968,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1237,7 +1028,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

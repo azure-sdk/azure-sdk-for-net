@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.Purview
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2023-05-01-preview";
+            _apiVersion = apiVersion ?? "2021-12-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.Purview
         /// <summary> Get the usage quota configuration. </summary>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="location"> The region. </param>
-        /// <param name="filter"> The filter, currently unused. </param>
+        /// <param name="filter"> The <see cref="string"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
@@ -106,7 +106,7 @@ namespace Azure.ResourceManager.Purview
         /// <summary> Get the usage quota configuration. </summary>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="location"> The region. </param>
-        /// <param name="filter"> The filter, currently unused. </param>
+        /// <param name="filter"> The <see cref="string"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>

@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.Purview.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.Purview.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -125,7 +125,7 @@ namespace Azure.ResourceManager.Purview.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -167,7 +167,7 @@ namespace Azure.ResourceManager.Purview.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -209,7 +209,7 @@ namespace Azure.ResourceManager.Purview.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -250,7 +250,7 @@ namespace Azure.ResourceManager.Purview.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -291,12 +291,12 @@ namespace Azure.ResourceManager.Purview.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="location"> The region. </param>
-        /// <param name="filter"> The filter, currently unused. </param>
+        /// <param name="filter"> The <see cref="string"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="PurviewUsage"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<PurviewUsage> GetUsagesAsync(AzureLocation location, string filter = null, CancellationToken cancellationToken = default)
@@ -318,12 +318,12 @@ namespace Azure.ResourceManager.Purview.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="location"> The region. </param>
-        /// <param name="filter"> The filter, currently unused. </param>
+        /// <param name="filter"> The <see cref="string"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="PurviewUsage"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<PurviewUsage> GetUsages(AzureLocation location, string filter = null, CancellationToken cancellationToken = default)

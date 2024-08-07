@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.Purview.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task SubscriptionGetFeature_FeaturesSubscriptionGet()
         {
-            // Generated from example definition: specification/purview/resource-manager/Microsoft.Purview/preview/2023-05-01-preview/examples/Features_SubscriptionGet.json
+            // Generated from example definition: specification/purview/resource-manager/Microsoft.Purview/stable/2021-12-01/examples/Features_SubscriptionGet.json
             // this example is just showing the usage of "Features_SubscriptionGet" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.Purview.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetUsages_UsagesGet()
         {
-            // Generated from example definition: specification/purview/resource-manager/Microsoft.Purview/preview/2023-05-01-preview/examples/Usages_Get.json
+            // Generated from example definition: specification/purview/resource-manager/Microsoft.Purview/stable/2021-12-01/examples/Usages_Get.json
             // this example is just showing the usage of "Usages_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

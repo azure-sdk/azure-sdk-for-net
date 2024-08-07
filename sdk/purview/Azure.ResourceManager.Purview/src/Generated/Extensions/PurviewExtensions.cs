@@ -144,7 +144,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -182,7 +182,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -220,7 +220,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -257,7 +257,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -294,7 +294,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -330,7 +330,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -366,7 +366,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -400,7 +400,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -434,7 +434,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -444,7 +444,7 @@ namespace Azure.ResourceManager.Purview
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
         /// <param name="location"> The region. </param>
-        /// <param name="filter"> The filter, currently unused. </param>
+        /// <param name="filter"> The <see cref="string"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> An async collection of <see cref="PurviewUsage"/> that may take multiple service requests to iterate over. </returns>
@@ -468,7 +468,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -478,7 +478,7 @@ namespace Azure.ResourceManager.Purview
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
         /// <param name="location"> The region. </param>
-        /// <param name="filter"> The filter, currently unused. </param>
+        /// <param name="filter"> The <see cref="string"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="PurviewUsage"/> that may take multiple service requests to iterate over. </returns>
@@ -490,71 +490,67 @@ namespace Azure.ResourceManager.Purview
         }
 
         /// <summary>
-        /// Get the default account for the scope.
+        /// Sets the default account for the scope.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Purview/getDefaultAccount</description>
+        /// <description>/providers/Microsoft.Purview/setDefaultAccount</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>DefaultAccounts_Get</description>
+        /// <description>DefaultAccounts_Set</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// </list>
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockablePurviewTenantResource.GetDefaultAccount(Guid,PurviewAccountScopeType,string,CancellationToken)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockablePurviewTenantResource.SetDefaultAccount(DefaultPurviewAccountPayload,CancellationToken)"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
-        /// <param name="scopeTenantId"> The tenant ID. </param>
-        /// <param name="scopeType"> The scope for the default account. </param>
-        /// <param name="scope"> The Id of the scope object, for example if the scope is "Subscription" then it is the ID of that subscription. </param>
+        /// <param name="defaultAccountPayload"> The payload containing the default account information and the scope. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> is null. </exception>
-        public static async Task<Response<DefaultPurviewAccountPayload>> GetDefaultAccountAsync(this TenantResource tenantResource, Guid scopeTenantId, PurviewAccountScopeType scopeType, string scope = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> or <paramref name="defaultAccountPayload"/> is null. </exception>
+        public static async Task<Response<DefaultPurviewAccountPayload>> SetDefaultAccountAsync(this TenantResource tenantResource, DefaultPurviewAccountPayload defaultAccountPayload, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(tenantResource, nameof(tenantResource));
 
-            return await GetMockablePurviewTenantResource(tenantResource).GetDefaultAccountAsync(scopeTenantId, scopeType, scope, cancellationToken).ConfigureAwait(false);
+            return await GetMockablePurviewTenantResource(tenantResource).SetDefaultAccountAsync(defaultAccountPayload, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Get the default account for the scope.
+        /// Sets the default account for the scope.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Purview/getDefaultAccount</description>
+        /// <description>/providers/Microsoft.Purview/setDefaultAccount</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>DefaultAccounts_Get</description>
+        /// <description>DefaultAccounts_Set</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// </list>
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockablePurviewTenantResource.GetDefaultAccount(Guid,PurviewAccountScopeType,string,CancellationToken)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockablePurviewTenantResource.SetDefaultAccount(DefaultPurviewAccountPayload,CancellationToken)"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
-        /// <param name="scopeTenantId"> The tenant ID. </param>
-        /// <param name="scopeType"> The scope for the default account. </param>
-        /// <param name="scope"> The Id of the scope object, for example if the scope is "Subscription" then it is the ID of that subscription. </param>
+        /// <param name="defaultAccountPayload"> The payload containing the default account information and the scope. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> is null. </exception>
-        public static Response<DefaultPurviewAccountPayload> GetDefaultAccount(this TenantResource tenantResource, Guid scopeTenantId, PurviewAccountScopeType scopeType, string scope = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> or <paramref name="defaultAccountPayload"/> is null. </exception>
+        public static Response<DefaultPurviewAccountPayload> SetDefaultAccount(this TenantResource tenantResource, DefaultPurviewAccountPayload defaultAccountPayload, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(tenantResource, nameof(tenantResource));
 
-            return GetMockablePurviewTenantResource(tenantResource).GetDefaultAccount(scopeTenantId, scopeType, scope, cancellationToken);
+            return GetMockablePurviewTenantResource(tenantResource).SetDefaultAccount(defaultAccountPayload, cancellationToken);
         }
 
         /// <summary>
@@ -570,7 +566,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -604,7 +600,7 @@ namespace Azure.ResourceManager.Purview
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
+        /// <description>2021-12-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -623,70 +619,6 @@ namespace Azure.ResourceManager.Purview
             Argument.AssertNotNull(tenantResource, nameof(tenantResource));
 
             return GetMockablePurviewTenantResource(tenantResource).RemoveDefaultAccount(scopeTenantId, scopeType, scope, cancellationToken);
-        }
-
-        /// <summary>
-        /// Sets the default account for the scope.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Purview/setDefaultAccount</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>DefaultAccounts_Set</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockablePurviewTenantResource.SetDefaultAccount(DefaultPurviewAccountPayload,CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
-        /// <param name="defaultAccountPayload"> The payload containing the default account information and the scope. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> or <paramref name="defaultAccountPayload"/> is null. </exception>
-        public static async Task<Response<DefaultPurviewAccountPayload>> SetDefaultAccountAsync(this TenantResource tenantResource, DefaultPurviewAccountPayload defaultAccountPayload, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(tenantResource, nameof(tenantResource));
-
-            return await GetMockablePurviewTenantResource(tenantResource).SetDefaultAccountAsync(defaultAccountPayload, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Sets the default account for the scope.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Purview/setDefaultAccount</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>DefaultAccounts_Set</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-05-01-preview</description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockablePurviewTenantResource.SetDefaultAccount(DefaultPurviewAccountPayload,CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
-        /// <param name="defaultAccountPayload"> The payload containing the default account information and the scope. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> or <paramref name="defaultAccountPayload"/> is null. </exception>
-        public static Response<DefaultPurviewAccountPayload> SetDefaultAccount(this TenantResource tenantResource, DefaultPurviewAccountPayload defaultAccountPayload, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(tenantResource, nameof(tenantResource));
-
-            return GetMockablePurviewTenantResource(tenantResource).SetDefaultAccount(defaultAccountPayload, cancellationToken);
         }
     }
 }
