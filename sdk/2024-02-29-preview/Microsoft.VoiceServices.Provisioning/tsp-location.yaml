@@ -1,0 +1,4 @@
+directory: specification/voiceservices/VoiceServices.Provisioning
+commit: fc507d5af31258429688a9e12d3ea09aaa1c356a
+repo: test-repo-billy/azure-rest-api-specs
+additionalDirectories: 
