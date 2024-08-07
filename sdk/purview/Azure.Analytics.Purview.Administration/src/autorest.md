@@ -5,8 +5,8 @@ Run `dotnet build /t:GenerateCode` to generate code.
 ```yaml
 title: PurviewAdministration
 input-file:
-  - https://github.com/Azure/azure-rest-api-specs/blob/0ebd4949e8e1cd9537ca5a07384c7661162cc7a6/specification/purview/data-plane/Azure.Analytics.Purview.Account/preview/2019-11-01-preview/account.json
-  - https://github.com/Azure/azure-rest-api-specs/blob/0ebd4949e8e1cd9537ca5a07384c7661162cc7a6/specification/purview/data-plane/Azure.Analytics.Purview.MetadataPolicies/preview/2021-07-01-preview/purviewMetadataPolicy.json
+  - https://github.com/test-repo-billy/azure-rest-api-specs/blob/981c678e48cce6ba430dcf965618670f7015c8a0/specification/purview/data-plane/Azure.Analytics.Purview.Account/preview/2019-11-01-preview/account.json
+  - https://github.com/test-repo-billy/azure-rest-api-specs/blob/981c678e48cce6ba430dcf965618670f7015c8a0/specification/purview/data-plane/Azure.Analytics.Purview.MetadataPolicies/preview/2021-07-01-preview/purviewMetadataPolicy.json
 namespace: Azure.Analytics.Purview.Administration
 modelerfour:
     lenient-model-deduplication: true
