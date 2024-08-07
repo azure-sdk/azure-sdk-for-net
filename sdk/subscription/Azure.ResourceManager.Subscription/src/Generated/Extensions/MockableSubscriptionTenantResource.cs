@@ -19,6 +19,8 @@ namespace Azure.ResourceManager.Subscription.Mocking
     {
         private ClientDiagnostics _subscriptionClientDiagnostics;
         private SubscriptionRestOperations _subscriptionRestClient;
+        private ClientDiagnostics _subscriptionOperationClientDiagnostics;
+        private SubscriptionOperationRestOperations _subscriptionOperationRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="MockableSubscriptionTenantResource"/> class for mocking. </summary>
         protected MockableSubscriptionTenantResource()
@@ -34,6 +36,8 @@ namespace Azure.ResourceManager.Subscription.Mocking
 
         private ClientDiagnostics SubscriptionClientDiagnostics => _subscriptionClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Subscription", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private SubscriptionRestOperations SubscriptionRestClient => _subscriptionRestClient ??= new SubscriptionRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics SubscriptionOperationClientDiagnostics => _subscriptionOperationClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Subscription", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private SubscriptionOperationRestOperations SubscriptionOperationRestClient => _subscriptionOperationRestClient ??= new SubscriptionOperationRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -345,6 +349,84 @@ namespace Azure.ResourceManager.Subscription.Mocking
             try
             {
                 var response = SubscriptionRestClient.AcceptOwnershipStatus(subscriptionId, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the status of the pending Microsoft.Subscription API operations.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Subscription/subscriptionOperations/{operationId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SubscriptionOperation_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-10-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="operationId"> The operation ID, which can be found from the Location field in the generate recommendation response header. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="operationId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="operationId"/> is null. </exception>
+        public virtual async Task<Response<SubscriptionCreationResult>> GetSubscriptionOperationAsync(string operationId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(operationId, nameof(operationId));
+
+            using var scope = SubscriptionOperationClientDiagnostics.CreateScope("MockableSubscriptionTenantResource.GetSubscriptionOperation");
+            scope.Start();
+            try
+            {
+                var response = await SubscriptionOperationRestClient.GetAsync(operationId, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the status of the pending Microsoft.Subscription API operations.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Subscription/subscriptionOperations/{operationId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SubscriptionOperation_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-10-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="operationId"> The operation ID, which can be found from the Location field in the generate recommendation response header. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="operationId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="operationId"/> is null. </exception>
+        public virtual Response<SubscriptionCreationResult> GetSubscriptionOperation(string operationId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(operationId, nameof(operationId));
+
+            using var scope = SubscriptionOperationClientDiagnostics.CreateScope("MockableSubscriptionTenantResource.GetSubscriptionOperation");
+            scope.Start();
+            try
+            {
+                var response = SubscriptionOperationRestClient.Get(operationId, cancellationToken);
                 return response;
             }
             catch (Exception e)
