@@ -6,7 +6,6 @@
 #nullable disable
 
 using System;
-using System.Threading.Tasks;
 using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
@@ -32,148 +31,6 @@ namespace Azure.Analytics.Purview.Administration
         /// <summary> Initializes a new instance of PurviewMetadataPolicyClient for mocking. </summary>
         protected PurviewMetadataPolicyClient()
         {
-        }
-
-        /// <summary>
-        /// [Protocol Method] Updates a metadata policy
-        /// <list type="bullet">
-        /// <item>
-        /// <description>
-        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
-        /// </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="policyId"> Unique policy id. </param>
-        /// <param name="content"> The content to send as the body of the request. </param>
-        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="policyId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="policyId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/PurviewMetadataPolicyClient.xml" path="doc/members/member[@name='UpdateMetadataPolicyAsync(string,RequestContent,RequestContext)']/*" />
-        public virtual async Task<Response> UpdateMetadataPolicyAsync(string policyId, RequestContent content, RequestContext context = null)
-        {
-            Argument.AssertNotNullOrEmpty(policyId, nameof(policyId));
-
-            using var scope = ClientDiagnostics.CreateScope("PurviewMetadataPolicyClient.UpdateMetadataPolicy");
-            scope.Start();
-            try
-            {
-                using HttpMessage message = CreateUpdateMetadataPolicyRequest(policyId, content, context);
-                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// [Protocol Method] Updates a metadata policy
-        /// <list type="bullet">
-        /// <item>
-        /// <description>
-        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
-        /// </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="policyId"> Unique policy id. </param>
-        /// <param name="content"> The content to send as the body of the request. </param>
-        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="policyId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="policyId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/PurviewMetadataPolicyClient.xml" path="doc/members/member[@name='UpdateMetadataPolicy(string,RequestContent,RequestContext)']/*" />
-        public virtual Response UpdateMetadataPolicy(string policyId, RequestContent content, RequestContext context = null)
-        {
-            Argument.AssertNotNullOrEmpty(policyId, nameof(policyId));
-
-            using var scope = ClientDiagnostics.CreateScope("PurviewMetadataPolicyClient.UpdateMetadataPolicy");
-            scope.Start();
-            try
-            {
-                using HttpMessage message = CreateUpdateMetadataPolicyRequest(policyId, content, context);
-                return _pipeline.ProcessMessage(message, context);
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// [Protocol Method] Gets a metadata policy
-        /// <list type="bullet">
-        /// <item>
-        /// <description>
-        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
-        /// </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="policyId"> Id of an existing policy that needs to be fetched. </param>
-        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="policyId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="policyId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/PurviewMetadataPolicyClient.xml" path="doc/members/member[@name='GetMetadataPolicyAsync(string,RequestContext)']/*" />
-        public virtual async Task<Response> GetMetadataPolicyAsync(string policyId, RequestContext context)
-        {
-            Argument.AssertNotNullOrEmpty(policyId, nameof(policyId));
-
-            using var scope = ClientDiagnostics.CreateScope("PurviewMetadataPolicyClient.GetMetadataPolicy");
-            scope.Start();
-            try
-            {
-                using HttpMessage message = CreateGetMetadataPolicyRequest(policyId, context);
-                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// [Protocol Method] Gets a metadata policy
-        /// <list type="bullet">
-        /// <item>
-        /// <description>
-        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
-        /// </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="policyId"> Id of an existing policy that needs to be fetched. </param>
-        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="policyId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="policyId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/PurviewMetadataPolicyClient.xml" path="doc/members/member[@name='GetMetadataPolicy(string,RequestContext)']/*" />
-        public virtual Response GetMetadataPolicy(string policyId, RequestContext context)
-        {
-            Argument.AssertNotNullOrEmpty(policyId, nameof(policyId));
-
-            using var scope = ClientDiagnostics.CreateScope("PurviewMetadataPolicyClient.GetMetadataPolicy");
-            scope.Start();
-            try
-            {
-                using HttpMessage message = CreateGetMetadataPolicyRequest(policyId, context);
-                return _pipeline.ProcessMessage(message, context);
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
         }
 
         /// <summary>
@@ -227,40 +84,6 @@ namespace Azure.Analytics.Purview.Administration
             uri.Reset(_endpoint);
             uri.AppendRaw("/policyStore", false);
             uri.AppendPath("/metadataPolicies", false);
-            uri.AppendQuery("api-version", "2021-07-01-preview", true);
-            request.Uri = uri;
-            request.Headers.Add("Accept", "application/json");
-            return message;
-        }
-
-        internal HttpMessage CreateUpdateMetadataPolicyRequest(string policyId, RequestContent content, RequestContext context)
-        {
-            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
-            var request = message.Request;
-            request.Method = RequestMethod.Put;
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendRaw("/policyStore", false);
-            uri.AppendPath("/metadataPolicies/", false);
-            uri.AppendPath(policyId, true);
-            uri.AppendQuery("api-version", "2021-07-01-preview", true);
-            request.Uri = uri;
-            request.Headers.Add("Accept", "application/json");
-            request.Headers.Add("Content-Type", "application/json");
-            request.Content = content;
-            return message;
-        }
-
-        internal HttpMessage CreateGetMetadataPolicyRequest(string policyId, RequestContext context)
-        {
-            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
-            var request = message.Request;
-            request.Method = RequestMethod.Get;
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendRaw("/policyStore", false);
-            uri.AppendPath("/metadataPolicies/", false);
-            uri.AppendPath(policyId, true);
             uri.AppendQuery("api-version", "2021-07-01-preview", true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
