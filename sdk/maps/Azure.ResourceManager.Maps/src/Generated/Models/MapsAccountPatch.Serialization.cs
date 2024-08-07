@@ -85,6 +85,21 @@ namespace Azure.ResourceManager.Maps.Models
                 writer.WritePropertyName("cors"u8);
                 writer.WriteObjectValue(Cors, options);
             }
+            if (Optional.IsDefined(Encryption))
+            {
+                writer.WritePropertyName("encryption"u8);
+                writer.WriteObjectValue(Encryption, options);
+            }
+            if (Optional.IsCollectionDefined(Locations))
+            {
+                writer.WritePropertyName("locations"u8);
+                writer.WriteStartArray();
+                foreach (var item in Locations)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -133,6 +148,8 @@ namespace Azure.ResourceManager.Maps.Models
             string provisioningState = default;
             IList<MapsLinkedResource> linkedResources = default;
             CorsRules cors = default;
+            Encryption encryption = default;
+            IList<LocationsItem> locations = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -233,6 +250,29 @@ namespace Azure.ResourceManager.Maps.Models
                             cors = CorsRules.DeserializeCorsRules(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("encryption"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            encryption = Encryption.DeserializeEncryption(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("locations"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<LocationsItem> array = new List<LocationsItem>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(LocationsItem.DeserializeLocationsItem(item, options));
+                            }
+                            locations = array;
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -252,6 +292,8 @@ namespace Azure.ResourceManager.Maps.Models
                 provisioningState,
                 linkedResources ?? new ChangeTrackingList<MapsLinkedResource>(),
                 cors,
+                encryption,
+                locations ?? new ChangeTrackingList<LocationsItem>(),
                 serializedAdditionalRawData);
         }
 
