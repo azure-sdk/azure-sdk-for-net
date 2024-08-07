@@ -29,17 +29,17 @@ namespace Azure.ResourceManager.VoiceServices.Models
         private const string Silk8Value = "SILK_8";
         private const string Silk16Value = "SILK_16";
 
-        /// <summary> PCMA. </summary>
+        /// <summary> Pulse code modulation(PCM) U-law narrowband audio codec(G.711u). </summary>
         public static VoiceServicesTeamsCodec Pcma { get; } = new VoiceServicesTeamsCodec(PcmaValue);
-        /// <summary> PCMU. </summary>
+        /// <summary> Pulse code modulation(PCM) U-law narrowband audio codec(G.711u). </summary>
         public static VoiceServicesTeamsCodec Pcmu { get; } = new VoiceServicesTeamsCodec(PcmuValue);
-        /// <summary> G722. </summary>
+        /// <summary> G.722 wideband audio codec. </summary>
         public static VoiceServicesTeamsCodec G722 { get; } = new VoiceServicesTeamsCodec(G722Value);
-        /// <summary> G722_2. </summary>
+        /// <summary> G.722.2 wideband audio codec. </summary>
         public static VoiceServicesTeamsCodec G7222 { get; } = new VoiceServicesTeamsCodec(G7222Value);
-        /// <summary> SILK_8. </summary>
+        /// <summary> SILK/8000 narrowband audio codec. </summary>
         public static VoiceServicesTeamsCodec Silk8 { get; } = new VoiceServicesTeamsCodec(Silk8Value);
-        /// <summary> SILK_16. </summary>
+        /// <summary> SILK/16000 wideband audio codec. </summary>
         public static VoiceServicesTeamsCodec Silk16 { get; } = new VoiceServicesTeamsCodec(Silk16Value);
         /// <summary> Determines if two <see cref="VoiceServicesTeamsCodec"/> values are the same. </summary>
         public static bool operator ==(VoiceServicesTeamsCodec left, VoiceServicesTeamsCodec right) => left.Equals(right);

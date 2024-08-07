@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.VoiceServices.Models
             {
                 return null;
             }
-            IReadOnlyList<VoiceServicesTestLineData> value = default;
+            IReadOnlyList<VoiceServicesTestLine> value = default;
             Uri nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -84,10 +84,10 @@ namespace Azure.ResourceManager.VoiceServices.Models
             {
                 if (property.NameEquals("value"u8))
                 {
-                    List<VoiceServicesTestLineData> array = new List<VoiceServicesTestLineData>();
+                    List<VoiceServicesTestLine> array = new List<VoiceServicesTestLine>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(VoiceServicesTestLineData.DeserializeVoiceServicesTestLineData(item, options));
+                        array.Add(VoiceServicesTestLine.DeserializeVoiceServicesTestLine(item, options));
                     }
                     value = array;
                     continue;

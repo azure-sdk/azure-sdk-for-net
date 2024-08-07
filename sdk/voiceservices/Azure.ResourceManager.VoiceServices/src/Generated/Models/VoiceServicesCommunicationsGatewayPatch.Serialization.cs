@@ -10,6 +10,7 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.VoiceServices.Models
 {
@@ -26,6 +27,16 @@ namespace Azure.ResourceManager.VoiceServices.Models
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(Identity))
+            {
+                writer.WritePropertyName("identity"u8);
+                JsonSerializer.Serialize(writer, Identity);
+            }
+            if (Optional.IsDefined(Sku))
+            {
+                writer.WritePropertyName("sku"u8);
+                writer.WriteObjectValue(Sku, options);
+            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -75,11 +86,31 @@ namespace Azure.ResourceManager.VoiceServices.Models
             {
                 return null;
             }
+            ManagedServiceIdentity identity = default;
+            VoiceServicesSku sku = default;
             IDictionary<string, string> tags = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("identity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
+                    continue;
+                }
+                if (property.NameEquals("sku"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sku = VoiceServicesSku.DeserializeVoiceServicesSku(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("tags"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -100,7 +131,7 @@ namespace Azure.ResourceManager.VoiceServices.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new VoiceServicesCommunicationsGatewayPatch(tags ?? new ChangeTrackingDictionary<string, string>(), serializedAdditionalRawData);
+            return new VoiceServicesCommunicationsGatewayPatch(identity, sku, tags ?? new ChangeTrackingDictionary<string, string>(), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<VoiceServicesCommunicationsGatewayPatch>.Write(ModelReaderWriterOptions options)

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager.Resources;
@@ -37,6 +38,8 @@ namespace Azure.ResourceManager.VoiceServices
 
         private readonly ClientDiagnostics _voiceServicesCommunicationsGatewayCommunicationsGatewaysClientDiagnostics;
         private readonly CommunicationsGatewaysRestOperations _voiceServicesCommunicationsGatewayCommunicationsGatewaysRestClient;
+        private readonly ClientDiagnostics _testLinesClientDiagnostics;
+        private readonly TestLinesRestOperations _testLinesRestClient;
         private readonly VoiceServicesCommunicationsGatewayData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -64,6 +67,8 @@ namespace Azure.ResourceManager.VoiceServices
             _voiceServicesCommunicationsGatewayCommunicationsGatewaysClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.VoiceServices", ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ResourceType, out string voiceServicesCommunicationsGatewayCommunicationsGatewaysApiVersion);
             _voiceServicesCommunicationsGatewayCommunicationsGatewaysRestClient = new CommunicationsGatewaysRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, voiceServicesCommunicationsGatewayCommunicationsGatewaysApiVersion);
+            _testLinesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.VoiceServices", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _testLinesRestClient = new TestLinesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -90,75 +95,6 @@ namespace Azure.ResourceManager.VoiceServices
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
         }
 
-        /// <summary> Gets a collection of VoiceServicesTestLineResources in the VoiceServicesCommunicationsGateway. </summary>
-        /// <returns> An object representing collection of VoiceServicesTestLineResources and their operations over a VoiceServicesTestLineResource. </returns>
-        public virtual VoiceServicesTestLineCollection GetVoiceServicesTestLines()
-        {
-            return GetCachedClient(client => new VoiceServicesTestLineCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Get a TestLine
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.VoiceServices/communicationsGateways/{communicationsGatewayName}/testLines/{testLineName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>TestLines_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-01-31</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="VoiceServicesTestLineResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="testLineName"> Unique identifier for this test line. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="testLineName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="testLineName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<VoiceServicesTestLineResource>> GetVoiceServicesTestLineAsync(string testLineName, CancellationToken cancellationToken = default)
-        {
-            return await GetVoiceServicesTestLines().GetAsync(testLineName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get a TestLine
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.VoiceServices/communicationsGateways/{communicationsGatewayName}/testLines/{testLineName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>TestLines_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-01-31</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="VoiceServicesTestLineResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="testLineName"> Unique identifier for this test line. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="testLineName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="testLineName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<VoiceServicesTestLineResource> GetVoiceServicesTestLine(string testLineName, CancellationToken cancellationToken = default)
-        {
-            return GetVoiceServicesTestLines().Get(testLineName, cancellationToken);
-        }
-
         /// <summary>
         /// Get a CommunicationsGateway
         /// <list type="bullet">
@@ -172,7 +108,7 @@ namespace Azure.ResourceManager.VoiceServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-31</description>
+        /// <description>2023-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -212,7 +148,7 @@ namespace Azure.ResourceManager.VoiceServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-31</description>
+        /// <description>2023-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -252,7 +188,7 @@ namespace Azure.ResourceManager.VoiceServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-31</description>
+        /// <description>2023-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -269,7 +205,7 @@ namespace Azure.ResourceManager.VoiceServices
             try
             {
                 var response = await _voiceServicesCommunicationsGatewayCommunicationsGatewaysRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new VoiceServicesArmOperation(_voiceServicesCommunicationsGatewayCommunicationsGatewaysClientDiagnostics, Pipeline, _voiceServicesCommunicationsGatewayCommunicationsGatewaysRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var operation = new VoiceServicesArmOperation(_voiceServicesCommunicationsGatewayCommunicationsGatewaysClientDiagnostics, Pipeline, _voiceServicesCommunicationsGatewayCommunicationsGatewaysRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -294,7 +230,7 @@ namespace Azure.ResourceManager.VoiceServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-31</description>
+        /// <description>2023-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -311,7 +247,7 @@ namespace Azure.ResourceManager.VoiceServices
             try
             {
                 var response = _voiceServicesCommunicationsGatewayCommunicationsGatewaysRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
-                var operation = new VoiceServicesArmOperation(_voiceServicesCommunicationsGatewayCommunicationsGatewaysClientDiagnostics, Pipeline, _voiceServicesCommunicationsGatewayCommunicationsGatewaysRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var operation = new VoiceServicesArmOperation(_voiceServicesCommunicationsGatewayCommunicationsGatewaysClientDiagnostics, Pipeline, _voiceServicesCommunicationsGatewayCommunicationsGatewaysRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
@@ -336,7 +272,7 @@ namespace Azure.ResourceManager.VoiceServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-31</description>
+        /// <description>2023-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -378,7 +314,7 @@ namespace Azure.ResourceManager.VoiceServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-31</description>
+        /// <description>2023-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -408,6 +344,58 @@ namespace Azure.ResourceManager.VoiceServices
         }
 
         /// <summary>
+        /// List TestLine resources by CommunicationsGateway
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.VoiceServices/communicationsGateways/{communicationsGatewayName}/testLines</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TestLines_ListByCommunicationsGateway</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="VoiceServicesTestLine"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<VoiceServicesTestLine> GetTestLinesAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _testLinesRestClient.CreateListByCommunicationsGatewayRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _testLinesRestClient.CreateListByCommunicationsGatewayNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => VoiceServicesTestLine.DeserializeVoiceServicesTestLine(e), _testLinesClientDiagnostics, Pipeline, "VoiceServicesCommunicationsGatewayResource.GetTestLines", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// List TestLine resources by CommunicationsGateway
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.VoiceServices/communicationsGateways/{communicationsGatewayName}/testLines</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TestLines_ListByCommunicationsGateway</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="VoiceServicesTestLine"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<VoiceServicesTestLine> GetTestLines(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _testLinesRestClient.CreateListByCommunicationsGatewayRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _testLinesRestClient.CreateListByCommunicationsGatewayNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => VoiceServicesTestLine.DeserializeVoiceServicesTestLine(e), _testLinesClientDiagnostics, Pipeline, "VoiceServicesCommunicationsGatewayResource.GetTestLines", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
         /// Add a tag to the current resource.
         /// <list type="bullet">
         /// <item>
@@ -420,7 +408,7 @@ namespace Azure.ResourceManager.VoiceServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-31</description>
+        /// <description>2023-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -482,7 +470,7 @@ namespace Azure.ResourceManager.VoiceServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-31</description>
+        /// <description>2023-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -544,7 +532,7 @@ namespace Azure.ResourceManager.VoiceServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-31</description>
+        /// <description>2023-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -601,7 +589,7 @@ namespace Azure.ResourceManager.VoiceServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-31</description>
+        /// <description>2023-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -658,7 +646,7 @@ namespace Azure.ResourceManager.VoiceServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-31</description>
+        /// <description>2023-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -718,7 +706,7 @@ namespace Azure.ResourceManager.VoiceServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-31</description>
+        /// <description>2023-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
