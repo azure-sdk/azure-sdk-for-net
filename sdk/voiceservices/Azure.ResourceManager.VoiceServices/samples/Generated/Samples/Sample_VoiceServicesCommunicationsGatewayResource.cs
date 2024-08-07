@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.VoiceServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetVoiceServicesCommunicationsGateways_ListCommunicationsGatewayResourceSub()
         {
-            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-01-31/examples/CommunicationsGateways_ListBySubscription.json
+            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-09-01/examples/CommunicationsGateways_ListBySubscription.json
             // this example is just showing the usage of "CommunicationsGateways_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.VoiceServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetCommunicationsGatewayResource()
         {
-            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-01-31/examples/CommunicationsGateways_Get.json
+            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-09-01/examples/CommunicationsGateways_Get.json
             // this example is just showing the usage of "CommunicationsGateways_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -79,39 +79,12 @@ namespace Azure.ResourceManager.VoiceServices.Samples
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // DeleteCommunicationsGatewayResource
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Delete_DeleteCommunicationsGatewayResource()
-        {
-            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-01-31/examples/CommunicationsGateways_Delete.json
-            // this example is just showing the usage of "CommunicationsGateways_Delete" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this VoiceServicesCommunicationsGatewayResource created on azure
-            // for more information of creating VoiceServicesCommunicationsGatewayResource, please refer to the document of VoiceServicesCommunicationsGatewayResource
-            string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "testrg";
-            string communicationsGatewayName = "myname";
-            ResourceIdentifier voiceServicesCommunicationsGatewayResourceId = VoiceServicesCommunicationsGatewayResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, communicationsGatewayName);
-            VoiceServicesCommunicationsGatewayResource voiceServicesCommunicationsGateway = client.GetVoiceServicesCommunicationsGatewayResource(voiceServicesCommunicationsGatewayResourceId);
-
-            // invoke the operation
-            await voiceServicesCommunicationsGateway.DeleteAsync(WaitUntil.Completed);
-
-            Console.WriteLine($"Succeeded");
-        }
-
         // UpdateCommunicationsGatewayResource
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_UpdateCommunicationsGatewayResource()
         {
-            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-01-31/examples/CommunicationsGateways_Update.json
+            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-09-01/examples/CommunicationsGateways_Update.json
             // this example is just showing the usage of "CommunicationsGateways_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -136,6 +109,63 @@ namespace Azure.ResourceManager.VoiceServices.Samples
             VoiceServicesCommunicationsGatewayData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        // DeleteCommunicationsGatewayResource
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task Delete_DeleteCommunicationsGatewayResource()
+        {
+            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-09-01/examples/CommunicationsGateways_Delete.json
+            // this example is just showing the usage of "CommunicationsGateways_Delete" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this VoiceServicesCommunicationsGatewayResource created on azure
+            // for more information of creating VoiceServicesCommunicationsGatewayResource, please refer to the document of VoiceServicesCommunicationsGatewayResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "testrg";
+            string communicationsGatewayName = "myname";
+            ResourceIdentifier voiceServicesCommunicationsGatewayResourceId = VoiceServicesCommunicationsGatewayResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, communicationsGatewayName);
+            VoiceServicesCommunicationsGatewayResource voiceServicesCommunicationsGateway = client.GetVoiceServicesCommunicationsGatewayResource(voiceServicesCommunicationsGatewayResourceId);
+
+            // invoke the operation
+            await voiceServicesCommunicationsGateway.DeleteAsync(WaitUntil.Completed);
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // ListTestLineResource
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetTestLines_ListTestLineResource()
+        {
+            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-09-01/examples/TestLines_ListByCommunicationsGateway.json
+            // this example is just showing the usage of "TestLines_ListByCommunicationsGateway" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this VoiceServicesCommunicationsGatewayResource created on azure
+            // for more information of creating VoiceServicesCommunicationsGatewayResource, please refer to the document of VoiceServicesCommunicationsGatewayResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "testrg";
+            string communicationsGatewayName = "myname";
+            ResourceIdentifier voiceServicesCommunicationsGatewayResourceId = VoiceServicesCommunicationsGatewayResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, communicationsGatewayName);
+            VoiceServicesCommunicationsGatewayResource voiceServicesCommunicationsGateway = client.GetVoiceServicesCommunicationsGatewayResource(voiceServicesCommunicationsGatewayResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (VoiceServicesTestLine item in voiceServicesCommunicationsGateway.GetTestLinesAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
         }
     }
 }

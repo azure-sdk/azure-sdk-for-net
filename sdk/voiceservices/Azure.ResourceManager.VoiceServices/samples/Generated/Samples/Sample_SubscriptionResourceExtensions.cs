@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.VoiceServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CheckVoiceServicesNameAvailability_CheckLocalNameAvailability()
         {
-            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-01-31/examples/NameAvailability_CheckLocal.json
+            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-09-01/examples/NameAvailability_CheckLocal.json
             // this example is just showing the usage of "NameAvailability_CheckLocal" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -40,7 +40,7 @@ namespace Azure.ResourceManager.VoiceServices.Samples
             VoiceServicesCheckNameAvailabilityContent content = new VoiceServicesCheckNameAvailabilityContent()
             {
                 Name = "myname",
-                ResourceType = new ResourceType("Microsoft.VoiceServices/CommunicationsGateway"),
+                ResourceType = new ResourceType("Microsoft.VoiceServices/CommunicationsGateways"),
             };
             VoiceServicesCheckNameAvailabilityResult result = await subscriptionResource.CheckVoiceServicesNameAvailabilityAsync(location, content);
 

@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.VoiceServices.Models
 {
@@ -52,14 +53,22 @@ namespace Azure.ResourceManager.VoiceServices.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="VoiceServicesCommunicationsGatewayPatch"/>. </summary>
+        /// <param name="identity"> The managed service identities assigned to this resource. </param>
+        /// <param name="sku"> The SKU (Stock Keeping Unit) assigned to this resource. </param>
         /// <param name="tags"> Resource tags. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VoiceServicesCommunicationsGatewayPatch(IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VoiceServicesCommunicationsGatewayPatch(ManagedServiceIdentity identity, VoiceServicesSku sku, IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
+            Identity = identity;
+            Sku = sku;
             Tags = tags;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
+        /// <summary> The managed service identities assigned to this resource. </summary>
+        public ManagedServiceIdentity Identity { get; set; }
+        /// <summary> The SKU (Stock Keeping Unit) assigned to this resource. </summary>
+        public VoiceServicesSku Sku { get; set; }
         /// <summary> Resource tags. </summary>
         public IDictionary<string, string> Tags { get; }
     }
