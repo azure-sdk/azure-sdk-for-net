@@ -62,8 +62,8 @@ namespace Azure.ResourceManager.VoiceServices.Models
         /// <summary> Initializes a new instance of <see cref="VoiceServicesPrimaryRegionProperties"/>. </summary>
         /// <param name="operatorAddresses"> IP address to use to contact the operator network from this region. </param>
         /// <param name="esrpAddresses"> IP address to use to contact the ESRP from this region. </param>
-        /// <param name="allowedSignalingSourceAddressPrefixes"> The allowed source IP address or CIDR ranges for signaling. </param>
-        /// <param name="allowedMediaSourceAddressPrefixes"> The allowed source IP address or CIDR ranges for media. </param>
+        /// <param name="allowedSignalingSourceAddressPrefixes"> The allowed source IP addresses or CIDR ranges for signaling. </param>
+        /// <param name="allowedMediaSourceAddressPrefixes"> The allowed source IP addresses or CIDR ranges for media. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal VoiceServicesPrimaryRegionProperties(IList<string> operatorAddresses, IList<string> esrpAddresses, IList<string> allowedSignalingSourceAddressPrefixes, IList<string> allowedMediaSourceAddressPrefixes, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
@@ -83,9 +83,9 @@ namespace Azure.ResourceManager.VoiceServices.Models
         public IList<string> OperatorAddresses { get; }
         /// <summary> IP address to use to contact the ESRP from this region. </summary>
         public IList<string> EsrpAddresses { get; }
-        /// <summary> The allowed source IP address or CIDR ranges for signaling. </summary>
+        /// <summary> The allowed source IP addresses or CIDR ranges for signaling. </summary>
         public IList<string> AllowedSignalingSourceAddressPrefixes { get; }
-        /// <summary> The allowed source IP address or CIDR ranges for media. </summary>
+        /// <summary> The allowed source IP addresses or CIDR ranges for media. </summary>
         public IList<string> AllowedMediaSourceAddressPrefixes { get; }
     }
 }

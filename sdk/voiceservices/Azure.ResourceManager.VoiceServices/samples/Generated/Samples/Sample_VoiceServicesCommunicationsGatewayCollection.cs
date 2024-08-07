@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.VoiceServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListCommunicationsGatewayResource()
         {
-            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-01-31/examples/CommunicationsGateways_ListByResourceGroup.json
+            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-09-01/examples/CommunicationsGateways_ListByResourceGroup.json
             // this example is just showing the usage of "CommunicationsGateways_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.VoiceServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetCommunicationsGatewayResource()
         {
-            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-01-31/examples/CommunicationsGateways_Get.json
+            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-09-01/examples/CommunicationsGateways_Get.json
             // this example is just showing the usage of "CommunicationsGateways_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.VoiceServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetCommunicationsGatewayResource()
         {
-            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-01-31/examples/CommunicationsGateways_Get.json
+            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-09-01/examples/CommunicationsGateways_Get.json
             // this example is just showing the usage of "CommunicationsGateways_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.VoiceServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetCommunicationsGatewayResource()
         {
-            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-01-31/examples/CommunicationsGateways_Get.json
+            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-09-01/examples/CommunicationsGateways_Get.json
             // this example is just showing the usage of "CommunicationsGateways_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -163,7 +163,7 @@ namespace Azure.ResourceManager.VoiceServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateCommunicationsGatewayResource()
         {
-            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-01-31/examples/CommunicationsGateways_CreateOrUpdate.json
+            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-09-01/examples/CommunicationsGateways_CreateOrUpdate.json
             // this example is just showing the usage of "CommunicationsGateways_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -185,6 +185,7 @@ namespace Azure.ResourceManager.VoiceServices.Samples
             string communicationsGatewayName = "myname";
             VoiceServicesCommunicationsGatewayData data = new VoiceServicesCommunicationsGatewayData(new AzureLocation("useast"))
             {
+                Sku = new VoiceServicesSku("standard"),
                 ServiceLocations =
 {
 new VoiceServicesServiceRegionProperties("useast",new VoiceServicesPrimaryRegionProperties(new string[]
@@ -223,10 +224,32 @@ VoiceServicesTeamsCodec.Pcma
                 E911Type = VoiceServicesEmergencyCallType.Standard,
                 Platforms =
 {
-VoiceServicesCommunicationsPlatform.OperatorConnect
+VoiceServicesCommunicationsPlatform.OperatorConnect,VoiceServicesCommunicationsPlatform.TeamsDirectRouting
 },
+                ApiBridge = new ApiBridgeProperties()
+                {
+                    ConfigureApiBridge = ApiBridgeActivationState.Enabled,
+                    AllowedAddressPrefixes =
+{
+"198.51.100.192/26"
+},
+                },
                 AutoGeneratedDomainNameLabelScope = VoiceServicesAutoGeneratedDomainNameLabelScope.NoReuse,
                 TeamsVoicemailPilotNumber = "1234567890",
+                DnsDelegations =
+{
+new DnsDelegationProperties()
+{
+Domain = "commsgw.contoso.com",
+}
+},
+                CustomSipHeaders =
+{
+new CustomSipHeader()
+{
+Name = "x-contoso-commsgw-identifier",
+}
+},
             };
             ArmOperation<VoiceServicesCommunicationsGatewayResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, communicationsGatewayName, data);
             VoiceServicesCommunicationsGatewayResource result = lro.Value;

@@ -45,17 +45,5 @@ namespace Azure.ResourceManager.VoiceServices.Mocking
             VoiceServicesCommunicationsGatewayResource.ValidateResourceId(id);
             return new VoiceServicesCommunicationsGatewayResource(Client, id);
         }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="VoiceServicesTestLineResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="VoiceServicesTestLineResource.CreateResourceIdentifier" /> to create a <see cref="VoiceServicesTestLineResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="VoiceServicesTestLineResource"/> object. </returns>
-        public virtual VoiceServicesTestLineResource GetVoiceServicesTestLineResource(ResourceIdentifier id)
-        {
-            VoiceServicesTestLineResource.ValidateResourceId(id);
-            return new VoiceServicesTestLineResource(Client, id);
-        }
     }
 }

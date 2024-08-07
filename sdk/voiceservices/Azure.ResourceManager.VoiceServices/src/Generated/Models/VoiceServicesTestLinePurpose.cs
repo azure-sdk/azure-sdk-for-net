@@ -25,9 +25,9 @@ namespace Azure.ResourceManager.VoiceServices.Models
         private const string ManualValue = "Manual";
         private const string AutomatedValue = "Automated";
 
-        /// <summary> Manual. </summary>
+        /// <summary> The test line is used for manual testing. </summary>
         public static VoiceServicesTestLinePurpose Manual { get; } = new VoiceServicesTestLinePurpose(ManualValue);
-        /// <summary> Automated. </summary>
+        /// <summary> The test line is used for automated testing. </summary>
         public static VoiceServicesTestLinePurpose Automated { get; } = new VoiceServicesTestLinePurpose(AutomatedValue);
         /// <summary> Determines if two <see cref="VoiceServicesTestLinePurpose"/> values are the same. </summary>
         public static bool operator ==(VoiceServicesTestLinePurpose left, VoiceServicesTestLinePurpose right) => left.Equals(right);

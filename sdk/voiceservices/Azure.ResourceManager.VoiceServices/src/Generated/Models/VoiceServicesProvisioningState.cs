@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.VoiceServices.Models
         private const string FailedValue = "Failed";
         private const string CanceledValue = "Canceled";
 
-        /// <summary> Succeeded. </summary>
+        /// <summary> Resource has been created. </summary>
         public static VoiceServicesProvisioningState Succeeded { get; } = new VoiceServicesProvisioningState(SucceededValue);
-        /// <summary> Failed. </summary>
+        /// <summary> Resource creation failed. </summary>
         public static VoiceServicesProvisioningState Failed { get; } = new VoiceServicesProvisioningState(FailedValue);
-        /// <summary> Canceled. </summary>
+        /// <summary> Resource creation was canceled. </summary>
         public static VoiceServicesProvisioningState Canceled { get; } = new VoiceServicesProvisioningState(CanceledValue);
         /// <summary> Determines if two <see cref="VoiceServicesProvisioningState"/> values are the same. </summary>
         public static bool operator ==(VoiceServicesProvisioningState left, VoiceServicesProvisioningState right) => left.Equals(right);
