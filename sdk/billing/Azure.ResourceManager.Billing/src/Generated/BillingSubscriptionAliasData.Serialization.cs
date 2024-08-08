@@ -106,6 +106,11 @@ namespace Azure.ResourceManager.Billing
                 writer.WritePropertyName("customerDisplayName"u8);
                 writer.WriteStringValue(CustomerDisplayName);
             }
+            if (options.Format != "W" && Optional.IsDefined(CustomerName))
+            {
+                writer.WritePropertyName("customerName"u8);
+                writer.WriteStringValue(CustomerName);
+            }
             if (Optional.IsDefined(DisplayName))
             {
                 writer.WritePropertyName("displayName"u8);
@@ -307,6 +312,7 @@ namespace Azure.ResourceManager.Billing
             string consumptionCostCenter = default;
             string customerId = default;
             string customerDisplayName = default;
+            string customerName = default;
             string displayName = default;
             string enrollmentAccountId = default;
             string enrollmentAccountDisplayName = default;
@@ -437,6 +443,11 @@ namespace Azure.ResourceManager.Billing
                         if (property0.NameEquals("customerDisplayName"u8))
                         {
                             customerDisplayName = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("customerName"u8))
+                        {
+                            customerName = property0.Value.GetString();
                             continue;
                         }
                         if (property0.NameEquals("displayName"u8))
@@ -684,6 +695,7 @@ namespace Azure.ResourceManager.Billing
                 consumptionCostCenter,
                 customerId,
                 customerDisplayName,
+                customerName,
                 displayName,
                 enrollmentAccountId,
                 enrollmentAccountDisplayName,
