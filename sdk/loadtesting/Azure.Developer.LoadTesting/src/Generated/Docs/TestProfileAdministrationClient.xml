@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateOrUpdateTestProfileAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateTestProfileAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.CreateOrUpdateTestProfileAsync("<testProfileId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+]]></code>
+This sample shows how to call CreateOrUpdateTestProfileAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    displayName = "<displayName>",
+    description = "<description>",
+    testId = "<testId>",
+    targetResourceId = "<targetResourceId>",
+    targetResourceConfigurations = new
+    {
+        kind = "FunctionsFlexConsumption",
+        configurations = new
+        {
+            key = new
+            {
+                instanceMemoryMB = 1234L,
+                httpConcurrency = 1234L,
+            },
+        },
+    },
+});
+Response response = await client.CreateOrUpdateTestProfileAsync("<testProfileId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("testId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceConfigurations").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedBy").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateTestProfile(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateTestProfile and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.CreateOrUpdateTestProfile("<testProfileId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+]]></code>
+This sample shows how to call CreateOrUpdateTestProfile with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    displayName = "<displayName>",
+    description = "<description>",
+    testId = "<testId>",
+    targetResourceId = "<targetResourceId>",
+    targetResourceConfigurations = new
+    {
+        kind = "FunctionsFlexConsumption",
+        configurations = new
+        {
+            key = new
+            {
+                instanceMemoryMB = 1234L,
+                httpConcurrency = 1234L,
+            },
+        },
+    },
+});
+Response response = client.CreateOrUpdateTestProfile("<testProfileId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("testId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceConfigurations").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedBy").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteTestProfileAsync(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteTestProfileAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response response = await client.DeleteTestProfileAsync("<testProfileId>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call DeleteTestProfileAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response response = await client.DeleteTestProfileAsync("<testProfileId>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteTestProfile(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteTestProfile.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response response = client.DeleteTestProfile("<testProfileId>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call DeleteTestProfile with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response response = client.DeleteTestProfile("<testProfileId>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetTestProfileAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfileAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response<TestProfile> response = await client.GetTestProfileAsync("<testProfileId>");
+]]></code>
+This sample shows how to call GetTestProfileAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response<TestProfile> response = await client.GetTestProfileAsync("<testProfileId>");
+]]></code></example>
+    </member>
+    <member name="GetTestProfile(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfile.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response<TestProfile> response = client.GetTestProfile("<testProfileId>");
+]]></code>
+This sample shows how to call GetTestProfile with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response<TestProfile> response = client.GetTestProfile("<testProfileId>");
+]]></code></example>
+    </member>
+    <member name="GetTestProfileAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfileAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response response = await client.GetTestProfileAsync("<testProfileId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+]]></code>
+This sample shows how to call GetTestProfileAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response response = await client.GetTestProfileAsync("<testProfileId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("testId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceConfigurations").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedBy").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTestProfile(string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfile and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response response = client.GetTestProfile("<testProfileId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+]]></code>
+This sample shows how to call GetTestProfile with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response response = client.GetTestProfile("<testProfileId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("testId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceConfigurations").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedBy").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTestProfilesAsync(int?,DateTimeOffset?,DateTimeOffset?,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfilesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+await foreach (TestProfile item in client.GetTestProfilesAsync())
+{
+}
+]]></code>
+This sample shows how to call GetTestProfilesAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+await foreach (TestProfile item in client.GetTestProfilesAsync(maxpagesize: 1234, lastModifiedStartTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), lastModifiedEndTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), testProfileIds: "<testProfileIds>", testIds: "<testIds>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTestProfiles(int?,DateTimeOffset?,DateTimeOffset?,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfiles.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+foreach (TestProfile item in client.GetTestProfiles())
+{
+}
+]]></code>
+This sample shows how to call GetTestProfiles with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+foreach (TestProfile item in client.GetTestProfiles(maxpagesize: 1234, lastModifiedStartTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), lastModifiedEndTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), testProfileIds: "<testProfileIds>", testIds: "<testIds>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTestProfilesAsync(int?,DateTimeOffset?,DateTimeOffset?,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfilesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetTestProfilesAsync(null, null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("testProfileId").ToString());
+}
+]]></code>
+This sample shows how to call GetTestProfilesAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetTestProfilesAsync(1234, DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), "<testProfileIds>", "<testIds>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("testProfileId").ToString());
+    Console.WriteLine(result.GetProperty("displayName").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("testId").ToString());
+    Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+    Console.WriteLine(result.GetProperty("targetResourceConfigurations").GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+    Console.WriteLine(result.GetProperty("createdBy").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedBy").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetTestProfiles(int?,DateTimeOffset?,DateTimeOffset?,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfiles and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetTestProfiles(null, null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("testProfileId").ToString());
+}
+]]></code>
+This sample shows how to call GetTestProfiles with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetTestProfiles(1234, DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), "<testProfileIds>", "<testIds>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("testProfileId").ToString());
+    Console.WriteLine(result.GetProperty("displayName").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("testId").ToString());
+    Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+    Console.WriteLine(result.GetProperty("targetResourceConfigurations").GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+    Console.WriteLine(result.GetProperty("createdBy").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedBy").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
