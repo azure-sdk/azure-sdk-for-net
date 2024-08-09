@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>This is the Azure.ResourceManager.HealthDataAIServices client library for developing .NET applications with rich experience.</Description>
+    <AssemblyTitle>Azure SDK Code Generation Azure.ResourceManager.HealthDataAIServices for Azure Data Plane</AssemblyTitle>
+    <Version>1.0.0-beta.1</Version>
+    <PackageTags>Azure.ResourceManager.HealthDataAIServices</PackageTags>
+    <TargetFrameworks>$(RequiredTargetFrameworks)</TargetFrameworks>
+    <IncludeOperationsSharedSource>true</IncludeOperationsSharedSource>
+    <IncludeManagementSharedCode>true</IncludeManagementSharedCode>
+  </PropertyGroup>
+</Project>
