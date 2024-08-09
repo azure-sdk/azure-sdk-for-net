@@ -46,12 +46,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="DataBoxOrderCompletedEventData"/>. </summary>
-        /// <param name="stageName"> Name of the current Stage. </param>
-        /// <param name="stageTime"> The time at which the stage happened. </param>
-        internal DataBoxOrderCompletedEventData(DataBoxStageName stageName, DateTimeOffset stageTime)
+        internal DataBoxOrderCompletedEventData()
         {
-            StageName = stageName;
-            StageTime = stageTime;
         }
 
         /// <summary> Initializes a new instance of <see cref="DataBoxOrderCompletedEventData"/>. </summary>
@@ -59,7 +55,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="stageName"> Name of the current Stage. </param>
         /// <param name="stageTime"> The time at which the stage happened. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DataBoxOrderCompletedEventData(string serialNumber, DataBoxStageName stageName, DateTimeOffset stageTime, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DataBoxOrderCompletedEventData(string serialNumber, DataBoxStageName? stageName, DateTimeOffset? stageTime, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             SerialNumber = serialNumber;
             StageName = stageName;
@@ -67,16 +63,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DataBoxOrderCompletedEventData"/> for deserialization. </summary>
-        internal DataBoxOrderCompletedEventData()
-        {
-        }
-
         /// <summary> Serial Number of the device associated with the event. The list is comma separated if more than one serial number is associated. </summary>
         public string SerialNumber { get; }
         /// <summary> Name of the current Stage. </summary>
-        public DataBoxStageName StageName { get; }
+        public DataBoxStageName? StageName { get; }
         /// <summary> The time at which the stage happened. </summary>
-        public DateTimeOffset StageTime { get; }
+        public DateTimeOffset? StageTime { get; }
     }
 }
