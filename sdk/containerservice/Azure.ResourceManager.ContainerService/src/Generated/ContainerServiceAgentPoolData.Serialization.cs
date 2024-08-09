@@ -50,6 +50,11 @@ namespace Azure.ResourceManager.ContainerService
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
+            if (options.Format != "W" && Optional.IsDefined(ETag))
+            {
+                writer.WritePropertyName("eTag"u8);
+                writer.WriteStringValue(ETag.Value.ToString());
+            }
             if (Optional.IsDefined(Count))
             {
                 writer.WritePropertyName("count"u8);
@@ -80,6 +85,11 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("workloadRuntime"u8);
                 writer.WriteStringValue(WorkloadRuntime.Value.ToString());
             }
+            if (Optional.IsDefined(MessageOfTheDay))
+            {
+                writer.WritePropertyName("messageOfTheDay"u8);
+                writer.WriteStringValue(MessageOfTheDay);
+            }
             if (Optional.IsDefined(VnetSubnetId))
             {
                 writer.WritePropertyName("vnetSubnetID"u8);
@@ -89,6 +99,11 @@ namespace Azure.ResourceManager.ContainerService
             {
                 writer.WritePropertyName("podSubnetID"u8);
                 writer.WriteStringValue(PodSubnetId);
+            }
+            if (Optional.IsDefined(PodIPAllocationMode))
+            {
+                writer.WritePropertyName("podIPAllocationMode"u8);
+                writer.WriteStringValue(PodIPAllocationMode.Value.ToString());
             }
             if (Optional.IsDefined(MaxPods))
             {
@@ -180,6 +195,11 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("enableNodePublicIP"u8);
                 writer.WriteBooleanValue(EnableNodePublicIP.Value);
             }
+            if (Optional.IsDefined(EnableCustomCATrust))
+            {
+                writer.WritePropertyName("enableCustomCATrust"u8);
+                writer.WriteBooleanValue(EnableCustomCATrust.Value);
+            }
             if (Optional.IsDefined(NodePublicIPPrefixId))
             {
                 writer.WritePropertyName("nodePublicIPPrefixID"u8);
@@ -227,6 +247,16 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("nodeTaints"u8);
                 writer.WriteStartArray();
                 foreach (var item in NodeTaints)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsCollectionDefined(NodeInitializationTaints))
+            {
+                writer.WritePropertyName("nodeInitializationTaints"u8);
+                writer.WriteStartArray();
+                foreach (var item in NodeInitializationTaints)
                 {
                     writer.WriteStringValue(item);
                 }
@@ -282,10 +312,50 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("hostGroupID"u8);
                 writer.WriteStringValue(HostGroupId);
             }
+            if (Optional.IsDefined(WindowsProfile))
+            {
+                writer.WritePropertyName("windowsProfile"u8);
+                writer.WriteObjectValue(WindowsProfile, options);
+            }
             if (Optional.IsDefined(NetworkProfile))
             {
                 writer.WritePropertyName("networkProfile"u8);
                 writer.WriteObjectValue(NetworkProfile, options);
+            }
+            if (Optional.IsDefined(SecurityProfile))
+            {
+                writer.WritePropertyName("securityProfile"u8);
+                writer.WriteObjectValue(SecurityProfile, options);
+            }
+            if (Optional.IsDefined(GpuProfile))
+            {
+                writer.WritePropertyName("gpuProfile"u8);
+                writer.WriteObjectValue(GpuProfile, options);
+            }
+            if (Optional.IsDefined(ArtifactStreamingProfile))
+            {
+                writer.WritePropertyName("artifactStreamingProfile"u8);
+                writer.WriteObjectValue(ArtifactStreamingProfile, options);
+            }
+            if (Optional.IsDefined(VirtualMachinesProfile))
+            {
+                writer.WritePropertyName("virtualMachinesProfile"u8);
+                writer.WriteObjectValue(VirtualMachinesProfile, options);
+            }
+            if (Optional.IsCollectionDefined(VirtualMachineNodesStatus))
+            {
+                writer.WritePropertyName("virtualMachineNodesStatus"u8);
+                writer.WriteStartArray();
+                foreach (var item in VirtualMachineNodesStatus)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(GatewayProfile))
+            {
+                writer.WritePropertyName("gatewayProfile"u8);
+                writer.WriteObjectValue(GatewayProfile, options);
             }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -330,14 +400,17 @@ namespace Azure.ResourceManager.ContainerService
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
+            ETag? etag = default;
             int? count = default;
             string vmSize = default;
             int? osDiskSizeGB = default;
             ContainerServiceOSDiskType? osDiskType = default;
             KubeletDiskType? kubeletDiskType = default;
             WorkloadRuntime? workloadRuntime = default;
+            string messageOfTheDay = default;
             ResourceIdentifier vnetSubnetId = default;
             ResourceIdentifier podSubnetId = default;
+            PodIPAllocationMode? podIPAllocationMode = default;
             int? maxPods = default;
             ContainerServiceOSType? osType = default;
             ContainerServiceOSSku? osSku = default;
@@ -355,6 +428,7 @@ namespace Azure.ResourceManager.ContainerService
             ContainerServicePowerState powerState = default;
             IList<string> availabilityZones = default;
             bool? enableNodePublicIP = default;
+            bool? enableCustomCATrust = default;
             ResourceIdentifier nodePublicIPPrefixId = default;
             ScaleSetPriority? scaleSetPriority = default;
             ScaleSetEvictionPolicy? scaleSetEvictionPolicy = default;
@@ -362,6 +436,7 @@ namespace Azure.ResourceManager.ContainerService
             IDictionary<string, string> tags = default;
             IDictionary<string, string> nodeLabels = default;
             IList<string> nodeTaints = default;
+            IList<string> nodeInitializationTaints = default;
             ResourceIdentifier proximityPlacementGroupId = default;
             KubeletConfig kubeletConfig = default;
             LinuxOSConfig linuxOSConfig = default;
@@ -372,7 +447,14 @@ namespace Azure.ResourceManager.ContainerService
             ContainerServiceCreationData creationData = default;
             ResourceIdentifier capacityReservationGroupId = default;
             ResourceIdentifier hostGroupId = default;
+            AgentPoolWindowsProfile windowsProfile = default;
             AgentPoolNetworkProfile networkProfile = default;
+            AgentPoolSecurityProfile securityProfile = default;
+            AgentPoolGpuProfile gpuProfile = default;
+            AgentPoolArtifactStreamingProfile artifactStreamingProfile = default;
+            VirtualMachinesProfile virtualMachinesProfile = default;
+            IList<VirtualMachineNodes> virtualMachineNodesStatus = default;
+            AgentPoolGatewayProfile gatewayProfile = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -410,6 +492,15 @@ namespace Azure.ResourceManager.ContainerService
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
+                        if (property0.NameEquals("eTag"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            etag = new ETag(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("count"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -460,6 +551,11 @@ namespace Azure.ResourceManager.ContainerService
                             workloadRuntime = new WorkloadRuntime(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("messageOfTheDay"u8))
+                        {
+                            messageOfTheDay = property0.Value.GetString();
+                            continue;
+                        }
                         if (property0.NameEquals("vnetSubnetID"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -476,6 +572,15 @@ namespace Azure.ResourceManager.ContainerService
                                 continue;
                             }
                             podSubnetId = new ResourceIdentifier(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("podIPAllocationMode"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            podIPAllocationMode = new PodIPAllocationMode(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("maxPods"u8))
@@ -620,6 +725,15 @@ namespace Azure.ResourceManager.ContainerService
                             enableNodePublicIP = property0.Value.GetBoolean();
                             continue;
                         }
+                        if (property0.NameEquals("enableCustomCATrust"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            enableCustomCATrust = property0.Value.GetBoolean();
+                            continue;
+                        }
                         if (property0.NameEquals("nodePublicIPPrefixID"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -696,6 +810,20 @@ namespace Azure.ResourceManager.ContainerService
                                 array.Add(item.GetString());
                             }
                             nodeTaints = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("nodeInitializationTaints"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<string> array = new List<string>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(item.GetString());
+                            }
+                            nodeInitializationTaints = array;
                             continue;
                         }
                         if (property0.NameEquals("proximityPlacementGroupID"u8))
@@ -788,6 +916,15 @@ namespace Azure.ResourceManager.ContainerService
                             hostGroupId = new ResourceIdentifier(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("windowsProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            windowsProfile = AgentPoolWindowsProfile.DeserializeAgentPoolWindowsProfile(property0.Value, options);
+                            continue;
+                        }
                         if (property0.NameEquals("networkProfile"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -795,6 +932,65 @@ namespace Azure.ResourceManager.ContainerService
                                 continue;
                             }
                             networkProfile = AgentPoolNetworkProfile.DeserializeAgentPoolNetworkProfile(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("securityProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            securityProfile = AgentPoolSecurityProfile.DeserializeAgentPoolSecurityProfile(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("gpuProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            gpuProfile = AgentPoolGpuProfile.DeserializeAgentPoolGpuProfile(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("artifactStreamingProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            artifactStreamingProfile = AgentPoolArtifactStreamingProfile.DeserializeAgentPoolArtifactStreamingProfile(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("virtualMachinesProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            virtualMachinesProfile = VirtualMachinesProfile.DeserializeVirtualMachinesProfile(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("virtualMachineNodesStatus"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<VirtualMachineNodes> array = new List<VirtualMachineNodes>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(VirtualMachineNodes.DeserializeVirtualMachineNodes(item, options));
+                            }
+                            virtualMachineNodesStatus = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("gatewayProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            gatewayProfile = AgentPoolGatewayProfile.DeserializeAgentPoolGatewayProfile(property0.Value, options);
                             continue;
                         }
                     }
@@ -811,14 +1007,17 @@ namespace Azure.ResourceManager.ContainerService
                 name,
                 type,
                 systemData,
+                etag,
                 count,
                 vmSize,
                 osDiskSizeGB,
                 osDiskType,
                 kubeletDiskType,
                 workloadRuntime,
+                messageOfTheDay,
                 vnetSubnetId,
                 podSubnetId,
+                podIPAllocationMode,
                 maxPods,
                 osType,
                 osSku,
@@ -836,6 +1035,7 @@ namespace Azure.ResourceManager.ContainerService
                 powerState,
                 availabilityZones ?? new ChangeTrackingList<string>(),
                 enableNodePublicIP,
+                enableCustomCATrust,
                 nodePublicIPPrefixId,
                 scaleSetPriority,
                 scaleSetEvictionPolicy,
@@ -843,6 +1043,7 @@ namespace Azure.ResourceManager.ContainerService
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 nodeLabels ?? new ChangeTrackingDictionary<string, string>(),
                 nodeTaints ?? new ChangeTrackingList<string>(),
+                nodeInitializationTaints ?? new ChangeTrackingList<string>(),
                 proximityPlacementGroupId,
                 kubeletConfig,
                 linuxOSConfig,
@@ -853,7 +1054,14 @@ namespace Azure.ResourceManager.ContainerService
                 creationData,
                 capacityReservationGroupId,
                 hostGroupId,
+                windowsProfile,
                 networkProfile,
+                securityProfile,
+                gpuProfile,
+                artifactStreamingProfile,
+                virtualMachinesProfile,
+                virtualMachineNodesStatus ?? new ChangeTrackingList<VirtualMachineNodes>(),
+                gatewayProfile,
                 serializedAdditionalRawData);
         }
 
