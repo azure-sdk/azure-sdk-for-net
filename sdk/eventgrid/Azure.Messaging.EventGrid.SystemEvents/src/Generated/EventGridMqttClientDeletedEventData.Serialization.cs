@@ -13,16 +13,16 @@ using Azure.Core;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
-    public partial class EventGridMQTTClientEventData : IUtf8JsonSerializable, IJsonModel<EventGridMQTTClientEventData>
+    public partial class EventGridMqttClientDeletedEventData : IUtf8JsonSerializable, IJsonModel<EventGridMqttClientDeletedEventData>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<EventGridMQTTClientEventData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<EventGridMqttClientDeletedEventData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<EventGridMQTTClientEventData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<EventGridMqttClientDeletedEventData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EventGridMQTTClientEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EventGridMqttClientDeletedEventData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(EventGridMQTTClientEventData)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(EventGridMqttClientDeletedEventData)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -59,19 +59,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             writer.WriteEndObject();
         }
 
-        EventGridMQTTClientEventData IJsonModel<EventGridMQTTClientEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        EventGridMqttClientDeletedEventData IJsonModel<EventGridMqttClientDeletedEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EventGridMQTTClientEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EventGridMqttClientDeletedEventData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(EventGridMQTTClientEventData)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(EventGridMqttClientDeletedEventData)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeEventGridMQTTClientEventData(document.RootElement, options);
+            return DeserializeEventGridMqttClientDeletedEventData(document.RootElement, options);
         }
 
-        internal static EventGridMQTTClientEventData DeserializeEventGridMQTTClientEventData(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static EventGridMqttClientDeletedEventData DeserializeEventGridMqttClientDeletedEventData(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -107,50 +107,50 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new EventGridMQTTClientEventData(clientAuthenticationName, clientName, namespaceName, serializedAdditionalRawData);
+            return new EventGridMqttClientDeletedEventData(clientAuthenticationName, clientName, namespaceName, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<EventGridMQTTClientEventData>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<EventGridMqttClientDeletedEventData>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EventGridMQTTClientEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EventGridMqttClientDeletedEventData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(EventGridMQTTClientEventData)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(EventGridMqttClientDeletedEventData)} does not support writing '{options.Format}' format.");
             }
         }
 
-        EventGridMQTTClientEventData IPersistableModel<EventGridMQTTClientEventData>.Create(BinaryData data, ModelReaderWriterOptions options)
+        EventGridMqttClientDeletedEventData IPersistableModel<EventGridMqttClientDeletedEventData>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EventGridMQTTClientEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EventGridMqttClientDeletedEventData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeEventGridMQTTClientEventData(document.RootElement, options);
+                        return DeserializeEventGridMqttClientDeletedEventData(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(EventGridMQTTClientEventData)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(EventGridMqttClientDeletedEventData)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<EventGridMQTTClientEventData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<EventGridMqttClientDeletedEventData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static EventGridMQTTClientEventData FromResponse(Response response)
+        internal static new EventGridMqttClientDeletedEventData FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeEventGridMQTTClientEventData(document.RootElement);
+            return DeserializeEventGridMqttClientDeletedEventData(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal virtual RequestContent ToRequestContent()
+        internal override RequestContent ToRequestContent()
         {
             var content = new Utf8JsonRequestContent();
             content.JsonWriter.WriteObjectValue(this, ModelSerializationExtensions.WireOptions);
