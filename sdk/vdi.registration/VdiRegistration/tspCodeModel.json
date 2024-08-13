@@ -1,0 +1,1710 @@
+{
+ "$id": "1",
+ "Name": "VdiBatchRegistration",
+ "ApiVersions": [
+  "2024-08-01-preview"
+ ],
+ "Enums": [
+  {
+   "$id": "2",
+   "Kind": "enum",
+   "Name": "Versions",
+   "CrossLanguageDefinitionId": "VdiBatchRegistration.Versions",
+   "ValueType": {
+    "$id": "3",
+    "Kind": "string",
+    "Name": "string",
+    "CrossLanguageDefinitionId": "TypeSpec.string"
+   },
+   "Values": [
+    {
+     "$id": "4",
+     "Name": "v2024_08_01_preview",
+     "Value": "2024-08-01-preview",
+     "Description": "The 2024-08-01-preview version of the VDI.Registration service."
+    }
+   ],
+   "Description": "The VdiBatchRegistration service versions.",
+   "IsExtensible": false,
+   "Usage": "ApiVersionEnum"
+  },
+  {
+   "$id": "5",
+   "Kind": "enum",
+   "Name": "RepeatabilityResult",
+   "CrossLanguageDefinitionId": "Azure.Core.RepeatabilityResult",
+   "ValueType": {
+    "$id": "6",
+    "Kind": "string",
+    "Name": "string",
+    "CrossLanguageDefinitionId": "TypeSpec.string"
+   },
+   "Values": [
+    {
+     "$id": "7",
+     "Name": "accepted",
+     "Value": "accepted",
+     "Description": "If the request was accepted and the server guarantees that the server state reflects a single execution of the operation."
+    },
+    {
+     "$id": "8",
+     "Name": "rejected",
+     "Value": "rejected",
+     "Description": "If the request was rejected because the combination of Repeatability-First-Sent and Repeatability-Request-ID were invalid\nor because the Repeatability-First-Sent value was outside the range of values held by the server."
+    }
+   ],
+   "Description": "Repeatability Result header options",
+   "IsExtensible": false,
+   "Usage": "None"
+  }
+ ],
+ "Models": [
+  {
+   "$id": "9",
+   "Kind": "model",
+   "Name": "GetRegistrationResponse",
+   "CrossLanguageDefinitionId": "getRegistration.Response.anonymous",
+   "Usage": "Output,Json",
+   "Decorators": [],
+   "Properties": [
+    {
+     "$id": "10",
+     "Name": "storage",
+     "SerializedName": "storage",
+     "Description": "The storage configuration definition",
+     "Type": {
+      "$id": "11",
+      "Kind": "model",
+      "Name": "Storage",
+      "CrossLanguageDefinitionId": "VdiBatchRegistration.Storage",
+      "Usage": "Input,Output,JsonMergePatch,Json",
+      "Description": "The storage configuration definition",
+      "Decorators": [],
+      "Properties": []
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "12",
+     "Name": "processing",
+     "SerializedName": "processing",
+     "Description": "The processing configuration definition",
+     "Type": {
+      "$id": "13",
+      "Kind": "model",
+      "Name": "Processing",
+      "CrossLanguageDefinitionId": "VdiBatchRegistration.Processing",
+      "Usage": "Input,Output,JsonMergePatch,Json",
+      "Description": "The processing configuration definition",
+      "Decorators": [],
+      "Properties": []
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "14",
+     "Name": "customProperties",
+     "SerializedName": "customProperties",
+     "Description": "The processing configuration definition",
+     "Type": {
+      "$id": "15",
+      "Kind": "model",
+      "Name": "GetRegistrationResponseCustomProperties",
+      "CrossLanguageDefinitionId": "VdiBatchRegistration.getRegistration.Response.customProperties.anonymous",
+      "Usage": "Input,Output,JsonMergePatch,Json",
+      "Decorators": [],
+      "Properties": []
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "16",
+     "Name": "aiTaskConfigurations",
+     "SerializedName": "aiTaskConfigurations",
+     "Description": "The AI Task configuration definition",
+     "Type": {
+      "$id": "17",
+      "Kind": "dict",
+      "KeyType": {
+       "$id": "18",
+       "Kind": "string",
+       "Name": "string",
+       "CrossLanguageDefinitionId": "TypeSpec.string"
+      },
+      "ValueType": {
+       "$id": "19",
+       "Kind": "model",
+       "Name": "AiTaskConfiguration",
+       "CrossLanguageDefinitionId": "VdiBatchRegistration.AiTaskConfiguration",
+       "Usage": "Input,Output,JsonMergePatch,Json",
+       "Description": "The AI Task configuration definition",
+       "Decorators": [],
+       "Properties": [
+        {
+         "$id": "20",
+         "Name": "version",
+         "SerializedName": "version",
+         "Description": "Version of the AI Task configured",
+         "Type": {
+          "$id": "21",
+          "Kind": "string",
+          "Name": "string",
+          "CrossLanguageDefinitionId": "TypeSpec.string"
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        }
+       ]
+      }
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "22",
+     "Name": "analytics",
+     "SerializedName": "analytics",
+     "Description": "The anlytics configuration definition",
+     "Type": {
+      "$id": "23",
+      "Kind": "model",
+      "Name": "GetRegistrationResponseAnalytics",
+      "CrossLanguageDefinitionId": "VdiBatchRegistration.getRegistration.Response.analytics.anonymous",
+      "Usage": "Input,Output,JsonMergePatch,Json",
+      "Decorators": [],
+      "Properties": []
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "24",
+     "Name": "status",
+     "SerializedName": "status",
+     "Description": "The status of the created registration",
+     "Type": {
+      "$id": "25",
+      "Kind": "string",
+      "Name": "string",
+      "CrossLanguageDefinitionId": "TypeSpec.string"
+     },
+     "IsRequired": true,
+     "IsReadOnly": true
+    }
+   ]
+  },
+  {
+   "$ref": "11"
+  },
+  {
+   "$ref": "13"
+  },
+  {
+   "$ref": "15"
+  },
+  {
+   "$ref": "19"
+  },
+  {
+   "$ref": "23"
+  },
+  {
+   "$id": "26",
+   "Kind": "model",
+   "Name": "Registration",
+   "CrossLanguageDefinitionId": "VdiBatchRegistration.Registration",
+   "Usage": "Input,Output,JsonMergePatch,Json",
+   "Description": "Represents the registration payload",
+   "Decorators": [],
+   "Properties": [
+    {
+     "$id": "27",
+     "Name": "name",
+     "SerializedName": "name",
+     "Description": "The registration name.",
+     "Type": {
+      "$id": "28",
+      "Kind": "string",
+      "Name": "string",
+      "CrossLanguageDefinitionId": "TypeSpec.string"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "29",
+     "Name": "storage",
+     "SerializedName": "storage",
+     "Description": "The storage configuration definition",
+     "Type": {
+      "$ref": "11"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "30",
+     "Name": "processing",
+     "SerializedName": "processing",
+     "Description": "The processing configuration definition",
+     "Type": {
+      "$ref": "13"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "31",
+     "Name": "customProperties",
+     "SerializedName": "customProperties",
+     "Description": "The processing configuration definition",
+     "Type": {
+      "$ref": "15"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "32",
+     "Name": "aiTaskConfigurations",
+     "SerializedName": "aiTaskConfigurations",
+     "Description": "The AI Task configuration definition",
+     "Type": {
+      "$id": "33",
+      "Kind": "dict",
+      "KeyType": {
+       "$id": "34",
+       "Kind": "string",
+       "Name": "string",
+       "CrossLanguageDefinitionId": "TypeSpec.string"
+      },
+      "ValueType": {
+       "$ref": "19"
+      }
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "35",
+     "Name": "analytics",
+     "SerializedName": "analytics",
+     "Description": "The anlytics configuration definition",
+     "Type": {
+      "$ref": "23"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "36",
+     "Name": "status",
+     "SerializedName": "status",
+     "Description": "The status of the created registration",
+     "Type": {
+      "$id": "37",
+      "Kind": "string",
+      "Name": "string",
+      "CrossLanguageDefinitionId": "TypeSpec.string"
+     },
+     "IsRequired": true,
+     "IsReadOnly": true
+    }
+   ]
+  },
+  {
+   "$id": "38",
+   "Kind": "model",
+   "Name": "CreateOrUpdateRegistrationResponse",
+   "CrossLanguageDefinitionId": "createOrUpdateRegistration.Response.anonymous",
+   "Usage": "Output,Json",
+   "Decorators": [],
+   "Properties": [
+    {
+     "$id": "39",
+     "Name": "storage",
+     "SerializedName": "storage",
+     "Description": "The storage configuration definition",
+     "Type": {
+      "$ref": "11"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "40",
+     "Name": "processing",
+     "SerializedName": "processing",
+     "Description": "The processing configuration definition",
+     "Type": {
+      "$ref": "13"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "41",
+     "Name": "customProperties",
+     "SerializedName": "customProperties",
+     "Description": "The processing configuration definition",
+     "Type": {
+      "$ref": "15"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "42",
+     "Name": "aiTaskConfigurations",
+     "SerializedName": "aiTaskConfigurations",
+     "Description": "The AI Task configuration definition",
+     "Type": {
+      "$id": "43",
+      "Kind": "dict",
+      "KeyType": {
+       "$id": "44",
+       "Kind": "string",
+       "Name": "string",
+       "CrossLanguageDefinitionId": "TypeSpec.string"
+      },
+      "ValueType": {
+       "$ref": "19"
+      }
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "45",
+     "Name": "analytics",
+     "SerializedName": "analytics",
+     "Description": "The anlytics configuration definition",
+     "Type": {
+      "$ref": "23"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "46",
+     "Name": "status",
+     "SerializedName": "status",
+     "Description": "The status of the created registration",
+     "Type": {
+      "$id": "47",
+      "Kind": "string",
+      "Name": "string",
+      "CrossLanguageDefinitionId": "TypeSpec.string"
+     },
+     "IsRequired": true,
+     "IsReadOnly": true
+    }
+   ]
+  },
+  {
+   "$id": "48",
+   "Kind": "model",
+   "Name": "CreateOrUpdateRegistrationResponse1",
+   "CrossLanguageDefinitionId": "createOrUpdateRegistration.Response.anonymous",
+   "Usage": "Output,Json",
+   "Decorators": [],
+   "Properties": [
+    {
+     "$id": "49",
+     "Name": "storage",
+     "SerializedName": "storage",
+     "Description": "The storage configuration definition",
+     "Type": {
+      "$ref": "11"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "50",
+     "Name": "processing",
+     "SerializedName": "processing",
+     "Description": "The processing configuration definition",
+     "Type": {
+      "$ref": "13"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "51",
+     "Name": "customProperties",
+     "SerializedName": "customProperties",
+     "Description": "The processing configuration definition",
+     "Type": {
+      "$ref": "15"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "52",
+     "Name": "aiTaskConfigurations",
+     "SerializedName": "aiTaskConfigurations",
+     "Description": "The AI Task configuration definition",
+     "Type": {
+      "$id": "53",
+      "Kind": "dict",
+      "KeyType": {
+       "$id": "54",
+       "Kind": "string",
+       "Name": "string",
+       "CrossLanguageDefinitionId": "TypeSpec.string"
+      },
+      "ValueType": {
+       "$ref": "19"
+      }
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "55",
+     "Name": "analytics",
+     "SerializedName": "analytics",
+     "Description": "The anlytics configuration definition",
+     "Type": {
+      "$ref": "23"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "56",
+     "Name": "status",
+     "SerializedName": "status",
+     "Description": "The status of the created registration",
+     "Type": {
+      "$id": "57",
+      "Kind": "string",
+      "Name": "string",
+      "CrossLanguageDefinitionId": "TypeSpec.string"
+     },
+     "IsRequired": true,
+     "IsReadOnly": true
+    }
+   ]
+  },
+  {
+   "$id": "58",
+   "Kind": "model",
+   "Name": "PagedRegistration",
+   "CrossLanguageDefinitionId": "Azure.Core.Foundations.CustomPage",
+   "Usage": "None",
+   "Description": "Paged collection of Registration items",
+   "Decorators": [],
+   "Properties": [
+    {
+     "$id": "59",
+     "Name": "value",
+     "SerializedName": "value",
+     "Description": "The Registration items on this page",
+     "Type": {
+      "$id": "60",
+      "Kind": "array",
+      "Name": "ArrayRegistration",
+      "ValueType": {
+       "$ref": "26"
+      },
+      "CrossLanguageDefinitionId": "TypeSpec.Array"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "61",
+     "Name": "nextLink",
+     "SerializedName": "nextLink",
+     "Description": "The link to the next page of items",
+     "Type": {
+      "$id": "62",
+      "Kind": "url",
+      "Name": "ResourceLocation",
+      "CrossLanguageDefinitionId": "TypeSpec.Rest.ResourceLocation",
+      "BaseType": {
+       "$id": "63",
+       "Kind": "url",
+       "Name": "url",
+       "CrossLanguageDefinitionId": "TypeSpec.url"
+      }
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  }
+ ],
+ "Clients": [
+  {
+   "$id": "64",
+   "Name": "VdiBatchRegistrationClient",
+   "Operations": [],
+   "Protocol": {
+    "$id": "65"
+   },
+   "Parameters": [
+    {
+     "$id": "66",
+     "Name": "endpoint",
+     "NameInRequest": "endpoint",
+     "Type": {
+      "$id": "67",
+      "Kind": "url",
+      "Name": "url",
+      "CrossLanguageDefinitionId": "TypeSpec.url"
+     },
+     "Location": "Uri",
+     "IsApiVersion": false,
+     "IsResourceParameter": false,
+     "IsContentType": false,
+     "IsRequired": true,
+     "IsEndpoint": true,
+     "SkipUrlEncoding": false,
+     "Explode": false,
+     "Kind": "Client"
+    }
+   ]
+  },
+  {
+   "$id": "68",
+   "Name": "Registrations",
+   "Operations": [
+    {
+     "$id": "69",
+     "Name": "getRegistration",
+     "ResourceName": "Registration",
+     "Description": "Fetch a registration by name.",
+     "Accessibility": "public",
+     "Parameters": [
+      {
+       "$id": "70",
+       "Name": "endpoint",
+       "NameInRequest": "endpoint",
+       "Type": {
+        "$id": "71",
+        "Kind": "url",
+        "Name": "url",
+        "CrossLanguageDefinitionId": "TypeSpec.url"
+       },
+       "Location": "Uri",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": true,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "72",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "73",
+        "Kind": "string",
+        "Name": "string",
+        "CrossLanguageDefinitionId": "TypeSpec.string"
+       },
+       "Location": "Query",
+       "IsApiVersion": true,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Client",
+       "DefaultValue": {
+        "$id": "74",
+        "Type": {
+         "$id": "75",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "Value": "2024-08-01-preview"
+       }
+      },
+      {
+       "$id": "76",
+       "Name": "registrationName",
+       "NameInRequest": "registrationName",
+       "Description": "The registration name.",
+       "Type": {
+        "$id": "77",
+        "Kind": "string",
+        "Name": "string",
+        "CrossLanguageDefinitionId": "TypeSpec.string"
+       },
+       "Location": "Path",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method"
+      },
+      {
+       "$id": "78",
+       "Name": "ifMatch",
+       "NameInRequest": "If-Match",
+       "Description": "The request should only proceed if an entity matches this string.",
+       "Type": {
+        "$id": "79",
+        "Kind": "string",
+        "Name": "string",
+        "CrossLanguageDefinitionId": "TypeSpec.string"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "80",
+       "Name": "ifNoneMatch",
+       "NameInRequest": "If-None-Match",
+       "Description": "The request should only proceed if no entity matches this string.",
+       "Type": {
+        "$id": "81",
+        "Kind": "string",
+        "Name": "string",
+        "CrossLanguageDefinitionId": "TypeSpec.string"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "82",
+       "Name": "ifUnmodifiedSince",
+       "NameInRequest": "If-Unmodified-Since",
+       "Description": "The request should only proceed if the entity was not modified after this time.",
+       "Type": {
+        "$id": "83",
+        "Kind": "utcDateTime",
+        "Name": "utcDateTime",
+        "Encode": "rfc7231",
+        "WireType": {
+         "$id": "84",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "CrossLanguageDefinitionId": "TypeSpec.utcDateTime"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "85",
+       "Name": "ifModifiedSince",
+       "NameInRequest": "If-Modified-Since",
+       "Description": "The request should only proceed if the entity was modified after this time.",
+       "Type": {
+        "$id": "86",
+        "Kind": "utcDateTime",
+        "Name": "utcDateTime",
+        "Encode": "rfc7231",
+        "WireType": {
+         "$id": "87",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "CrossLanguageDefinitionId": "TypeSpec.utcDateTime"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "88",
+       "Name": "clientRequestId",
+       "NameInRequest": "x-ms-client-request-id",
+       "Description": "An opaque, globally-unique, client-generated string identifier for the request.",
+       "Type": {
+        "$id": "89",
+        "Kind": "string",
+        "Name": "uuid",
+        "CrossLanguageDefinitionId": "Azure.Core.uuid",
+        "BaseType": {
+         "$id": "90",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        }
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "91",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "92",
+        "Kind": "constant",
+        "ValueType": {
+         "$id": "93",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "Value": "application/json"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Constant"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "94",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "9"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [
+        {
+         "$id": "95",
+         "Name": "etagHeader",
+         "NameInResponse": "ETag",
+         "Description": "The entity tag for the response.",
+         "Type": {
+          "$id": "96",
+          "Kind": "string",
+          "Name": "string",
+          "CrossLanguageDefinitionId": "TypeSpec.string"
+         }
+        },
+        {
+         "$id": "97",
+         "Name": "clientRequestId",
+         "NameInResponse": "x-ms-client-request-id",
+         "Description": "An opaque, globally-unique, client-generated string identifier for the request.",
+         "Type": {
+          "$id": "98",
+          "Kind": "string",
+          "Name": "uuid",
+          "CrossLanguageDefinitionId": "Azure.Core.uuid",
+          "BaseType": {
+           "$id": "99",
+           "Kind": "string",
+           "Name": "string",
+           "CrossLanguageDefinitionId": "TypeSpec.string"
+          }
+         }
+        }
+       ],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "{endpoint}",
+     "Path": "/registrations/{registrationName}",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true,
+     "CrossLanguageDefinitionId": "VdiBatchRegistration.Registrations.getRegistration"
+    },
+    {
+     "$id": "100",
+     "Name": "createOrUpdateRegistration",
+     "ResourceName": "Registration",
+     "Description": "Create or update registration.",
+     "Accessibility": "public",
+     "Parameters": [
+      {
+       "$ref": "70"
+      },
+      {
+       "$id": "101",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "102",
+        "Kind": "string",
+        "Name": "string",
+        "CrossLanguageDefinitionId": "TypeSpec.string"
+       },
+       "Location": "Query",
+       "IsApiVersion": true,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Client",
+       "DefaultValue": {
+        "$id": "103",
+        "Type": {
+         "$id": "104",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "Value": "2024-08-01-preview"
+       }
+      },
+      {
+       "$id": "105",
+       "Name": "registrationName",
+       "NameInRequest": "registrationName",
+       "Description": "The registration name.",
+       "Type": {
+        "$id": "106",
+        "Kind": "string",
+        "Name": "string",
+        "CrossLanguageDefinitionId": "TypeSpec.string"
+       },
+       "Location": "Path",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method"
+      },
+      {
+       "$id": "107",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Description": "This request has a JSON Merge Patch body.",
+       "Type": {
+        "$id": "108",
+        "Kind": "constant",
+        "ValueType": {
+         "$id": "109",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "Value": "application/merge-patch+json"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": true,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Constant"
+      },
+      {
+       "$id": "110",
+       "Name": "repeatabilityRequestId",
+       "NameInRequest": "Repeatability-Request-ID",
+       "Description": "An opaque, globally-unique, client-generated string identifier for the request.",
+       "Type": {
+        "$id": "111",
+        "Kind": "string",
+        "Name": "string",
+        "CrossLanguageDefinitionId": "TypeSpec.string"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "112",
+       "Name": "repeatabilityFirstSent",
+       "NameInRequest": "Repeatability-First-Sent",
+       "Description": "Specifies the date and time at which the request was first created.",
+       "Type": {
+        "$id": "113",
+        "Kind": "utcDateTime",
+        "Name": "utcDateTime",
+        "Encode": "rfc7231",
+        "WireType": {
+         "$id": "114",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "CrossLanguageDefinitionId": "TypeSpec.utcDateTime"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "115",
+       "Name": "ifMatch",
+       "NameInRequest": "If-Match",
+       "Description": "The request should only proceed if an entity matches this string.",
+       "Type": {
+        "$id": "116",
+        "Kind": "string",
+        "Name": "string",
+        "CrossLanguageDefinitionId": "TypeSpec.string"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "117",
+       "Name": "ifNoneMatch",
+       "NameInRequest": "If-None-Match",
+       "Description": "The request should only proceed if no entity matches this string.",
+       "Type": {
+        "$id": "118",
+        "Kind": "string",
+        "Name": "string",
+        "CrossLanguageDefinitionId": "TypeSpec.string"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "119",
+       "Name": "ifUnmodifiedSince",
+       "NameInRequest": "If-Unmodified-Since",
+       "Description": "The request should only proceed if the entity was not modified after this time.",
+       "Type": {
+        "$id": "120",
+        "Kind": "utcDateTime",
+        "Name": "utcDateTime",
+        "Encode": "rfc7231",
+        "WireType": {
+         "$id": "121",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "CrossLanguageDefinitionId": "TypeSpec.utcDateTime"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "122",
+       "Name": "ifModifiedSince",
+       "NameInRequest": "If-Modified-Since",
+       "Description": "The request should only proceed if the entity was modified after this time.",
+       "Type": {
+        "$id": "123",
+        "Kind": "utcDateTime",
+        "Name": "utcDateTime",
+        "Encode": "rfc7231",
+        "WireType": {
+         "$id": "124",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "CrossLanguageDefinitionId": "TypeSpec.utcDateTime"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "125",
+       "Name": "clientRequestId",
+       "NameInRequest": "x-ms-client-request-id",
+       "Description": "An opaque, globally-unique, client-generated string identifier for the request.",
+       "Type": {
+        "$id": "126",
+        "Kind": "string",
+        "Name": "uuid",
+        "CrossLanguageDefinitionId": "Azure.Core.uuid",
+        "BaseType": {
+         "$id": "127",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        }
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "128",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "129",
+        "Kind": "constant",
+        "ValueType": {
+         "$id": "130",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "Value": "application/json"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Constant"
+      },
+      {
+       "$id": "131",
+       "Name": "resource",
+       "NameInRequest": "resource",
+       "Description": "The resource instance.",
+       "Type": {
+        "$ref": "26"
+       },
+       "Location": "Body",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "132",
+       "StatusCodes": [
+        201
+       ],
+       "BodyType": {
+        "$ref": "38"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [
+        {
+         "$id": "133",
+         "Name": "repeatabilityResult",
+         "NameInResponse": "Repeatability-Result",
+         "Description": "Indicates whether the repeatable request was accepted or rejected.",
+         "Type": {
+          "$ref": "5"
+         }
+        },
+        {
+         "$id": "134",
+         "Name": "etagHeader",
+         "NameInResponse": "ETag",
+         "Description": "The entity tag for the response.",
+         "Type": {
+          "$id": "135",
+          "Kind": "string",
+          "Name": "string",
+          "CrossLanguageDefinitionId": "TypeSpec.string"
+         }
+        },
+        {
+         "$id": "136",
+         "Name": "clientRequestId",
+         "NameInResponse": "x-ms-client-request-id",
+         "Description": "An opaque, globally-unique, client-generated string identifier for the request.",
+         "Type": {
+          "$id": "137",
+          "Kind": "string",
+          "Name": "uuid",
+          "CrossLanguageDefinitionId": "Azure.Core.uuid",
+          "BaseType": {
+           "$id": "138",
+           "Kind": "string",
+           "Name": "string",
+           "CrossLanguageDefinitionId": "TypeSpec.string"
+          }
+         }
+        }
+       ],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      },
+      {
+       "$id": "139",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "48"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [
+        {
+         "$id": "140",
+         "Name": "repeatabilityResult",
+         "NameInResponse": "Repeatability-Result",
+         "Description": "Indicates whether the repeatable request was accepted or rejected.",
+         "Type": {
+          "$ref": "5"
+         }
+        },
+        {
+         "$id": "141",
+         "Name": "etagHeader",
+         "NameInResponse": "ETag",
+         "Description": "The entity tag for the response.",
+         "Type": {
+          "$id": "142",
+          "Kind": "string",
+          "Name": "string",
+          "CrossLanguageDefinitionId": "TypeSpec.string"
+         }
+        },
+        {
+         "$id": "143",
+         "Name": "clientRequestId",
+         "NameInResponse": "x-ms-client-request-id",
+         "Description": "An opaque, globally-unique, client-generated string identifier for the request.",
+         "Type": {
+          "$id": "144",
+          "Kind": "string",
+          "Name": "uuid",
+          "CrossLanguageDefinitionId": "Azure.Core.uuid",
+          "BaseType": {
+           "$id": "145",
+           "Kind": "string",
+           "Name": "string",
+           "CrossLanguageDefinitionId": "TypeSpec.string"
+          }
+         }
+        }
+       ],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "PATCH",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}",
+     "Path": "/registrations/{registrationName}",
+     "RequestMediaTypes": [
+      "application/merge-patch+json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": false,
+     "CrossLanguageDefinitionId": "VdiBatchRegistration.Registrations.createOrUpdateRegistration"
+    },
+    {
+     "$id": "146",
+     "Name": "deleteRegistration",
+     "ResourceName": "Registration",
+     "Description": "Delete a registration resource.",
+     "Accessibility": "public",
+     "Parameters": [
+      {
+       "$ref": "70"
+      },
+      {
+       "$id": "147",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "148",
+        "Kind": "string",
+        "Name": "string",
+        "CrossLanguageDefinitionId": "TypeSpec.string"
+       },
+       "Location": "Query",
+       "IsApiVersion": true,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Client",
+       "DefaultValue": {
+        "$id": "149",
+        "Type": {
+         "$id": "150",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "Value": "2024-08-01-preview"
+       }
+      },
+      {
+       "$id": "151",
+       "Name": "registrationName",
+       "NameInRequest": "registrationName",
+       "Description": "The registration name.",
+       "Type": {
+        "$id": "152",
+        "Kind": "string",
+        "Name": "string",
+        "CrossLanguageDefinitionId": "TypeSpec.string"
+       },
+       "Location": "Path",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method"
+      },
+      {
+       "$id": "153",
+       "Name": "repeatabilityRequestId",
+       "NameInRequest": "Repeatability-Request-ID",
+       "Description": "An opaque, globally-unique, client-generated string identifier for the request.",
+       "Type": {
+        "$id": "154",
+        "Kind": "string",
+        "Name": "string",
+        "CrossLanguageDefinitionId": "TypeSpec.string"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "155",
+       "Name": "repeatabilityFirstSent",
+       "NameInRequest": "Repeatability-First-Sent",
+       "Description": "Specifies the date and time at which the request was first created.",
+       "Type": {
+        "$id": "156",
+        "Kind": "utcDateTime",
+        "Name": "utcDateTime",
+        "Encode": "rfc7231",
+        "WireType": {
+         "$id": "157",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "CrossLanguageDefinitionId": "TypeSpec.utcDateTime"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "158",
+       "Name": "ifMatch",
+       "NameInRequest": "If-Match",
+       "Description": "The request should only proceed if an entity matches this string.",
+       "Type": {
+        "$id": "159",
+        "Kind": "string",
+        "Name": "string",
+        "CrossLanguageDefinitionId": "TypeSpec.string"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "160",
+       "Name": "ifNoneMatch",
+       "NameInRequest": "If-None-Match",
+       "Description": "The request should only proceed if no entity matches this string.",
+       "Type": {
+        "$id": "161",
+        "Kind": "string",
+        "Name": "string",
+        "CrossLanguageDefinitionId": "TypeSpec.string"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "162",
+       "Name": "ifUnmodifiedSince",
+       "NameInRequest": "If-Unmodified-Since",
+       "Description": "The request should only proceed if the entity was not modified after this time.",
+       "Type": {
+        "$id": "163",
+        "Kind": "utcDateTime",
+        "Name": "utcDateTime",
+        "Encode": "rfc7231",
+        "WireType": {
+         "$id": "164",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "CrossLanguageDefinitionId": "TypeSpec.utcDateTime"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "165",
+       "Name": "ifModifiedSince",
+       "NameInRequest": "If-Modified-Since",
+       "Description": "The request should only proceed if the entity was modified after this time.",
+       "Type": {
+        "$id": "166",
+        "Kind": "utcDateTime",
+        "Name": "utcDateTime",
+        "Encode": "rfc7231",
+        "WireType": {
+         "$id": "167",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "CrossLanguageDefinitionId": "TypeSpec.utcDateTime"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "168",
+       "Name": "clientRequestId",
+       "NameInRequest": "x-ms-client-request-id",
+       "Description": "An opaque, globally-unique, client-generated string identifier for the request.",
+       "Type": {
+        "$id": "169",
+        "Kind": "string",
+        "Name": "uuid",
+        "CrossLanguageDefinitionId": "Azure.Core.uuid",
+        "BaseType": {
+         "$id": "170",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        }
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "171",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "172",
+        "Kind": "constant",
+        "ValueType": {
+         "$id": "173",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "Value": "application/json"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Constant"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "174",
+       "StatusCodes": [
+        204
+       ],
+       "BodyMediaType": "Json",
+       "Headers": [
+        {
+         "$id": "175",
+         "Name": "repeatabilityResult",
+         "NameInResponse": "Repeatability-Result",
+         "Description": "Indicates whether the repeatable request was accepted or rejected.",
+         "Type": {
+          "$ref": "5"
+         }
+        },
+        {
+         "$id": "176",
+         "Name": "clientRequestId",
+         "NameInResponse": "x-ms-client-request-id",
+         "Description": "An opaque, globally-unique, client-generated string identifier for the request.",
+         "Type": {
+          "$id": "177",
+          "Kind": "string",
+          "Name": "uuid",
+          "CrossLanguageDefinitionId": "Azure.Core.uuid",
+          "BaseType": {
+           "$id": "178",
+           "Kind": "string",
+           "Name": "string",
+           "CrossLanguageDefinitionId": "TypeSpec.string"
+          }
+         }
+        }
+       ],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "DELETE",
+     "RequestBodyMediaType": "None",
+     "Uri": "{endpoint}",
+     "Path": "/registrations/{registrationName}",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true,
+     "CrossLanguageDefinitionId": "VdiBatchRegistration.Registrations.deleteRegistration"
+    },
+    {
+     "$id": "179",
+     "Name": "listRegistration",
+     "ResourceName": "Registration",
+     "Description": "List registration resources.",
+     "Accessibility": "public",
+     "Parameters": [
+      {
+       "$ref": "70"
+      },
+      {
+       "$id": "180",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "The API version to use for this operation.",
+       "Type": {
+        "$id": "181",
+        "Kind": "string",
+        "Name": "string",
+        "CrossLanguageDefinitionId": "TypeSpec.string"
+       },
+       "Location": "Query",
+       "IsApiVersion": true,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Client",
+       "DefaultValue": {
+        "$id": "182",
+        "Type": {
+         "$id": "183",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "Value": "2024-08-01-preview"
+       }
+      },
+      {
+       "$id": "184",
+       "Name": "clientRequestId",
+       "NameInRequest": "x-ms-client-request-id",
+       "Description": "An opaque, globally-unique, client-generated string identifier for the request.",
+       "Type": {
+        "$id": "185",
+        "Kind": "string",
+        "Name": "uuid",
+        "CrossLanguageDefinitionId": "Azure.Core.uuid",
+        "BaseType": {
+         "$id": "186",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        }
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "187",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "188",
+        "Kind": "constant",
+        "ValueType": {
+         "$id": "189",
+         "Kind": "string",
+         "Name": "string",
+         "CrossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "Value": "application/json"
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Constant"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "190",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "58"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [
+        {
+         "$id": "191",
+         "Name": "clientRequestId",
+         "NameInResponse": "x-ms-client-request-id",
+         "Description": "An opaque, globally-unique, client-generated string identifier for the request.",
+         "Type": {
+          "$id": "192",
+          "Kind": "string",
+          "Name": "uuid",
+          "CrossLanguageDefinitionId": "Azure.Core.uuid",
+          "BaseType": {
+           "$id": "193",
+           "Kind": "string",
+           "Name": "string",
+           "CrossLanguageDefinitionId": "TypeSpec.string"
+          }
+         }
+        }
+       ],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "{endpoint}",
+     "Path": "/registrations",
+     "BufferResponse": true,
+     "Paging": {
+      "$id": "194",
+      "ItemName": "value",
+      "NextLinkName": "nextLink"
+     },
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true,
+     "CrossLanguageDefinitionId": "VdiBatchRegistration.Registrations.listRegistration"
+    }
+   ],
+   "Protocol": {
+    "$id": "195"
+   },
+   "Parent": "VdiBatchRegistrationClient",
+   "Parameters": [
+    {
+     "$ref": "70"
+    }
+   ]
+  }
+ ],
+ "Auth": {
+  "$id": "196",
+  "ApiKey": {
+   "$id": "197",
+   "Name": "api-key"
+  },
+  "OAuth2": {
+   "$id": "198",
+   "Scopes": [
+    "https://widget.contoso.com/.default"
+   ]
+  }
+ }
+}
