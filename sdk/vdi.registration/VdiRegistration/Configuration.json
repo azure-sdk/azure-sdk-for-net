@@ -1,0 +1,11 @@
+{
+  "output-folder": ".",
+  "namespace": "VdiRegistration",
+  "library-name": "VdiRegistration",
+  "model-namespace": false,
+  "use-model-reader-writer": true,
+  "shared-source-folders": [
+    "../../TempTypeSpecFiles/node_modules/@autorest/csharp/Generator.Shared",
+    "../../TempTypeSpecFiles/node_modules/@autorest/csharp/Azure.Core.Shared"
+  ]
+}
