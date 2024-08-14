@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.HDInsight.Containers.Models
 {
-    /// <summary> Cluster pool profile. </summary>
-    public partial class ClusterPoolProfile
+    /// <summary> Contains the IpTag associated with the public IP address. </summary>
+    public partial class IPTag
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,37 +45,40 @@ namespace Azure.ResourceManager.HDInsight.Containers.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ClusterPoolProfile"/>. </summary>
-        /// <param name="clusterPoolVersion"> Cluster pool version is a 2-part version. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="clusterPoolVersion"/> is null. </exception>
-        public ClusterPoolProfile(string clusterPoolVersion)
+        /// <summary> Initializes a new instance of <see cref="IPTag"/>. </summary>
+        /// <param name="ipTagType"> Gets or sets the ipTag type: Example FirstPartyUsage. </param>
+        /// <param name="tag"> Gets or sets value of the IpTag associated with the public IP. Example HDInsight, SQL, Storage etc. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="ipTagType"/> or <paramref name="tag"/> is null. </exception>
+        public IPTag(string ipTagType, string tag)
         {
-            Argument.AssertNotNull(clusterPoolVersion, nameof(clusterPoolVersion));
+            Argument.AssertNotNull(ipTagType, nameof(ipTagType));
+            Argument.AssertNotNull(tag, nameof(tag));
 
-            ClusterPoolVersion = clusterPoolVersion;
+            IPTagType = ipTagType;
+            Tag = tag;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ClusterPoolProfile"/>. </summary>
-        /// <param name="clusterPoolVersion"> Cluster pool version is a 2-part version. </param>
-        /// <param name="publicIPTag"> Gets or sets the IP tag for the public IPs created along with the HDInsightOnAks ClusterPools and Clusters. </param>
+        /// <summary> Initializes a new instance of <see cref="IPTag"/>. </summary>
+        /// <param name="ipTagType"> Gets or sets the ipTag type: Example FirstPartyUsage. </param>
+        /// <param name="tag"> Gets or sets value of the IpTag associated with the public IP. Example HDInsight, SQL, Storage etc. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ClusterPoolProfile(string clusterPoolVersion, IPTag publicIPTag, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal IPTag(string ipTagType, string tag, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            ClusterPoolVersion = clusterPoolVersion;
-            PublicIPTag = publicIPTag;
+            IPTagType = ipTagType;
+            Tag = tag;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ClusterPoolProfile"/> for deserialization. </summary>
-        internal ClusterPoolProfile()
+        /// <summary> Initializes a new instance of <see cref="IPTag"/> for deserialization. </summary>
+        internal IPTag()
         {
         }
 
-        /// <summary> Cluster pool version is a 2-part version. </summary>
-        [WirePath("clusterPoolVersion")]
-        public string ClusterPoolVersion { get; set; }
-        /// <summary> Gets or sets the IP tag for the public IPs created along with the HDInsightOnAks ClusterPools and Clusters. </summary>
-        [WirePath("publicIpTag")]
-        public IPTag PublicIPTag { get; set; }
+        /// <summary> Gets or sets the ipTag type: Example FirstPartyUsage. </summary>
+        [WirePath("ipTagType")]
+        public string IPTagType { get; set; }
+        /// <summary> Gets or sets value of the IpTag associated with the public IP. Example HDInsight, SQL, Storage etc. </summary>
+        [WirePath("tag")]
+        public string Tag { get; set; }
     }
 }

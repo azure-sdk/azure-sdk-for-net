@@ -100,15 +100,8 @@ namespace Azure.ResourceManager.HDInsight.Containers.Models
         [WirePath("aksManagedResourceGroupName")]
         public string AksManagedResourceGroupName { get; }
         /// <summary> CLuster pool profile. </summary>
-        internal ClusterPoolProfile ClusterPoolProfile { get; set; }
-        /// <summary> Cluster pool version is a 2-part version. </summary>
-        [WirePath("clusterPoolProfile.clusterPoolVersion")]
-        public string ClusterPoolVersion
-        {
-            get => ClusterPoolProfile is null ? default : ClusterPoolProfile.ClusterPoolVersion;
-            set => ClusterPoolProfile = new ClusterPoolProfile(value);
-        }
-
+        [WirePath("clusterPoolProfile")]
+        public ClusterPoolProfile ClusterPoolProfile { get; set; }
         /// <summary> CLuster pool compute profile. </summary>
         [WirePath("computeProfile")]
         public ClusterPoolComputeProfile ComputeProfile { get; set; }
