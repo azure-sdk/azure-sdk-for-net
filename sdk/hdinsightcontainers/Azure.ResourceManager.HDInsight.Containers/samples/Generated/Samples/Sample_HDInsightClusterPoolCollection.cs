@@ -157,7 +157,7 @@ namespace Azure.ResourceManager.HDInsight.Containers.Samples
 },
                 })
                 {
-                    ClusterPoolVersion = "1.2",
+                    ClusterPoolProfile = new ClusterPoolProfile("1.2"),
                 },
             };
             ArmOperation<HDInsightClusterPoolResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, clusterPoolName, data);
@@ -205,7 +205,7 @@ namespace Azure.ResourceManager.HDInsight.Containers.Samples
 },
                 })
                 {
-                    ClusterPoolVersion = "1.2",
+                    ClusterPoolProfile = new ClusterPoolProfile("1.2"),
                     NetworkProfile = new ClusterPoolNetworkProfile(new ResourceIdentifier("/subscriptions/subid/resourceGroups/hiloResourcegroup/providers/Microsoft.Network/virtualNetworks/vnet1/subnets/subnet1"))
                     {
                         IsPrivateApiServerEnabled = true,
@@ -257,7 +257,7 @@ namespace Azure.ResourceManager.HDInsight.Containers.Samples
 },
                 })
                 {
-                    ClusterPoolVersion = "1.2",
+                    ClusterPoolProfile = new ClusterPoolProfile("1.2"),
                     NetworkProfile = new ClusterPoolNetworkProfile(new ResourceIdentifier("/subscriptions/subid/resourceGroups/hiloResourcegroup/providers/Microsoft.Network/virtualNetworks/vnet1/subnets/subnet1"))
                     {
                         OutboundType = OutboundType.UserDefinedRouting,

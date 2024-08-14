@@ -311,14 +311,11 @@ namespace Azure.ResourceManager.HDInsight.Containers.Models
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue("ClusterPoolVersion", out propertyOverride);
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ClusterPoolProfile), out propertyOverride);
             if (hasPropertyOverride)
             {
                 builder.Append("  clusterPoolProfile: ");
-                builder.AppendLine("{");
-                builder.Append("    clusterPoolVersion: ");
                 builder.AppendLine(propertyOverride);
-                builder.AppendLine("  }");
             }
             else
             {

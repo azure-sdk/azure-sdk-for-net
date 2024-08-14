@@ -14,7 +14,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.HDInsight.Containers.Models
 {
-    internal partial class ClusterPoolProfile : IUtf8JsonSerializable, IJsonModel<ClusterPoolProfile>
+    public partial class ClusterPoolProfile : IUtf8JsonSerializable, IJsonModel<ClusterPoolProfile>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ClusterPoolProfile>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
@@ -29,6 +29,11 @@ namespace Azure.ResourceManager.HDInsight.Containers.Models
             writer.WriteStartObject();
             writer.WritePropertyName("clusterPoolVersion"u8);
             writer.WriteStringValue(ClusterPoolVersion);
+            if (Optional.IsDefined(PublicIPTag))
+            {
+                writer.WritePropertyName("publicIpTag"u8);
+                writer.WriteObjectValue(PublicIPTag, options);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -68,6 +73,7 @@ namespace Azure.ResourceManager.HDInsight.Containers.Models
                 return null;
             }
             string clusterPoolVersion = default;
+            IPTag publicIPTag = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -77,13 +83,22 @@ namespace Azure.ResourceManager.HDInsight.Containers.Models
                     clusterPoolVersion = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("publicIpTag"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    publicIPTag = IPTag.DeserializeIPTag(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ClusterPoolProfile(clusterPoolVersion, serializedAdditionalRawData);
+            return new ClusterPoolProfile(clusterPoolVersion, publicIPTag, serializedAdditionalRawData);
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)
@@ -117,6 +132,21 @@ namespace Azure.ResourceManager.HDInsight.Containers.Models
                     {
                         builder.AppendLine($"'{ClusterPoolVersion}'");
                     }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PublicIPTag), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  publicIpTag: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(PublicIPTag))
+                {
+                    builder.Append("  publicIpTag: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, PublicIPTag, options, 2, false, "  publicIpTag: ");
                 }
             }
 
