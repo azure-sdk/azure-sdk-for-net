@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.AppService.Models
             {
                 return null;
             }
-            float? perInstanceConcurrency = default;
+            int? perInstanceConcurrency = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -81,7 +81,7 @@ namespace Azure.ResourceManager.AppService.Models
                     {
                         continue;
                     }
-                    perInstanceConcurrency = property.Value.GetSingle();
+                    perInstanceConcurrency = property.Value.GetInt32();
                     continue;
                 }
                 if (options.Format != "W")
@@ -115,7 +115,7 @@ namespace Azure.ResourceManager.AppService.Models
                 if (Optional.IsDefined(PerInstanceConcurrency))
                 {
                     builder.Append("  perInstanceConcurrency: ");
-                    builder.AppendLine($"'{PerInstanceConcurrency.Value.ToString()}'");
+                    builder.AppendLine($"{PerInstanceConcurrency.Value}");
                 }
             }
 
