@@ -277,6 +277,32 @@ namespace Azure.AI.Vision.Face
             return new FaceGroupingResult(groups?.ToList(), messyGroup?.ToList(), serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Face.CreateLivenessWithVerifySessionJsonContent"/>. </summary>
+        /// <param name="livenessOperationMode"> Type of liveness mode the client should follow. </param>
+        /// <param name="sendResultsToClient"> Whether or not to allow a '200 - Success' response body to be sent to the client, which may be undesirable for security reasons. Default is false, clients will receive a '204 - NoContent' empty body response. Regardless of selection, calling Session GetResult will always contain a response body enabling business logic to be implemented. </param>
+        /// <param name="deviceCorrelationIdSetInClient"> Whether or not to allow client to set their own 'deviceCorrelationId' via the Vision SDK. Default is false, and 'deviceCorrelationId' must be set in this request body. </param>
+        /// <param name="enableSessionImage"> Whether or not store the session image. </param>
+        /// <param name="livenessSingleModalModel"> The model version used for liveness classification. This is an optional parameter, and if this is not specified, then the latest supported model version will be chosen. </param>
+        /// <param name="deviceCorrelationId"> Unique Guid per each end-user device. This is to provide rate limiting and anti-hammering. If 'deviceCorrelationIdSetInClient' is true in this request, this 'deviceCorrelationId' must be null. </param>
+        /// <param name="authTokenTimeToLiveInSeconds"> Seconds the session should last for. Range is 60 to 86400 seconds. Default value is 600. </param>
+        /// <param name="returnVerifyImageHash"> Whether or not return the verify image hash. </param>
+        /// <param name="verifyConfidenceThreshold"> Threshold for confidence of the face verification. </param>
+        /// <returns> A new <see cref="Face.CreateLivenessWithVerifySessionJsonContent"/> instance for mocking. </returns>
+        public static CreateLivenessWithVerifySessionJsonContent CreateLivenessWithVerifySessionJsonContent(LivenessOperationMode livenessOperationMode = default, bool? sendResultsToClient = null, bool? deviceCorrelationIdSetInClient = null, bool? enableSessionImage = null, LivenessModel? livenessSingleModalModel = null, string deviceCorrelationId = null, int? authTokenTimeToLiveInSeconds = null, bool? returnVerifyImageHash = null, float? verifyConfidenceThreshold = null)
+        {
+            return new CreateLivenessWithVerifySessionJsonContent(
+                livenessOperationMode,
+                sendResultsToClient,
+                deviceCorrelationIdSetInClient,
+                enableSessionImage,
+                livenessSingleModalModel,
+                deviceCorrelationId,
+                authTokenTimeToLiveInSeconds,
+                returnVerifyImageHash,
+                verifyConfidenceThreshold,
+                serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Face.CreateLivenessWithVerifySessionResult"/>. </summary>
         /// <param name="sessionId"> The unique session ID of the created session. It will expire 48 hours after it was created or may be deleted sooner using the corresponding Session DELETE operation. </param>
         /// <param name="authToken"> Bearer token to provide authentication for the Vision SDK running on a client application. This Bearer token has limited permissions to perform only the required action and expires after the TTL time. It is also auditable. </param>
@@ -300,15 +326,19 @@ namespace Azure.AI.Vision.Face
         /// <param name="livenessOperationMode"> Type of liveness mode the client should follow. </param>
         /// <param name="sendResultsToClient"> Whether or not to allow a '200 - Success' response body to be sent to the client, which may be undesirable for security reasons. Default is false, clients will receive a '204 - NoContent' empty body response. Regardless of selection, calling Session GetResult will always contain a response body enabling business logic to be implemented. </param>
         /// <param name="deviceCorrelationIdSetInClient"> Whether or not to allow client to set their own 'deviceCorrelationId' via the Vision SDK. Default is false, and 'deviceCorrelationId' must be set in this request body. </param>
+        /// <param name="enableSessionImage"> Whether or not store the session image. </param>
+        /// <param name="livenessSingleModalModel"> The model version used for liveness classification. This is an optional parameter, and if this is not specified, then the latest supported model version will be chosen. </param>
         /// <param name="deviceCorrelationId"> Unique Guid per each end-user device. This is to provide rate limiting and anti-hammering. If 'deviceCorrelationIdSetInClient' is true in this request, this 'deviceCorrelationId' must be null. </param>
         /// <param name="authTokenTimeToLiveInSeconds"> Seconds the session should last for. Range is 60 to 86400 seconds. Default value is 600. </param>
         /// <returns> A new <see cref="Face.CreateLivenessSessionContent"/> instance for mocking. </returns>
-        public static CreateLivenessSessionContent CreateLivenessSessionContent(LivenessOperationMode livenessOperationMode = default, bool? sendResultsToClient = null, bool? deviceCorrelationIdSetInClient = null, string deviceCorrelationId = null, int? authTokenTimeToLiveInSeconds = null)
+        public static CreateLivenessSessionContent CreateLivenessSessionContent(LivenessOperationMode livenessOperationMode = default, bool? sendResultsToClient = null, bool? deviceCorrelationIdSetInClient = null, bool? enableSessionImage = null, LivenessModel? livenessSingleModalModel = null, string deviceCorrelationId = null, int? authTokenTimeToLiveInSeconds = null)
         {
             return new CreateLivenessSessionContent(
                 livenessOperationMode,
                 sendResultsToClient,
                 deviceCorrelationIdSetInClient,
+                enableSessionImage,
+                livenessSingleModalModel,
                 deviceCorrelationId,
                 authTokenTimeToLiveInSeconds,
                 serializedAdditionalRawData: null);
@@ -356,8 +386,10 @@ namespace Azure.AI.Vision.Face
         /// <param name="request"> The request of this entry. </param>
         /// <param name="response"> The response of this entry. </param>
         /// <param name="digest"> The server calculated digest for this request. If the client reported digest differs from the server calculated digest, then the message integrity between the client and service has been compromised and the result should not be trusted. For more information, see how to guides on how to leverage this value to secure your end-to-end solution. </param>
+        /// <param name="sessionImageId"> The image ID of the session request. </param>
+        /// <param name="verifyImageHash"> The sha256 hash of the verify-image in the request. </param>
         /// <returns> A new <see cref="Face.LivenessSessionAuditEntry"/> instance for mocking. </returns>
-        public static LivenessSessionAuditEntry LivenessSessionAuditEntry(long id = default, string sessionId = null, string requestId = null, string clientRequestId = null, DateTimeOffset receivedDateTime = default, AuditRequestInfo request = null, AuditLivenessResponseInfo response = null, string digest = null)
+        public static LivenessSessionAuditEntry LivenessSessionAuditEntry(long id = default, string sessionId = null, string requestId = null, string clientRequestId = null, DateTimeOffset receivedDateTime = default, AuditRequestInfo request = null, AuditLivenessResponseInfo response = null, string digest = null, string sessionImageId = null, string verifyImageHash = null)
         {
             return new LivenessSessionAuditEntry(
                 id,
@@ -368,6 +400,8 @@ namespace Azure.AI.Vision.Face
                 request,
                 response,
                 digest,
+                sessionImageId,
+                verifyImageHash,
                 serializedAdditionalRawData: null);
         }
 
