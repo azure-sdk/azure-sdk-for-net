@@ -4,7 +4,9 @@ Run `dotnet build /t:GenerateCode` to generate code.
 
 ``` yaml
 title: EventGridClient
-require: https://github.com/Azure/azure-rest-api-specs/blob/1b0e82df2f7f953796af2aee0372e34e00baa2d2/specification/eventgrid/data-plane/readme.md
+require:
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/eventgrid/data-plane/readme.md
+
 generation1-convenience-client: true
 model-factory-for-hlc:
 - MediaJobOutputAsset
@@ -206,3 +208,4 @@ directive:
     $.MediaLiveEventIngestHeartbeatEventData["properties"]["ingestDriftValue"]["x-ms-client-name"] = "IngestDriftValueInternal";
     $.MediaLiveEventIngestHeartbeatEventData["properties"]["lastFragmentArrivalTime"]["format"] = "date-time";
 ```
+
