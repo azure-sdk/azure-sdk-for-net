@@ -53,6 +53,7 @@ namespace Azure.AI.Inference
             Argument.AssertNotNull(name, nameof(name));
 
             Name = name;
+            Parameters = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="FunctionDefinition"/>. </summary>
@@ -63,7 +64,7 @@ namespace Azure.AI.Inference
         /// </param>
         /// <param name="parameters"> The parameters the function accepts, described as a JSON Schema object. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal FunctionDefinition(string name, string description, BinaryData parameters, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal FunctionDefinition(string name, string description, IDictionary<string, BinaryData> parameters, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
             Description = description;
@@ -78,7 +79,7 @@ namespace Azure.AI.Inference
         /// <summary>
         /// The parameters the function accepts, described as a JSON Schema object.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -105,6 +106,6 @@ namespace Azure.AI.Inference
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Parameters { get; set; }
+        public IDictionary<string, BinaryData> Parameters { get; }
     }
 }

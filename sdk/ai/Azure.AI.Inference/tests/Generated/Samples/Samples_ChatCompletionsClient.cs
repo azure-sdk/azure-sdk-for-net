@@ -8,6 +8,7 @@
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Azure.Core;
 using Azure.Identity;
 using NUnit.Framework;
 
@@ -15,6 +16,294 @@ namespace Azure.AI.Inference.Samples
 {
     public partial class Samples_ChatCompletionsClient
     {
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Client1_Complete_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ChatCompletionsClient client = new ChatCompletionsClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                messages = new object[]
+            {
+new
+{
+role = "system",
+content = "<content>",
+}
+            },
+            });
+            Response response = client.Complete(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("created").ToString());
+            Console.WriteLine(result.GetProperty("model").ToString());
+            Console.WriteLine(result.GetProperty("usage").GetProperty("completion_tokens").ToString());
+            Console.WriteLine(result.GetProperty("usage").GetProperty("prompt_tokens").ToString());
+            Console.WriteLine(result.GetProperty("usage").GetProperty("total_tokens").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("index").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("finish_reason").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("role").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("content").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Client1_Complete_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ChatCompletionsClient client = new ChatCompletionsClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                messages = new object[]
+            {
+new
+{
+role = "system",
+content = "<content>",
+}
+            },
+            });
+            Response response = await client.CompleteAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("created").ToString());
+            Console.WriteLine(result.GetProperty("model").ToString());
+            Console.WriteLine(result.GetProperty("usage").GetProperty("completion_tokens").ToString());
+            Console.WriteLine(result.GetProperty("usage").GetProperty("prompt_tokens").ToString());
+            Console.WriteLine(result.GetProperty("usage").GetProperty("total_tokens").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("index").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("finish_reason").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("role").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("content").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Client1_Complete_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ChatCompletionsClient client = new ChatCompletionsClient(endpoint, credential);
+
+            Response<ChatCompletions> response = client.Complete(new ChatRequestMessage[]
+            {
+new ChatRequestSystemMessage("<content>")
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Client1_Complete_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ChatCompletionsClient client = new ChatCompletionsClient(endpoint, credential);
+
+            Response<ChatCompletions> response = await client.CompleteAsync(new ChatRequestMessage[]
+            {
+new ChatRequestSystemMessage("<content>")
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Client1_Complete_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ChatCompletionsClient client = new ChatCompletionsClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                messages = new object[]
+            {
+new
+{
+role = "system",
+content = "<content>",
+}
+            },
+                frequency_penalty = 123.45F,
+                stream = true,
+                presence_penalty = 123.45F,
+                temperature = 123.45F,
+                top_p = 123.45F,
+                max_tokens = 1234,
+                response_format = new
+                {
+                    type = "text",
+                },
+                stop = new object[]
+            {
+"<stop>"
+            },
+                tools = new object[]
+            {
+new
+{
+type = "function",
+function = new
+{
+name = "<name>",
+description = "<description>",
+parameters = new
+{
+key = new object(),
+},
+},
+}
+            },
+                tool_choice = "auto",
+                seed = 1234L,
+                model = "<model>",
+            });
+            Response response = client.Complete(content, extraParams: "error");
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("created").ToString());
+            Console.WriteLine(result.GetProperty("model").ToString());
+            Console.WriteLine(result.GetProperty("usage").GetProperty("completion_tokens").ToString());
+            Console.WriteLine(result.GetProperty("usage").GetProperty("prompt_tokens").ToString());
+            Console.WriteLine(result.GetProperty("usage").GetProperty("total_tokens").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("index").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("finish_reason").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("role").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("content").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("tool_calls")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("tool_calls")[0].GetProperty("type").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("tool_calls")[0].GetProperty("function").GetProperty("name").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("tool_calls")[0].GetProperty("function").GetProperty("arguments").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Client1_Complete_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ChatCompletionsClient client = new ChatCompletionsClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                messages = new object[]
+            {
+new
+{
+role = "system",
+content = "<content>",
+}
+            },
+                frequency_penalty = 123.45F,
+                stream = true,
+                presence_penalty = 123.45F,
+                temperature = 123.45F,
+                top_p = 123.45F,
+                max_tokens = 1234,
+                response_format = new
+                {
+                    type = "text",
+                },
+                stop = new object[]
+            {
+"<stop>"
+            },
+                tools = new object[]
+            {
+new
+{
+type = "function",
+function = new
+{
+name = "<name>",
+description = "<description>",
+parameters = new
+{
+key = new object(),
+},
+},
+}
+            },
+                tool_choice = "auto",
+                seed = 1234L,
+                model = "<model>",
+            });
+            Response response = await client.CompleteAsync(content, extraParams: "error");
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("created").ToString());
+            Console.WriteLine(result.GetProperty("model").ToString());
+            Console.WriteLine(result.GetProperty("usage").GetProperty("completion_tokens").ToString());
+            Console.WriteLine(result.GetProperty("usage").GetProperty("prompt_tokens").ToString());
+            Console.WriteLine(result.GetProperty("usage").GetProperty("total_tokens").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("index").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("finish_reason").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("role").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("content").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("tool_calls")[0].GetProperty("id").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("tool_calls")[0].GetProperty("type").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("tool_calls")[0].GetProperty("function").GetProperty("name").ToString());
+            Console.WriteLine(result.GetProperty("choices")[0].GetProperty("message").GetProperty("tool_calls")[0].GetProperty("function").GetProperty("arguments").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_Client1_Complete_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ChatCompletionsClient client = new ChatCompletionsClient(endpoint, credential);
+
+            ChatCompletionsResponseFormat responseFormat = new ChatCompletionsResponseFormatText();
+            Response<ChatCompletions> response = client.Complete(new ChatRequestMessage[]
+            {
+new ChatRequestSystemMessage("<content>")
+            }, frequencyPenalty: 123.45F, internalShouldStreamResponse: true, presencePenalty: 123.45F, temperature: 123.45F, nucleusSamplingFactor: 123.45F, maxTokens: 1234, responseFormat: responseFormat, stopSequences: new string[] { "<stop>" }, tools: new ChatCompletionsToolDefinition[]
+            {
+new ChatCompletionsToolDefinition(new FunctionDefinition("<name>")
+{
+Description = "<description>",
+Parameters =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+})
+            }, toolChoice: BinaryData.FromObjectAsJson("auto"), seed: 1234L, model: "<model>", extraParams: ExtraParameters.Error);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_Client1_Complete_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ChatCompletionsClient client = new ChatCompletionsClient(endpoint, credential);
+
+            ChatCompletionsResponseFormat responseFormat = new ChatCompletionsResponseFormatText();
+            Response<ChatCompletions> response = await client.CompleteAsync(new ChatRequestMessage[]
+            {
+new ChatRequestSystemMessage("<content>")
+            }, frequencyPenalty: 123.45F, internalShouldStreamResponse: true, presencePenalty: 123.45F, temperature: 123.45F, nucleusSamplingFactor: 123.45F, maxTokens: 1234, responseFormat: responseFormat, stopSequences: new string[] { "<stop>" }, tools: new ChatCompletionsToolDefinition[]
+            {
+new ChatCompletionsToolDefinition(new FunctionDefinition("<name>")
+{
+Description = "<description>",
+Parameters =
+{
+["key"] = BinaryData.FromObjectAsJson(new object())
+},
+})
+            }, toolChoice: BinaryData.FromObjectAsJson("auto"), seed: 1234L, model: "<model>", extraParams: ExtraParameters.Error);
+        }
+
         [Test]
         [Ignore("Only validating compilation of examples")]
         public void Example_Client1_GetModelInfo_ShortVersion()
