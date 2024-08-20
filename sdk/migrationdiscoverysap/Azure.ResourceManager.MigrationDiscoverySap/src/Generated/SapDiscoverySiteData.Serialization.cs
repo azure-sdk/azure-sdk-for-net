@@ -28,6 +28,11 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
+            }
             if (Optional.IsDefined(ExtendedLocation))
             {
                 writer.WritePropertyName("extendedLocation"u8);
@@ -66,29 +71,6 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
                 writer.WritePropertyName("systemData"u8);
                 JsonSerializer.Serialize(writer, SystemData);
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(MasterSiteId))
-            {
-                writer.WritePropertyName("masterSiteId"u8);
-                writer.WriteStringValue(MasterSiteId);
-            }
-            if (Optional.IsDefined(MigrateProjectId))
-            {
-                writer.WritePropertyName("migrateProjectId"u8);
-                writer.WriteStringValue(MigrateProjectId);
-            }
-            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
-            {
-                writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState.Value.ToString());
-            }
-            if (options.Format != "W" && Optional.IsDefined(Errors))
-            {
-                writer.WritePropertyName("errors"u8);
-                writer.WriteObjectValue(Errors, options);
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -127,6 +109,7 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
             {
                 return null;
             }
+            SapDiscoverySiteProperties properties = default;
             SapDiscoveryExtendedLocation extendedLocation = default;
             IDictionary<string, string> tags = default;
             AzureLocation location = default;
@@ -134,14 +117,19 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            string masterSiteId = default;
-            string migrateProjectId = default;
-            SapDiscoveryProvisioningState? provisioningState = default;
-            SapMigrateError errors = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = SapDiscoverySiteProperties.DeserializeSapDiscoverySiteProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("extendedLocation"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -194,46 +182,6 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("masterSiteId"u8))
-                        {
-                            masterSiteId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("migrateProjectId"u8))
-                        {
-                            migrateProjectId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("provisioningState"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            provisioningState = new SapDiscoveryProvisioningState(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("errors"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            errors = SapMigrateError.DeserializeSapMigrateError(property0.Value, options);
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -247,11 +195,8 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
                 systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
+                properties,
                 extendedLocation,
-                masterSiteId,
-                migrateProjectId,
-                provisioningState,
-                errors,
                 serializedAdditionalRawData);
         }
 

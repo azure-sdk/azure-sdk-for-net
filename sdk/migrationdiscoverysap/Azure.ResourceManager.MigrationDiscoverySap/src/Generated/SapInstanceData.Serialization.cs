@@ -28,6 +28,11 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
+            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -61,39 +66,6 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
                 writer.WritePropertyName("systemData"u8);
                 JsonSerializer.Serialize(writer, SystemData);
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (options.Format != "W" && Optional.IsDefined(SystemSid))
-            {
-                writer.WritePropertyName("systemSid"u8);
-                writer.WriteStringValue(SystemSid);
-            }
-            if (options.Format != "W" && Optional.IsDefined(Environment))
-            {
-                writer.WritePropertyName("environment"u8);
-                writer.WriteStringValue(Environment.Value.ToString());
-            }
-            if (options.Format != "W" && Optional.IsDefined(LandscapeSid))
-            {
-                writer.WritePropertyName("landscapeSid"u8);
-                writer.WriteStringValue(LandscapeSid);
-            }
-            if (options.Format != "W" && Optional.IsDefined(Application))
-            {
-                writer.WritePropertyName("application"u8);
-                writer.WriteStringValue(Application);
-            }
-            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
-            {
-                writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState.Value.ToString());
-            }
-            if (options.Format != "W" && Optional.IsDefined(Errors))
-            {
-                writer.WritePropertyName("errors"u8);
-                writer.WriteObjectValue(Errors, options);
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -132,22 +104,26 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
             {
                 return null;
             }
+            SapInstanceProperties properties = default;
             IDictionary<string, string> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            string systemSid = default;
-            SapInstanceEnvironment? environment = default;
-            string landscapeSid = default;
-            string application = default;
-            SapDiscoveryProvisioningState? provisioningState = default;
-            SapMigrateError errors = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = SapInstanceProperties.DeserializeSapInstanceProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("tags"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -191,60 +167,6 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("systemSid"u8))
-                        {
-                            systemSid = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("environment"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            environment = new SapInstanceEnvironment(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("landscapeSid"u8))
-                        {
-                            landscapeSid = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("application"u8))
-                        {
-                            application = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("provisioningState"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            provisioningState = new SapDiscoveryProvisioningState(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("errors"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            errors = SapMigrateError.DeserializeSapMigrateError(property0.Value, options);
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -258,12 +180,7 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
                 systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
-                systemSid,
-                environment,
-                landscapeSid,
-                application,
-                provisioningState,
-                errors,
+                properties,
                 serializedAdditionalRawData);
         }
 

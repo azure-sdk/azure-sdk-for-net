@@ -104,6 +104,11 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
         /// <summary> Defines the provisioning states. </summary>
         public SapDiscoveryProvisioningState? ProvisioningState { get; }
         /// <summary> Defines the errors related to SAP Instance resource. </summary>
-        public SapMigrateError Errors { get; }
+        internal SapMigrateError Errors { get; }
+        /// <summary> The SAP Discovery site resource error body. </summary>
+        public SapDiscoveryErrorDetail ErrorsProperties
+        {
+            get => Errors?.Properties;
+        }
     }
 }

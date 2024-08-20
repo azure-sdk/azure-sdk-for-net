@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.MigrationDiscoverySap.Models
 {
-    public partial class SapMigrateError : IUtf8JsonSerializable, IJsonModel<SapMigrateError>
+    internal partial class SapMigrateError : IUtf8JsonSerializable, IJsonModel<SapMigrateError>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<SapMigrateError>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
@@ -26,34 +26,11 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (options.Format != "W" && Optional.IsDefined(Code))
+            if (Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("code"u8);
-                writer.WriteStringValue(Code);
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
             }
-            if (options.Format != "W" && Optional.IsDefined(Message))
-            {
-                writer.WritePropertyName("message"u8);
-                writer.WriteStringValue(Message);
-            }
-            if (options.Format != "W" && Optional.IsDefined(Recommendation))
-            {
-                writer.WritePropertyName("recommendation"u8);
-                writer.WriteStringValue(Recommendation);
-            }
-            if (options.Format != "W" && Optional.IsCollectionDefined(Details))
-            {
-                writer.WritePropertyName("details"u8);
-                writer.WriteStartArray();
-                foreach (var item in Details)
-                {
-                    writer.WriteObjectValue(item, options);
-                }
-                writer.WriteEndArray();
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -92,10 +69,7 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
             {
                 return null;
             }
-            string code = default;
-            string message = default;
-            string recommendation = default;
-            IReadOnlyList<SapDiscoveryErrorDetail> details = default;
+            SapDiscoveryErrorDetail properties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -104,41 +78,9 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
-                        property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("code"u8))
-                        {
-                            code = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("message"u8))
-                        {
-                            message = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("recommendation"u8))
-                        {
-                            recommendation = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("details"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            List<SapDiscoveryErrorDetail> array = new List<SapDiscoveryErrorDetail>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(SapDiscoveryErrorDetail.DeserializeSapDiscoveryErrorDetail(item, options));
-                            }
-                            details = array;
-                            continue;
-                        }
-                    }
+                    properties = SapDiscoveryErrorDetail.DeserializeSapDiscoveryErrorDetail(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -147,7 +89,7 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new SapMigrateError(code, message, recommendation, details ?? new ChangeTrackingList<SapDiscoveryErrorDetail>(), serializedAdditionalRawData);
+            return new SapMigrateError(properties, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<SapMigrateError>.Write(ModelReaderWriterOptions options)
