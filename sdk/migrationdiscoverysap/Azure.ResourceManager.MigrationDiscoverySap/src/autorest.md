@@ -7,7 +7,7 @@ azure-arm: true
 csharp: true
 library-name: MigrationDiscoverySap
 namespace: Azure.ResourceManager.MigrationDiscoverySap
-require: https://github.com/Azure/azure-rest-api-specs/blob/72bd8aba9c7ce9fccb47e4c651abcc8117427fd0/specification/workloads/resource-manager/Microsoft.Workloads/SAPDiscoverySites/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/584e26396ae5ca07fec249ef2e27cf9db573acdd/specification/workloads/resource-manager/Microsoft.Workloads/SAPDiscoverySites/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:

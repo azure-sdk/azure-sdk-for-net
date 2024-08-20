@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.MigrationDiscoverySap.Models
 {
-    /// <summary> An error response from the SAP migrate resources. </summary>
-    internal partial class SapMigrateError
+    /// <summary> Defines the SAP Migration discovery site resource properties. </summary>
+    public partial class SapDiscoverySiteProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,21 +45,38 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SapMigrateError"/>. </summary>
-        internal SapMigrateError()
+        /// <summary> Initializes a new instance of <see cref="SapDiscoverySiteProperties"/>. </summary>
+        public SapDiscoverySiteProperties()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="SapMigrateError"/>. </summary>
-        /// <param name="properties"> The SAP Discovery site resource error body. </param>
+        /// <summary> Initializes a new instance of <see cref="SapDiscoverySiteProperties"/>. </summary>
+        /// <param name="masterSiteId"> The master site ID from Azure Migrate. </param>
+        /// <param name="migrateProjectId"> The migrate project ID from Azure Migrate. </param>
+        /// <param name="provisioningState"> Defines the provisioning states. </param>
+        /// <param name="errors"> Indicates any errors on the SAP Migration discovery site resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SapMigrateError(SapDiscoveryErrorDetail properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SapDiscoverySiteProperties(string masterSiteId, string migrateProjectId, SapDiscoveryProvisioningState? provisioningState, SapMigrateError errors, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Properties = properties;
+            MasterSiteId = masterSiteId;
+            MigrateProjectId = migrateProjectId;
+            ProvisioningState = provisioningState;
+            Errors = errors;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
+        /// <summary> The master site ID from Azure Migrate. </summary>
+        public string MasterSiteId { get; set; }
+        /// <summary> The migrate project ID from Azure Migrate. </summary>
+        public string MigrateProjectId { get; set; }
+        /// <summary> Defines the provisioning states. </summary>
+        public SapDiscoveryProvisioningState? ProvisioningState { get; }
+        /// <summary> Indicates any errors on the SAP Migration discovery site resource. </summary>
+        internal SapMigrateError Errors { get; }
         /// <summary> The SAP Discovery site resource error body. </summary>
-        public SapDiscoveryErrorDetail Properties { get; }
+        public SapDiscoveryErrorDetail ErrorsProperties
+        {
+            get => Errors?.Properties;
+        }
     }
 }

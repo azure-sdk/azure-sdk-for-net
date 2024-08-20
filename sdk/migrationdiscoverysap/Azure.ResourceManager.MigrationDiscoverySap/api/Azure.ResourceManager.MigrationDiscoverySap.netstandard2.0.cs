@@ -31,16 +31,7 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
     public partial class SapDiscoveryServerInstanceData : Azure.ResourceManager.Models.ResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.SapDiscoveryServerInstanceData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.SapDiscoveryServerInstanceData>
     {
         public SapDiscoveryServerInstanceData() { }
-        public Azure.ResourceManager.MigrationDiscoverySap.Models.ConfigurationDetail ConfigurationData { get { throw null; } }
-        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError Errors { get { throw null; } }
-        public string InstanceSid { get { throw null; } }
-        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryOperatingSystem? OperatingSystem { get { throw null; } }
-        public Azure.ResourceManager.MigrationDiscoverySap.Models.PerformanceDetail PerformanceData { get { throw null; } }
-        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState? ProvisioningState { get { throw null; } }
-        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceType? SapInstanceType { get { throw null; } }
-        public string SapProduct { get { throw null; } }
-        public string SapProductVersion { get { throw null; } }
-        public string ServerName { get { throw null; } }
+        public Azure.ResourceManager.MigrationDiscoverySap.Models.ServerInstanceProperties Properties { get { throw null; } set { } }
         Azure.ResourceManager.MigrationDiscoverySap.SapDiscoveryServerInstanceData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.SapDiscoveryServerInstanceData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.SapDiscoveryServerInstanceData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.MigrationDiscoverySap.SapDiscoveryServerInstanceData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.SapDiscoveryServerInstanceData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -86,11 +77,8 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
     public partial class SapDiscoverySiteData : Azure.ResourceManager.Models.TrackedResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.SapDiscoverySiteData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.SapDiscoverySiteData>
     {
         public SapDiscoverySiteData(Azure.Core.AzureLocation location) { }
-        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError Errors { get { throw null; } }
         public Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryExtendedLocation ExtendedLocation { get { throw null; } set { } }
-        public string MasterSiteId { get { throw null; } set { } }
-        public string MigrateProjectId { get { throw null; } set { } }
-        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState? ProvisioningState { get { throw null; } }
+        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoverySiteProperties Properties { get { throw null; } set { } }
         Azure.ResourceManager.MigrationDiscoverySap.SapDiscoverySiteData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.SapDiscoverySiteData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.SapDiscoverySiteData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.MigrationDiscoverySap.SapDiscoverySiteData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.SapDiscoverySiteData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -147,12 +135,7 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
     public partial class SapInstanceData : Azure.ResourceManager.Models.TrackedResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.SapInstanceData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.SapInstanceData>
     {
         public SapInstanceData(Azure.Core.AzureLocation location) { }
-        public string Application { get { throw null; } }
-        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceEnvironment? Environment { get { throw null; } }
-        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError Errors { get { throw null; } }
-        public string LandscapeSid { get { throw null; } }
-        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState? ProvisioningState { get { throw null; } }
-        public string SystemSid { get { throw null; } }
+        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceProperties Properties { get { throw null; } set { } }
         Azure.ResourceManager.MigrationDiscoverySap.SapInstanceData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.SapInstanceData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.SapInstanceData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.MigrationDiscoverySap.SapInstanceData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.SapInstanceData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -218,11 +201,12 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
         public static Azure.ResourceManager.MigrationDiscoverySap.Models.ConfigurationDetail ConfigurationDetail(int? saps = default(int?), int? cpu = default(int?), string cpuType = null, int? cpuInMhz = default(int?), int? ram = default(int?), string hardwareManufacturer = null, string model = null, int? totalDiskSizeGB = default(int?), int? totalDiskIops = default(int?), Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryDatabaseType? databaseType = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryDatabaseType?), int? targetHanaRamSizeGB = default(int?)) { throw null; }
         public static Azure.ResourceManager.MigrationDiscoverySap.Models.ExcelPerformanceDetail ExcelPerformanceDetail(int? maxCpuLoad = default(int?), int? totalSourceDbSizeGB = default(int?)) { throw null; }
         public static Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryErrorDetail SapDiscoveryErrorDetail(string code = null, string message = null, string recommendation = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryErrorDetail> details = null) { throw null; }
-        public static Azure.ResourceManager.MigrationDiscoverySap.SapDiscoveryServerInstanceData SapDiscoveryServerInstanceData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string serverName = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceType? sapInstanceType = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceType?), string instanceSid = null, string sapProduct = null, string sapProductVersion = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryOperatingSystem? operatingSystem = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryOperatingSystem?), Azure.ResourceManager.MigrationDiscoverySap.Models.ConfigurationDetail configurationData = null, Azure.ResourceManager.MigrationDiscoverySap.Models.PerformanceDetail performanceData = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState? provisioningState = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState?), Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError errors = null) { throw null; }
-        public static Azure.ResourceManager.MigrationDiscoverySap.SapDiscoverySiteData SapDiscoverySiteData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryExtendedLocation extendedLocation = null, string masterSiteId = null, string migrateProjectId = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState? provisioningState = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState?), Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError errors = null) { throw null; }
-        public static Azure.ResourceManager.MigrationDiscoverySap.SapInstanceData SapInstanceData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), string systemSid = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceEnvironment? environment = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceEnvironment?), string landscapeSid = null, string application = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState? provisioningState = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState?), Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError errors = null) { throw null; }
-        public static Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError SapMigrateError(string code = null, string message = null, string recommendation = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryErrorDetail> details = null) { throw null; }
-        public static Azure.ResourceManager.MigrationDiscoverySap.Models.ServerInstanceProperties ServerInstanceProperties(string serverName = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceType? sapInstanceType = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceType?), string instanceSid = null, string sapProduct = null, string sapProductVersion = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryOperatingSystem? operatingSystem = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryOperatingSystem?), Azure.ResourceManager.MigrationDiscoverySap.Models.ConfigurationDetail configurationData = null, Azure.ResourceManager.MigrationDiscoverySap.Models.PerformanceDetail performanceData = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState? provisioningState = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState?), Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError errors = null) { throw null; }
+        public static Azure.ResourceManager.MigrationDiscoverySap.SapDiscoveryServerInstanceData SapDiscoveryServerInstanceData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.MigrationDiscoverySap.Models.ServerInstanceProperties properties = null) { throw null; }
+        public static Azure.ResourceManager.MigrationDiscoverySap.SapDiscoverySiteData SapDiscoverySiteData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoverySiteProperties properties = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryExtendedLocation extendedLocation = null) { throw null; }
+        public static Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoverySiteProperties SapDiscoverySiteProperties(string masterSiteId = null, string migrateProjectId = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState? provisioningState = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState?), Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryErrorDetail errorsProperties = null) { throw null; }
+        public static Azure.ResourceManager.MigrationDiscoverySap.SapInstanceData SapInstanceData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceProperties properties = null) { throw null; }
+        public static Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceProperties SapInstanceProperties(string systemSid = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceEnvironment? environment = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceEnvironment?), string landscapeSid = null, string application = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState? provisioningState = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState?), Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryErrorDetail errorsProperties = null) { throw null; }
+        public static Azure.ResourceManager.MigrationDiscoverySap.Models.ServerInstanceProperties ServerInstanceProperties(string serverName = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceType? sapInstanceType = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceType?), string instanceSid = null, string sapProduct = null, string sapProductVersion = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryOperatingSystem? operatingSystem = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryOperatingSystem?), Azure.ResourceManager.MigrationDiscoverySap.Models.ConfigurationDetail configurationData = null, Azure.ResourceManager.MigrationDiscoverySap.Models.PerformanceDetail performanceData = null, Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState? provisioningState = default(Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState?), Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryErrorDetail errorsProperties = null) { throw null; }
     }
     public partial class ConfigurationDetail : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.Models.ConfigurationDetail>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.ConfigurationDetail>
     {
@@ -388,6 +372,19 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoverySitePatch>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoverySitePatch>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
+    public partial class SapDiscoverySiteProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoverySiteProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoverySiteProperties>
+    {
+        public SapDiscoverySiteProperties() { }
+        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryErrorDetail ErrorsProperties { get { throw null; } }
+        public string MasterSiteId { get { throw null; } set { } }
+        public string MigrateProjectId { get { throw null; } set { } }
+        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState? ProvisioningState { get { throw null; } }
+        Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoverySiteProperties System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoverySiteProperties>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoverySiteProperties>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoverySiteProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoverySiteProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoverySiteProperties>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoverySiteProperties>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct SapInstanceEnvironment : System.IEquatable<Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceEnvironment>
     {
@@ -422,6 +419,21 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstancePatch>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstancePatch>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
+    public partial class SapInstanceProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceProperties>
+    {
+        public SapInstanceProperties() { }
+        public string Application { get { throw null; } }
+        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceEnvironment? Environment { get { throw null; } }
+        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryErrorDetail ErrorsProperties { get { throw null; } }
+        public string LandscapeSid { get { throw null; } }
+        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryProvisioningState? ProvisioningState { get { throw null; } }
+        public string SystemSid { get { throw null; } }
+        Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceProperties System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceProperties>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceProperties>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceProperties>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceProperties>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct SapInstanceType : System.IEquatable<Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceType>
     {
@@ -443,24 +455,11 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
         public static bool operator !=(Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceType left, Azure.ResourceManager.MigrationDiscoverySap.Models.SapInstanceType right) { throw null; }
         public override string ToString() { throw null; }
     }
-    public partial class SapMigrateError : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError>
-    {
-        internal SapMigrateError() { }
-        public string Code { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryErrorDetail> Details { get { throw null; } }
-        public string Message { get { throw null; } }
-        public string Recommendation { get { throw null; } }
-        Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
-        Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-    }
     public partial class ServerInstanceProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MigrationDiscoverySap.Models.ServerInstanceProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MigrationDiscoverySap.Models.ServerInstanceProperties>
     {
         public ServerInstanceProperties() { }
         public Azure.ResourceManager.MigrationDiscoverySap.Models.ConfigurationDetail ConfigurationData { get { throw null; } }
-        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapMigrateError Errors { get { throw null; } }
+        public Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryErrorDetail ErrorsProperties { get { throw null; } }
         public string InstanceSid { get { throw null; } }
         public Azure.ResourceManager.MigrationDiscoverySap.Models.SapDiscoveryOperatingSystem? OperatingSystem { get { throw null; } }
         public Azure.ResourceManager.MigrationDiscoverySap.Models.PerformanceDetail PerformanceData { get { throw null; } }

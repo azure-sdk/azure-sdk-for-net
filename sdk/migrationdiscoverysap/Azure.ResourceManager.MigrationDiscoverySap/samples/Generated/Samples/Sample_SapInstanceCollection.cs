@@ -9,6 +9,7 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
+using Azure.ResourceManager.MigrationDiscoverySap.Models;
 
 namespace Azure.ResourceManager.MigrationDiscoverySap.Samples
 {
@@ -188,6 +189,7 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Samples
             string sapInstanceName = "MPP_MPP";
             SapInstanceData data = new SapInstanceData(new AzureLocation("eastus"))
             {
+                Properties = new SapInstanceProperties(),
                 Tags =
 {
 ["property1"] = "value1",
