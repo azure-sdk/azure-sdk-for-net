@@ -64,21 +64,11 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="systemSid"> This is the SID of SAP System. Keeping this not equal to ID as different landscapes can have repeated System SID IDs. </param>
-        /// <param name="environment"> The Environment; PRD, QA, DEV, etc to which SAP system belongs to. Select from the list of available dropdown values. </param>
-        /// <param name="landscapeSid"> This is the SID of the production system in a landscape.  An SAP system could itself be a production SID or a part of a landscape with a different Production SID. This field can be used to relate non-prod SIDs, other components, SID (WEBDISP) to the prod SID. Enter the value of Production SID. </param>
-        /// <param name="application"> Enter a business function/department identifier to group multiple SIDs. </param>
-        /// <param name="provisioningState"> Defines the provisioning states. </param>
-        /// <param name="errors"> Defines the errors related to SAP Instance resource. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SapInstanceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string systemSid, SapInstanceEnvironment? environment, string landscapeSid, string application, SapDiscoveryProvisioningState? provisioningState, SapMigrateError errors, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal SapInstanceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, SapInstanceProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
-            SystemSid = systemSid;
-            Environment = environment;
-            LandscapeSid = landscapeSid;
-            Application = application;
-            ProvisioningState = provisioningState;
-            Errors = errors;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -87,17 +77,7 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
         {
         }
 
-        /// <summary> This is the SID of SAP System. Keeping this not equal to ID as different landscapes can have repeated System SID IDs. </summary>
-        public string SystemSid { get; }
-        /// <summary> The Environment; PRD, QA, DEV, etc to which SAP system belongs to. Select from the list of available dropdown values. </summary>
-        public SapInstanceEnvironment? Environment { get; }
-        /// <summary> This is the SID of the production system in a landscape.  An SAP system could itself be a production SID or a part of a landscape with a different Production SID. This field can be used to relate non-prod SIDs, other components, SID (WEBDISP) to the prod SID. Enter the value of Production SID. </summary>
-        public string LandscapeSid { get; }
-        /// <summary> Enter a business function/department identifier to group multiple SIDs. </summary>
-        public string Application { get; }
-        /// <summary> Defines the provisioning states. </summary>
-        public SapDiscoveryProvisioningState? ProvisioningState { get; }
-        /// <summary> Defines the errors related to SAP Instance resource. </summary>
-        public SapMigrateError Errors { get; }
+        /// <summary> The resource-specific properties for this resource. </summary>
+        public SapInstanceProperties Properties { get; set; }
     }
 }

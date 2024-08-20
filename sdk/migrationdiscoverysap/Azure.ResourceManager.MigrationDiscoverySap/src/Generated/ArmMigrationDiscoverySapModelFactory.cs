@@ -23,13 +23,10 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <param name="extendedLocation"> The extended location definition. </param>
-        /// <param name="masterSiteId"> The master site ID from Azure Migrate. </param>
-        /// <param name="migrateProjectId"> The migrate project ID from Azure Migrate. </param>
-        /// <param name="provisioningState"> Defines the provisioning states. </param>
-        /// <param name="errors"> Indicates any errors on the SAP Migration discovery site resource. </param>
         /// <returns> A new <see cref="MigrationDiscoverySap.SapDiscoverySiteData"/> instance for mocking. </returns>
-        public static SapDiscoverySiteData SapDiscoverySiteData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, SapDiscoveryExtendedLocation extendedLocation = null, string masterSiteId = null, string migrateProjectId = null, SapDiscoveryProvisioningState? provisioningState = null, SapMigrateError errors = null)
+        public static SapDiscoverySiteData SapDiscoverySiteData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, SapDiscoverySiteProperties properties = null, SapDiscoveryExtendedLocation extendedLocation = null)
         {
             tags ??= new Dictionary<string, string>();
 
@@ -40,25 +37,20 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
                 systemData,
                 tags,
                 location,
+                properties,
                 extendedLocation,
-                masterSiteId,
-                migrateProjectId,
-                provisioningState,
-                errors,
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.SapMigrateError"/>. </summary>
-        /// <param name="code"> Service specific error code which serves as the substatus for the HTTP error code. </param>
-        /// <param name="message"> Description of the error. </param>
-        /// <param name="recommendation"> Description of the recommendation. </param>
-        /// <param name="details"> Internal error details. </param>
-        /// <returns> A new <see cref="Models.SapMigrateError"/> instance for mocking. </returns>
-        public static SapMigrateError SapMigrateError(string code = null, string message = null, string recommendation = null, IEnumerable<SapDiscoveryErrorDetail> details = null)
+        /// <summary> Initializes a new instance of <see cref="Models.SapDiscoverySiteProperties"/>. </summary>
+        /// <param name="masterSiteId"> The master site ID from Azure Migrate. </param>
+        /// <param name="migrateProjectId"> The migrate project ID from Azure Migrate. </param>
+        /// <param name="provisioningState"> Defines the provisioning states. </param>
+        /// <param name="errorsProperties"> Indicates any errors on the SAP Migration discovery site resource. </param>
+        /// <returns> A new <see cref="Models.SapDiscoverySiteProperties"/> instance for mocking. </returns>
+        public static SapDiscoverySiteProperties SapDiscoverySiteProperties(string masterSiteId = null, string migrateProjectId = null, SapDiscoveryProvisioningState? provisioningState = null, SapDiscoveryErrorDetail errorsProperties = null)
         {
-            details ??= new List<SapDiscoveryErrorDetail>();
-
-            return new SapMigrateError(code, message, recommendation, details?.ToList(), serializedAdditionalRawData: null);
+            return new SapDiscoverySiteProperties(masterSiteId, migrateProjectId, provisioningState, errorsProperties != null ? new SapMigrateError(errorsProperties, serializedAdditionalRawData: null) : null, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.SapDiscoveryErrorDetail"/>. </summary>
@@ -81,14 +73,9 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="systemSid"> This is the SID of SAP System. Keeping this not equal to ID as different landscapes can have repeated System SID IDs. </param>
-        /// <param name="environment"> The Environment; PRD, QA, DEV, etc to which SAP system belongs to. Select from the list of available dropdown values. </param>
-        /// <param name="landscapeSid"> This is the SID of the production system in a landscape.  An SAP system could itself be a production SID or a part of a landscape with a different Production SID. This field can be used to relate non-prod SIDs, other components, SID (WEBDISP) to the prod SID. Enter the value of Production SID. </param>
-        /// <param name="application"> Enter a business function/department identifier to group multiple SIDs. </param>
-        /// <param name="provisioningState"> Defines the provisioning states. </param>
-        /// <param name="errors"> Defines the errors related to SAP Instance resource. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <returns> A new <see cref="MigrationDiscoverySap.SapInstanceData"/> instance for mocking. </returns>
-        public static SapInstanceData SapInstanceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, string systemSid = null, SapInstanceEnvironment? environment = null, string landscapeSid = null, string application = null, SapDiscoveryProvisioningState? provisioningState = null, SapMigrateError errors = null)
+        public static SapInstanceData SapInstanceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, SapInstanceProperties properties = null)
         {
             tags ??= new Dictionary<string, string>();
 
@@ -99,12 +86,27 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
                 systemData,
                 tags,
                 location,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SapInstanceProperties"/>. </summary>
+        /// <param name="systemSid"> This is the SID of SAP System. Keeping this not equal to ID as different landscapes can have repeated System SID IDs. </param>
+        /// <param name="environment"> The Environment; PRD, QA, DEV, etc to which SAP system belongs to. Select from the list of available dropdown values. </param>
+        /// <param name="landscapeSid"> This is the SID of the production system in a landscape.  An SAP system could itself be a production SID or a part of a landscape with a different Production SID. This field can be used to relate non-prod SIDs, other components, SID (WEBDISP) to the prod SID. Enter the value of Production SID. </param>
+        /// <param name="application"> Enter a business function/department identifier to group multiple SIDs. </param>
+        /// <param name="provisioningState"> Defines the provisioning states. </param>
+        /// <param name="errorsProperties"> Defines the errors related to SAP Instance resource. </param>
+        /// <returns> A new <see cref="Models.SapInstanceProperties"/> instance for mocking. </returns>
+        public static SapInstanceProperties SapInstanceProperties(string systemSid = null, SapInstanceEnvironment? environment = null, string landscapeSid = null, string application = null, SapDiscoveryProvisioningState? provisioningState = null, SapDiscoveryErrorDetail errorsProperties = null)
+        {
+            return new SapInstanceProperties(
                 systemSid,
                 environment,
                 landscapeSid,
                 application,
                 provisioningState,
-                errors,
+                errorsProperties != null ? new SapMigrateError(errorsProperties, serializedAdditionalRawData: null) : null,
                 serializedAdditionalRawData: null);
         }
 
@@ -113,38 +115,16 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="serverName"> This is the Virtual Machine Name of the SAP system. Add all the virtual machines attached to an SAP system which you wish to migrate to Azure. Keeping this not equal to ID as for single tier all InstanceTypes would be on same server, leading to multiple resources with same servername. </param>
-        /// <param name="sapInstanceType"> Defines the type SAP instance on this server instance. </param>
-        /// <param name="instanceSid"> This is the Instance SID for ASCS/AP/DB instance.  An SAP system with HANA database for example could have a different SID for database Instance than that of ASCS instance. </param>
-        /// <param name="sapProduct"> This is the SAP Application Component; e.g. SAP S/4HANA 2022, SAP ERP ENHANCE PACKAGE. </param>
-        /// <param name="sapProductVersion"> Provide the product version of the SAP product. </param>
-        /// <param name="operatingSystem"> This is Operating System on which the host server is running. </param>
-        /// <param name="configurationData"> Configuration data for this server instance. </param>
-        /// <param name="performanceData">
-        /// Configuration data for this server instance.
-        /// Please note <see cref="PerformanceDetail"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="Models.ExcelPerformanceDetail"/> and <see cref="NativePerformanceDetail"/>.
-        /// </param>
-        /// <param name="provisioningState"> Defines the provisioning states. </param>
-        /// <param name="errors"> Defines the errors related to SAP Instance resource. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <returns> A new <see cref="MigrationDiscoverySap.SapDiscoveryServerInstanceData"/> instance for mocking. </returns>
-        public static SapDiscoveryServerInstanceData SapDiscoveryServerInstanceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string serverName = null, SapInstanceType? sapInstanceType = null, string instanceSid = null, string sapProduct = null, string sapProductVersion = null, SapDiscoveryOperatingSystem? operatingSystem = null, ConfigurationDetail configurationData = null, PerformanceDetail performanceData = null, SapDiscoveryProvisioningState? provisioningState = null, SapMigrateError errors = null)
+        public static SapDiscoveryServerInstanceData SapDiscoveryServerInstanceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ServerInstanceProperties properties = null)
         {
             return new SapDiscoveryServerInstanceData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                serverName,
-                sapInstanceType,
-                instanceSid,
-                sapProduct,
-                sapProductVersion,
-                operatingSystem,
-                configurationData,
-                performanceData,
-                provisioningState,
-                errors,
+                properties,
                 serializedAdditionalRawData: null);
         }
 
@@ -162,9 +142,9 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
         /// The available derived classes include <see cref="Models.ExcelPerformanceDetail"/> and <see cref="NativePerformanceDetail"/>.
         /// </param>
         /// <param name="provisioningState"> Defines the provisioning states. </param>
-        /// <param name="errors"> Defines the errors related to SAP Instance resource. </param>
+        /// <param name="errorsProperties"> Defines the errors related to SAP Instance resource. </param>
         /// <returns> A new <see cref="Models.ServerInstanceProperties"/> instance for mocking. </returns>
-        public static ServerInstanceProperties ServerInstanceProperties(string serverName = null, SapInstanceType? sapInstanceType = null, string instanceSid = null, string sapProduct = null, string sapProductVersion = null, SapDiscoveryOperatingSystem? operatingSystem = null, ConfigurationDetail configurationData = null, PerformanceDetail performanceData = null, SapDiscoveryProvisioningState? provisioningState = null, SapMigrateError errors = null)
+        public static ServerInstanceProperties ServerInstanceProperties(string serverName = null, SapInstanceType? sapInstanceType = null, string instanceSid = null, string sapProduct = null, string sapProductVersion = null, SapDiscoveryOperatingSystem? operatingSystem = null, ConfigurationDetail configurationData = null, PerformanceDetail performanceData = null, SapDiscoveryProvisioningState? provisioningState = null, SapDiscoveryErrorDetail errorsProperties = null)
         {
             return new ServerInstanceProperties(
                 serverName,
@@ -176,7 +156,7 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Models
                 configurationData,
                 performanceData,
                 provisioningState,
-                errors,
+                errorsProperties != null ? new SapMigrateError(errorsProperties, serializedAdditionalRawData: null) : null,
                 serializedAdditionalRawData: null);
         }
 
