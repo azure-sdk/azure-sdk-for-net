@@ -64,19 +64,13 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <param name="extendedLocation"> The extended location definition. </param>
-        /// <param name="masterSiteId"> The master site ID from Azure Migrate. </param>
-        /// <param name="migrateProjectId"> The migrate project ID from Azure Migrate. </param>
-        /// <param name="provisioningState"> Defines the provisioning states. </param>
-        /// <param name="errors"> Indicates any errors on the SAP Migration discovery site resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SapDiscoverySiteData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, SapDiscoveryExtendedLocation extendedLocation, string masterSiteId, string migrateProjectId, SapDiscoveryProvisioningState? provisioningState, SapMigrateError errors, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal SapDiscoverySiteData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, SapDiscoverySiteProperties properties, SapDiscoveryExtendedLocation extendedLocation, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
+            Properties = properties;
             ExtendedLocation = extendedLocation;
-            MasterSiteId = masterSiteId;
-            MigrateProjectId = migrateProjectId;
-            ProvisioningState = provisioningState;
-            Errors = errors;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -85,15 +79,9 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
         {
         }
 
+        /// <summary> The resource-specific properties for this resource. </summary>
+        public SapDiscoverySiteProperties Properties { get; set; }
         /// <summary> The extended location definition. </summary>
         public SapDiscoveryExtendedLocation ExtendedLocation { get; set; }
-        /// <summary> The master site ID from Azure Migrate. </summary>
-        public string MasterSiteId { get; set; }
-        /// <summary> The migrate project ID from Azure Migrate. </summary>
-        public string MigrateProjectId { get; set; }
-        /// <summary> Defines the provisioning states. </summary>
-        public SapDiscoveryProvisioningState? ProvisioningState { get; }
-        /// <summary> Indicates any errors on the SAP Migration discovery site resource. </summary>
-        public SapMigrateError Errors { get; }
     }
 }

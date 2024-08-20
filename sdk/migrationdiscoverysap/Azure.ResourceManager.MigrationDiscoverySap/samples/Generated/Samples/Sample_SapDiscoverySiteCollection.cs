@@ -9,6 +9,7 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
+using Azure.ResourceManager.MigrationDiscoverySap.Models;
 using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.MigrationDiscoverySap.Samples
@@ -184,8 +185,11 @@ namespace Azure.ResourceManager.MigrationDiscoverySap.Samples
             string sapDiscoverySiteName = "SampleSite";
             SapDiscoverySiteData data = new SapDiscoverySiteData(new AzureLocation("eastus"))
             {
-                MasterSiteId = "MasterSiteIdResourceId",
-                MigrateProjectId = "MigrateProjectId",
+                Properties = new SapDiscoverySiteProperties()
+                {
+                    MasterSiteId = "MasterSiteIdResourceId",
+                    MigrateProjectId = "MigrateProjectId",
+                },
                 Tags =
 {
 ["property1"] = "value1",

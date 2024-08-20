@@ -28,6 +28,11 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
+            }
             if (options.Format != "W")
             {
                 writer.WritePropertyName("id"u8);
@@ -48,59 +53,6 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
                 writer.WritePropertyName("systemData"u8);
                 JsonSerializer.Serialize(writer, SystemData);
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (options.Format != "W" && Optional.IsDefined(ServerName))
-            {
-                writer.WritePropertyName("serverName"u8);
-                writer.WriteStringValue(ServerName);
-            }
-            if (options.Format != "W" && Optional.IsDefined(SapInstanceType))
-            {
-                writer.WritePropertyName("sapInstanceType"u8);
-                writer.WriteStringValue(SapInstanceType.Value.ToString());
-            }
-            if (options.Format != "W" && Optional.IsDefined(InstanceSid))
-            {
-                writer.WritePropertyName("instanceSid"u8);
-                writer.WriteStringValue(InstanceSid);
-            }
-            if (options.Format != "W" && Optional.IsDefined(SapProduct))
-            {
-                writer.WritePropertyName("sapProduct"u8);
-                writer.WriteStringValue(SapProduct);
-            }
-            if (options.Format != "W" && Optional.IsDefined(SapProductVersion))
-            {
-                writer.WritePropertyName("sapProductVersion"u8);
-                writer.WriteStringValue(SapProductVersion);
-            }
-            if (options.Format != "W" && Optional.IsDefined(OperatingSystem))
-            {
-                writer.WritePropertyName("operatingSystem"u8);
-                writer.WriteStringValue(OperatingSystem.Value.ToString());
-            }
-            if (options.Format != "W" && Optional.IsDefined(ConfigurationData))
-            {
-                writer.WritePropertyName("configurationData"u8);
-                writer.WriteObjectValue(ConfigurationData, options);
-            }
-            if (options.Format != "W" && Optional.IsDefined(PerformanceData))
-            {
-                writer.WritePropertyName("performanceData"u8);
-                writer.WriteObjectValue(PerformanceData, options);
-            }
-            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
-            {
-                writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState.Value.ToString());
-            }
-            if (options.Format != "W" && Optional.IsDefined(Errors))
-            {
-                writer.WritePropertyName("errors"u8);
-                writer.WriteObjectValue(Errors, options);
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -139,24 +91,24 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
             {
                 return null;
             }
+            ServerInstanceProperties properties = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            string serverName = default;
-            SapInstanceType? sapInstanceType = default;
-            string instanceSid = default;
-            string sapProduct = default;
-            string sapProductVersion = default;
-            SapDiscoveryOperatingSystem? operatingSystem = default;
-            ConfigurationDetail configurationData = default;
-            PerformanceDetail performanceData = default;
-            SapDiscoveryProvisioningState? provisioningState = default;
-            SapMigrateError errors = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = ServerInstanceProperties.DeserializeServerInstanceProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -181,92 +133,6 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("serverName"u8))
-                        {
-                            serverName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("sapInstanceType"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            sapInstanceType = new SapInstanceType(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("instanceSid"u8))
-                        {
-                            instanceSid = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("sapProduct"u8))
-                        {
-                            sapProduct = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("sapProductVersion"u8))
-                        {
-                            sapProductVersion = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("operatingSystem"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            operatingSystem = new SapDiscoveryOperatingSystem(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("configurationData"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            configurationData = ConfigurationDetail.DeserializeConfigurationDetail(property0.Value, options);
-                            continue;
-                        }
-                        if (property0.NameEquals("performanceData"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            performanceData = PerformanceDetail.DeserializePerformanceDetail(property0.Value, options);
-                            continue;
-                        }
-                        if (property0.NameEquals("provisioningState"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            provisioningState = new SapDiscoveryProvisioningState(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("errors"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            errors = SapMigrateError.DeserializeSapMigrateError(property0.Value, options);
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -278,16 +144,7 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
                 name,
                 type,
                 systemData,
-                serverName,
-                sapInstanceType,
-                instanceSid,
-                sapProduct,
-                sapProductVersion,
-                operatingSystem,
-                configurationData,
-                performanceData,
-                provisioningState,
-                errors,
+                properties,
                 serializedAdditionalRawData);
         }
 

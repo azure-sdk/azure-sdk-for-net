@@ -61,59 +61,15 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="serverName"> This is the Virtual Machine Name of the SAP system. Add all the virtual machines attached to an SAP system which you wish to migrate to Azure. Keeping this not equal to ID as for single tier all InstanceTypes would be on same server, leading to multiple resources with same servername. </param>
-        /// <param name="sapInstanceType"> Defines the type SAP instance on this server instance. </param>
-        /// <param name="instanceSid"> This is the Instance SID for ASCS/AP/DB instance.  An SAP system with HANA database for example could have a different SID for database Instance than that of ASCS instance. </param>
-        /// <param name="sapProduct"> This is the SAP Application Component; e.g. SAP S/4HANA 2022, SAP ERP ENHANCE PACKAGE. </param>
-        /// <param name="sapProductVersion"> Provide the product version of the SAP product. </param>
-        /// <param name="operatingSystem"> This is Operating System on which the host server is running. </param>
-        /// <param name="configurationData"> Configuration data for this server instance. </param>
-        /// <param name="performanceData">
-        /// Configuration data for this server instance.
-        /// Please note <see cref="PerformanceDetail"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="ExcelPerformanceDetail"/> and <see cref="NativePerformanceDetail"/>.
-        /// </param>
-        /// <param name="provisioningState"> Defines the provisioning states. </param>
-        /// <param name="errors"> Defines the errors related to SAP Instance resource. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SapDiscoveryServerInstanceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string serverName, SapInstanceType? sapInstanceType, string instanceSid, string sapProduct, string sapProductVersion, SapDiscoveryOperatingSystem? operatingSystem, ConfigurationDetail configurationData, PerformanceDetail performanceData, SapDiscoveryProvisioningState? provisioningState, SapMigrateError errors, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal SapDiscoveryServerInstanceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ServerInstanceProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            ServerName = serverName;
-            SapInstanceType = sapInstanceType;
-            InstanceSid = instanceSid;
-            SapProduct = sapProduct;
-            SapProductVersion = sapProductVersion;
-            OperatingSystem = operatingSystem;
-            ConfigurationData = configurationData;
-            PerformanceData = performanceData;
-            ProvisioningState = provisioningState;
-            Errors = errors;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> This is the Virtual Machine Name of the SAP system. Add all the virtual machines attached to an SAP system which you wish to migrate to Azure. Keeping this not equal to ID as for single tier all InstanceTypes would be on same server, leading to multiple resources with same servername. </summary>
-        public string ServerName { get; }
-        /// <summary> Defines the type SAP instance on this server instance. </summary>
-        public SapInstanceType? SapInstanceType { get; }
-        /// <summary> This is the Instance SID for ASCS/AP/DB instance.  An SAP system with HANA database for example could have a different SID for database Instance than that of ASCS instance. </summary>
-        public string InstanceSid { get; }
-        /// <summary> This is the SAP Application Component; e.g. SAP S/4HANA 2022, SAP ERP ENHANCE PACKAGE. </summary>
-        public string SapProduct { get; }
-        /// <summary> Provide the product version of the SAP product. </summary>
-        public string SapProductVersion { get; }
-        /// <summary> This is Operating System on which the host server is running. </summary>
-        public SapDiscoveryOperatingSystem? OperatingSystem { get; }
-        /// <summary> Configuration data for this server instance. </summary>
-        public ConfigurationDetail ConfigurationData { get; }
-        /// <summary>
-        /// Configuration data for this server instance.
-        /// Please note <see cref="PerformanceDetail"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="ExcelPerformanceDetail"/> and <see cref="NativePerformanceDetail"/>.
-        /// </summary>
-        public PerformanceDetail PerformanceData { get; }
-        /// <summary> Defines the provisioning states. </summary>
-        public SapDiscoveryProvisioningState? ProvisioningState { get; }
-        /// <summary> Defines the errors related to SAP Instance resource. </summary>
-        public SapMigrateError Errors { get; }
+        /// <summary> The resource-specific properties for this resource. </summary>
+        public ServerInstanceProperties Properties { get; set; }
     }
 }
