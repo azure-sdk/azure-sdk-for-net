@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.MachineLearning.Models
         /// <param name="protocol"></param>
         /// <param name="serviceTag"></param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ServiceTagDestination(NetworkingRuleAction? action, IReadOnlyList<string> addressPrefixes, string portRanges, string protocol, string serviceTag, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ServiceTagDestination(NetworkingRuleAction? action, IList<string> addressPrefixes, string portRanges, string protocol, string serviceTag, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Action = action;
             AddressPrefixes = addressPrefixes;
@@ -71,7 +71,7 @@ namespace Azure.ResourceManager.MachineLearning.Models
         /// <summary> The action enum for networking rule. </summary>
         public NetworkingRuleAction? Action { get; set; }
         /// <summary> Optional, if provided, the ServiceTag property will be ignored. </summary>
-        public IReadOnlyList<string> AddressPrefixes { get; }
+        public IList<string> AddressPrefixes { get; }
         /// <summary> Gets or sets the port ranges. </summary>
         public string PortRanges { get; set; }
         /// <summary> Gets or sets the protocol. </summary>
