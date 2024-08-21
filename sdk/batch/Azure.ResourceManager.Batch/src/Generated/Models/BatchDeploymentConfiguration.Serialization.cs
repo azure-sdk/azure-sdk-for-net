@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Batch.Models
 {
-    public partial class BatchDeploymentConfiguration : IUtf8JsonSerializable, IJsonModel<BatchDeploymentConfiguration>
+    internal partial class BatchDeploymentConfiguration : IUtf8JsonSerializable, IJsonModel<BatchDeploymentConfiguration>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BatchDeploymentConfiguration>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
@@ -26,11 +26,6 @@ namespace Azure.ResourceManager.Batch.Models
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(CloudServiceConfiguration))
-            {
-                writer.WritePropertyName("cloudServiceConfiguration"u8);
-                writer.WriteObjectValue(CloudServiceConfiguration, options);
-            }
             if (Optional.IsDefined(VmConfiguration))
             {
                 writer.WritePropertyName("virtualMachineConfiguration"u8);
@@ -74,21 +69,11 @@ namespace Azure.ResourceManager.Batch.Models
             {
                 return null;
             }
-            BatchCloudServiceConfiguration cloudServiceConfiguration = default;
             BatchVmConfiguration virtualMachineConfiguration = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("cloudServiceConfiguration"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    cloudServiceConfiguration = BatchCloudServiceConfiguration.DeserializeBatchCloudServiceConfiguration(property.Value, options);
-                    continue;
-                }
                 if (property.NameEquals("virtualMachineConfiguration"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -104,7 +89,7 @@ namespace Azure.ResourceManager.Batch.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new BatchDeploymentConfiguration(cloudServiceConfiguration, virtualMachineConfiguration, serializedAdditionalRawData);
+            return new BatchDeploymentConfiguration(virtualMachineConfiguration, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<BatchDeploymentConfiguration>.Write(ModelReaderWriterOptions options)
