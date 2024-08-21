@@ -14,10 +14,10 @@ using Azure.ResourceManager.Models;
 namespace Azure.ResourceManager.HybridConnectivity
 {
     /// <summary>
-    /// A class representing the EndpointResource data model.
-    /// The endpoint for the target resource.
+    /// A class representing the ServiceConfigurationResource data model.
+    /// The service configuration details associated with the target resource.
     /// </summary>
-    public partial class EndpointResourceData : ResourceData
+    public partial class ServiceConfigurationResourceData : ResourceData
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -51,25 +51,37 @@ namespace Azure.ResourceManager.HybridConnectivity
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="EndpointResourceData"/>. </summary>
-        public EndpointResourceData()
+        /// <summary> Initializes a new instance of <see cref="ServiceConfigurationResourceData"/>. </summary>
+        public ServiceConfigurationResourceData()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="EndpointResourceData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ServiceConfigurationResourceData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> The endpoint properties. </param>
+        /// <param name="serviceName"> Name of the service. </param>
+        /// <param name="resourceId"> The resource Id of the connectivity endpoint (optional). </param>
+        /// <param name="port"> The port on which service is enabled. </param>
+        /// <param name="provisioningState"> The resource provisioning state. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal EndpointResourceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, EndpointProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal ServiceConfigurationResourceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ServiceName? serviceName, string resourceId, long? port, ProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            Properties = properties;
+            ServiceName = serviceName;
+            ResourceId = resourceId;
+            Port = port;
+            ProvisioningState = provisioningState;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The endpoint properties. </summary>
-        public EndpointProperties Properties { get; set; }
+        /// <summary> Name of the service. </summary>
+        public ServiceName? ServiceName { get; set; }
+        /// <summary> The resource Id of the connectivity endpoint (optional). </summary>
+        public string ResourceId { get; set; }
+        /// <summary> The port on which service is enabled. </summary>
+        public long? Port { get; set; }
+        /// <summary> The resource provisioning state. </summary>
+        public ProvisioningState? ProvisioningState { get; }
     }
 }

@@ -7,17 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
-using Azure.ResourceManager.HybridConnectivity.Models;
-using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.HybridConnectivity
+namespace Azure.ResourceManager.HybridConnectivity.Models
 {
-    /// <summary>
-    /// A class representing the EndpointResource data model.
-    /// The endpoint for the target resource.
-    /// </summary>
-    public partial class EndpointResourceData : ResourceData
+    /// <summary> The details of the service for which credentials needs to be returned. </summary>
+    public partial class ListCredentialsContent
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -51,25 +45,21 @@ namespace Azure.ResourceManager.HybridConnectivity
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="EndpointResourceData"/>. </summary>
-        public EndpointResourceData()
+        /// <summary> Initializes a new instance of <see cref="ListCredentialsContent"/>. </summary>
+        public ListCredentialsContent()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="EndpointResourceData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> The endpoint properties. </param>
+        /// <summary> Initializes a new instance of <see cref="ListCredentialsContent"/>. </summary>
+        /// <param name="serviceName"> The name of the service. If not provided, the request will by pass the generation of service configuration token. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal EndpointResourceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, EndpointProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal ListCredentialsContent(ServiceName? serviceName, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Properties = properties;
+            ServiceName = serviceName;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The endpoint properties. </summary>
-        public EndpointProperties Properties { get; set; }
+        /// <summary> The name of the service. If not provided, the request will by pass the generation of service configuration token. </summary>
+        public ServiceName? ServiceName { get; set; }
     }
 }

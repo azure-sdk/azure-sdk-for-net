@@ -13,19 +13,40 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.HybridConnectivity.Models
 {
-    public partial class TargetResourceEndpointAccess : IUtf8JsonSerializable, IJsonModel<TargetResourceEndpointAccess>
+    public partial class IngressGatewayResource : IUtf8JsonSerializable, IJsonModel<IngressGatewayResource>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<TargetResourceEndpointAccess>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<IngressGatewayResource>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<TargetResourceEndpointAccess>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<IngressGatewayResource>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TargetResourceEndpointAccess>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<IngressGatewayResource>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(TargetResourceEndpointAccess)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(IngressGatewayResource)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
+            writer.WritePropertyName("ingress"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(Hostname))
+            {
+                writer.WritePropertyName("hostname"u8);
+                writer.WriteStringValue(Hostname);
+            }
+            writer.WritePropertyName("aadProfile"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(ServerId))
+            {
+                writer.WritePropertyName("serverId"u8);
+                writer.WriteStringValue(ServerId);
+            }
+            if (Optional.IsDefined(TenantId))
+            {
+                writer.WritePropertyName("tenantId"u8);
+                writer.WriteStringValue(TenantId.Value);
+            }
+            writer.WriteEndObject();
+            writer.WriteEndObject();
             writer.WritePropertyName("relay"u8);
             writer.WriteStartObject();
             if (Optional.IsDefined(NamespaceName))
@@ -77,19 +98,19 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
             writer.WriteEndObject();
         }
 
-        TargetResourceEndpointAccess IJsonModel<TargetResourceEndpointAccess>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        IngressGatewayResource IJsonModel<IngressGatewayResource>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TargetResourceEndpointAccess>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<IngressGatewayResource>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(TargetResourceEndpointAccess)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(IngressGatewayResource)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeTargetResourceEndpointAccess(document.RootElement, options);
+            return DeserializeIngressGatewayResource(document.RootElement, options);
         }
 
-        internal static TargetResourceEndpointAccess DeserializeTargetResourceEndpointAccess(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static IngressGatewayResource DeserializeIngressGatewayResource(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -97,6 +118,9 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
             {
                 return null;
             }
+            string hostname = default;
+            string serverId = default;
+            Guid? tenantId = default;
             string namespaceName = default;
             string namespaceNameSuffix = default;
             string hybridConnectionName = default;
@@ -107,6 +131,49 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("ingress"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.NameEquals("hostname"u8))
+                        {
+                            hostname = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("aadProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("serverId"u8))
+                                {
+                                    serverId = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("tenantId"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        continue;
+                                    }
+                                    tenantId = property1.Value.GetGuid();
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
+                    }
+                    continue;
+                }
                 if (property.NameEquals("relay"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -159,7 +226,10 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new TargetResourceEndpointAccess(
+            return new IngressGatewayResource(
+                hostname,
+                serverId,
+                tenantId,
                 namespaceName,
                 namespaceNameSuffix,
                 hybridConnectionName,
@@ -169,35 +239,35 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
                 serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<TargetResourceEndpointAccess>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<IngressGatewayResource>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TargetResourceEndpointAccess>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<IngressGatewayResource>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(TargetResourceEndpointAccess)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(IngressGatewayResource)} does not support writing '{options.Format}' format.");
             }
         }
 
-        TargetResourceEndpointAccess IPersistableModel<TargetResourceEndpointAccess>.Create(BinaryData data, ModelReaderWriterOptions options)
+        IngressGatewayResource IPersistableModel<IngressGatewayResource>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TargetResourceEndpointAccess>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<IngressGatewayResource>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeTargetResourceEndpointAccess(document.RootElement, options);
+                        return DeserializeIngressGatewayResource(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(TargetResourceEndpointAccess)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(IngressGatewayResource)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<TargetResourceEndpointAccess>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<IngressGatewayResource>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

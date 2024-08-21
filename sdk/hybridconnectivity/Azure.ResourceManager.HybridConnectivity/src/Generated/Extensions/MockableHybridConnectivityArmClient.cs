@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.HybridConnectivity.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-10-06-preview</description>
+        /// <description>2024-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.HybridConnectivity.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-10-06-preview</description>
+        /// <description>2024-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -117,6 +117,18 @@ namespace Azure.ResourceManager.HybridConnectivity.Mocking
         {
             EndpointResource.ValidateResourceId(id);
             return new EndpointResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="ServiceConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ServiceConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="ServiceConfigurationResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ServiceConfigurationResource"/> object. </returns>
+        public virtual ServiceConfigurationResource GetServiceConfigurationResource(ResourceIdentifier id)
+        {
+            ServiceConfigurationResource.ValidateResourceId(id);
+            return new ServiceConfigurationResource(Client, id);
         }
     }
 }

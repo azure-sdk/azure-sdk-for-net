@@ -7,17 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
-using Azure.ResourceManager.HybridConnectivity.Models;
-using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.HybridConnectivity
+namespace Azure.ResourceManager.HybridConnectivity.Models
 {
-    /// <summary>
-    /// A class representing the EndpointResource data model.
-    /// The endpoint for the target resource.
-    /// </summary>
-    public partial class EndpointResourceData : ResourceData
+    /// <summary> Managed Proxy. </summary>
+    public partial class ManagedProxyResource
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -51,25 +45,37 @@ namespace Azure.ResourceManager.HybridConnectivity
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="EndpointResourceData"/>. </summary>
-        public EndpointResourceData()
+        /// <summary> Initializes a new instance of <see cref="ManagedProxyResource"/>. </summary>
+        /// <param name="proxy"> The short lived proxy name. </param>
+        /// <param name="expiresOn"> The expiration time of short lived proxy name in unix epoch. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="proxy"/> is null. </exception>
+        internal ManagedProxyResource(string proxy, long expiresOn)
         {
+            Argument.AssertNotNull(proxy, nameof(proxy));
+
+            Proxy = proxy;
+            ExpiresOn = expiresOn;
         }
 
-        /// <summary> Initializes a new instance of <see cref="EndpointResourceData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> The endpoint properties. </param>
+        /// <summary> Initializes a new instance of <see cref="ManagedProxyResource"/>. </summary>
+        /// <param name="proxy"> The short lived proxy name. </param>
+        /// <param name="expiresOn"> The expiration time of short lived proxy name in unix epoch. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal EndpointResourceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, EndpointProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal ManagedProxyResource(string proxy, long expiresOn, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Properties = properties;
+            Proxy = proxy;
+            ExpiresOn = expiresOn;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The endpoint properties. </summary>
-        public EndpointProperties Properties { get; set; }
+        /// <summary> Initializes a new instance of <see cref="ManagedProxyResource"/> for deserialization. </summary>
+        internal ManagedProxyResource()
+        {
+        }
+
+        /// <summary> The short lived proxy name. </summary>
+        public string Proxy { get; }
+        /// <summary> The expiration time of short lived proxy name in unix epoch. </summary>
+        public long ExpiresOn { get; }
     }
 }

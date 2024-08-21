@@ -19,32 +19,50 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="endpointType"> The type of endpoint. </param>
-        /// <param name="resourceId"> The resource Id of the connectivity endpoint (optional). </param>
-        /// <param name="provisioningState"></param>
-        /// <param name="createdBy"> The identity that created the resource. </param>
-        /// <param name="createdByType"> The type of identity that created the resource. </param>
-        /// <param name="createdOn"> The timestamp of resource creation (UTC). </param>
-        /// <param name="lastModifiedBy"> The identity that last modified the resource. </param>
-        /// <param name="lastModifiedByType"> The type of identity that last modified the resource. </param>
-        /// <param name="lastModifiedOn"> The timestamp of resource last modification (UTC). </param>
+        /// <param name="properties"> The endpoint properties. </param>
         /// <returns> A new <see cref="HybridConnectivity.EndpointResourceData"/> instance for mocking. </returns>
-        public static EndpointResourceData EndpointResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, EndpointType? endpointType = null, string resourceId = null, string provisioningState = null, string createdBy = null, CreatedByType? createdByType = null, DateTimeOffset? createdOn = null, string lastModifiedBy = null, CreatedByType? lastModifiedByType = null, DateTimeOffset? lastModifiedOn = null)
+        public static EndpointResourceData EndpointResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, EndpointProperties properties = null)
         {
             return new EndpointResourceData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                endpointType,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.EndpointProperties"/>. </summary>
+        /// <param name="endpointType"> The type of endpoint. </param>
+        /// <param name="resourceId"> The resource Id of the connectivity endpoint (optional). </param>
+        /// <param name="provisioningState"> The resource provisioning state. </param>
+        /// <returns> A new <see cref="Models.EndpointProperties"/> instance for mocking. </returns>
+        public static EndpointProperties EndpointProperties(EndpointType endpointType = default, string resourceId = null, string provisioningState = null)
+        {
+            return new EndpointProperties(endpointType, resourceId, provisioningState, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="HybridConnectivity.ServiceConfigurationResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="serviceName"> Name of the service. </param>
+        /// <param name="resourceId"> The resource Id of the connectivity endpoint (optional). </param>
+        /// <param name="port"> The port on which service is enabled. </param>
+        /// <param name="provisioningState"> The resource provisioning state. </param>
+        /// <returns> A new <see cref="HybridConnectivity.ServiceConfigurationResourceData"/> instance for mocking. </returns>
+        public static ServiceConfigurationResourceData ServiceConfigurationResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ServiceName? serviceName = null, string resourceId = null, long? port = null, ProvisioningState? provisioningState = null)
+        {
+            return new ServiceConfigurationResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                serviceName,
                 resourceId,
+                port,
                 provisioningState,
-                createdBy,
-                createdByType,
-                createdOn,
-                lastModifiedBy,
-                lastModifiedByType,
-                lastModifiedOn,
                 serializedAdditionalRawData: null);
         }
 
@@ -54,8 +72,9 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
         /// <param name="hybridConnectionName"> Azure Relay hybrid connection name for the resource. </param>
         /// <param name="accessKey"> Access key for hybrid connection. </param>
         /// <param name="expiresOn"> The expiration of access key in unix time. </param>
+        /// <param name="serviceConfigurationToken"> The token to access the enabled service. </param>
         /// <returns> A new <see cref="Models.TargetResourceEndpointAccess"/> instance for mocking. </returns>
-        public static TargetResourceEndpointAccess TargetResourceEndpointAccess(string namespaceName = null, string namespaceNameSuffix = null, string hybridConnectionName = null, string accessKey = null, long? expiresOn = null)
+        public static TargetResourceEndpointAccess TargetResourceEndpointAccess(string namespaceName = null, string namespaceNameSuffix = null, string hybridConnectionName = null, string accessKey = null, long? expiresOn = null, string serviceConfigurationToken = null)
         {
             return new TargetResourceEndpointAccess(
                 namespaceName,
@@ -63,7 +82,53 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
                 hybridConnectionName,
                 accessKey,
                 expiresOn,
+                serviceConfigurationToken,
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.IngressGatewayResource"/>. </summary>
+        /// <param name="hostname"> The ingress hostname. </param>
+        /// <param name="serverId"> The arc ingress gateway server app id. </param>
+        /// <param name="tenantId"> The target resource home tenant id. </param>
+        /// <param name="namespaceName"> The namespace name. </param>
+        /// <param name="namespaceNameSuffix"> The suffix domain name of relay namespace. </param>
+        /// <param name="hybridConnectionName"> Azure Relay hybrid connection name for the resource. </param>
+        /// <param name="accessKey"> Access key for hybrid connection. </param>
+        /// <param name="expiresOn"> The expiration of access key in unix time. </param>
+        /// <param name="serviceConfigurationToken"> The token to access the enabled service. </param>
+        /// <returns> A new <see cref="Models.IngressGatewayResource"/> instance for mocking. </returns>
+        public static IngressGatewayResource IngressGatewayResource(string hostname = null, string serverId = null, Guid? tenantId = null, string namespaceName = null, string namespaceNameSuffix = null, string hybridConnectionName = null, string accessKey = null, long? expiresOn = null, string serviceConfigurationToken = null)
+        {
+            return new IngressGatewayResource(
+                hostname,
+                serverId,
+                tenantId,
+                namespaceName,
+                namespaceNameSuffix,
+                hybridConnectionName,
+                accessKey,
+                expiresOn,
+                serviceConfigurationToken,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ManagedProxyContent"/>. </summary>
+        /// <param name="service"> The name of the service. </param>
+        /// <param name="hostname"> The target host name. </param>
+        /// <param name="serviceName"> The name of the service. It is an optional property, if not provided, service configuration tokens issue code would be by passed. </param>
+        /// <returns> A new <see cref="Models.ManagedProxyContent"/> instance for mocking. </returns>
+        public static ManagedProxyContent ManagedProxyContent(string service = null, string hostname = null, ServiceName? serviceName = null)
+        {
+            return new ManagedProxyContent(service, hostname, serviceName, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ManagedProxyResource"/>. </summary>
+        /// <param name="proxy"> The short lived proxy name. </param>
+        /// <param name="expiresOn"> The expiration time of short lived proxy name in unix epoch. </param>
+        /// <returns> A new <see cref="Models.ManagedProxyResource"/> instance for mocking. </returns>
+        public static ManagedProxyResource ManagedProxyResource(string proxy = null, long expiresOn = default)
+        {
+            return new ManagedProxyResource(proxy, expiresOn, serializedAdditionalRawData: null);
         }
     }
 }
