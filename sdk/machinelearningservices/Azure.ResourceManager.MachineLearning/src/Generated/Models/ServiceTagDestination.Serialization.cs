@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.MachineLearning.Models
                 writer.WritePropertyName("action"u8);
                 writer.WriteStringValue(Action.Value.ToString());
             }
-            if (options.Format != "W" && Optional.IsCollectionDefined(AddressPrefixes))
+            if (Optional.IsCollectionDefined(AddressPrefixes))
             {
                 writer.WritePropertyName("addressPrefixes"u8);
                 writer.WriteStartArray();
@@ -95,7 +95,7 @@ namespace Azure.ResourceManager.MachineLearning.Models
                 return null;
             }
             NetworkingRuleAction? action = default;
-            IReadOnlyList<string> addressPrefixes = default;
+            IList<string> addressPrefixes = default;
             string portRanges = default;
             string protocol = default;
             string serviceTag = default;

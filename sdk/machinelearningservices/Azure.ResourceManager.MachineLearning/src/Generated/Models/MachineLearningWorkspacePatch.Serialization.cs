@@ -51,6 +51,11 @@ namespace Azure.ResourceManager.MachineLearning.Models
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
+            if (Optional.IsDefined(AllowRoleAssignmentOnRG))
+            {
+                writer.WritePropertyName("allowRoleAssignmentOnRG"u8);
+                writer.WriteBooleanValue(AllowRoleAssignmentOnRG.Value);
+            }
             if (Optional.IsDefined(ApplicationInsights))
             {
                 writer.WritePropertyName("applicationInsights"u8);
@@ -70,6 +75,11 @@ namespace Azure.ResourceManager.MachineLearning.Models
             {
                 writer.WritePropertyName("enableDataIsolation"u8);
                 writer.WriteBooleanValue(EnableDataIsolation.Value);
+            }
+            if (Optional.IsDefined(EnableSoftwareBillOfMaterials))
+            {
+                writer.WritePropertyName("enableSoftwareBillOfMaterials"u8);
+                writer.WriteBooleanValue(EnableSoftwareBillOfMaterials.Value);
             }
             if (Optional.IsDefined(Encryption))
             {
@@ -91,6 +101,16 @@ namespace Azure.ResourceManager.MachineLearning.Models
                 writer.WritePropertyName("imageBuildCompute"u8);
                 writer.WriteStringValue(ImageBuildCompute);
             }
+            if (Optional.IsCollectionDefined(IPAllowlist))
+            {
+                writer.WritePropertyName("ipAllowlist"u8);
+                writer.WriteStartArray();
+                foreach (var item in IPAllowlist)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (Optional.IsDefined(ManagedNetwork))
             {
                 writer.WritePropertyName("managedNetwork"u8);
@@ -106,6 +126,11 @@ namespace Azure.ResourceManager.MachineLearning.Models
                 writer.WritePropertyName("publicNetworkAccess"u8);
                 writer.WriteStringValue(PublicNetworkAccessType.Value.ToString());
             }
+            if (Optional.IsDefined(ServerlessComputeSettings))
+            {
+                writer.WritePropertyName("serverlessComputeSettings"u8);
+                writer.WriteObjectValue(ServerlessComputeSettings, options);
+            }
             if (Optional.IsDefined(ServiceManagedResourcesSettings))
             {
                 writer.WritePropertyName("serviceManagedResourcesSettings"u8);
@@ -115,6 +140,11 @@ namespace Azure.ResourceManager.MachineLearning.Models
             {
                 writer.WritePropertyName("softDeleteRetentionInDays"u8);
                 writer.WriteNumberValue(SoftDeleteRetentionInDays.Value);
+            }
+            if (Optional.IsDefined(SystemDatastoresAuthMode))
+            {
+                writer.WritePropertyName("systemDatastoresAuthMode"u8);
+                writer.WriteStringValue(SystemDatastoresAuthMode);
             }
             if (Optional.IsDefined(V1LegacyMode))
             {
@@ -163,19 +193,24 @@ namespace Azure.ResourceManager.MachineLearning.Models
             ManagedServiceIdentity identity = default;
             MachineLearningSku sku = default;
             IDictionary<string, string> tags = default;
+            bool? allowRoleAssignmentOnRG = default;
             string applicationInsights = default;
             string containerRegistry = default;
             string description = default;
             bool? enableDataIsolation = default;
+            bool? enableSoftwareBillOfMaterials = default;
             EncryptionUpdateProperties encryption = default;
             FeatureStoreSettings featureStoreSettings = default;
             string friendlyName = default;
             string imageBuildCompute = default;
+            IList<string> ipAllowlist = default;
             ManagedNetworkSettings managedNetwork = default;
             string primaryUserAssignedIdentity = default;
             MachineLearningPublicNetworkAccessType? publicNetworkAccess = default;
+            ServerlessComputeSettings serverlessComputeSettings = default;
             ServiceManagedResourcesSettings serviceManagedResourcesSettings = default;
             int? softDeleteRetentionInDays = default;
+            string systemDatastoresAuthMode = default;
             bool? v1LegacyMode = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -223,6 +258,15 @@ namespace Azure.ResourceManager.MachineLearning.Models
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
+                        if (property0.NameEquals("allowRoleAssignmentOnRG"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            allowRoleAssignmentOnRG = property0.Value.GetBoolean();
+                            continue;
+                        }
                         if (property0.NameEquals("applicationInsights"u8))
                         {
                             applicationInsights = property0.Value.GetString();
@@ -245,6 +289,15 @@ namespace Azure.ResourceManager.MachineLearning.Models
                                 continue;
                             }
                             enableDataIsolation = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("enableSoftwareBillOfMaterials"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            enableSoftwareBillOfMaterials = property0.Value.GetBoolean();
                             continue;
                         }
                         if (property0.NameEquals("encryption"u8))
@@ -275,6 +328,20 @@ namespace Azure.ResourceManager.MachineLearning.Models
                             imageBuildCompute = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("ipAllowlist"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<string> array = new List<string>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(item.GetString());
+                            }
+                            ipAllowlist = array;
+                            continue;
+                        }
                         if (property0.NameEquals("managedNetwork"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -298,6 +365,15 @@ namespace Azure.ResourceManager.MachineLearning.Models
                             publicNetworkAccess = new MachineLearningPublicNetworkAccessType(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("serverlessComputeSettings"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            serverlessComputeSettings = ServerlessComputeSettings.DeserializeServerlessComputeSettings(property0.Value, options);
+                            continue;
+                        }
                         if (property0.NameEquals("serviceManagedResourcesSettings"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -314,6 +390,11 @@ namespace Azure.ResourceManager.MachineLearning.Models
                                 continue;
                             }
                             softDeleteRetentionInDays = property0.Value.GetInt32();
+                            continue;
+                        }
+                        if (property0.NameEquals("systemDatastoresAuthMode"u8))
+                        {
+                            systemDatastoresAuthMode = property0.Value.GetString();
                             continue;
                         }
                         if (property0.NameEquals("v1LegacyMode"u8))
@@ -338,19 +419,24 @@ namespace Azure.ResourceManager.MachineLearning.Models
                 identity,
                 sku,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
+                allowRoleAssignmentOnRG,
                 applicationInsights,
                 containerRegistry,
                 description,
                 enableDataIsolation,
+                enableSoftwareBillOfMaterials,
                 encryption,
                 featureStoreSettings,
                 friendlyName,
                 imageBuildCompute,
+                ipAllowlist ?? new ChangeTrackingList<string>(),
                 managedNetwork,
                 primaryUserAssignedIdentity,
                 publicNetworkAccess,
+                serverlessComputeSettings,
                 serviceManagedResourcesSettings,
                 softDeleteRetentionInDays,
+                systemDatastoresAuthMode,
                 v1LegacyMode,
                 serializedAdditionalRawData);
         }
