@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateOrUpdateTestProfileRunAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateTestProfileRunAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.CreateOrUpdateTestProfileRunAsync("<testProfileRunId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+]]></code>
+This sample shows how to call CreateOrUpdateTestProfileRunAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    displayName = "<displayName>",
+    description = "<description>",
+    testProfileId = "<testProfileId>",
+});
+Response response = await client.CreateOrUpdateTestProfileRunAsync("<testProfileRunId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceConfigurations").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errorDetails")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("startDateTime").ToString());
+Console.WriteLine(result.GetProperty("endDateTime").ToString());
+Console.WriteLine(result.GetProperty("durationInSeconds").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("configurationId").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("category").ToString());
+Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("configurations")[0].ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedBy").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateTestProfileRun(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateTestProfileRun and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.CreateOrUpdateTestProfileRun("<testProfileRunId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+]]></code>
+This sample shows how to call CreateOrUpdateTestProfileRun with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    displayName = "<displayName>",
+    description = "<description>",
+    testProfileId = "<testProfileId>",
+});
+Response response = client.CreateOrUpdateTestProfileRun("<testProfileRunId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceConfigurations").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errorDetails")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("startDateTime").ToString());
+Console.WriteLine(result.GetProperty("endDateTime").ToString());
+Console.WriteLine(result.GetProperty("durationInSeconds").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("configurationId").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("category").ToString());
+Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("configurations")[0].ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedBy").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteTestProfileRunAsync(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteTestProfileRunAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = await client.DeleteTestProfileRunAsync("<testProfileRunId>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call DeleteTestProfileRunAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = await client.DeleteTestProfileRunAsync("<testProfileRunId>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteTestProfileRun(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteTestProfileRun.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = client.DeleteTestProfileRun("<testProfileRunId>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call DeleteTestProfileRun with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = client.DeleteTestProfileRun("<testProfileRunId>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRunAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfileRunAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response<TestProfileRun> response = await client.GetTestProfileRunAsync("<testProfileRunId>");
+]]></code>
+This sample shows how to call GetTestProfileRunAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response<TestProfileRun> response = await client.GetTestProfileRunAsync("<testProfileRunId>");
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRun(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfileRun.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response<TestProfileRun> response = client.GetTestProfileRun("<testProfileRunId>");
+]]></code>
+This sample shows how to call GetTestProfileRun with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response<TestProfileRun> response = client.GetTestProfileRun("<testProfileRunId>");
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRunAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfileRunAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = await client.GetTestProfileRunAsync("<testProfileRunId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+]]></code>
+This sample shows how to call GetTestProfileRunAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = await client.GetTestProfileRunAsync("<testProfileRunId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceConfigurations").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errorDetails")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("startDateTime").ToString());
+Console.WriteLine(result.GetProperty("endDateTime").ToString());
+Console.WriteLine(result.GetProperty("durationInSeconds").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("configurationId").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("category").ToString());
+Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("configurations")[0].ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedBy").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRun(string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfileRun and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = client.GetTestProfileRun("<testProfileRunId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+]]></code>
+This sample shows how to call GetTestProfileRun with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = client.GetTestProfileRun("<testProfileRunId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceConfigurations").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errorDetails")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("startDateTime").ToString());
+Console.WriteLine(result.GetProperty("endDateTime").ToString());
+Console.WriteLine(result.GetProperty("durationInSeconds").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("configurationId").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("category").ToString());
+Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("configurations")[0].ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedBy").ToString());
+]]></code></example>
+    </member>
+    <member name="StopTestProfileRunAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call StopTestProfileRunAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response<TestProfileRun> response = await client.StopTestProfileRunAsync("<testProfileRunId>");
+]]></code>
+This sample shows how to call StopTestProfileRunAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response<TestProfileRun> response = await client.StopTestProfileRunAsync("<testProfileRunId>");
+]]></code></example>
+    </member>
+    <member name="StopTestProfileRun(string,CancellationToken)">
+      <example>
+This sample shows how to call StopTestProfileRun.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response<TestProfileRun> response = client.StopTestProfileRun("<testProfileRunId>");
+]]></code>
+This sample shows how to call StopTestProfileRun with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response<TestProfileRun> response = client.StopTestProfileRun("<testProfileRunId>");
+]]></code></example>
+    </member>
+    <member name="StopTestProfileRunAsync(string,RequestContext)">
+      <example>
+This sample shows how to call StopTestProfileRunAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = await client.StopTestProfileRunAsync("<testProfileRunId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+]]></code>
+This sample shows how to call StopTestProfileRunAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = await client.StopTestProfileRunAsync("<testProfileRunId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceConfigurations").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errorDetails")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("startDateTime").ToString());
+Console.WriteLine(result.GetProperty("endDateTime").ToString());
+Console.WriteLine(result.GetProperty("durationInSeconds").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("configurationId").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("category").ToString());
+Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("configurations")[0].ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedBy").ToString());
+]]></code></example>
+    </member>
+    <member name="StopTestProfileRun(string,RequestContext)">
+      <example>
+This sample shows how to call StopTestProfileRun and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = client.StopTestProfileRun("<testProfileRunId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+]]></code>
+This sample shows how to call StopTestProfileRun with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = client.StopTestProfileRun("<testProfileRunId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceConfigurations").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errorDetails")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("startDateTime").ToString());
+Console.WriteLine(result.GetProperty("endDateTime").ToString());
+Console.WriteLine(result.GetProperty("durationInSeconds").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("configurationId").ToString());
+Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("category").ToString());
+Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("configurations")[0].ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedBy").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRunsAsync(int?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfileRunsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+await foreach (TestProfileRun item in client.GetTestProfileRunsAsync())
+{
+}
+]]></code>
+This sample shows how to call GetTestProfileRunsAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+await foreach (TestProfileRun item in client.GetTestProfileRunsAsync(maxpagesize: 1234, minStartDateTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), maxStartDateTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), minEndDateTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), maxEndDateTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), createdDateStartTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), createdDateEndTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), testProfileRunIds: "<testProfileRunIds>", testProfileIds: "<testProfileIds>", statuses: "<statuses>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRuns(int?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfileRuns.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+foreach (TestProfileRun item in client.GetTestProfileRuns())
+{
+}
+]]></code>
+This sample shows how to call GetTestProfileRuns with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+foreach (TestProfileRun item in client.GetTestProfileRuns(maxpagesize: 1234, minStartDateTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), maxStartDateTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), minEndDateTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), maxEndDateTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), createdDateStartTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), createdDateEndTime: DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), testProfileRunIds: "<testProfileRunIds>", testProfileIds: "<testProfileIds>", statuses: "<statuses>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRunsAsync(int?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfileRunsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetTestProfileRunsAsync(null, null, null, null, null, null, null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+}
+]]></code>
+This sample shows how to call GetTestProfileRunsAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetTestProfileRunsAsync(1234, DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), "<testProfileRunIds>", "<testProfileIds>", "<statuses>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+    Console.WriteLine(result.GetProperty("displayName").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("testProfileId").ToString());
+    Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+    Console.WriteLine(result.GetProperty("targetResourceConfigurations").GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("errorDetails")[0].GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("startDateTime").ToString());
+    Console.WriteLine(result.GetProperty("endDateTime").ToString());
+    Console.WriteLine(result.GetProperty("durationInSeconds").ToString());
+    Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("configurationId").ToString());
+    Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("properties").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("category").ToString());
+    Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("configurations")[0].ToString());
+    Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+    Console.WriteLine(result.GetProperty("createdBy").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedBy").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRuns(int?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfileRuns and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetTestProfileRuns(null, null, null, null, null, null, null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+}
+]]></code>
+This sample shows how to call GetTestProfileRuns with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetTestProfileRuns(1234, DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"), "<testProfileRunIds>", "<testProfileIds>", "<statuses>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+    Console.WriteLine(result.GetProperty("displayName").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("testProfileId").ToString());
+    Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+    Console.WriteLine(result.GetProperty("targetResourceConfigurations").GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("errorDetails")[0].GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("startDateTime").ToString());
+    Console.WriteLine(result.GetProperty("endDateTime").ToString());
+    Console.WriteLine(result.GetProperty("durationInSeconds").ToString());
+    Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("configurationId").ToString());
+    Console.WriteLine(result.GetProperty("testRunDetails").GetProperty("<key>").GetProperty("properties").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("category").ToString());
+    Console.WriteLine(result.GetProperty("recommendations")[0].GetProperty("configurations")[0].ToString());
+    Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+    Console.WriteLine(result.GetProperty("createdBy").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedBy").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
