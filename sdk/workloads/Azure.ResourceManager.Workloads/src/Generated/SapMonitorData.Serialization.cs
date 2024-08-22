@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.Workloads
             if (options.Format != "W" && Optional.IsDefined(Errors))
             {
                 writer.WritePropertyName("errors"u8);
-                JsonSerializer.Serialize(writer, Errors);
+                writer.WriteObjectValue(Errors, options);
             }
             if (Optional.IsDefined(AppLocation))
             {
@@ -165,7 +165,7 @@ namespace Azure.ResourceManager.Workloads
             ResourceType type = default;
             SystemData systemData = default;
             WorkloadMonitorProvisioningState? provisioningState = default;
-            ResponseError errors = default;
+            MonitorPropertiesErrors errors = default;
             AzureLocation? appLocation = default;
             SapRoutingPreference? routingPreference = default;
             string zoneRedundancyPreference = default;
@@ -254,7 +254,7 @@ namespace Azure.ResourceManager.Workloads
                             {
                                 continue;
                             }
-                            errors = JsonSerializer.Deserialize<ResponseError>(property0.Value.GetRawText());
+                            errors = MonitorPropertiesErrors.DeserializeMonitorPropertiesErrors(property0.Value, options);
                             continue;
                         }
                         if (property0.NameEquals("appLocation"u8))

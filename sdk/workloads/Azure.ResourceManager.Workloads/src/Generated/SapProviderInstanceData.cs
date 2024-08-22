@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.Workloads
         /// The available derived classes include <see cref="DB2ProviderInstanceProperties"/>, <see cref="MsSqlServerProviderInstanceProperties"/>, <see cref="PrometheusHAClusterProviderInstanceProperties"/>, <see cref="PrometheusOSProviderInstanceProperties"/>, <see cref="HanaDBProviderInstanceProperties"/> and <see cref="SapNetWeaverProviderInstanceProperties"/>.
         /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SapProviderInstanceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, UserAssignedServiceIdentity identity, WorkloadMonitorProvisioningState? provisioningState, ResponseError errors, ProviderSpecificProperties providerSettings, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal SapProviderInstanceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, UserAssignedServiceIdentity identity, WorkloadMonitorProvisioningState? provisioningState, ProviderInstancePropertiesErrors errors, ProviderSpecificProperties providerSettings, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             Identity = identity;
             ProvisioningState = provisioningState;
@@ -84,7 +84,7 @@ namespace Azure.ResourceManager.Workloads
         /// <summary> State of provisioning of the provider instance. </summary>
         public WorkloadMonitorProvisioningState? ProvisioningState { get; }
         /// <summary> Defines the provider instance errors. </summary>
-        public ResponseError Errors { get; }
+        public ProviderInstancePropertiesErrors Errors { get; }
         /// <summary>
         /// Defines the provider specific properties.
         /// Please note <see cref="ProviderSpecificProperties"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.

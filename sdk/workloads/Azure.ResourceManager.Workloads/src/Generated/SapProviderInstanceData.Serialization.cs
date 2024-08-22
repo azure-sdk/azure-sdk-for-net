@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.Workloads
             if (options.Format != "W" && Optional.IsDefined(Errors))
             {
                 writer.WritePropertyName("errors"u8);
-                JsonSerializer.Serialize(writer, Errors);
+                writer.WriteObjectValue(Errors, options);
             }
             if (Optional.IsDefined(ProviderSettings))
             {
@@ -115,7 +115,7 @@ namespace Azure.ResourceManager.Workloads
             ResourceType type = default;
             SystemData systemData = default;
             WorkloadMonitorProvisioningState? provisioningState = default;
-            ResponseError errors = default;
+            ProviderInstancePropertiesErrors errors = default;
             ProviderSpecificProperties providerSettings = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -178,7 +178,7 @@ namespace Azure.ResourceManager.Workloads
                             {
                                 continue;
                             }
-                            errors = JsonSerializer.Deserialize<ResponseError>(property0.Value.GetRawText());
+                            errors = ProviderInstancePropertiesErrors.DeserializeProviderInstancePropertiesErrors(property0.Value, options);
                             continue;
                         }
                         if (property0.NameEquals("providerSettings"u8))

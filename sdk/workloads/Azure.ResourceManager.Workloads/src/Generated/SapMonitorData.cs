@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.Workloads
         /// <param name="msiArmId"> The ARM ID of the MSI used for SAP monitoring. </param>
         /// <param name="storageAccountArmId"> The ARM ID of the Storage account used for SAP monitoring. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SapMonitorData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, UserAssignedServiceIdentity identity, WorkloadMonitorProvisioningState? provisioningState, ResponseError errors, AzureLocation? appLocation, SapRoutingPreference? routingPreference, string zoneRedundancyPreference, ManagedRGConfiguration managedResourceGroupConfiguration, ResourceIdentifier logAnalyticsWorkspaceArmId, ResourceIdentifier monitorSubnetId, ResourceIdentifier msiArmId, ResourceIdentifier storageAccountArmId, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal SapMonitorData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, UserAssignedServiceIdentity identity, WorkloadMonitorProvisioningState? provisioningState, MonitorPropertiesErrors errors, AzureLocation? appLocation, SapRoutingPreference? routingPreference, string zoneRedundancyPreference, ManagedRGConfiguration managedResourceGroupConfiguration, ResourceIdentifier logAnalyticsWorkspaceArmId, ResourceIdentifier monitorSubnetId, ResourceIdentifier msiArmId, ResourceIdentifier storageAccountArmId, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             Identity = identity;
             ProvisioningState = provisioningState;
@@ -102,7 +102,7 @@ namespace Azure.ResourceManager.Workloads
         /// <summary> State of provisioning of the SAP monitor. </summary>
         public WorkloadMonitorProvisioningState? ProvisioningState { get; }
         /// <summary> Defines the SAP monitor errors. </summary>
-        public ResponseError Errors { get; }
+        public MonitorPropertiesErrors Errors { get; }
         /// <summary> The SAP monitor resources will be deployed in the SAP monitoring region. The subnet region should be same as the SAP monitoring region. </summary>
         public AzureLocation? AppLocation { get; set; }
         /// <summary> Sets the routing preference of the SAP monitor. By default only RFC1918 traffic is routed to the customer VNET. </summary>

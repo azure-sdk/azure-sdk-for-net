@@ -467,7 +467,7 @@ namespace Azure.ResourceManager.Workloads.Models
         /// <param name="msiArmId"> The ARM ID of the MSI used for SAP monitoring. </param>
         /// <param name="storageAccountArmId"> The ARM ID of the Storage account used for SAP monitoring. </param>
         /// <returns> A new <see cref="Workloads.SapMonitorData"/> instance for mocking. </returns>
-        public static SapMonitorData SapMonitorData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, UserAssignedServiceIdentity identity = null, WorkloadMonitorProvisioningState? provisioningState = null, ResponseError errors = null, AzureLocation? appLocation = null, SapRoutingPreference? routingPreference = null, string zoneRedundancyPreference = null, string managedResourceGroupName = null, ResourceIdentifier logAnalyticsWorkspaceArmId = null, ResourceIdentifier monitorSubnetId = null, ResourceIdentifier msiArmId = null, ResourceIdentifier storageAccountArmId = null)
+        public static SapMonitorData SapMonitorData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, UserAssignedServiceIdentity identity = null, WorkloadMonitorProvisioningState? provisioningState = null, MonitorPropertiesErrors errors = null, AzureLocation? appLocation = null, SapRoutingPreference? routingPreference = null, string zoneRedundancyPreference = null, string managedResourceGroupName = null, ResourceIdentifier logAnalyticsWorkspaceArmId = null, ResourceIdentifier monitorSubnetId = null, ResourceIdentifier msiArmId = null, ResourceIdentifier storageAccountArmId = null)
         {
             tags ??= new Dictionary<string, string>();
 
@@ -492,6 +492,56 @@ namespace Azure.ResourceManager.Workloads.Models
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Models.MonitorPropertiesErrors"/>. </summary>
+        /// <param name="code"> Error code. </param>
+        /// <param name="message"> Error message. </param>
+        /// <param name="target"> Error target. </param>
+        /// <param name="details"> Error details. </param>
+        /// <param name="innerError"> Inner error message. </param>
+        /// <returns> A new <see cref="Models.MonitorPropertiesErrors"/> instance for mocking. </returns>
+        public static MonitorPropertiesErrors MonitorPropertiesErrors(string code = null, string message = null, string target = null, IEnumerable<ErrorDetails> details = null, string innerError = null)
+        {
+            details ??= new List<ErrorDetails>();
+
+            return new MonitorPropertiesErrors(
+                code,
+                message,
+                target,
+                details?.ToList(),
+                innerError,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.Error"/>. </summary>
+        /// <param name="code"> Error code. </param>
+        /// <param name="message"> Error message. </param>
+        /// <param name="target"> Error target. </param>
+        /// <param name="details"> Error details. </param>
+        /// <param name="innerError"> Inner error message. </param>
+        /// <returns> A new <see cref="Models.Error"/> instance for mocking. </returns>
+        public static Error Error(string code = null, string message = null, string target = null, IEnumerable<ErrorDetails> details = null, string innerError = null)
+        {
+            details ??= new List<ErrorDetails>();
+
+            return new Error(
+                code,
+                message,
+                target,
+                details?.ToList(),
+                innerError,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ErrorDetails"/>. </summary>
+        /// <param name="code"> Error code. </param>
+        /// <param name="target"> Error target. </param>
+        /// <param name="message"> Error message. </param>
+        /// <returns> A new <see cref="Models.ErrorDetails"/> instance for mocking. </returns>
+        public static ErrorDetails ErrorDetails(string code = null, string target = null, string message = null)
+        {
+            return new ErrorDetails(code, target, message, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Workloads.SapProviderInstanceData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -506,7 +556,7 @@ namespace Azure.ResourceManager.Workloads.Models
         /// The available derived classes include <see cref="DB2ProviderInstanceProperties"/>, <see cref="MsSqlServerProviderInstanceProperties"/>, <see cref="PrometheusHAClusterProviderInstanceProperties"/>, <see cref="PrometheusOSProviderInstanceProperties"/>, <see cref="HanaDBProviderInstanceProperties"/> and <see cref="SapNetWeaverProviderInstanceProperties"/>.
         /// </param>
         /// <returns> A new <see cref="Workloads.SapProviderInstanceData"/> instance for mocking. </returns>
-        public static SapProviderInstanceData SapProviderInstanceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, UserAssignedServiceIdentity identity = null, WorkloadMonitorProvisioningState? provisioningState = null, ResponseError errors = null, ProviderSpecificProperties providerSettings = null)
+        public static SapProviderInstanceData SapProviderInstanceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, UserAssignedServiceIdentity identity = null, WorkloadMonitorProvisioningState? provisioningState = null, ProviderInstancePropertiesErrors errors = null, ProviderSpecificProperties providerSettings = null)
         {
             return new SapProviderInstanceData(
                 id,
@@ -517,6 +567,26 @@ namespace Azure.ResourceManager.Workloads.Models
                 provisioningState,
                 errors,
                 providerSettings,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ProviderInstancePropertiesErrors"/>. </summary>
+        /// <param name="code"> Error code. </param>
+        /// <param name="message"> Error message. </param>
+        /// <param name="target"> Error target. </param>
+        /// <param name="details"> Error details. </param>
+        /// <param name="innerError"> Inner error message. </param>
+        /// <returns> A new <see cref="Models.ProviderInstancePropertiesErrors"/> instance for mocking. </returns>
+        public static ProviderInstancePropertiesErrors ProviderInstancePropertiesErrors(string code = null, string message = null, string target = null, IEnumerable<ErrorDetails> details = null, string innerError = null)
+        {
+            details ??= new List<ErrorDetails>();
+
+            return new ProviderInstancePropertiesErrors(
+                code,
+                message,
+                target,
+                details?.ToList(),
+                innerError,
                 serializedAdditionalRawData: null);
         }
 
