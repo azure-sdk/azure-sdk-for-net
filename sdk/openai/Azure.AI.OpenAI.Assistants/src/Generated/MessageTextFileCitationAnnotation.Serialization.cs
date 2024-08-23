@@ -28,14 +28,20 @@ namespace Azure.AI.OpenAI.Assistants
             writer.WriteStartObject();
             writer.WritePropertyName("file_citation"u8);
             writer.WriteObjectValue<InternalMessageTextFileCitationDetails>(InternalDetails, options);
+            if (Optional.IsDefined(StartIndex))
+            {
+                writer.WritePropertyName("start_index"u8);
+                writer.WriteNumberValue(StartIndex.Value);
+            }
+            if (Optional.IsDefined(EndIndex))
+            {
+                writer.WritePropertyName("end_index"u8);
+                writer.WriteNumberValue(EndIndex.Value);
+            }
             writer.WritePropertyName("type"u8);
             writer.WriteStringValue(Type);
             writer.WritePropertyName("text"u8);
             writer.WriteStringValue(Text);
-            writer.WritePropertyName("start_index"u8);
-            writer.WriteNumberValue(StartIndex);
-            writer.WritePropertyName("end_index"u8);
-            writer.WriteNumberValue(EndIndex);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -75,10 +81,10 @@ namespace Azure.AI.OpenAI.Assistants
                 return null;
             }
             InternalMessageTextFileCitationDetails fileCitation = default;
+            int? startIndex = default;
+            int? endIndex = default;
             string type = default;
             string text = default;
-            int startIndex = default;
-            int endIndex = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -86,6 +92,24 @@ namespace Azure.AI.OpenAI.Assistants
                 if (property.NameEquals("file_citation"u8))
                 {
                     fileCitation = InternalMessageTextFileCitationDetails.DeserializeInternalMessageTextFileCitationDetails(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("start_index"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    startIndex = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("end_index"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    endIndex = property.Value.GetInt32();
                     continue;
                 }
                 if (property.NameEquals("type"u8))
@@ -98,16 +122,6 @@ namespace Azure.AI.OpenAI.Assistants
                     text = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("start_index"u8))
-                {
-                    startIndex = property.Value.GetInt32();
-                    continue;
-                }
-                if (property.NameEquals("end_index"u8))
-                {
-                    endIndex = property.Value.GetInt32();
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -117,10 +131,10 @@ namespace Azure.AI.OpenAI.Assistants
             return new MessageTextFileCitationAnnotation(
                 type,
                 text,
-                startIndex,
-                endIndex,
                 serializedAdditionalRawData,
-                fileCitation);
+                fileCitation,
+                startIndex,
+                endIndex);
         }
 
         BinaryData IPersistableModel<MessageTextFileCitationAnnotation>.Write(ModelReaderWriterOptions options)
