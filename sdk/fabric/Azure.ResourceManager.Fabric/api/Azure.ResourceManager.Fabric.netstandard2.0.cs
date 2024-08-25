@@ -45,12 +45,12 @@ namespace Azure.ResourceManager.Fabric
         public virtual Azure.AsyncPageable<Azure.ResourceManager.Fabric.Models.FabricSkuDetailsForExistingCapacity> GetSkusForCapacityAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Fabric.FabricCapacityResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Fabric.FabricCapacityResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.ResourceManager.ArmOperation Resume(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> ResumeAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Fabric.Models.ResumeOkStatusCode> Resume(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Fabric.Models.ResumeOkStatusCode>> ResumeAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Fabric.FabricCapacityResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Fabric.FabricCapacityResource>> SetTagsAsync(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.ResourceManager.ArmOperation Suspend(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> SuspendAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Fabric.Models.SuspendOkStatusCode> Suspend(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Fabric.Models.SuspendOkStatusCode>> SuspendAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         Azure.ResourceManager.Fabric.FabricCapacityData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Fabric.FabricCapacityData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Fabric.FabricCapacityData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.Fabric.FabricCapacityData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Fabric.FabricCapacityData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -283,5 +283,23 @@ namespace Azure.ResourceManager.Fabric.Models
         public static implicit operator Azure.ResourceManager.Fabric.Models.FabricSkuTier (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Fabric.Models.FabricSkuTier left, Azure.ResourceManager.Fabric.Models.FabricSkuTier right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class ResumeOkStatusCode : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Fabric.Models.ResumeOkStatusCode>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Fabric.Models.ResumeOkStatusCode>
+    {
+        internal ResumeOkStatusCode() { }
+        Azure.ResourceManager.Fabric.Models.ResumeOkStatusCode System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Fabric.Models.ResumeOkStatusCode>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Fabric.Models.ResumeOkStatusCode>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Fabric.Models.ResumeOkStatusCode System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Fabric.Models.ResumeOkStatusCode>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Fabric.Models.ResumeOkStatusCode>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Fabric.Models.ResumeOkStatusCode>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class SuspendOkStatusCode : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Fabric.Models.SuspendOkStatusCode>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Fabric.Models.SuspendOkStatusCode>
+    {
+        internal SuspendOkStatusCode() { }
+        Azure.ResourceManager.Fabric.Models.SuspendOkStatusCode System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Fabric.Models.SuspendOkStatusCode>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Fabric.Models.SuspendOkStatusCode>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Fabric.Models.SuspendOkStatusCode System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Fabric.Models.SuspendOkStatusCode>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Fabric.Models.SuspendOkStatusCode>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Fabric.Models.SuspendOkStatusCode>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
 }
