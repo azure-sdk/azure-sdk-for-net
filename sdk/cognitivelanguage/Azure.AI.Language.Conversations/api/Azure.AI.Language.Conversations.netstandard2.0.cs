@@ -1712,7 +1712,7 @@ namespace Azure.AI.Language.Conversations.Models
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
         public SummaryAspect(string value) { throw null; }
-        public static Azure.AI.Language.Conversations.Models.SummaryAspect ChapterTitle { get { throw null; } }
+        public static Azure.AI.Language.Conversations.Models.SummaryAspect Chaptertitle { get { throw null; } }
         public static Azure.AI.Language.Conversations.Models.SummaryAspect FollowUpTasks { get { throw null; } }
         public static Azure.AI.Language.Conversations.Models.SummaryAspect Issue { get { throw null; } }
         public static Azure.AI.Language.Conversations.Models.SummaryAspect Narrative { get { throw null; } }
