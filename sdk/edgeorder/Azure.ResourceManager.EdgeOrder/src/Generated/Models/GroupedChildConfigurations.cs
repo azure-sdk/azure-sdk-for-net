@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.EdgeOrder.Models
 {
-    /// <summary> Configuration filters. </summary>
-    public partial class ConfigurationFilters
+    /// <summary> Grouped child configuration object. </summary>
+    public partial class GroupedChildConfigurations
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,36 +45,26 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ConfigurationFilters"/>. </summary>
-        /// <param name="hierarchyInformation"> Product hierarchy information. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="hierarchyInformation"/> is null. </exception>
-        public ConfigurationFilters(HierarchyInformation hierarchyInformation)
+        /// <summary> Initializes a new instance of <see cref="GroupedChildConfigurations"/>. </summary>
+        internal GroupedChildConfigurations()
         {
-            Argument.AssertNotNull(hierarchyInformation, nameof(hierarchyInformation));
-
-            HierarchyInformation = hierarchyInformation;
-            FilterableProperty = new ChangeTrackingList<FilterableProperty>();
+            ChildConfigurations = new ChangeTrackingList<ChildConfiguration>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="ConfigurationFilters"/>. </summary>
-        /// <param name="hierarchyInformation"> Product hierarchy information. </param>
-        /// <param name="filterableProperty"> Filters specific to product. </param>
+        /// <summary> Initializes a new instance of <see cref="GroupedChildConfigurations"/>. </summary>
+        /// <param name="categoryInformation"> Category information. </param>
+        /// <param name="childConfigurations"> List of child configurations. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ConfigurationFilters(HierarchyInformation hierarchyInformation, IList<FilterableProperty> filterableProperty, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal GroupedChildConfigurations(CategoryInformation categoryInformation, IReadOnlyList<ChildConfiguration> childConfigurations, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            HierarchyInformation = hierarchyInformation;
-            FilterableProperty = filterableProperty;
+            CategoryInformation = categoryInformation;
+            ChildConfigurations = childConfigurations;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ConfigurationFilters"/> for deserialization. </summary>
-        internal ConfigurationFilters()
-        {
-        }
-
-        /// <summary> Product hierarchy information. </summary>
-        public HierarchyInformation HierarchyInformation { get; }
-        /// <summary> Filters specific to product. </summary>
-        public IList<FilterableProperty> FilterableProperty { get; }
+        /// <summary> Category information. </summary>
+        public CategoryInformation CategoryInformation { get; }
+        /// <summary> List of child configurations. </summary>
+        public IReadOnlyList<ChildConfiguration> ChildConfigurations { get; }
     }
 }

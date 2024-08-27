@@ -21,8 +21,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetEdgeOrderAddresses_ListAddressesAtSubscriptionLevel()
         {
-            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2021-12-01/examples/ListAddressesAtSubscriptionLevel.json
-            // this example is just showing the usage of "ListAddressesAtSubscriptionLevel" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2024-02-01/examples/ListAddressesAtSubscriptionLevel.json
+            // this example is just showing the usage of "Addresses_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "fa68082f-8ff7-4a25-95c7-ce9da541242f";
+            string subscriptionId = "eb5dc900-6186-49d8-b7d7-febd866fdc1d";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
@@ -53,8 +53,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetAddressByName()
         {
-            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2021-12-01/examples/GetAddressByName.json
-            // this example is just showing the usage of "GetAddressByName" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2024-02-01/examples/GetAddressByName.json
+            // this example is just showing the usage of "Addresses_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -63,9 +63,9 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
 
             // this example assumes you already have this EdgeOrderAddressResource created on azure
             // for more information of creating EdgeOrderAddressResource, please refer to the document of EdgeOrderAddressResource
-            string subscriptionId = "fa68082f-8ff7-4a25-95c7-ce9da541242f";
-            string resourceGroupName = "TestRG";
-            string addressName = "TestMSAddressName";
+            string subscriptionId = "eb5dc900-6186-49d8-b7d7-febd866fdc1d";
+            string resourceGroupName = "YourResourceGroupName";
+            string addressName = "TestAddressName1";
             ResourceIdentifier edgeOrderAddressResourceId = EdgeOrderAddressResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, addressName);
             EdgeOrderAddressResource edgeOrderAddress = client.GetEdgeOrderAddressResource(edgeOrderAddressResourceId);
 
@@ -84,8 +84,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteAddressByName()
         {
-            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2021-12-01/examples/DeleteAddressByName.json
-            // this example is just showing the usage of "DeleteAddressByName" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2024-02-01/examples/DeleteAddressByName.json
+            // this example is just showing the usage of "Addresses_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -94,8 +94,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
 
             // this example assumes you already have this EdgeOrderAddressResource created on azure
             // for more information of creating EdgeOrderAddressResource, please refer to the document of EdgeOrderAddressResource
-            string subscriptionId = "fa68082f-8ff7-4a25-95c7-ce9da541242f";
-            string resourceGroupName = "TestRG";
+            string subscriptionId = "eb5dc900-6186-49d8-b7d7-febd866fdc1d";
+            string resourceGroupName = "YourResourceGroupName";
             string addressName = "TestAddressName1";
             ResourceIdentifier edgeOrderAddressResourceId = EdgeOrderAddressResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, addressName);
             EdgeOrderAddressResource edgeOrderAddress = client.GetEdgeOrderAddressResource(edgeOrderAddressResourceId);
@@ -111,8 +111,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_UpdateAddress()
         {
-            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2021-12-01/examples/UpdateAddress.json
-            // this example is just showing the usage of "UpdateAddress" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2024-02-01/examples/UpdateAddress.json
+            // this example is just showing the usage of "Addresses_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -121,8 +121,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
 
             // this example assumes you already have this EdgeOrderAddressResource created on azure
             // for more information of creating EdgeOrderAddressResource, please refer to the document of EdgeOrderAddressResource
-            string subscriptionId = "fa68082f-8ff7-4a25-95c7-ce9da541242f";
-            string resourceGroupName = "TestRG";
+            string subscriptionId = "eb5dc900-6186-49d8-b7d7-febd866fdc1d";
+            string resourceGroupName = "YourResourceGroupName";
             string addressName = "TestAddressName2";
             ResourceIdentifier edgeOrderAddressResourceId = EdgeOrderAddressResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, addressName);
             EdgeOrderAddressResource edgeOrderAddress = client.GetEdgeOrderAddressResource(edgeOrderAddressResourceId);
@@ -132,13 +132,12 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
             {
                 Tags =
 {
-["Hobby"] = "Web Series Added",
-["Name"] = "Smile-Updated",
-["WhatElse"] = "Web Series Added",
-["Work"] = "Engineering",
+["tag1"] = "value1",
+["tag2"] = "value2",
 },
-                ShippingAddress = new EdgeOrderShippingAddress("16 TOWNSEND STT", "US")
+                ShippingAddress = new EdgeOrderShippingAddress("US")
                 {
+                    StreetAddress1 = "16 TOWNSEND ST",
                     StreetAddress2 = "UNIT 1",
                     City = "San Francisco",
                     StateOrProvince = "CA",
@@ -146,12 +145,15 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
                     CompanyName = "Microsoft",
                     AddressType = EdgeOrderAddressType.None,
                 },
-                ContactDetails = new EdgeOrderAddressContactDetails("Petr Cech", "1234567890", new string[]
-            {
-"ssemcr@microsoft.com"
-            })
+                ContactDetails = new EdgeOrderAddressContactDetails()
                 {
+                    ContactName = "YYYY YYYY",
+                    Phone = "0000000000",
                     PhoneExtension = "",
+                    EmailList =
+{
+"xxxx@xxxx.xxx"
+},
                 },
             };
             ArmOperation<EdgeOrderAddressResource> lro = await edgeOrderAddress.UpdateAsync(WaitUntil.Completed, patch);
