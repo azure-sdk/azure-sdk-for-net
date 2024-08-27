@@ -21,8 +21,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetEdgeOrderItems_ListOrderItemsAtSubscriptionLevel()
         {
-            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2021-12-01/examples/ListOrderItemsAtSubscriptionLevel.json
-            // this example is just showing the usage of "ListOrderItemsAtSubscriptionLevel" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2024-02-01/examples/ListOrderItemsAtSubscriptionLevel.json
+            // this example is just showing the usage of "OrderItems_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "fa68082f-8ff7-4a25-95c7-ce9da541242f";
+            string subscriptionId = "eb5dc900-6186-49d8-b7d7-febd866fdc1d";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
@@ -53,8 +53,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetOrderItemByName()
         {
-            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2021-12-01/examples/GetOrderItemByName.json
-            // this example is just showing the usage of "GetOrderItemByName" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2024-02-01/examples/GetOrderItemByName.json
+            // this example is just showing the usage of "OrderItems_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -63,9 +63,9 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
 
             // this example assumes you already have this EdgeOrderItemResource created on azure
             // for more information of creating EdgeOrderItemResource, please refer to the document of EdgeOrderItemResource
-            string subscriptionId = "fa68082f-8ff7-4a25-95c7-ce9da541242f";
-            string resourceGroupName = "TestRG";
-            string orderItemName = "TestOrderItemName01";
+            string subscriptionId = "eb5dc900-6186-49d8-b7d7-febd866fdc1d";
+            string resourceGroupName = "YourResourceGroupName";
+            string orderItemName = "TestOrderItemName1";
             ResourceIdentifier edgeOrderItemResourceId = EdgeOrderItemResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, orderItemName);
             EdgeOrderItemResource edgeOrderItem = client.GetEdgeOrderItemResource(edgeOrderItemResourceId);
 
@@ -84,8 +84,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteOrderItemByName()
         {
-            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2021-12-01/examples/DeleteOrderItemByName.json
-            // this example is just showing the usage of "DeleteOrderItemByName" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2024-02-01/examples/DeleteOrderItemByName.json
+            // this example is just showing the usage of "OrderItems_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -94,9 +94,9 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
 
             // this example assumes you already have this EdgeOrderItemResource created on azure
             // for more information of creating EdgeOrderItemResource, please refer to the document of EdgeOrderItemResource
-            string subscriptionId = "fa68082f-8ff7-4a25-95c7-ce9da541242f";
-            string resourceGroupName = "TestRG";
-            string orderItemName = "TestOrderItemName01";
+            string subscriptionId = "eb5dc900-6186-49d8-b7d7-febd866fdc1d";
+            string resourceGroupName = "YourResourceGroupName";
+            string orderItemName = "TestOrderItemName3";
             ResourceIdentifier edgeOrderItemResourceId = EdgeOrderItemResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, orderItemName);
             EdgeOrderItemResource edgeOrderItem = client.GetEdgeOrderItemResource(edgeOrderItemResourceId);
 
@@ -111,8 +111,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_UpdateOrderItem()
         {
-            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2021-12-01/examples/UpdateOrderItem.json
-            // this example is just showing the usage of "UpdateOrderItem" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2024-02-01/examples/UpdateOrderItem.json
+            // this example is just showing the usage of "OrderItems_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -121,25 +121,15 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
 
             // this example assumes you already have this EdgeOrderItemResource created on azure
             // for more information of creating EdgeOrderItemResource, please refer to the document of EdgeOrderItemResource
-            string subscriptionId = "fa68082f-8ff7-4a25-95c7-ce9da541242f";
-            string resourceGroupName = "TestRG";
-            string orderItemName = "TestOrderItemName01";
+            string subscriptionId = "eb5dc900-6186-49d8-b7d7-febd866fdc1d";
+            string resourceGroupName = "YourResourceGroupName";
+            string orderItemName = "TestOrderItemName3";
             ResourceIdentifier edgeOrderItemResourceId = EdgeOrderItemResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, orderItemName);
             EdgeOrderItemResource edgeOrderItem = client.GetEdgeOrderItemResource(edgeOrderItemResourceId);
 
             // invoke the operation
             EdgeOrderItemPatch patch = new EdgeOrderItemPatch()
             {
-                Tags =
-{
-["ant"] = "insect",
-["pigeon"] = "bird",
-["tiger"] = "animal",
-},
-                ForwardAddress = new EdgeOrderItemAddressProperties(new EdgeOrderAddressContactDetails("Updated contact name", "2222200000", new string[]
-            {
-"testemail@microsoft.com"
-            })),
                 Preferences = new OrderItemPreferences()
                 {
                     TransportPreferencesPreferredShipmentType = TransportShipmentType.CustomerManaged,
@@ -160,8 +150,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Cancel_CancelOrderItem()
         {
-            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2021-12-01/examples/CancelOrderItem.json
-            // this example is just showing the usage of "CancelOrderItem" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2024-02-01/examples/CancelOrderItem.json
+            // this example is just showing the usage of "OrderItems_Cancel" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -170,9 +160,9 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
 
             // this example assumes you already have this EdgeOrderItemResource created on azure
             // for more information of creating EdgeOrderItemResource, please refer to the document of EdgeOrderItemResource
-            string subscriptionId = "fa68082f-8ff7-4a25-95c7-ce9da541242f";
-            string resourceGroupName = "TestRG";
-            string orderItemName = "TestOrderItemName1";
+            string subscriptionId = "eb5dc900-6186-49d8-b7d7-febd866fdc1d";
+            string resourceGroupName = "YourResourceGroupName";
+            string orderItemName = "TestOrderItemName3";
             ResourceIdentifier edgeOrderItemResourceId = EdgeOrderItemResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, orderItemName);
             EdgeOrderItemResource edgeOrderItem = client.GetEdgeOrderItemResource(edgeOrderItemResourceId);
 
@@ -188,8 +178,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Return_ReturnOrderItem()
         {
-            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2021-12-01/examples/ReturnOrderItem.json
-            // this example is just showing the usage of "ReturnOrderItem" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2024-02-01/examples/ReturnOrderItem.json
+            // this example is just showing the usage of "OrderItems_Return" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -198,9 +188,9 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
 
             // this example assumes you already have this EdgeOrderItemResource created on azure
             // for more information of creating EdgeOrderItemResource, please refer to the document of EdgeOrderItemResource
-            string subscriptionId = "fa68082f-8ff7-4a25-95c7-ce9da541242f";
-            string resourceGroupName = "TestRG";
-            string orderItemName = "TestOrderName1";
+            string subscriptionId = "eb5dc900-6186-49d8-b7d7-febd866fdc1d";
+            string resourceGroupName = "YourResourceGroupName";
+            string orderItemName = "TestOrderName4";
             ResourceIdentifier edgeOrderItemResourceId = EdgeOrderItemResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, orderItemName);
             EdgeOrderItemResource edgeOrderItem = client.GetEdgeOrderItemResource(edgeOrderItemResourceId);
 

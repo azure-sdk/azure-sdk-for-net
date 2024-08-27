@@ -51,6 +51,9 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             ImageInformation = new ChangeTrackingList<EdgeOrderProductImageInformation>();
             FilterableProperties = new ChangeTrackingList<FilterableProperty>();
             Specifications = new ChangeTrackingList<ProductSpecification>();
+            ChildConfigurationTypes = new ChangeTrackingList<ChildConfigurationType>();
+            GroupedChildConfigurations = new ChangeTrackingList<GroupedChildConfigurations>();
+            SupportedTermCommitmentDurations = new ChangeTrackingList<TimeSpan>();
         }
 
         /// <summary> Initializes a new instance of <see cref="ProductConfiguration"/>. </summary>
@@ -60,11 +63,16 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         /// <param name="costInformation"> Cost information for the product system. </param>
         /// <param name="availabilityInformation"> Availability information of the product system. </param>
         /// <param name="hierarchyInformation"> Hierarchy information of a product. </param>
-        /// <param name="filterableProperties"> list of filters supported for a product. </param>
+        /// <param name="fulfilledBy"> The entity responsible for fulfillment of the item at the given hierarchy level. </param>
+        /// <param name="filterableProperties"> List of filters supported for a product. </param>
         /// <param name="specifications"> Specifications of the configuration. </param>
         /// <param name="dimensions"> Dimensions of the configuration. </param>
+        /// <param name="provisioningSupport"> Determining nature of provisioning that the configuration supports. </param>
+        /// <param name="childConfigurationTypes"> Different types of child configurations which exist for this configuration, these can be used to populate the child configuration filter. </param>
+        /// <param name="groupedChildConfigurations"> Child configurations present for the configuration after applying child configuration filter, grouped by the category name of the child configuration. </param>
+        /// <param name="supportedTermCommitmentDurations"> The Term Commitment Durations that are supported for a configuration. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ProductConfiguration(string displayName, ProductDescription description, IReadOnlyList<EdgeOrderProductImageInformation> imageInformation, EdgeOrderProductCostInformation costInformation, ProductAvailabilityInformation availabilityInformation, HierarchyInformation hierarchyInformation, IReadOnlyList<FilterableProperty> filterableProperties, IReadOnlyList<ProductSpecification> specifications, ProductDimensions dimensions, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ProductConfiguration(string displayName, ProductDescription description, IReadOnlyList<EdgeOrderProductImageInformation> imageInformation, EdgeOrderProductCostInformation costInformation, ProductAvailabilityInformation availabilityInformation, HierarchyInformation hierarchyInformation, FulfillmentType? fulfilledBy, IReadOnlyList<FilterableProperty> filterableProperties, IReadOnlyList<ProductSpecification> specifications, ProductDimensions dimensions, ProvisioningSupport? provisioningSupport, IReadOnlyList<ChildConfigurationType> childConfigurationTypes, IReadOnlyList<GroupedChildConfigurations> groupedChildConfigurations, IReadOnlyList<TimeSpan> supportedTermCommitmentDurations, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             DisplayName = displayName;
             Description = description;
@@ -72,9 +80,14 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             CostInformation = costInformation;
             AvailabilityInformation = availabilityInformation;
             HierarchyInformation = hierarchyInformation;
+            FulfilledBy = fulfilledBy;
             FilterableProperties = filterableProperties;
             Specifications = specifications;
             Dimensions = dimensions;
+            ProvisioningSupport = provisioningSupport;
+            ChildConfigurationTypes = childConfigurationTypes;
+            GroupedChildConfigurations = groupedChildConfigurations;
+            SupportedTermCommitmentDurations = supportedTermCommitmentDurations;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -90,11 +103,21 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         public ProductAvailabilityInformation AvailabilityInformation { get; }
         /// <summary> Hierarchy information of a product. </summary>
         public HierarchyInformation HierarchyInformation { get; }
-        /// <summary> list of filters supported for a product. </summary>
+        /// <summary> The entity responsible for fulfillment of the item at the given hierarchy level. </summary>
+        public FulfillmentType? FulfilledBy { get; }
+        /// <summary> List of filters supported for a product. </summary>
         public IReadOnlyList<FilterableProperty> FilterableProperties { get; }
         /// <summary> Specifications of the configuration. </summary>
         public IReadOnlyList<ProductSpecification> Specifications { get; }
         /// <summary> Dimensions of the configuration. </summary>
         public ProductDimensions Dimensions { get; }
+        /// <summary> Determining nature of provisioning that the configuration supports. </summary>
+        public ProvisioningSupport? ProvisioningSupport { get; }
+        /// <summary> Different types of child configurations which exist for this configuration, these can be used to populate the child configuration filter. </summary>
+        public IReadOnlyList<ChildConfigurationType> ChildConfigurationTypes { get; }
+        /// <summary> Child configurations present for the configuration after applying child configuration filter, grouped by the category name of the child configuration. </summary>
+        public IReadOnlyList<GroupedChildConfigurations> GroupedChildConfigurations { get; }
+        /// <summary> The Term Commitment Durations that are supported for a configuration. </summary>
+        public IReadOnlyList<TimeSpan> SupportedTermCommitmentDurations { get; }
     }
 }
