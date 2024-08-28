@@ -31,10 +31,10 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 writer.WritePropertyName("shapeFamily"u8);
                 writer.WriteStringValue(ShapeFamily);
             }
-            if (options.Format != "W")
+            if (options.Format != "W" && Optional.IsDefined(AvailableCoreCount))
             {
                 writer.WritePropertyName("availableCoreCount"u8);
-                writer.WriteNumberValue(AvailableCoreCount);
+                writer.WriteNumberValue(AvailableCoreCount.Value);
             }
             if (options.Format != "W" && Optional.IsDefined(MinimumCoreCount))
             {
@@ -165,7 +165,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 return null;
             }
             string shapeFamily = default;
-            int availableCoreCount = default;
+            int? availableCoreCount = default;
             int? minimumCoreCount = default;
             int? runtimeMinimumCoreCount = default;
             int? coreCountIncrement = default;
@@ -195,6 +195,10 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 }
                 if (property.NameEquals("availableCoreCount"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     availableCoreCount = property.Value.GetInt32();
                     continue;
                 }
