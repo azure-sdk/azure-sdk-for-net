@@ -370,16 +370,16 @@ namespace Azure.ResourceManager.Fabric
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<ArmOperation> ResumeAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<ResumeOkStatusCode>> ResumeAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
             using var scope = _fabricCapacityClientDiagnostics.CreateScope("FabricCapacityResource.Resume");
             scope.Start();
             try
             {
                 var response = await _fabricCapacityRestClient.ResumeAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new FabricArmOperation(_fabricCapacityClientDiagnostics, Pipeline, _fabricCapacityRestClient.CreateResumeRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var operation = new FabricArmOperation<ResumeOkStatusCode>(new ResumeOkStatusCodeOperationSource(), _fabricCapacityClientDiagnostics, Pipeline, _fabricCapacityRestClient.CreateResumeRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
-                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
             }
             catch (Exception e)
@@ -412,16 +412,16 @@ namespace Azure.ResourceManager.Fabric
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual ArmOperation Resume(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<ResumeOkStatusCode> Resume(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
             using var scope = _fabricCapacityClientDiagnostics.CreateScope("FabricCapacityResource.Resume");
             scope.Start();
             try
             {
                 var response = _fabricCapacityRestClient.Resume(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
-                var operation = new FabricArmOperation(_fabricCapacityClientDiagnostics, Pipeline, _fabricCapacityRestClient.CreateResumeRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var operation = new FabricArmOperation<ResumeOkStatusCode>(new ResumeOkStatusCodeOperationSource(), _fabricCapacityClientDiagnostics, Pipeline, _fabricCapacityRestClient.CreateResumeRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
-                    operation.WaitForCompletionResponse(cancellationToken);
+                    operation.WaitForCompletion(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -454,16 +454,16 @@ namespace Azure.ResourceManager.Fabric
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<ArmOperation> SuspendAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<SuspendOkStatusCode>> SuspendAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
             using var scope = _fabricCapacityClientDiagnostics.CreateScope("FabricCapacityResource.Suspend");
             scope.Start();
             try
             {
                 var response = await _fabricCapacityRestClient.SuspendAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new FabricArmOperation(_fabricCapacityClientDiagnostics, Pipeline, _fabricCapacityRestClient.CreateSuspendRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var operation = new FabricArmOperation<SuspendOkStatusCode>(new SuspendOkStatusCodeOperationSource(), _fabricCapacityClientDiagnostics, Pipeline, _fabricCapacityRestClient.CreateSuspendRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
-                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
             }
             catch (Exception e)
@@ -496,16 +496,16 @@ namespace Azure.ResourceManager.Fabric
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual ArmOperation Suspend(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<SuspendOkStatusCode> Suspend(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
             using var scope = _fabricCapacityClientDiagnostics.CreateScope("FabricCapacityResource.Suspend");
             scope.Start();
             try
             {
                 var response = _fabricCapacityRestClient.Suspend(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
-                var operation = new FabricArmOperation(_fabricCapacityClientDiagnostics, Pipeline, _fabricCapacityRestClient.CreateSuspendRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var operation = new FabricArmOperation<SuspendOkStatusCode>(new SuspendOkStatusCodeOperationSource(), _fabricCapacityClientDiagnostics, Pipeline, _fabricCapacityRestClient.CreateSuspendRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
-                    operation.WaitForCompletionResponse(cancellationToken);
+                    operation.WaitForCompletion(cancellationToken);
                 return operation;
             }
             catch (Exception e)
