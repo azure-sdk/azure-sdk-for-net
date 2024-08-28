@@ -75,7 +75,6 @@ namespace Azure.ResourceManager.OracleDatabase
         public string AutonomousDatabaseNationalCharacterSet
         {
             get => Properties is null ? default : Properties.CharacterSet;
-            set => Properties = new AutonomousDatabaseNationalCharacterSetProperties(value);
         }
     }
 }
