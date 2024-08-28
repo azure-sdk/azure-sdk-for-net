@@ -46,10 +46,8 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="OracleGIVersionProperties"/>. </summary>
-        /// <param name="version"> A valid Oracle Grid Infrastructure (GI) software version. </param>
-        public OracleGIVersionProperties(string version)
+        public OracleGIVersionProperties()
         {
-            Version = version;
         }
 
         /// <summary> Initializes a new instance of <see cref="OracleGIVersionProperties"/>. </summary>
@@ -59,11 +57,6 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         {
             Version = version;
             _serializedAdditionalRawData = serializedAdditionalRawData;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="OracleGIVersionProperties"/> for deserialization. </summary>
-        internal OracleGIVersionProperties()
-        {
         }
 
         /// <summary> A valid Oracle Grid Infrastructure (GI) software version. </summary>
