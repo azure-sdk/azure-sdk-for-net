@@ -47,18 +47,8 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="OracleDnsPrivateViewProperties"/>. </summary>
-        /// <param name="ocid"> The OCID of the view. </param>
-        /// <param name="isProtected"> A Boolean flag indicating whether or not parts of the resource are unable to be explicitly managed. </param>
-        /// <param name="self"> The canonical absolute URL of the resource. </param>
-        /// <param name="createdOn"> views timeCreated. </param>
-        /// <param name="updatedOn"> views timeCreated. </param>
-        public OracleDnsPrivateViewProperties(ResourceIdentifier ocid, bool isProtected, string self, DateTimeOffset createdOn, DateTimeOffset updatedOn)
+        public OracleDnsPrivateViewProperties()
         {
-            Ocid = ocid;
-            IsProtected = isProtected;
-            Self = self;
-            CreatedOn = createdOn;
-            UpdatedOn = updatedOn;
         }
 
         /// <summary> Initializes a new instance of <see cref="OracleDnsPrivateViewProperties"/>. </summary>
@@ -71,7 +61,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         /// <param name="updatedOn"> views timeCreated. </param>
         /// <param name="provisioningState"> Azure resource provisioning state. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal OracleDnsPrivateViewProperties(ResourceIdentifier ocid, string displayName, bool isProtected, DnsPrivateViewsLifecycleState? lifecycleState, string self, DateTimeOffset createdOn, DateTimeOffset updatedOn, OracleDatabaseResourceProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal OracleDnsPrivateViewProperties(ResourceIdentifier ocid, string displayName, bool? isProtected, DnsPrivateViewsLifecycleState? lifecycleState, string self, DateTimeOffset? createdOn, DateTimeOffset? updatedOn, OracleDatabaseResourceProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Ocid = ocid;
             DisplayName = displayName;
@@ -84,25 +74,20 @@ namespace Azure.ResourceManager.OracleDatabase.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="OracleDnsPrivateViewProperties"/> for deserialization. </summary>
-        internal OracleDnsPrivateViewProperties()
-        {
-        }
-
         /// <summary> The OCID of the view. </summary>
         public ResourceIdentifier Ocid { get; }
         /// <summary> The display name of the view resource. </summary>
         public string DisplayName { get; }
         /// <summary> A Boolean flag indicating whether or not parts of the resource are unable to be explicitly managed. </summary>
-        public bool IsProtected { get; }
+        public bool? IsProtected { get; }
         /// <summary> Views lifecycleState. </summary>
         public DnsPrivateViewsLifecycleState? LifecycleState { get; }
         /// <summary> The canonical absolute URL of the resource. </summary>
         public string Self { get; }
         /// <summary> views timeCreated. </summary>
-        public DateTimeOffset CreatedOn { get; }
+        public DateTimeOffset? CreatedOn { get; }
         /// <summary> views timeCreated. </summary>
-        public DateTimeOffset UpdatedOn { get; }
+        public DateTimeOffset? UpdatedOn { get; }
         /// <summary> Azure resource provisioning state. </summary>
         public OracleDatabaseResourceProvisioningState? ProvisioningState { get; }
     }

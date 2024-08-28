@@ -75,7 +75,6 @@ namespace Azure.ResourceManager.OracleDatabase
         public string OracleGIVersion
         {
             get => Properties is null ? default : Properties.Version;
-            set => Properties = new OracleGIVersionProperties(value);
         }
     }
 }
