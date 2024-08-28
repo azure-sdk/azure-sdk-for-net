@@ -4,9 +4,8 @@ Run `dotnet build /t:GenerateCode` to generate code.
 
 ```yaml
 title: PurviewCatalog
-input-file:
-
-- https://github.com/Azure/azure-rest-api-specs/blob/ccbe894f6b012ca2000184307ed453fd68797b86/specification/purview/data-plane/Azure.Analytics.Purview.Catalog/preview/2022-03-01-preview/purviewcatalog.json
+require:
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/purview/data-plane/readme.md
 
 
 namespace: Azure.Analytics.Purview.Catalog
@@ -81,3 +80,4 @@ directive:
     transform: >
       $.operationId = $.operationId.replace("_List", "_Get");
 ```
+
