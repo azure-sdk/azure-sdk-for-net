@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetOracleSubscription()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/oracleSubscriptions_get.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2024-06-01/examples/oracleSubscriptions_get.json
             // this example is just showing the usage of "OracleSubscriptions_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateOrUpdateOracleSubscription()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/oracleSubscriptions_create.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2024-06-01/examples/oracleSubscriptions_create.json
             // this example is just showing the usage of "OracleSubscriptions_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_PatchOracleSubscription()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/oracleSubscriptions_patch.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2024-06-01/examples/oracleSubscriptions_patch.json
             // this example is just showing the usage of "OracleSubscriptions_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -120,7 +120,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteOracleSubscription()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/oracleSubscriptions_delete.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2024-06-01/examples/oracleSubscriptions_delete.json
             // this example is just showing the usage of "OracleSubscriptions_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -140,12 +140,41 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
             Console.WriteLine($"Succeeded");
         }
 
+        // Add Azure Subscriptions to the OracleSubscription
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task AddAzureSubscriptions_AddAzureSubscriptionsToTheOracleSubscription()
+        {
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2024-06-01/examples/oracleSubscriptions_addAzureSubscriptions.json
+            // this example is just showing the usage of "OracleSubscriptions_AddAzureSubscriptions" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this OracleSubscriptionResource created on azure
+            // for more information of creating OracleSubscriptionResource, please refer to the document of OracleSubscriptionResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            ResourceIdentifier oracleSubscriptionResourceId = OracleSubscriptionResource.CreateResourceIdentifier(subscriptionId);
+            OracleSubscriptionResource oracleSubscription = client.GetOracleSubscriptionResource(oracleSubscriptionResourceId);
+
+            // invoke the operation
+            AzureSubscriptions body = new AzureSubscriptions(new string[]
+            {
+"00000000-0000-0000-0000-000000000001"
+            });
+            await oracleSubscription.AddAzureSubscriptionsAsync(WaitUntil.Completed, body);
+
+            Console.WriteLine($"Succeeded");
+        }
+
         // List Activation Links for the Oracle Subscription
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetActivationLinks_ListActivationLinksForTheOracleSubscription()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/oracleSubscriptions_listActivationLinks.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2024-06-01/examples/oracleSubscriptions_listActivationLinks.json
             // this example is just showing the usage of "OracleSubscriptions_ListActivationLinks" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -171,7 +200,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetCloudAccountDetails_ListCloudAccountDetailsForTheOracleSubscription()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/oracleSubscriptions_listCloudAccountDetails.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2024-06-01/examples/oracleSubscriptions_listCloudAccountDetails.json
             // this example is just showing the usage of "OracleSubscriptions_ListCloudAccountDetails" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -197,7 +226,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetSaasSubscriptionDetails_ListSaasSubscriptionDetailsForTheOracleSubscription()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/oracleSubscriptions_listSaasSubscriptionDetails.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2024-06-01/examples/oracleSubscriptions_listSaasSubscriptionDetails.json
             // this example is just showing the usage of "OracleSubscriptions_ListSaasSubscriptionDetails" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
