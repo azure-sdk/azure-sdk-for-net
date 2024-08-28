@@ -46,7 +46,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
             if (Optional.IsDefined(Identity))
             {
                 writer.WritePropertyName("identity"u8);
-                JsonSerializer.Serialize(writer, Identity);
+                var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                JsonSerializer.Serialize(writer, Identity, serializeOptions);
             }
             if (Optional.IsDefined(Sku))
             {
@@ -112,8 +113,15 @@ namespace Azure.ResourceManager.DesktopVirtualization
             writer.WriteStringValue(HostPoolType.ToString());
             if (Optional.IsDefined(PersonalDesktopAssignmentType))
             {
-                writer.WritePropertyName("personalDesktopAssignmentType"u8);
-                writer.WriteStringValue(PersonalDesktopAssignmentType.Value.ToString());
+                if (PersonalDesktopAssignmentType != null)
+                {
+                    writer.WritePropertyName("personalDesktopAssignmentType"u8);
+                    writer.WriteStringValue(PersonalDesktopAssignmentType.Value.ToString());
+                }
+                else
+                {
+                    writer.WriteNull("personalDesktopAssignmentType");
+                }
             }
             if (Optional.IsDefined(CustomRdpProperty))
             {
@@ -122,36 +130,86 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
             if (Optional.IsDefined(MaxSessionLimit))
             {
-                writer.WritePropertyName("maxSessionLimit"u8);
-                writer.WriteNumberValue(MaxSessionLimit.Value);
+                if (MaxSessionLimit != null)
+                {
+                    writer.WritePropertyName("maxSessionLimit"u8);
+                    writer.WriteNumberValue(MaxSessionLimit.Value);
+                }
+                else
+                {
+                    writer.WriteNull("maxSessionLimit");
+                }
             }
             writer.WritePropertyName("loadBalancerType"u8);
             writer.WriteStringValue(LoadBalancerType.ToString());
             if (Optional.IsDefined(Ring))
             {
-                writer.WritePropertyName("ring"u8);
-                writer.WriteNumberValue(Ring.Value);
+                if (Ring != null)
+                {
+                    writer.WritePropertyName("ring"u8);
+                    writer.WriteNumberValue(Ring.Value);
+                }
+                else
+                {
+                    writer.WriteNull("ring");
+                }
             }
             if (Optional.IsDefined(IsValidationEnvironment))
             {
-                writer.WritePropertyName("validationEnvironment"u8);
-                writer.WriteBooleanValue(IsValidationEnvironment.Value);
+                if (IsValidationEnvironment != null)
+                {
+                    writer.WritePropertyName("validationEnvironment"u8);
+                    writer.WriteBooleanValue(IsValidationEnvironment.Value);
+                }
+                else
+                {
+                    writer.WriteNull("validationEnvironment");
+                }
             }
             if (Optional.IsDefined(RegistrationInfo))
             {
-                writer.WritePropertyName("registrationInfo"u8);
-                writer.WriteObjectValue(RegistrationInfo, options);
+                if (RegistrationInfo != null)
+                {
+                    writer.WritePropertyName("registrationInfo"u8);
+                    writer.WriteObjectValue(RegistrationInfo, options);
+                }
+                else
+                {
+                    writer.WriteNull("registrationInfo");
+                }
             }
             if (Optional.IsDefined(VmTemplate))
             {
                 writer.WritePropertyName("vmTemplate"u8);
                 writer.WriteStringValue(VmTemplate);
             }
+            if (Optional.IsDefined(ManagementType))
+            {
+                writer.WritePropertyName("managementType"u8);
+                writer.WriteStringValue(ManagementType.Value.ToString());
+            }
             if (options.Format != "W" && Optional.IsCollectionDefined(ApplicationGroupReferences))
             {
-                writer.WritePropertyName("applicationGroupReferences"u8);
+                if (ApplicationGroupReferences != null)
+                {
+                    writer.WritePropertyName("applicationGroupReferences"u8);
+                    writer.WriteStartArray();
+                    foreach (var item in ApplicationGroupReferences)
+                    {
+                        writer.WriteStringValue(item);
+                    }
+                    writer.WriteEndArray();
+                }
+                else
+                {
+                    writer.WriteNull("applicationGroupReferences");
+                }
+            }
+            if (options.Format != "W" && Optional.IsCollectionDefined(AppAttachPackageReferences))
+            {
+                writer.WritePropertyName("appAttachPackageReferences"u8);
                 writer.WriteStartArray();
-                foreach (var item in ApplicationGroupReferences)
+                foreach (var item in AppAttachPackageReferences)
                 {
                     writer.WriteStringValue(item);
                 }
@@ -174,30 +232,65 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
             if (Optional.IsDefined(SsoSecretType))
             {
-                writer.WritePropertyName("ssoSecretType"u8);
-                writer.WriteStringValue(SsoSecretType.Value.ToString());
+                if (SsoSecretType != null)
+                {
+                    writer.WritePropertyName("ssoSecretType"u8);
+                    writer.WriteStringValue(SsoSecretType.Value.ToString());
+                }
+                else
+                {
+                    writer.WriteNull("ssoSecretType");
+                }
             }
             writer.WritePropertyName("preferredAppGroupType"u8);
             writer.WriteStringValue(PreferredAppGroupType.ToString());
             if (Optional.IsDefined(StartVmOnConnect))
             {
-                writer.WritePropertyName("startVMOnConnect"u8);
-                writer.WriteBooleanValue(StartVmOnConnect.Value);
+                if (StartVmOnConnect != null)
+                {
+                    writer.WritePropertyName("startVMOnConnect"u8);
+                    writer.WriteBooleanValue(StartVmOnConnect.Value);
+                }
+                else
+                {
+                    writer.WriteNull("startVMOnConnect");
+                }
             }
             if (options.Format != "W" && Optional.IsDefined(IsCloudPCResource))
             {
-                writer.WritePropertyName("cloudPcResource"u8);
-                writer.WriteBooleanValue(IsCloudPCResource.Value);
+                if (IsCloudPCResource != null)
+                {
+                    writer.WritePropertyName("cloudPcResource"u8);
+                    writer.WriteBooleanValue(IsCloudPCResource.Value);
+                }
+                else
+                {
+                    writer.WriteNull("cloudPcResource");
+                }
             }
             if (Optional.IsDefined(PublicNetworkAccess))
             {
-                writer.WritePropertyName("publicNetworkAccess"u8);
-                writer.WriteStringValue(PublicNetworkAccess.Value.ToString());
+                if (PublicNetworkAccess != null)
+                {
+                    writer.WritePropertyName("publicNetworkAccess"u8);
+                    writer.WriteStringValue(PublicNetworkAccess.Value.ToString());
+                }
+                else
+                {
+                    writer.WriteNull("publicNetworkAccess");
+                }
             }
             if (Optional.IsDefined(AgentUpdate))
             {
-                writer.WritePropertyName("agentUpdate"u8);
-                writer.WriteObjectValue(AgentUpdate, options);
+                if (AgentUpdate != null)
+                {
+                    writer.WritePropertyName("agentUpdate"u8);
+                    writer.WriteObjectValue(AgentUpdate, options);
+                }
+                else
+                {
+                    writer.WriteNull("agentUpdate");
+                }
             }
             if (options.Format != "W" && Optional.IsCollectionDefined(PrivateEndpointConnections))
             {
@@ -208,6 +301,26 @@ namespace Azure.ResourceManager.DesktopVirtualization
                     writer.WriteObjectValue(item, options);
                 }
                 writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(ManagedPrivateUDP))
+            {
+                writer.WritePropertyName("managedPrivateUDP"u8);
+                writer.WriteStringValue(ManagedPrivateUDP.Value.ToString());
+            }
+            if (Optional.IsDefined(DirectUDP))
+            {
+                writer.WritePropertyName("directUDP"u8);
+                writer.WriteStringValue(DirectUDP.Value.ToString());
+            }
+            if (Optional.IsDefined(PublicUDP))
+            {
+                writer.WritePropertyName("publicUDP"u8);
+                writer.WriteStringValue(PublicUDP.Value.ToString());
+            }
+            if (Optional.IsDefined(RelayUDP))
+            {
+                writer.WritePropertyName("relayUDP"u8);
+                writer.WriteStringValue(RelayUDP.Value.ToString());
             }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -272,7 +385,9 @@ namespace Azure.ResourceManager.DesktopVirtualization
             bool? validationEnvironment = default;
             HostPoolRegistrationInfo registrationInfo = default;
             string vmTemplate = default;
+            ManagementType? managementType = default;
             IReadOnlyList<string> applicationGroupReferences = default;
+            IReadOnlyList<string> appAttachPackageReferences = default;
             string ssoadfsAuthority = default;
             string ssoClientId = default;
             string ssoClientSecretKeyVaultPath = default;
@@ -283,6 +398,10 @@ namespace Azure.ResourceManager.DesktopVirtualization
             HostPoolPublicNetworkAccess? publicNetworkAccess = default;
             SessionHostAgentUpdateProperties agentUpdate = default;
             IReadOnlyList<DesktopVirtualizationPrivateEndpointConnection> privateEndpointConnections = default;
+            ManagedPrivateUDP? managedPrivateUDP = default;
+            DirectUDP? directUDP = default;
+            PublicUDP? publicUDP = default;
+            RelayUDP? relayUDP = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -316,7 +435,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
                     {
                         continue;
                     }
-                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
+                    var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText(), serializeOptions);
                     continue;
                 }
                 if (property.NameEquals("sku"u8))
@@ -413,6 +533,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
+                                personalDesktopAssignmentType = null;
                                 continue;
                             }
                             personalDesktopAssignmentType = new PersonalDesktopAssignmentType(property0.Value.GetString());
@@ -427,6 +548,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
+                                maxSessionLimit = null;
                                 continue;
                             }
                             maxSessionLimit = property0.Value.GetInt32();
@@ -441,6 +563,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
+                                ring = null;
                                 continue;
                             }
                             ring = property0.Value.GetInt32();
@@ -450,6 +573,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
+                                validationEnvironment = null;
                                 continue;
                             }
                             validationEnvironment = property0.Value.GetBoolean();
@@ -459,6 +583,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
+                                registrationInfo = null;
                                 continue;
                             }
                             registrationInfo = HostPoolRegistrationInfo.DeserializeHostPoolRegistrationInfo(property0.Value, options);
@@ -469,7 +594,31 @@ namespace Azure.ResourceManager.DesktopVirtualization
                             vmTemplate = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("managementType"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            managementType = new ManagementType(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("applicationGroupReferences"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                applicationGroupReferences = null;
+                                continue;
+                            }
+                            List<string> array = new List<string>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(item.GetString());
+                            }
+                            applicationGroupReferences = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("appAttachPackageReferences"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
@@ -480,7 +629,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                             {
                                 array.Add(item.GetString());
                             }
-                            applicationGroupReferences = array;
+                            appAttachPackageReferences = array;
                             continue;
                         }
                         if (property0.NameEquals("ssoadfsAuthority"u8))
@@ -502,6 +651,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
+                                ssoSecretType = null;
                                 continue;
                             }
                             ssoSecretType = new HostPoolSsoSecretType(property0.Value.GetString());
@@ -516,6 +666,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
+                                startVmOnConnect = null;
                                 continue;
                             }
                             startVmOnConnect = property0.Value.GetBoolean();
@@ -525,6 +676,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
+                                cloudPCResource = null;
                                 continue;
                             }
                             cloudPCResource = property0.Value.GetBoolean();
@@ -534,6 +686,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
+                                publicNetworkAccess = null;
                                 continue;
                             }
                             publicNetworkAccess = new HostPoolPublicNetworkAccess(property0.Value.GetString());
@@ -543,6 +696,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
+                                agentUpdate = null;
                                 continue;
                             }
                             agentUpdate = SessionHostAgentUpdateProperties.DeserializeSessionHostAgentUpdateProperties(property0.Value, options);
@@ -560,6 +714,42 @@ namespace Azure.ResourceManager.DesktopVirtualization
                                 array.Add(DesktopVirtualizationPrivateEndpointConnection.DeserializeDesktopVirtualizationPrivateEndpointConnection(item, options));
                             }
                             privateEndpointConnections = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("managedPrivateUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            managedPrivateUDP = new ManagedPrivateUDP(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("directUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            directUDP = new DirectUDP(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("publicUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            publicUDP = new PublicUDP(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("relayUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            relayUDP = new RelayUDP(property0.Value.GetString());
                             continue;
                         }
                     }
@@ -590,7 +780,9 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 validationEnvironment,
                 registrationInfo,
                 vmTemplate,
+                managementType,
                 applicationGroupReferences ?? new ChangeTrackingList<string>(),
+                appAttachPackageReferences ?? new ChangeTrackingList<string>(),
                 ssoadfsAuthority,
                 ssoClientId,
                 ssoClientSecretKeyVaultPath,
@@ -601,6 +793,10 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 publicNetworkAccess,
                 agentUpdate,
                 privateEndpointConnections ?? new ChangeTrackingList<DesktopVirtualizationPrivateEndpointConnection>(),
+                managedPrivateUDP,
+                directUDP,
+                publicUDP,
+                relayUDP,
                 managedBy,
                 kind,
                 etag,
