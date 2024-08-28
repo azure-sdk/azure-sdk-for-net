@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
             }
 
             writer.WriteStartObject();
-            if (options.Format != "W")
+            if (options.Format != "W" && Optional.IsDefined(Version))
             {
                 writer.WritePropertyName("version"u8);
                 writer.WriteStringValue(Version);
