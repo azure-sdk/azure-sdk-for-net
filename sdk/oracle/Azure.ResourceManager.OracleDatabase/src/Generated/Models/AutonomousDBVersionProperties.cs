@@ -46,10 +46,8 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AutonomousDBVersionProperties"/>. </summary>
-        /// <param name="version"> Supported Autonomous Db versions. </param>
-        public AutonomousDBVersionProperties(string version)
+        public AutonomousDBVersionProperties()
         {
-            Version = version;
         }
 
         /// <summary> Initializes a new instance of <see cref="AutonomousDBVersionProperties"/>. </summary>
@@ -69,11 +67,6 @@ namespace Azure.ResourceManager.OracleDatabase.Models
             IsFreeTierEnabled = isFreeTierEnabled;
             IsPaidEnabled = isPaidEnabled;
             _serializedAdditionalRawData = serializedAdditionalRawData;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="AutonomousDBVersionProperties"/> for deserialization. </summary>
-        internal AutonomousDBVersionProperties()
-        {
         }
 
         /// <summary> Supported Autonomous Db versions. </summary>
