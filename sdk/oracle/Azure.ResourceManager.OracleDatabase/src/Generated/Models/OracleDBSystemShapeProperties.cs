@@ -46,10 +46,8 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="OracleDBSystemShapeProperties"/>. </summary>
-        /// <param name="availableCoreCount"> The maximum number of CPU cores that can be enabled on the DB system for this shape. </param>
-        public OracleDBSystemShapeProperties(int availableCoreCount)
+        public OracleDBSystemShapeProperties()
         {
-            AvailableCoreCount = availableCoreCount;
         }
 
         /// <summary> Initializes a new instance of <see cref="OracleDBSystemShapeProperties"/>. </summary>
@@ -74,7 +72,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         /// <param name="maximumNodeCount"> The maximum number of database nodes available for this shape. </param>
         /// <param name="availableCoreCountPerNode"> The maximum number of CPU cores per database node that can be enabled for this shape. Only applicable to the flex Exadata shape and ExaCC Elastic shapes. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal OracleDBSystemShapeProperties(string shapeFamily, int availableCoreCount, int? minimumCoreCount, int? runtimeMinimumCoreCount, int? coreCountIncrement, int? minStorageCount, int? maxStorageCount, double? availableDataStoragePerServerInTbs, int? availableMemoryPerNodeInGbs, int? availableDBNodePerNodeInGbs, int? minCoreCountPerNode, int? availableMemoryInGbs, int? minMemoryPerNodeInGbs, int? availableDBNodeStorageInGbs, int? minDBNodeStoragePerNodeInGbs, int? availableDataStorageInTbs, int? minDataStorageInTbs, int? minimumNodeCount, int? maximumNodeCount, int? availableCoreCountPerNode, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal OracleDBSystemShapeProperties(string shapeFamily, int? availableCoreCount, int? minimumCoreCount, int? runtimeMinimumCoreCount, int? coreCountIncrement, int? minStorageCount, int? maxStorageCount, double? availableDataStoragePerServerInTbs, int? availableMemoryPerNodeInGbs, int? availableDBNodePerNodeInGbs, int? minCoreCountPerNode, int? availableMemoryInGbs, int? minMemoryPerNodeInGbs, int? availableDBNodeStorageInGbs, int? minDBNodeStoragePerNodeInGbs, int? availableDataStorageInTbs, int? minDataStorageInTbs, int? minimumNodeCount, int? maximumNodeCount, int? availableCoreCountPerNode, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ShapeFamily = shapeFamily;
             AvailableCoreCount = availableCoreCount;
@@ -99,15 +97,10 @@ namespace Azure.ResourceManager.OracleDatabase.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="OracleDBSystemShapeProperties"/> for deserialization. </summary>
-        internal OracleDBSystemShapeProperties()
-        {
-        }
-
         /// <summary> The family of the shape used for the DB system. </summary>
         public string ShapeFamily { get; }
         /// <summary> The maximum number of CPU cores that can be enabled on the DB system for this shape. </summary>
-        public int AvailableCoreCount { get; }
+        public int? AvailableCoreCount { get; }
         /// <summary> The minimum number of CPU cores that can be enabled on the DB system for this shape. </summary>
         public int? MinimumCoreCount { get; }
         /// <summary> The runtime minimum number of CPU cores that can be enabled on the DB system for this shape. </summary>
