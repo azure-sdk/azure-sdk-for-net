@@ -75,7 +75,6 @@ namespace Azure.ResourceManager.OracleDatabase
         public string OracleSystemVersion
         {
             get => Properties is null ? default : Properties.SystemVersion;
-            set => Properties = new OracleSystemVersionProperties(value);
         }
     }
 }
