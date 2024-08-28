@@ -51,6 +51,7 @@ namespace Azure.ResourceManager.Sphere
             uri.AppendPath("/deviceGroups/", false);
             uri.AppendPath(deviceGroupName, true);
             uri.AppendPath("/deployments", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
             if (filter != null)
             {
                 uri.AppendQuery("$filter", filter, true);
@@ -67,7 +68,6 @@ namespace Azure.ResourceManager.Sphere
             {
                 uri.AppendQuery("$maxpagesize", maxpagesize.Value, true);
             }
-            uri.AppendQuery("api-version", _apiVersion, true);
             return uri;
         }
 
@@ -89,6 +89,7 @@ namespace Azure.ResourceManager.Sphere
             uri.AppendPath("/deviceGroups/", false);
             uri.AppendPath(deviceGroupName, true);
             uri.AppendPath("/deployments", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
             if (filter != null)
             {
                 uri.AppendQuery("$filter", filter, true);
@@ -105,7 +106,6 @@ namespace Azure.ResourceManager.Sphere
             {
                 uri.AppendQuery("$maxpagesize", maxpagesize.Value, true);
             }
-            uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);

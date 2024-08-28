@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
             }
 
             writer.WriteStartObject();
-            if (options.Format != "W")
+            if (options.Format != "W" && Optional.IsDefined(Ocid))
             {
                 writer.WritePropertyName("ocid"u8);
                 writer.WriteStringValue(Ocid);
@@ -36,30 +36,30 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 writer.WritePropertyName("displayName"u8);
                 writer.WriteStringValue(DisplayName);
             }
-            if (options.Format != "W")
+            if (options.Format != "W" && Optional.IsDefined(IsProtected))
             {
                 writer.WritePropertyName("isProtected"u8);
-                writer.WriteBooleanValue(IsProtected);
+                writer.WriteBooleanValue(IsProtected.Value);
             }
             if (options.Format != "W" && Optional.IsDefined(LifecycleState))
             {
                 writer.WritePropertyName("lifecycleState"u8);
                 writer.WriteStringValue(LifecycleState.Value.ToString());
             }
-            if (options.Format != "W")
+            if (options.Format != "W" && Optional.IsDefined(Self))
             {
                 writer.WritePropertyName("self"u8);
                 writer.WriteStringValue(Self);
             }
-            if (options.Format != "W")
+            if (options.Format != "W" && Optional.IsDefined(CreatedOn))
             {
                 writer.WritePropertyName("timeCreated"u8);
-                writer.WriteStringValue(CreatedOn, "O");
+                writer.WriteStringValue(CreatedOn.Value, "O");
             }
-            if (options.Format != "W")
+            if (options.Format != "W" && Optional.IsDefined(UpdatedOn))
             {
                 writer.WritePropertyName("timeUpdated"u8);
-                writer.WriteStringValue(UpdatedOn, "O");
+                writer.WriteStringValue(UpdatedOn.Value, "O");
             }
             if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
             {
@@ -106,11 +106,11 @@ namespace Azure.ResourceManager.OracleDatabase.Models
             }
             ResourceIdentifier ocid = default;
             string displayName = default;
-            bool isProtected = default;
+            bool? isProtected = default;
             DnsPrivateViewsLifecycleState? lifecycleState = default;
             string self = default;
-            DateTimeOffset timeCreated = default;
-            DateTimeOffset timeUpdated = default;
+            DateTimeOffset? timeCreated = default;
+            DateTimeOffset? timeUpdated = default;
             OracleDatabaseResourceProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -118,6 +118,10 @@ namespace Azure.ResourceManager.OracleDatabase.Models
             {
                 if (property.NameEquals("ocid"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     ocid = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }
@@ -128,6 +132,10 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 }
                 if (property.NameEquals("isProtected"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     isProtected = property.Value.GetBoolean();
                     continue;
                 }
@@ -147,11 +155,19 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 }
                 if (property.NameEquals("timeCreated"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     timeCreated = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
                 if (property.NameEquals("timeUpdated"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     timeUpdated = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
