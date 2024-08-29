@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.MachineLearning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteEndpointDeployment()
         {
-            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-07-01-preview/examples/Endpoint/Deployment/delete.json
+            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-10-01-preview/examples/Endpoint/Deployment/delete.json
             // this example is just showing the usage of "EndpointDeployment_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.MachineLearning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetEndpointDeployment()
         {
-            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-07-01-preview/examples/Endpoint/Deployment/get.json
+            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-10-01-preview/examples/Endpoint/Deployment/get.json
             // this example is just showing the usage of "EndpointDeployment_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.MachineLearning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_CreateEndpointDeployment()
         {
-            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-07-01-preview/examples/Endpoint/Deployment/create.json
+            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-10-01-preview/examples/Endpoint/Deployment/create.json
             // this example is just showing the usage of "EndpointDeployment_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

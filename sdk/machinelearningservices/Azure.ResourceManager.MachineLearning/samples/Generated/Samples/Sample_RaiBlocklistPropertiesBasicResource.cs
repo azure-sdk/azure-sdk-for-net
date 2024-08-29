@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.MachineLearning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteRaiBlocklist()
         {
-            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-07-01-preview/examples/WorkspaceConnection/RaiBlocklist/delete.json
+            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-10-01-preview/examples/WorkspaceConnection/RaiBlocklist/delete.json
             // this example is just showing the usage of "ConnectionRaiBlocklist_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.MachineLearning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetRaiBlocklist()
         {
-            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-07-01-preview/examples/WorkspaceConnection/RaiBlocklist/get.json
+            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-10-01-preview/examples/WorkspaceConnection/RaiBlocklist/get.json
             // this example is just showing the usage of "ConnectionRaiBlocklist_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.MachineLearning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_CreateRaiBlocklist()
         {
-            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-07-01-preview/examples/WorkspaceConnection/RaiBlocklist/create.json
+            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-10-01-preview/examples/WorkspaceConnection/RaiBlocklist/create.json
             // this example is just showing the usage of "ConnectionRaiBlocklist_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.MachineLearning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task AddBulkConnectionRaiBlocklistItem_CreateBulkRaiBlocklistItems()
         {
-            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-07-01-preview/examples/WorkspaceConnection/RaiBlocklistItem/addBulk.json
+            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-10-01-preview/examples/WorkspaceConnection/RaiBlocklistItem/addBulk.json
             // this example is just showing the usage of "ConnectionRaiBlocklistItem_AddBulk" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -171,7 +171,7 @@ Pattern = "blockwords",
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task DeleteBulkConnectionRaiBlocklistItem_DeleteBulkRaiBlocklistItems()
         {
-            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-07-01-preview/examples/WorkspaceConnection/RaiBlocklistItem/deleteBulk.json
+            // Generated from example definition: specification/machinelearningservices/resource-manager/Microsoft.MachineLearningServices/preview/2024-10-01-preview/examples/WorkspaceConnection/RaiBlocklistItem/deleteBulk.json
             // this example is just showing the usage of "ConnectionRaiBlocklistItem_DeleteBulk" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

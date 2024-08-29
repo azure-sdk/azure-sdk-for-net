@@ -104,7 +104,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -144,7 +144,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -184,7 +184,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -227,7 +227,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -270,7 +270,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -316,7 +316,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -362,7 +362,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -404,7 +404,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -446,7 +446,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -476,7 +476,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -506,7 +506,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -544,7 +544,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -582,7 +582,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -624,7 +624,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -666,7 +666,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -708,7 +708,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -750,7 +750,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -792,7 +792,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -834,7 +834,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -876,7 +876,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -918,7 +918,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -960,7 +960,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1002,7 +1002,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1031,7 +1031,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1060,7 +1060,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1106,7 +1106,7 @@ namespace Azure.ResourceManager.MachineLearning
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
+        /// <description>2024-10-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
