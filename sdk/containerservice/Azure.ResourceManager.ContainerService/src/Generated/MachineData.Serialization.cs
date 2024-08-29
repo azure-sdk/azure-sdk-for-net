@@ -15,19 +15,24 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.ContainerService
 {
-    public partial class OSOptionProfileData : IUtf8JsonSerializable, IJsonModel<OSOptionProfileData>
+    public partial class MachineData : IUtf8JsonSerializable, IJsonModel<MachineData>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<OSOptionProfileData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<MachineData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<OSOptionProfileData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<MachineData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<OSOptionProfileData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<MachineData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(OSOptionProfileData)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(MachineData)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
+            if (options.Format != "W" && Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
+            }
             if (options.Format != "W")
             {
                 writer.WritePropertyName("id"u8);
@@ -48,16 +53,6 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("systemData"u8);
                 JsonSerializer.Serialize(writer, SystemData);
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            writer.WritePropertyName("osOptionPropertyList"u8);
-            writer.WriteStartArray();
-            foreach (var item in OSOptionPropertyList)
-            {
-                writer.WriteObjectValue(item, options);
-            }
-            writer.WriteEndArray();
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -76,19 +71,19 @@ namespace Azure.ResourceManager.ContainerService
             writer.WriteEndObject();
         }
 
-        OSOptionProfileData IJsonModel<OSOptionProfileData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        MachineData IJsonModel<MachineData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<OSOptionProfileData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<MachineData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(OSOptionProfileData)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(MachineData)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeOSOptionProfileData(document.RootElement, options);
+            return DeserializeMachineData(document.RootElement, options);
         }
 
-        internal static OSOptionProfileData DeserializeOSOptionProfileData(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static MachineData DeserializeMachineData(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -96,15 +91,24 @@ namespace Azure.ResourceManager.ContainerService
             {
                 return null;
             }
+            MachineProperties properties = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            IReadOnlyList<ContainerServiceOSOptionProperty> osOptionPropertyList = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = MachineProperties.DeserializeMachineProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -129,72 +133,50 @@ namespace Azure.ResourceManager.ContainerService
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("osOptionPropertyList"u8))
-                        {
-                            List<ContainerServiceOSOptionProperty> array = new List<ContainerServiceOSOptionProperty>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(ContainerServiceOSOptionProperty.DeserializeContainerServiceOSOptionProperty(item, options));
-                            }
-                            osOptionPropertyList = array;
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new OSOptionProfileData(
+            return new MachineData(
                 id,
                 name,
                 type,
                 systemData,
-                osOptionPropertyList,
+                properties,
                 serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<OSOptionProfileData>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<MachineData>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<OSOptionProfileData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<MachineData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(OSOptionProfileData)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(MachineData)} does not support writing '{options.Format}' format.");
             }
         }
 
-        OSOptionProfileData IPersistableModel<OSOptionProfileData>.Create(BinaryData data, ModelReaderWriterOptions options)
+        MachineData IPersistableModel<MachineData>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<OSOptionProfileData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<MachineData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeOSOptionProfileData(document.RootElement, options);
+                        return DeserializeMachineData(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(OSOptionProfileData)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(MachineData)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<OSOptionProfileData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<MachineData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
