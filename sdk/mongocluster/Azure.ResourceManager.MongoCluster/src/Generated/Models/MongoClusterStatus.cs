@@ -29,6 +29,7 @@ namespace Azure.ResourceManager.MongoCluster.Models
         private const string StoppingValue = "Stopping";
         private const string StoppedValue = "Stopped";
         private const string DroppingValue = "Dropping";
+        private const string Test123Value = "Test123";
 
         /// <summary> The mongo cluster resource is ready for use. </summary>
         public static MongoClusterStatus Ready { get; } = new MongoClusterStatus(ReadyValue);
@@ -44,6 +45,8 @@ namespace Azure.ResourceManager.MongoCluster.Models
         public static MongoClusterStatus Stopped { get; } = new MongoClusterStatus(StoppedValue);
         /// <summary> The mongo cluster resource is being dropped. </summary>
         public static MongoClusterStatus Dropping { get; } = new MongoClusterStatus(DroppingValue);
+        /// <summary> Test123. </summary>
+        public static MongoClusterStatus Test123 { get; } = new MongoClusterStatus(Test123Value);
         /// <summary> Determines if two <see cref="MongoClusterStatus"/> values are the same. </summary>
         public static bool operator ==(MongoClusterStatus left, MongoClusterStatus right) => left.Equals(right);
         /// <summary> Determines if two <see cref="MongoClusterStatus"/> values are not the same. </summary>

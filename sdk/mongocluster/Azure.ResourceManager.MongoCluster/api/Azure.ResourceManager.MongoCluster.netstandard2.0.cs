@@ -664,6 +664,7 @@ namespace Azure.ResourceManager.MongoCluster.Models
         public static Azure.ResourceManager.MongoCluster.Models.MongoClusterStatus Starting { get { throw null; } }
         public static Azure.ResourceManager.MongoCluster.Models.MongoClusterStatus Stopped { get { throw null; } }
         public static Azure.ResourceManager.MongoCluster.Models.MongoClusterStatus Stopping { get { throw null; } }
+        public static Azure.ResourceManager.MongoCluster.Models.MongoClusterStatus Test123 { get { throw null; } }
         public static Azure.ResourceManager.MongoCluster.Models.MongoClusterStatus Updating { get { throw null; } }
         public bool Equals(Azure.ResourceManager.MongoCluster.Models.MongoClusterStatus other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
