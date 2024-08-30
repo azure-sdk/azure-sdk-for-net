@@ -18,6 +18,154 @@ namespace Azure.AI.ContentSafety.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_AnalyzeImage_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                image = new object(),
+            });
+            Response response = client.AnalyzeImage(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_AnalyzeImage_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                image = new object(),
+            });
+            Response response = await client.AnalyzeImageAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_AnalyzeImage_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData());
+            Response<AnalyzeImageResult> response = client.AnalyzeImage(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_AnalyzeImage_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData());
+            Response<AnalyzeImageResult> response = await client.AnalyzeImageAsync(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_AnalyzeImage_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                image = new
+                {
+                    content = new object(),
+                    blobUrl = "http://localhost:3000",
+                },
+                categories = new object[]
+            {
+"Hate"
+            },
+                outputType = "FourSeverityLevels",
+            });
+            Response response = client.AnalyzeImage(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_AnalyzeImage_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                image = new
+                {
+                    content = new object(),
+                    blobUrl = "http://localhost:3000",
+                },
+                categories = new object[]
+            {
+"Hate"
+            },
+                outputType = "FourSeverityLevels",
+            });
+            Response response = await client.AnalyzeImageAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_AnalyzeImage_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData())
+            {
+                Categories = { ImageCategory.Hate },
+                OutputType = AnalyzeImageOutputType.FourSeverityLevels,
+            };
+            Response<AnalyzeImageResult> response = client.AnalyzeImage(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_AnalyzeImage_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData())
+            {
+                Categories = { ImageCategory.Hate },
+                OutputType = AnalyzeImageOutputType.FourSeverityLevels,
+            };
+            Response<AnalyzeImageResult> response = await client.AnalyzeImageAsync(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
         public void Example_ContentSafetyClient_AnalyzeText_ShortVersion()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
@@ -178,7 +326,7 @@ namespace Azure.AI.ContentSafety.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_ContentSafetyClient_AnalyzeImage_ShortVersion()
+        public void Example_ContentSafetyClient_DetectTextProtectedMaterial_ShortVersion()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
@@ -186,17 +334,17 @@ namespace Azure.AI.ContentSafety.Samples
 
             using RequestContent content = RequestContent.Create(new
             {
-                image = new object(),
+                text = "<text>",
             });
-            Response response = client.AnalyzeImage(content);
+            Response response = client.DetectTextProtectedMaterial(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+            Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_ContentSafetyClient_AnalyzeImage_ShortVersion_Async()
+        public async Task Example_ContentSafetyClient_DetectTextProtectedMaterial_ShortVersion_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
@@ -204,41 +352,41 @@ namespace Azure.AI.ContentSafety.Samples
 
             using RequestContent content = RequestContent.Create(new
             {
-                image = new object(),
+                text = "<text>",
             });
-            Response response = await client.AnalyzeImageAsync(content);
+            Response response = await client.DetectTextProtectedMaterialAsync(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+            Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_ContentSafetyClient_AnalyzeImage_ShortVersion_Convenience()
+        public void Example_ContentSafetyClient_DetectTextProtectedMaterial_ShortVersion_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData());
-            Response<AnalyzeImageResult> response = client.AnalyzeImage(options);
+            DetectTextProtectedMaterialOptions options = new DetectTextProtectedMaterialOptions("<text>");
+            Response<DetectTextProtectedMaterialResult> response = client.DetectTextProtectedMaterial(options);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_ContentSafetyClient_AnalyzeImage_ShortVersion_Convenience_Async()
+        public async Task Example_ContentSafetyClient_DetectTextProtectedMaterial_ShortVersion_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData());
-            Response<AnalyzeImageResult> response = await client.AnalyzeImageAsync(options);
+            DetectTextProtectedMaterialOptions options = new DetectTextProtectedMaterialOptions("<text>");
+            Response<DetectTextProtectedMaterialResult> response = await client.DetectTextProtectedMaterialAsync(options);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_ContentSafetyClient_AnalyzeImage_AllParameters()
+        public void Example_ContentSafetyClient_DetectTextProtectedMaterial_AllParameters()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
@@ -246,27 +394,136 @@ namespace Azure.AI.ContentSafety.Samples
 
             using RequestContent content = RequestContent.Create(new
             {
-                image = new
-                {
-                    content = new object(),
-                    blobUrl = "http://localhost:3000",
-                },
-                categories = new object[]
+                text = "<text>",
+            });
+            Response response = client.DetectTextProtectedMaterial(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_DetectTextProtectedMaterial_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
             {
-"Hate"
+                text = "<text>",
+            });
+            Response response = await client.DetectTextProtectedMaterialAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_DetectTextProtectedMaterial_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            DetectTextProtectedMaterialOptions options = new DetectTextProtectedMaterialOptions("<text>");
+            Response<DetectTextProtectedMaterialResult> response = client.DetectTextProtectedMaterial(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_DetectTextProtectedMaterial_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            DetectTextProtectedMaterialOptions options = new DetectTextProtectedMaterialOptions("<text>");
+            Response<DetectTextProtectedMaterialResult> response = await client.DetectTextProtectedMaterialAsync(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_ShieldPrompt_ShortVersion()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = client.ShieldPrompt(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_ShieldPrompt_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new object());
+            Response response = await client.ShieldPromptAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_ShieldPrompt_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            ShieldPromptOptions options = new ShieldPromptOptions();
+            Response<ShieldPromptResult> response = client.ShieldPrompt(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_ShieldPrompt_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            ShieldPromptOptions options = new ShieldPromptOptions();
+            Response<ShieldPromptResult> response = await client.ShieldPromptAsync(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_ShieldPrompt_AllParameters()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                userPrompt = "<userPrompt>",
+                documents = new object[]
+            {
+"<documents>"
             },
-                outputType = "FourSeverityLevels",
             });
-            Response response = client.AnalyzeImage(content);
+            Response response = client.ShieldPrompt(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+            Console.WriteLine(result.GetProperty("userPromptAnalysis").GetProperty("attackDetected").ToString());
+            Console.WriteLine(result.GetProperty("documentsAnalysis")[0].GetProperty("attackDetected").ToString());
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_ContentSafetyClient_AnalyzeImage_AllParameters_Async()
+        public async Task Example_ContentSafetyClient_ShieldPrompt_AllParameters_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
@@ -274,54 +531,49 @@ namespace Azure.AI.ContentSafety.Samples
 
             using RequestContent content = RequestContent.Create(new
             {
-                image = new
-                {
-                    content = new object(),
-                    blobUrl = "http://localhost:3000",
-                },
-                categories = new object[]
+                userPrompt = "<userPrompt>",
+                documents = new object[]
             {
-"Hate"
+"<documents>"
             },
-                outputType = "FourSeverityLevels",
             });
-            Response response = await client.AnalyzeImageAsync(content);
+            Response response = await client.ShieldPromptAsync(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+            Console.WriteLine(result.GetProperty("userPromptAnalysis").GetProperty("attackDetected").ToString());
+            Console.WriteLine(result.GetProperty("documentsAnalysis")[0].GetProperty("attackDetected").ToString());
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_ContentSafetyClient_AnalyzeImage_AllParameters_Convenience()
+        public void Example_ContentSafetyClient_ShieldPrompt_AllParameters_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData())
+            ShieldPromptOptions options = new ShieldPromptOptions
             {
-                Categories = { ImageCategory.Hate },
-                OutputType = AnalyzeImageOutputType.FourSeverityLevels,
+                UserPrompt = "<userPrompt>",
+                Documents = { "<documents>" },
             };
-            Response<AnalyzeImageResult> response = client.AnalyzeImage(options);
+            Response<ShieldPromptResult> response = client.ShieldPrompt(options);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_ContentSafetyClient_AnalyzeImage_AllParameters_Convenience_Async()
+        public async Task Example_ContentSafetyClient_ShieldPrompt_AllParameters_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData())
+            ShieldPromptOptions options = new ShieldPromptOptions
             {
-                Categories = { ImageCategory.Hate },
-                OutputType = AnalyzeImageOutputType.FourSeverityLevels,
+                UserPrompt = "<userPrompt>",
+                Documents = { "<documents>" },
             };
-            Response<AnalyzeImageResult> response = await client.AnalyzeImageAsync(options);
+            Response<ShieldPromptResult> response = await client.ShieldPromptAsync(options);
         }
     }
 }
