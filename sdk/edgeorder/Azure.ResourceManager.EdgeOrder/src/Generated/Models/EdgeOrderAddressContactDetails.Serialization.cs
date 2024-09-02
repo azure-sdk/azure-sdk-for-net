@@ -26,10 +26,16 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("contactName"u8);
-            writer.WriteStringValue(ContactName);
-            writer.WritePropertyName("phone"u8);
-            writer.WriteStringValue(Phone);
+            if (Optional.IsDefined(ContactName))
+            {
+                writer.WritePropertyName("contactName"u8);
+                writer.WriteStringValue(ContactName);
+            }
+            if (Optional.IsDefined(Phone))
+            {
+                writer.WritePropertyName("phone"u8);
+                writer.WriteStringValue(Phone);
+            }
             if (Optional.IsDefined(PhoneExtension))
             {
                 writer.WritePropertyName("phoneExtension"u8);
@@ -40,13 +46,16 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 writer.WritePropertyName("mobile"u8);
                 writer.WriteStringValue(Mobile);
             }
-            writer.WritePropertyName("emailList"u8);
-            writer.WriteStartArray();
-            foreach (var item in EmailList)
+            if (Optional.IsCollectionDefined(EmailList))
             {
-                writer.WriteStringValue(item);
+                writer.WritePropertyName("emailList"u8);
+                writer.WriteStartArray();
+                foreach (var item in EmailList)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
             }
-            writer.WriteEndArray();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -116,6 +125,10 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 }
                 if (property.NameEquals("emailList"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -135,7 +148,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 phone,
                 phoneExtension,
                 mobile,
-                emailList,
+                emailList ?? new ChangeTrackingList<string>(),
                 serializedAdditionalRawData);
         }
 

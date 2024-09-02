@@ -13,16 +13,16 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.EdgeOrder.Models
 {
-    public partial class ConfigurationFilters : IUtf8JsonSerializable, IJsonModel<ConfigurationFilters>
+    public partial class ConfigurationFilter : IUtf8JsonSerializable, IJsonModel<ConfigurationFilter>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ConfigurationFilters>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ConfigurationFilter>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<ConfigurationFilters>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ConfigurationFilter>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ConfigurationFilters>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ConfigurationFilter>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ConfigurationFilters)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ConfigurationFilter)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -37,6 +37,11 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                     writer.WriteObjectValue(item, options);
                 }
                 writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(ChildConfigurationFilter))
+            {
+                writer.WritePropertyName("childConfigurationFilter"u8);
+                writer.WriteObjectValue(ChildConfigurationFilter, options);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -56,19 +61,19 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             writer.WriteEndObject();
         }
 
-        ConfigurationFilters IJsonModel<ConfigurationFilters>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ConfigurationFilter IJsonModel<ConfigurationFilter>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ConfigurationFilters>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ConfigurationFilter>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ConfigurationFilters)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ConfigurationFilter)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeConfigurationFilters(document.RootElement, options);
+            return DeserializeConfigurationFilter(document.RootElement, options);
         }
 
-        internal static ConfigurationFilters DeserializeConfigurationFilters(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ConfigurationFilter DeserializeConfigurationFilter(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -78,6 +83,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             }
             HierarchyInformation hierarchyInformation = default;
             IList<FilterableProperty> filterableProperty = default;
+            ChildConfigurationFilter childConfigurationFilter = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -101,44 +107,53 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                     filterableProperty = array;
                     continue;
                 }
+                if (property.NameEquals("childConfigurationFilter"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    childConfigurationFilter = ChildConfigurationFilter.DeserializeChildConfigurationFilter(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ConfigurationFilters(hierarchyInformation, filterableProperty ?? new ChangeTrackingList<FilterableProperty>(), serializedAdditionalRawData);
+            return new ConfigurationFilter(hierarchyInformation, filterableProperty ?? new ChangeTrackingList<FilterableProperty>(), childConfigurationFilter, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<ConfigurationFilters>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ConfigurationFilter>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ConfigurationFilters>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ConfigurationFilter>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(ConfigurationFilters)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ConfigurationFilter)} does not support writing '{options.Format}' format.");
             }
         }
 
-        ConfigurationFilters IPersistableModel<ConfigurationFilters>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ConfigurationFilter IPersistableModel<ConfigurationFilter>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ConfigurationFilters>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ConfigurationFilter>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeConfigurationFilters(document.RootElement, options);
+                        return DeserializeConfigurationFilter(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ConfigurationFilters)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ConfigurationFilter)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ConfigurationFilters>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ConfigurationFilter>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
