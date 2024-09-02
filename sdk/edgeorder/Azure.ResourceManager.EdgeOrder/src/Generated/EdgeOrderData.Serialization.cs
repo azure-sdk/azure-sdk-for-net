@@ -80,6 +80,11 @@ namespace Azure.ResourceManager.EdgeOrder
                 }
                 writer.WriteEndArray();
             }
+            if (options.Format != "W" && Optional.IsDefined(OrderMode))
+            {
+                writer.WritePropertyName("orderMode"u8);
+                writer.WriteStringValue(OrderMode.Value.ToString());
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -126,6 +131,7 @@ namespace Azure.ResourceManager.EdgeOrder
             IReadOnlyList<ResourceIdentifier> orderItemIds = default;
             EdgeOrderStageDetails currentStage = default;
             IReadOnlyList<EdgeOrderStageDetails> orderStageHistory = default;
+            OrderMode? orderMode = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -207,6 +213,15 @@ namespace Azure.ResourceManager.EdgeOrder
                             orderStageHistory = array;
                             continue;
                         }
+                        if (property0.NameEquals("orderMode"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            orderMode = new OrderMode(property0.Value.GetString());
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -224,6 +239,7 @@ namespace Azure.ResourceManager.EdgeOrder
                 orderItemIds ?? new ChangeTrackingList<ResourceIdentifier>(),
                 currentStage,
                 orderStageHistory ?? new ChangeTrackingList<EdgeOrderStageDetails>(),
+                orderMode,
                 serializedAdditionalRawData);
         }
 
