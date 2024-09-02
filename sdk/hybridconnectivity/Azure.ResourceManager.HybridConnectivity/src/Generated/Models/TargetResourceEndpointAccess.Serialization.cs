@@ -53,6 +53,11 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
                 writer.WritePropertyName("expiresOn"u8);
                 writer.WriteNumberValue(ExpiresOn.Value);
             }
+            if (Optional.IsDefined(ServiceConfigurationToken))
+            {
+                writer.WritePropertyName("serviceConfigurationToken"u8);
+                writer.WriteStringValue(ServiceConfigurationToken);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -97,6 +102,7 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
             string hybridConnectionName = default;
             string accessKey = default;
             long? expiresOn = default;
+            string serviceConfigurationToken = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -139,6 +145,11 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
                             expiresOn = property0.Value.GetInt64();
                             continue;
                         }
+                        if (property0.NameEquals("serviceConfigurationToken"u8))
+                        {
+                            serviceConfigurationToken = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -154,6 +165,7 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
                 hybridConnectionName,
                 accessKey,
                 expiresOn,
+                serviceConfigurationToken,
                 serializedAdditionalRawData);
         }
 
