@@ -24,7 +24,7 @@ namespace Azure.AI.Language.Conversations.Models
 
         private const string IssueValue = "issue";
         private const string ResolutionValue = "resolution";
-        private const string ChapterTitleValue = "chapterTitle";
+        private const string ChaptertitleValue = "chapterTitle for testing";
         private const string NarrativeValue = "narrative";
         private const string RecapValue = "recap";
         private const string FollowUpTasksValue = "follow-up tasks";
@@ -34,7 +34,7 @@ namespace Azure.AI.Language.Conversations.Models
         /// <summary> Summary of resolutions in transcripts of web chats and service calls between customer-service agents and customers. </summary>
         public static SummaryAspect Resolution { get; } = new SummaryAspect(ResolutionValue);
         /// <summary> Chapter title of any conversation. It's usually one phrase or several phrases naturally combined. Long conversations tend to have more chapters. You can find the chapter boundary from the summary context. </summary>
-        public static SummaryAspect ChapterTitle { get; } = new SummaryAspect(ChapterTitleValue);
+        public static SummaryAspect Chaptertitle { get; } = new SummaryAspect(ChaptertitleValue);
         /// <summary> Generic narrative summary of any conversation. It generally converts the conversational language into formal written language, compresses the text length, and keeps the salient information. </summary>
         public static SummaryAspect Narrative { get; } = new SummaryAspect(NarrativeValue);
         /// <summary> A concise one-paragraph summary to provide a quick overview. </summary>
