@@ -28,7 +28,7 @@ namespace Azure.AI.Translation.Text
             writer.WriteStartObject();
             writer.WritePropertyName("toScripts"u8);
             writer.WriteStartArray();
-            foreach (var item in TargetLanguageScripts)
+            foreach (var item in ToScripts)
             {
                 writer.WriteObjectValue(item, options);
             }
@@ -40,7 +40,7 @@ namespace Azure.AI.Translation.Text
             writer.WritePropertyName("nativeName"u8);
             writer.WriteStringValue(NativeName);
             writer.WritePropertyName("dir"u8);
-            writer.WriteStringValue(Directionality.ToSerialString());
+            writer.WriteStringValue(Dir.ToSerialString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
