@@ -33,10 +33,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteObjectValue(item, options);
             }
             writer.WriteEndArray();
-            writer.WritePropertyName("previousState"u8);
-            writer.WriteStringValue(PreviousState.ToString());
-            writer.WritePropertyName("state"u8);
-            writer.WriteStringValue(State.ToString());
+            if (Optional.IsDefined(PreviousState))
+            {
+                writer.WritePropertyName("previousState"u8);
+                writer.WriteStringValue(PreviousState.Value.ToString());
+            }
+            if (Optional.IsDefined(State))
+            {
+                writer.WritePropertyName("state"u8);
+                writer.WriteStringValue(State.Value.ToString());
+            }
             writer.WritePropertyName("correlationData"u8);
             writer.WriteStartObject();
             foreach (var item in CorrelationData)
@@ -84,8 +90,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             IReadOnlyList<MediaJobOutput> outputs = default;
-            MediaJobState previousState = default;
-            MediaJobState state = default;
+            MediaJobState? previousState = default;
+            MediaJobState? state = default;
             IReadOnlyDictionary<string, string> correlationData = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -103,11 +109,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("previousState"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     previousState = new MediaJobState(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("state"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     state = new MediaJobState(property.Value.GetString());
                     continue;
                 }
