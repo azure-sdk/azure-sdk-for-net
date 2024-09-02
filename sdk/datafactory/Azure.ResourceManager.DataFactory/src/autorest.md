@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: DataFactory
 namespace: Azure.ResourceManager.DataFactory
-require: https://github.com/Azure/azure-rest-api-specs/blob/1866fc3609f55fad6a5e74a9b206ae4ca144c03a/specification/datafactory/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/datafactory/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
