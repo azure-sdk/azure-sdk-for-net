@@ -26,6 +26,7 @@ AddOrUpdateTextBlocklistItemsOptions options = new AddOrUpdateTextBlocklistItems
     new TextBlocklistItem("<text>")
     {
         Description = "<description>",
+        IsRegex = true,
     }
 });
 Response<AddOrUpdateTextBlocklistItemsResult> response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", options);
@@ -56,6 +57,7 @@ AddOrUpdateTextBlocklistItemsOptions options = new AddOrUpdateTextBlocklistItems
     new TextBlocklistItem("<text>")
     {
         Description = "<description>",
+        IsRegex = true,
     }
 });
 Response<AddOrUpdateTextBlocklistItemsResult> response = client.AddOrUpdateBlocklistItems("<Name>", options);
@@ -99,6 +101,7 @@ using RequestContent content = RequestContent.Create(new
         {
             description = "<description>",
             text = "<text>",
+            isRegex = true,
         }
     },
 });
@@ -108,6 +111,7 @@ JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
 Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("blocklistItemId").ToString());
 Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("description").ToString());
 Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("isRegex").ToString());
 ]]></code></example>
     </member>
     <member name="AddOrUpdateBlocklistItems(string,RequestContent,RequestContext)">
@@ -148,6 +152,7 @@ using RequestContent content = RequestContent.Create(new
         {
             description = "<description>",
             text = "<text>",
+            isRegex = true,
         }
     },
 });
@@ -157,6 +162,7 @@ JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
 Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("blocklistItemId").ToString());
 Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("description").ToString());
 Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("isRegex").ToString());
 ]]></code></example>
     </member>
     <member name="CreateOrUpdateTextBlocklistAsync(string,RequestContent,RequestContext)">
@@ -429,6 +435,7 @@ JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
 Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
 Console.WriteLine(result.GetProperty("description").ToString());
 Console.WriteLine(result.GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("isRegex").ToString());
 ]]></code></example>
     </member>
     <member name="GetTextBlocklistItem(string,string,RequestContext)">
@@ -457,6 +464,7 @@ JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
 Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
 Console.WriteLine(result.GetProperty("description").ToString());
 Console.WriteLine(result.GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("isRegex").ToString());
 ]]></code></example>
     </member>
     <member name="RemoveBlocklistItemsAsync(string,RemoveTextBlocklistItemsOptions,CancellationToken)">
@@ -648,6 +656,7 @@ await foreach (BinaryData item in client.GetTextBlocklistItemsAsync("<Name>", 12
     Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
     Console.WriteLine(result.GetProperty("description").ToString());
     Console.WriteLine(result.GetProperty("text").ToString());
+    Console.WriteLine(result.GetProperty("isRegex").ToString());
 }
 ]]></code></example>
     </member>
@@ -678,6 +687,7 @@ foreach (BinaryData item in client.GetTextBlocklistItems("<Name>", 1234, 1234, 1
     Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
     Console.WriteLine(result.GetProperty("description").ToString());
     Console.WriteLine(result.GetProperty("text").ToString());
+    Console.WriteLine(result.GetProperty("isRegex").ToString());
 }
 ]]></code></example>
     </member>
