@@ -7,11 +7,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.ResourceManager.ContainerService.Models
 {
-    /// <summary> OS option property. </summary>
-    public partial class ContainerServiceOSOptionProperty
+    /// <summary> Specifies a list of machine names from the agent pool to be deleted. </summary>
+    public partial class AgentPoolDeleteMachinesParameter
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,37 +46,31 @@ namespace Azure.ResourceManager.ContainerService.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceOSOptionProperty"/>. </summary>
-        /// <param name="osType"> The OS type. </param>
-        /// <param name="enableFipsImage"> Whether the image is FIPS-enabled. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="osType"/> is null. </exception>
-        internal ContainerServiceOSOptionProperty(string osType, bool enableFipsImage)
+        /// <summary> Initializes a new instance of <see cref="AgentPoolDeleteMachinesParameter"/>. </summary>
+        /// <param name="machineNames"> The agent pool machine names. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="machineNames"/> is null. </exception>
+        public AgentPoolDeleteMachinesParameter(IEnumerable<string> machineNames)
         {
-            Argument.AssertNotNull(osType, nameof(osType));
+            Argument.AssertNotNull(machineNames, nameof(machineNames));
 
-            OSType = osType;
-            EnableFipsImage = enableFipsImage;
+            MachineNames = machineNames.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceOSOptionProperty"/>. </summary>
-        /// <param name="osType"> The OS type. </param>
-        /// <param name="enableFipsImage"> Whether the image is FIPS-enabled. </param>
+        /// <summary> Initializes a new instance of <see cref="AgentPoolDeleteMachinesParameter"/>. </summary>
+        /// <param name="machineNames"> The agent pool machine names. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ContainerServiceOSOptionProperty(string osType, bool enableFipsImage, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AgentPoolDeleteMachinesParameter(IList<string> machineNames, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            OSType = osType;
-            EnableFipsImage = enableFipsImage;
+            MachineNames = machineNames;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceOSOptionProperty"/> for deserialization. </summary>
-        internal ContainerServiceOSOptionProperty()
+        /// <summary> Initializes a new instance of <see cref="AgentPoolDeleteMachinesParameter"/> for deserialization. </summary>
+        internal AgentPoolDeleteMachinesParameter()
         {
         }
 
-        /// <summary> The OS type. </summary>
-        public string OSType { get; }
-        /// <summary> Whether the image is FIPS-enabled. </summary>
-        public bool EnableFipsImage { get; }
+        /// <summary> The agent pool machine names. </summary>
+        public IList<string> MachineNames { get; }
     }
 }
