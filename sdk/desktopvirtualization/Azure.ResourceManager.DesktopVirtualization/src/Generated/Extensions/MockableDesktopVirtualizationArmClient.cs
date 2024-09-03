@@ -71,42 +71,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="ScalingPlanResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="ScalingPlanResource.CreateResourceIdentifier" /> to create a <see cref="ScalingPlanResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="ScalingPlanResource"/> object. </returns>
-        public virtual ScalingPlanResource GetScalingPlanResource(ResourceIdentifier id)
-        {
-            ScalingPlanResource.ValidateResourceId(id);
-            return new ScalingPlanResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="ScalingPlanPooledScheduleResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="ScalingPlanPooledScheduleResource.CreateResourceIdentifier" /> to create a <see cref="ScalingPlanPooledScheduleResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="ScalingPlanPooledScheduleResource"/> object. </returns>
-        public virtual ScalingPlanPooledScheduleResource GetScalingPlanPooledScheduleResource(ResourceIdentifier id)
-        {
-            ScalingPlanPooledScheduleResource.ValidateResourceId(id);
-            return new ScalingPlanPooledScheduleResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="ScalingPlanPersonalScheduleResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="ScalingPlanPersonalScheduleResource.CreateResourceIdentifier" /> to create a <see cref="ScalingPlanPersonalScheduleResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="ScalingPlanPersonalScheduleResource"/> object. </returns>
-        public virtual ScalingPlanPersonalScheduleResource GetScalingPlanPersonalScheduleResource(ResourceIdentifier id)
-        {
-            ScalingPlanPersonalScheduleResource.ValidateResourceId(id);
-            return new ScalingPlanPersonalScheduleResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="VirtualApplicationGroupResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="VirtualApplicationGroupResource.CreateResourceIdentifier" /> to create a <see cref="VirtualApplicationGroupResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -155,15 +119,39 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="UserSessionResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="UserSessionResource.CreateResourceIdentifier" /> to create an <see cref="UserSessionResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// Gets an object representing a <see cref="SessionHostManagementResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SessionHostManagementResource.CreateResourceIdentifier" /> to create a <see cref="SessionHostManagementResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="UserSessionResource"/> object. </returns>
-        public virtual UserSessionResource GetUserSessionResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="SessionHostManagementResource"/> object. </returns>
+        public virtual SessionHostManagementResource GetSessionHostManagementResource(ResourceIdentifier id)
         {
-            UserSessionResource.ValidateResourceId(id);
-            return new UserSessionResource(Client, id);
+            SessionHostManagementResource.ValidateResourceId(id);
+            return new SessionHostManagementResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SessionHostConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SessionHostConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="SessionHostConfigurationResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SessionHostConfigurationResource"/> object. </returns>
+        public virtual SessionHostConfigurationResource GetSessionHostConfigurationResource(ResourceIdentifier id)
+        {
+            SessionHostConfigurationResource.ValidateResourceId(id);
+            return new SessionHostConfigurationResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="ActiveSessionHostConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ActiveSessionHostConfigurationResource.CreateResourceIdentifier" /> to create an <see cref="ActiveSessionHostConfigurationResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ActiveSessionHostConfigurationResource"/> object. </returns>
+        public virtual ActiveSessionHostConfigurationResource GetActiveSessionHostConfigurationResource(ResourceIdentifier id)
+        {
+            ActiveSessionHostConfigurationResource.ValidateResourceId(id);
+            return new ActiveSessionHostConfigurationResource(Client, id);
         }
 
         /// <summary>
@@ -179,6 +167,18 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing an <see cref="UserSessionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="UserSessionResource.CreateResourceIdentifier" /> to create an <see cref="UserSessionResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="UserSessionResource"/> object. </returns>
+        public virtual UserSessionResource GetUserSessionResource(ResourceIdentifier id)
+        {
+            UserSessionResource.ValidateResourceId(id);
+            return new UserSessionResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="MsixPackageResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="MsixPackageResource.CreateResourceIdentifier" /> to create a <see cref="MsixPackageResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -188,6 +188,54 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         {
             MsixPackageResource.ValidateResourceId(id);
             return new MsixPackageResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AppAttachPackageResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AppAttachPackageResource.CreateResourceIdentifier" /> to create an <see cref="AppAttachPackageResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AppAttachPackageResource"/> object. </returns>
+        public virtual AppAttachPackageResource GetAppAttachPackageResource(ResourceIdentifier id)
+        {
+            AppAttachPackageResource.ValidateResourceId(id);
+            return new AppAttachPackageResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="ScalingPlanResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ScalingPlanResource.CreateResourceIdentifier" /> to create a <see cref="ScalingPlanResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ScalingPlanResource"/> object. </returns>
+        public virtual ScalingPlanResource GetScalingPlanResource(ResourceIdentifier id)
+        {
+            ScalingPlanResource.ValidateResourceId(id);
+            return new ScalingPlanResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="ScalingPlanPooledSchedulePutResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ScalingPlanPooledSchedulePutResource.CreateResourceIdentifier" /> to create a <see cref="ScalingPlanPooledSchedulePutResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ScalingPlanPooledSchedulePutResource"/> object. </returns>
+        public virtual ScalingPlanPooledSchedulePutResource GetScalingPlanPooledSchedulePutResource(ResourceIdentifier id)
+        {
+            ScalingPlanPooledSchedulePutResource.ValidateResourceId(id);
+            return new ScalingPlanPooledSchedulePutResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="ScalingPlanPersonalScheduleResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ScalingPlanPersonalScheduleResource.CreateResourceIdentifier" /> to create a <see cref="ScalingPlanPersonalScheduleResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ScalingPlanPersonalScheduleResource"/> object. </returns>
+        public virtual ScalingPlanPersonalScheduleResource GetScalingPlanPersonalScheduleResource(ResourceIdentifier id)
+        {
+            ScalingPlanPersonalScheduleResource.ValidateResourceId(id);
+            return new ScalingPlanPersonalScheduleResource(Client, id);
         }
     }
 }

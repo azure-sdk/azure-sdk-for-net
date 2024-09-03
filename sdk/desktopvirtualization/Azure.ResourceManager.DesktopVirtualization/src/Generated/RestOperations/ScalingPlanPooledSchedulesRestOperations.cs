@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2023-09-05";
+            _apiVersion = apiVersion ?? "2024-08-08-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -75,14 +75,14 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary> Get a ScalingPlanPooledSchedule. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="scalingPlanName"> The name of the scaling plan. </param>
         /// <param name="scalingPlanScheduleName"> The name of the ScalingPlanSchedule. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="scalingPlanName"/> or <paramref name="scalingPlanScheduleName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="scalingPlanName"/> or <paramref name="scalingPlanScheduleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<ScalingPlanPooledScheduleData>> GetAsync(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, CancellationToken cancellationToken = default)
+        public async Task<Response<ScalingPlanPooledSchedulePutData>> GetAsync(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -95,27 +95,27 @@ namespace Azure.ResourceManager.DesktopVirtualization
             {
                 case 200:
                     {
-                        ScalingPlanPooledScheduleData value = default;
+                        ScalingPlanPooledSchedulePutData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = ScalingPlanPooledScheduleData.DeserializeScalingPlanPooledScheduleData(document.RootElement);
+                        value = ScalingPlanPooledSchedulePutData.DeserializeScalingPlanPooledSchedulePutData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((ScalingPlanPooledScheduleData)null, message.Response);
+                    return Response.FromValue((ScalingPlanPooledSchedulePutData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
         /// <summary> Get a ScalingPlanPooledSchedule. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="scalingPlanName"> The name of the scaling plan. </param>
         /// <param name="scalingPlanScheduleName"> The name of the ScalingPlanSchedule. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="scalingPlanName"/> or <paramref name="scalingPlanScheduleName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="scalingPlanName"/> or <paramref name="scalingPlanScheduleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<ScalingPlanPooledScheduleData> Get(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, CancellationToken cancellationToken = default)
+        public Response<ScalingPlanPooledSchedulePutData> Get(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -128,19 +128,19 @@ namespace Azure.ResourceManager.DesktopVirtualization
             {
                 case 200:
                     {
-                        ScalingPlanPooledScheduleData value = default;
+                        ScalingPlanPooledSchedulePutData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = ScalingPlanPooledScheduleData.DeserializeScalingPlanPooledScheduleData(document.RootElement);
+                        value = ScalingPlanPooledSchedulePutData.DeserializeScalingPlanPooledSchedulePutData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((ScalingPlanPooledScheduleData)null, message.Response);
+                    return Response.FromValue((ScalingPlanPooledSchedulePutData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        internal RequestUriBuilder CreateCreateRequestUri(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledScheduleData data)
+        internal RequestUriBuilder CreateCreateRequestUri(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledSchedulePutData data)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -156,7 +156,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
             return uri;
         }
 
-        internal HttpMessage CreateCreateRequest(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledScheduleData data)
+        internal HttpMessage CreateCreateRequest(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledSchedulePutData data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -183,7 +183,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary> Create or update a ScalingPlanPooledSchedule. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="scalingPlanName"> The name of the scaling plan. </param>
         /// <param name="scalingPlanScheduleName"> The name of the ScalingPlanSchedule. </param>
@@ -191,7 +191,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="scalingPlanName"/>, <paramref name="scalingPlanScheduleName"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="scalingPlanName"/> or <paramref name="scalingPlanScheduleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<ScalingPlanPooledScheduleData>> CreateAsync(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledScheduleData data, CancellationToken cancellationToken = default)
+        public async Task<Response<ScalingPlanPooledSchedulePutData>> CreateAsync(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledSchedulePutData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -206,9 +206,9 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 case 200:
                 case 201:
                     {
-                        ScalingPlanPooledScheduleData value = default;
+                        ScalingPlanPooledSchedulePutData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = ScalingPlanPooledScheduleData.DeserializeScalingPlanPooledScheduleData(document.RootElement);
+                        value = ScalingPlanPooledSchedulePutData.DeserializeScalingPlanPooledSchedulePutData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -217,7 +217,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary> Create or update a ScalingPlanPooledSchedule. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="scalingPlanName"> The name of the scaling plan. </param>
         /// <param name="scalingPlanScheduleName"> The name of the ScalingPlanSchedule. </param>
@@ -225,7 +225,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="scalingPlanName"/>, <paramref name="scalingPlanScheduleName"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="scalingPlanName"/> or <paramref name="scalingPlanScheduleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<ScalingPlanPooledScheduleData> Create(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledScheduleData data, CancellationToken cancellationToken = default)
+        public Response<ScalingPlanPooledSchedulePutData> Create(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledSchedulePutData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -240,9 +240,9 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 case 200:
                 case 201:
                     {
-                        ScalingPlanPooledScheduleData value = default;
+                        ScalingPlanPooledSchedulePutData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = ScalingPlanPooledScheduleData.DeserializeScalingPlanPooledScheduleData(document.RootElement);
+                        value = ScalingPlanPooledSchedulePutData.DeserializeScalingPlanPooledSchedulePutData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -289,7 +289,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary> Remove a ScalingPlanPooledSchedule. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="scalingPlanName"> The name of the scaling plan. </param>
         /// <param name="scalingPlanScheduleName"> The name of the ScalingPlanSchedule. </param>
@@ -316,7 +316,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary> Remove a ScalingPlanPooledSchedule. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="scalingPlanName"> The name of the scaling plan. </param>
         /// <param name="scalingPlanScheduleName"> The name of the ScalingPlanSchedule. </param>
@@ -342,7 +342,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
         }
 
-        internal RequestUriBuilder CreateUpdateRequestUri(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledSchedulePatch patch)
+        internal RequestUriBuilder CreateUpdateRequestUri(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledSchedulePutPatch patch)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -358,7 +358,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
             return uri;
         }
 
-        internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledSchedulePatch patch)
+        internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledSchedulePutPatch patch)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -385,7 +385,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary> Update a ScalingPlanPooledSchedule. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="scalingPlanName"> The name of the scaling plan. </param>
         /// <param name="scalingPlanScheduleName"> The name of the ScalingPlanSchedule. </param>
@@ -393,7 +393,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="scalingPlanName"/>, <paramref name="scalingPlanScheduleName"/> or <paramref name="patch"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="scalingPlanName"/> or <paramref name="scalingPlanScheduleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<ScalingPlanPooledScheduleData>> UpdateAsync(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledSchedulePatch patch, CancellationToken cancellationToken = default)
+        public async Task<Response<ScalingPlanPooledSchedulePutData>> UpdateAsync(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledSchedulePutPatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -407,9 +407,9 @@ namespace Azure.ResourceManager.DesktopVirtualization
             {
                 case 200:
                     {
-                        ScalingPlanPooledScheduleData value = default;
+                        ScalingPlanPooledSchedulePutData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = ScalingPlanPooledScheduleData.DeserializeScalingPlanPooledScheduleData(document.RootElement);
+                        value = ScalingPlanPooledSchedulePutData.DeserializeScalingPlanPooledSchedulePutData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -418,7 +418,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary> Update a ScalingPlanPooledSchedule. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="scalingPlanName"> The name of the scaling plan. </param>
         /// <param name="scalingPlanScheduleName"> The name of the ScalingPlanSchedule. </param>
@@ -426,7 +426,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="scalingPlanName"/>, <paramref name="scalingPlanScheduleName"/> or <paramref name="patch"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="scalingPlanName"/> or <paramref name="scalingPlanScheduleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<ScalingPlanPooledScheduleData> Update(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledSchedulePatch patch, CancellationToken cancellationToken = default)
+        public Response<ScalingPlanPooledSchedulePutData> Update(string subscriptionId, string resourceGroupName, string scalingPlanName, string scalingPlanScheduleName, ScalingPlanPooledSchedulePutPatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -440,9 +440,9 @@ namespace Azure.ResourceManager.DesktopVirtualization
             {
                 case 200:
                     {
-                        ScalingPlanPooledScheduleData value = default;
+                        ScalingPlanPooledSchedulePutData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = ScalingPlanPooledScheduleData.DeserializeScalingPlanPooledScheduleData(document.RootElement);
+                        value = ScalingPlanPooledSchedulePutData.DeserializeScalingPlanPooledSchedulePutData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -511,7 +511,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary> List ScalingPlanPooledSchedules. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="scalingPlanName"> The name of the scaling plan. </param>
         /// <param name="pageSize"> Number of items per page. </param>
@@ -543,7 +543,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary> List ScalingPlanPooledSchedules. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="scalingPlanName"> The name of the scaling plan. </param>
         /// <param name="pageSize"> Number of items per page. </param>
@@ -598,7 +598,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
 
         /// <summary> List ScalingPlanPooledSchedules. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="scalingPlanName"> The name of the scaling plan. </param>
         /// <param name="pageSize"> Number of items per page. </param>
@@ -632,7 +632,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
 
         /// <summary> List ScalingPlanPooledSchedules. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="scalingPlanName"> The name of the scaling plan. </param>
         /// <param name="pageSize"> Number of items per page. </param>

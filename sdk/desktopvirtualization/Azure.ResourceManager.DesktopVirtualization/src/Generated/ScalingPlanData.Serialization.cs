@@ -46,7 +46,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
             if (Optional.IsDefined(Identity))
             {
                 writer.WritePropertyName("identity"u8);
-                JsonSerializer.Serialize(writer, Identity);
+                var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                JsonSerializer.Serialize(writer, Identity, serializeOptions);
             }
             if (Optional.IsDefined(Sku))
             {
@@ -197,7 +198,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
             string timeZone = default;
             ScalingHostPoolType? hostPoolType = default;
             string exclusionTag = default;
-            IList<ScalingSchedule> schedules = default;
+            IList<ScalingPlanPooledScheduleProperties> schedules = default;
             IList<ScalingHostPoolReference> hostPoolReferences = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -232,7 +233,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
                     {
                         continue;
                     }
-                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
+                    var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText(), serializeOptions);
                     continue;
                 }
                 if (property.NameEquals("sku"u8))
@@ -345,10 +347,10 @@ namespace Azure.ResourceManager.DesktopVirtualization
                             {
                                 continue;
                             }
-                            List<ScalingSchedule> array = new List<ScalingSchedule>();
+                            List<ScalingPlanPooledScheduleProperties> array = new List<ScalingPlanPooledScheduleProperties>();
                             foreach (var item in property0.Value.EnumerateArray())
                             {
-                                array.Add(ScalingSchedule.DeserializeScalingSchedule(item, options));
+                                array.Add(ScalingPlanPooledScheduleProperties.DeserializeScalingPlanPooledScheduleProperties(item, options));
                             }
                             schedules = array;
                             continue;
@@ -389,7 +391,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 timeZone,
                 hostPoolType,
                 exclusionTag,
-                schedules ?? new ChangeTrackingList<ScalingSchedule>(),
+                schedules ?? new ChangeTrackingList<ScalingPlanPooledScheduleProperties>(),
                 hostPoolReferences ?? new ChangeTrackingList<ScalingHostPoolReference>(),
                 managedBy,
                 kind,

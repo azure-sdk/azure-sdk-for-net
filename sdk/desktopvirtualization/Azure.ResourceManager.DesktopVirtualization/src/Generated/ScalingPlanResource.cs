@@ -90,11 +90,11 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
         }
 
-        /// <summary> Gets a collection of ScalingPlanPooledScheduleResources in the ScalingPlan. </summary>
-        /// <returns> An object representing collection of ScalingPlanPooledScheduleResources and their operations over a ScalingPlanPooledScheduleResource. </returns>
-        public virtual ScalingPlanPooledScheduleCollection GetScalingPlanPooledSchedules()
+        /// <summary> Gets a collection of ScalingPlanPooledSchedulePutResources in the ScalingPlan. </summary>
+        /// <returns> An object representing collection of ScalingPlanPooledSchedulePutResources and their operations over a ScalingPlanPooledSchedulePutResource. </returns>
+        public virtual ScalingPlanPooledSchedulePutCollection GetScalingPlanPooledSchedulePuts()
         {
-            return GetCachedClient(client => new ScalingPlanPooledScheduleCollection(client, Id));
+            return GetCachedClient(client => new ScalingPlanPooledSchedulePutCollection(client, Id));
         }
 
         /// <summary>
@@ -110,11 +110,11 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="ScalingPlanPooledScheduleResource"/></description>
+        /// <description><see cref="ScalingPlanPooledSchedulePutResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -123,9 +123,9 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <exception cref="ArgumentNullException"> <paramref name="scalingPlanScheduleName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="scalingPlanScheduleName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<ScalingPlanPooledScheduleResource>> GetScalingPlanPooledScheduleAsync(string scalingPlanScheduleName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ScalingPlanPooledSchedulePutResource>> GetScalingPlanPooledSchedulePutAsync(string scalingPlanScheduleName, CancellationToken cancellationToken = default)
         {
-            return await GetScalingPlanPooledSchedules().GetAsync(scalingPlanScheduleName, cancellationToken).ConfigureAwait(false);
+            return await GetScalingPlanPooledSchedulePuts().GetAsync(scalingPlanScheduleName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -141,11 +141,11 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="ScalingPlanPooledScheduleResource"/></description>
+        /// <description><see cref="ScalingPlanPooledSchedulePutResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -154,9 +154,9 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <exception cref="ArgumentNullException"> <paramref name="scalingPlanScheduleName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="scalingPlanScheduleName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<ScalingPlanPooledScheduleResource> GetScalingPlanPooledSchedule(string scalingPlanScheduleName, CancellationToken cancellationToken = default)
+        public virtual Response<ScalingPlanPooledSchedulePutResource> GetScalingPlanPooledSchedulePut(string scalingPlanScheduleName, CancellationToken cancellationToken = default)
         {
-            return GetScalingPlanPooledSchedules().Get(scalingPlanScheduleName, cancellationToken);
+            return GetScalingPlanPooledSchedulePuts().Get(scalingPlanScheduleName, cancellationToken);
         }
 
         /// <summary> Gets a collection of ScalingPlanPersonalScheduleResources in the ScalingPlan. </summary>
@@ -179,7 +179,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -210,7 +210,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -241,7 +241,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -281,7 +281,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -321,7 +321,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -365,7 +365,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -409,7 +409,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -451,7 +451,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -493,7 +493,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -555,7 +555,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -617,7 +617,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -674,7 +674,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -731,7 +731,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -791,7 +791,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-05</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

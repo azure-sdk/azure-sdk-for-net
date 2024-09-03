@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         public ScalingPlanPatch()
         {
             Tags = new ChangeTrackingDictionary<string, string>();
-            Schedules = new ChangeTrackingList<ScalingSchedule>();
+            Schedules = new ChangeTrackingList<ScalingPlanPooledScheduleProperties>();
             HostPoolReferences = new ChangeTrackingList<ScalingHostPoolReference>();
         }
 
@@ -59,10 +59,10 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <param name="friendlyName"> User friendly name of scaling plan. </param>
         /// <param name="timeZone"> Timezone of the scaling plan. </param>
         /// <param name="exclusionTag"> Exclusion tag for scaling plan. </param>
-        /// <param name="schedules"> List of ScalingSchedule definitions. </param>
+        /// <param name="schedules"> List of ScalingPlanPooledScheduleProperties definitions. </param>
         /// <param name="hostPoolReferences"> List of ScalingHostPoolReference definitions. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ScalingPlanPatch(IDictionary<string, string> tags, string description, string friendlyName, string timeZone, string exclusionTag, IList<ScalingSchedule> schedules, IList<ScalingHostPoolReference> hostPoolReferences, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ScalingPlanPatch(IDictionary<string, string> tags, string description, string friendlyName, string timeZone, string exclusionTag, IList<ScalingPlanPooledScheduleProperties> schedules, IList<ScalingHostPoolReference> hostPoolReferences, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Tags = tags;
             Description = description;
@@ -75,7 +75,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         }
 
         /// <summary> tags to be updated. </summary>
-        public IDictionary<string, string> Tags { get; }
+        public IDictionary<string, string> Tags { get; set; }
         /// <summary> Description of scaling plan. </summary>
         public string Description { get; set; }
         /// <summary> User friendly name of scaling plan. </summary>
@@ -84,8 +84,8 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         public string TimeZone { get; set; }
         /// <summary> Exclusion tag for scaling plan. </summary>
         public string ExclusionTag { get; set; }
-        /// <summary> List of ScalingSchedule definitions. </summary>
-        public IList<ScalingSchedule> Schedules { get; }
+        /// <summary> List of ScalingPlanPooledScheduleProperties definitions. </summary>
+        public IList<ScalingPlanPooledScheduleProperties> Schedules { get; }
         /// <summary> List of ScalingHostPoolReference definitions. </summary>
         public IList<ScalingHostPoolReference> HostPoolReferences { get; }
     }
