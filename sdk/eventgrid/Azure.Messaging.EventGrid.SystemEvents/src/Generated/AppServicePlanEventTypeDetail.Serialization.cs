@@ -26,12 +26,21 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("stampKind"u8);
-            writer.WriteStringValue(StampKind.ToString());
-            writer.WritePropertyName("action"u8);
-            writer.WriteStringValue(Action.ToString());
-            writer.WritePropertyName("status"u8);
-            writer.WriteStringValue(Status.ToString());
+            if (Optional.IsDefined(StampKind))
+            {
+                writer.WritePropertyName("stampKind"u8);
+                writer.WriteStringValue(StampKind.Value.ToString());
+            }
+            if (Optional.IsDefined(Action))
+            {
+                writer.WritePropertyName("action"u8);
+                writer.WriteStringValue(Action.Value.ToString());
+            }
+            if (Optional.IsDefined(Status))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(Status.Value.ToString());
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -70,25 +79,37 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            StampKind stampKind = default;
-            AppServicePlanAction action = default;
-            AsyncStatus status = default;
+            StampKind? stampKind = default;
+            AppServicePlanAction? action = default;
+            AsyncStatus? status = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("stampKind"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     stampKind = new StampKind(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("action"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     action = new AppServicePlanAction(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("status"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     status = new AsyncStatus(property.Value.GetString());
                     continue;
                 }
