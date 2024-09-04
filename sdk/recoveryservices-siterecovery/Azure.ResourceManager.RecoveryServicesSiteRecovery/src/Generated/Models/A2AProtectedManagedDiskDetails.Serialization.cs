@@ -228,7 +228,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             double? dataPendingInStagingStorageAccountInMB = default;
             double? dataPendingAtSourceAgentInMB = default;
             string diskState = default;
-            IReadOnlyList<string> allowedDiskLevelOperation = default;
+            IList<string> allowedDiskLevelOperation = default;
             bool? isDiskEncrypted = default;
             string secretIdentifier = default;
             ResourceIdentifier dekKeyVaultArmId = default;

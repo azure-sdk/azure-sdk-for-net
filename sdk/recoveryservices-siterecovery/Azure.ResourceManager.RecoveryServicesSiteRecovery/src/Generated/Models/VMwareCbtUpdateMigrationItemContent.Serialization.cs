@@ -101,6 +101,11 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 writer.WritePropertyName("sqlServerLicenseType"u8);
                 writer.WriteStringValue(SqlServerLicenseType.Value.ToString());
             }
+            if (Optional.IsDefined(LinuxLicenseType))
+            {
+                writer.WritePropertyName("linuxLicenseType"u8);
+                writer.WriteStringValue(LinuxLicenseType.Value.ToString());
+            }
             if (Optional.IsDefined(PerformAutoResync))
             {
                 writer.WritePropertyName("performAutoResync"u8);
@@ -192,6 +197,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             IList<VMwareCbtUpdateDiskContent> vmDisks = default;
             SiteRecoveryLicenseType? licenseType = default;
             SiteRecoverySqlServerLicenseType? sqlServerLicenseType = default;
+            LinuxLicenseType? linuxLicenseType = default;
             string performAutoResync = default;
             IDictionary<string, string> targetVmTags = default;
             IDictionary<string, string> targetDiskTags = default;
@@ -316,6 +322,15 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                     sqlServerLicenseType = new SiteRecoverySqlServerLicenseType(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("linuxLicenseType"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    linuxLicenseType = new LinuxLicenseType(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("performAutoResync"u8))
                 {
                     performAutoResync = property.Value.GetString();
@@ -390,6 +405,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 vmDisks ?? new ChangeTrackingList<VMwareCbtUpdateDiskContent>(),
                 licenseType,
                 sqlServerLicenseType,
+                linuxLicenseType,
                 performAutoResync,
                 targetVmTags ?? new ChangeTrackingDictionary<string, string>(),
                 targetDiskTags ?? new ChangeTrackingDictionary<string, string>(),
