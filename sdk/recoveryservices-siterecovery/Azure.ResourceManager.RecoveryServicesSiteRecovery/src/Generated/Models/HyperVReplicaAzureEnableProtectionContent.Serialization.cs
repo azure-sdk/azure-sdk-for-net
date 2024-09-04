@@ -41,6 +41,11 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 writer.WritePropertyName("osType"u8);
                 writer.WriteStringValue(OSType);
             }
+            if (Optional.IsDefined(UserSelectedOSName))
+            {
+                writer.WritePropertyName("userSelectedOSName"u8);
+                writer.WriteStringValue(UserSelectedOSName);
+            }
             if (Optional.IsDefined(VhdId))
             {
                 writer.WritePropertyName("vhdId"u8);
@@ -120,6 +125,16 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             {
                 writer.WritePropertyName("sqlServerLicenseType"u8);
                 writer.WriteStringValue(SqlServerLicenseType.Value.ToString());
+            }
+            if (Optional.IsDefined(LinuxLicenseType))
+            {
+                writer.WritePropertyName("linuxLicenseType"u8);
+                writer.WriteStringValue(LinuxLicenseType.Value.ToString());
+            }
+            if (Optional.IsDefined(TargetVmSecurityProfile))
+            {
+                writer.WritePropertyName("targetVmSecurityProfile"u8);
+                writer.WriteObjectValue(TargetVmSecurityProfile, options);
             }
             if (Optional.IsDefined(TargetVmSize))
             {
@@ -243,6 +258,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             string hvHostVmId = default;
             string vmName = default;
             string osType = default;
+            string userSelectedOSName = default;
             string vhdId = default;
             ResourceIdentifier targetStorageAccountId = default;
             ResourceIdentifier targetAzureNetworkId = default;
@@ -258,6 +274,8 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             string targetAvailabilityZone = default;
             SiteRecoveryLicenseType? licenseType = default;
             SiteRecoverySqlServerLicenseType? sqlServerLicenseType = default;
+            LinuxLicenseType? linuxLicenseType = default;
+            SecurityProfileProperties targetVmSecurityProfile = default;
             string targetVmSize = default;
             ResourceIdentifier targetProximityPlacementGroupId = default;
             string useManagedDisksForReplication = default;
@@ -286,6 +304,11 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 if (property.NameEquals("osType"u8))
                 {
                     osType = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("userSelectedOSName"u8))
+                {
+                    userSelectedOSName = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("vhdId"u8))
@@ -406,6 +429,24 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                         continue;
                     }
                     sqlServerLicenseType = new SiteRecoverySqlServerLicenseType(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("linuxLicenseType"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    linuxLicenseType = new LinuxLicenseType(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("targetVmSecurityProfile"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    targetVmSecurityProfile = SecurityProfileProperties.DeserializeSecurityProfileProperties(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("targetVmSize"u8))
@@ -532,6 +573,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 hvHostVmId,
                 vmName,
                 osType,
+                userSelectedOSName,
                 vhdId,
                 targetStorageAccountId,
                 targetAzureNetworkId,
@@ -547,6 +589,8 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 targetAvailabilityZone,
                 licenseType,
                 sqlServerLicenseType,
+                linuxLicenseType,
+                targetVmSecurityProfile,
                 targetVmSize,
                 targetProximityPlacementGroupId,
                 useManagedDisksForReplication,
