@@ -26,14 +26,20 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("time"u8);
-            writer.WriteStringValue(Time, "O");
+            if (Optional.IsDefined(Time))
+            {
+                writer.WritePropertyName("time"u8);
+                writer.WriteStringValue(Time.Value, "O");
+            }
             writer.WritePropertyName("addedByCommunicationIdentifier"u8);
             writer.WriteObjectValue(AddedByCommunicationIdentifier, options);
             writer.WritePropertyName("participantAdded"u8);
             writer.WriteObjectValue(ParticipantAdded, options);
-            writer.WritePropertyName("createTime"u8);
-            writer.WriteStringValue(CreateTime, "O");
+            if (Optional.IsDefined(CreateTime))
+            {
+                writer.WritePropertyName("createTime"u8);
+                writer.WriteStringValue(CreateTime.Value, "O");
+            }
             if (Optional.IsDefined(Version))
             {
                 writer.WritePropertyName("version"u8);
@@ -89,10 +95,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            DateTimeOffset time = default;
+            DateTimeOffset? time = default;
             CommunicationIdentifierModel addedByCommunicationIdentifier = default;
             AcsChatThreadParticipantProperties participantAdded = default;
-            DateTimeOffset createTime = default;
+            DateTimeOffset? createTime = default;
             long? version = default;
             CommunicationIdentifierModel recipientCommunicationIdentifier = default;
             string transactionId = default;
@@ -103,6 +109,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("time"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     time = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
@@ -118,6 +128,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("createTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     createTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }

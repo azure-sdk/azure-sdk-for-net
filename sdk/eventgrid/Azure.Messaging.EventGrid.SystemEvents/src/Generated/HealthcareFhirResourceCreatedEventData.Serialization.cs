@@ -26,8 +26,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("resourceType"u8);
-            writer.WriteStringValue(FhirResourceType.ToString());
+            if (Optional.IsDefined(FhirResourceType))
+            {
+                writer.WritePropertyName("resourceType"u8);
+                writer.WriteStringValue(FhirResourceType.Value.ToString());
+            }
             if (Optional.IsDefined(FhirServiceHostName))
             {
                 writer.WritePropertyName("resourceFhirAccount"u8);
@@ -81,7 +84,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            HealthcareFhirResourceType resourceType = default;
+            HealthcareFhirResourceType? resourceType = default;
             string resourceFhirAccount = default;
             string resourceFhirId = default;
             long? resourceVersionId = default;
@@ -91,6 +94,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("resourceType"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     resourceType = new HealthcareFhirResourceType(property.Value.GetString());
                     continue;
                 }
