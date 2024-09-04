@@ -14,7 +14,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsMessageReceivedEventData : AcsMessageEventData
     {
         /// <summary> Initializes a new instance of <see cref="AcsMessageReceivedEventData"/>. </summary>
-        /// <param name="receivedTimestamp"> The time message was received. </param>
         /// <param name="error"> The channel event error. </param>
         /// <param name="channelKind"> The message channel type. </param>
         /// <param name="mediaContent"> The received message media content. </param>
@@ -22,7 +21,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="button"> The received message button content. </param>
         /// <param name="interactiveContent"> The received message interactive content. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="error"/>, <paramref name="mediaContent"/>, <paramref name="context"/>, <paramref name="button"/> or <paramref name="interactiveContent"/> is null. </exception>
-        internal AcsMessageReceivedEventData(DateTimeOffset receivedTimestamp, AcsMessageChannelEventError error, AcsMessageChannelKind channelKind, AcsMessageMediaContent mediaContent, AcsMessageContext context, AcsMessageButtonContent button, AcsMessageInteractiveContent interactiveContent) : base(receivedTimestamp, error)
+        internal AcsMessageReceivedEventData(AcsMessageChannelEventError error, AcsMessageChannelKind channelKind, AcsMessageMediaContent mediaContent, AcsMessageContext context, AcsMessageButtonContent button, AcsMessageInteractiveContent interactiveContent) : base(error)
         {
             Argument.AssertNotNull(error, nameof(error));
             Argument.AssertNotNull(mediaContent, nameof(mediaContent));
@@ -49,7 +48,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="context"> The received message context. </param>
         /// <param name="button"> The received message button content. </param>
         /// <param name="interactiveContent"> The received message interactive content. </param>
-        internal AcsMessageReceivedEventData(string @from, string to, DateTimeOffset receivedTimestamp, AcsMessageChannelEventError error, IDictionary<string, BinaryData> serializedAdditionalRawData, string content, AcsMessageChannelKind channelKind, AcsMessageMediaContent mediaContent, AcsMessageContext context, AcsMessageButtonContent button, AcsMessageInteractiveContent interactiveContent) : base(@from, to, receivedTimestamp, error, serializedAdditionalRawData)
+        internal AcsMessageReceivedEventData(string @from, string to, DateTimeOffset? receivedTimestamp, AcsMessageChannelEventError error, IDictionary<string, BinaryData> serializedAdditionalRawData, string content, AcsMessageChannelKind channelKind, AcsMessageMediaContent mediaContent, AcsMessageContext context, AcsMessageButtonContent button, AcsMessageInteractiveContent interactiveContent) : base(@from, to, receivedTimestamp, error, serializedAdditionalRawData)
         {
             Content = content;
             ChannelKind = channelKind;
