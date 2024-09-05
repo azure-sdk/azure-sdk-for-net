@@ -67,8 +67,9 @@ namespace Azure.ResourceManager.StreamAnalytics
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="identity"> Describes the managed identity assigned to this job that can be used to authenticate with inputs and outputs. Current supported identity types: SystemAssigned, UserAssigned, SystemAssigned,UserAssigned. </param>
         /// <param name="sku"> Describes the SKU of the streaming job. Required on PUT (CreateOrReplace) requests. </param>
+        /// <param name="identity"> Describes the managed identity assigned to this job that can be used to authenticate with inputs and outputs. Current supported identity types: SystemAssigned, UserAssigned, SystemAssigned,UserAssigned. </param>
+        /// <param name="skuPropertiesSku"> Describes the SKU of the streaming job. Required on PUT (CreateOrReplace) requests. </param>
         /// <param name="jobId"> A GUID uniquely identifying the streaming job. This GUID is generated upon creation of the streaming job. </param>
         /// <param name="provisioningState"> Describes the provisioning status of the streaming job. </param>
         /// <param name="jobState"> Describes the state of the streaming job. </param>
@@ -92,11 +93,13 @@ namespace Azure.ResourceManager.StreamAnalytics
         /// <param name="contentStoragePolicy"> Valid values are JobStorageAccount and SystemAccount. If set to JobStorageAccount, this requires the user to also specify jobStorageAccount property. . </param>
         /// <param name="externals"> The storage account where the custom code artifacts are located. </param>
         /// <param name="cluster"> The cluster which streaming jobs will run on. </param>
+        /// <param name="subnetResourceId"> The subnet resource id that the user can link their streaming job to. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal StreamingJobData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, StreamAnalyticsSku sku, Guid? jobId, string provisioningState, string jobState, StreamingJobType? jobType, StreamingJobOutputStartMode? outputStartMode, DateTimeOffset? outputStartOn, DateTimeOffset? lastOutputEventOn, EventsOutOfOrderPolicy? eventsOutOfOrderPolicy, StreamingJobOutputErrorPolicy? outputErrorPolicy, int? eventsOutOfOrderMaxDelayInSeconds, int? eventsLateArrivalMaxDelayInSeconds, AzureLocation? dataLocalion, StreamingJobCompatibilityLevel? compatibilityLevel, DateTimeOffset? createdOn, IList<StreamingJobInputData> inputs, StreamingJobTransformationData transformation, IList<StreamingJobOutputData> outputs, IList<StreamingJobFunctionData> functions, ETag? etag, StreamingJobStorageAccount jobStorageAccount, StreamingJobContentStoragePolicy? contentStoragePolicy, StreamingJobExternal externals, ClusterInfo cluster, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal StreamingJobData(ResourceIdentifier id, string name, Core.ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, StreamAnalyticsSku sku, ManagedServiceIdentity identity, StreamAnalyticsSku skuPropertiesSku, Guid? jobId, string provisioningState, string jobState, StreamingJobType? jobType, StreamingJobOutputStartMode? outputStartMode, DateTimeOffset? outputStartOn, DateTimeOffset? lastOutputEventOn, EventsOutOfOrderPolicy? eventsOutOfOrderPolicy, StreamingJobOutputErrorPolicy? outputErrorPolicy, int? eventsOutOfOrderMaxDelayInSeconds, int? eventsLateArrivalMaxDelayInSeconds, AzureLocation? dataLocalion, StreamingJobCompatibilityLevel? compatibilityLevel, DateTimeOffset? createdOn, IList<StreamingJobInputData> inputs, StreamingJobTransformationData transformation, IList<StreamingJobOutputData> outputs, IList<StreamingJobFunctionData> functions, ETag? etag, StreamingJobStorageAccount jobStorageAccount, StreamingJobContentStoragePolicy? contentStoragePolicy, StreamingJobExternal externals, ClusterInfo cluster, string subnetResourceId, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
-            Identity = identity;
             Sku = sku;
+            Identity = identity;
+            SkuPropertiesSku = skuPropertiesSku;
             JobId = jobId;
             ProvisioningState = provisioningState;
             JobState = jobState;
@@ -120,6 +123,7 @@ namespace Azure.ResourceManager.StreamAnalytics
             ContentStoragePolicy = contentStoragePolicy;
             Externals = externals;
             Cluster = cluster;
+            SubnetResourceId = subnetResourceId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -128,22 +132,12 @@ namespace Azure.ResourceManager.StreamAnalytics
         {
         }
 
+        /// <summary> Describes the SKU of the streaming job. Required on PUT (CreateOrReplace) requests. </summary>
+        public StreamAnalyticsSku Sku { get; set; }
         /// <summary> Describes the managed identity assigned to this job that can be used to authenticate with inputs and outputs. Current supported identity types: SystemAssigned, UserAssigned, SystemAssigned,UserAssigned. </summary>
         public ManagedServiceIdentity Identity { get; set; }
         /// <summary> Describes the SKU of the streaming job. Required on PUT (CreateOrReplace) requests. </summary>
-        internal StreamAnalyticsSku Sku { get; set; }
-        /// <summary> The name of the SKU. Required on PUT (CreateOrReplace) requests. </summary>
-        public StreamAnalyticsSkuName? SkuName
-        {
-            get => Sku is null ? default : Sku.Name;
-            set
-            {
-                if (Sku is null)
-                    Sku = new StreamAnalyticsSku();
-                Sku.Name = value;
-            }
-        }
-
+        public StreamAnalyticsSku SkuPropertiesSku { get; set; }
         /// <summary> A GUID uniquely identifying the streaming job. This GUID is generated upon creation of the streaming job. </summary>
         public Guid? JobId { get; }
         /// <summary> Describes the provisioning status of the streaming job. </summary>
@@ -201,5 +195,8 @@ namespace Azure.ResourceManager.StreamAnalytics
                 Cluster.Id = value;
             }
         }
+
+        /// <summary> The subnet resource id that the user can link their streaming job to. </summary>
+        public string SubnetResourceId { get; set; }
     }
 }

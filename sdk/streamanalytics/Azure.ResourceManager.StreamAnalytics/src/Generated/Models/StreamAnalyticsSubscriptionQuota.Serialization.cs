@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
             }
             ResourceIdentifier id = default;
             string name = default;
-            ResourceType? type = default;
+            Core.ResourceType? type = default;
             int? maxCount = default;
             int? currentCount = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
                     {
                         continue;
                     }
-                    type = new ResourceType(property.Value.GetString());
+                    type = new Core.ResourceType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("properties"u8))

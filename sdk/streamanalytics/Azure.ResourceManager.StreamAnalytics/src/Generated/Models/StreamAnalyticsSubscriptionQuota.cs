@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="maxCount"> The max permitted usage of this resource. </param>
         /// <param name="currentCount"> The current usage of this resource. </param>
-        internal StreamAnalyticsSubscriptionQuota(ResourceIdentifier id, string name, ResourceType? resourceType, IDictionary<string, BinaryData> serializedAdditionalRawData, int? maxCount, int? currentCount) : base(id, name, resourceType, serializedAdditionalRawData)
+        internal StreamAnalyticsSubscriptionQuota(ResourceIdentifier id, string name, Core.ResourceType? resourceType, IDictionary<string, BinaryData> serializedAdditionalRawData, int? maxCount, int? currentCount) : base(id, name, resourceType, serializedAdditionalRawData)
         {
             MaxCount = maxCount;
             CurrentCount = currentCount;

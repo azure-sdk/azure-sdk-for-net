@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.StreamAnalytics.Models
 {
-    internal partial class StreamAnalyticsSku : IUtf8JsonSerializable, IJsonModel<StreamAnalyticsSku>
+    public partial class StreamAnalyticsSku : IUtf8JsonSerializable, IJsonModel<StreamAnalyticsSku>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<StreamAnalyticsSku>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
@@ -30,6 +30,11 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
             {
                 writer.WritePropertyName("name"u8);
                 writer.WriteStringValue(Name.Value.ToString());
+            }
+            if (Optional.IsDefined(Capacity))
+            {
+                writer.WritePropertyName("capacity"u8);
+                writer.WriteNumberValue(Capacity.Value);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -70,6 +75,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
                 return null;
             }
             StreamAnalyticsSkuName? name = default;
+            int? capacity = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -83,13 +89,22 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
                     name = new StreamAnalyticsSkuName(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("capacity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    capacity = property.Value.GetInt32();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new StreamAnalyticsSku(name, serializedAdditionalRawData);
+            return new StreamAnalyticsSku(name, capacity, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<StreamAnalyticsSku>.Write(ModelReaderWriterOptions options)

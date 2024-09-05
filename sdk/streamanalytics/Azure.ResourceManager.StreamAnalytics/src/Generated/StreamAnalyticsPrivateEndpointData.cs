@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.StreamAnalytics
         /// <param name="properties"> The properties associated with a private endpoint. </param>
         /// <param name="etag"> Unique opaque string (generally a GUID) that represents the metadata state of the resource (private endpoint) and changes whenever the resource is updated. Required on PUT (CreateOrUpdate) requests. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal StreamAnalyticsPrivateEndpointData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, StreamAnalyticsPrivateEndpointProperties properties, ETag? etag, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal StreamAnalyticsPrivateEndpointData(ResourceIdentifier id, string name, Core.ResourceType resourceType, SystemData systemData, StreamAnalyticsPrivateEndpointProperties properties, ETag? etag, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             Properties = properties;
             ETag = etag;
