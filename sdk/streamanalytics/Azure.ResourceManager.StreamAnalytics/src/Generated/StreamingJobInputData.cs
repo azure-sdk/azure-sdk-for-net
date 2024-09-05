@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.StreamAnalytics
         /// Please note <see cref="StreamingJobInputProperties"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="ReferenceInputProperties"/> and <see cref="StreamInputProperties"/>.
         /// </param>
-        internal StreamingJobInputData(ResourceIdentifier id, string name, ResourceType? resourceType, IDictionary<string, BinaryData> serializedAdditionalRawData, StreamingJobInputProperties properties) : base(id, name, resourceType, serializedAdditionalRawData)
+        internal StreamingJobInputData(ResourceIdentifier id, string name, Core.ResourceType? resourceType, IDictionary<string, BinaryData> serializedAdditionalRawData, StreamingJobInputProperties properties) : base(id, name, resourceType, serializedAdditionalRawData)
         {
             Properties = properties;
         }

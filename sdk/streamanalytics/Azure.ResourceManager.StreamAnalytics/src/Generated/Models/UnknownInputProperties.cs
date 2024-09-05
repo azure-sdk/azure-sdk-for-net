@@ -18,15 +18,16 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="serialization">
         /// Describes how data from an input is serialized or how data is serialized when written to an output. Required on PUT (CreateOrReplace) requests.
         /// Please note <see cref="StreamAnalyticsDataSerialization"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="AvroFormatSerialization"/>, <see cref="CsvFormatSerialization"/>, <see cref="CustomClrFormatSerialization"/>, <see cref="JsonFormatSerialization"/> and <see cref="ParquetFormatSerialization"/>.
+        /// The available derived classes include <see cref="AvroFormatSerialization"/>, <see cref="CsvFormatSerialization"/>, <see cref="CustomClrFormatSerialization"/>, <see cref="DeltaSerialization"/>, <see cref="JsonFormatSerialization"/> and <see cref="ParquetFormatSerialization"/>.
         /// </param>
         /// <param name="diagnostics"> Describes conditions applicable to the Input, Output, or the job overall, that warrant customer attention. </param>
         /// <param name="etag"> The current entity tag for the input. This is an opaque string. You can use it to detect whether the resource has changed between requests. You can also use it in the If-Match or If-None-Match headers for write operations for optimistic concurrency. </param>
         /// <param name="compression"> Describes how input data is compressed. </param>
         /// <param name="partitionKey"> partitionKey Describes a key in the input data which is used for partitioning the input data. </param>
         /// <param name="watermarkSettings"> Settings which determine whether to read watermark events. </param>
+        /// <param name="messagingCatalogConfiguration"> Messaging catalog configuration. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownInputProperties(string inputPropertiesType, StreamAnalyticsDataSerialization serialization, StreamingJobDiagnostics diagnostics, ETag? etag, StreamingCompression compression, string partitionKey, StreamingJobInputWatermarkProperties watermarkSettings, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(inputPropertiesType, serialization, diagnostics, etag, compression, partitionKey, watermarkSettings, serializedAdditionalRawData)
+        internal UnknownInputProperties(string inputPropertiesType, StreamAnalyticsDataSerialization serialization, StreamingJobDiagnostics diagnostics, ETag? etag, StreamingCompression compression, string partitionKey, StreamingJobInputWatermarkProperties watermarkSettings, string messagingCatalogConfiguration, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(inputPropertiesType, serialization, diagnostics, etag, compression, partitionKey, watermarkSettings, messagingCatalogConfiguration, serializedAdditionalRawData)
         {
             InputPropertiesType = inputPropertiesType ?? "Unknown";
         }

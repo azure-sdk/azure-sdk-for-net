@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="name"> Resource name. </param>
         /// <param name="resourceType"> Resource type. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal StreamAnalyticsSubResource(ResourceIdentifier id, string name, ResourceType? resourceType, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal StreamAnalyticsSubResource(ResourceIdentifier id, string name, Core.ResourceType? resourceType, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Id = id;
             Name = name;
@@ -69,6 +69,6 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <summary> Resource name. </summary>
         public string Name { get; set; }
         /// <summary> Resource type. </summary>
-        public ResourceType? ResourceType { get; }
+        public Core.ResourceType? ResourceType { get; }
     }
 }
