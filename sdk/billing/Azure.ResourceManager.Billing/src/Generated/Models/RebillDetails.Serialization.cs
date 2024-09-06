@@ -37,11 +37,6 @@ namespace Azure.ResourceManager.Billing.Models
                 writer.WritePropertyName("creditNoteDocumentId"u8);
                 writer.WriteStringValue(CreditNoteDocumentId);
             }
-            if (options.Format != "W" && Optional.IsDefined(RebillDetailsValue))
-            {
-                writer.WritePropertyName("rebillDetails"u8);
-                writer.WriteObjectValue(RebillDetailsValue, options);
-            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -82,7 +77,6 @@ namespace Azure.ResourceManager.Billing.Models
             }
             ResourceIdentifier invoiceDocumentId = default;
             ResourceIdentifier creditNoteDocumentId = default;
-            RebillDetails rebillDetails = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -105,22 +99,13 @@ namespace Azure.ResourceManager.Billing.Models
                     creditNoteDocumentId = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("rebillDetails"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    rebillDetails = DeserializeRebillDetails(property.Value, options);
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new RebillDetails(invoiceDocumentId, creditNoteDocumentId, rebillDetails, serializedAdditionalRawData);
+            return new RebillDetails(invoiceDocumentId, creditNoteDocumentId, serializedAdditionalRawData);
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)
@@ -161,21 +146,6 @@ namespace Azure.ResourceManager.Billing.Models
                 {
                     builder.Append("  creditNoteDocumentId: ");
                     builder.AppendLine($"'{CreditNoteDocumentId.ToString()}'");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(RebillDetailsValue), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("  rebillDetails: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(RebillDetailsValue))
-                {
-                    builder.Append("  rebillDetails: ");
-                    BicepSerializationHelpers.AppendChildObject(builder, RebillDetailsValue, options, 2, false, "  rebillDetails: ");
                 }
             }
 

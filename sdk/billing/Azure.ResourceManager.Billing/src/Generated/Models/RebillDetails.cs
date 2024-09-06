@@ -54,13 +54,11 @@ namespace Azure.ResourceManager.Billing.Models
         /// <summary> Initializes a new instance of <see cref="RebillDetails"/>. </summary>
         /// <param name="invoiceDocumentId"> The ID of invoice. </param>
         /// <param name="creditNoteDocumentId"> The ID of credit note. </param>
-        /// <param name="rebillDetailsValue"> The rebill details of an invoice. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal RebillDetails(ResourceIdentifier invoiceDocumentId, ResourceIdentifier creditNoteDocumentId, RebillDetails rebillDetailsValue, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal RebillDetails(ResourceIdentifier invoiceDocumentId, ResourceIdentifier creditNoteDocumentId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             InvoiceDocumentId = invoiceDocumentId;
             CreditNoteDocumentId = creditNoteDocumentId;
-            RebillDetailsValue = rebillDetailsValue;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -70,8 +68,5 @@ namespace Azure.ResourceManager.Billing.Models
         /// <summary> The ID of credit note. </summary>
         [WirePath("creditNoteDocumentId")]
         public ResourceIdentifier CreditNoteDocumentId { get; }
-        /// <summary> The rebill details of an invoice. </summary>
-        [WirePath("rebillDetails")]
-        public RebillDetails RebillDetailsValue { get; }
     }
 }

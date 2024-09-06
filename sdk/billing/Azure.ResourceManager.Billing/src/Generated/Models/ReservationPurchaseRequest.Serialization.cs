@@ -95,24 +95,16 @@ namespace Azure.ResourceManager.Billing.Models
                 writer.WritePropertyName("renew"u8);
                 writer.WriteBooleanValue(IsRenewed.Value);
             }
-            if (Optional.IsDefined(InstanceFlexibilityPropertiesInstanceFlexibility))
+            if (Optional.IsDefined(InstanceFlexibility))
             {
                 writer.WritePropertyName("instanceFlexibility"u8);
-                writer.WriteStringValue(InstanceFlexibilityPropertiesInstanceFlexibility.Value.ToString());
+                writer.WriteStringValue(InstanceFlexibility.Value.ToString());
             }
             if (Optional.IsDefined(ReviewOn))
             {
                 writer.WritePropertyName("reviewDateTime"u8);
                 writer.WriteStringValue(ReviewOn.Value, "O");
             }
-            writer.WritePropertyName("reservedResourceProperties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(InstanceFlexibilityPropertiesReservedResourcePropertiesInstanceFlexibility))
-            {
-                writer.WritePropertyName("instanceFlexibility"u8);
-                writer.WriteStringValue(InstanceFlexibilityPropertiesReservedResourcePropertiesInstanceFlexibility.Value.ToString());
-            }
-            writer.WriteEndObject();
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -166,7 +158,6 @@ namespace Azure.ResourceManager.Billing.Models
             bool? renew = default;
             InstanceFlexibility? instanceFlexibility = default;
             DateTimeOffset? reviewDateTime = default;
-            InstanceFlexibility? instanceFlexibility0 = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -295,27 +286,6 @@ namespace Azure.ResourceManager.Billing.Models
                             reviewDateTime = property0.Value.GetDateTimeOffset("O");
                             continue;
                         }
-                        if (property0.NameEquals("reservedResourceProperties"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            foreach (var property1 in property0.Value.EnumerateObject())
-                            {
-                                if (property1.NameEquals("instanceFlexibility"u8))
-                                {
-                                    if (property1.Value.ValueKind == JsonValueKind.Null)
-                                    {
-                                        continue;
-                                    }
-                                    instanceFlexibility0 = new InstanceFlexibility(property1.Value.GetString());
-                                    continue;
-                                }
-                            }
-                            continue;
-                        }
                     }
                     continue;
                 }
@@ -340,7 +310,6 @@ namespace Azure.ResourceManager.Billing.Models
                 renew,
                 instanceFlexibility,
                 reviewDateTime,
-                instanceFlexibility0,
                 serializedAdditionalRawData);
         }
 
@@ -594,7 +563,7 @@ namespace Azure.ResourceManager.Billing.Models
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(InstanceFlexibilityPropertiesInstanceFlexibility), out propertyOverride);
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(InstanceFlexibility), out propertyOverride);
             if (hasPropertyOverride)
             {
                 builder.Append("    instanceFlexibility: ");
@@ -602,10 +571,10 @@ namespace Azure.ResourceManager.Billing.Models
             }
             else
             {
-                if (Optional.IsDefined(InstanceFlexibilityPropertiesInstanceFlexibility))
+                if (Optional.IsDefined(InstanceFlexibility))
                 {
                     builder.Append("    instanceFlexibility: ");
-                    builder.AppendLine($"'{InstanceFlexibilityPropertiesInstanceFlexibility.Value.ToString()}'");
+                    builder.AppendLine($"'{InstanceFlexibility.Value.ToString()}'");
                 }
             }
 
@@ -625,24 +594,6 @@ namespace Azure.ResourceManager.Billing.Models
                 }
             }
 
-            builder.Append("    reservedResourceProperties:");
-            builder.AppendLine(" {");
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(InstanceFlexibilityPropertiesReservedResourcePropertiesInstanceFlexibility), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("      instanceFlexibility: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(InstanceFlexibilityPropertiesReservedResourcePropertiesInstanceFlexibility))
-                {
-                    builder.Append("      instanceFlexibility: ");
-                    builder.AppendLine($"'{InstanceFlexibilityPropertiesReservedResourcePropertiesInstanceFlexibility.Value.ToString()}'");
-                }
-            }
-
-            builder.AppendLine("    }");
             builder.AppendLine("  }");
             builder.AppendLine("}");
             return BinaryData.FromString(builder.ToString());

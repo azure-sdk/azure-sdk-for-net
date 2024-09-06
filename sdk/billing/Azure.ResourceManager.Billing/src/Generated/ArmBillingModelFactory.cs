@@ -1805,11 +1805,10 @@ namespace Azure.ResourceManager.Billing.Models
         /// <summary> Initializes a new instance of <see cref="Models.RebillDetails"/>. </summary>
         /// <param name="invoiceDocumentId"> The ID of invoice. </param>
         /// <param name="creditNoteDocumentId"> The ID of credit note. </param>
-        /// <param name="rebillDetailsValue"> The rebill details of an invoice. </param>
         /// <returns> A new <see cref="Models.RebillDetails"/> instance for mocking. </returns>
-        public static RebillDetails RebillDetails(ResourceIdentifier invoiceDocumentId = null, ResourceIdentifier creditNoteDocumentId = null, RebillDetails rebillDetailsValue = null)
+        public static RebillDetails RebillDetails(ResourceIdentifier invoiceDocumentId = null, ResourceIdentifier creditNoteDocumentId = null)
         {
-            return new RebillDetails(invoiceDocumentId, creditNoteDocumentId, rebillDetailsValue, serializedAdditionalRawData: null);
+            return new RebillDetails(invoiceDocumentId, creditNoteDocumentId, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.RefundDetailsSummary"/>. </summary>
@@ -2421,11 +2420,10 @@ namespace Azure.ResourceManager.Billing.Models
         /// <param name="appliedScopes"> List of the subscriptions that the benefit will be applied. Do not specify if AppliedScopeType is Shared. </param>
         /// <param name="appliedScopeProperties"> Properties specific to applied scope type. Not required if not applicable. Required and need to provide tenantId and managementGroupId if AppliedScopeType is ManagementGroup. </param>
         /// <param name="isRenewed"> Setting this to true will automatically purchase a new benefit on the expiration date time. </param>
-        /// <param name="instanceFlexibilityPropertiesInstanceFlexibility"> Allows reservation discount to be applied across skus within the same auto fit group. Not all skus support instance size flexibility. </param>
+        /// <param name="instanceFlexibility"> Allows reservation discount to be applied across skus within the same auto fit group. Not all skus support instance size flexibility. </param>
         /// <param name="reviewOn"> This is the date-time when the Azure hybrid benefit needs to be reviewed. </param>
-        /// <param name="instanceFlexibilityPropertiesReservedResourcePropertiesInstanceFlexibility"> Turning this on will apply the reservation discount to other VMs in the same VM size group. Only specify for VirtualMachines reserved resource type. </param>
         /// <returns> A new <see cref="Models.ReservationPurchaseRequest"/> instance for mocking. </returns>
-        public static ReservationPurchaseRequest ReservationPurchaseRequest(string skuName = null, AzureLocation? location = null, string reservedResourceType = null, string billingScopeId = null, string term = null, ReservationBillingPlan? billingPlan = null, int? quantity = null, string displayName = null, BillingAppliedScopeType? appliedScopeType = null, IEnumerable<string> appliedScopes = null, ReservationAppliedScopeProperties appliedScopeProperties = null, bool? isRenewed = null, InstanceFlexibility? instanceFlexibilityPropertiesInstanceFlexibility = null, DateTimeOffset? reviewOn = null, InstanceFlexibility? instanceFlexibilityPropertiesReservedResourcePropertiesInstanceFlexibility = null)
+        public static ReservationPurchaseRequest ReservationPurchaseRequest(string skuName = null, AzureLocation? location = null, string reservedResourceType = null, string billingScopeId = null, string term = null, ReservationBillingPlan? billingPlan = null, int? quantity = null, string displayName = null, BillingAppliedScopeType? appliedScopeType = null, IEnumerable<string> appliedScopes = null, ReservationAppliedScopeProperties appliedScopeProperties = null, bool? isRenewed = null, InstanceFlexibility? instanceFlexibility = null, DateTimeOffset? reviewOn = null)
         {
             appliedScopes ??= new List<string>();
 
@@ -2442,9 +2440,8 @@ namespace Azure.ResourceManager.Billing.Models
                 appliedScopes?.ToList(),
                 appliedScopeProperties,
                 isRenewed,
-                instanceFlexibilityPropertiesInstanceFlexibility,
+                instanceFlexibility,
                 reviewOn,
-                instanceFlexibilityPropertiesReservedResourcePropertiesInstanceFlexibility,
                 serializedAdditionalRawData: null);
         }
 
@@ -2583,7 +2580,7 @@ namespace Azure.ResourceManager.Billing.Models
         /// <param name="specialTaxationType"> Identifies the type of tax calculation used for the invoice. The field is applicable only to invoices with special tax calculation logic. </param>
         /// <param name="refundTransactionDetails"> The refund details of a transaction. </param>
         /// <returns> A new <see cref="Models.BillingTransactionProperties"/> instance for mocking. </returns>
-        public static BillingTransactionProperties BillingTransactionProperties(BillingAmount azureCreditApplied = null, string azurePlan = null, string billingCurrency = null, BinaryData billingProfileDisplayName = null, ResourceIdentifier billingProfileId = null, BillingAmount consumptionCommitmentDecremented = null, string customerDisplayName = null, ResourceIdentifier customerId = null, BillingTransactionCreditType? creditType = null, DateTimeOffset? @on = null, float? discount = null, BillingAmount effectivePrice = null, float? exchangeRate = null, string invoice = null, ResourceIdentifier invoiceId = null, string invoiceSectionDisplayName = null, ResourceIdentifier invoiceSectionId = null, bool? isThirdParty = null, BillingTransactionKind? kind = null, BillingAmount marketPrice = null, string partNumber = null, string pricingCurrency = null, string productDescription = null, string productFamily = null, string productTypeId = null, string productType = null, int? quantity = null, string reasonCode = null, DateTimeOffset? servicePeriodStartOn = null, DateTimeOffset? servicePeriodEndOn = null, BillingAmount subTotal = null, BillingAmount tax = null, BillingAmount transactionAmount = null, string transactionType = null, float? units = null, string unitOfMeasure = null, string unitType = null, SpecialTaxationType? specialTaxationType = null, RefundTransactionDetails refundTransactionDetails = null)
+        public static BillingTransactionProperties BillingTransactionProperties(BillingAmount azureCreditApplied = null, string azurePlan = null, string billingCurrency = null, string billingProfileDisplayName = null, ResourceIdentifier billingProfileId = null, BillingAmount consumptionCommitmentDecremented = null, string customerDisplayName = null, ResourceIdentifier customerId = null, BillingTransactionCreditType? creditType = null, DateTimeOffset? @on = null, float? discount = null, BillingAmount effectivePrice = null, float? exchangeRate = null, string invoice = null, ResourceIdentifier invoiceId = null, string invoiceSectionDisplayName = null, ResourceIdentifier invoiceSectionId = null, bool? isThirdParty = null, BillingTransactionKind? kind = null, BillingAmount marketPrice = null, string partNumber = null, string pricingCurrency = null, string productDescription = null, string productFamily = null, string productTypeId = null, string productType = null, int? quantity = null, string reasonCode = null, DateTimeOffset? servicePeriodStartOn = null, DateTimeOffset? servicePeriodEndOn = null, BillingAmount subTotal = null, BillingAmount tax = null, BillingAmount transactionAmount = null, string transactionType = null, float? units = null, string unitOfMeasure = null, string unitType = null, SpecialTaxationType? specialTaxationType = null, RefundTransactionDetails refundTransactionDetails = null)
         {
             return new BillingTransactionProperties(
                 azureCreditApplied,
