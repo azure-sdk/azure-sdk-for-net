@@ -8,6 +8,7 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using Azure.Core;
@@ -36,6 +37,16 @@ namespace Azure.ResourceManager.Authorization.Models
             {
                 writer.WritePropertyName("maximumDuration"u8);
                 writer.WriteStringValue(MaximumDuration.Value, "P");
+            }
+            if (Optional.IsCollectionDefined(ExceptionMembers))
+            {
+                writer.WritePropertyName("exceptionMembers"u8);
+                writer.WriteStartArray();
+                foreach (var item in ExceptionMembers)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
             }
             if (Optional.IsDefined(Id))
             {
@@ -89,6 +100,7 @@ namespace Azure.ResourceManager.Authorization.Models
             }
             bool? isExpirationRequired = default;
             TimeSpan? maximumDuration = default;
+            IList<RoleManagementUserInfo> exceptionMembers = default;
             string id = default;
             RoleManagementPolicyRuleType ruleType = default;
             RoleManagementPolicyRuleTarget target = default;
@@ -112,6 +124,20 @@ namespace Azure.ResourceManager.Authorization.Models
                         continue;
                     }
                     maximumDuration = property.Value.GetTimeSpan("P");
+                    continue;
+                }
+                if (property.NameEquals("exceptionMembers"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<RoleManagementUserInfo> array = new List<RoleManagementUserInfo>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(RoleManagementUserInfo.DeserializeRoleManagementUserInfo(item, options));
+                    }
+                    exceptionMembers = array;
                     continue;
                 }
                 if (property.NameEquals("id"u8))
@@ -145,7 +171,8 @@ namespace Azure.ResourceManager.Authorization.Models
                 target,
                 serializedAdditionalRawData,
                 isExpirationRequired,
-                maximumDuration);
+                maximumDuration,
+                exceptionMembers ?? new ChangeTrackingList<RoleManagementUserInfo>());
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)
@@ -188,6 +215,29 @@ namespace Azure.ResourceManager.Authorization.Models
                     builder.Append("  maximumDuration: ");
                     var formattedTimeSpan = TypeFormatters.ToString(MaximumDuration.Value, "P");
                     builder.AppendLine($"'{formattedTimeSpan}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ExceptionMembers), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  exceptionMembers: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsCollectionDefined(ExceptionMembers))
+                {
+                    if (ExceptionMembers.Any())
+                    {
+                        builder.Append("  exceptionMembers: ");
+                        builder.AppendLine("[");
+                        foreach (var item in ExceptionMembers)
+                        {
+                            BicepSerializationHelpers.AppendChildObject(builder, item, options, 4, true, "  exceptionMembers: ");
+                        }
+                        builder.AppendLine("  ]");
+                    }
                 }
             }
 

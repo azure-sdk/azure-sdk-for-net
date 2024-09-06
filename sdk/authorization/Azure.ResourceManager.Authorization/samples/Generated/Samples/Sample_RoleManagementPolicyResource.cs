@@ -75,6 +75,9 @@ new RoleManagementPolicyExpirationRule()
 {
 IsExpirationRequired = false,
 MaximumDuration = XmlConvert.ToTimeSpan("P180D"),
+ExceptionMembers =
+{
+},
 Id = "Expiration_Admin_Eligibility",
 Target = new RoleManagementPolicyRuleTarget()
 {
@@ -164,6 +167,9 @@ new RoleManagementPolicyExpirationRule()
 {
 IsExpirationRequired = false,
 MaximumDuration = XmlConvert.ToTimeSpan("P180D"),
+ExceptionMembers =
+{
+},
 Id = "Expiration_Admin_Eligibility",
 Target = new RoleManagementPolicyRuleTarget()
 {
@@ -298,6 +304,9 @@ EnforcedSettings =
 {
 IsExpirationRequired = false,
 MaximumDuration = XmlConvert.ToTimeSpan("P90D"),
+ExceptionMembers =
+{
+},
 Id = "Expiration_Admin_Assignment",
 Target = new RoleManagementPolicyRuleTarget()
 {
@@ -433,6 +442,9 @@ EnforcedSettings =
 {
 IsExpirationRequired = true,
 MaximumDuration = XmlConvert.ToTimeSpan("PT7H"),
+ExceptionMembers =
+{
+},
 Id = "Expiration_EndUser_Assignment",
 Target = new RoleManagementPolicyRuleTarget()
 {

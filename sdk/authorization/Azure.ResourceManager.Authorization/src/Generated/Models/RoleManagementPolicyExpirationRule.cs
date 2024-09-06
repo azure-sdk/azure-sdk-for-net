@@ -16,6 +16,7 @@ namespace Azure.ResourceManager.Authorization.Models
         /// <summary> Initializes a new instance of <see cref="RoleManagementPolicyExpirationRule"/>. </summary>
         public RoleManagementPolicyExpirationRule()
         {
+            ExceptionMembers = new ChangeTrackingList<RoleManagementUserInfo>();
             RuleType = RoleManagementPolicyRuleType.RoleManagementPolicyExpirationRule;
         }
 
@@ -26,10 +27,12 @@ namespace Azure.ResourceManager.Authorization.Models
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="isExpirationRequired"> The value indicating whether expiration is required. </param>
         /// <param name="maximumDuration"> The maximum duration of expiration in timespan. </param>
-        internal RoleManagementPolicyExpirationRule(string id, RoleManagementPolicyRuleType ruleType, RoleManagementPolicyRuleTarget target, IDictionary<string, BinaryData> serializedAdditionalRawData, bool? isExpirationRequired, TimeSpan? maximumDuration) : base(id, ruleType, target, serializedAdditionalRawData)
+        /// <param name="exceptionMembers"> The members not restricted by expiration rule. </param>
+        internal RoleManagementPolicyExpirationRule(string id, RoleManagementPolicyRuleType ruleType, RoleManagementPolicyRuleTarget target, IDictionary<string, BinaryData> serializedAdditionalRawData, bool? isExpirationRequired, TimeSpan? maximumDuration, IList<RoleManagementUserInfo> exceptionMembers) : base(id, ruleType, target, serializedAdditionalRawData)
         {
             IsExpirationRequired = isExpirationRequired;
             MaximumDuration = maximumDuration;
+            ExceptionMembers = exceptionMembers;
             RuleType = ruleType;
         }
 
@@ -39,5 +42,8 @@ namespace Azure.ResourceManager.Authorization.Models
         /// <summary> The maximum duration of expiration in timespan. </summary>
         [WirePath("maximumDuration")]
         public TimeSpan? MaximumDuration { get; set; }
+        /// <summary> The members not restricted by expiration rule. </summary>
+        [WirePath("exceptionMembers")]
+        public IList<RoleManagementUserInfo> ExceptionMembers { get; }
     }
 }
