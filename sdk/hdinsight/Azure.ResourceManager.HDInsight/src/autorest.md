@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: HDInsight
 namespace: Azure.ResourceManager.HDInsight
-require: https://github.com/Azure/azure-rest-api-specs/blob/de37c47a625de64c0ac5bf76cf531527ba2feb77/specification/hdinsight/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/hdinsight/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
