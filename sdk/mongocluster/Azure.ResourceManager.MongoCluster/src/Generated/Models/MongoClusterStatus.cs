@@ -22,7 +22,6 @@ namespace Azure.ResourceManager.MongoCluster.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string ReadyValue = "Ready";
         private const string ProvisioningValue = "Provisioning";
         private const string UpdatingValue = "Updating";
         private const string StartingValue = "Starting";
@@ -30,8 +29,6 @@ namespace Azure.ResourceManager.MongoCluster.Models
         private const string StoppedValue = "Stopped";
         private const string DroppingValue = "Dropping";
 
-        /// <summary> The mongo cluster resource is ready for use. </summary>
-        public static MongoClusterStatus Ready { get; } = new MongoClusterStatus(ReadyValue);
         /// <summary> The mongo cluster resource is being provisioned. </summary>
         public static MongoClusterStatus Provisioning { get; } = new MongoClusterStatus(ProvisioningValue);
         /// <summary> The mongo cluster resource is being updated. </summary>

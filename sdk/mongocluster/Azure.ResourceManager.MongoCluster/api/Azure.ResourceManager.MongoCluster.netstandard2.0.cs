@@ -660,7 +660,6 @@ namespace Azure.ResourceManager.MongoCluster.Models
         public MongoClusterStatus(string value) { throw null; }
         public static Azure.ResourceManager.MongoCluster.Models.MongoClusterStatus Dropping { get { throw null; } }
         public static Azure.ResourceManager.MongoCluster.Models.MongoClusterStatus Provisioning { get { throw null; } }
-        public static Azure.ResourceManager.MongoCluster.Models.MongoClusterStatus Ready { get { throw null; } }
         public static Azure.ResourceManager.MongoCluster.Models.MongoClusterStatus Starting { get { throw null; } }
         public static Azure.ResourceManager.MongoCluster.Models.MongoClusterStatus Stopped { get { throw null; } }
         public static Azure.ResourceManager.MongoCluster.Models.MongoClusterStatus Stopping { get { throw null; } }
