@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetFileMetadataAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetFileMetadataAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response<SessionResourceFile> response = await client.GetFileMetadataAsync("<fileName>", "<identifier>");
+]]></code>
+This sample shows how to call GetFileMetadataAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response<SessionResourceFile> response = await client.GetFileMetadataAsync("<fileName>", "<identifier>");
+]]></code></example>
+    </member>
+    <member name="GetFileMetadata(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetFileMetadata.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response<SessionResourceFile> response = client.GetFileMetadata("<fileName>", "<identifier>");
+]]></code>
+This sample shows how to call GetFileMetadata with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response<SessionResourceFile> response = client.GetFileMetadata("<fileName>", "<identifier>");
+]]></code></example>
+    </member>
+    <member name="GetFileMetadataAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetFileMetadataAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response response = await client.GetFileMetadataAsync("<fileName>", "<identifier>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("fileName").ToString());
+Console.WriteLine(result.GetProperty("sizeInBytes").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+]]></code>
+This sample shows how to call GetFileMetadataAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response response = await client.GetFileMetadataAsync("<fileName>", "<identifier>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("fileName").ToString());
+Console.WriteLine(result.GetProperty("sizeInBytes").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="GetFileMetadata(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetFileMetadata and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response response = client.GetFileMetadata("<fileName>", "<identifier>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("fileName").ToString());
+Console.WriteLine(result.GetProperty("sizeInBytes").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+]]></code>
+This sample shows how to call GetFileMetadata with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response response = client.GetFileMetadata("<fileName>", "<identifier>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("fileName").ToString());
+Console.WriteLine(result.GetProperty("sizeInBytes").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteFileAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteFileAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response response = await client.DeleteFileAsync("<fileName>", "<identifier>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call DeleteFileAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response response = await client.DeleteFileAsync("<fileName>", "<identifier>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteFile(string,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteFile.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response response = client.DeleteFile("<fileName>", "<identifier>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call DeleteFile with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response response = client.DeleteFile("<fileName>", "<identifier>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DownloadFileAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call DownloadFileAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response<BinaryData> response = await client.DownloadFileAsync("<fileName>", "<identifier>");
+]]></code>
+This sample shows how to call DownloadFileAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response<BinaryData> response = await client.DownloadFileAsync("<fileName>", "<identifier>");
+]]></code></example>
+    </member>
+    <member name="DownloadFile(string,string,CancellationToken)">
+      <example>
+This sample shows how to call DownloadFile.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response<BinaryData> response = client.DownloadFile("<fileName>", "<identifier>");
+]]></code>
+This sample shows how to call DownloadFile with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response<BinaryData> response = client.DownloadFile("<fileName>", "<identifier>");
+]]></code></example>
+    </member>
+    <member name="DownloadFileAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call DownloadFileAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response response = await client.DownloadFileAsync("<fileName>", "<identifier>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call DownloadFileAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response response = await client.DownloadFileAsync("<fileName>", "<identifier>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="DownloadFile(string,string,RequestContext)">
+      <example>
+This sample shows how to call DownloadFile and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response response = client.DownloadFile("<fileName>", "<identifier>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call DownloadFile with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response response = client.DownloadFile("<fileName>", "<identifier>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="UploadFileAsync(string,string,Stream,CancellationToken)">
+      <example>
+This sample shows how to call UploadFileAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response<SessionResourceFile> response = await client.UploadFileAsync("<fileName>", "<identifier>", null);
+]]></code>
+This sample shows how to call UploadFileAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response<SessionResourceFile> response = await client.UploadFileAsync("<fileName>", "<identifier>", null);
+]]></code></example>
+    </member>
+    <member name="UploadFile(string,string,Stream,CancellationToken)">
+      <example>
+This sample shows how to call UploadFile.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response<SessionResourceFile> response = client.UploadFile("<fileName>", "<identifier>", null);
+]]></code>
+This sample shows how to call UploadFile with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+Response<SessionResourceFile> response = client.UploadFile("<fileName>", "<identifier>", null);
+]]></code></example>
+    </member>
+    <member name="UploadFileAsync(string,string,RequestContent,string,RequestContext)">
+      <example>
+This sample shows how to call UploadFileAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    file = File.OpenRead("<filePath>"),
+});
+Response response = await client.UploadFileAsync("<fileName>", "<identifier>", content, "multipart/form-data");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("fileName").ToString());
+Console.WriteLine(result.GetProperty("sizeInBytes").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+]]></code>
+This sample shows how to call UploadFileAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    file = File.OpenRead("<filePath>"),
+});
+Response response = await client.UploadFileAsync("<fileName>", "<identifier>", content, "multipart/form-data");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("fileName").ToString());
+Console.WriteLine(result.GetProperty("sizeInBytes").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="UploadFile(string,string,RequestContent,string,RequestContext)">
+      <example>
+This sample shows how to call UploadFile and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    file = File.OpenRead("<filePath>"),
+});
+Response response = client.UploadFile("<fileName>", "<identifier>", content, "multipart/form-data");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("fileName").ToString());
+Console.WriteLine(result.GetProperty("sizeInBytes").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+]]></code>
+This sample shows how to call UploadFile with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    file = File.OpenRead("<filePath>"),
+});
+Response response = client.UploadFile("<fileName>", "<identifier>", content, "multipart/form-data");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("fileName").ToString());
+Console.WriteLine(result.GetProperty("sizeInBytes").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="GetAllFilesMetadataAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetAllFilesMetadataAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+await foreach (SessionResourceFile item in client.GetAllFilesMetadataAsync("<identifier>"))
+{
+}
+]]></code>
+This sample shows how to call GetAllFilesMetadataAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+await foreach (SessionResourceFile item in client.GetAllFilesMetadataAsync("<identifier>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetAllFilesMetadata(string,CancellationToken)">
+      <example>
+This sample shows how to call GetAllFilesMetadata.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+foreach (SessionResourceFile item in client.GetAllFilesMetadata("<identifier>"))
+{
+}
+]]></code>
+This sample shows how to call GetAllFilesMetadata with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+foreach (SessionResourceFile item in client.GetAllFilesMetadata("<identifier>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetAllFilesMetadataAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetAllFilesMetadataAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+await foreach (BinaryData item in client.GetAllFilesMetadataAsync("<identifier>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("fileName").ToString());
+    Console.WriteLine(result.GetProperty("sizeInBytes").ToString());
+    Console.WriteLine(result.GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+}
+]]></code>
+This sample shows how to call GetAllFilesMetadataAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+await foreach (BinaryData item in client.GetAllFilesMetadataAsync("<identifier>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("fileName").ToString());
+    Console.WriteLine(result.GetProperty("sizeInBytes").ToString());
+    Console.WriteLine(result.GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetAllFilesMetadata(string,RequestContext)">
+      <example>
+This sample shows how to call GetAllFilesMetadata and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+foreach (BinaryData item in client.GetAllFilesMetadata("<identifier>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("fileName").ToString());
+    Console.WriteLine(result.GetProperty("sizeInBytes").ToString());
+    Console.WriteLine(result.GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+}
+]]></code>
+This sample shows how to call GetAllFilesMetadata with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new AppClient(endpoint, credential).GetSessionResourceFilesClient();
+
+foreach (BinaryData item in client.GetAllFilesMetadata("<identifier>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("fileName").ToString());
+    Console.WriteLine(result.GetProperty("sizeInBytes").ToString());
+    Console.WriteLine(result.GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
