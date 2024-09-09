@@ -39,8 +39,11 @@ namespace Azure.AI.OpenAI.Assistants
             writer.WriteStringValue(FirstId);
             writer.WritePropertyName("last_id"u8);
             writer.WriteStringValue(LastId);
-            writer.WritePropertyName("has_more"u8);
-            writer.WriteBooleanValue(HasMore);
+            if (Optional.IsDefined(HasMore))
+            {
+                writer.WritePropertyName("has_more"u8);
+                writer.WriteBooleanValue(HasMore.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -83,7 +86,7 @@ namespace Azure.AI.OpenAI.Assistants
             IReadOnlyList<ThreadMessage> data = default;
             string firstId = default;
             string lastId = default;
-            bool hasMore = default;
+            bool? hasMore = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -115,6 +118,10 @@ namespace Azure.AI.OpenAI.Assistants
                 }
                 if (property.NameEquals("has_more"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     hasMore = property.Value.GetBoolean();
                     continue;
                 }

@@ -50,9 +50,8 @@ namespace Azure.AI.OpenAI.Assistants
         /// <param name="data"> The requested list of items. </param>
         /// <param name="firstId"> The first ID represented in this list. </param>
         /// <param name="lastId"> The last ID represented in this list. </param>
-        /// <param name="hasMore"> A value indicating whether there are additional values available not captured in this list. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="data"/>, <paramref name="firstId"/> or <paramref name="lastId"/> is null. </exception>
-        internal InternalOpenAIPageableListOfThreadRun(IEnumerable<ThreadRun> data, string firstId, string lastId, bool hasMore)
+        internal InternalOpenAIPageableListOfThreadRun(IEnumerable<ThreadRun> data, string firstId, string lastId)
         {
             Argument.AssertNotNull(data, nameof(data));
             Argument.AssertNotNull(firstId, nameof(firstId));
@@ -61,7 +60,6 @@ namespace Azure.AI.OpenAI.Assistants
             Data = data.ToList();
             FirstId = firstId;
             LastId = lastId;
-            HasMore = hasMore;
         }
 
         /// <summary> Initializes a new instance of <see cref="InternalOpenAIPageableListOfThreadRun"/>. </summary>
@@ -71,7 +69,7 @@ namespace Azure.AI.OpenAI.Assistants
         /// <param name="lastId"> The last ID represented in this list. </param>
         /// <param name="hasMore"> A value indicating whether there are additional values available not captured in this list. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal InternalOpenAIPageableListOfThreadRun(OpenAIPageableListOfThreadRunObject @object, IReadOnlyList<ThreadRun> data, string firstId, string lastId, bool hasMore, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal InternalOpenAIPageableListOfThreadRun(OpenAIPageableListOfThreadRunObject @object, IReadOnlyList<ThreadRun> data, string firstId, string lastId, bool? hasMore, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Object = @object;
             Data = data;
@@ -96,6 +94,6 @@ namespace Azure.AI.OpenAI.Assistants
         /// <summary> The last ID represented in this list. </summary>
         public string LastId { get; }
         /// <summary> A value indicating whether there are additional values available not captured in this list. </summary>
-        public bool HasMore { get; }
+        public bool? HasMore { get; }
     }
 }
