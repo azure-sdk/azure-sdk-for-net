@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="ExecuteCodeAsync(string,SessionCodeExecutionRequest,CancellationToken)">
+      <example>
+This sample shows how to call ExecuteCodeAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+SessionCodeExecutionRequest codeExecutionRequest = new SessionCodeExecutionRequest(
+CodeInputType.Inline,
+ExecutionType.Synchronous,
+NetworkStatus.EgressEnabled,
+MultiArrayStatus.MultiArrayEnabled,
+"<code>",
+1234L);
+Response<SessionCodeExecutionResult> response = await client.ExecuteCodeAsync("<identifier>", codeExecutionRequest);
+]]></code>
+This sample shows how to call ExecuteCodeAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+SessionCodeExecutionRequest codeExecutionRequest = new SessionCodeExecutionRequest(
+CodeInputType.Inline,
+ExecutionType.Synchronous,
+NetworkStatus.EgressEnabled,
+MultiArrayStatus.MultiArrayEnabled,
+"<code>",
+1234L);
+Response<SessionCodeExecutionResult> response = await client.ExecuteCodeAsync("<identifier>", codeExecutionRequest);
+]]></code></example>
+    </member>
+    <member name="ExecuteCode(string,SessionCodeExecutionRequest,CancellationToken)">
+      <example>
+This sample shows how to call ExecuteCode.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+SessionCodeExecutionRequest codeExecutionRequest = new SessionCodeExecutionRequest(
+CodeInputType.Inline,
+ExecutionType.Synchronous,
+NetworkStatus.EgressEnabled,
+MultiArrayStatus.MultiArrayEnabled,
+"<code>",
+1234L);
+Response<SessionCodeExecutionResult> response = client.ExecuteCode("<identifier>", codeExecutionRequest);
+]]></code>
+This sample shows how to call ExecuteCode with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+SessionCodeExecutionRequest codeExecutionRequest = new SessionCodeExecutionRequest(
+CodeInputType.Inline,
+ExecutionType.Synchronous,
+NetworkStatus.EgressEnabled,
+MultiArrayStatus.MultiArrayEnabled,
+"<code>",
+1234L);
+Response<SessionCodeExecutionResult> response = client.ExecuteCode("<identifier>", codeExecutionRequest);
+]]></code></example>
+    </member>
+    <member name="ExecuteCodeAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call ExecuteCodeAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    codeInputType = "Inline",
+    executionType = "Synchronous",
+    networkStatus = "EgressEnabled",
+    multiArrayStatus = "MultiArrayEnabled",
+    code = "<code>",
+    timeoutInSeconds = 1234L,
+});
+Response response = await client.ExecuteCodeAsync("<identifier>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("codeInputType").ToString());
+Console.WriteLine(result.GetProperty("executionType").ToString());
+Console.WriteLine(result.GetProperty("networkStatus").ToString());
+Console.WriteLine(result.GetProperty("multiArrayStatus").ToString());
+Console.WriteLine(result.GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("timeoutInSeconds").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("stdout").ToString());
+Console.WriteLine(result.GetProperty("stderr").ToString());
+Console.WriteLine(result.GetProperty("result").ToString());
+Console.WriteLine(result.GetProperty("executionTimeInMilliseconds").ToString());
+]]></code>
+This sample shows how to call ExecuteCodeAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    codeInputType = "Inline",
+    executionType = "Synchronous",
+    networkStatus = "EgressEnabled",
+    multiArrayStatus = "MultiArrayEnabled",
+    code = "<code>",
+    timeoutInSeconds = 1234L,
+});
+Response response = await client.ExecuteCodeAsync("<identifier>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("codeInputType").ToString());
+Console.WriteLine(result.GetProperty("executionType").ToString());
+Console.WriteLine(result.GetProperty("networkStatus").ToString());
+Console.WriteLine(result.GetProperty("multiArrayStatus").ToString());
+Console.WriteLine(result.GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("timeoutInSeconds").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("stdout").ToString());
+Console.WriteLine(result.GetProperty("stderr").ToString());
+Console.WriteLine(result.GetProperty("result").ToString());
+Console.WriteLine(result.GetProperty("executionTimeInMilliseconds").ToString());
+]]></code></example>
+    </member>
+    <member name="ExecuteCode(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call ExecuteCode and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    codeInputType = "Inline",
+    executionType = "Synchronous",
+    networkStatus = "EgressEnabled",
+    multiArrayStatus = "MultiArrayEnabled",
+    code = "<code>",
+    timeoutInSeconds = 1234L,
+});
+Response response = client.ExecuteCode("<identifier>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("codeInputType").ToString());
+Console.WriteLine(result.GetProperty("executionType").ToString());
+Console.WriteLine(result.GetProperty("networkStatus").ToString());
+Console.WriteLine(result.GetProperty("multiArrayStatus").ToString());
+Console.WriteLine(result.GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("timeoutInSeconds").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("stdout").ToString());
+Console.WriteLine(result.GetProperty("stderr").ToString());
+Console.WriteLine(result.GetProperty("result").ToString());
+Console.WriteLine(result.GetProperty("executionTimeInMilliseconds").ToString());
+]]></code>
+This sample shows how to call ExecuteCode with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    codeInputType = "Inline",
+    executionType = "Synchronous",
+    networkStatus = "EgressEnabled",
+    multiArrayStatus = "MultiArrayEnabled",
+    code = "<code>",
+    timeoutInSeconds = 1234L,
+});
+Response response = client.ExecuteCode("<identifier>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("codeInputType").ToString());
+Console.WriteLine(result.GetProperty("executionType").ToString());
+Console.WriteLine(result.GetProperty("networkStatus").ToString());
+Console.WriteLine(result.GetProperty("multiArrayStatus").ToString());
+Console.WriteLine(result.GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("timeoutInSeconds").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("stdout").ToString());
+Console.WriteLine(result.GetProperty("stderr").ToString());
+Console.WriteLine(result.GetProperty("result").ToString());
+Console.WriteLine(result.GetProperty("executionTimeInMilliseconds").ToString());
+]]></code></example>
+    </member>
+    <member name="GetCodeExecutionResultAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetCodeExecutionResultAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+Response<SessionCodeExecutionResult> response = await client.GetCodeExecutionResultAsync("<identifier>", "<executionId>");
+]]></code>
+This sample shows how to call GetCodeExecutionResultAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+Response<SessionCodeExecutionResult> response = await client.GetCodeExecutionResultAsync("<identifier>", "<executionId>");
+]]></code></example>
+    </member>
+    <member name="GetCodeExecutionResult(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetCodeExecutionResult.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+Response<SessionCodeExecutionResult> response = client.GetCodeExecutionResult("<identifier>", "<executionId>");
+]]></code>
+This sample shows how to call GetCodeExecutionResult with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+Response<SessionCodeExecutionResult> response = client.GetCodeExecutionResult("<identifier>", "<executionId>");
+]]></code></example>
+    </member>
+    <member name="GetCodeExecutionResultAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetCodeExecutionResultAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+Response response = await client.GetCodeExecutionResultAsync("<identifier>", "<executionId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("codeInputType").ToString());
+Console.WriteLine(result.GetProperty("executionType").ToString());
+Console.WriteLine(result.GetProperty("networkStatus").ToString());
+Console.WriteLine(result.GetProperty("multiArrayStatus").ToString());
+Console.WriteLine(result.GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("timeoutInSeconds").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("stdout").ToString());
+Console.WriteLine(result.GetProperty("stderr").ToString());
+Console.WriteLine(result.GetProperty("result").ToString());
+Console.WriteLine(result.GetProperty("executionTimeInMilliseconds").ToString());
+]]></code>
+This sample shows how to call GetCodeExecutionResultAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+Response response = await client.GetCodeExecutionResultAsync("<identifier>", "<executionId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("codeInputType").ToString());
+Console.WriteLine(result.GetProperty("executionType").ToString());
+Console.WriteLine(result.GetProperty("networkStatus").ToString());
+Console.WriteLine(result.GetProperty("multiArrayStatus").ToString());
+Console.WriteLine(result.GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("timeoutInSeconds").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("stdout").ToString());
+Console.WriteLine(result.GetProperty("stderr").ToString());
+Console.WriteLine(result.GetProperty("result").ToString());
+Console.WriteLine(result.GetProperty("executionTimeInMilliseconds").ToString());
+]]></code></example>
+    </member>
+    <member name="GetCodeExecutionResult(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetCodeExecutionResult and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+Response response = client.GetCodeExecutionResult("<identifier>", "<executionId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("codeInputType").ToString());
+Console.WriteLine(result.GetProperty("executionType").ToString());
+Console.WriteLine(result.GetProperty("networkStatus").ToString());
+Console.WriteLine(result.GetProperty("multiArrayStatus").ToString());
+Console.WriteLine(result.GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("timeoutInSeconds").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("stdout").ToString());
+Console.WriteLine(result.GetProperty("stderr").ToString());
+Console.WriteLine(result.GetProperty("result").ToString());
+Console.WriteLine(result.GetProperty("executionTimeInMilliseconds").ToString());
+]]></code>
+This sample shows how to call GetCodeExecutionResult with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+AppClient client = new AppClient(endpoint, credential);
+
+Response response = client.GetCodeExecutionResult("<identifier>", "<executionId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("codeInputType").ToString());
+Console.WriteLine(result.GetProperty("executionType").ToString());
+Console.WriteLine(result.GetProperty("networkStatus").ToString());
+Console.WriteLine(result.GetProperty("multiArrayStatus").ToString());
+Console.WriteLine(result.GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("timeoutInSeconds").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("stdout").ToString());
+Console.WriteLine(result.GetProperty("stderr").ToString());
+Console.WriteLine(result.GetProperty("result").ToString());
+Console.WriteLine(result.GetProperty("executionTimeInMilliseconds").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
