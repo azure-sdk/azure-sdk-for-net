@@ -13,16 +13,16 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.SecurityCenter.Models
 {
-    internal partial class AdaptiveApplicationControlGroups : IUtf8JsonSerializable, IJsonModel<AdaptiveApplicationControlGroups>
+    internal partial class GetSensitivitySettingsListResponse : IUtf8JsonSerializable, IJsonModel<GetSensitivitySettingsListResponse>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AdaptiveApplicationControlGroups>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<GetSensitivitySettingsListResponse>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<AdaptiveApplicationControlGroups>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<GetSensitivitySettingsListResponse>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AdaptiveApplicationControlGroups>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<GetSensitivitySettingsListResponse>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AdaptiveApplicationControlGroups)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(GetSensitivitySettingsListResponse)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -54,19 +54,19 @@ namespace Azure.ResourceManager.SecurityCenter.Models
             writer.WriteEndObject();
         }
 
-        AdaptiveApplicationControlGroups IJsonModel<AdaptiveApplicationControlGroups>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        GetSensitivitySettingsListResponse IJsonModel<GetSensitivitySettingsListResponse>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AdaptiveApplicationControlGroups>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<GetSensitivitySettingsListResponse>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AdaptiveApplicationControlGroups)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(GetSensitivitySettingsListResponse)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeAdaptiveApplicationControlGroups(document.RootElement, options);
+            return DeserializeGetSensitivitySettingsListResponse(document.RootElement, options);
         }
 
-        internal static AdaptiveApplicationControlGroups DeserializeAdaptiveApplicationControlGroups(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static GetSensitivitySettingsListResponse DeserializeGetSensitivitySettingsListResponse(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.SecurityCenter.Models
             {
                 return null;
             }
-            IReadOnlyList<AdaptiveApplicationControlGroupData> value = default;
+            IReadOnlyList<SensitivitySettingData> value = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -85,10 +85,10 @@ namespace Azure.ResourceManager.SecurityCenter.Models
                     {
                         continue;
                     }
-                    List<AdaptiveApplicationControlGroupData> array = new List<AdaptiveApplicationControlGroupData>();
+                    List<SensitivitySettingData> array = new List<SensitivitySettingData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(AdaptiveApplicationControlGroupData.DeserializeAdaptiveApplicationControlGroupData(item, options));
+                        array.Add(SensitivitySettingData.DeserializeSensitivitySettingData(item, options));
                     }
                     value = array;
                     continue;
@@ -99,38 +99,38 @@ namespace Azure.ResourceManager.SecurityCenter.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AdaptiveApplicationControlGroups(value ?? new ChangeTrackingList<AdaptiveApplicationControlGroupData>(), serializedAdditionalRawData);
+            return new GetSensitivitySettingsListResponse(value ?? new ChangeTrackingList<SensitivitySettingData>(), serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<AdaptiveApplicationControlGroups>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<GetSensitivitySettingsListResponse>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AdaptiveApplicationControlGroups>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<GetSensitivitySettingsListResponse>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(AdaptiveApplicationControlGroups)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(GetSensitivitySettingsListResponse)} does not support writing '{options.Format}' format.");
             }
         }
 
-        AdaptiveApplicationControlGroups IPersistableModel<AdaptiveApplicationControlGroups>.Create(BinaryData data, ModelReaderWriterOptions options)
+        GetSensitivitySettingsListResponse IPersistableModel<GetSensitivitySettingsListResponse>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AdaptiveApplicationControlGroups>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<GetSensitivitySettingsListResponse>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeAdaptiveApplicationControlGroups(document.RootElement, options);
+                        return DeserializeGetSensitivitySettingsListResponse(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(AdaptiveApplicationControlGroups)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(GetSensitivitySettingsListResponse)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<AdaptiveApplicationControlGroups>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<GetSensitivitySettingsListResponse>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

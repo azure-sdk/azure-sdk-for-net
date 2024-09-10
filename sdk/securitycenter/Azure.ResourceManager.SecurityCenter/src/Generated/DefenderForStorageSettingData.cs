@@ -61,43 +61,15 @@ namespace Azure.ResourceManager.SecurityCenter
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="isEnabled"> Indicates whether Defender for Storage is enabled on this storage account. </param>
-        /// <param name="isOverrideSubscriptionLevelSettingsEnabled"> Indicates whether the settings defined for this storage account should override the settings defined for the subscription. </param>
-        /// <param name="isSensitiveDataDiscoveryEnabled"> Indicates whether Sensitive Data Discovery should be enabled. </param>
-        /// <param name="sensitiveDataDiscoveryOperationStatus"> Upon failure or partial success. Additional data describing Sensitive Data Discovery enable/disable operation. </param>
-        /// <param name="scanResultsEventGridTopicResourceId"> Optional. Resource id of an Event Grid Topic to send scan results to. </param>
-        /// <param name="malwareScanningOperationStatus"> Upon failure or partial success. Additional data describing Malware Scanning enable/disable operation. </param>
-        /// <param name="isMalwareScanningOnUploadEnabled"> Indicates whether On Upload malware scanning should be enabled. </param>
-        /// <param name="capGBPerMonth"> Defines the max GB to be scanned per Month. Set to -1 if no capping is needed. </param>
+        /// <param name="properties"> Defender for Storage resource properties. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DefenderForStorageSettingData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, bool? isEnabled, bool? isOverrideSubscriptionLevelSettingsEnabled, bool? isSensitiveDataDiscoveryEnabled, ExtensionOperationStatus sensitiveDataDiscoveryOperationStatus, ResourceIdentifier scanResultsEventGridTopicResourceId, ExtensionOperationStatus malwareScanningOperationStatus, bool? isMalwareScanningOnUploadEnabled, int? capGBPerMonth, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal DefenderForStorageSettingData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, DefenderForStorageSettingProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            IsEnabled = isEnabled;
-            IsOverrideSubscriptionLevelSettingsEnabled = isOverrideSubscriptionLevelSettingsEnabled;
-            IsSensitiveDataDiscoveryEnabled = isSensitiveDataDiscoveryEnabled;
-            SensitiveDataDiscoveryOperationStatus = sensitiveDataDiscoveryOperationStatus;
-            ScanResultsEventGridTopicResourceId = scanResultsEventGridTopicResourceId;
-            MalwareScanningOperationStatus = malwareScanningOperationStatus;
-            IsMalwareScanningOnUploadEnabled = isMalwareScanningOnUploadEnabled;
-            CapGBPerMonth = capGBPerMonth;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Indicates whether Defender for Storage is enabled on this storage account. </summary>
-        public bool? IsEnabled { get; set; }
-        /// <summary> Indicates whether the settings defined for this storage account should override the settings defined for the subscription. </summary>
-        public bool? IsOverrideSubscriptionLevelSettingsEnabled { get; set; }
-        /// <summary> Indicates whether Sensitive Data Discovery should be enabled. </summary>
-        public bool? IsSensitiveDataDiscoveryEnabled { get; set; }
-        /// <summary> Upon failure or partial success. Additional data describing Sensitive Data Discovery enable/disable operation. </summary>
-        public ExtensionOperationStatus SensitiveDataDiscoveryOperationStatus { get; }
-        /// <summary> Optional. Resource id of an Event Grid Topic to send scan results to. </summary>
-        public ResourceIdentifier ScanResultsEventGridTopicResourceId { get; set; }
-        /// <summary> Upon failure or partial success. Additional data describing Malware Scanning enable/disable operation. </summary>
-        public ExtensionOperationStatus MalwareScanningOperationStatus { get; }
-        /// <summary> Indicates whether On Upload malware scanning should be enabled. </summary>
-        public bool? IsMalwareScanningOnUploadEnabled { get; set; }
-        /// <summary> Defines the max GB to be scanned per Month. Set to -1 if no capping is needed. </summary>
-        public int? CapGBPerMonth { get; set; }
+        /// <summary> Defender for Storage resource properties. </summary>
+        public DefenderForStorageSettingProperties Properties { get; set; }
     }
 }

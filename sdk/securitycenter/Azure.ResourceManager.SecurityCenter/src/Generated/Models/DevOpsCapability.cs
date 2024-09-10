@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.SecurityCenter.Models
 {
-    /// <summary> Describes the Network Security Groups effective on a network interface. </summary>
-    public partial class EffectiveNetworkSecurityGroups
+    /// <summary> Details about DevOps capability. </summary>
+    public partial class DevOpsCapability
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,26 +45,25 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="EffectiveNetworkSecurityGroups"/>. </summary>
-        public EffectiveNetworkSecurityGroups()
+        /// <summary> Initializes a new instance of <see cref="DevOpsCapability"/>. </summary>
+        internal DevOpsCapability()
         {
-            NetworkSecurityGroups = new ChangeTrackingList<string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="EffectiveNetworkSecurityGroups"/>. </summary>
-        /// <param name="networkInterface"> The Azure resource ID of the network interface. </param>
-        /// <param name="networkSecurityGroups"> The Network Security Groups effective on the network interface. </param>
+        /// <summary> Initializes a new instance of <see cref="DevOpsCapability"/>. </summary>
+        /// <param name="name"> Gets the name of the DevOps capability. </param>
+        /// <param name="value"> Gets the value of the DevOps capability. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal EffectiveNetworkSecurityGroups(string networkInterface, IList<string> networkSecurityGroups, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DevOpsCapability(string name, string value, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            NetworkInterface = networkInterface;
-            NetworkSecurityGroups = networkSecurityGroups;
+            Name = name;
+            Value = value;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The Azure resource ID of the network interface. </summary>
-        public string NetworkInterface { get; set; }
-        /// <summary> The Network Security Groups effective on the network interface. </summary>
-        public IList<string> NetworkSecurityGroups { get; }
+        /// <summary> Gets the name of the DevOps capability. </summary>
+        public string Name { get; }
+        /// <summary> Gets the value of the DevOps capability. </summary>
+        public string Value { get; }
     }
 }
