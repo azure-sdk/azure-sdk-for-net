@@ -22,7 +22,7 @@ namespace Azure.ResourceManager.ExtendedLocations.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListCustomLocationsByResourceGroup()
         {
-            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/stable/2021-08-15/examples/CustomLocationsListByResourceGroup.json
+            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2024-09-15-preview/examples/CustomLocationsListByResourceGroup.json
             // this example is just showing the usage of "CustomLocations_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.ExtendedLocations.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetCustomLocation()
         {
-            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/stable/2021-08-15/examples/CustomLocationsGet.json
+            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2024-09-15-preview/examples/CustomLocationsGet.json
             // this example is just showing the usage of "CustomLocations_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.ExtendedLocations.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetCustomLocation()
         {
-            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/stable/2021-08-15/examples/CustomLocationsGet.json
+            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2024-09-15-preview/examples/CustomLocationsGet.json
             // this example is just showing the usage of "CustomLocations_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.ExtendedLocations.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetCustomLocation()
         {
-            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/stable/2021-08-15/examples/CustomLocationsGet.json
+            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2024-09-15-preview/examples/CustomLocationsGet.json
             // this example is just showing the usage of "CustomLocations_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -164,7 +164,7 @@ namespace Azure.ResourceManager.ExtendedLocations.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateUpdateCustomLocation()
         {
-            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/stable/2021-08-15/examples/CustomLocationsCreate_Update.json
+            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2024-09-15-preview/examples/CustomLocationsCreate_Update.json
             // this example is just showing the usage of "CustomLocations_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -198,6 +198,7 @@ new ResourceIdentifier("/subscriptions/{subscriptionId}/resourceGroups/{resource
 },
                 DisplayName = "customLocationLocation01",
                 HostResourceId = new ResourceIdentifier("/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/testresourcegroup/providers/Microsoft.ContainerService/managedClusters/cluster01"),
+                HostType = CustomLocationHostType.Kubernetes,
                 Namespace = "namespace01",
             };
             ArmOperation<CustomLocationResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, resourceName, data);
