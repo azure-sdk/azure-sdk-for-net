@@ -49,6 +49,7 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         public DevOpsConfigurationProperties()
         {
             TopLevelInventoryList = new ChangeTrackingList<string>();
+            Capabilities = new ChangeTrackingList<DevOpsCapability>();
         }
 
         /// <summary> Initializes a new instance of <see cref="DevOpsConfigurationProperties"/>. </summary>
@@ -71,8 +72,9 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         /// List of top-level inventory to select when AutoDiscovery is disabled.
         /// This field is ignored when AutoDiscovery is enabled.
         /// </param>
+        /// <param name="capabilities"> List of capabilities assigned to the DevOps configuration during the discovery process. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DevOpsConfigurationProperties(string provisioningStatusMessage, DateTimeOffset? provisioningStatusUpdateTimeUtc, DevOpsProvisioningState? provisioningState, DevOpsAuthorization authorization, DevOpsAutoDiscovery? autoDiscovery, IList<string> topLevelInventoryList, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DevOpsConfigurationProperties(string provisioningStatusMessage, DateTimeOffset? provisioningStatusUpdateTimeUtc, DevOpsProvisioningState? provisioningState, DevOpsAuthorization authorization, DevOpsAutoDiscovery? autoDiscovery, IList<string> topLevelInventoryList, IReadOnlyList<DevOpsCapability> capabilities, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ProvisioningStatusMessage = provisioningStatusMessage;
             ProvisioningStatusUpdateTimeUtc = provisioningStatusUpdateTimeUtc;
@@ -80,6 +82,7 @@ namespace Azure.ResourceManager.SecurityCenter.Models
             Authorization = authorization;
             AutoDiscovery = autoDiscovery;
             TopLevelInventoryList = topLevelInventoryList;
+            Capabilities = capabilities;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -124,5 +127,7 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         /// This field is ignored when AutoDiscovery is enabled.
         /// </summary>
         public IList<string> TopLevelInventoryList { get; }
+        /// <summary> List of capabilities assigned to the DevOps configuration during the discovery process. </summary>
+        public IReadOnlyList<DevOpsCapability> Capabilities { get; }
     }
 }

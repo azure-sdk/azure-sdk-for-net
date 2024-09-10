@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.SecurityCenter.Models
 {
-    /// <summary> Represents a user that is recommended to be allowed for a certain rule. </summary>
-    public partial class UserRecommendation
+    /// <summary> Properties of Sensitive Data Discovery. </summary>
+    public partial class SensitiveDataDiscoveryProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,25 +45,25 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="UserRecommendation"/>. </summary>
-        public UserRecommendation()
+        /// <summary> Initializes a new instance of <see cref="SensitiveDataDiscoveryProperties"/>. </summary>
+        public SensitiveDataDiscoveryProperties()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="UserRecommendation"/>. </summary>
-        /// <param name="username"> Represents a user that is recommended to be allowed for a certain rule. </param>
-        /// <param name="recommendationAction"> The recommendation action of the machine or rule. </param>
+        /// <summary> Initializes a new instance of <see cref="SensitiveDataDiscoveryProperties"/>. </summary>
+        /// <param name="isEnabled"> Indicates whether Sensitive Data Discovery should be enabled. </param>
+        /// <param name="operationStatus"> Upon failure or partial success. Additional data describing Sensitive Data Discovery enable/disable operation. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UserRecommendation(string username, RecommendationAction? recommendationAction, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SensitiveDataDiscoveryProperties(bool? isEnabled, ExtensionOperationStatus operationStatus, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Username = username;
-            RecommendationAction = recommendationAction;
+            IsEnabled = isEnabled;
+            OperationStatus = operationStatus;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Represents a user that is recommended to be allowed for a certain rule. </summary>
-        public string Username { get; set; }
-        /// <summary> The recommendation action of the machine or rule. </summary>
-        public RecommendationAction? RecommendationAction { get; set; }
+        /// <summary> Indicates whether Sensitive Data Discovery should be enabled. </summary>
+        public bool? IsEnabled { get; set; }
+        /// <summary> Upon failure or partial success. Additional data describing Sensitive Data Discovery enable/disable operation. </summary>
+        public ExtensionOperationStatus OperationStatus { get; }
     }
 }

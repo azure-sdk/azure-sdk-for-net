@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.SecurityCenter.Models
 {
-    /// <summary> describes the custom entity store assignment request. </summary>
-    public partial class CustomEntityStoreAssignmentCreateOrUpdateContent
+    /// <summary> A list with a single sensitivity settings resource. </summary>
+    internal partial class GetSensitivitySettingsListResponse
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,21 +45,22 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="CustomEntityStoreAssignmentCreateOrUpdateContent"/>. </summary>
-        public CustomEntityStoreAssignmentCreateOrUpdateContent()
+        /// <summary> Initializes a new instance of <see cref="GetSensitivitySettingsListResponse"/>. </summary>
+        internal GetSensitivitySettingsListResponse()
         {
+            Value = new ChangeTrackingList<SensitivitySettingData>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="CustomEntityStoreAssignmentCreateOrUpdateContent"/>. </summary>
-        /// <param name="principal"> The principal assigned with entity store. If not provided, will use caller principal. Format of principal is: [AAD type]=[PrincipalObjectId];[TenantId]. </param>
+        /// <summary> Initializes a new instance of <see cref="GetSensitivitySettingsListResponse"/>. </summary>
+        /// <param name="value"></param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CustomEntityStoreAssignmentCreateOrUpdateContent(string principal, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal GetSensitivitySettingsListResponse(IReadOnlyList<SensitivitySettingData> value, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Principal = principal;
+            Value = value;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The principal assigned with entity store. If not provided, will use caller principal. Format of principal is: [AAD type]=[PrincipalObjectId];[TenantId]. </summary>
-        public string Principal { get; set; }
+        /// <summary> Gets the value. </summary>
+        public IReadOnlyList<SensitivitySettingData> Value { get; }
     }
 }
