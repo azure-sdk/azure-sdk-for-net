@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Maps.Models
 {
-    /// <summary> The SKU of the Maps Account. </summary>
-    public partial class MapsSku
+    /// <summary> All Customer-managed key encryption properties for the resource. </summary>
+    public partial class EncryptionCustomerManagedKeyEncryption
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,32 +45,25 @@ namespace Azure.ResourceManager.Maps.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="MapsSku"/>. </summary>
-        /// <param name="name"> The name of the SKU, in standard format (such as G2). </param>
-        public MapsSku(MapsSkuName name)
+        /// <summary> Initializes a new instance of <see cref="EncryptionCustomerManagedKeyEncryption"/>. </summary>
+        public EncryptionCustomerManagedKeyEncryption()
         {
-            Name = name;
         }
 
-        /// <summary> Initializes a new instance of <see cref="MapsSku"/>. </summary>
-        /// <param name="name"> The name of the SKU, in standard format (such as G2). </param>
-        /// <param name="tier"> Gets the sku tier. This is based on the SKU name. </param>
+        /// <summary> Initializes a new instance of <see cref="EncryptionCustomerManagedKeyEncryption"/>. </summary>
+        /// <param name="keyEncryptionKeyIdentity"> All identity configuration for Customer-managed key settings defining which identity should be used to auth to Key Vault. </param>
+        /// <param name="keyEncryptionKeyUri"> key encryption key Url, versioned or unversioned. Ex: https://contosovault.vault.azure.net/keys/contosokek/562a4bb76b524a1493a6afe8e536ee78 or https://contosovault.vault.azure.net/keys/contosokek. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MapsSku(MapsSkuName name, string tier, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal EncryptionCustomerManagedKeyEncryption(EncryptionCustomerManagedKeyEncryptionKeyIdentity keyEncryptionKeyIdentity, Uri keyEncryptionKeyUri, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Name = name;
-            Tier = tier;
+            KeyEncryptionKeyIdentity = keyEncryptionKeyIdentity;
+            KeyEncryptionKeyUri = keyEncryptionKeyUri;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="MapsSku"/> for deserialization. </summary>
-        internal MapsSku()
-        {
-        }
-
-        /// <summary> The name of the SKU, in standard format (such as G2). </summary>
-        public MapsSkuName Name { get; set; }
-        /// <summary> Gets the sku tier. This is based on the SKU name. </summary>
-        public string Tier { get; }
+        /// <summary> All identity configuration for Customer-managed key settings defining which identity should be used to auth to Key Vault. </summary>
+        public EncryptionCustomerManagedKeyEncryptionKeyIdentity KeyEncryptionKeyIdentity { get; set; }
+        /// <summary> key encryption key Url, versioned or unversioned. Ex: https://contosovault.vault.azure.net/keys/contosokek/562a4bb76b524a1493a6afe8e536ee78 or https://contosovault.vault.azure.net/keys/contosokek. </summary>
+        public Uri KeyEncryptionKeyUri { get; set; }
     }
 }

@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Maps.Models
 {
-    /// <summary> The SKU of the Maps Account. </summary>
-    public partial class MapsSku
+    /// <summary> All encryption configuration for a resource. </summary>
+    public partial class Encryption
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,32 +45,25 @@ namespace Azure.ResourceManager.Maps.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="MapsSku"/>. </summary>
-        /// <param name="name"> The name of the SKU, in standard format (such as G2). </param>
-        public MapsSku(MapsSkuName name)
+        /// <summary> Initializes a new instance of <see cref="Encryption"/>. </summary>
+        public Encryption()
         {
-            Name = name;
         }
 
-        /// <summary> Initializes a new instance of <see cref="MapsSku"/>. </summary>
-        /// <param name="name"> The name of the SKU, in standard format (such as G2). </param>
-        /// <param name="tier"> Gets the sku tier. This is based on the SKU name. </param>
+        /// <summary> Initializes a new instance of <see cref="Encryption"/>. </summary>
+        /// <param name="infrastructureEncryption"> (Optional) Discouraged to include in resource definition. Only needed where it is possible to disable platform (AKA infrastructure) encryption. Azure SQL TDE is an example of this. Values are enabled and disabled. </param>
+        /// <param name="customerManagedKeyEncryption"> All Customer-managed key encryption properties for the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MapsSku(MapsSkuName name, string tier, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal Encryption(InfrastructureEncryption? infrastructureEncryption, EncryptionCustomerManagedKeyEncryption customerManagedKeyEncryption, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Name = name;
-            Tier = tier;
+            InfrastructureEncryption = infrastructureEncryption;
+            CustomerManagedKeyEncryption = customerManagedKeyEncryption;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="MapsSku"/> for deserialization. </summary>
-        internal MapsSku()
-        {
-        }
-
-        /// <summary> The name of the SKU, in standard format (such as G2). </summary>
-        public MapsSkuName Name { get; set; }
-        /// <summary> Gets the sku tier. This is based on the SKU name. </summary>
-        public string Tier { get; }
+        /// <summary> (Optional) Discouraged to include in resource definition. Only needed where it is possible to disable platform (AKA infrastructure) encryption. Azure SQL TDE is an example of this. Values are enabled and disabled. </summary>
+        public InfrastructureEncryption? InfrastructureEncryption { get; set; }
+        /// <summary> All Customer-managed key encryption properties for the resource. </summary>
+        public EncryptionCustomerManagedKeyEncryption CustomerManagedKeyEncryption { get; set; }
     }
 }

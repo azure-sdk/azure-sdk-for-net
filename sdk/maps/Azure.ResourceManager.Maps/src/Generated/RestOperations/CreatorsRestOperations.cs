@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.Maps
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2021-12-01-preview";
+            _apiVersion = apiVersion ?? "2024-07-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.Maps
         }
 
         /// <summary> Get all Creator instances for an Azure Maps Account. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the Maps Account. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -102,7 +102,7 @@ namespace Azure.ResourceManager.Maps
         }
 
         /// <summary> Get all Creator instances for an Azure Maps Account. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the Maps Account. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -173,7 +173,7 @@ namespace Azure.ResourceManager.Maps
         }
 
         /// <summary> Create or update a Maps Creator resource. Creator resource will manage Azure resources required to populate a custom set of mapping data. It requires an account to exist before it can be created. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the Maps Account. </param>
         /// <param name="creatorName"> The name of the Maps Creator instance. </param>
@@ -207,7 +207,7 @@ namespace Azure.ResourceManager.Maps
         }
 
         /// <summary> Create or update a Maps Creator resource. Creator resource will manage Azure resources required to populate a custom set of mapping data. It requires an account to exist before it can be created. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the Maps Account. </param>
         /// <param name="creatorName"> The name of the Maps Creator instance. </param>
@@ -283,7 +283,7 @@ namespace Azure.ResourceManager.Maps
         }
 
         /// <summary> Updates the Maps Creator resource. Only a subset of the parameters may be updated after creation, such as Tags. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the Maps Account. </param>
         /// <param name="creatorName"> The name of the Maps Creator instance. </param>
@@ -316,7 +316,7 @@ namespace Azure.ResourceManager.Maps
         }
 
         /// <summary> Updates the Maps Creator resource. Only a subset of the parameters may be updated after creation, such as Tags. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the Maps Account. </param>
         /// <param name="creatorName"> The name of the Maps Creator instance. </param>
@@ -387,7 +387,7 @@ namespace Azure.ResourceManager.Maps
         }
 
         /// <summary> Delete a Maps Creator resource. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the Maps Account. </param>
         /// <param name="creatorName"> The name of the Maps Creator instance. </param>
@@ -414,7 +414,7 @@ namespace Azure.ResourceManager.Maps
         }
 
         /// <summary> Delete a Maps Creator resource. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the Maps Account. </param>
         /// <param name="creatorName"> The name of the Maps Creator instance. </param>
@@ -479,7 +479,7 @@ namespace Azure.ResourceManager.Maps
         }
 
         /// <summary> Get a Maps Creator resource. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the Maps Account. </param>
         /// <param name="creatorName"> The name of the Maps Creator instance. </param>
@@ -512,7 +512,7 @@ namespace Azure.ResourceManager.Maps
         }
 
         /// <summary> Get a Maps Creator resource. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the Maps Account. </param>
         /// <param name="creatorName"> The name of the Maps Creator instance. </param>
@@ -568,7 +568,7 @@ namespace Azure.ResourceManager.Maps
 
         /// <summary> Get all Creator instances for an Azure Maps Account. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the Maps Account. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -599,7 +599,7 @@ namespace Azure.ResourceManager.Maps
 
         /// <summary> Get all Creator instances for an Azure Maps Account. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="accountName"> The name of the Maps Account. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

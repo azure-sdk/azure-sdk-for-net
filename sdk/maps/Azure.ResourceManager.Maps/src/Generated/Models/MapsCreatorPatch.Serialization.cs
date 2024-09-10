@@ -49,6 +49,16 @@ namespace Azure.ResourceManager.Maps.Models
                 writer.WritePropertyName("storageUnits"u8);
                 writer.WriteNumberValue(StorageUnits.Value);
             }
+            if (Optional.IsDefined(TotalStorageUnitSizeInBytes))
+            {
+                writer.WritePropertyName("totalStorageUnitSizeInBytes"u8);
+                writer.WriteNumberValue(TotalStorageUnitSizeInBytes.Value);
+            }
+            if (Optional.IsDefined(ConsumedStorageUnitSizeInBytes))
+            {
+                writer.WritePropertyName("consumedStorageUnitSizeInBytes"u8);
+                writer.WriteNumberValue(ConsumedStorageUnitSizeInBytes.Value);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -91,6 +101,8 @@ namespace Azure.ResourceManager.Maps.Models
             IDictionary<string, string> tags = default;
             string provisioningState = default;
             int? storageUnits = default;
+            int? totalStorageUnitSizeInBytes = default;
+            int? consumedStorageUnitSizeInBytes = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -132,6 +144,24 @@ namespace Azure.ResourceManager.Maps.Models
                             storageUnits = property0.Value.GetInt32();
                             continue;
                         }
+                        if (property0.NameEquals("totalStorageUnitSizeInBytes"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            totalStorageUnitSizeInBytes = property0.Value.GetInt32();
+                            continue;
+                        }
+                        if (property0.NameEquals("consumedStorageUnitSizeInBytes"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            consumedStorageUnitSizeInBytes = property0.Value.GetInt32();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -141,7 +171,13 @@ namespace Azure.ResourceManager.Maps.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new MapsCreatorPatch(tags ?? new ChangeTrackingDictionary<string, string>(), provisioningState, storageUnits, serializedAdditionalRawData);
+            return new MapsCreatorPatch(
+                tags ?? new ChangeTrackingDictionary<string, string>(),
+                provisioningState,
+                storageUnits,
+                totalStorageUnitSizeInBytes,
+                consumedStorageUnitSizeInBytes,
+                serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<MapsCreatorPatch>.Write(ModelReaderWriterOptions options)

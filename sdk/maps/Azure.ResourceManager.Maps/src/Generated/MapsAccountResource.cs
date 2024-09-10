@@ -110,7 +110,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -141,7 +141,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -172,7 +172,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -212,7 +212,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -252,7 +252,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -296,7 +296,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -340,7 +340,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -382,7 +382,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -416,7 +416,7 @@ namespace Azure.ResourceManager.Maps
         ///
         /// Prerequisites:
         /// 1. Create or have an existing User Assigned Managed Identity in the same Azure region as the account.
-        /// 2. Create or update an Azure Map account with the same Azure region as the User Assigned Managed Identity is placed.
+        /// 2. Create or update an Azure Maps account with the same Azure region as the User Assigned Managed Identity is placed.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -428,7 +428,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -462,7 +462,7 @@ namespace Azure.ResourceManager.Maps
         ///
         /// Prerequisites:
         /// 1. Create or have an existing User Assigned Managed Identity in the same Azure region as the account.
-        /// 2. Create or update an Azure Map account with the same Azure region as the User Assigned Managed Identity is placed.
+        /// 2. Create or update an Azure Maps account with the same Azure region as the User Assigned Managed Identity is placed.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -474,7 +474,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -516,7 +516,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -554,7 +554,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -592,7 +592,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -634,7 +634,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -676,7 +676,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -738,7 +738,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -800,7 +800,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -857,7 +857,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -914,7 +914,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -974,7 +974,7 @@ namespace Azure.ResourceManager.Maps
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01-preview</description>
+        /// <description>2024-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

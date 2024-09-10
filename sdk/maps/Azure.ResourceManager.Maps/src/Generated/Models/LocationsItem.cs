@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Maps.Models
 {
-    /// <summary> The SKU of the Maps Account. </summary>
-    public partial class MapsSku
+    /// <summary> Data processing location. </summary>
+    public partial class LocationsItem
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,32 +45,31 @@ namespace Azure.ResourceManager.Maps.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="MapsSku"/>. </summary>
-        /// <param name="name"> The name of the SKU, in standard format (such as G2). </param>
-        public MapsSku(MapsSkuName name)
+        /// <summary> Initializes a new instance of <see cref="LocationsItem"/>. </summary>
+        /// <param name="locationName"> The location name. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="locationName"/> is null. </exception>
+        public LocationsItem(string locationName)
         {
-            Name = name;
+            Argument.AssertNotNull(locationName, nameof(locationName));
+
+            LocationName = locationName;
         }
 
-        /// <summary> Initializes a new instance of <see cref="MapsSku"/>. </summary>
-        /// <param name="name"> The name of the SKU, in standard format (such as G2). </param>
-        /// <param name="tier"> Gets the sku tier. This is based on the SKU name. </param>
+        /// <summary> Initializes a new instance of <see cref="LocationsItem"/>. </summary>
+        /// <param name="locationName"> The location name. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MapsSku(MapsSkuName name, string tier, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal LocationsItem(string locationName, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Name = name;
-            Tier = tier;
+            LocationName = locationName;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="MapsSku"/> for deserialization. </summary>
-        internal MapsSku()
+        /// <summary> Initializes a new instance of <see cref="LocationsItem"/> for deserialization. </summary>
+        internal LocationsItem()
         {
         }
 
-        /// <summary> The name of the SKU, in standard format (such as G2). </summary>
-        public MapsSkuName Name { get; set; }
-        /// <summary> Gets the sku tier. This is based on the SKU name. </summary>
-        public string Tier { get; }
+        /// <summary> The location name. </summary>
+        public string LocationName { get; set; }
     }
 }
