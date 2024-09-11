@@ -15,8 +15,22 @@ namespace Azure.ResourceManager.DataFactory.Models
     public partial class AzurePostgreSqlLinkedService : DataFactoryLinkedServiceProperties
     {
         /// <summary> Initializes a new instance of <see cref="AzurePostgreSqlLinkedService"/>. </summary>
-        public AzurePostgreSqlLinkedService()
+        /// <param name="server"> Server name for connection. Type: string. </param>
+        /// <param name="username"> Username for authentication. Type: string. </param>
+        /// <param name="database"> Database name for connection. Type: string. </param>
+        /// <param name="sslMode"> SSL mode for connection. Type: integer. 0: disable, 1:allow, 2: prefer, 3: require, 4: verify-ca, 5: verify-full. Type: integer. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="server"/>, <paramref name="username"/>, <paramref name="database"/> or <paramref name="sslMode"/> is null. </exception>
+        public AzurePostgreSqlLinkedService(DataFactoryElement<string> server, DataFactoryElement<string> username, DataFactoryElement<string> database, DataFactoryElement<int> sslMode)
         {
+            Argument.AssertNotNull(server, nameof(server));
+            Argument.AssertNotNull(username, nameof(username));
+            Argument.AssertNotNull(database, nameof(database));
+            Argument.AssertNotNull(sslMode, nameof(sslMode));
+
+            Server = server;
+            Username = username;
+            Database = database;
+            SslMode = sslMode;
             LinkedServiceType = "AzurePostgreSql";
         }
 
@@ -28,19 +42,64 @@ namespace Azure.ResourceManager.DataFactory.Models
         /// <param name="parameters"> Parameters for linked service. </param>
         /// <param name="annotations"> List of tags that can be used for describing the linked service. </param>
         /// <param name="additionalProperties"> Additional Properties. </param>
-        /// <param name="connectionString"> An ODBC connection string. Type: string, SecureString or AzureKeyVaultSecretReference. </param>
+        /// <param name="server"> Server name for connection. Type: string. </param>
+        /// <param name="port"> The port for the connection. Type: integer. </param>
+        /// <param name="username"> Username for authentication. Type: string. </param>
+        /// <param name="database"> Database name for connection. Type: string. </param>
+        /// <param name="sslMode"> SSL mode for connection. Type: integer. 0: disable, 1:allow, 2: prefer, 3: require, 4: verify-ca, 5: verify-full. Type: integer. </param>
+        /// <param name="timeout"> The time to wait (in seconds) while trying to establish a connection before terminating the attempt and generating an error. Type: integer. </param>
+        /// <param name="commandTimeout"> The time to wait (in seconds) while trying to execute a command before terminating the attempt and generating an error. Set to zero for infinity. Type: integer. </param>
+        /// <param name="trustServerCertificate"> Whether to trust the server certificate without validating it. Type: boolean. </param>
+        /// <param name="readBufferSize"> Determines the size of the internal buffer uses when reading. Increasing may improve performance if transferring large values from the database. Type: integer. </param>
+        /// <param name="timezone"> Gets or sets the session timezone. Type: string. </param>
+        /// <param name="encoding"> Gets or sets the .NET encoding that will be used to encode/decode PostgreSQL string data. Type: string. </param>
         /// <param name="password"> The Azure key vault secret reference of password in connection string. </param>
         /// <param name="encryptedCredential"> The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager. Type: string. </param>
-        internal AzurePostgreSqlLinkedService(string linkedServiceType, string linkedServiceVersion, IntegrationRuntimeReference connectVia, string description, IDictionary<string, EntityParameterSpecification> parameters, IList<BinaryData> annotations, IDictionary<string, BinaryData> additionalProperties, DataFactoryElement<string> connectionString, DataFactoryKeyVaultSecret password, string encryptedCredential) : base(linkedServiceType, linkedServiceVersion, connectVia, description, parameters, annotations, additionalProperties)
+        internal AzurePostgreSqlLinkedService(string linkedServiceType, string linkedServiceVersion, IntegrationRuntimeReference connectVia, string description, IDictionary<string, EntityParameterSpecification> parameters, IList<BinaryData> annotations, IDictionary<string, BinaryData> additionalProperties, DataFactoryElement<string> server, DataFactoryElement<int> port, DataFactoryElement<string> username, DataFactoryElement<string> database, DataFactoryElement<int> sslMode, DataFactoryElement<int> timeout, DataFactoryElement<int> commandTimeout, DataFactoryElement<bool> trustServerCertificate, DataFactoryElement<int> readBufferSize, DataFactoryElement<string> timezone, DataFactoryElement<string> encoding, DataFactoryKeyVaultSecret password, string encryptedCredential) : base(linkedServiceType, linkedServiceVersion, connectVia, description, parameters, annotations, additionalProperties)
         {
-            ConnectionString = connectionString;
+            Server = server;
+            Port = port;
+            Username = username;
+            Database = database;
+            SslMode = sslMode;
+            Timeout = timeout;
+            CommandTimeout = commandTimeout;
+            TrustServerCertificate = trustServerCertificate;
+            ReadBufferSize = readBufferSize;
+            Timezone = timezone;
+            Encoding = encoding;
             Password = password;
             EncryptedCredential = encryptedCredential;
             LinkedServiceType = linkedServiceType ?? "AzurePostgreSql";
         }
 
-        /// <summary> An ODBC connection string. Type: string, SecureString or AzureKeyVaultSecretReference. </summary>
-        public DataFactoryElement<string> ConnectionString { get; set; }
+        /// <summary> Initializes a new instance of <see cref="AzurePostgreSqlLinkedService"/> for deserialization. </summary>
+        internal AzurePostgreSqlLinkedService()
+        {
+        }
+
+        /// <summary> Server name for connection. Type: string. </summary>
+        public DataFactoryElement<string> Server { get; set; }
+        /// <summary> The port for the connection. Type: integer. </summary>
+        public DataFactoryElement<int> Port { get; set; }
+        /// <summary> Username for authentication. Type: string. </summary>
+        public DataFactoryElement<string> Username { get; set; }
+        /// <summary> Database name for connection. Type: string. </summary>
+        public DataFactoryElement<string> Database { get; set; }
+        /// <summary> SSL mode for connection. Type: integer. 0: disable, 1:allow, 2: prefer, 3: require, 4: verify-ca, 5: verify-full. Type: integer. </summary>
+        public DataFactoryElement<int> SslMode { get; set; }
+        /// <summary> The time to wait (in seconds) while trying to establish a connection before terminating the attempt and generating an error. Type: integer. </summary>
+        public DataFactoryElement<int> Timeout { get; set; }
+        /// <summary> The time to wait (in seconds) while trying to execute a command before terminating the attempt and generating an error. Set to zero for infinity. Type: integer. </summary>
+        public DataFactoryElement<int> CommandTimeout { get; set; }
+        /// <summary> Whether to trust the server certificate without validating it. Type: boolean. </summary>
+        public DataFactoryElement<bool> TrustServerCertificate { get; set; }
+        /// <summary> Determines the size of the internal buffer uses when reading. Increasing may improve performance if transferring large values from the database. Type: integer. </summary>
+        public DataFactoryElement<int> ReadBufferSize { get; set; }
+        /// <summary> Gets or sets the session timezone. Type: string. </summary>
+        public DataFactoryElement<string> Timezone { get; set; }
+        /// <summary> Gets or sets the .NET encoding that will be used to encode/decode PostgreSQL string data. Type: string. </summary>
+        public DataFactoryElement<string> Encoding { get; set; }
         /// <summary> The Azure key vault secret reference of password in connection string. </summary>
         public DataFactoryKeyVaultSecret Password { get; set; }
         /// <summary> The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager. Type: string. </summary>

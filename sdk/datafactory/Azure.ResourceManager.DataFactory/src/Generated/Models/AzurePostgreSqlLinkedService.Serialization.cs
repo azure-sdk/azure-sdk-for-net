@@ -79,10 +79,48 @@ namespace Azure.ResourceManager.DataFactory.Models
             }
             writer.WritePropertyName("typeProperties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(ConnectionString))
+            writer.WritePropertyName("server"u8);
+            JsonSerializer.Serialize(writer, Server);
+            if (Optional.IsDefined(Port))
             {
-                writer.WritePropertyName("connectionString"u8);
-                JsonSerializer.Serialize(writer, ConnectionString);
+                writer.WritePropertyName("port"u8);
+                JsonSerializer.Serialize(writer, Port);
+            }
+            writer.WritePropertyName("username"u8);
+            JsonSerializer.Serialize(writer, Username);
+            writer.WritePropertyName("database"u8);
+            JsonSerializer.Serialize(writer, Database);
+            writer.WritePropertyName("sslMode"u8);
+            JsonSerializer.Serialize(writer, SslMode);
+            if (Optional.IsDefined(Timeout))
+            {
+                writer.WritePropertyName("timeout"u8);
+                JsonSerializer.Serialize(writer, Timeout);
+            }
+            if (Optional.IsDefined(CommandTimeout))
+            {
+                writer.WritePropertyName("commandTimeout"u8);
+                JsonSerializer.Serialize(writer, CommandTimeout);
+            }
+            if (Optional.IsDefined(TrustServerCertificate))
+            {
+                writer.WritePropertyName("trustServerCertificate"u8);
+                JsonSerializer.Serialize(writer, TrustServerCertificate);
+            }
+            if (Optional.IsDefined(ReadBufferSize))
+            {
+                writer.WritePropertyName("readBufferSize"u8);
+                JsonSerializer.Serialize(writer, ReadBufferSize);
+            }
+            if (Optional.IsDefined(Timezone))
+            {
+                writer.WritePropertyName("timezone"u8);
+                JsonSerializer.Serialize(writer, Timezone);
+            }
+            if (Optional.IsDefined(Encoding))
+            {
+                writer.WritePropertyName("encoding"u8);
+                JsonSerializer.Serialize(writer, Encoding);
             }
             if (Optional.IsDefined(Password))
             {
@@ -136,7 +174,17 @@ namespace Azure.ResourceManager.DataFactory.Models
             string description = default;
             IDictionary<string, EntityParameterSpecification> parameters = default;
             IList<BinaryData> annotations = default;
-            DataFactoryElement<string> connectionString = default;
+            DataFactoryElement<string> server = default;
+            DataFactoryElement<int> port = default;
+            DataFactoryElement<string> username = default;
+            DataFactoryElement<string> database = default;
+            DataFactoryElement<int> sslMode = default;
+            DataFactoryElement<int> timeout = default;
+            DataFactoryElement<int> commandTimeout = default;
+            DataFactoryElement<bool> trustServerCertificate = default;
+            DataFactoryElement<int> readBufferSize = default;
+            DataFactoryElement<string> timezone = default;
+            DataFactoryElement<string> encoding = default;
             DataFactoryKeyVaultSecret password = default;
             string encryptedCredential = default;
             IDictionary<string, BinaryData> additionalProperties = default;
@@ -211,13 +259,87 @@ namespace Azure.ResourceManager.DataFactory.Models
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("connectionString"u8))
+                        if (property0.NameEquals("server"u8))
+                        {
+                            server = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("port"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
-                            connectionString = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
+                            port = JsonSerializer.Deserialize<DataFactoryElement<int>>(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("username"u8))
+                        {
+                            username = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("database"u8))
+                        {
+                            database = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("sslMode"u8))
+                        {
+                            sslMode = JsonSerializer.Deserialize<DataFactoryElement<int>>(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("timeout"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            timeout = JsonSerializer.Deserialize<DataFactoryElement<int>>(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("commandTimeout"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            commandTimeout = JsonSerializer.Deserialize<DataFactoryElement<int>>(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("trustServerCertificate"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            trustServerCertificate = JsonSerializer.Deserialize<DataFactoryElement<bool>>(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("readBufferSize"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            readBufferSize = JsonSerializer.Deserialize<DataFactoryElement<int>>(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("timezone"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            timezone = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("encoding"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            encoding = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
                             continue;
                         }
                         if (property0.NameEquals("password"u8))
@@ -248,7 +370,17 @@ namespace Azure.ResourceManager.DataFactory.Models
                 parameters ?? new ChangeTrackingDictionary<string, EntityParameterSpecification>(),
                 annotations ?? new ChangeTrackingList<BinaryData>(),
                 additionalProperties,
-                connectionString,
+                server,
+                port,
+                username,
+                database,
+                sslMode,
+                timeout,
+                commandTimeout,
+                trustServerCertificate,
+                readBufferSize,
+                timezone,
+                encoding,
                 password,
                 encryptedCredential);
         }
