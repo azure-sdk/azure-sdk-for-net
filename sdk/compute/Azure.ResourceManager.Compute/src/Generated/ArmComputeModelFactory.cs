@@ -825,7 +825,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="toBeDetached"> Specifies whether the data disk is in process of detachment from the VirtualMachine/VirtualMachineScaleset. </param>
         /// <param name="diskIopsReadWrite"> Specifies the Read-Write IOPS for the managed disk when StorageAccountType is UltraSSD_LRS. Returned only for VirtualMachine ScaleSet VM disks. Can be updated only via updates to the VirtualMachine Scale Set. </param>
         /// <param name="diskMBpsReadWrite"> Specifies the bandwidth in MB per second for the managed disk when StorageAccountType is UltraSSD_LRS. Returned only for VirtualMachine ScaleSet VM disks. Can be updated only via updates to the VirtualMachine Scale Set. </param>
-        /// <param name="detachOption"> Specifies the detach behavior to be used while detaching a disk or which is already in the process of detachment from the virtual machine. Supported values: **ForceDetach.** detachOption: **ForceDetach** is applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an unexpected failure from the virtual machine and the disk is still not released then use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed when using this detach behavior. **This feature is still in preview** mode and is not supported for VirtualMachineScaleSet. To force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'. </param>
+        /// <param name="detachOption"> Specifies the detach behavior to be used while detaching a disk or which is already in the process of detachment from the virtual machine. Supported values: **ForceDetach.** detachOption: **ForceDetach** is applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an unexpected failure from the virtual machine and the disk is still not released then use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed when using this detach behavior. **This feature is still in preview**. To force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'. </param>
         /// <param name="deleteOption"> Specifies whether data disk should be deleted or detached upon VM deletion. Possible values are: **Delete.** If this value is used, the data disk is deleted when VM is deleted. **Detach.** If this value is used, the data disk is retained after VM is deleted. The default value is set to **Detach**. </param>
         /// <returns> A new <see cref="Models.VirtualMachineDataDisk"/> instance for mocking. </returns>
         public static VirtualMachineDataDisk VirtualMachineDataDisk(int lun = default, string name = null, Uri vhdUri = null, Uri imageUri = null, CachingType? caching = null, bool? writeAcceleratorEnabled = null, DiskCreateOptionType createOption = default, int? diskSizeGB = null, VirtualMachineManagedDisk managedDisk = null, ResourceIdentifier sourceResourceId = null, bool? toBeDetached = null, long? diskIopsReadWrite = null, long? diskMBpsReadWrite = null, DiskDetachOptionType? detachOption = null, DiskDeleteOptionType? deleteOption = null)
@@ -3191,7 +3191,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="purchasePlan"> Describes the gallery image definition purchase plan. This is used by marketplace images. </param>
         /// <param name="provisioningState"> The provisioning state, which only appears in the response. </param>
         /// <param name="features"> A list of gallery image features. </param>
-        /// <param name="architecture"> The architecture of the image. Applicable to OS disks only. </param>
+        /// <param name="architecture"> CPU architecture supported by an OS disk. </param>
         /// <returns> A new <see cref="Compute.GalleryImageData"/> instance for mocking. </returns>
         public static GalleryImageData GalleryImageData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, string description = null, string eula = null, Uri privacyStatementUri = null, Uri releaseNoteUri = null, SupportedOperatingSystemType? osType = null, OperatingSystemStateType? osState = null, HyperVGeneration? hyperVGeneration = null, DateTimeOffset? endOfLifeOn = null, GalleryImageIdentifier identifier = null, RecommendedMachineConfiguration recommended = null, IEnumerable<string> disallowedDiskTypes = null, ImagePurchasePlan purchasePlan = null, GalleryProvisioningState? provisioningState = null, IEnumerable<GalleryImageFeature> features = null, ArchitectureType? architecture = null)
         {
@@ -3243,7 +3243,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="purchasePlan"> Describes the gallery image definition purchase plan. This is used by marketplace images. </param>
         /// <param name="provisioningState"> The provisioning state, which only appears in the response. </param>
         /// <param name="features"> A list of gallery image features. </param>
-        /// <param name="architecture"> The architecture of the image. Applicable to OS disks only. </param>
+        /// <param name="architecture"> CPU architecture supported by an OS disk. </param>
         /// <param name="tags"> Resource tags. </param>
         /// <returns> A new <see cref="Models.GalleryImagePatch"/> instance for mocking. </returns>
         public static GalleryImagePatch GalleryImagePatch(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string description = null, string eula = null, Uri privacyStatementUri = null, Uri releaseNoteUri = null, SupportedOperatingSystemType? osType = null, OperatingSystemStateType? osState = null, HyperVGeneration? hyperVGeneration = null, DateTimeOffset? endOfLifeOn = null, GalleryImageIdentifier identifier = null, RecommendedMachineConfiguration recommended = null, IEnumerable<string> disallowedDiskTypes = null, ImagePurchasePlan purchasePlan = null, GalleryProvisioningState? provisioningState = null, IEnumerable<GalleryImageFeature> features = null, ArchitectureType? architecture = null, IDictionary<string, string> tags = null)
@@ -3399,12 +3399,13 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="allowDeletionOfReplicatedLocations"> Indicates whether or not removing this Gallery Image Version from replicated regions is allowed. </param>
         /// <param name="isReportedForPolicyViolation"> Indicates whether this image has been reported as violating Microsoft's policies. </param>
         /// <param name="policyViolations"> A list of Policy Violations that have been reported for this Gallery Image Version. </param>
+        /// <param name="blockDeletionBeforeEndOfLife"> Indicates whether or not the deletion is blocked for this Gallery Image Version if its End Of Life has not expired. </param>
         /// <returns> A new <see cref="Models.GalleryImageVersionSafetyProfile"/> instance for mocking. </returns>
-        public static GalleryImageVersionSafetyProfile GalleryImageVersionSafetyProfile(bool? allowDeletionOfReplicatedLocations = null, bool? isReportedForPolicyViolation = null, IEnumerable<GalleryImageVersionPolicyViolation> policyViolations = null)
+        public static GalleryImageVersionSafetyProfile GalleryImageVersionSafetyProfile(bool? allowDeletionOfReplicatedLocations = null, bool? isReportedForPolicyViolation = null, IEnumerable<GalleryImageVersionPolicyViolation> policyViolations = null, bool? blockDeletionBeforeEndOfLife = null)
         {
             policyViolations ??= new List<GalleryImageVersionPolicyViolation>();
 
-            return new GalleryImageVersionSafetyProfile(allowDeletionOfReplicatedLocations, serializedAdditionalRawData: null, isReportedForPolicyViolation, policyViolations?.ToList());
+            return new GalleryImageVersionSafetyProfile(allowDeletionOfReplicatedLocations, serializedAdditionalRawData: null, isReportedForPolicyViolation, policyViolations?.ToList(), blockDeletionBeforeEndOfLife);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.GalleryImageVersionPolicyViolation"/>. </summary>
@@ -3686,7 +3687,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="hyperVGeneration"> The hypervisor generation of the Virtual Machine. Applicable to OS disks only. </param>
         /// <param name="features"> A list of gallery image features. </param>
         /// <param name="purchasePlan"> Describes the gallery image definition purchase plan. This is used by marketplace images. </param>
-        /// <param name="architecture"> The architecture of the image. Applicable to OS disks only. </param>
+        /// <param name="architecture"> CPU architecture supported by an OS disk. </param>
         /// <param name="privacyStatementUri"> Privacy statement uri for the current community gallery image. </param>
         /// <param name="eula"> End-user license agreement for the current community gallery image. </param>
         /// <param name="artifactTags"> The artifact tags of a shared gallery resource. </param>
@@ -3851,7 +3852,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="hyperVGeneration"> The hypervisor generation of the Virtual Machine. Applicable to OS disks only. </param>
         /// <param name="features"> A list of gallery image features. </param>
         /// <param name="purchasePlan"> Describes the gallery image definition purchase plan. This is used by marketplace images. </param>
-        /// <param name="architecture"> The architecture of the image. Applicable to OS disks only. </param>
+        /// <param name="architecture"> CPU architecture supported by an OS disk. </param>
         /// <param name="privacyStatementUri"> Privacy statement URI for the current community gallery image. </param>
         /// <param name="eula"> The end-user license agreement for the current community gallery image. </param>
         /// <param name="disclaimer"> The disclaimer for a community gallery resource. </param>
@@ -4222,6 +4223,17 @@ namespace Azure.ResourceManager.Compute.Models
         public static OSVersionPropertiesBase OSVersionPropertiesBase(string version = null, string label = null, bool? isDefault = null, bool? isActive = null)
         {
             return new OSVersionPropertiesBase(version, label, isDefault, isActive, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Compute.Models.GalleryImageVersionSafetyProfile" />. </summary>
+        /// <param name="allowDeletionOfReplicatedLocations"> Indicates whether or not removing this Gallery Image Version from replicated regions is allowed. </param>
+        /// <param name="isReportedForPolicyViolation"> Indicates whether this image has been reported as violating Microsoft's policies. </param>
+        /// <param name="policyViolations"> A list of Policy Violations that have been reported for this Gallery Image Version. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Compute.Models.GalleryImageVersionSafetyProfile" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static GalleryImageVersionSafetyProfile GalleryImageVersionSafetyProfile(bool? allowDeletionOfReplicatedLocations, bool? isReportedForPolicyViolation, IEnumerable<GalleryImageVersionPolicyViolation> policyViolations)
+        {
+            return GalleryImageVersionSafetyProfile(allowDeletionOfReplicatedLocations: allowDeletionOfReplicatedLocations, isReportedForPolicyViolation: isReportedForPolicyViolation, policyViolations: policyViolations, blockDeletionBeforeEndOfLife: default);
         }
 
         /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Compute.VirtualMachineScaleSetData" />. </summary>
