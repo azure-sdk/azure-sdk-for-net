@@ -20,7 +20,7 @@ namespace Azure.Health.Deidentification
         /// <param name="targetLocation"> Target location to store output of operation. </param>
         /// <param name="operation"> Operation to perform on the input documents. </param>
         /// <param name="dataType"> Data type of the input documents. </param>
-        /// <param name="redactionFormat"> Format of the redacted output. Only valid when Operation is Redact. </param>
+        /// <param name="customizations"> Customization parameters to override default service behaviors. </param>
         /// <param name="status"> Current status of a job. </param>
         /// <param name="error"> Error when job fails in it's entirety. </param>
         /// <param name="lastUpdatedAt">
@@ -34,7 +34,7 @@ namespace Azure.Health.Deidentification
         /// <param name="startedAt"> Date and time when the job was started. </param>
         /// <param name="summary"> Summary of a job. Exists only when the job is completed. </param>
         /// <returns> A new <see cref="Deidentification.DeidentificationJob"/> instance for mocking. </returns>
-        public static DeidentificationJob DeidentificationJob(string name = null, SourceStorageLocation sourceLocation = null, TargetStorageLocation targetLocation = null, OperationType? operation = null, DocumentDataType? dataType = null, string redactionFormat = null, JobStatus status = default, ResponseError error = null, DateTimeOffset lastUpdatedAt = default, DateTimeOffset createdAt = default, DateTimeOffset? startedAt = null, JobSummary summary = null)
+        public static DeidentificationJob DeidentificationJob(string name = null, SourceStorageLocation sourceLocation = null, TargetStorageLocation targetLocation = null, OperationType? operation = null, DocumentDataType? dataType = null, CustomizationOptions customizations = null, JobStatus status = default, ResponseError error = null, DateTimeOffset lastUpdatedAt = default, DateTimeOffset createdAt = default, DateTimeOffset? startedAt = null, JobSummary summary = null)
         {
             return new DeidentificationJob(
                 name,
@@ -42,7 +42,7 @@ namespace Azure.Health.Deidentification
                 targetLocation,
                 operation,
                 dataType,
-                redactionFormat,
+                customizations,
                 status,
                 error,
                 lastUpdatedAt,

@@ -99,7 +99,10 @@ namespace Azure.Health.Deidentification.Samples
             Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
             Console.WriteLine(result.GetProperty("operation").ToString());
             Console.WriteLine(result.GetProperty("dataType").ToString());
-            Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("redactionFormat").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("disableConsistency").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("overwrite").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("locale").ToString());
             Console.WriteLine(result.GetProperty("status").ToString());
             Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
             Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
@@ -134,7 +137,10 @@ namespace Azure.Health.Deidentification.Samples
             Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
             Console.WriteLine(result.GetProperty("operation").ToString());
             Console.WriteLine(result.GetProperty("dataType").ToString());
-            Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("redactionFormat").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("disableConsistency").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("overwrite").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("locale").ToString());
             Console.WriteLine(result.GetProperty("status").ToString());
             Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
             Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
@@ -255,7 +261,10 @@ namespace Azure.Health.Deidentification.Samples
             Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
             Console.WriteLine(result.GetProperty("operation").ToString());
             Console.WriteLine(result.GetProperty("dataType").ToString());
-            Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("redactionFormat").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("disableConsistency").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("overwrite").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("locale").ToString());
             Console.WriteLine(result.GetProperty("status").ToString());
             Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
             Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
@@ -290,7 +299,10 @@ namespace Azure.Health.Deidentification.Samples
             Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
             Console.WriteLine(result.GetProperty("operation").ToString());
             Console.WriteLine(result.GetProperty("dataType").ToString());
-            Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("redactionFormat").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("disableConsistency").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("overwrite").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("locale").ToString());
             Console.WriteLine(result.GetProperty("status").ToString());
             Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
             Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
@@ -627,7 +639,10 @@ namespace Azure.Health.Deidentification.Samples
                 Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
                 Console.WriteLine(result.GetProperty("operation").ToString());
                 Console.WriteLine(result.GetProperty("dataType").ToString());
-                Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+                Console.WriteLine(result.GetProperty("customizations").GetProperty("redactionFormat").ToString());
+                Console.WriteLine(result.GetProperty("customizations").GetProperty("disableConsistency").ToString());
+                Console.WriteLine(result.GetProperty("customizations").GetProperty("overwrite").ToString());
+                Console.WriteLine(result.GetProperty("customizations").GetProperty("locale").ToString());
                 Console.WriteLine(result.GetProperty("status").ToString());
                 Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
                 Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
@@ -663,7 +678,10 @@ namespace Azure.Health.Deidentification.Samples
                 Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
                 Console.WriteLine(result.GetProperty("operation").ToString());
                 Console.WriteLine(result.GetProperty("dataType").ToString());
-                Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+                Console.WriteLine(result.GetProperty("customizations").GetProperty("redactionFormat").ToString());
+                Console.WriteLine(result.GetProperty("customizations").GetProperty("disableConsistency").ToString());
+                Console.WriteLine(result.GetProperty("customizations").GetProperty("overwrite").ToString());
+                Console.WriteLine(result.GetProperty("customizations").GetProperty("locale").ToString());
                 Console.WriteLine(result.GetProperty("status").ToString());
                 Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
                 Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
@@ -964,7 +982,13 @@ namespace Azure.Health.Deidentification.Samples
                 },
                 operation = "Redact",
                 dataType = "Plaintext",
-                redactionFormat = "<redactionFormat>",
+                customizations = new
+                {
+                    redactionFormat = "<redactionFormat>",
+                    disableConsistency = true,
+                    overwrite = true,
+                    locale = "<locale>",
+                },
             });
             Operation<BinaryData> operation = client.CreateJob(WaitUntil.Completed, "<name>", content);
             BinaryData responseData = operation.Value;
@@ -978,7 +1002,10 @@ namespace Azure.Health.Deidentification.Samples
             Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
             Console.WriteLine(result.GetProperty("operation").ToString());
             Console.WriteLine(result.GetProperty("dataType").ToString());
-            Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("redactionFormat").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("disableConsistency").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("overwrite").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("locale").ToString());
             Console.WriteLine(result.GetProperty("status").ToString());
             Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
             Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
@@ -1020,7 +1047,13 @@ namespace Azure.Health.Deidentification.Samples
                 },
                 operation = "Redact",
                 dataType = "Plaintext",
-                redactionFormat = "<redactionFormat>",
+                customizations = new
+                {
+                    redactionFormat = "<redactionFormat>",
+                    disableConsistency = true,
+                    overwrite = true,
+                    locale = "<locale>",
+                },
             });
             Operation<BinaryData> operation = await client.CreateJobAsync(WaitUntil.Completed, "<name>", content);
             BinaryData responseData = operation.Value;
@@ -1034,7 +1067,10 @@ namespace Azure.Health.Deidentification.Samples
             Console.WriteLine(result.GetProperty("targetLocation").GetProperty("prefix").ToString());
             Console.WriteLine(result.GetProperty("operation").ToString());
             Console.WriteLine(result.GetProperty("dataType").ToString());
-            Console.WriteLine(result.GetProperty("redactionFormat").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("redactionFormat").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("disableConsistency").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("overwrite").ToString());
+            Console.WriteLine(result.GetProperty("customizations").GetProperty("locale").ToString());
             Console.WriteLine(result.GetProperty("status").ToString());
             Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
             Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
@@ -1065,7 +1101,13 @@ namespace Azure.Health.Deidentification.Samples
             {
                 Operation = OperationType.Redact,
                 DataType = DocumentDataType.Plaintext,
-                RedactionFormat = "<redactionFormat>",
+                Customizations = new CustomizationOptions
+                {
+                    RedactionFormat = "<redactionFormat>",
+                    DisableConsistency = true,
+                    Overwrite = true,
+                    Locale = "<locale>",
+                },
             };
             Operation<DeidentificationJob> operation = client.CreateJob(WaitUntil.Completed, "<name>", resource);
             DeidentificationJob responseData = operation.Value;
@@ -1086,7 +1128,13 @@ namespace Azure.Health.Deidentification.Samples
             {
                 Operation = OperationType.Redact,
                 DataType = DocumentDataType.Plaintext,
-                RedactionFormat = "<redactionFormat>",
+                Customizations = new CustomizationOptions
+                {
+                    RedactionFormat = "<redactionFormat>",
+                    DisableConsistency = true,
+                    Overwrite = true,
+                    Locale = "<locale>",
+                },
             };
             Operation<DeidentificationJob> operation = await client.CreateJobAsync(WaitUntil.Completed, "<name>", resource);
             DeidentificationJob responseData = operation.Value;
