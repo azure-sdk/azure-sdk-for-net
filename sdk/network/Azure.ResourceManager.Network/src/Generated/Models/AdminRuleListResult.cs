@@ -48,30 +48,22 @@ namespace Azure.ResourceManager.Network.Models
         /// <summary> Initializes a new instance of <see cref="AdminRuleListResult"/>. </summary>
         internal AdminRuleListResult()
         {
-            Value = new ChangeTrackingList<BaseAdminRuleData>();
+            Value = new ChangeTrackingList<NetworkAdminRuleData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="AdminRuleListResult"/>. </summary>
-        /// <param name="value">
-        /// A list of admin rules
-        /// Please note <see cref="BaseAdminRuleData"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="NetworkAdminRule"/> and <see cref="NetworkDefaultAdminRule"/>.
-        /// </param>
+        /// <param name="value"> A list of admin rules. </param>
         /// <param name="nextLink"> The URL to get the next set of results. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AdminRuleListResult(IReadOnlyList<BaseAdminRuleData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AdminRuleListResult(IReadOnlyList<NetworkAdminRuleData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary>
-        /// A list of admin rules
-        /// Please note <see cref="BaseAdminRuleData"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="NetworkAdminRule"/> and <see cref="NetworkDefaultAdminRule"/>.
-        /// </summary>
-        public IReadOnlyList<BaseAdminRuleData> Value { get; }
+        /// <summary> A list of admin rules. </summary>
+        public IReadOnlyList<NetworkAdminRuleData> Value { get; }
         /// <summary> The URL to get the next set of results. </summary>
         public string NextLink { get; }
     }

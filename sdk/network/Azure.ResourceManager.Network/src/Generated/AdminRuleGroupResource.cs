@@ -89,11 +89,11 @@ namespace Azure.ResourceManager.Network
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
         }
 
-        /// <summary> Gets a collection of BaseAdminRuleResources in the AdminRuleGroup. </summary>
-        /// <returns> An object representing collection of BaseAdminRuleResources and their operations over a BaseAdminRuleResource. </returns>
-        public virtual BaseAdminRuleCollection GetBaseAdminRules()
+        /// <summary> Gets a collection of NetworkAdminRuleResources in the AdminRuleGroup. </summary>
+        /// <returns> An object representing collection of NetworkAdminRuleResources and their operations over a NetworkAdminRuleResource. </returns>
+        public virtual NetworkAdminRuleCollection GetNetworkAdminRules()
         {
-            return GetCachedClient(client => new BaseAdminRuleCollection(client, Id));
+            return GetCachedClient(client => new NetworkAdminRuleCollection(client, Id));
         }
 
         /// <summary>
@@ -109,11 +109,11 @@ namespace Azure.ResourceManager.Network
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-01-01</description>
+        /// <description>2024-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="BaseAdminRuleResource"/></description>
+        /// <description><see cref="NetworkAdminRuleResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -122,9 +122,9 @@ namespace Azure.ResourceManager.Network
         /// <exception cref="ArgumentNullException"> <paramref name="ruleName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="ruleName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<BaseAdminRuleResource>> GetBaseAdminRuleAsync(string ruleName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<NetworkAdminRuleResource>> GetNetworkAdminRuleAsync(string ruleName, CancellationToken cancellationToken = default)
         {
-            return await GetBaseAdminRules().GetAsync(ruleName, cancellationToken).ConfigureAwait(false);
+            return await GetNetworkAdminRules().GetAsync(ruleName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -140,11 +140,11 @@ namespace Azure.ResourceManager.Network
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-01-01</description>
+        /// <description>2024-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="BaseAdminRuleResource"/></description>
+        /// <description><see cref="NetworkAdminRuleResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -153,9 +153,9 @@ namespace Azure.ResourceManager.Network
         /// <exception cref="ArgumentNullException"> <paramref name="ruleName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="ruleName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<BaseAdminRuleResource> GetBaseAdminRule(string ruleName, CancellationToken cancellationToken = default)
+        public virtual Response<NetworkAdminRuleResource> GetNetworkAdminRule(string ruleName, CancellationToken cancellationToken = default)
         {
-            return GetBaseAdminRules().Get(ruleName, cancellationToken);
+            return GetNetworkAdminRules().Get(ruleName, cancellationToken);
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.Network
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-01-01</description>
+        /// <description>2024-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -211,7 +211,7 @@ namespace Azure.ResourceManager.Network
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-01-01</description>
+        /// <description>2024-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -251,7 +251,7 @@ namespace Azure.ResourceManager.Network
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-01-01</description>
+        /// <description>2024-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -294,7 +294,7 @@ namespace Azure.ResourceManager.Network
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-01-01</description>
+        /// <description>2024-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -337,7 +337,7 @@ namespace Azure.ResourceManager.Network
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-01-01</description>
+        /// <description>2024-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -385,7 +385,7 @@ namespace Azure.ResourceManager.Network
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-01-01</description>
+        /// <description>2024-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

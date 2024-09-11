@@ -383,6 +383,30 @@ namespace Azure.ResourceManager.Network.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing an <see cref="IpamPoolResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="IpamPoolResource.CreateResourceIdentifier" /> to create an <see cref="IpamPoolResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="IpamPoolResource"/> object. </returns>
+        public virtual IpamPoolResource GetIpamPoolResource(ResourceIdentifier id)
+        {
+            IpamPoolResource.ValidateResourceId(id);
+            return new IpamPoolResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="StaticCidrResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="StaticCidrResource.CreateResourceIdentifier" /> to create a <see cref="StaticCidrResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="StaticCidrResource"/> object. </returns>
+        public virtual StaticCidrResource GetStaticCidrResource(ResourceIdentifier id)
+        {
+            StaticCidrResource.ValidateResourceId(id);
+            return new StaticCidrResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing an <see cref="IPAllocationResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="IPAllocationResource.CreateResourceIdentifier" /> to create an <see cref="IPAllocationResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -611,6 +635,42 @@ namespace Azure.ResourceManager.Network.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="NetworkManagerRoutingConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="NetworkManagerRoutingConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="NetworkManagerRoutingConfigurationResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="NetworkManagerRoutingConfigurationResource"/> object. </returns>
+        public virtual NetworkManagerRoutingConfigurationResource GetNetworkManagerRoutingConfigurationResource(ResourceIdentifier id)
+        {
+            NetworkManagerRoutingConfigurationResource.ValidateResourceId(id);
+            return new NetworkManagerRoutingConfigurationResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="RoutingRuleCollectionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="RoutingRuleCollectionResource.CreateResourceIdentifier" /> to create a <see cref="RoutingRuleCollectionResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="RoutingRuleCollectionResource"/> object. </returns>
+        public virtual RoutingRuleCollectionResource GetRoutingRuleCollectionResource(ResourceIdentifier id)
+        {
+            RoutingRuleCollectionResource.ValidateResourceId(id);
+            return new RoutingRuleCollectionResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="RoutingRuleResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="RoutingRuleResource.CreateResourceIdentifier" /> to create a <see cref="RoutingRuleResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="RoutingRuleResource"/> object. </returns>
+        public virtual RoutingRuleResource GetRoutingRuleResource(ResourceIdentifier id)
+        {
+            RoutingRuleResource.ValidateResourceId(id);
+            return new RoutingRuleResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="ScopeConnectionResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="ScopeConnectionResource.CreateResourceIdentifier" /> to create a <see cref="ScopeConnectionResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -647,15 +707,51 @@ namespace Azure.ResourceManager.Network.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="BaseAdminRuleResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="BaseAdminRuleResource.CreateResourceIdentifier" /> to create a <see cref="BaseAdminRuleResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// Gets an object representing a <see cref="NetworkAdminRuleResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="NetworkAdminRuleResource.CreateResourceIdentifier" /> to create a <see cref="NetworkAdminRuleResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="BaseAdminRuleResource"/> object. </returns>
-        public virtual BaseAdminRuleResource GetBaseAdminRuleResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="NetworkAdminRuleResource"/> object. </returns>
+        public virtual NetworkAdminRuleResource GetNetworkAdminRuleResource(ResourceIdentifier id)
         {
-            BaseAdminRuleResource.ValidateResourceId(id);
-            return new BaseAdminRuleResource(Client, id);
+            NetworkAdminRuleResource.ValidateResourceId(id);
+            return new NetworkAdminRuleResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SecurityUserConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SecurityUserConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="SecurityUserConfigurationResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SecurityUserConfigurationResource"/> object. </returns>
+        public virtual SecurityUserConfigurationResource GetSecurityUserConfigurationResource(ResourceIdentifier id)
+        {
+            SecurityUserConfigurationResource.ValidateResourceId(id);
+            return new SecurityUserConfigurationResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SecurityUserRuleCollectionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SecurityUserRuleCollectionResource.CreateResourceIdentifier" /> to create a <see cref="SecurityUserRuleCollectionResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SecurityUserRuleCollectionResource"/> object. </returns>
+        public virtual SecurityUserRuleCollectionResource GetSecurityUserRuleCollectionResource(ResourceIdentifier id)
+        {
+            SecurityUserRuleCollectionResource.ValidateResourceId(id);
+            return new SecurityUserRuleCollectionResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SecurityUserRuleResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SecurityUserRuleResource.CreateResourceIdentifier" /> to create a <see cref="SecurityUserRuleResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SecurityUserRuleResource"/> object. </returns>
+        public virtual SecurityUserRuleResource GetSecurityUserRuleResource(ResourceIdentifier id)
+        {
+            SecurityUserRuleResource.ValidateResourceId(id);
+            return new SecurityUserRuleResource(Client, id);
         }
 
         /// <summary>
@@ -704,6 +800,42 @@ namespace Azure.ResourceManager.Network.Mocking
         {
             DefaultSecurityRuleResource.ValidateResourceId(id);
             return new DefaultSecurityRuleResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="ReachabilityAnalysisIntentResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ReachabilityAnalysisIntentResource.CreateResourceIdentifier" /> to create a <see cref="ReachabilityAnalysisIntentResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ReachabilityAnalysisIntentResource"/> object. </returns>
+        public virtual ReachabilityAnalysisIntentResource GetReachabilityAnalysisIntentResource(ResourceIdentifier id)
+        {
+            ReachabilityAnalysisIntentResource.ValidateResourceId(id);
+            return new ReachabilityAnalysisIntentResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="ReachabilityAnalysisRunResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ReachabilityAnalysisRunResource.CreateResourceIdentifier" /> to create a <see cref="ReachabilityAnalysisRunResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ReachabilityAnalysisRunResource"/> object. </returns>
+        public virtual ReachabilityAnalysisRunResource GetReachabilityAnalysisRunResource(ResourceIdentifier id)
+        {
+            ReachabilityAnalysisRunResource.ValidateResourceId(id);
+            return new ReachabilityAnalysisRunResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="VerifierWorkspaceResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="VerifierWorkspaceResource.CreateResourceIdentifier" /> to create a <see cref="VerifierWorkspaceResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="VerifierWorkspaceResource"/> object. </returns>
+        public virtual VerifierWorkspaceResource GetVerifierWorkspaceResource(ResourceIdentifier id)
+        {
+            VerifierWorkspaceResource.ValidateResourceId(id);
+            return new VerifierWorkspaceResource(Client, id);
         }
 
         /// <summary>
@@ -1184,6 +1316,18 @@ namespace Azure.ResourceManager.Network.Mocking
         {
             VpnGatewayResource.ValidateResourceId(id);
             return new VpnGatewayResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="ConnectionSharedKeyResultResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ConnectionSharedKeyResultResource.CreateResourceIdentifier" /> to create a <see cref="ConnectionSharedKeyResultResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ConnectionSharedKeyResultResource"/> object. </returns>
+        public virtual ConnectionSharedKeyResultResource GetConnectionSharedKeyResultResource(ResourceIdentifier id)
+        {
+            ConnectionSharedKeyResultResource.ValidateResourceId(id);
+            return new ConnectionSharedKeyResultResource(Client, id);
         }
 
         /// <summary>

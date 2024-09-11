@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.Network.Models
             {
                 return null;
             }
-            IReadOnlyList<BaseAdminRuleData> value = default;
+            IReadOnlyList<NetworkAdminRuleData> value = default;
             string nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -91,10 +91,10 @@ namespace Azure.ResourceManager.Network.Models
                     {
                         continue;
                     }
-                    List<BaseAdminRuleData> array = new List<BaseAdminRuleData>();
+                    List<NetworkAdminRuleData> array = new List<NetworkAdminRuleData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(BaseAdminRuleData.DeserializeBaseAdminRuleData(item, options));
+                        array.Add(NetworkAdminRuleData.DeserializeNetworkAdminRuleData(item, options));
                     }
                     value = array;
                     continue;
@@ -110,7 +110,7 @@ namespace Azure.ResourceManager.Network.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AdminRuleListResult(value ?? new ChangeTrackingList<BaseAdminRuleData>(), nextLink, serializedAdditionalRawData);
+            return new AdminRuleListResult(value ?? new ChangeTrackingList<NetworkAdminRuleData>(), nextLink, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AdminRuleListResult>.Write(ModelReaderWriterOptions options)
