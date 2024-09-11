@@ -41,6 +41,11 @@ namespace Azure.ResourceManager.Compute.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(BlockDeletionBeforeEndOfLife))
+            {
+                writer.WritePropertyName("blockDeletionBeforeEndOfLife"u8);
+                writer.WriteBooleanValue(BlockDeletionBeforeEndOfLife.Value);
+            }
             if (Optional.IsDefined(AllowDeletionOfReplicatedLocations))
             {
                 writer.WritePropertyName("allowDeletionOfReplicatedLocations"u8);
@@ -86,6 +91,7 @@ namespace Azure.ResourceManager.Compute.Models
             }
             bool? reportedForPolicyViolation = default;
             IReadOnlyList<GalleryImageVersionPolicyViolation> policyViolations = default;
+            bool? blockDeletionBeforeEndOfLife = default;
             bool? allowDeletionOfReplicatedLocations = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -114,6 +120,15 @@ namespace Azure.ResourceManager.Compute.Models
                     policyViolations = array;
                     continue;
                 }
+                if (property.NameEquals("blockDeletionBeforeEndOfLife"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    blockDeletionBeforeEndOfLife = property.Value.GetBoolean();
+                    continue;
+                }
                 if (property.NameEquals("allowDeletionOfReplicatedLocations"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -129,7 +144,7 @@ namespace Azure.ResourceManager.Compute.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new GalleryImageVersionSafetyProfile(allowDeletionOfReplicatedLocations, serializedAdditionalRawData, reportedForPolicyViolation, policyViolations ?? new ChangeTrackingList<GalleryImageVersionPolicyViolation>());
+            return new GalleryImageVersionSafetyProfile(allowDeletionOfReplicatedLocations, serializedAdditionalRawData, reportedForPolicyViolation, policyViolations ?? new ChangeTrackingList<GalleryImageVersionPolicyViolation>(), blockDeletionBeforeEndOfLife);
         }
 
         BinaryData IPersistableModel<GalleryImageVersionSafetyProfile>.Write(ModelReaderWriterOptions options)
