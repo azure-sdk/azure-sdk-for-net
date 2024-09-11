@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.SecurityCenter.Models
 {
-    /// <summary> Describes the Network Security Groups effective on a network interface. </summary>
-    public partial class EffectiveNetworkSecurityGroups
+    /// <summary> Properties of Sensitive Data Discovery. </summary>
+    public partial class SensitiveDataDiscoveryProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,26 +45,25 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="EffectiveNetworkSecurityGroups"/>. </summary>
-        public EffectiveNetworkSecurityGroups()
+        /// <summary> Initializes a new instance of <see cref="SensitiveDataDiscoveryProperties"/>. </summary>
+        public SensitiveDataDiscoveryProperties()
         {
-            NetworkSecurityGroups = new ChangeTrackingList<string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="EffectiveNetworkSecurityGroups"/>. </summary>
-        /// <param name="networkInterface"> The Azure resource ID of the network interface. </param>
-        /// <param name="networkSecurityGroups"> The Network Security Groups effective on the network interface. </param>
+        /// <summary> Initializes a new instance of <see cref="SensitiveDataDiscoveryProperties"/>. </summary>
+        /// <param name="isEnabled"> Indicates whether Sensitive Data Discovery should be enabled. </param>
+        /// <param name="operationStatus"> Upon failure or partial success. Additional data describing Sensitive Data Discovery enable/disable operation. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal EffectiveNetworkSecurityGroups(string networkInterface, IList<string> networkSecurityGroups, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SensitiveDataDiscoveryProperties(bool? isEnabled, ExtensionOperationStatus operationStatus, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            NetworkInterface = networkInterface;
-            NetworkSecurityGroups = networkSecurityGroups;
+            IsEnabled = isEnabled;
+            OperationStatus = operationStatus;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The Azure resource ID of the network interface. </summary>
-        public string NetworkInterface { get; set; }
-        /// <summary> The Network Security Groups effective on the network interface. </summary>
-        public IList<string> NetworkSecurityGroups { get; }
+        /// <summary> Indicates whether Sensitive Data Discovery should be enabled. </summary>
+        public bool? IsEnabled { get; set; }
+        /// <summary> Upon failure or partial success. Additional data describing Sensitive Data Discovery enable/disable operation. </summary>
+        public ExtensionOperationStatus OperationStatus { get; }
     }
 }

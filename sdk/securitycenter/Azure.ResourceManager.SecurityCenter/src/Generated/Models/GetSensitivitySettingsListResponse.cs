@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.SecurityCenter.Models
 {
-    /// <summary> Represents a user that is recommended to be allowed for a certain rule. </summary>
-    public partial class UserRecommendation
+    /// <summary> A list with a single sensitivity settings resource. </summary>
+    internal partial class GetSensitivitySettingsListResponse
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,25 +45,22 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="UserRecommendation"/>. </summary>
-        public UserRecommendation()
+        /// <summary> Initializes a new instance of <see cref="GetSensitivitySettingsListResponse"/>. </summary>
+        internal GetSensitivitySettingsListResponse()
         {
+            Value = new ChangeTrackingList<SensitivitySettingData>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="UserRecommendation"/>. </summary>
-        /// <param name="username"> Represents a user that is recommended to be allowed for a certain rule. </param>
-        /// <param name="recommendationAction"> The recommendation action of the machine or rule. </param>
+        /// <summary> Initializes a new instance of <see cref="GetSensitivitySettingsListResponse"/>. </summary>
+        /// <param name="value"></param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UserRecommendation(string username, RecommendationAction? recommendationAction, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal GetSensitivitySettingsListResponse(IReadOnlyList<SensitivitySettingData> value, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Username = username;
-            RecommendationAction = recommendationAction;
+            Value = value;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Represents a user that is recommended to be allowed for a certain rule. </summary>
-        public string Username { get; set; }
-        /// <summary> The recommendation action of the machine or rule. </summary>
-        public RecommendationAction? RecommendationAction { get; set; }
+        /// <summary> Gets the value. </summary>
+        public IReadOnlyList<SensitivitySettingData> Value { get; }
     }
 }
