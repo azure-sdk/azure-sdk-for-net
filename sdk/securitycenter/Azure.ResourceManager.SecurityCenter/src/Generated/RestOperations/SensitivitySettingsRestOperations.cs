@@ -15,20 +15,20 @@ using Azure.ResourceManager.SecurityCenter.Models;
 
 namespace Azure.ResourceManager.SecurityCenter
 {
-    internal partial class SecurityCenterRestOperations
+    internal partial class SensitivitySettingsRestOperations
     {
         private readonly TelemetryDetails _userAgent;
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
 
-        /// <summary> Initializes a new instance of SecurityCenterRestOperations. </summary>
+        /// <summary> Initializes a new instance of SensitivitySettingsRestOperations. </summary>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="applicationId"> The application id to use for user agent. </param>
         /// <param name="endpoint"> server parameter. </param>
         /// <param name="apiVersion"> Api Version. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="pipeline"/> or <paramref name="apiVersion"/> is null. </exception>
-        public SecurityCenterRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
+        public SensitivitySettingsRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.SecurityCenter
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal RequestUriBuilder CreateUpdateSensitivitySettingsRequestUri(SensitivitySettingCreateOrUpdateContent content)
+        internal RequestUriBuilder CreateCreateOrUpdateRequestUri(SensitivitySettingCreateOrUpdateContent content)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -45,7 +45,7 @@ namespace Azure.ResourceManager.SecurityCenter
             return uri;
         }
 
-        internal HttpMessage CreateUpdateSensitivitySettingsRequest(SensitivitySettingCreateOrUpdateContent content)
+        internal HttpMessage CreateCreateOrUpdateRequest(SensitivitySettingCreateOrUpdateContent content)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -64,15 +64,15 @@ namespace Azure.ResourceManager.SecurityCenter
             return message;
         }
 
-        /// <summary> Updates data sensitivity settings for sensitive data discovery. </summary>
+        /// <summary> Create or update data sensitivity settings for sensitive data discovery. </summary>
         /// <param name="content"> The data sensitivity settings to update. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public async Task<Response<SensitivitySettingData>> UpdateSensitivitySettingsAsync(SensitivitySettingCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        public async Task<Response<SensitivitySettingData>> CreateOrUpdateAsync(SensitivitySettingCreateOrUpdateContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var message = CreateUpdateSensitivitySettingsRequest(content);
+            using var message = CreateCreateOrUpdateRequest(content);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -88,15 +88,15 @@ namespace Azure.ResourceManager.SecurityCenter
             }
         }
 
-        /// <summary> Updates data sensitivity settings for sensitive data discovery. </summary>
+        /// <summary> Create or update data sensitivity settings for sensitive data discovery. </summary>
         /// <param name="content"> The data sensitivity settings to update. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public Response<SensitivitySettingData> UpdateSensitivitySettings(SensitivitySettingCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        public Response<SensitivitySettingData> CreateOrUpdate(SensitivitySettingCreateOrUpdateContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var message = CreateUpdateSensitivitySettingsRequest(content);
+            using var message = CreateCreateOrUpdateRequest(content);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -112,7 +112,7 @@ namespace Azure.ResourceManager.SecurityCenter
             }
         }
 
-        internal RequestUriBuilder CreateGetSensitivitySettingsRequestUri()
+        internal RequestUriBuilder CreateGetRequestUri()
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.SecurityCenter
             return uri;
         }
 
-        internal HttpMessage CreateGetSensitivitySettingsRequest()
+        internal HttpMessage CreateGetRequest()
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -138,9 +138,9 @@ namespace Azure.ResourceManager.SecurityCenter
 
         /// <summary> Gets data sensitivity settings for sensitive data discovery. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async Task<Response<SensitivitySettingData>> GetSensitivitySettingsAsync(CancellationToken cancellationToken = default)
+        public async Task<Response<SensitivitySettingData>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var message = CreateGetSensitivitySettingsRequest();
+            using var message = CreateGetRequest();
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -160,9 +160,9 @@ namespace Azure.ResourceManager.SecurityCenter
 
         /// <summary> Gets data sensitivity settings for sensitive data discovery. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public Response<SensitivitySettingData> GetSensitivitySettings(CancellationToken cancellationToken = default)
+        public Response<SensitivitySettingData> Get(CancellationToken cancellationToken = default)
         {
-            using var message = CreateGetSensitivitySettingsRequest();
+            using var message = CreateGetRequest();
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -175,6 +175,70 @@ namespace Azure.ResourceManager.SecurityCenter
                     }
                 case 404:
                     return Response.FromValue((SensitivitySettingData)null, message.Response);
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal RequestUriBuilder CreateListRequestUri()
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/providers/Microsoft.Security/sensitivitySettings", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            return uri;
+        }
+
+        internal HttpMessage CreateListRequest()
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/providers/Microsoft.Security/sensitivitySettings", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Gets a list with a single sensitivity settings resource. </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public async Task<Response<GetSensitivitySettingsListResponse>> ListAsync(CancellationToken cancellationToken = default)
+        {
+            using var message = CreateListRequest();
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        GetSensitivitySettingsListResponse value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = GetSensitivitySettingsListResponse.DeserializeGetSensitivitySettingsListResponse(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Gets a list with a single sensitivity settings resource. </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public Response<GetSensitivitySettingsListResponse> List(CancellationToken cancellationToken = default)
+        {
+            using var message = CreateListRequest();
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        GetSensitivitySettingsListResponse value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = GetSensitivitySettingsListResponse.DeserializeGetSensitivitySettingsListResponse(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
                 default:
                     throw new RequestFailedException(message.Response);
             }

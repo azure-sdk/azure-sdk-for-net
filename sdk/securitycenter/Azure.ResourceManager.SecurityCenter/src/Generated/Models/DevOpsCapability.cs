@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.SecurityCenter.Models
 {
-    /// <summary> Represents a summary of the alerts of the machine group. </summary>
-    public partial class AdaptiveApplicationControlIssueSummary
+    /// <summary> Details about DevOps capability. </summary>
+    public partial class DevOpsCapability
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,25 +45,25 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AdaptiveApplicationControlIssueSummary"/>. </summary>
-        internal AdaptiveApplicationControlIssueSummary()
+        /// <summary> Initializes a new instance of <see cref="DevOpsCapability"/>. </summary>
+        internal DevOpsCapability()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="AdaptiveApplicationControlIssueSummary"/>. </summary>
-        /// <param name="issue"> An alert that machines within a group can have. </param>
-        /// <param name="numberOfVms"> The number of machines in the group that have this alert. </param>
+        /// <summary> Initializes a new instance of <see cref="DevOpsCapability"/>. </summary>
+        /// <param name="name"> Gets the name of the DevOps capability. </param>
+        /// <param name="value"> Gets the value of the DevOps capability. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AdaptiveApplicationControlIssueSummary(AdaptiveApplicationControlIssue? issue, float? numberOfVms, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DevOpsCapability(string name, string value, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Issue = issue;
-            NumberOfVms = numberOfVms;
+            Name = name;
+            Value = value;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> An alert that machines within a group can have. </summary>
-        public AdaptiveApplicationControlIssue? Issue { get; }
-        /// <summary> The number of machines in the group that have this alert. </summary>
-        public float? NumberOfVms { get; }
+        /// <summary> Gets the name of the DevOps capability. </summary>
+        public string Name { get; }
+        /// <summary> Gets the value of the DevOps capability. </summary>
+        public string Value { get; }
     }
 }

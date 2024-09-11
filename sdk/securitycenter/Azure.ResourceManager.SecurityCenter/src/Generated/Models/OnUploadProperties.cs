@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.SecurityCenter.Models
 {
-    /// <summary> Response for ListAdaptiveNetworkHardenings API service call. </summary>
-    internal partial class AdaptiveNetworkHardeningsList
+    /// <summary> Properties of On Upload malware scanning. </summary>
+    public partial class OnUploadProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,26 +45,25 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AdaptiveNetworkHardeningsList"/>. </summary>
-        internal AdaptiveNetworkHardeningsList()
+        /// <summary> Initializes a new instance of <see cref="OnUploadProperties"/>. </summary>
+        public OnUploadProperties()
         {
-            Value = new ChangeTrackingList<AdaptiveNetworkHardeningData>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="AdaptiveNetworkHardeningsList"/>. </summary>
-        /// <param name="value"> A list of Adaptive Network Hardenings resources. </param>
-        /// <param name="nextLink"> The URL to get the next set of results. </param>
+        /// <summary> Initializes a new instance of <see cref="OnUploadProperties"/>. </summary>
+        /// <param name="isEnabled"> Indicates whether On Upload malware scanning should be enabled. </param>
+        /// <param name="capGBPerMonth"> Defines the max GB to be scanned per Month. Set to -1 if no capping is needed. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AdaptiveNetworkHardeningsList(IReadOnlyList<AdaptiveNetworkHardeningData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal OnUploadProperties(bool? isEnabled, int? capGBPerMonth, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Value = value;
-            NextLink = nextLink;
+            IsEnabled = isEnabled;
+            CapGBPerMonth = capGBPerMonth;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> A list of Adaptive Network Hardenings resources. </summary>
-        public IReadOnlyList<AdaptiveNetworkHardeningData> Value { get; }
-        /// <summary> The URL to get the next set of results. </summary>
-        public string NextLink { get; }
+        /// <summary> Indicates whether On Upload malware scanning should be enabled. </summary>
+        public bool? IsEnabled { get; set; }
+        /// <summary> Defines the max GB to be scanned per Month. Set to -1 if no capping is needed. </summary>
+        public int? CapGBPerMonth { get; set; }
     }
 }

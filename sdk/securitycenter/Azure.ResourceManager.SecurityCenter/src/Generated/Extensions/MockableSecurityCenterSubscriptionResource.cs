@@ -36,8 +36,6 @@ namespace Azure.ResourceManager.SecurityCenter.Mocking
         private IotSecuritySolutionRestOperations _iotSecuritySolutionRestClient;
         private ClientDiagnostics _allowedConnectionsClientDiagnostics;
         private AllowedConnectionsRestOperations _allowedConnectionsRestClient;
-        private ClientDiagnostics _adaptiveApplicationControlGroupAdaptiveApplicationControlsClientDiagnostics;
-        private AdaptiveApplicationControlsRestOperations _adaptiveApplicationControlGroupAdaptiveApplicationControlsRestClient;
         private ClientDiagnostics _discoveredSecuritySolutionsClientDiagnostics;
         private DiscoveredSecuritySolutionsRestOperations _discoveredSecuritySolutionsRestClient;
         private ClientDiagnostics _externalSecuritySolutionsClientDiagnostics;
@@ -89,8 +87,6 @@ namespace Azure.ResourceManager.SecurityCenter.Mocking
         private IotSecuritySolutionRestOperations IotSecuritySolutionRestClient => _iotSecuritySolutionRestClient ??= new IotSecuritySolutionRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(IotSecuritySolutionResource.ResourceType));
         private ClientDiagnostics AllowedConnectionsClientDiagnostics => _allowedConnectionsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SecurityCenter", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private AllowedConnectionsRestOperations AllowedConnectionsRestClient => _allowedConnectionsRestClient ??= new AllowedConnectionsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
-        private ClientDiagnostics AdaptiveApplicationControlGroupAdaptiveApplicationControlsClientDiagnostics => _adaptiveApplicationControlGroupAdaptiveApplicationControlsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SecurityCenter", AdaptiveApplicationControlGroupResource.ResourceType.Namespace, Diagnostics);
-        private AdaptiveApplicationControlsRestOperations AdaptiveApplicationControlGroupAdaptiveApplicationControlsRestClient => _adaptiveApplicationControlGroupAdaptiveApplicationControlsRestClient ??= new AdaptiveApplicationControlsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(AdaptiveApplicationControlGroupResource.ResourceType));
         private ClientDiagnostics DiscoveredSecuritySolutionsClientDiagnostics => _discoveredSecuritySolutionsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SecurityCenter", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private DiscoveredSecuritySolutionsRestOperations DiscoveredSecuritySolutionsRestClient => _discoveredSecuritySolutionsRestClient ??= new DiscoveredSecuritySolutionsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
         private ClientDiagnostics ExternalSecuritySolutionsClientDiagnostics => _externalSecuritySolutionsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SecurityCenter", ProviderConstants.DefaultProviderNamespace, Diagnostics);
@@ -1587,68 +1583,6 @@ namespace Azure.ResourceManager.SecurityCenter.Mocking
             HttpMessage FirstPageRequest(int? pageSizeHint) => AllowedConnectionsRestClient.CreateListRequest(Id.SubscriptionId);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => AllowedConnectionsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => SecurityCenterAllowedConnection.DeserializeSecurityCenterAllowedConnection(e), AllowedConnectionsClientDiagnostics, Pipeline, "MockableSecurityCenterSubscriptionResource.GetAllowedConnections", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets a list of application control machine groups for the subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Security/applicationWhitelistings</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>AdaptiveApplicationControls_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2020-01-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="AdaptiveApplicationControlGroupResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="includePathRecommendations"> Include the policy rules. </param>
-        /// <param name="summary"> Return output in a summarized form. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="AdaptiveApplicationControlGroupResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<AdaptiveApplicationControlGroupResource> GetAdaptiveApplicationControlGroupsAsync(bool? includePathRecommendations = null, bool? summary = null, CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => AdaptiveApplicationControlGroupAdaptiveApplicationControlsRestClient.CreateListRequest(Id.SubscriptionId, includePathRecommendations, summary);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => new AdaptiveApplicationControlGroupResource(Client, AdaptiveApplicationControlGroupData.DeserializeAdaptiveApplicationControlGroupData(e)), AdaptiveApplicationControlGroupAdaptiveApplicationControlsClientDiagnostics, Pipeline, "MockableSecurityCenterSubscriptionResource.GetAdaptiveApplicationControlGroups", "value", null, cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets a list of application control machine groups for the subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Security/applicationWhitelistings</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>AdaptiveApplicationControls_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2020-01-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="AdaptiveApplicationControlGroupResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="includePathRecommendations"> Include the policy rules. </param>
-        /// <param name="summary"> Return output in a summarized form. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="AdaptiveApplicationControlGroupResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<AdaptiveApplicationControlGroupResource> GetAdaptiveApplicationControlGroups(bool? includePathRecommendations = null, bool? summary = null, CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => AdaptiveApplicationControlGroupAdaptiveApplicationControlsRestClient.CreateListRequest(Id.SubscriptionId, includePathRecommendations, summary);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => new AdaptiveApplicationControlGroupResource(Client, AdaptiveApplicationControlGroupData.DeserializeAdaptiveApplicationControlGroupData(e)), AdaptiveApplicationControlGroupAdaptiveApplicationControlsClientDiagnostics, Pipeline, "MockableSecurityCenterSubscriptionResource.GetAdaptiveApplicationControlGroups", "value", null, cancellationToken);
         }
 
         /// <summary>

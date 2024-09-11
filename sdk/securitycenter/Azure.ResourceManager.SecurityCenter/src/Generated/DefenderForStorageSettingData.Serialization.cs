@@ -28,6 +28,11 @@ namespace Azure.ResourceManager.SecurityCenter
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
+            }
             if (options.Format != "W")
             {
                 writer.WritePropertyName("id"u8);
@@ -48,58 +53,6 @@ namespace Azure.ResourceManager.SecurityCenter
                 writer.WritePropertyName("systemData"u8);
                 JsonSerializer.Serialize(writer, SystemData);
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(IsEnabled))
-            {
-                writer.WritePropertyName("isEnabled"u8);
-                writer.WriteBooleanValue(IsEnabled.Value);
-            }
-            if (Optional.IsDefined(IsOverrideSubscriptionLevelSettingsEnabled))
-            {
-                writer.WritePropertyName("overrideSubscriptionLevelSettings"u8);
-                writer.WriteBooleanValue(IsOverrideSubscriptionLevelSettingsEnabled.Value);
-            }
-            writer.WritePropertyName("sensitiveDataDiscovery"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(IsSensitiveDataDiscoveryEnabled))
-            {
-                writer.WritePropertyName("isEnabled"u8);
-                writer.WriteBooleanValue(IsSensitiveDataDiscoveryEnabled.Value);
-            }
-            if (options.Format != "W" && Optional.IsDefined(SensitiveDataDiscoveryOperationStatus))
-            {
-                writer.WritePropertyName("operationStatus"u8);
-                writer.WriteObjectValue(SensitiveDataDiscoveryOperationStatus, options);
-            }
-            writer.WriteEndObject();
-            writer.WritePropertyName("malwareScanning"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(ScanResultsEventGridTopicResourceId))
-            {
-                writer.WritePropertyName("scanResultsEventGridTopicResourceId"u8);
-                writer.WriteStringValue(ScanResultsEventGridTopicResourceId);
-            }
-            if (options.Format != "W" && Optional.IsDefined(MalwareScanningOperationStatus))
-            {
-                writer.WritePropertyName("operationStatus"u8);
-                writer.WriteObjectValue(MalwareScanningOperationStatus, options);
-            }
-            writer.WritePropertyName("onUpload"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(IsMalwareScanningOnUploadEnabled))
-            {
-                writer.WritePropertyName("isEnabled"u8);
-                writer.WriteBooleanValue(IsMalwareScanningOnUploadEnabled.Value);
-            }
-            if (Optional.IsDefined(CapGBPerMonth))
-            {
-                writer.WritePropertyName("capGBPerMonth"u8);
-                writer.WriteNumberValue(CapGBPerMonth.Value);
-            }
-            writer.WriteEndObject();
-            writer.WriteEndObject();
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -138,22 +91,24 @@ namespace Azure.ResourceManager.SecurityCenter
             {
                 return null;
             }
+            DefenderForStorageSettingProperties properties = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            bool? isEnabled = default;
-            bool? overrideSubscriptionLevelSettings = default;
-            bool? isEnabled0 = default;
-            ExtensionOperationStatus operationStatus = default;
-            ResourceIdentifier scanResultsEventGridTopicResourceId = default;
-            ExtensionOperationStatus operationStatus0 = default;
-            bool? isEnabled1 = default;
-            int? capGBPerMonth = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = DefenderForStorageSettingProperties.DeserializeDefenderForStorageSettingProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -178,126 +133,6 @@ namespace Azure.ResourceManager.SecurityCenter
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("isEnabled"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            isEnabled = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("overrideSubscriptionLevelSettings"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            overrideSubscriptionLevelSettings = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("sensitiveDataDiscovery"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            foreach (var property1 in property0.Value.EnumerateObject())
-                            {
-                                if (property1.NameEquals("isEnabled"u8))
-                                {
-                                    if (property1.Value.ValueKind == JsonValueKind.Null)
-                                    {
-                                        continue;
-                                    }
-                                    isEnabled0 = property1.Value.GetBoolean();
-                                    continue;
-                                }
-                                if (property1.NameEquals("operationStatus"u8))
-                                {
-                                    if (property1.Value.ValueKind == JsonValueKind.Null)
-                                    {
-                                        continue;
-                                    }
-                                    operationStatus = ExtensionOperationStatus.DeserializeExtensionOperationStatus(property1.Value, options);
-                                    continue;
-                                }
-                            }
-                            continue;
-                        }
-                        if (property0.NameEquals("malwareScanning"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            foreach (var property1 in property0.Value.EnumerateObject())
-                            {
-                                if (property1.NameEquals("scanResultsEventGridTopicResourceId"u8))
-                                {
-                                    if (property1.Value.ValueKind == JsonValueKind.Null)
-                                    {
-                                        continue;
-                                    }
-                                    scanResultsEventGridTopicResourceId = new ResourceIdentifier(property1.Value.GetString());
-                                    continue;
-                                }
-                                if (property1.NameEquals("operationStatus"u8))
-                                {
-                                    if (property1.Value.ValueKind == JsonValueKind.Null)
-                                    {
-                                        continue;
-                                    }
-                                    operationStatus0 = ExtensionOperationStatus.DeserializeExtensionOperationStatus(property1.Value, options);
-                                    continue;
-                                }
-                                if (property1.NameEquals("onUpload"u8))
-                                {
-                                    if (property1.Value.ValueKind == JsonValueKind.Null)
-                                    {
-                                        property1.ThrowNonNullablePropertyIsNull();
-                                        continue;
-                                    }
-                                    foreach (var property2 in property1.Value.EnumerateObject())
-                                    {
-                                        if (property2.NameEquals("isEnabled"u8))
-                                        {
-                                            if (property2.Value.ValueKind == JsonValueKind.Null)
-                                            {
-                                                continue;
-                                            }
-                                            isEnabled1 = property2.Value.GetBoolean();
-                                            continue;
-                                        }
-                                        if (property2.NameEquals("capGBPerMonth"u8))
-                                        {
-                                            if (property2.Value.ValueKind == JsonValueKind.Null)
-                                            {
-                                                continue;
-                                            }
-                                            capGBPerMonth = property2.Value.GetInt32();
-                                            continue;
-                                        }
-                                    }
-                                    continue;
-                                }
-                            }
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -309,14 +144,7 @@ namespace Azure.ResourceManager.SecurityCenter
                 name,
                 type,
                 systemData,
-                isEnabled,
-                overrideSubscriptionLevelSettings,
-                isEnabled0,
-                operationStatus,
-                scanResultsEventGridTopicResourceId,
-                operationStatus0,
-                isEnabled1,
-                capGBPerMonth,
+                properties,
                 serializedAdditionalRawData);
         }
 
