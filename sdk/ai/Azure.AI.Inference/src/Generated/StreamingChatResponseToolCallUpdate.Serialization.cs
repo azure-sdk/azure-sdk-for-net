@@ -13,23 +13,21 @@ using Azure.Core;
 
 namespace Azure.AI.Inference
 {
-    public partial class ChatCompletionsToolCall : IUtf8JsonSerializable, IJsonModel<ChatCompletionsToolCall>
+    public partial class StreamingChatResponseToolCallUpdate : IUtf8JsonSerializable, IJsonModel<StreamingChatResponseToolCallUpdate>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ChatCompletionsToolCall>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<StreamingChatResponseToolCallUpdate>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<ChatCompletionsToolCall>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<StreamingChatResponseToolCallUpdate>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ChatCompletionsToolCall>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<StreamingChatResponseToolCallUpdate>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ChatCompletionsToolCall)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(StreamingChatResponseToolCallUpdate)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
             writer.WritePropertyName("id"u8);
             writer.WriteStringValue(Id);
-            writer.WritePropertyName("type"u8);
-            writer.WriteStringValue(Type.ToString());
             writer.WritePropertyName("function"u8);
             writer.WriteObjectValue(Function, options);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -50,19 +48,19 @@ namespace Azure.AI.Inference
             writer.WriteEndObject();
         }
 
-        ChatCompletionsToolCall IJsonModel<ChatCompletionsToolCall>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        StreamingChatResponseToolCallUpdate IJsonModel<StreamingChatResponseToolCallUpdate>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ChatCompletionsToolCall>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<StreamingChatResponseToolCallUpdate>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ChatCompletionsToolCall)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(StreamingChatResponseToolCallUpdate)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeChatCompletionsToolCall(document.RootElement, options);
+            return DeserializeStreamingChatResponseToolCallUpdate(document.RootElement, options);
         }
 
-        internal static ChatCompletionsToolCall DeserializeChatCompletionsToolCall(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static StreamingChatResponseToolCallUpdate DeserializeStreamingChatResponseToolCallUpdate(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -71,7 +69,6 @@ namespace Azure.AI.Inference
                 return null;
             }
             string id = default;
-            ChatCompletionsToolCallType type = default;
             FunctionCall function = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -80,11 +77,6 @@ namespace Azure.AI.Inference
                 if (property.NameEquals("id"u8))
                 {
                     id = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("type"u8))
-                {
-                    type = new ChatCompletionsToolCallType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("function"u8))
@@ -98,46 +90,46 @@ namespace Azure.AI.Inference
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ChatCompletionsToolCall(id, type, function, serializedAdditionalRawData);
+            return new StreamingChatResponseToolCallUpdate(id, function, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<ChatCompletionsToolCall>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<StreamingChatResponseToolCallUpdate>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ChatCompletionsToolCall>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<StreamingChatResponseToolCallUpdate>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(ChatCompletionsToolCall)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(StreamingChatResponseToolCallUpdate)} does not support writing '{options.Format}' format.");
             }
         }
 
-        ChatCompletionsToolCall IPersistableModel<ChatCompletionsToolCall>.Create(BinaryData data, ModelReaderWriterOptions options)
+        StreamingChatResponseToolCallUpdate IPersistableModel<StreamingChatResponseToolCallUpdate>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ChatCompletionsToolCall>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<StreamingChatResponseToolCallUpdate>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeChatCompletionsToolCall(document.RootElement, options);
+                        return DeserializeStreamingChatResponseToolCallUpdate(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ChatCompletionsToolCall)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(StreamingChatResponseToolCallUpdate)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ChatCompletionsToolCall>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<StreamingChatResponseToolCallUpdate>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static ChatCompletionsToolCall FromResponse(Response response)
+        internal static StreamingChatResponseToolCallUpdate FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeChatCompletionsToolCall(document.RootElement);
+            return DeserializeStreamingChatResponseToolCallUpdate(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>

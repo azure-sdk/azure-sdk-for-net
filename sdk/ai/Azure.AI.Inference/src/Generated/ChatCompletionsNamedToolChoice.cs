@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.Inference
 {
-    /// <summary> The definition of a chat completions tool that can call a function. </summary>
-    public partial class ChatCompletionsToolDefinition
+    /// <summary> A tool selection of a specific, named function tool that will limit chat completions to using the named function. </summary>
+    public partial class ChatCompletionsNamedToolChoice
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,36 +45,36 @@ namespace Azure.AI.Inference
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ChatCompletionsToolDefinition"/>. </summary>
-        /// <param name="function"> The function definition details for the function tool. </param>
+        /// <summary> Initializes a new instance of <see cref="ChatCompletionsNamedToolChoice"/>. </summary>
+        /// <param name="function"> The function that should be called. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="function"/> is null. </exception>
-        public ChatCompletionsToolDefinition(FunctionDefinition function)
+        public ChatCompletionsNamedToolChoice(ChatCompletionsNamedToolChoiceFunction function)
         {
             Argument.AssertNotNull(function, nameof(function));
 
             Function = function;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ChatCompletionsToolDefinition"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ChatCompletionsNamedToolChoice"/>. </summary>
         /// <param name="type"> The type of the tool. Currently, only `function` is supported. </param>
-        /// <param name="function"> The function definition details for the function tool. </param>
+        /// <param name="function"> The function that should be called. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ChatCompletionsToolDefinition(ChatCompletionsToolDefinitionType type, FunctionDefinition function, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ChatCompletionsNamedToolChoice(ChatCompletionsNamedToolChoiceType type, ChatCompletionsNamedToolChoiceFunction function, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Type = type;
             Function = function;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ChatCompletionsToolDefinition"/> for deserialization. </summary>
-        internal ChatCompletionsToolDefinition()
+        /// <summary> Initializes a new instance of <see cref="ChatCompletionsNamedToolChoice"/> for deserialization. </summary>
+        internal ChatCompletionsNamedToolChoice()
         {
         }
 
         /// <summary> The type of the tool. Currently, only `function` is supported. </summary>
-        public ChatCompletionsToolDefinitionType Type { get; } = ChatCompletionsToolDefinitionType.Function;
+        public ChatCompletionsNamedToolChoiceType Type { get; } = ChatCompletionsNamedToolChoiceType.Function;
 
-        /// <summary> The function definition details for the function tool. </summary>
-        public FunctionDefinition Function { get; }
+        /// <summary> The function that should be called. </summary>
+        public ChatCompletionsNamedToolChoiceFunction Function { get; }
     }
 }
