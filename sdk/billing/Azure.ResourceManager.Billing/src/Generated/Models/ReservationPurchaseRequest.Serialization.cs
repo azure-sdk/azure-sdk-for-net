@@ -95,11 +95,6 @@ namespace Azure.ResourceManager.Billing.Models
                 writer.WritePropertyName("renew"u8);
                 writer.WriteBooleanValue(IsRenewed.Value);
             }
-            if (Optional.IsDefined(InstanceFlexibilityPropertiesInstanceFlexibility))
-            {
-                writer.WritePropertyName("instanceFlexibility"u8);
-                writer.WriteStringValue(InstanceFlexibilityPropertiesInstanceFlexibility.Value.ToString());
-            }
             if (Optional.IsDefined(ReviewOn))
             {
                 writer.WritePropertyName("reviewDateTime"u8);
@@ -107,10 +102,10 @@ namespace Azure.ResourceManager.Billing.Models
             }
             writer.WritePropertyName("reservedResourceProperties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(InstanceFlexibilityPropertiesReservedResourcePropertiesInstanceFlexibility))
+            if (Optional.IsDefined(InstanceFlexibility))
             {
                 writer.WritePropertyName("instanceFlexibility"u8);
-                writer.WriteStringValue(InstanceFlexibilityPropertiesReservedResourcePropertiesInstanceFlexibility.Value.ToString());
+                writer.WriteStringValue(InstanceFlexibility.Value.ToString());
             }
             writer.WriteEndObject();
             writer.WriteEndObject();
@@ -164,9 +159,8 @@ namespace Azure.ResourceManager.Billing.Models
             IList<string> appliedScopes = default;
             ReservationAppliedScopeProperties appliedScopeProperties = default;
             bool? renew = default;
-            InstanceFlexibility? instanceFlexibility = default;
             DateTimeOffset? reviewDateTime = default;
-            InstanceFlexibility? instanceFlexibility0 = default;
+            InstanceFlexibility? instanceFlexibility = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -277,15 +271,6 @@ namespace Azure.ResourceManager.Billing.Models
                             renew = property0.Value.GetBoolean();
                             continue;
                         }
-                        if (property0.NameEquals("instanceFlexibility"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            instanceFlexibility = new InstanceFlexibility(property0.Value.GetString());
-                            continue;
-                        }
                         if (property0.NameEquals("reviewDateTime"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -310,7 +295,7 @@ namespace Azure.ResourceManager.Billing.Models
                                     {
                                         continue;
                                     }
-                                    instanceFlexibility0 = new InstanceFlexibility(property1.Value.GetString());
+                                    instanceFlexibility = new InstanceFlexibility(property1.Value.GetString());
                                     continue;
                                 }
                             }
@@ -338,9 +323,8 @@ namespace Azure.ResourceManager.Billing.Models
                 appliedScopes ?? new ChangeTrackingList<string>(),
                 appliedScopeProperties,
                 renew,
-                instanceFlexibility,
                 reviewDateTime,
-                instanceFlexibility0,
+                instanceFlexibility,
                 serializedAdditionalRawData);
         }
 
@@ -594,21 +578,6 @@ namespace Azure.ResourceManager.Billing.Models
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(InstanceFlexibilityPropertiesInstanceFlexibility), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    instanceFlexibility: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(InstanceFlexibilityPropertiesInstanceFlexibility))
-                {
-                    builder.Append("    instanceFlexibility: ");
-                    builder.AppendLine($"'{InstanceFlexibilityPropertiesInstanceFlexibility.Value.ToString()}'");
-                }
-            }
-
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ReviewOn), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -627,7 +596,7 @@ namespace Azure.ResourceManager.Billing.Models
 
             builder.Append("    reservedResourceProperties:");
             builder.AppendLine(" {");
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(InstanceFlexibilityPropertiesReservedResourcePropertiesInstanceFlexibility), out propertyOverride);
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(InstanceFlexibility), out propertyOverride);
             if (hasPropertyOverride)
             {
                 builder.Append("      instanceFlexibility: ");
@@ -635,10 +604,10 @@ namespace Azure.ResourceManager.Billing.Models
             }
             else
             {
-                if (Optional.IsDefined(InstanceFlexibilityPropertiesReservedResourcePropertiesInstanceFlexibility))
+                if (Optional.IsDefined(InstanceFlexibility))
                 {
                     builder.Append("      instanceFlexibility: ");
-                    builder.AppendLine($"'{InstanceFlexibilityPropertiesReservedResourcePropertiesInstanceFlexibility.Value.ToString()}'");
+                    builder.AppendLine($"'{InstanceFlexibility.Value.ToString()}'");
                 }
             }
 

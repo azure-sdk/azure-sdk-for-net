@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.Billing.Models
         /// <param name="totalCount"> Total number of records. </param>
         /// <param name="value"> The list of resources. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BillingSubscriptionListResult(string nextLink, int? totalCount, IReadOnlyList<BillingSubscriptionData> value, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BillingSubscriptionListResult(string nextLink, float? totalCount, IReadOnlyList<BillingSubscriptionData> value, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             NextLink = nextLink;
             TotalCount = totalCount;
@@ -67,7 +67,7 @@ namespace Azure.ResourceManager.Billing.Models
         /// <summary> The link (url) to the next page of results. </summary>
         public string NextLink { get; }
         /// <summary> Total number of records. </summary>
-        public int? TotalCount { get; }
+        public float? TotalCount { get; }
         /// <summary> The list of resources. </summary>
         public IReadOnlyList<BillingSubscriptionData> Value { get; }
     }

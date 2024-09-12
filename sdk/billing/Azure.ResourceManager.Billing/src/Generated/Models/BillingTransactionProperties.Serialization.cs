@@ -45,14 +45,7 @@ namespace Azure.ResourceManager.Billing.Models
             if (Optional.IsDefined(BillingProfileDisplayName))
             {
                 writer.WritePropertyName("billingProfileDisplayName"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(BillingProfileDisplayName);
-#else
-                using (JsonDocument document = JsonDocument.Parse(BillingProfileDisplayName))
-                {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
-#endif
+                writer.WriteStringValue(BillingProfileDisplayName);
             }
             if (Optional.IsDefined(BillingProfileId))
             {
@@ -270,7 +263,7 @@ namespace Azure.ResourceManager.Billing.Models
             BillingAmount azureCreditApplied = default;
             string azurePlan = default;
             string billingCurrency = default;
-            BinaryData billingProfileDisplayName = default;
+            string billingProfileDisplayName = default;
             ResourceIdentifier billingProfileId = default;
             BillingAmount consumptionCommitmentDecremented = default;
             string customerDisplayName = default;
@@ -331,11 +324,7 @@ namespace Azure.ResourceManager.Billing.Models
                 }
                 if (property.NameEquals("billingProfileDisplayName"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    billingProfileDisplayName = BinaryData.FromString(property.Value.GetRawText());
+                    billingProfileDisplayName = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("billingProfileId"u8))
@@ -733,7 +722,15 @@ namespace Azure.ResourceManager.Billing.Models
                 if (Optional.IsDefined(BillingProfileDisplayName))
                 {
                     builder.Append("  billingProfileDisplayName: ");
-                    builder.AppendLine($"'{BillingProfileDisplayName.ToString()}'");
+                    if (BillingProfileDisplayName.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{BillingProfileDisplayName}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{BillingProfileDisplayName}'");
+                    }
                 }
             }
 
