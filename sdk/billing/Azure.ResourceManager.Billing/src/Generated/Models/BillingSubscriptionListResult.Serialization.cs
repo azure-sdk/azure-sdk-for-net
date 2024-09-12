@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.Billing.Models
                 return null;
             }
             string nextLink = default;
-            int? totalCount = default;
+            float? totalCount = default;
             IReadOnlyList<BillingSubscriptionData> value = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -104,7 +104,7 @@ namespace Azure.ResourceManager.Billing.Models
                     {
                         continue;
                     }
-                    totalCount = property.Value.GetInt32();
+                    totalCount = property.Value.GetSingle();
                     continue;
                 }
                 if (property.NameEquals("value"u8))
@@ -175,7 +175,7 @@ namespace Azure.ResourceManager.Billing.Models
                 if (Optional.IsDefined(TotalCount))
                 {
                     builder.Append("  totalCount: ");
-                    builder.AppendLine($"{TotalCount.Value}");
+                    builder.AppendLine($"'{TotalCount.Value.ToString()}'");
                 }
             }
 
