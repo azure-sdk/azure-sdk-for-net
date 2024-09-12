@@ -11,29 +11,19 @@ using System.Collections.Generic;
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
     /// <summary> Event data for Microsoft.EventGrid.MQTTClientCreatedOrUpdated event. </summary>
-    public partial class EventGridMQTTClientCreatedOrUpdatedEventData : EventGridMQTTClientEventData
+    public partial class EventGridMqttClientCreatedOrUpdatedEventData : EventGridMqttClientEventData
     {
-        /// <summary> Initializes a new instance of <see cref="EventGridMQTTClientCreatedOrUpdatedEventData"/>. </summary>
-        /// <param name="state"> Configured state of the client. The value could be Enabled or Disabled. </param>
-        /// <param name="createdOn"> Time the client resource is created based on the provider's UTC time. </param>
-        /// <param name="updatedOn">
-        /// Time the client resource is last updated based on the provider's UTC time. If
-        /// the client resource was never updated, this value is identical to the value of
-        /// the 'createdOn' property.
-        /// </param>
+        /// <summary> Initializes a new instance of <see cref="EventGridMqttClientCreatedOrUpdatedEventData"/>. </summary>
         /// <param name="attributes"> The key-value attributes that are assigned to the client resource. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="attributes"/> is null. </exception>
-        internal EventGridMQTTClientCreatedOrUpdatedEventData(EventGridMQTTClientState state, DateTimeOffset createdOn, DateTimeOffset updatedOn, IReadOnlyDictionary<string, string> attributes)
+        internal EventGridMqttClientCreatedOrUpdatedEventData(IReadOnlyDictionary<string, string> attributes)
         {
             Argument.AssertNotNull(attributes, nameof(attributes));
 
-            State = state;
-            CreatedOn = createdOn;
-            UpdatedOn = updatedOn;
             Attributes = attributes;
         }
 
-        /// <summary> Initializes a new instance of <see cref="EventGridMQTTClientCreatedOrUpdatedEventData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="EventGridMqttClientCreatedOrUpdatedEventData"/>. </summary>
         /// <param name="clientAuthenticationName">
         /// Unique identifier for the MQTT client that the client presents to the service
         /// for authentication. This case-sensitive string can be up to 128 characters
@@ -50,7 +40,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// the 'createdOn' property.
         /// </param>
         /// <param name="attributes"> The key-value attributes that are assigned to the client resource. </param>
-        internal EventGridMQTTClientCreatedOrUpdatedEventData(string clientAuthenticationName, string clientName, string namespaceName, IDictionary<string, BinaryData> serializedAdditionalRawData, EventGridMQTTClientState state, DateTimeOffset createdOn, DateTimeOffset updatedOn, IReadOnlyDictionary<string, string> attributes) : base(clientAuthenticationName, clientName, namespaceName, serializedAdditionalRawData)
+        internal EventGridMqttClientCreatedOrUpdatedEventData(string clientAuthenticationName, string clientName, string namespaceName, IDictionary<string, BinaryData> serializedAdditionalRawData, EventGridMqttClientState? state, DateTimeOffset? createdOn, DateTimeOffset? updatedOn, IReadOnlyDictionary<string, string> attributes) : base(clientAuthenticationName, clientName, namespaceName, serializedAdditionalRawData)
         {
             State = state;
             CreatedOn = createdOn;
@@ -58,21 +48,21 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             Attributes = attributes;
         }
 
-        /// <summary> Initializes a new instance of <see cref="EventGridMQTTClientCreatedOrUpdatedEventData"/> for deserialization. </summary>
-        internal EventGridMQTTClientCreatedOrUpdatedEventData()
+        /// <summary> Initializes a new instance of <see cref="EventGridMqttClientCreatedOrUpdatedEventData"/> for deserialization. </summary>
+        internal EventGridMqttClientCreatedOrUpdatedEventData()
         {
         }
 
         /// <summary> Configured state of the client. The value could be Enabled or Disabled. </summary>
-        public EventGridMQTTClientState State { get; }
+        public EventGridMqttClientState? State { get; }
         /// <summary> Time the client resource is created based on the provider's UTC time. </summary>
-        public DateTimeOffset CreatedOn { get; }
+        public DateTimeOffset? CreatedOn { get; }
         /// <summary>
         /// Time the client resource is last updated based on the provider's UTC time. If
         /// the client resource was never updated, this value is identical to the value of
         /// the 'createdOn' property.
         /// </summary>
-        public DateTimeOffset UpdatedOn { get; }
+        public DateTimeOffset? UpdatedOn { get; }
         /// <summary> The key-value attributes that are assigned to the client resource. </summary>
         public IReadOnlyDictionary<string, string> Attributes { get; }
     }
