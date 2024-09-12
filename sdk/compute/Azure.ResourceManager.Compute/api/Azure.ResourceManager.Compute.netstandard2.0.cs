@@ -5331,6 +5331,7 @@ namespace Azure.ResourceManager.Compute.Models
     {
         public GalleryImageFeature() { }
         public string Name { get { throw null; } set { } }
+        public string StartsAtVersion { get { throw null; } set { } }
         public string Value { get { throw null; } set { } }
         Azure.ResourceManager.Compute.Models.GalleryImageFeature System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryImageFeature>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryImageFeature>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
