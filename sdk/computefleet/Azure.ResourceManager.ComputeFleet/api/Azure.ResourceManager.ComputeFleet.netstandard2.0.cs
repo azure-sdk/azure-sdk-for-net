@@ -622,9 +622,7 @@ namespace Azure.ResourceManager.ComputeFleet.Models
         public ComputeFleetProvisioningState(string value) { throw null; }
         public static Azure.ResourceManager.ComputeFleet.Models.ComputeFleetProvisioningState Canceled { get { throw null; } }
         public static Azure.ResourceManager.ComputeFleet.Models.ComputeFleetProvisioningState Creating { get { throw null; } }
-        public static Azure.ResourceManager.ComputeFleet.Models.ComputeFleetProvisioningState Deleting { get { throw null; } }
         public static Azure.ResourceManager.ComputeFleet.Models.ComputeFleetProvisioningState Failed { get { throw null; } }
-        public static Azure.ResourceManager.ComputeFleet.Models.ComputeFleetProvisioningState Migrating { get { throw null; } }
         public static Azure.ResourceManager.ComputeFleet.Models.ComputeFleetProvisioningState Succeeded { get { throw null; } }
         public static Azure.ResourceManager.ComputeFleet.Models.ComputeFleetProvisioningState Updating { get { throw null; } }
         public bool Equals(Azure.ResourceManager.ComputeFleet.Models.ComputeFleetProvisioningState other) { throw null; }
