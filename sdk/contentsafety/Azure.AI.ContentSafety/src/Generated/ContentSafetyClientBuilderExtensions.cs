@@ -18,6 +18,7 @@ namespace Microsoft.Extensions.Azure
         /// <summary> Registers a <see cref="ContentSafetyClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint">
+        /// test
         /// Supported Cognitive Services endpoints (protocol and hostname, for example:
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
@@ -31,6 +32,7 @@ namespace Microsoft.Extensions.Azure
         /// <summary> Registers a <see cref="ContentSafetyClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint">
+        /// test
         /// Supported Cognitive Services endpoints (protocol and hostname, for example:
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
@@ -43,6 +45,7 @@ namespace Microsoft.Extensions.Azure
         /// <summary> Registers a <see cref="BlocklistClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint">
+        /// test
         /// Supported Cognitive Services endpoints (protocol and hostname, for example:
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
@@ -56,6 +59,7 @@ namespace Microsoft.Extensions.Azure
         /// <summary> Registers a <see cref="BlocklistClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint">
+        /// test
         /// Supported Cognitive Services endpoints (protocol and hostname, for example:
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>

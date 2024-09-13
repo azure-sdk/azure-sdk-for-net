@@ -39,6 +39,7 @@ namespace Azure.AI.ContentSafety
 
         /// <summary> Initializes a new instance of BlocklistClient. </summary>
         /// <param name="endpoint">
+        /// test
         /// Supported Cognitive Services endpoints (protocol and hostname, for example:
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
@@ -50,6 +51,7 @@ namespace Azure.AI.ContentSafety
 
         /// <summary> Initializes a new instance of BlocklistClient. </summary>
         /// <param name="endpoint">
+        /// test
         /// Supported Cognitive Services endpoints (protocol and hostname, for example:
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
@@ -61,6 +63,7 @@ namespace Azure.AI.ContentSafety
 
         /// <summary> Initializes a new instance of BlocklistClient. </summary>
         /// <param name="endpoint">
+        /// test
         /// Supported Cognitive Services endpoints (protocol and hostname, for example:
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
@@ -82,6 +85,7 @@ namespace Azure.AI.ContentSafety
 
         /// <summary> Initializes a new instance of BlocklistClient. </summary>
         /// <param name="endpoint">
+        /// test
         /// Supported Cognitive Services endpoints (protocol and hostname, for example:
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
