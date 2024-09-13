@@ -7,7 +7,7 @@ azure-arm: true
 csharp: true
 library-name: Workloads
 namespace: Azure.ResourceManager.Workloads
-require: https://github.com/Azure/azure-rest-api-specs/blob/c9a6e0a98a51ebc0c7a346f4fd425ba185f44b31/specification/workloads/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/workloads/resource-manager/readme.md
 tag: package-2023-04
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
