@@ -7,7 +7,6 @@
 
 using System;
 using System.Threading.Tasks;
-using System.Xml;
 using Azure.Core;
 using Azure.Identity;
 using Azure.ResourceManager.Compute.Models;
@@ -1196,7 +1195,7 @@ Id = new ResourceIdentifier("/subscriptions/{subscription-id}/resourceGroups/myR
             // invoke the operation
             VirtualMachineInstallPatchesContent content = new VirtualMachineInstallPatchesContent(VmGuestPatchRebootSetting.IfRequired)
             {
-                MaximumDuration = XmlConvert.ToTimeSpan("PT4H"),
+                MaximumDuration = TimeSpan.Parse("PT4H"),
                 WindowsParameters = new WindowsParameters()
                 {
                     ClassificationsToInclude =
