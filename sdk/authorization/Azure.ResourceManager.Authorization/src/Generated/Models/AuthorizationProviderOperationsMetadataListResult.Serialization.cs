@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.Authorization.Models
             {
                 return null;
             }
-            IReadOnlyList<AuthorizationProviderOperationsMetadataData> value = default;
+            IReadOnlyList<AuthorizationProviderOperationsMetadata> value = default;
             string nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -100,10 +100,10 @@ namespace Azure.ResourceManager.Authorization.Models
                     {
                         continue;
                     }
-                    List<AuthorizationProviderOperationsMetadataData> array = new List<AuthorizationProviderOperationsMetadataData>();
+                    List<AuthorizationProviderOperationsMetadata> array = new List<AuthorizationProviderOperationsMetadata>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(AuthorizationProviderOperationsMetadataData.DeserializeAuthorizationProviderOperationsMetadataData(item, options));
+                        array.Add(AuthorizationProviderOperationsMetadata.DeserializeAuthorizationProviderOperationsMetadata(item, options));
                     }
                     value = array;
                     continue;
@@ -119,7 +119,7 @@ namespace Azure.ResourceManager.Authorization.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AuthorizationProviderOperationsMetadataListResult(value ?? new ChangeTrackingList<AuthorizationProviderOperationsMetadataData>(), nextLink, serializedAdditionalRawData);
+            return new AuthorizationProviderOperationsMetadataListResult(value ?? new ChangeTrackingList<AuthorizationProviderOperationsMetadata>(), nextLink, serializedAdditionalRawData);
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)
