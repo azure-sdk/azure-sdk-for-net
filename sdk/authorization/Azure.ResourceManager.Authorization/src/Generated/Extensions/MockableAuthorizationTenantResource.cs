@@ -8,8 +8,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.ResourceManager.Authorization.Models;
 
 namespace Azure.ResourceManager.Authorization.Mocking
 {
@@ -18,6 +20,8 @@ namespace Azure.ResourceManager.Authorization.Mocking
     {
         private ClientDiagnostics _globalAdministratorClientDiagnostics;
         private GlobalAdministratorRestOperations _globalAdministratorRestClient;
+        private ClientDiagnostics _providerOperationsMetadataClientDiagnostics;
+        private ProviderOperationsMetadataRestOperations _providerOperationsMetadataRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="MockableAuthorizationTenantResource"/> class for mocking. </summary>
         protected MockableAuthorizationTenantResource()
@@ -33,80 +37,13 @@ namespace Azure.ResourceManager.Authorization.Mocking
 
         private ClientDiagnostics GlobalAdministratorClientDiagnostics => _globalAdministratorClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Authorization", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private GlobalAdministratorRestOperations GlobalAdministratorRestClient => _globalAdministratorRestClient ??= new GlobalAdministratorRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics ProviderOperationsMetadataClientDiagnostics => _providerOperationsMetadataClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Authorization", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private ProviderOperationsMetadataRestOperations ProviderOperationsMetadataRestClient => _providerOperationsMetadataRestClient ??= new ProviderOperationsMetadataRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
             TryGetApiVersion(resourceType, out string apiVersion);
             return apiVersion;
-        }
-
-        /// <summary> Gets a collection of AuthorizationProviderOperationsMetadataResources in the TenantResource. </summary>
-        /// <returns> An object representing collection of AuthorizationProviderOperationsMetadataResources and their operations over a AuthorizationProviderOperationsMetadataResource. </returns>
-        public virtual AuthorizationProviderOperationsMetadataCollection GetAllAuthorizationProviderOperationsMetadata()
-        {
-            return GetCachedClient(client => new AuthorizationProviderOperationsMetadataCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Gets provider operations metadata for the specified resource provider.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Authorization/providerOperations/{resourceProviderNamespace}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ProviderOperationsMetadata_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2022-04-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="AuthorizationProviderOperationsMetadataResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="resourceProviderNamespace"> The namespace of the resource provider. </param>
-        /// <param name="expand"> Specifies whether to expand the values. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderNamespace"/> is null. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<AuthorizationProviderOperationsMetadataResource>> GetAuthorizationProviderOperationsMetadataAsync(string resourceProviderNamespace, string expand = null, CancellationToken cancellationToken = default)
-        {
-            return await GetAllAuthorizationProviderOperationsMetadata().GetAsync(resourceProviderNamespace, expand, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets provider operations metadata for the specified resource provider.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Authorization/providerOperations/{resourceProviderNamespace}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ProviderOperationsMetadata_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2022-04-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="AuthorizationProviderOperationsMetadataResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="resourceProviderNamespace"> The namespace of the resource provider. </param>
-        /// <param name="expand"> Specifies whether to expand the values. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderNamespace"/> is null. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<AuthorizationProviderOperationsMetadataResource> GetAuthorizationProviderOperationsMetadata(string resourceProviderNamespace, string expand = null, CancellationToken cancellationToken = default)
-        {
-            return GetAllAuthorizationProviderOperationsMetadata().Get(resourceProviderNamespace, expand, cancellationToken);
         }
 
         /// <summary>
@@ -175,6 +112,60 @@ namespace Azure.ResourceManager.Authorization.Mocking
                 scope.Failed(e);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Gets provider operations metadata for all resource providers.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Authorization/providerOperations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ProviderOperationsMetadata_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2022-04-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="expand"> Specifies whether to expand the values. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="AuthorizationProviderOperationsMetadata"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<AuthorizationProviderOperationsMetadata> GetAllProviderOperationsMetadataAsync(string expand = null, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ProviderOperationsMetadataRestClient.CreateListRequest(expand);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ProviderOperationsMetadataRestClient.CreateListNextPageRequest(nextLink, expand);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => AuthorizationProviderOperationsMetadata.DeserializeAuthorizationProviderOperationsMetadata(e), ProviderOperationsMetadataClientDiagnostics, Pipeline, "MockableAuthorizationTenantResource.GetAllProviderOperationsMetadata", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets provider operations metadata for all resource providers.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Authorization/providerOperations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ProviderOperationsMetadata_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2022-04-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="expand"> Specifies whether to expand the values. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="AuthorizationProviderOperationsMetadata"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<AuthorizationProviderOperationsMetadata> GetAllProviderOperationsMetadata(string expand = null, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ProviderOperationsMetadataRestClient.CreateListRequest(expand);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ProviderOperationsMetadataRestClient.CreateListNextPageRequest(nextLink, expand);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => AuthorizationProviderOperationsMetadata.DeserializeAuthorizationProviderOperationsMetadata(e), ProviderOperationsMetadataClientDiagnostics, Pipeline, "MockableAuthorizationTenantResource.GetAllProviderOperationsMetadata", "value", "nextLink", cancellationToken);
         }
     }
 }
