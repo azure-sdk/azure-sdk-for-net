@@ -28,101 +28,6 @@ namespace Azure.Developer.DevCenter.Models
             return new DevCenterProject(name, description, maxDevBoxesPerUser, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.DevBox"/>. </summary>
-        /// <param name="name"> Display name for the Dev Box. </param>
-        /// <param name="projectName"> Name of the project this Dev Box belongs to. </param>
-        /// <param name="poolName"> The name of the Dev Box pool this machine belongs to. </param>
-        /// <param name="hibernateSupport"> Indicates whether hibernate is enabled/disabled or unknown. </param>
-        /// <param name="provisioningState"> The current provisioning state of the Dev Box. </param>
-        /// <param name="actionState">
-        /// The current action state of the Dev Box. This is state is based on previous
-        /// action performed by user.
-        /// </param>
-        /// <param name="powerState"> The current power state of the Dev Box. </param>
-        /// <param name="uniqueId">
-        /// A unique identifier for the Dev Box. This is a GUID-formatted string (e.g.
-        /// 00000000-0000-0000-0000-000000000000).
-        /// </param>
-        /// <param name="error"> Provisioning or action error details. Populated only for error states. </param>
-        /// <param name="location">
-        /// Azure region where this Dev Box is located. This will be the same region as the
-        /// Virtual Network it is attached to.
-        /// </param>
-        /// <param name="osType"> The operating system type of this Dev Box. </param>
-        /// <param name="userId"> The AAD object id of the user this Dev Box is assigned to. </param>
-        /// <param name="hardwareProfile"> Information about the Dev Box's hardware resources. </param>
-        /// <param name="storageProfile"> Storage settings for this Dev Box. </param>
-        /// <param name="imageReference"> Information about the image used for this Dev Box. </param>
-        /// <param name="createdTime"> Creation time of this Dev Box. </param>
-        /// <param name="localAdministratorStatus"> Indicates whether the owner of the Dev Box is a local administrator. </param>
-        /// <returns> A new <see cref="Models.DevBox"/> instance for mocking. </returns>
-        public static DevBox DevBox(string name = null, string projectName = null, string poolName = null, HibernateSupport? hibernateSupport = null, DevBoxProvisioningState? provisioningState = null, string actionState = null, PowerState? powerState = null, Guid? uniqueId = null, ResponseError error = null, AzureLocation? location = null, DevBoxOSType? osType = null, Guid? userId = null, DevBoxHardwareProfile hardwareProfile = null, DevBoxStorageProfile storageProfile = null, DevBoxImageReference imageReference = null, DateTimeOffset? createdTime = null, LocalAdministratorStatus? localAdministratorStatus = null)
-        {
-            return new DevBox(
-                name,
-                projectName,
-                poolName,
-                hibernateSupport,
-                provisioningState,
-                actionState,
-                powerState,
-                uniqueId,
-                error,
-                location,
-                osType,
-                userId,
-                hardwareProfile,
-                storageProfile,
-                imageReference,
-                createdTime,
-                localAdministratorStatus,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DevBoxHardwareProfile"/>. </summary>
-        /// <param name="skuName"> The name of the SKU. </param>
-        /// <param name="vcpUs"> The number of vCPUs available for the Dev Box. </param>
-        /// <param name="memoryGB"> The amount of memory available for the Dev Box. </param>
-        /// <returns> A new <see cref="Models.DevBoxHardwareProfile"/> instance for mocking. </returns>
-        public static DevBoxHardwareProfile DevBoxHardwareProfile(SkuName? skuName = null, int? vcpUs = null, int? memoryGB = null)
-        {
-            return new DevBoxHardwareProfile(skuName, vcpUs, memoryGB, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DevBoxStorageProfile"/>. </summary>
-        /// <param name="osDisk"> Settings for the operating system disk. </param>
-        /// <returns> A new <see cref="Models.DevBoxStorageProfile"/> instance for mocking. </returns>
-        public static DevBoxStorageProfile DevBoxStorageProfile(OSDisk osDisk = null)
-        {
-            return new DevBoxStorageProfile(osDisk, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.OSDisk"/>. </summary>
-        /// <param name="diskSizeGB"> The size of the OS Disk in gigabytes. </param>
-        /// <returns> A new <see cref="Models.OSDisk"/> instance for mocking. </returns>
-        public static OSDisk OSDisk(int? diskSizeGB = null)
-        {
-            return new OSDisk(diskSizeGB, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DevBoxImageReference"/>. </summary>
-        /// <param name="name"> The name of the image used. </param>
-        /// <param name="version"> The version of the image. </param>
-        /// <param name="operatingSystem"> The operating system of the image. </param>
-        /// <param name="osBuildNumber"> The operating system build number of the image. </param>
-        /// <param name="publishedDate"> The datetime that the backing image version was published. </param>
-        /// <returns> A new <see cref="Models.DevBoxImageReference"/> instance for mocking. </returns>
-        public static DevBoxImageReference DevBoxImageReference(string name = null, string version = null, string operatingSystem = null, string osBuildNumber = null, DateTimeOffset? publishedDate = null)
-        {
-            return new DevBoxImageReference(
-                name,
-                version,
-                operatingSystem,
-                osBuildNumber,
-                publishedDate,
-                serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="Models.DevBoxPool"/>. </summary>
         /// <param name="name"> Pool name. </param>
         /// <param name="location"> Azure region where Dev Boxes in the pool are located. </param>
@@ -157,6 +62,50 @@ namespace Azure.Developer.DevCenter.Models
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Models.DevBoxHardwareProfile"/>. </summary>
+        /// <param name="skuName"> The name of the SKU. </param>
+        /// <param name="vcpUs"> The number of vCPUs available for the Dev Box. </param>
+        /// <param name="memoryGB"> The amount of memory available for the Dev Box. </param>
+        /// <returns> A new <see cref="Models.DevBoxHardwareProfile"/> instance for mocking. </returns>
+        public static DevBoxHardwareProfile DevBoxHardwareProfile(SkuName? skuName = null, int? vcpUs = null, int? memoryGB = null)
+        {
+            return new DevBoxHardwareProfile(skuName, vcpUs, memoryGB, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.DevBoxStorageProfile"/>. </summary>
+        /// <param name="osDisk"> Settings for the operating system disk. </param>
+        /// <returns> A new <see cref="Models.DevBoxStorageProfile"/> instance for mocking. </returns>
+        public static DevBoxStorageProfile DevBoxStorageProfile(OSDisk osDisk = null)
+        {
+            return new DevBoxStorageProfile(osDisk, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.OSDisk"/>. </summary>
+        /// <param name="diskSizeGB"> The size of the OS Disk in gigabytes. </param>
+        /// <returns> A new <see cref="Models.OSDisk"/> instance for mocking. </returns>
+        public static OSDisk OSDisk(int? diskSizeGB = null)
+        {
+            return new OSDisk(diskSizeGB, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.DevBoxImageReference"/>. </summary>
+        /// <param name="name"> The name of the image used. </param>
+        /// <param name="version"> The version of the image. </param>
+        /// <param name="operatingSystem"> The operating system of the image. </param>
+        /// <param name="osBuildNumber"> The operating system build number of the image. </param>
+        /// <param name="publishedDate"> The datetime that the backing image version was published, in RFC3339 format. </param>
+        /// <returns> A new <see cref="Models.DevBoxImageReference"/> instance for mocking. </returns>
+        public static DevBoxImageReference DevBoxImageReference(string name = null, string version = null, string operatingSystem = null, string osBuildNumber = null, DateTimeOffset? publishedDate = null)
+        {
+            return new DevBoxImageReference(
+                name,
+                version,
+                operatingSystem,
+                osBuildNumber,
+                publishedDate,
+                serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Models.StopOnDisconnectConfiguration"/>. </summary>
         /// <param name="status">
         /// Indicates whether the feature to stop the devbox on disconnect once the grace
@@ -170,6 +119,57 @@ namespace Azure.Developer.DevCenter.Models
         public static StopOnDisconnectConfiguration StopOnDisconnectConfiguration(StopOnDisconnectStatus status = default, int? gracePeriodMinutes = null)
         {
             return new StopOnDisconnectConfiguration(status, gracePeriodMinutes, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.DevBox"/>. </summary>
+        /// <param name="name"> Display name for the Dev Box. </param>
+        /// <param name="projectName"> Name of the project this Dev Box belongs to. </param>
+        /// <param name="poolName"> The name of the Dev Box pool this machine belongs to. </param>
+        /// <param name="hibernateSupport"> Indicates whether hibernate is enabled/disabled or unknown. </param>
+        /// <param name="provisioningState"> The current provisioning state of the Dev Box. </param>
+        /// <param name="actionState">
+        /// The current action state of the Dev Box. This is state is based on previous
+        /// action performed by user.
+        /// </param>
+        /// <param name="powerState"> The current power state of the Dev Box. </param>
+        /// <param name="uniqueId">
+        /// A unique identifier for the Dev Box. This is a GUID-formatted string (e.g.
+        /// 00000000-0000-0000-0000-000000000000).
+        /// </param>
+        /// <param name="error"> Provisioning or action error details. Populated only for error states. </param>
+        /// <param name="location">
+        /// Azure region where this Dev Box is located. This will be the same region as the
+        /// Virtual Network it is attached to.
+        /// </param>
+        /// <param name="osType"> The operating system type of this Dev Box. </param>
+        /// <param name="userId"> The AAD object id of the user this Dev Box is assigned to. </param>
+        /// <param name="hardwareProfile"> Information about the Dev Box's hardware resources. </param>
+        /// <param name="storageProfile"> Storage settings for this Dev Box. </param>
+        /// <param name="imageReference"> Information about the image used for this Dev Box. </param>
+        /// <param name="createdTime"> Creation time of this Dev Box, in RFC3339 format. </param>
+        /// <param name="localAdministratorStatus"> Indicates whether the owner of the Dev Box is a local administrator. </param>
+        /// <returns> A new <see cref="Models.DevBox"/> instance for mocking. </returns>
+        public static DevBox DevBox(string name = null, string projectName = null, string poolName = null, HibernateSupport? hibernateSupport = null, DevBoxProvisioningState? provisioningState = null, string actionState = null, PowerState? powerState = null, Guid? uniqueId = null, ResponseError error = null, AzureLocation? location = null, DevBoxOSType? osType = null, Guid? userId = null, DevBoxHardwareProfile hardwareProfile = null, DevBoxStorageProfile storageProfile = null, DevBoxImageReference imageReference = null, DateTimeOffset? createdTime = null, LocalAdministratorStatus? localAdministratorStatus = null)
+        {
+            return new DevBox(
+                name,
+                projectName,
+                poolName,
+                hibernateSupport,
+                provisioningState,
+                actionState,
+                powerState,
+                uniqueId,
+                error,
+                location,
+                osType,
+                userId,
+                hardwareProfile,
+                storageProfile,
+                imageReference,
+                createdTime,
+                localAdministratorStatus,
+                serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.DevBoxSchedule"/>. </summary>
@@ -190,6 +190,14 @@ namespace Azure.Developer.DevCenter.Models
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Models.DevCenterCatalog"/>. </summary>
+        /// <param name="name"> Name of the catalog. </param>
+        /// <returns> A new <see cref="Models.DevCenterCatalog"/> instance for mocking. </returns>
+        public static DevCenterCatalog DevCenterCatalog(string name = null)
+        {
+            return new DevCenterCatalog(name, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Models.RemoteConnection"/>. </summary>
         /// <param name="webUri"> URL to open a browser based RDP session. </param>
         /// <param name="rdpConnectionUri"> Link to open a Remote Desktop session. </param>
@@ -203,7 +211,7 @@ namespace Azure.Developer.DevCenter.Models
         /// <param name="name"> The name of the action. </param>
         /// <param name="actionType"> The action that will be taken. </param>
         /// <param name="sourceId"> The id of the resource which triggered this action. </param>
-        /// <param name="suspendedUntil"> The earliest time that the action could occur (UTC). </param>
+        /// <param name="suspendedUntil"> The earliest time that the action could occur (UTC), in RFC3339 format. </param>
         /// <param name="nextAction"> Details about the next run of this action. </param>
         /// <returns> A new <see cref="Models.DevBoxAction"/> instance for mocking. </returns>
         public static DevBoxAction DevBoxAction(string name = null, DevBoxActionType actionType = default, string sourceId = null, DateTimeOffset? suspendedUntil = null, DevBoxNextAction nextAction = null)
@@ -218,7 +226,7 @@ namespace Azure.Developer.DevCenter.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.DevBoxNextAction"/>. </summary>
-        /// <param name="scheduledTime"> The time the action will be triggered (UTC). </param>
+        /// <param name="scheduledTime"> The time the action will be triggered (UTC), in RFC3339 format. </param>
         /// <returns> A new <see cref="Models.DevBoxNextAction"/> instance for mocking. </returns>
         public static DevBoxNextAction DevBoxNextAction(DateTimeOffset scheduledTime = default)
         {
@@ -264,14 +272,6 @@ namespace Azure.Developer.DevCenter.Models
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.DevCenterCatalog"/>. </summary>
-        /// <param name="name"> Name of the catalog. </param>
-        /// <returns> A new <see cref="Models.DevCenterCatalog"/> instance for mocking. </returns>
-        public static DevCenterCatalog DevCenterCatalog(string name = null)
-        {
-            return new DevCenterCatalog(name, serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="Models.EnvironmentDefinition"/>. </summary>
         /// <param name="id"> The ID of the environment definition. </param>
         /// <param name="name"> Name of the environment definition. </param>
@@ -303,7 +303,7 @@ namespace Azure.Developer.DevCenter.Models
         /// <param name="defaultValue"> Default value of the parameter. </param>
         /// <param name="parameterType">
         /// A string of one of the basic JSON types (number, integer, array, object,
-        /// boolean, string)
+        /// boolean, string).
         /// </param>
         /// <param name="readOnly">
         /// Whether or not this parameter is read-only.  If true, default should have a
