@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Azure.Core;
 using Azure.ResourceManager.Models;
@@ -68,8 +69,11 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         /// <param name="etag"> The Etag field is *not* required. If it is provided in the response body, it must also be provided as a header per the normal ETag convention. </param>
         /// <param name="properties"> Service specific properties for a provisioning service. </param>
         /// <param name="sku"> Sku info for a provisioning Service. </param>
+        /// <param name="identity"> The managed identities for a provisioning service. </param>
+        /// <param name="resourcegroup"> The resource group of the resource. </param>
+        /// <param name="subscriptionid"> The subscription id of the resource. </param>
         /// <returns> A new <see cref="DeviceProvisioningServices.DeviceProvisioningServiceData"/> instance for mocking. </returns>
-        public static DeviceProvisioningServiceData DeviceProvisioningServiceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ETag? etag = null, DeviceProvisioningServiceProperties properties = null, DeviceProvisioningServicesSkuInfo sku = null)
+        public static DeviceProvisioningServiceData DeviceProvisioningServiceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ETag? etag = null, DeviceProvisioningServiceProperties properties = null, DeviceProvisioningServicesSkuInfo sku = null, ManagedServiceIdentity identity = null, string resourcegroup = null, string subscriptionid = null)
         {
             tags ??= new Dictionary<string, string>();
 
@@ -83,6 +87,9 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
                 etag,
                 properties,
                 sku,
+                identity,
+                resourcegroup,
+                subscriptionid,
                 serializedAdditionalRawData: null);
         }
 
@@ -102,8 +109,9 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         /// Optional.
         /// Indicates if the DPS instance has Data Residency enabled, removing the cross geo-pair disaster recovery.
         /// </param>
+        /// <param name="portalOperationsHostName"> Portal endpoint to enable CORS for this provisioning service. </param>
         /// <returns> A new <see cref="Models.DeviceProvisioningServiceProperties"/> instance for mocking. </returns>
-        public static DeviceProvisioningServiceProperties DeviceProvisioningServiceProperties(DeviceProvisioningServicesState? state = null, DeviceProvisioningServicesPublicNetworkAccess? publicNetworkAccess = null, IEnumerable<DeviceProvisioningServicesIPFilterRule> ipFilterRules = null, IEnumerable<DeviceProvisioningServicesPrivateEndpointConnectionData> privateEndpointConnections = null, string provisioningState = null, IEnumerable<IotHubDefinitionDescription> iotHubs = null, DeviceProvisioningServicesAllocationPolicy? allocationPolicy = null, string serviceOperationsHostName = null, string deviceProvisioningHostName = null, string idScope = null, IEnumerable<DeviceProvisioningServicesSharedAccessKey> authorizationPolicies = null, bool? isDataResidencyEnabled = null)
+        public static DeviceProvisioningServiceProperties DeviceProvisioningServiceProperties(DeviceProvisioningServicesState? state = null, DeviceProvisioningServicesPublicNetworkAccess? publicNetworkAccess = null, IEnumerable<DeviceProvisioningServicesIPFilterRule> ipFilterRules = null, IEnumerable<DeviceProvisioningServicesPrivateEndpointConnectionData> privateEndpointConnections = null, string provisioningState = null, IEnumerable<IotHubDefinitionDescription> iotHubs = null, DeviceProvisioningServicesAllocationPolicy? allocationPolicy = null, string serviceOperationsHostName = null, string deviceProvisioningHostName = null, string idScope = null, IEnumerable<DeviceProvisioningServicesSharedAccessKey> authorizationPolicies = null, bool? isDataResidencyEnabled = null, string portalOperationsHostName = null)
         {
             ipFilterRules ??= new List<DeviceProvisioningServicesIPFilterRule>();
             privateEndpointConnections ??= new List<DeviceProvisioningServicesPrivateEndpointConnectionData>();
@@ -123,6 +131,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
                 idScope,
                 authorizationPolicies?.ToList(),
                 isDataResidencyEnabled,
+                portalOperationsHostName,
                 serializedAdditionalRawData: null);
         }
 
@@ -263,6 +272,46 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
             requiredZoneNames ??= new List<string>();
 
             return new DeviceProvisioningServicesPrivateLinkResourceProperties(groupId, requiredMembers?.ToList(), requiredZoneNames?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of DeviceProvisioningServiceData. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="etag"> The Etag field is *not* required. If it is provided in the response body, it must also be provided as a header per the normal ETag convention. </param>
+        /// <param name="properties"> Service specific properties for a provisioning service. </param>
+        /// <param name="sku"> Sku info for a provisioning Service. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.DeviceProvisioningServices.DeviceProvisioningServiceData" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static DeviceProvisioningServiceData DeviceProvisioningServiceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ETag? etag, DeviceProvisioningServiceProperties properties, DeviceProvisioningServicesSkuInfo sku)
+        {
+            return DeviceProvisioningServiceData(id: id, name: name, resourceType: resourceType, systemData: systemData, tags: tags, location: location, etag: etag, properties: properties, sku: sku, identity: default, resourcegroup: default, subscriptionid: default);
+        }
+
+        /// <summary> Initializes a new instance of DeviceProvisioningServiceProperties. </summary>
+        /// <param name="state"> Current state of the provisioning service. </param>
+        /// <param name="publicNetworkAccess"> Whether requests from Public Network are allowed. </param>
+        /// <param name="ipFilterRules"> The IP filter rules. </param>
+        /// <param name="privateEndpointConnections"> Private endpoint connections created on this IotHub. </param>
+        /// <param name="provisioningState"> The ARM provisioning state of the provisioning service. </param>
+        /// <param name="iotHubs"> List of IoT hubs associated with this provisioning service. </param>
+        /// <param name="allocationPolicy"> Allocation policy to be used by this provisioning service. </param>
+        /// <param name="serviceOperationsHostName"> Service endpoint for provisioning service. </param>
+        /// <param name="deviceProvisioningHostName"> Device endpoint for this provisioning service. </param>
+        /// <param name="idScope"> Unique identifier of this provisioning service. </param>
+        /// <param name="authorizationPolicies"> List of authorization keys for a provisioning service. </param>
+        /// <param name="isDataResidencyEnabled">
+        /// Optional.
+        /// Indicates if the DPS instance has Data Residency enabled, removing the cross geo-pair disaster recovery.
+        /// </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.DeviceProvisioningServices.Models.DeviceProvisioningServiceProperties" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static DeviceProvisioningServiceProperties DeviceProvisioningServiceProperties(DeviceProvisioningServicesState? state, DeviceProvisioningServicesPublicNetworkAccess? publicNetworkAccess, IEnumerable<DeviceProvisioningServicesIPFilterRule> ipFilterRules, IEnumerable<DeviceProvisioningServicesPrivateEndpointConnectionData> privateEndpointConnections, string provisioningState, IEnumerable<IotHubDefinitionDescription> iotHubs, DeviceProvisioningServicesAllocationPolicy? allocationPolicy, string serviceOperationsHostName, string deviceProvisioningHostName, string idScope, IEnumerable<DeviceProvisioningServicesSharedAccessKey> authorizationPolicies, bool? isDataResidencyEnabled)
+        {
+            return DeviceProvisioningServiceProperties(state: state, publicNetworkAccess: publicNetworkAccess, ipFilterRules: ipFilterRules, privateEndpointConnections: privateEndpointConnections, provisioningState: provisioningState, iotHubs: iotHubs, allocationPolicy: allocationPolicy, serviceOperationsHostName: serviceOperationsHostName, deviceProvisioningHostName: deviceProvisioningHostName, idScope: idScope, authorizationPolicies: authorizationPolicies, isDataResidencyEnabled: isDataResidencyEnabled, portalOperationsHostName: default);
         }
     }
 }

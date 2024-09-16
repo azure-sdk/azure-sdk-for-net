@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-05</description>
+        /// <description>2023-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -84,7 +84,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-05</description>
+        /// <description>2023-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
