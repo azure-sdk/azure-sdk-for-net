@@ -50,6 +50,11 @@ namespace Azure.ResourceManager.Relay
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
+            if (Optional.IsDefined(TrustedServiceAccessEnabled))
+            {
+                writer.WritePropertyName("trustedServiceAccessEnabled"u8);
+                writer.WriteBooleanValue(TrustedServiceAccessEnabled.Value);
+            }
             if (Optional.IsDefined(DefaultAction))
             {
                 writer.WritePropertyName("defaultAction"u8);
@@ -113,6 +118,7 @@ namespace Azure.ResourceManager.Relay
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
+            bool? trustedServiceAccessEnabled = default;
             RelayNetworkRuleSetDefaultAction? defaultAction = default;
             RelayPublicNetworkAccess? publicNetworkAccess = default;
             IList<RelayNetworkRuleSetIPRule> ipRules = default;
@@ -153,6 +159,15 @@ namespace Azure.ResourceManager.Relay
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
+                        if (property0.NameEquals("trustedServiceAccessEnabled"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            trustedServiceAccessEnabled = property0.Value.GetBoolean();
+                            continue;
+                        }
                         if (property0.NameEquals("defaultAction"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -199,6 +214,7 @@ namespace Azure.ResourceManager.Relay
                 name,
                 type,
                 systemData,
+                trustedServiceAccessEnabled,
                 defaultAction,
                 publicNetworkAccess,
                 ipRules ?? new ChangeTrackingList<RelayNetworkRuleSetIPRule>(),

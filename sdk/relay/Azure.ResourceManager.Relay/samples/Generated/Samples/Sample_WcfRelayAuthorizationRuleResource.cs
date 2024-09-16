@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.Relay.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_RelayAuthorizationRuleCreate()
         {
-            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2021-11-01/examples/Relay/RelayAuthorizationRuleCreate.json
+            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2024-01-01/examples/Relay/RelayAuthorizationRuleCreate.json
             // this example is just showing the usage of "WCFRelays_CreateOrUpdateAuthorizationRule" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -61,7 +61,7 @@ RelayAccessRight.Listen,RelayAccessRight.Send
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_RelayAuthorizationRuleDelete()
         {
-            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2021-11-01/examples/Relay/RelayAuthorizationRuleDelete.json
+            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2024-01-01/examples/Relay/RelayAuthorizationRuleDelete.json
             // this example is just showing the usage of "WCFRelays_DeleteAuthorizationRule" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -90,7 +90,7 @@ RelayAccessRight.Listen,RelayAccessRight.Send
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_RelayAuthorizationRuleGet()
         {
-            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2021-11-01/examples/Relay/RelayAuthorizationRuleGet.json
+            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2024-01-01/examples/Relay/RelayAuthorizationRuleGet.json
             // this example is just showing the usage of "WCFRelays_GetAuthorizationRule" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -123,7 +123,7 @@ RelayAccessRight.Listen,RelayAccessRight.Send
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetKeys_RelayAuthorizationRuleListKeyJson()
         {
-            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2021-11-01/examples/Relay/RelayAuthorizationRuleListKey.json
+            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2024-01-01/examples/Relay/RelayAuthorizationRuleListKey.json
             // this example is just showing the usage of "WCFRelays_ListKeys" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -152,7 +152,7 @@ RelayAccessRight.Listen,RelayAccessRight.Send
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task RegenerateKeys_RelayAuthorizationRuleRegenerateKeyJson()
         {
-            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2021-11-01/examples/Relay/RelayAuthorizationRuleRegenerateKey.json
+            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2024-01-01/examples/Relay/RelayAuthorizationRuleRegenerateKey.json
             // this example is just showing the usage of "WCFRelays_RegenerateKeys" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.Relay.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_RelayHybridConnectionAuthorizationRuleListAll()
         {
-            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2021-11-01/examples/HybridConnection/RelayHybridConnectionAuthorizationRuleListAll.json
+            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2024-01-01/examples/HybridConnection/RelayHybridConnectionAuthorizationRuleListAll.json
             // this example is just showing the usage of "HybridConnections_ListAuthorizationRules" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.Relay.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_RelayHybridConnectionAuthorizationRuleCreate()
         {
-            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2021-11-01/examples/HybridConnection/RelayHybridConnectionAuthorizationRuleCreate.json
+            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2024-01-01/examples/HybridConnection/RelayHybridConnectionAuthorizationRuleCreate.json
             // this example is just showing the usage of "HybridConnections_CreateOrUpdateAuthorizationRule" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -102,7 +102,7 @@ RelayAccessRight.Listen,RelayAccessRight.Send
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_RelayHybridConnectionAuthorizationRuleGet()
         {
-            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2021-11-01/examples/HybridConnection/RelayHybridConnectionAuthorizationRuleGet.json
+            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2024-01-01/examples/HybridConnection/RelayHybridConnectionAuthorizationRuleGet.json
             // this example is just showing the usage of "HybridConnections_GetAuthorizationRule" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -138,7 +138,7 @@ RelayAccessRight.Listen,RelayAccessRight.Send
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_RelayHybridConnectionAuthorizationRuleGet()
         {
-            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2021-11-01/examples/HybridConnection/RelayHybridConnectionAuthorizationRuleGet.json
+            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2024-01-01/examples/HybridConnection/RelayHybridConnectionAuthorizationRuleGet.json
             // this example is just showing the usage of "HybridConnections_GetAuthorizationRule" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -170,7 +170,7 @@ RelayAccessRight.Listen,RelayAccessRight.Send
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_RelayHybridConnectionAuthorizationRuleGet()
         {
-            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2021-11-01/examples/HybridConnection/RelayHybridConnectionAuthorizationRuleGet.json
+            // Generated from example definition: specification/relay/resource-manager/Microsoft.Relay/stable/2024-01-01/examples/HybridConnection/RelayHybridConnectionAuthorizationRuleGet.json
             // this example is just showing the usage of "HybridConnections_GetAuthorizationRule" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
