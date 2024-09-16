@@ -72,8 +72,9 @@ namespace Azure.AI.Translation.Document
         /// <param name="notYetStarted"> Count of not yet started. </param>
         /// <param name="cancelled"> Number of cancelled. </param>
         /// <param name="totalCharacterCharged"> Total characters charged by the API. </param>
+        /// <param name="totalImageScansCharged"> Total image scans charged by the API. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal StatusSummary(int total, int failed, int success, int inProgress, int notYetStarted, int cancelled, long totalCharacterCharged, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal StatusSummary(int total, int failed, int success, int inProgress, int notYetStarted, int cancelled, long totalCharacterCharged, long? totalImageScansCharged, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Total = total;
             Failed = failed;
@@ -82,6 +83,7 @@ namespace Azure.AI.Translation.Document
             NotYetStarted = notYetStarted;
             Cancelled = cancelled;
             TotalCharacterCharged = totalCharacterCharged;
+            TotalImageScansCharged = totalImageScansCharged;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -104,5 +106,7 @@ namespace Azure.AI.Translation.Document
         public int Cancelled { get; }
         /// <summary> Total characters charged by the API. </summary>
         public long TotalCharacterCharged { get; }
+        /// <summary> Total image scans charged by the API. </summary>
+        public long? TotalImageScansCharged { get; }
     }
 }

@@ -40,6 +40,11 @@ namespace Azure.AI.Translation.Document
             writer.WriteNumberValue(Cancelled);
             writer.WritePropertyName("totalCharacterCharged"u8);
             writer.WriteNumberValue(TotalCharacterCharged);
+            if (Optional.IsDefined(TotalImageScansCharged))
+            {
+                writer.WritePropertyName("totalImageScansCharged"u8);
+                writer.WriteNumberValue(TotalImageScansCharged.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -85,6 +90,7 @@ namespace Azure.AI.Translation.Document
             int notYetStarted = default;
             int cancelled = default;
             long totalCharacterCharged = default;
+            long? totalImageScansCharged = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -124,6 +130,15 @@ namespace Azure.AI.Translation.Document
                     totalCharacterCharged = property.Value.GetInt64();
                     continue;
                 }
+                if (property.NameEquals("totalImageScansCharged"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    totalImageScansCharged = property.Value.GetInt64();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -138,6 +153,7 @@ namespace Azure.AI.Translation.Document
                 notYetStarted,
                 cancelled,
                 totalCharacterCharged,
+                totalImageScansCharged,
                 serializedAdditionalRawData);
         }
 

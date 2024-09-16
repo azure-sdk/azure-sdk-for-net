@@ -109,17 +109,21 @@ namespace Azure.AI.Translation.Document
         /// Specifies that the service is allowed to fall back to a general system when a custom system doesn't exist.
         /// Possible values are: true (default) or false.
         /// </param>
+        /// <param name="translateTextWithinImage">
+        /// Specifies that the service is allowed to translate the text within an image.
+        /// Possible values are: true (default) or false.
+        /// </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="targetLanguage"/> or <paramref name="documentTranslateContent"/> is null. </exception>
         /// <remarks> Use this API to submit a single translation request to the Document Translation Service. </remarks>
-        public virtual async Task<Response<BinaryData>> DocumentTranslateAsync(string targetLanguage, DocumentTranslateContent documentTranslateContent, string sourceLanguage = null, string category = null, bool? allowFallback = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<BinaryData>> DocumentTranslateAsync(string targetLanguage, DocumentTranslateContent documentTranslateContent, string sourceLanguage = null, string category = null, bool? allowFallback = null, bool? translateTextWithinImage = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(targetLanguage, nameof(targetLanguage));
             Argument.AssertNotNull(documentTranslateContent, nameof(documentTranslateContent));
 
             using MultipartFormDataRequestContent content = documentTranslateContent.ToMultipartRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = await DocumentTranslateAsync(targetLanguage, content, content.ContentType, sourceLanguage, category, allowFallback, context).ConfigureAwait(false);
+            Response response = await DocumentTranslateAsync(targetLanguage, content, content.ContentType, sourceLanguage, category, allowFallback, translateTextWithinImage, context).ConfigureAwait(false);
             return Response.FromValue(response.Content, response);
         }
 
@@ -144,17 +148,21 @@ namespace Azure.AI.Translation.Document
         /// Specifies that the service is allowed to fall back to a general system when a custom system doesn't exist.
         /// Possible values are: true (default) or false.
         /// </param>
+        /// <param name="translateTextWithinImage">
+        /// Specifies that the service is allowed to translate the text within an image.
+        /// Possible values are: true (default) or false.
+        /// </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="targetLanguage"/> or <paramref name="documentTranslateContent"/> is null. </exception>
         /// <remarks> Use this API to submit a single translation request to the Document Translation Service. </remarks>
-        public virtual Response<BinaryData> DocumentTranslate(string targetLanguage, DocumentTranslateContent documentTranslateContent, string sourceLanguage = null, string category = null, bool? allowFallback = null, CancellationToken cancellationToken = default)
+        public virtual Response<BinaryData> DocumentTranslate(string targetLanguage, DocumentTranslateContent documentTranslateContent, string sourceLanguage = null, string category = null, bool? allowFallback = null, bool? translateTextWithinImage = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(targetLanguage, nameof(targetLanguage));
             Argument.AssertNotNull(documentTranslateContent, nameof(documentTranslateContent));
 
             using MultipartFormDataRequestContent content = documentTranslateContent.ToMultipartRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = DocumentTranslate(targetLanguage, content, content.ContentType, sourceLanguage, category, allowFallback, context);
+            Response response = DocumentTranslate(targetLanguage, content, content.ContentType, sourceLanguage, category, allowFallback, translateTextWithinImage, context);
             return Response.FromValue(response.Content, response);
         }
 
@@ -168,7 +176,7 @@ namespace Azure.AI.Translation.Document
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="DocumentTranslateAsync(string,DocumentTranslateContent,string,string,bool?,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="DocumentTranslateAsync(string,DocumentTranslateContent,string,string,bool?,bool?,CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -194,11 +202,15 @@ namespace Azure.AI.Translation.Document
         /// Specifies that the service is allowed to fall back to a general system when a custom system doesn't exist.
         /// Possible values are: true (default) or false.
         /// </param>
+        /// <param name="translateTextWithinImage">
+        /// Specifies that the service is allowed to translate the text within an image.
+        /// Possible values are: true (default) or false.
+        /// </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="targetLanguage"/> or <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<Response> DocumentTranslateAsync(string targetLanguage, RequestContent content, string contentType, string sourceLanguage = null, string category = null, bool? allowFallback = null, RequestContext context = null)
+        public virtual async Task<Response> DocumentTranslateAsync(string targetLanguage, RequestContent content, string contentType, string sourceLanguage = null, string category = null, bool? allowFallback = null, bool? translateTextWithinImage = null, RequestContext context = null)
         {
             Argument.AssertNotNull(targetLanguage, nameof(targetLanguage));
             Argument.AssertNotNull(content, nameof(content));
@@ -207,7 +219,7 @@ namespace Azure.AI.Translation.Document
             scope.Start();
             try
             {
-                using HttpMessage message = CreateDocumentTranslateRequest(targetLanguage, content, contentType, sourceLanguage, category, allowFallback, context);
+                using HttpMessage message = CreateDocumentTranslateRequest(targetLanguage, content, contentType, sourceLanguage, category, allowFallback, translateTextWithinImage, context);
                 return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
             }
             catch (Exception e)
@@ -227,7 +239,7 @@ namespace Azure.AI.Translation.Document
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="DocumentTranslate(string,DocumentTranslateContent,string,string,bool?,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="DocumentTranslate(string,DocumentTranslateContent,string,string,bool?,bool?,CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -253,11 +265,15 @@ namespace Azure.AI.Translation.Document
         /// Specifies that the service is allowed to fall back to a general system when a custom system doesn't exist.
         /// Possible values are: true (default) or false.
         /// </param>
+        /// <param name="translateTextWithinImage">
+        /// Specifies that the service is allowed to translate the text within an image.
+        /// Possible values are: true (default) or false.
+        /// </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="targetLanguage"/> or <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual Response DocumentTranslate(string targetLanguage, RequestContent content, string contentType, string sourceLanguage = null, string category = null, bool? allowFallback = null, RequestContext context = null)
+        public virtual Response DocumentTranslate(string targetLanguage, RequestContent content, string contentType, string sourceLanguage = null, string category = null, bool? allowFallback = null, bool? translateTextWithinImage = null, RequestContext context = null)
         {
             Argument.AssertNotNull(targetLanguage, nameof(targetLanguage));
             Argument.AssertNotNull(content, nameof(content));
@@ -266,7 +282,7 @@ namespace Azure.AI.Translation.Document
             scope.Start();
             try
             {
-                using HttpMessage message = CreateDocumentTranslateRequest(targetLanguage, content, contentType, sourceLanguage, category, allowFallback, context);
+                using HttpMessage message = CreateDocumentTranslateRequest(targetLanguage, content, contentType, sourceLanguage, category, allowFallback, translateTextWithinImage, context);
                 return _pipeline.ProcessMessage(message, context);
             }
             catch (Exception e)
@@ -276,7 +292,7 @@ namespace Azure.AI.Translation.Document
             }
         }
 
-        internal HttpMessage CreateDocumentTranslateRequest(string targetLanguage, RequestContent content, string contentType, string sourceLanguage, string category, bool? allowFallback, RequestContext context)
+        internal HttpMessage CreateDocumentTranslateRequest(string targetLanguage, RequestContent content, string contentType, string sourceLanguage, string category, bool? allowFallback, bool? translateTextWithinImage, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
@@ -298,6 +314,10 @@ namespace Azure.AI.Translation.Document
             if (allowFallback != null)
             {
                 uri.AppendQuery("allowFallback", allowFallback.Value, true);
+            }
+            if (translateTextWithinImage != null)
+            {
+                uri.AppendQuery("translateTextWithinImage", translateTextWithinImage.Value, true);
             }
             request.Uri = uri;
             request.Headers.Add("Accept", "application/octet-stream");
