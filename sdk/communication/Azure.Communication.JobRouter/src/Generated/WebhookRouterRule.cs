@@ -14,22 +14,29 @@ namespace Azure.Communication.JobRouter
     public partial class WebhookRouterRule : RouterRule
     {
         /// <summary> Initializes a new instance of <see cref="WebhookRouterRule"/>. </summary>
-        internal WebhookRouterRule()
+        /// <param name="routerRuleKind"> The type discriminator describing a sub-type of RouterRule. </param>
+        internal WebhookRouterRule(RouterRuleKind routerRuleKind) : base(routerRuleKind)
         {
             Kind = RouterRuleKind.Webhook;
         }
 
         /// <summary> Initializes a new instance of <see cref="WebhookRouterRule"/>. </summary>
-        /// <param name="kind"> The type discriminator describing a sub-type of RouterRule. </param>
+        /// <param name="routerRuleKind"> The type discriminator describing a sub-type of RouterRule. </param>
+        /// <param name="kind"> The type discriminator describing a kind of RouterRule. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="authorizationServerUri"> Uri for Authorization Server. </param>
         /// <param name="clientCredential"> OAuth2.0 Credentials used to Contoso's Authorization server. Reference: https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/. </param>
         /// <param name="webhookUri"> Uri for Contoso's Web Server. </param>
-        internal WebhookRouterRule(RouterRuleKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, Uri authorizationServerUri, OAuth2WebhookClientCredential clientCredential, Uri webhookUri) : base(kind, serializedAdditionalRawData)
+        internal WebhookRouterRule(RouterRuleKind routerRuleKind, RouterRuleKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, Uri authorizationServerUri, OAuth2WebhookClientCredential clientCredential, Uri webhookUri) : base(routerRuleKind, kind, serializedAdditionalRawData)
         {
             AuthorizationServerUri = authorizationServerUri;
             ClientCredential = clientCredential;
             WebhookUri = webhookUri;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="WebhookRouterRule"/> for deserialization. </summary>
+        internal WebhookRouterRule()
+        {
         }
 
         /// <summary> Uri for Authorization Server. </summary>

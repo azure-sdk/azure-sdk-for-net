@@ -35,6 +35,8 @@ namespace Azure.Communication.JobRouter
                 writer.WritePropertyName("expiresAfterSeconds"u8);
                 WriteExpiresAfter(writer, options);
             }
+            writer.WritePropertyName("workerSelectorAttachmentKind"u8);
+            writer.WriteStringValue(WorkerSelectorAttachmentKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -78,6 +80,7 @@ namespace Azure.Communication.JobRouter
             string key = default;
             LabelOperator labelOperator = default;
             TimeSpan? expiresAfterSeconds = default;
+            WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default;
             WorkerSelectorAttachmentKind kind = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -98,6 +101,11 @@ namespace Azure.Communication.JobRouter
                     ReadExpiresAfter(property, ref expiresAfterSeconds);
                     continue;
                 }
+                if (property.NameEquals("workerSelectorAttachmentKind"u8))
+                {
+                    workerSelectorAttachmentKind = new WorkerSelectorAttachmentKind(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("kind"u8))
                 {
                     kind = new WorkerSelectorAttachmentKind(property.Value.GetString());
@@ -109,7 +117,13 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new PassThroughWorkerSelectorAttachment(kind, serializedAdditionalRawData, key, labelOperator, expiresAfterSeconds);
+            return new PassThroughWorkerSelectorAttachment(
+                workerSelectorAttachmentKind,
+                kind,
+                serializedAdditionalRawData,
+                key,
+                labelOperator,
+                expiresAfterSeconds);
         }
 
         BinaryData IPersistableModel<PassThroughWorkerSelectorAttachment>.Write(ModelReaderWriterOptions options)

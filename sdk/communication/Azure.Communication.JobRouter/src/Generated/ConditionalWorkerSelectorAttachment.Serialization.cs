@@ -35,6 +35,8 @@ namespace Azure.Communication.JobRouter
                 writer.WriteObjectValue<RouterWorkerSelector>(item, options);
             }
             writer.WriteEndArray();
+            writer.WritePropertyName("workerSelectorAttachmentKind"u8);
+            writer.WriteStringValue(WorkerSelectorAttachmentKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -77,6 +79,7 @@ namespace Azure.Communication.JobRouter
             }
             RouterRule condition = default;
             IList<RouterWorkerSelector> workerSelectors = default;
+            WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default;
             WorkerSelectorAttachmentKind kind = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -97,6 +100,11 @@ namespace Azure.Communication.JobRouter
                     workerSelectors = array;
                     continue;
                 }
+                if (property.NameEquals("workerSelectorAttachmentKind"u8))
+                {
+                    workerSelectorAttachmentKind = new WorkerSelectorAttachmentKind(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("kind"u8))
                 {
                     kind = new WorkerSelectorAttachmentKind(property.Value.GetString());
@@ -108,7 +116,7 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ConditionalWorkerSelectorAttachment(kind, serializedAdditionalRawData, condition, workerSelectors);
+            return new ConditionalWorkerSelectorAttachment(workerSelectorAttachmentKind, kind, serializedAdditionalRawData, condition, workerSelectors);
         }
 
         BinaryData IPersistableModel<ConditionalWorkerSelectorAttachment>.Write(ModelReaderWriterOptions options)

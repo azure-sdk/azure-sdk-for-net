@@ -28,6 +28,8 @@ namespace Azure.Communication.JobRouter
             writer.WriteStartObject();
             writer.WritePropertyName("thresholdSeconds"u8);
             WriteThresholdSeconds(writer, options);
+            writer.WritePropertyName("exceptionTriggerKind"u8);
+            writer.WriteStringValue(ExceptionTriggerKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -69,6 +71,7 @@ namespace Azure.Communication.JobRouter
                 return null;
             }
             TimeSpan thresholdSeconds = default;
+            ExceptionTriggerKind exceptionTriggerKind = default;
             ExceptionTriggerKind kind = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -77,6 +80,11 @@ namespace Azure.Communication.JobRouter
                 if (property.NameEquals("thresholdSeconds"u8))
                 {
                     ReadThresholdSeconds(property, ref thresholdSeconds);
+                    continue;
+                }
+                if (property.NameEquals("exceptionTriggerKind"u8))
+                {
+                    exceptionTriggerKind = new ExceptionTriggerKind(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("kind"u8))
@@ -90,7 +98,7 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new WaitTimeExceptionTrigger(kind, serializedAdditionalRawData, thresholdSeconds);
+            return new WaitTimeExceptionTrigger(exceptionTriggerKind, kind, serializedAdditionalRawData, thresholdSeconds);
         }
 
         BinaryData IPersistableModel<WaitTimeExceptionTrigger>.Write(ModelReaderWriterOptions options)

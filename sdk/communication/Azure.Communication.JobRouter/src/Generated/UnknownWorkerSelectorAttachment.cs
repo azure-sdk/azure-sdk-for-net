@@ -14,9 +14,10 @@ namespace Azure.Communication.JobRouter
     internal partial class UnknownWorkerSelectorAttachment : WorkerSelectorAttachment
     {
         /// <summary> Initializes a new instance of <see cref="UnknownWorkerSelectorAttachment"/>. </summary>
+        /// <param name="workerSelectorAttachmentKind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
         /// <param name="kind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownWorkerSelectorAttachment(WorkerSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(kind, serializedAdditionalRawData)
+        internal UnknownWorkerSelectorAttachment(WorkerSelectorAttachmentKind workerSelectorAttachmentKind, WorkerSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(workerSelectorAttachmentKind, kind, serializedAdditionalRawData)
         {
         }
 

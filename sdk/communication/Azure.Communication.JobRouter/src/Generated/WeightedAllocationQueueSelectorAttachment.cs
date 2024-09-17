@@ -15,10 +15,23 @@ namespace Azure.Communication.JobRouter
     public partial class WeightedAllocationQueueSelectorAttachment : QueueSelectorAttachment
     {
         /// <summary> Initializes a new instance of <see cref="WeightedAllocationQueueSelectorAttachment"/>. </summary>
+        /// <param name="queueSelectorAttachmentKind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
+        /// <param name="allocations"> A collection of percentage based weighted allocations. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="allocations"/> is null. </exception>
+        internal WeightedAllocationQueueSelectorAttachment(QueueSelectorAttachmentKind queueSelectorAttachmentKind, IEnumerable<QueueWeightedAllocation> allocations) : base(queueSelectorAttachmentKind)
+        {
+            Argument.AssertNotNull(allocations, nameof(allocations));
+
+            Kind = QueueSelectorAttachmentKind.WeightedAllocation;
+            Allocations = allocations.ToList();
+        }
+
+        /// <summary> Initializes a new instance of <see cref="WeightedAllocationQueueSelectorAttachment"/>. </summary>
+        /// <param name="queueSelectorAttachmentKind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
         /// <param name="kind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="allocations"> A collection of percentage based weighted allocations. </param>
-        internal WeightedAllocationQueueSelectorAttachment(QueueSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, IReadOnlyList<QueueWeightedAllocation> allocations) : base(kind, serializedAdditionalRawData)
+        internal WeightedAllocationQueueSelectorAttachment(QueueSelectorAttachmentKind queueSelectorAttachmentKind, QueueSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, IReadOnlyList<QueueWeightedAllocation> allocations) : base(queueSelectorAttachmentKind, kind, serializedAdditionalRawData)
         {
             Allocations = allocations;
         }

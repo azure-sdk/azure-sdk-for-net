@@ -50,22 +50,33 @@ namespace Azure.Communication.JobRouter
         private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ExceptionAction"/>. </summary>
-        protected ExceptionAction()
+        /// <param name="exceptionActionKind"> The type discriminator describing a sub-type of ExceptionAction. </param>
+        protected ExceptionAction(ExceptionActionKind exceptionActionKind)
         {
+            ExceptionActionKind = exceptionActionKind;
         }
 
         /// <summary> Initializes a new instance of <see cref="ExceptionAction"/>. </summary>
         /// <param name="id"> Unique Id of the exception action. </param>
+        /// <param name="exceptionActionKind"> The type discriminator describing a sub-type of ExceptionAction. </param>
         /// <param name="kind"> The type discriminator describing a sub-type of ExceptionAction. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ExceptionAction(string id, ExceptionActionKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ExceptionAction(string id, ExceptionActionKind exceptionActionKind, ExceptionActionKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Id = id;
+            ExceptionActionKind = exceptionActionKind;
             Kind = kind;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
+        /// <summary> Initializes a new instance of <see cref="ExceptionAction"/> for deserialization. </summary>
+        internal ExceptionAction()
+        {
+        }
+
         /// <summary> Unique Id of the exception action. </summary>
         public string Id { get; }
+        /// <summary> The type discriminator describing a sub-type of ExceptionAction. </summary>
+        public ExceptionActionKind ExceptionActionKind { get; }
     }
 }

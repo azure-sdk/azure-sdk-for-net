@@ -41,6 +41,8 @@ namespace Azure.Communication.JobRouter
                 writer.WritePropertyName("webhookUri"u8);
                 writer.WriteStringValue(WebhookUri.AbsoluteUri);
             }
+            writer.WritePropertyName("routerRuleKind"u8);
+            writer.WriteStringValue(RouterRuleKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -84,6 +86,7 @@ namespace Azure.Communication.JobRouter
             Uri authorizationServerUri = default;
             OAuth2WebhookClientCredential clientCredential = default;
             Uri webhookUri = default;
+            RouterRuleKind routerRuleKind = default;
             RouterRuleKind kind = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -116,6 +119,11 @@ namespace Azure.Communication.JobRouter
                     webhookUri = new Uri(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("routerRuleKind"u8))
+                {
+                    routerRuleKind = new RouterRuleKind(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("kind"u8))
                 {
                     kind = new RouterRuleKind(property.Value.GetString());
@@ -127,7 +135,13 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new WebhookRouterRule(kind, serializedAdditionalRawData, authorizationServerUri, clientCredential, webhookUri);
+            return new WebhookRouterRule(
+                routerRuleKind,
+                kind,
+                serializedAdditionalRawData,
+                authorizationServerUri,
+                clientCredential,
+                webhookUri);
         }
 
         BinaryData IPersistableModel<WebhookRouterRule>.Write(ModelReaderWriterOptions options)

@@ -50,17 +50,29 @@ namespace Azure.Communication.JobRouter
         private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="WorkerSelectorAttachment"/>. </summary>
-        protected WorkerSelectorAttachment()
+        /// <param name="workerSelectorAttachmentKind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
+        protected WorkerSelectorAttachment(WorkerSelectorAttachmentKind workerSelectorAttachmentKind)
         {
+            WorkerSelectorAttachmentKind = workerSelectorAttachmentKind;
         }
 
         /// <summary> Initializes a new instance of <see cref="WorkerSelectorAttachment"/>. </summary>
+        /// <param name="workerSelectorAttachmentKind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
         /// <param name="kind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal WorkerSelectorAttachment(WorkerSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal WorkerSelectorAttachment(WorkerSelectorAttachmentKind workerSelectorAttachmentKind, WorkerSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
+            WorkerSelectorAttachmentKind = workerSelectorAttachmentKind;
             Kind = kind;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
+
+        /// <summary> Initializes a new instance of <see cref="WorkerSelectorAttachment"/> for deserialization. </summary>
+        internal WorkerSelectorAttachment()
+        {
+        }
+
+        /// <summary> The type discriminator describing a sub-type of WorkerSelectorAttachment. </summary>
+        public WorkerSelectorAttachmentKind WorkerSelectorAttachmentKind { get; }
     }
 }

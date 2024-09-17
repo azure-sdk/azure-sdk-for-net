@@ -26,6 +26,8 @@ namespace Azure.Communication.JobRouter
             }
 
             writer.WriteStartObject();
+            writer.WritePropertyName("exceptionTriggerKind"u8);
+            writer.WriteStringValue(ExceptionTriggerKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -66,11 +68,17 @@ namespace Azure.Communication.JobRouter
             {
                 return null;
             }
+            ExceptionTriggerKind exceptionTriggerKind = default;
             ExceptionTriggerKind kind = "Unknown";
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("exceptionTriggerKind"u8))
+                {
+                    exceptionTriggerKind = new ExceptionTriggerKind(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("kind"u8))
                 {
                     kind = new ExceptionTriggerKind(property.Value.GetString());
@@ -82,7 +90,7 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new UnknownExceptionTrigger(kind, serializedAdditionalRawData);
+            return new UnknownExceptionTrigger(exceptionTriggerKind, kind, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ExceptionTrigger>.Write(ModelReaderWriterOptions options)

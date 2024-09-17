@@ -14,10 +14,20 @@ namespace Azure.Communication.JobRouter
     public partial class ScheduleAndSuspendMode : JobMatchingMode
     {
         /// <summary> Initializes a new instance of <see cref="ScheduleAndSuspendMode"/>. </summary>
-        /// <param name="kind"> The type discriminator describing a sub-type of JobMatchingMode. </param>
+        /// <param name="jobMatchingModeKind"> The type discriminator describing a sub-type of JobMatchingMode. </param>
+        /// <param name="scheduleAt"> Requested schedule time. </param>
+        internal ScheduleAndSuspendMode(JobMatchingModeKind jobMatchingModeKind, DateTimeOffset scheduleAt) : base(jobMatchingModeKind)
+        {
+            Kind = JobMatchingModeKind.ScheduleAndSuspend;
+            ScheduleAt = scheduleAt;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ScheduleAndSuspendMode"/>. </summary>
+        /// <param name="jobMatchingModeKind"> The type discriminator describing a sub-type of JobMatchingMode. </param>
+        /// <param name="kind"> The type discriminator describing a kind of JobMatchingMode. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="scheduleAt"> Requested schedule time. </param>
-        internal ScheduleAndSuspendMode(JobMatchingModeKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, DateTimeOffset scheduleAt) : base(kind, serializedAdditionalRawData)
+        internal ScheduleAndSuspendMode(JobMatchingModeKind jobMatchingModeKind, JobMatchingModeKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, DateTimeOffset scheduleAt) : base(jobMatchingModeKind, kind, serializedAdditionalRawData)
         {
             ScheduleAt = scheduleAt;
         }

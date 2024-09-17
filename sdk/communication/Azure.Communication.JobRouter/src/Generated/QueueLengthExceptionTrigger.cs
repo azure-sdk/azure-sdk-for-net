@@ -14,10 +14,20 @@ namespace Azure.Communication.JobRouter
     public partial class QueueLengthExceptionTrigger : ExceptionTrigger
     {
         /// <summary> Initializes a new instance of <see cref="QueueLengthExceptionTrigger"/>. </summary>
-        /// <param name="kind"> The type discriminator describing a sub-type of ExceptionTrigger. </param>
+        /// <param name="exceptionTriggerKind"> The type discriminator describing a sub-type of ExceptionTrigger. </param>
+        /// <param name="threshold"> Threshold of number of jobs ahead in the queue to for this trigger to fire. </param>
+        internal QueueLengthExceptionTrigger(ExceptionTriggerKind exceptionTriggerKind, int threshold) : base(exceptionTriggerKind)
+        {
+            Kind = ExceptionTriggerKind.QueueLength;
+            Threshold = threshold;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="QueueLengthExceptionTrigger"/>. </summary>
+        /// <param name="exceptionTriggerKind"> The type discriminator describing a sub-type of ExceptionTrigger. </param>
+        /// <param name="kind"> The type discriminator describing a kind of ExceptionTrigger. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="threshold"> Threshold of number of jobs ahead in the queue to for this trigger to fire. </param>
-        internal QueueLengthExceptionTrigger(ExceptionTriggerKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, int threshold) : base(kind, serializedAdditionalRawData)
+        internal QueueLengthExceptionTrigger(ExceptionTriggerKind exceptionTriggerKind, ExceptionTriggerKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, int threshold) : base(exceptionTriggerKind, kind, serializedAdditionalRawData)
         {
             Threshold = threshold;
         }

@@ -21,8 +21,8 @@ namespace Azure.Communication.JobRouter
         /// <param name="offerExpiresAfter"> Number of seconds after which any offers created under this policy will be expired. </param>
         /// <param name="mode">
         /// Mode governing the specific distribution method.
-        /// Please note <see cref="DistributionMode"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="BestWorkerMode"/>, <see cref="LongestIdleMode"/> and <see cref="RoundRobinMode"/>.
+        /// Please note <see cref="JobRouter.DistributionMode"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="JobRouter.BestWorkerMode"/>, <see cref="JobRouter.LongestIdleMode"/> and <see cref="JobRouter.RoundRobinMode"/>.
         /// </param>
         /// <returns> A new <see cref="JobRouter.DistributionPolicy"/> instance for mocking. </returns>
         public static DistributionPolicy DistributionPolicy(ETag eTag = default, string id = null, string name = null, TimeSpan? offerExpiresAfter = null, DistributionMode mode = null)
@@ -36,23 +36,125 @@ namespace Azure.Communication.JobRouter
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="JobRouter.DistributionMode"/>. </summary>
+        /// <param name="minConcurrentOffers"> Governs the minimum desired number of active concurrent offers a job can have. </param>
+        /// <param name="maxConcurrentOffers"> Governs the maximum number of active concurrent offers a job can have. </param>
+        /// <param name="bypassSelectors"> If set to true, then router will match workers to jobs even if they don't match label selectors. Warning: You may get workers that are not qualified for a job they are matched with if you set this variable to true. This flag is intended more for temporary usage. By default, set to false. </param>
+        /// <param name="distributionModeKind"> The type discriminator describing a sub-type of DistributionMode. </param>
+        /// <param name="kind"> The type discriminator describing a kind of DistributionMode. </param>
+        /// <returns> A new <see cref="JobRouter.DistributionMode"/> instance for mocking. </returns>
+        public static DistributionMode DistributionMode(int minConcurrentOffers = default, int maxConcurrentOffers = default, bool? bypassSelectors = null, DistributionModeKind distributionModeKind = default, string kind = null)
+        {
+            return new UnknownDistributionMode(
+                minConcurrentOffers,
+                maxConcurrentOffers,
+                bypassSelectors,
+                distributionModeKind,
+                kind == null ? default : new DistributionModeKind(kind),
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="JobRouter.BestWorkerMode"/>. </summary>
+        /// <param name="minConcurrentOffers"> Governs the minimum desired number of active concurrent offers a job can have. </param>
+        /// <param name="maxConcurrentOffers"> Governs the maximum number of active concurrent offers a job can have. </param>
+        /// <param name="bypassSelectors"> If set to true, then router will match workers to jobs even if they don't match label selectors. Warning: You may get workers that are not qualified for a job they are matched with if you set this variable to true. This flag is intended more for temporary usage. By default, set to false. </param>
+        /// <param name="distributionModeKind"> The type discriminator describing a sub-type of DistributionMode. </param>
+        /// <param name="scoringRule">
+        /// Define a scoring rule to use, when calculating a score to determine the best worker. If not set, will use a default scoring formula that uses the number of job labels that the worker labels match, as well as the number of label selectors the worker labels match and/or exceed using a logistic function (https://en.wikipedia.org/wiki/Logistic_function).
+        /// Please note <see cref="JobRouter.RouterRule"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="JobRouter.DirectMapRouterRule"/>, <see cref="ExpressionRouterRule"/>, <see cref="JobRouter.FunctionRouterRule"/>, <see cref="StaticRouterRule"/> and <see cref="JobRouter.WebhookRouterRule"/>.
+        /// </param>
+        /// <param name="scoringRuleOptions"> Options to configure 'scoringRule'. If not set, default values are used. </param>
+        /// <returns> A new <see cref="JobRouter.BestWorkerMode"/> instance for mocking. </returns>
+        public static BestWorkerMode BestWorkerMode(int minConcurrentOffers = default, int maxConcurrentOffers = default, bool? bypassSelectors = null, DistributionModeKind distributionModeKind = default, RouterRule scoringRule = null, ScoringRuleOptions scoringRuleOptions = null)
+        {
+            return new BestWorkerMode(
+                minConcurrentOffers,
+                maxConcurrentOffers,
+                bypassSelectors,
+                distributionModeKind,
+                DistributionModeKind.BestWorker,
+                serializedAdditionalRawData: null,
+                scoringRule,
+                scoringRuleOptions);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="JobRouter.RouterRule"/>. </summary>
+        /// <param name="routerRuleKind"> The type discriminator describing a sub-type of RouterRule. </param>
+        /// <param name="kind"> The type discriminator describing a kind of RouterRule. </param>
+        /// <returns> A new <see cref="JobRouter.RouterRule"/> instance for mocking. </returns>
+        public static RouterRule RouterRule(RouterRuleKind routerRuleKind = default, string kind = null)
+        {
+            return new UnknownRouterRule(routerRuleKind, kind == null ? default : new RouterRuleKind(kind), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="JobRouter.DirectMapRouterRule"/>. </summary>
+        /// <param name="routerRuleKind"> The type discriminator describing a sub-type of RouterRule. </param>
+        /// <returns> A new <see cref="JobRouter.DirectMapRouterRule"/> instance for mocking. </returns>
+        public static DirectMapRouterRule DirectMapRouterRule(RouterRuleKind routerRuleKind = default)
+        {
+            return new DirectMapRouterRule(routerRuleKind, RouterRuleKind.DirectMap, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="JobRouter.FunctionRouterRule"/>. </summary>
+        /// <param name="routerRuleKind"> The type discriminator describing a sub-type of RouterRule. </param>
         /// <param name="functionUri"> URL for Azure Function. </param>
         /// <param name="credential"> Credentials used to access Azure function rule. </param>
         /// <returns> A new <see cref="JobRouter.FunctionRouterRule"/> instance for mocking. </returns>
-        public static FunctionRouterRule FunctionRouterRule(Uri functionUri = null, FunctionRouterRuleCredential credential = null)
+        public static FunctionRouterRule FunctionRouterRule(RouterRuleKind routerRuleKind = default, Uri functionUri = null, FunctionRouterRuleCredential credential = null)
         {
-            return new FunctionRouterRule(RouterRuleKind.Function, serializedAdditionalRawData: null, functionUri, credential);
+            return new FunctionRouterRule(routerRuleKind, RouterRuleKind.Function, serializedAdditionalRawData: null, functionUri, credential);
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.WebhookRouterRule"/>. </summary>
+        /// <param name="routerRuleKind"> The type discriminator describing a sub-type of RouterRule. </param>
         /// <param name="authorizationServerUri"> Uri for Authorization Server. </param>
         /// <param name="clientCredential"> OAuth2.0 Credentials used to Contoso's Authorization server. Reference: https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/. </param>
         /// <param name="webhookUri"> Uri for Contoso's Web Server. </param>
         /// <returns> A new <see cref="JobRouter.WebhookRouterRule"/> instance for mocking. </returns>
-        public static WebhookRouterRule WebhookRouterRule(Uri authorizationServerUri = null, OAuth2WebhookClientCredential clientCredential = null, Uri webhookUri = null)
+        public static WebhookRouterRule WebhookRouterRule(RouterRuleKind routerRuleKind = default, Uri authorizationServerUri = null, OAuth2WebhookClientCredential clientCredential = null, Uri webhookUri = null)
         {
-            return new WebhookRouterRule(RouterRuleKind.Webhook, serializedAdditionalRawData: null, authorizationServerUri, clientCredential, webhookUri);
+            return new WebhookRouterRule(
+                routerRuleKind,
+                RouterRuleKind.Webhook,
+                serializedAdditionalRawData: null,
+                authorizationServerUri,
+                clientCredential,
+                webhookUri);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="JobRouter.LongestIdleMode"/>. </summary>
+        /// <param name="minConcurrentOffers"> Governs the minimum desired number of active concurrent offers a job can have. </param>
+        /// <param name="maxConcurrentOffers"> Governs the maximum number of active concurrent offers a job can have. </param>
+        /// <param name="bypassSelectors"> If set to true, then router will match workers to jobs even if they don't match label selectors. Warning: You may get workers that are not qualified for a job they are matched with if you set this variable to true. This flag is intended more for temporary usage. By default, set to false. </param>
+        /// <param name="distributionModeKind"> The type discriminator describing a sub-type of DistributionMode. </param>
+        /// <returns> A new <see cref="JobRouter.LongestIdleMode"/> instance for mocking. </returns>
+        public static LongestIdleMode LongestIdleMode(int minConcurrentOffers = default, int maxConcurrentOffers = default, bool? bypassSelectors = null, DistributionModeKind distributionModeKind = default)
+        {
+            return new LongestIdleMode(
+                minConcurrentOffers,
+                maxConcurrentOffers,
+                bypassSelectors,
+                distributionModeKind,
+                DistributionModeKind.LongestIdle,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="JobRouter.RoundRobinMode"/>. </summary>
+        /// <param name="minConcurrentOffers"> Governs the minimum desired number of active concurrent offers a job can have. </param>
+        /// <param name="maxConcurrentOffers"> Governs the maximum number of active concurrent offers a job can have. </param>
+        /// <param name="bypassSelectors"> If set to true, then router will match workers to jobs even if they don't match label selectors. Warning: You may get workers that are not qualified for a job they are matched with if you set this variable to true. This flag is intended more for temporary usage. By default, set to false. </param>
+        /// <param name="distributionModeKind"> The type discriminator describing a sub-type of DistributionMode. </param>
+        /// <returns> A new <see cref="JobRouter.RoundRobinMode"/> instance for mocking. </returns>
+        public static RoundRobinMode RoundRobinMode(int minConcurrentOffers = default, int maxConcurrentOffers = default, bool? bypassSelectors = null, DistributionModeKind distributionModeKind = default)
+        {
+            return new RoundRobinMode(
+                minConcurrentOffers,
+                maxConcurrentOffers,
+                bypassSelectors,
+                distributionModeKind,
+                DistributionModeKind.RoundRobin,
+                serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.ClassificationPolicy"/>. </summary>
@@ -62,17 +164,17 @@ namespace Azure.Communication.JobRouter
         /// <param name="fallbackQueueId"> Id of a fallback queue to select if queue selector attachments doesn't find a match. </param>
         /// <param name="queueSelectorAttachments">
         /// Queue selector attachments used to resolve a queue for a job.
-        /// Please note <see cref="QueueSelectorAttachment"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// Please note <see cref="JobRouter.QueueSelectorAttachment"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="JobRouter.ConditionalQueueSelectorAttachment"/>, <see cref="JobRouter.PassThroughQueueSelectorAttachment"/>, <see cref="JobRouter.RuleEngineQueueSelectorAttachment"/>, <see cref="JobRouter.StaticQueueSelectorAttachment"/> and <see cref="JobRouter.WeightedAllocationQueueSelectorAttachment"/>.
         /// </param>
         /// <param name="prioritizationRule">
         /// A rule to determine a priority score for a job.
-        /// Please note <see cref="RouterRule"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="DirectMapRouterRule"/>, <see cref="ExpressionRouterRule"/>, <see cref="JobRouter.FunctionRouterRule"/>, <see cref="StaticRouterRule"/> and <see cref="JobRouter.WebhookRouterRule"/>.
+        /// Please note <see cref="JobRouter.RouterRule"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="JobRouter.DirectMapRouterRule"/>, <see cref="ExpressionRouterRule"/>, <see cref="JobRouter.FunctionRouterRule"/>, <see cref="StaticRouterRule"/> and <see cref="JobRouter.WebhookRouterRule"/>.
         /// </param>
         /// <param name="workerSelectorAttachments">
         /// Worker selector attachments used to attach worker selectors to a job.
-        /// Please note <see cref="WorkerSelectorAttachment"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// Please note <see cref="JobRouter.WorkerSelectorAttachment"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="JobRouter.ConditionalWorkerSelectorAttachment"/>, <see cref="JobRouter.PassThroughWorkerSelectorAttachment"/>, <see cref="JobRouter.RuleEngineWorkerSelectorAttachment"/>, <see cref="JobRouter.StaticWorkerSelectorAttachment"/> and <see cref="JobRouter.WeightedAllocationWorkerSelectorAttachment"/>.
         /// </param>
         /// <returns> A new <see cref="JobRouter.ClassificationPolicy"/> instance for mocking. </returns>
@@ -92,58 +194,72 @@ namespace Azure.Communication.JobRouter
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="JobRouter.QueueSelectorAttachment"/>. </summary>
+        /// <param name="queueSelectorAttachmentKind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
+        /// <param name="kind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
+        /// <returns> A new <see cref="JobRouter.QueueSelectorAttachment"/> instance for mocking. </returns>
+        public static QueueSelectorAttachment QueueSelectorAttachment(QueueSelectorAttachmentKind queueSelectorAttachmentKind = default, string kind = null)
+        {
+            return new UnknownQueueSelectorAttachment(queueSelectorAttachmentKind, kind == null ? default : new QueueSelectorAttachmentKind(kind), serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="JobRouter.ConditionalQueueSelectorAttachment"/>. </summary>
+        /// <param name="queueSelectorAttachmentKind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
         /// <param name="condition">
         /// The condition that must be true for the queue selectors to be attached.
-        /// Please note <see cref="RouterRule"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="DirectMapRouterRule"/>, <see cref="ExpressionRouterRule"/>, <see cref="JobRouter.FunctionRouterRule"/>, <see cref="StaticRouterRule"/> and <see cref="JobRouter.WebhookRouterRule"/>.
+        /// Please note <see cref="JobRouter.RouterRule"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="JobRouter.DirectMapRouterRule"/>, <see cref="ExpressionRouterRule"/>, <see cref="JobRouter.FunctionRouterRule"/>, <see cref="StaticRouterRule"/> and <see cref="JobRouter.WebhookRouterRule"/>.
         /// </param>
         /// <param name="queueSelectors"> The queue selectors to attach. </param>
         /// <returns> A new <see cref="JobRouter.ConditionalQueueSelectorAttachment"/> instance for mocking. </returns>
-        public static ConditionalQueueSelectorAttachment ConditionalQueueSelectorAttachment(RouterRule condition = null, IEnumerable<RouterQueueSelector> queueSelectors = null)
+        public static ConditionalQueueSelectorAttachment ConditionalQueueSelectorAttachment(QueueSelectorAttachmentKind queueSelectorAttachmentKind = default, RouterRule condition = null, IEnumerable<RouterQueueSelector> queueSelectors = null)
         {
             queueSelectors ??= new List<RouterQueueSelector>();
 
-            return new ConditionalQueueSelectorAttachment(QueueSelectorAttachmentKind.Conditional, serializedAdditionalRawData: null, condition, queueSelectors?.ToList());
+            return new ConditionalQueueSelectorAttachment(queueSelectorAttachmentKind, QueueSelectorAttachmentKind.Conditional, serializedAdditionalRawData: null, condition, queueSelectors?.ToList());
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.PassThroughQueueSelectorAttachment"/>. </summary>
+        /// <param name="queueSelectorAttachmentKind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
         /// <param name="key"> The label key to query against. </param>
         /// <param name="labelOperator"> Describes how the value of the label is compared to the value pass through. </param>
         /// <returns> A new <see cref="JobRouter.PassThroughQueueSelectorAttachment"/> instance for mocking. </returns>
-        public static PassThroughQueueSelectorAttachment PassThroughQueueSelectorAttachment(string key = null, LabelOperator labelOperator = default)
+        public static PassThroughQueueSelectorAttachment PassThroughQueueSelectorAttachment(QueueSelectorAttachmentKind queueSelectorAttachmentKind = default, string key = null, LabelOperator labelOperator = default)
         {
-            return new PassThroughQueueSelectorAttachment(QueueSelectorAttachmentKind.PassThrough, serializedAdditionalRawData: null, key, labelOperator);
+            return new PassThroughQueueSelectorAttachment(queueSelectorAttachmentKind, QueueSelectorAttachmentKind.PassThrough, serializedAdditionalRawData: null, key, labelOperator);
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.RuleEngineQueueSelectorAttachment"/>. </summary>
+        /// <param name="queueSelectorAttachmentKind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
         /// <param name="rule">
         /// A RouterRule that resolves a collection of queue selectors to attach.
-        /// Please note <see cref="RouterRule"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="DirectMapRouterRule"/>, <see cref="ExpressionRouterRule"/>, <see cref="JobRouter.FunctionRouterRule"/>, <see cref="StaticRouterRule"/> and <see cref="JobRouter.WebhookRouterRule"/>.
+        /// Please note <see cref="JobRouter.RouterRule"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="JobRouter.DirectMapRouterRule"/>, <see cref="ExpressionRouterRule"/>, <see cref="JobRouter.FunctionRouterRule"/>, <see cref="StaticRouterRule"/> and <see cref="JobRouter.WebhookRouterRule"/>.
         /// </param>
         /// <returns> A new <see cref="JobRouter.RuleEngineQueueSelectorAttachment"/> instance for mocking. </returns>
-        public static RuleEngineQueueSelectorAttachment RuleEngineQueueSelectorAttachment(RouterRule rule = null)
+        public static RuleEngineQueueSelectorAttachment RuleEngineQueueSelectorAttachment(QueueSelectorAttachmentKind queueSelectorAttachmentKind = default, RouterRule rule = null)
         {
-            return new RuleEngineQueueSelectorAttachment(QueueSelectorAttachmentKind.RuleEngine, serializedAdditionalRawData: null, rule);
+            return new RuleEngineQueueSelectorAttachment(queueSelectorAttachmentKind, QueueSelectorAttachmentKind.RuleEngine, serializedAdditionalRawData: null, rule);
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.StaticQueueSelectorAttachment"/>. </summary>
+        /// <param name="queueSelectorAttachmentKind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
         /// <param name="queueSelector"> The queue selector to attach. </param>
         /// <returns> A new <see cref="JobRouter.StaticQueueSelectorAttachment"/> instance for mocking. </returns>
-        public static StaticQueueSelectorAttachment StaticQueueSelectorAttachment(RouterQueueSelector queueSelector = null)
+        public static StaticQueueSelectorAttachment StaticQueueSelectorAttachment(QueueSelectorAttachmentKind queueSelectorAttachmentKind = default, RouterQueueSelector queueSelector = null)
         {
-            return new StaticQueueSelectorAttachment(QueueSelectorAttachmentKind.Static, serializedAdditionalRawData: null, queueSelector);
+            return new StaticQueueSelectorAttachment(queueSelectorAttachmentKind, QueueSelectorAttachmentKind.Static, serializedAdditionalRawData: null, queueSelector);
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.WeightedAllocationQueueSelectorAttachment"/>. </summary>
+        /// <param name="queueSelectorAttachmentKind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
         /// <param name="allocations"> A collection of percentage based weighted allocations. </param>
         /// <returns> A new <see cref="JobRouter.WeightedAllocationQueueSelectorAttachment"/> instance for mocking. </returns>
-        public static WeightedAllocationQueueSelectorAttachment WeightedAllocationQueueSelectorAttachment(IEnumerable<QueueWeightedAllocation> allocations = null)
+        public static WeightedAllocationQueueSelectorAttachment WeightedAllocationQueueSelectorAttachment(QueueSelectorAttachmentKind queueSelectorAttachmentKind = default, IEnumerable<QueueWeightedAllocation> allocations = null)
         {
             allocations ??= new List<QueueWeightedAllocation>();
 
-            return new WeightedAllocationQueueSelectorAttachment(QueueSelectorAttachmentKind.WeightedAllocation, serializedAdditionalRawData: null, allocations?.ToList());
+            return new WeightedAllocationQueueSelectorAttachment(queueSelectorAttachmentKind, QueueSelectorAttachmentKind.WeightedAllocation, serializedAdditionalRawData: null, allocations?.ToList());
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.QueueWeightedAllocation"/>. </summary>
@@ -157,59 +273,79 @@ namespace Azure.Communication.JobRouter
             return new QueueWeightedAllocation(weight, queueSelectors?.ToList(), serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="JobRouter.WorkerSelectorAttachment"/>. </summary>
+        /// <param name="workerSelectorAttachmentKind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
+        /// <param name="kind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
+        /// <returns> A new <see cref="JobRouter.WorkerSelectorAttachment"/> instance for mocking. </returns>
+        public static WorkerSelectorAttachment WorkerSelectorAttachment(WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default, string kind = null)
+        {
+            return new UnknownWorkerSelectorAttachment(workerSelectorAttachmentKind, kind == null ? default : new WorkerSelectorAttachmentKind(kind), serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="JobRouter.ConditionalWorkerSelectorAttachment"/>. </summary>
+        /// <param name="workerSelectorAttachmentKind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
         /// <param name="condition">
         /// The condition that must be true for the worker selectors to be attached.
-        /// Please note <see cref="RouterRule"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="DirectMapRouterRule"/>, <see cref="ExpressionRouterRule"/>, <see cref="JobRouter.FunctionRouterRule"/>, <see cref="StaticRouterRule"/> and <see cref="JobRouter.WebhookRouterRule"/>.
+        /// Please note <see cref="JobRouter.RouterRule"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="JobRouter.DirectMapRouterRule"/>, <see cref="ExpressionRouterRule"/>, <see cref="JobRouter.FunctionRouterRule"/>, <see cref="StaticRouterRule"/> and <see cref="JobRouter.WebhookRouterRule"/>.
         /// </param>
         /// <param name="workerSelectors"> The worker selectors to attach. </param>
         /// <returns> A new <see cref="JobRouter.ConditionalWorkerSelectorAttachment"/> instance for mocking. </returns>
-        public static ConditionalWorkerSelectorAttachment ConditionalWorkerSelectorAttachment(RouterRule condition = null, IEnumerable<RouterWorkerSelector> workerSelectors = null)
+        public static ConditionalWorkerSelectorAttachment ConditionalWorkerSelectorAttachment(WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default, RouterRule condition = null, IEnumerable<RouterWorkerSelector> workerSelectors = null)
         {
             workerSelectors ??= new List<RouterWorkerSelector>();
 
-            return new ConditionalWorkerSelectorAttachment(WorkerSelectorAttachmentKind.Conditional, serializedAdditionalRawData: null, condition, workerSelectors?.ToList());
+            return new ConditionalWorkerSelectorAttachment(workerSelectorAttachmentKind, WorkerSelectorAttachmentKind.Conditional, serializedAdditionalRawData: null, condition, workerSelectors?.ToList());
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.PassThroughWorkerSelectorAttachment"/>. </summary>
+        /// <param name="workerSelectorAttachmentKind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
         /// <param name="key"> The label key to query against. </param>
         /// <param name="labelOperator"> Describes how the value of the label is compared to the value pass through. </param>
         /// <param name="expiresAfter"> Describes how long the attached label selector is valid in seconds. </param>
         /// <returns> A new <see cref="JobRouter.PassThroughWorkerSelectorAttachment"/> instance for mocking. </returns>
-        public static PassThroughWorkerSelectorAttachment PassThroughWorkerSelectorAttachment(string key = null, LabelOperator labelOperator = default, TimeSpan? expiresAfter = null)
+        public static PassThroughWorkerSelectorAttachment PassThroughWorkerSelectorAttachment(WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default, string key = null, LabelOperator labelOperator = default, TimeSpan? expiresAfter = null)
         {
-            return new PassThroughWorkerSelectorAttachment(WorkerSelectorAttachmentKind.PassThrough, serializedAdditionalRawData: null, key, labelOperator, expiresAfter);
+            return new PassThroughWorkerSelectorAttachment(
+                workerSelectorAttachmentKind,
+                WorkerSelectorAttachmentKind.PassThrough,
+                serializedAdditionalRawData: null,
+                key,
+                labelOperator,
+                expiresAfter);
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.RuleEngineWorkerSelectorAttachment"/>. </summary>
+        /// <param name="workerSelectorAttachmentKind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
         /// <param name="rule">
         /// A RouterRule that resolves a collection of worker selectors to attach.
-        /// Please note <see cref="RouterRule"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="DirectMapRouterRule"/>, <see cref="ExpressionRouterRule"/>, <see cref="JobRouter.FunctionRouterRule"/>, <see cref="StaticRouterRule"/> and <see cref="JobRouter.WebhookRouterRule"/>.
+        /// Please note <see cref="JobRouter.RouterRule"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="JobRouter.DirectMapRouterRule"/>, <see cref="ExpressionRouterRule"/>, <see cref="JobRouter.FunctionRouterRule"/>, <see cref="StaticRouterRule"/> and <see cref="JobRouter.WebhookRouterRule"/>.
         /// </param>
         /// <returns> A new <see cref="JobRouter.RuleEngineWorkerSelectorAttachment"/> instance for mocking. </returns>
-        public static RuleEngineWorkerSelectorAttachment RuleEngineWorkerSelectorAttachment(RouterRule rule = null)
+        public static RuleEngineWorkerSelectorAttachment RuleEngineWorkerSelectorAttachment(WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default, RouterRule rule = null)
         {
-            return new RuleEngineWorkerSelectorAttachment(WorkerSelectorAttachmentKind.RuleEngine, serializedAdditionalRawData: null, rule);
+            return new RuleEngineWorkerSelectorAttachment(workerSelectorAttachmentKind, WorkerSelectorAttachmentKind.RuleEngine, serializedAdditionalRawData: null, rule);
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.StaticWorkerSelectorAttachment"/>. </summary>
+        /// <param name="workerSelectorAttachmentKind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
         /// <param name="workerSelector"> The worker selector to attach. </param>
         /// <returns> A new <see cref="JobRouter.StaticWorkerSelectorAttachment"/> instance for mocking. </returns>
-        public static StaticWorkerSelectorAttachment StaticWorkerSelectorAttachment(RouterWorkerSelector workerSelector = null)
+        public static StaticWorkerSelectorAttachment StaticWorkerSelectorAttachment(WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default, RouterWorkerSelector workerSelector = null)
         {
-            return new StaticWorkerSelectorAttachment(WorkerSelectorAttachmentKind.Static, serializedAdditionalRawData: null, workerSelector);
+            return new StaticWorkerSelectorAttachment(workerSelectorAttachmentKind, WorkerSelectorAttachmentKind.Static, serializedAdditionalRawData: null, workerSelector);
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.WeightedAllocationWorkerSelectorAttachment"/>. </summary>
+        /// <param name="workerSelectorAttachmentKind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
         /// <param name="allocations"> A collection of percentage based weighted allocations. </param>
         /// <returns> A new <see cref="JobRouter.WeightedAllocationWorkerSelectorAttachment"/> instance for mocking. </returns>
-        public static WeightedAllocationWorkerSelectorAttachment WeightedAllocationWorkerSelectorAttachment(IEnumerable<WorkerWeightedAllocation> allocations = null)
+        public static WeightedAllocationWorkerSelectorAttachment WeightedAllocationWorkerSelectorAttachment(WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default, IEnumerable<WorkerWeightedAllocation> allocations = null)
         {
             allocations ??= new List<WorkerWeightedAllocation>();
 
-            return new WeightedAllocationWorkerSelectorAttachment(WorkerSelectorAttachmentKind.WeightedAllocation, serializedAdditionalRawData: null, allocations?.ToList());
+            return new WeightedAllocationWorkerSelectorAttachment(workerSelectorAttachmentKind, WorkerSelectorAttachmentKind.WeightedAllocation, serializedAdditionalRawData: null, allocations?.ToList());
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.WorkerWeightedAllocation"/>. </summary>
@@ -240,8 +376,8 @@ namespace Azure.Communication.JobRouter
         /// <param name="id"> Id of an exception rule. </param>
         /// <param name="trigger">
         /// The trigger for this exception rule.
-        /// Please note <see cref="ExceptionTrigger"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="JobRouter.QueueLengthExceptionTrigger"/> and <see cref="WaitTimeExceptionTrigger"/>.
+        /// Please note <see cref="JobRouter.ExceptionTrigger"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="JobRouter.QueueLengthExceptionTrigger"/> and <see cref="JobRouter.WaitTimeExceptionTrigger"/>.
         /// </param>
         /// <param name="actions">
         /// A collection of actions to perform once the exception is triggered.
@@ -256,45 +392,74 @@ namespace Azure.Communication.JobRouter
             return new ExceptionRule(id, trigger, actions?.ToList(), serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="JobRouter.ExceptionTrigger"/>. </summary>
+        /// <param name="exceptionTriggerKind"> The type discriminator describing a sub-type of ExceptionTrigger. </param>
+        /// <param name="kind"> The type discriminator describing a kind of ExceptionTrigger. </param>
+        /// <returns> A new <see cref="JobRouter.ExceptionTrigger"/> instance for mocking. </returns>
+        public static ExceptionTrigger ExceptionTrigger(ExceptionTriggerKind exceptionTriggerKind = default, string kind = null)
+        {
+            return new UnknownExceptionTrigger(exceptionTriggerKind, kind == null ? default : new ExceptionTriggerKind(kind), serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="JobRouter.QueueLengthExceptionTrigger"/>. </summary>
+        /// <param name="exceptionTriggerKind"> The type discriminator describing a sub-type of ExceptionTrigger. </param>
         /// <param name="threshold"> Threshold of number of jobs ahead in the queue to for this trigger to fire. </param>
         /// <returns> A new <see cref="JobRouter.QueueLengthExceptionTrigger"/> instance for mocking. </returns>
-        public static QueueLengthExceptionTrigger QueueLengthExceptionTrigger(int threshold = default)
+        public static QueueLengthExceptionTrigger QueueLengthExceptionTrigger(ExceptionTriggerKind exceptionTriggerKind = default, int threshold = default)
         {
-            return new QueueLengthExceptionTrigger(ExceptionTriggerKind.QueueLength, serializedAdditionalRawData: null, threshold);
+            return new QueueLengthExceptionTrigger(exceptionTriggerKind, ExceptionTriggerKind.QueueLength, serializedAdditionalRawData: null, threshold);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="JobRouter.WaitTimeExceptionTrigger"/>. </summary>
+        /// <param name="exceptionTriggerKind"> The type discriminator describing a sub-type of ExceptionTrigger. </param>
+        /// <param name="threshold"> Threshold for wait time for this trigger. </param>
+        /// <returns> A new <see cref="JobRouter.WaitTimeExceptionTrigger"/> instance for mocking. </returns>
+        public static WaitTimeExceptionTrigger WaitTimeExceptionTrigger(ExceptionTriggerKind exceptionTriggerKind = default, TimeSpan threshold = default)
+        {
+            return new WaitTimeExceptionTrigger(exceptionTriggerKind, ExceptionTriggerKind.WaitTime, serializedAdditionalRawData: null, threshold);
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.ExceptionAction"/>. </summary>
         /// <param name="id"> Unique Id of the exception action. </param>
+        /// <param name="exceptionActionKind"> The type discriminator describing a sub-type of ExceptionAction. </param>
         /// <param name="kind"> The type discriminator describing a sub-type of ExceptionAction. </param>
         /// <returns> A new <see cref="JobRouter.ExceptionAction"/> instance for mocking. </returns>
-        public static ExceptionAction ExceptionAction(string id = null, string kind = null)
+        public static ExceptionAction ExceptionAction(string id = null, ExceptionActionKind exceptionActionKind = default, string kind = null)
         {
-            return new UnknownExceptionAction(id, kind == null ? default : new ExceptionActionKind(kind), serializedAdditionalRawData: null);
+            return new UnknownExceptionAction(id, exceptionActionKind, kind == null ? default : new ExceptionActionKind(kind), serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.CancelExceptionAction"/>. </summary>
         /// <param name="id"> Unique Id of the exception action. </param>
+        /// <param name="exceptionActionKind"> The type discriminator describing a sub-type of ExceptionAction. </param>
         /// <param name="note"> A note that will be appended to a job's notes collection with the current timestamp. </param>
         /// <param name="dispositionCode"> Indicates the outcome of a job, populate this field with your own custom values. </param>
         /// <returns> A new <see cref="JobRouter.CancelExceptionAction"/> instance for mocking. </returns>
-        public static CancelExceptionAction CancelExceptionAction(string id = null, string note = null, string dispositionCode = null)
+        public static CancelExceptionAction CancelExceptionAction(string id = null, ExceptionActionKind exceptionActionKind = default, string note = null, string dispositionCode = null)
         {
-            return new CancelExceptionAction(id, ExceptionActionKind.Cancel, serializedAdditionalRawData: null, note, dispositionCode);
+            return new CancelExceptionAction(
+                id,
+                exceptionActionKind,
+                ExceptionActionKind.Cancel,
+                serializedAdditionalRawData: null,
+                note,
+                dispositionCode);
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.ManualReclassifyExceptionAction"/>. </summary>
         /// <param name="id"> Unique Id of the exception action. </param>
+        /// <param name="exceptionActionKind"> The type discriminator describing a sub-type of ExceptionAction. </param>
         /// <param name="queueId"> Updated QueueId. </param>
         /// <param name="priority"> Updated Priority. </param>
         /// <param name="workerSelectors"> Updated WorkerSelectors. </param>
         /// <returns> A new <see cref="JobRouter.ManualReclassifyExceptionAction"/> instance for mocking. </returns>
-        public static ManualReclassifyExceptionAction ManualReclassifyExceptionAction(string id = null, string queueId = null, int? priority = null, IEnumerable<RouterWorkerSelector> workerSelectors = null)
+        public static ManualReclassifyExceptionAction ManualReclassifyExceptionAction(string id = null, ExceptionActionKind exceptionActionKind = default, string queueId = null, int? priority = null, IEnumerable<RouterWorkerSelector> workerSelectors = null)
         {
             workerSelectors ??= new List<RouterWorkerSelector>();
 
             return new ManualReclassifyExceptionAction(
                 id,
+                exceptionActionKind,
                 ExceptionActionKind.ManualReclassify,
                 serializedAdditionalRawData: null,
                 queueId,
@@ -329,12 +494,38 @@ namespace Azure.Communication.JobRouter
             return new RouterJobNote(message, addedAt, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="JobRouter.JobMatchingMode"/>. </summary>
+        /// <param name="jobMatchingModeKind"> The type discriminator describing a sub-type of JobMatchingMode. </param>
+        /// <param name="kind"> The type discriminator describing a kind of JobMatchingMode. </param>
+        /// <returns> A new <see cref="JobRouter.JobMatchingMode"/> instance for mocking. </returns>
+        public static JobMatchingMode JobMatchingMode(JobMatchingModeKind jobMatchingModeKind = default, string kind = null)
+        {
+            return new UnknownJobMatchingMode(jobMatchingModeKind, kind == null ? default : new JobMatchingModeKind(kind), serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="JobRouter.ScheduleAndSuspendMode"/>. </summary>
+        /// <param name="jobMatchingModeKind"> The type discriminator describing a sub-type of JobMatchingMode. </param>
         /// <param name="scheduleAt"> Requested schedule time. </param>
         /// <returns> A new <see cref="JobRouter.ScheduleAndSuspendMode"/> instance for mocking. </returns>
-        public static ScheduleAndSuspendMode ScheduleAndSuspendMode(DateTimeOffset scheduleAt = default)
+        public static ScheduleAndSuspendMode ScheduleAndSuspendMode(JobMatchingModeKind jobMatchingModeKind = default, DateTimeOffset scheduleAt = default)
         {
-            return new ScheduleAndSuspendMode(JobMatchingModeKind.ScheduleAndSuspend, serializedAdditionalRawData: null, scheduleAt);
+            return new ScheduleAndSuspendMode(jobMatchingModeKind, JobMatchingModeKind.ScheduleAndSuspend, serializedAdditionalRawData: null, scheduleAt);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="JobRouter.QueueAndMatchMode"/>. </summary>
+        /// <param name="jobMatchingModeKind"> The type discriminator describing a sub-type of JobMatchingMode. </param>
+        /// <returns> A new <see cref="JobRouter.QueueAndMatchMode"/> instance for mocking. </returns>
+        public static QueueAndMatchMode QueueAndMatchMode(JobMatchingModeKind jobMatchingModeKind = default)
+        {
+            return new QueueAndMatchMode(jobMatchingModeKind, JobMatchingModeKind.QueueAndMatch, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="JobRouter.SuspendMode"/>. </summary>
+        /// <param name="jobMatchingModeKind"> The type discriminator describing a sub-type of JobMatchingMode. </param>
+        /// <returns> A new <see cref="JobRouter.SuspendMode"/> instance for mocking. </returns>
+        public static SuspendMode SuspendMode(JobMatchingModeKind jobMatchingModeKind = default)
+        {
+            return new SuspendMode(jobMatchingModeKind, JobMatchingModeKind.Suspend, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="JobRouter.RouterJobPositionDetails"/>. </summary>

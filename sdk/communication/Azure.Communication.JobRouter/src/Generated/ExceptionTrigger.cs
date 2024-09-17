@@ -50,17 +50,29 @@ namespace Azure.Communication.JobRouter
         private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ExceptionTrigger"/>. </summary>
-        protected ExceptionTrigger()
+        /// <param name="exceptionTriggerKind"> The type discriminator describing a sub-type of ExceptionTrigger. </param>
+        protected ExceptionTrigger(ExceptionTriggerKind exceptionTriggerKind)
         {
+            ExceptionTriggerKind = exceptionTriggerKind;
         }
 
         /// <summary> Initializes a new instance of <see cref="ExceptionTrigger"/>. </summary>
-        /// <param name="kind"> The type discriminator describing a sub-type of ExceptionTrigger. </param>
+        /// <param name="exceptionTriggerKind"> The type discriminator describing a sub-type of ExceptionTrigger. </param>
+        /// <param name="kind"> The type discriminator describing a kind of ExceptionTrigger. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ExceptionTrigger(ExceptionTriggerKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ExceptionTrigger(ExceptionTriggerKind exceptionTriggerKind, ExceptionTriggerKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
+            ExceptionTriggerKind = exceptionTriggerKind;
             Kind = kind;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
+
+        /// <summary> Initializes a new instance of <see cref="ExceptionTrigger"/> for deserialization. </summary>
+        internal ExceptionTrigger()
+        {
+        }
+
+        /// <summary> The type discriminator describing a sub-type of ExceptionTrigger. </summary>
+        public ExceptionTriggerKind ExceptionTriggerKind { get; }
     }
 }

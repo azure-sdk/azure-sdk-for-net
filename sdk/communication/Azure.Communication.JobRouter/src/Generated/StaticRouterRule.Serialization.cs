@@ -38,6 +38,8 @@ namespace Azure.Communication.JobRouter
                 }
 #endif
             }
+            writer.WritePropertyName("routerRuleKind"u8);
+            writer.WriteStringValue(RouterRuleKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -79,6 +81,7 @@ namespace Azure.Communication.JobRouter
                 return null;
             }
             BinaryData value = default;
+            RouterRuleKind routerRuleKind = default;
             RouterRuleKind kind = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -93,6 +96,11 @@ namespace Azure.Communication.JobRouter
                     value = BinaryData.FromString(property.Value.GetRawText());
                     continue;
                 }
+                if (property.NameEquals("routerRuleKind"u8))
+                {
+                    routerRuleKind = new RouterRuleKind(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("kind"u8))
                 {
                     kind = new RouterRuleKind(property.Value.GetString());
@@ -104,7 +112,7 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new StaticRouterRule(kind, serializedAdditionalRawData, value);
+            return new StaticRouterRule(routerRuleKind, kind, serializedAdditionalRawData, value);
         }
 
         BinaryData IPersistableModel<StaticRouterRule>.Write(ModelReaderWriterOptions options)

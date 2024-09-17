@@ -14,9 +14,10 @@ namespace Azure.Communication.JobRouter
     internal partial class UnknownQueueSelectorAttachment : QueueSelectorAttachment
     {
         /// <summary> Initializes a new instance of <see cref="UnknownQueueSelectorAttachment"/>. </summary>
+        /// <param name="queueSelectorAttachmentKind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
         /// <param name="kind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownQueueSelectorAttachment(QueueSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(kind, serializedAdditionalRawData)
+        internal UnknownQueueSelectorAttachment(QueueSelectorAttachmentKind queueSelectorAttachmentKind, QueueSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(queueSelectorAttachmentKind, kind, serializedAdditionalRawData)
         {
         }
 

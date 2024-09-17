@@ -55,17 +55,29 @@ namespace Azure.Communication.JobRouter
         private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="RouterRule"/>. </summary>
-        protected RouterRule()
+        /// <param name="routerRuleKind"> The type discriminator describing a sub-type of RouterRule. </param>
+        protected RouterRule(RouterRuleKind routerRuleKind)
         {
+            RouterRuleKind = routerRuleKind;
         }
 
         /// <summary> Initializes a new instance of <see cref="RouterRule"/>. </summary>
-        /// <param name="kind"> The type discriminator describing a sub-type of RouterRule. </param>
+        /// <param name="routerRuleKind"> The type discriminator describing a sub-type of RouterRule. </param>
+        /// <param name="kind"> The type discriminator describing a kind of RouterRule. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal RouterRule(RouterRuleKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal RouterRule(RouterRuleKind routerRuleKind, RouterRuleKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
+            RouterRuleKind = routerRuleKind;
             Kind = kind;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
+
+        /// <summary> Initializes a new instance of <see cref="RouterRule"/> for deserialization. </summary>
+        internal RouterRule()
+        {
+        }
+
+        /// <summary> The type discriminator describing a sub-type of RouterRule. </summary>
+        public RouterRuleKind RouterRuleKind { get; }
     }
 }

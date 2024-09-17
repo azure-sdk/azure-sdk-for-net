@@ -14,13 +14,22 @@ namespace Azure.Communication.JobRouter
     public partial class ManualReclassifyExceptionAction : ExceptionAction
     {
         /// <summary> Initializes a new instance of <see cref="ManualReclassifyExceptionAction"/>. </summary>
+        /// <param name="exceptionActionKind"> The type discriminator describing a sub-type of ExceptionAction. </param>
+        internal ManualReclassifyExceptionAction(ExceptionActionKind exceptionActionKind) : base(exceptionActionKind)
+        {
+            Kind = ExceptionActionKind.ManualReclassify;
+            WorkerSelectors = new ChangeTrackingList<RouterWorkerSelector>();
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ManualReclassifyExceptionAction"/>. </summary>
         /// <param name="id"> Unique Id of the exception action. </param>
+        /// <param name="exceptionActionKind"> The type discriminator describing a sub-type of ExceptionAction. </param>
         /// <param name="kind"> The type discriminator describing a sub-type of ExceptionAction. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="queueId"> Updated QueueId. </param>
         /// <param name="priority"> Updated Priority. </param>
         /// <param name="workerSelectors"> Updated WorkerSelectors. </param>
-        internal ManualReclassifyExceptionAction(string id, ExceptionActionKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, string queueId, int? priority, IList<RouterWorkerSelector> workerSelectors) : base(id, kind, serializedAdditionalRawData)
+        internal ManualReclassifyExceptionAction(string id, ExceptionActionKind exceptionActionKind, ExceptionActionKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, string queueId, int? priority, IList<RouterWorkerSelector> workerSelectors) : base(id, exceptionActionKind, kind, serializedAdditionalRawData)
         {
             QueueId = queueId;
             Priority = priority;

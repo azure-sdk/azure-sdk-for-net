@@ -50,17 +50,29 @@ namespace Azure.Communication.JobRouter
         private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="QueueSelectorAttachment"/>. </summary>
-        protected QueueSelectorAttachment()
+        /// <param name="queueSelectorAttachmentKind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
+        protected QueueSelectorAttachment(QueueSelectorAttachmentKind queueSelectorAttachmentKind)
         {
+            QueueSelectorAttachmentKind = queueSelectorAttachmentKind;
         }
 
         /// <summary> Initializes a new instance of <see cref="QueueSelectorAttachment"/>. </summary>
+        /// <param name="queueSelectorAttachmentKind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
         /// <param name="kind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal QueueSelectorAttachment(QueueSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal QueueSelectorAttachment(QueueSelectorAttachmentKind queueSelectorAttachmentKind, QueueSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
+            QueueSelectorAttachmentKind = queueSelectorAttachmentKind;
             Kind = kind;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
+
+        /// <summary> Initializes a new instance of <see cref="QueueSelectorAttachment"/> for deserialization. </summary>
+        internal QueueSelectorAttachment()
+        {
+        }
+
+        /// <summary> The type discriminator describing a sub-type of QueueSelectorAttachment. </summary>
+        public QueueSelectorAttachmentKind QueueSelectorAttachmentKind { get; }
     }
 }
