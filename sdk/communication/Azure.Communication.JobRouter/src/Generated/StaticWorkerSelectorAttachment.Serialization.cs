@@ -28,6 +28,8 @@ namespace Azure.Communication.JobRouter
             writer.WriteStartObject();
             writer.WritePropertyName("workerSelector"u8);
             writer.WriteObjectValue(WorkerSelector, options);
+            writer.WritePropertyName("workerSelectorAttachmentKind"u8);
+            writer.WriteStringValue(WorkerSelectorAttachmentKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -69,6 +71,7 @@ namespace Azure.Communication.JobRouter
                 return null;
             }
             RouterWorkerSelector workerSelector = default;
+            WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default;
             WorkerSelectorAttachmentKind kind = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -77,6 +80,11 @@ namespace Azure.Communication.JobRouter
                 if (property.NameEquals("workerSelector"u8))
                 {
                     workerSelector = RouterWorkerSelector.DeserializeRouterWorkerSelector(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("workerSelectorAttachmentKind"u8))
+                {
+                    workerSelectorAttachmentKind = new WorkerSelectorAttachmentKind(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("kind"u8))
@@ -90,7 +98,7 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new StaticWorkerSelectorAttachment(kind, serializedAdditionalRawData, workerSelector);
+            return new StaticWorkerSelectorAttachment(workerSelectorAttachmentKind, kind, serializedAdditionalRawData, workerSelector);
         }
 
         BinaryData IPersistableModel<StaticWorkerSelectorAttachment>.Write(ModelReaderWriterOptions options)

@@ -15,9 +15,10 @@ namespace Azure.Communication.JobRouter
     {
         /// <summary> Initializes a new instance of <see cref="UnknownExceptionAction"/>. </summary>
         /// <param name="id"> Unique Id of the exception action. </param>
+        /// <param name="exceptionActionKind"> The type discriminator describing a sub-type of ExceptionAction. </param>
         /// <param name="kind"> The type discriminator describing a sub-type of ExceptionAction. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownExceptionAction(string id, ExceptionActionKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, kind, serializedAdditionalRawData)
+        internal UnknownExceptionAction(string id, ExceptionActionKind exceptionActionKind, ExceptionActionKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, exceptionActionKind, kind, serializedAdditionalRawData)
         {
         }
 

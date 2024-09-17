@@ -33,6 +33,8 @@ namespace Azure.Communication.JobRouter
                 writer.WriteObjectValue(item, options);
             }
             writer.WriteEndArray();
+            writer.WritePropertyName("queueSelectorAttachmentKind"u8);
+            writer.WriteStringValue(QueueSelectorAttachmentKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -74,6 +76,7 @@ namespace Azure.Communication.JobRouter
                 return null;
             }
             IReadOnlyList<QueueWeightedAllocation> allocations = default;
+            QueueSelectorAttachmentKind queueSelectorAttachmentKind = default;
             QueueSelectorAttachmentKind kind = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -89,6 +92,11 @@ namespace Azure.Communication.JobRouter
                     allocations = array;
                     continue;
                 }
+                if (property.NameEquals("queueSelectorAttachmentKind"u8))
+                {
+                    queueSelectorAttachmentKind = new QueueSelectorAttachmentKind(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("kind"u8))
                 {
                     kind = new QueueSelectorAttachmentKind(property.Value.GetString());
@@ -100,7 +108,7 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new WeightedAllocationQueueSelectorAttachment(kind, serializedAdditionalRawData, allocations);
+            return new WeightedAllocationQueueSelectorAttachment(queueSelectorAttachmentKind, kind, serializedAdditionalRawData, allocations);
         }
 
         BinaryData IPersistableModel<WeightedAllocationQueueSelectorAttachment>.Write(ModelReaderWriterOptions options)

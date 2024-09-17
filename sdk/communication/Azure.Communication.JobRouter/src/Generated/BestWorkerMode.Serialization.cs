@@ -45,6 +45,8 @@ namespace Azure.Communication.JobRouter
                 writer.WritePropertyName("bypassSelectors"u8);
                 writer.WriteBooleanValue(BypassSelectors.Value);
             }
+            writer.WritePropertyName("distributionModeKind"u8);
+            writer.WriteStringValue(DistributionModeKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -90,6 +92,7 @@ namespace Azure.Communication.JobRouter
             int minConcurrentOffers = default;
             int maxConcurrentOffers = default;
             bool? bypassSelectors = default;
+            DistributionModeKind distributionModeKind = default;
             DistributionModeKind kind = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -140,6 +143,11 @@ namespace Azure.Communication.JobRouter
                     bypassSelectors = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("distributionModeKind"u8))
+                {
+                    distributionModeKind = new DistributionModeKind(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("kind"u8))
                 {
                     kind = new DistributionModeKind(property.Value.GetString());
@@ -155,6 +163,7 @@ namespace Azure.Communication.JobRouter
                 minConcurrentOffers,
                 maxConcurrentOffers,
                 bypassSelectors,
+                distributionModeKind,
                 kind,
                 serializedAdditionalRawData,
                 scoringRule,

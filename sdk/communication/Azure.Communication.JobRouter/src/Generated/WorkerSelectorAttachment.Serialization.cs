@@ -26,6 +26,8 @@ namespace Azure.Communication.JobRouter
             }
 
             writer.WriteStartObject();
+            writer.WritePropertyName("workerSelectorAttachmentKind"u8);
+            writer.WriteStringValue(WorkerSelectorAttachmentKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)

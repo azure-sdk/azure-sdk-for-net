@@ -30,6 +30,8 @@ namespace Azure.Communication.JobRouter
             writer.WriteStringValue(Key);
             writer.WritePropertyName("labelOperator"u8);
             writer.WriteStringValue(LabelOperator.ToString());
+            writer.WritePropertyName("queueSelectorAttachmentKind"u8);
+            writer.WriteStringValue(QueueSelectorAttachmentKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -72,6 +74,7 @@ namespace Azure.Communication.JobRouter
             }
             string key = default;
             LabelOperator labelOperator = default;
+            QueueSelectorAttachmentKind queueSelectorAttachmentKind = default;
             QueueSelectorAttachmentKind kind = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -87,6 +90,11 @@ namespace Azure.Communication.JobRouter
                     labelOperator = new LabelOperator(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("queueSelectorAttachmentKind"u8))
+                {
+                    queueSelectorAttachmentKind = new QueueSelectorAttachmentKind(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("kind"u8))
                 {
                     kind = new QueueSelectorAttachmentKind(property.Value.GetString());
@@ -98,7 +106,7 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new PassThroughQueueSelectorAttachment(kind, serializedAdditionalRawData, key, labelOperator);
+            return new PassThroughQueueSelectorAttachment(queueSelectorAttachmentKind, kind, serializedAdditionalRawData, key, labelOperator);
         }
 
         BinaryData IPersistableModel<PassThroughQueueSelectorAttachment>.Write(ModelReaderWriterOptions options)

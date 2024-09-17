@@ -26,6 +26,8 @@ namespace Azure.Communication.JobRouter
             }
 
             writer.WriteStartObject();
+            writer.WritePropertyName("routerRuleKind"u8);
+            writer.WriteStringValue(RouterRuleKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)

@@ -33,6 +33,8 @@ namespace Azure.Communication.JobRouter
                 writer.WritePropertyName("credential"u8);
                 writer.WriteObjectValue<FunctionRouterRuleCredential>(Credential, options);
             }
+            writer.WritePropertyName("routerRuleKind"u8);
+            writer.WriteStringValue(RouterRuleKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -75,6 +77,7 @@ namespace Azure.Communication.JobRouter
             }
             Uri functionUri = default;
             FunctionRouterRuleCredential credential = default;
+            RouterRuleKind routerRuleKind = default;
             RouterRuleKind kind = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -94,6 +97,11 @@ namespace Azure.Communication.JobRouter
                     credential = FunctionRouterRuleCredential.DeserializeFunctionRouterRuleCredential(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("routerRuleKind"u8))
+                {
+                    routerRuleKind = new RouterRuleKind(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("kind"u8))
                 {
                     kind = new RouterRuleKind(property.Value.GetString());
@@ -105,7 +113,7 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new FunctionRouterRule(kind, serializedAdditionalRawData, functionUri, credential);
+            return new FunctionRouterRule(routerRuleKind, kind, serializedAdditionalRawData, functionUri, credential);
         }
 
         BinaryData IPersistableModel<FunctionRouterRule>.Write(ModelReaderWriterOptions options)

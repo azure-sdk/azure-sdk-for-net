@@ -28,6 +28,8 @@ namespace Azure.Communication.JobRouter
             writer.WriteStartObject();
             writer.WritePropertyName("threshold"u8);
             writer.WriteNumberValue(Threshold);
+            writer.WritePropertyName("exceptionTriggerKind"u8);
+            writer.WriteStringValue(ExceptionTriggerKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -69,6 +71,7 @@ namespace Azure.Communication.JobRouter
                 return null;
             }
             int threshold = default;
+            ExceptionTriggerKind exceptionTriggerKind = default;
             ExceptionTriggerKind kind = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -77,6 +80,11 @@ namespace Azure.Communication.JobRouter
                 if (property.NameEquals("threshold"u8))
                 {
                     threshold = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("exceptionTriggerKind"u8))
+                {
+                    exceptionTriggerKind = new ExceptionTriggerKind(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("kind"u8))
@@ -90,7 +98,7 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new QueueLengthExceptionTrigger(kind, serializedAdditionalRawData, threshold);
+            return new QueueLengthExceptionTrigger(exceptionTriggerKind, kind, serializedAdditionalRawData, threshold);
         }
 
         BinaryData IPersistableModel<QueueLengthExceptionTrigger>.Write(ModelReaderWriterOptions options)

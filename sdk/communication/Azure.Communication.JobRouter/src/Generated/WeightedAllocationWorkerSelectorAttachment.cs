@@ -15,10 +15,23 @@ namespace Azure.Communication.JobRouter
     public partial class WeightedAllocationWorkerSelectorAttachment : WorkerSelectorAttachment
     {
         /// <summary> Initializes a new instance of <see cref="WeightedAllocationWorkerSelectorAttachment"/>. </summary>
+        /// <param name="workerSelectorAttachmentKind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
+        /// <param name="allocations"> A collection of percentage based weighted allocations. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="allocations"/> is null. </exception>
+        internal WeightedAllocationWorkerSelectorAttachment(WorkerSelectorAttachmentKind workerSelectorAttachmentKind, IEnumerable<WorkerWeightedAllocation> allocations) : base(workerSelectorAttachmentKind)
+        {
+            Argument.AssertNotNull(allocations, nameof(allocations));
+
+            Kind = WorkerSelectorAttachmentKind.WeightedAllocation;
+            Allocations = allocations.ToList();
+        }
+
+        /// <summary> Initializes a new instance of <see cref="WeightedAllocationWorkerSelectorAttachment"/>. </summary>
+        /// <param name="workerSelectorAttachmentKind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
         /// <param name="kind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="allocations"> A collection of percentage based weighted allocations. </param>
-        internal WeightedAllocationWorkerSelectorAttachment(WorkerSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, IReadOnlyList<WorkerWeightedAllocation> allocations) : base(kind, serializedAdditionalRawData)
+        internal WeightedAllocationWorkerSelectorAttachment(WorkerSelectorAttachmentKind workerSelectorAttachmentKind, WorkerSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, IReadOnlyList<WorkerWeightedAllocation> allocations) : base(workerSelectorAttachmentKind, kind, serializedAdditionalRawData)
         {
             Allocations = allocations;
         }

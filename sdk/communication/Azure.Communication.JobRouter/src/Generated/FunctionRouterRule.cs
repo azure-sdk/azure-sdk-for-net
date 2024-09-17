@@ -14,11 +14,24 @@ namespace Azure.Communication.JobRouter
     public partial class FunctionRouterRule : RouterRule
     {
         /// <summary> Initializes a new instance of <see cref="FunctionRouterRule"/>. </summary>
-        /// <param name="kind"> The type discriminator describing a sub-type of RouterRule. </param>
+        /// <param name="routerRuleKind"> The type discriminator describing a sub-type of RouterRule. </param>
+        /// <param name="functionUri"> URL for Azure Function. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="functionUri"/> is null. </exception>
+        internal FunctionRouterRule(RouterRuleKind routerRuleKind, Uri functionUri) : base(routerRuleKind)
+        {
+            Argument.AssertNotNull(functionUri, nameof(functionUri));
+
+            Kind = RouterRuleKind.Function;
+            FunctionUri = functionUri;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="FunctionRouterRule"/>. </summary>
+        /// <param name="routerRuleKind"> The type discriminator describing a sub-type of RouterRule. </param>
+        /// <param name="kind"> The type discriminator describing a kind of RouterRule. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="functionUri"> URL for Azure Function. </param>
         /// <param name="credential"> Credentials used to access Azure function rule. </param>
-        internal FunctionRouterRule(RouterRuleKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, Uri functionUri, FunctionRouterRuleCredential credential) : base(kind, serializedAdditionalRawData)
+        internal FunctionRouterRule(RouterRuleKind routerRuleKind, RouterRuleKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, Uri functionUri, FunctionRouterRuleCredential credential) : base(routerRuleKind, kind, serializedAdditionalRawData)
         {
             FunctionUri = functionUri;
             Credential = credential;

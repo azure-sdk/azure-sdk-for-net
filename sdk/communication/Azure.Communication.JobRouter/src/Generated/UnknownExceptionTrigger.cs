@@ -14,9 +14,10 @@ namespace Azure.Communication.JobRouter
     internal partial class UnknownExceptionTrigger : ExceptionTrigger
     {
         /// <summary> Initializes a new instance of <see cref="UnknownExceptionTrigger"/>. </summary>
-        /// <param name="kind"> The type discriminator describing a sub-type of ExceptionTrigger. </param>
+        /// <param name="exceptionTriggerKind"> The type discriminator describing a sub-type of ExceptionTrigger. </param>
+        /// <param name="kind"> The type discriminator describing a kind of ExceptionTrigger. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownExceptionTrigger(ExceptionTriggerKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(kind, serializedAdditionalRawData)
+        internal UnknownExceptionTrigger(ExceptionTriggerKind exceptionTriggerKind, ExceptionTriggerKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(exceptionTriggerKind, kind, serializedAdditionalRawData)
         {
         }
 

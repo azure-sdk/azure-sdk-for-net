@@ -14,9 +14,17 @@ namespace Azure.Communication.JobRouter
     public partial class DirectMapRouterRule : RouterRule
     {
         /// <summary> Initializes a new instance of <see cref="DirectMapRouterRule"/>. </summary>
-        /// <param name="kind"> The type discriminator describing a sub-type of RouterRule. </param>
+        /// <param name="routerRuleKind"> The type discriminator describing a sub-type of RouterRule. </param>
+        internal DirectMapRouterRule(RouterRuleKind routerRuleKind) : base(routerRuleKind)
+        {
+            Kind = RouterRuleKind.DirectMap;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="DirectMapRouterRule"/>. </summary>
+        /// <param name="routerRuleKind"> The type discriminator describing a sub-type of RouterRule. </param>
+        /// <param name="kind"> The type discriminator describing a kind of RouterRule. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DirectMapRouterRule(RouterRuleKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(kind, serializedAdditionalRawData)
+        internal DirectMapRouterRule(RouterRuleKind routerRuleKind, RouterRuleKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(routerRuleKind, kind, serializedAdditionalRawData)
         {
         }
     }

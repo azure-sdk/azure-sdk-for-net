@@ -14,10 +14,20 @@ namespace Azure.Communication.JobRouter
     public partial class WaitTimeExceptionTrigger : ExceptionTrigger
     {
         /// <summary> Initializes a new instance of <see cref="WaitTimeExceptionTrigger"/>. </summary>
-        /// <param name="kind"> The type discriminator describing a sub-type of ExceptionTrigger. </param>
+        /// <param name="exceptionTriggerKind"> The type discriminator describing a sub-type of ExceptionTrigger. </param>
+        /// <param name="threshold"> Threshold for wait time for this trigger. </param>
+        internal WaitTimeExceptionTrigger(ExceptionTriggerKind exceptionTriggerKind, TimeSpan threshold) : base(exceptionTriggerKind)
+        {
+            Kind = ExceptionTriggerKind.WaitTime;
+            Threshold = threshold;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="WaitTimeExceptionTrigger"/>. </summary>
+        /// <param name="exceptionTriggerKind"> The type discriminator describing a sub-type of ExceptionTrigger. </param>
+        /// <param name="kind"> The type discriminator describing a kind of ExceptionTrigger. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="threshold"> Threshold for wait time for this trigger. </param>
-        internal WaitTimeExceptionTrigger(ExceptionTriggerKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, TimeSpan threshold) : base(kind, serializedAdditionalRawData)
+        internal WaitTimeExceptionTrigger(ExceptionTriggerKind exceptionTriggerKind, ExceptionTriggerKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, TimeSpan threshold) : base(exceptionTriggerKind, kind, serializedAdditionalRawData)
         {
             Threshold = threshold;
         }

@@ -53,17 +53,29 @@ namespace Azure.Communication.JobRouter
         private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="JobMatchingMode"/>. </summary>
-        protected JobMatchingMode()
+        /// <param name="jobMatchingModeKind"> The type discriminator describing a sub-type of JobMatchingMode. </param>
+        protected JobMatchingMode(JobMatchingModeKind jobMatchingModeKind)
         {
+            JobMatchingModeKind = jobMatchingModeKind;
         }
 
         /// <summary> Initializes a new instance of <see cref="JobMatchingMode"/>. </summary>
-        /// <param name="kind"> The type discriminator describing a sub-type of JobMatchingMode. </param>
+        /// <param name="jobMatchingModeKind"> The type discriminator describing a sub-type of JobMatchingMode. </param>
+        /// <param name="kind"> The type discriminator describing a kind of JobMatchingMode. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal JobMatchingMode(JobMatchingModeKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal JobMatchingMode(JobMatchingModeKind jobMatchingModeKind, JobMatchingModeKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
+            JobMatchingModeKind = jobMatchingModeKind;
             Kind = kind;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
+
+        /// <summary> Initializes a new instance of <see cref="JobMatchingMode"/> for deserialization. </summary>
+        internal JobMatchingMode()
+        {
+        }
+
+        /// <summary> The type discriminator describing a sub-type of JobMatchingMode. </summary>
+        public JobMatchingModeKind JobMatchingModeKind { get; }
     }
 }

@@ -28,6 +28,8 @@ namespace Azure.Communication.JobRouter
             writer.WriteStartObject();
             writer.WritePropertyName("scheduleAt"u8);
             writer.WriteStringValue(ScheduleAt, "O");
+            writer.WritePropertyName("jobMatchingModeKind"u8);
+            writer.WriteStringValue(JobMatchingModeKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -69,6 +71,7 @@ namespace Azure.Communication.JobRouter
                 return null;
             }
             DateTimeOffset scheduleAt = default;
+            JobMatchingModeKind jobMatchingModeKind = default;
             JobMatchingModeKind kind = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -77,6 +80,11 @@ namespace Azure.Communication.JobRouter
                 if (property.NameEquals("scheduleAt"u8))
                 {
                     scheduleAt = property.Value.GetDateTimeOffset("O");
+                    continue;
+                }
+                if (property.NameEquals("jobMatchingModeKind"u8))
+                {
+                    jobMatchingModeKind = new JobMatchingModeKind(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("kind"u8))
@@ -90,7 +98,7 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ScheduleAndSuspendMode(kind, serializedAdditionalRawData, scheduleAt);
+            return new ScheduleAndSuspendMode(jobMatchingModeKind, kind, serializedAdditionalRawData, scheduleAt);
         }
 
         BinaryData IPersistableModel<ScheduleAndSuspendMode>.Write(ModelReaderWriterOptions options)

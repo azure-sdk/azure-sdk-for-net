@@ -41,6 +41,8 @@ namespace Azure.Communication.JobRouter
                 writer.WritePropertyName("id"u8);
                 writer.WriteStringValue(Id);
             }
+            writer.WritePropertyName("exceptionActionKind"u8);
+            writer.WriteStringValue(ExceptionActionKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -84,6 +86,7 @@ namespace Azure.Communication.JobRouter
             string note = default;
             string dispositionCode = default;
             string id = default;
+            ExceptionActionKind exceptionActionKind = default;
             ExceptionActionKind kind = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -104,6 +107,11 @@ namespace Azure.Communication.JobRouter
                     id = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("exceptionActionKind"u8))
+                {
+                    exceptionActionKind = new ExceptionActionKind(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("kind"u8))
                 {
                     kind = new ExceptionActionKind(property.Value.GetString());
@@ -115,7 +123,13 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new CancelExceptionAction(id, kind, serializedAdditionalRawData, note, dispositionCode);
+            return new CancelExceptionAction(
+                id,
+                exceptionActionKind,
+                kind,
+                serializedAdditionalRawData,
+                note,
+                dispositionCode);
         }
 
         BinaryData IPersistableModel<CancelExceptionAction>.Write(ModelReaderWriterOptions options)

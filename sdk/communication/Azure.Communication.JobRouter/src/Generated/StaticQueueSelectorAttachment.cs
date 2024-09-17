@@ -14,10 +14,23 @@ namespace Azure.Communication.JobRouter
     public partial class StaticQueueSelectorAttachment : QueueSelectorAttachment
     {
         /// <summary> Initializes a new instance of <see cref="StaticQueueSelectorAttachment"/>. </summary>
+        /// <param name="queueSelectorAttachmentKind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
+        /// <param name="queueSelector"> The queue selector to attach. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="queueSelector"/> is null. </exception>
+        internal StaticQueueSelectorAttachment(QueueSelectorAttachmentKind queueSelectorAttachmentKind, RouterQueueSelector queueSelector) : base(queueSelectorAttachmentKind)
+        {
+            Argument.AssertNotNull(queueSelector, nameof(queueSelector));
+
+            Kind = QueueSelectorAttachmentKind.Static;
+            QueueSelector = queueSelector;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="StaticQueueSelectorAttachment"/>. </summary>
+        /// <param name="queueSelectorAttachmentKind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
         /// <param name="kind"> The type discriminator describing a sub-type of QueueSelectorAttachment. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="queueSelector"> The queue selector to attach. </param>
-        internal StaticQueueSelectorAttachment(QueueSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, RouterQueueSelector queueSelector) : base(kind, serializedAdditionalRawData)
+        internal StaticQueueSelectorAttachment(QueueSelectorAttachmentKind queueSelectorAttachmentKind, QueueSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, RouterQueueSelector queueSelector) : base(queueSelectorAttachmentKind, kind, serializedAdditionalRawData)
         {
             QueueSelector = queueSelector;
         }

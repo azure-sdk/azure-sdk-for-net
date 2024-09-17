@@ -26,6 +26,8 @@ namespace Azure.Communication.JobRouter
             }
 
             writer.WriteStartObject();
+            writer.WritePropertyName("jobMatchingModeKind"u8);
+            writer.WriteStringValue(JobMatchingModeKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -66,11 +68,17 @@ namespace Azure.Communication.JobRouter
             {
                 return null;
             }
+            JobMatchingModeKind jobMatchingModeKind = default;
             JobMatchingModeKind kind = "Unknown";
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("jobMatchingModeKind"u8))
+                {
+                    jobMatchingModeKind = new JobMatchingModeKind(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("kind"u8))
                 {
                     kind = new JobMatchingModeKind(property.Value.GetString());
@@ -82,7 +90,7 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new UnknownJobMatchingMode(kind, serializedAdditionalRawData);
+            return new UnknownJobMatchingMode(jobMatchingModeKind, kind, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<JobMatchingMode>.Write(ModelReaderWriterOptions options)

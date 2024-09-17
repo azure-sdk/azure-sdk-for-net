@@ -28,6 +28,8 @@ namespace Azure.Communication.JobRouter
             writer.WriteStartObject();
             writer.WritePropertyName("queueSelector"u8);
             writer.WriteObjectValue(QueueSelector, options);
+            writer.WritePropertyName("queueSelectorAttachmentKind"u8);
+            writer.WriteStringValue(QueueSelectorAttachmentKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -69,6 +71,7 @@ namespace Azure.Communication.JobRouter
                 return null;
             }
             RouterQueueSelector queueSelector = default;
+            QueueSelectorAttachmentKind queueSelectorAttachmentKind = default;
             QueueSelectorAttachmentKind kind = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -77,6 +80,11 @@ namespace Azure.Communication.JobRouter
                 if (property.NameEquals("queueSelector"u8))
                 {
                     queueSelector = RouterQueueSelector.DeserializeRouterQueueSelector(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("queueSelectorAttachmentKind"u8))
+                {
+                    queueSelectorAttachmentKind = new QueueSelectorAttachmentKind(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("kind"u8))
@@ -90,7 +98,7 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new StaticQueueSelectorAttachment(kind, serializedAdditionalRawData, queueSelector);
+            return new StaticQueueSelectorAttachment(queueSelectorAttachmentKind, kind, serializedAdditionalRawData, queueSelector);
         }
 
         BinaryData IPersistableModel<StaticQueueSelectorAttachment>.Write(ModelReaderWriterOptions options)

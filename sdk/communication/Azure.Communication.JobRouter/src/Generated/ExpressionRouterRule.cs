@@ -14,11 +14,24 @@ namespace Azure.Communication.JobRouter
     public partial class ExpressionRouterRule : RouterRule
     {
         /// <summary> Initializes a new instance of <see cref="ExpressionRouterRule"/>. </summary>
-        /// <param name="kind"> The type discriminator describing a sub-type of RouterRule. </param>
+        /// <param name="routerRuleKind"> The type discriminator describing a sub-type of RouterRule. </param>
+        /// <param name="expression"> An expression to evaluate. Should contain return statement with calculated values. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="expression"/> is null. </exception>
+        internal ExpressionRouterRule(RouterRuleKind routerRuleKind, string expression) : base(routerRuleKind)
+        {
+            Argument.AssertNotNull(expression, nameof(expression));
+
+            Kind = RouterRuleKind.Expression;
+            Expression = expression;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ExpressionRouterRule"/>. </summary>
+        /// <param name="routerRuleKind"> The type discriminator describing a sub-type of RouterRule. </param>
+        /// <param name="kind"> The type discriminator describing a kind of RouterRule. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="language"> The expression language to compile to and execute. </param>
         /// <param name="expression"> An expression to evaluate. Should contain return statement with calculated values. </param>
-        internal ExpressionRouterRule(RouterRuleKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, string language, string expression) : base(kind, serializedAdditionalRawData)
+        internal ExpressionRouterRule(RouterRuleKind routerRuleKind, RouterRuleKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, string language, string expression) : base(routerRuleKind, kind, serializedAdditionalRawData)
         {
             Language = language;
             Expression = expression;

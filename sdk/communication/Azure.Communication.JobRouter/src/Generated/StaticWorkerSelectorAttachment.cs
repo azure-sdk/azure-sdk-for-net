@@ -14,10 +14,23 @@ namespace Azure.Communication.JobRouter
     public partial class StaticWorkerSelectorAttachment : WorkerSelectorAttachment
     {
         /// <summary> Initializes a new instance of <see cref="StaticWorkerSelectorAttachment"/>. </summary>
+        /// <param name="workerSelectorAttachmentKind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
+        /// <param name="workerSelector"> The worker selector to attach. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workerSelector"/> is null. </exception>
+        internal StaticWorkerSelectorAttachment(WorkerSelectorAttachmentKind workerSelectorAttachmentKind, RouterWorkerSelector workerSelector) : base(workerSelectorAttachmentKind)
+        {
+            Argument.AssertNotNull(workerSelector, nameof(workerSelector));
+
+            Kind = WorkerSelectorAttachmentKind.Static;
+            WorkerSelector = workerSelector;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="StaticWorkerSelectorAttachment"/>. </summary>
+        /// <param name="workerSelectorAttachmentKind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
         /// <param name="kind"> The type discriminator describing a sub-type of WorkerSelectorAttachment. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="workerSelector"> The worker selector to attach. </param>
-        internal StaticWorkerSelectorAttachment(WorkerSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, RouterWorkerSelector workerSelector) : base(kind, serializedAdditionalRawData)
+        internal StaticWorkerSelectorAttachment(WorkerSelectorAttachmentKind workerSelectorAttachmentKind, WorkerSelectorAttachmentKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData, RouterWorkerSelector workerSelector) : base(workerSelectorAttachmentKind, kind, serializedAdditionalRawData)
         {
             WorkerSelector = workerSelector;
         }

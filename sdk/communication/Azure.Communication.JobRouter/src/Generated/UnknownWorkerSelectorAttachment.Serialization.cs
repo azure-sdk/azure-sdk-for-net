@@ -26,6 +26,8 @@ namespace Azure.Communication.JobRouter
             }
 
             writer.WriteStartObject();
+            writer.WritePropertyName("workerSelectorAttachmentKind"u8);
+            writer.WriteStringValue(WorkerSelectorAttachmentKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -66,11 +68,17 @@ namespace Azure.Communication.JobRouter
             {
                 return null;
             }
+            WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default;
             WorkerSelectorAttachmentKind kind = "Unknown";
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("workerSelectorAttachmentKind"u8))
+                {
+                    workerSelectorAttachmentKind = new WorkerSelectorAttachmentKind(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("kind"u8))
                 {
                     kind = new WorkerSelectorAttachmentKind(property.Value.GetString());
@@ -82,7 +90,7 @@ namespace Azure.Communication.JobRouter
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new UnknownWorkerSelectorAttachment(kind, serializedAdditionalRawData);
+            return new UnknownWorkerSelectorAttachment(workerSelectorAttachmentKind, kind, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<WorkerSelectorAttachment>.Write(ModelReaderWriterOptions options)

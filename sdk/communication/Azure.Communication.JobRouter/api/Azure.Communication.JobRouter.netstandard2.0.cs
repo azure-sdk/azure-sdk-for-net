@@ -14,7 +14,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class BestWorkerMode : Azure.Communication.JobRouter.DistributionMode, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.BestWorkerMode>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.BestWorkerMode>
     {
-        public BestWorkerMode() { }
+        public BestWorkerMode() : base (default(Azure.Communication.JobRouter.DistributionModeKind)) { }
         public Azure.Communication.JobRouter.RouterRule ScoringRule { get { throw null; } set { } }
         public Azure.Communication.JobRouter.ScoringRuleOptions ScoringRuleOptions { get { throw null; } set { } }
         Azure.Communication.JobRouter.BestWorkerMode System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.BestWorkerMode>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -25,7 +25,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class CancelExceptionAction : Azure.Communication.JobRouter.ExceptionAction, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.CancelExceptionAction>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.CancelExceptionAction>
     {
-        public CancelExceptionAction() { }
+        public CancelExceptionAction() : base (default(Azure.Communication.JobRouter.ExceptionActionKind)) { }
         public string DispositionCode { get { throw null; } set { } }
         public string Note { get { throw null; } set { } }
         Azure.Communication.JobRouter.CancelExceptionAction System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.CancelExceptionAction>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -90,7 +90,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class ConditionalQueueSelectorAttachment : Azure.Communication.JobRouter.QueueSelectorAttachment, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ConditionalQueueSelectorAttachment>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.ConditionalQueueSelectorAttachment>
     {
-        public ConditionalQueueSelectorAttachment(Azure.Communication.JobRouter.RouterRule condition) { }
+        public ConditionalQueueSelectorAttachment(Azure.Communication.JobRouter.RouterRule condition) : base (default(Azure.Communication.JobRouter.QueueSelectorAttachmentKind)) { }
         public Azure.Communication.JobRouter.RouterRule Condition { get { throw null; } }
         public System.Collections.Generic.IList<Azure.Communication.JobRouter.RouterQueueSelector> QueueSelectors { get { throw null; } }
         Azure.Communication.JobRouter.ConditionalQueueSelectorAttachment System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ConditionalQueueSelectorAttachment>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -101,7 +101,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class ConditionalWorkerSelectorAttachment : Azure.Communication.JobRouter.WorkerSelectorAttachment, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ConditionalWorkerSelectorAttachment>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.ConditionalWorkerSelectorAttachment>
     {
-        public ConditionalWorkerSelectorAttachment(Azure.Communication.JobRouter.RouterRule condition) { }
+        public ConditionalWorkerSelectorAttachment(Azure.Communication.JobRouter.RouterRule condition) : base (default(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind)) { }
         public Azure.Communication.JobRouter.RouterRule Condition { get { throw null; } }
         public System.Collections.Generic.IList<Azure.Communication.JobRouter.RouterWorkerSelector> WorkerSelectors { get { throw null; } }
         Azure.Communication.JobRouter.ConditionalWorkerSelectorAttachment System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ConditionalWorkerSelectorAttachment>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -206,7 +206,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class DirectMapRouterRule : Azure.Communication.JobRouter.RouterRule, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.DirectMapRouterRule>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.DirectMapRouterRule>
     {
-        public DirectMapRouterRule() { }
+        public DirectMapRouterRule() : base (default(Azure.Communication.JobRouter.RouterRuleKind)) { }
         Azure.Communication.JobRouter.DirectMapRouterRule System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.DirectMapRouterRule>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.DirectMapRouterRule>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.Communication.JobRouter.DirectMapRouterRule System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.DirectMapRouterRule>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -215,8 +215,9 @@ namespace Azure.Communication.JobRouter
     }
     public abstract partial class DistributionMode : System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.DistributionMode>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.DistributionMode>
     {
-        protected DistributionMode() { }
+        protected DistributionMode(Azure.Communication.JobRouter.DistributionModeKind distributionModeKind) { }
         public bool? BypassSelectors { get { throw null; } set { } }
+        public Azure.Communication.JobRouter.DistributionModeKind DistributionModeKind { get { throw null; } }
         public Azure.Communication.JobRouter.DistributionModeKind Kind { get { throw null; } protected set { } }
         public int MaxConcurrentOffers { get { throw null; } set { } }
         public int MinConcurrentOffers { get { throw null; } set { } }
@@ -261,7 +262,8 @@ namespace Azure.Communication.JobRouter
     }
     public abstract partial class ExceptionAction : System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ExceptionAction>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.ExceptionAction>
     {
-        protected ExceptionAction() { }
+        protected ExceptionAction(Azure.Communication.JobRouter.ExceptionActionKind exceptionActionKind) { }
+        public Azure.Communication.JobRouter.ExceptionActionKind ExceptionActionKind { get { throw null; } }
         public string Id { get { throw null; } }
         public Azure.Communication.JobRouter.ExceptionActionKind Kind { get { throw null; } protected set { } }
         Azure.Communication.JobRouter.ExceptionAction System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ExceptionAction>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -316,7 +318,8 @@ namespace Azure.Communication.JobRouter
     }
     public abstract partial class ExceptionTrigger : System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ExceptionTrigger>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.ExceptionTrigger>
     {
-        protected ExceptionTrigger() { }
+        protected ExceptionTrigger(Azure.Communication.JobRouter.ExceptionTriggerKind exceptionTriggerKind) { }
+        public Azure.Communication.JobRouter.ExceptionTriggerKind ExceptionTriggerKind { get { throw null; } }
         public Azure.Communication.JobRouter.ExceptionTriggerKind Kind { get { throw null; } protected set { } }
         Azure.Communication.JobRouter.ExceptionTrigger System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ExceptionTrigger>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ExceptionTrigger>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -344,7 +347,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class ExpressionRouterRule : Azure.Communication.JobRouter.RouterRule, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ExpressionRouterRule>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.ExpressionRouterRule>
     {
-        public ExpressionRouterRule(string expression) { }
+        public ExpressionRouterRule(string expression) : base (default(Azure.Communication.JobRouter.RouterRuleKind)) { }
         public string Expression { get { throw null; } }
         Azure.Communication.JobRouter.ExpressionRouterRule System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ExpressionRouterRule>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ExpressionRouterRule>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -354,7 +357,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class FunctionRouterRule : Azure.Communication.JobRouter.RouterRule, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.FunctionRouterRule>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.FunctionRouterRule>
     {
-        public FunctionRouterRule(System.Uri functionAppUri) { }
+        public FunctionRouterRule(System.Uri functionAppUri) : base (default(Azure.Communication.JobRouter.RouterRuleKind)) { }
         public Azure.Communication.JobRouter.FunctionRouterRuleCredential Credential { get { throw null; } set { } }
         public System.Uri FunctionUri { get { throw null; } }
         Azure.Communication.JobRouter.FunctionRouterRule System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.FunctionRouterRule>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -375,7 +378,8 @@ namespace Azure.Communication.JobRouter
     }
     public abstract partial class JobMatchingMode : System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.JobMatchingMode>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.JobMatchingMode>
     {
-        protected JobMatchingMode() { }
+        protected JobMatchingMode(Azure.Communication.JobRouter.JobMatchingModeKind jobMatchingModeKind) { }
+        public Azure.Communication.JobRouter.JobMatchingModeKind JobMatchingModeKind { get { throw null; } }
         public Azure.Communication.JobRouter.JobMatchingModeKind Kind { get { throw null; } protected set { } }
         Azure.Communication.JobRouter.JobMatchingMode System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.JobMatchingMode>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.JobMatchingMode>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -575,36 +579,49 @@ namespace Azure.Communication.JobRouter
     public static partial class JobRouterModelFactory
     {
         public static Azure.Communication.JobRouter.AcceptJobOfferResult AcceptJobOfferResult(string assignmentId = null, string jobId = null, string workerId = null) { throw null; }
-        public static Azure.Communication.JobRouter.CancelExceptionAction CancelExceptionAction(string id = null, string note = null, string dispositionCode = null) { throw null; }
+        public static Azure.Communication.JobRouter.BestWorkerMode BestWorkerMode(int minConcurrentOffers = 0, int maxConcurrentOffers = 0, bool? bypassSelectors = default(bool?), Azure.Communication.JobRouter.DistributionModeKind distributionModeKind = default(Azure.Communication.JobRouter.DistributionModeKind), Azure.Communication.JobRouter.RouterRule scoringRule = null, Azure.Communication.JobRouter.ScoringRuleOptions scoringRuleOptions = null) { throw null; }
+        public static Azure.Communication.JobRouter.CancelExceptionAction CancelExceptionAction(string id = null, Azure.Communication.JobRouter.ExceptionActionKind exceptionActionKind = default(Azure.Communication.JobRouter.ExceptionActionKind), string note = null, string dispositionCode = null) { throw null; }
         public static Azure.Communication.JobRouter.ClassificationPolicy ClassificationPolicy(Azure.ETag eTag = default(Azure.ETag), string id = null, string name = null, string fallbackQueueId = null, System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.QueueSelectorAttachment> queueSelectorAttachments = null, Azure.Communication.JobRouter.RouterRule prioritizationRule = null, System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.WorkerSelectorAttachment> workerSelectorAttachments = null) { throw null; }
-        public static Azure.Communication.JobRouter.ConditionalQueueSelectorAttachment ConditionalQueueSelectorAttachment(Azure.Communication.JobRouter.RouterRule condition = null, System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.RouterQueueSelector> queueSelectors = null) { throw null; }
-        public static Azure.Communication.JobRouter.ConditionalWorkerSelectorAttachment ConditionalWorkerSelectorAttachment(Azure.Communication.JobRouter.RouterRule condition = null, System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.RouterWorkerSelector> workerSelectors = null) { throw null; }
+        public static Azure.Communication.JobRouter.ConditionalQueueSelectorAttachment ConditionalQueueSelectorAttachment(Azure.Communication.JobRouter.QueueSelectorAttachmentKind queueSelectorAttachmentKind = default(Azure.Communication.JobRouter.QueueSelectorAttachmentKind), Azure.Communication.JobRouter.RouterRule condition = null, System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.RouterQueueSelector> queueSelectors = null) { throw null; }
+        public static Azure.Communication.JobRouter.ConditionalWorkerSelectorAttachment ConditionalWorkerSelectorAttachment(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind), Azure.Communication.JobRouter.RouterRule condition = null, System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.RouterWorkerSelector> workerSelectors = null) { throw null; }
+        public static Azure.Communication.JobRouter.DirectMapRouterRule DirectMapRouterRule(Azure.Communication.JobRouter.RouterRuleKind routerRuleKind = default(Azure.Communication.JobRouter.RouterRuleKind)) { throw null; }
+        public static Azure.Communication.JobRouter.DistributionMode DistributionMode(int minConcurrentOffers = 0, int maxConcurrentOffers = 0, bool? bypassSelectors = default(bool?), Azure.Communication.JobRouter.DistributionModeKind distributionModeKind = default(Azure.Communication.JobRouter.DistributionModeKind), string kind = null) { throw null; }
         public static Azure.Communication.JobRouter.DistributionPolicy DistributionPolicy(Azure.ETag eTag = default(Azure.ETag), string id = null, string name = null, System.TimeSpan? offerExpiresAfter = default(System.TimeSpan?), Azure.Communication.JobRouter.DistributionMode mode = null) { throw null; }
-        public static Azure.Communication.JobRouter.ExceptionAction ExceptionAction(string id = null, string kind = null) { throw null; }
+        public static Azure.Communication.JobRouter.ExceptionAction ExceptionAction(string id = null, Azure.Communication.JobRouter.ExceptionActionKind exceptionActionKind = default(Azure.Communication.JobRouter.ExceptionActionKind), string kind = null) { throw null; }
         public static Azure.Communication.JobRouter.ExceptionPolicy ExceptionPolicy(Azure.ETag eTag = default(Azure.ETag), string id = null, string name = null, System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.ExceptionRule> exceptionRules = null) { throw null; }
         public static Azure.Communication.JobRouter.ExceptionRule ExceptionRule(string id = null, Azure.Communication.JobRouter.ExceptionTrigger trigger = null, System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.ExceptionAction> actions = null) { throw null; }
-        public static Azure.Communication.JobRouter.FunctionRouterRule FunctionRouterRule(System.Uri functionUri = null, Azure.Communication.JobRouter.FunctionRouterRuleCredential credential = null) { throw null; }
-        public static Azure.Communication.JobRouter.ManualReclassifyExceptionAction ManualReclassifyExceptionAction(string id = null, string queueId = null, int? priority = default(int?), System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.RouterWorkerSelector> workerSelectors = null) { throw null; }
-        public static Azure.Communication.JobRouter.PassThroughQueueSelectorAttachment PassThroughQueueSelectorAttachment(string key = null, Azure.Communication.JobRouter.LabelOperator labelOperator = default(Azure.Communication.JobRouter.LabelOperator)) { throw null; }
-        public static Azure.Communication.JobRouter.PassThroughWorkerSelectorAttachment PassThroughWorkerSelectorAttachment(string key = null, Azure.Communication.JobRouter.LabelOperator labelOperator = default(Azure.Communication.JobRouter.LabelOperator), System.TimeSpan? expiresAfter = default(System.TimeSpan?)) { throw null; }
-        public static Azure.Communication.JobRouter.QueueLengthExceptionTrigger QueueLengthExceptionTrigger(int threshold = 0) { throw null; }
+        public static Azure.Communication.JobRouter.ExceptionTrigger ExceptionTrigger(Azure.Communication.JobRouter.ExceptionTriggerKind exceptionTriggerKind = default(Azure.Communication.JobRouter.ExceptionTriggerKind), string kind = null) { throw null; }
+        public static Azure.Communication.JobRouter.FunctionRouterRule FunctionRouterRule(Azure.Communication.JobRouter.RouterRuleKind routerRuleKind = default(Azure.Communication.JobRouter.RouterRuleKind), System.Uri functionUri = null, Azure.Communication.JobRouter.FunctionRouterRuleCredential credential = null) { throw null; }
+        public static Azure.Communication.JobRouter.JobMatchingMode JobMatchingMode(Azure.Communication.JobRouter.JobMatchingModeKind jobMatchingModeKind = default(Azure.Communication.JobRouter.JobMatchingModeKind), string kind = null) { throw null; }
+        public static Azure.Communication.JobRouter.LongestIdleMode LongestIdleMode(int minConcurrentOffers = 0, int maxConcurrentOffers = 0, bool? bypassSelectors = default(bool?), Azure.Communication.JobRouter.DistributionModeKind distributionModeKind = default(Azure.Communication.JobRouter.DistributionModeKind)) { throw null; }
+        public static Azure.Communication.JobRouter.ManualReclassifyExceptionAction ManualReclassifyExceptionAction(string id = null, Azure.Communication.JobRouter.ExceptionActionKind exceptionActionKind = default(Azure.Communication.JobRouter.ExceptionActionKind), string queueId = null, int? priority = default(int?), System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.RouterWorkerSelector> workerSelectors = null) { throw null; }
+        public static Azure.Communication.JobRouter.PassThroughQueueSelectorAttachment PassThroughQueueSelectorAttachment(Azure.Communication.JobRouter.QueueSelectorAttachmentKind queueSelectorAttachmentKind = default(Azure.Communication.JobRouter.QueueSelectorAttachmentKind), string key = null, Azure.Communication.JobRouter.LabelOperator labelOperator = default(Azure.Communication.JobRouter.LabelOperator)) { throw null; }
+        public static Azure.Communication.JobRouter.PassThroughWorkerSelectorAttachment PassThroughWorkerSelectorAttachment(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind), string key = null, Azure.Communication.JobRouter.LabelOperator labelOperator = default(Azure.Communication.JobRouter.LabelOperator), System.TimeSpan? expiresAfter = default(System.TimeSpan?)) { throw null; }
+        public static Azure.Communication.JobRouter.QueueAndMatchMode QueueAndMatchMode(Azure.Communication.JobRouter.JobMatchingModeKind jobMatchingModeKind = default(Azure.Communication.JobRouter.JobMatchingModeKind)) { throw null; }
+        public static Azure.Communication.JobRouter.QueueLengthExceptionTrigger QueueLengthExceptionTrigger(Azure.Communication.JobRouter.ExceptionTriggerKind exceptionTriggerKind = default(Azure.Communication.JobRouter.ExceptionTriggerKind), int threshold = 0) { throw null; }
+        public static Azure.Communication.JobRouter.QueueSelectorAttachment QueueSelectorAttachment(Azure.Communication.JobRouter.QueueSelectorAttachmentKind queueSelectorAttachmentKind = default(Azure.Communication.JobRouter.QueueSelectorAttachmentKind), string kind = null) { throw null; }
         public static Azure.Communication.JobRouter.QueueWeightedAllocation QueueWeightedAllocation(double weight = 0, System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.RouterQueueSelector> queueSelectors = null) { throw null; }
+        public static Azure.Communication.JobRouter.RoundRobinMode RoundRobinMode(int minConcurrentOffers = 0, int maxConcurrentOffers = 0, bool? bypassSelectors = default(bool?), Azure.Communication.JobRouter.DistributionModeKind distributionModeKind = default(Azure.Communication.JobRouter.DistributionModeKind)) { throw null; }
         public static Azure.Communication.JobRouter.RouterChannel RouterChannel(string channelId = null, int capacityCostPerJob = 0, int? maxNumberOfJobs = default(int?)) { throw null; }
         public static Azure.Communication.JobRouter.RouterJobAssignment RouterJobAssignment(string assignmentId = null, string workerId = null, System.DateTimeOffset assignedAt = default(System.DateTimeOffset), System.DateTimeOffset? completedAt = default(System.DateTimeOffset?), System.DateTimeOffset? closedAt = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.Communication.JobRouter.RouterJobNote RouterJobNote(string message = null, System.DateTimeOffset? addedAt = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.Communication.JobRouter.RouterJobOffer RouterJobOffer(string offerId = null, string jobId = null, int capacityCost = 0, System.DateTimeOffset? offeredAt = default(System.DateTimeOffset?), System.DateTimeOffset? expiresAt = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.Communication.JobRouter.RouterJobPositionDetails RouterJobPositionDetails(string jobId = null, int position = 0, string queueId = null, int queueLength = 0, System.TimeSpan estimatedWaitTime = default(System.TimeSpan)) { throw null; }
         public static Azure.Communication.JobRouter.RouterQueueStatistics RouterQueueStatistics(string queueId = null, int length = 0, System.Collections.Generic.IDictionary<int, System.TimeSpan> estimatedWaitTimes = null, double? longestJobWaitTimeMinutes = default(double?)) { throw null; }
+        public static Azure.Communication.JobRouter.RouterRule RouterRule(Azure.Communication.JobRouter.RouterRuleKind routerRuleKind = default(Azure.Communication.JobRouter.RouterRuleKind), string kind = null) { throw null; }
         public static Azure.Communication.JobRouter.RouterWorkerAssignment RouterWorkerAssignment(string assignmentId = null, string jobId = null, int capacityCost = 0, System.DateTimeOffset assignedAt = default(System.DateTimeOffset)) { throw null; }
-        public static Azure.Communication.JobRouter.RuleEngineQueueSelectorAttachment RuleEngineQueueSelectorAttachment(Azure.Communication.JobRouter.RouterRule rule = null) { throw null; }
-        public static Azure.Communication.JobRouter.RuleEngineWorkerSelectorAttachment RuleEngineWorkerSelectorAttachment(Azure.Communication.JobRouter.RouterRule rule = null) { throw null; }
-        public static Azure.Communication.JobRouter.ScheduleAndSuspendMode ScheduleAndSuspendMode(System.DateTimeOffset scheduleAt = default(System.DateTimeOffset)) { throw null; }
-        public static Azure.Communication.JobRouter.StaticQueueSelectorAttachment StaticQueueSelectorAttachment(Azure.Communication.JobRouter.RouterQueueSelector queueSelector = null) { throw null; }
-        public static Azure.Communication.JobRouter.StaticWorkerSelectorAttachment StaticWorkerSelectorAttachment(Azure.Communication.JobRouter.RouterWorkerSelector workerSelector = null) { throw null; }
+        public static Azure.Communication.JobRouter.RuleEngineQueueSelectorAttachment RuleEngineQueueSelectorAttachment(Azure.Communication.JobRouter.QueueSelectorAttachmentKind queueSelectorAttachmentKind = default(Azure.Communication.JobRouter.QueueSelectorAttachmentKind), Azure.Communication.JobRouter.RouterRule rule = null) { throw null; }
+        public static Azure.Communication.JobRouter.RuleEngineWorkerSelectorAttachment RuleEngineWorkerSelectorAttachment(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind), Azure.Communication.JobRouter.RouterRule rule = null) { throw null; }
+        public static Azure.Communication.JobRouter.ScheduleAndSuspendMode ScheduleAndSuspendMode(Azure.Communication.JobRouter.JobMatchingModeKind jobMatchingModeKind = default(Azure.Communication.JobRouter.JobMatchingModeKind), System.DateTimeOffset scheduleAt = default(System.DateTimeOffset)) { throw null; }
+        public static Azure.Communication.JobRouter.StaticQueueSelectorAttachment StaticQueueSelectorAttachment(Azure.Communication.JobRouter.QueueSelectorAttachmentKind queueSelectorAttachmentKind = default(Azure.Communication.JobRouter.QueueSelectorAttachmentKind), Azure.Communication.JobRouter.RouterQueueSelector queueSelector = null) { throw null; }
+        public static Azure.Communication.JobRouter.StaticWorkerSelectorAttachment StaticWorkerSelectorAttachment(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind), Azure.Communication.JobRouter.RouterWorkerSelector workerSelector = null) { throw null; }
+        public static Azure.Communication.JobRouter.SuspendMode SuspendMode(Azure.Communication.JobRouter.JobMatchingModeKind jobMatchingModeKind = default(Azure.Communication.JobRouter.JobMatchingModeKind)) { throw null; }
         public static Azure.Communication.JobRouter.UnassignJobResult UnassignJobResult(string jobId = null, int unassignmentCount = 0) { throw null; }
-        public static Azure.Communication.JobRouter.WebhookRouterRule WebhookRouterRule(System.Uri authorizationServerUri = null, Azure.Communication.JobRouter.OAuth2WebhookClientCredential clientCredential = null, System.Uri webhookUri = null) { throw null; }
-        public static Azure.Communication.JobRouter.WeightedAllocationQueueSelectorAttachment WeightedAllocationQueueSelectorAttachment(System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.QueueWeightedAllocation> allocations = null) { throw null; }
-        public static Azure.Communication.JobRouter.WeightedAllocationWorkerSelectorAttachment WeightedAllocationWorkerSelectorAttachment(System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.WorkerWeightedAllocation> allocations = null) { throw null; }
+        public static Azure.Communication.JobRouter.WaitTimeExceptionTrigger WaitTimeExceptionTrigger(Azure.Communication.JobRouter.ExceptionTriggerKind exceptionTriggerKind = default(Azure.Communication.JobRouter.ExceptionTriggerKind), System.TimeSpan threshold = default(System.TimeSpan)) { throw null; }
+        public static Azure.Communication.JobRouter.WebhookRouterRule WebhookRouterRule(Azure.Communication.JobRouter.RouterRuleKind routerRuleKind = default(Azure.Communication.JobRouter.RouterRuleKind), System.Uri authorizationServerUri = null, Azure.Communication.JobRouter.OAuth2WebhookClientCredential clientCredential = null, System.Uri webhookUri = null) { throw null; }
+        public static Azure.Communication.JobRouter.WeightedAllocationQueueSelectorAttachment WeightedAllocationQueueSelectorAttachment(Azure.Communication.JobRouter.QueueSelectorAttachmentKind queueSelectorAttachmentKind = default(Azure.Communication.JobRouter.QueueSelectorAttachmentKind), System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.QueueWeightedAllocation> allocations = null) { throw null; }
+        public static Azure.Communication.JobRouter.WeightedAllocationWorkerSelectorAttachment WeightedAllocationWorkerSelectorAttachment(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind), System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.WorkerWeightedAllocation> allocations = null) { throw null; }
+        public static Azure.Communication.JobRouter.WorkerSelectorAttachment WorkerSelectorAttachment(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind workerSelectorAttachmentKind = default(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind), string kind = null) { throw null; }
         public static Azure.Communication.JobRouter.WorkerWeightedAllocation WorkerWeightedAllocation(double weight = 0, System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.RouterWorkerSelector> workerSelectors = null) { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
@@ -631,7 +648,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class LongestIdleMode : Azure.Communication.JobRouter.DistributionMode, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.LongestIdleMode>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.LongestIdleMode>
     {
-        public LongestIdleMode() { }
+        public LongestIdleMode() : base (default(Azure.Communication.JobRouter.DistributionModeKind)) { }
         Azure.Communication.JobRouter.LongestIdleMode System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.LongestIdleMode>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.LongestIdleMode>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.Communication.JobRouter.LongestIdleMode System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.LongestIdleMode>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -640,7 +657,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class ManualReclassifyExceptionAction : Azure.Communication.JobRouter.ExceptionAction, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ManualReclassifyExceptionAction>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.ManualReclassifyExceptionAction>
     {
-        public ManualReclassifyExceptionAction() { }
+        public ManualReclassifyExceptionAction() : base (default(Azure.Communication.JobRouter.ExceptionActionKind)) { }
         public int? Priority { get { throw null; } set { } }
         public string QueueId { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.Communication.JobRouter.RouterWorkerSelector> WorkerSelectors { get { throw null; } }
@@ -661,7 +678,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class PassThroughQueueSelectorAttachment : Azure.Communication.JobRouter.QueueSelectorAttachment, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.PassThroughQueueSelectorAttachment>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.PassThroughQueueSelectorAttachment>
     {
-        public PassThroughQueueSelectorAttachment(string key, Azure.Communication.JobRouter.LabelOperator labelOperator) { }
+        public PassThroughQueueSelectorAttachment(string key, Azure.Communication.JobRouter.LabelOperator labelOperator) : base (default(Azure.Communication.JobRouter.QueueSelectorAttachmentKind)) { }
         public string Key { get { throw null; } }
         public Azure.Communication.JobRouter.LabelOperator LabelOperator { get { throw null; } }
         Azure.Communication.JobRouter.PassThroughQueueSelectorAttachment System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.PassThroughQueueSelectorAttachment>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -672,7 +689,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class PassThroughWorkerSelectorAttachment : Azure.Communication.JobRouter.WorkerSelectorAttachment, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.PassThroughWorkerSelectorAttachment>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.PassThroughWorkerSelectorAttachment>
     {
-        public PassThroughWorkerSelectorAttachment(string key, Azure.Communication.JobRouter.LabelOperator labelOperator, System.TimeSpan? expiresAfter = default(System.TimeSpan?)) { }
+        public PassThroughWorkerSelectorAttachment(string key, Azure.Communication.JobRouter.LabelOperator labelOperator, System.TimeSpan? expiresAfter = default(System.TimeSpan?)) : base (default(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind)) { }
         public System.TimeSpan? ExpiresAfter { get { throw null; } }
         public string Key { get { throw null; } }
         public Azure.Communication.JobRouter.LabelOperator LabelOperator { get { throw null; } }
@@ -684,7 +701,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class QueueAndMatchMode : Azure.Communication.JobRouter.JobMatchingMode, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.QueueAndMatchMode>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.QueueAndMatchMode>
     {
-        public QueueAndMatchMode() { }
+        public QueueAndMatchMode() : base (default(Azure.Communication.JobRouter.JobMatchingModeKind)) { }
         Azure.Communication.JobRouter.QueueAndMatchMode System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.QueueAndMatchMode>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.QueueAndMatchMode>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.Communication.JobRouter.QueueAndMatchMode System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.QueueAndMatchMode>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -693,7 +710,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class QueueLengthExceptionTrigger : Azure.Communication.JobRouter.ExceptionTrigger, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.QueueLengthExceptionTrigger>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.QueueLengthExceptionTrigger>
     {
-        public QueueLengthExceptionTrigger(int threshold) { }
+        public QueueLengthExceptionTrigger(int threshold) : base (default(Azure.Communication.JobRouter.ExceptionTriggerKind)) { }
         public int Threshold { get { throw null; } }
         Azure.Communication.JobRouter.QueueLengthExceptionTrigger System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.QueueLengthExceptionTrigger>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.QueueLengthExceptionTrigger>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -703,8 +720,9 @@ namespace Azure.Communication.JobRouter
     }
     public abstract partial class QueueSelectorAttachment : System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.QueueSelectorAttachment>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.QueueSelectorAttachment>
     {
-        protected QueueSelectorAttachment() { }
+        protected QueueSelectorAttachment(Azure.Communication.JobRouter.QueueSelectorAttachmentKind queueSelectorAttachmentKind) { }
         public Azure.Communication.JobRouter.QueueSelectorAttachmentKind Kind { get { throw null; } protected set { } }
+        public Azure.Communication.JobRouter.QueueSelectorAttachmentKind QueueSelectorAttachmentKind { get { throw null; } }
         Azure.Communication.JobRouter.QueueSelectorAttachment System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.QueueSelectorAttachment>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.QueueSelectorAttachment>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.Communication.JobRouter.QueueSelectorAttachment System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.QueueSelectorAttachment>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -745,7 +763,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class ReclassifyExceptionAction : Azure.Communication.JobRouter.ExceptionAction, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ReclassifyExceptionAction>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.ReclassifyExceptionAction>
     {
-        public ReclassifyExceptionAction() { }
+        public ReclassifyExceptionAction() : base (default(Azure.Communication.JobRouter.ExceptionActionKind)) { }
         public string ClassificationPolicyId { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, Azure.Communication.JobRouter.RouterValue> LabelsToUpsert { get { throw null; } }
         Azure.Communication.JobRouter.ReclassifyExceptionAction System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ReclassifyExceptionAction>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -756,7 +774,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class RoundRobinMode : Azure.Communication.JobRouter.DistributionMode, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.RoundRobinMode>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.RoundRobinMode>
     {
-        public RoundRobinMode() { }
+        public RoundRobinMode() : base (default(Azure.Communication.JobRouter.DistributionModeKind)) { }
         Azure.Communication.JobRouter.RoundRobinMode System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.RoundRobinMode>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.RoundRobinMode>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.Communication.JobRouter.RoundRobinMode System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.RoundRobinMode>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -955,8 +973,9 @@ namespace Azure.Communication.JobRouter
     }
     public abstract partial class RouterRule : System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.RouterRule>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.RouterRule>
     {
-        protected RouterRule() { }
+        protected RouterRule(Azure.Communication.JobRouter.RouterRuleKind routerRuleKind) { }
         public Azure.Communication.JobRouter.RouterRuleKind Kind { get { throw null; } protected set { } }
+        public Azure.Communication.JobRouter.RouterRuleKind RouterRuleKind { get { throw null; } }
         Azure.Communication.JobRouter.RouterRule System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.RouterRule>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.RouterRule>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.Communication.JobRouter.RouterRule System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.RouterRule>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1113,7 +1132,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class RuleEngineQueueSelectorAttachment : Azure.Communication.JobRouter.QueueSelectorAttachment, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.RuleEngineQueueSelectorAttachment>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.RuleEngineQueueSelectorAttachment>
     {
-        public RuleEngineQueueSelectorAttachment(Azure.Communication.JobRouter.RouterRule rule) { }
+        public RuleEngineQueueSelectorAttachment(Azure.Communication.JobRouter.RouterRule rule) : base (default(Azure.Communication.JobRouter.QueueSelectorAttachmentKind)) { }
         public Azure.Communication.JobRouter.RouterRule Rule { get { throw null; } }
         Azure.Communication.JobRouter.RuleEngineQueueSelectorAttachment System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.RuleEngineQueueSelectorAttachment>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.RuleEngineQueueSelectorAttachment>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -1123,7 +1142,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class RuleEngineWorkerSelectorAttachment : Azure.Communication.JobRouter.WorkerSelectorAttachment, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.RuleEngineWorkerSelectorAttachment>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.RuleEngineWorkerSelectorAttachment>
     {
-        public RuleEngineWorkerSelectorAttachment(Azure.Communication.JobRouter.RouterRule rule) { }
+        public RuleEngineWorkerSelectorAttachment(Azure.Communication.JobRouter.RouterRule rule) : base (default(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind)) { }
         public Azure.Communication.JobRouter.RouterRule Rule { get { throw null; } }
         Azure.Communication.JobRouter.RuleEngineWorkerSelectorAttachment System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.RuleEngineWorkerSelectorAttachment>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.RuleEngineWorkerSelectorAttachment>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -1133,7 +1152,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class ScheduleAndSuspendMode : Azure.Communication.JobRouter.JobMatchingMode, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ScheduleAndSuspendMode>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.ScheduleAndSuspendMode>
     {
-        public ScheduleAndSuspendMode(System.DateTimeOffset scheduleAt) { }
+        public ScheduleAndSuspendMode(System.DateTimeOffset scheduleAt) : base (default(Azure.Communication.JobRouter.JobMatchingModeKind)) { }
         public System.DateTimeOffset ScheduleAt { get { throw null; } }
         Azure.Communication.JobRouter.ScheduleAndSuspendMode System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ScheduleAndSuspendMode>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.ScheduleAndSuspendMode>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -1174,7 +1193,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class StaticQueueSelectorAttachment : Azure.Communication.JobRouter.QueueSelectorAttachment, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.StaticQueueSelectorAttachment>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.StaticQueueSelectorAttachment>
     {
-        public StaticQueueSelectorAttachment(Azure.Communication.JobRouter.RouterQueueSelector queueSelector) { }
+        public StaticQueueSelectorAttachment(Azure.Communication.JobRouter.RouterQueueSelector queueSelector) : base (default(Azure.Communication.JobRouter.QueueSelectorAttachmentKind)) { }
         public Azure.Communication.JobRouter.RouterQueueSelector QueueSelector { get { throw null; } }
         Azure.Communication.JobRouter.StaticQueueSelectorAttachment System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.StaticQueueSelectorAttachment>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.StaticQueueSelectorAttachment>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -1184,7 +1203,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class StaticRouterRule : Azure.Communication.JobRouter.RouterRule, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.StaticRouterRule>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.StaticRouterRule>
     {
-        public StaticRouterRule(Azure.Communication.JobRouter.RouterValue value) { }
+        public StaticRouterRule(Azure.Communication.JobRouter.RouterValue value) : base (default(Azure.Communication.JobRouter.RouterRuleKind)) { }
         public Azure.Communication.JobRouter.RouterValue Value { get { throw null; } }
         Azure.Communication.JobRouter.StaticRouterRule System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.StaticRouterRule>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.StaticRouterRule>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -1194,7 +1213,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class StaticWorkerSelectorAttachment : Azure.Communication.JobRouter.WorkerSelectorAttachment, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.StaticWorkerSelectorAttachment>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.StaticWorkerSelectorAttachment>
     {
-        public StaticWorkerSelectorAttachment(Azure.Communication.JobRouter.RouterWorkerSelector workerSelector) { }
+        public StaticWorkerSelectorAttachment(Azure.Communication.JobRouter.RouterWorkerSelector workerSelector) : base (default(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind)) { }
         public Azure.Communication.JobRouter.RouterWorkerSelector WorkerSelector { get { throw null; } }
         Azure.Communication.JobRouter.StaticWorkerSelectorAttachment System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.StaticWorkerSelectorAttachment>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.StaticWorkerSelectorAttachment>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -1204,7 +1223,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class SuspendMode : Azure.Communication.JobRouter.JobMatchingMode, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.SuspendMode>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.SuspendMode>
     {
-        public SuspendMode() { }
+        public SuspendMode() : base (default(Azure.Communication.JobRouter.JobMatchingModeKind)) { }
         Azure.Communication.JobRouter.SuspendMode System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.SuspendMode>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.SuspendMode>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.Communication.JobRouter.SuspendMode System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.SuspendMode>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1236,7 +1255,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class WaitTimeExceptionTrigger : Azure.Communication.JobRouter.ExceptionTrigger, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.WaitTimeExceptionTrigger>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.WaitTimeExceptionTrigger>
     {
-        public WaitTimeExceptionTrigger(System.TimeSpan threshold) { }
+        public WaitTimeExceptionTrigger(System.TimeSpan threshold) : base (default(Azure.Communication.JobRouter.ExceptionTriggerKind)) { }
         public System.TimeSpan Threshold { get { throw null; } }
         Azure.Communication.JobRouter.WaitTimeExceptionTrigger System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.WaitTimeExceptionTrigger>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.WaitTimeExceptionTrigger>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -1246,7 +1265,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class WebhookRouterRule : Azure.Communication.JobRouter.RouterRule, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.WebhookRouterRule>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.WebhookRouterRule>
     {
-        public WebhookRouterRule(System.Uri authorizationServerUri, Azure.Communication.JobRouter.OAuth2WebhookClientCredential clientCredential, System.Uri webhookUri) { }
+        public WebhookRouterRule(System.Uri authorizationServerUri, Azure.Communication.JobRouter.OAuth2WebhookClientCredential clientCredential, System.Uri webhookUri) : base (default(Azure.Communication.JobRouter.RouterRuleKind)) { }
         public System.Uri AuthorizationServerUri { get { throw null; } }
         public Azure.Communication.JobRouter.OAuth2WebhookClientCredential ClientCredential { get { throw null; } }
         public System.Uri WebhookUri { get { throw null; } }
@@ -1258,7 +1277,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class WeightedAllocationQueueSelectorAttachment : Azure.Communication.JobRouter.QueueSelectorAttachment, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.WeightedAllocationQueueSelectorAttachment>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.WeightedAllocationQueueSelectorAttachment>
     {
-        public WeightedAllocationQueueSelectorAttachment(System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.QueueWeightedAllocation> allocations) { }
+        public WeightedAllocationQueueSelectorAttachment(System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.QueueWeightedAllocation> allocations) : base (default(Azure.Communication.JobRouter.QueueSelectorAttachmentKind)) { }
         public System.Collections.Generic.IReadOnlyList<Azure.Communication.JobRouter.QueueWeightedAllocation> Allocations { get { throw null; } }
         Azure.Communication.JobRouter.WeightedAllocationQueueSelectorAttachment System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.WeightedAllocationQueueSelectorAttachment>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.WeightedAllocationQueueSelectorAttachment>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -1268,7 +1287,7 @@ namespace Azure.Communication.JobRouter
     }
     public partial class WeightedAllocationWorkerSelectorAttachment : Azure.Communication.JobRouter.WorkerSelectorAttachment, System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.WeightedAllocationWorkerSelectorAttachment>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.WeightedAllocationWorkerSelectorAttachment>
     {
-        public WeightedAllocationWorkerSelectorAttachment(System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.WorkerWeightedAllocation> allocations) { }
+        public WeightedAllocationWorkerSelectorAttachment(System.Collections.Generic.IEnumerable<Azure.Communication.JobRouter.WorkerWeightedAllocation> allocations) : base (default(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind)) { }
         public System.Collections.Generic.IReadOnlyList<Azure.Communication.JobRouter.WorkerWeightedAllocation> Allocations { get { throw null; } }
         Azure.Communication.JobRouter.WeightedAllocationWorkerSelectorAttachment System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.WeightedAllocationWorkerSelectorAttachment>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.WeightedAllocationWorkerSelectorAttachment>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -1278,8 +1297,9 @@ namespace Azure.Communication.JobRouter
     }
     public abstract partial class WorkerSelectorAttachment : System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.WorkerSelectorAttachment>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.WorkerSelectorAttachment>
     {
-        protected WorkerSelectorAttachment() { }
+        protected WorkerSelectorAttachment(Azure.Communication.JobRouter.WorkerSelectorAttachmentKind workerSelectorAttachmentKind) { }
         public Azure.Communication.JobRouter.WorkerSelectorAttachmentKind Kind { get { throw null; } protected set { } }
+        public Azure.Communication.JobRouter.WorkerSelectorAttachmentKind WorkerSelectorAttachmentKind { get { throw null; } }
         Azure.Communication.JobRouter.WorkerSelectorAttachment System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.WorkerSelectorAttachment>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.Communication.JobRouter.WorkerSelectorAttachment>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.Communication.JobRouter.WorkerSelectorAttachment System.ClientModel.Primitives.IPersistableModel<Azure.Communication.JobRouter.WorkerSelectorAttachment>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }

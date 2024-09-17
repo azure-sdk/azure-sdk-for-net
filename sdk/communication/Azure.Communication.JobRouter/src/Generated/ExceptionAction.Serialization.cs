@@ -31,6 +31,8 @@ namespace Azure.Communication.JobRouter
                 writer.WritePropertyName("id"u8);
                 writer.WriteStringValue(Id);
             }
+            writer.WritePropertyName("exceptionActionKind"u8);
+            writer.WriteStringValue(ExceptionActionKind.ToString());
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
