@@ -39,7 +39,7 @@ namespace Azure.AI.ContentSafety
 
         /// <summary> Initializes a new instance of BlocklistClient. </summary>
         /// <param name="endpoint">
-        /// Supported Cognitive Services endpoints (protocol and hostname, for example:
+        /// Supported Cognitive Services endpoints (protocol and hostname, for example: test
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
@@ -50,7 +50,7 @@ namespace Azure.AI.ContentSafety
 
         /// <summary> Initializes a new instance of BlocklistClient. </summary>
         /// <param name="endpoint">
-        /// Supported Cognitive Services endpoints (protocol and hostname, for example:
+        /// Supported Cognitive Services endpoints (protocol and hostname, for example: test
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
@@ -61,7 +61,7 @@ namespace Azure.AI.ContentSafety
 
         /// <summary> Initializes a new instance of BlocklistClient. </summary>
         /// <param name="endpoint">
-        /// Supported Cognitive Services endpoints (protocol and hostname, for example:
+        /// Supported Cognitive Services endpoints (protocol and hostname, for example: test
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
@@ -82,7 +82,7 @@ namespace Azure.AI.ContentSafety
 
         /// <summary> Initializes a new instance of BlocklistClient. </summary>
         /// <param name="endpoint">
-        /// Supported Cognitive Services endpoints (protocol and hostname, for example:
+        /// Supported Cognitive Services endpoints (protocol and hostname, for example: test
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>

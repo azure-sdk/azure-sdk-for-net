@@ -18,7 +18,7 @@ namespace Microsoft.Extensions.Azure
         /// <summary> Registers a <see cref="ContentSafetyClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint">
-        /// Supported Cognitive Services endpoints (protocol and hostname, for example:
+        /// Supported Cognitive Services endpoints (protocol and hostname, for example: test
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
@@ -31,7 +31,7 @@ namespace Microsoft.Extensions.Azure
         /// <summary> Registers a <see cref="ContentSafetyClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint">
-        /// Supported Cognitive Services endpoints (protocol and hostname, for example:
+        /// Supported Cognitive Services endpoints (protocol and hostname, for example: test
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
         public static IAzureClientBuilder<ContentSafetyClient, ContentSafetyClientOptions> AddContentSafetyClient<TBuilder>(this TBuilder builder, Uri endpoint)
@@ -43,7 +43,7 @@ namespace Microsoft.Extensions.Azure
         /// <summary> Registers a <see cref="BlocklistClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint">
-        /// Supported Cognitive Services endpoints (protocol and hostname, for example:
+        /// Supported Cognitive Services endpoints (protocol and hostname, for example: test
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
@@ -56,7 +56,7 @@ namespace Microsoft.Extensions.Azure
         /// <summary> Registers a <see cref="BlocklistClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint">
-        /// Supported Cognitive Services endpoints (protocol and hostname, for example:
+        /// Supported Cognitive Services endpoints (protocol and hostname, for example: test
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
         public static IAzureClientBuilder<BlocklistClient, ContentSafetyClientOptions> AddBlocklistClient<TBuilder>(this TBuilder builder, Uri endpoint)
