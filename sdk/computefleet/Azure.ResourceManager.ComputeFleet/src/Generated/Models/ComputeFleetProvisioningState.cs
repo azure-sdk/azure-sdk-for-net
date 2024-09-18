@@ -27,8 +27,6 @@ namespace Azure.ResourceManager.ComputeFleet.Models
         private const string CanceledValue = "Canceled";
         private const string CreatingValue = "Creating";
         private const string UpdatingValue = "Updating";
-        private const string DeletingValue = "Deleting";
-        private const string MigratingValue = "Migrating";
 
         /// <summary> Resource has been created. </summary>
         public static ComputeFleetProvisioningState Succeeded { get; } = new ComputeFleetProvisioningState(SucceededValue);
@@ -40,10 +38,6 @@ namespace Azure.ResourceManager.ComputeFleet.Models
         public static ComputeFleetProvisioningState Creating { get; } = new ComputeFleetProvisioningState(CreatingValue);
         /// <summary> Update in progress. </summary>
         public static ComputeFleetProvisioningState Updating { get; } = new ComputeFleetProvisioningState(UpdatingValue);
-        /// <summary> Deletion in progress. </summary>
-        public static ComputeFleetProvisioningState Deleting { get; } = new ComputeFleetProvisioningState(DeletingValue);
-        /// <summary> Resource is being migrated from one subscription or resource group to another. </summary>
-        public static ComputeFleetProvisioningState Migrating { get; } = new ComputeFleetProvisioningState(MigratingValue);
         /// <summary> Determines if two <see cref="ComputeFleetProvisioningState"/> values are the same. </summary>
         public static bool operator ==(ComputeFleetProvisioningState left, ComputeFleetProvisioningState right) => left.Equals(right);
         /// <summary> Determines if two <see cref="ComputeFleetProvisioningState"/> values are not the same. </summary>
