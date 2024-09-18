@@ -14,12 +14,12 @@ using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.AppService.Samples
 {
-    public partial class Sample_AppCertificateResource
+    public partial class Sample_CertificateResource
     {
         // List Certificates for subscription
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAppCertificates_ListCertificatesForSubscription()
+        public async Task GetCertificates_ListCertificatesForSubscription()
         {
             // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-12-01/examples/ListCertificates.json
             // this example is just showing the usage of "Certificates_List" operation, for the dependent resources, they will have to be created separately.
@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.AppService.Samples
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation and iterate over the result
-            await foreach (AppCertificateResource item in subscriptionResource.GetAppCertificatesAsync())
+            await foreach (CertificateResource item in subscriptionResource.GetCertificatesAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
@@ -61,16 +61,16 @@ namespace Azure.ResourceManager.AppService.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this AppCertificateResource created on azure
-            // for more information of creating AppCertificateResource, please refer to the document of AppCertificateResource
+            // this example assumes you already have this CertificateResource created on azure
+            // for more information of creating CertificateResource, please refer to the document of CertificateResource
             string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
             string resourceGroupName = "testrg123";
             string name = "testc6282";
-            ResourceIdentifier appCertificateResourceId = AppCertificateResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, name);
-            AppCertificateResource appCertificate = client.GetAppCertificateResource(appCertificateResourceId);
+            ResourceIdentifier certificateResourceId = CertificateResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, name);
+            CertificateResource certificate = client.GetCertificateResource(certificateResourceId);
 
             // invoke the operation
-            AppCertificateResource result = await appCertificate.GetAsync();
+            CertificateResource result = await certificate.GetAsync();
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
@@ -92,16 +92,16 @@ namespace Azure.ResourceManager.AppService.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this AppCertificateResource created on azure
-            // for more information of creating AppCertificateResource, please refer to the document of AppCertificateResource
+            // this example assumes you already have this CertificateResource created on azure
+            // for more information of creating CertificateResource, please refer to the document of CertificateResource
             string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
             string resourceGroupName = "testrg123";
             string name = "testc6282";
-            ResourceIdentifier appCertificateResourceId = AppCertificateResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, name);
-            AppCertificateResource appCertificate = client.GetAppCertificateResource(appCertificateResourceId);
+            ResourceIdentifier certificateResourceId = CertificateResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, name);
+            CertificateResource certificate = client.GetCertificateResource(certificateResourceId);
 
             // invoke the operation
-            await appCertificate.DeleteAsync(WaitUntil.Completed);
+            await certificate.DeleteAsync(WaitUntil.Completed);
 
             Console.WriteLine($"Succeeded");
         }
@@ -119,20 +119,20 @@ namespace Azure.ResourceManager.AppService.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this AppCertificateResource created on azure
-            // for more information of creating AppCertificateResource, please refer to the document of AppCertificateResource
+            // this example assumes you already have this CertificateResource created on azure
+            // for more information of creating CertificateResource, please refer to the document of CertificateResource
             string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
             string resourceGroupName = "testrg123";
             string name = "testc6282";
-            ResourceIdentifier appCertificateResourceId = AppCertificateResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, name);
-            AppCertificateResource appCertificate = client.GetAppCertificateResource(appCertificateResourceId);
+            ResourceIdentifier certificateResourceId = CertificateResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, name);
+            CertificateResource certificate = client.GetCertificateResource(certificateResourceId);
 
             // invoke the operation
-            AppCertificatePatch patch = new AppCertificatePatch()
+            CertificatePatchResource certificateEnvelope = new CertificatePatchResource()
             {
                 Password = "<password>",
             };
-            AppCertificateResource result = await appCertificate.UpdateAsync(patch);
+            CertificateResource result = await certificate.UpdateAsync(certificateEnvelope);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
