@@ -376,6 +376,75 @@ namespace Azure.ResourceManager.AppService
             return GetSiteSlotVirtualNetworkConnections().Get(vnetName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of SiteSlotCertificateResources in the WebSiteSlot. </summary>
+        /// <returns> An object representing collection of SiteSlotCertificateResources and their operations over a SiteSlotCertificateResource. </returns>
+        public virtual SiteSlotCertificateCollection GetSiteSlotCertificates()
+        {
+            return GetCachedClient(client => new SiteSlotCertificateCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Get a certificate for a given site and deployment slot.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/slots/{slot}/certificates/{name}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SiteCertificates_GetSlot</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SiteSlotCertificateResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="name"> Name of the certificate. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<SiteSlotCertificateResource>> GetSiteSlotCertificateAsync(string name, CancellationToken cancellationToken = default)
+        {
+            return await GetSiteSlotCertificates().GetAsync(name, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a certificate for a given site and deployment slot.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/slots/{slot}/certificates/{name}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SiteCertificates_GetSlot</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SiteSlotCertificateResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="name"> Name of the certificate. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<SiteSlotCertificateResource> GetSiteSlotCertificate(string name, CancellationToken cancellationToken = default)
+        {
+            return GetSiteSlotCertificates().Get(name, cancellationToken);
+        }
+
         /// <summary> Gets a collection of SiteSlotDiagnosticResources in the WebSiteSlot. </summary>
         /// <returns> An object representing collection of SiteSlotDiagnosticResources and their operations over a SiteSlotDiagnosticResource. </returns>
         public virtual SiteSlotDiagnosticCollection GetSiteSlotDiagnostics()

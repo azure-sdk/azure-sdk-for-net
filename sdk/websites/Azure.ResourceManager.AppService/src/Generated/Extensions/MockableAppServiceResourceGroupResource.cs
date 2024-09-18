@@ -322,11 +322,11 @@ namespace Azure.ResourceManager.AppService.Mocking
             return GetAppServicePlans().Get(name, cancellationToken);
         }
 
-        /// <summary> Gets a collection of AppCertificateResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of AppCertificateResources and their operations over a AppCertificateResource. </returns>
-        public virtual AppCertificateCollection GetAppCertificates()
+        /// <summary> Gets a collection of CertificateResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of CertificateResources and their operations over a CertificateResource. </returns>
+        public virtual CertificateCollection GetCertificates()
         {
-            return GetCachedClient(client => new AppCertificateCollection(client, Id));
+            return GetCachedClient(client => new CertificateCollection(client, Id));
         }
 
         /// <summary>
@@ -346,7 +346,7 @@ namespace Azure.ResourceManager.AppService.Mocking
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="AppCertificateResource"/></description>
+        /// <description><see cref="CertificateResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -355,9 +355,9 @@ namespace Azure.ResourceManager.AppService.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<AppCertificateResource>> GetAppCertificateAsync(string name, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<CertificateResource>> GetCertificateAsync(string name, CancellationToken cancellationToken = default)
         {
-            return await GetAppCertificates().GetAsync(name, cancellationToken).ConfigureAwait(false);
+            return await GetCertificates().GetAsync(name, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -377,7 +377,7 @@ namespace Azure.ResourceManager.AppService.Mocking
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="AppCertificateResource"/></description>
+        /// <description><see cref="CertificateResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -386,9 +386,9 @@ namespace Azure.ResourceManager.AppService.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<AppCertificateResource> GetAppCertificate(string name, CancellationToken cancellationToken = default)
+        public virtual Response<CertificateResource> GetCertificate(string name, CancellationToken cancellationToken = default)
         {
-            return GetAppCertificates().Get(name, cancellationToken);
+            return GetCertificates().Get(name, cancellationToken);
         }
 
         /// <summary> Gets a collection of KubeEnvironmentResources in the ResourceGroupResource. </summary>
