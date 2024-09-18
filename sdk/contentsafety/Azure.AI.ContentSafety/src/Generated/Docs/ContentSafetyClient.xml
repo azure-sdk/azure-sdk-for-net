@@ -1,6 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doc>
   <members>
+    <member name="AnalyzeImageAsync(AnalyzeImageOptions,CancellationToken)">
+      <example>
+This sample shows how to call AnalyzeImageAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData());
+Response<AnalyzeImageResult> response = await client.AnalyzeImageAsync(options);
+]]></code>
+This sample shows how to call AnalyzeImageAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData())
+{
+    Categories = { ImageCategory.Hate },
+    OutputType = AnalyzeImageOutputType.FourSeverityLevels,
+};
+Response<AnalyzeImageResult> response = await client.AnalyzeImageAsync(options);
+]]></code></example>
+    </member>
+    <member name="AnalyzeImage(AnalyzeImageOptions,CancellationToken)">
+      <example>
+This sample shows how to call AnalyzeImage.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData());
+Response<AnalyzeImageResult> response = client.AnalyzeImage(options);
+]]></code>
+This sample shows how to call AnalyzeImage with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData())
+{
+    Categories = { ImageCategory.Hate },
+    OutputType = AnalyzeImageOutputType.FourSeverityLevels,
+};
+Response<AnalyzeImageResult> response = client.AnalyzeImage(options);
+]]></code></example>
+    </member>
+    <member name="AnalyzeImageAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AnalyzeImageAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    image = new object(),
+});
+Response response = await client.AnalyzeImageAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+]]></code>
+This sample shows how to call AnalyzeImageAsync with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    image = new
+    {
+        content = new object(),
+        blobUrl = "http://localhost:3000",
+    },
+    categories = new object[]
+    {
+        "Hate"
+    },
+    outputType = "FourSeverityLevels",
+});
+Response response = await client.AnalyzeImageAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+]]></code></example>
+    </member>
+    <member name="AnalyzeImage(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AnalyzeImage and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    image = new object(),
+});
+Response response = client.AnalyzeImage(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+]]></code>
+This sample shows how to call AnalyzeImage with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    image = new
+    {
+        content = new object(),
+        blobUrl = "http://localhost:3000",
+    },
+    categories = new object[]
+    {
+        "Hate"
+    },
+    outputType = "FourSeverityLevels",
+});
+Response response = client.AnalyzeImage(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+]]></code></example>
+    </member>
     <member name="AnalyzeTextAsync(AnalyzeTextOptions,CancellationToken)">
       <example>
 This sample shows how to call AnalyzeTextAsync.
@@ -149,74 +285,179 @@ Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("categ
 Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
 ]]></code></example>
     </member>
-    <member name="AnalyzeImageAsync(AnalyzeImageOptions,CancellationToken)">
+    <member name="DetectTextProtectedMaterialAsync(DetectTextProtectedMaterialOptions,CancellationToken)">
       <example>
-This sample shows how to call AnalyzeImageAsync.
+This sample shows how to call DetectTextProtectedMaterialAsync.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
 ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData());
-Response<AnalyzeImageResult> response = await client.AnalyzeImageAsync(options);
+DetectTextProtectedMaterialOptions options = new DetectTextProtectedMaterialOptions("<text>");
+Response<DetectTextProtectedMaterialResult> response = await client.DetectTextProtectedMaterialAsync(options);
 ]]></code>
-This sample shows how to call AnalyzeImageAsync with all parameters.
+This sample shows how to call DetectTextProtectedMaterialAsync with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
 ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData())
+DetectTextProtectedMaterialOptions options = new DetectTextProtectedMaterialOptions("<text>");
+Response<DetectTextProtectedMaterialResult> response = await client.DetectTextProtectedMaterialAsync(options);
+]]></code></example>
+    </member>
+    <member name="DetectTextProtectedMaterial(DetectTextProtectedMaterialOptions,CancellationToken)">
+      <example>
+This sample shows how to call DetectTextProtectedMaterial.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+DetectTextProtectedMaterialOptions options = new DetectTextProtectedMaterialOptions("<text>");
+Response<DetectTextProtectedMaterialResult> response = client.DetectTextProtectedMaterial(options);
+]]></code>
+This sample shows how to call DetectTextProtectedMaterial with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+DetectTextProtectedMaterialOptions options = new DetectTextProtectedMaterialOptions("<text>");
+Response<DetectTextProtectedMaterialResult> response = client.DetectTextProtectedMaterial(options);
+]]></code></example>
+    </member>
+    <member name="DetectTextProtectedMaterialAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call DetectTextProtectedMaterialAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
 {
-    Categories = { ImageCategory.Hate },
-    OutputType = AnalyzeImageOutputType.FourSeverityLevels,
+    text = "<text>",
+});
+Response response = await client.DetectTextProtectedMaterialAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
+]]></code>
+This sample shows how to call DetectTextProtectedMaterialAsync with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    text = "<text>",
+});
+Response response = await client.DetectTextProtectedMaterialAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
+]]></code></example>
+    </member>
+    <member name="DetectTextProtectedMaterial(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call DetectTextProtectedMaterial and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    text = "<text>",
+});
+Response response = client.DetectTextProtectedMaterial(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
+]]></code>
+This sample shows how to call DetectTextProtectedMaterial with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    text = "<text>",
+});
+Response response = client.DetectTextProtectedMaterial(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
+]]></code></example>
+    </member>
+    <member name="ShieldPromptAsync(ShieldPromptOptions,CancellationToken)">
+      <example>
+This sample shows how to call ShieldPromptAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+ShieldPromptOptions options = new ShieldPromptOptions();
+Response<ShieldPromptResult> response = await client.ShieldPromptAsync(options);
+]]></code>
+This sample shows how to call ShieldPromptAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+ShieldPromptOptions options = new ShieldPromptOptions
+{
+    UserPrompt = "<userPrompt>",
+    Documents = { "<documents>" },
 };
-Response<AnalyzeImageResult> response = await client.AnalyzeImageAsync(options);
+Response<ShieldPromptResult> response = await client.ShieldPromptAsync(options);
 ]]></code></example>
     </member>
-    <member name="AnalyzeImage(AnalyzeImageOptions,CancellationToken)">
+    <member name="ShieldPrompt(ShieldPromptOptions,CancellationToken)">
       <example>
-This sample shows how to call AnalyzeImage.
+This sample shows how to call ShieldPrompt.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
 ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData());
-Response<AnalyzeImageResult> response = client.AnalyzeImage(options);
+ShieldPromptOptions options = new ShieldPromptOptions();
+Response<ShieldPromptResult> response = client.ShieldPrompt(options);
 ]]></code>
-This sample shows how to call AnalyzeImage with all parameters.
+This sample shows how to call ShieldPrompt with all parameters.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
 ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData())
+ShieldPromptOptions options = new ShieldPromptOptions
 {
-    Categories = { ImageCategory.Hate },
-    OutputType = AnalyzeImageOutputType.FourSeverityLevels,
+    UserPrompt = "<userPrompt>",
+    Documents = { "<documents>" },
 };
-Response<AnalyzeImageResult> response = client.AnalyzeImage(options);
+Response<ShieldPromptResult> response = client.ShieldPrompt(options);
 ]]></code></example>
     </member>
-    <member name="AnalyzeImageAsync(RequestContent,RequestContext)">
+    <member name="ShieldPromptAsync(RequestContent,RequestContext)">
       <example>
-This sample shows how to call AnalyzeImageAsync and parse the result.
+This sample shows how to call ShieldPromptAsync and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
 ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-using RequestContent content = RequestContent.Create(new
-{
-    image = new object(),
-});
-Response response = await client.AnalyzeImageAsync(content);
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.ShieldPromptAsync(content);
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+Console.WriteLine(result.ToString());
 ]]></code>
-This sample shows how to call AnalyzeImageAsync with all request content and parse the result.
+This sample shows how to call ShieldPromptAsync with all request content and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
@@ -224,42 +465,34 @@ ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    image = new
+    userPrompt = "<userPrompt>",
+    documents = new object[]
     {
-        content = new object(),
-        blobUrl = "http://localhost:3000",
+        "<documents>"
     },
-    categories = new object[]
-    {
-        "Hate"
-    },
-    outputType = "FourSeverityLevels",
 });
-Response response = await client.AnalyzeImageAsync(content);
+Response response = await client.ShieldPromptAsync(content);
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
-Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+Console.WriteLine(result.GetProperty("userPromptAnalysis").GetProperty("attackDetected").ToString());
+Console.WriteLine(result.GetProperty("documentsAnalysis")[0].GetProperty("attackDetected").ToString());
 ]]></code></example>
     </member>
-    <member name="AnalyzeImage(RequestContent,RequestContext)">
+    <member name="ShieldPrompt(RequestContent,RequestContext)">
       <example>
-This sample shows how to call AnalyzeImage and parse the result.
+This sample shows how to call ShieldPrompt and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
 ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-using RequestContent content = RequestContent.Create(new
-{
-    image = new object(),
-});
-Response response = client.AnalyzeImage(content);
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.ShieldPrompt(content);
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+Console.WriteLine(result.ToString());
 ]]></code>
-This sample shows how to call AnalyzeImage with all request content and parse the result.
+This sample shows how to call ShieldPrompt with all request content and parse the result.
 <code><![CDATA[
 Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
@@ -267,22 +500,17 @@ ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    image = new
+    userPrompt = "<userPrompt>",
+    documents = new object[]
     {
-        content = new object(),
-        blobUrl = "http://localhost:3000",
+        "<documents>"
     },
-    categories = new object[]
-    {
-        "Hate"
-    },
-    outputType = "FourSeverityLevels",
 });
-Response response = client.AnalyzeImage(content);
+Response response = client.ShieldPrompt(content);
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
-Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+Console.WriteLine(result.GetProperty("userPromptAnalysis").GetProperty("attackDetected").ToString());
+Console.WriteLine(result.GetProperty("documentsAnalysis")[0].GetProperty("attackDetected").ToString());
 ]]></code></example>
     </member>
   </members>
