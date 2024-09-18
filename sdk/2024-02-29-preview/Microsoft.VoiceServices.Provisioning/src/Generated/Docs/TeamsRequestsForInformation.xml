@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetRequestForInformationAsync(string,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call GetRequestForInformationAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+Response<RequestForInformationResource> response = await client.GetRequestForInformationAsync("<tenantId>");
+]]></code>
+This sample shows how to call GetRequestForInformationAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+Response<RequestForInformationResource> response = await client.GetRequestForInformationAsync("<tenantId>", requestConditions: null);
+]]></code></example>
+    </member>
+    <member name="GetRequestForInformation(string,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call GetRequestForInformation.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+Response<RequestForInformationResource> response = client.GetRequestForInformation("<tenantId>");
+]]></code>
+This sample shows how to call GetRequestForInformation with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+Response<RequestForInformationResource> response = client.GetRequestForInformation("<tenantId>", requestConditions: null);
+]]></code></example>
+    </member>
+    <member name="GetRequestForInformationAsync(string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call GetRequestForInformationAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+Response response = await client.GetRequestForInformationAsync("<tenantId>", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+]]></code>
+This sample shows how to call GetRequestForInformationAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+Response response = await client.GetRequestForInformationAsync("<tenantId>", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("serviceProvisioningStatus").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+Console.WriteLine(result.GetProperty("accountName").ToString());
+Console.WriteLine(result.GetProperty("productContext").ToString());
+Console.WriteLine(result.GetProperty("operatorId").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("consentedOn").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedOn").ToString());
+Console.WriteLine(result.GetProperty("consentedCountries")[0].ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("fullName").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("email").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("telephoneNumber").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("companyName").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("companySize").ToString());
+Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("lastModifiedOn").ToString());
+Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("comment").ToString());
+]]></code></example>
+    </member>
+    <member name="GetRequestForInformation(string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call GetRequestForInformation and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+Response response = client.GetRequestForInformation("<tenantId>", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+]]></code>
+This sample shows how to call GetRequestForInformation with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+Response response = client.GetRequestForInformation("<tenantId>", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("serviceProvisioningStatus").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+Console.WriteLine(result.GetProperty("accountName").ToString());
+Console.WriteLine(result.GetProperty("productContext").ToString());
+Console.WriteLine(result.GetProperty("operatorId").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("consentedOn").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedOn").ToString());
+Console.WriteLine(result.GetProperty("consentedCountries")[0].ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("fullName").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("email").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("telephoneNumber").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("companyName").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("companySize").ToString());
+Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("lastModifiedOn").ToString());
+Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("comment").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateRequestForInformationAsync(string,RequestContent,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateRequestForInformationAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.CreateOrUpdateRequestForInformationAsync("<tenantId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+]]></code>
+This sample shows how to call CreateOrUpdateRequestForInformationAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    customerRelationship = new
+    {
+        status = "<status>",
+        comment = "<comment>",
+    },
+});
+Response response = await client.CreateOrUpdateRequestForInformationAsync("<tenantId>", content, requestConditions: null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("serviceProvisioningStatus").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+Console.WriteLine(result.GetProperty("accountName").ToString());
+Console.WriteLine(result.GetProperty("productContext").ToString());
+Console.WriteLine(result.GetProperty("operatorId").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("consentedOn").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedOn").ToString());
+Console.WriteLine(result.GetProperty("consentedCountries")[0].ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("fullName").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("email").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("telephoneNumber").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("companyName").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("companySize").ToString());
+Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("lastModifiedOn").ToString());
+Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("comment").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateRequestForInformation(string,RequestContent,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateRequestForInformation and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.CreateOrUpdateRequestForInformation("<tenantId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+]]></code>
+This sample shows how to call CreateOrUpdateRequestForInformation with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    customerRelationship = new
+    {
+        status = "<status>",
+        comment = "<comment>",
+    },
+});
+Response response = client.CreateOrUpdateRequestForInformation("<tenantId>", content, requestConditions: null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("serviceProvisioningStatus").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+Console.WriteLine(result.GetProperty("accountName").ToString());
+Console.WriteLine(result.GetProperty("productContext").ToString());
+Console.WriteLine(result.GetProperty("operatorId").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("consentedOn").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedOn").ToString());
+Console.WriteLine(result.GetProperty("consentedCountries")[0].ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("fullName").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("email").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("telephoneNumber").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("companyName").ToString());
+Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("companySize").ToString());
+Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("lastModifiedOn").ToString());
+Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("comment").ToString());
+]]></code></example>
+    </member>
+    <member name="GetRequestForInformationResourcesAsync(int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetRequestForInformationResourcesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+await foreach (RequestForInformationResource item in client.GetRequestForInformationResourcesAsync())
+{
+}
+]]></code>
+This sample shows how to call GetRequestForInformationResourcesAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+await foreach (RequestForInformationResource item in client.GetRequestForInformationResourcesAsync(maxCount: 1234, skip: 1234, maxpagesize: 1234, filter: "<filter>", countRecords: true))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetRequestForInformationResources(int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetRequestForInformationResources.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+foreach (RequestForInformationResource item in client.GetRequestForInformationResources())
+{
+}
+]]></code>
+This sample shows how to call GetRequestForInformationResources with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+foreach (RequestForInformationResource item in client.GetRequestForInformationResources(maxCount: 1234, skip: 1234, maxpagesize: 1234, filter: "<filter>", countRecords: true))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetRequestForInformationResourcesAsync(int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetRequestForInformationResourcesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+await foreach (BinaryData item in client.GetRequestForInformationResourcesAsync(null, null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("tenantId").ToString());
+}
+]]></code>
+This sample shows how to call GetRequestForInformationResourcesAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+await foreach (BinaryData item in client.GetRequestForInformationResourcesAsync(1234, 1234, 1234, "<filter>", true, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("serviceProvisioningStatus").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("innererror").GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("tenantId").ToString());
+    Console.WriteLine(result.GetProperty("accountName").ToString());
+    Console.WriteLine(result.GetProperty("productContext").ToString());
+    Console.WriteLine(result.GetProperty("operatorId").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("consentedOn").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedOn").ToString());
+    Console.WriteLine(result.GetProperty("consentedCountries")[0].ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("fullName").ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("email").ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("telephoneNumber").ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("companyName").ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("companySize").ToString());
+    Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("lastModifiedOn").ToString());
+    Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("comment").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetRequestForInformationResources(int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetRequestForInformationResources and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+foreach (BinaryData item in client.GetRequestForInformationResources(null, null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("tenantId").ToString());
+}
+]]></code>
+This sample shows how to call GetRequestForInformationResources with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+foreach (BinaryData item in client.GetRequestForInformationResources(1234, 1234, 1234, "<filter>", true, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("serviceProvisioningStatus").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("serviceProvisioningErrors")[0].GetProperty("innererror").GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("tenantId").ToString());
+    Console.WriteLine(result.GetProperty("accountName").ToString());
+    Console.WriteLine(result.GetProperty("productContext").ToString());
+    Console.WriteLine(result.GetProperty("operatorId").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("consentedOn").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedOn").ToString());
+    Console.WriteLine(result.GetProperty("consentedCountries")[0].ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("fullName").ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("email").ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("telephoneNumber").ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("companyName").ToString());
+    Console.WriteLine(result.GetProperty("contacts")[0].GetProperty("companySize").ToString());
+    Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("lastModifiedOn").ToString());
+    Console.WriteLine(result.GetProperty("customerRelationship").GetProperty("comment").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
