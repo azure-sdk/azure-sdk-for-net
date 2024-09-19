@@ -147,6 +147,11 @@ namespace Azure.ResourceManager.Resources.Models
                 writer.WritePropertyName("error"u8);
                 JsonSerializer.Serialize(writer, Error);
             }
+            if (Optional.IsDefined(ValidationLevel))
+            {
+                writer.WritePropertyName("validationLevel"u8);
+                writer.WriteStringValue(ValidationLevel.Value.ToSerialString());
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -202,6 +207,7 @@ namespace Azure.ResourceManager.Resources.Models
             IReadOnlyList<SubResource> outputResources = default;
             IReadOnlyList<SubResource> validatedResources = default;
             ResponseError error = default;
+            ValidationLevel? validationLevel = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -371,6 +377,15 @@ namespace Azure.ResourceManager.Resources.Models
                     error = JsonSerializer.Deserialize<ResponseError>(property.Value.GetRawText());
                     continue;
                 }
+                if (property.NameEquals("validationLevel"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    validationLevel = property.Value.GetString().ToValidationLevel();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -395,6 +410,7 @@ namespace Azure.ResourceManager.Resources.Models
                 outputResources ?? new ChangeTrackingList<SubResource>(),
                 validatedResources ?? new ChangeTrackingList<SubResource>(),
                 error,
+                validationLevel,
                 serializedAdditionalRawData);
         }
 
@@ -714,6 +730,21 @@ namespace Azure.ResourceManager.Resources.Models
                 {
                     builder.Append("  error: ");
                     BicepSerializationHelpers.AppendChildObject(builder, Error, options, 2, false, "  error: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ValidationLevel), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  validationLevel: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(ValidationLevel))
+                {
+                    builder.Append("  validationLevel: ");
+                    builder.AppendLine($"'{ValidationLevel.Value.ToSerialString()}'");
                 }
             }
 

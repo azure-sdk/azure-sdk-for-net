@@ -72,8 +72,9 @@ namespace Azure.ResourceManager.Resources.Models
         /// <param name="outputResources"> Array of provisioned resources. </param>
         /// <param name="validatedResources"> Array of validated resources. </param>
         /// <param name="error"> The deployment error. </param>
+        /// <param name="validationLevel"> The validation level of the deployment. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ArmDeploymentPropertiesExtended(ResourcesProvisioningState? provisioningState, string correlationId, DateTimeOffset? timestamp, TimeSpan? duration, BinaryData outputs, IReadOnlyList<ResourceProviderData> providers, IReadOnlyList<ArmDependency> dependencies, ArmDeploymentTemplateLink templateLink, BinaryData parameters, ArmDeploymentParametersLink parametersLink, ArmDeploymentMode? mode, DebugSetting debugSetting, ErrorDeploymentExtended errorDeployment, string templateHash, IReadOnlyList<SubResource> outputResources, IReadOnlyList<SubResource> validatedResources, ResponseError error, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ArmDeploymentPropertiesExtended(ResourcesProvisioningState? provisioningState, string correlationId, DateTimeOffset? timestamp, TimeSpan? duration, BinaryData outputs, IReadOnlyList<ResourceProviderData> providers, IReadOnlyList<ArmDependency> dependencies, ArmDeploymentTemplateLink templateLink, BinaryData parameters, ArmDeploymentParametersLink parametersLink, ArmDeploymentMode? mode, DebugSetting debugSetting, ErrorDeploymentExtended errorDeployment, string templateHash, IReadOnlyList<SubResource> outputResources, IReadOnlyList<SubResource> validatedResources, ResponseError error, ValidationLevel? validationLevel, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ProvisioningState = provisioningState;
             CorrelationId = correlationId;
@@ -92,6 +93,7 @@ namespace Azure.ResourceManager.Resources.Models
             OutputResources = outputResources;
             ValidatedResources = validatedResources;
             Error = error;
+            ValidationLevel = validationLevel;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -204,5 +206,8 @@ namespace Azure.ResourceManager.Resources.Models
         /// <summary> The deployment error. </summary>
         [WirePath("error")]
         public ResponseError Error { get; }
+        /// <summary> The validation level of the deployment. </summary>
+        [WirePath("validationLevel")]
+        public ValidationLevel? ValidationLevel { get; }
     }
 }
