@@ -39,7 +39,7 @@ namespace Azure.ResourceManager.Compute.Samples
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation and iterate over the result
-            AzureLocation location = new AzureLocation("eastus");
+            int location = eastus;
             await foreach (VirtualMachineScaleSetResource item in subscriptionResource.GetVirtualMachineScaleSetsByLocationAsync(location))
             {
                 // the variable item is a resource, you could call other operations on this instance as well
