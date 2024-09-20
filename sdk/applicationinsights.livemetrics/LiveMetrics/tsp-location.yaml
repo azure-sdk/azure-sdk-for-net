@@ -1,4 +1,4 @@
-directory: specification/azurefleet/AzureFleet.Management
+directory: specification/applicationinsights/ApplicationInsights.LiveMetrics
 commit: 8f2915151f8cba5e21ef0c038d1282a49a943ff6
 repo: test-repo-billy/azure-rest-api-specs
 additionalDirectories: 
