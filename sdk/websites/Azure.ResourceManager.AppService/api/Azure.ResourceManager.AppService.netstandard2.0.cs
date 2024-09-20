@@ -9491,7 +9491,7 @@ namespace Azure.ResourceManager.AppService.Models
     public partial class FunctionAppAlwaysReadyConfig : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.AppService.Models.FunctionAppAlwaysReadyConfig>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.AppService.Models.FunctionAppAlwaysReadyConfig>
     {
         public FunctionAppAlwaysReadyConfig() { }
-        public float? InstanceCount { get { throw null; } set { } }
+        public int? InstanceCount { get { throw null; } set { } }
         public string Name { get { throw null; } set { } }
         Azure.ResourceManager.AppService.Models.FunctionAppAlwaysReadyConfig System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.AppService.Models.FunctionAppAlwaysReadyConfig>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.AppService.Models.FunctionAppAlwaysReadyConfig>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -9629,9 +9629,9 @@ namespace Azure.ResourceManager.AppService.Models
     {
         public FunctionAppScaleAndConcurrency() { }
         public System.Collections.Generic.IList<Azure.ResourceManager.AppService.Models.FunctionAppAlwaysReadyConfig> AlwaysReady { get { throw null; } }
-        public float? HttpPerInstanceConcurrency { get { throw null; } set { } }
-        public float? InstanceMemoryMB { get { throw null; } set { } }
-        public float? MaximumInstanceCount { get { throw null; } set { } }
+        public int? HttpPerInstanceConcurrency { get { throw null; } set { } }
+        public int? InstanceMemoryMB { get { throw null; } set { } }
+        public int? MaximumInstanceCount { get { throw null; } set { } }
         Azure.ResourceManager.AppService.Models.FunctionAppScaleAndConcurrency System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.AppService.Models.FunctionAppScaleAndConcurrency>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.AppService.Models.FunctionAppScaleAndConcurrency>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.AppService.Models.FunctionAppScaleAndConcurrency System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.AppService.Models.FunctionAppScaleAndConcurrency>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
