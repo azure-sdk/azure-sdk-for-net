@@ -83,18 +83,6 @@ namespace Azure.ResourceManager.Billing.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="BillingPropertyResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="BillingPropertyResource.CreateResourceIdentifier" /> to create a <see cref="BillingPropertyResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="BillingPropertyResource"/> object. </returns>
-        public virtual BillingPropertyResource GetBillingPropertyResource(ResourceIdentifier id)
-        {
-            BillingPropertyResource.ValidateResourceId(id);
-            return new BillingPropertyResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="BillingRequestResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="BillingRequestResource.CreateResourceIdentifier" /> to create a <see cref="BillingRequestResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>

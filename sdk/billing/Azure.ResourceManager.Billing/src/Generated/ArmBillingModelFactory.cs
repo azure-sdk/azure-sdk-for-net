@@ -580,126 +580,6 @@ namespace Azure.ResourceManager.Billing.Models
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Billing.BillingPropertyData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> A billing property. </param>
-        /// <param name="tags"> Dictionary of metadata associated with the resource. It may not be populated for all resource types. Maximum key/value length supported of 256 characters. Keys/value should not empty value nor null. Keys can not contain &lt; &gt; % &amp; \ ? /. </param>
-        /// <returns> A new <see cref="Billing.BillingPropertyData"/> instance for mocking. </returns>
-        public static BillingPropertyData BillingPropertyData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, BillingPropertyProperties properties = null, IDictionary<string, string> tags = null)
-        {
-            tags ??= new Dictionary<string, string>();
-
-            return new BillingPropertyData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                properties,
-                tags,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.BillingPropertyProperties"/>. </summary>
-        /// <param name="billingAccountAgreementType"> The type of agreement. </param>
-        /// <param name="billingAccountDisplayName"> The name of the billing account. </param>
-        /// <param name="billingAccountId"> The fully qualified ID that uniquely identifies a billing account. </param>
-        /// <param name="accountAdminNotificationEmailAddress"> Notification email address for legacy account. Available for agreement type Microsoft Online Services Program. </param>
-        /// <param name="billingAccountSoldToCountry"> The country of the individual or organization that is responsible for the billing account. </param>
-        /// <param name="billingAccountStatus"> The current status of the billing account. </param>
-        /// <param name="billingAccountStatusReasonCode"> Reason for the specified billing account status. </param>
-        /// <param name="billingAccountType"> The type of customer. </param>
-        /// <param name="billingAccountSubType"> The tier of the account. </param>
-        /// <param name="billingCurrency"> The billing currency for the subscription. Available for billing accounts with agreement type Enterprise Agreement. </param>
-        /// <param name="billingProfileDisplayName"> The name of the billing profile. </param>
-        /// <param name="billingProfileId"> The fully qualified ID that uniquely identifies a billing profile. </param>
-        /// <param name="billingProfileSpendingLimit"> The billing profile spending limit. </param>
-        /// <param name="billingProfileSpendingLimitDetails"> The details of billing profile spending limit. </param>
-        /// <param name="billingProfileStatus"> The status of the billing profile. </param>
-        /// <param name="billingProfileStatusReasonCode"> Reason for the specified billing profile status. </param>
-        /// <param name="billingProfilePaymentMethodFamily"> The payment method family of the primary payment method for the billing profile. </param>
-        /// <param name="billingProfilePaymentMethodType"> The payment method type of the primary payment method for the billing profile. </param>
-        /// <param name="billingTenantId"> The Azure AD tenant ID of the billing account for the subscription. </param>
-        /// <param name="costCenter"> The cost center applied to the subscription. Available for agreement type Microsoft Customer Agreement and Microsoft Partner Agreement. This property can be updated via patch. </param>
-        /// <param name="customerDisplayName"> The name of the customer. </param>
-        /// <param name="customerId"> The fully qualified ID that uniquely identifies a customer. </param>
-        /// <param name="customerStatus"> Identifies the status of an customer. This is an upcoming property that will be populated in the future. </param>
-        /// <param name="invoiceSectionDisplayName"> The name of the invoice section. </param>
-        /// <param name="invoiceSectionId"> The fully qualified ID that uniquely identifies an invoice section. </param>
-        /// <param name="invoiceSectionStatus"> Identifies the status of an invoice section. </param>
-        /// <param name="invoiceSectionStatusReasonCode"> Reason for the specified invoice section status. </param>
-        /// <param name="isTransitionedBillingAccount"> Specifies if the billing account for the subscription is transitioned from a Microsoft Online Service Program to a Microsoft Customer Agreement (MCA) account. Will be present and value will be true if its a transitioned billing account. </param>
-        /// <param name="skuDescription"> The sku description. </param>
-        /// <param name="skuId"> The ID that uniquely identifies a sku. </param>
-        /// <param name="subscriptionBillingStatus"> The subscription status. </param>
-        /// <param name="subscriptionBillingStatusDetails"> The reason codes for the subscription status. </param>
-        /// <param name="subscriptionBillingType"> The type of billing subscription. </param>
-        /// <param name="subscriptionServiceUsageAddress"> The address of the individual or organization where service subscription is being used. Available for agreement type Microsoft Online Services Program. This property can be updated via patch. </param>
-        /// <param name="subscriptionWorkloadType"> The Azure workload type of the subscription. </param>
-        /// <param name="enrollmentDetails"> The enrollment details for the subscription. Available for billing accounts with agreement type Enterprise Agreement. </param>
-        /// <param name="isAccountAdmin"> Indicates whether user is the account admin. </param>
-        /// <param name="productId"> The ID that uniquely identifies a product. </param>
-        /// <param name="productName"> The ID that uniquely identifies a product. </param>
-        /// <returns> A new <see cref="Models.BillingPropertyProperties"/> instance for mocking. </returns>
-        public static BillingPropertyProperties BillingPropertyProperties(BillingAgreementType? billingAccountAgreementType = null, string billingAccountDisplayName = null, ResourceIdentifier billingAccountId = null, string accountAdminNotificationEmailAddress = null, string billingAccountSoldToCountry = null, BillingAccountStatus? billingAccountStatus = null, BillingAccountStatusReasonCode? billingAccountStatusReasonCode = null, BillingAccountType? billingAccountType = null, BillingAccountSubType? billingAccountSubType = null, string billingCurrency = null, string billingProfileDisplayName = null, ResourceIdentifier billingProfileId = null, BillingSpendingLimit? billingProfileSpendingLimit = null, IEnumerable<SpendingLimitDetails> billingProfileSpendingLimitDetails = null, BillingProfileStatus? billingProfileStatus = null, BillingProfileStatusReasonCode? billingProfileStatusReasonCode = null, PaymentMethodFamily? billingProfilePaymentMethodFamily = null, string billingProfilePaymentMethodType = null, Guid? billingTenantId = null, string costCenter = null, string customerDisplayName = null, ResourceIdentifier customerId = null, BillingCustomerStatus? customerStatus = null, string invoiceSectionDisplayName = null, ResourceIdentifier invoiceSectionId = null, InvoiceSectionState? invoiceSectionStatus = null, InvoiceSectionStateReasonCode? invoiceSectionStatusReasonCode = null, bool? isTransitionedBillingAccount = null, string skuDescription = null, string skuId = null, BillingSubscriptionStatus? subscriptionBillingStatus = null, IEnumerable<BillingSubscriptionStatusDetails> subscriptionBillingStatusDetails = null, SubscriptionBillingType? subscriptionBillingType = null, BillingAddressDetails subscriptionServiceUsageAddress = null, SubscriptionWorkloadType? subscriptionWorkloadType = null, SubscriptionEnrollmentDetails enrollmentDetails = null, bool? isAccountAdmin = null, string productId = null, string productName = null)
-        {
-            billingProfileSpendingLimitDetails ??= new List<SpendingLimitDetails>();
-            subscriptionBillingStatusDetails ??= new List<BillingSubscriptionStatusDetails>();
-
-            return new BillingPropertyProperties(
-                billingAccountAgreementType,
-                billingAccountDisplayName,
-                billingAccountId,
-                accountAdminNotificationEmailAddress,
-                billingAccountSoldToCountry,
-                billingAccountStatus,
-                billingAccountStatusReasonCode,
-                billingAccountType,
-                billingAccountSubType,
-                billingCurrency,
-                billingProfileDisplayName,
-                billingProfileId,
-                billingProfileSpendingLimit,
-                billingProfileSpendingLimitDetails?.ToList(),
-                billingProfileStatus,
-                billingProfileStatusReasonCode,
-                billingProfilePaymentMethodFamily,
-                billingProfilePaymentMethodType,
-                billingTenantId,
-                costCenter,
-                customerDisplayName,
-                customerId,
-                customerStatus,
-                invoiceSectionDisplayName,
-                invoiceSectionId,
-                invoiceSectionStatus,
-                invoiceSectionStatusReasonCode,
-                isTransitionedBillingAccount,
-                skuDescription,
-                skuId,
-                subscriptionBillingStatus,
-                subscriptionBillingStatusDetails?.ToList(),
-                subscriptionBillingType,
-                subscriptionServiceUsageAddress,
-                subscriptionWorkloadType,
-                enrollmentDetails,
-                isAccountAdmin,
-                productId,
-                productName,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.BillingSubscriptionStatusDetails"/>. </summary>
-        /// <param name="effectiveOn"> The suspension effective date for a subscription. This field is not available for Enterprise Agreement billing accounts. </param>
-        /// <param name="reason"> The suspension reason for a subscription. This field is not available for Enterprise Agreement billing accounts. </param>
-        /// <returns> A new <see cref="Models.BillingSubscriptionStatusDetails"/> instance for mocking. </returns>
-        public static BillingSubscriptionStatusDetails BillingSubscriptionStatusDetails(DateTimeOffset? effectiveOn = null, SubscriptionStatusReason? reason = null)
-        {
-            return new BillingSubscriptionStatusDetails(effectiveOn, reason, serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="Billing.BillingRequestData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -1268,6 +1148,15 @@ namespace Azure.ResourceManager.Billing.Models
         public static BillingSystemOverrides BillingSystemOverrides(PolicyOverrideCancellation? cancellation = null, DateTimeOffset? cancellationAllowedEndOn = null)
         {
             return new BillingSystemOverrides(cancellation, cancellationAllowedEndOn, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.BillingSubscriptionStatusDetails"/>. </summary>
+        /// <param name="effectiveOn"> The suspension effective date for a subscription. This field is not available for Enterprise Agreement billing accounts. </param>
+        /// <param name="reason"> The suspension reason for a subscription. This field is not available for Enterprise Agreement billing accounts. </param>
+        /// <returns> A new <see cref="Models.BillingSubscriptionStatusDetails"/> instance for mocking. </returns>
+        public static BillingSubscriptionStatusDetails BillingSubscriptionStatusDetails(DateTimeOffset? effectiveOn = null, SubscriptionStatusReason? reason = null)
+        {
+            return new BillingSubscriptionStatusDetails(effectiveOn, reason, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Billing.BillingSubscriptionAliasData"/>. </summary>

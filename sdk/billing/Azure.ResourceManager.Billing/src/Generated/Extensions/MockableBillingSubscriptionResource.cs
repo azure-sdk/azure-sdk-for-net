@@ -30,13 +30,6 @@ namespace Azure.ResourceManager.Billing.Mocking
             return apiVersion;
         }
 
-        /// <summary> Gets an object representing a BillingPropertyResource along with the instance operations that can be performed on it in the SubscriptionResource. </summary>
-        /// <returns> Returns a <see cref="BillingPropertyResource"/> object. </returns>
-        public virtual BillingPropertyResource GetBillingProperty()
-        {
-            return new BillingPropertyResource(Client, Id.AppendProviderResource("Microsoft.Billing", "billingProperty", "default"));
-        }
-
         /// <summary> Gets an object representing a SubscriptionPolicyResource along with the instance operations that can be performed on it in the SubscriptionResource. </summary>
         /// <returns> Returns a <see cref="SubscriptionPolicyResource"/> object. </returns>
         public virtual SubscriptionPolicyResource GetSubscriptionPolicy()
