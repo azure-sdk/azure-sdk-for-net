@@ -758,8 +758,6 @@ namespace Azure.ResourceManager.Billing
         public static Azure.ResourceManager.Billing.BillingProfileRoleAssignmentResource GetBillingProfileRoleAssignmentResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Billing.BillingProfileRoleDefinitionResource GetBillingProfileRoleDefinitionResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Billing.BillingProfileSubscriptionResource GetBillingProfileSubscriptionResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
-        public static Azure.ResourceManager.Billing.BillingPropertyResource GetBillingProperty(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource) { throw null; }
-        public static Azure.ResourceManager.Billing.BillingPropertyResource GetBillingPropertyResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.Response<Azure.ResourceManager.Billing.BillingRequestResource> GetBillingRequest(this Azure.ResourceManager.Resources.TenantResource tenantResource, string billingRequestName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Billing.BillingRequestResource>> GetBillingRequestAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, string billingRequestName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.ResourceManager.Billing.BillingRequestResource GetBillingRequestResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
@@ -1458,40 +1456,6 @@ namespace Azure.ResourceManager.Billing
         Azure.ResourceManager.Billing.BillingSubscriptionData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.BillingSubscriptionData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.BillingSubscriptionData>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.BillingSubscriptionData>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-    }
-    public partial class BillingPropertyData : Azure.ResourceManager.Models.ResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Billing.BillingPropertyData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.BillingPropertyData>
-    {
-        public BillingPropertyData() { }
-        public Azure.ResourceManager.Billing.Models.BillingPropertyProperties Properties { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
-        Azure.ResourceManager.Billing.BillingPropertyData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Billing.BillingPropertyData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Billing.BillingPropertyData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
-        Azure.ResourceManager.Billing.BillingPropertyData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.BillingPropertyData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.BillingPropertyData>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.BillingPropertyData>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-    }
-    public partial class BillingPropertyResource : Azure.ResourceManager.ArmResource, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Billing.BillingPropertyData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.BillingPropertyData>
-    {
-        public static readonly Azure.Core.ResourceType ResourceType;
-        protected BillingPropertyResource() { }
-        public virtual Azure.ResourceManager.Billing.BillingPropertyData Data { get { throw null; } }
-        public virtual bool HasData { get { throw null; } }
-        public virtual Azure.Response<Azure.ResourceManager.Billing.BillingPropertyResource> AddTag(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Billing.BillingPropertyResource>> AddTagAsync(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Billing.BillingPropertyResource> Get(bool? includeBillingCountry = default(bool?), bool? includeTransitionStatus = default(bool?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Billing.BillingPropertyResource>> GetAsync(bool? includeBillingCountry = default(bool?), bool? includeTransitionStatus = default(bool?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Billing.BillingPropertyResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Billing.BillingPropertyResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Billing.BillingPropertyResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Billing.BillingPropertyResource>> SetTagsAsync(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        Azure.ResourceManager.Billing.BillingPropertyData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Billing.BillingPropertyData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Billing.BillingPropertyData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
-        Azure.ResourceManager.Billing.BillingPropertyData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.BillingPropertyData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.BillingPropertyData>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.BillingPropertyData>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Billing.BillingPropertyResource> Update(Azure.ResourceManager.Billing.BillingPropertyData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Billing.BillingPropertyResource>> UpdateAsync(Azure.ResourceManager.Billing.BillingPropertyData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
     public partial class BillingRequestCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Billing.BillingRequestResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Billing.BillingRequestResource>, System.Collections.IEnumerable
     {
@@ -2448,7 +2412,6 @@ namespace Azure.ResourceManager.Billing.Mocking
         public virtual Azure.ResourceManager.Billing.BillingProfileRoleAssignmentResource GetBillingProfileRoleAssignmentResource(Azure.Core.ResourceIdentifier id) { throw null; }
         public virtual Azure.ResourceManager.Billing.BillingProfileRoleDefinitionResource GetBillingProfileRoleDefinitionResource(Azure.Core.ResourceIdentifier id) { throw null; }
         public virtual Azure.ResourceManager.Billing.BillingProfileSubscriptionResource GetBillingProfileSubscriptionResource(Azure.Core.ResourceIdentifier id) { throw null; }
-        public virtual Azure.ResourceManager.Billing.BillingPropertyResource GetBillingPropertyResource(Azure.Core.ResourceIdentifier id) { throw null; }
         public virtual Azure.ResourceManager.Billing.BillingRequestResource GetBillingRequestResource(Azure.Core.ResourceIdentifier id) { throw null; }
         public virtual Azure.ResourceManager.Billing.BillingReservationOrderResource GetBillingReservationOrderResource(Azure.Core.ResourceIdentifier id) { throw null; }
         public virtual Azure.ResourceManager.Billing.BillingReservationResource GetBillingReservationResource(Azure.Core.ResourceIdentifier id) { throw null; }
@@ -2468,7 +2431,6 @@ namespace Azure.ResourceManager.Billing.Mocking
     public partial class MockableBillingSubscriptionResource : Azure.ResourceManager.ArmResource
     {
         protected MockableBillingSubscriptionResource() { }
-        public virtual Azure.ResourceManager.Billing.BillingPropertyResource GetBillingProperty() { throw null; }
         public virtual Azure.ResourceManager.Billing.SubscriptionPolicyResource GetSubscriptionPolicy() { throw null; }
     }
     public partial class MockableBillingTenantResource : Azure.ResourceManager.ArmResource
@@ -2608,8 +2570,6 @@ namespace Azure.ResourceManager.Billing.Models
         public static Azure.ResourceManager.Billing.BillingProfilePolicyData BillingProfilePolicyData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.Billing.Models.BillingProfilePolicyProperties properties = null, System.Collections.Generic.IDictionary<string, string> tags = null) { throw null; }
         public static Azure.ResourceManager.Billing.Models.BillingProfilePolicyProperties BillingProfilePolicyProperties(Azure.ResourceManager.Billing.Models.BillingProvisioningState? provisioningState = default(Azure.ResourceManager.Billing.Models.BillingProvisioningState?), Azure.ResourceManager.Billing.Models.EnterpriseAgreementPolicies enterpriseAgreementPolicies = null, Azure.ResourceManager.Billing.Models.InvoiceSectionLabelManagementPolicy? invoiceSectionLabelManagement = default(Azure.ResourceManager.Billing.Models.InvoiceSectionLabelManagementPolicy?), Azure.ResourceManager.Billing.Models.MarketplacePurchasesPolicy? marketplacePurchases = default(Azure.ResourceManager.Billing.Models.MarketplacePurchasesPolicy?), Azure.ResourceManager.Billing.Models.ReservationPurchasesPolicy? reservationPurchases = default(Azure.ResourceManager.Billing.Models.ReservationPurchasesPolicy?), Azure.ResourceManager.Billing.Models.SavingsPlanPurchasesPolicy? savingsPlanPurchases = default(Azure.ResourceManager.Billing.Models.SavingsPlanPurchasesPolicy?), Azure.ResourceManager.Billing.Models.ViewChargesPolicy? viewCharges = default(Azure.ResourceManager.Billing.Models.ViewChargesPolicy?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Billing.Models.BillingPolicySummary> policies = null) { throw null; }
         public static Azure.ResourceManager.Billing.Models.BillingProfileProperties BillingProfileProperties(Azure.ResourceManager.Billing.Models.BillingProvisioningState? provisioningState = default(Azure.ResourceManager.Billing.Models.BillingProvisioningState?), Azure.ResourceManager.Billing.Models.BillingRelationshipType? billingRelationshipType = default(Azure.ResourceManager.Billing.Models.BillingRelationshipType?), Azure.ResourceManager.Billing.Models.BillingAddressDetails billTo = null, string currency = null, string displayName = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Billing.Models.BillingAzurePlan> enabledAzurePlans = null, bool? hasReadAccess = default(bool?), Azure.ResourceManager.Billing.Models.IndirectRelationshipInfo indirectRelationshipInfo = null, int? invoiceDay = default(int?), bool? isInvoiceEmailOptIn = default(bool?), System.Collections.Generic.IEnumerable<string> invoiceRecipients = null, string poNumber = null, Azure.ResourceManager.Billing.Models.BillingAddressDetails shipTo = null, Azure.ResourceManager.Billing.Models.BillingAddressDetails soldTo = null, Azure.ResourceManager.Billing.Models.BillingSpendingLimit? spendingLimit = default(Azure.ResourceManager.Billing.Models.BillingSpendingLimit?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Billing.Models.SpendingLimitDetails> spendingLimitDetails = null, Azure.ResourceManager.Billing.Models.BillingProfileStatus? status = default(Azure.ResourceManager.Billing.Models.BillingProfileStatus?), Azure.ResourceManager.Billing.Models.BillingProfileStatusReasonCode? statusReasonCode = default(Azure.ResourceManager.Billing.Models.BillingProfileStatusReasonCode?), string systemId = null, System.Collections.Generic.IDictionary<string, string> tags = null, System.Collections.Generic.IEnumerable<string> targetClouds = null, Azure.ResourceManager.Billing.Models.BillingPaymentTerm currentPaymentTerm = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Billing.Models.BillingPaymentTerm> otherPaymentTerms = null) { throw null; }
-        public static Azure.ResourceManager.Billing.BillingPropertyData BillingPropertyData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.Billing.Models.BillingPropertyProperties properties = null, System.Collections.Generic.IDictionary<string, string> tags = null) { throw null; }
-        public static Azure.ResourceManager.Billing.Models.BillingPropertyProperties BillingPropertyProperties(Azure.ResourceManager.Billing.Models.BillingAgreementType? billingAccountAgreementType = default(Azure.ResourceManager.Billing.Models.BillingAgreementType?), string billingAccountDisplayName = null, Azure.Core.ResourceIdentifier billingAccountId = null, string accountAdminNotificationEmailAddress = null, string billingAccountSoldToCountry = null, Azure.ResourceManager.Billing.Models.BillingAccountStatus? billingAccountStatus = default(Azure.ResourceManager.Billing.Models.BillingAccountStatus?), Azure.ResourceManager.Billing.Models.BillingAccountStatusReasonCode? billingAccountStatusReasonCode = default(Azure.ResourceManager.Billing.Models.BillingAccountStatusReasonCode?), Azure.ResourceManager.Billing.Models.BillingAccountType? billingAccountType = default(Azure.ResourceManager.Billing.Models.BillingAccountType?), Azure.ResourceManager.Billing.Models.BillingAccountSubType? billingAccountSubType = default(Azure.ResourceManager.Billing.Models.BillingAccountSubType?), string billingCurrency = null, string billingProfileDisplayName = null, Azure.Core.ResourceIdentifier billingProfileId = null, Azure.ResourceManager.Billing.Models.BillingSpendingLimit? billingProfileSpendingLimit = default(Azure.ResourceManager.Billing.Models.BillingSpendingLimit?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Billing.Models.SpendingLimitDetails> billingProfileSpendingLimitDetails = null, Azure.ResourceManager.Billing.Models.BillingProfileStatus? billingProfileStatus = default(Azure.ResourceManager.Billing.Models.BillingProfileStatus?), Azure.ResourceManager.Billing.Models.BillingProfileStatusReasonCode? billingProfileStatusReasonCode = default(Azure.ResourceManager.Billing.Models.BillingProfileStatusReasonCode?), Azure.ResourceManager.Billing.Models.PaymentMethodFamily? billingProfilePaymentMethodFamily = default(Azure.ResourceManager.Billing.Models.PaymentMethodFamily?), string billingProfilePaymentMethodType = null, System.Guid? billingTenantId = default(System.Guid?), string costCenter = null, string customerDisplayName = null, Azure.Core.ResourceIdentifier customerId = null, Azure.ResourceManager.Billing.Models.BillingCustomerStatus? customerStatus = default(Azure.ResourceManager.Billing.Models.BillingCustomerStatus?), string invoiceSectionDisplayName = null, Azure.Core.ResourceIdentifier invoiceSectionId = null, Azure.ResourceManager.Billing.Models.InvoiceSectionState? invoiceSectionStatus = default(Azure.ResourceManager.Billing.Models.InvoiceSectionState?), Azure.ResourceManager.Billing.Models.InvoiceSectionStateReasonCode? invoiceSectionStatusReasonCode = default(Azure.ResourceManager.Billing.Models.InvoiceSectionStateReasonCode?), bool? isTransitionedBillingAccount = default(bool?), string skuDescription = null, string skuId = null, Azure.ResourceManager.Billing.Models.BillingSubscriptionStatus? subscriptionBillingStatus = default(Azure.ResourceManager.Billing.Models.BillingSubscriptionStatus?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Billing.Models.BillingSubscriptionStatusDetails> subscriptionBillingStatusDetails = null, Azure.ResourceManager.Billing.Models.SubscriptionBillingType? subscriptionBillingType = default(Azure.ResourceManager.Billing.Models.SubscriptionBillingType?), Azure.ResourceManager.Billing.Models.BillingAddressDetails subscriptionServiceUsageAddress = null, Azure.ResourceManager.Billing.Models.SubscriptionWorkloadType? subscriptionWorkloadType = default(Azure.ResourceManager.Billing.Models.SubscriptionWorkloadType?), Azure.ResourceManager.Billing.Models.SubscriptionEnrollmentDetails enrollmentDetails = null, bool? isAccountAdmin = default(bool?), string productId = null, string productName = null) { throw null; }
         public static Azure.ResourceManager.Billing.Models.BillingRegistrationNumber BillingRegistrationNumber(string id = null, bool? isRequired = default(bool?), System.Collections.Generic.IEnumerable<string> registrationNumberType = null) { throw null; }
         public static Azure.ResourceManager.Billing.BillingRequestData BillingRequestData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.Billing.Models.BillingRequestProperties properties = null, System.Collections.Generic.IDictionary<string, string> tags = null) { throw null; }
         public static Azure.ResourceManager.Billing.Models.BillingRequestProperties BillingRequestProperties(Azure.ResourceManager.Billing.Models.BillingProvisioningState? provisioningState = default(Azure.ResourceManager.Billing.Models.BillingProvisioningState?), System.Collections.Generic.IDictionary<string, string> additionalInformation = null, Azure.ResourceManager.Billing.Models.BillingPrincipal reviewedBy = null, System.DateTimeOffset? reviewalOn = default(System.DateTimeOffset?), Azure.Core.ResourceIdentifier billingAccountId = null, string billingAccountName = null, string billingAccountDisplayName = null, System.Guid? billingAccountPrimaryBillingTenantId = default(System.Guid?), Azure.Core.ResourceIdentifier billingProfileId = null, string billingProfileName = null, string billingProfileDisplayName = null, Azure.ResourceManager.Billing.Models.BillingPrincipal createdBy = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? expireOn = default(System.DateTimeOffset?), string decisionReason = null, Azure.Core.ResourceIdentifier invoiceSectionId = null, string invoiceSectionName = null, string invoiceSectionDisplayName = null, Azure.Core.ResourceIdentifier customerId = null, string customerName = null, string customerDisplayName = null, string subscriptionId = null, string subscriptionName = null, string subscriptionDisplayName = null, string justification = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Billing.Models.BillingPrincipal> recipients = null, string requestScope = null, string billingScope = null, Azure.ResourceManager.Billing.Models.BillingRequestStatus? status = default(Azure.ResourceManager.Billing.Models.BillingRequestStatus?), Azure.ResourceManager.Billing.Models.BillingRequestType? requestType = default(Azure.ResourceManager.Billing.Models.BillingRequestType?), Azure.ResourceManager.Billing.Models.BillingPrincipal lastUpdatedBy = null, System.DateTimeOffset? lastUpdatedOn = default(System.DateTimeOffset?)) { throw null; }
@@ -4198,54 +4158,6 @@ namespace Azure.ResourceManager.Billing.Models
         public string Search { get { throw null; } set { } }
         public long? Skip { get { throw null; } set { } }
         public long? Top { get { throw null; } set { } }
-    }
-    public partial class BillingPropertyProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Billing.Models.BillingPropertyProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.Models.BillingPropertyProperties>
-    {
-        public BillingPropertyProperties() { }
-        public string AccountAdminNotificationEmailAddress { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.BillingAgreementType? BillingAccountAgreementType { get { throw null; } }
-        public string BillingAccountDisplayName { get { throw null; } }
-        public Azure.Core.ResourceIdentifier BillingAccountId { get { throw null; } }
-        public string BillingAccountSoldToCountry { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.BillingAccountStatus? BillingAccountStatus { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.BillingAccountStatusReasonCode? BillingAccountStatusReasonCode { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.BillingAccountSubType? BillingAccountSubType { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.BillingAccountType? BillingAccountType { get { throw null; } }
-        public string BillingCurrency { get { throw null; } }
-        public string BillingProfileDisplayName { get { throw null; } }
-        public Azure.Core.ResourceIdentifier BillingProfileId { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.PaymentMethodFamily? BillingProfilePaymentMethodFamily { get { throw null; } }
-        public string BillingProfilePaymentMethodType { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.BillingSpendingLimit? BillingProfileSpendingLimit { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Billing.Models.SpendingLimitDetails> BillingProfileSpendingLimitDetails { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.BillingProfileStatus? BillingProfileStatus { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.BillingProfileStatusReasonCode? BillingProfileStatusReasonCode { get { throw null; } }
-        public System.Guid? BillingTenantId { get { throw null; } }
-        public string CostCenter { get { throw null; } set { } }
-        public string CustomerDisplayName { get { throw null; } }
-        public Azure.Core.ResourceIdentifier CustomerId { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.BillingCustomerStatus? CustomerStatus { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.SubscriptionEnrollmentDetails EnrollmentDetails { get { throw null; } set { } }
-        public string InvoiceSectionDisplayName { get { throw null; } }
-        public Azure.Core.ResourceIdentifier InvoiceSectionId { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.InvoiceSectionState? InvoiceSectionStatus { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.InvoiceSectionStateReasonCode? InvoiceSectionStatusReasonCode { get { throw null; } }
-        public bool? IsAccountAdmin { get { throw null; } }
-        public bool? IsTransitionedBillingAccount { get { throw null; } }
-        public string ProductId { get { throw null; } }
-        public string ProductName { get { throw null; } }
-        public string SkuDescription { get { throw null; } }
-        public string SkuId { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.BillingSubscriptionStatus? SubscriptionBillingStatus { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Billing.Models.BillingSubscriptionStatusDetails> SubscriptionBillingStatusDetails { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.SubscriptionBillingType? SubscriptionBillingType { get { throw null; } }
-        public Azure.ResourceManager.Billing.Models.BillingAddressDetails SubscriptionServiceUsageAddress { get { throw null; } set { } }
-        public Azure.ResourceManager.Billing.Models.SubscriptionWorkloadType? SubscriptionWorkloadType { get { throw null; } }
-        Azure.ResourceManager.Billing.Models.BillingPropertyProperties System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Billing.Models.BillingPropertyProperties>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Billing.Models.BillingPropertyProperties>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
-        Azure.ResourceManager.Billing.Models.BillingPropertyProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.Models.BillingPropertyProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.Models.BillingPropertyProperties>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.Models.BillingPropertyProperties>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct BillingProvisioningState : System.IEquatable<Azure.ResourceManager.Billing.Models.BillingProvisioningState>
@@ -6349,27 +6261,6 @@ namespace Azure.ResourceManager.Billing.Models
         public long? Top { get { throw null; } set { } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct SubscriptionBillingType : System.IEquatable<Azure.ResourceManager.Billing.Models.SubscriptionBillingType>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public SubscriptionBillingType(string value) { throw null; }
-        public static Azure.ResourceManager.Billing.Models.SubscriptionBillingType Benefit { get { throw null; } }
-        public static Azure.ResourceManager.Billing.Models.SubscriptionBillingType Free { get { throw null; } }
-        public static Azure.ResourceManager.Billing.Models.SubscriptionBillingType None { get { throw null; } }
-        public static Azure.ResourceManager.Billing.Models.SubscriptionBillingType Paid { get { throw null; } }
-        public static Azure.ResourceManager.Billing.Models.SubscriptionBillingType PrePaid { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.Billing.Models.SubscriptionBillingType other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.Billing.Models.SubscriptionBillingType left, Azure.ResourceManager.Billing.Models.SubscriptionBillingType right) { throw null; }
-        public static implicit operator Azure.ResourceManager.Billing.Models.SubscriptionBillingType (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.Billing.Models.SubscriptionBillingType left, Azure.ResourceManager.Billing.Models.SubscriptionBillingType right) { throw null; }
-        public override string ToString() { throw null; }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct SubscriptionEnrollmentAccountStatus : System.IEquatable<Azure.ResourceManager.Billing.Models.SubscriptionEnrollmentAccountStatus>
     {
         private readonly object _dummy;
@@ -6391,20 +6282,6 @@ namespace Azure.ResourceManager.Billing.Models
         public static implicit operator Azure.ResourceManager.Billing.Models.SubscriptionEnrollmentAccountStatus (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Billing.Models.SubscriptionEnrollmentAccountStatus left, Azure.ResourceManager.Billing.Models.SubscriptionEnrollmentAccountStatus right) { throw null; }
         public override string ToString() { throw null; }
-    }
-    public partial class SubscriptionEnrollmentDetails : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Billing.Models.SubscriptionEnrollmentDetails>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.Models.SubscriptionEnrollmentDetails>
-    {
-        public SubscriptionEnrollmentDetails() { }
-        public string DepartmentDisplayName { get { throw null; } set { } }
-        public string DepartmentId { get { throw null; } set { } }
-        public string EnrollmentAccountDisplayName { get { throw null; } set { } }
-        public string EnrollmentAccountId { get { throw null; } set { } }
-        public string EnrollmentAccountStatus { get { throw null; } set { } }
-        Azure.ResourceManager.Billing.Models.SubscriptionEnrollmentDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Billing.Models.SubscriptionEnrollmentDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Billing.Models.SubscriptionEnrollmentDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
-        Azure.ResourceManager.Billing.Models.SubscriptionEnrollmentDetails System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.Models.SubscriptionEnrollmentDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.Models.SubscriptionEnrollmentDetails>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.Models.SubscriptionEnrollmentDetails>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public partial class SubscriptionPolicyProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Billing.Models.SubscriptionPolicyProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Billing.Models.SubscriptionPolicyProperties>
     {
@@ -6500,26 +6377,6 @@ namespace Azure.ResourceManager.Billing.Models
         public static bool operator ==(Azure.ResourceManager.Billing.Models.SubscriptionTransferValidationErrorCode left, Azure.ResourceManager.Billing.Models.SubscriptionTransferValidationErrorCode right) { throw null; }
         public static implicit operator Azure.ResourceManager.Billing.Models.SubscriptionTransferValidationErrorCode (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Billing.Models.SubscriptionTransferValidationErrorCode left, Azure.ResourceManager.Billing.Models.SubscriptionTransferValidationErrorCode right) { throw null; }
-        public override string ToString() { throw null; }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct SubscriptionWorkloadType : System.IEquatable<Azure.ResourceManager.Billing.Models.SubscriptionWorkloadType>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public SubscriptionWorkloadType(string value) { throw null; }
-        public static Azure.ResourceManager.Billing.Models.SubscriptionWorkloadType DevTest { get { throw null; } }
-        public static Azure.ResourceManager.Billing.Models.SubscriptionWorkloadType Internal { get { throw null; } }
-        public static Azure.ResourceManager.Billing.Models.SubscriptionWorkloadType None { get { throw null; } }
-        public static Azure.ResourceManager.Billing.Models.SubscriptionWorkloadType Production { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.Billing.Models.SubscriptionWorkloadType other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.Billing.Models.SubscriptionWorkloadType left, Azure.ResourceManager.Billing.Models.SubscriptionWorkloadType right) { throw null; }
-        public static implicit operator Azure.ResourceManager.Billing.Models.SubscriptionWorkloadType (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.Billing.Models.SubscriptionWorkloadType left, Azure.ResourceManager.Billing.Models.SubscriptionWorkloadType right) { throw null; }
         public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
