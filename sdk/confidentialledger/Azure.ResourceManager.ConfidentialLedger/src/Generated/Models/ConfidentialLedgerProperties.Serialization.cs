@@ -86,6 +86,41 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(HostLevel))
+            {
+                writer.WritePropertyName("hostLevel"u8);
+                writer.WriteStringValue(HostLevel);
+            }
+            if (Optional.IsDefined(MaxBodySizeInMb))
+            {
+                writer.WritePropertyName("maxBodySizeInMb"u8);
+                writer.WriteNumberValue(MaxBodySizeInMb.Value);
+            }
+            if (Optional.IsDefined(SubjectName))
+            {
+                writer.WritePropertyName("subjectName"u8);
+                writer.WriteStringValue(SubjectName);
+            }
+            if (Optional.IsDefined(NodeCount))
+            {
+                writer.WritePropertyName("nodeCount"u8);
+                writer.WriteNumberValue(NodeCount.Value);
+            }
+            if (Optional.IsDefined(WriteLBAddressPrefix))
+            {
+                writer.WritePropertyName("writeLBAddressPrefix"u8);
+                writer.WriteStringValue(WriteLBAddressPrefix);
+            }
+            if (Optional.IsDefined(WorkerThreads))
+            {
+                writer.WritePropertyName("workerThreads"u8);
+                writer.WriteNumberValue(WorkerThreads.Value);
+            }
+            if (Optional.IsDefined(EnclavePlatform))
+            {
+                writer.WritePropertyName("enclavePlatform"u8);
+                writer.WriteStringValue(EnclavePlatform.Value.ToString());
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -134,6 +169,13 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
             ConfidentialLedgerSku? ledgerSku = default;
             IList<AadBasedSecurityPrincipal> aadBasedSecurityPrincipals = default;
             IList<CertBasedSecurityPrincipal> certBasedSecurityPrincipals = default;
+            string hostLevel = default;
+            int? maxBodySizeInMb = default;
+            string subjectName = default;
+            int? nodeCount = default;
+            string writeLBAddressPrefix = default;
+            int? workerThreads = default;
+            EnclavePlatform? enclavePlatform = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -230,6 +272,57 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                     certBasedSecurityPrincipals = array;
                     continue;
                 }
+                if (property.NameEquals("hostLevel"u8))
+                {
+                    hostLevel = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("maxBodySizeInMb"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    maxBodySizeInMb = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("subjectName"u8))
+                {
+                    subjectName = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("nodeCount"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    nodeCount = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("writeLBAddressPrefix"u8))
+                {
+                    writeLBAddressPrefix = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("workerThreads"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    workerThreads = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("enclavePlatform"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    enclavePlatform = new EnclavePlatform(property.Value.GetString());
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -247,6 +340,13 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                 ledgerSku,
                 aadBasedSecurityPrincipals ?? new ChangeTrackingList<AadBasedSecurityPrincipal>(),
                 certBasedSecurityPrincipals ?? new ChangeTrackingList<CertBasedSecurityPrincipal>(),
+                hostLevel,
+                maxBodySizeInMb,
+                subjectName,
+                nodeCount,
+                writeLBAddressPrefix,
+                workerThreads,
+                enclavePlatform,
                 serializedAdditionalRawData);
         }
 
