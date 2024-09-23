@@ -9,6 +9,7 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
+using Azure.ResourceManager.Authorization.Models;
 
 namespace Azure.ResourceManager.Authorization.Samples
 {
@@ -33,6 +34,32 @@ namespace Azure.ResourceManager.Authorization.Samples
 
             // invoke the operation
             await tenantResource.ElevateAccessGlobalAdministratorAsync();
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // List provider operations metadata for all resource providers
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetAllProviderOperationsMetadata_ListProviderOperationsMetadataForAllResourceProviders()
+        {
+            // Generated from example definition: specification/authorization/resource-manager/Microsoft.Authorization/stable/2022-04-01/examples/GetAllProviderOperations.json
+            // this example is just showing the usage of "ProviderOperationsMetadata_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this TenantResource created on azure
+            // for more information of creating TenantResource, please refer to the document of TenantResource
+            var tenantResource = client.GetTenants().GetAllAsync().GetAsyncEnumerator().Current;
+
+            // invoke the operation and iterate over the result
+            await foreach (AuthorizationProviderOperationsMetadata item in tenantResource.GetAllProviderOperationsMetadataAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
 
             Console.WriteLine($"Succeeded");
         }

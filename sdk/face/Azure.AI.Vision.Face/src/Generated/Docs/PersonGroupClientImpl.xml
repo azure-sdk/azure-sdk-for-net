@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateAsync(string,string,string,FaceRecognitionModel?,CancellationToken)">
+      <example>
+This sample shows how to call CreateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = await client.CreateAsync("your_person_group_id", "your_person_group_name");
+]]></code></example>
+    </member>
+    <member name="Create(string,string,string,FaceRecognitionModel?,CancellationToken)">
+      <example>
+This sample shows how to call Create.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = client.Create("your_person_group_id", "your_person_group_name");
+]]></code></example>
+    </member>
+    <member name="CreateAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "your_person_group_name",
+    userData = "your_user_data",
+    recognitionModel = "recognition_01",
+});
+Response response = await client.CreateAsync("your_person_group_id", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Create(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Create.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "your_person_group_name",
+    userData = "your_user_data",
+    recognitionModel = "recognition_01",
+});
+Response response = client.Create("your_person_group_id", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteAsync(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = await client.DeleteAsync("your_person_group_id");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Delete(string,RequestContext)">
+      <example>
+This sample shows how to call Delete.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = client.Delete("your_person_group_id");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetPersonGroupAsync(string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetPersonGroupAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response<PersonGroup> response = await client.GetPersonGroupAsync("your_person_group_id");
+]]></code></example>
+    </member>
+    <member name="GetPersonGroup(string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetPersonGroup.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response<PersonGroup> response = client.GetPersonGroup("your_person_group_id");
+]]></code></example>
+    </member>
+    <member name="GetPersonGroupAsync(string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetPersonGroupAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = await client.GetPersonGroupAsync("your_person_group_id", true, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("personGroupId").ToString());
+]]></code></example>
+    </member>
+    <member name="GetPersonGroup(string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetPersonGroup and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = client.GetPersonGroup("your_person_group_id", true, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("personGroupId").ToString());
+]]></code></example>
+    </member>
+    <member name="UpdateAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "your_person_group_name",
+    userData = "your_user_data",
+});
+Response response = await client.UpdateAsync("your_person_group_id", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Update(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Update.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "your_person_group_name",
+    userData = "your_user_data",
+});
+Response response = client.Update("your_person_group_id", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetPersonGroupsAsync(string,int?,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetPersonGroupsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response<IReadOnlyList<PersonGroup>> response = await client.GetPersonGroupsAsync();
+]]></code></example>
+    </member>
+    <member name="GetPersonGroups(string,int?,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetPersonGroups.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response<IReadOnlyList<PersonGroup>> response = client.GetPersonGroups();
+]]></code></example>
+    </member>
+    <member name="GetPersonGroupsAsync(string,int?,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetPersonGroupsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = await client.GetPersonGroupsAsync("00000000-0000-0000-0000-000000000000", 20, true, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("personGroupId").ToString());
+]]></code></example>
+    </member>
+    <member name="GetPersonGroups(string,int?,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetPersonGroups and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = client.GetPersonGroups("00000000-0000-0000-0000-000000000000", 20, true, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("personGroupId").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTrainingStatusAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTrainingStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response<TrainingResult> response = await client.GetTrainingStatusAsync("your_person_group_id");
+]]></code></example>
+    </member>
+    <member name="GetTrainingStatus(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTrainingStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response<TrainingResult> response = client.GetTrainingStatus("your_person_group_id");
+]]></code></example>
+    </member>
+    <member name="GetTrainingStatusAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetTrainingStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = await client.GetTrainingStatusAsync("your_person_group_id", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastActionDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastSuccessfulTrainingDateTime").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTrainingStatus(string,RequestContext)">
+      <example>
+This sample shows how to call GetTrainingStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = client.GetTrainingStatus("your_person_group_id", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastActionDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastSuccessfulTrainingDateTime").ToString());
+]]></code></example>
+    </member>
+    <member name="CreatePersonAsync(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call CreatePersonAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response<CreatePersonResult> response = await client.CreatePersonAsync("your_person_group_id", "your_person_group_person_name");
+]]></code></example>
+    </member>
+    <member name="CreatePerson(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call CreatePerson.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response<CreatePersonResult> response = client.CreatePerson("your_person_group_id", "your_person_group_person_name");
+]]></code></example>
+    </member>
+    <member name="CreatePersonAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreatePersonAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "your_person_group_person_name",
+    userData = "your_user_data",
+});
+Response response = await client.CreatePersonAsync("your_person_group_id", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+]]></code></example>
+    </member>
+    <member name="CreatePerson(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreatePerson and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "your_person_group_person_name",
+    userData = "your_user_data",
+});
+Response response = client.CreatePerson("your_person_group_id", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+]]></code></example>
+    </member>
+    <member name="DeletePersonAsync(string,Guid,RequestContext)">
+      <example>
+This sample shows how to call DeletePersonAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = await client.DeletePersonAsync("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"));
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeletePerson(string,Guid,RequestContext)">
+      <example>
+This sample shows how to call DeletePerson.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = client.DeletePerson("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"));
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetPersonAsync(string,Guid,CancellationToken)">
+      <example>
+This sample shows how to call GetPersonAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response<PersonGroupPerson> response = await client.GetPersonAsync("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"));
+]]></code></example>
+    </member>
+    <member name="GetPerson(string,Guid,CancellationToken)">
+      <example>
+This sample shows how to call GetPerson.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response<PersonGroupPerson> response = client.GetPerson("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"));
+]]></code></example>
+    </member>
+    <member name="GetPersonAsync(string,Guid,RequestContext)">
+      <example>
+This sample shows how to call GetPersonAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = await client.GetPersonAsync("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"), null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="GetPerson(string,Guid,RequestContext)">
+      <example>
+This sample shows how to call GetPerson and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = client.GetPerson("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"), null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("personId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="UpdatePersonAsync(string,Guid,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdatePersonAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "your_person_group_person_name",
+    userData = "your_user_data",
+});
+Response response = await client.UpdatePersonAsync("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"), content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="UpdatePerson(string,Guid,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdatePerson.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "your_person_group_person_name",
+    userData = "your_user_data",
+});
+Response response = client.UpdatePerson("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"), content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetPersonsAsync(string,string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetPersonsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response<IReadOnlyList<PersonGroupPerson>> response = await client.GetPersonsAsync("your_person_group_id");
+]]></code></example>
+    </member>
+    <member name="GetPersons(string,string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetPersons.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response<IReadOnlyList<PersonGroupPerson>> response = client.GetPersons("your_person_group_id");
+]]></code></example>
+    </member>
+    <member name="GetPersonsAsync(string,string,int?,RequestContext)">
+      <example>
+This sample shows how to call GetPersonsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = await client.GetPersonsAsync("your_person_group_id", "00000000-0000-0000-0000-000000000000", 20, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("personId").ToString());
+Console.WriteLine(result[0].GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="GetPersons(string,string,int?,RequestContext)">
+      <example>
+This sample shows how to call GetPersons and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = client.GetPersons("your_person_group_id", "00000000-0000-0000-0000-000000000000", 20, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("personId").ToString());
+Console.WriteLine(result[0].GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteFaceAsync(string,Guid,Guid,RequestContext)">
+      <example>
+This sample shows how to call DeleteFaceAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = await client.DeleteFaceAsync("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"), Guid.Parse("43897a75-8d6f-42cf-885e-74832febb055"));
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteFace(string,Guid,Guid,RequestContext)">
+      <example>
+This sample shows how to call DeleteFace.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = client.DeleteFace("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"), Guid.Parse("43897a75-8d6f-42cf-885e-74832febb055"));
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetFaceAsync(string,Guid,Guid,CancellationToken)">
+      <example>
+This sample shows how to call GetFaceAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response<PersonGroupPersonFace> response = await client.GetFaceAsync("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"), Guid.Parse("43897a75-8d6f-42cf-885e-74832febb055"));
+]]></code></example>
+    </member>
+    <member name="GetFace(string,Guid,Guid,CancellationToken)">
+      <example>
+This sample shows how to call GetFace.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response<PersonGroupPersonFace> response = client.GetFace("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"), Guid.Parse("43897a75-8d6f-42cf-885e-74832febb055"));
+]]></code></example>
+    </member>
+    <member name="GetFaceAsync(string,Guid,Guid,RequestContext)">
+      <example>
+This sample shows how to call GetFaceAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = await client.GetFaceAsync("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"), Guid.Parse("43897a75-8d6f-42cf-885e-74832febb055"), null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("persistedFaceId").ToString());
+]]></code></example>
+    </member>
+    <member name="GetFace(string,Guid,Guid,RequestContext)">
+      <example>
+This sample shows how to call GetFace and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Response response = client.GetFace("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"), Guid.Parse("43897a75-8d6f-42cf-885e-74832febb055"), null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("persistedFaceId").ToString());
+]]></code></example>
+    </member>
+    <member name="UpdateFaceAsync(string,Guid,Guid,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateFaceAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    userData = "your_user_data",
+});
+Response response = await client.UpdateFaceAsync("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"), Guid.Parse("43897a75-8d6f-42cf-885e-74832febb055"), content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="UpdateFace(string,Guid,Guid,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateFace.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    userData = "your_user_data",
+});
+Response response = client.UpdateFace("your_person_group_id", Guid.Parse("25985303-c537-4467-b41d-bdb45cd95ca1"), Guid.Parse("43897a75-8d6f-42cf-885e-74832febb055"), content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="TrainAsync(WaitUntil,string,RequestContext)">
+      <example>
+This sample shows how to call TrainAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Operation operation = await client.TrainAsync(WaitUntil.Completed, "your_person_group_id");
+]]></code></example>
+    </member>
+    <member name="Train(WaitUntil,string,RequestContext)">
+      <example>
+This sample shows how to call Train.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+PersonGroupClientImpl client = new FaceServiceClient(endpoint, credential).GetPersonGroupClientImplClient();
+
+Operation operation = client.Train(WaitUntil.Completed, "your_person_group_id");
+]]></code></example>
+    </member>
+  </members>
+</doc>
