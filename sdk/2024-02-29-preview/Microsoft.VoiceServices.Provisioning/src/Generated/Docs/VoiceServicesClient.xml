@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetNumbersAsync(int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetNumbersAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(endpoint, credential);
+
+Response<PagedNumberList> response = await client.GetNumbersAsync();
+]]></code></example>
+    </member>
+    <member name="GetNumbers(int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetNumbers.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(endpoint, credential);
+
+Response<PagedNumberList> response = client.GetNumbers();
+]]></code></example>
+    </member>
+    <member name="GetNumbersAsync(int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetNumbersAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(endpoint, credential);
+
+Response response = await client.GetNumbersAsync(null, null, null, null, true, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("telephoneNumber").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("accountName").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("serviceDetails").ToString());
+]]></code></example>
+    </member>
+    <member name="GetNumbers(int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetNumbers and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(endpoint, credential);
+
+Response response = client.GetNumbers(null, null, null, null, true, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("telephoneNumber").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("accountName").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("serviceDetails").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
