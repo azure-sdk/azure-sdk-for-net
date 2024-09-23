@@ -90,6 +90,11 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("securityProfile"u8);
                 writer.WriteObjectValue(SecurityProfile, options);
             }
+            if (Optional.IsDefined(Restore))
+            {
+                writer.WritePropertyName("restore"u8);
+                writer.WriteBooleanValue(Restore.Value);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -140,6 +145,7 @@ namespace Azure.ResourceManager.Compute.Models
             GalleryImageVersionSafetyProfile safetyProfile = default;
             ReplicationStatus replicationStatus = default;
             ImageVersionSecurityProfile securityProfile = default;
+            bool? restore = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -245,6 +251,15 @@ namespace Azure.ResourceManager.Compute.Models
                             securityProfile = ImageVersionSecurityProfile.DeserializeImageVersionSecurityProfile(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("restore"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            restore = property0.Value.GetBoolean();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -265,6 +280,7 @@ namespace Azure.ResourceManager.Compute.Models
                 safetyProfile,
                 replicationStatus,
                 securityProfile,
+                restore,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 serializedAdditionalRawData);
         }
