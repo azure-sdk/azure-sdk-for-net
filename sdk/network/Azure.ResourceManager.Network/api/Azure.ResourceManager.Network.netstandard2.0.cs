@@ -12268,6 +12268,7 @@ namespace Azure.ResourceManager.Network.Models
         Two = 2,
         Three = 3,
         Four = 4,
+        Five = 5,
     }
     public enum FirewallPolicyIdpsSignatureMode
     {

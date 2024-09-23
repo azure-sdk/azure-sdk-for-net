@@ -611,6 +611,42 @@ namespace Azure.ResourceManager.Network.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="NetworkManagerRoutingConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="NetworkManagerRoutingConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="NetworkManagerRoutingConfigurationResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="NetworkManagerRoutingConfigurationResource"/> object. </returns>
+        public virtual NetworkManagerRoutingConfigurationResource GetNetworkManagerRoutingConfigurationResource(ResourceIdentifier id)
+        {
+            NetworkManagerRoutingConfigurationResource.ValidateResourceId(id);
+            return new NetworkManagerRoutingConfigurationResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="NetworkManagerRoutingRulesResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="NetworkManagerRoutingRulesResource.CreateResourceIdentifier" /> to create a <see cref="NetworkManagerRoutingRulesResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="NetworkManagerRoutingRulesResource"/> object. </returns>
+        public virtual NetworkManagerRoutingRulesResource GetNetworkManagerRoutingRulesResource(ResourceIdentifier id)
+        {
+            NetworkManagerRoutingRulesResource.ValidateResourceId(id);
+            return new NetworkManagerRoutingRulesResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="NetworkManagerRoutingRuleResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="NetworkManagerRoutingRuleResource.CreateResourceIdentifier" /> to create a <see cref="NetworkManagerRoutingRuleResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="NetworkManagerRoutingRuleResource"/> object. </returns>
+        public virtual NetworkManagerRoutingRuleResource GetNetworkManagerRoutingRuleResource(ResourceIdentifier id)
+        {
+            NetworkManagerRoutingRuleResource.ValidateResourceId(id);
+            return new NetworkManagerRoutingRuleResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="ScopeConnectionResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="ScopeConnectionResource.CreateResourceIdentifier" /> to create a <see cref="ScopeConnectionResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -692,42 +728,6 @@ namespace Azure.ResourceManager.Network.Mocking
         {
             NetworkManagerSecurityUserRuleResource.ValidateResourceId(id);
             return new NetworkManagerSecurityUserRuleResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="NetworkManagerRoutingConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="NetworkManagerRoutingConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="NetworkManagerRoutingConfigurationResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="NetworkManagerRoutingConfigurationResource"/> object. </returns>
-        public virtual NetworkManagerRoutingConfigurationResource GetNetworkManagerRoutingConfigurationResource(ResourceIdentifier id)
-        {
-            NetworkManagerRoutingConfigurationResource.ValidateResourceId(id);
-            return new NetworkManagerRoutingConfigurationResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="NetworkManagerRoutingRulesResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="NetworkManagerRoutingRulesResource.CreateResourceIdentifier" /> to create a <see cref="NetworkManagerRoutingRulesResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="NetworkManagerRoutingRulesResource"/> object. </returns>
-        public virtual NetworkManagerRoutingRulesResource GetNetworkManagerRoutingRulesResource(ResourceIdentifier id)
-        {
-            NetworkManagerRoutingRulesResource.ValidateResourceId(id);
-            return new NetworkManagerRoutingRulesResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="NetworkManagerRoutingRuleResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="NetworkManagerRoutingRuleResource.CreateResourceIdentifier" /> to create a <see cref="NetworkManagerRoutingRuleResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="NetworkManagerRoutingRuleResource"/> object. </returns>
-        public virtual NetworkManagerRoutingRuleResource GetNetworkManagerRoutingRuleResource(ResourceIdentifier id)
-        {
-            NetworkManagerRoutingRuleResource.ValidateResourceId(id);
-            return new NetworkManagerRoutingRuleResource(Client, id);
         }
 
         /// <summary>
