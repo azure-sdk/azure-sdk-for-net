@@ -36,19 +36,11 @@ namespace Azure.ResourceManager.Automanage.Models
             }
 
             base.JsonModelWriteCore(writer, options);
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (options.Format != "W" && Optional.IsDefined(ServicePrincipalId))
+            if (Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("servicePrincipalId"u8);
-                writer.WriteStringValue(ServicePrincipalId);
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
             }
-            if (options.Format != "W" && Optional.IsDefined(IsAuthorizationSet))
-            {
-                writer.WritePropertyName("authorizationSet"u8);
-                writer.WriteBooleanValue(IsAuthorizationSet.Value);
-            }
-            writer.WriteEndObject();
         }
 
         AutomanageServicePrincipalData IJsonModel<AutomanageServicePrincipalData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -71,16 +63,24 @@ namespace Azure.ResourceManager.Automanage.Models
             {
                 return null;
             }
+            ServicePrincipalProperties properties = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            string servicePrincipalId = default;
-            bool? authorizationSet = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = ServicePrincipalProperties.DeserializeServicePrincipalProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -105,32 +105,6 @@ namespace Azure.ResourceManager.Automanage.Models
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("servicePrincipalId"u8))
-                        {
-                            servicePrincipalId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("authorizationSet"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            authorizationSet = property0.Value.GetBoolean();
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -142,8 +116,7 @@ namespace Azure.ResourceManager.Automanage.Models
                 name,
                 type,
                 systemData,
-                servicePrincipalId,
-                authorizationSet,
+                properties,
                 serializedAdditionalRawData);
         }
 

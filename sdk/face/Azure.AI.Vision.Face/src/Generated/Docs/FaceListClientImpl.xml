@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateAsync(string,string,string,FaceRecognitionModel?,CancellationToken)">
+      <example>
+This sample shows how to call CreateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+Response response = await client.CreateAsync("your_face_list_id", "your_face_list_name");
+]]></code></example>
+    </member>
+    <member name="Create(string,string,string,FaceRecognitionModel?,CancellationToken)">
+      <example>
+This sample shows how to call Create.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+Response response = client.Create("your_face_list_id", "your_face_list_name");
+]]></code></example>
+    </member>
+    <member name="CreateAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "your_face_list_name",
+    userData = "your_user_data",
+    recognitionModel = "recognition_01",
+});
+Response response = await client.CreateAsync("your_face_list_id", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Create(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Create.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "your_face_list_name",
+    userData = "your_user_data",
+    recognitionModel = "recognition_01",
+});
+Response response = client.Create("your_face_list_id", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteAsync(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+Response response = await client.DeleteAsync("your_face_list_id");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Delete(string,RequestContext)">
+      <example>
+This sample shows how to call Delete.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+Response response = client.Delete("your_face_list_id");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetFaceListAsync(string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetFaceListAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+Response<FaceList> response = await client.GetFaceListAsync("your_face_list_id");
+]]></code></example>
+    </member>
+    <member name="GetFaceList(string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetFaceList.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+Response<FaceList> response = client.GetFaceList("your_face_list_id");
+]]></code></example>
+    </member>
+    <member name="GetFaceListAsync(string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetFaceListAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+Response response = await client.GetFaceListAsync("your_face_list_id", true, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("faceListId").ToString());
+]]></code></example>
+    </member>
+    <member name="GetFaceList(string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetFaceList and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+Response response = client.GetFaceList("your_face_list_id", true, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("faceListId").ToString());
+]]></code></example>
+    </member>
+    <member name="UpdateAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "your_face_list_name",
+    userData = "your_user_data",
+});
+Response response = await client.UpdateAsync("your_face_list_id", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Update(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Update.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "your_face_list_name",
+    userData = "your_user_data",
+});
+Response response = client.Update("your_face_list_id", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetFaceListsAsync(bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetFaceListsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+Response<IReadOnlyList<FaceListItem>> response = await client.GetFaceListsAsync();
+]]></code></example>
+    </member>
+    <member name="GetFaceLists(bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetFaceLists.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+Response<IReadOnlyList<FaceListItem>> response = client.GetFaceLists();
+]]></code></example>
+    </member>
+    <member name="GetFaceListsAsync(bool?,RequestContext)">
+      <example>
+This sample shows how to call GetFaceListsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+Response response = await client.GetFaceListsAsync(true, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("faceListId").ToString());
+]]></code></example>
+    </member>
+    <member name="GetFaceLists(bool?,RequestContext)">
+      <example>
+This sample shows how to call GetFaceLists and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+Response response = client.GetFaceLists(true, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("faceListId").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteFaceAsync(string,Guid,RequestContext)">
+      <example>
+This sample shows how to call DeleteFaceAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+Response response = await client.DeleteFaceAsync("your_face_list_id", Guid.Parse("43897a75-8d6f-42cf-885e-74832febb055"));
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteFace(string,Guid,RequestContext)">
+      <example>
+This sample shows how to call DeleteFace.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+FaceListClientImpl client = new FaceServiceClient(endpoint, credential).GetFaceListClientImplClient();
+
+Response response = client.DeleteFace("your_face_list_id", Guid.Parse("43897a75-8d6f-42cf-885e-74832febb055"));
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+  </members>
+</doc>
