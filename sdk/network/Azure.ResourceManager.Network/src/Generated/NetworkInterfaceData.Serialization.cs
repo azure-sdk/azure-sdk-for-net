@@ -126,6 +126,11 @@ namespace Azure.ResourceManager.Network
                 writer.WritePropertyName("vnetEncryptionSupported"u8);
                 writer.WriteBooleanValue(VnetEncryptionSupported.Value);
             }
+            if (options.Format != "W" && Optional.IsDefined(DefaultOutboundConnectivityEnabled))
+            {
+                writer.WritePropertyName("defaultOutboundConnectivityEnabled"u8);
+                writer.WriteBooleanValue(DefaultOutboundConnectivityEnabled.Value);
+            }
             if (Optional.IsDefined(EnableAcceleratedNetworking))
             {
                 writer.WritePropertyName("enableAcceleratedNetworking"u8);
@@ -251,6 +256,7 @@ namespace Azure.ResourceManager.Network
             string macAddress = default;
             bool? primary = default;
             bool? vnetEncryptionSupported = default;
+            bool? defaultOutboundConnectivityEnabled = default;
             bool? enableAcceleratedNetworking = default;
             bool? disableTcpStateTracking = default;
             bool? enableIPForwarding = default;
@@ -428,6 +434,15 @@ namespace Azure.ResourceManager.Network
                             vnetEncryptionSupported = property0.Value.GetBoolean();
                             continue;
                         }
+                        if (property0.NameEquals("defaultOutboundConnectivityEnabled"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            defaultOutboundConnectivityEnabled = property0.Value.GetBoolean();
+                            continue;
+                        }
                         if (property0.NameEquals("enableAcceleratedNetworking"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -573,6 +588,7 @@ namespace Azure.ResourceManager.Network
                 macAddress,
                 primary,
                 vnetEncryptionSupported,
+                defaultOutboundConnectivityEnabled,
                 enableAcceleratedNetworking,
                 disableTcpStateTracking,
                 enableIPForwarding,
