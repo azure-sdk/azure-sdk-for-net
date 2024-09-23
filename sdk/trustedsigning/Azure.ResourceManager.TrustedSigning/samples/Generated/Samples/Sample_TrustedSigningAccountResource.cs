@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.TrustedSigning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CheckTrustedSigningAccountNameAvailability_ChecksThatTheTrustedSigningAccountNameIsAvailable()
         {
-            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-02-05-preview/examples/CodeSigningAccounts_CheckNameAvailability.json
+            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-09-30-preview/examples/CodeSigningAccounts_CheckNameAvailability.json
             // this example is just showing the usage of "CodeSigningAccounts_CheckNameAvailability" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.TrustedSigning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetTrustedSigningAccounts_ListsTrustedSigningAccountsWithinASubscription()
         {
-            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-02-05-preview/examples/CodeSigningAccounts_ListBySubscription.json
+            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-09-30-preview/examples/CodeSigningAccounts_ListBySubscription.json
             // this example is just showing the usage of "CodeSigningAccounts_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.TrustedSigning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetATrustedSigningAccount()
         {
-            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-02-05-preview/examples/CodeSigningAccounts_Get.json
+            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-09-30-preview/examples/CodeSigningAccounts_Get.json
             // this example is just showing the usage of "CodeSigningAccounts_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -110,7 +110,7 @@ namespace Azure.ResourceManager.TrustedSigning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_UpdateATrustedSigningAccount()
         {
-            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-02-05-preview/examples/CodeSigningAccounts_Update.json
+            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-09-30-preview/examples/CodeSigningAccounts_Update.json
             // this example is just showing the usage of "CodeSigningAccounts_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -149,7 +149,7 @@ namespace Azure.ResourceManager.TrustedSigning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteATrustedSigningAccount()
         {
-            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-02-05-preview/examples/CodeSigningAccounts_Delete.json
+            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-09-30-preview/examples/CodeSigningAccounts_Delete.json
             // this example is just showing the usage of "CodeSigningAccounts_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

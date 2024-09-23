@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.TrustedSigning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListCertificateProfilesUnderATrustedSigningAccount()
         {
-            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-02-05-preview/examples/CertificateProfiles_ListByCodeSigningAccount.json
+            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-09-30-preview/examples/CertificateProfiles_ListByCodeSigningAccount.json
             // this example is just showing the usage of "CertificateProfiles_ListByCodeSigningAccount" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.TrustedSigning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetDetailsOfACertificateProfile()
         {
-            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-02-05-preview/examples/CertificateProfiles_Get.json
+            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-09-30-preview/examples/CertificateProfiles_Get.json
             // this example is just showing the usage of "CertificateProfiles_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.TrustedSigning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetDetailsOfACertificateProfile()
         {
-            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-02-05-preview/examples/CertificateProfiles_Get.json
+            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-09-30-preview/examples/CertificateProfiles_Get.json
             // this example is just showing the usage of "CertificateProfiles_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.TrustedSigning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetDetailsOfACertificateProfile()
         {
-            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-02-05-preview/examples/CertificateProfiles_Get.json
+            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-09-30-preview/examples/CertificateProfiles_Get.json
             // this example is just showing the usage of "CertificateProfiles_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.TrustedSigning.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateACertificateProfile()
         {
-            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-02-05-preview/examples/CertificateProfiles_Create.json
+            // Generated from example definition: specification/codesigning/resource-manager/Microsoft.CodeSigning/preview/2024-09-30-preview/examples/CertificateProfiles_Create.json
             // this example is just showing the usage of "CertificateProfiles_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
