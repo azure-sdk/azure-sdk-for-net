@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.TrustedSigning.Models
 {
-    /// <summary> Parameters for creating or updating a trusted signing account. </summary>
-    public partial class TrustedSigningAccountPatch
+    /// <summary> SKU of the trusted signing account. </summary>
+    internal partial class AccountSkuPatch
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,37 +45,21 @@ namespace Azure.ResourceManager.TrustedSigning.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="TrustedSigningAccountPatch"/>. </summary>
-        public TrustedSigningAccountPatch()
+        /// <summary> Initializes a new instance of <see cref="AccountSkuPatch"/>. </summary>
+        public AccountSkuPatch()
         {
-            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="TrustedSigningAccountPatch"/>. </summary>
-        /// <param name="tags"> Resource tags. </param>
-        /// <param name="sku"> SKU of the trusted signing account. </param>
+        /// <summary> Initializes a new instance of <see cref="AccountSkuPatch"/>. </summary>
+        /// <param name="name"> Name of the SKU. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TrustedSigningAccountPatch(IDictionary<string, string> tags, AccountSkuPatch sku, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AccountSkuPatch(TrustedSigningSkuName? name, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Tags = tags;
-            Sku = sku;
+            Name = name;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Resource tags. </summary>
-        public IDictionary<string, string> Tags { get; }
-        /// <summary> SKU of the trusted signing account. </summary>
-        internal AccountSkuPatch Sku { get; set; }
         /// <summary> Name of the SKU. </summary>
-        public TrustedSigningSkuName? SkuName
-        {
-            get => Sku is null ? default : Sku.Name;
-            set
-            {
-                if (Sku is null)
-                    Sku = new AccountSkuPatch();
-                Sku.Name = value;
-            }
-        }
+        public TrustedSigningSkuName? Name { get; set; }
     }
 }
