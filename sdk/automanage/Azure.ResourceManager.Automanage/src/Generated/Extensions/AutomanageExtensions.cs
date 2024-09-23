@@ -33,11 +33,6 @@ namespace Azure.ResourceManager.Automanage
             return resource.GetCachedClient(client => new MockableAutomanageSubscriptionResource(client, resource.Id));
         }
 
-        private static MockableAutomanageTenantResource GetMockableAutomanageTenantResource(ArmResource resource)
-        {
-            return resource.GetCachedClient(client => new MockableAutomanageTenantResource(client, resource.Id));
-        }
-
         /// <summary>
         /// Gets a collection of AutomanageVmConfigurationProfileAssignmentResources in the ArmClient.
         /// <item>
@@ -324,25 +319,6 @@ namespace Azure.ResourceManager.Automanage
             Argument.AssertNotNull(client, nameof(client));
 
             return GetMockableAutomanageArmClient(client).GetAutomanageHciClusterConfigurationProfileAssignment(scope, configurationProfileAssignmentName, cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="AutomanageBestPracticeResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="AutomanageBestPracticeResource.CreateResourceIdentifier" /> to create an <see cref="AutomanageBestPracticeResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableAutomanageArmClient.GetAutomanageBestPracticeResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="AutomanageBestPracticeResource"/> object. </returns>
-        public static AutomanageBestPracticeResource GetAutomanageBestPracticeResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableAutomanageArmClient(client).GetAutomanageBestPracticeResource(id);
         }
 
         /// <summary>
@@ -786,99 +762,6 @@ namespace Azure.ResourceManager.Automanage
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
             return GetMockableAutomanageSubscriptionResource(subscriptionResource).GetServicePrincipal(cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets a collection of AutomanageBestPracticeResources in the TenantResource.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableAutomanageTenantResource.GetAutomanageBestPractices()"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> is null. </exception>
-        /// <returns> An object representing collection of AutomanageBestPracticeResources and their operations over a AutomanageBestPracticeResource. </returns>
-        public static AutomanageBestPracticeCollection GetAutomanageBestPractices(this TenantResource tenantResource)
-        {
-            Argument.AssertNotNull(tenantResource, nameof(tenantResource));
-
-            return GetMockableAutomanageTenantResource(tenantResource).GetAutomanageBestPractices();
-        }
-
-        /// <summary>
-        /// Get information about a Automanage best practice
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Automanage/bestPractices/{bestPracticeName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>BestPractices_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2022-05-04</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="AutomanageBestPracticeResource"/></description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableAutomanageTenantResource.GetAutomanageBestPracticeAsync(string,CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
-        /// <param name="bestPracticeName"> The Automanage best practice name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> or <paramref name="bestPracticeName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="bestPracticeName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public static async Task<Response<AutomanageBestPracticeResource>> GetAutomanageBestPracticeAsync(this TenantResource tenantResource, string bestPracticeName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(tenantResource, nameof(tenantResource));
-
-            return await GetMockableAutomanageTenantResource(tenantResource).GetAutomanageBestPracticeAsync(bestPracticeName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get information about a Automanage best practice
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Automanage/bestPractices/{bestPracticeName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>BestPractices_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2022-05-04</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="AutomanageBestPracticeResource"/></description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableAutomanageTenantResource.GetAutomanageBestPractice(string,CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
-        /// <param name="bestPracticeName"> The Automanage best practice name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> or <paramref name="bestPracticeName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="bestPracticeName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public static Response<AutomanageBestPracticeResource> GetAutomanageBestPractice(this TenantResource tenantResource, string bestPracticeName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(tenantResource, nameof(tenantResource));
-
-            return GetMockableAutomanageTenantResource(tenantResource).GetAutomanageBestPractice(bestPracticeName, cancellationToken);
         }
     }
 }
