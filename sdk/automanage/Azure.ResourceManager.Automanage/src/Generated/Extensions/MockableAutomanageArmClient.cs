@@ -266,18 +266,6 @@ namespace Azure.ResourceManager.Automanage.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="AutomanageBestPracticeResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="AutomanageBestPracticeResource.CreateResourceIdentifier" /> to create an <see cref="AutomanageBestPracticeResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="AutomanageBestPracticeResource"/> object. </returns>
-        public virtual AutomanageBestPracticeResource GetAutomanageBestPracticeResource(ResourceIdentifier id)
-        {
-            AutomanageBestPracticeResource.ValidateResourceId(id);
-            return new AutomanageBestPracticeResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing an <see cref="AutomanageConfigurationProfileResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="AutomanageConfigurationProfileResource.CreateResourceIdentifier" /> to create an <see cref="AutomanageConfigurationProfileResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>

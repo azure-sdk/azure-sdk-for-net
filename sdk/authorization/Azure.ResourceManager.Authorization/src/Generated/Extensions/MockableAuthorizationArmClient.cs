@@ -910,18 +910,6 @@ namespace Azure.ResourceManager.Authorization.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="AuthorizationProviderOperationsMetadataResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="AuthorizationProviderOperationsMetadataResource.CreateResourceIdentifier" /> to create an <see cref="AuthorizationProviderOperationsMetadataResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="AuthorizationProviderOperationsMetadataResource"/> object. </returns>
-        public virtual AuthorizationProviderOperationsMetadataResource GetAuthorizationProviderOperationsMetadataResource(ResourceIdentifier id)
-        {
-            AuthorizationProviderOperationsMetadataResource.ValidateResourceId(id);
-            return new AuthorizationProviderOperationsMetadataResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="RoleAssignmentResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="RoleAssignmentResource.CreateResourceIdentifier" /> to create a <see cref="RoleAssignmentResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
