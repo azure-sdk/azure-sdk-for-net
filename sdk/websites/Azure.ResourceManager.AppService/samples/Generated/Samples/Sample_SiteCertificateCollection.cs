@@ -9,37 +9,37 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
-using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.AppService.Samples
 {
-    public partial class Sample_AppCertificateCollection
+    public partial class Sample_SiteCertificateCollection
     {
         // List Certificates by resource group
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListCertificatesByResourceGroup()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-12-01/examples/ListCertificatesByResourceGroup.json
-            // this example is just showing the usage of "Certificates_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-04-01/examples/ListSiteCertificatesByResourceGroup.json
+            // this example is just showing the usage of "SiteCertificates_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this ResourceGroupResource created on azure
-            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            // this example assumes you already have this WebSiteResource created on azure
+            // for more information of creating WebSiteResource, please refer to the document of WebSiteResource
             string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
             string resourceGroupName = "testrg123";
-            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
-            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+            string name = "testSiteName";
+            ResourceIdentifier webSiteResourceId = WebSiteResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, name);
+            WebSiteResource webSite = client.GetWebSiteResource(webSiteResourceId);
 
-            // get the collection of this AppCertificateResource
-            AppCertificateCollection collection = resourceGroupResource.GetAppCertificates();
+            // get the collection of this SiteCertificateResource
+            SiteCertificateCollection collection = webSite.GetSiteCertificates();
 
             // invoke the operation and iterate over the result
-            await foreach (AppCertificateResource item in collection.GetAllAsync())
+            await foreach (SiteCertificateResource item in collection.GetAllAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
@@ -56,27 +56,28 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetCertificate()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-12-01/examples/GetCertificate.json
-            // this example is just showing the usage of "Certificates_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-04-01/examples/GetSiteCertificate.json
+            // this example is just showing the usage of "SiteCertificates_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this ResourceGroupResource created on azure
-            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            // this example assumes you already have this WebSiteResource created on azure
+            // for more information of creating WebSiteResource, please refer to the document of WebSiteResource
             string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
             string resourceGroupName = "testrg123";
-            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
-            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+            string name = "testSiteName";
+            ResourceIdentifier webSiteResourceId = WebSiteResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, name);
+            WebSiteResource webSite = client.GetWebSiteResource(webSiteResourceId);
 
-            // get the collection of this AppCertificateResource
-            AppCertificateCollection collection = resourceGroupResource.GetAppCertificates();
+            // get the collection of this SiteCertificateResource
+            SiteCertificateCollection collection = webSite.GetSiteCertificates();
 
             // invoke the operation
-            string name = "testc6282";
-            AppCertificateResource result = await collection.GetAsync(name);
+            string certificateName = "testc6282";
+            SiteCertificateResource result = await collection.GetAsync(certificateName);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
@@ -90,27 +91,28 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetCertificate()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-12-01/examples/GetCertificate.json
-            // this example is just showing the usage of "Certificates_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-04-01/examples/GetSiteCertificate.json
+            // this example is just showing the usage of "SiteCertificates_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this ResourceGroupResource created on azure
-            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            // this example assumes you already have this WebSiteResource created on azure
+            // for more information of creating WebSiteResource, please refer to the document of WebSiteResource
             string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
             string resourceGroupName = "testrg123";
-            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
-            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+            string name = "testSiteName";
+            ResourceIdentifier webSiteResourceId = WebSiteResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, name);
+            WebSiteResource webSite = client.GetWebSiteResource(webSiteResourceId);
 
-            // get the collection of this AppCertificateResource
-            AppCertificateCollection collection = resourceGroupResource.GetAppCertificates();
+            // get the collection of this SiteCertificateResource
+            SiteCertificateCollection collection = webSite.GetSiteCertificates();
 
             // invoke the operation
-            string name = "testc6282";
-            bool result = await collection.ExistsAsync(name);
+            string certificateName = "testc6282";
+            bool result = await collection.ExistsAsync(certificateName);
 
             Console.WriteLine($"Succeeded: {result}");
         }
@@ -120,28 +122,29 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetCertificate()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-12-01/examples/GetCertificate.json
-            // this example is just showing the usage of "Certificates_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-04-01/examples/GetSiteCertificate.json
+            // this example is just showing the usage of "SiteCertificates_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this ResourceGroupResource created on azure
-            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            // this example assumes you already have this WebSiteResource created on azure
+            // for more information of creating WebSiteResource, please refer to the document of WebSiteResource
             string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
             string resourceGroupName = "testrg123";
-            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
-            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+            string name = "testSiteName";
+            ResourceIdentifier webSiteResourceId = WebSiteResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, name);
+            WebSiteResource webSite = client.GetWebSiteResource(webSiteResourceId);
 
-            // get the collection of this AppCertificateResource
-            AppCertificateCollection collection = resourceGroupResource.GetAppCertificates();
+            // get the collection of this SiteCertificateResource
+            SiteCertificateCollection collection = webSite.GetSiteCertificates();
 
             // invoke the operation
-            string name = "testc6282";
-            NullableResponse<AppCertificateResource> response = await collection.GetIfExistsAsync(name);
-            AppCertificateResource result = response.HasValue ? response.Value : null;
+            string certificateName = "testc6282";
+            NullableResponse<SiteCertificateResource> response = await collection.GetIfExistsAsync(certificateName);
+            SiteCertificateResource result = response.HasValue ? response.Value : null;
 
             if (result == null)
             {
@@ -162,26 +165,27 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateOrUpdateCertificate()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-12-01/examples/CreateOrUpdateCertificate.json
-            // this example is just showing the usage of "Certificates_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2024-04-01/examples/CreateOrUpdateSiteCertificate.json
+            // this example is just showing the usage of "SiteCertificates_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this ResourceGroupResource created on azure
-            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            // this example assumes you already have this WebSiteResource created on azure
+            // for more information of creating WebSiteResource, please refer to the document of WebSiteResource
             string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
             string resourceGroupName = "testrg123";
-            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
-            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+            string name = "testSiteName";
+            ResourceIdentifier webSiteResourceId = WebSiteResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, name);
+            WebSiteResource webSite = client.GetWebSiteResource(webSiteResourceId);
 
-            // get the collection of this AppCertificateResource
-            AppCertificateCollection collection = resourceGroupResource.GetAppCertificates();
+            // get the collection of this SiteCertificateResource
+            SiteCertificateCollection collection = webSite.GetSiteCertificates();
 
             // invoke the operation
-            string name = "testc6282";
+            string certificateName = "testc6282";
             AppCertificateData data = new AppCertificateData(new AzureLocation("East US"))
             {
                 Password = "<password>",
@@ -190,8 +194,8 @@ namespace Azure.ResourceManager.AppService.Samples
 "ServerCert"
 },
             };
-            ArmOperation<AppCertificateResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, name, data);
-            AppCertificateResource result = lro.Value;
+            ArmOperation<SiteCertificateResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, certificateName, data);
+            SiteCertificateResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
