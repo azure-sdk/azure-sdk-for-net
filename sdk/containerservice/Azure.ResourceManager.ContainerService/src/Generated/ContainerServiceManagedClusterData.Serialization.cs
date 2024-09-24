@@ -273,6 +273,11 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("storageProfile"u8);
                 writer.WriteObjectValue(StorageProfile, options);
             }
+            if (Optional.IsDefined(IngressProfile))
+            {
+                writer.WritePropertyName("ingressProfile"u8);
+                writer.WriteObjectValue(IngressProfile, options);
+            }
             if (Optional.IsDefined(PublicNetworkAccess))
             {
                 writer.WritePropertyName("publicNetworkAccess"u8);
@@ -297,6 +302,11 @@ namespace Azure.ResourceManager.ContainerService
             {
                 writer.WritePropertyName("resourceUID"u8);
                 writer.WriteStringValue(ResourceId);
+            }
+            if (Optional.IsDefined(MetricsProfile))
+            {
+                writer.WritePropertyName("metricsProfile"u8);
+                writer.WriteObjectValue(MetricsProfile, options);
             }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -380,11 +390,13 @@ namespace Azure.ResourceManager.ContainerService
             ManagedClusterHttpProxyConfig httpProxyConfig = default;
             ManagedClusterSecurityProfile securityProfile = default;
             ManagedClusterStorageProfile storageProfile = default;
+            ManagedClusterIngressProfile ingressProfile = default;
             ContainerServicePublicNetworkAccess? publicNetworkAccess = default;
             ManagedClusterWorkloadAutoScalerProfile workloadAutoScalerProfile = default;
             ManagedClusterAzureMonitorProfile azureMonitorProfile = default;
             ServiceMeshProfile serviceMeshProfile = default;
             ResourceIdentifier resourceUID = default;
+            ManagedClusterMetricsProfile metricsProfile = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -758,6 +770,15 @@ namespace Azure.ResourceManager.ContainerService
                             storageProfile = ManagedClusterStorageProfile.DeserializeManagedClusterStorageProfile(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("ingressProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            ingressProfile = ManagedClusterIngressProfile.DeserializeManagedClusterIngressProfile(property0.Value, options);
+                            continue;
+                        }
                         if (property0.NameEquals("publicNetworkAccess"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -801,6 +822,15 @@ namespace Azure.ResourceManager.ContainerService
                                 continue;
                             }
                             resourceUID = new ResourceIdentifier(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("metricsProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            metricsProfile = ManagedClusterMetricsProfile.DeserializeManagedClusterMetricsProfile(property0.Value, options);
                             continue;
                         }
                     }
@@ -856,11 +886,13 @@ namespace Azure.ResourceManager.ContainerService
                 httpProxyConfig,
                 securityProfile,
                 storageProfile,
+                ingressProfile,
                 publicNetworkAccess,
                 workloadAutoScalerProfile,
                 azureMonitorProfile,
                 serviceMeshProfile,
                 resourceUID,
+                metricsProfile,
                 serializedAdditionalRawData);
         }
 
@@ -1653,6 +1685,26 @@ namespace Azure.ResourceManager.ContainerService
                 }
             }
 
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue("IngressWebAppRouting", out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    ingressProfile: ");
+                builder.AppendLine("{");
+                builder.AppendLine("      ingressProfile: {");
+                builder.Append("        webAppRouting: ");
+                builder.AppendLine(propertyOverride);
+                builder.AppendLine("      }");
+                builder.AppendLine("    }");
+            }
+            else
+            {
+                if (Optional.IsDefined(IngressProfile))
+                {
+                    builder.Append("    ingressProfile: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, IngressProfile, options, 4, false, "    ingressProfile: ");
+                }
+            }
+
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PublicNetworkAccess), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -1730,6 +1782,28 @@ namespace Azure.ResourceManager.ContainerService
                 {
                     builder.Append("    resourceUID: ");
                     builder.AppendLine($"'{ResourceId.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue("CostAnalysisEnabled", out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    metricsProfile: ");
+                builder.AppendLine("{");
+                builder.AppendLine("      metricsProfile: {");
+                builder.AppendLine("        costAnalysis: {");
+                builder.Append("          enabled: ");
+                builder.AppendLine(propertyOverride);
+                builder.AppendLine("        }");
+                builder.AppendLine("      }");
+                builder.AppendLine("    }");
+            }
+            else
+            {
+                if (Optional.IsDefined(MetricsProfile))
+                {
+                    builder.Append("    metricsProfile: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, MetricsProfile, options, 4, false, "    metricsProfile: ");
                 }
             }
 
