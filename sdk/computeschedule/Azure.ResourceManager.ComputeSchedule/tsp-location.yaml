@@ -1,0 +1,4 @@
+directory: specification/computeschedule/ComputeSchedule.Management
+commit: e6d487a031c060d5d333c1ee745032205def6680
+repo: Azure/azure-rest-api-specs
+additionalDirectories: 
