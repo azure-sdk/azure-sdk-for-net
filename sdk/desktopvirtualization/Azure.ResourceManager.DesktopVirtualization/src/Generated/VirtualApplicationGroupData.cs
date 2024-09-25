@@ -82,9 +82,9 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="managedBy"> The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource. </param>
         /// <param name="kind"> Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type. E.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value. </param>
         /// <param name="etag"> The etag field is *not* required. If it is provided in the response body, it must also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
-        /// <param name="identity"> Gets or sets the identity. Current supported identity types: SystemAssigned. </param>
+        /// <param name="identity"> Managed service identity (system assigned and/or user assigned identities). </param>
         /// <param name="sku"> The resource model definition representing SKU. </param>
-        /// <param name="plan"> Gets or sets the plan. </param>
+        /// <param name="plan"> Plan for the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal VirtualApplicationGroupData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string objectId, string description, string friendlyName, ResourceIdentifier hostPoolId, ResourceIdentifier workspaceId, VirtualApplicationGroupType applicationGroupType, bool? isCloudPCResource, bool? showInFeed, ResourceIdentifier managedBy, string kind, ETag? etag, ManagedServiceIdentity identity, DesktopVirtualizationSku sku, ArmPlan plan, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
@@ -143,13 +143,13 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <summary> The etag field is *not* required. If it is provided in the response body, it must also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </summary>
         [WirePath("etag")]
         public ETag? ETag { get; }
-        /// <summary> Gets or sets the identity. Current supported identity types: SystemAssigned. </summary>
+        /// <summary> Managed service identity (system assigned and/or user assigned identities). </summary>
         [WirePath("identity")]
         public ManagedServiceIdentity Identity { get; set; }
         /// <summary> The resource model definition representing SKU. </summary>
         [WirePath("sku")]
         public DesktopVirtualizationSku Sku { get; set; }
-        /// <summary> Gets or sets the plan. </summary>
+        /// <summary> Plan for the resource. </summary>
         [WirePath("plan")]
         public ArmPlan Plan { get; set; }
     }

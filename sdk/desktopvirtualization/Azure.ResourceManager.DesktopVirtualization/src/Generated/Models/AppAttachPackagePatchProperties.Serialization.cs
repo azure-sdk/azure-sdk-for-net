@@ -66,6 +66,16 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 writer.WritePropertyName("failHealthCheckOnStagingFailure"u8);
                 writer.WriteStringValue(FailHealthCheckOnStagingFailure.Value.ToString());
             }
+            if (Optional.IsDefined(PackageLookbackUri))
+            {
+                writer.WritePropertyName("packageLookbackUrl"u8);
+                writer.WriteStringValue(PackageLookbackUri.AbsoluteUri);
+            }
+            if (Optional.IsDefined(CustomData))
+            {
+                writer.WritePropertyName("customData"u8);
+                writer.WriteStringValue(CustomData);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -107,6 +117,8 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             IList<ResourceIdentifier> hostPoolReferences = default;
             Uri keyVaultURL = default;
             FailHealthCheckOnStagingFailure? failHealthCheckOnStagingFailure = default;
+            Uri packageLookbackUrl = default;
+            string customData = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -159,13 +171,34 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                     failHealthCheckOnStagingFailure = new FailHealthCheckOnStagingFailure(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("packageLookbackUrl"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    packageLookbackUrl = new Uri(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("customData"u8))
+                {
+                    customData = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AppAttachPackagePatchProperties(image, hostPoolReferences ?? new ChangeTrackingList<ResourceIdentifier>(), keyVaultURL, failHealthCheckOnStagingFailure, serializedAdditionalRawData);
+            return new AppAttachPackagePatchProperties(
+                image,
+                hostPoolReferences ?? new ChangeTrackingList<ResourceIdentifier>(),
+                keyVaultURL,
+                failHealthCheckOnStagingFailure,
+                packageLookbackUrl,
+                customData,
+                serializedAdditionalRawData);
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)
@@ -249,6 +282,44 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 {
                     builder.Append("  failHealthCheckOnStagingFailure: ");
                     builder.AppendLine($"'{FailHealthCheckOnStagingFailure.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PackageLookbackUri), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  packageLookbackUrl: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(PackageLookbackUri))
+                {
+                    builder.Append("  packageLookbackUrl: ");
+                    builder.AppendLine($"'{PackageLookbackUri.AbsoluteUri}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(CustomData), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  customData: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(CustomData))
+                {
+                    builder.Append("  customData: ");
+                    if (CustomData.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{CustomData}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{CustomData}'");
+                    }
                 }
             }
 
