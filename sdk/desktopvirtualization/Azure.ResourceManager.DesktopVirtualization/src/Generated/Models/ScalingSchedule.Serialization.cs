@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 writer.WriteStartArray();
                 foreach (var item in DaysOfWeek)
                 {
-                    writer.WriteStringValue(item.ToString());
+                    writer.WriteStringValue(item.ToSerialString());
                 }
                 writer.WriteEndArray();
             }
@@ -169,7 +169,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 return null;
             }
             string name = default;
-            IList<ScalingScheduleDaysOfWeekItem> daysOfWeek = default;
+            IList<DesktopVirtualizationDayOfWeek> daysOfWeek = default;
             ScalingActionTime rampUpStartTime = default;
             SessionHostLoadBalancingAlgorithm? rampUpLoadBalancingAlgorithm = default;
             int? rampUpMinimumHostsPct = default;
@@ -201,10 +201,10 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                     {
                         continue;
                     }
-                    List<ScalingScheduleDaysOfWeekItem> array = new List<ScalingScheduleDaysOfWeekItem>();
+                    List<DesktopVirtualizationDayOfWeek> array = new List<DesktopVirtualizationDayOfWeek>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(new ScalingScheduleDaysOfWeekItem(item.GetString()));
+                        array.Add(item.GetString().ToDesktopVirtualizationDayOfWeek());
                     }
                     daysOfWeek = array;
                     continue;
@@ -357,7 +357,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             serializedAdditionalRawData = rawDataDictionary;
             return new ScalingSchedule(
                 name,
-                daysOfWeek ?? new ChangeTrackingList<ScalingScheduleDaysOfWeekItem>(),
+                daysOfWeek ?? new ChangeTrackingList<DesktopVirtualizationDayOfWeek>(),
                 rampUpStartTime,
                 rampUpLoadBalancingAlgorithm,
                 rampUpMinimumHostsPct,
@@ -427,7 +427,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                         builder.AppendLine("[");
                         foreach (var item in DaysOfWeek)
                         {
-                            builder.AppendLine($"    '{item.ToString()}'");
+                            builder.AppendLine($"    '{item.ToSerialString()}'");
                         }
                         builder.AppendLine("  ]");
                     }

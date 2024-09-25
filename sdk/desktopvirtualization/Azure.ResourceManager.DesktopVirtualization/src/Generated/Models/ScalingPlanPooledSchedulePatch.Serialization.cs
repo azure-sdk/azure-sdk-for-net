@@ -40,6 +40,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             base.JsonModelWriteCore(writer, options);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
+            if (options.Format != "W" && Optional.IsDefined(NamePropertiesName))
+            {
+                writer.WritePropertyName("name"u8);
+                writer.WriteStringValue(NamePropertiesName);
+            }
             if (Optional.IsCollectionDefined(DaysOfWeek))
             {
                 writer.WritePropertyName("daysOfWeek"u8);
@@ -157,6 +162,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
+            string name0 = default;
             IList<DesktopVirtualizationDayOfWeek> daysOfWeek = default;
             ScalingActionTime rampUpStartTime = default;
             SessionHostLoadBalancingAlgorithm? rampUpLoadBalancingAlgorithm = default;
@@ -211,6 +217,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
+                        if (property0.NameEquals("name"u8))
+                        {
+                            name0 = property0.Value.GetString();
+                            continue;
+                        }
                         if (property0.NameEquals("daysOfWeek"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -379,6 +390,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 name,
                 type,
                 systemData,
+                name0,
                 daysOfWeek ?? new ChangeTrackingList<DesktopVirtualizationDayOfWeek>(),
                 rampUpStartTime,
                 rampUpLoadBalancingAlgorithm,
@@ -465,6 +477,29 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
 
             builder.Append("  properties:");
             builder.AppendLine(" {");
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(NamePropertiesName), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    name: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(NamePropertiesName))
+                {
+                    builder.Append("    name: ");
+                    if (NamePropertiesName.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{NamePropertiesName}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{NamePropertiesName}'");
+                    }
+                }
+            }
+
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(DaysOfWeek), out propertyOverride);
             if (hasPropertyOverride)
             {

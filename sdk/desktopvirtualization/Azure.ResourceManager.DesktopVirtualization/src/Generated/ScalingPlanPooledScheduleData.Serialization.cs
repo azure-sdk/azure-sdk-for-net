@@ -41,21 +41,20 @@ namespace Azure.ResourceManager.DesktopVirtualization
             base.JsonModelWriteCore(writer, options);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(DaysOfWeek))
+            if (options.Format != "W" && Optional.IsDefined(NamePropertiesName))
             {
-                writer.WritePropertyName("daysOfWeek"u8);
-                writer.WriteStartArray();
-                foreach (var item in DaysOfWeek)
-                {
-                    writer.WriteStringValue(item.ToSerialString());
-                }
-                writer.WriteEndArray();
+                writer.WritePropertyName("name"u8);
+                writer.WriteStringValue(NamePropertiesName);
             }
-            if (Optional.IsDefined(RampUpStartTime))
+            writer.WritePropertyName("daysOfWeek"u8);
+            writer.WriteStartArray();
+            foreach (var item in DaysOfWeek)
             {
-                writer.WritePropertyName("rampUpStartTime"u8);
-                writer.WriteObjectValue(RampUpStartTime, options);
+                writer.WriteStringValue(item.ToSerialString());
             }
+            writer.WriteEndArray();
+            writer.WritePropertyName("rampUpStartTime"u8);
+            writer.WriteObjectValue(RampUpStartTime, options);
             if (Optional.IsDefined(RampUpLoadBalancingAlgorithm))
             {
                 writer.WritePropertyName("rampUpLoadBalancingAlgorithm"u8);
@@ -66,26 +65,17 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 writer.WritePropertyName("rampUpMinimumHostsPct"u8);
                 writer.WriteNumberValue(RampUpMinimumHostsPct.Value);
             }
-            if (Optional.IsDefined(RampUpCapacityThresholdPct))
-            {
-                writer.WritePropertyName("rampUpCapacityThresholdPct"u8);
-                writer.WriteNumberValue(RampUpCapacityThresholdPct.Value);
-            }
-            if (Optional.IsDefined(PeakStartTime))
-            {
-                writer.WritePropertyName("peakStartTime"u8);
-                writer.WriteObjectValue(PeakStartTime, options);
-            }
+            writer.WritePropertyName("rampUpCapacityThresholdPct"u8);
+            writer.WriteNumberValue(RampUpCapacityThresholdPct);
+            writer.WritePropertyName("peakStartTime"u8);
+            writer.WriteObjectValue(PeakStartTime, options);
             if (Optional.IsDefined(PeakLoadBalancingAlgorithm))
             {
                 writer.WritePropertyName("peakLoadBalancingAlgorithm"u8);
                 writer.WriteStringValue(PeakLoadBalancingAlgorithm.Value.ToString());
             }
-            if (Optional.IsDefined(RampDownStartTime))
-            {
-                writer.WritePropertyName("rampDownStartTime"u8);
-                writer.WriteObjectValue(RampDownStartTime, options);
-            }
+            writer.WritePropertyName("rampDownStartTime"u8);
+            writer.WriteObjectValue(RampDownStartTime, options);
             if (Optional.IsDefined(RampDownLoadBalancingAlgorithm))
             {
                 writer.WritePropertyName("rampDownLoadBalancingAlgorithm"u8);
@@ -96,11 +86,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 writer.WritePropertyName("rampDownMinimumHostsPct"u8);
                 writer.WriteNumberValue(RampDownMinimumHostsPct.Value);
             }
-            if (Optional.IsDefined(RampDownCapacityThresholdPct))
-            {
-                writer.WritePropertyName("rampDownCapacityThresholdPct"u8);
-                writer.WriteNumberValue(RampDownCapacityThresholdPct.Value);
-            }
+            writer.WritePropertyName("rampDownCapacityThresholdPct"u8);
+            writer.WriteNumberValue(RampDownCapacityThresholdPct);
             if (Optional.IsDefined(RampDownForceLogoffUsers))
             {
                 writer.WritePropertyName("rampDownForceLogoffUsers"u8);
@@ -121,11 +108,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 writer.WritePropertyName("rampDownNotificationMessage"u8);
                 writer.WriteStringValue(RampDownNotificationMessage);
             }
-            if (Optional.IsDefined(OffPeakStartTime))
-            {
-                writer.WritePropertyName("offPeakStartTime"u8);
-                writer.WriteObjectValue(OffPeakStartTime, options);
-            }
+            writer.WritePropertyName("offPeakStartTime"u8);
+            writer.WriteObjectValue(OffPeakStartTime, options);
             if (Optional.IsDefined(OffPeakLoadBalancingAlgorithm))
             {
                 writer.WritePropertyName("offPeakLoadBalancingAlgorithm"u8);
@@ -158,17 +142,18 @@ namespace Azure.ResourceManager.DesktopVirtualization
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
+            string name0 = default;
             IList<DesktopVirtualizationDayOfWeek> daysOfWeek = default;
             ScalingActionTime rampUpStartTime = default;
             SessionHostLoadBalancingAlgorithm? rampUpLoadBalancingAlgorithm = default;
             int? rampUpMinimumHostsPct = default;
-            int? rampUpCapacityThresholdPct = default;
+            int rampUpCapacityThresholdPct = default;
             ScalingActionTime peakStartTime = default;
             SessionHostLoadBalancingAlgorithm? peakLoadBalancingAlgorithm = default;
             ScalingActionTime rampDownStartTime = default;
             SessionHostLoadBalancingAlgorithm? rampDownLoadBalancingAlgorithm = default;
             int? rampDownMinimumHostsPct = default;
-            int? rampDownCapacityThresholdPct = default;
+            int rampDownCapacityThresholdPct = default;
             bool? rampDownForceLogoffUsers = default;
             DesktopVirtualizationStopHostsWhen? rampDownStopHostsWhen = default;
             int? rampDownWaitTimeMinutes = default;
@@ -212,12 +197,13 @@ namespace Azure.ResourceManager.DesktopVirtualization
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
+                        if (property0.NameEquals("name"u8))
+                        {
+                            name0 = property0.Value.GetString();
+                            continue;
+                        }
                         if (property0.NameEquals("daysOfWeek"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
                             List<DesktopVirtualizationDayOfWeek> array = new List<DesktopVirtualizationDayOfWeek>();
                             foreach (var item in property0.Value.EnumerateArray())
                             {
@@ -228,10 +214,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         }
                         if (property0.NameEquals("rampUpStartTime"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
                             rampUpStartTime = ScalingActionTime.DeserializeScalingActionTime(property0.Value, options);
                             continue;
                         }
@@ -255,19 +237,11 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         }
                         if (property0.NameEquals("rampUpCapacityThresholdPct"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
                             rampUpCapacityThresholdPct = property0.Value.GetInt32();
                             continue;
                         }
                         if (property0.NameEquals("peakStartTime"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
                             peakStartTime = ScalingActionTime.DeserializeScalingActionTime(property0.Value, options);
                             continue;
                         }
@@ -282,10 +256,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         }
                         if (property0.NameEquals("rampDownStartTime"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
                             rampDownStartTime = ScalingActionTime.DeserializeScalingActionTime(property0.Value, options);
                             continue;
                         }
@@ -309,10 +279,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         }
                         if (property0.NameEquals("rampDownCapacityThresholdPct"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
                             rampDownCapacityThresholdPct = property0.Value.GetInt32();
                             continue;
                         }
@@ -350,10 +316,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         }
                         if (property0.NameEquals("offPeakStartTime"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
                             offPeakStartTime = ScalingActionTime.DeserializeScalingActionTime(property0.Value, options);
                             continue;
                         }
@@ -380,7 +342,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 name,
                 type,
                 systemData,
-                daysOfWeek ?? new ChangeTrackingList<DesktopVirtualizationDayOfWeek>(),
+                name0,
+                daysOfWeek,
                 rampUpStartTime,
                 rampUpLoadBalancingAlgorithm,
                 rampUpMinimumHostsPct,
@@ -466,6 +429,29 @@ namespace Azure.ResourceManager.DesktopVirtualization
 
             builder.Append("  properties:");
             builder.AppendLine(" {");
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(NamePropertiesName), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    name: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(NamePropertiesName))
+                {
+                    builder.Append("    name: ");
+                    if (NamePropertiesName.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{NamePropertiesName}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{NamePropertiesName}'");
+                    }
+                }
+            }
+
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(DaysOfWeek), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -542,11 +528,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
             else
             {
-                if (Optional.IsDefined(RampUpCapacityThresholdPct))
-                {
-                    builder.Append("    rampUpCapacityThresholdPct: ");
-                    builder.AppendLine($"{RampUpCapacityThresholdPct.Value}");
-                }
+                builder.Append("    rampUpCapacityThresholdPct: ");
+                builder.AppendLine($"{RampUpCapacityThresholdPct}");
             }
 
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PeakStartTime), out propertyOverride);
@@ -632,11 +615,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
             else
             {
-                if (Optional.IsDefined(RampDownCapacityThresholdPct))
-                {
-                    builder.Append("    rampDownCapacityThresholdPct: ");
-                    builder.AppendLine($"{RampDownCapacityThresholdPct.Value}");
-                }
+                builder.Append("    rampDownCapacityThresholdPct: ");
+                builder.AppendLine($"{RampDownCapacityThresholdPct}");
             }
 
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(RampDownForceLogoffUsers), out propertyOverride);

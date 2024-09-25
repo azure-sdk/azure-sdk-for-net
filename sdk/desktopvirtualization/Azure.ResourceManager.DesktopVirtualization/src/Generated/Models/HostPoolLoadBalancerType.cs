@@ -25,6 +25,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string BreadthFirstValue = "BreadthFirst";
         private const string DepthFirstValue = "DepthFirst";
         private const string PersistentValue = "Persistent";
+        private const string MultiplePersistentValue = "MultiplePersistent";
 
         /// <summary> BreadthFirst. </summary>
         public static HostPoolLoadBalancerType BreadthFirst { get; } = new HostPoolLoadBalancerType(BreadthFirstValue);
@@ -32,6 +33,8 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         public static HostPoolLoadBalancerType DepthFirst { get; } = new HostPoolLoadBalancerType(DepthFirstValue);
         /// <summary> Persistent. </summary>
         public static HostPoolLoadBalancerType Persistent { get; } = new HostPoolLoadBalancerType(PersistentValue);
+        /// <summary> MultiplePersistent. </summary>
+        public static HostPoolLoadBalancerType MultiplePersistent { get; } = new HostPoolLoadBalancerType(MultiplePersistentValue);
         /// <summary> Determines if two <see cref="HostPoolLoadBalancerType"/> values are the same. </summary>
         public static bool operator ==(HostPoolLoadBalancerType left, HostPoolLoadBalancerType right) => left.Equals(right);
         /// <summary> Determines if two <see cref="HostPoolLoadBalancerType"/> values are not the same. </summary>
