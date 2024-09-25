@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateOrUpdateTestProfileAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateTestProfileAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    description = "sample description",
+    displayName = "Performance_TestProfile",
+    testId = "12346-abcd-6789",
+    targetResourceId = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/samplerg/providers/Microsoft.Web/sites/myfunctionapp",
+    targetResourceConfigurations = new
+    {
+        kind = "FunctionsFlexConsumption",
+        configurations = new
+        {
+            config1 = new
+            {
+                instanceMemoryMB = 2048,
+                httpConcurrency = 16,
+            },
+            config2 = new
+            {
+                instanceMemoryMB = 4096,
+                httpConcurrency = 16,
+            },
+        },
+    },
+});
+Response response = await client.CreateOrUpdateTestProfileAsync("12345678-1234-1234-1234-123456789012", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateTestProfile(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateTestProfile and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    description = "sample description",
+    displayName = "Performance_TestProfile",
+    testId = "12346-abcd-6789",
+    targetResourceId = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/samplerg/providers/Microsoft.Web/sites/myfunctionapp",
+    targetResourceConfigurations = new
+    {
+        kind = "FunctionsFlexConsumption",
+        configurations = new
+        {
+            config1 = new
+            {
+                instanceMemoryMB = 2048,
+                httpConcurrency = 16,
+            },
+            config2 = new
+            {
+                instanceMemoryMB = 4096,
+                httpConcurrency = 16,
+            },
+        },
+    },
+});
+Response response = client.CreateOrUpdateTestProfile("12345678-1234-1234-1234-123456789012", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteTestProfileAsync(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteTestProfileAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response response = await client.DeleteTestProfileAsync("12345678-1234-1234-1234-123456789012");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteTestProfile(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteTestProfile.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response response = client.DeleteTestProfile("12345678-1234-1234-1234-123456789012");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetTestProfileAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfileAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response<TestProfile> response = await client.GetTestProfileAsync("12345678-1234-1234-1234-123456789012");
+]]></code></example>
+    </member>
+    <member name="GetTestProfile(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfile.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response<TestProfile> response = client.GetTestProfile("12345678-1234-1234-1234-123456789012");
+]]></code></example>
+    </member>
+    <member name="GetTestProfileAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfileAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response response = await client.GetTestProfileAsync("12345678-1234-1234-1234-123456789012", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTestProfile(string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfile and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+Response response = client.GetTestProfile("12345678-1234-1234-1234-123456789012", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileId").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTestProfilesAsync(int?,DateTimeOffset?,DateTimeOffset?,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfilesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+await foreach (TestProfile item in client.GetTestProfilesAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTestProfiles(int?,DateTimeOffset?,DateTimeOffset?,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfiles.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+foreach (TestProfile item in client.GetTestProfiles())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTestProfilesAsync(int?,DateTimeOffset?,DateTimeOffset?,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfilesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetTestProfilesAsync(null, DateTimeOffset.Parse("2024-05-01T16:00:46.072Z"), DateTimeOffset.Parse("2024-05-01T16:50:46.072Z"), "12345678-1234-1234-1234-123456789012", "12346-abcd-6789", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("testProfileId").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetTestProfiles(int?,DateTimeOffset?,DateTimeOffset?,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfiles and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileAdministrationClient client = new TestProfileAdministrationClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetTestProfiles(null, DateTimeOffset.Parse("2024-05-01T16:00:46.072Z"), DateTimeOffset.Parse("2024-05-01T16:50:46.072Z"), "12345678-1234-1234-1234-123456789012", "12346-abcd-6789", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("testProfileId").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
