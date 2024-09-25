@@ -11,23 +11,29 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.AppService.Models;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.AppService
 {
-    public partial class SwiftVirtualNetworkData : IUtf8JsonSerializable, IJsonModel<SwiftVirtualNetworkData>
+    public partial class SwiftVirtualNetworkProxyData : IUtf8JsonSerializable, IJsonModel<SwiftVirtualNetworkProxyData>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<SwiftVirtualNetworkData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<SwiftVirtualNetworkProxyData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<SwiftVirtualNetworkData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<SwiftVirtualNetworkProxyData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SwiftVirtualNetworkData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SwiftVirtualNetworkProxyData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SwiftVirtualNetworkData)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(SwiftVirtualNetworkProxyData)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
+            }
             if (Optional.IsDefined(Kind))
             {
                 writer.WritePropertyName("kind"u8);
@@ -53,19 +59,6 @@ namespace Azure.ResourceManager.AppService
                 writer.WritePropertyName("systemData"u8);
                 JsonSerializer.Serialize(writer, SystemData);
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(SubnetResourceId))
-            {
-                writer.WritePropertyName("subnetResourceId"u8);
-                writer.WriteStringValue(SubnetResourceId);
-            }
-            if (Optional.IsDefined(IsSwiftSupported))
-            {
-                writer.WritePropertyName("swiftSupported"u8);
-                writer.WriteBooleanValue(IsSwiftSupported.Value);
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -84,19 +77,19 @@ namespace Azure.ResourceManager.AppService
             writer.WriteEndObject();
         }
 
-        SwiftVirtualNetworkData IJsonModel<SwiftVirtualNetworkData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        SwiftVirtualNetworkProxyData IJsonModel<SwiftVirtualNetworkProxyData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SwiftVirtualNetworkData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SwiftVirtualNetworkProxyData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SwiftVirtualNetworkData)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(SwiftVirtualNetworkProxyData)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeSwiftVirtualNetworkData(document.RootElement, options);
+            return DeserializeSwiftVirtualNetworkProxyData(document.RootElement, options);
         }
 
-        internal static SwiftVirtualNetworkData DeserializeSwiftVirtualNetworkData(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static SwiftVirtualNetworkProxyData DeserializeSwiftVirtualNetworkProxyData(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -104,17 +97,25 @@ namespace Azure.ResourceManager.AppService
             {
                 return null;
             }
+            SwiftVirtualNetwork properties = default;
             string kind = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            ResourceIdentifier subnetResourceId = default;
-            bool? swiftSupported = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = SwiftVirtualNetwork.DeserializeSwiftVirtualNetwork(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("kind"u8))
                 {
                     kind = property.Value.GetString();
@@ -144,49 +145,18 @@ namespace Azure.ResourceManager.AppService
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("subnetResourceId"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            subnetResourceId = new ResourceIdentifier(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("swiftSupported"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            swiftSupported = property0.Value.GetBoolean();
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new SwiftVirtualNetworkData(
+            return new SwiftVirtualNetworkProxyData(
                 id,
                 name,
                 type,
                 systemData,
-                subnetResourceId,
-                swiftSupported,
+                properties,
                 kind,
                 serializedAdditionalRawData);
         }
@@ -222,6 +192,21 @@ namespace Azure.ResourceManager.AppService
                     {
                         builder.AppendLine($"'{Name}'");
                     }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Properties), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  properties: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(Properties))
+                {
+                    builder.Append("  properties: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, Properties, options, 2, false, "  properties: ");
                 }
             }
 
@@ -278,47 +263,13 @@ namespace Azure.ResourceManager.AppService
                 }
             }
 
-            builder.Append("  properties:");
-            builder.AppendLine(" {");
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(SubnetResourceId), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    subnetResourceId: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(SubnetResourceId))
-                {
-                    builder.Append("    subnetResourceId: ");
-                    builder.AppendLine($"'{SubnetResourceId.ToString()}'");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(IsSwiftSupported), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    swiftSupported: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(IsSwiftSupported))
-                {
-                    builder.Append("    swiftSupported: ");
-                    var boolValue = IsSwiftSupported.Value == true ? "true" : "false";
-                    builder.AppendLine($"{boolValue}");
-                }
-            }
-
-            builder.AppendLine("  }");
             builder.AppendLine("}");
             return BinaryData.FromString(builder.ToString());
         }
 
-        BinaryData IPersistableModel<SwiftVirtualNetworkData>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<SwiftVirtualNetworkProxyData>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SwiftVirtualNetworkData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SwiftVirtualNetworkProxyData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
@@ -327,26 +278,26 @@ namespace Azure.ResourceManager.AppService
                 case "bicep":
                     return SerializeBicep(options);
                 default:
-                    throw new FormatException($"The model {nameof(SwiftVirtualNetworkData)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(SwiftVirtualNetworkProxyData)} does not support writing '{options.Format}' format.");
             }
         }
 
-        SwiftVirtualNetworkData IPersistableModel<SwiftVirtualNetworkData>.Create(BinaryData data, ModelReaderWriterOptions options)
+        SwiftVirtualNetworkProxyData IPersistableModel<SwiftVirtualNetworkProxyData>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SwiftVirtualNetworkData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SwiftVirtualNetworkProxyData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeSwiftVirtualNetworkData(document.RootElement, options);
+                        return DeserializeSwiftVirtualNetworkProxyData(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(SwiftVirtualNetworkData)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(SwiftVirtualNetworkProxyData)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<SwiftVirtualNetworkData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<SwiftVirtualNetworkProxyData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

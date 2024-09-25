@@ -11,16 +11,16 @@ using System.Text.Json;
 
 namespace Azure.ResourceManager.AppService
 {
-    public partial class SiteSlotNetworkConfigResource : IJsonModel<SwiftVirtualNetworkData>
+    public partial class SiteSlotNetworkConfigResource : IJsonModel<SwiftVirtualNetworkProxyData>
     {
-        void IJsonModel<SwiftVirtualNetworkData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options) => ((IJsonModel<SwiftVirtualNetworkData>)Data).Write(writer, options);
+        void IJsonModel<SwiftVirtualNetworkProxyData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options) => ((IJsonModel<SwiftVirtualNetworkProxyData>)Data).Write(writer, options);
 
-        SwiftVirtualNetworkData IJsonModel<SwiftVirtualNetworkData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => ((IJsonModel<SwiftVirtualNetworkData>)Data).Create(ref reader, options);
+        SwiftVirtualNetworkProxyData IJsonModel<SwiftVirtualNetworkProxyData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => ((IJsonModel<SwiftVirtualNetworkProxyData>)Data).Create(ref reader, options);
 
-        BinaryData IPersistableModel<SwiftVirtualNetworkData>.Write(ModelReaderWriterOptions options) => ModelReaderWriter.Write(Data, options);
+        BinaryData IPersistableModel<SwiftVirtualNetworkProxyData>.Write(ModelReaderWriterOptions options) => ModelReaderWriter.Write(Data, options);
 
-        SwiftVirtualNetworkData IPersistableModel<SwiftVirtualNetworkData>.Create(BinaryData data, ModelReaderWriterOptions options) => ModelReaderWriter.Read<SwiftVirtualNetworkData>(data, options);
+        SwiftVirtualNetworkProxyData IPersistableModel<SwiftVirtualNetworkProxyData>.Create(BinaryData data, ModelReaderWriterOptions options) => ModelReaderWriter.Read<SwiftVirtualNetworkProxyData>(data, options);
 
-        string IPersistableModel<SwiftVirtualNetworkData>.GetFormatFromOptions(ModelReaderWriterOptions options) => ((IPersistableModel<SwiftVirtualNetworkData>)Data).GetFormatFromOptions(options);
+        string IPersistableModel<SwiftVirtualNetworkProxyData>.GetFormatFromOptions(ModelReaderWriterOptions options) => ((IPersistableModel<SwiftVirtualNetworkProxyData>)Data).GetFormatFromOptions(options);
     }
 }

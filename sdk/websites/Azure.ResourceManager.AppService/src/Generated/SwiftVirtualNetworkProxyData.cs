@@ -8,15 +8,16 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.AppService.Models;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.AppService
 {
     /// <summary>
-    /// A class representing the SwiftVirtualNetwork data model.
+    /// A class representing the SwiftVirtualNetworkProxy data model.
     /// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
     /// </summary>
-    public partial class SwiftVirtualNetworkData : ResourceData
+    public partial class SwiftVirtualNetworkProxyData : ResourceData
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -50,34 +51,29 @@ namespace Azure.ResourceManager.AppService
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SwiftVirtualNetworkData"/>. </summary>
-        public SwiftVirtualNetworkData()
+        /// <summary> Initializes a new instance of <see cref="SwiftVirtualNetworkProxyData"/>. </summary>
+        public SwiftVirtualNetworkProxyData()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="SwiftVirtualNetworkData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SwiftVirtualNetworkProxyData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="subnetResourceId"> The Virtual Network subnet's resource ID. This is the subnet that this Web App will join. This subnet must have a delegation to Microsoft.Web/serverFarms defined first. </param>
-        /// <param name="isSwiftSupported"> A flag that specifies if the scale unit this Web App is on supports Swift integration. </param>
+        /// <param name="properties"> Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration. </param>
         /// <param name="kind"> Kind of resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SwiftVirtualNetworkData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ResourceIdentifier subnetResourceId, bool? isSwiftSupported, string kind, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal SwiftVirtualNetworkProxyData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SwiftVirtualNetwork properties, string kind, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            SubnetResourceId = subnetResourceId;
-            IsSwiftSupported = isSwiftSupported;
+            Properties = properties;
             Kind = kind;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The Virtual Network subnet's resource ID. This is the subnet that this Web App will join. This subnet must have a delegation to Microsoft.Web/serverFarms defined first. </summary>
-        [WirePath("properties.subnetResourceId")]
-        public ResourceIdentifier SubnetResourceId { get; set; }
-        /// <summary> A flag that specifies if the scale unit this Web App is on supports Swift integration. </summary>
-        [WirePath("properties.swiftSupported")]
-        public bool? IsSwiftSupported { get; set; }
+        /// <summary> Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration. </summary>
+        [WirePath("properties")]
+        public SwiftVirtualNetwork Properties { get; set; }
         /// <summary> Kind of resource. </summary>
         [WirePath("kind")]
         public string Kind { get; set; }
