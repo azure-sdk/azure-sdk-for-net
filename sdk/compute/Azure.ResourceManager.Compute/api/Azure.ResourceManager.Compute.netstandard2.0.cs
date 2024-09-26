@@ -708,6 +708,8 @@ namespace Azure.ResourceManager.Compute
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.GalleryResource>> GetGalleryAsync(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, string galleryName, Azure.ResourceManager.Compute.Models.SelectPermission? select = default(Azure.ResourceManager.Compute.Models.SelectPermission?), Azure.ResourceManager.Compute.Models.GalleryExpand? expand = default(Azure.ResourceManager.Compute.Models.GalleryExpand?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.ResourceManager.Compute.GalleryImageResource GetGalleryImageResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Compute.GalleryImageVersionResource GetGalleryImageVersionResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
+        public static Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource GetGalleryInVmAccessControlProfileResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
+        public static Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource GetGalleryInVmAccessControlProfileVersionResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Compute.GalleryResource GetGalleryResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.Response<Azure.ResourceManager.Compute.ManagedDiskResource> GetManagedDisk(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, string diskName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.ManagedDiskResource>> GetManagedDiskAsync(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, string diskName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -1502,6 +1504,120 @@ namespace Azure.ResourceManager.Compute
         public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.GalleryImageVersionResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.Compute.Models.GalleryImageVersionPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.GalleryImageVersionResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Compute.Models.GalleryImageVersionPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
+    public partial class GalleryInVmAccessControlProfileCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource>, System.Collections.IEnumerable
+    {
+        protected GalleryInVmAccessControlProfileCollection() { }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string inVmAccessControlProfileName, Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string inVmAccessControlProfileName, Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> Exists(string inVmAccessControlProfileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string inVmAccessControlProfileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource> Get(string inVmAccessControlProfileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource> GetAll(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource>> GetAsync(string inVmAccessControlProfileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.NullableResponse<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource> GetIfExists(string inVmAccessControlProfileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.NullableResponse<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource>> GetIfExistsAsync(string inVmAccessControlProfileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
+        System.Collections.Generic.IEnumerator<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource>.GetEnumerator() { throw null; }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
+    }
+    public partial class GalleryInVmAccessControlProfileData : Azure.ResourceManager.Models.TrackedResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData>
+    {
+        public GalleryInVmAccessControlProfileData(Azure.Core.AzureLocation location) { }
+        public Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileProperties Properties { get { throw null; } set { } }
+        Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class GalleryInVmAccessControlProfileResource : Azure.ResourceManager.ArmResource, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData>
+    {
+        public static readonly Azure.Core.ResourceType ResourceType;
+        protected GalleryInVmAccessControlProfileResource() { }
+        public virtual Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData Data { get { throw null; } }
+        public virtual bool HasData { get { throw null; } }
+        public virtual Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource> AddTag(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource>> AddTagAsync(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string galleryName, string inVmAccessControlProfileName) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource> GetGalleryInVmAccessControlProfileVersion(string inVmAccessControlProfileVersionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource>> GetGalleryInVmAccessControlProfileVersionAsync(string inVmAccessControlProfileVersionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionCollection GetGalleryInVmAccessControlProfileVersions() { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource>> SetTagsAsync(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfilePatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfilePatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
+    public partial class GalleryInVmAccessControlProfileVersionCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource>, System.Collections.IEnumerable
+    {
+        protected GalleryInVmAccessControlProfileVersionCollection() { }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string inVmAccessControlProfileVersionName, Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string inVmAccessControlProfileVersionName, Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> Exists(string inVmAccessControlProfileVersionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string inVmAccessControlProfileVersionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource> Get(string inVmAccessControlProfileVersionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource> GetAll(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource>> GetAsync(string inVmAccessControlProfileVersionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.NullableResponse<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource> GetIfExists(string inVmAccessControlProfileVersionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.NullableResponse<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource>> GetIfExistsAsync(string inVmAccessControlProfileVersionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
+        System.Collections.Generic.IEnumerator<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource>.GetEnumerator() { throw null; }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
+    }
+    public partial class GalleryInVmAccessControlProfileVersionData : Azure.ResourceManager.Models.TrackedResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData>
+    {
+        public GalleryInVmAccessControlProfileVersionData(Azure.Core.AzureLocation location) { }
+        public Azure.ResourceManager.Compute.Models.EndpointAccess? DefaultAccess { get { throw null; } set { } }
+        public bool? ExcludeFromLatest { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.AccessControlRulesMode? Mode { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.GalleryProvisioningState? ProvisioningState { get { throw null; } }
+        public System.DateTimeOffset? PublishedOn { get { throw null; } }
+        public Azure.ResourceManager.Compute.Models.ReplicationStatus ReplicationStatus { get { throw null; } }
+        public Azure.ResourceManager.Compute.Models.AccessControlRules Rules { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.TargetRegion> TargetLocations { get { throw null; } }
+        Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class GalleryInVmAccessControlProfileVersionResource : Azure.ResourceManager.ArmResource, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData>
+    {
+        public static readonly Azure.Core.ResourceType ResourceType;
+        protected GalleryInVmAccessControlProfileVersionResource() { }
+        public virtual Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData Data { get { throw null; } }
+        public virtual bool HasData { get { throw null; } }
+        public virtual Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource> AddTag(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource>> AddTagAsync(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string galleryName, string inVmAccessControlProfileName, string inVmAccessControlProfileVersionName) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource>> SetTagsAsync(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileVersionPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileVersionPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
     public partial class GalleryResource : Azure.ResourceManager.ArmResource, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.GalleryData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.GalleryData>
     {
         public static readonly Azure.Core.ResourceType ResourceType;
@@ -1521,6 +1637,9 @@ namespace Azure.ResourceManager.Compute
         public virtual Azure.Response<Azure.ResourceManager.Compute.GalleryImageResource> GetGalleryImage(string galleryImageName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.GalleryImageResource>> GetGalleryImageAsync(string galleryImageName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.Compute.GalleryImageCollection GetGalleryImages() { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource> GetGalleryInVmAccessControlProfile(string inVmAccessControlProfileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource>> GetGalleryInVmAccessControlProfileAsync(string inVmAccessControlProfileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileCollection GetGalleryInVmAccessControlProfiles() { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Compute.GalleryResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.GalleryResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Compute.GalleryResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -2913,6 +3032,8 @@ namespace Azure.ResourceManager.Compute.Mocking
         public virtual Azure.ResourceManager.Compute.GalleryApplicationVersionResource GetGalleryApplicationVersionResource(Azure.Core.ResourceIdentifier id) { throw null; }
         public virtual Azure.ResourceManager.Compute.GalleryImageResource GetGalleryImageResource(Azure.Core.ResourceIdentifier id) { throw null; }
         public virtual Azure.ResourceManager.Compute.GalleryImageVersionResource GetGalleryImageVersionResource(Azure.Core.ResourceIdentifier id) { throw null; }
+        public virtual Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileResource GetGalleryInVmAccessControlProfileResource(Azure.Core.ResourceIdentifier id) { throw null; }
+        public virtual Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionResource GetGalleryInVmAccessControlProfileVersionResource(Azure.Core.ResourceIdentifier id) { throw null; }
         public virtual Azure.ResourceManager.Compute.GalleryResource GetGalleryResource(Azure.Core.ResourceIdentifier id) { throw null; }
         public virtual Azure.ResourceManager.Compute.ManagedDiskResource GetManagedDiskResource(Azure.Core.ResourceIdentifier id) { throw null; }
         public virtual Azure.ResourceManager.Compute.ProximityPlacementGroupResource GetProximityPlacementGroupResource(Azure.Core.ResourceIdentifier id) { throw null; }
@@ -3089,6 +3210,86 @@ namespace Azure.ResourceManager.Compute.Mocking
 }
 namespace Azure.ResourceManager.Compute.Models
 {
+    public partial class AccessControlRules : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AccessControlRules>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRules>
+    {
+        public AccessControlRules() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.AccessControlRulesIdentity> Identities { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.AccessControlRulesPrivilege> Privileges { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.AccessControlRulesRoleAssignment> RoleAssignments { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.AccessControlRulesRole> Roles { get { throw null; } }
+        Azure.ResourceManager.Compute.Models.AccessControlRules System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AccessControlRules>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AccessControlRules>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.AccessControlRules System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRules>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRules>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRules>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class AccessControlRulesIdentity : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AccessControlRulesIdentity>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesIdentity>
+    {
+        public AccessControlRulesIdentity(string name) { }
+        public string ExePath { get { throw null; } set { } }
+        public string GroupName { get { throw null; } set { } }
+        public string Name { get { throw null; } set { } }
+        public string ProcessName { get { throw null; } set { } }
+        public string UserName { get { throw null; } set { } }
+        Azure.ResourceManager.Compute.Models.AccessControlRulesIdentity System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AccessControlRulesIdentity>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AccessControlRulesIdentity>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.AccessControlRulesIdentity System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesIdentity>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesIdentity>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesIdentity>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct AccessControlRulesMode : System.IEquatable<Azure.ResourceManager.Compute.Models.AccessControlRulesMode>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public AccessControlRulesMode(string value) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.AccessControlRulesMode Audit { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.AccessControlRulesMode Disabled { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.AccessControlRulesMode Enforce { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Compute.Models.AccessControlRulesMode other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Compute.Models.AccessControlRulesMode left, Azure.ResourceManager.Compute.Models.AccessControlRulesMode right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Compute.Models.AccessControlRulesMode (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Compute.Models.AccessControlRulesMode left, Azure.ResourceManager.Compute.Models.AccessControlRulesMode right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class AccessControlRulesPrivilege : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AccessControlRulesPrivilege>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesPrivilege>
+    {
+        public AccessControlRulesPrivilege(string name, string path) { }
+        public string Name { get { throw null; } set { } }
+        public string Path { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, string> QueryParameters { get { throw null; } }
+        Azure.ResourceManager.Compute.Models.AccessControlRulesPrivilege System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AccessControlRulesPrivilege>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AccessControlRulesPrivilege>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.AccessControlRulesPrivilege System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesPrivilege>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesPrivilege>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesPrivilege>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class AccessControlRulesRole : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AccessControlRulesRole>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesRole>
+    {
+        public AccessControlRulesRole(string name, System.Collections.Generic.IEnumerable<string> privileges) { }
+        public string Name { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> Privileges { get { throw null; } }
+        Azure.ResourceManager.Compute.Models.AccessControlRulesRole System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AccessControlRulesRole>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AccessControlRulesRole>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.AccessControlRulesRole System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesRole>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesRole>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesRole>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class AccessControlRulesRoleAssignment : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AccessControlRulesRoleAssignment>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesRoleAssignment>
+    {
+        public AccessControlRulesRoleAssignment(string role, System.Collections.Generic.IEnumerable<string> identities) { }
+        public System.Collections.Generic.IList<string> Identities { get { throw null; } }
+        public string Role { get { throw null; } set { } }
+        Azure.ResourceManager.Compute.Models.AccessControlRulesRoleAssignment System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AccessControlRulesRoleAssignment>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AccessControlRulesRoleAssignment>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.AccessControlRulesRoleAssignment System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesRoleAssignment>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesRoleAssignment>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AccessControlRulesRoleAssignment>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct AccessLevel : System.IEquatable<Azure.ResourceManager.Compute.Models.AccessLevel>
     {
@@ -3282,8 +3483,14 @@ namespace Azure.ResourceManager.Compute.Models
         public static Azure.ResourceManager.Compute.Models.GalleryImageVersionPolicyViolation GalleryImageVersionPolicyViolation(Azure.ResourceManager.Compute.Models.GalleryImageVersionPolicyViolationCategory? category = default(Azure.ResourceManager.Compute.Models.GalleryImageVersionPolicyViolationCategory?), string details = null) { throw null; }
         public static Azure.ResourceManager.Compute.Models.GalleryImageVersionPublishingProfile GalleryImageVersionPublishingProfile(System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.Models.TargetRegion> targetRegions = null, int? replicaCount = default(int?), bool? isExcludedFromLatest = default(bool?), System.DateTimeOffset? publishedOn = default(System.DateTimeOffset?), System.DateTimeOffset? endOfLifeOn = default(System.DateTimeOffset?), Azure.ResourceManager.Compute.Models.ImageStorageAccountType? storageAccountType = default(Azure.ResourceManager.Compute.Models.ImageStorageAccountType?), Azure.ResourceManager.Compute.Models.GalleryReplicationMode? replicationMode = default(Azure.ResourceManager.Compute.Models.GalleryReplicationMode?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.Models.GalleryTargetExtendedLocation> targetExtendedLocations = null) { throw null; }
         public static Azure.ResourceManager.Compute.Models.GalleryImageVersionSafetyProfile GalleryImageVersionSafetyProfile(bool? allowDeletionOfReplicatedLocations = default(bool?), bool? isReportedForPolicyViolation = default(bool?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.Models.GalleryImageVersionPolicyViolation> policyViolations = null) { throw null; }
+        public static Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileData GalleryInVmAccessControlProfileData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileProperties properties = null) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfilePatch GalleryInVmAccessControlProfilePatch(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileProperties properties = null, System.Collections.Generic.IDictionary<string, string> tags = null) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileProperties GalleryInVmAccessControlProfileProperties(Azure.ResourceManager.Compute.Models.GalleryProvisioningState? provisioningState = default(Azure.ResourceManager.Compute.Models.GalleryProvisioningState?), string description = null, Azure.ResourceManager.Compute.Models.SupportedOperatingSystemType osType = Azure.ResourceManager.Compute.Models.SupportedOperatingSystemType.Windows, Azure.ResourceManager.Compute.Models.EndpointType applicableHostEndpoint = Azure.ResourceManager.Compute.Models.EndpointType.WireServer) { throw null; }
+        public static Azure.ResourceManager.Compute.GalleryInVmAccessControlProfileVersionData GalleryInVmAccessControlProfileVersionData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.Models.TargetRegion> targetLocations = null, bool? excludeFromLatest = default(bool?), System.DateTimeOffset? publishedOn = default(System.DateTimeOffset?), Azure.ResourceManager.Compute.Models.GalleryProvisioningState? provisioningState = default(Azure.ResourceManager.Compute.Models.GalleryProvisioningState?), Azure.ResourceManager.Compute.Models.ReplicationStatus replicationStatus = null, Azure.ResourceManager.Compute.Models.AccessControlRulesMode? mode = default(Azure.ResourceManager.Compute.Models.AccessControlRulesMode?), Azure.ResourceManager.Compute.Models.EndpointAccess? defaultAccess = default(Azure.ResourceManager.Compute.Models.EndpointAccess?), Azure.ResourceManager.Compute.Models.AccessControlRules rules = null) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileVersionPatch GalleryInVmAccessControlProfileVersionPatch(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.Models.TargetRegion> targetLocations = null, bool? excludeFromLatest = default(bool?), System.DateTimeOffset? publishedOn = default(System.DateTimeOffset?), Azure.ResourceManager.Compute.Models.GalleryProvisioningState? provisioningState = default(Azure.ResourceManager.Compute.Models.GalleryProvisioningState?), Azure.ResourceManager.Compute.Models.ReplicationStatus replicationStatus = null, Azure.ResourceManager.Compute.Models.AccessControlRulesMode? mode = default(Azure.ResourceManager.Compute.Models.AccessControlRulesMode?), Azure.ResourceManager.Compute.Models.EndpointAccess? defaultAccess = default(Azure.ResourceManager.Compute.Models.EndpointAccess?), Azure.ResourceManager.Compute.Models.AccessControlRules rules = null, System.Collections.Generic.IDictionary<string, string> tags = null) { throw null; }
         public static Azure.ResourceManager.Compute.Models.GalleryOSDiskImage GalleryOSDiskImage(int? sizeInGB = default(int?), Azure.ResourceManager.Compute.Models.HostCaching? hostCaching = default(Azure.ResourceManager.Compute.Models.HostCaching?), Azure.ResourceManager.Compute.Models.GalleryDiskImageSource gallerySource = null) { throw null; }
         public static Azure.ResourceManager.Compute.Models.GalleryPatch GalleryPatch(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string description = null, string identifierUniqueName = null, Azure.ResourceManager.Compute.Models.GalleryProvisioningState? provisioningState = default(Azure.ResourceManager.Compute.Models.GalleryProvisioningState?), Azure.ResourceManager.Compute.Models.SharingProfile sharingProfile = null, bool? isSoftDeleteEnabled = default(bool?), Azure.ResourceManager.Compute.Models.SharingStatus sharingStatus = null, System.Collections.Generic.IDictionary<string, string> tags = null) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.GalleryResourceProfilePropertiesBase GalleryResourceProfilePropertiesBase(Azure.ResourceManager.Compute.Models.GalleryProvisioningState? provisioningState = default(Azure.ResourceManager.Compute.Models.GalleryProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.Compute.Models.GrantAccessData GrantAccessData(Azure.ResourceManager.Compute.Models.AccessLevel access = default(Azure.ResourceManager.Compute.Models.AccessLevel), int durationInSeconds = 0, bool? getSecureVmGuestStateSas = default(bool?), Azure.ResourceManager.Compute.Models.DiskImageFileFormat? fileFormat = default(Azure.ResourceManager.Compute.Models.DiskImageFileFormat?)) { throw null; }
         public static Azure.ResourceManager.Compute.Models.ImageReference ImageReference(Azure.Core.ResourceIdentifier id = null, string publisher = null, string offer = null, string sku = null, string version = null, string exactVersion = null, string sharedGalleryImageUniqueId = null, string communityGalleryImageId = null) { throw null; }
         public static Azure.ResourceManager.Compute.Models.InnerError InnerError(string exceptiontype = null, string errordetail = null) { throw null; }
@@ -5076,6 +5283,29 @@ namespace Azure.ResourceManager.Compute.Models
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.EncryptionSettingsGroup>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct EndpointAccess : System.IEquatable<Azure.ResourceManager.Compute.Models.EndpointAccess>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public EndpointAccess(string value) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.EndpointAccess Allow { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.EndpointAccess Deny { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Compute.Models.EndpointAccess other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Compute.Models.EndpointAccess left, Azure.ResourceManager.Compute.Models.EndpointAccess right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Compute.Models.EndpointAccess (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Compute.Models.EndpointAccess left, Azure.ResourceManager.Compute.Models.EndpointAccess right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public enum EndpointType
+    {
+        WireServer = 0,
+        Imds = 1,
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct ExecutionState : System.IEquatable<Azure.ResourceManager.Compute.Models.ExecutionState>
     {
         private readonly object _dummy;
@@ -5467,6 +5697,47 @@ namespace Azure.ResourceManager.Compute.Models
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryImageVersionUefiSettings>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryImageVersionUefiSettings>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
+    public partial class GalleryInVmAccessControlProfilePatch : Azure.ResourceManager.Models.ResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfilePatch>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfilePatch>
+    {
+        public GalleryInVmAccessControlProfilePatch() { }
+        public Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileProperties Properties { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
+        Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfilePatch System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfilePatch>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfilePatch>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfilePatch System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfilePatch>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfilePatch>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfilePatch>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class GalleryInVmAccessControlProfileProperties : Azure.ResourceManager.Compute.Models.GalleryResourceProfilePropertiesBase, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileProperties>
+    {
+        public GalleryInVmAccessControlProfileProperties(Azure.ResourceManager.Compute.Models.SupportedOperatingSystemType osType, Azure.ResourceManager.Compute.Models.EndpointType applicableHostEndpoint) { }
+        public Azure.ResourceManager.Compute.Models.EndpointType ApplicableHostEndpoint { get { throw null; } set { } }
+        public string Description { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.SupportedOperatingSystemType OSType { get { throw null; } set { } }
+        Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileProperties System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileProperties>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileProperties>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileProperties>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileProperties>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class GalleryInVmAccessControlProfileVersionPatch : Azure.ResourceManager.Models.ResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileVersionPatch>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileVersionPatch>
+    {
+        public GalleryInVmAccessControlProfileVersionPatch() { }
+        public Azure.ResourceManager.Compute.Models.EndpointAccess? DefaultAccess { get { throw null; } set { } }
+        public bool? ExcludeFromLatest { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.AccessControlRulesMode? Mode { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.GalleryProvisioningState? ProvisioningState { get { throw null; } }
+        public System.DateTimeOffset? PublishedOn { get { throw null; } }
+        public Azure.ResourceManager.Compute.Models.ReplicationStatus ReplicationStatus { get { throw null; } }
+        public Azure.ResourceManager.Compute.Models.AccessControlRules Rules { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.TargetRegion> TargetLocations { get { throw null; } }
+        Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileVersionPatch System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileVersionPatch>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileVersionPatch>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileVersionPatch System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileVersionPatch>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileVersionPatch>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryInVmAccessControlProfileVersionPatch>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
     public partial class GalleryOSDiskImage : Azure.ResourceManager.Compute.Models.GalleryDiskImage, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryOSDiskImage>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryOSDiskImage>
     {
         public GalleryOSDiskImage() { }
@@ -5531,6 +5802,16 @@ namespace Azure.ResourceManager.Compute.Models
         public static implicit operator Azure.ResourceManager.Compute.Models.GalleryReplicationMode (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Compute.Models.GalleryReplicationMode left, Azure.ResourceManager.Compute.Models.GalleryReplicationMode right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class GalleryResourceProfilePropertiesBase : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryResourceProfilePropertiesBase>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryResourceProfilePropertiesBase>
+    {
+        public GalleryResourceProfilePropertiesBase() { }
+        public Azure.ResourceManager.Compute.Models.GalleryProvisioningState? ProvisioningState { get { throw null; } }
+        Azure.ResourceManager.Compute.Models.GalleryResourceProfilePropertiesBase System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryResourceProfilePropertiesBase>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryResourceProfilePropertiesBase>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.GalleryResourceProfilePropertiesBase System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryResourceProfilePropertiesBase>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryResourceProfilePropertiesBase>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryResourceProfilePropertiesBase>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct GallerySharingPermissionType : System.IEquatable<Azure.ResourceManager.Compute.Models.GallerySharingPermissionType>
