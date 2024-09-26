@@ -114,7 +114,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -145,7 +145,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -183,7 +183,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -214,7 +214,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -232,6 +232,75 @@ namespace Azure.ResourceManager.Compute
             return GetGalleryApplications().Get(galleryApplicationName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of GalleryInVmAccessControlProfileResources in the Gallery. </summary>
+        /// <returns> An object representing collection of GalleryInVmAccessControlProfileResources and their operations over a GalleryInVmAccessControlProfileResource. </returns>
+        public virtual GalleryInVmAccessControlProfileCollection GetGalleryInVmAccessControlProfiles()
+        {
+            return GetCachedClient(client => new GalleryInVmAccessControlProfileCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Retrieves information about a gallery inVMAccessControlProfile.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/inVMAccessControlProfiles/{inVMAccessControlProfileName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GalleryInVMAccessControlProfiles_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-03-03</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="GalleryInVmAccessControlProfileResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="inVmAccessControlProfileName"> The name of the gallery inVMAccessControlProfile to be retrieved. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="inVmAccessControlProfileName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="inVmAccessControlProfileName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<GalleryInVmAccessControlProfileResource>> GetGalleryInVmAccessControlProfileAsync(string inVmAccessControlProfileName, CancellationToken cancellationToken = default)
+        {
+            return await GetGalleryInVmAccessControlProfiles().GetAsync(inVmAccessControlProfileName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Retrieves information about a gallery inVMAccessControlProfile.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/inVMAccessControlProfiles/{inVMAccessControlProfileName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GalleryInVMAccessControlProfiles_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-03-03</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="GalleryInVmAccessControlProfileResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="inVmAccessControlProfileName"> The name of the gallery inVMAccessControlProfile to be retrieved. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="inVmAccessControlProfileName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="inVmAccessControlProfileName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<GalleryInVmAccessControlProfileResource> GetGalleryInVmAccessControlProfile(string inVmAccessControlProfileName, CancellationToken cancellationToken = default)
+        {
+            return GetGalleryInVmAccessControlProfiles().Get(inVmAccessControlProfileName, cancellationToken);
+        }
+
         /// <summary>
         /// Retrieves information about a Shared Image Gallery.
         /// <list type="bullet">
@@ -245,7 +314,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -287,7 +356,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -329,7 +398,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -371,7 +440,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -413,7 +482,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -459,7 +528,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -505,7 +574,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -547,7 +616,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -589,7 +658,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -651,7 +720,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -713,7 +782,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -770,7 +839,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -827,7 +896,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -887,7 +956,7 @@ namespace Azure.ResourceManager.Compute
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-07-03</description>
+        /// <description>2024-03-03</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
