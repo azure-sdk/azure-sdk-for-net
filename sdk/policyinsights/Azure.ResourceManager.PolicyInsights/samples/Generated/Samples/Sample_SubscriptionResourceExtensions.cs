@@ -617,5 +617,121 @@ Values =
 
             Console.WriteLine($"Succeeded: {result}");
         }
+
+        // Query latest component policy compliance state count grouped by component type at subscription scope filtered by given assignment.
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetQueryResultsForSubscriptionComponentPolicyStates_QueryLatestComponentPolicyComplianceStateCountGroupedByComponentTypeAtSubscriptionScopeFilteredByGivenAssignment()
+        {
+            // Generated from example definition: specification/policyinsights/resource-manager/Microsoft.PolicyInsights/stable/2022-04-01/examples/ComponentPolicyStates_QuerySubscriptionScopeGroupByComponentTypeWithAggregate.json
+            // this example is just showing the usage of "ComponentPolicyStates_ListQueryResultsForSubscription" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this SubscriptionResource created on azure
+            // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
+            string subscriptionId = "e78961ba-36fe-4739-9212-e3031b4c8db7";
+            ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
+            SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
+
+            // invoke the operation and iterate over the result
+            SubscriptionResourceGetQueryResultsForSubscriptionComponentPolicyStatesOptions options = new SubscriptionResourceGetQueryResultsForSubscriptionComponentPolicyStatesOptions(componentPolicyStatesResource: ComponentPolicyStatesResource.Latest) { Filter = "policyAssignmentId eq '/subscriptions/e78961ba-36fe-4739-9212-e3031b4c8db7/providers/microsoft.authorization/policyassignments/560050f83dbb4a24974323f8'", Apply = "groupby((componentType,complianceState),aggregate($count as count))" };
+            await foreach (ComponentPolicyState item in subscriptionResource.GetQueryResultsForSubscriptionComponentPolicyStatesAsync(options))
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // Query latest component policy states at subscription scope
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetQueryResultsForSubscriptionComponentPolicyStates_QueryLatestComponentPolicyStatesAtSubscriptionScope()
+        {
+            // Generated from example definition: specification/policyinsights/resource-manager/Microsoft.PolicyInsights/stable/2022-04-01/examples/ComponentPolicyStates_QuerySubscriptionScope.json
+            // this example is just showing the usage of "ComponentPolicyStates_ListQueryResultsForSubscription" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this SubscriptionResource created on azure
+            // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
+            string subscriptionId = "fff10b27-fff3-fff5-fff8-fffbe01e86a5";
+            ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
+            SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
+
+            // invoke the operation and iterate over the result
+            SubscriptionResourceGetQueryResultsForSubscriptionComponentPolicyStatesOptions options = new SubscriptionResourceGetQueryResultsForSubscriptionComponentPolicyStatesOptions(componentPolicyStatesResource: ComponentPolicyStatesResource.Latest) { };
+            await foreach (ComponentPolicyState item in subscriptionResource.GetQueryResultsForSubscriptionComponentPolicyStatesAsync(options))
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // Query latest component policy states at subscription level policy definition scope
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetQueryResultsForPolicyDefinitionComponentPolicyStates_QueryLatestComponentPolicyStatesAtSubscriptionLevelPolicyDefinitionScope()
+        {
+            // Generated from example definition: specification/policyinsights/resource-manager/Microsoft.PolicyInsights/stable/2022-04-01/examples/ComponentPolicyStates_QuerySubscriptionLevelPolicyDefinitionScope.json
+            // this example is just showing the usage of "ComponentPolicyStates_ListQueryResultsForPolicyDefinition" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this SubscriptionResource created on azure
+            // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
+            string subscriptionId = "fffedd8f-ffff-fffd-fffd-fffed2f84852";
+            ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
+            SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
+
+            // invoke the operation and iterate over the result
+            SubscriptionResourceGetQueryResultsForPolicyDefinitionComponentPolicyStatesOptions options = new SubscriptionResourceGetQueryResultsForPolicyDefinitionComponentPolicyStatesOptions(policyDefinitionName: "24813039-7534-408a-9842-eb99f45721b1", componentPolicyStatesResource: ComponentPolicyStatesResource.Latest) { };
+            await foreach (ComponentPolicyState item in subscriptionResource.GetQueryResultsForPolicyDefinitionComponentPolicyStatesAsync(options))
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // Query latest at subscription level policy assignment scope
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetQueryResultsForSubscriptionLevelPolicyAssignmentComponentPolicyStates_QueryLatestAtSubscriptionLevelPolicyAssignmentScope()
+        {
+            // Generated from example definition: specification/policyinsights/resource-manager/Microsoft.PolicyInsights/stable/2022-04-01/examples/ComponentPolicyStates_QuerySubscriptionLevelPolicyAssignmentScope.json
+            // this example is just showing the usage of "ComponentPolicyStates_ListQueryResultsForSubscriptionLevelPolicyAssignment" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this SubscriptionResource created on azure
+            // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
+            string subscriptionId = "fffedd8f-ffff-fffd-fffd-fffed2f84852";
+            ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
+            SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
+
+            // invoke the operation and iterate over the result
+            SubscriptionResourceGetQueryResultsForSubscriptionLevelPolicyAssignmentComponentPolicyStatesOptions options = new SubscriptionResourceGetQueryResultsForSubscriptionLevelPolicyAssignmentComponentPolicyStatesOptions(policyAssignmentName: "ec8f9645-8ecb-4abb-9c0b-5292f19d4003", componentPolicyStatesResource: ComponentPolicyStatesResource.Latest) { };
+            await foreach (ComponentPolicyState item in subscriptionResource.GetQueryResultsForSubscriptionLevelPolicyAssignmentComponentPolicyStatesAsync(options))
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
     }
 }
