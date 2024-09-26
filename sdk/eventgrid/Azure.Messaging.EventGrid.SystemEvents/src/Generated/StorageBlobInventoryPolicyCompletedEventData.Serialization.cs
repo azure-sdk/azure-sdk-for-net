@@ -26,8 +26,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("scheduleDateTime"u8);
-            writer.WriteStringValue(ScheduleDateTime, "O");
+            if (Optional.IsDefined(ScheduleDateTime))
+            {
+                writer.WritePropertyName("scheduleDateTime"u8);
+                writer.WriteStringValue(ScheduleDateTime.Value, "O");
+            }
             if (Optional.IsDefined(AccountName))
             {
                 writer.WritePropertyName("accountName"u8);
@@ -96,7 +99,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            DateTimeOffset scheduleDateTime = default;
+            DateTimeOffset? scheduleDateTime = default;
             string accountName = default;
             string ruleName = default;
             string policyRunStatus = default;
@@ -109,6 +112,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("scheduleDateTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     scheduleDateTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
