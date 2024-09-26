@@ -26,8 +26,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("kind"u8);
-            writer.WriteStringValue(Kind.ToString());
+            if (Optional.IsDefined(Kind))
+            {
+                writer.WritePropertyName("kind"u8);
+                writer.WriteStringValue(Kind.Value.ToString());
+            }
             if (Optional.IsDefined(RawId))
             {
                 writer.WritePropertyName("rawId"u8);
@@ -79,7 +82,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            CommunicationIdentifierModelKind kind = default;
+            CommunicationIdentifierModelKind? kind = default;
             string rawId = default;
             CommunicationUserIdentifierModel communicationUser = default;
             PhoneNumberIdentifierModel phoneNumber = default;
@@ -91,6 +94,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("kind"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     kind = new CommunicationIdentifierModelKind(property.Value.GetString());
                     continue;
                 }
