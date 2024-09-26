@@ -26,23 +26,17 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("resourceType"u8);
-            writer.WriteStringValue(FhirResourceType.ToString());
-            if (Optional.IsDefined(FhirServiceHostName))
+            if (Optional.IsDefined(FhirResourceType))
             {
-                writer.WritePropertyName("resourceFhirAccount"u8);
-                writer.WriteStringValue(FhirServiceHostName);
+                writer.WritePropertyName("resourceType"u8);
+                writer.WriteStringValue(FhirResourceType.Value.ToString());
             }
-            if (Optional.IsDefined(FhirResourceId))
-            {
-                writer.WritePropertyName("resourceFhirId"u8);
-                writer.WriteStringValue(FhirResourceId);
-            }
-            if (Optional.IsDefined(FhirResourceVersionId))
-            {
-                writer.WritePropertyName("resourceVersionId"u8);
-                writer.WriteNumberValue(FhirResourceVersionId.Value);
-            }
+            writer.WritePropertyName("resourceFhirAccount"u8);
+            writer.WriteStringValue(FhirServiceHostName);
+            writer.WritePropertyName("resourceFhirId"u8);
+            writer.WriteStringValue(FhirResourceId);
+            writer.WritePropertyName("resourceVersionId"u8);
+            writer.WriteNumberValue(FhirResourceVersionId);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -81,16 +75,20 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            HealthcareFhirResourceType resourceType = default;
+            HealthcareFhirResourceType? resourceType = default;
             string resourceFhirAccount = default;
             string resourceFhirId = default;
-            long? resourceVersionId = default;
+            long resourceVersionId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("resourceType"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     resourceType = new HealthcareFhirResourceType(property.Value.GetString());
                     continue;
                 }
@@ -106,10 +104,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("resourceVersionId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     resourceVersionId = property.Value.GetInt64();
                     continue;
                 }
