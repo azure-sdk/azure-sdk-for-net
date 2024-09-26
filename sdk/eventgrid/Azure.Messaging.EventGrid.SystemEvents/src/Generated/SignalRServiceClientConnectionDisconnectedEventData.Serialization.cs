@@ -26,18 +26,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("timestamp"u8);
-            writer.WriteStringValue(Timestamp, "O");
-            if (Optional.IsDefined(HubName))
+            if (Optional.IsDefined(Timestamp))
             {
-                writer.WritePropertyName("hubName"u8);
-                writer.WriteStringValue(HubName);
+                writer.WritePropertyName("timestamp"u8);
+                writer.WriteStringValue(Timestamp.Value, "O");
             }
-            if (Optional.IsDefined(ConnectionId))
-            {
-                writer.WritePropertyName("connectionId"u8);
-                writer.WriteStringValue(ConnectionId);
-            }
+            writer.WritePropertyName("hubName"u8);
+            writer.WriteStringValue(HubName);
+            writer.WritePropertyName("connectionId"u8);
+            writer.WriteStringValue(ConnectionId);
             if (Optional.IsDefined(UserId))
             {
                 writer.WritePropertyName("userId"u8);
@@ -86,7 +83,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            DateTimeOffset timestamp = default;
+            DateTimeOffset? timestamp = default;
             string hubName = default;
             string connectionId = default;
             string userId = default;
@@ -97,6 +94,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("timestamp"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     timestamp = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
