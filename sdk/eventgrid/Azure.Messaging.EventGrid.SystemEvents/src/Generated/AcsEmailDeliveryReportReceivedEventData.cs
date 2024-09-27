@@ -46,17 +46,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsEmailDeliveryReportReceivedEventData"/>. </summary>
-        /// <param name="status"> The status of the email. Any value other than Delivered is considered failed. </param>
         /// <param name="deliveryStatusDetails"> Detailed information about the status if any. </param>
-        /// <param name="deliveryAttemptTimestamp"> The time at which the email delivery report received timestamp. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="deliveryStatusDetails"/> is null. </exception>
-        internal AcsEmailDeliveryReportReceivedEventData(AcsEmailDeliveryReportStatus status, AcsEmailDeliveryReportStatusDetails deliveryStatusDetails, DateTimeOffset deliveryAttemptTimestamp)
+        internal AcsEmailDeliveryReportReceivedEventData(AcsEmailDeliveryReportStatusDetails deliveryStatusDetails)
         {
             Argument.AssertNotNull(deliveryStatusDetails, nameof(deliveryStatusDetails));
 
-            Status = status;
             DeliveryStatusDetails = deliveryStatusDetails;
-            DeliveryAttemptTimestamp = deliveryAttemptTimestamp;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsEmailDeliveryReportReceivedEventData"/>. </summary>
@@ -67,7 +63,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="deliveryStatusDetails"> Detailed information about the status if any. </param>
         /// <param name="deliveryAttemptTimestamp"> The time at which the email delivery report received timestamp. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AcsEmailDeliveryReportReceivedEventData(string sender, string recipient, string messageId, AcsEmailDeliveryReportStatus status, AcsEmailDeliveryReportStatusDetails deliveryStatusDetails, DateTimeOffset deliveryAttemptTimestamp, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AcsEmailDeliveryReportReceivedEventData(string sender, string recipient, string messageId, AcsEmailDeliveryReportStatus? status, AcsEmailDeliveryReportStatusDetails deliveryStatusDetails, DateTimeOffset? deliveryAttemptTimestamp, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Sender = sender;
             Recipient = recipient;
@@ -90,10 +86,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> The Id of the email been sent. </summary>
         public string MessageId { get; }
         /// <summary> The status of the email. Any value other than Delivered is considered failed. </summary>
-        public AcsEmailDeliveryReportStatus Status { get; }
+        public AcsEmailDeliveryReportStatus? Status { get; }
         /// <summary> Detailed information about the status if any. </summary>
         public AcsEmailDeliveryReportStatusDetails DeliveryStatusDetails { get; }
         /// <summary> The time at which the email delivery report received timestamp. </summary>
-        public DateTimeOffset DeliveryAttemptTimestamp { get; }
+        public DateTimeOffset? DeliveryAttemptTimestamp { get; }
     }
 }
