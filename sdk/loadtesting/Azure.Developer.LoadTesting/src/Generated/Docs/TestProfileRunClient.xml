@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateOrUpdateTestProfileRunAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateTestProfileRunAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    displayName = "Performance_TestProfile_Run1",
+    testProfileId = "12345678-1234-1234-1234-123456789012",
+    description = "sample description",
+});
+Response response = await client.CreateOrUpdateTestProfileRunAsync("12316678-1234-1234-1234-122451189012", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateTestProfileRun(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateTestProfileRun and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    displayName = "Performance_TestProfile_Run1",
+    testProfileId = "12345678-1234-1234-1234-123456789012",
+    description = "sample description",
+});
+Response response = client.CreateOrUpdateTestProfileRun("12316678-1234-1234-1234-122451189012", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteTestProfileRunAsync(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteTestProfileRunAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = await client.DeleteTestProfileRunAsync("12316678-1234-1234-1234-122451189012");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteTestProfileRun(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteTestProfileRun.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = client.DeleteTestProfileRun("12316678-1234-1234-1234-122451189012");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRunAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfileRunAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response<TestProfileRun> response = await client.GetTestProfileRunAsync("12316678-1234-1234-1234-122451189012");
+]]></code>
+This sample shows how to call GetTestProfileRunAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response<TestProfileRun> response = await client.GetTestProfileRunAsync("12316678-1234-1234-1234-122451189012");
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRun(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfileRun.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response<TestProfileRun> response = client.GetTestProfileRun("12316678-1234-1234-1234-122451189012");
+]]></code>
+This sample shows how to call GetTestProfileRun.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response<TestProfileRun> response = client.GetTestProfileRun("12316678-1234-1234-1234-122451189012");
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRunAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfileRunAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = await client.GetTestProfileRunAsync("12316678-1234-1234-1234-122451189012", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+]]></code>
+This sample shows how to call GetTestProfileRunAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = await client.GetTestProfileRunAsync("12316678-1234-1234-1234-122451189012", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRun(string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfileRun and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = client.GetTestProfileRun("12316678-1234-1234-1234-122451189012", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+]]></code>
+This sample shows how to call GetTestProfileRun and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = client.GetTestProfileRun("12316678-1234-1234-1234-122451189012", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+]]></code></example>
+    </member>
+    <member name="StopTestProfileRunAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call StopTestProfileRunAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response<TestProfileRun> response = await client.StopTestProfileRunAsync("12316678-1234-1234-1234-122451189012");
+]]></code></example>
+    </member>
+    <member name="StopTestProfileRun(string,CancellationToken)">
+      <example>
+This sample shows how to call StopTestProfileRun.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response<TestProfileRun> response = client.StopTestProfileRun("12316678-1234-1234-1234-122451189012");
+]]></code></example>
+    </member>
+    <member name="StopTestProfileRunAsync(string,RequestContext)">
+      <example>
+This sample shows how to call StopTestProfileRunAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = await client.StopTestProfileRunAsync("12316678-1234-1234-1234-122451189012", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+]]></code></example>
+    </member>
+    <member name="StopTestProfileRun(string,RequestContext)">
+      <example>
+This sample shows how to call StopTestProfileRun and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+Response response = client.StopTestProfileRun("12316678-1234-1234-1234-122451189012", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRunsAsync(int?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfileRunsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+await foreach (TestProfileRun item in client.GetTestProfileRunsAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRuns(int?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetTestProfileRuns.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+foreach (TestProfileRun item in client.GetTestProfileRuns())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRunsAsync(int?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfileRunsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetTestProfileRunsAsync(null, DateTimeOffset.Parse("2024-05-01T16:00:46.072Z"), DateTimeOffset.Parse("2024-05-01T16:50:46.072Z"), DateTimeOffset.Parse("2024-05-01T16:00:46.072Z"), DateTimeOffset.Parse("2024-05-01T16:50:46.072Z"), null, null, null, "12345678-1234-1234-1234-123456789012", "ACCEPTED", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetTestProfileRuns(int?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetTestProfileRuns and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TestProfileRunClient client = new TestProfileRunClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetTestProfileRuns(null, DateTimeOffset.Parse("2024-05-01T16:00:46.072Z"), DateTimeOffset.Parse("2024-05-01T16:50:46.072Z"), DateTimeOffset.Parse("2024-05-01T16:00:46.072Z"), DateTimeOffset.Parse("2024-05-01T16:50:46.072Z"), null, null, null, "12345678-1234-1234-1234-123456789012", "ACCEPTED", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("testProfileRunId").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
