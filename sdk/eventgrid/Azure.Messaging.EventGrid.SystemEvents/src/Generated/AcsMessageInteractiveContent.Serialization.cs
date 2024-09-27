@@ -26,8 +26,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("type"u8);
-            writer.WriteStringValue(ReplyKind.ToString());
+            if (Optional.IsDefined(ReplyKind))
+            {
+                writer.WritePropertyName("type"u8);
+                writer.WriteStringValue(ReplyKind.Value.ToString());
+            }
             writer.WritePropertyName("buttonReply"u8);
             writer.WriteObjectValue(ButtonReply, options);
             writer.WritePropertyName("listReply"u8);
@@ -70,7 +73,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            AcsInteractiveReplyKind type = default;
+            AcsInteractiveReplyKind? type = default;
             AcsMessageInteractiveButtonReplyContent buttonReply = default;
             AcsMessageInteractiveListReplyContent listReply = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -79,6 +82,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("type"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     type = new AcsInteractiveReplyKind(property.Value.GetString());
                     continue;
                 }
