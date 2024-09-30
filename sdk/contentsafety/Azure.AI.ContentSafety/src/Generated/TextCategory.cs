@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.AI.ContentSafety
 {
-    /// <summary> Text analyze category. </summary>
+    /// <summary> The harm category supported in Text content analysis. </summary>
     public readonly partial struct TextCategory : IEquatable<TextCategory>
     {
         private readonly string _value;
@@ -26,15 +26,18 @@ namespace Azure.AI.ContentSafety
         private const string SelfHarmValue = "SelfHarm";
         private const string SexualValue = "Sexual";
         private const string ViolenceValue = "Violence";
+        private const string DrugsValue = "Drugs";
 
-        /// <summary> Hate. </summary>
+        /// <summary> The harm category for Text - Hate. </summary>
         public static TextCategory Hate { get; } = new TextCategory(HateValue);
-        /// <summary> SelfHarm. </summary>
+        /// <summary> The harm category for Text - SelfHarm. </summary>
         public static TextCategory SelfHarm { get; } = new TextCategory(SelfHarmValue);
-        /// <summary> Sexual. </summary>
+        /// <summary> The harm category for Text - Sexual. </summary>
         public static TextCategory Sexual { get; } = new TextCategory(SexualValue);
-        /// <summary> Violence. </summary>
+        /// <summary> The harm category for Text - Violence. </summary>
         public static TextCategory Violence { get; } = new TextCategory(ViolenceValue);
+        /// <summary> The harm category for Text - Drugs. </summary>
+        public static TextCategory Drugs { get; } = new TextCategory(DrugsValue);
         /// <summary> Determines if two <see cref="TextCategory"/> values are the same. </summary>
         public static bool operator ==(TextCategory left, TextCategory right) => left.Equals(right);
         /// <summary> Determines if two <see cref="TextCategory"/> values are not the same. </summary>
