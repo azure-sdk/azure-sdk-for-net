@@ -66,6 +66,16 @@ namespace Azure.ResourceManager.ContainerService
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsCollectionDefined(ComponentsByReleases))
+            {
+                writer.WritePropertyName("componentsByReleases"u8);
+                writer.WriteStartArray();
+                foreach (var item in ComponentsByReleases)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
+            }
             if (Optional.IsDefined(LatestNodeImageVersion))
             {
                 writer.WritePropertyName("latestNodeImageVersion"u8);
@@ -117,6 +127,7 @@ namespace Azure.ResourceManager.ContainerService
             string kubernetesVersion = default;
             ContainerServiceOSType osType = default;
             IReadOnlyList<AgentPoolUpgradeProfilePropertiesUpgradesItem> upgrades = default;
+            IReadOnlyList<ComponentsByRelease> componentsByReleases = default;
             string latestNodeImageVersion = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -179,6 +190,20 @@ namespace Azure.ResourceManager.ContainerService
                             upgrades = array;
                             continue;
                         }
+                        if (property0.NameEquals("componentsByReleases"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<ComponentsByRelease> array = new List<ComponentsByRelease>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(ComponentsByRelease.DeserializeComponentsByRelease(item, options));
+                            }
+                            componentsByReleases = array;
+                            continue;
+                        }
                         if (property0.NameEquals("latestNodeImageVersion"u8))
                         {
                             latestNodeImageVersion = property0.Value.GetString();
@@ -201,6 +226,7 @@ namespace Azure.ResourceManager.ContainerService
                 kubernetesVersion,
                 osType,
                 upgrades ?? new ChangeTrackingList<AgentPoolUpgradeProfilePropertiesUpgradesItem>(),
+                componentsByReleases ?? new ChangeTrackingList<ComponentsByRelease>(),
                 latestNodeImageVersion,
                 serializedAdditionalRawData);
         }
@@ -323,6 +349,29 @@ namespace Azure.ResourceManager.ContainerService
                         foreach (var item in Upgrades)
                         {
                             BicepSerializationHelpers.AppendChildObject(builder, item, options, 6, true, "    upgrades: ");
+                        }
+                        builder.AppendLine("    ]");
+                    }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ComponentsByReleases), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    componentsByReleases: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsCollectionDefined(ComponentsByReleases))
+                {
+                    if (ComponentsByReleases.Any())
+                    {
+                        builder.Append("    componentsByReleases: ");
+                        builder.AppendLine("[");
+                        foreach (var item in ComponentsByReleases)
+                        {
+                            BicepSerializationHelpers.AppendChildObject(builder, item, options, 6, true, "    componentsByReleases: ");
                         }
                         builder.AppendLine("    ]");
                     }
