@@ -5165,6 +5165,24 @@ namespace Azure.ResourceManager.Compute.Models
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryApplicationPatch>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryApplicationPatch>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct GalleryApplicationScriptRebootBehavior : System.IEquatable<Azure.ResourceManager.Compute.Models.GalleryApplicationScriptRebootBehavior>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public GalleryApplicationScriptRebootBehavior(string value) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.GalleryApplicationScriptRebootBehavior None { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.GalleryApplicationScriptRebootBehavior Rerun { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Compute.Models.GalleryApplicationScriptRebootBehavior other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Compute.Models.GalleryApplicationScriptRebootBehavior left, Azure.ResourceManager.Compute.Models.GalleryApplicationScriptRebootBehavior right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Compute.Models.GalleryApplicationScriptRebootBehavior (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Compute.Models.GalleryApplicationScriptRebootBehavior left, Azure.ResourceManager.Compute.Models.GalleryApplicationScriptRebootBehavior right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class GalleryApplicationVersionPatch : Azure.ResourceManager.Models.ResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryApplicationVersionPatch>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryApplicationVersionPatch>
     {
         public GalleryApplicationVersionPatch() { }
@@ -7820,6 +7838,7 @@ namespace Azure.ResourceManager.Compute.Models
         public UserArtifactSettings() { }
         public string ConfigFileName { get { throw null; } set { } }
         public string PackageFileName { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.GalleryApplicationScriptRebootBehavior? ScriptBehaviorAfterReboot { get { throw null; } set { } }
         Azure.ResourceManager.Compute.Models.UserArtifactSettings System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.UserArtifactSettings>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.UserArtifactSettings>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.Compute.Models.UserArtifactSettings System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.UserArtifactSettings>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
