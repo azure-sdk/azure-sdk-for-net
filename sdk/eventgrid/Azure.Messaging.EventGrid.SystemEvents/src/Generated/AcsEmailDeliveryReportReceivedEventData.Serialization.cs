@@ -41,12 +41,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("messageId"u8);
                 writer.WriteStringValue(MessageId);
             }
-            writer.WritePropertyName("status"u8);
-            writer.WriteStringValue(Status.ToString());
+            if (Optional.IsDefined(Status))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(Status.Value.ToString());
+            }
             writer.WritePropertyName("deliveryStatusDetails"u8);
             writer.WriteObjectValue(DeliveryStatusDetails, options);
-            writer.WritePropertyName("deliveryAttemptTimeStamp"u8);
-            writer.WriteStringValue(DeliveryAttemptTimestamp, "O");
+            if (Optional.IsDefined(DeliveryAttemptTimestamp))
+            {
+                writer.WritePropertyName("deliveryAttemptTimestamp"u8);
+                writer.WriteStringValue(DeliveryAttemptTimestamp.Value, "O");
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -88,9 +94,9 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             string sender = default;
             string recipient = default;
             string messageId = default;
-            AcsEmailDeliveryReportStatus status = default;
+            AcsEmailDeliveryReportStatus? status = default;
             AcsEmailDeliveryReportStatusDetails deliveryStatusDetails = default;
-            DateTimeOffset deliveryAttemptTimeStamp = default;
+            DateTimeOffset? deliveryAttemptTimestamp = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -112,6 +118,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("status"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     status = new AcsEmailDeliveryReportStatus(property.Value.GetString());
                     continue;
                 }
@@ -120,9 +130,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     deliveryStatusDetails = AcsEmailDeliveryReportStatusDetails.DeserializeAcsEmailDeliveryReportStatusDetails(property.Value, options);
                     continue;
                 }
-                if (property.NameEquals("deliveryAttemptTimeStamp"u8))
+                if (property.NameEquals("deliveryAttemptTimestamp"u8))
                 {
-                    deliveryAttemptTimeStamp = property.Value.GetDateTimeOffset("O");
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    deliveryAttemptTimestamp = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
                 if (options.Format != "W")
@@ -137,7 +151,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 messageId,
                 status,
                 deliveryStatusDetails,
-                deliveryAttemptTimeStamp,
+                deliveryAttemptTimestamp,
                 serializedAdditionalRawData);
         }
 
