@@ -38,6 +38,16 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("storageAccountType"u8);
                 writer.WriteStringValue(StorageAccountType.Value.ToString());
             }
+            if (Optional.IsCollectionDefined(AdditionalReplicaSets))
+            {
+                writer.WritePropertyName("additionalReplicaSets"u8);
+                writer.WriteStartArray();
+                foreach (var item in AdditionalReplicaSets)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
+            }
             if (Optional.IsDefined(Encryption))
             {
                 writer.WritePropertyName("encryption"u8);
@@ -89,6 +99,7 @@ namespace Azure.ResourceManager.Compute.Models
             string name = default;
             int? regionalReplicaCount = default;
             ImageStorageAccountType? storageAccountType = default;
+            IList<AdditionalReplicaSet> additionalReplicaSets = default;
             EncryptionImages encryption = default;
             bool? excludeFromLatest = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -116,6 +127,20 @@ namespace Azure.ResourceManager.Compute.Models
                         continue;
                     }
                     storageAccountType = new ImageStorageAccountType(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("additionalReplicaSets"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<AdditionalReplicaSet> array = new List<AdditionalReplicaSet>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(AdditionalReplicaSet.DeserializeAdditionalReplicaSet(item, options));
+                    }
+                    additionalReplicaSets = array;
                     continue;
                 }
                 if (property.NameEquals("encryption"u8))
@@ -146,6 +171,7 @@ namespace Azure.ResourceManager.Compute.Models
                 name,
                 regionalReplicaCount,
                 storageAccountType,
+                additionalReplicaSets ?? new ChangeTrackingList<AdditionalReplicaSet>(),
                 encryption,
                 excludeFromLatest,
                 serializedAdditionalRawData);

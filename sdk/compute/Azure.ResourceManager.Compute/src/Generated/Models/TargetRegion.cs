@@ -53,20 +53,23 @@ namespace Azure.ResourceManager.Compute.Models
             Argument.AssertNotNull(name, nameof(name));
 
             Name = name;
+            AdditionalReplicaSets = new ChangeTrackingList<AdditionalReplicaSet>();
         }
 
         /// <summary> Initializes a new instance of <see cref="TargetRegion"/>. </summary>
         /// <param name="name"> The name of the region. </param>
         /// <param name="regionalReplicaCount"> The number of replicas of the Image Version to be created per region. This property is updatable. </param>
         /// <param name="storageAccountType"> Specifies the storage account type to be used to store the image. This property is not updatable. </param>
+        /// <param name="additionalReplicaSets"> List of storage sku with replica count to create direct drive replicas. </param>
         /// <param name="encryption"> Optional. Allows users to provide customer managed keys for encrypting the OS and data disks in the gallery artifact. </param>
         /// <param name="isExcludedFromLatest"> Contains the flag setting to hide an image when users specify version='latest'. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TargetRegion(string name, int? regionalReplicaCount, ImageStorageAccountType? storageAccountType, EncryptionImages encryption, bool? isExcludedFromLatest, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TargetRegion(string name, int? regionalReplicaCount, ImageStorageAccountType? storageAccountType, IList<AdditionalReplicaSet> additionalReplicaSets, EncryptionImages encryption, bool? isExcludedFromLatest, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
             RegionalReplicaCount = regionalReplicaCount;
             StorageAccountType = storageAccountType;
+            AdditionalReplicaSets = additionalReplicaSets;
             Encryption = encryption;
             IsExcludedFromLatest = isExcludedFromLatest;
             _serializedAdditionalRawData = serializedAdditionalRawData;
@@ -83,6 +86,8 @@ namespace Azure.ResourceManager.Compute.Models
         public int? RegionalReplicaCount { get; set; }
         /// <summary> Specifies the storage account type to be used to store the image. This property is not updatable. </summary>
         public ImageStorageAccountType? StorageAccountType { get; set; }
+        /// <summary> List of storage sku with replica count to create direct drive replicas. </summary>
+        public IList<AdditionalReplicaSet> AdditionalReplicaSets { get; }
         /// <summary> Optional. Allows users to provide customer managed keys for encrypting the OS and data disks in the gallery artifact. </summary>
         public EncryptionImages Encryption { get; set; }
         /// <summary> Contains the flag setting to hide an image when users specify version='latest'. </summary>
