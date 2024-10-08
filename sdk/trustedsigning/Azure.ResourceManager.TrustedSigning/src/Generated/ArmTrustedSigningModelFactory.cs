@@ -60,26 +60,17 @@ namespace Azure.ResourceManager.TrustedSigning.Models
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="profileType"> Profile type of the certificate. </param>
-        /// <param name="commonName"> Used as CN in the certificate subject name. </param>
-        /// <param name="organization"> Used as O in the certificate subject name. </param>
-        /// <param name="organizationUnit"> Used as OU in the private trust certificate subject name. </param>
-        /// <param name="streetAddress"> Used as STREET in the certificate subject name. </param>
         /// <param name="includeStreetAddress"> Whether to include STREET in the certificate subject name. </param>
-        /// <param name="city"> Used as L in the certificate subject name. </param>
         /// <param name="includeCity"> Whether to include L in the certificate subject name. Applicable only for private trust, private trust ci profile types. </param>
-        /// <param name="state"> Used as S in the certificate subject name. </param>
         /// <param name="includeState"> Whether to include S in the certificate subject name. Applicable only for private trust, private trust ci profile types. </param>
-        /// <param name="country"> Used as C in the certificate subject name. </param>
         /// <param name="includeCountry"> Whether to include C in the certificate subject name. Applicable only for private trust, private trust ci profile types. </param>
-        /// <param name="postalCode"> Used as PC in the certificate subject name. </param>
         /// <param name="includePostalCode"> Whether to include PC in the certificate subject name. </param>
-        /// <param name="enhancedKeyUsage"> Enhanced key usage of the certificate. </param>
         /// <param name="identityValidationId"> Identity validation id used for the certificate subject name. </param>
         /// <param name="provisioningState"> Status of the current operation on certificate profile. </param>
         /// <param name="status"> Status of the certificate profile. </param>
         /// <param name="certificates"> List of renewed certificates. </param>
         /// <returns> A new <see cref="TrustedSigning.TrustedSigningCertificateProfileData"/> instance for mocking. </returns>
-        public static TrustedSigningCertificateProfileData TrustedSigningCertificateProfileData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, CertificateProfileType? profileType = null, string commonName = null, string organization = null, string organizationUnit = null, string streetAddress = null, bool? includeStreetAddress = null, string city = null, bool? includeCity = null, string state = null, bool? includeState = null, string country = null, bool? includeCountry = null, string postalCode = null, bool? includePostalCode = null, string enhancedKeyUsage = null, string identityValidationId = null, TrustedSigningProvisioningState? provisioningState = null, CertificateProfileStatus? status = null, IEnumerable<TrustedSigningCertificate> certificates = null)
+        public static TrustedSigningCertificateProfileData TrustedSigningCertificateProfileData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, CertificateProfileType? profileType = null, bool? includeStreetAddress = null, bool? includeCity = null, bool? includeState = null, bool? includeCountry = null, bool? includePostalCode = null, string identityValidationId = null, TrustedSigningProvisioningState? provisioningState = null, CertificateProfileStatus? status = null, IEnumerable<TrustedSigningCertificate> certificates = null)
         {
             certificates ??= new List<TrustedSigningCertificate>();
 
@@ -89,20 +80,11 @@ namespace Azure.ResourceManager.TrustedSigning.Models
                 resourceType,
                 systemData,
                 profileType,
-                commonName,
-                organization,
-                organizationUnit,
-                streetAddress,
                 includeStreetAddress,
-                city,
                 includeCity,
-                state,
                 includeState,
-                country,
                 includeCountry,
-                postalCode,
                 includePostalCode,
-                enhancedKeyUsage,
                 identityValidationId,
                 provisioningState,
                 status,
@@ -112,6 +94,7 @@ namespace Azure.ResourceManager.TrustedSigning.Models
 
         /// <summary> Initializes a new instance of <see cref="Models.TrustedSigningCertificate"/>. </summary>
         /// <param name="serialNumber"> Serial number of the certificate. </param>
+        /// <param name="enhancedKeyUsage"> Enhanced key usage of the certificate. </param>
         /// <param name="subjectName"> Subject name of the certificate. </param>
         /// <param name="thumbprint"> Thumbprint of the certificate. </param>
         /// <param name="createOn"> Certificate created date. </param>
@@ -124,10 +107,11 @@ namespace Azure.ResourceManager.TrustedSigning.Models
         /// <param name="statusRevocationStatus"> Status of the revocation. </param>
         /// <param name="failureReason"> Reason for the revocation failure. </param>
         /// <returns> A new <see cref="Models.TrustedSigningCertificate"/> instance for mocking. </returns>
-        public static TrustedSigningCertificate TrustedSigningCertificate(string serialNumber = null, string subjectName = null, string thumbprint = null, DateTimeOffset? createOn = null, DateTimeOffset? expireOn = null, TrustedSigningCertificateStatus? status = null, DateTimeOffset? requestedOn = null, DateTimeOffset? effectiveOn = null, string reason = null, string remarks = null, CertificateRevocationStatus? statusRevocationStatus = null, string failureReason = null)
+        public static TrustedSigningCertificate TrustedSigningCertificate(string serialNumber = null, string enhancedKeyUsage = null, string subjectName = null, string thumbprint = null, DateTimeOffset? createOn = null, DateTimeOffset? expireOn = null, TrustedSigningCertificateStatus? status = null, DateTimeOffset? requestedOn = null, DateTimeOffset? effectiveOn = null, string reason = null, string remarks = null, CertificateRevocationStatus? statusRevocationStatus = null, string failureReason = null)
         {
             return new TrustedSigningCertificate(
                 serialNumber,
+                enhancedKeyUsage,
                 subjectName,
                 thumbprint,
                 createOn,
