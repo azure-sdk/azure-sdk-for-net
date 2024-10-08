@@ -52,18 +52,23 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <summary> Initializes a new instance of <see cref="RestoreContent"/>. </summary>
         protected RestoreContent()
         {
+            ResourceGuardOperationRequests = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="RestoreContent"/>. </summary>
         /// <param name="objectType"> This property will be used as the discriminator for deciding the specific types in the polymorphic chain of types. </param>
+        /// <param name="resourceGuardOperationRequests"> ResourceGuardOperationRequests on which LAC check will be performed. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal RestoreContent(string objectType, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal RestoreContent(string objectType, IList<string> resourceGuardOperationRequests, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ObjectType = objectType;
+            ResourceGuardOperationRequests = resourceGuardOperationRequests;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> This property will be used as the discriminator for deciding the specific types in the polymorphic chain of types. </summary>
         internal string ObjectType { get; set; }
+        /// <summary> ResourceGuardOperationRequests on which LAC check will be performed. </summary>
+        public IList<string> ResourceGuardOperationRequests { get; }
     }
 }
