@@ -9,7 +9,7 @@ csharp: true
 library-name: HybridConnectivity
 namespace: Azure.ResourceManager.HybridConnectivity
 # default tag is a preview version
-require: https://github.com/Azure/azure-rest-api-specs/blob/3c162c839b8fe17544d9a3be8383a835dd42eb28/specification/hybridconnectivity/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/hybridconnectivity/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
