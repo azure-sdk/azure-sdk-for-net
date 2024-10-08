@@ -52,6 +52,11 @@ namespace Azure.ResourceManager.ContainerService
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
+            if (options.Format != "W" && Optional.IsDefined(ETag))
+            {
+                writer.WritePropertyName("eTag"u8);
+                writer.WriteStringValue(ETag.Value.ToString());
+            }
             if (Optional.IsDefined(Count))
             {
                 writer.WritePropertyName("count"u8);
@@ -289,6 +294,16 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("networkProfile"u8);
                 writer.WriteObjectValue(NetworkProfile, options);
             }
+            if (Optional.IsDefined(WindowsProfile))
+            {
+                writer.WritePropertyName("windowsProfile"u8);
+                writer.WriteObjectValue(WindowsProfile, options);
+            }
+            if (Optional.IsDefined(SecurityProfile))
+            {
+                writer.WritePropertyName("securityProfile"u8);
+                writer.WriteObjectValue(SecurityProfile, options);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -332,6 +347,7 @@ namespace Azure.ResourceManager.ContainerService
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
+            ETag? etag = default;
             int? count = default;
             string vmSize = default;
             int? osDiskSizeGB = default;
@@ -375,6 +391,8 @@ namespace Azure.ResourceManager.ContainerService
             ResourceIdentifier capacityReservationGroupId = default;
             ResourceIdentifier hostGroupId = default;
             AgentPoolNetworkProfile networkProfile = default;
+            AgentPoolWindowsProfile windowsProfile = default;
+            AgentPoolSecurityProfile securityProfile = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -412,6 +430,15 @@ namespace Azure.ResourceManager.ContainerService
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
+                        if (property0.NameEquals("eTag"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            etag = new ETag(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("count"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -799,6 +826,24 @@ namespace Azure.ResourceManager.ContainerService
                             networkProfile = AgentPoolNetworkProfile.DeserializeAgentPoolNetworkProfile(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("windowsProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            windowsProfile = AgentPoolWindowsProfile.DeserializeAgentPoolWindowsProfile(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("securityProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            securityProfile = AgentPoolSecurityProfile.DeserializeAgentPoolSecurityProfile(property0.Value, options);
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -813,6 +858,7 @@ namespace Azure.ResourceManager.ContainerService
                 name,
                 type,
                 systemData,
+                etag,
                 count,
                 vmSize,
                 osDiskSizeGB,
@@ -856,6 +902,8 @@ namespace Azure.ResourceManager.ContainerService
                 capacityReservationGroupId,
                 hostGroupId,
                 networkProfile,
+                windowsProfile,
+                securityProfile,
                 serializedAdditionalRawData);
         }
 
@@ -925,6 +973,21 @@ namespace Azure.ResourceManager.ContainerService
 
             builder.Append("  properties:");
             builder.AppendLine(" {");
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ETag), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    eTag: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(ETag))
+                {
+                    builder.Append("    eTag: ");
+                    builder.AppendLine($"'{ETag.Value.ToString()}'");
+                }
+            }
+
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Count), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -1708,6 +1771,41 @@ namespace Azure.ResourceManager.ContainerService
                 {
                     builder.Append("    networkProfile: ");
                     BicepSerializationHelpers.AppendChildObject(builder, NetworkProfile, options, 4, false, "    networkProfile: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue("DisableOutboundNat", out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    windowsProfile: ");
+                builder.AppendLine("{");
+                builder.AppendLine("      windowsProfile: {");
+                builder.Append("        disableOutboundNat: ");
+                builder.AppendLine(propertyOverride);
+                builder.AppendLine("      }");
+                builder.AppendLine("    }");
+            }
+            else
+            {
+                if (Optional.IsDefined(WindowsProfile))
+                {
+                    builder.Append("    windowsProfile: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, WindowsProfile, options, 4, false, "    windowsProfile: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(SecurityProfile), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    securityProfile: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(SecurityProfile))
+                {
+                    builder.Append("    securityProfile: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, SecurityProfile, options, 4, false, "    securityProfile: ");
                 }
             }
 
