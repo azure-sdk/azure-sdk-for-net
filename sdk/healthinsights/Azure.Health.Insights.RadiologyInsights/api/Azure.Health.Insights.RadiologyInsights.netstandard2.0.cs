@@ -958,10 +958,11 @@ namespace Azure.Health.Insights.RadiologyInsights
     }
     public partial class RadiologyInsightsClientOptions : Azure.Core.ClientOptions
     {
-        public RadiologyInsightsClientOptions(Azure.Health.Insights.RadiologyInsights.RadiologyInsightsClientOptions.ServiceVersion version = Azure.Health.Insights.RadiologyInsights.RadiologyInsightsClientOptions.ServiceVersion.V2024_04_01) { }
+        public RadiologyInsightsClientOptions(Azure.Health.Insights.RadiologyInsights.RadiologyInsightsClientOptions.ServiceVersion version = Azure.Health.Insights.RadiologyInsights.RadiologyInsightsClientOptions.ServiceVersion.V2024_08_01_Preview) { }
         public enum ServiceVersion
         {
             V2024_04_01 = 1,
+            V2024_08_01_Preview = 2,
         }
     }
     public partial class RadiologyInsightsData : System.ClientModel.Primitives.IJsonModel<Azure.Health.Insights.RadiologyInsights.RadiologyInsightsData>, System.ClientModel.Primitives.IPersistableModel<Azure.Health.Insights.RadiologyInsights.RadiologyInsightsData>
