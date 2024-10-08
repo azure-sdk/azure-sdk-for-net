@@ -53,14 +53,16 @@ namespace Azure.ResourceManager.Quota.Models
         /// <summary> Initializes a new instance of <see cref="GroupQuotaRequestBase"/>. </summary>
         /// <param name="limit"> The new quota limit for the subscription. The incremental quota will be allocated from pre-approved group quota. </param>
         /// <param name="region"> Location/Azure region for the quota requested for resource. </param>
+        /// <param name="resourceName"> The resource name, such as SKU name. </param>
         /// <param name="comments"> GroupQuota Request comments and details for request. This is optional paramter to provide more details related to the requested resource. </param>
         /// <param name="value"> Resource name. </param>
         /// <param name="localizedValue"> Resource display name. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal GroupQuotaRequestBase(long? limit, string region, string comments, string value, string localizedValue, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal GroupQuotaRequestBase(long? limit, string region, string resourceName, string comments, string value, string localizedValue, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Limit = limit;
             Region = region;
+            ResourceName = resourceName;
             Comments = comments;
             Value = value;
             LocalizedValue = localizedValue;
@@ -73,6 +75,9 @@ namespace Azure.ResourceManager.Quota.Models
         /// <summary> Location/Azure region for the quota requested for resource. </summary>
         [WirePath("properties.region")]
         public string Region { get; set; }
+        /// <summary> The resource name, such as SKU name. </summary>
+        [WirePath("properties.resourceName")]
+        public string ResourceName { get; set; }
         /// <summary> GroupQuota Request comments and details for request. This is optional paramter to provide more details related to the requested resource. </summary>
         [WirePath("properties.comments")]
         public string Comments { get; set; }

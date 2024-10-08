@@ -140,8 +140,7 @@ namespace Azure.ResourceManager.Quota.Samples
 
             // invoke the operation
             string resourceProviderName = "Microsoft.Compute";
-            string resourceName = "standardav2family";
-            ArmOperation<GroupQuotaRequestStatusResource> lro = await groupQuotaEntity.CreateOrUpdateGroupQuotaLimitsRequestAsync(WaitUntil.Completed, resourceProviderName, resourceName);
+            ArmOperation<GroupQuotaRequestStatusResource> lro = await groupQuotaEntity.CreateOrUpdateGroupQuotaLimitsRequestAsync(WaitUntil.Completed, resourceProviderName);
             GroupQuotaRequestStatusResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well
@@ -173,8 +172,7 @@ namespace Azure.ResourceManager.Quota.Samples
 
             // invoke the operation
             string resourceProviderName = "Microsoft.Compute";
-            string resourceName = "standardav2family";
-            ArmOperation<GroupQuotaRequestStatusResource> lro = await groupQuotaEntity.UpdateGroupQuotaLimitsRequestAsync(WaitUntil.Completed, resourceProviderName, resourceName);
+            ArmOperation<GroupQuotaRequestStatusResource> lro = await groupQuotaEntity.UpdateGroupQuotaLimitsRequestAsync(WaitUntil.Completed, resourceProviderName);
             GroupQuotaRequestStatusResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well

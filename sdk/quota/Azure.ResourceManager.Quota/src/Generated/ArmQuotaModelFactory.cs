@@ -212,15 +212,17 @@ namespace Azure.ResourceManager.Quota.Models
         /// <summary> Initializes a new instance of <see cref="Models.GroupQuotaRequestBase"/>. </summary>
         /// <param name="limit"> The new quota limit for the subscription. The incremental quota will be allocated from pre-approved group quota. </param>
         /// <param name="region"> Location/Azure region for the quota requested for resource. </param>
+        /// <param name="resourceName"> The resource name, such as SKU name. </param>
         /// <param name="comments"> GroupQuota Request comments and details for request. This is optional paramter to provide more details related to the requested resource. </param>
         /// <param name="value"> Resource name. </param>
         /// <param name="localizedValue"> Resource display name. </param>
         /// <returns> A new <see cref="Models.GroupQuotaRequestBase"/> instance for mocking. </returns>
-        public static GroupQuotaRequestBase GroupQuotaRequestBase(long? limit = null, string region = null, string comments = null, string value = null, string localizedValue = null)
+        public static GroupQuotaRequestBase GroupQuotaRequestBase(long? limit = null, string region = null, string resourceName = null, string comments = null, string value = null, string localizedValue = null)
         {
             return new GroupQuotaRequestBase(
                 limit,
                 region,
+                resourceName,
                 comments,
                 value,
                 localizedValue,
@@ -290,12 +292,19 @@ namespace Azure.ResourceManager.Quota.Models
         /// <summary> Initializes a new instance of <see cref="Models.QuotaAllocationRequestBase"/>. </summary>
         /// <param name="limit"> The new quota limit for the subscription. The incremental quota will be allocated from pre-approved group quota. </param>
         /// <param name="region"> The location for which the subscription is allocated. </param>
+        /// <param name="resourceName"> The resource name, such as SKU name. </param>
         /// <param name="value"> Resource name. </param>
         /// <param name="localizedValue"> Resource display name. </param>
         /// <returns> A new <see cref="Models.QuotaAllocationRequestBase"/> instance for mocking. </returns>
-        public static QuotaAllocationRequestBase QuotaAllocationRequestBase(long? limit = null, string region = null, string value = null, string localizedValue = null)
+        public static QuotaAllocationRequestBase QuotaAllocationRequestBase(long? limit = null, string region = null, string resourceName = null, string value = null, string localizedValue = null)
         {
-            return new QuotaAllocationRequestBase(limit, region, value, localizedValue, serializedAdditionalRawData: null);
+            return new QuotaAllocationRequestBase(
+                limit,
+                region,
+                resourceName,
+                value,
+                localizedValue,
+                serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.GroupQuotaResourceUsages"/>. </summary>
