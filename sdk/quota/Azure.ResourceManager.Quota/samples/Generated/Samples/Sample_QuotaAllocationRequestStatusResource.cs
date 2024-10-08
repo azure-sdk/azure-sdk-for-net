@@ -107,16 +107,16 @@ namespace Azure.ResourceManager.Quota.Samples
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string groupQuotaName = "groupquota1";
             string resourceProviderName = "Microsoft.Compute";
-            string resourceName = "standardav2family";
             QuotaAllocationRequestStatusData data = new QuotaAllocationRequestStatusData()
             {
                 RequestedResource = new QuotaAllocationRequestBase()
                 {
                     Limit = 10,
                     Region = "westus",
+                    ResourceName = "standardav2family",
                 },
             };
-            ArmOperation<QuotaAllocationRequestStatusResource> lro = await managementGroupResource.CreateOrUpdateGroupQuotaSubscriptionAllocationRequestAsync(WaitUntil.Completed, subscriptionId, groupQuotaName, resourceProviderName, resourceName, data);
+            ArmOperation<QuotaAllocationRequestStatusResource> lro = await managementGroupResource.CreateOrUpdateGroupQuotaSubscriptionAllocationRequestAsync(WaitUntil.Completed, subscriptionId, groupQuotaName, resourceProviderName, data);
             QuotaAllocationRequestStatusResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well
@@ -149,16 +149,16 @@ namespace Azure.ResourceManager.Quota.Samples
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string groupQuotaName = "groupquota1";
             string resourceProviderName = "Microsoft.Compute";
-            string resourceName = "standardav2family";
             QuotaAllocationRequestStatusData data = new QuotaAllocationRequestStatusData()
             {
                 RequestedResource = new QuotaAllocationRequestBase()
                 {
                     Limit = 10,
                     Region = "westus",
+                    ResourceName = "standardav2family",
                 },
             };
-            ArmOperation<QuotaAllocationRequestStatusResource> lro = await managementGroupResource.UpdateGroupQuotaSubscriptionAllocationRequestAsync(WaitUntil.Completed, subscriptionId, groupQuotaName, resourceProviderName, resourceName, data);
+            ArmOperation<QuotaAllocationRequestStatusResource> lro = await managementGroupResource.UpdateGroupQuotaSubscriptionAllocationRequestAsync(WaitUntil.Completed, subscriptionId, groupQuotaName, resourceProviderName, data);
             QuotaAllocationRequestStatusResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well

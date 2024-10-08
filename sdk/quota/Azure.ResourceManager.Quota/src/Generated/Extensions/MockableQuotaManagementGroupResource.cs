@@ -373,7 +373,7 @@ namespace Azure.ResourceManager.Quota.Mocking
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/quotaAllocationRequests/{resourceName}</description>
+        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/createAllocationRequest</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -393,25 +393,23 @@ namespace Azure.ResourceManager.Quota.Mocking
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
         /// <param name="resourceProviderName"> The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource provider supports this API. </param>
-        /// <param name="resourceName"> Resource name. </param>
         /// <param name="data"> Quota requests payload. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/>, <paramref name="resourceProviderName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/>, <paramref name="resourceProviderName"/>, <paramref name="resourceName"/> or <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<QuotaAllocationRequestStatusResource>> CreateOrUpdateGroupQuotaSubscriptionAllocationRequestAsync(WaitUntil waitUntil, string subscriptionId, string groupQuotaName, string resourceProviderName, string resourceName, QuotaAllocationRequestStatusData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/> or <paramref name="resourceProviderName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/>, <paramref name="resourceProviderName"/> or <paramref name="data"/> is null. </exception>
+        public virtual async Task<ArmOperation<QuotaAllocationRequestStatusResource>> CreateOrUpdateGroupQuotaSubscriptionAllocationRequestAsync(WaitUntil waitUntil, string subscriptionId, string groupQuotaName, string resourceProviderName, QuotaAllocationRequestStatusData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(groupQuotaName, nameof(groupQuotaName));
             Argument.AssertNotNullOrEmpty(resourceProviderName, nameof(resourceProviderName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
             Argument.AssertNotNull(data, nameof(data));
 
             using var scope = QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestClientDiagnostics.CreateScope("MockableQuotaManagementGroupResource.CreateOrUpdateGroupQuotaSubscriptionAllocationRequest");
             scope.Start();
             try
             {
-                var response = await QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.CreateOrUpdateAsync(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, resourceName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new QuotaArmOperation<QuotaAllocationRequestStatusResource>(new QuotaAllocationRequestStatusOperationSource(Client), QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestClientDiagnostics, Pipeline, QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.CreateCreateOrUpdateRequest(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, resourceName, data).Request, response, OperationFinalStateVia.Location);
+                var response = await QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.CreateOrUpdateAsync(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, data, cancellationToken).ConfigureAwait(false);
+                var operation = new QuotaArmOperation<QuotaAllocationRequestStatusResource>(new QuotaAllocationRequestStatusOperationSource(Client), QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestClientDiagnostics, Pipeline, QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.CreateCreateOrUpdateRequest(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -428,7 +426,7 @@ namespace Azure.ResourceManager.Quota.Mocking
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/quotaAllocationRequests/{resourceName}</description>
+        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/createAllocationRequest</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -448,25 +446,23 @@ namespace Azure.ResourceManager.Quota.Mocking
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
         /// <param name="resourceProviderName"> The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource provider supports this API. </param>
-        /// <param name="resourceName"> Resource name. </param>
         /// <param name="data"> Quota requests payload. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/>, <paramref name="resourceProviderName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/>, <paramref name="resourceProviderName"/>, <paramref name="resourceName"/> or <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<QuotaAllocationRequestStatusResource> CreateOrUpdateGroupQuotaSubscriptionAllocationRequest(WaitUntil waitUntil, string subscriptionId, string groupQuotaName, string resourceProviderName, string resourceName, QuotaAllocationRequestStatusData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/> or <paramref name="resourceProviderName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/>, <paramref name="resourceProviderName"/> or <paramref name="data"/> is null. </exception>
+        public virtual ArmOperation<QuotaAllocationRequestStatusResource> CreateOrUpdateGroupQuotaSubscriptionAllocationRequest(WaitUntil waitUntil, string subscriptionId, string groupQuotaName, string resourceProviderName, QuotaAllocationRequestStatusData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(groupQuotaName, nameof(groupQuotaName));
             Argument.AssertNotNullOrEmpty(resourceProviderName, nameof(resourceProviderName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
             Argument.AssertNotNull(data, nameof(data));
 
             using var scope = QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestClientDiagnostics.CreateScope("MockableQuotaManagementGroupResource.CreateOrUpdateGroupQuotaSubscriptionAllocationRequest");
             scope.Start();
             try
             {
-                var response = QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.CreateOrUpdate(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, resourceName, data, cancellationToken);
-                var operation = new QuotaArmOperation<QuotaAllocationRequestStatusResource>(new QuotaAllocationRequestStatusOperationSource(Client), QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestClientDiagnostics, Pipeline, QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.CreateCreateOrUpdateRequest(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, resourceName, data).Request, response, OperationFinalStateVia.Location);
+                var response = QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.CreateOrUpdate(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, data, cancellationToken);
+                var operation = new QuotaArmOperation<QuotaAllocationRequestStatusResource>(new QuotaAllocationRequestStatusOperationSource(Client), QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestClientDiagnostics, Pipeline, QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.CreateCreateOrUpdateRequest(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -483,7 +479,7 @@ namespace Azure.ResourceManager.Quota.Mocking
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/quotaAllocationRequests/{resourceName}</description>
+        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/createAllocationRequest</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -503,25 +499,23 @@ namespace Azure.ResourceManager.Quota.Mocking
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
         /// <param name="resourceProviderName"> The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource provider supports this API. </param>
-        /// <param name="resourceName"> Resource name. </param>
         /// <param name="data"> Quota requests payload. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/>, <paramref name="resourceProviderName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/>, <paramref name="resourceProviderName"/>, <paramref name="resourceName"/> or <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<QuotaAllocationRequestStatusResource>> UpdateGroupQuotaSubscriptionAllocationRequestAsync(WaitUntil waitUntil, string subscriptionId, string groupQuotaName, string resourceProviderName, string resourceName, QuotaAllocationRequestStatusData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/> or <paramref name="resourceProviderName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/>, <paramref name="resourceProviderName"/> or <paramref name="data"/> is null. </exception>
+        public virtual async Task<ArmOperation<QuotaAllocationRequestStatusResource>> UpdateGroupQuotaSubscriptionAllocationRequestAsync(WaitUntil waitUntil, string subscriptionId, string groupQuotaName, string resourceProviderName, QuotaAllocationRequestStatusData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(groupQuotaName, nameof(groupQuotaName));
             Argument.AssertNotNullOrEmpty(resourceProviderName, nameof(resourceProviderName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
             Argument.AssertNotNull(data, nameof(data));
 
             using var scope = QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestClientDiagnostics.CreateScope("MockableQuotaManagementGroupResource.UpdateGroupQuotaSubscriptionAllocationRequest");
             scope.Start();
             try
             {
-                var response = await QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.UpdateAsync(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, resourceName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new QuotaArmOperation<QuotaAllocationRequestStatusResource>(new QuotaAllocationRequestStatusOperationSource(Client), QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestClientDiagnostics, Pipeline, QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.CreateUpdateRequest(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, resourceName, data).Request, response, OperationFinalStateVia.Location);
+                var response = await QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.UpdateAsync(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, data, cancellationToken).ConfigureAwait(false);
+                var operation = new QuotaArmOperation<QuotaAllocationRequestStatusResource>(new QuotaAllocationRequestStatusOperationSource(Client), QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestClientDiagnostics, Pipeline, QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.CreateUpdateRequest(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -538,7 +532,7 @@ namespace Azure.ResourceManager.Quota.Mocking
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/quotaAllocationRequests/{resourceName}</description>
+        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/createAllocationRequest</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -558,25 +552,23 @@ namespace Azure.ResourceManager.Quota.Mocking
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
         /// <param name="resourceProviderName"> The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource provider supports this API. </param>
-        /// <param name="resourceName"> Resource name. </param>
         /// <param name="data"> Quota requests payload. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/>, <paramref name="resourceProviderName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/>, <paramref name="resourceProviderName"/>, <paramref name="resourceName"/> or <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<QuotaAllocationRequestStatusResource> UpdateGroupQuotaSubscriptionAllocationRequest(WaitUntil waitUntil, string subscriptionId, string groupQuotaName, string resourceProviderName, string resourceName, QuotaAllocationRequestStatusData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/> or <paramref name="resourceProviderName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="groupQuotaName"/>, <paramref name="resourceProviderName"/> or <paramref name="data"/> is null. </exception>
+        public virtual ArmOperation<QuotaAllocationRequestStatusResource> UpdateGroupQuotaSubscriptionAllocationRequest(WaitUntil waitUntil, string subscriptionId, string groupQuotaName, string resourceProviderName, QuotaAllocationRequestStatusData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(groupQuotaName, nameof(groupQuotaName));
             Argument.AssertNotNullOrEmpty(resourceProviderName, nameof(resourceProviderName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
             Argument.AssertNotNull(data, nameof(data));
 
             using var scope = QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestClientDiagnostics.CreateScope("MockableQuotaManagementGroupResource.UpdateGroupQuotaSubscriptionAllocationRequest");
             scope.Start();
             try
             {
-                var response = QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.Update(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, resourceName, data, cancellationToken);
-                var operation = new QuotaArmOperation<QuotaAllocationRequestStatusResource>(new QuotaAllocationRequestStatusOperationSource(Client), QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestClientDiagnostics, Pipeline, QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.CreateUpdateRequest(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, resourceName, data).Request, response, OperationFinalStateVia.Location);
+                var response = QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.Update(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, data, cancellationToken);
+                var operation = new QuotaArmOperation<QuotaAllocationRequestStatusResource>(new QuotaAllocationRequestStatusOperationSource(Client), QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestClientDiagnostics, Pipeline, QuotaAllocationRequestStatusGroupQuotaSubscriptionAllocationRequestRestClient.CreateUpdateRequest(Id.Name, subscriptionId, groupQuotaName, resourceProviderName, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;

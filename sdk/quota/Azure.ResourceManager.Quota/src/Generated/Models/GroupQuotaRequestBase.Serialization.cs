@@ -47,6 +47,11 @@ namespace Azure.ResourceManager.Quota.Models
                 writer.WritePropertyName("region"u8);
                 writer.WriteStringValue(Region);
             }
+            if (Optional.IsDefined(ResourceName))
+            {
+                writer.WritePropertyName("resourceName"u8);
+                writer.WriteStringValue(ResourceName);
+            }
             if (Optional.IsDefined(Comments))
             {
                 writer.WritePropertyName("comments"u8);
@@ -105,6 +110,7 @@ namespace Azure.ResourceManager.Quota.Models
             }
             long? limit = default;
             string region = default;
+            string resourceName = default;
             string comments = default;
             string value = default;
             string localizedValue = default;
@@ -133,6 +139,11 @@ namespace Azure.ResourceManager.Quota.Models
                         if (property0.NameEquals("region"u8))
                         {
                             region = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("resourceName"u8))
+                        {
+                            resourceName = property0.Value.GetString();
                             continue;
                         }
                         if (property0.NameEquals("comments"u8))
@@ -174,6 +185,7 @@ namespace Azure.ResourceManager.Quota.Models
             return new GroupQuotaRequestBase(
                 limit,
                 region,
+                resourceName,
                 comments,
                 value,
                 localizedValue,
@@ -227,6 +239,29 @@ namespace Azure.ResourceManager.Quota.Models
                     else
                     {
                         builder.AppendLine($"'{Region}'");
+                    }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ResourceName), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    resourceName: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(ResourceName))
+                {
+                    builder.Append("    resourceName: ");
+                    if (ResourceName.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{ResourceName}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{ResourceName}'");
                     }
                 }
             }

@@ -733,7 +733,7 @@ namespace Azure.ResourceManager.Quota
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/groupQuotaRequests/{resourceName}</description>
+        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/createLimitRequest</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -751,22 +751,20 @@ namespace Azure.ResourceManager.Quota
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="resourceProviderName"> The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource provider supports this API. </param>
-        /// <param name="resourceName"> Resource name. </param>
         /// <param name="data"> The GroupQuotaRequest body details for specific resourceProvider/location/resources. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceProviderName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderName"/> or <paramref name="resourceName"/> is null. </exception>
-        public virtual async Task<ArmOperation<GroupQuotaRequestStatusResource>> CreateOrUpdateGroupQuotaLimitsRequestAsync(WaitUntil waitUntil, string resourceProviderName, string resourceName, GroupQuotaRequestStatusData data = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentException"> <paramref name="resourceProviderName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderName"/> is null. </exception>
+        public virtual async Task<ArmOperation<GroupQuotaRequestStatusResource>> CreateOrUpdateGroupQuotaLimitsRequestAsync(WaitUntil waitUntil, string resourceProviderName, GroupQuotaRequestStatusData data = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(resourceProviderName, nameof(resourceProviderName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
 
             using var scope = _groupQuotaRequestStatusGroupQuotaLimitsRequestClientDiagnostics.CreateScope("GroupQuotaEntityResource.CreateOrUpdateGroupQuotaLimitsRequest");
             scope.Start();
             try
             {
-                var response = await _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.CreateOrUpdateAsync(Id.Parent.Name, Id.Name, resourceProviderName, resourceName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new QuotaArmOperation<GroupQuotaRequestStatusResource>(new GroupQuotaRequestStatusOperationSource(Client), _groupQuotaRequestStatusGroupQuotaLimitsRequestClientDiagnostics, Pipeline, _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.CreateCreateOrUpdateRequest(Id.Parent.Name, Id.Name, resourceProviderName, resourceName, data).Request, response, OperationFinalStateVia.Location);
+                var response = await _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.CreateOrUpdateAsync(Id.Parent.Name, Id.Name, resourceProviderName, data, cancellationToken).ConfigureAwait(false);
+                var operation = new QuotaArmOperation<GroupQuotaRequestStatusResource>(new GroupQuotaRequestStatusOperationSource(Client), _groupQuotaRequestStatusGroupQuotaLimitsRequestClientDiagnostics, Pipeline, _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.CreateCreateOrUpdateRequest(Id.Parent.Name, Id.Name, resourceProviderName, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -784,7 +782,7 @@ namespace Azure.ResourceManager.Quota
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/groupQuotaRequests/{resourceName}</description>
+        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/createLimitRequest</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -802,22 +800,20 @@ namespace Azure.ResourceManager.Quota
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="resourceProviderName"> The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource provider supports this API. </param>
-        /// <param name="resourceName"> Resource name. </param>
         /// <param name="data"> The GroupQuotaRequest body details for specific resourceProvider/location/resources. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceProviderName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderName"/> or <paramref name="resourceName"/> is null. </exception>
-        public virtual ArmOperation<GroupQuotaRequestStatusResource> CreateOrUpdateGroupQuotaLimitsRequest(WaitUntil waitUntil, string resourceProviderName, string resourceName, GroupQuotaRequestStatusData data = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentException"> <paramref name="resourceProviderName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderName"/> is null. </exception>
+        public virtual ArmOperation<GroupQuotaRequestStatusResource> CreateOrUpdateGroupQuotaLimitsRequest(WaitUntil waitUntil, string resourceProviderName, GroupQuotaRequestStatusData data = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(resourceProviderName, nameof(resourceProviderName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
 
             using var scope = _groupQuotaRequestStatusGroupQuotaLimitsRequestClientDiagnostics.CreateScope("GroupQuotaEntityResource.CreateOrUpdateGroupQuotaLimitsRequest");
             scope.Start();
             try
             {
-                var response = _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.CreateOrUpdate(Id.Parent.Name, Id.Name, resourceProviderName, resourceName, data, cancellationToken);
-                var operation = new QuotaArmOperation<GroupQuotaRequestStatusResource>(new GroupQuotaRequestStatusOperationSource(Client), _groupQuotaRequestStatusGroupQuotaLimitsRequestClientDiagnostics, Pipeline, _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.CreateCreateOrUpdateRequest(Id.Parent.Name, Id.Name, resourceProviderName, resourceName, data).Request, response, OperationFinalStateVia.Location);
+                var response = _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.CreateOrUpdate(Id.Parent.Name, Id.Name, resourceProviderName, data, cancellationToken);
+                var operation = new QuotaArmOperation<GroupQuotaRequestStatusResource>(new GroupQuotaRequestStatusOperationSource(Client), _groupQuotaRequestStatusGroupQuotaLimitsRequestClientDiagnostics, Pipeline, _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.CreateCreateOrUpdateRequest(Id.Parent.Name, Id.Name, resourceProviderName, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -835,7 +831,7 @@ namespace Azure.ResourceManager.Quota
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/groupQuotaRequests/{resourceName}</description>
+        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/createLimitRequest</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -853,22 +849,20 @@ namespace Azure.ResourceManager.Quota
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="resourceProviderName"> The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource provider supports this API. </param>
-        /// <param name="resourceName"> Resource name. </param>
         /// <param name="data"> The GroupQuotaRequest body details for specific resourceProvider/location/resources. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceProviderName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderName"/> or <paramref name="resourceName"/> is null. </exception>
-        public virtual async Task<ArmOperation<GroupQuotaRequestStatusResource>> UpdateGroupQuotaLimitsRequestAsync(WaitUntil waitUntil, string resourceProviderName, string resourceName, GroupQuotaRequestStatusData data = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentException"> <paramref name="resourceProviderName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderName"/> is null. </exception>
+        public virtual async Task<ArmOperation<GroupQuotaRequestStatusResource>> UpdateGroupQuotaLimitsRequestAsync(WaitUntil waitUntil, string resourceProviderName, GroupQuotaRequestStatusData data = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(resourceProviderName, nameof(resourceProviderName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
 
             using var scope = _groupQuotaRequestStatusGroupQuotaLimitsRequestClientDiagnostics.CreateScope("GroupQuotaEntityResource.UpdateGroupQuotaLimitsRequest");
             scope.Start();
             try
             {
-                var response = await _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.UpdateAsync(Id.Parent.Name, Id.Name, resourceProviderName, resourceName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new QuotaArmOperation<GroupQuotaRequestStatusResource>(new GroupQuotaRequestStatusOperationSource(Client), _groupQuotaRequestStatusGroupQuotaLimitsRequestClientDiagnostics, Pipeline, _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.CreateUpdateRequest(Id.Parent.Name, Id.Name, resourceProviderName, resourceName, data).Request, response, OperationFinalStateVia.Location);
+                var response = await _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.UpdateAsync(Id.Parent.Name, Id.Name, resourceProviderName, data, cancellationToken).ConfigureAwait(false);
+                var operation = new QuotaArmOperation<GroupQuotaRequestStatusResource>(new GroupQuotaRequestStatusOperationSource(Client), _groupQuotaRequestStatusGroupQuotaLimitsRequestClientDiagnostics, Pipeline, _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.CreateUpdateRequest(Id.Parent.Name, Id.Name, resourceProviderName, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -886,7 +880,7 @@ namespace Azure.ResourceManager.Quota
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/groupQuotaRequests/{resourceName}</description>
+        /// <description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/createLimitRequest</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -904,22 +898,20 @@ namespace Azure.ResourceManager.Quota
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="resourceProviderName"> The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource provider supports this API. </param>
-        /// <param name="resourceName"> Resource name. </param>
         /// <param name="data"> The GroupQuotaRequest body details for specific resourceProvider/location/resources. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceProviderName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderName"/> or <paramref name="resourceName"/> is null. </exception>
-        public virtual ArmOperation<GroupQuotaRequestStatusResource> UpdateGroupQuotaLimitsRequest(WaitUntil waitUntil, string resourceProviderName, string resourceName, GroupQuotaRequestStatusData data = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentException"> <paramref name="resourceProviderName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderName"/> is null. </exception>
+        public virtual ArmOperation<GroupQuotaRequestStatusResource> UpdateGroupQuotaLimitsRequest(WaitUntil waitUntil, string resourceProviderName, GroupQuotaRequestStatusData data = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(resourceProviderName, nameof(resourceProviderName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
 
             using var scope = _groupQuotaRequestStatusGroupQuotaLimitsRequestClientDiagnostics.CreateScope("GroupQuotaEntityResource.UpdateGroupQuotaLimitsRequest");
             scope.Start();
             try
             {
-                var response = _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.Update(Id.Parent.Name, Id.Name, resourceProviderName, resourceName, data, cancellationToken);
-                var operation = new QuotaArmOperation<GroupQuotaRequestStatusResource>(new GroupQuotaRequestStatusOperationSource(Client), _groupQuotaRequestStatusGroupQuotaLimitsRequestClientDiagnostics, Pipeline, _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.CreateUpdateRequest(Id.Parent.Name, Id.Name, resourceProviderName, resourceName, data).Request, response, OperationFinalStateVia.Location);
+                var response = _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.Update(Id.Parent.Name, Id.Name, resourceProviderName, data, cancellationToken);
+                var operation = new QuotaArmOperation<GroupQuotaRequestStatusResource>(new GroupQuotaRequestStatusOperationSource(Client), _groupQuotaRequestStatusGroupQuotaLimitsRequestClientDiagnostics, Pipeline, _groupQuotaRequestStatusGroupQuotaLimitsRequestRestClient.CreateUpdateRequest(Id.Parent.Name, Id.Name, resourceProviderName, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;

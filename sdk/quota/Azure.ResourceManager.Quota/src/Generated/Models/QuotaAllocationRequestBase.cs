@@ -53,13 +53,15 @@ namespace Azure.ResourceManager.Quota.Models
         /// <summary> Initializes a new instance of <see cref="QuotaAllocationRequestBase"/>. </summary>
         /// <param name="limit"> The new quota limit for the subscription. The incremental quota will be allocated from pre-approved group quota. </param>
         /// <param name="region"> The location for which the subscription is allocated. </param>
+        /// <param name="resourceName"> The resource name, such as SKU name. </param>
         /// <param name="value"> Resource name. </param>
         /// <param name="localizedValue"> Resource display name. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal QuotaAllocationRequestBase(long? limit, string region, string value, string localizedValue, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal QuotaAllocationRequestBase(long? limit, string region, string resourceName, string value, string localizedValue, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Limit = limit;
             Region = region;
+            ResourceName = resourceName;
             Value = value;
             LocalizedValue = localizedValue;
             _serializedAdditionalRawData = serializedAdditionalRawData;
@@ -71,6 +73,9 @@ namespace Azure.ResourceManager.Quota.Models
         /// <summary> The location for which the subscription is allocated. </summary>
         [WirePath("properties.region")]
         public string Region { get; set; }
+        /// <summary> The resource name, such as SKU name. </summary>
+        [WirePath("properties.resourceName")]
+        public string ResourceName { get; set; }
         /// <summary> Resource name. </summary>
         [WirePath("properties.value")]
         public string Value { get; }
