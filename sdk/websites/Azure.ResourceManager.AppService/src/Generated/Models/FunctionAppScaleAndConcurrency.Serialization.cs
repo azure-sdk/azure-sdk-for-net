@@ -92,8 +92,8 @@ namespace Azure.ResourceManager.AppService.Models
                 return null;
             }
             IList<FunctionAppAlwaysReadyConfig> alwaysReady = default;
-            float? maximumInstanceCount = default;
-            float? instanceMemoryMB = default;
+            int? maximumInstanceCount = default;
+            int? instanceMemoryMB = default;
             FunctionsScaleAndConcurrencyTriggers triggers = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -119,7 +119,7 @@ namespace Azure.ResourceManager.AppService.Models
                     {
                         continue;
                     }
-                    maximumInstanceCount = property.Value.GetSingle();
+                    maximumInstanceCount = property.Value.GetInt32();
                     continue;
                 }
                 if (property.NameEquals("instanceMemoryMB"u8))
@@ -128,7 +128,7 @@ namespace Azure.ResourceManager.AppService.Models
                     {
                         continue;
                     }
-                    instanceMemoryMB = property.Value.GetSingle();
+                    instanceMemoryMB = property.Value.GetInt32();
                     continue;
                 }
                 if (property.NameEquals("triggers"u8))
@@ -194,7 +194,7 @@ namespace Azure.ResourceManager.AppService.Models
                 if (Optional.IsDefined(MaximumInstanceCount))
                 {
                     builder.Append("  maximumInstanceCount: ");
-                    builder.AppendLine($"'{MaximumInstanceCount.Value.ToString()}'");
+                    builder.AppendLine($"{MaximumInstanceCount.Value}");
                 }
             }
 
@@ -209,7 +209,7 @@ namespace Azure.ResourceManager.AppService.Models
                 if (Optional.IsDefined(InstanceMemoryMB))
                 {
                     builder.Append("  instanceMemoryMB: ");
-                    builder.AppendLine($"'{InstanceMemoryMB.Value.ToString()}'");
+                    builder.AppendLine($"{InstanceMemoryMB.Value}");
                 }
             }
 
