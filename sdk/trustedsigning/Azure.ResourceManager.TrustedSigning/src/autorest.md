@@ -7,7 +7,7 @@ azure-arm: true
 csharp: true
 library-name: TrustedSigning
 namespace: Azure.ResourceManager.TrustedSigning
-require: https://github.com/Azure/azure-rest-api-specs/blob/42e63ea88548151222ce3efa1bfce02d879fad6b/specification/codesigning/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/bf769c40da6f81caee348c6bfcb4eae2331b3296/specification/codesigning/resource-manager/readme.md
 #tag: package-2024-02-05-preview
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
