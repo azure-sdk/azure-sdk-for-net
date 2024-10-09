@@ -307,5 +307,95 @@ Values =
 
             Console.WriteLine($"Succeeded: {result}");
         }
+
+        // Query latest component policy compliance state count grouped by component type at resource group scope filtered by given assignment.
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetQueryResultsForResourceGroupComponentPolicyStates_QueryLatestComponentPolicyComplianceStateCountGroupedByComponentTypeAtResourceGroupScopeFilteredByGivenAssignment()
+        {
+            // Generated from example definition: specification/policyinsights/resource-manager/Microsoft.PolicyInsights/stable/2022-04-01/examples/ComponentPolicyStates_QueryResourceGroupScopeGroupByComponentTypeWithAggregate.json
+            // this example is just showing the usage of "ComponentPolicyStates_ListQueryResultsForResourceGroup" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "fffedd8f-ffff-fffd-fffd-fffed2f84852";
+            string resourceGroupName = "myResourceGroup";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation and iterate over the result
+            ResourceGroupResourceGetQueryResultsForResourceGroupComponentPolicyStatesOptions options = new ResourceGroupResourceGetQueryResultsForResourceGroupComponentPolicyStatesOptions(componentPolicyStatesResource: ComponentPolicyStatesResource.Latest) { Filter = "policyAssignmentId eq '/subscriptions/fffedd8f-ffff-fffd-fffd-fffed2f84852/providers/microsoft.authorization/policyassignments/560050f83dbb4a24974323f8'", Apply = "groupby((type,complianceState),aggregate($count as count))" };
+            await foreach (ComponentPolicyState item in resourceGroupResource.GetQueryResultsForResourceGroupComponentPolicyStatesAsync(options))
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // Query latest component policy states at resource group scope
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetQueryResultsForResourceGroupComponentPolicyStates_QueryLatestComponentPolicyStatesAtResourceGroupScope()
+        {
+            // Generated from example definition: specification/policyinsights/resource-manager/Microsoft.PolicyInsights/stable/2022-04-01/examples/ComponentPolicyStates_QueryResourceGroupScope.json
+            // this example is just showing the usage of "ComponentPolicyStates_ListQueryResultsForResourceGroup" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "fffedd8f-ffff-fffd-fffd-fffed2f84852";
+            string resourceGroupName = "myResourceGroup";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation and iterate over the result
+            ResourceGroupResourceGetQueryResultsForResourceGroupComponentPolicyStatesOptions options = new ResourceGroupResourceGetQueryResultsForResourceGroupComponentPolicyStatesOptions(componentPolicyStatesResource: ComponentPolicyStatesResource.Latest) { };
+            await foreach (ComponentPolicyState item in resourceGroupResource.GetQueryResultsForResourceGroupComponentPolicyStatesAsync(options))
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // Query latest at resource group level policy assignment scope
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetQueryResultsForResourceGroupLevelPolicyAssignmentComponentPolicyStates_QueryLatestAtResourceGroupLevelPolicyAssignmentScope()
+        {
+            // Generated from example definition: specification/policyinsights/resource-manager/Microsoft.PolicyInsights/stable/2022-04-01/examples/ComponentPolicyStates_QueryResourceGroupLevelPolicyAssignmentScope.json
+            // this example is just showing the usage of "ComponentPolicyStates_ListQueryResultsForResourceGroupLevelPolicyAssignment" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "fffedd8f-ffff-fffd-fffd-fffed2f84852";
+            string resourceGroupName = "myResourceGroup";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation and iterate over the result
+            ResourceGroupResourceGetQueryResultsForResourceGroupLevelPolicyAssignmentComponentPolicyStatesOptions options = new ResourceGroupResourceGetQueryResultsForResourceGroupLevelPolicyAssignmentComponentPolicyStatesOptions(policyAssignmentName: "myPolicyAssignment", componentPolicyStatesResource: ComponentPolicyStatesResource.Latest) { };
+            await foreach (ComponentPolicyState item in resourceGroupResource.GetQueryResultsForResourceGroupLevelPolicyAssignmentComponentPolicyStatesAsync(options))
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
     }
 }

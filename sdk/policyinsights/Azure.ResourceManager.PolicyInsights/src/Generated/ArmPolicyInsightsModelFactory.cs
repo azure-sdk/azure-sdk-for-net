@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.PolicyInsights.Models
         /// <param name="policyAssignmentId"> The resource ID of the policy assignment that should be remediated. </param>
         /// <param name="policyDefinitionReferenceId"> The policy definition reference ID of the individual definition that should be remediated. Required when the policy assignment being remediated assigns a policy set definition. </param>
         /// <param name="resourceDiscoveryMode"> The way resources to remediate are discovered. Defaults to ExistingNonCompliant if not specified. </param>
-        /// <param name="provisioningState"> The status of the remediation. </param>
+        /// <param name="provisioningState"> The status of the remediation. This refers to the entire remediation task, not individual deployments. Allowed values are Evaluating, Canceled, Cancelling, Failed, Complete, or Succeeded. </param>
         /// <param name="createdOn"> The time at which the remediation was created. </param>
         /// <param name="lastUpdatedOn"> The time at which the remediation was last updated. </param>
         /// <param name="filterLocations"> The filters that will be applied to determine which resources to remediate. </param>
@@ -630,6 +630,115 @@ namespace Azure.ResourceManager.PolicyInsights.Models
         public static PolicyEvaluationResult PolicyEvaluationResult(PolicyReference policyInfo = null, string evaluationResult = null, PolicyEvaluationDetails evaluationDetails = null)
         {
             return new PolicyEvaluationResult(policyInfo, evaluationResult, evaluationDetails, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ComponentPolicyState"/>. </summary>
+        /// <param name="odataId"> OData entity ID; always set to null since component policy state records do not have an entity ID. </param>
+        /// <param name="odataContext"> OData context string; used by OData clients to resolve type information based on metadata. </param>
+        /// <param name="timestamp"> Timestamp for the component policy state record. </param>
+        /// <param name="componentId"> Component Id. </param>
+        /// <param name="componentType"> Component type. </param>
+        /// <param name="componentName"> Component name. </param>
+        /// <param name="resourceId"> Resource ID. </param>
+        /// <param name="policyAssignmentId"> Policy assignment ID. </param>
+        /// <param name="policyDefinitionId"> Policy definition ID. </param>
+        /// <param name="subscriptionId"> Subscription ID. </param>
+        /// <param name="resourceType"> Resource type. </param>
+        /// <param name="resourceLocation"> Resource location. </param>
+        /// <param name="resourceGroup"> Resource group name. </param>
+        /// <param name="policyAssignmentName"> Policy assignment name. </param>
+        /// <param name="policyAssignmentOwner"> Policy assignment owner. </param>
+        /// <param name="policyAssignmentParameters"> Policy assignment parameters. </param>
+        /// <param name="policyAssignmentScope"> Policy assignment scope. </param>
+        /// <param name="policyDefinitionName"> Policy definition name. </param>
+        /// <param name="policyDefinitionAction"> Policy definition action, i.e. effect. </param>
+        /// <param name="policyDefinitionCategory"> Policy definition category. </param>
+        /// <param name="policySetDefinitionId"> Policy set definition ID, if the policy assignment is for a policy set. </param>
+        /// <param name="policySetDefinitionName"> Policy set definition name, if the policy assignment is for a policy set. </param>
+        /// <param name="policySetDefinitionOwner"> Policy set definition owner, if the policy assignment is for a policy set. </param>
+        /// <param name="policySetDefinitionCategory"> Policy set definition category, if the policy assignment is for a policy set. </param>
+        /// <param name="policySetDefinitionParameters"> Policy set definition parameters, if the policy assignment is for a policy set. </param>
+        /// <param name="policyDefinitionReferenceId"> Reference ID for the policy definition inside the policy set, if the policy assignment is for a policy set. </param>
+        /// <param name="complianceState"> Compliance state of the resource. </param>
+        /// <param name="policyEvaluationDetails"> Policy evaluation details. This is only included in the response if the request contains $expand=PolicyEvaluationDetails. </param>
+        /// <param name="policyDefinitionGroupNames"> Policy definition group names. </param>
+        /// <param name="policyDefinitionVersion"> Evaluated policy definition version. </param>
+        /// <param name="policySetDefinitionVersion"> Evaluated policy set definition version. </param>
+        /// <param name="policyAssignmentVersion"> Evaluated policy assignment version. </param>
+        /// <param name="additionalProperties"> Additional Properties. </param>
+        /// <returns> A new <see cref="Models.ComponentPolicyState"/> instance for mocking. </returns>
+        public static ComponentPolicyState ComponentPolicyState(string odataId = null, string odataContext = null, DateTimeOffset? timestamp = null, string componentId = null, string componentType = null, string componentName = null, string resourceId = null, string policyAssignmentId = null, string policyDefinitionId = null, string subscriptionId = null, string resourceType = null, string resourceLocation = null, string resourceGroup = null, string policyAssignmentName = null, string policyAssignmentOwner = null, string policyAssignmentParameters = null, string policyAssignmentScope = null, string policyDefinitionName = null, string policyDefinitionAction = null, string policyDefinitionCategory = null, string policySetDefinitionId = null, string policySetDefinitionName = null, string policySetDefinitionOwner = null, string policySetDefinitionCategory = null, string policySetDefinitionParameters = null, string policyDefinitionReferenceId = null, string complianceState = null, ComponentPolicyEvaluationDetails policyEvaluationDetails = null, IEnumerable<string> policyDefinitionGroupNames = null, string policyDefinitionVersion = null, string policySetDefinitionVersion = null, string policyAssignmentVersion = null, IReadOnlyDictionary<string, BinaryData> additionalProperties = null)
+        {
+            policyDefinitionGroupNames ??= new List<string>();
+            additionalProperties ??= new Dictionary<string, BinaryData>();
+
+            return new ComponentPolicyState(
+                odataId,
+                odataContext,
+                timestamp,
+                componentId,
+                componentType,
+                componentName,
+                resourceId,
+                policyAssignmentId,
+                policyDefinitionId,
+                subscriptionId,
+                resourceType,
+                resourceLocation,
+                resourceGroup,
+                policyAssignmentName,
+                policyAssignmentOwner,
+                policyAssignmentParameters,
+                policyAssignmentScope,
+                policyDefinitionName,
+                policyDefinitionAction,
+                policyDefinitionCategory,
+                policySetDefinitionId,
+                policySetDefinitionName,
+                policySetDefinitionOwner,
+                policySetDefinitionCategory,
+                policySetDefinitionParameters,
+                policyDefinitionReferenceId,
+                complianceState,
+                policyEvaluationDetails,
+                policyDefinitionGroupNames?.ToList(),
+                policyDefinitionVersion,
+                policySetDefinitionVersion,
+                policyAssignmentVersion,
+                additionalProperties);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ComponentPolicyEvaluationDetails"/>. </summary>
+        /// <param name="evaluatedExpressions"> Details of the evaluated expressions. </param>
+        /// <param name="reason"> Additional textual reason for the evaluation outcome. </param>
+        /// <returns> A new <see cref="Models.ComponentPolicyEvaluationDetails"/> instance for mocking. </returns>
+        public static ComponentPolicyEvaluationDetails ComponentPolicyEvaluationDetails(IEnumerable<ComponentExpressionEvaluationDetails> evaluatedExpressions = null, string reason = null)
+        {
+            evaluatedExpressions ??= new List<ComponentExpressionEvaluationDetails>();
+
+            return new ComponentPolicyEvaluationDetails(evaluatedExpressions?.ToList(), reason, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ComponentExpressionEvaluationDetails"/>. </summary>
+        /// <param name="result"> Evaluation result. </param>
+        /// <param name="expression"> Expression evaluated. </param>
+        /// <param name="expressionKind"> The kind of expression that was evaluated. </param>
+        /// <param name="path"> Property path if the expression is a field or an alias. </param>
+        /// <param name="expressionValue"> Value of the expression. </param>
+        /// <param name="targetValue"> Target value to be compared with the expression value. </param>
+        /// <param name="operator"> Operator to compare the expression value and the target value. </param>
+        /// <returns> A new <see cref="Models.ComponentExpressionEvaluationDetails"/> instance for mocking. </returns>
+        public static ComponentExpressionEvaluationDetails ComponentExpressionEvaluationDetails(string result = null, string expression = null, string expressionKind = null, string path = null, BinaryData expressionValue = null, BinaryData targetValue = null, string @operator = null)
+        {
+            return new ComponentExpressionEvaluationDetails(
+                result,
+                expression,
+                expressionKind,
+                path,
+                expressionValue,
+                targetValue,
+                @operator,
+                serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="PolicyInsights.PolicyAttestationData"/>. </summary>
