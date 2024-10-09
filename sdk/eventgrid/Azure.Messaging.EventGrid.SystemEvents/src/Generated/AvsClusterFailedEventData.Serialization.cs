@@ -31,11 +31,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("failureMessage"u8);
                 writer.WriteStringValue(FailureMessage);
             }
-            if (Optional.IsDefined(OperationId))
-            {
-                writer.WritePropertyName("operationId"u8);
-                writer.WriteStringValue(OperationId);
-            }
+            writer.WritePropertyName("operationId"u8);
+            writer.WriteStringValue(OperationId);
             if (Optional.IsCollectionDefined(AddedHostNames))
             {
                 writer.WritePropertyName("addedHostNames"u8);

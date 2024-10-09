@@ -47,18 +47,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MediaJobError"/>. </summary>
-        /// <param name="code"> Error code describing the error. </param>
-        /// <param name="category"> Helps with categorization of errors. </param>
-        /// <param name="retry"> Indicates that it may be possible to retry the Job. If retry is unsuccessful, please contact Azure support via Azure Portal. </param>
         /// <param name="details"> An array of details about specific errors that led to this reported error. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="details"/> is null. </exception>
-        internal MediaJobError(MediaJobErrorCode code, MediaJobErrorCategory category, MediaJobRetry retry, IEnumerable<MediaJobErrorDetail> details)
+        internal MediaJobError(IEnumerable<MediaJobErrorDetail> details)
         {
             Argument.AssertNotNull(details, nameof(details));
 
-            Code = code;
-            Category = category;
-            Retry = retry;
             Details = details.ToList();
         }
 
@@ -69,7 +63,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="retry"> Indicates that it may be possible to retry the Job. If retry is unsuccessful, please contact Azure support via Azure Portal. </param>
         /// <param name="details"> An array of details about specific errors that led to this reported error. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MediaJobError(MediaJobErrorCode code, string message, MediaJobErrorCategory category, MediaJobRetry retry, IReadOnlyList<MediaJobErrorDetail> details, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal MediaJobError(MediaJobErrorCode? code, string message, MediaJobErrorCategory? category, MediaJobRetry? retry, IReadOnlyList<MediaJobErrorDetail> details, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Code = code;
             Message = message;
@@ -85,13 +79,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         }
 
         /// <summary> Error code describing the error. </summary>
-        public MediaJobErrorCode Code { get; }
+        public MediaJobErrorCode? Code { get; }
         /// <summary> A human-readable language-dependent representation of the error. </summary>
         public string Message { get; }
         /// <summary> Helps with categorization of errors. </summary>
-        public MediaJobErrorCategory Category { get; }
+        public MediaJobErrorCategory? Category { get; }
         /// <summary> Indicates that it may be possible to retry the Job. If retry is unsuccessful, please contact Azure support via Azure Portal. </summary>
-        public MediaJobRetry Retry { get; }
+        public MediaJobRetry? Retry { get; }
         /// <summary> An array of details about specific errors that led to this reported error. </summary>
         public IReadOnlyList<MediaJobErrorDetail> Details { get; }
     }
