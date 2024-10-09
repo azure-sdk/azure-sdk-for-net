@@ -26,15 +26,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(SerialNumber))
+            writer.WritePropertyName("serialNumber"u8);
+            writer.WriteStringValue(SerialNumber);
+            if (Optional.IsDefined(StageName))
             {
-                writer.WritePropertyName("serialNumber"u8);
-                writer.WriteStringValue(SerialNumber);
+                writer.WritePropertyName("stageName"u8);
+                writer.WriteStringValue(StageName.Value.ToString());
             }
-            writer.WritePropertyName("stageName"u8);
-            writer.WriteStringValue(StageName.ToString());
-            writer.WritePropertyName("stageTime"u8);
-            writer.WriteStringValue(StageTime, "O");
+            if (Optional.IsDefined(StageTime))
+            {
+                writer.WritePropertyName("stageTime"u8);
+                writer.WriteStringValue(StageTime.Value, "O");
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -74,8 +77,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             string serialNumber = default;
-            DataBoxStageName stageName = default;
-            DateTimeOffset stageTime = default;
+            DataBoxStageName? stageName = default;
+            DateTimeOffset? stageTime = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -87,11 +90,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("stageName"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     stageName = new DataBoxStageName(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("stageTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     stageTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
     /// <summary> Schema of the Data property of an EventGridEvent for MQTT Client state changes. </summary>
-    public partial class EventGridMQTTClientEventData
+    public partial class EventGridMqttClientEventData
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,12 +45,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </summary>
         private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="EventGridMQTTClientEventData"/>. </summary>
-        internal EventGridMQTTClientEventData()
+        /// <summary> Initializes a new instance of <see cref="EventGridMqttClientEventData"/>. </summary>
+        internal EventGridMqttClientEventData()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="EventGridMQTTClientEventData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="EventGridMqttClientEventData"/>. </summary>
         /// <param name="clientAuthenticationName">
         /// Unique identifier for the MQTT client that the client presents to the service
         /// for authentication. This case-sensitive string can be up to 128 characters
@@ -59,7 +59,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="clientName"> Name of the client resource in the Event Grid namespace. </param>
         /// <param name="namespaceName"> Name of the Event Grid namespace where the MQTT client was created or updated. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal EventGridMQTTClientEventData(string clientAuthenticationName, string clientName, string namespaceName, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal EventGridMqttClientEventData(string clientAuthenticationName, string clientName, string namespaceName, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ClientAuthenticationName = clientAuthenticationName;
             ClientName = clientName;
