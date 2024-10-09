@@ -28,10 +28,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             writer.WriteStartObject();
             writer.WritePropertyName("deletedByCommunicationIdentifier"u8);
             writer.WriteObjectValue(DeletedByCommunicationIdentifier, options);
-            writer.WritePropertyName("deleteTime"u8);
-            writer.WriteStringValue(DeleteTime, "O");
-            writer.WritePropertyName("createTime"u8);
-            writer.WriteStringValue(CreateTime, "O");
+            if (Optional.IsDefined(DeleteTime))
+            {
+                writer.WritePropertyName("deleteTime"u8);
+                writer.WriteStringValue(DeleteTime.Value, "O");
+            }
+            if (Optional.IsDefined(CreateTime))
+            {
+                writer.WritePropertyName("createTime"u8);
+                writer.WriteStringValue(CreateTime.Value, "O");
+            }
             if (Optional.IsDefined(Version))
             {
                 writer.WritePropertyName("version"u8);
@@ -88,8 +94,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             CommunicationIdentifierModel deletedByCommunicationIdentifier = default;
-            DateTimeOffset deleteTime = default;
-            DateTimeOffset createTime = default;
+            DateTimeOffset? deleteTime = default;
+            DateTimeOffset? createTime = default;
             long? version = default;
             CommunicationIdentifierModel recipientCommunicationIdentifier = default;
             string transactionId = default;
@@ -105,11 +111,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("deleteTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     deleteTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
                 if (property.NameEquals("createTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     createTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }

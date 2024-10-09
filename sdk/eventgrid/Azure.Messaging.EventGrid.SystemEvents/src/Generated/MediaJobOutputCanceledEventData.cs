@@ -17,7 +17,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class MediaJobOutputCanceledEventData : MediaJobOutputStateChangeEventData
     {
         /// <summary> Initializes a new instance of <see cref="MediaJobOutputCanceledEventData"/>. </summary>
-        /// <param name="previousState"> The previous state of the Job. </param>
         /// <param name="output">
         /// Gets the output.
         /// Please note <see cref="MediaJobOutput"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
@@ -25,7 +24,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </param>
         /// <param name="jobCorrelationData"> Gets the Job correlation data. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="output"/> or <paramref name="jobCorrelationData"/> is null. </exception>
-        internal MediaJobOutputCanceledEventData(MediaJobState previousState, MediaJobOutput output, IReadOnlyDictionary<string, string> jobCorrelationData) : base(previousState, output, jobCorrelationData)
+        internal MediaJobOutputCanceledEventData(MediaJobOutput output, IReadOnlyDictionary<string, string> jobCorrelationData) : base(output, jobCorrelationData)
         {
             Argument.AssertNotNull(output, nameof(output));
             Argument.AssertNotNull(jobCorrelationData, nameof(jobCorrelationData));
@@ -40,7 +39,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </param>
         /// <param name="jobCorrelationData"> Gets the Job correlation data. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MediaJobOutputCanceledEventData(MediaJobState previousState, MediaJobOutput output, IReadOnlyDictionary<string, string> jobCorrelationData, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(previousState, output, jobCorrelationData, serializedAdditionalRawData)
+        internal MediaJobOutputCanceledEventData(MediaJobState? previousState, MediaJobOutput output, IReadOnlyDictionary<string, string> jobCorrelationData, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(previousState, output, jobCorrelationData, serializedAdditionalRawData)
         {
         }
 

@@ -47,6 +47,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("incomingCallContext"u8);
                 writer.WriteStringValue(IncomingCallContext);
             }
+            if (Optional.IsDefined(OnBehalfOfCallee))
+            {
+                writer.WritePropertyName("onBehalfOfCallee"u8);
+                writer.WriteObjectValue(OnBehalfOfCallee, options);
+            }
             if (Optional.IsDefined(CorrelationId))
             {
                 writer.WritePropertyName("correlationId"u8);
@@ -96,6 +101,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             string callerDisplayName = default;
             AcsIncomingCallCustomContext customContext = default;
             string incomingCallContext = default;
+            CommunicationIdentifierModel onBehalfOfCallee = default;
             string correlationId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -131,6 +137,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     incomingCallContext = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("onBehalfOfCallee"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    onBehalfOfCallee = CommunicationIdentifierModel.DeserializeCommunicationIdentifierModel(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("correlationId"u8))
                 {
                     correlationId = property.Value.GetString();
@@ -149,6 +164,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 callerDisplayName,
                 customContext,
                 incomingCallContext,
+                onBehalfOfCallee,
                 correlationId,
                 serializedAdditionalRawData);
         }

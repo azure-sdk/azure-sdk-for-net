@@ -52,15 +52,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> Initializes a new instance of <see cref="MediaJobOutput"/>. </summary>
         /// <param name="error"> Gets the Job output error. </param>
         /// <param name="progress"> Gets the Job output progress. </param>
-        /// <param name="state"> Gets the Job output state. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="error"/> is null. </exception>
-        protected MediaJobOutput(MediaJobError error, long progress, MediaJobState state)
+        protected MediaJobOutput(MediaJobError error, long progress)
         {
             Argument.AssertNotNull(error, nameof(error));
 
             Error = error;
             Progress = progress;
-            State = state;
         }
 
         /// <summary> Initializes a new instance of <see cref="MediaJobOutput"/>. </summary>
@@ -70,7 +68,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="progress"> Gets the Job output progress. </param>
         /// <param name="state"> Gets the Job output state. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MediaJobOutput(string odataType, MediaJobError error, string label, long progress, MediaJobState state, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal MediaJobOutput(string odataType, MediaJobError error, string label, long progress, MediaJobState? state, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             OdataType = odataType;
             Error = error;
@@ -94,6 +92,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> Gets the Job output progress. </summary>
         public long Progress { get; }
         /// <summary> Gets the Job output state. </summary>
-        public MediaJobState State { get; }
+        public MediaJobState? State { get; }
     }
 }

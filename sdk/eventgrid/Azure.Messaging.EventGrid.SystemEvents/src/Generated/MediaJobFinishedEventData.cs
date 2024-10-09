@@ -18,8 +18,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class MediaJobFinishedEventData : MediaJobStateChangeEventData
     {
         /// <summary> Initializes a new instance of <see cref="MediaJobFinishedEventData"/>. </summary>
-        /// <param name="previousState"> The previous state of the Job. </param>
-        /// <param name="state"> The new state of the Job. </param>
         /// <param name="correlationData"> Gets the Job correlation data. </param>
         /// <param name="outputs">
         /// Gets the Job outputs.
@@ -27,7 +25,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// The available derived classes include <see cref="MediaJobOutputAsset"/>.
         /// </param>
         /// <exception cref="ArgumentNullException"> <paramref name="correlationData"/> or <paramref name="outputs"/> is null. </exception>
-        internal MediaJobFinishedEventData(MediaJobState previousState, MediaJobState state, IReadOnlyDictionary<string, string> correlationData, IEnumerable<MediaJobOutput> outputs) : base(previousState, state, correlationData)
+        internal MediaJobFinishedEventData(IReadOnlyDictionary<string, string> correlationData, IEnumerable<MediaJobOutput> outputs) : base(correlationData)
         {
             Argument.AssertNotNull(correlationData, nameof(correlationData));
             Argument.AssertNotNull(outputs, nameof(outputs));
@@ -45,7 +43,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// Please note <see cref="MediaJobOutput"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="MediaJobOutputAsset"/>.
         /// </param>
-        internal MediaJobFinishedEventData(MediaJobState previousState, MediaJobState state, IReadOnlyDictionary<string, string> correlationData, IDictionary<string, BinaryData> serializedAdditionalRawData, IReadOnlyList<MediaJobOutput> outputs) : base(previousState, state, correlationData, serializedAdditionalRawData)
+        internal MediaJobFinishedEventData(MediaJobState? previousState, MediaJobState? state, IReadOnlyDictionary<string, string> correlationData, IDictionary<string, BinaryData> serializedAdditionalRawData, IReadOnlyList<MediaJobOutput> outputs) : base(previousState, state, correlationData, serializedAdditionalRawData)
         {
             Outputs = outputs;
         }
