@@ -31,8 +31,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("message"u8);
                 writer.WriteStringValue(Message);
             }
-            writer.WritePropertyName("receivedTimestamp"u8);
-            writer.WriteStringValue(ReceivedTimestamp, "O");
+            if (Optional.IsDefined(ReceivedTimestamp))
+            {
+                writer.WritePropertyName("receivedTimestamp"u8);
+                writer.WriteStringValue(ReceivedTimestamp.Value, "O");
+            }
             if (Optional.IsDefined(MessageId))
             {
                 writer.WritePropertyName("messageId"u8);
@@ -87,7 +90,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             string message = default;
-            DateTimeOffset receivedTimestamp = default;
+            DateTimeOffset? receivedTimestamp = default;
             string messageId = default;
             string @from = default;
             string to = default;
@@ -102,6 +105,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("receivedTimestamp"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     receivedTimestamp = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
