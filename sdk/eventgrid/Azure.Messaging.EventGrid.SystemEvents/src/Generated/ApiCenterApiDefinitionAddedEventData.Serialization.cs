@@ -26,11 +26,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Title))
-            {
-                writer.WritePropertyName("title"u8);
-                writer.WriteStringValue(Title);
-            }
+            writer.WritePropertyName("title"u8);
+            writer.WriteStringValue(Title);
             if (Optional.IsDefined(Description))
             {
                 writer.WritePropertyName("description"u8);
