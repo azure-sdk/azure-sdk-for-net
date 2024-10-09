@@ -49,16 +49,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MediaJobStateChangeEventData"/>. </summary>
-        /// <param name="previousState"> The previous state of the Job. </param>
-        /// <param name="state"> The new state of the Job. </param>
         /// <param name="correlationData"> Gets the Job correlation data. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="correlationData"/> is null. </exception>
-        internal MediaJobStateChangeEventData(MediaJobState previousState, MediaJobState state, IReadOnlyDictionary<string, string> correlationData)
+        internal MediaJobStateChangeEventData(IReadOnlyDictionary<string, string> correlationData)
         {
             Argument.AssertNotNull(correlationData, nameof(correlationData));
 
-            PreviousState = previousState;
-            State = state;
             CorrelationData = correlationData;
         }
 
@@ -67,7 +63,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="state"> The new state of the Job. </param>
         /// <param name="correlationData"> Gets the Job correlation data. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MediaJobStateChangeEventData(MediaJobState previousState, MediaJobState state, IReadOnlyDictionary<string, string> correlationData, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal MediaJobStateChangeEventData(MediaJobState? previousState, MediaJobState? state, IReadOnlyDictionary<string, string> correlationData, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             PreviousState = previousState;
             State = state;
@@ -81,9 +77,9 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         }
 
         /// <summary> The previous state of the Job. </summary>
-        public MediaJobState PreviousState { get; }
+        public MediaJobState? PreviousState { get; }
         /// <summary> The new state of the Job. </summary>
-        public MediaJobState State { get; }
+        public MediaJobState? State { get; }
         /// <summary> Gets the Job correlation data. </summary>
         public IReadOnlyDictionary<string, string> CorrelationData { get; }
     }
