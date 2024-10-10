@@ -26,21 +26,23 @@ namespace Azure.ResourceManager.Compute.Models
             Name = name;
             Location = location;
             Tags = new ChangeTrackingDictionary<string, string>();
+            AdditionalProperties = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="VirtualMachineImageBase"/>. </summary>
         /// <param name="id"> Resource Id. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="name"> The name of the resource. </param>
         /// <param name="location"> The supported Azure location of the resource. </param>
         /// <param name="tags"> Specifies the tags that are assigned to the virtual machine. For more information about using tags, see [Using tags to organize your Azure resources](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-using-tags.md). </param>
         /// <param name="extendedLocation"> The extended location of the Virtual Machine. </param>
-        internal VirtualMachineImageBase(ResourceIdentifier id, IDictionary<string, BinaryData> serializedAdditionalRawData, string name, AzureLocation location, IDictionary<string, string> tags, ExtendedLocation extendedLocation) : base(id, serializedAdditionalRawData)
+        /// <param name="additionalProperties"> Additional Properties. </param>
+        internal VirtualMachineImageBase(ResourceIdentifier id, string name, AzureLocation location, IDictionary<string, string> tags, ExtendedLocation extendedLocation, IDictionary<string, string> additionalProperties) : base(id, null)
         {
             Name = name;
             Location = location;
             Tags = tags;
             ExtendedLocation = extendedLocation;
+            AdditionalProperties = additionalProperties;
         }
 
         /// <summary> Initializes a new instance of <see cref="VirtualMachineImageBase"/> for deserialization. </summary>
@@ -56,5 +58,7 @@ namespace Azure.ResourceManager.Compute.Models
         public IDictionary<string, string> Tags { get; }
         /// <summary> The extended location of the Virtual Machine. </summary>
         public ExtendedLocation ExtendedLocation { get; set; }
+        /// <summary> Additional Properties. </summary>
+        public IDictionary<string, string> AdditionalProperties { get; }
     }
 }
