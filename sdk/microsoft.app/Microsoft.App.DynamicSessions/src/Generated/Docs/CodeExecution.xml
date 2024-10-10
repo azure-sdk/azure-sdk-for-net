@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetResultAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetResultAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new DynamicSessionsClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2024-10-02-preview");
+
+Response<SessionCodeExecutionResponse> response = await client.GetResultAsync("testexecutionid", "testidentidier");
+]]></code></example>
+    </member>
+    <member name="GetResult(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetResult.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new DynamicSessionsClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2024-10-02-preview");
+
+Response<SessionCodeExecutionResponse> response = client.GetResult("testexecutionid", "testidentidier");
+]]></code></example>
+    </member>
+    <member name="GetResultAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetResultAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new DynamicSessionsClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2024-10-02-preview");
+
+Response response = await client.GetResultAsync("testexecutionid", "testidentidier", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("executionTimeInMilliseconds").ToString());
+]]></code></example>
+    </member>
+    <member name="GetResult(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetResult and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new DynamicSessionsClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2024-10-02-preview");
+
+Response response = client.GetResult("testexecutionid", "testidentidier", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("executionTimeInMilliseconds").ToString());
+]]></code></example>
+    </member>
+    <member name="ExecuteCodeAsync(WaitUntil,string,SessionCodeExecutionRequest,string,CancellationToken)">
+      <example>
+This sample shows how to call ExecuteCodeAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new DynamicSessionsClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2024-10-02-preview");
+
+SessionCodeExecutionRequest codeExecutionRequest = new SessionCodeExecutionRequest(CodeInputType.Inline, ExecutionType.Asynchronous, "print(7*9)", 60L);
+Operation operation = await client.ExecuteCodeAsync(WaitUntil.Completed, "testidentidier", codeExecutionRequest);
+]]></code>
+This sample shows how to call ExecuteCodeAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new DynamicSessionsClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2024-10-02-preview");
+
+SessionCodeExecutionRequest codeExecutionRequest = new SessionCodeExecutionRequest(CodeInputType.Inline, ExecutionType.Synchronous, "print(7*9)", 60L);
+Operation operation = await client.ExecuteCodeAsync(WaitUntil.Completed, "testidentidier", codeExecutionRequest);
+]]></code></example>
+    </member>
+    <member name="ExecuteCode(WaitUntil,string,SessionCodeExecutionRequest,string,CancellationToken)">
+      <example>
+This sample shows how to call ExecuteCode.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new DynamicSessionsClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2024-10-02-preview");
+
+SessionCodeExecutionRequest codeExecutionRequest = new SessionCodeExecutionRequest(CodeInputType.Inline, ExecutionType.Asynchronous, "print(7*9)", 60L);
+Operation operation = client.ExecuteCode(WaitUntil.Completed, "testidentidier", codeExecutionRequest);
+]]></code>
+This sample shows how to call ExecuteCode.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new DynamicSessionsClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2024-10-02-preview");
+
+SessionCodeExecutionRequest codeExecutionRequest = new SessionCodeExecutionRequest(CodeInputType.Inline, ExecutionType.Synchronous, "print(7*9)", 60L);
+Operation operation = client.ExecuteCode(WaitUntil.Completed, "testidentidier", codeExecutionRequest);
+]]></code></example>
+    </member>
+    <member name="ExecuteCodeAsync(WaitUntil,string,RequestContent,string,RequestContext)">
+      <example>
+This sample shows how to call ExecuteCodeAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new DynamicSessionsClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2024-10-02-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    codeInputType = "Inline",
+    executionType = "Asynchronous",
+    code = "print(7*9)",
+    timeoutInSeconds = 60L,
+});
+Operation operation = await client.ExecuteCodeAsync(WaitUntil.Completed, "testidentidier", content);
+]]></code>
+This sample shows how to call ExecuteCodeAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new DynamicSessionsClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2024-10-02-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    codeInputType = "Inline",
+    executionType = "Synchronous",
+    code = "print(7*9)",
+    timeoutInSeconds = 60L,
+});
+Operation operation = await client.ExecuteCodeAsync(WaitUntil.Completed, "testidentidier", content);
+]]></code></example>
+    </member>
+    <member name="ExecuteCode(WaitUntil,string,RequestContent,string,RequestContext)">
+      <example>
+This sample shows how to call ExecuteCode.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new DynamicSessionsClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2024-10-02-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    codeInputType = "Inline",
+    executionType = "Asynchronous",
+    code = "print(7*9)",
+    timeoutInSeconds = 60L,
+});
+Operation operation = client.ExecuteCode(WaitUntil.Completed, "testidentidier", content);
+]]></code>
+This sample shows how to call ExecuteCode.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+CodeExecution client = new DynamicSessionsClient(endpoint, credential).GetCodeExecutionClient(apiVersion: "2024-10-02-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    codeInputType = "Inline",
+    executionType = "Synchronous",
+    code = "print(7*9)",
+    timeoutInSeconds = 60L,
+});
+Operation operation = client.ExecuteCode(WaitUntil.Completed, "testidentidier", content);
+]]></code></example>
+    </member>
+  </members>
+</doc>
