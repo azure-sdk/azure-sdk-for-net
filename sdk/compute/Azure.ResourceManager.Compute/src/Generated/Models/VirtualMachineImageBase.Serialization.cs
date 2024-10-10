@@ -52,6 +52,11 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("id"u8);
                 writer.WriteStringValue(Id);
             }
+            foreach (var item in AdditionalProperties)
+            {
+                writer.WritePropertyName(item.Key);
+                writer.WriteStringValue(item.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -95,7 +100,9 @@ namespace Azure.ResourceManager.Compute.Models
             IDictionary<string, string> tags = default;
             ExtendedLocation extendedLocation = default;
             ResourceIdentifier id = default;
+            IDictionary<string, string> additionalProperties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
+            Dictionary<string, string> additionalPropertiesDictionary = new Dictionary<string, string>();
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
@@ -141,19 +148,25 @@ namespace Azure.ResourceManager.Compute.Models
                     id = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }
+                if (property.Value.ValueKind == JsonValueKind.String || property.Value.ValueKind == JsonValueKind.Null)
+                {
+                    additionalPropertiesDictionary.Add(property.Name, property.Value.GetString());
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
+            additionalProperties = additionalPropertiesDictionary;
             serializedAdditionalRawData = rawDataDictionary;
             return new VirtualMachineImageBase(
                 id,
-                serializedAdditionalRawData,
                 name,
                 location,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
-                extendedLocation);
+                extendedLocation,
+                additionalProperties);
         }
 
         BinaryData IPersistableModel<VirtualMachineImageBase>.Write(ModelReaderWriterOptions options)
