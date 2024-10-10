@@ -1,0 +1,2829 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetProjectAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetProjectAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetProjectResponse> response = await client.GetProjectAsync("LoanAgreements");
+]]></code></example>
+    </member>
+    <member name="GetProject(string,CancellationToken)">
+      <example>
+This sample shows how to call GetProject.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetProjectResponse> response = client.GetProject("LoanAgreements");
+]]></code></example>
+    </member>
+    <member name="GetProjectAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetProjectAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetProjectAsync("LoanAgreements", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("projectKind").ToString());
+Console.WriteLine(result.GetProperty("storageInputContainerName").ToString());
+Console.WriteLine(result.GetProperty("language").ToString());
+]]></code></example>
+    </member>
+    <member name="GetProject(string,RequestContext)">
+      <example>
+This sample shows how to call GetProject and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetProject("LoanAgreements", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("projectKind").ToString());
+Console.WriteLine(result.GetProperty("storageInputContainerName").ToString());
+Console.WriteLine(result.GetProperty("language").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateProjectAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateProjectAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    projectName = "LoanAgreements",
+    language = "en",
+    projectKind = "CustomEntityRecognition",
+    description = "This is a sample dataset provided by the Azure Language service team to help users get started with [Custom named entity recognition](https://aka.ms/ct-docs). The provided sample dataset contains 20 loan agreements drawn up between two entities.",
+    multilingual = false,
+    storageInputContainerName = "loanagreements",
+});
+Response response = await client.CreateProjectAsync("LoanAgreements", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("projectKind").ToString());
+Console.WriteLine(result.GetProperty("storageInputContainerName").ToString());
+Console.WriteLine(result.GetProperty("language").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateProject(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateProject and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    projectName = "LoanAgreements",
+    language = "en",
+    projectKind = "CustomEntityRecognition",
+    description = "This is a sample dataset provided by the Azure Language service team to help users get started with [Custom named entity recognition](https://aka.ms/ct-docs). The provided sample dataset contains 20 loan agreements drawn up between two entities.",
+    multilingual = false,
+    storageInputContainerName = "loanagreements",
+});
+Response response = client.CreateProject("LoanAgreements", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("projectKind").ToString());
+Console.WriteLine(result.GetProperty("storageInputContainerName").ToString());
+Console.WriteLine(result.GetProperty("language").ToString());
+]]></code></example>
+    </member>
+    <member name="CopyProjectAuthorizationAsync(string,ProjectKind,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call CopyProjectAuthorizationAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<CopyProjectOptions> response = await client.CopyProjectAuthorizationAsync("LoanAgreements", ProjectKind.CustomEntityRecognition);
+]]></code></example>
+    </member>
+    <member name="CopyProjectAuthorization(string,ProjectKind,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call CopyProjectAuthorization.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<CopyProjectOptions> response = client.CopyProjectAuthorization("LoanAgreements", ProjectKind.CustomEntityRecognition);
+]]></code></example>
+    </member>
+    <member name="CopyProjectAuthorizationAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CopyProjectAuthorizationAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    projectKind = "CustomEntityRecognition",
+    storageInputContainerName = "loanagreements",
+    allowOverwrite = false,
+});
+Response response = await client.CopyProjectAuthorizationAsync("LoanAgreements", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("projectKind").ToString());
+Console.WriteLine(result.GetProperty("targetProjectName").ToString());
+Console.WriteLine(result.GetProperty("accessToken").ToString());
+Console.WriteLine(result.GetProperty("expiresAt").ToString());
+Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceRegion").ToString());
+]]></code></example>
+    </member>
+    <member name="CopyProjectAuthorization(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CopyProjectAuthorization and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    projectKind = "CustomEntityRecognition",
+    storageInputContainerName = "loanagreements",
+    allowOverwrite = false,
+});
+Response response = client.CopyProjectAuthorization("LoanAgreements", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("projectKind").ToString());
+Console.WriteLine(result.GetProperty("targetProjectName").ToString());
+Console.WriteLine(result.GetProperty("accessToken").ToString());
+Console.WriteLine(result.GetProperty("expiresAt").ToString());
+Console.WriteLine(result.GetProperty("targetResourceId").ToString());
+Console.WriteLine(result.GetProperty("targetResourceRegion").ToString());
+]]></code></example>
+    </member>
+    <member name="GetCopyProjectStatusAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetCopyProjectStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetCopyProjectStatusResponse> response = await client.GetCopyProjectStatusAsync("LoanAgreements", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetCopyProjectStatus(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetCopyProjectStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetCopyProjectStatusResponse> response = client.GetCopyProjectStatus("LoanAgreements", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetCopyProjectStatusAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetCopyProjectStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetCopyProjectStatusAsync("LoanAgreements", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetCopyProjectStatus(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetCopyProjectStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetCopyProjectStatus("LoanAgreements", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDeploymentAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetDeploymentAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetDeploymentResponse> response = await client.GetDeploymentAsync("LoanAgreements", "staging");
+]]></code></example>
+    </member>
+    <member name="GetDeployment(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetDeployment.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetDeploymentResponse> response = client.GetDeployment("LoanAgreements", "staging");
+]]></code></example>
+    </member>
+    <member name="GetDeploymentAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetDeploymentAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetDeploymentAsync("LoanAgreements", "staging", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("modelId").ToString());
+Console.WriteLine(result.GetProperty("lastTrainedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastDeployedDateTime").ToString());
+Console.WriteLine(result.GetProperty("deploymentExpirationDate").ToString());
+Console.WriteLine(result.GetProperty("modelTrainingConfigVersion").ToString());
+Console.WriteLine(result.GetProperty("assignedResources")[0].GetProperty("resourceId").ToString());
+Console.WriteLine(result.GetProperty("assignedResources")[0].GetProperty("region").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDeployment(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetDeployment and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetDeployment("LoanAgreements", "staging", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("modelId").ToString());
+Console.WriteLine(result.GetProperty("lastTrainedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastDeployedDateTime").ToString());
+Console.WriteLine(result.GetProperty("deploymentExpirationDate").ToString());
+Console.WriteLine(result.GetProperty("modelTrainingConfigVersion").ToString());
+Console.WriteLine(result.GetProperty("assignedResources")[0].GetProperty("resourceId").ToString());
+Console.WriteLine(result.GetProperty("assignedResources")[0].GetProperty("region").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDeploymentDeleteFromResourcesStatusAsync(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetDeploymentDeleteFromResourcesStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetDeploymentDeleteFromResourcesStatusResponse> response = await client.GetDeploymentDeleteFromResourcesStatusAsync("LoanAgreements", "production", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetDeploymentDeleteFromResourcesStatus(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetDeploymentDeleteFromResourcesStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetDeploymentDeleteFromResourcesStatusResponse> response = client.GetDeploymentDeleteFromResourcesStatus("LoanAgreements", "production", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetDeploymentDeleteFromResourcesStatusAsync(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetDeploymentDeleteFromResourcesStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetDeploymentDeleteFromResourcesStatusAsync("LoanAgreements", "production", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDeploymentDeleteFromResourcesStatus(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetDeploymentDeleteFromResourcesStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetDeploymentDeleteFromResourcesStatus("LoanAgreements", "production", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDeploymentStatusAsync(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetDeploymentStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetDeploymentStatusResponse> response = await client.GetDeploymentStatusAsync("LoanAgreements", "production", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetDeploymentStatus(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetDeploymentStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetDeploymentStatusResponse> response = client.GetDeploymentStatus("LoanAgreements", "production", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetDeploymentStatusAsync(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetDeploymentStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetDeploymentStatusAsync("LoanAgreements", "production", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDeploymentStatus(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetDeploymentStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetDeploymentStatus("LoanAgreements", "production", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetSwapDeploymentsStatusAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetSwapDeploymentsStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetSwapDeploymentsStatusResponse> response = await client.GetSwapDeploymentsStatusAsync("LoanAgreements", "c36a8775-35b9-4cb5-a8db-665e7d91aafe_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetSwapDeploymentsStatus(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetSwapDeploymentsStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetSwapDeploymentsStatusResponse> response = client.GetSwapDeploymentsStatus("LoanAgreements", "c36a8775-35b9-4cb5-a8db-665e7d91aafe_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetSwapDeploymentsStatusAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetSwapDeploymentsStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetSwapDeploymentsStatusAsync("LoanAgreements", "c36a8775-35b9-4cb5-a8db-665e7d91aafe_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetSwapDeploymentsStatus(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetSwapDeploymentsStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetSwapDeploymentsStatus("LoanAgreements", "c36a8775-35b9-4cb5-a8db-665e7d91aafe_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetExportStatusAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetExportStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetExportStatusResponse> response = await client.GetExportStatusAsync("LoanAgreements", "c95efa2a-44e8-461e-8aa5-04b4677bfa84_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetExportStatus(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetExportStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetExportStatusResponse> response = client.GetExportStatus("LoanAgreements", "c95efa2a-44e8-461e-8aa5-04b4677bfa84_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetExportStatusAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetExportStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetExportStatusAsync("LoanAgreements", "c95efa2a-44e8-461e-8aa5-04b4677bfa84_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetExportStatus(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetExportStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetExportStatus("LoanAgreements", "c95efa2a-44e8-461e-8aa5-04b4677bfa84_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetExportedModelAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetExportedModelAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetExportedModelResponse> response = await client.GetExportedModelAsync("LoanAgreements", "exported-model1");
+]]></code></example>
+    </member>
+    <member name="GetExportedModel(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetExportedModel.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetExportedModelResponse> response = client.GetExportedModel("LoanAgreements", "exported-model1");
+]]></code></example>
+    </member>
+    <member name="GetExportedModelAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetExportedModelAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetExportedModelAsync("LoanAgreements", "exported-model1", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("modelId").ToString());
+Console.WriteLine(result.GetProperty("lastTrainedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastExportedModelDateTime").ToString());
+Console.WriteLine(result.GetProperty("modelExpirationDate").ToString());
+Console.WriteLine(result.GetProperty("modelTrainingConfigVersion").ToString());
+]]></code></example>
+    </member>
+    <member name="GetExportedModel(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetExportedModel and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetExportedModel("LoanAgreements", "exported-model1", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("modelId").ToString());
+Console.WriteLine(result.GetProperty("lastTrainedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastExportedModelDateTime").ToString());
+Console.WriteLine(result.GetProperty("modelExpirationDate").ToString());
+Console.WriteLine(result.GetProperty("modelTrainingConfigVersion").ToString());
+]]></code></example>
+    </member>
+    <member name="GetExportedModelJobStatusAsync(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetExportedModelJobStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetExportedModelJobStatusResponse> response = await client.GetExportedModelJobStatusAsync("LoanAgreements", "exported-model1", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetExportedModelJobStatus(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetExportedModelJobStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetExportedModelJobStatusResponse> response = client.GetExportedModelJobStatus("LoanAgreements", "exported-model1", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetExportedModelJobStatusAsync(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetExportedModelJobStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetExportedModelJobStatusAsync("LoanAgreements", "exported-model1", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetExportedModelJobStatus(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetExportedModelJobStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetExportedModelJobStatus("LoanAgreements", "exported-model1", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetExportedModelManifestAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetExportedModelManifestAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<ExportedModelManifest> response = await client.GetExportedModelManifestAsync("LoanAgreements", "exported-model1");
+]]></code></example>
+    </member>
+    <member name="GetExportedModelManifest(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetExportedModelManifest.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<ExportedModelManifest> response = client.GetExportedModelManifest("LoanAgreements", "exported-model1");
+]]></code></example>
+    </member>
+    <member name="GetExportedModelManifestAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetExportedModelManifestAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetExportedModelManifestAsync("LoanAgreements", "exported-model1", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("modelFiles")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("modelFiles")[0].GetProperty("contentUri").ToString());
+]]></code></example>
+    </member>
+    <member name="GetExportedModelManifest(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetExportedModelManifest and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetExportedModelManifest("LoanAgreements", "exported-model1", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("modelFiles")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("modelFiles")[0].GetProperty("contentUri").ToString());
+]]></code></example>
+    </member>
+    <member name="GetImportStatusAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetImportStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetImportStatusResponse> response = await client.GetImportStatusAsync("LoanAgreements", "c95efa2a-44e8-461e-8aa5-04b4677bfa84_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetImportStatus(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetImportStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetImportStatusResponse> response = client.GetImportStatus("LoanAgreements", "c95efa2a-44e8-461e-8aa5-04b4677bfa84_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetImportStatusAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetImportStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetImportStatusAsync("LoanAgreements", "c95efa2a-44e8-461e-8aa5-04b4677bfa84_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetImportStatus(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetImportStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetImportStatus("LoanAgreements", "c95efa2a-44e8-461e-8aa5-04b4677bfa84_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTrainedModelAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetTrainedModelAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetTrainedModelResponse> response = await client.GetTrainedModelAsync("LoanAgreements", "model1");
+]]></code></example>
+    </member>
+    <member name="GetTrainedModel(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetTrainedModel.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetTrainedModelResponse> response = client.GetTrainedModel("LoanAgreements", "model1");
+]]></code></example>
+    </member>
+    <member name="GetTrainedModelAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetTrainedModelAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetTrainedModelAsync("LoanAgreements", "model1", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("modelId").ToString());
+Console.WriteLine(result.GetProperty("lastTrainedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastTrainingDurationInSeconds").ToString());
+Console.WriteLine(result.GetProperty("modelExpirationDate").ToString());
+Console.WriteLine(result.GetProperty("modelTrainingConfigVersion").ToString());
+Console.WriteLine(result.GetProperty("hasSnapshot").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTrainedModel(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetTrainedModel and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetTrainedModel("LoanAgreements", "model1", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("modelId").ToString());
+Console.WriteLine(result.GetProperty("lastTrainedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastTrainingDurationInSeconds").ToString());
+Console.WriteLine(result.GetProperty("modelExpirationDate").ToString());
+Console.WriteLine(result.GetProperty("modelTrainingConfigVersion").ToString());
+Console.WriteLine(result.GetProperty("hasSnapshot").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteTrainedModelAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteTrainedModelAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.DeleteTrainedModelAsync("LoanAgreements", "model2");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteTrainedModel(string,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteTrainedModel.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.DeleteTrainedModel("LoanAgreements", "model2");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetEvaluationStatusAsync(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetEvaluationStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetEvaluationStatusResponse> response = await client.GetEvaluationStatusAsync("LoanAgreements", "model1", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetEvaluationStatus(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetEvaluationStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetEvaluationStatusResponse> response = client.GetEvaluationStatus("LoanAgreements", "model1", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetEvaluationStatusAsync(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetEvaluationStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetEvaluationStatusAsync("LoanAgreements", "model1", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("evaluationOptions").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("modelLabel").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("trainingConfigVersion").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("percentComplete").ToString());
+]]></code></example>
+    </member>
+    <member name="GetEvaluationStatus(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetEvaluationStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetEvaluationStatus("LoanAgreements", "model1", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("evaluationOptions").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("modelLabel").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("trainingConfigVersion").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("percentComplete").ToString());
+]]></code></example>
+    </member>
+    <member name="GetModelEvaluationSummaryAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetModelEvaluationSummaryAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<EvaluationSummary> response = await client.GetModelEvaluationSummaryAsync("LoanAgreements", "model2");
+]]></code></example>
+    </member>
+    <member name="GetModelEvaluationSummary(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetModelEvaluationSummary.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<EvaluationSummary> response = client.GetModelEvaluationSummary("LoanAgreements", "model2");
+]]></code></example>
+    </member>
+    <member name="GetModelEvaluationSummaryAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetModelEvaluationSummaryAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetModelEvaluationSummaryAsync("LoanAgreements", "model2", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("projectKind").ToString());
+Console.WriteLine(result.GetProperty("evaluationOptions").ToString());
+]]></code></example>
+    </member>
+    <member name="GetModelEvaluationSummary(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetModelEvaluationSummary and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetModelEvaluationSummary("LoanAgreements", "model2", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("projectKind").ToString());
+Console.WriteLine(result.GetProperty("evaluationOptions").ToString());
+]]></code></example>
+    </member>
+    <member name="GetLoadSnapshotStatusAsync(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetLoadSnapshotStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetLoadSnapshotStatusResponse> response = await client.GetLoadSnapshotStatusAsync("LoanAgreements", "model1", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetLoadSnapshotStatus(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetLoadSnapshotStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetLoadSnapshotStatusResponse> response = client.GetLoadSnapshotStatus("LoanAgreements", "model1", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetLoadSnapshotStatusAsync(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetLoadSnapshotStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetLoadSnapshotStatusAsync("LoanAgreements", "model1", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetLoadSnapshotStatus(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetLoadSnapshotStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetLoadSnapshotStatus("LoanAgreements", "model1", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetAssignDeploymentResourcesStatusAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetAssignDeploymentResourcesStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetAssignDeploymentResourcesStatusResponse> response = await client.GetAssignDeploymentResourcesStatusAsync("LoanAgreements", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetAssignDeploymentResourcesStatus(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetAssignDeploymentResourcesStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetAssignDeploymentResourcesStatusResponse> response = client.GetAssignDeploymentResourcesStatus("LoanAgreements", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetAssignDeploymentResourcesStatusAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetAssignDeploymentResourcesStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetAssignDeploymentResourcesStatusAsync("LoanAgreements", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetAssignDeploymentResourcesStatus(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetAssignDeploymentResourcesStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetAssignDeploymentResourcesStatus("LoanAgreements", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetUnassignDeploymentResourcesStatusAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetUnassignDeploymentResourcesStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetUnassignDeploymentResourcesStatusResponse> response = await client.GetUnassignDeploymentResourcesStatusAsync("LoanAgreements", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetUnassignDeploymentResourcesStatus(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetUnassignDeploymentResourcesStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetUnassignDeploymentResourcesStatusResponse> response = client.GetUnassignDeploymentResourcesStatus("LoanAgreements", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetUnassignDeploymentResourcesStatusAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetUnassignDeploymentResourcesStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetUnassignDeploymentResourcesStatusAsync("LoanAgreements", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetUnassignDeploymentResourcesStatus(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetUnassignDeploymentResourcesStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetUnassignDeploymentResourcesStatus("LoanAgreements", "66fa9a67-a561-42f1-8a13-f3a879b1a324_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTrainingStatusAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetTrainingStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetTrainingStatusResponse> response = await client.GetTrainingStatusAsync("LoanAgreements", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetTrainingStatus(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetTrainingStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetTrainingStatusResponse> response = client.GetTrainingStatus("LoanAgreements", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetTrainingStatusAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetTrainingStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetTrainingStatusAsync("LoanAgreements", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("modelLabel").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("trainingConfigVersion").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("trainingStatus").GetProperty("percentComplete").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("trainingStatus").GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTrainingStatus(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetTrainingStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetTrainingStatus("LoanAgreements", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("modelLabel").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("trainingConfigVersion").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("trainingStatus").GetProperty("percentComplete").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("trainingStatus").GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetProjectDeletionStatusAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetProjectDeletionStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetProjectDeletionStatusResponse> response = await client.GetProjectDeletionStatusAsync("129d3182-625d-496c-bcf9-43686e85160b_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetProjectDeletionStatus(string,CancellationToken)">
+      <example>
+This sample shows how to call GetProjectDeletionStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response<GetProjectDeletionStatusResponse> response = client.GetProjectDeletionStatus("129d3182-625d-496c-bcf9-43686e85160b_637858368000000000");
+]]></code></example>
+    </member>
+    <member name="GetProjectDeletionStatusAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetProjectDeletionStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = await client.GetProjectDeletionStatusAsync("129d3182-625d-496c-bcf9-43686e85160b_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetProjectDeletionStatus(string,RequestContext)">
+      <example>
+This sample shows how to call GetProjectDeletionStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Response response = client.GetProjectDeletionStatus("129d3182-625d-496c-bcf9-43686e85160b_637858368000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="GetProjectsAsync(int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetProjectsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (ProjectMetadata item in client.GetProjectsAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetProjects(int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetProjects.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (ProjectMetadata item in client.GetProjects())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetProjectsAsync(int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetProjectsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (BinaryData item in client.GetProjectsAsync(null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("projectKind").ToString());
+    Console.WriteLine(result.GetProperty("storageInputContainerName").ToString());
+    Console.WriteLine(result.GetProperty("projectName").ToString());
+    Console.WriteLine(result.GetProperty("language").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetProjects(int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetProjects and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (BinaryData item in client.GetProjects(null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("projectKind").ToString());
+    Console.WriteLine(result.GetProperty("storageInputContainerName").ToString());
+    Console.WriteLine(result.GetProperty("projectName").ToString());
+    Console.WriteLine(result.GetProperty("language").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetDeploymentsAsync(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetDeploymentsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (ProjectDeployment item in client.GetDeploymentsAsync("LoanAgreements"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetDeployments(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetDeployments.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (ProjectDeployment item in client.GetDeployments("LoanAgreements"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetDeploymentsAsync(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetDeploymentsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (BinaryData item in client.GetDeploymentsAsync("LoanAgreements", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("deploymentName").ToString());
+    Console.WriteLine(result.GetProperty("modelId").ToString());
+    Console.WriteLine(result.GetProperty("lastTrainedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastDeployedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("deploymentExpirationDate").ToString());
+    Console.WriteLine(result.GetProperty("modelTrainingConfigVersion").ToString());
+    Console.WriteLine(result.GetProperty("assignedResources")[0].GetProperty("resourceId").ToString());
+    Console.WriteLine(result.GetProperty("assignedResources")[0].GetProperty("region").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetDeployments(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetDeployments and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (BinaryData item in client.GetDeployments("LoanAgreements", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("deploymentName").ToString());
+    Console.WriteLine(result.GetProperty("modelId").ToString());
+    Console.WriteLine(result.GetProperty("lastTrainedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastDeployedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("deploymentExpirationDate").ToString());
+    Console.WriteLine(result.GetProperty("modelTrainingConfigVersion").ToString());
+    Console.WriteLine(result.GetProperty("assignedResources")[0].GetProperty("resourceId").ToString());
+    Console.WriteLine(result.GetProperty("assignedResources")[0].GetProperty("region").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetExportedModelsAsync(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetExportedModelsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (ExportedTrainedModel item in client.GetExportedModelsAsync("LoanAgreements"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetExportedModels(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetExportedModels.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (ExportedTrainedModel item in client.GetExportedModels("LoanAgreements"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetExportedModelsAsync(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetExportedModelsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (BinaryData item in client.GetExportedModelsAsync("LoanAgreements", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("exportedModelName").ToString());
+    Console.WriteLine(result.GetProperty("modelId").ToString());
+    Console.WriteLine(result.GetProperty("lastTrainedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastExportedModelDateTime").ToString());
+    Console.WriteLine(result.GetProperty("modelExpirationDate").ToString());
+    Console.WriteLine(result.GetProperty("modelTrainingConfigVersion").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetExportedModels(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetExportedModels and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (BinaryData item in client.GetExportedModels("LoanAgreements", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("exportedModelName").ToString());
+    Console.WriteLine(result.GetProperty("modelId").ToString());
+    Console.WriteLine(result.GetProperty("lastTrainedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastExportedModelDateTime").ToString());
+    Console.WriteLine(result.GetProperty("modelExpirationDate").ToString());
+    Console.WriteLine(result.GetProperty("modelTrainingConfigVersion").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetTrainedModelsAsync(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetTrainedModelsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (ProjectTrainedModel item in client.GetTrainedModelsAsync("LoanAgreements"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTrainedModels(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetTrainedModels.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (ProjectTrainedModel item in client.GetTrainedModels("LoanAgreements"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTrainedModelsAsync(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetTrainedModelsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (BinaryData item in client.GetTrainedModelsAsync("LoanAgreements", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("label").ToString());
+    Console.WriteLine(result.GetProperty("modelId").ToString());
+    Console.WriteLine(result.GetProperty("lastTrainedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastTrainingDurationInSeconds").ToString());
+    Console.WriteLine(result.GetProperty("modelExpirationDate").ToString());
+    Console.WriteLine(result.GetProperty("modelTrainingConfigVersion").ToString());
+    Console.WriteLine(result.GetProperty("hasSnapshot").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetTrainedModels(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetTrainedModels and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (BinaryData item in client.GetTrainedModels("LoanAgreements", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("label").ToString());
+    Console.WriteLine(result.GetProperty("modelId").ToString());
+    Console.WriteLine(result.GetProperty("lastTrainedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastTrainingDurationInSeconds").ToString());
+    Console.WriteLine(result.GetProperty("modelExpirationDate").ToString());
+    Console.WriteLine(result.GetProperty("modelTrainingConfigVersion").ToString());
+    Console.WriteLine(result.GetProperty("hasSnapshot").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetModelEvaluationResultsAsync(string,string,StringIndexType,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetModelEvaluationResultsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (DocumentEvaluationResult item in client.GetModelEvaluationResultsAsync("LoanAgreements", "model2", StringIndexType.Utf16CodeUnit))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetModelEvaluationResults(string,string,StringIndexType,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetModelEvaluationResults.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (DocumentEvaluationResult item in client.GetModelEvaluationResults("LoanAgreements", "model2", StringIndexType.Utf16CodeUnit))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetModelEvaluationResultsAsync(string,string,string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetModelEvaluationResultsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (BinaryData item in client.GetModelEvaluationResultsAsync("LoanAgreements", "model2", "Utf16CodeUnit"))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("projectKind").ToString());
+    Console.WriteLine(result.GetProperty("location").ToString());
+    Console.WriteLine(result.GetProperty("language").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetModelEvaluationResults(string,string,string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetModelEvaluationResults and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (BinaryData item in client.GetModelEvaluationResults("LoanAgreements", "model2", "Utf16CodeUnit"))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("projectKind").ToString());
+    Console.WriteLine(result.GetProperty("location").ToString());
+    Console.WriteLine(result.GetProperty("language").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetDeploymentResourcesAsync(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetDeploymentResourcesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (AssignedDeploymentResource item in client.GetDeploymentResourcesAsync("LoanAgreements"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetDeploymentResources(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetDeploymentResources.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (AssignedDeploymentResource item in client.GetDeploymentResources("LoanAgreements"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetDeploymentResourcesAsync(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetDeploymentResourcesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (BinaryData item in client.GetDeploymentResourcesAsync("LoanAgreements", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("azureResourceId").ToString());
+    Console.WriteLine(result.GetProperty("region").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetDeploymentResources(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetDeploymentResources and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (BinaryData item in client.GetDeploymentResources("LoanAgreements", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("azureResourceId").ToString());
+    Console.WriteLine(result.GetProperty("region").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetTrainingJobsAsync(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetTrainingJobsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (TrainingJobState item in client.GetTrainingJobsAsync("LoanAgreements"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTrainingJobs(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetTrainingJobs.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (TrainingJobState item in client.GetTrainingJobs("LoanAgreements"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTrainingJobsAsync(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetTrainingJobsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (BinaryData item in client.GetTrainingJobsAsync("LoanAgreements", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("jobId").ToString());
+    Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("result").GetProperty("modelLabel").ToString());
+    Console.WriteLine(result.GetProperty("result").GetProperty("trainingConfigVersion").ToString());
+    Console.WriteLine(result.GetProperty("result").GetProperty("trainingStatus").GetProperty("percentComplete").ToString());
+    Console.WriteLine(result.GetProperty("result").GetProperty("trainingStatus").GetProperty("status").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetTrainingJobs(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetTrainingJobs and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (BinaryData item in client.GetTrainingJobs("LoanAgreements", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("jobId").ToString());
+    Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("result").GetProperty("modelLabel").ToString());
+    Console.WriteLine(result.GetProperty("result").GetProperty("trainingConfigVersion").ToString());
+    Console.WriteLine(result.GetProperty("result").GetProperty("trainingStatus").GetProperty("percentComplete").ToString());
+    Console.WriteLine(result.GetProperty("result").GetProperty("trainingStatus").GetProperty("status").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetAssignedResourceDeploymentsAsync(int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetAssignedResourceDeploymentsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (AssignedProjectDeploymentsMetadata item in client.GetAssignedResourceDeploymentsAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetAssignedResourceDeployments(int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetAssignedResourceDeployments.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (AssignedProjectDeploymentsMetadata item in client.GetAssignedResourceDeployments())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetAssignedResourceDeploymentsAsync(int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetAssignedResourceDeploymentsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (BinaryData item in client.GetAssignedResourceDeploymentsAsync(null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("projectName").ToString());
+    Console.WriteLine(result.GetProperty("deploymentsMetadata")[0].GetProperty("deploymentName").ToString());
+    Console.WriteLine(result.GetProperty("deploymentsMetadata")[0].GetProperty("lastDeployedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("deploymentsMetadata")[0].GetProperty("deploymentExpirationDate").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetAssignedResourceDeployments(int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetAssignedResourceDeployments and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (BinaryData item in client.GetAssignedResourceDeployments(null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("projectName").ToString());
+    Console.WriteLine(result.GetProperty("deploymentsMetadata")[0].GetProperty("deploymentName").ToString());
+    Console.WriteLine(result.GetProperty("deploymentsMetadata")[0].GetProperty("lastDeployedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("deploymentsMetadata")[0].GetProperty("deploymentExpirationDate").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetSupportedLanguagesAsync(ProjectKind?,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetSupportedLanguagesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (SupportedLanguage item in client.GetSupportedLanguagesAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetSupportedLanguages(ProjectKind?,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetSupportedLanguages.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (SupportedLanguage item in client.GetSupportedLanguages())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetSupportedLanguagesAsync(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetSupportedLanguagesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (BinaryData item in client.GetSupportedLanguagesAsync(null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("languageName").ToString());
+    Console.WriteLine(result.GetProperty("languageCode").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetSupportedLanguages(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetSupportedLanguages and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (BinaryData item in client.GetSupportedLanguages(null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("languageName").ToString());
+    Console.WriteLine(result.GetProperty("languageCode").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetSupportedPrebuiltEntitiesAsync(CancellationToken)">
+      <example>
+This sample shows how to call GetSupportedPrebuiltEntitiesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (PrebuiltEntity item in client.GetSupportedPrebuiltEntitiesAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetSupportedPrebuiltEntities(CancellationToken)">
+      <example>
+This sample shows how to call GetSupportedPrebuiltEntities.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (PrebuiltEntity item in client.GetSupportedPrebuiltEntities())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetSupportedPrebuiltEntitiesAsync(RequestContext)">
+      <example>
+This sample shows how to call GetSupportedPrebuiltEntitiesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (BinaryData item in client.GetSupportedPrebuiltEntitiesAsync(null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("category").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("examples").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetSupportedPrebuiltEntities(RequestContext)">
+      <example>
+This sample shows how to call GetSupportedPrebuiltEntities and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (BinaryData item in client.GetSupportedPrebuiltEntities(null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("category").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("examples").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetTrainingConfigVersionsAsync(ProjectKind?,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetTrainingConfigVersionsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (TrainingConfigVersion item in client.GetTrainingConfigVersionsAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTrainingConfigVersions(ProjectKind?,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetTrainingConfigVersions.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (TrainingConfigVersion item in client.GetTrainingConfigVersions())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTrainingConfigVersionsAsync(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetTrainingConfigVersionsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+await foreach (BinaryData item in client.GetTrainingConfigVersionsAsync("CustomEntityRecognition", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("trainingConfigVersion").ToString());
+    Console.WriteLine(result.GetProperty("modelExpirationDate").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetTrainingConfigVersions(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetTrainingConfigVersions and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+foreach (BinaryData item in client.GetTrainingConfigVersions("CustomEntityRecognition", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("trainingConfigVersion").ToString());
+    Console.WriteLine(result.GetProperty("modelExpirationDate").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="DeleteProjectAsync(WaitUntil,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteProjectAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation operation = await client.DeleteProjectAsync(WaitUntil.Completed, "LoanAgreements");
+]]></code></example>
+    </member>
+    <member name="DeleteProject(WaitUntil,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteProject.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation operation = client.DeleteProject(WaitUntil.Completed, "LoanAgreements");
+]]></code></example>
+    </member>
+    <member name="CopyProjectAsync(WaitUntil,string,CopyProjectOptions,CancellationToken)">
+      <example>
+This sample shows how to call CopyProjectAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+CopyProjectOptions copyProjectOptions = new CopyProjectOptions(
+ProjectKind.CustomEntityRecognition,
+"LoanAgreements",
+"c0b13e0c-e9fe-4afa-aa11-db3b9b28f5e2",
+DateTimeOffset.Parse("2022-04-18T13:53:03Z"),
+"/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu",
+"westeurope");
+Operation operation = await client.CopyProjectAsync(WaitUntil.Completed, "LoanAgreements", copyProjectOptions);
+]]></code></example>
+    </member>
+    <member name="CopyProject(WaitUntil,string,CopyProjectOptions,CancellationToken)">
+      <example>
+This sample shows how to call CopyProject.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+CopyProjectOptions copyProjectOptions = new CopyProjectOptions(
+ProjectKind.CustomEntityRecognition,
+"LoanAgreements",
+"c0b13e0c-e9fe-4afa-aa11-db3b9b28f5e2",
+DateTimeOffset.Parse("2022-04-18T13:53:03Z"),
+"/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu",
+"westeurope");
+Operation operation = client.CopyProject(WaitUntil.Completed, "LoanAgreements", copyProjectOptions);
+]]></code></example>
+    </member>
+    <member name="CopyProjectAsync(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CopyProjectAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    projectKind = "CustomEntityRecognition",
+    targetProjectName = "LoanAgreements",
+    accessToken = "c0b13e0c-e9fe-4afa-aa11-db3b9b28f5e2",
+    expiresAt = "2022-04-18T13:53:03Z",
+    targetResourceId = "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu",
+    targetResourceRegion = "westeurope",
+});
+Operation operation = await client.CopyProjectAsync(WaitUntil.Completed, "LoanAgreements", content);
+]]></code></example>
+    </member>
+    <member name="CopyProject(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CopyProject.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    projectKind = "CustomEntityRecognition",
+    targetProjectName = "LoanAgreements",
+    accessToken = "c0b13e0c-e9fe-4afa-aa11-db3b9b28f5e2",
+    expiresAt = "2022-04-18T13:53:03Z",
+    targetResourceId = "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu",
+    targetResourceRegion = "westeurope",
+});
+Operation operation = client.CopyProject(WaitUntil.Completed, "LoanAgreements", content);
+]]></code></example>
+    </member>
+    <member name="ExportAsync(WaitUntil,string,StringIndexType,string,string,CancellationToken)">
+      <example>
+This sample shows how to call ExportAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation operation = await client.ExportAsync(WaitUntil.Completed, "LoanAgreements", StringIndexType.Utf16CodeUnit);
+]]></code></example>
+    </member>
+    <member name="Export(WaitUntil,string,StringIndexType,string,string,CancellationToken)">
+      <example>
+This sample shows how to call Export.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation operation = client.Export(WaitUntil.Completed, "LoanAgreements", StringIndexType.Utf16CodeUnit);
+]]></code></example>
+    </member>
+    <member name="ExportAsync(WaitUntil,string,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call ExportAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation operation = await client.ExportAsync(WaitUntil.Completed, "LoanAgreements", "Utf16CodeUnit");
+]]></code></example>
+    </member>
+    <member name="Export(WaitUntil,string,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call Export.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation operation = client.Export(WaitUntil.Completed, "LoanAgreements", "Utf16CodeUnit");
+]]></code></example>
+    </member>
+    <member name="ImportAsync(WaitUntil,string,ExportedProject,string,CancellationToken)">
+      <example>
+This sample shows how to call ImportAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+ExportedProject exportedProject = new ExportedProject("2022-05-01", StringIndexType.Utf16CodeUnit, null);
+Operation operation = await client.ImportAsync(WaitUntil.Completed, "LoanAgreements", exportedProject);
+]]></code></example>
+    </member>
+    <member name="Import(WaitUntil,string,ExportedProject,string,CancellationToken)">
+      <example>
+This sample shows how to call Import.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+ExportedProject exportedProject = new ExportedProject("2022-05-01", StringIndexType.Utf16CodeUnit, null);
+Operation operation = client.Import(WaitUntil.Completed, "LoanAgreements", exportedProject);
+]]></code></example>
+    </member>
+    <member name="ImportAsync(WaitUntil,string,RequestContent,string,RequestContext)">
+      <example>
+This sample shows how to call ImportAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    projectFileVersion = "2022-05-01",
+    stringIndexType = "Utf16CodeUnit",
+});
+Operation operation = await client.ImportAsync(WaitUntil.Completed, "LoanAgreements", content);
+]]></code></example>
+    </member>
+    <member name="Import(WaitUntil,string,RequestContent,string,RequestContext)">
+      <example>
+This sample shows how to call Import.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    projectFileVersion = "2022-05-01",
+    stringIndexType = "Utf16CodeUnit",
+});
+Operation operation = client.Import(WaitUntil.Completed, "LoanAgreements", content);
+]]></code></example>
+    </member>
+    <member name="TrainAsync(WaitUntil,string,TrainingJobOptions,CancellationToken)">
+      <example>
+This sample shows how to call TrainAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+TrainingJobOptions trainingJobOptions = new TrainingJobOptions("model1", "latest")
+{
+    EvaluationOptions = new EvaluationOptions
+    {
+        TrainingSplitPercentage = 80,
+        TestingSplitPercentage = 20,
+    },
+};
+Operation<TrainingJobResult> operation = await client.TrainAsync(WaitUntil.Completed, "LoanAgreements", trainingJobOptions);
+TrainingJobResult responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="Train(WaitUntil,string,TrainingJobOptions,CancellationToken)">
+      <example>
+This sample shows how to call Train.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+TrainingJobOptions trainingJobOptions = new TrainingJobOptions("model1", "latest")
+{
+    EvaluationOptions = new EvaluationOptions
+    {
+        TrainingSplitPercentage = 80,
+        TestingSplitPercentage = 20,
+    },
+};
+Operation<TrainingJobResult> operation = client.Train(WaitUntil.Completed, "LoanAgreements", trainingJobOptions);
+TrainingJobResult responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="TrainAsync(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call TrainAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    modelLabel = "model1",
+    trainingConfigVersion = "latest",
+    evaluationOptions = new
+    {
+        testingSplitPercentage = 20,
+        trainingSplitPercentage = 80,
+    },
+});
+Operation<BinaryData> operation = await client.TrainAsync(WaitUntil.Completed, "LoanAgreements", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("modelLabel").ToString());
+Console.WriteLine(result.GetProperty("trainingConfigVersion").ToString());
+Console.WriteLine(result.GetProperty("trainingStatus").GetProperty("percentComplete").ToString());
+Console.WriteLine(result.GetProperty("trainingStatus").GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="Train(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Train and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    modelLabel = "model1",
+    trainingConfigVersion = "latest",
+    evaluationOptions = new
+    {
+        testingSplitPercentage = 20,
+        trainingSplitPercentage = 80,
+    },
+});
+Operation<BinaryData> operation = client.Train(WaitUntil.Completed, "LoanAgreements", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("modelLabel").ToString());
+Console.WriteLine(result.GetProperty("trainingConfigVersion").ToString());
+Console.WriteLine(result.GetProperty("trainingStatus").GetProperty("percentComplete").ToString());
+Console.WriteLine(result.GetProperty("trainingStatus").GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="DeployProjectAsync(WaitUntil,string,string,CreateDeploymentOptions,CancellationToken)">
+      <example>
+This sample shows how to call DeployProjectAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+CreateDeploymentOptions body = new CreateDeploymentOptions("29886710a2ae49259d62cffca977db66")
+{
+    AssignedResourceIds = { "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu", "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestEus" },
+};
+Operation<DeployProjectResponseAcceptedResponseErrorResponse> operation = await client.DeployProjectAsync(WaitUntil.Completed, "LoanAgreements", "production", body);
+DeployProjectResponseAcceptedResponseErrorResponse responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="DeployProject(WaitUntil,string,string,CreateDeploymentOptions,CancellationToken)">
+      <example>
+This sample shows how to call DeployProject.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+CreateDeploymentOptions body = new CreateDeploymentOptions("29886710a2ae49259d62cffca977db66")
+{
+    AssignedResourceIds = { "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu", "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestEus" },
+};
+Operation<DeployProjectResponseAcceptedResponseErrorResponse> operation = client.DeployProject(WaitUntil.Completed, "LoanAgreements", "production", body);
+DeployProjectResponseAcceptedResponseErrorResponse responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="DeployProjectAsync(WaitUntil,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call DeployProjectAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    trainedModelLabel = "29886710a2ae49259d62cffca977db66",
+    assignedResourceIds = new object[]
+    {
+        "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu",
+        "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestEus"
+    },
+});
+Operation<BinaryData> operation = await client.DeployProjectAsync(WaitUntil.Completed, "LoanAgreements", "production", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="DeployProject(WaitUntil,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call DeployProject and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    trainedModelLabel = "29886710a2ae49259d62cffca977db66",
+    assignedResourceIds = new object[]
+    {
+        "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu",
+        "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestEus"
+    },
+});
+Operation<BinaryData> operation = client.DeployProject(WaitUntil.Completed, "LoanAgreements", "production", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteDeploymentAsync(WaitUntil,string,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteDeploymentAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation operation = await client.DeleteDeploymentAsync(WaitUntil.Completed, "LoanAgreements", "staging");
+]]></code></example>
+    </member>
+    <member name="DeleteDeployment(WaitUntil,string,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteDeployment.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation operation = client.DeleteDeployment(WaitUntil.Completed, "LoanAgreements", "staging");
+]]></code></example>
+    </member>
+    <member name="DeleteDeploymentFromResourcesAsync(WaitUntil,string,string,DeleteDeploymentOptions,CancellationToken)">
+      <example>
+This sample shows how to call DeleteDeploymentFromResourcesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+DeleteDeploymentOptions body = new DeleteDeploymentOptions
+{
+    AssignedResourceIds = { "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu" },
+};
+Operation operation = await client.DeleteDeploymentFromResourcesAsync(WaitUntil.Completed, "LoanAgreements", "staging", body);
+]]></code></example>
+    </member>
+    <member name="DeleteDeploymentFromResources(WaitUntil,string,string,DeleteDeploymentOptions,CancellationToken)">
+      <example>
+This sample shows how to call DeleteDeploymentFromResources.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+DeleteDeploymentOptions body = new DeleteDeploymentOptions
+{
+    AssignedResourceIds = { "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu" },
+};
+Operation operation = client.DeleteDeploymentFromResources(WaitUntil.Completed, "LoanAgreements", "staging", body);
+]]></code></example>
+    </member>
+    <member name="DeleteDeploymentFromResourcesAsync(WaitUntil,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call DeleteDeploymentFromResourcesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    assignedResourceIds = new object[]
+    {
+        "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu"
+    },
+});
+Operation operation = await client.DeleteDeploymentFromResourcesAsync(WaitUntil.Completed, "LoanAgreements", "staging", content);
+]]></code></example>
+    </member>
+    <member name="DeleteDeploymentFromResources(WaitUntil,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call DeleteDeploymentFromResources.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    assignedResourceIds = new object[]
+    {
+        "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu"
+    },
+});
+Operation operation = client.DeleteDeploymentFromResources(WaitUntil.Completed, "LoanAgreements", "staging", content);
+]]></code></example>
+    </member>
+    <member name="SwapDeploymentsAsync(WaitUntil,string,SwapDeploymentsOptions,CancellationToken)">
+      <example>
+This sample shows how to call SwapDeploymentsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+SwapDeploymentsOptions swapDeploymentsOptions = new SwapDeploymentsOptions("production", "staging");
+Operation operation = await client.SwapDeploymentsAsync(WaitUntil.Completed, "LoanAgreements", swapDeploymentsOptions);
+]]></code></example>
+    </member>
+    <member name="SwapDeployments(WaitUntil,string,SwapDeploymentsOptions,CancellationToken)">
+      <example>
+This sample shows how to call SwapDeployments.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+SwapDeploymentsOptions swapDeploymentsOptions = new SwapDeploymentsOptions("production", "staging");
+Operation operation = client.SwapDeployments(WaitUntil.Completed, "LoanAgreements", swapDeploymentsOptions);
+]]></code></example>
+    </member>
+    <member name="SwapDeploymentsAsync(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call SwapDeploymentsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    firstDeploymentName = "production",
+    secondDeploymentName = "staging",
+});
+Operation operation = await client.SwapDeploymentsAsync(WaitUntil.Completed, "LoanAgreements", content);
+]]></code></example>
+    </member>
+    <member name="SwapDeployments(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call SwapDeployments.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    firstDeploymentName = "production",
+    secondDeploymentName = "staging",
+});
+Operation operation = client.SwapDeployments(WaitUntil.Completed, "LoanAgreements", content);
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateExportedModelAsync(WaitUntil,string,string,ExportedModelOptions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrUpdateExportedModelAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+ExportedModelOptions exportedModelOptions = new ExportedModelOptions("model1");
+Operation<CreateOrUpdateExportedModelResponseAcceptedResponseErrorResponse> operation = await client.CreateOrUpdateExportedModelAsync(WaitUntil.Completed, "LoanAgreements", "exported-model1", exportedModelOptions);
+CreateOrUpdateExportedModelResponseAcceptedResponseErrorResponse responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateExportedModel(WaitUntil,string,string,ExportedModelOptions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrUpdateExportedModel.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+ExportedModelOptions exportedModelOptions = new ExportedModelOptions("model1");
+Operation<CreateOrUpdateExportedModelResponseAcceptedResponseErrorResponse> operation = client.CreateOrUpdateExportedModel(WaitUntil.Completed, "LoanAgreements", "exported-model1", exportedModelOptions);
+CreateOrUpdateExportedModelResponseAcceptedResponseErrorResponse responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateExportedModelAsync(WaitUntil,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateExportedModelAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    trainedModelLabel = "model1",
+});
+Operation<BinaryData> operation = await client.CreateOrUpdateExportedModelAsync(WaitUntil.Completed, "LoanAgreements", "exported-model1", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateExportedModel(WaitUntil,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateExportedModel and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    trainedModelLabel = "model1",
+});
+Operation<BinaryData> operation = client.CreateOrUpdateExportedModel(WaitUntil.Completed, "LoanAgreements", "exported-model1", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteExportedModelAsync(WaitUntil,string,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteExportedModelAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation operation = await client.DeleteExportedModelAsync(WaitUntil.Completed, "LoanAgreements", "exported-model1");
+]]></code></example>
+    </member>
+    <member name="DeleteExportedModel(WaitUntil,string,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteExportedModel.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation operation = client.DeleteExportedModel(WaitUntil.Completed, "LoanAgreements", "exported-model1");
+]]></code></example>
+    </member>
+    <member name="EvaluateModelAsync(WaitUntil,string,string,EvaluationOptions,CancellationToken)">
+      <example>
+This sample shows how to call EvaluateModelAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+EvaluationOptions evaluationOptions = new EvaluationOptions
+{
+    TrainingSplitPercentage = 80,
+    TestingSplitPercentage = 20,
+};
+Operation<EvaluationJobResult> operation = await client.EvaluateModelAsync(WaitUntil.Completed, "LoanAgreements", "model1", evaluationOptions);
+EvaluationJobResult responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="EvaluateModel(WaitUntil,string,string,EvaluationOptions,CancellationToken)">
+      <example>
+This sample shows how to call EvaluateModel.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+EvaluationOptions evaluationOptions = new EvaluationOptions
+{
+    TrainingSplitPercentage = 80,
+    TestingSplitPercentage = 20,
+};
+Operation<EvaluationJobResult> operation = client.EvaluateModel(WaitUntil.Completed, "LoanAgreements", "model1", evaluationOptions);
+EvaluationJobResult responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="EvaluateModelAsync(WaitUntil,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call EvaluateModelAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    testingSplitPercentage = 20,
+    trainingSplitPercentage = 80,
+});
+Operation<BinaryData> operation = await client.EvaluateModelAsync(WaitUntil.Completed, "LoanAgreements", "model1", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("evaluationOptions").ToString());
+Console.WriteLine(result.GetProperty("modelLabel").ToString());
+Console.WriteLine(result.GetProperty("trainingConfigVersion").ToString());
+Console.WriteLine(result.GetProperty("percentComplete").ToString());
+]]></code></example>
+    </member>
+    <member name="EvaluateModel(WaitUntil,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call EvaluateModel and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    testingSplitPercentage = 20,
+    trainingSplitPercentage = 80,
+});
+Operation<BinaryData> operation = client.EvaluateModel(WaitUntil.Completed, "LoanAgreements", "model1", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("evaluationOptions").ToString());
+Console.WriteLine(result.GetProperty("modelLabel").ToString());
+Console.WriteLine(result.GetProperty("trainingConfigVersion").ToString());
+Console.WriteLine(result.GetProperty("percentComplete").ToString());
+]]></code></example>
+    </member>
+    <member name="LoadSnapshotAsync(WaitUntil,string,string,RequestContext)">
+      <example>
+This sample shows how to call LoadSnapshotAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation operation = await client.LoadSnapshotAsync(WaitUntil.Completed, "LoanAgreements", "model1");
+]]></code></example>
+    </member>
+    <member name="LoadSnapshot(WaitUntil,string,string,RequestContext)">
+      <example>
+This sample shows how to call LoadSnapshot.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation operation = client.LoadSnapshot(WaitUntil.Completed, "LoanAgreements", "model1");
+]]></code></example>
+    </member>
+    <member name="AssignDeploymentResourcesAsync(WaitUntil,string,AssignDeploymentResourcesOptions,CancellationToken)">
+      <example>
+This sample shows how to call AssignDeploymentResourcesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+AssignDeploymentResourcesOptions assignDeploymentResourcesOptions = new AssignDeploymentResourcesOptions(new ResourceMetadata[]
+{
+    new ResourceMetadata("/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu", "lang-test-weu.cognitiveservices.azure.com", "westeurope"),
+    new ResourceMetadata("/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestEus", "lang-test-eus.cognitiveservices.azure.com", "eastus")
+});
+Operation operation = await client.AssignDeploymentResourcesAsync(WaitUntil.Completed, "LoanAgreements", assignDeploymentResourcesOptions);
+]]></code></example>
+    </member>
+    <member name="AssignDeploymentResources(WaitUntil,string,AssignDeploymentResourcesOptions,CancellationToken)">
+      <example>
+This sample shows how to call AssignDeploymentResources.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+AssignDeploymentResourcesOptions assignDeploymentResourcesOptions = new AssignDeploymentResourcesOptions(new ResourceMetadata[]
+{
+    new ResourceMetadata("/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu", "lang-test-weu.cognitiveservices.azure.com", "westeurope"),
+    new ResourceMetadata("/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestEus", "lang-test-eus.cognitiveservices.azure.com", "eastus")
+});
+Operation operation = client.AssignDeploymentResources(WaitUntil.Completed, "LoanAgreements", assignDeploymentResourcesOptions);
+]]></code></example>
+    </member>
+    <member name="AssignDeploymentResourcesAsync(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AssignDeploymentResourcesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    resourcesMetadata = new object[]
+    {
+        new
+        {
+            azureResourceId = "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu",
+            customDomain = "lang-test-weu.cognitiveservices.azure.com",
+            region = "westeurope",
+        },
+        new
+        {
+            azureResourceId = "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestEus",
+            customDomain = "lang-test-eus.cognitiveservices.azure.com",
+            region = "eastus",
+        }
+    },
+});
+Operation operation = await client.AssignDeploymentResourcesAsync(WaitUntil.Completed, "LoanAgreements", content);
+]]></code></example>
+    </member>
+    <member name="AssignDeploymentResources(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AssignDeploymentResources.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    resourcesMetadata = new object[]
+    {
+        new
+        {
+            azureResourceId = "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu",
+            customDomain = "lang-test-weu.cognitiveservices.azure.com",
+            region = "westeurope",
+        },
+        new
+        {
+            azureResourceId = "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestEus",
+            customDomain = "lang-test-eus.cognitiveservices.azure.com",
+            region = "eastus",
+        }
+    },
+});
+Operation operation = client.AssignDeploymentResources(WaitUntil.Completed, "LoanAgreements", content);
+]]></code></example>
+    </member>
+    <member name="UnassignDeploymentResourcesAsync(WaitUntil,string,UnassignDeploymentResourcesOptions,CancellationToken)">
+      <example>
+This sample shows how to call UnassignDeploymentResourcesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+UnassignDeploymentResourcesOptions unassignDeploymentResourcesOptions = new UnassignDeploymentResourcesOptions(new string[] { "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu" });
+Operation operation = await client.UnassignDeploymentResourcesAsync(WaitUntil.Completed, "LoanAgreements", unassignDeploymentResourcesOptions);
+]]></code></example>
+    </member>
+    <member name="UnassignDeploymentResources(WaitUntil,string,UnassignDeploymentResourcesOptions,CancellationToken)">
+      <example>
+This sample shows how to call UnassignDeploymentResources.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+UnassignDeploymentResourcesOptions unassignDeploymentResourcesOptions = new UnassignDeploymentResourcesOptions(new string[] { "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu" });
+Operation operation = client.UnassignDeploymentResources(WaitUntil.Completed, "LoanAgreements", unassignDeploymentResourcesOptions);
+]]></code></example>
+    </member>
+    <member name="UnassignDeploymentResourcesAsync(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UnassignDeploymentResourcesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    assignedResourceIds = new object[]
+    {
+        "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu"
+    },
+});
+Operation operation = await client.UnassignDeploymentResourcesAsync(WaitUntil.Completed, "LoanAgreements", content);
+]]></code></example>
+    </member>
+    <member name="UnassignDeploymentResources(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UnassignDeploymentResources.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    assignedResourceIds = new object[]
+    {
+        "/subscriptions/8ff19748-59ed-4e8a-af4b-7ce285849735/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/LangTestWeu"
+    },
+});
+Operation operation = client.UnassignDeploymentResources(WaitUntil.Completed, "LoanAgreements", content);
+]]></code></example>
+    </member>
+    <member name="CancelTrainingJobAsync(WaitUntil,string,string,CancellationToken)">
+      <example>
+This sample shows how to call CancelTrainingJobAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation<TrainingJobResult> operation = await client.CancelTrainingJobAsync(WaitUntil.Completed, "LoanAgreements", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000");
+TrainingJobResult responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="CancelTrainingJob(WaitUntil,string,string,CancellationToken)">
+      <example>
+This sample shows how to call CancelTrainingJob.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation<TrainingJobResult> operation = client.CancelTrainingJob(WaitUntil.Completed, "LoanAgreements", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000");
+TrainingJobResult responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="CancelTrainingJobAsync(WaitUntil,string,string,RequestContext)">
+      <example>
+This sample shows how to call CancelTrainingJobAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation<BinaryData> operation = await client.CancelTrainingJobAsync(WaitUntil.Completed, "LoanAgreements", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000", null);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("modelLabel").ToString());
+Console.WriteLine(result.GetProperty("trainingConfigVersion").ToString());
+Console.WriteLine(result.GetProperty("trainingStatus").GetProperty("percentComplete").ToString());
+Console.WriteLine(result.GetProperty("trainingStatus").GetProperty("status").ToString());
+]]></code></example>
+    </member>
+    <member name="CancelTrainingJob(WaitUntil,string,string,RequestContext)">
+      <example>
+This sample shows how to call CancelTrainingJob and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+TextAnalysisAuthoring client = new TextClient(endpoint, credential).GetTextAnalysisAuthoringClient(apiVersion: "2023-04-15-preview");
+
+Operation<BinaryData> operation = client.CancelTrainingJob(WaitUntil.Completed, "LoanAgreements", "8ccf2ffe-e758-4d04-a44a-31512918c7e8_637858368000000000", null);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("modelLabel").ToString());
+Console.WriteLine(result.GetProperty("trainingConfigVersion").ToString());
+Console.WriteLine(result.GetProperty("trainingStatus").GetProperty("percentComplete").ToString());
+Console.WriteLine(result.GetProperty("trainingStatus").GetProperty("status").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
