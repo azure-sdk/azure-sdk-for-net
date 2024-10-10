@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers
         private readonly ClientDiagnostics _serverCapabilitiesClientDiagnostics;
         private readonly ServerCapabilitiesRestOperations _serverCapabilitiesRestClient;
         private readonly ClientDiagnostics _defaultClientDiagnostics;
-        private readonly PostgreSQLManagementRestOperations _defaultRestClient;
+        private readonly PostgreSQLServerManagementRestOperations _defaultRestClient;
         private readonly ClientDiagnostics _logFilesClientDiagnostics;
         private readonly LogFilesRestOperations _logFilesRestClient;
         private readonly ClientDiagnostics _flexibleServerClientDiagnostics;
@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers
             _serverCapabilitiesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.PostgreSql.FlexibleServers", ProviderConstants.DefaultProviderNamespace, Diagnostics);
             _serverCapabilitiesRestClient = new ServerCapabilitiesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
             _defaultClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.PostgreSql.FlexibleServers", ProviderConstants.DefaultProviderNamespace, Diagnostics);
-            _defaultRestClient = new PostgreSQLManagementRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+            _defaultRestClient = new PostgreSQLServerManagementRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
             _logFilesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.PostgreSql.FlexibleServers", ProviderConstants.DefaultProviderNamespace, Diagnostics);
             _logFilesRestClient = new LogFilesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
             _flexibleServerClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.PostgreSql.FlexibleServers", ProviderConstants.DefaultProviderNamespace, Diagnostics);
