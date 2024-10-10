@@ -34,102 +34,99 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 throw new FormatException($"The model {nameof(OracleDBSystemShapeProperties)} does not support writing '{format}' format.");
             }
 
-            if (options.Format != "W" && Optional.IsDefined(ShapeFamily))
+            if (Optional.IsDefined(ShapeFamily))
             {
                 writer.WritePropertyName("shapeFamily"u8);
                 writer.WriteStringValue(ShapeFamily);
             }
-            if (options.Format != "W")
-            {
-                writer.WritePropertyName("availableCoreCount"u8);
-                writer.WriteNumberValue(AvailableCoreCount);
-            }
-            if (options.Format != "W" && Optional.IsDefined(MinimumCoreCount))
+            writer.WritePropertyName("availableCoreCount"u8);
+            writer.WriteNumberValue(AvailableCoreCount);
+            if (Optional.IsDefined(MinimumCoreCount))
             {
                 writer.WritePropertyName("minimumCoreCount"u8);
                 writer.WriteNumberValue(MinimumCoreCount.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(RuntimeMinimumCoreCount))
+            if (Optional.IsDefined(RuntimeMinimumCoreCount))
             {
                 writer.WritePropertyName("runtimeMinimumCoreCount"u8);
                 writer.WriteNumberValue(RuntimeMinimumCoreCount.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(CoreCountIncrement))
+            if (Optional.IsDefined(CoreCountIncrement))
             {
                 writer.WritePropertyName("coreCountIncrement"u8);
                 writer.WriteNumberValue(CoreCountIncrement.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(MinStorageCount))
+            if (Optional.IsDefined(MinStorageCount))
             {
                 writer.WritePropertyName("minStorageCount"u8);
                 writer.WriteNumberValue(MinStorageCount.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(MaxStorageCount))
+            if (Optional.IsDefined(MaxStorageCount))
             {
                 writer.WritePropertyName("maxStorageCount"u8);
                 writer.WriteNumberValue(MaxStorageCount.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(AvailableDataStoragePerServerInTbs))
+            if (Optional.IsDefined(AvailableDataStoragePerServerInTbs))
             {
                 writer.WritePropertyName("availableDataStoragePerServerInTbs"u8);
                 writer.WriteNumberValue(AvailableDataStoragePerServerInTbs.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(AvailableMemoryPerNodeInGbs))
+            if (Optional.IsDefined(AvailableMemoryPerNodeInGbs))
             {
                 writer.WritePropertyName("availableMemoryPerNodeInGbs"u8);
                 writer.WriteNumberValue(AvailableMemoryPerNodeInGbs.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(AvailableDBNodePerNodeInGbs))
+            if (Optional.IsDefined(AvailableDBNodePerNodeInGbs))
             {
                 writer.WritePropertyName("availableDbNodePerNodeInGbs"u8);
                 writer.WriteNumberValue(AvailableDBNodePerNodeInGbs.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(MinCoreCountPerNode))
+            if (Optional.IsDefined(MinCoreCountPerNode))
             {
                 writer.WritePropertyName("minCoreCountPerNode"u8);
                 writer.WriteNumberValue(MinCoreCountPerNode.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(AvailableMemoryInGbs))
+            if (Optional.IsDefined(AvailableMemoryInGbs))
             {
                 writer.WritePropertyName("availableMemoryInGbs"u8);
                 writer.WriteNumberValue(AvailableMemoryInGbs.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(MinMemoryPerNodeInGbs))
+            if (Optional.IsDefined(MinMemoryPerNodeInGbs))
             {
                 writer.WritePropertyName("minMemoryPerNodeInGbs"u8);
                 writer.WriteNumberValue(MinMemoryPerNodeInGbs.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(AvailableDBNodeStorageInGbs))
+            if (Optional.IsDefined(AvailableDBNodeStorageInGbs))
             {
                 writer.WritePropertyName("availableDbNodeStorageInGbs"u8);
                 writer.WriteNumberValue(AvailableDBNodeStorageInGbs.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(MinDBNodeStoragePerNodeInGbs))
+            if (Optional.IsDefined(MinDBNodeStoragePerNodeInGbs))
             {
                 writer.WritePropertyName("minDbNodeStoragePerNodeInGbs"u8);
                 writer.WriteNumberValue(MinDBNodeStoragePerNodeInGbs.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(AvailableDataStorageInTbs))
+            if (Optional.IsDefined(AvailableDataStorageInTbs))
             {
                 writer.WritePropertyName("availableDataStorageInTbs"u8);
                 writer.WriteNumberValue(AvailableDataStorageInTbs.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(MinDataStorageInTbs))
+            if (Optional.IsDefined(MinDataStorageInTbs))
             {
                 writer.WritePropertyName("minDataStorageInTbs"u8);
                 writer.WriteNumberValue(MinDataStorageInTbs.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(MinimumNodeCount))
+            if (Optional.IsDefined(MinimumNodeCount))
             {
                 writer.WritePropertyName("minimumNodeCount"u8);
                 writer.WriteNumberValue(MinimumNodeCount.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(MaximumNodeCount))
+            if (Optional.IsDefined(MaximumNodeCount))
             {
                 writer.WritePropertyName("maximumNodeCount"u8);
                 writer.WriteNumberValue(MaximumNodeCount.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(AvailableCoreCountPerNode))
+            if (Optional.IsDefined(AvailableCoreCountPerNode))
             {
                 writer.WritePropertyName("availableCoreCountPerNode"u8);
                 writer.WriteNumberValue(AvailableCoreCountPerNode.Value);
