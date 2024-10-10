@@ -7,11 +7,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.ResourceManager.OracleDatabase.Models
 {
-    /// <summary> The type used for update operations of the AutonomousDatabase. </summary>
-    public partial class AutonomousDatabasePatch
+    /// <summary> Azure Subscriptions model. </summary>
+    public partial class AzureSubscriptions
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,26 +46,31 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AutonomousDatabasePatch"/>. </summary>
-        public AutonomousDatabasePatch()
+        /// <summary> Initializes a new instance of <see cref="AzureSubscriptions"/>. </summary>
+        /// <param name="azureSubscriptionIds"> Azure Subscription Ids to be updated. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="azureSubscriptionIds"/> is null. </exception>
+        public AzureSubscriptions(IEnumerable<string> azureSubscriptionIds)
         {
-            Tags = new ChangeTrackingDictionary<string, string>();
+            Argument.AssertNotNull(azureSubscriptionIds, nameof(azureSubscriptionIds));
+
+            AzureSubscriptionIds = azureSubscriptionIds.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="AutonomousDatabasePatch"/>. </summary>
-        /// <param name="tags"> Resource tags. </param>
-        /// <param name="properties"> The resource-specific properties for this resource. </param>
+        /// <summary> Initializes a new instance of <see cref="AzureSubscriptions"/>. </summary>
+        /// <param name="azureSubscriptionIds"> Azure Subscription Ids to be updated. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AutonomousDatabasePatch(IDictionary<string, string> tags, AutonomousDatabaseUpdateProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AzureSubscriptions(IList<string> azureSubscriptionIds, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Tags = tags;
-            Properties = properties;
+            AzureSubscriptionIds = azureSubscriptionIds;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Resource tags. </summary>
-        public IDictionary<string, string> Tags { get; }
-        /// <summary> The resource-specific properties for this resource. </summary>
-        public AutonomousDatabaseUpdateProperties Properties { get; set; }
+        /// <summary> Initializes a new instance of <see cref="AzureSubscriptions"/> for deserialization. </summary>
+        internal AzureSubscriptions()
+        {
+        }
+
+        /// <summary> Azure Subscription Ids to be updated. </summary>
+        public IList<string> AzureSubscriptionIds { get; }
     }
 }
