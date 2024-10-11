@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Azure.Core;
 using Azure.ResourceManager.Models;
@@ -638,26 +639,6 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.AutonomousDBVersionProperties"/>. </summary>
-        /// <param name="version"> Supported Autonomous Db versions. </param>
-        /// <param name="dbWorkload"> The Autonomous Database workload type. </param>
-        /// <param name="isDefaultForFree"> True if this version of the Oracle Database software's default is free. </param>
-        /// <param name="isDefaultForPaid"> True if this version of the Oracle Database software's default is paid. </param>
-        /// <param name="isFreeTierEnabled"> True if this version of the Oracle Database software can be used for Always-Free Autonomous Databases. </param>
-        /// <param name="isPaidEnabled"> True if this version of the Oracle Database software has payments enabled. </param>
-        /// <returns> A new <see cref="Models.AutonomousDBVersionProperties"/> instance for mocking. </returns>
-        public static AutonomousDBVersionProperties AutonomousDBVersionProperties(string version = null, AutonomousDatabaseWorkloadType? dbWorkload = null, bool? isDefaultForFree = null, bool? isDefaultForPaid = null, bool? isFreeTierEnabled = null, bool? isPaidEnabled = null)
-        {
-            return new AutonomousDBVersionProperties(
-                version,
-                dbWorkload,
-                isDefaultForFree,
-                isDefaultForPaid,
-                isFreeTierEnabled,
-                isPaidEnabled,
-                serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="OracleDatabase.OracleDBSystemShapeData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -673,54 +654,6 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 resourceType,
                 systemData,
                 properties,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.OracleDBSystemShapeProperties"/>. </summary>
-        /// <param name="shapeFamily"> The family of the shape used for the DB system. </param>
-        /// <param name="availableCoreCount"> The maximum number of CPU cores that can be enabled on the DB system for this shape. </param>
-        /// <param name="minimumCoreCount"> The minimum number of CPU cores that can be enabled on the DB system for this shape. </param>
-        /// <param name="runtimeMinimumCoreCount"> The runtime minimum number of CPU cores that can be enabled on the DB system for this shape. </param>
-        /// <param name="coreCountIncrement"> The discrete number by which the CPU core count for this shape can be increased or decreased. </param>
-        /// <param name="minStorageCount"> The minimum number of Exadata storage servers available for the Exadata infrastructure. </param>
-        /// <param name="maxStorageCount"> The maximum number of Exadata storage servers available for the Exadata infrastructure. </param>
-        /// <param name="availableDataStoragePerServerInTbs"> The maximum data storage available per storage server for this shape. Only applicable to ExaCC Elastic shapes. </param>
-        /// <param name="availableMemoryPerNodeInGbs"> The maximum memory available per database node for this shape. Only applicable to ExaCC Elastic shapes. </param>
-        /// <param name="availableDBNodePerNodeInGbs"> The maximum Db Node storage available per database node for this shape. Only applicable to ExaCC Elastic shapes. </param>
-        /// <param name="minCoreCountPerNode"> The minimum number of CPU cores that can be enabled per node for this shape. </param>
-        /// <param name="availableMemoryInGbs"> The maximum memory that can be enabled for this shape. </param>
-        /// <param name="minMemoryPerNodeInGbs"> The minimum memory that need be allocated per node for this shape. </param>
-        /// <param name="availableDBNodeStorageInGbs"> The maximum Db Node storage that can be enabled for this shape. </param>
-        /// <param name="minDBNodeStoragePerNodeInGbs"> The minimum Db Node storage that need be allocated per node for this shape. </param>
-        /// <param name="availableDataStorageInTbs"> The maximum DATA storage that can be enabled for this shape. </param>
-        /// <param name="minDataStorageInTbs"> The minimum data storage that need be allocated for this shape. </param>
-        /// <param name="minimumNodeCount"> The minimum number of database nodes available for this shape. </param>
-        /// <param name="maximumNodeCount"> The maximum number of database nodes available for this shape. </param>
-        /// <param name="availableCoreCountPerNode"> The maximum number of CPU cores per database node that can be enabled for this shape. Only applicable to the flex Exadata shape and ExaCC Elastic shapes. </param>
-        /// <returns> A new <see cref="Models.OracleDBSystemShapeProperties"/> instance for mocking. </returns>
-        public static OracleDBSystemShapeProperties OracleDBSystemShapeProperties(string shapeFamily = null, int availableCoreCount = default, int? minimumCoreCount = null, int? runtimeMinimumCoreCount = null, int? coreCountIncrement = null, int? minStorageCount = null, int? maxStorageCount = null, double? availableDataStoragePerServerInTbs = null, int? availableMemoryPerNodeInGbs = null, int? availableDBNodePerNodeInGbs = null, int? minCoreCountPerNode = null, int? availableMemoryInGbs = null, int? minMemoryPerNodeInGbs = null, int? availableDBNodeStorageInGbs = null, int? minDBNodeStoragePerNodeInGbs = null, int? availableDataStorageInTbs = null, int? minDataStorageInTbs = null, int? minimumNodeCount = null, int? maximumNodeCount = null, int? availableCoreCountPerNode = null)
-        {
-            return new OracleDBSystemShapeProperties(
-                shapeFamily,
-                availableCoreCount,
-                minimumCoreCount,
-                runtimeMinimumCoreCount,
-                coreCountIncrement,
-                minStorageCount,
-                maxStorageCount,
-                availableDataStoragePerServerInTbs,
-                availableMemoryPerNodeInGbs,
-                availableDBNodePerNodeInGbs,
-                minCoreCountPerNode,
-                availableMemoryInGbs,
-                minMemoryPerNodeInGbs,
-                availableDBNodeStorageInGbs,
-                minDBNodeStoragePerNodeInGbs,
-                availableDataStorageInTbs,
-                minDataStorageInTbs,
-                minimumNodeCount,
-                maximumNodeCount,
-                availableCoreCountPerNode,
                 serializedAdditionalRawData: null);
         }
 
@@ -749,10 +682,10 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         /// <param name="lifecycleState"> Views lifecycleState. </param>
         /// <param name="self"> The canonical absolute URL of the resource. </param>
         /// <param name="createdOn"> views timeCreated. </param>
-        /// <param name="updatedOn"> views timeCreated. </param>
+        /// <param name="updatedOn"> views timeUpdated. </param>
         /// <param name="provisioningState"> Azure resource provisioning state. </param>
         /// <returns> A new <see cref="Models.OracleDnsPrivateViewProperties"/> instance for mocking. </returns>
-        public static OracleDnsPrivateViewProperties OracleDnsPrivateViewProperties(ResourceIdentifier ocid = null, string displayName = null, bool isProtected = default, DnsPrivateViewsLifecycleState? lifecycleState = null, string self = null, DateTimeOffset createdOn = default, DateTimeOffset updatedOn = default, OracleDatabaseResourceProvisioningState? provisioningState = null)
+        public static OracleDnsPrivateViewProperties OracleDnsPrivateViewProperties(ResourceIdentifier ocid = null, string displayName = null, bool isProtected = default, DnsPrivateViewsLifecycleState lifecycleState = default, string self = null, DateTimeOffset createdOn = default, DateTimeOffset updatedOn = default, OracleDatabaseResourceProvisioningState? provisioningState = null)
         {
             return new OracleDnsPrivateViewProperties(
                 ocid,
@@ -796,7 +729,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         /// <param name="createdOn"> Zones timeCreated. </param>
         /// <param name="provisioningState"> Azure resource provisioning state. </param>
         /// <returns> A new <see cref="Models.OracleDnsPrivateZoneProperties"/> instance for mocking. </returns>
-        public static OracleDnsPrivateZoneProperties OracleDnsPrivateZoneProperties(ResourceIdentifier ocid = null, bool isProtected = default, DnsPrivateZonesLifecycleState? lifecycleState = null, string self = null, int serial = default, string version = null, ResourceIdentifier viewId = null, OracleDnsPrivateZoneType zoneType = default, DateTimeOffset createdOn = default, OracleDatabaseResourceProvisioningState? provisioningState = null)
+        public static OracleDnsPrivateZoneProperties OracleDnsPrivateZoneProperties(ResourceIdentifier ocid = null, bool isProtected = default, DnsPrivateZonesLifecycleState lifecycleState = default, string self = null, int serial = default, string version = null, ResourceIdentifier viewId = null, OracleDnsPrivateZoneType zoneType = default, DateTimeOffset createdOn = default, OracleDatabaseResourceProvisioningState? provisioningState = null)
         {
             return new OracleDnsPrivateZoneProperties(
                 ocid,
@@ -876,9 +809,14 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         /// <param name="termUnit"> Term Unit. P1Y, P3Y, etc, see Durations https://en.wikipedia.org/wiki/ISO_8601. </param>
         /// <param name="productCode"> Product code for the term unit. </param>
         /// <param name="intent"> Intent for the update operation. </param>
+        /// <param name="azureSubscriptionIds"> Azure subscriptions associated with this OracleSubscription. </param>
+        /// <param name="addSubscriptionOperationState"> State of the add Azure subscription operation on Oracle subscription. </param>
+        /// <param name="lastOperationStatusDetail"> Status details of the last operation on Oracle subscription. </param>
         /// <returns> A new <see cref="Models.OracleSubscriptionProperties"/> instance for mocking. </returns>
-        public static OracleSubscriptionProperties OracleSubscriptionProperties(OracleSubscriptionProvisioningState? provisioningState = null, string saasSubscriptionId = null, ResourceIdentifier cloudAccountId = null, CloudAccountProvisioningState? cloudAccountState = null, string termUnit = null, string productCode = null, OracleSubscriptionUpdateIntent? intent = null)
+        public static OracleSubscriptionProperties OracleSubscriptionProperties(OracleSubscriptionProvisioningState? provisioningState = null, string saasSubscriptionId = null, ResourceIdentifier cloudAccountId = null, CloudAccountProvisioningState? cloudAccountState = null, string termUnit = null, string productCode = null, OracleSubscriptionUpdateIntent? intent = null, IEnumerable<string> azureSubscriptionIds = null, AddSubscriptionOperationState? addSubscriptionOperationState = null, string lastOperationStatusDetail = null)
         {
+            azureSubscriptionIds ??= new List<string>();
+
             return new OracleSubscriptionProperties(
                 provisioningState,
                 saasSubscriptionId,
@@ -887,6 +825,9 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 termUnit,
                 productCode,
                 intent,
+                azureSubscriptionIds?.ToList(),
+                addSubscriptionOperationState,
+                lastOperationStatusDetail,
                 serializedAdditionalRawData: null);
         }
 
@@ -1141,7 +1082,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         /// <param name="vnicId"> The OCID of the VNIC. </param>
         /// <param name="provisioningState"> Azure resource provisioning state. </param>
         /// <returns> A new <see cref="Models.CloudVmClusterDBNodeProperties"/> instance for mocking. </returns>
-        public static CloudVmClusterDBNodeProperties CloudVmClusterDBNodeProperties(ResourceIdentifier ocid = null, string additionalDetails = null, ResourceIdentifier backupIPId = null, ResourceIdentifier backupVnic2Id = null, ResourceIdentifier backupVnicId = null, int? cpuCoreCount = null, int? dbNodeStorageSizeInGbs = null, ResourceIdentifier dbServerId = null, ResourceIdentifier dbSystemId = null, string faultDomain = null, ResourceIdentifier hostIPId = null, string hostname = null, DBNodeProvisioningState? lifecycleState = null, string lifecycleDetails = null, DBNodeMaintenanceType? maintenanceType = null, int? memorySizeInGbs = null, int? softwareStorageSizeInGb = null, DateTimeOffset? timeCreated = null, DateTimeOffset? timeMaintenanceWindowEnd = null, DateTimeOffset? timeMaintenanceWindowStart = null, ResourceIdentifier vnic2Id = null, ResourceIdentifier vnicId = null, OracleDatabaseResourceProvisioningState? provisioningState = null)
+        public static CloudVmClusterDBNodeProperties CloudVmClusterDBNodeProperties(ResourceIdentifier ocid = null, string additionalDetails = null, ResourceIdentifier backupIPId = null, ResourceIdentifier backupVnic2Id = null, ResourceIdentifier backupVnicId = null, int? cpuCoreCount = null, int? dbNodeStorageSizeInGbs = null, ResourceIdentifier dbServerId = null, ResourceIdentifier dbSystemId = null, string faultDomain = null, ResourceIdentifier hostIPId = null, string hostname = null, DBNodeProvisioningState lifecycleState = default, string lifecycleDetails = null, DBNodeMaintenanceType? maintenanceType = null, int? memorySizeInGbs = null, int? softwareStorageSizeInGb = null, DateTimeOffset timeCreated = default, DateTimeOffset? timeMaintenanceWindowEnd = null, DateTimeOffset? timeMaintenanceWindowStart = null, ResourceIdentifier vnic2Id = null, ResourceIdentifier vnicId = null, OracleDatabaseResourceProvisioningState? provisioningState = null)
         {
             return new CloudVmClusterDBNodeProperties(
                 ocid,
@@ -1572,6 +1513,21 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 backupRetentionPeriodInDays,
                 whitelistedIPs?.ToList(),
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.OracleDatabase.Models.OracleSubscriptionProperties" />. </summary>
+        /// <param name="provisioningState"> OracleSubscriptionProvisioningState provisioning state. </param>
+        /// <param name="saasSubscriptionId"> SAAS subscription ID generated by Marketplace. </param>
+        /// <param name="cloudAccountId"> Cloud Account Id. </param>
+        /// <param name="cloudAccountState"> Cloud Account provisioning state. </param>
+        /// <param name="termUnit"> Term Unit. P1Y, P3Y, etc, see Durations https://en.wikipedia.org/wiki/ISO_8601. </param>
+        /// <param name="productCode"> Product code for the term unit. </param>
+        /// <param name="intent"> Intent for the update operation. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.OracleDatabase.Models.OracleSubscriptionProperties" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static OracleSubscriptionProperties OracleSubscriptionProperties(OracleSubscriptionProvisioningState? provisioningState, string saasSubscriptionId, ResourceIdentifier cloudAccountId, CloudAccountProvisioningState? cloudAccountState, string termUnit, string productCode, OracleSubscriptionUpdateIntent? intent)
+        {
+            return OracleSubscriptionProperties(provisioningState: provisioningState, saasSubscriptionId: saasSubscriptionId, cloudAccountId: cloudAccountId, cloudAccountState: cloudAccountState, termUnit: termUnit, productCode: productCode, intent: intent, azureSubscriptionIds: default, addSubscriptionOperationState: default, lastOperationStatusDetail: default);
         }
     }
 }
