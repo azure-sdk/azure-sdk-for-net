@@ -289,6 +289,16 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("networkProfile"u8);
                 writer.WriteObjectValue(NetworkProfile, options);
             }
+            if (Optional.IsDefined(WindowsProfile))
+            {
+                writer.WritePropertyName("windowsProfile"u8);
+                writer.WriteObjectValue(WindowsProfile, options);
+            }
+            if (Optional.IsDefined(SecurityProfile))
+            {
+                writer.WritePropertyName("securityProfile"u8);
+                writer.WriteObjectValue(SecurityProfile, options);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -375,6 +385,8 @@ namespace Azure.ResourceManager.ContainerService
             ResourceIdentifier capacityReservationGroupId = default;
             ResourceIdentifier hostGroupId = default;
             AgentPoolNetworkProfile networkProfile = default;
+            AgentPoolWindowsProfile windowsProfile = default;
+            AgentPoolSecurityProfile securityProfile = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -799,6 +811,24 @@ namespace Azure.ResourceManager.ContainerService
                             networkProfile = AgentPoolNetworkProfile.DeserializeAgentPoolNetworkProfile(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("windowsProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            windowsProfile = AgentPoolWindowsProfile.DeserializeAgentPoolWindowsProfile(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("securityProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            securityProfile = AgentPoolSecurityProfile.DeserializeAgentPoolSecurityProfile(property0.Value, options);
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -856,6 +886,8 @@ namespace Azure.ResourceManager.ContainerService
                 capacityReservationGroupId,
                 hostGroupId,
                 networkProfile,
+                windowsProfile,
+                securityProfile,
                 serializedAdditionalRawData);
         }
 
@@ -1708,6 +1740,41 @@ namespace Azure.ResourceManager.ContainerService
                 {
                     builder.Append("    networkProfile: ");
                     BicepSerializationHelpers.AppendChildObject(builder, NetworkProfile, options, 4, false, "    networkProfile: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue("DisableOutboundNat", out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    windowsProfile: ");
+                builder.AppendLine("{");
+                builder.AppendLine("      windowsProfile: {");
+                builder.Append("        disableOutboundNat: ");
+                builder.AppendLine(propertyOverride);
+                builder.AppendLine("      }");
+                builder.AppendLine("    }");
+            }
+            else
+            {
+                if (Optional.IsDefined(WindowsProfile))
+                {
+                    builder.Append("    windowsProfile: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, WindowsProfile, options, 4, false, "    windowsProfile: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(SecurityProfile), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    securityProfile: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(SecurityProfile))
+                {
+                    builder.Append("    securityProfile: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, SecurityProfile, options, 4, false, "    securityProfile: ");
                 }
             }
 
