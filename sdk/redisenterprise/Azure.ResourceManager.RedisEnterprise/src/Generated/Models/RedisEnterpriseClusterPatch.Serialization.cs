@@ -58,11 +58,6 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(HighAvailability))
-            {
-                writer.WritePropertyName("highAvailability"u8);
-                writer.WriteStringValue(HighAvailability.Value.ToString());
-            }
             if (Optional.IsDefined(MinimumTlsVersion))
             {
                 writer.WritePropertyName("minimumTlsVersion"u8);
@@ -82,11 +77,6 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
             {
                 writer.WritePropertyName("provisioningState"u8);
                 writer.WriteStringValue(ProvisioningState.Value.ToString());
-            }
-            if (options.Format != "W" && Optional.IsDefined(RedundancyMode))
-            {
-                writer.WritePropertyName("redundancyMode"u8);
-                writer.WriteStringValue(RedundancyMode.Value.ToString());
             }
             if (options.Format != "W" && Optional.IsDefined(ResourceState))
             {
@@ -149,12 +139,10 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
             RedisEnterpriseSku sku = default;
             ManagedServiceIdentity identity = default;
             IDictionary<string, string> tags = default;
-            RedisEnterpriseHighAvailability? highAvailability = default;
             RedisEnterpriseTlsVersion? minimumTlsVersion = default;
             ClusterPropertiesEncryption encryption = default;
             string hostName = default;
             RedisEnterpriseProvisioningStatus? provisioningState = default;
-            RedisEnterpriseRedundancyMode? redundancyMode = default;
             RedisEnterpriseClusterResourceState? resourceState = default;
             string redisVersion = default;
             IReadOnlyList<RedisEnterprisePrivateEndpointConnectionData> privateEndpointConnections = default;
@@ -203,15 +191,6 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("highAvailability"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            highAvailability = new RedisEnterpriseHighAvailability(property0.Value.GetString());
-                            continue;
-                        }
                         if (property0.NameEquals("minimumTlsVersion"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -242,15 +221,6 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                                 continue;
                             }
                             provisioningState = new RedisEnterpriseProvisioningStatus(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("redundancyMode"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            redundancyMode = new RedisEnterpriseRedundancyMode(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("resourceState"u8))
@@ -294,12 +264,10 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 sku,
                 identity,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
-                highAvailability,
                 minimumTlsVersion,
                 encryption,
                 hostName,
                 provisioningState,
-                redundancyMode,
                 resourceState,
                 redisVersion,
                 privateEndpointConnections ?? new ChangeTrackingList<RedisEnterprisePrivateEndpointConnectionData>(),
