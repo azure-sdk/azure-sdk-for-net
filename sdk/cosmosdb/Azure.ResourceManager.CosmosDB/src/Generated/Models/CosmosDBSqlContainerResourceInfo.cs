@@ -67,10 +67,9 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// <param name="analyticalStorageTtl"> Analytical TTL. </param>
         /// <param name="restoreParameters"> Parameters to indicate the information about the restore. </param>
         /// <param name="createMode"> Enum to indicate the mode of resource creation. </param>
-        /// <param name="materializedViewDefinition"> The configuration for defining Materialized Views. This must be specified only for creating a Materialized View container. </param>
         /// <param name="computedProperties"> List of computed properties. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CosmosDBSqlContainerResourceInfo(string containerName, CosmosDBIndexingPolicy indexingPolicy, CosmosDBContainerPartitionKey partitionKey, int? defaultTtl, CosmosDBUniqueKeyPolicy uniqueKeyPolicy, ConflictResolutionPolicy conflictResolutionPolicy, CosmosDBClientEncryptionPolicy clientEncryptionPolicy, long? analyticalStorageTtl, ResourceRestoreParameters restoreParameters, CosmosDBAccountCreateMode? createMode, MaterializedViewDefinition materializedViewDefinition, IList<ComputedProperty> computedProperties, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CosmosDBSqlContainerResourceInfo(string containerName, CosmosDBIndexingPolicy indexingPolicy, CosmosDBContainerPartitionKey partitionKey, int? defaultTtl, CosmosDBUniqueKeyPolicy uniqueKeyPolicy, ConflictResolutionPolicy conflictResolutionPolicy, CosmosDBClientEncryptionPolicy clientEncryptionPolicy, long? analyticalStorageTtl, ResourceRestoreParameters restoreParameters, CosmosDBAccountCreateMode? createMode, IList<ComputedProperty> computedProperties, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ContainerName = containerName;
             IndexingPolicy = indexingPolicy;
@@ -82,7 +81,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
             AnalyticalStorageTtl = analyticalStorageTtl;
             RestoreParameters = restoreParameters;
             CreateMode = createMode;
-            MaterializedViewDefinition = materializedViewDefinition;
             ComputedProperties = computedProperties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -133,9 +131,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// <summary> Enum to indicate the mode of resource creation. </summary>
         [WirePath("createMode")]
         public CosmosDBAccountCreateMode? CreateMode { get; set; }
-        /// <summary> The configuration for defining Materialized Views. This must be specified only for creating a Materialized View container. </summary>
-        [WirePath("materializedViewDefinition")]
-        public MaterializedViewDefinition MaterializedViewDefinition { get; set; }
         /// <summary> List of computed properties. </summary>
         [WirePath("computedProperties")]
         public IList<ComputedProperty> ComputedProperties { get; }
