@@ -75,7 +75,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="parameters"> The parameter values for the assigned policy rule. The keys are the parameter names. </param>
         /// <param name="description"> This message will be part of response in case of policy violation. </param>
         /// <param name="metadata"> The policy assignment metadata. Metadata is an open ended object and is typically a collection of key value pairs. </param>
-        /// <param name="enforcementMode"> The policy assignment enforcement mode. Possible values are Default and DoNotEnforce. </param>
+        /// <param name="enforcementMode"> The policy assignment enforcement mode. Possible values are Default, DoNotEnforce, and Enroll. </param>
         /// <param name="nonComplianceMessages"> The messages that describe why a resource is non-compliant with the policy. </param>
         /// <param name="resourceSelectors"> The resource selector list to filter policies by resource properties. </param>
         /// <param name="overrides"> The policy property value override. </param>
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.Resources
         /// </summary>
         [WirePath("properties.metadata")]
         public BinaryData Metadata { get; set; }
-        /// <summary> The policy assignment enforcement mode. Possible values are Default and DoNotEnforce. </summary>
+        /// <summary> The policy assignment enforcement mode. Possible values are Default, DoNotEnforce, and Enroll. </summary>
         [WirePath("properties.enforcementMode")]
         public EnforcementMode? EnforcementMode { get; set; }
         /// <summary> The messages that describe why a resource is non-compliant with the policy. </summary>

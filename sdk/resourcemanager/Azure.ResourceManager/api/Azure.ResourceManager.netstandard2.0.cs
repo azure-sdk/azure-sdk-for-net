@@ -1810,6 +1810,7 @@ namespace Azure.ResourceManager.Resources.Models
         public static Azure.ResourceManager.Resources.Models.EnforcementMode DoNotEnforce { get { throw null; } }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public static Azure.ResourceManager.Resources.Models.EnforcementMode Enforced { get { throw null; } }
+        public static Azure.ResourceManager.Resources.Models.EnforcementMode Enroll { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Resources.Models.EnforcementMode other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override bool Equals(object obj) { throw null; }
