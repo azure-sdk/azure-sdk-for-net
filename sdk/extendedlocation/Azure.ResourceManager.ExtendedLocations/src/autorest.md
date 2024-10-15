@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: ExtendedLocations
 namespace: Azure.ResourceManager.ExtendedLocations
-require: https://github.com/Azure/azure-rest-api-specs/blob/691920cda83cc0b89a8c821d0bb285100fad22b4/specification/extendedlocation/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/extendedlocation/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
