@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Datadog.Models
 {
-    /// <summary> Includes name, email and optionally, phone number. User Information can't be null. </summary>
-    public partial class UserInfo
+    /// <summary> The list of subscriptions and it's monitoring status by current Datadog monitor. </summary>
+    public partial class MonitoredSubscription
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,29 +45,33 @@ namespace Azure.ResourceManager.Datadog.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="UserInfo"/>. </summary>
-        public UserInfo()
+        /// <summary> Initializes a new instance of <see cref="MonitoredSubscription"/>. </summary>
+        public MonitoredSubscription()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="UserInfo"/>. </summary>
-        /// <param name="name"> Name of the user. </param>
-        /// <param name="emailAddress"> Email of the user used by Datadog for contacting them if needed. </param>
-        /// <param name="phoneNumber"> Phone number of the user used by Datadog for contacting them if needed. </param>
+        /// <summary> Initializes a new instance of <see cref="MonitoredSubscription"/>. </summary>
+        /// <param name="subscriptionId"> The subscriptionId to be monitored. </param>
+        /// <param name="status"> The state of monitoring. </param>
+        /// <param name="error"> The reason of not monitoring the subscription. </param>
+        /// <param name="tagRules"> Definition of the properties for a TagRules resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UserInfo(string name, string emailAddress, string phoneNumber, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal MonitoredSubscription(string subscriptionId, Status? status, string error, MonitoringTagRulesProperties tagRules, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Name = name;
-            EmailAddress = emailAddress;
-            PhoneNumber = phoneNumber;
+            SubscriptionId = subscriptionId;
+            Status = status;
+            Error = error;
+            TagRules = tagRules;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Name of the user. </summary>
-        public string Name { get; set; }
-        /// <summary> Email of the user used by Datadog for contacting them if needed. </summary>
-        public string EmailAddress { get; set; }
-        /// <summary> Phone number of the user used by Datadog for contacting them if needed. </summary>
-        public string PhoneNumber { get; set; }
+        /// <summary> The subscriptionId to be monitored. </summary>
+        public string SubscriptionId { get; set; }
+        /// <summary> The state of monitoring. </summary>
+        public Status? Status { get; set; }
+        /// <summary> The reason of not monitoring the subscription. </summary>
+        public string Error { get; set; }
+        /// <summary> Definition of the properties for a TagRules resource. </summary>
+        public MonitoringTagRulesProperties TagRules { get; set; }
     }
 }
