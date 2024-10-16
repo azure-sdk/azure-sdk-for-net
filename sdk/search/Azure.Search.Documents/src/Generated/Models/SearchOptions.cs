@@ -50,6 +50,7 @@ namespace Azure.Search.Documents
         /// <param name="semanticQuery"> Allows setting a separate search query that will be solely used for semantic reranking, semantic captions and semantic answers. Is useful for scenarios where there is a need to use different queries between the base retrieval and ranking phase, and the L2 semantic phase. </param>
         /// <param name="queryAnswerRaw"> A value that specifies whether answers should be returned as part of the search response. </param>
         /// <param name="queryCaptionRaw"> A value that specifies whether captions should be returned as part of the search response. </param>
+        /// <param name="queryRewrites"> A value that specifies whether query rewrites should be generated to augment the search query. </param>
         /// <param name="semanticFieldsRaw"> The comma-separated list of field names used for semantic ranking. </param>
         /// <param name="vectorQueries">
         /// The query parameters for vector and hybrid search queries.
@@ -58,7 +59,7 @@ namespace Azure.Search.Documents
         /// </param>
         /// <param name="filterMode"> Determines whether or not filters are applied before or after the vector search is performed. Default is 'preFilter' for new indexes. </param>
         /// <param name="hybridSearch"> The query parameters to configure hybrid search behaviors. </param>
-        internal SearchOptions(bool? includeTotalCount, IList<string> facets, string filter, string highlightFieldsRaw, string highlightPostTag, string highlightPreTag, double? minimumCoverage, string orderByRaw, SearchQueryType? queryType, ScoringStatistics? scoringStatistics, string sessionId, IList<string> scoringParameters, string scoringProfile, QueryDebugMode? debug, string searchText, string searchFieldsRaw, SearchMode? searchMode, QueryLanguage? queryLanguage, QuerySpellerType? querySpeller, string selectRaw, int? skip, int? size, string semanticConfigurationName, SemanticErrorMode? semanticErrorMode, int? semanticMaxWaitInMilliseconds, string semanticQuery, string queryAnswerRaw, string queryCaptionRaw, string semanticFieldsRaw, IList<VectorQuery> vectorQueries, VectorFilterMode? filterMode, HybridSearch hybridSearch)
+        internal SearchOptions(bool? includeTotalCount, IList<string> facets, string filter, string highlightFieldsRaw, string highlightPostTag, string highlightPreTag, double? minimumCoverage, string orderByRaw, SearchQueryType? queryType, ScoringStatistics? scoringStatistics, string sessionId, IList<string> scoringParameters, string scoringProfile, QueryDebugMode? debug, string searchText, string searchFieldsRaw, SearchMode? searchMode, QueryLanguage? queryLanguage, QuerySpellerType? querySpeller, string selectRaw, int? skip, int? size, string semanticConfigurationName, SemanticErrorMode? semanticErrorMode, int? semanticMaxWaitInMilliseconds, string semanticQuery, string queryAnswerRaw, string queryCaptionRaw, QueryRewritesType? queryRewrites, string semanticFieldsRaw, IList<VectorQuery> vectorQueries, VectorFilterMode? filterMode, HybridSearch hybridSearch)
         {
             IncludeTotalCount = includeTotalCount;
             Facets = facets;
@@ -88,6 +89,7 @@ namespace Azure.Search.Documents
             SemanticQuery = semanticQuery;
             QueryAnswerRaw = queryAnswerRaw;
             QueryCaptionRaw = queryCaptionRaw;
+            QueryRewrites = queryRewrites;
             SemanticFieldsRaw = semanticFieldsRaw;
             VectorQueries = vectorQueries;
             FilterMode = filterMode;
@@ -111,6 +113,8 @@ namespace Azure.Search.Documents
         public SearchMode? SearchMode { get; set; }
         /// <summary> The number of search results to skip. This value cannot be greater than 100,000. If you need to scan documents in sequence, but cannot use skip due to this limitation, consider using orderby on a totally-ordered key and filter with a range query instead. </summary>
         public int? Skip { get; set; }
+        /// <summary> A value that specifies whether query rewrites should be generated to augment the search query. </summary>
+        public QueryRewritesType? QueryRewrites { get; set; }
         /// <summary> The query parameters to configure hybrid search behaviors. </summary>
         public HybridSearch HybridSearch { get; set; }
     }

@@ -174,6 +174,11 @@ namespace Azure.Search.Documents
                 writer.WritePropertyName("captions"u8);
                 writer.WriteStringValue(QueryCaptionRaw);
             }
+            if (Optional.IsDefined(QueryRewrites))
+            {
+                writer.WritePropertyName("queryRewrites"u8);
+                writer.WriteStringValue(QueryRewrites.Value.ToString());
+            }
             if (Optional.IsDefined(SemanticFieldsRaw))
             {
                 writer.WritePropertyName("semanticFields"u8);
@@ -236,6 +241,7 @@ namespace Azure.Search.Documents
             string semanticQuery = default;
             string answers = default;
             string captions = default;
+            QueryRewritesType? queryRewrites = default;
             string semanticFields = default;
             IList<VectorQuery> vectorQueries = default;
             VectorFilterMode? vectorFilterMode = default;
@@ -449,6 +455,15 @@ namespace Azure.Search.Documents
                     captions = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("queryRewrites"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    queryRewrites = new QueryRewritesType(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("semanticFields"u8))
                 {
                     semanticFields = property.Value.GetString();
@@ -516,6 +531,7 @@ namespace Azure.Search.Documents
                 semanticQuery,
                 answers,
                 captions,
+                queryRewrites,
                 semanticFields,
                 vectorQueries ?? new ChangeTrackingList<VectorQuery>(),
                 vectorFilterMode,
