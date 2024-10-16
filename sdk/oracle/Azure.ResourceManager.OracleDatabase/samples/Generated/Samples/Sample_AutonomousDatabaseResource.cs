@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAutonomousDatabases_ListAutonomousDatabaseBySubscription()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/autonomousDatabase_listBySubscription.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/autonomousDatabase_listBySubscription.json
             // this example is just showing the usage of "AutonomousDatabases_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_AutonomousDatabasesGet()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/autonomousDatabase_get.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/autonomousDatabase_get.json
             // this example is just showing the usage of "AutonomousDatabases_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -84,7 +84,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetAutonomousDatabase()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/autonomousDatabase_get.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/autonomousDatabase_get.json
             // this example is just showing the usage of "AutonomousDatabases_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -115,7 +115,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_PatchAutonomousDatabase()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/autonomousDatabase_patch.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/autonomousDatabase_patch.json
             // this example is just showing the usage of "AutonomousDatabases_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -148,7 +148,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteAutonomousDatabase()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/autonomousDatabase_delete.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/autonomousDatabase_delete.json
             // this example is just showing the usage of "AutonomousDatabases_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -170,12 +170,86 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
             Console.WriteLine($"Succeeded");
         }
 
+        // AutonomousDatabases_ChangeDisasterRecoveryConfiguration
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task ChangeDisasterRecoveryConfiguration_AutonomousDatabasesChangeDisasterRecoveryConfiguration()
+        {
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/autonomousDatabase_changeDisasterRecoveryConfiguration.json
+            // this example is just showing the usage of "AutonomousDatabases_ChangeDisasterRecoveryConfiguration" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AutonomousDatabaseResource created on azure
+            // for more information of creating AutonomousDatabaseResource, please refer to the document of AutonomousDatabaseResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "rg000";
+            string autonomousdatabasename = "databasedb1";
+            ResourceIdentifier autonomousDatabaseResourceId = AutonomousDatabaseResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, autonomousdatabasename);
+            AutonomousDatabaseResource autonomousDatabase = client.GetAutonomousDatabaseResource(autonomousDatabaseResourceId);
+
+            // invoke the operation
+            DisasterRecoveryConfigurationDetails details = new DisasterRecoveryConfigurationDetails()
+            {
+                DisasterRecoveryType = DisasterRecoveryType.Adg,
+                IsReplicateAutomaticBackups = false,
+            };
+            ArmOperation<AutonomousDatabaseResource> lro = await autonomousDatabase.ChangeDisasterRecoveryConfigurationAsync(WaitUntil.Completed, details);
+            AutonomousDatabaseResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            AutonomousDatabaseData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        // Perform ChangeDisasterRecoveryConfiguration action on Autonomous Database
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task ChangeDisasterRecoveryConfiguration_PerformChangeDisasterRecoveryConfigurationActionOnAutonomousDatabase()
+        {
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/autonomousDatabase_changeDisasterRecoveryConfiguration.json
+            // this example is just showing the usage of "AutonomousDatabases_ChangeDisasterRecoveryConfiguration" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AutonomousDatabaseResource created on azure
+            // for more information of creating AutonomousDatabaseResource, please refer to the document of AutonomousDatabaseResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "rg000";
+            string autonomousdatabasename = "databasedb1";
+            ResourceIdentifier autonomousDatabaseResourceId = AutonomousDatabaseResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, autonomousdatabasename);
+            AutonomousDatabaseResource autonomousDatabase = client.GetAutonomousDatabaseResource(autonomousDatabaseResourceId);
+
+            // invoke the operation
+            DisasterRecoveryConfigurationDetails details = new DisasterRecoveryConfigurationDetails()
+            {
+                DisasterRecoveryType = DisasterRecoveryType.Adg,
+                IsReplicateAutomaticBackups = false,
+            };
+            ArmOperation<AutonomousDatabaseResource> lro = await autonomousDatabase.ChangeDisasterRecoveryConfigurationAsync(WaitUntil.Completed, details);
+            AutonomousDatabaseResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            AutonomousDatabaseData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
         // AutonomousDatabases_Failover
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Failover_AutonomousDatabasesFailover()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/autonomousDatabase_failover.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/autonomousDatabase_failover.json
             // this example is just showing the usage of "AutonomousDatabases_Failover" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -211,7 +285,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Failover_PerformFailoverActionOnAutonomousDatabase()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/autonomousDatabase_failover.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/autonomousDatabase_failover.json
             // this example is just showing the usage of "AutonomousDatabases_Failover" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -247,7 +321,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GenerateWallet_GenerateWalletActionOnAutonomousDatabase()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/autonomousDatabase_generateWallet.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/autonomousDatabase_generateWallet.json
             // this example is just showing the usage of "AutonomousDatabases_GenerateWallet" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -279,7 +353,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Restore_AutonomousDatabasesRestore()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/autonomousDatabase_restore.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/autonomousDatabase_restore.json
             // this example is just showing the usage of "AutonomousDatabases_Restore" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -312,7 +386,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Restore_PerformRestoreActionOnAutonomousDatabase()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/autonomousDatabase_restore.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/autonomousDatabase_restore.json
             // this example is just showing the usage of "AutonomousDatabases_Restore" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -345,7 +419,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Shrink_PerformShrinkActionOnAutonomousDatabase()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/autonomousDatabase_shrink.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/autonomousDatabase_shrink.json
             // this example is just showing the usage of "AutonomousDatabases_Shrink" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -377,7 +451,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Switchover_AutonomousDatabasesSwitchover()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/autonomousDatabase_switchover.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/autonomousDatabase_switchover.json
             // this example is just showing the usage of "AutonomousDatabases_Switchover" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -413,7 +487,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Switchover_PerformSwitchoverActionOnAutonomousDatabase()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/autonomousDatabase_switchover.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/autonomousDatabase_switchover.json
             // this example is just showing the usage of "AutonomousDatabases_Switchover" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
