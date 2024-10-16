@@ -66,6 +66,28 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 writer.WritePropertyName("failHealthCheckOnStagingFailure"u8);
                 writer.WriteStringValue(FailHealthCheckOnStagingFailure.Value.ToString());
             }
+            if (Optional.IsDefined(PackageOwnerName))
+            {
+                writer.WritePropertyName("packageOwnerName"u8);
+                writer.WriteStringValue(PackageOwnerName);
+            }
+            if (Optional.IsDefined(PackageLookbackUri))
+            {
+                if (PackageLookbackUri != null)
+                {
+                    writer.WritePropertyName("packageLookbackUrl"u8);
+                    writer.WriteStringValue(PackageLookbackUri.AbsoluteUri);
+                }
+                else
+                {
+                    writer.WriteNull("packageLookbackUrl");
+                }
+            }
+            if (Optional.IsDefined(CustomData))
+            {
+                writer.WritePropertyName("customData"u8);
+                writer.WriteStringValue(CustomData);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -108,6 +130,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             IList<string> hostPoolReferences = default;
             Uri keyVaultURL = default;
             FailHealthCheckOnStagingFailure? failHealthCheckOnStagingFailure = default;
+            string packageOwnerName = default;
+            Uri packageLookbackUrl = default;
+            string customData = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -162,6 +187,26 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                     failHealthCheckOnStagingFailure = new FailHealthCheckOnStagingFailure(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("packageOwnerName"u8))
+                {
+                    packageOwnerName = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("packageLookbackUrl"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        packageLookbackUrl = null;
+                        continue;
+                    }
+                    packageLookbackUrl = new Uri(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("customData"u8))
+                {
+                    customData = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -174,6 +219,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 hostPoolReferences ?? new ChangeTrackingList<string>(),
                 keyVaultURL,
                 failHealthCheckOnStagingFailure,
+                packageOwnerName,
+                packageLookbackUrl,
+                customData,
                 serializedAdditionalRawData);
         }
 
@@ -281,6 +329,67 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 {
                     builder.Append("  failHealthCheckOnStagingFailure: ");
                     builder.AppendLine($"'{FailHealthCheckOnStagingFailure.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PackageOwnerName), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  packageOwnerName: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(PackageOwnerName))
+                {
+                    builder.Append("  packageOwnerName: ");
+                    if (PackageOwnerName.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{PackageOwnerName}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{PackageOwnerName}'");
+                    }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PackageLookbackUri), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  packageLookbackUrl: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(PackageLookbackUri))
+                {
+                    builder.Append("  packageLookbackUrl: ");
+                    builder.AppendLine($"'{PackageLookbackUri.AbsoluteUri}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(CustomData), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  customData: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(CustomData))
+                {
+                    builder.Append("  customData: ");
+                    if (CustomData.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{CustomData}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{CustomData}'");
+                    }
                 }
             }
 

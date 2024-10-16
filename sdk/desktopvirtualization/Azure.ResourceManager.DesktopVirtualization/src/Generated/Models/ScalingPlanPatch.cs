@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <param name="friendlyName"> User friendly name of scaling plan. </param>
         /// <param name="timeZone"> Timezone of the scaling plan. </param>
         /// <param name="exclusionTag"> Exclusion tag for scaling plan. </param>
-        /// <param name="schedules"> List of ScalingSchedule definitions. </param>
+        /// <param name="schedules"> List Pooled ScalingSchedule definitions. </param>
         /// <param name="hostPoolReferences"> List of ScalingHostPoolReference definitions. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal ScalingPlanPatch(IDictionary<string, string> tags, string description, string friendlyName, string timeZone, string exclusionTag, IList<ScalingSchedule> schedules, IList<ScalingHostPoolReference> hostPoolReferences, IDictionary<string, BinaryData> serializedAdditionalRawData)
@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <summary> Exclusion tag for scaling plan. </summary>
         [WirePath("properties.exclusionTag")]
         public string ExclusionTag { get; set; }
-        /// <summary> List of ScalingSchedule definitions. </summary>
+        /// <summary> List Pooled ScalingSchedule definitions. </summary>
         [WirePath("properties.schedules")]
         public IList<ScalingSchedule> Schedules { get; }
         /// <summary> List of ScalingHostPoolReference definitions. </summary>

@@ -54,17 +54,17 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
 
         /// <summary> Initializes a new instance of <see cref="AppAttachPackageInfoProperties"/>. </summary>
         /// <param name="packageAlias"> Alias of App Attach Package. Assigned at import time. </param>
-        /// <param name="imagePath"> VHD/CIM image path on Network Share. </param>
+        /// <param name="imagePath"> VHD/CIM/APP-V image path on Network Share. </param>
         /// <param name="packageName"> Package Name from appxmanifest.xml. </param>
-        /// <param name="packageFamilyName"> Package Family Name from appxmanifest.xml. Contains Package Name and Publisher name. </param>
-        /// <param name="packageFullName"> Package Full Name from appxmanifest.xml. </param>
+        /// <param name="packageFamilyName"> Identifier not including the package version, for Msix packages it is the family name from the appxmanifest.xml. </param>
+        /// <param name="packageFullName"> Identifier including the package version, for Msix packages it is the full name from the appxmanifest.xml. </param>
         /// <param name="displayName"> User friendly Name to be displayed in the portal. </param>
         /// <param name="packageRelativePath"> Relative Path to the package inside the image. </param>
         /// <param name="isRegularRegistration"> Specifies how to register Package in feed. </param>
         /// <param name="isActive"> Make this version of the package the active one across the hostpool. </param>
         /// <param name="packageDependencies"> List of package dependencies. </param>
-        /// <param name="version"> Package version found in the appxmanifest.xml. </param>
-        /// <param name="lastUpdatedOn"> Date Package was last updated, found in the appxmanifest.xml. </param>
+        /// <param name="version"> Package Version found in the appxmanifest.xml. </param>
+        /// <param name="lastUpdatedOn"> Date the package source was last updated, for Msix packages this is found in the appxmanifest.xml. </param>
         /// <param name="packageApplications"> List of package applications. </param>
         /// <param name="certificateName"> Certificate name found in the appxmanifest.xml. </param>
         /// <param name="certificateExpireOn"> Date certificate expires, found in the appxmanifest.xml. </param>
@@ -94,16 +94,16 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <summary> Alias of App Attach Package. Assigned at import time. </summary>
         [WirePath("packageAlias")]
         public string PackageAlias { get; set; }
-        /// <summary> VHD/CIM image path on Network Share. </summary>
+        /// <summary> VHD/CIM/APP-V image path on Network Share. </summary>
         [WirePath("imagePath")]
         public string ImagePath { get; set; }
         /// <summary> Package Name from appxmanifest.xml. </summary>
         [WirePath("packageName")]
         public string PackageName { get; set; }
-        /// <summary> Package Family Name from appxmanifest.xml. Contains Package Name and Publisher name. </summary>
+        /// <summary> Identifier not including the package version, for Msix packages it is the family name from the appxmanifest.xml. </summary>
         [WirePath("packageFamilyName")]
         public string PackageFamilyName { get; set; }
-        /// <summary> Package Full Name from appxmanifest.xml. </summary>
+        /// <summary> Identifier including the package version, for Msix packages it is the full name from the appxmanifest.xml. </summary>
         [WirePath("packageFullName")]
         public string PackageFullName { get; set; }
         /// <summary> User friendly Name to be displayed in the portal. </summary>
@@ -121,10 +121,10 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <summary> List of package dependencies. </summary>
         [WirePath("packageDependencies")]
         public IList<MsixPackageDependencies> PackageDependencies { get; set; }
-        /// <summary> Package version found in the appxmanifest.xml. </summary>
+        /// <summary> Package Version found in the appxmanifest.xml. </summary>
         [WirePath("version")]
         public string Version { get; set; }
-        /// <summary> Date Package was last updated, found in the appxmanifest.xml. </summary>
+        /// <summary> Date the package source was last updated, for Msix packages this is found in the appxmanifest.xml. </summary>
         [WirePath("lastUpdated")]
         public DateTimeOffset? LastUpdatedOn { get; set; }
         /// <summary> List of package applications. </summary>

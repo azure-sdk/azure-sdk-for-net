@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ScalingPlanPooledSchedulesGet()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/ScalingPlanPooledSchedule_Get.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2024-08-08-preview/examples/ScalingPlanPooledSchedule_Get.json
             // this example is just showing the usage of "ScalingPlanPooledSchedules_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_ScalingPlanPooledSchedulesGet()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/ScalingPlanPooledSchedule_Get.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2024-08-08-preview/examples/ScalingPlanPooledSchedule_Get.json
             // this example is just showing the usage of "ScalingPlanPooledSchedules_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_ScalingPlanPooledSchedulesGet()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/ScalingPlanPooledSchedule_Get.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2024-08-08-preview/examples/ScalingPlanPooledSchedule_Get.json
             // this example is just showing the usage of "ScalingPlanPooledSchedules_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -129,7 +129,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_ScalingPlanPooledSchedulesCreate()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/ScalingPlanPooledSchedule_Create.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2024-08-08-preview/examples/ScalingPlanPooledSchedule_Create.json
             // this example is just showing the usage of "ScalingPlanPooledSchedules_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -150,26 +150,19 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
 
             // invoke the operation
             string scalingPlanScheduleName = "scalingPlanScheduleWeekdays1";
-            ScalingPlanPooledScheduleData data = new ScalingPlanPooledScheduleData()
+            ScalingPlanPooledScheduleData data = new ScalingPlanPooledScheduleData(new DesktopVirtualizationDayOfWeek[]
             {
-                DaysOfWeek =
-{
 DesktopVirtualizationDayOfWeek.Monday,DesktopVirtualizationDayOfWeek.Tuesday,DesktopVirtualizationDayOfWeek.Wednesday,DesktopVirtualizationDayOfWeek.Thursday,DesktopVirtualizationDayOfWeek.Friday
-},
-                RampUpStartTime = new ScalingActionTime(6, 0),
+            }, new ScalingActionTime(6, 0), 80, new ScalingActionTime(8, 0), new ScalingActionTime(18, 0), 50, new ScalingActionTime(20, 0))
+            {
                 RampUpLoadBalancingAlgorithm = SessionHostLoadBalancingAlgorithm.DepthFirst,
                 RampUpMinimumHostsPct = 20,
-                RampUpCapacityThresholdPct = 80,
-                PeakStartTime = new ScalingActionTime(8, 0),
                 PeakLoadBalancingAlgorithm = SessionHostLoadBalancingAlgorithm.BreadthFirst,
-                RampDownStartTime = new ScalingActionTime(18, 0),
                 RampDownLoadBalancingAlgorithm = SessionHostLoadBalancingAlgorithm.DepthFirst,
                 RampDownMinimumHostsPct = 20,
-                RampDownCapacityThresholdPct = 50,
                 RampDownForceLogoffUsers = true,
                 RampDownWaitTimeMinutes = 30,
                 RampDownNotificationMessage = "message",
-                OffPeakStartTime = new ScalingActionTime(20, 0),
                 OffPeakLoadBalancingAlgorithm = SessionHostLoadBalancingAlgorithm.DepthFirst,
             };
             ArmOperation<ScalingPlanPooledScheduleResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, scalingPlanScheduleName, data);
@@ -187,7 +180,7 @@ DesktopVirtualizationDayOfWeek.Monday,DesktopVirtualizationDayOfWeek.Tuesday,Des
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ScalingPlanPooledSchedulesList()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/ScalingPlanPooledSchedule_List.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2024-08-08-preview/examples/ScalingPlanPooledSchedule_List.json
             // this example is just showing the usage of "ScalingPlanPooledSchedules_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
