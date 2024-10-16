@@ -749,8 +749,11 @@ namespace Azure.AI.Language.Conversations
         /// <param name="offset"> Start position for the entity text. Use of different 'stringIndexType' values can affect the offset returned. </param>
         /// <param name="length"> Length for the entity text. Use of different 'stringIndexType' values can affect the length returned. </param>
         /// <param name="confidenceScore"> Confidence score between 0 and 1 of the extracted entity. </param>
+        /// <param name="mask"> Exact mask text to mask the PII entity. </param>
+        /// <param name="maskOffset"> Offset of the mask text. </param>
+        /// <param name="maskLength"> Length of the mask text. </param>
         /// <returns> A new <see cref="Models.NamedEntity"/> instance for mocking. </returns>
-        public static NamedEntity NamedEntity(string text = null, string category = null, string subcategory = null, int offset = default, int length = default, double confidenceScore = default)
+        public static NamedEntity NamedEntity(string text = null, string category = null, string subcategory = null, int offset = default, int length = default, double confidenceScore = default, string mask = null, int? maskOffset = null, int? maskLength = null)
         {
             return new NamedEntity(
                 text,
@@ -759,6 +762,9 @@ namespace Azure.AI.Language.Conversations
                 offset,
                 length,
                 confidenceScore,
+                mask,
+                maskOffset,
+                maskLength,
                 serializedAdditionalRawData: null);
         }
 
