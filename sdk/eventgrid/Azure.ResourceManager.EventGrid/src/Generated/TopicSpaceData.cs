@@ -66,9 +66,9 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="topicTemplates">
         /// The topic filters in the topic space.
         /// Example: "topicTemplates": [
-        ///               "devices/foo/bar",
-        ///               "devices/topic1/+",
-        ///               "devices/${principal.name}/${principal.attributes.keyName}" ].
+        ///         "devices/foo/bar",
+        ///         "devices/topic1/+",
+        ///         "devices/${principal.name}/${principal.attributes.keyName}" ].
         /// </param>
         /// <param name="provisioningState"> Provisioning state of the TopicSpace resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
@@ -86,9 +86,9 @@ namespace Azure.ResourceManager.EventGrid
         /// <summary>
         /// The topic filters in the topic space.
         /// Example: "topicTemplates": [
-        ///               "devices/foo/bar",
-        ///               "devices/topic1/+",
-        ///               "devices/${principal.name}/${principal.attributes.keyName}" ].
+        ///         "devices/foo/bar",
+        ///         "devices/topic1/+",
+        ///         "devices/${principal.name}/${principal.attributes.keyName}" ].
         /// </summary>
         [WirePath("properties.topicTemplates")]
         public IList<string> TopicTemplates { get; }
