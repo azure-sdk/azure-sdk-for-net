@@ -181,9 +181,13 @@ namespace Azure.Health.Deidentification.Samples
             using RequestContent content = RequestContent.Create(new
             {
                 inputText = "Hello my name is John Smith.",
-                operation = "Redact",
                 dataType = "Plaintext",
-                redactionFormat = "[{type}]",
+                customizations = new
+                {
+                    redactionFormat = "[{type}]",
+                    disableConsistency = false,
+                    operation = "Redact",
+                },
             });
             Response response = client.Deidentify(content);
 
@@ -202,9 +206,13 @@ namespace Azure.Health.Deidentification.Samples
             using RequestContent content = RequestContent.Create(new
             {
                 inputText = "Hello my name is John Smith.",
-                operation = "Redact",
                 dataType = "Plaintext",
-                redactionFormat = "[{type}]",
+                customizations = new
+                {
+                    redactionFormat = "[{type}]",
+                    disableConsistency = false,
+                    operation = "Redact",
+                },
             });
             Response response = await client.DeidentifyAsync(content);
 
@@ -222,9 +230,13 @@ namespace Azure.Health.Deidentification.Samples
 
             DeidentificationContent body = new DeidentificationContent("Hello my name is John Smith.")
             {
-                Operation = OperationType.Redact,
                 DataType = DocumentDataType.Plaintext,
-                RedactionFormat = "[{type}]",
+                Customizations = new CustomizationOptions
+                {
+                    RedactionFormat = "[{type}]",
+                    DisableConsistency = false,
+                    Operation = OperationType.Redact,
+                },
             };
             Response<DeidentificationResult> response = client.Deidentify(body);
         }
@@ -239,9 +251,13 @@ namespace Azure.Health.Deidentification.Samples
 
             DeidentificationContent body = new DeidentificationContent("Hello my name is John Smith.")
             {
-                Operation = OperationType.Redact,
                 DataType = DocumentDataType.Plaintext,
-                RedactionFormat = "[{type}]",
+                Customizations = new CustomizationOptions
+                {
+                    RedactionFormat = "[{type}]",
+                    DisableConsistency = false,
+                    Operation = OperationType.Redact,
+                },
             };
             Response<DeidentificationResult> response = await client.DeidentifyAsync(body);
         }
@@ -396,15 +412,21 @@ namespace Azure.Health.Deidentification.Samples
             {
 "*"
             },
+                    locale = "en-US",
+                    dataType = "Plaintext",
                 },
                 targetLocation = new
                 {
                     location = "https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D",
                     prefix = "/documents",
+                    overwrite = true,
                 },
-                operation = "Redact",
-                dataType = "Plaintext",
-                redactionFormat = "[{type}]",
+                customizations = new
+                {
+                    redactionFormat = "[{type}]",
+                    disableConsistency = false,
+                    operation = "Redact",
+                },
                 status = "NotStarted",
             });
             Operation<BinaryData> operation = client.CreateJob(WaitUntil.Completed, "documents_smith_1", content);
@@ -439,15 +461,21 @@ namespace Azure.Health.Deidentification.Samples
             {
 "*"
             },
+                    locale = "en-US",
+                    dataType = "Plaintext",
                 },
                 targetLocation = new
                 {
                     location = "https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D",
                     prefix = "/documents",
+                    overwrite = true,
                 },
-                operation = "Redact",
-                dataType = "Plaintext",
-                redactionFormat = "[{type}]",
+                customizations = new
+                {
+                    redactionFormat = "[{type}]",
+                    disableConsistency = false,
+                    operation = "Redact",
+                },
                 status = "NotStarted",
             });
             Operation<BinaryData> operation = await client.CreateJobAsync(WaitUntil.Completed, "documents_smith_1", content);
@@ -475,11 +503,19 @@ namespace Azure.Health.Deidentification.Samples
             DeidentificationJob resource = new DeidentificationJob(new SourceStorageLocation(new Uri("https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D"), "/documents")
             {
                 Extensions = { "*" },
-            }, new TargetStorageLocation(new Uri("https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D"), "/documents"))
-            {
-                Operation = OperationType.Redact,
+                Locale = "en-US",
                 DataType = DocumentDataType.Plaintext,
-                RedactionFormat = "[{type}]",
+            }, new TargetStorageLocation(new Uri("https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D"), "/documents")
+            {
+                Overwrite = true,
+            })
+            {
+                Customizations = new CustomizationOptions
+                {
+                    RedactionFormat = "[{type}]",
+                    DisableConsistency = false,
+                    Operation = OperationType.Redact,
+                },
             };
             Operation<DeidentificationJob> operation = client.CreateJob(WaitUntil.Completed, "documents_smith_1", resource);
             DeidentificationJob responseData = operation.Value;
@@ -496,11 +532,19 @@ namespace Azure.Health.Deidentification.Samples
             DeidentificationJob resource = new DeidentificationJob(new SourceStorageLocation(new Uri("https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D"), "/documents")
             {
                 Extensions = { "*" },
-            }, new TargetStorageLocation(new Uri("https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D"), "/documents"))
-            {
-                Operation = OperationType.Redact,
+                Locale = "en-US",
                 DataType = DocumentDataType.Plaintext,
-                RedactionFormat = "[{type}]",
+            }, new TargetStorageLocation(new Uri("https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D"), "/documents")
+            {
+                Overwrite = true,
+            })
+            {
+                Customizations = new CustomizationOptions
+                {
+                    RedactionFormat = "[{type}]",
+                    DisableConsistency = false,
+                    Operation = OperationType.Redact,
+                },
             };
             Operation<DeidentificationJob> operation = await client.CreateJobAsync(WaitUntil.Completed, "documents_smith_1", resource);
             DeidentificationJob responseData = operation.Value;

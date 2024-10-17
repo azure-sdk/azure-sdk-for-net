@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Health.Deidentification
 {
-    /// <summary> Request body for de-identification operation. </summary>
-    public partial class DeidentificationContent
+    /// <summary> Customizations options to override default service behaviors. </summary>
+    public partial class CustomizationOptions
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,39 +45,29 @@ namespace Azure.Health.Deidentification
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="DeidentificationContent"/>. </summary>
-        /// <param name="inputText"> Input text to de-identify. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="inputText"/> is null. </exception>
-        public DeidentificationContent(string inputText)
+        /// <summary> Initializes a new instance of <see cref="CustomizationOptions"/>. </summary>
+        public CustomizationOptions()
         {
-            Argument.AssertNotNull(inputText, nameof(inputText));
-
-            InputText = inputText;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DeidentificationContent"/>. </summary>
-        /// <param name="inputText"> Input text to de-identify. </param>
-        /// <param name="dataType"> Data type of the input. </param>
-        /// <param name="customizations"> Customization parameters to override default service behaviors. </param>
+        /// <summary> Initializes a new instance of <see cref="CustomizationOptions"/>. </summary>
+        /// <param name="redactionFormat"> Format of the redacted output. Only valid when Operation is Redact. </param>
+        /// <param name="disableConsistency"> When set to true during a job, the service will surrogate all documents individually. </param>
+        /// <param name="operation"> Operation to perform on the input documents. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DeidentificationContent(string inputText, DocumentDataType? dataType, CustomizationOptions customizations, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CustomizationOptions(string redactionFormat, bool? disableConsistency, OperationType? operation, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            InputText = inputText;
-            DataType = dataType;
-            Customizations = customizations;
+            RedactionFormat = redactionFormat;
+            DisableConsistency = disableConsistency;
+            Operation = operation;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DeidentificationContent"/> for deserialization. </summary>
-        internal DeidentificationContent()
-        {
-        }
-
-        /// <summary> Input text to de-identify. </summary>
-        public string InputText { get; }
-        /// <summary> Data type of the input. </summary>
-        public DocumentDataType? DataType { get; set; }
-        /// <summary> Customization parameters to override default service behaviors. </summary>
-        public CustomizationOptions Customizations { get; set; }
+        /// <summary> Format of the redacted output. Only valid when Operation is Redact. </summary>
+        public string RedactionFormat { get; set; }
+        /// <summary> When set to true during a job, the service will surrogate all documents individually. </summary>
+        public bool? DisableConsistency { get; set; }
+        /// <summary> Operation to perform on the input documents. </summary>
+        public OperationType? Operation { get; set; }
     }
 }
