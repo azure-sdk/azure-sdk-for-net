@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetFileMetadataAsync(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetFileMetadataAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+Response<SessionResourceFile> response = await client.GetFileMetadataAsync("testfile", "testSessionIdentifier");
+]]></code></example>
+    </member>
+    <member name="GetFileMetadata(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetFileMetadata.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+Response<SessionResourceFile> response = client.GetFileMetadata("testfile", "testSessionIdentifier");
+]]></code></example>
+    </member>
+    <member name="GetFileMetadataAsync(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetFileMetadataAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+Response response = await client.GetFileMetadataAsync("testfile", "testSessionIdentifier", "/", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="GetFileMetadata(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetFileMetadata and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+Response response = client.GetFileMetadata("testfile", "testSessionIdentifier", "/", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteFileAsync(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteFileAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+Response response = await client.DeleteFileAsync("testfile", "testSessionIdentifier");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteFile(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteFile.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+Response response = client.DeleteFile("testfile", "testSessionIdentifier");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="UploadFileAsync(string,Stream,string,CancellationToken)">
+      <example>
+This sample shows how to call UploadFileAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+Response<SessionResourceFile> response = await client.UploadFileAsync("testSessionIdentifier", null);
+]]></code></example>
+    </member>
+    <member name="UploadFile(string,Stream,string,CancellationToken)">
+      <example>
+This sample shows how to call UploadFile.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+Response<SessionResourceFile> response = client.UploadFile("testSessionIdentifier", null);
+]]></code></example>
+    </member>
+    <member name="UploadFileAsync(string,RequestContent,string,string,RequestContext)">
+      <example>
+This sample shows how to call UploadFileAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+using RequestContent content = null;
+Response response = await client.UploadFileAsync("testSessionIdentifier", content, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="UploadFile(string,RequestContent,string,string,RequestContext)">
+      <example>
+This sample shows how to call UploadFile and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+using RequestContent content = null;
+Response response = client.UploadFile("testSessionIdentifier", content, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="GetFileContentAsync(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetFileContentAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+Response<BinaryData> response = await client.GetFileContentAsync("testfile", "testSessionIdentifier");
+]]></code></example>
+    </member>
+    <member name="GetFileContent(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetFileContent.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+Response<BinaryData> response = client.GetFileContent("testfile", "testSessionIdentifier");
+]]></code></example>
+    </member>
+    <member name="GetFileContentAsync(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetFileContentAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+Response response = await client.GetFileContentAsync("testfile", "testSessionIdentifier", "/", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetFileContent(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetFileContent and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+Response response = client.GetFileContent("testfile", "testSessionIdentifier", "/", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetAllFilesMetadataAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetAllFilesMetadataAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+await foreach (SessionResourceFile item in client.GetAllFilesMetadataAsync("testSessionIdentifier"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetAllFilesMetadata(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetAllFilesMetadata.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+foreach (SessionResourceFile item in client.GetAllFilesMetadata("testSessionIdentifier"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetAllFilesMetadataAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetAllFilesMetadataAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+await foreach (BinaryData item in client.GetAllFilesMetadataAsync("testSessionIdentifier", "/", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetAllFilesMetadata(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetAllFilesMetadata and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionResourceFiles client = new DynamicSessionsClient(endpoint, credential).GetSessionResourceFilesClient(apiVersion: "2024-10-02-preview");
+
+foreach (BinaryData item in client.GetAllFilesMetadata("testSessionIdentifier", "/", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedAt").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
