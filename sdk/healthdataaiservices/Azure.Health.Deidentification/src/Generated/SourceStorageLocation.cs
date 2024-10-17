@@ -63,12 +63,16 @@ namespace Azure.Health.Deidentification
         /// <param name="location"> URL to storage location. </param>
         /// <param name="prefix"> Prefix to filter path by. </param>
         /// <param name="extensions"> List of extensions to filter path by. </param>
+        /// <param name="locale"> Language and Locale that the service should use. </param>
+        /// <param name="dataType"> Data type of the input documents. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SourceStorageLocation(Uri location, string prefix, IList<string> extensions, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SourceStorageLocation(Uri location, string prefix, IList<string> extensions, string locale, DocumentDataType? dataType, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Location = location;
             Prefix = prefix;
             Extensions = extensions;
+            Locale = locale;
+            DataType = dataType;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -83,5 +87,9 @@ namespace Azure.Health.Deidentification
         public string Prefix { get; set; }
         /// <summary> List of extensions to filter path by. </summary>
         public IList<string> Extensions { get; }
+        /// <summary> Language and Locale that the service should use. </summary>
+        public string Locale { get; set; }
+        /// <summary> Data type of the input documents. </summary>
+        public DocumentDataType? DataType { get; set; }
     }
 }

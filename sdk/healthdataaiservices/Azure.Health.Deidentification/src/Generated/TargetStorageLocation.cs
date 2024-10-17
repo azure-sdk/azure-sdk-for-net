@@ -61,11 +61,13 @@ namespace Azure.Health.Deidentification
         /// <summary> Initializes a new instance of <see cref="TargetStorageLocation"/>. </summary>
         /// <param name="location"> URL to storage location. </param>
         /// <param name="prefix"> Prefix to filter path by. </param>
+        /// <param name="overwrite"> When set to true during a job, the service will overwrite the output location if it already exists. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TargetStorageLocation(Uri location, string prefix, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TargetStorageLocation(Uri location, string prefix, bool? overwrite, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Location = location;
             Prefix = prefix;
+            Overwrite = overwrite;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -78,5 +80,7 @@ namespace Azure.Health.Deidentification
         public Uri Location { get; set; }
         /// <summary> Prefix to filter path by. </summary>
         public string Prefix { get; set; }
+        /// <summary> When set to true during a job, the service will overwrite the output location if it already exists. </summary>
+        public bool? Overwrite { get; set; }
     }
 }
