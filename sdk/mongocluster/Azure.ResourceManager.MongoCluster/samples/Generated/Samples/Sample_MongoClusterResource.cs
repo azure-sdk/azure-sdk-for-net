@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.MongoCluster.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetsAMongoClusterResource()
         {
-            // Generated from example definition: 2024-07-01/MongoClusters_Get.json
+            // Generated from example definition: 2024-10-01-preview/MongoClusters_Get.json
             // this example is just showing the usage of "MongoClusters_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -47,12 +47,45 @@ namespace Azure.ResourceManager.MongoCluster.Samples
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
+        // Disables public network access on a Mongo Cluster resource with a private endpoint connection with Data API.
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task Update_DisablesPublicNetworkAccessOnAMongoClusterResourceWithAPrivateEndpointConnectionWithDataAPI()
+        {
+            // Generated from example definition: 2024-10-01-preview/MongoClusters_PatchDataApi.json
+            // this example is just showing the usage of "MongoClusters_Update" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this MongoClusterResource created on azure
+            // for more information of creating MongoClusterResource, please refer to the document of MongoClusterResource
+            string subscriptionId = "ffffffff-ffff-ffff-ffff-ffffffffffff";
+            string resourceGroupName = "TestResourceGroup";
+            string mongoClusterName = "myMongoCluster";
+            ResourceIdentifier mongoClusterResourceId = MongoClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, mongoClusterName);
+            MongoClusterResource mongoCluster = client.GetMongoClusterResource(mongoClusterResourceId);
+
+            // invoke the operation
+            MongoClusterPatch patch = new MongoClusterPatch();
+            ArmOperation<MongoClusterResource> lro = await mongoCluster.UpdateAsync(WaitUntil.Completed, patch);
+            MongoClusterResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            MongoClusterData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
         // Updates the disk size on a Mongo Cluster resource.
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_UpdatesTheDiskSizeOnAMongoClusterResource()
         {
-            // Generated from example definition: 2024-07-01/MongoClusters_PatchDiskSize.json
+            // Generated from example definition: 2024-10-01-preview/MongoClusters_PatchDiskSize.json
             // this example is just showing the usage of "MongoClusters_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -91,7 +124,7 @@ namespace Azure.ResourceManager.MongoCluster.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_DisablesPublicNetworkAccessOnAMongoClusterResourceWithAPrivateEndpointConnection()
         {
-            // Generated from example definition: 2024-07-01/MongoClusters_PatchPrivateNetworkAccess.json
+            // Generated from example definition: 2024-10-01-preview/MongoClusters_PatchPrivateNetworkAccess.json
             // this example is just showing the usage of "MongoClusters_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -130,7 +163,7 @@ namespace Azure.ResourceManager.MongoCluster.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_ResetsTheAdministratorLoginPassword()
         {
-            // Generated from example definition: 2024-07-01/MongoClusters_ResetPassword.json
+            // Generated from example definition: 2024-10-01-preview/MongoClusters_ResetPassword.json
             // this example is just showing the usage of "MongoClusters_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -173,7 +206,7 @@ namespace Azure.ResourceManager.MongoCluster.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_UpdatesAMongoClusterResource()
         {
-            // Generated from example definition: 2024-07-01/MongoClusters_Update.json
+            // Generated from example definition: 2024-10-01-preview/MongoClusters_Update.json
             // this example is just showing the usage of "MongoClusters_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -224,7 +257,7 @@ namespace Azure.ResourceManager.MongoCluster.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeletesAMongoClusterResource()
         {
-            // Generated from example definition: 2024-07-01/MongoClusters_Delete.json
+            // Generated from example definition: 2024-10-01-preview/MongoClusters_Delete.json
             // this example is just showing the usage of "MongoClusters_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -251,7 +284,7 @@ namespace Azure.ResourceManager.MongoCluster.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetMongoClusters_ListsTheMongoClusterResourcesInASubscription()
         {
-            // Generated from example definition: 2024-07-01/MongoClusters_List.json
+            // Generated from example definition: 2024-10-01-preview/MongoClusters_List.json
             // this example is just showing the usage of "MongoCluster_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -283,7 +316,7 @@ namespace Azure.ResourceManager.MongoCluster.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetConnectionStrings_ListTheAvailableConnectionStringsForTheMongoClusterResource()
         {
-            // Generated from example definition: 2024-07-01/MongoClusters_ListConnectionStrings.json
+            // Generated from example definition: 2024-10-01-preview/MongoClusters_ListConnectionStrings.json
             // this example is just showing the usage of "MongoClusters_ListConnectionStrings" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -310,7 +343,7 @@ namespace Azure.ResourceManager.MongoCluster.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CheckMongoClusterNameAvailability_ChecksAndConfirmsTheMongoClusterNameIsAvailabilityForUse()
         {
-            // Generated from example definition: 2024-07-01/MongoClusters_NameAvailability.json
+            // Generated from example definition: 2024-10-01-preview/MongoClusters_NameAvailability.json
             // this example is just showing the usage of "MongoClusters_CheckMongoClusterNameAvailability" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -341,7 +374,7 @@ namespace Azure.ResourceManager.MongoCluster.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CheckMongoClusterNameAvailability_ChecksAndReturnsThatTheMongoClusterNameIsAlreadyInUse()
         {
-            // Generated from example definition: 2024-07-01/MongoClusters_NameAvailability_AlreadyExists.json
+            // Generated from example definition: 2024-10-01-preview/MongoClusters_NameAvailability_AlreadyExists.json
             // this example is just showing the usage of "MongoClusters_CheckMongoClusterNameAvailability" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -372,7 +405,7 @@ namespace Azure.ResourceManager.MongoCluster.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Promote_PromotesAReplicaMongoClusterResourceToAPrimaryRole()
         {
-            // Generated from example definition: 2024-07-01/MongoClusters_ForcePromoteReplica.json
+            // Generated from example definition: 2024-10-01-preview/MongoClusters_ForcePromoteReplica.json
             // this example is just showing the usage of "MongoClusters_Promote" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -403,7 +436,7 @@ namespace Azure.ResourceManager.MongoCluster.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetPrivateLinks_ListsThePrivateLinkResourcesAvailableOnAMongoClusterResource()
         {
-            // Generated from example definition: 2024-07-01/MongoClusters_PrivateLinkResourceList.json
+            // Generated from example definition: 2024-10-01-preview/MongoClusters_PrivateLinkResourceList.json
             // this example is just showing the usage of "PrivateLinkResource_ListByMongoCluster" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -433,7 +466,7 @@ namespace Azure.ResourceManager.MongoCluster.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetReplicasByParent_ListTheReplicasLinkedToAMongoClusterResource()
         {
-            // Generated from example definition: 2024-07-01/MongoClusters_ReplicaList.json
+            // Generated from example definition: 2024-10-01-preview/MongoClusters_ReplicaList.json
             // this example is just showing the usage of "Replica_ListByParent" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
