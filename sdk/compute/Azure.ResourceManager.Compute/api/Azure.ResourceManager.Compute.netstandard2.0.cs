@@ -3173,6 +3173,18 @@ namespace Azure.ResourceManager.Compute.Models
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AdditionalCapabilities>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AdditionalCapabilities>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
+    public partial class AdditionalReplicaSet : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AdditionalReplicaSet>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AdditionalReplicaSet>
+    {
+        public AdditionalReplicaSet() { }
+        public int? RegionalReplicaCount { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.ImageStorageAccountType? StorageAccountType { get { throw null; } set { } }
+        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.AdditionalReplicaSet System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AdditionalReplicaSet>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AdditionalReplicaSet>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.AdditionalReplicaSet System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AdditionalReplicaSet>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AdditionalReplicaSet>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AdditionalReplicaSet>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
     public partial class AdditionalUnattendContent : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.AdditionalUnattendContent>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.AdditionalUnattendContent>
     {
         public AdditionalUnattendContent() { }
@@ -5923,6 +5935,7 @@ namespace Azure.ResourceManager.Compute.Models
         private readonly int _dummyPrimitive;
         public ImageStorageAccountType(string value) { throw null; }
         public static Azure.ResourceManager.Compute.Models.ImageStorageAccountType PremiumLrs { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.ImageStorageAccountType PremiumV2Lrs { get { throw null; } }
         public static Azure.ResourceManager.Compute.Models.ImageStorageAccountType StandardLrs { get { throw null; } }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public static Azure.ResourceManager.Compute.Models.ImageStorageAccountType StandardSsdLrs { get { throw null; } }
@@ -7880,6 +7893,7 @@ namespace Azure.ResourceManager.Compute.Models
     public partial class TargetRegion : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.TargetRegion>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.TargetRegion>
     {
         public TargetRegion(string name) { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.AdditionalReplicaSet> AdditionalReplicaSets { get { throw null; } }
         public Azure.ResourceManager.Compute.Models.EncryptionImages Encryption { get { throw null; } set { } }
         public bool? IsExcludedFromLatest { get { throw null; } set { } }
         public string Name { get { throw null; } set { } }
