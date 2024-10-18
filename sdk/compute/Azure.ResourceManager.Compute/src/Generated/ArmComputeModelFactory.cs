@@ -825,7 +825,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="toBeDetached"> Specifies whether the data disk is in process of detachment from the VirtualMachine/VirtualMachineScaleset. </param>
         /// <param name="diskIopsReadWrite"> Specifies the Read-Write IOPS for the managed disk when StorageAccountType is UltraSSD_LRS. Returned only for VirtualMachine ScaleSet VM disks. Can be updated only via updates to the VirtualMachine Scale Set. </param>
         /// <param name="diskMBpsReadWrite"> Specifies the bandwidth in MB per second for the managed disk when StorageAccountType is UltraSSD_LRS. Returned only for VirtualMachine ScaleSet VM disks. Can be updated only via updates to the VirtualMachine Scale Set. </param>
-        /// <param name="detachOption"> Specifies the detach behavior to be used while detaching a disk or which is already in the process of detachment from the virtual machine. Supported values: **ForceDetach.** detachOption: **ForceDetach** is applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an unexpected failure from the virtual machine and the disk is still not released then use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed when using this detach behavior. **This feature is still in preview** mode and is not supported for VirtualMachineScaleSet. To force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'. </param>
+        /// <param name="detachOption"> Specifies the detach behavior to be used while detaching a disk or which is already in the process of detachment from the virtual machine. Supported values: **ForceDetach.** detachOption: **ForceDetach** is applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an unexpected failure from the virtual machine and the disk is still not released then use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed when using this detach behavior. **This feature is still in preview**. To force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'. </param>
         /// <param name="deleteOption"> Specifies whether data disk should be deleted or detached upon VM deletion. Possible values are: **Delete.** If this value is used, the data disk is deleted when VM is deleted. **Detach.** If this value is used, the data disk is retained after VM is deleted. The default value is set to **Detach**. </param>
         /// <returns> A new <see cref="Models.VirtualMachineDataDisk"/> instance for mocking. </returns>
         public static VirtualMachineDataDisk VirtualMachineDataDisk(int lun = default, string name = null, Uri vhdUri = null, Uri imageUri = null, CachingType? caching = null, bool? writeAcceleratorEnabled = null, DiskCreateOptionType createOption = default, int? diskSizeGB = null, VirtualMachineManagedDisk managedDisk = null, ResourceIdentifier sourceResourceId = null, bool? toBeDetached = null, long? diskIopsReadWrite = null, long? diskMBpsReadWrite = null, DiskDetachOptionType? detachOption = null, DiskDeleteOptionType? deleteOption = null)
@@ -3191,9 +3191,10 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="purchasePlan"> Describes the gallery image definition purchase plan. This is used by marketplace images. </param>
         /// <param name="provisioningState"> The provisioning state, which only appears in the response. </param>
         /// <param name="features"> A list of gallery image features. </param>
-        /// <param name="architecture"> The architecture of the image. Applicable to OS disks only. </param>
+        /// <param name="architecture"> CPU architecture supported by an OS disk. </param>
+        /// <param name="allowUpdateImage"> Optional. Must be set to true if the gallery image features are being updated. </param>
         /// <returns> A new <see cref="Compute.GalleryImageData"/> instance for mocking. </returns>
-        public static GalleryImageData GalleryImageData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, string description = null, string eula = null, Uri privacyStatementUri = null, Uri releaseNoteUri = null, SupportedOperatingSystemType? osType = null, OperatingSystemStateType? osState = null, HyperVGeneration? hyperVGeneration = null, DateTimeOffset? endOfLifeOn = null, GalleryImageIdentifier identifier = null, RecommendedMachineConfiguration recommended = null, IEnumerable<string> disallowedDiskTypes = null, ImagePurchasePlan purchasePlan = null, GalleryProvisioningState? provisioningState = null, IEnumerable<GalleryImageFeature> features = null, ArchitectureType? architecture = null)
+        public static GalleryImageData GalleryImageData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, string description = null, string eula = null, Uri privacyStatementUri = null, Uri releaseNoteUri = null, SupportedOperatingSystemType? osType = null, OperatingSystemStateType? osState = null, HyperVGeneration? hyperVGeneration = null, DateTimeOffset? endOfLifeOn = null, GalleryImageIdentifier identifier = null, RecommendedMachineConfiguration recommended = null, IEnumerable<string> disallowedDiskTypes = null, ImagePurchasePlan purchasePlan = null, GalleryProvisioningState? provisioningState = null, IEnumerable<GalleryImageFeature> features = null, ArchitectureType? architecture = null, bool? allowUpdateImage = null)
         {
             tags ??= new Dictionary<string, string>();
             disallowedDiskTypes ??= new List<string>();
@@ -3221,6 +3222,7 @@ namespace Azure.ResourceManager.Compute.Models
                 provisioningState,
                 features?.ToList(),
                 architecture,
+                allowUpdateImage,
                 serializedAdditionalRawData: null);
         }
 
@@ -3243,10 +3245,11 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="purchasePlan"> Describes the gallery image definition purchase plan. This is used by marketplace images. </param>
         /// <param name="provisioningState"> The provisioning state, which only appears in the response. </param>
         /// <param name="features"> A list of gallery image features. </param>
-        /// <param name="architecture"> The architecture of the image. Applicable to OS disks only. </param>
+        /// <param name="architecture"> CPU architecture supported by an OS disk. </param>
+        /// <param name="allowUpdateImage"> Optional. Must be set to true if the gallery image features are being updated. </param>
         /// <param name="tags"> Resource tags. </param>
         /// <returns> A new <see cref="Models.GalleryImagePatch"/> instance for mocking. </returns>
-        public static GalleryImagePatch GalleryImagePatch(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string description = null, string eula = null, Uri privacyStatementUri = null, Uri releaseNoteUri = null, SupportedOperatingSystemType? osType = null, OperatingSystemStateType? osState = null, HyperVGeneration? hyperVGeneration = null, DateTimeOffset? endOfLifeOn = null, GalleryImageIdentifier identifier = null, RecommendedMachineConfiguration recommended = null, IEnumerable<string> disallowedDiskTypes = null, ImagePurchasePlan purchasePlan = null, GalleryProvisioningState? provisioningState = null, IEnumerable<GalleryImageFeature> features = null, ArchitectureType? architecture = null, IDictionary<string, string> tags = null)
+        public static GalleryImagePatch GalleryImagePatch(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string description = null, string eula = null, Uri privacyStatementUri = null, Uri releaseNoteUri = null, SupportedOperatingSystemType? osType = null, OperatingSystemStateType? osState = null, HyperVGeneration? hyperVGeneration = null, DateTimeOffset? endOfLifeOn = null, GalleryImageIdentifier identifier = null, RecommendedMachineConfiguration recommended = null, IEnumerable<string> disallowedDiskTypes = null, ImagePurchasePlan purchasePlan = null, GalleryProvisioningState? provisioningState = null, IEnumerable<GalleryImageFeature> features = null, ArchitectureType? architecture = null, bool? allowUpdateImage = null, IDictionary<string, string> tags = null)
         {
             disallowedDiskTypes ??= new List<string>();
             features ??= new List<GalleryImageFeature>();
@@ -3272,6 +3275,7 @@ namespace Azure.ResourceManager.Compute.Models
                 provisioningState,
                 features?.ToList(),
                 architecture,
+                allowUpdateImage,
                 tags,
                 serializedAdditionalRawData: null);
         }
@@ -3686,7 +3690,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="hyperVGeneration"> The hypervisor generation of the Virtual Machine. Applicable to OS disks only. </param>
         /// <param name="features"> A list of gallery image features. </param>
         /// <param name="purchasePlan"> Describes the gallery image definition purchase plan. This is used by marketplace images. </param>
-        /// <param name="architecture"> The architecture of the image. Applicable to OS disks only. </param>
+        /// <param name="architecture"> CPU architecture supported by an OS disk. </param>
         /// <param name="privacyStatementUri"> Privacy statement uri for the current community gallery image. </param>
         /// <param name="eula"> End-user license agreement for the current community gallery image. </param>
         /// <param name="artifactTags"> The artifact tags of a shared gallery resource. </param>
@@ -3851,7 +3855,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="hyperVGeneration"> The hypervisor generation of the Virtual Machine. Applicable to OS disks only. </param>
         /// <param name="features"> A list of gallery image features. </param>
         /// <param name="purchasePlan"> Describes the gallery image definition purchase plan. This is used by marketplace images. </param>
-        /// <param name="architecture"> The architecture of the image. Applicable to OS disks only. </param>
+        /// <param name="architecture"> CPU architecture supported by an OS disk. </param>
         /// <param name="privacyStatementUri"> Privacy statement URI for the current community gallery image. </param>
         /// <param name="eula"> The end-user license agreement for the current community gallery image. </param>
         /// <param name="disclaimer"> The disclaimer for a community gallery resource. </param>
@@ -4222,6 +4226,63 @@ namespace Azure.ResourceManager.Compute.Models
         public static OSVersionPropertiesBase OSVersionPropertiesBase(string version = null, string label = null, bool? isDefault = null, bool? isActive = null)
         {
             return new OSVersionPropertiesBase(version, label, isDefault, isActive, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Compute.GalleryImageData" />. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="description"> The description of this gallery image definition resource. This property is updatable. </param>
+        /// <param name="eula"> The Eula agreement for the gallery image definition. </param>
+        /// <param name="privacyStatementUri"> The privacy statement uri. </param>
+        /// <param name="releaseNoteUri"> The release note uri. </param>
+        /// <param name="osType"> This property allows you to specify the type of the OS that is included in the disk when creating a VM from a managed image. Possible values are: **Windows,** **Linux.**. </param>
+        /// <param name="osState"> This property allows the user to specify whether the virtual machines created under this image are 'Generalized' or 'Specialized'. </param>
+        /// <param name="hyperVGeneration"> The hypervisor generation of the Virtual Machine. Applicable to OS disks only. </param>
+        /// <param name="endOfLifeOn"> The end of life date of the gallery image definition. This property can be used for decommissioning purposes. This property is updatable. </param>
+        /// <param name="identifier"> This is the gallery image definition identifier. </param>
+        /// <param name="recommended"> The properties describe the recommended machine configuration for this Image Definition. These properties are updatable. </param>
+        /// <param name="disallowedDiskTypes"> Describes the disallowed disk types. </param>
+        /// <param name="purchasePlan"> Describes the gallery image definition purchase plan. This is used by marketplace images. </param>
+        /// <param name="provisioningState"> The provisioning state, which only appears in the response. </param>
+        /// <param name="features"> A list of gallery image features. </param>
+        /// <param name="architecture"> The architecture of the image. Applicable to OS disks only. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Compute.GalleryImageData" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static GalleryImageData GalleryImageData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string description, string eula, Uri privacyStatementUri, Uri releaseNoteUri, SupportedOperatingSystemType? osType, OperatingSystemStateType? osState, HyperVGeneration? hyperVGeneration, DateTimeOffset? endOfLifeOn, GalleryImageIdentifier identifier, RecommendedMachineConfiguration recommended, IEnumerable<string> disallowedDiskTypes, ImagePurchasePlan purchasePlan, GalleryProvisioningState? provisioningState, IEnumerable<GalleryImageFeature> features, ArchitectureType? architecture)
+        {
+            return GalleryImageData(id: id, name: name, resourceType: resourceType, systemData: systemData, tags: tags, location: location, description: description, eula: eula, privacyStatementUri: privacyStatementUri, releaseNoteUri: releaseNoteUri, osType: osType, osState: osState, hyperVGeneration: hyperVGeneration, endOfLifeOn: endOfLifeOn, identifier: identifier, recommended: recommended, disallowedDiskTypes: disallowedDiskTypes, purchasePlan: purchasePlan, provisioningState: provisioningState, features: features, architecture: architecture, allowUpdateImage: default);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Compute.Models.GalleryImagePatch" />. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="description"> The description of this gallery image definition resource. This property is updatable. </param>
+        /// <param name="eula"> The Eula agreement for the gallery image definition. </param>
+        /// <param name="privacyStatementUri"> The privacy statement uri. </param>
+        /// <param name="releaseNoteUri"> The release note uri. </param>
+        /// <param name="osType"> This property allows you to specify the type of the OS that is included in the disk when creating a VM from a managed image. Possible values are: **Windows,** **Linux.**. </param>
+        /// <param name="osState"> This property allows the user to specify whether the virtual machines created under this image are 'Generalized' or 'Specialized'. </param>
+        /// <param name="hyperVGeneration"> The hypervisor generation of the Virtual Machine. Applicable to OS disks only. </param>
+        /// <param name="endOfLifeOn"> The end of life date of the gallery image definition. This property can be used for decommissioning purposes. This property is updatable. </param>
+        /// <param name="identifier"> This is the gallery image definition identifier. </param>
+        /// <param name="recommended"> The properties describe the recommended machine configuration for this Image Definition. These properties are updatable. </param>
+        /// <param name="disallowedDiskTypes"> Describes the disallowed disk types. </param>
+        /// <param name="purchasePlan"> Describes the gallery image definition purchase plan. This is used by marketplace images. </param>
+        /// <param name="provisioningState"> The provisioning state, which only appears in the response. </param>
+        /// <param name="features"> A list of gallery image features. </param>
+        /// <param name="architecture"> The architecture of the image. Applicable to OS disks only. </param>
+        /// <param name="tags"> Resource tags. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Compute.Models.GalleryImagePatch" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static GalleryImagePatch GalleryImagePatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string description, string eula, Uri privacyStatementUri, Uri releaseNoteUri, SupportedOperatingSystemType? osType, OperatingSystemStateType? osState, HyperVGeneration? hyperVGeneration, DateTimeOffset? endOfLifeOn, GalleryImageIdentifier identifier, RecommendedMachineConfiguration recommended, IEnumerable<string> disallowedDiskTypes, ImagePurchasePlan purchasePlan, GalleryProvisioningState? provisioningState, IEnumerable<GalleryImageFeature> features, ArchitectureType? architecture, IDictionary<string, string> tags)
+        {
+            return GalleryImagePatch(id: id, name: name, resourceType: resourceType, systemData: systemData, description: description, eula: eula, privacyStatementUri: privacyStatementUri, releaseNoteUri: releaseNoteUri, osType: osType, osState: osState, hyperVGeneration: hyperVGeneration, endOfLifeOn: endOfLifeOn, identifier: identifier, recommended: recommended, disallowedDiskTypes: disallowedDiskTypes, purchasePlan: purchasePlan, provisioningState: provisioningState, features: features, architecture: architecture, allowUpdateImage: default, tags: tags);
         }
 
         /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Compute.VirtualMachineScaleSetData" />. </summary>
