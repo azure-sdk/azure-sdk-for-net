@@ -7,7 +7,7 @@ azure-arm: true
 csharp: true
 library-name: CostManagement
 namespace: Azure.ResourceManager.CostManagement
-require: https://github.com/Azure/azure-rest-api-specs/blob/20e9229b38b94c8975386b75c652b75e6d691995/specification/cost-management/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/1965fc2bc3d768ba68c90b4c4f888fdae298d357/specification/cost-management/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
