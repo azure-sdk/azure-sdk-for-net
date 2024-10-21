@@ -40,6 +40,11 @@ namespace Azure.Health.Deidentification
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(DataType))
+            {
+                writer.WritePropertyName("dataType"u8);
+                writer.WriteStringValue(DataType.Value.ToString());
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -81,6 +86,7 @@ namespace Azure.Health.Deidentification
             Uri location = default;
             string prefix = default;
             IList<string> extensions = default;
+            DocumentDataType? dataType = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -109,13 +115,22 @@ namespace Azure.Health.Deidentification
                     extensions = array;
                     continue;
                 }
+                if (property.NameEquals("dataType"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    dataType = new DocumentDataType(property.Value.GetString());
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new SourceStorageLocation(location, prefix, extensions ?? new ChangeTrackingList<string>(), serializedAdditionalRawData);
+            return new SourceStorageLocation(location, prefix, extensions ?? new ChangeTrackingList<string>(), dataType, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<SourceStorageLocation>.Write(ModelReaderWriterOptions options)
