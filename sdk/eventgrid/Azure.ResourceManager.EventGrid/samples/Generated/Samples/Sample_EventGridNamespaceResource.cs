@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.EventGrid.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_NamespacesGet()
         {
-            // Generated from example definition: specification/eventgrid/resource-manager/Microsoft.EventGrid/preview/2024-06-01-preview/examples/Namespaces_Get.json
+            // Generated from example definition: specification/eventgrid/resource-manager/Microsoft.EventGrid/preview/2024-12-15-preview/examples/Namespaces_Get.json
             // this example is just showing the usage of "Namespaces_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.EventGrid.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_NamespacesDelete()
         {
-            // Generated from example definition: specification/eventgrid/resource-manager/Microsoft.EventGrid/preview/2024-06-01-preview/examples/Namespaces_Delete.json
+            // Generated from example definition: specification/eventgrid/resource-manager/Microsoft.EventGrid/preview/2024-12-15-preview/examples/Namespaces_Delete.json
             // this example is just showing the usage of "Namespaces_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.EventGrid.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_NamespacesUpdate()
         {
-            // Generated from example definition: specification/eventgrid/resource-manager/Microsoft.EventGrid/preview/2024-06-01-preview/examples/Namespaces_Update.json
+            // Generated from example definition: specification/eventgrid/resource-manager/Microsoft.EventGrid/preview/2024-12-15-preview/examples/Namespaces_Update.json
             // this example is just showing the usage of "Namespaces_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -118,7 +118,7 @@ namespace Azure.ResourceManager.EventGrid.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetEventGridNamespaces_NamespacesListBySubscription()
         {
-            // Generated from example definition: specification/eventgrid/resource-manager/Microsoft.EventGrid/preview/2024-06-01-preview/examples/Namespaces_ListBySubscription.json
+            // Generated from example definition: specification/eventgrid/resource-manager/Microsoft.EventGrid/preview/2024-12-15-preview/examples/Namespaces_ListBySubscription.json
             // this example is just showing the usage of "Namespaces_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -150,7 +150,7 @@ namespace Azure.ResourceManager.EventGrid.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetSharedAccessKeys_NamespacesListSharedAccessKeys()
         {
-            // Generated from example definition: specification/eventgrid/resource-manager/Microsoft.EventGrid/preview/2024-06-01-preview/examples/Namespaces_ListSharedAccessKeys.json
+            // Generated from example definition: specification/eventgrid/resource-manager/Microsoft.EventGrid/preview/2024-12-15-preview/examples/Namespaces_ListSharedAccessKeys.json
             // this example is just showing the usage of "Namespaces_ListSharedAccessKeys" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -177,7 +177,7 @@ namespace Azure.ResourceManager.EventGrid.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task RegenerateKey_NamespacesRegenerateKey()
         {
-            // Generated from example definition: specification/eventgrid/resource-manager/Microsoft.EventGrid/preview/2024-06-01-preview/examples/Namespaces_RegenerateKey.json
+            // Generated from example definition: specification/eventgrid/resource-manager/Microsoft.EventGrid/preview/2024-12-15-preview/examples/Namespaces_RegenerateKey.json
             // this example is just showing the usage of "Namespaces_RegenerateKey" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -206,7 +206,7 @@ namespace Azure.ResourceManager.EventGrid.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task ValidateCustomDomainOwnership_NamespacesValidateCustomDomainOwnership()
         {
-            // Generated from example definition: specification/eventgrid/resource-manager/Microsoft.EventGrid/preview/2024-06-01-preview/examples/Namespaces_ValidateCustomDomainOwnership.json
+            // Generated from example definition: specification/eventgrid/resource-manager/Microsoft.EventGrid/preview/2024-12-15-preview/examples/Namespaces_ValidateCustomDomainOwnership.json
             // this example is just showing the usage of "Namespaces_ValidateCustomDomainOwnership" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
