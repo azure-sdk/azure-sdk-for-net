@@ -1,3 +1,4 @@
 directory: specification/translation/Azure.AI.DocumentTranslation
-commit: 4bf64653380a8582fa070b62ae46b86f2455932e
+commit: 72f9f9220f9a50c4491e82d83797ce520a3a53c6
 repo: Azure/azure-rest-api-specs
+additionalDirectories: 
