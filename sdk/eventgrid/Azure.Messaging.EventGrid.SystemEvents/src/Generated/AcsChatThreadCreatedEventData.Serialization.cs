@@ -63,8 +63,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteObjectValue(item, options);
             }
             writer.WriteEndArray();
-            writer.WritePropertyName("createTime"u8);
-            writer.WriteStringValue(CreateTime, "O");
+            if (Optional.IsDefined(CreateTime))
+            {
+                writer.WritePropertyName("createTime"u8);
+                writer.WriteStringValue(CreateTime.Value, "O");
+            }
             if (Optional.IsDefined(Version))
             {
                 writer.WritePropertyName("version"u8);
@@ -122,7 +125,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             IReadOnlyDictionary<string, BinaryData> properties = default;
             IReadOnlyDictionary<string, string> metadata = default;
             IReadOnlyList<AcsChatThreadParticipantProperties> participants = default;
-            DateTimeOffset createTime = default;
+            DateTimeOffset? createTime = default;
             long? version = default;
             string transactionId = default;
             string threadId = default;
@@ -174,6 +177,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("createTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     createTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
