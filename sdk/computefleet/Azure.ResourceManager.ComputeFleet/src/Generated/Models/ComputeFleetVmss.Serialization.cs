@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.ComputeFleet.Models
             {
                 return null;
             }
-            ResourceIdentifier id = default;
+            string id = default;
             string type = default;
             ComputeFleetProvisioningState operationStatus = default;
             ComputeFleetApiError error = default;
@@ -101,7 +101,7 @@ namespace Azure.ResourceManager.ComputeFleet.Models
             {
                 if (property.NameEquals("id"u8))
                 {
-                    id = new ResourceIdentifier(property.Value.GetString());
+                    id = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("type"u8))
