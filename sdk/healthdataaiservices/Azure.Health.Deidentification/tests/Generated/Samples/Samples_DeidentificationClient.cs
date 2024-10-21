@@ -181,9 +181,13 @@ namespace Azure.Health.Deidentification.Samples
             using RequestContent content = RequestContent.Create(new
             {
                 inputText = "Hello my name is John Smith.",
-                operation = "Redact",
                 dataType = "Plaintext",
-                redactionFormat = "[{type}]",
+                customizations = new
+                {
+                    redactionFormat = "[{type}]",
+                    operation = "Redact",
+                    surrogateLocale = "en-US",
+                },
             });
             Response response = client.Deidentify(content);
 
@@ -202,9 +206,13 @@ namespace Azure.Health.Deidentification.Samples
             using RequestContent content = RequestContent.Create(new
             {
                 inputText = "Hello my name is John Smith.",
-                operation = "Redact",
                 dataType = "Plaintext",
-                redactionFormat = "[{type}]",
+                customizations = new
+                {
+                    redactionFormat = "[{type}]",
+                    operation = "Redact",
+                    surrogateLocale = "en-US",
+                },
             });
             Response response = await client.DeidentifyAsync(content);
 
@@ -222,9 +230,13 @@ namespace Azure.Health.Deidentification.Samples
 
             DeidentificationContent body = new DeidentificationContent("Hello my name is John Smith.")
             {
-                Operation = OperationType.Redact,
                 DataType = DocumentDataType.Plaintext,
-                RedactionFormat = "[{type}]",
+                Customizations = new CustomizationConfig
+                {
+                    RedactionFormat = "[{type}]",
+                    Operation = OperationType.Redact,
+                    SurrogateLocale = "en-US",
+                },
             };
             Response<DeidentificationResult> response = client.Deidentify(body);
         }
@@ -239,9 +251,13 @@ namespace Azure.Health.Deidentification.Samples
 
             DeidentificationContent body = new DeidentificationContent("Hello my name is John Smith.")
             {
-                Operation = OperationType.Redact,
                 DataType = DocumentDataType.Plaintext,
-                RedactionFormat = "[{type}]",
+                Customizations = new CustomizationConfig
+                {
+                    RedactionFormat = "[{type}]",
+                    Operation = OperationType.Redact,
+                    SurrogateLocale = "en-US",
+                },
             };
             Response<DeidentificationResult> response = await client.DeidentifyAsync(body);
         }
@@ -390,21 +406,26 @@ namespace Azure.Health.Deidentification.Samples
             {
                 sourceLocation = new
                 {
-                    location = "https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D",
+                    location = "https://blobtest.blob.core.windows.net/container",
                     prefix = "/documents",
                     extensions = new object[]
             {
 "*"
             },
+                    dataType = "Plaintext",
                 },
                 targetLocation = new
                 {
-                    location = "https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D",
+                    location = "https://blobtest.blob.core.windows.net/container",
                     prefix = "/documents",
+                    overwrite = true,
                 },
-                operation = "Redact",
-                dataType = "Plaintext",
-                redactionFormat = "[{type}]",
+                customizations = new
+                {
+                    redactionFormat = "[{type}]",
+                    operation = "Redact",
+                    surrogateLocale = "en-US",
+                },
                 status = "NotStarted",
             });
             Operation<BinaryData> operation = client.CreateJob(WaitUntil.Completed, "documents_smith_1", content);
@@ -433,21 +454,26 @@ namespace Azure.Health.Deidentification.Samples
             {
                 sourceLocation = new
                 {
-                    location = "https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D",
+                    location = "https://blobtest.blob.core.windows.net/container",
                     prefix = "/documents",
                     extensions = new object[]
             {
 "*"
             },
+                    dataType = "Plaintext",
                 },
                 targetLocation = new
                 {
-                    location = "https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D",
+                    location = "https://blobtest.blob.core.windows.net/container",
                     prefix = "/documents",
+                    overwrite = true,
                 },
-                operation = "Redact",
-                dataType = "Plaintext",
-                redactionFormat = "[{type}]",
+                customizations = new
+                {
+                    redactionFormat = "[{type}]",
+                    operation = "Redact",
+                    surrogateLocale = "en-US",
+                },
                 status = "NotStarted",
             });
             Operation<BinaryData> operation = await client.CreateJobAsync(WaitUntil.Completed, "documents_smith_1", content);
@@ -472,14 +498,21 @@ namespace Azure.Health.Deidentification.Samples
             TokenCredential credential = new DefaultAzureCredential();
             DeidentificationClient client = new DeidentificationClient(endpoint, credential);
 
-            DeidentificationJob resource = new DeidentificationJob(new SourceStorageLocation(new Uri("https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D"), "/documents")
+            DeidentificationJob resource = new DeidentificationJob(new SourceStorageLocation(new Uri("https://blobtest.blob.core.windows.net/container"), "/documents")
             {
                 Extensions = { "*" },
-            }, new TargetStorageLocation(new Uri("https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D"), "/documents"))
-            {
-                Operation = OperationType.Redact,
                 DataType = DocumentDataType.Plaintext,
-                RedactionFormat = "[{type}]",
+            }, new TargetStorageLocation(new Uri("https://blobtest.blob.core.windows.net/container"), "/documents")
+            {
+                Overwrite = true,
+            })
+            {
+                Customizations = new JobCustomizationConfig
+                {
+                    RedactionFormat = "[{type}]",
+                    Operation = OperationType.Redact,
+                    SurrogateLocale = "en-US",
+                },
             };
             Operation<DeidentificationJob> operation = client.CreateJob(WaitUntil.Completed, "documents_smith_1", resource);
             DeidentificationJob responseData = operation.Value;
@@ -493,14 +526,21 @@ namespace Azure.Health.Deidentification.Samples
             TokenCredential credential = new DefaultAzureCredential();
             DeidentificationClient client = new DeidentificationClient(endpoint, credential);
 
-            DeidentificationJob resource = new DeidentificationJob(new SourceStorageLocation(new Uri("https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D"), "/documents")
+            DeidentificationJob resource = new DeidentificationJob(new SourceStorageLocation(new Uri("https://blobtest.blob.core.windows.net/container"), "/documents")
             {
                 Extensions = { "*" },
-            }, new TargetStorageLocation(new Uri("https://blobtest.blob.core.windows.net/container?sp=r&st=2024-01-24T18:11:10Z&se=2024-01-25T02:11:10Z&spr=https&sv=2022-11-02&sr=c&sig=signature%3D"), "/documents"))
-            {
-                Operation = OperationType.Redact,
                 DataType = DocumentDataType.Plaintext,
-                RedactionFormat = "[{type}]",
+            }, new TargetStorageLocation(new Uri("https://blobtest.blob.core.windows.net/container"), "/documents")
+            {
+                Overwrite = true,
+            })
+            {
+                Customizations = new JobCustomizationConfig
+                {
+                    RedactionFormat = "[{type}]",
+                    Operation = OperationType.Redact,
+                    SurrogateLocale = "en-US",
+                },
             };
             Operation<DeidentificationJob> operation = await client.CreateJobAsync(WaitUntil.Completed, "documents_smith_1", resource);
             DeidentificationJob responseData = operation.Value;
