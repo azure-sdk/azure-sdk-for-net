@@ -223,12 +223,39 @@ namespace Azure.ResourceManager.Automation.Samples
             Console.WriteLine($"Succeeded");
         }
 
+        // Generate webhook uri
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GenerateUriWebhook_GenerateWebhookUri()
+        {
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2015-10-31/examples/webhookGenerateUri.json
+            // this example is just showing the usage of "Webhook_GenerateUri" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AutomationAccountResource created on azure
+            // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
+            string subscriptionId = "subid";
+            string resourceGroupName = "rg";
+            string automationAccountName = "myAutomationAccount33";
+            ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
+            AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
+
+            // invoke the operation
+            string result = await automationAccount.GenerateUriWebhookAsync();
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
         // Update an automation account
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_UpdateAnAutomationAccount()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2021-06-22/examples/updateAutomationAccount.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/updateAutomationAccount.json
             // this example is just showing the usage of "AutomationAccount_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -265,7 +292,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteAutomationAccount()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2021-06-22/examples/deleteAutomationAccount.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/deleteAutomationAccount.json
             // this example is just showing the usage of "AutomationAccount_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -292,7 +319,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetAutomationAccount()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2021-06-22/examples/getAutomationAccount.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/getAutomationAccount.json
             // this example is just showing the usage of "AutomationAccount_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -323,7 +350,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAutomationAccounts_ListAutomationAccountsByResourceGroup()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2021-06-22/examples/listAutomationAccountsBySubscription.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/listAutomationAccountsBySubscription.json
             // this example is just showing the usage of "AutomationAccount_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -355,7 +382,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetStatistics_GetStatisticsOfAnAutomationAccount()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2021-06-22/examples/getStatisticsOfAutomationAccount.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/getStatisticsOfAutomationAccount.json
             // this example is just showing the usage of "Statistics_ListByAutomationAccount" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -385,7 +412,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetUsages_GetUsagesOfAnAutomationAccount()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2021-06-22/examples/getUsagesOfAutomationAccount.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/getUsagesOfAutomationAccount.json
             // this example is just showing the usage of "Usages_ListByAutomationAccount" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -415,7 +442,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAutomationAccountKeys_GetListsOfAnAutomationAccount()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2021-06-22/examples/listAutomationAccountKeys.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/listAutomationAccountKeys.json
             // this example is just showing the usage of "Keys_ListByAutomationAccount" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -445,7 +472,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetLinkedWorkspace_GetTheLinkedWorkspaceOfAnAutomationAccount()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/getLinkedWorkspace.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/getLinkedWorkspace.json
             // this example is just showing the usage of "LinkedWorkspace_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -472,7 +499,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetFieldsByType_GetAListOfFieldsOfAGivenTypeAcrossAllAccessibleModules()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/listFieldsByType.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/listFieldsByType.json
             // this example is just showing the usage of "ObjectDataTypes_ListFieldsByType" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -503,7 +530,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task ConvertGraphRunbookContent_GetGraphicalRawRunbookContentFromGraphicalRunbookJSONObject()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2021-06-22/examples/serializeGraphRunbookContent.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/serializeGraphRunbookContent.json
             // this example is just showing the usage of "ConvertGraphRunbookContent" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -534,7 +561,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task ConvertGraphRunbookContent_GetGraphicalRunbookContentFromRawContent()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2021-06-22/examples/deserializeGraphRunbookContent.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/deserializeGraphRunbookContent.json
             // this example is just showing the usage of "ConvertGraphRunbookContent" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -565,12 +592,101 @@ namespace Azure.ResourceManager.Automation.Samples
             Console.WriteLine($"Succeeded: {result}");
         }
 
+        // Get software update configuration machine run
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetSoftwareUpdateConfigurationMachineRun_GetSoftwareUpdateConfigurationMachineRun()
+        {
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/softwareUpdateConfigurationMachineRun/getSoftwareUpdateConfigurationMachineRunById.json
+            // this example is just showing the usage of "SoftwareUpdateConfigurationMachineRuns_GetById" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AutomationAccountResource created on azure
+            // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
+            string subscriptionId = "51766542-3ed7-4a72-a187-0c8ab644ddab";
+            string resourceGroupName = "mygroup";
+            string automationAccountName = "myaccount";
+            ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
+            AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
+
+            // invoke the operation
+            Guid softwareUpdateConfigurationMachineRunId = Guid.Parse("ca440719-34a4-4234-a1a9-3f84faf7788f");
+            SoftwareUpdateConfigurationMachineRun result = await automationAccount.GetSoftwareUpdateConfigurationMachineRunAsync(softwareUpdateConfigurationMachineRunId);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        // List software update configuration machine runs
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetSoftwareUpdateConfigurationMachineRuns_ListSoftwareUpdateConfigurationMachineRuns()
+        {
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/softwareUpdateConfigurationMachineRun/listSoftwareUpdateConfigurationMachineRuns.json
+            // this example is just showing the usage of "SoftwareUpdateConfigurationMachineRuns_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AutomationAccountResource created on azure
+            // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
+            string subscriptionId = "51766542-3ed7-4a72-a187-0c8ab644ddab";
+            string resourceGroupName = "mygroup";
+            string automationAccountName = "myaccount";
+            ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
+            AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (SoftwareUpdateConfigurationMachineRun item in automationAccount.GetSoftwareUpdateConfigurationMachineRunsAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // List software update configuration machine runs for a specific software update configuration run
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetSoftwareUpdateConfigurationMachineRuns_ListSoftwareUpdateConfigurationMachineRunsForASpecificSoftwareUpdateConfigurationRun()
+        {
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/softwareUpdateConfigurationMachineRun/listSoftwareUpdateConfigurationMachineRunsByRun.json
+            // this example is just showing the usage of "SoftwareUpdateConfigurationMachineRuns_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AutomationAccountResource created on azure
+            // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
+            string subscriptionId = "51766542-3ed7-4a72-a187-0c8ab644ddab";
+            string resourceGroupName = "mygroup";
+            string automationAccountName = "myaccount";
+            ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
+            AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
+
+            // invoke the operation and iterate over the result
+            string filter = "$filter=properties/correlationId%20eq%200b943e57-44d3-4f05-898c-6e92aa617e59";
+            await foreach (SoftwareUpdateConfigurationMachineRun item in automationAccount.GetSoftwareUpdateConfigurationMachineRunsAsync(filter: filter))
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
+
         // Get software update configuration runs by Id
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetSoftwareUpdateConfigurationRun_GetSoftwareUpdateConfigurationRunsById()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/softwareUpdateConfigurationRun/getSoftwareUpdateConfigurationRunById.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/softwareUpdateConfigurationRun/getSoftwareUpdateConfigurationRunById.json
             // this example is just showing the usage of "SoftwareUpdateConfigurationRuns_GetById" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -598,7 +714,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetSoftwareUpdateConfigurationRuns_ListSoftwareUpdateConfigurationMachineRunWithStatusEqualToFailed()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/softwareUpdateConfigurationRun/listFailedSoftwareUpdateConfigurationRuns.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/softwareUpdateConfigurationRun/listFailedSoftwareUpdateConfigurationRuns.json
             // this example is just showing the usage of "SoftwareUpdateConfigurationRuns_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -629,7 +745,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetSoftwareUpdateConfigurationRuns_ListSoftwareUpdateConfigurationMachineRuns()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/softwareUpdateConfigurationRun/listSoftwareUpdateConfigurationRuns.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/softwareUpdateConfigurationRun/listSoftwareUpdateConfigurationRuns.json
             // this example is just showing the usage of "SoftwareUpdateConfigurationRuns_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -652,122 +768,6 @@ namespace Azure.ResourceManager.Automation.Samples
             }
 
             Console.WriteLine($"Succeeded");
-        }
-
-        // Get software update configuration machine run
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetSoftwareUpdateConfigurationMachineRun_GetSoftwareUpdateConfigurationMachineRun()
-        {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/softwareUpdateConfigurationMachineRun/getSoftwareUpdateConfigurationMachineRunById.json
-            // this example is just showing the usage of "SoftwareUpdateConfigurationMachineRuns_GetById" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this AutomationAccountResource created on azure
-            // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
-            string subscriptionId = "51766542-3ed7-4a72-a187-0c8ab644ddab";
-            string resourceGroupName = "mygroup";
-            string automationAccountName = "myaccount";
-            ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
-            AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
-
-            // invoke the operation
-            Guid softwareUpdateConfigurationMachineRunId = Guid.Parse("ca440719-34a4-4234-a1a9-3f84faf7788f");
-            SoftwareUpdateConfigurationMachineRun result = await automationAccount.GetSoftwareUpdateConfigurationMachineRunAsync(softwareUpdateConfigurationMachineRunId);
-
-            Console.WriteLine($"Succeeded: {result}");
-        }
-
-        // List software update configuration machine runs
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetSoftwareUpdateConfigurationMachineRuns_ListSoftwareUpdateConfigurationMachineRuns()
-        {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/softwareUpdateConfigurationMachineRun/listSoftwareUpdateConfigurationMachineRuns.json
-            // this example is just showing the usage of "SoftwareUpdateConfigurationMachineRuns_List" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this AutomationAccountResource created on azure
-            // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
-            string subscriptionId = "51766542-3ed7-4a72-a187-0c8ab644ddab";
-            string resourceGroupName = "mygroup";
-            string automationAccountName = "myaccount";
-            ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
-            AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
-
-            // invoke the operation and iterate over the result
-            await foreach (SoftwareUpdateConfigurationMachineRun item in automationAccount.GetSoftwareUpdateConfigurationMachineRunsAsync())
-            {
-                Console.WriteLine($"Succeeded: {item}");
-            }
-
-            Console.WriteLine($"Succeeded");
-        }
-
-        // List software update configuration machine runs for a specific software update configuration run
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetSoftwareUpdateConfigurationMachineRuns_ListSoftwareUpdateConfigurationMachineRunsForASpecificSoftwareUpdateConfigurationRun()
-        {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/softwareUpdateConfigurationMachineRun/listSoftwareUpdateConfigurationMachineRunsByRun.json
-            // this example is just showing the usage of "SoftwareUpdateConfigurationMachineRuns_List" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this AutomationAccountResource created on azure
-            // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
-            string subscriptionId = "51766542-3ed7-4a72-a187-0c8ab644ddab";
-            string resourceGroupName = "mygroup";
-            string automationAccountName = "myaccount";
-            ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
-            AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
-
-            // invoke the operation and iterate over the result
-            string filter = "$filter=properties/correlationId%20eq%200b943e57-44d3-4f05-898c-6e92aa617e59";
-            await foreach (SoftwareUpdateConfigurationMachineRun item in automationAccount.GetSoftwareUpdateConfigurationMachineRunsAsync(filter: filter))
-            {
-                Console.WriteLine($"Succeeded: {item}");
-            }
-
-            Console.WriteLine($"Succeeded");
-        }
-
-        // Generate webhook uri
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GenerateUriWebhook_GenerateWebhookUri()
-        {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2015-10-31/examples/webhookGenerateUri.json
-            // this example is just showing the usage of "Webhook_GenerateUri" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this AutomationAccountResource created on azure
-            // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
-            string subscriptionId = "subid";
-            string resourceGroupName = "rg";
-            string automationAccountName = "myAutomationAccount33";
-            ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
-            AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
-
-            // invoke the operation
-            string result = await automationAccount.GenerateUriWebhookAsync();
-
-            Console.WriteLine($"Succeeded: {result}");
         }
     }
 }

@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -156,7 +156,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -196,7 +196,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -240,7 +240,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -284,7 +284,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -292,18 +292,18 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> The update parameters for module. </param>
+        /// <param name="moduleUpdateParameters"> The update parameters for module. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual async Task<Response<AutomationAccountModuleResource>> UpdateAsync(AutomationAccountModulePatch patch, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="moduleUpdateParameters"/> is null. </exception>
+        public virtual async Task<Response<AutomationAccountModuleResource>> UpdateAsync(ModuleUpdateParameters moduleUpdateParameters, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(patch, nameof(patch));
+            Argument.AssertNotNull(moduleUpdateParameters, nameof(moduleUpdateParameters));
 
             using var scope = _automationAccountModuleModuleClientDiagnostics.CreateScope("AutomationAccountModuleResource.Update");
             scope.Start();
             try
             {
-                var response = await _automationAccountModuleModuleRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, patch, cancellationToken).ConfigureAwait(false);
+                var response = await _automationAccountModuleModuleRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, moduleUpdateParameters, cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(new AutomationAccountModuleResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -326,7 +326,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -334,18 +334,18 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> The update parameters for module. </param>
+        /// <param name="moduleUpdateParameters"> The update parameters for module. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual Response<AutomationAccountModuleResource> Update(AutomationAccountModulePatch patch, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="moduleUpdateParameters"/> is null. </exception>
+        public virtual Response<AutomationAccountModuleResource> Update(ModuleUpdateParameters moduleUpdateParameters, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(patch, nameof(patch));
+            Argument.AssertNotNull(moduleUpdateParameters, nameof(moduleUpdateParameters));
 
             using var scope = _automationAccountModuleModuleClientDiagnostics.CreateScope("AutomationAccountModuleResource.Update");
             scope.Start();
             try
             {
-                var response = _automationAccountModuleModuleRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, patch, cancellationToken);
+                var response = _automationAccountModuleModuleRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, moduleUpdateParameters, cancellationToken);
                 return Response.FromValue(new AutomationAccountModuleResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -368,7 +368,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -407,7 +407,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -446,7 +446,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -472,7 +472,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -498,7 +498,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -528,7 +528,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -558,7 +558,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -588,7 +588,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -618,7 +618,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -650,7 +650,7 @@ namespace Azure.ResourceManager.Automation
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new AutomationAccountModulePatch();
+                    var patch = new ModuleUpdateParameters();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -680,7 +680,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -712,7 +712,7 @@ namespace Azure.ResourceManager.Automation
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new AutomationAccountModulePatch();
+                    var patch = new ModuleUpdateParameters();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -742,7 +742,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -773,7 +773,7 @@ namespace Azure.ResourceManager.Automation
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new AutomationAccountModulePatch();
+                    var patch = new ModuleUpdateParameters();
                     patch.Tags.ReplaceWith(tags);
                     var result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return result;
@@ -799,7 +799,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -830,7 +830,7 @@ namespace Azure.ResourceManager.Automation
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new AutomationAccountModulePatch();
+                    var patch = new ModuleUpdateParameters();
                     patch.Tags.ReplaceWith(tags);
                     var result = Update(patch, cancellationToken: cancellationToken);
                     return result;
@@ -856,7 +856,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -886,7 +886,7 @@ namespace Azure.ResourceManager.Automation
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new AutomationAccountModulePatch();
+                    var patch = new ModuleUpdateParameters();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -916,7 +916,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -946,7 +946,7 @@ namespace Azure.ResourceManager.Automation
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new AutomationAccountModulePatch();
+                    var patch = new ModuleUpdateParameters();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
