@@ -9,19 +9,18 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
-using Azure.ResourceManager.StorageCache.Models;
 
 namespace Azure.ResourceManager.StorageCache.Samples
 {
-    public partial class Sample_StorageCacheImportJobCollection
+    public partial class Sample_AutoExportJobCollection
     {
-        // importJobs_Get
+        // autoExportJobs_Get
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Get_ImportJobsGet()
+        public async Task Get_AutoExportJobsGet()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/importJobs_Get.json
-            // this example is just showing the usage of "importJobs_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/autoExportJobs_Get.json
+            // this example is just showing the usage of "autoExportJobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -36,27 +35,27 @@ namespace Azure.ResourceManager.StorageCache.Samples
             ResourceIdentifier amlFileSystemResourceId = AmlFileSystemResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, amlFileSystemName);
             AmlFileSystemResource amlFileSystem = client.GetAmlFileSystemResource(amlFileSystemResourceId);
 
-            // get the collection of this StorageCacheImportJobResource
-            StorageCacheImportJobCollection collection = amlFileSystem.GetStorageCacheImportJobs();
+            // get the collection of this AutoExportJobResource
+            AutoExportJobCollection collection = amlFileSystem.GetAutoExportJobs();
 
             // invoke the operation
-            string importJobName = "job1";
-            StorageCacheImportJobResource result = await collection.GetAsync(importJobName);
+            string autoExportJobName = "job1";
+            AutoExportJobResource result = await collection.GetAsync(autoExportJobName);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            StorageCacheImportJobData resourceData = result.Data;
+            AutoExportJobData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // importJobs_Get
+        // autoExportJobs_Get
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Exists_ImportJobsGet()
+        public async Task Exists_AutoExportJobsGet()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/importJobs_Get.json
-            // this example is just showing the usage of "importJobs_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/autoExportJobs_Get.json
+            // this example is just showing the usage of "autoExportJobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -71,23 +70,23 @@ namespace Azure.ResourceManager.StorageCache.Samples
             ResourceIdentifier amlFileSystemResourceId = AmlFileSystemResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, amlFileSystemName);
             AmlFileSystemResource amlFileSystem = client.GetAmlFileSystemResource(amlFileSystemResourceId);
 
-            // get the collection of this StorageCacheImportJobResource
-            StorageCacheImportJobCollection collection = amlFileSystem.GetStorageCacheImportJobs();
+            // get the collection of this AutoExportJobResource
+            AutoExportJobCollection collection = amlFileSystem.GetAutoExportJobs();
 
             // invoke the operation
-            string importJobName = "job1";
-            bool result = await collection.ExistsAsync(importJobName);
+            string autoExportJobName = "job1";
+            bool result = await collection.ExistsAsync(autoExportJobName);
 
             Console.WriteLine($"Succeeded: {result}");
         }
 
-        // importJobs_Get
+        // autoExportJobs_Get
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetIfExists_ImportJobsGet()
+        public async Task GetIfExists_AutoExportJobsGet()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/importJobs_Get.json
-            // this example is just showing the usage of "importJobs_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/autoExportJobs_Get.json
+            // this example is just showing the usage of "autoExportJobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -102,13 +101,13 @@ namespace Azure.ResourceManager.StorageCache.Samples
             ResourceIdentifier amlFileSystemResourceId = AmlFileSystemResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, amlFileSystemName);
             AmlFileSystemResource amlFileSystem = client.GetAmlFileSystemResource(amlFileSystemResourceId);
 
-            // get the collection of this StorageCacheImportJobResource
-            StorageCacheImportJobCollection collection = amlFileSystem.GetStorageCacheImportJobs();
+            // get the collection of this AutoExportJobResource
+            AutoExportJobCollection collection = amlFileSystem.GetAutoExportJobs();
 
             // invoke the operation
-            string importJobName = "job1";
-            NullableResponse<StorageCacheImportJobResource> response = await collection.GetIfExistsAsync(importJobName);
-            StorageCacheImportJobResource result = response.HasValue ? response.Value : null;
+            string autoExportJobName = "job1";
+            NullableResponse<AutoExportJobResource> response = await collection.GetIfExistsAsync(autoExportJobName);
+            AutoExportJobResource result = response.HasValue ? response.Value : null;
 
             if (result == null)
             {
@@ -118,19 +117,19 @@ namespace Azure.ResourceManager.StorageCache.Samples
             {
                 // the variable result is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                StorageCacheImportJobData resourceData = result.Data;
+                AutoExportJobData resourceData = result.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
         }
 
-        // importJobs_CreateOrUpdate
+        // autoExportJobs_CreateOrUpdate
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task CreateOrUpdate_ImportJobsCreateOrUpdate()
+        public async Task CreateOrUpdate_AutoExportJobsCreateOrUpdate()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/importJobs_CreateOrUpdate.json
-            // this example is just showing the usage of "importJobs_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/autoExportJobs_CreateOrUpdate.json
+            // this example is just showing the usage of "autoExportJobs_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -145,41 +144,39 @@ namespace Azure.ResourceManager.StorageCache.Samples
             ResourceIdentifier amlFileSystemResourceId = AmlFileSystemResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, amlFileSystemName);
             AmlFileSystemResource amlFileSystem = client.GetAmlFileSystemResource(amlFileSystemResourceId);
 
-            // get the collection of this StorageCacheImportJobResource
-            StorageCacheImportJobCollection collection = amlFileSystem.GetStorageCacheImportJobs();
+            // get the collection of this AutoExportJobResource
+            AutoExportJobCollection collection = amlFileSystem.GetAutoExportJobs();
 
             // invoke the operation
-            string importJobName = "job1";
-            StorageCacheImportJobData data = new StorageCacheImportJobData(new AzureLocation("eastus"))
+            string autoExportJobName = "job1";
+            AutoExportJobData data = new AutoExportJobData(new AzureLocation("eastus"))
             {
-                ImportPrefixes =
+                AutoExportPrefixes =
 {
 "/"
 },
-                ConflictResolutionMode = ConflictResolutionMode.OverwriteAlways,
-                MaximumErrors = 0,
                 Tags =
 {
 ["Dept"] = "ContosoAds",
 },
             };
-            ArmOperation<StorageCacheImportJobResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, importJobName, data);
-            StorageCacheImportJobResource result = lro.Value;
+            ArmOperation<AutoExportJobResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, autoExportJobName, data);
+            AutoExportJobResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            StorageCacheImportJobData resourceData = result.Data;
+            AutoExportJobData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // importJobs_ListByAmlFilesystem
+        // autoExportJobs_ListByAmlFilesystem
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAll_ImportJobsListByAmlFilesystem()
+        public async Task GetAll_AutoExportJobsListByAmlFilesystem()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/importJobs_ListByAmlFilesystem.json
-            // this example is just showing the usage of "importJobs_ListByAmlFileSystem" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/autoExportJobs_ListByAmlFilesystem.json
+            // this example is just showing the usage of "autoExportJobs_ListByAmlFileSystem" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -194,15 +191,15 @@ namespace Azure.ResourceManager.StorageCache.Samples
             ResourceIdentifier amlFileSystemResourceId = AmlFileSystemResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, amlFileSystemName);
             AmlFileSystemResource amlFileSystem = client.GetAmlFileSystemResource(amlFileSystemResourceId);
 
-            // get the collection of this StorageCacheImportJobResource
-            StorageCacheImportJobCollection collection = amlFileSystem.GetStorageCacheImportJobs();
+            // get the collection of this AutoExportJobResource
+            AutoExportJobCollection collection = amlFileSystem.GetAutoExportJobs();
 
             // invoke the operation and iterate over the result
-            await foreach (StorageCacheImportJobResource item in collection.GetAllAsync())
+            await foreach (AutoExportJobResource item in collection.GetAllAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                StorageCacheImportJobData resourceData = item.Data;
+                AutoExportJobData resourceData = item.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
