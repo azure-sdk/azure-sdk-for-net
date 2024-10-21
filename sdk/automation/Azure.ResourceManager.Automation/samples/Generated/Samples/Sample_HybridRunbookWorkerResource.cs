@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteAV2HybridRunbookWorker()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2021-06-22/examples/deleteHybridRunbookWorker.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/deleteHybridRunbookWorker.json
             // this example is just showing the usage of "HybridRunbookWorkers_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetAV2HybridRunbookWorker()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2021-06-22/examples/getHybridRunbookWorker.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/getHybridRunbookWorker.json
             // this example is just showing the usage of "HybridRunbookWorkers_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_CreateAV2HybridRunbookWorker()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2021-06-22/examples/putHybridRunbookWorker.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/putHybridRunbookWorker.json
             // this example is just showing the usage of "HybridRunbookWorkers_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -120,7 +120,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Move_MoveAV2HybridWorkerToADifferentGroup()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2021-06-22/examples/moveHybridRunbookWorker.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/moveHybridRunbookWorker.json
             // this example is just showing the usage of "HybridRunbookWorkers_Move" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.Automation.Models
 {
-    /// <summary> The parameters supplied to the update module operation. </summary>
-    public partial class AutomationAccountModulePatch
+    /// <summary> The parameters supplied to the create or update module operation. </summary>
+    public partial class PythonPackageCreateParameters
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,34 +45,36 @@ namespace Azure.ResourceManager.Automation.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AutomationAccountModulePatch"/>. </summary>
-        public AutomationAccountModulePatch()
+        /// <summary> Initializes a new instance of <see cref="PythonPackageCreateParameters"/>. </summary>
+        /// <param name="contentLink"> Gets or sets the module content link. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="contentLink"/> is null. </exception>
+        public PythonPackageCreateParameters(AutomationContentLink contentLink)
         {
+            Argument.AssertNotNull(contentLink, nameof(contentLink));
+
             Tags = new ChangeTrackingDictionary<string, string>();
+            ContentLink = contentLink;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AutomationAccountModulePatch"/>. </summary>
-        /// <param name="name"> Gets or sets name of the resource. </param>
-        /// <param name="location"> Gets or sets the location of the resource. </param>
+        /// <summary> Initializes a new instance of <see cref="PythonPackageCreateParameters"/>. </summary>
         /// <param name="tags"> Gets or sets the tags attached to the resource. </param>
         /// <param name="contentLink"> Gets or sets the module content link. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AutomationAccountModulePatch(string name, AzureLocation? location, IDictionary<string, string> tags, AutomationContentLink contentLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PythonPackageCreateParameters(IDictionary<string, string> tags, AutomationContentLink contentLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Name = name;
-            Location = location;
             Tags = tags;
             ContentLink = contentLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Gets or sets name of the resource. </summary>
-        public string Name { get; set; }
-        /// <summary> Gets or sets the location of the resource. </summary>
-        public AzureLocation? Location { get; set; }
+        /// <summary> Initializes a new instance of <see cref="PythonPackageCreateParameters"/> for deserialization. </summary>
+        internal PythonPackageCreateParameters()
+        {
+        }
+
         /// <summary> Gets or sets the tags attached to the resource. </summary>
         public IDictionary<string, string> Tags { get; }
         /// <summary> Gets or sets the module content link. </summary>
-        public AutomationContentLink ContentLink { get; set; }
+        public AutomationContentLink ContentLink { get; }
     }
 }

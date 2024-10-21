@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetAModule()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/getModule.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/getModule.json
             // this example is just showing the usage of "Module_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetAModule()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/getModule.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/getModule.json
             // this example is just showing the usage of "Module_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetAModule()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/getModule.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/getModule.json
             // this example is just showing the usage of "Module_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -129,7 +129,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateOrUpdateAModule()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/createOrUpdateModule.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/createOrUpdateModule.json
             // this example is just showing the usage of "Module_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -150,13 +150,13 @@ namespace Azure.ResourceManager.Automation.Samples
 
             // invoke the operation
             string moduleName = "OmsCompositeResources";
-            AutomationAccountModuleCreateOrUpdateContent content = new AutomationAccountModuleCreateOrUpdateContent(new AutomationContentLink()
+            ModuleCreateOrUpdateParameters moduleCreateOrUpdateParameters = new ModuleCreateOrUpdateParameters(new AutomationContentLink()
             {
                 Uri = new Uri("https://teststorage.blob.core.windows.net/dsccomposite/OmsCompositeResources.zip"),
                 ContentHash = new AutomationContentHash("sha265", "07E108A962B81DD9C9BAA89BB47C0F6EE52B29E83758B07795E408D258B2B87A"),
                 Version = "1.0.0.0",
             });
-            ArmOperation<AutomationAccountModuleResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, moduleName, content);
+            ArmOperation<AutomationAccountModuleResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, moduleName, moduleCreateOrUpdateParameters);
             AutomationAccountModuleResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well
@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListModulesByAutomationAccount()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/listModulesByAutomationAccount.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/listModulesByAutomationAccount.json
             // this example is just showing the usage of "Module_ListByAutomationAccount" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

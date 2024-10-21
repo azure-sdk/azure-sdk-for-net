@@ -47,30 +47,6 @@ namespace Azure.ResourceManager.Automation.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="AutomationAccountPython2PackageResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="AutomationAccountPython2PackageResource.CreateResourceIdentifier" /> to create an <see cref="AutomationAccountPython2PackageResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="AutomationAccountPython2PackageResource"/> object. </returns>
-        public virtual AutomationAccountPython2PackageResource GetAutomationAccountPython2PackageResource(ResourceIdentifier id)
-        {
-            AutomationAccountPython2PackageResource.ValidateResourceId(id);
-            return new AutomationAccountPython2PackageResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="AutomationAccountModuleResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="AutomationAccountModuleResource.CreateResourceIdentifier" /> to create an <see cref="AutomationAccountModuleResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="AutomationAccountModuleResource"/> object. </returns>
-        public virtual AutomationAccountModuleResource GetAutomationAccountModuleResource(ResourceIdentifier id)
-        {
-            AutomationAccountModuleResource.ValidateResourceId(id);
-            return new AutomationAccountModuleResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="DscNodeResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="DscNodeResource.CreateResourceIdentifier" /> to create a <see cref="DscNodeResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -80,18 +56,6 @@ namespace Azure.ResourceManager.Automation.Mocking
         {
             DscNodeResource.ValidateResourceId(id);
             return new DscNodeResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="DscNodeConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="DscNodeConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="DscNodeConfigurationResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="DscNodeConfigurationResource"/> object. </returns>
-        public virtual DscNodeConfigurationResource GetDscNodeConfigurationResource(ResourceIdentifier id)
-        {
-            DscNodeConfigurationResource.ValidateResourceId(id);
-            return new DscNodeConfigurationResource(Client, id);
         }
 
         /// <summary>
@@ -107,15 +71,39 @@ namespace Azure.ResourceManager.Automation.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="AutomationSourceControlResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="AutomationSourceControlResource.CreateResourceIdentifier" /> to create an <see cref="AutomationSourceControlResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// Gets an object representing an <see cref="AutomationWatcherResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AutomationWatcherResource.CreateResourceIdentifier" /> to create an <see cref="AutomationWatcherResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="AutomationSourceControlResource"/> object. </returns>
-        public virtual AutomationSourceControlResource GetAutomationSourceControlResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="AutomationWatcherResource"/> object. </returns>
+        public virtual AutomationWatcherResource GetAutomationWatcherResource(ResourceIdentifier id)
         {
-            AutomationSourceControlResource.ValidateResourceId(id);
-            return new AutomationSourceControlResource(Client, id);
+            AutomationWatcherResource.ValidateResourceId(id);
+            return new AutomationWatcherResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SoftwareUpdateConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SoftwareUpdateConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="SoftwareUpdateConfigurationResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SoftwareUpdateConfigurationResource"/> object. </returns>
+        public virtual SoftwareUpdateConfigurationResource GetSoftwareUpdateConfigurationResource(ResourceIdentifier id)
+        {
+            SoftwareUpdateConfigurationResource.ValidateResourceId(id);
+            return new SoftwareUpdateConfigurationResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AutomationWebhookResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AutomationWebhookResource.CreateResourceIdentifier" /> to create an <see cref="AutomationWebhookResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AutomationWebhookResource"/> object. </returns>
+        public virtual AutomationWebhookResource GetAutomationWebhookResource(ResourceIdentifier id)
+        {
+            AutomationWebhookResource.ValidateResourceId(id);
+            return new AutomationWebhookResource(Client, id);
         }
 
         /// <summary>
@@ -179,54 +167,6 @@ namespace Azure.ResourceManager.Automation.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="AutomationJobScheduleResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="AutomationJobScheduleResource.CreateResourceIdentifier" /> to create an <see cref="AutomationJobScheduleResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="AutomationJobScheduleResource"/> object. </returns>
-        public virtual AutomationJobScheduleResource GetAutomationJobScheduleResource(ResourceIdentifier id)
-        {
-            AutomationJobScheduleResource.ValidateResourceId(id);
-            return new AutomationJobScheduleResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="AutomationScheduleResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="AutomationScheduleResource.CreateResourceIdentifier" /> to create an <see cref="AutomationScheduleResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="AutomationScheduleResource"/> object. </returns>
-        public virtual AutomationScheduleResource GetAutomationScheduleResource(ResourceIdentifier id)
-        {
-            AutomationScheduleResource.ValidateResourceId(id);
-            return new AutomationScheduleResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="AutomationVariableResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="AutomationVariableResource.CreateResourceIdentifier" /> to create an <see cref="AutomationVariableResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="AutomationVariableResource"/> object. </returns>
-        public virtual AutomationVariableResource GetAutomationVariableResource(ResourceIdentifier id)
-        {
-            AutomationVariableResource.ValidateResourceId(id);
-            return new AutomationVariableResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="AutomationWatcherResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="AutomationWatcherResource.CreateResourceIdentifier" /> to create an <see cref="AutomationWatcherResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="AutomationWatcherResource"/> object. </returns>
-        public virtual AutomationWatcherResource GetAutomationWatcherResource(ResourceIdentifier id)
-        {
-            AutomationWatcherResource.ValidateResourceId(id);
-            return new AutomationWatcherResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="DscConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="DscConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="DscConfigurationResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -239,51 +179,15 @@ namespace Azure.ResourceManager.Automation.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="AutomationJobResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="AutomationJobResource.CreateResourceIdentifier" /> to create an <see cref="AutomationJobResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// Gets an object representing a <see cref="DscNodeConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DscNodeConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="DscNodeConfigurationResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="AutomationJobResource"/> object. </returns>
-        public virtual AutomationJobResource GetAutomationJobResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="DscNodeConfigurationResource"/> object. </returns>
+        public virtual DscNodeConfigurationResource GetDscNodeConfigurationResource(ResourceIdentifier id)
         {
-            AutomationJobResource.ValidateResourceId(id);
-            return new AutomationJobResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="SoftwareUpdateConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SoftwareUpdateConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="SoftwareUpdateConfigurationResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SoftwareUpdateConfigurationResource"/> object. </returns>
-        public virtual SoftwareUpdateConfigurationResource GetSoftwareUpdateConfigurationResource(ResourceIdentifier id)
-        {
-            SoftwareUpdateConfigurationResource.ValidateResourceId(id);
-            return new SoftwareUpdateConfigurationResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="AutomationRunbookResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="AutomationRunbookResource.CreateResourceIdentifier" /> to create an <see cref="AutomationRunbookResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="AutomationRunbookResource"/> object. </returns>
-        public virtual AutomationRunbookResource GetAutomationRunbookResource(ResourceIdentifier id)
-        {
-            AutomationRunbookResource.ValidateResourceId(id);
-            return new AutomationRunbookResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="AutomationWebhookResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="AutomationWebhookResource.CreateResourceIdentifier" /> to create an <see cref="AutomationWebhookResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="AutomationWebhookResource"/> object. </returns>
-        public virtual AutomationWebhookResource GetAutomationWebhookResource(ResourceIdentifier id)
-        {
-            AutomationWebhookResource.ValidateResourceId(id);
-            return new AutomationWebhookResource(Client, id);
+            DscNodeConfigurationResource.ValidateResourceId(id);
+            return new DscNodeConfigurationResource(Client, id);
         }
 
         /// <summary>
@@ -308,6 +212,126 @@ namespace Azure.ResourceManager.Automation.Mocking
         {
             HybridRunbookWorkerGroupResource.ValidateResourceId(id);
             return new HybridRunbookWorkerGroupResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AutomationJobResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AutomationJobResource.CreateResourceIdentifier" /> to create an <see cref="AutomationJobResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AutomationJobResource"/> object. </returns>
+        public virtual AutomationJobResource GetAutomationJobResource(ResourceIdentifier id)
+        {
+            AutomationJobResource.ValidateResourceId(id);
+            return new AutomationJobResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AutomationJobScheduleResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AutomationJobScheduleResource.CreateResourceIdentifier" /> to create an <see cref="AutomationJobScheduleResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AutomationJobScheduleResource"/> object. </returns>
+        public virtual AutomationJobScheduleResource GetAutomationJobScheduleResource(ResourceIdentifier id)
+        {
+            AutomationJobScheduleResource.ValidateResourceId(id);
+            return new AutomationJobScheduleResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AutomationAccountModuleResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AutomationAccountModuleResource.CreateResourceIdentifier" /> to create an <see cref="AutomationAccountModuleResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AutomationAccountModuleResource"/> object. </returns>
+        public virtual AutomationAccountModuleResource GetAutomationAccountModuleResource(ResourceIdentifier id)
+        {
+            AutomationAccountModuleResource.ValidateResourceId(id);
+            return new AutomationAccountModuleResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AutomationAccountPowerShell72ModuleResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AutomationAccountPowerShell72ModuleResource.CreateResourceIdentifier" /> to create an <see cref="AutomationAccountPowerShell72ModuleResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AutomationAccountPowerShell72ModuleResource"/> object. </returns>
+        public virtual AutomationAccountPowerShell72ModuleResource GetAutomationAccountPowerShell72ModuleResource(ResourceIdentifier id)
+        {
+            AutomationAccountPowerShell72ModuleResource.ValidateResourceId(id);
+            return new AutomationAccountPowerShell72ModuleResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AutomationAccountPython2PackageResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AutomationAccountPython2PackageResource.CreateResourceIdentifier" /> to create an <see cref="AutomationAccountPython2PackageResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AutomationAccountPython2PackageResource"/> object. </returns>
+        public virtual AutomationAccountPython2PackageResource GetAutomationAccountPython2PackageResource(ResourceIdentifier id)
+        {
+            AutomationAccountPython2PackageResource.ValidateResourceId(id);
+            return new AutomationAccountPython2PackageResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AutomationAccountPython3PackageResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AutomationAccountPython3PackageResource.CreateResourceIdentifier" /> to create an <see cref="AutomationAccountPython3PackageResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AutomationAccountPython3PackageResource"/> object. </returns>
+        public virtual AutomationAccountPython3PackageResource GetAutomationAccountPython3PackageResource(ResourceIdentifier id)
+        {
+            AutomationAccountPython3PackageResource.ValidateResourceId(id);
+            return new AutomationAccountPython3PackageResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AutomationRunbookResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AutomationRunbookResource.CreateResourceIdentifier" /> to create an <see cref="AutomationRunbookResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AutomationRunbookResource"/> object. </returns>
+        public virtual AutomationRunbookResource GetAutomationRunbookResource(ResourceIdentifier id)
+        {
+            AutomationRunbookResource.ValidateResourceId(id);
+            return new AutomationRunbookResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AutomationScheduleResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AutomationScheduleResource.CreateResourceIdentifier" /> to create an <see cref="AutomationScheduleResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AutomationScheduleResource"/> object. </returns>
+        public virtual AutomationScheduleResource GetAutomationScheduleResource(ResourceIdentifier id)
+        {
+            AutomationScheduleResource.ValidateResourceId(id);
+            return new AutomationScheduleResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AutomationSourceControlResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AutomationSourceControlResource.CreateResourceIdentifier" /> to create an <see cref="AutomationSourceControlResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AutomationSourceControlResource"/> object. </returns>
+        public virtual AutomationSourceControlResource GetAutomationSourceControlResource(ResourceIdentifier id)
+        {
+            AutomationSourceControlResource.ValidateResourceId(id);
+            return new AutomationSourceControlResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AutomationVariableResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AutomationVariableResource.CreateResourceIdentifier" /> to create an <see cref="AutomationVariableResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AutomationVariableResource"/> object. </returns>
+        public virtual AutomationVariableResource GetAutomationVariableResource(ResourceIdentifier id)
+        {
+            AutomationVariableResource.ValidateResourceId(id);
+            return new AutomationVariableResource(Client, id);
         }
     }
 }
