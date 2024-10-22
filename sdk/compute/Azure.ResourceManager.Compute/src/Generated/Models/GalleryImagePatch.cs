@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="purchasePlan"> Describes the gallery image definition purchase plan. This is used by marketplace images. </param>
         /// <param name="provisioningState"> The provisioning state, which only appears in the response. </param>
         /// <param name="features"> A list of gallery image features. </param>
-        /// <param name="architecture"> The architecture of the image. Applicable to OS disks only. </param>
+        /// <param name="architecture"> CPU architecture supported by an OS disk. </param>
         /// <param name="tags"> Resource tags. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal GalleryImagePatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string description, string eula, Uri privacyStatementUri, Uri releaseNoteUri, SupportedOperatingSystemType? osType, OperatingSystemStateType? osState, HyperVGeneration? hyperVGeneration, DateTimeOffset? endOfLifeOn, GalleryImageIdentifier identifier, RecommendedMachineConfiguration recommended, Disallowed disallowed, ImagePurchasePlan purchasePlan, GalleryProvisioningState? provisioningState, IList<GalleryImageFeature> features, ArchitectureType? architecture, IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
@@ -136,7 +136,7 @@ namespace Azure.ResourceManager.Compute.Models
         public GalleryProvisioningState? ProvisioningState { get; }
         /// <summary> A list of gallery image features. </summary>
         public IList<GalleryImageFeature> Features { get; }
-        /// <summary> The architecture of the image. Applicable to OS disks only. </summary>
+        /// <summary> CPU architecture supported by an OS disk. </summary>
         public ArchitectureType? Architecture { get; set; }
         /// <summary> Resource tags. </summary>
         public IDictionary<string, string> Tags { get; }
