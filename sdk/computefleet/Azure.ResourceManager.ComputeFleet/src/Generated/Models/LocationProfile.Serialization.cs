@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.ComputeFleet.Models
             {
                 return null;
             }
-            AzureLocation location = default;
+            string location = default;
             ComputeFleetVmProfile virtualMachineProfileOverride = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.ComputeFleet.Models
             {
                 if (property.NameEquals("location"u8))
                 {
-                    location = new AzureLocation(property.Value.GetString());
+                    location = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("virtualMachineProfileOverride"u8))
