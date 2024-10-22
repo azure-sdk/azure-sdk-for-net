@@ -11,8 +11,8 @@ using System.Linq;
 
 namespace Azure.AI.Language.Text
 {
-    /// <summary> Contains the entity recognition task result. </summary>
-    public partial class EntitiesResult
+    /// <summary> Contains the list of detected custom entities result for the documents. </summary>
+    public partial class CustomEntitiesResult
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,39 +46,44 @@ namespace Azure.AI.Language.Text
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="EntitiesResult"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="CustomEntitiesResult"/>. </summary>
         /// <param name="errors"> Errors by document id. </param>
-        /// <param name="modelVersion"> This field indicates which model is used for scoring. </param>
-        /// <param name="documents"> Response by document. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="errors"/>, <paramref name="modelVersion"/> or <paramref name="documents"/> is null. </exception>
-        internal EntitiesResult(IEnumerable<DocumentError> errors, string modelVersion, IEnumerable<EntitiesDocumentResultWithMetadata> documents)
+        /// <param name="projectName"> This field indicates the project name for the model. </param>
+        /// <param name="deploymentName"> This field indicates the deployment name for the model. </param>
+        /// <param name="documents"> Enumeration of the document results. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="errors"/>, <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="documents"/> is null. </exception>
+        internal CustomEntitiesResult(IEnumerable<DocumentError> errors, string projectName, string deploymentName, IEnumerable<EntityActionResult> documents)
         {
             Argument.AssertNotNull(errors, nameof(errors));
-            Argument.AssertNotNull(modelVersion, nameof(modelVersion));
+            Argument.AssertNotNull(projectName, nameof(projectName));
+            Argument.AssertNotNull(deploymentName, nameof(deploymentName));
             Argument.AssertNotNull(documents, nameof(documents));
 
             Errors = errors.ToList();
-            ModelVersion = modelVersion;
+            ProjectName = projectName;
+            DeploymentName = deploymentName;
             Documents = documents.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="EntitiesResult"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="CustomEntitiesResult"/>. </summary>
         /// <param name="errors"> Errors by document id. </param>
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the request payload. </param>
-        /// <param name="modelVersion"> This field indicates which model is used for scoring. </param>
-        /// <param name="documents"> Response by document. </param>
+        /// <param name="projectName"> This field indicates the project name for the model. </param>
+        /// <param name="deploymentName"> This field indicates the deployment name for the model. </param>
+        /// <param name="documents"> Enumeration of the document results. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal EntitiesResult(IReadOnlyList<DocumentError> errors, RequestStatistics statistics, string modelVersion, IReadOnlyList<EntitiesDocumentResultWithMetadata> documents, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CustomEntitiesResult(IReadOnlyList<DocumentError> errors, RequestStatistics statistics, string projectName, string deploymentName, IReadOnlyList<EntityActionResult> documents, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Errors = errors;
             Statistics = statistics;
-            ModelVersion = modelVersion;
+            ProjectName = projectName;
+            DeploymentName = deploymentName;
             Documents = documents;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="EntitiesResult"/> for deserialization. </summary>
-        internal EntitiesResult()
+        /// <summary> Initializes a new instance of <see cref="CustomEntitiesResult"/> for deserialization. </summary>
+        internal CustomEntitiesResult()
         {
         }
 
@@ -86,9 +91,11 @@ namespace Azure.AI.Language.Text
         public IReadOnlyList<DocumentError> Errors { get; }
         /// <summary> if showStats=true was specified in the request this field will contain information about the request payload. </summary>
         public RequestStatistics Statistics { get; }
-        /// <summary> This field indicates which model is used for scoring. </summary>
-        public string ModelVersion { get; }
-        /// <summary> Response by document. </summary>
-        public IReadOnlyList<EntitiesDocumentResultWithMetadata> Documents { get; }
+        /// <summary> This field indicates the project name for the model. </summary>
+        public string ProjectName { get; }
+        /// <summary> This field indicates the deployment name for the model. </summary>
+        public string DeploymentName { get; }
+        /// <summary> Enumeration of the document results. </summary>
+        public IReadOnlyList<EntityActionResult> Documents { get; }
     }
 }

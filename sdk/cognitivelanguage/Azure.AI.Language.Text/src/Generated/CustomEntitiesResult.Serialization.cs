@@ -13,16 +13,16 @@ using Azure.Core;
 
 namespace Azure.AI.Language.Text
 {
-    public partial class EntitiesResult : IUtf8JsonSerializable, IJsonModel<EntitiesResult>
+    public partial class CustomEntitiesResult : IUtf8JsonSerializable, IJsonModel<CustomEntitiesResult>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<EntitiesResult>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<CustomEntitiesResult>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<EntitiesResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<CustomEntitiesResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EntitiesResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<CustomEntitiesResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(EntitiesResult)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(CustomEntitiesResult)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -38,8 +38,10 @@ namespace Azure.AI.Language.Text
                 writer.WritePropertyName("statistics"u8);
                 writer.WriteObjectValue(Statistics, options);
             }
-            writer.WritePropertyName("modelVersion"u8);
-            writer.WriteStringValue(ModelVersion);
+            writer.WritePropertyName("projectName"u8);
+            writer.WriteStringValue(ProjectName);
+            writer.WritePropertyName("deploymentName"u8);
+            writer.WriteStringValue(DeploymentName);
             writer.WritePropertyName("documents"u8);
             writer.WriteStartArray();
             foreach (var item in Documents)
@@ -65,19 +67,19 @@ namespace Azure.AI.Language.Text
             writer.WriteEndObject();
         }
 
-        EntitiesResult IJsonModel<EntitiesResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        CustomEntitiesResult IJsonModel<CustomEntitiesResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EntitiesResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<CustomEntitiesResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(EntitiesResult)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(CustomEntitiesResult)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeEntitiesResult(document.RootElement, options);
+            return DeserializeCustomEntitiesResult(document.RootElement, options);
         }
 
-        internal static EntitiesResult DeserializeEntitiesResult(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static CustomEntitiesResult DeserializeCustomEntitiesResult(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -87,8 +89,9 @@ namespace Azure.AI.Language.Text
             }
             IReadOnlyList<DocumentError> errors = default;
             RequestStatistics statistics = default;
-            string modelVersion = default;
-            IReadOnlyList<EntitiesDocumentResultWithMetadata> documents = default;
+            string projectName = default;
+            string deploymentName = default;
+            IReadOnlyList<EntityActionResult> documents = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -112,17 +115,22 @@ namespace Azure.AI.Language.Text
                     statistics = RequestStatistics.DeserializeRequestStatistics(property.Value, options);
                     continue;
                 }
-                if (property.NameEquals("modelVersion"u8))
+                if (property.NameEquals("projectName"u8))
                 {
-                    modelVersion = property.Value.GetString();
+                    projectName = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("deploymentName"u8))
+                {
+                    deploymentName = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("documents"u8))
                 {
-                    List<EntitiesDocumentResultWithMetadata> array = new List<EntitiesDocumentResultWithMetadata>();
+                    List<EntityActionResult> array = new List<EntityActionResult>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(EntitiesDocumentResultWithMetadata.DeserializeEntitiesDocumentResultWithMetadata(item, options));
+                        array.Add(EntityActionResult.DeserializeEntityActionResult(item, options));
                     }
                     documents = array;
                     continue;
@@ -133,46 +141,52 @@ namespace Azure.AI.Language.Text
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new EntitiesResult(errors, statistics, modelVersion, documents, serializedAdditionalRawData);
+            return new CustomEntitiesResult(
+                errors,
+                statistics,
+                projectName,
+                deploymentName,
+                documents,
+                serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<EntitiesResult>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<CustomEntitiesResult>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EntitiesResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<CustomEntitiesResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(EntitiesResult)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(CustomEntitiesResult)} does not support writing '{options.Format}' format.");
             }
         }
 
-        EntitiesResult IPersistableModel<EntitiesResult>.Create(BinaryData data, ModelReaderWriterOptions options)
+        CustomEntitiesResult IPersistableModel<CustomEntitiesResult>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EntitiesResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<CustomEntitiesResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeEntitiesResult(document.RootElement, options);
+                        return DeserializeCustomEntitiesResult(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(EntitiesResult)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(CustomEntitiesResult)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<EntitiesResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<CustomEntitiesResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static EntitiesResult FromResponse(Response response)
+        internal static CustomEntitiesResult FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeEntitiesResult(document.RootElement);
+            return DeserializeCustomEntitiesResult(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>

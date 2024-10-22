@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.Language.Text
 {
-    /// <summary> Entity object with tags and metadata. </summary>
-    public partial class NamedEntityWithMetadata
+    /// <summary> Entity object with tags. </summary>
+    public partial class PiiEntityWithTags
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,14 +45,14 @@ namespace Azure.AI.Language.Text
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="NamedEntityWithMetadata"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="PiiEntityWithTags"/>. </summary>
         /// <param name="text"> Entity text as appears in the request. </param>
         /// <param name="category"> Entity type. </param>
         /// <param name="offset"> Start position for the entity text. Use of different 'stringIndexType' values can affect the offset returned. </param>
         /// <param name="length"> Length for the entity text. Use of different 'stringIndexType' values can affect the length returned. </param>
         /// <param name="confidenceScore"> Confidence score between 0 and 1 of the extracted entity. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="text"/> or <paramref name="category"/> is null. </exception>
-        internal NamedEntityWithMetadata(string text, string category, int offset, int length, double confidenceScore)
+        internal PiiEntityWithTags(string text, string category, int offset, int length, double confidenceScore)
         {
             Argument.AssertNotNull(text, nameof(text));
             Argument.AssertNotNull(category, nameof(category));
@@ -65,7 +65,7 @@ namespace Azure.AI.Language.Text
             Tags = new ChangeTrackingList<EntityTag>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="NamedEntityWithMetadata"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="PiiEntityWithTags"/>. </summary>
         /// <param name="text"> Entity text as appears in the request. </param>
         /// <param name="category"> Entity type. </param>
         /// <param name="subcategory"> (Optional) Entity sub type. </param>
@@ -74,13 +74,11 @@ namespace Azure.AI.Language.Text
         /// <param name="confidenceScore"> Confidence score between 0 and 1 of the extracted entity. </param>
         /// <param name="type"> An entity type is the lowest (or finest) granularity at which the entity has been detected. The type maps to the specific metadata attributes associated with the entity detected. </param>
         /// <param name="tags"> List of entity tags. Tags are to express some similarities/affinity between entities. </param>
-        /// <param name="metadata">
-        /// The entity metadata object.
-        /// Please note <see cref="BaseMetadata"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="AgeMetadata"/>, <see cref="AreaMetadata"/>, <see cref="CurrencyMetadata"/>, <see cref="DateMetadata"/>, <see cref="DateTimeMetadata"/>, <see cref="InformationMetadata"/>, <see cref="LengthMetadata"/>, <see cref="NumberMetadata"/>, <see cref="NumericRangeMetadata"/>, <see cref="OrdinalMetadata"/>, <see cref="SpeedMetadata"/>, <see cref="TemperatureMetadata"/>, <see cref="TemporalSetMetadata"/>, <see cref="TemporalSpanMetadata"/>, <see cref="TimeMetadata"/>, <see cref="VolumeMetadata"/> and <see cref="WeightMetadata"/>.
-        /// </param>
+        /// <param name="mask"> Optional field which will be returned only when using the redaction policy kind “MaskWithEntityType”.  This field will contain the exact mask text used to mask the PII entity in the original text. </param>
+        /// <param name="maskOffset"> Start position of masked text in the redacted text when using the redaction policy kind “MaskWithEntityType”. </param>
+        /// <param name="maskLength"> The length of the masked text. Will be present when using the redaction policy kind “MaskWithEntityType”. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal NamedEntityWithMetadata(string text, string category, string subcategory, int offset, int length, double confidenceScore, string type, IReadOnlyList<EntityTag> tags, BaseMetadata metadata, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PiiEntityWithTags(string text, string category, string subcategory, int offset, int length, double confidenceScore, string type, IReadOnlyList<EntityTag> tags, string mask, int? maskOffset, int? maskLength, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Text = text;
             Category = category;
@@ -90,12 +88,14 @@ namespace Azure.AI.Language.Text
             ConfidenceScore = confidenceScore;
             Type = type;
             Tags = tags;
-            Metadata = metadata;
+            Mask = mask;
+            MaskOffset = maskOffset;
+            MaskLength = maskLength;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="NamedEntityWithMetadata"/> for deserialization. </summary>
-        internal NamedEntityWithMetadata()
+        /// <summary> Initializes a new instance of <see cref="PiiEntityWithTags"/> for deserialization. </summary>
+        internal PiiEntityWithTags()
         {
         }
 
@@ -115,11 +115,11 @@ namespace Azure.AI.Language.Text
         public string Type { get; }
         /// <summary> List of entity tags. Tags are to express some similarities/affinity between entities. </summary>
         public IReadOnlyList<EntityTag> Tags { get; }
-        /// <summary>
-        /// The entity metadata object.
-        /// Please note <see cref="BaseMetadata"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="AgeMetadata"/>, <see cref="AreaMetadata"/>, <see cref="CurrencyMetadata"/>, <see cref="DateMetadata"/>, <see cref="DateTimeMetadata"/>, <see cref="InformationMetadata"/>, <see cref="LengthMetadata"/>, <see cref="NumberMetadata"/>, <see cref="NumericRangeMetadata"/>, <see cref="OrdinalMetadata"/>, <see cref="SpeedMetadata"/>, <see cref="TemperatureMetadata"/>, <see cref="TemporalSetMetadata"/>, <see cref="TemporalSpanMetadata"/>, <see cref="TimeMetadata"/>, <see cref="VolumeMetadata"/> and <see cref="WeightMetadata"/>.
-        /// </summary>
-        public BaseMetadata Metadata { get; }
+        /// <summary> Optional field which will be returned only when using the redaction policy kind “MaskWithEntityType”.  This field will contain the exact mask text used to mask the PII entity in the original text. </summary>
+        public string Mask { get; }
+        /// <summary> Start position of masked text in the redacted text when using the redaction policy kind “MaskWithEntityType”. </summary>
+        public int? MaskOffset { get; }
+        /// <summary> The length of the masked text. Will be present when using the redaction policy kind “MaskWithEntityType”. </summary>
+        public int? MaskLength { get; }
     }
 }

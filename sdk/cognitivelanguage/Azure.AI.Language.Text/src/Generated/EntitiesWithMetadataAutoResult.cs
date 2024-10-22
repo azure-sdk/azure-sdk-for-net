@@ -12,7 +12,7 @@ using System.Linq;
 namespace Azure.AI.Language.Text
 {
     /// <summary> Contains the entity recognition task result. </summary>
-    public partial class EntitiesResult
+    public partial class EntitiesWithMetadataAutoResult
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,12 +46,12 @@ namespace Azure.AI.Language.Text
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="EntitiesResult"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="EntitiesWithMetadataAutoResult"/>. </summary>
         /// <param name="errors"> Errors by document id. </param>
         /// <param name="modelVersion"> This field indicates which model is used for scoring. </param>
         /// <param name="documents"> Response by document. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="errors"/>, <paramref name="modelVersion"/> or <paramref name="documents"/> is null. </exception>
-        internal EntitiesResult(IEnumerable<DocumentError> errors, string modelVersion, IEnumerable<EntitiesDocumentResultWithMetadata> documents)
+        internal EntitiesWithMetadataAutoResult(IEnumerable<DocumentError> errors, string modelVersion, IEnumerable<EntitiesDocumentResultWithMetadataDetectedLanguage> documents)
         {
             Argument.AssertNotNull(errors, nameof(errors));
             Argument.AssertNotNull(modelVersion, nameof(modelVersion));
@@ -62,13 +62,13 @@ namespace Azure.AI.Language.Text
             Documents = documents.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="EntitiesResult"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="EntitiesWithMetadataAutoResult"/>. </summary>
         /// <param name="errors"> Errors by document id. </param>
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the request payload. </param>
         /// <param name="modelVersion"> This field indicates which model is used for scoring. </param>
         /// <param name="documents"> Response by document. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal EntitiesResult(IReadOnlyList<DocumentError> errors, RequestStatistics statistics, string modelVersion, IReadOnlyList<EntitiesDocumentResultWithMetadata> documents, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal EntitiesWithMetadataAutoResult(IReadOnlyList<DocumentError> errors, RequestStatistics statistics, string modelVersion, IReadOnlyList<EntitiesDocumentResultWithMetadataDetectedLanguage> documents, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Errors = errors;
             Statistics = statistics;
@@ -77,8 +77,8 @@ namespace Azure.AI.Language.Text
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="EntitiesResult"/> for deserialization. </summary>
-        internal EntitiesResult()
+        /// <summary> Initializes a new instance of <see cref="EntitiesWithMetadataAutoResult"/> for deserialization. </summary>
+        internal EntitiesWithMetadataAutoResult()
         {
         }
 
@@ -89,6 +89,6 @@ namespace Azure.AI.Language.Text
         /// <summary> This field indicates which model is used for scoring. </summary>
         public string ModelVersion { get; }
         /// <summary> Response by document. </summary>
-        public IReadOnlyList<EntitiesDocumentResultWithMetadata> Documents { get; }
+        public IReadOnlyList<EntitiesDocumentResultWithMetadataDetectedLanguage> Documents { get; }
     }
 }
