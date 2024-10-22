@@ -11,11 +11,11 @@ using System.Collections.Generic;
 namespace Azure.AI.Language.Text
 {
     /// <summary>
-    /// The result object for the analyze task.
-    /// Please note <see cref="AnalyzeTextResult"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="AnalyzeTextEntityLinkingResult"/>, <see cref="AnalyzeTextEntitiesResult"/>, <see cref="AnalyzeTextKeyPhraseResult"/>, <see cref="AnalyzeTextLanguageDetectionResult"/>, <see cref="AnalyzeTextPiiResult"/> and <see cref="AnalyzeTextSentimentResult"/>.
+    /// The abstract base class for RedactionPolicy.
+    /// Please note <see cref="BaseRedactionPolicy"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+    /// The available derived classes include <see cref="CharacterMaskPolicyType"/>, <see cref="EntityMaskPolicyType"/> and <see cref="NoMaskPolicyType"/>.
     /// </summary>
-    public abstract partial class AnalyzeTextResult
+    public abstract partial class BaseRedactionPolicy
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -49,21 +49,21 @@ namespace Azure.AI.Language.Text
         /// </summary>
         private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeTextResult"/>. </summary>
-        protected AnalyzeTextResult()
+        /// <summary> Initializes a new instance of <see cref="BaseRedactionPolicy"/>. </summary>
+        protected BaseRedactionPolicy()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeTextResult"/>. </summary>
-        /// <param name="kind"> The kind of task result. </param>
+        /// <summary> Initializes a new instance of <see cref="BaseRedactionPolicy"/>. </summary>
+        /// <param name="policyKind"> The entity RedactionPolicy object kind. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AnalyzeTextResult(AnalyzeTextResultsKind kind, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BaseRedactionPolicy(RedactionPolicyKind policyKind, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Kind = kind;
+            PolicyKind = policyKind;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The kind of task result. </summary>
-        internal AnalyzeTextResultsKind Kind { get; set; }
+        /// <summary> The entity RedactionPolicy object kind. </summary>
+        internal RedactionPolicyKind PolicyKind { get; set; }
     }
 }

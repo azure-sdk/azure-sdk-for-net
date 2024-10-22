@@ -13,16 +13,16 @@ using Azure.Core;
 
 namespace Azure.AI.Language.Text
 {
-    public partial class PiiActionResult : IUtf8JsonSerializable, IJsonModel<PiiActionResult>
+    public partial class EntitiesDocumentResultWithMetadata : IUtf8JsonSerializable, IJsonModel<EntitiesDocumentResultWithMetadata>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<PiiActionResult>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<EntitiesDocumentResultWithMetadata>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<PiiActionResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<EntitiesDocumentResultWithMetadata>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<PiiActionResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EntitiesDocumentResultWithMetadata>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(PiiActionResult)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(EntitiesDocumentResultWithMetadata)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -40,8 +40,6 @@ namespace Azure.AI.Language.Text
                 writer.WritePropertyName("statistics"u8);
                 writer.WriteObjectValue(Statistics, options);
             }
-            writer.WritePropertyName("redactedText"u8);
-            writer.WriteStringValue(RedactedText);
             writer.WritePropertyName("entities"u8);
             writer.WriteStartArray();
             foreach (var item in Entities)
@@ -49,11 +47,6 @@ namespace Azure.AI.Language.Text
                 writer.WriteObjectValue(item, options);
             }
             writer.WriteEndArray();
-            if (Optional.IsDefined(DetectedLanguage))
-            {
-                writer.WritePropertyName("detectedLanguage"u8);
-                writer.WriteObjectValue(DetectedLanguage, options);
-            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -72,19 +65,19 @@ namespace Azure.AI.Language.Text
             writer.WriteEndObject();
         }
 
-        PiiActionResult IJsonModel<PiiActionResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        EntitiesDocumentResultWithMetadata IJsonModel<EntitiesDocumentResultWithMetadata>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<PiiActionResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EntitiesDocumentResultWithMetadata>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(PiiActionResult)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(EntitiesDocumentResultWithMetadata)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializePiiActionResult(document.RootElement, options);
+            return DeserializeEntitiesDocumentResultWithMetadata(document.RootElement, options);
         }
 
-        internal static PiiActionResult DeserializePiiActionResult(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static EntitiesDocumentResultWithMetadata DeserializeEntitiesDocumentResultWithMetadata(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -95,9 +88,7 @@ namespace Azure.AI.Language.Text
             string id = default;
             IReadOnlyList<DocumentWarning> warnings = default;
             DocumentStatistics statistics = default;
-            string redactedText = default;
-            IReadOnlyList<PiiEntityWithTags> entities = default;
-            DetectedLanguage detectedLanguage = default;
+            IReadOnlyList<NamedEntityWithMetadata> entities = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -126,28 +117,14 @@ namespace Azure.AI.Language.Text
                     statistics = DocumentStatistics.DeserializeDocumentStatistics(property.Value, options);
                     continue;
                 }
-                if (property.NameEquals("redactedText"u8))
-                {
-                    redactedText = property.Value.GetString();
-                    continue;
-                }
                 if (property.NameEquals("entities"u8))
                 {
-                    List<PiiEntityWithTags> array = new List<PiiEntityWithTags>();
+                    List<NamedEntityWithMetadata> array = new List<NamedEntityWithMetadata>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(PiiEntityWithTags.DeserializePiiEntityWithTags(item, options));
+                        array.Add(NamedEntityWithMetadata.DeserializeNamedEntityWithMetadata(item, options));
                     }
                     entities = array;
-                    continue;
-                }
-                if (property.NameEquals("detectedLanguage"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    detectedLanguage = DetectedLanguage.DeserializeDetectedLanguage(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -156,53 +133,46 @@ namespace Azure.AI.Language.Text
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new PiiActionResult(
-                id,
-                warnings,
-                statistics,
-                redactedText,
-                entities,
-                detectedLanguage,
-                serializedAdditionalRawData);
+            return new EntitiesDocumentResultWithMetadata(id, warnings, statistics, entities, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<PiiActionResult>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<EntitiesDocumentResultWithMetadata>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<PiiActionResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EntitiesDocumentResultWithMetadata>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(PiiActionResult)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(EntitiesDocumentResultWithMetadata)} does not support writing '{options.Format}' format.");
             }
         }
 
-        PiiActionResult IPersistableModel<PiiActionResult>.Create(BinaryData data, ModelReaderWriterOptions options)
+        EntitiesDocumentResultWithMetadata IPersistableModel<EntitiesDocumentResultWithMetadata>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<PiiActionResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EntitiesDocumentResultWithMetadata>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializePiiActionResult(document.RootElement, options);
+                        return DeserializeEntitiesDocumentResultWithMetadata(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(PiiActionResult)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(EntitiesDocumentResultWithMetadata)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<PiiActionResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<EntitiesDocumentResultWithMetadata>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static PiiActionResult FromResponse(Response response)
+        internal static EntitiesDocumentResultWithMetadata FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializePiiActionResult(document.RootElement);
+            return DeserializeEntitiesDocumentResultWithMetadata(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
