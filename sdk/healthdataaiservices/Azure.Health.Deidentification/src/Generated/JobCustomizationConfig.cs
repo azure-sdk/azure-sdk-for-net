@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Azure.Health.Deidentification
 {
-    /// <summary> Result of the "Tag" operation. </summary>
-    public partial class PhiTaggerResult
+    /// <summary> Customizations options to override default service behaviors for job usage. </summary>
+    public partial class JobCustomizationConfig
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,31 +45,29 @@ namespace Azure.Health.Deidentification
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="PhiTaggerResult"/>. </summary>
-        /// <param name="entities"> List of entities detected in the input. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="entities"/> is null. </exception>
-        internal PhiTaggerResult(IEnumerable<PhiEntity> entities)
+        /// <summary> Initializes a new instance of <see cref="JobCustomizationConfig"/>. </summary>
+        public JobCustomizationConfig()
         {
-            Argument.AssertNotNull(entities, nameof(entities));
-
-            Entities = entities.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="PhiTaggerResult"/>. </summary>
-        /// <param name="entities"> List of entities detected in the input. </param>
+        /// <summary> Initializes a new instance of <see cref="JobCustomizationConfig"/>. </summary>
+        /// <param name="redactionFormat"> Format of the redacted output. Only valid when Operation is Redact. </param>
+        /// <param name="operation"> Operation to perform on the input documents. </param>
+        /// <param name="surrogateLocale"> Locale in which the output surrogates are written. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PhiTaggerResult(IReadOnlyList<PhiEntity> entities, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal JobCustomizationConfig(string redactionFormat, OperationType? operation, string surrogateLocale, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Entities = entities;
+            RedactionFormat = redactionFormat;
+            Operation = operation;
+            SurrogateLocale = surrogateLocale;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="PhiTaggerResult"/> for deserialization. </summary>
-        internal PhiTaggerResult()
-        {
-        }
-
-        /// <summary> List of entities detected in the input. </summary>
-        public IReadOnlyList<PhiEntity> Entities { get; }
+        /// <summary> Format of the redacted output. Only valid when Operation is Redact. </summary>
+        public string RedactionFormat { get; set; }
+        /// <summary> Operation to perform on the input documents. </summary>
+        public OperationType? Operation { get; set; }
+        /// <summary> Locale in which the output surrogates are written. </summary>
+        public string SurrogateLocale { get; set; }
     }
 }
