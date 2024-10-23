@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.ContentSafety
 {
-    /// <summary> Text analysis result. </summary>
-    public partial class TextCategoriesAnalysis
+    /// <summary> The combined detection results of potential protected material. </summary>
+    public partial class DetectTextProtectedMaterialResult
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,32 +45,31 @@ namespace Azure.AI.ContentSafety
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="TextCategoriesAnalysis"/>. </summary>
-        /// <param name="category"> The text analysis category. </param>
-        internal TextCategoriesAnalysis(TextCategory category)
+        /// <summary> Initializes a new instance of <see cref="DetectTextProtectedMaterialResult"/>. </summary>
+        /// <param name="protectedMaterialAnalysis"> Analysis result for the given text. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="protectedMaterialAnalysis"/> is null. </exception>
+        internal DetectTextProtectedMaterialResult(TextProtectedMaterialAnalysisResult protectedMaterialAnalysis)
         {
-            Category = category;
+            Argument.AssertNotNull(protectedMaterialAnalysis, nameof(protectedMaterialAnalysis));
+
+            ProtectedMaterialAnalysis = protectedMaterialAnalysis;
         }
 
-        /// <summary> Initializes a new instance of <see cref="TextCategoriesAnalysis"/>. </summary>
-        /// <param name="category"> The text analysis category. </param>
-        /// <param name="severity"> The value increases with the severity of the input content. The value of this field is determined by the output type specified in the request. The output type could be ‘FourSeverityLevels’ or ‘EightSeverity Levels’, and the output value can be 0, 2, 4, 6 or 0, 1, 2, 3, 4, 5, 6, or 7. </param>
+        /// <summary> Initializes a new instance of <see cref="DetectTextProtectedMaterialResult"/>. </summary>
+        /// <param name="protectedMaterialAnalysis"> Analysis result for the given text. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TextCategoriesAnalysis(TextCategory category, int? severity, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DetectTextProtectedMaterialResult(TextProtectedMaterialAnalysisResult protectedMaterialAnalysis, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Category = category;
-            Severity = severity;
+            ProtectedMaterialAnalysis = protectedMaterialAnalysis;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="TextCategoriesAnalysis"/> for deserialization. </summary>
-        internal TextCategoriesAnalysis()
+        /// <summary> Initializes a new instance of <see cref="DetectTextProtectedMaterialResult"/> for deserialization. </summary>
+        internal DetectTextProtectedMaterialResult()
         {
         }
 
-        /// <summary> The text analysis category. </summary>
-        public TextCategory Category { get; }
-        /// <summary> The value increases with the severity of the input content. The value of this field is determined by the output type specified in the request. The output type could be ‘FourSeverityLevels’ or ‘EightSeverity Levels’, and the output value can be 0, 2, 4, 6 or 0, 1, 2, 3, 4, 5, 6, or 7. </summary>
-        public int? Severity { get; }
+        /// <summary> Analysis result for the given text. </summary>
+        public TextProtectedMaterialAnalysisResult ProtectedMaterialAnalysis { get; }
     }
 }

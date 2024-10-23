@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.ContentSafety
 {
-    /// <summary> The result of blocklist match. </summary>
-    public partial class TextBlocklistMatch
+    /// <summary> The combined analysis results of potential direct or indirect injection attacks. </summary>
+    public partial class ShieldPromptResult
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,38 +45,26 @@ namespace Azure.AI.ContentSafety
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="TextBlocklistMatch"/>. </summary>
-        /// <param name="blocklistName"> The name of the matched blocklist. </param>
-        /// <param name="blocklistItemId"> The ID of the matched item. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="blocklistItemId"/> is null. </exception>
-        internal TextBlocklistMatch(string blocklistName, string blocklistItemId)
+        /// <summary> Initializes a new instance of <see cref="ShieldPromptResult"/>. </summary>
+        internal ShieldPromptResult()
         {
-            Argument.AssertNotNull(blocklistName, nameof(blocklistName));
-            Argument.AssertNotNull(blocklistItemId, nameof(blocklistItemId));
-
-            BlocklistName = blocklistName;
-            BlocklistItemId = blocklistItemId;
+            DocumentsAnalysis = new ChangeTrackingList<DocumentInjectionAnalysisResult>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="TextBlocklistMatch"/>. </summary>
-        /// <param name="blocklistName"> The name of the matched blocklist. </param>
-        /// <param name="blocklistItemId"> The ID of the matched item. </param>
+        /// <summary> Initializes a new instance of <see cref="ShieldPromptResult"/>. </summary>
+        /// <param name="userPromptAnalysis"> Direct injection attacks analysis result for the given user prompt. </param>
+        /// <param name="documentsAnalysis"> Direct and indirect injection attacks analysis result for the given documents. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TextBlocklistMatch(string blocklistName, string blocklistItemId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ShieldPromptResult(UserPromptInjectionAnalysisResult userPromptAnalysis, IReadOnlyList<DocumentInjectionAnalysisResult> documentsAnalysis, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            BlocklistName = blocklistName;
-            BlocklistItemId = blocklistItemId;
+            UserPromptAnalysis = userPromptAnalysis;
+            DocumentsAnalysis = documentsAnalysis;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="TextBlocklistMatch"/> for deserialization. </summary>
-        internal TextBlocklistMatch()
-        {
-        }
-
-        /// <summary> The name of the matched blocklist. </summary>
-        public string BlocklistName { get; }
-        /// <summary> The ID of the matched item. </summary>
-        public string BlocklistItemId { get; }
+        /// <summary> Direct injection attacks analysis result for the given user prompt. </summary>
+        public UserPromptInjectionAnalysisResult UserPromptAnalysis { get; }
+        /// <summary> Direct and indirect injection attacks analysis result for the given documents. </summary>
+        public IReadOnlyList<DocumentInjectionAnalysisResult> DocumentsAnalysis { get; }
     }
 }
