@@ -45,8 +45,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteObjectValue(item, options);
             }
             writer.WriteEndArray();
-            writer.WritePropertyName("scheduledOn"u8);
-            writer.WriteStringValue(ScheduledOn, "O");
+            if (Optional.IsDefined(ScheduledOn))
+            {
+                writer.WritePropertyName("scheduledOn"u8);
+                writer.WriteStringValue(ScheduledOn.Value, "O");
+            }
             if (Optional.IsDefined(FailureReason))
             {
                 writer.WritePropertyName("failureReason"u8);
@@ -129,7 +132,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             int? priority = default;
             IReadOnlyList<AcsRouterWorkerSelector> expiredAttachedWorkerSelectors = default;
             IReadOnlyList<AcsRouterWorkerSelector> expiredRequestedWorkerSelectors = default;
-            DateTimeOffset scheduledOn = default;
+            DateTimeOffset? scheduledOn = default;
             string failureReason = default;
             string queueId = default;
             IReadOnlyDictionary<string, string> labels = default;
@@ -172,6 +175,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("scheduledOn"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     scheduledOn = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
