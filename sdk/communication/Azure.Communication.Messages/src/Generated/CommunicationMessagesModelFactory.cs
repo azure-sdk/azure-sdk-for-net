@@ -110,6 +110,37 @@ namespace Azure.Communication.Messages
             return new AudioNotificationContent(channelRegistrationId, to?.ToList(), CommunicationMessageKind.Audio, serializedAdditionalRawData: null, mediaUri);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Messages.ReactionNotificationContent"/>. </summary>
+        /// <param name="channelRegistrationId"> The Channel Registration ID for the Business Identifier. </param>
+        /// <param name="to"> The native external platform user identifiers of the recipient. </param>
+        /// <param name="emoji"> emoji content like \uD83D\uDE00. </param>
+        /// <param name="messageId"> ID of the previous message you want to reply to. </param>
+        /// <returns> A new <see cref="Messages.ReactionNotificationContent"/> instance for mocking. </returns>
+        public static ReactionNotificationContent ReactionNotificationContent(Guid channelRegistrationId = default, IEnumerable<string> to = null, string emoji = null, string messageId = null)
+        {
+            to ??= new List<string>();
+
+            return new ReactionNotificationContent(
+                channelRegistrationId,
+                to?.ToList(),
+                CommunicationMessageKind.Reaction,
+                serializedAdditionalRawData: null,
+                emoji,
+                messageId);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Messages.StickerNotificationContent"/>. </summary>
+        /// <param name="channelRegistrationId"> The Channel Registration ID for the Business Identifier. </param>
+        /// <param name="to"> The native external platform user identifiers of the recipient. </param>
+        /// <param name="mediaUri"> A media url for the file. Required if the type is one of the supported media types, e.g. image. </param>
+        /// <returns> A new <see cref="Messages.StickerNotificationContent"/> instance for mocking. </returns>
+        public static StickerNotificationContent StickerNotificationContent(Guid channelRegistrationId = default, IEnumerable<string> to = null, Uri mediaUri = null)
+        {
+            to ??= new List<string>();
+
+            return new StickerNotificationContent(channelRegistrationId, to?.ToList(), CommunicationMessageKind.Sticker, serializedAdditionalRawData: null, mediaUri);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Messages.TemplateNotificationContent"/>. </summary>
         /// <param name="channelRegistrationId"> The Channel Registration ID for the Business Identifier. </param>
         /// <param name="to"> The native external platform user identifiers of the recipient. </param>

@@ -12,11 +12,12 @@ namespace Azure.Communication.Messages
     }
     public partial class CommunicationMessagesClientOptions : Azure.Core.ClientOptions
     {
-        public CommunicationMessagesClientOptions(Azure.Communication.Messages.CommunicationMessagesClientOptions.ServiceVersion version = Azure.Communication.Messages.CommunicationMessagesClientOptions.ServiceVersion.V2024_08_30) { }
+        public CommunicationMessagesClientOptions(Azure.Communication.Messages.CommunicationMessagesClientOptions.ServiceVersion version = Azure.Communication.Messages.CommunicationMessagesClientOptions.ServiceVersion.V2024_11_15) { }
         public enum ServiceVersion
         {
             V2024_02_01 = 1,
             V2024_08_30 = 2,
+            V2024_11_15 = 3,
         }
     }
     public static partial class CommunicationMessagesModelFactory
@@ -35,7 +36,9 @@ namespace Azure.Communication.Messages
         public static Azure.Communication.Messages.MessageTemplateValue MessageTemplateValue(string name = null, string kind = null) { throw null; }
         public static Azure.Communication.Messages.MessageTemplateVideo MessageTemplateVideo(string name = null, System.Uri uri = null, string caption = null, string fileName = null) { throw null; }
         public static Azure.Communication.Messages.NotificationContent NotificationContent(System.Guid channelRegistrationId = default(System.Guid), System.Collections.Generic.IEnumerable<string> to = null, string kind = null) { throw null; }
+        public static Azure.Communication.Messages.ReactionNotificationContent ReactionNotificationContent(System.Guid channelRegistrationId = default(System.Guid), System.Collections.Generic.IEnumerable<string> to = null, string emoji = null, string messageId = null) { throw null; }
         public static Azure.Communication.Messages.SendMessageResult SendMessageResult(System.Collections.Generic.IEnumerable<Azure.Communication.Messages.MessageReceipt> receipts = null) { throw null; }
+        public static Azure.Communication.Messages.StickerNotificationContent StickerNotificationContent(System.Guid channelRegistrationId = default(System.Guid), System.Collections.Generic.IEnumerable<string> to = null, System.Uri mediaUri = null) { throw null; }
         public static Azure.Communication.Messages.TemplateNotificationContent TemplateNotificationContent(System.Guid channelRegistrationId = default(System.Guid), System.Collections.Generic.IEnumerable<string> to = null, Azure.Communication.Messages.MessageTemplate template = null) { throw null; }
         public static Azure.Communication.Messages.TextNotificationContent TextNotificationContent(System.Guid channelRegistrationId = default(System.Guid), System.Collections.Generic.IEnumerable<string> to = null, string content = null) { throw null; }
         public static Azure.Communication.Messages.VideoNotificationContent VideoNotificationContent(System.Guid channelRegistrationId = default(System.Guid), System.Collections.Generic.IEnumerable<string> to = null, string caption = null, System.Uri mediaUri = null) { throw null; }
@@ -267,6 +270,17 @@ namespace Azure.Communication.Messages
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.Communication.Messages.SendMessageResult>> SendAsync(Azure.Communication.Messages.NotificationContent notificationContent, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response> SendAsync(Azure.Core.RequestContent content, Azure.RequestContext context = null) { throw null; }
     }
+    public partial class ReactionNotificationContent : Azure.Communication.Messages.NotificationContent, System.ClientModel.Primitives.IJsonModel<Azure.Communication.Messages.ReactionNotificationContent>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.Messages.ReactionNotificationContent>
+    {
+        public ReactionNotificationContent(System.Guid channelRegistrationId, System.Collections.Generic.IEnumerable<string> to, string emoji, string messageId) : base (default(System.Guid), default(System.Collections.Generic.IEnumerable<string>)) { }
+        public string Emoji { get { throw null; } }
+        public string MessageId { get { throw null; } }
+        Azure.Communication.Messages.ReactionNotificationContent System.ClientModel.Primitives.IJsonModel<Azure.Communication.Messages.ReactionNotificationContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.Communication.Messages.ReactionNotificationContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.Communication.Messages.ReactionNotificationContent System.ClientModel.Primitives.IPersistableModel<Azure.Communication.Messages.ReactionNotificationContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.Communication.Messages.ReactionNotificationContent>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.Communication.Messages.ReactionNotificationContent>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
     public partial class SendMessageResult : System.ClientModel.Primitives.IJsonModel<Azure.Communication.Messages.SendMessageResult>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.Messages.SendMessageResult>
     {
         internal SendMessageResult() { }
@@ -276,6 +290,16 @@ namespace Azure.Communication.Messages
         Azure.Communication.Messages.SendMessageResult System.ClientModel.Primitives.IPersistableModel<Azure.Communication.Messages.SendMessageResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.Communication.Messages.SendMessageResult>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.Communication.Messages.SendMessageResult>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class StickerNotificationContent : Azure.Communication.Messages.NotificationContent, System.ClientModel.Primitives.IJsonModel<Azure.Communication.Messages.StickerNotificationContent>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.Messages.StickerNotificationContent>
+    {
+        public StickerNotificationContent(System.Guid channelRegistrationId, System.Collections.Generic.IEnumerable<string> to, System.Uri mediaUri) : base (default(System.Guid), default(System.Collections.Generic.IEnumerable<string>)) { }
+        public System.Uri MediaUri { get { throw null; } }
+        Azure.Communication.Messages.StickerNotificationContent System.ClientModel.Primitives.IJsonModel<Azure.Communication.Messages.StickerNotificationContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.Communication.Messages.StickerNotificationContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.Communication.Messages.StickerNotificationContent System.ClientModel.Primitives.IPersistableModel<Azure.Communication.Messages.StickerNotificationContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.Communication.Messages.StickerNotificationContent>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.Communication.Messages.StickerNotificationContent>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public partial class TemplateNotificationContent : Azure.Communication.Messages.NotificationContent, System.ClientModel.Primitives.IJsonModel<Azure.Communication.Messages.TemplateNotificationContent>, System.ClientModel.Primitives.IPersistableModel<Azure.Communication.Messages.TemplateNotificationContent>
     {

@@ -28,6 +28,8 @@ namespace Azure.Communication.Messages
         private const string DocumentValue = "document";
         private const string VideoValue = "video";
         private const string AudioValue = "audio";
+        private const string StickerValue = "sticker";
+        private const string ReactionValue = "reaction";
         private const string TemplateValue = "template";
 
         /// <summary> Text message type. </summary>
@@ -42,6 +44,10 @@ namespace Azure.Communication.Messages
         public static CommunicationMessageKind Video { get; } = new CommunicationMessageKind(VideoValue);
         /// <summary> Audio message type. </summary>
         public static CommunicationMessageKind Audio { get; } = new CommunicationMessageKind(AudioValue);
+        /// <summary> Sticker message type. </summary>
+        public static CommunicationMessageKind Sticker { get; } = new CommunicationMessageKind(StickerValue);
+        /// <summary> Reaction message type. </summary>
+        public static CommunicationMessageKind Reaction { get; } = new CommunicationMessageKind(ReactionValue);
         /// <summary> Template message type. </summary>
         public static CommunicationMessageKind Template { get; } = new CommunicationMessageKind(TemplateValue);
         /// <summary> Determines if two <see cref="CommunicationMessageKind"/> values are the same. </summary>
