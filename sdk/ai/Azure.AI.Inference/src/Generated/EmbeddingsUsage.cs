@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.Inference
 {
-    /// <summary> The definition of a chat completions tool that can call a function. </summary>
-    public partial class ChatCompletionsToolDefinition
+    /// <summary> Measurement of the amount of tokens used in this request and response. </summary>
+    public partial class EmbeddingsUsage
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,36 +45,43 @@ namespace Azure.AI.Inference
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ChatCompletionsToolDefinition"/>. </summary>
-        /// <param name="function"> The function definition details for the function tool. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="function"/> is null. </exception>
-        public ChatCompletionsToolDefinition(FunctionDefinition function)
+        /// <summary> Initializes a new instance of <see cref="EmbeddingsUsage"/>. </summary>
+        /// <param name="promptTokens"> Number of tokens in the request. </param>
+        /// <param name="totalTokens">
+        /// Total number of tokens transacted in this request/response. Should equal the
+        /// number of tokens in the request.
+        /// </param>
+        internal EmbeddingsUsage(int promptTokens, int totalTokens)
         {
-            Argument.AssertNotNull(function, nameof(function));
-
-            Function = function;
+            PromptTokens = promptTokens;
+            TotalTokens = totalTokens;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ChatCompletionsToolDefinition"/>. </summary>
-        /// <param name="type"> The type of the tool. Currently, only `function` is supported. </param>
-        /// <param name="function"> The function definition details for the function tool. </param>
+        /// <summary> Initializes a new instance of <see cref="EmbeddingsUsage"/>. </summary>
+        /// <param name="promptTokens"> Number of tokens in the request. </param>
+        /// <param name="totalTokens">
+        /// Total number of tokens transacted in this request/response. Should equal the
+        /// number of tokens in the request.
+        /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ChatCompletionsToolDefinition(ChatCompletionsToolDefinitionType type, FunctionDefinition function, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal EmbeddingsUsage(int promptTokens, int totalTokens, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Type = type;
-            Function = function;
+            PromptTokens = promptTokens;
+            TotalTokens = totalTokens;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ChatCompletionsToolDefinition"/> for deserialization. </summary>
-        internal ChatCompletionsToolDefinition()
+        /// <summary> Initializes a new instance of <see cref="EmbeddingsUsage"/> for deserialization. </summary>
+        internal EmbeddingsUsage()
         {
         }
 
-        /// <summary> The type of the tool. Currently, only `function` is supported. </summary>
-        public ChatCompletionsToolDefinitionType Type { get; } = ChatCompletionsToolDefinitionType.Function;
-
-        /// <summary> The function definition details for the function tool. </summary>
-        public FunctionDefinition Function { get; }
+        /// <summary> Number of tokens in the request. </summary>
+        public int PromptTokens { get; }
+        /// <summary>
+        /// Total number of tokens transacted in this request/response. Should equal the
+        /// number of tokens in the request.
+        /// </summary>
+        public int TotalTokens { get; }
     }
 }
