@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.Inference
 {
-    /// <summary> The definition of a chat completions tool that can call a function. </summary>
-    public partial class ChatCompletionsToolDefinition
+    /// <summary> A representation of a chat message update as received in a streaming response. </summary>
+    public partial class StreamingChatResponseMessageUpdate
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,36 +45,36 @@ namespace Azure.AI.Inference
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ChatCompletionsToolDefinition"/>. </summary>
-        /// <param name="function"> The function definition details for the function tool. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="function"/> is null. </exception>
-        public ChatCompletionsToolDefinition(FunctionDefinition function)
+        /// <summary> Initializes a new instance of <see cref="StreamingChatResponseMessageUpdate"/>. </summary>
+        internal StreamingChatResponseMessageUpdate()
         {
-            Argument.AssertNotNull(function, nameof(function));
-
-            Function = function;
+            ToolCalls = new ChangeTrackingList<StreamingChatResponseToolCallUpdate>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="ChatCompletionsToolDefinition"/>. </summary>
-        /// <param name="type"> The type of the tool. Currently, only `function` is supported. </param>
-        /// <param name="function"> The function definition details for the function tool. </param>
+        /// <summary> Initializes a new instance of <see cref="StreamingChatResponseMessageUpdate"/>. </summary>
+        /// <param name="role"> The chat role associated with the message. If present, should always be 'assistant'. </param>
+        /// <param name="content"> The content of the message. </param>
+        /// <param name="toolCalls">
+        /// The tool calls that must be resolved and have their outputs appended to subsequent input messages for the chat
+        /// completions request to resolve as configured.
+        /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ChatCompletionsToolDefinition(ChatCompletionsToolDefinitionType type, FunctionDefinition function, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal StreamingChatResponseMessageUpdate(ChatRole? role, string content, IReadOnlyList<StreamingChatResponseToolCallUpdate> toolCalls, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Type = type;
-            Function = function;
+            Role = role;
+            Content = content;
+            ToolCalls = toolCalls;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ChatCompletionsToolDefinition"/> for deserialization. </summary>
-        internal ChatCompletionsToolDefinition()
-        {
-        }
-
-        /// <summary> The type of the tool. Currently, only `function` is supported. </summary>
-        public ChatCompletionsToolDefinitionType Type { get; } = ChatCompletionsToolDefinitionType.Function;
-
-        /// <summary> The function definition details for the function tool. </summary>
-        public FunctionDefinition Function { get; }
+        /// <summary> The chat role associated with the message. If present, should always be 'assistant'. </summary>
+        public ChatRole? Role { get; }
+        /// <summary> The content of the message. </summary>
+        public string Content { get; }
+        /// <summary>
+        /// The tool calls that must be resolved and have their outputs appended to subsequent input messages for the chat
+        /// completions request to resolve as configured.
+        /// </summary>
+        public IReadOnlyList<StreamingChatResponseToolCallUpdate> ToolCalls { get; }
     }
 }
