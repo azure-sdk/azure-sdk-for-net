@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.ContentSafety
 {
-    /// <summary> The result of blocklist match. </summary>
-    public partial class TextBlocklistMatch
+    /// <summary> The request of detecting potential protected material present in the given text. </summary>
+    public partial class DetectTextProtectedMaterialOptions
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,38 +45,31 @@ namespace Azure.AI.ContentSafety
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="TextBlocklistMatch"/>. </summary>
-        /// <param name="blocklistName"> The name of the matched blocklist. </param>
-        /// <param name="blocklistItemId"> The ID of the matched item. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="blocklistItemId"/> is null. </exception>
-        internal TextBlocklistMatch(string blocklistName, string blocklistItemId)
+        /// <summary> Initializes a new instance of <see cref="DetectTextProtectedMaterialOptions"/>. </summary>
+        /// <param name="text"> The text to be analyzed, which may contain protected material. The characters will be counted in Unicode code points. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="text"/> is null. </exception>
+        public DetectTextProtectedMaterialOptions(string text)
         {
-            Argument.AssertNotNull(blocklistName, nameof(blocklistName));
-            Argument.AssertNotNull(blocklistItemId, nameof(blocklistItemId));
+            Argument.AssertNotNull(text, nameof(text));
 
-            BlocklistName = blocklistName;
-            BlocklistItemId = blocklistItemId;
+            Text = text;
         }
 
-        /// <summary> Initializes a new instance of <see cref="TextBlocklistMatch"/>. </summary>
-        /// <param name="blocklistName"> The name of the matched blocklist. </param>
-        /// <param name="blocklistItemId"> The ID of the matched item. </param>
+        /// <summary> Initializes a new instance of <see cref="DetectTextProtectedMaterialOptions"/>. </summary>
+        /// <param name="text"> The text to be analyzed, which may contain protected material. The characters will be counted in Unicode code points. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TextBlocklistMatch(string blocklistName, string blocklistItemId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DetectTextProtectedMaterialOptions(string text, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            BlocklistName = blocklistName;
-            BlocklistItemId = blocklistItemId;
+            Text = text;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="TextBlocklistMatch"/> for deserialization. </summary>
-        internal TextBlocklistMatch()
+        /// <summary> Initializes a new instance of <see cref="DetectTextProtectedMaterialOptions"/> for deserialization. </summary>
+        internal DetectTextProtectedMaterialOptions()
         {
         }
 
-        /// <summary> The name of the matched blocklist. </summary>
-        public string BlocklistName { get; }
-        /// <summary> The ID of the matched item. </summary>
-        public string BlocklistItemId { get; }
+        /// <summary> The text to be analyzed, which may contain protected material. The characters will be counted in Unicode code points. </summary>
+        public string Text { get; }
     }
 }

@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.ContentSafety
 {
-    /// <summary> The result of blocklist match. </summary>
-    public partial class TextBlocklistMatch
+    /// <summary> The individual analysis result of potential injection attacks in the given user prompt. </summary>
+    public partial class UserPromptInjectionAnalysisResult
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,38 +45,28 @@ namespace Azure.AI.ContentSafety
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="TextBlocklistMatch"/>. </summary>
-        /// <param name="blocklistName"> The name of the matched blocklist. </param>
-        /// <param name="blocklistItemId"> The ID of the matched item. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="blocklistItemId"/> is null. </exception>
-        internal TextBlocklistMatch(string blocklistName, string blocklistItemId)
+        /// <summary> Initializes a new instance of <see cref="UserPromptInjectionAnalysisResult"/>. </summary>
+        /// <param name="attackDetected"> Whether a potential injection attack is detected or not. </param>
+        internal UserPromptInjectionAnalysisResult(bool attackDetected)
         {
-            Argument.AssertNotNull(blocklistName, nameof(blocklistName));
-            Argument.AssertNotNull(blocklistItemId, nameof(blocklistItemId));
-
-            BlocklistName = blocklistName;
-            BlocklistItemId = blocklistItemId;
+            AttackDetected = attackDetected;
         }
 
-        /// <summary> Initializes a new instance of <see cref="TextBlocklistMatch"/>. </summary>
-        /// <param name="blocklistName"> The name of the matched blocklist. </param>
-        /// <param name="blocklistItemId"> The ID of the matched item. </param>
+        /// <summary> Initializes a new instance of <see cref="UserPromptInjectionAnalysisResult"/>. </summary>
+        /// <param name="attackDetected"> Whether a potential injection attack is detected or not. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TextBlocklistMatch(string blocklistName, string blocklistItemId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal UserPromptInjectionAnalysisResult(bool attackDetected, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            BlocklistName = blocklistName;
-            BlocklistItemId = blocklistItemId;
+            AttackDetected = attackDetected;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="TextBlocklistMatch"/> for deserialization. </summary>
-        internal TextBlocklistMatch()
+        /// <summary> Initializes a new instance of <see cref="UserPromptInjectionAnalysisResult"/> for deserialization. </summary>
+        internal UserPromptInjectionAnalysisResult()
         {
         }
 
-        /// <summary> The name of the matched blocklist. </summary>
-        public string BlocklistName { get; }
-        /// <summary> The ID of the matched item. </summary>
-        public string BlocklistItemId { get; }
+        /// <summary> Whether a potential injection attack is detected or not. </summary>
+        public bool AttackDetected { get; }
     }
 }

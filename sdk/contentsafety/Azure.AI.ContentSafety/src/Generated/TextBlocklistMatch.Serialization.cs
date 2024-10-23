@@ -30,8 +30,6 @@ namespace Azure.AI.ContentSafety
             writer.WriteStringValue(BlocklistName);
             writer.WritePropertyName("blocklistItemId"u8);
             writer.WriteStringValue(BlocklistItemId);
-            writer.WritePropertyName("blocklistItemText"u8);
-            writer.WriteStringValue(BlocklistItemText);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -72,7 +70,6 @@ namespace Azure.AI.ContentSafety
             }
             string blocklistName = default;
             string blocklistItemId = default;
-            string blocklistItemText = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -87,18 +84,13 @@ namespace Azure.AI.ContentSafety
                     blocklistItemId = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("blocklistItemText"u8))
-                {
-                    blocklistItemText = property.Value.GetString();
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new TextBlocklistMatch(blocklistName, blocklistItemId, blocklistItemText, serializedAdditionalRawData);
+            return new TextBlocklistMatch(blocklistName, blocklistItemId, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<TextBlocklistMatch>.Write(ModelReaderWriterOptions options)
