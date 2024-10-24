@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateSoftwareUpdateConfiguration()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/softwareUpdateConfiguration/createSoftwareUpdateConfiguration.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/softwareUpdateConfiguration/createSoftwareUpdateConfiguration.json
             // this example is just showing the usage of "SoftwareUpdateConfigurations_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -156,7 +156,7 @@ WorkspaceId = "WorkspaceId2",
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetSoftwareUpdateConfigurationByName()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/softwareUpdateConfiguration/getSoftwareUpdateConfigurationByName.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/softwareUpdateConfiguration/getSoftwareUpdateConfigurationByName.json
             // this example is just showing the usage of "SoftwareUpdateConfigurations_GetByName" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -191,7 +191,7 @@ WorkspaceId = "WorkspaceId2",
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetSoftwareUpdateConfigurationByName()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/softwareUpdateConfiguration/getSoftwareUpdateConfigurationByName.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/softwareUpdateConfiguration/getSoftwareUpdateConfigurationByName.json
             // this example is just showing the usage of "SoftwareUpdateConfigurations_GetByName" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -222,7 +222,7 @@ WorkspaceId = "WorkspaceId2",
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetSoftwareUpdateConfigurationByName()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/softwareUpdateConfiguration/getSoftwareUpdateConfigurationByName.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/softwareUpdateConfiguration/getSoftwareUpdateConfigurationByName.json
             // this example is just showing the usage of "SoftwareUpdateConfigurations_GetByName" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -265,7 +265,7 @@ WorkspaceId = "WorkspaceId2",
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListSoftwareUpdateConfigurations()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/softwareUpdateConfiguration/listSoftwareUpdateConfigurations.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/softwareUpdateConfiguration/listSoftwareUpdateConfigurations.json
             // this example is just showing the usage of "SoftwareUpdateConfigurations_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -298,7 +298,7 @@ WorkspaceId = "WorkspaceId2",
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListSoftwareUpdateConfigurationsTargetingASpecificAzureVirtualMachine()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/softwareUpdateConfiguration/listSoftwareUpdateConfigurationsByVm.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/softwareUpdateConfiguration/listSoftwareUpdateConfigurationsByVm.json
             // this example is just showing the usage of "SoftwareUpdateConfigurations_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

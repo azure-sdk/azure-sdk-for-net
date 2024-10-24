@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_GetsPrivateEndpointConnection()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/PrivateEndpointConnectionListGet.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/privateEndpointConnection/PrivateEndpointConnectionListGet.json
             // this example is just showing the usage of "PrivateEndpointConnections_ListByAutomationAccount" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.Automation.Samples
             // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
             string subscriptionId = "00000000-1111-2222-3333-444444444444";
             string resourceGroupName = "rg1";
-            string automationAccountName = "ddb1";
+            string automationAccountName = "automationAccountName";
             ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
             AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
 
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetsPrivateEndpointConnection()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/PrivateEndpointConnectionGet.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/privateEndpointConnection/PrivateEndpointConnectionGet.json
             // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -69,7 +69,7 @@ namespace Azure.ResourceManager.Automation.Samples
             // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
             string subscriptionId = "00000000-1111-2222-3333-444444444444";
             string resourceGroupName = "rg1";
-            string automationAccountName = "ddb1";
+            string automationAccountName = "automationAccountName";
             ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
             AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
 
@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetsPrivateEndpointConnection()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/PrivateEndpointConnectionGet.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/privateEndpointConnection/PrivateEndpointConnectionGet.json
             // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -104,7 +104,7 @@ namespace Azure.ResourceManager.Automation.Samples
             // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
             string subscriptionId = "00000000-1111-2222-3333-444444444444";
             string resourceGroupName = "rg1";
-            string automationAccountName = "ddb1";
+            string automationAccountName = "automationAccountName";
             ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
             AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
 
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetsPrivateEndpointConnection()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/PrivateEndpointConnectionGet.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/privateEndpointConnection/PrivateEndpointConnectionGet.json
             // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -135,7 +135,7 @@ namespace Azure.ResourceManager.Automation.Samples
             // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
             string subscriptionId = "00000000-1111-2222-3333-444444444444";
             string resourceGroupName = "rg1";
-            string automationAccountName = "ddb1";
+            string automationAccountName = "automationAccountName";
             ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
             AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
 
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_ApproveOrRejectAPrivateEndpointConnectionWithAGivenName()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/PrivateEndpointConnectionUpdate.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/privateEndpointConnection/PrivateEndpointConnectionUpdate.json
             // this example is just showing the usage of "PrivateEndpointConnections_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -178,7 +178,7 @@ namespace Azure.ResourceManager.Automation.Samples
             // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
             string subscriptionId = "00000000-1111-2222-3333-444444444444";
             string resourceGroupName = "rg1";
-            string automationAccountName = "ddb1";
+            string automationAccountName = "automationAccountName";
             ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
             AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
 
