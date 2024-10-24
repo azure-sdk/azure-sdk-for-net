@@ -28,15 +28,30 @@ namespace Azure.Analytics.Defender.Easm
             writer.WriteStartObject();
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind);
-            if (Optional.IsDefined(Name))
+            if (options.Format != "W" && Optional.IsDefined(Id))
+            {
+                writer.WritePropertyName("id"u8);
+                writer.WriteStringValue(Id);
+            }
+            if (options.Format != "W")
             {
                 writer.WritePropertyName("name"u8);
                 writer.WriteStringValue(Name);
+            }
+            if (Optional.IsDefined(DisplayName))
+            {
+                writer.WritePropertyName("displayName"u8);
+                writer.WriteStringValue(DisplayName);
             }
             if (Optional.IsDefined(Content))
             {
                 writer.WritePropertyName("content"u8);
                 writer.WriteStringValue(Content.Value.ToString());
+            }
+            if (options.Format != "W" && Optional.IsDefined(CreatedDate))
+            {
+                writer.WritePropertyName("createdDate"u8);
+                writer.WriteStringValue(CreatedDate.Value, "O");
             }
             if (Optional.IsDefined(Frequency))
             {
@@ -47,6 +62,26 @@ namespace Azure.Analytics.Defender.Easm
             {
                 writer.WritePropertyName("frequencyOffset"u8);
                 writer.WriteNumberValue(FrequencyOffset.Value);
+            }
+            if (options.Format != "W" && Optional.IsDefined(UpdatedDate))
+            {
+                writer.WritePropertyName("updatedDate"u8);
+                writer.WriteStringValue(UpdatedDate.Value, "O");
+            }
+            if (options.Format != "W" && Optional.IsDefined(UserUpdatedAt))
+            {
+                writer.WritePropertyName("userUpdatedAt"u8);
+                writer.WriteStringValue(UserUpdatedAt.Value, "O");
+            }
+            if (Optional.IsDefined(Active))
+            {
+                writer.WritePropertyName("active"u8);
+                writer.WriteBooleanValue(Active.Value);
+            }
+            if (options.Format != "W" && Optional.IsDefined(InactiveMessage))
+            {
+                writer.WritePropertyName("inactiveMessage"u8);
+                writer.WriteStringValue(InactiveMessage);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {

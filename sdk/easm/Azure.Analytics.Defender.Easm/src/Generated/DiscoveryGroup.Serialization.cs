@@ -26,7 +26,7 @@ namespace Azure.Analytics.Defender.Easm
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Id))
+            if (options.Format != "W" && Optional.IsDefined(Id))
             {
                 writer.WritePropertyName("id"u8);
                 writer.WriteStringValue(Id);
@@ -36,7 +36,7 @@ namespace Azure.Analytics.Defender.Easm
                 writer.WritePropertyName("name"u8);
                 writer.WriteStringValue(Name);
             }
-            if (Optional.IsDefined(DisplayName))
+            if (options.Format != "W" && Optional.IsDefined(DisplayName))
             {
                 writer.WritePropertyName("displayName"u8);
                 writer.WriteStringValue(DisplayName);
@@ -86,12 +86,12 @@ namespace Azure.Analytics.Defender.Easm
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(LatestRun))
+            if (options.Format != "W" && Optional.IsDefined(LatestRun))
             {
                 writer.WritePropertyName("latestRun"u8);
                 writer.WriteObjectValue(LatestRun, options);
             }
-            if (Optional.IsDefined(CreatedDate))
+            if (options.Format != "W" && Optional.IsDefined(CreatedDate))
             {
                 writer.WritePropertyName("createdDate"u8);
                 writer.WriteStringValue(CreatedDate.Value, "O");
@@ -145,9 +145,9 @@ namespace Azure.Analytics.Defender.Easm
             string description = default;
             string tier = default;
             long? frequencyMilliseconds = default;
-            IReadOnlyList<DiscoverySource> seeds = default;
-            IReadOnlyList<string> names = default;
-            IReadOnlyList<DiscoverySource> excludes = default;
+            IList<DiscoverySource> seeds = default;
+            IList<string> names = default;
+            IList<DiscoverySource> excludes = default;
             DiscoveryRunResult latestRun = default;
             DateTimeOffset? createdDate = default;
             string templateId = default;
