@@ -1,0 +1,4 @@
+directory: specification/terraform/Microsoft.AzureTerraform.Management
+commit: 2ded07a3e4d73b481159939af40c51bc39d48ef3
+repo: Azure/azure-rest-api-specs
+additionalDirectories: 
