@@ -62,14 +62,14 @@ namespace Azure.AI.Translation.Document
         /// Language code
         /// If none is specified, we will perform auto detect on the document
         /// </param>
-        /// <param name="storageSource"> Storage Source. </param>
+        /// <param name="translationStorageSource"> Storage Source. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TranslationSource(Uri sourceUri, DocumentFilter filter, string languageCode, string storageSource, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TranslationSource(Uri sourceUri, DocumentFilter filter, string languageCode, TranslationStorageSource? translationStorageSource, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             SourceUri = sourceUri;
             Filter = filter;
             LanguageCode = languageCode;
-            StorageSource = storageSource;
+            TranslationStorageSource = translationStorageSource;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -77,5 +77,7 @@ namespace Azure.AI.Translation.Document
         internal TranslationSource()
         {
         }
+        /// <summary> Storage Source. </summary>
+        public TranslationStorageSource? TranslationStorageSource { get; set; }
     }
 }
