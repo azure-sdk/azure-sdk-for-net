@@ -1755,7 +1755,7 @@ namespace Azure.ResourceManager.NetApp.Models
     }
     public partial class NetAppReplicationObject : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.NetApp.Models.NetAppReplicationObject>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.NetApp.Models.NetAppReplicationObject>
     {
-        public NetAppReplicationObject(Azure.Core.ResourceIdentifier remoteVolumeResourceId) { }
+        public NetAppReplicationObject() { }
         public Azure.ResourceManager.NetApp.Models.NetAppEndpointType? EndpointType { get { throw null; } set { } }
         public Azure.ResourceManager.NetApp.Models.RemotePath RemotePath { get { throw null; } set { } }
         public string RemoteVolumeRegion { get { throw null; } set { } }
