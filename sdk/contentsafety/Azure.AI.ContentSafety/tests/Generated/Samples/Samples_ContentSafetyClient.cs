@@ -18,66 +18,6 @@ namespace Azure.AI.ContentSafety.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_ContentSafetyClient_AnalyzeText_AnalyzeText()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
-
-            using RequestContent content = RequestContent.Create(new
-            {
-                text = "This is text example",
-            });
-            Response response = client.AnalyzeText(content);
-
-            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_ContentSafetyClient_AnalyzeText_AnalyzeText_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
-
-            using RequestContent content = RequestContent.Create(new
-            {
-                text = "This is text example",
-            });
-            Response response = await client.AnalyzeTextAsync(content);
-
-            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public void Example_ContentSafetyClient_AnalyzeText_AnalyzeText_Convenience()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
-
-            AnalyzeTextOptions options = new AnalyzeTextOptions("This is text example");
-            Response<AnalyzeTextResult> response = client.AnalyzeText(options);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_ContentSafetyClient_AnalyzeText_AnalyzeText_Convenience_Async()
-        {
-            Uri endpoint = new Uri("<endpoint>");
-            AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
-
-            AnalyzeTextOptions options = new AnalyzeTextOptions("This is text example");
-            Response<AnalyzeTextResult> response = await client.AnalyzeTextAsync(options);
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
         public void Example_ContentSafetyClient_AnalyzeImage_AnalyzeImage()
         {
             Uri endpoint = new Uri("<endpoint>");
@@ -140,6 +80,126 @@ namespace Azure.AI.ContentSafety.Samples
 
             AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData());
             Response<AnalyzeImageResult> response = await client.AnalyzeImageAsync(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_AnalyzeText_AnalyzeText()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                text = "This is text example",
+            });
+            Response response = client.AnalyzeText(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_AnalyzeText_AnalyzeText_Async()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                text = "This is text example",
+            });
+            Response response = await client.AnalyzeTextAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_AnalyzeText_AnalyzeText_Convenience()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            AnalyzeTextOptions options = new AnalyzeTextOptions("This is text example");
+            Response<AnalyzeTextResult> response = client.AnalyzeText(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_AnalyzeText_AnalyzeText_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            AnalyzeTextOptions options = new AnalyzeTextOptions("This is text example");
+            Response<AnalyzeTextResult> response = await client.AnalyzeTextAsync(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_DetectTextProtectedMaterial_DetectProtectedMaterialForText()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                text = "to everyone, the best things in life are free. the stars belong to everyone, they gleam there for you and me. the flowers in spring, the robins that sing, the sunbeams that shine",
+            });
+            Response response = client.DetectTextProtectedMaterial(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_DetectTextProtectedMaterial_DetectProtectedMaterialForText_Async()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            using RequestContent content = RequestContent.Create(new
+            {
+                text = "to everyone, the best things in life are free. the stars belong to everyone, they gleam there for you and me. the flowers in spring, the robins that sing, the sunbeams that shine",
+            });
+            Response response = await client.DetectTextProtectedMaterialAsync(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_ContentSafetyClient_DetectTextProtectedMaterial_DetectProtectedMaterialForText_Convenience()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            DetectTextProtectedMaterialOptions options = new DetectTextProtectedMaterialOptions("to everyone, the best things in life are free. the stars belong to everyone, they gleam there for you and me. the flowers in spring, the robins that sing, the sunbeams that shine");
+            Response<DetectTextProtectedMaterialResult> response = client.DetectTextProtectedMaterial(options);
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_ContentSafetyClient_DetectTextProtectedMaterial_DetectProtectedMaterialForText_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            DetectTextProtectedMaterialOptions options = new DetectTextProtectedMaterialOptions("to everyone, the best things in life are free. the stars belong to everyone, they gleam there for you and me. the flowers in spring, the robins that sing, the sunbeams that shine");
+            Response<DetectTextProtectedMaterialResult> response = await client.DetectTextProtectedMaterialAsync(options);
         }
     }
 }
