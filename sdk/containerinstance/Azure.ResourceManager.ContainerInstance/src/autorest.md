@@ -6,7 +6,7 @@ Run `dotnet build /t:GenerateCode` to generate code.
 azure-arm: true
 library-name: ContainerInstance
 namespace: Azure.ResourceManager.ContainerInstance
-require: https://github.com/Azure/azure-rest-api-specs/blob/10b3107f2eafcd428a208ec5858f3ca9261b1123/specification/containerinstance/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/containerinstance/resource-manager/readme.md
 #tag: package-preview-2024-05
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
