@@ -55,31 +55,59 @@ namespace Azure.Analytics.Defender.Easm
         }
 
         /// <summary> Initializes a new instance of <see cref="DataConnectionPayload"/>. </summary>
-        /// <param name="kind"> Discriminator property for DataConnectionPayload. </param>
-        /// <param name="name"> The name of data connection. </param>
+        /// <param name="kind"> Discriminator property for DataConnection. </param>
+        /// <param name="id"> This is typically the same as the name but might be different for different models. </param>
+        /// <param name="name"> The caller provided unique name for the resource. </param>
+        /// <param name="displayName"> The name that can be used for display purposes. </param>
         /// <param name="content"> The type of data the data connection will transfer. </param>
+        /// <param name="createdDate"> The date the data connection was created. </param>
         /// <param name="frequency"> The rate at which the data connection will receive updates. </param>
         /// <param name="frequencyOffset"> The day to update the data connection on. (1-7 for weekly, 1-31 for monthly). </param>
+        /// <param name="updatedDate"> The date the data connection was last updated. </param>
+        /// <param name="userUpdatedAt"> The date the data connection was last updated by user. </param>
+        /// <param name="active"> An indicator of whether the data connection is active. </param>
+        /// <param name="inactiveMessage"> A message that specifies details about data connection if inactive. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DataConnectionPayload(string kind, string name, DataConnectionContent? content, DataConnectionFrequency? frequency, int? frequencyOffset, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DataConnectionPayload(string kind, string id, string name, string displayName, DataConnectionContent? content, DateTimeOffset? createdDate, DataConnectionFrequency? frequency, int? frequencyOffset, DateTimeOffset? updatedDate, DateTimeOffset? userUpdatedAt, bool? active, string inactiveMessage, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Kind = kind;
+            Id = id;
             Name = name;
+            DisplayName = displayName;
             Content = content;
+            CreatedDate = createdDate;
             Frequency = frequency;
             FrequencyOffset = frequencyOffset;
+            UpdatedDate = updatedDate;
+            UserUpdatedAt = userUpdatedAt;
+            Active = active;
+            InactiveMessage = inactiveMessage;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Discriminator property for DataConnectionPayload. </summary>
+        /// <summary> Discriminator property for DataConnection. </summary>
         internal string Kind { get; set; }
-        /// <summary> The name of data connection. </summary>
-        public string Name { get; set; }
+        /// <summary> This is typically the same as the name but might be different for different models. </summary>
+        public string Id { get; }
+        /// <summary> The caller provided unique name for the resource. </summary>
+        public string Name { get; }
+        /// <summary> The name that can be used for display purposes. </summary>
+        public string DisplayName { get; set; }
         /// <summary> The type of data the data connection will transfer. </summary>
         public DataConnectionContent? Content { get; set; }
+        /// <summary> The date the data connection was created. </summary>
+        public DateTimeOffset? CreatedDate { get; }
         /// <summary> The rate at which the data connection will receive updates. </summary>
         public DataConnectionFrequency? Frequency { get; set; }
         /// <summary> The day to update the data connection on. (1-7 for weekly, 1-31 for monthly). </summary>
         public int? FrequencyOffset { get; set; }
+        /// <summary> The date the data connection was last updated. </summary>
+        public DateTimeOffset? UpdatedDate { get; }
+        /// <summary> The date the data connection was last updated by user. </summary>
+        public DateTimeOffset? UserUpdatedAt { get; }
+        /// <summary> An indicator of whether the data connection is active. </summary>
+        public bool? Active { get; set; }
+        /// <summary> A message that specifies details about data connection if inactive. </summary>
+        public string InactiveMessage { get; }
     }
 }

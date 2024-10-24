@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Analytics.Defender.Easm
 {
-    /// <summary> A request body used to create a saved filter. </summary>
-    public partial class SavedFilterPayload
+    /// <summary> A response containing error details. </summary>
+    public partial class ErrorResponse
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,38 +45,31 @@ namespace Azure.Analytics.Defender.Easm
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SavedFilterPayload"/>. </summary>
-        /// <param name="filter"> An expression on the resource type that selects the resources to be returned. </param>
-        /// <param name="description"> A human readable description of the saved filter. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="filter"/> or <paramref name="description"/> is null. </exception>
-        public SavedFilterPayload(string filter, string description)
+        /// <summary> Initializes a new instance of <see cref="ErrorResponse"/>. </summary>
+        /// <param name="error"> The error object. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="error"/> is null. </exception>
+        internal ErrorResponse(ResponseError error)
         {
-            Argument.AssertNotNull(filter, nameof(filter));
-            Argument.AssertNotNull(description, nameof(description));
+            Argument.AssertNotNull(error, nameof(error));
 
-            Filter = filter;
-            Description = description;
+            Error = error;
         }
 
-        /// <summary> Initializes a new instance of <see cref="SavedFilterPayload"/>. </summary>
-        /// <param name="filter"> An expression on the resource type that selects the resources to be returned. </param>
-        /// <param name="description"> A human readable description of the saved filter. </param>
+        /// <summary> Initializes a new instance of <see cref="ErrorResponse"/>. </summary>
+        /// <param name="error"> The error object. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SavedFilterPayload(string filter, string description, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ErrorResponse(ResponseError error, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Filter = filter;
-            Description = description;
+            Error = error;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="SavedFilterPayload"/> for deserialization. </summary>
-        internal SavedFilterPayload()
+        /// <summary> Initializes a new instance of <see cref="ErrorResponse"/> for deserialization. </summary>
+        internal ErrorResponse()
         {
         }
 
-        /// <summary> An expression on the resource type that selects the resources to be returned. </summary>
-        public string Filter { get; }
-        /// <summary> A human readable description of the saved filter. </summary>
-        public string Description { get; }
+        /// <summary> The error object. </summary>
+        public ResponseError Error { get; }
     }
 }

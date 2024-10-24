@@ -46,7 +46,7 @@ namespace Azure.Analytics.Defender.Easm
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="DiscoveryGroup"/>. </summary>
-        internal DiscoveryGroup()
+        public DiscoveryGroup()
         {
             Seeds = new ChangeTrackingList<DiscoverySource>();
             Names = new ChangeTrackingList<string>();
@@ -54,7 +54,7 @@ namespace Azure.Analytics.Defender.Easm
         }
 
         /// <summary> Initializes a new instance of <see cref="DiscoveryGroup"/>. </summary>
-        /// <param name="id"> The system generated unique id for the resource. </param>
+        /// <param name="id"> This is typically the same as the name but might be different for different models. </param>
         /// <param name="name"> The caller provided unique name for the resource. </param>
         /// <param name="displayName"> The name that can be used for display purposes. </param>
         /// <param name="description"> The description for a disco group. </param>
@@ -67,7 +67,7 @@ namespace Azure.Analytics.Defender.Easm
         /// <param name="createdDate"> The date for the disco group was created. </param>
         /// <param name="templateId"> The unique identifier for the disco template used for the disco group creation. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DiscoveryGroup(string id, string name, string displayName, string description, string tier, long? frequencyMilliseconds, IReadOnlyList<DiscoverySource> seeds, IReadOnlyList<string> names, IReadOnlyList<DiscoverySource> excludes, DiscoveryRunResult latestRun, DateTimeOffset? createdDate, string templateId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DiscoveryGroup(string id, string name, string displayName, string description, string tier, long? frequencyMilliseconds, IList<DiscoverySource> seeds, IList<string> names, IList<DiscoverySource> excludes, DiscoveryRunResult latestRun, DateTimeOffset? createdDate, string templateId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Id = id;
             Name = name;
@@ -84,29 +84,29 @@ namespace Azure.Analytics.Defender.Easm
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The system generated unique id for the resource. </summary>
+        /// <summary> This is typically the same as the name but might be different for different models. </summary>
         public string Id { get; }
         /// <summary> The caller provided unique name for the resource. </summary>
         public string Name { get; }
         /// <summary> The name that can be used for display purposes. </summary>
         public string DisplayName { get; }
         /// <summary> The description for a disco group. </summary>
-        public string Description { get; }
+        public string Description { get; set; }
         /// <summary> The tier for the disco group which will affect the algorithm used for the disco runs in this group. </summary>
-        public string Tier { get; }
+        public string Tier { get; set; }
         /// <summary> The frequency at which the disco group is supposed to be rerun in milliseconds. </summary>
-        public long? FrequencyMilliseconds { get; }
+        public long? FrequencyMilliseconds { get; set; }
         /// <summary> The list of seeds used for the disco group runs. </summary>
-        public IReadOnlyList<DiscoverySource> Seeds { get; }
+        public IList<DiscoverySource> Seeds { get; }
         /// <summary> The list of names used for the disco group runs. </summary>
-        public IReadOnlyList<string> Names { get; }
+        public IList<string> Names { get; }
         /// <summary> The list of excludes used for the disco group runs, aka assets to exclude from the discovery algorithm. </summary>
-        public IReadOnlyList<DiscoverySource> Excludes { get; }
+        public IList<DiscoverySource> Excludes { get; }
         /// <summary> The latest run of this disco group with some limited information, null if the group has never been run. </summary>
         public DiscoveryRunResult LatestRun { get; }
         /// <summary> The date for the disco group was created. </summary>
         public DateTimeOffset? CreatedDate { get; }
         /// <summary> The unique identifier for the disco template used for the disco group creation. </summary>
-        public string TemplateId { get; }
+        public string TemplateId { get; set; }
     }
 }

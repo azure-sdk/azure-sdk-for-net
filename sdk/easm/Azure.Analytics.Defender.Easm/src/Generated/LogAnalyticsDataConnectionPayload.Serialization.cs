@@ -30,15 +30,30 @@ namespace Azure.Analytics.Defender.Easm
             writer.WriteObjectValue(Properties, options);
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind);
-            if (Optional.IsDefined(Name))
+            if (options.Format != "W" && Optional.IsDefined(Id))
+            {
+                writer.WritePropertyName("id"u8);
+                writer.WriteStringValue(Id);
+            }
+            if (options.Format != "W")
             {
                 writer.WritePropertyName("name"u8);
                 writer.WriteStringValue(Name);
+            }
+            if (Optional.IsDefined(DisplayName))
+            {
+                writer.WritePropertyName("displayName"u8);
+                writer.WriteStringValue(DisplayName);
             }
             if (Optional.IsDefined(Content))
             {
                 writer.WritePropertyName("content"u8);
                 writer.WriteStringValue(Content.Value.ToString());
+            }
+            if (options.Format != "W" && Optional.IsDefined(CreatedDate))
+            {
+                writer.WritePropertyName("createdDate"u8);
+                writer.WriteStringValue(CreatedDate.Value, "O");
             }
             if (Optional.IsDefined(Frequency))
             {
@@ -49,6 +64,26 @@ namespace Azure.Analytics.Defender.Easm
             {
                 writer.WritePropertyName("frequencyOffset"u8);
                 writer.WriteNumberValue(FrequencyOffset.Value);
+            }
+            if (options.Format != "W" && Optional.IsDefined(UpdatedDate))
+            {
+                writer.WritePropertyName("updatedDate"u8);
+                writer.WriteStringValue(UpdatedDate.Value, "O");
+            }
+            if (options.Format != "W" && Optional.IsDefined(UserUpdatedAt))
+            {
+                writer.WritePropertyName("userUpdatedAt"u8);
+                writer.WriteStringValue(UserUpdatedAt.Value, "O");
+            }
+            if (Optional.IsDefined(Active))
+            {
+                writer.WritePropertyName("active"u8);
+                writer.WriteBooleanValue(Active.Value);
+            }
+            if (options.Format != "W" && Optional.IsDefined(InactiveMessage))
+            {
+                writer.WritePropertyName("inactiveMessage"u8);
+                writer.WriteStringValue(InactiveMessage);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -90,10 +125,17 @@ namespace Azure.Analytics.Defender.Easm
             }
             LogAnalyticsDataConnectionProperties properties = default;
             string kind = default;
+            string id = default;
             string name = default;
+            string displayName = default;
             DataConnectionContent? content = default;
+            DateTimeOffset? createdDate = default;
             DataConnectionFrequency? frequency = default;
             int? frequencyOffset = default;
+            DateTimeOffset? updatedDate = default;
+            DateTimeOffset? userUpdatedAt = default;
+            bool? active = default;
+            string inactiveMessage = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -108,9 +150,19 @@ namespace Azure.Analytics.Defender.Easm
                     kind = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("id"u8))
+                {
+                    id = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("name"u8))
                 {
                     name = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("displayName"u8))
+                {
+                    displayName = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("content"u8))
@@ -120,6 +172,15 @@ namespace Azure.Analytics.Defender.Easm
                         continue;
                     }
                     content = new DataConnectionContent(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("createdDate"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    createdDate = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
                 if (property.NameEquals("frequency"u8))
@@ -140,6 +201,38 @@ namespace Azure.Analytics.Defender.Easm
                     frequencyOffset = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("updatedDate"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    updatedDate = property.Value.GetDateTimeOffset("O");
+                    continue;
+                }
+                if (property.NameEquals("userUpdatedAt"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    userUpdatedAt = property.Value.GetDateTimeOffset("O");
+                    continue;
+                }
+                if (property.NameEquals("active"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    active = property.Value.GetBoolean();
+                    continue;
+                }
+                if (property.NameEquals("inactiveMessage"u8))
+                {
+                    inactiveMessage = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -148,10 +241,17 @@ namespace Azure.Analytics.Defender.Easm
             serializedAdditionalRawData = rawDataDictionary;
             return new LogAnalyticsDataConnectionPayload(
                 kind,
+                id,
                 name,
+                displayName,
                 content,
+                createdDate,
                 frequency,
                 frequencyOffset,
+                updatedDate,
+                userUpdatedAt,
+                active,
+                inactiveMessage,
                 serializedAdditionalRawData,
                 properties);
         }
