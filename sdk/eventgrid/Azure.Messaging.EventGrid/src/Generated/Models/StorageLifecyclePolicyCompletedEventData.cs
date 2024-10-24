@@ -17,13 +17,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         /// <summary> Initializes a new instance of <see cref="StorageLifecyclePolicyCompletedEventData"/>. </summary>
         /// <param name="scheduleTime"> The time the policy task was scheduled. </param>
+        /// <param name="policyRunSummary"> The execution status of policy on account. </param>
         /// <param name="deleteSummary"> Execution statistics of a specific policy action in a Blob Management cycle. </param>
         /// <param name="tierToCoolSummary"> Execution statistics of a specific policy action in a Blob Management cycle. </param>
         /// <param name="tierToColdSummary"> Execution statistics of a specific policy action in a Blob Management cycle. </param>
         /// <param name="tierToArchiveSummary"> Execution statistics of a specific policy action in a Blob Management cycle. </param>
-        internal StorageLifecyclePolicyCompletedEventData(string scheduleTime, StorageLifecyclePolicyActionSummaryDetail deleteSummary, StorageLifecyclePolicyActionSummaryDetail tierToCoolSummary, StorageLifecyclePolicyActionSummaryDetail tierToColdSummary, StorageLifecyclePolicyActionSummaryDetail tierToArchiveSummary)
+        internal StorageLifecyclePolicyCompletedEventData(string scheduleTime, string policyRunSummary, StorageLifecyclePolicyActionSummaryDetail deleteSummary, StorageLifecyclePolicyActionSummaryDetail tierToCoolSummary, StorageLifecyclePolicyActionSummaryDetail tierToColdSummary, StorageLifecyclePolicyActionSummaryDetail tierToArchiveSummary)
         {
             ScheduleTime = scheduleTime;
+            PolicyRunSummary = policyRunSummary;
             DeleteSummary = deleteSummary;
             TierToCoolSummary = tierToCoolSummary;
             TierToColdSummary = tierToColdSummary;
@@ -32,6 +34,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         /// <summary> The time the policy task was scheduled. </summary>
         public string ScheduleTime { get; }
+        /// <summary> The execution status of policy on account. </summary>
+        public string PolicyRunSummary { get; }
         /// <summary> Execution statistics of a specific policy action in a Blob Management cycle. </summary>
         public StorageLifecyclePolicyActionSummaryDetail DeleteSummary { get; }
         /// <summary> Execution statistics of a specific policy action in a Blob Management cycle. </summary>
