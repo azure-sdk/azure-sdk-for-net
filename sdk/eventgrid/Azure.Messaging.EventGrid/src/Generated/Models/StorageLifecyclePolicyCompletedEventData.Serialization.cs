@@ -21,6 +21,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             string scheduleTime = default;
+            string policyRunSummary = default;
             StorageLifecyclePolicyActionSummaryDetail deleteSummary = default;
             StorageLifecyclePolicyActionSummaryDetail tierToCoolSummary = default;
             StorageLifecyclePolicyActionSummaryDetail tierToColdSummary = default;
@@ -30,6 +31,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 if (property.NameEquals("scheduleTime"u8))
                 {
                     scheduleTime = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("policyRunSummary"u8))
+                {
+                    policyRunSummary = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("deleteSummary"u8))
@@ -69,7 +75,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     continue;
                 }
             }
-            return new StorageLifecyclePolicyCompletedEventData(scheduleTime, deleteSummary, tierToCoolSummary, tierToColdSummary, tierToArchiveSummary);
+            return new StorageLifecyclePolicyCompletedEventData(
+                scheduleTime,
+                policyRunSummary,
+                deleteSummary,
+                tierToCoolSummary,
+                tierToColdSummary,
+                tierToArchiveSummary);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
