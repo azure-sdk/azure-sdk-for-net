@@ -47,26 +47,26 @@ namespace Azure.AI.Translation.Document
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="TranslationStatusResult"/>. </summary>
-        /// <param name="id"> Id of the operation. </param>
+        /// <param name="translationId"> Id of the translation operation. </param>
         /// <param name="createdOn"> Operation created date time. </param>
         /// <param name="lastModified"> Date time in which the operation's status has been updated. </param>
         /// <param name="status"> List of possible statuses for job or document. </param>
-        /// <param name="summary"> Status Summary. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="id"/> or <paramref name="summary"/> is null. </exception>
-        internal TranslationStatusResult(string id, DateTimeOffset createdOn, DateTimeOffset lastModified, DocumentTranslationStatus status, StatusSummary summary)
+        /// <param name="translationStatusSummary"> Status Summary. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="translationId"/> or <paramref name="translationStatusSummary"/> is null. </exception>
+        internal TranslationStatusResult(string translationId, DateTimeOffset createdOn, DateTimeOffset lastModified, DocumentTranslationStatus status, TranslationStatusSummary translationStatusSummary)
         {
-            Argument.AssertNotNull(id, nameof(id));
-            Argument.AssertNotNull(summary, nameof(summary));
+            Argument.AssertNotNull(translationId, nameof(translationId));
+            Argument.AssertNotNull(translationStatusSummary, nameof(translationStatusSummary));
 
-            Id = id;
+            TranslationId = translationId;
             CreatedOn = createdOn;
             LastModified = lastModified;
             Status = status;
-            Summary = summary;
+            TranslationStatusSummary = translationStatusSummary;
         }
 
         /// <summary> Initializes a new instance of <see cref="TranslationStatusResult"/>. </summary>
-        /// <param name="id"> Id of the operation. </param>
+        /// <param name="translationId"> Id of the translation operation. </param>
         /// <param name="createdOn"> Operation created date time. </param>
         /// <param name="lastModified"> Date time in which the operation's status has been updated. </param>
         /// <param name="status"> List of possible statuses for job or document. </param>
@@ -74,16 +74,16 @@ namespace Azure.AI.Translation.Document
         /// This contains an outer error with error code, message, details, target and an
         /// inner error with more descriptive details.
         /// </param>
-        /// <param name="summary"> Status Summary. </param>
+        /// <param name="translationStatusSummary"> Status Summary. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TranslationStatusResult(string id, DateTimeOffset createdOn, DateTimeOffset lastModified, DocumentTranslationStatus status, JsonElement error, StatusSummary summary, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TranslationStatusResult(string translationId, DateTimeOffset createdOn, DateTimeOffset lastModified, DocumentTranslationStatus status, JsonElement error, TranslationStatusSummary translationStatusSummary, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Id = id;
+            TranslationId = translationId;
             CreatedOn = createdOn;
             LastModified = lastModified;
             Status = status;
             _error = error;
-            Summary = summary;
+            TranslationStatusSummary = translationStatusSummary;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -91,7 +91,12 @@ namespace Azure.AI.Translation.Document
         internal TranslationStatusResult()
         {
         }
+
+        /// <summary> Id of the translation operation. </summary>
+        public string TranslationId { get; }
         /// <summary> List of possible statuses for job or document. </summary>
         public DocumentTranslationStatus Status { get; }
+        /// <summary> Status Summary. </summary>
+        public TranslationStatusSummary TranslationStatusSummary { get; }
     }
 }

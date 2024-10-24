@@ -53,13 +53,13 @@ namespace Azure.AI.Translation.Document
         /// <param name="status"> List of possible statuses for job or document. </param>
         /// <param name="translatedToLanguageCode"> To language. </param>
         /// <param name="progress"> Progress of the translation if available. </param>
-        /// <param name="id"> Document Id. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="sourceDocumentUri"/>, <paramref name="translatedToLanguageCode"/> or <paramref name="id"/> is null. </exception>
-        internal DocumentStatusResult(Uri sourceDocumentUri, DateTimeOffset createdOn, DateTimeOffset lastModified, DocumentTranslationStatus status, string translatedToLanguageCode, float progress, string id)
+        /// <param name="documentId"> Document Id. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="sourceDocumentUri"/>, <paramref name="translatedToLanguageCode"/> or <paramref name="documentId"/> is null. </exception>
+        internal DocumentStatusResult(Uri sourceDocumentUri, DateTimeOffset createdOn, DateTimeOffset lastModified, DocumentTranslationStatus status, string translatedToLanguageCode, float progress, string documentId)
         {
             Argument.AssertNotNull(sourceDocumentUri, nameof(sourceDocumentUri));
             Argument.AssertNotNull(translatedToLanguageCode, nameof(translatedToLanguageCode));
-            Argument.AssertNotNull(id, nameof(id));
+            Argument.AssertNotNull(documentId, nameof(documentId));
 
             SourceDocumentUri = sourceDocumentUri;
             CreatedOn = createdOn;
@@ -67,7 +67,7 @@ namespace Azure.AI.Translation.Document
             Status = status;
             TranslatedToLanguageCode = translatedToLanguageCode;
             Progress = progress;
-            Id = id;
+            DocumentId = documentId;
         }
 
         /// <summary> Initializes a new instance of <see cref="DocumentStatusResult"/>. </summary>
@@ -82,10 +82,10 @@ namespace Azure.AI.Translation.Document
         /// inner error with more descriptive details.
         /// </param>
         /// <param name="progress"> Progress of the translation if available. </param>
-        /// <param name="id"> Document Id. </param>
+        /// <param name="documentId"> Document Id. </param>
         /// <param name="charactersCharged"> Character charged by the API. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DocumentStatusResult(Uri translatedDocumentUri, Uri sourceDocumentUri, DateTimeOffset createdOn, DateTimeOffset lastModified, DocumentTranslationStatus status, string translatedToLanguageCode, JsonElement error, float progress, string id, long charactersCharged, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DocumentStatusResult(Uri translatedDocumentUri, Uri sourceDocumentUri, DateTimeOffset createdOn, DateTimeOffset lastModified, DocumentTranslationStatus status, string translatedToLanguageCode, JsonElement error, float progress, string documentId, long charactersCharged, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             TranslatedDocumentUri = translatedDocumentUri;
             SourceDocumentUri = sourceDocumentUri;
@@ -95,7 +95,7 @@ namespace Azure.AI.Translation.Document
             TranslatedToLanguageCode = translatedToLanguageCode;
             _error = error;
             Progress = progress;
-            Id = id;
+            DocumentId = documentId;
             CharactersCharged = charactersCharged;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -104,5 +104,7 @@ namespace Azure.AI.Translation.Document
         internal DocumentStatusResult()
         {
         }
+        /// <summary> Document Id. </summary>
+        public string DocumentId { get; }
     }
 }

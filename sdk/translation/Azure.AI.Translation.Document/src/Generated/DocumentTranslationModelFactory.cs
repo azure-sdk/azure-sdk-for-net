@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,6 +27,66 @@ namespace Azure.AI.Translation.Document
             return new DocumentTranslationInput(source, targets?.ToList(), storageUriKind, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Document.TranslationTarget"/>. </summary>
+        /// <param name="targetUri"> Location of the folder / container with your documents. </param>
+        /// <param name="categoryId"> Category / custom system for translation request. </param>
+        /// <param name="languageCode"> Target Language. </param>
+        /// <param name="glossaries"> List of Glossary. </param>
+        /// <param name="translationStorageSource"> Storage Source. </param>
+        /// <returns> A new <see cref="Document.TranslationTarget"/> instance for mocking. </returns>
+        public static TranslationTarget TranslationTarget(Uri targetUri = null, string categoryId = null, string languageCode = null, IEnumerable<TranslationGlossary> glossaries = null, TranslationStorageSource? translationStorageSource = null)
+        {
+            glossaries ??= new List<TranslationGlossary>();
+
+            return new TranslationTarget(
+                targetUri,
+                categoryId,
+                languageCode,
+                glossaries?.ToList(),
+                translationStorageSource,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Document.TranslationGlossary"/>. </summary>
+        /// <param name="glossaryUri">
+        /// Location of the glossary.
+        /// We will use the file extension to extract the
+        /// formatting if the format parameter is not supplied.
+        ///
+        /// If the translation
+        /// language pair is not present in the glossary, it will not be applied
+        /// </param>
+        /// <param name="format"> Format. </param>
+        /// <param name="formatVersion"> Optional Version.  If not specified, default is used. </param>
+        /// <param name="translationStorageSource"> Storage Source. </param>
+        /// <returns> A new <see cref="Document.TranslationGlossary"/> instance for mocking. </returns>
+        public static TranslationGlossary TranslationGlossary(Uri glossaryUri = null, string format = null, string formatVersion = null, TranslationStorageSource? translationStorageSource = null)
+        {
+            return new TranslationGlossary(glossaryUri, format, formatVersion, translationStorageSource, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Document.TranslationStatusSummary"/>. </summary>
+        /// <param name="total"> Total count. </param>
+        /// <param name="failed"> Failed count. </param>
+        /// <param name="success"> Number of Success. </param>
+        /// <param name="inProgress"> Number of in progress. </param>
+        /// <param name="notYetStarted"> Count of not yet started. </param>
+        /// <param name="cancelled"> Number of cancelled. </param>
+        /// <param name="totalCharacterCharged"> Total characters charged by the API. </param>
+        /// <returns> A new <see cref="Document.TranslationStatusSummary"/> instance for mocking. </returns>
+        public static TranslationStatusSummary TranslationStatusSummary(int total = default, int failed = default, int success = default, int inProgress = default, int notYetStarted = default, int cancelled = default, long totalCharacterCharged = default)
+        {
+            return new TranslationStatusSummary(
+                total,
+                failed,
+                success,
+                inProgress,
+                notYetStarted,
+                cancelled,
+                totalCharacterCharged,
+                serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Document.SupportedFileFormats"/>. </summary>
         /// <param name="value"> list of objects. </param>
         /// <returns> A new <see cref="Document.SupportedFileFormats"/> instance for mocking. </returns>
@@ -44,7 +105,7 @@ namespace Azure.AI.Translation.Document
         /// <param name="formatVersions"> Supported Version. </param>
         /// <param name="type"> Supported Type for this format. </param>
         /// <returns> A new <see cref="Document.DocumentTranslationFileFormat"/> instance for mocking. </returns>
-        public static DocumentTranslationFileFormat DocumentTranslationFileFormat(string format = null, IEnumerable<string> fileExtensions = null, IEnumerable<string> contentTypes = null, string defaultFormatVersion = null, IEnumerable<string> formatVersions = null, string type = null)
+        public static DocumentTranslationFileFormat DocumentTranslationFileFormat(string format = null, IEnumerable<string> fileExtensions = null, IEnumerable<string> contentTypes = null, string defaultFormatVersion = null, IEnumerable<string> formatVersions = null, FileFormatType? type = null)
         {
             fileExtensions ??= new List<string>();
             contentTypes ??= new List<string>();

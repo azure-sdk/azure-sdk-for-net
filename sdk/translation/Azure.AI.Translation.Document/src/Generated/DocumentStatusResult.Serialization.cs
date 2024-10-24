@@ -49,7 +49,7 @@ namespace Azure.AI.Translation.Document
             writer.WritePropertyName("progress"u8);
             writer.WriteNumberValue(Progress);
             writer.WritePropertyName("id"u8);
-            writer.WriteStringValue(Id);
+            writer.WriteStringValue(DocumentId);
             writer.WritePropertyName("characterCharged"u8);
             writer.WriteNumberValue(CharactersCharged);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
