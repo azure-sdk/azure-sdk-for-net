@@ -72,63 +72,6 @@ namespace Azure.ResourceManager.Automation.Models
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Automation.AutomationModuleData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="etag"> Gets or sets the etag of the resource. </param>
-        /// <param name="isGlobal"> Gets or sets the isGlobal flag of the module. </param>
-        /// <param name="version"> Gets or sets the version of the module. </param>
-        /// <param name="sizeInBytes"> Gets or sets the size in bytes of the module. </param>
-        /// <param name="activityCount"> Gets or sets the activity count of the module. </param>
-        /// <param name="provisioningState"> Gets or sets the provisioning state of the module. </param>
-        /// <param name="contentLink"> Gets or sets the contentLink of the module. </param>
-        /// <param name="error"> Gets or sets the error info of the module. </param>
-        /// <param name="createdOn"> Gets or sets the creation time. </param>
-        /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
-        /// <param name="description"> Gets or sets the description. </param>
-        /// <param name="isComposite"> Gets or sets type of module, if its composite or not. </param>
-        /// <returns> A new <see cref="Automation.AutomationModuleData"/> instance for mocking. </returns>
-        public static AutomationModuleData AutomationModuleData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ETag? etag = null, bool? isGlobal = null, string version = null, long? sizeInBytes = null, int? activityCount = null, ModuleProvisioningState? provisioningState = null, AutomationContentLink contentLink = null, AutomationModuleErrorInfo error = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, string description = null, bool? isComposite = null)
-        {
-            tags ??= new Dictionary<string, string>();
-
-            return new AutomationModuleData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                tags,
-                location,
-                etag,
-                isGlobal,
-                version,
-                sizeInBytes,
-                activityCount,
-                provisioningState,
-                contentLink,
-                error,
-                createdOn,
-                lastModifiedOn,
-                description,
-                isComposite,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.AutomationAccountPython2PackageCreateOrUpdateContent"/>. </summary>
-        /// <param name="tags"> Gets or sets the tags attached to the resource. </param>
-        /// <param name="contentLink"> Gets or sets the module content link. </param>
-        /// <returns> A new <see cref="Models.AutomationAccountPython2PackageCreateOrUpdateContent"/> instance for mocking. </returns>
-        public static AutomationAccountPython2PackageCreateOrUpdateContent AutomationAccountPython2PackageCreateOrUpdateContent(IDictionary<string, string> tags = null, AutomationContentLink contentLink = null)
-        {
-            tags ??= new Dictionary<string, string>();
-
-            return new AutomationAccountPython2PackageCreateOrUpdateContent(tags, contentLink, serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="Models.AgentRegistration"/>. </summary>
         /// <param name="dscMetaConfiguration"> Gets or sets the dsc meta configuration. </param>
         /// <param name="endpoint"> Gets or sets the dsc server endpoint. </param>
@@ -318,34 +261,6 @@ namespace Azure.ResourceManager.Automation.Models
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Automation.DscNodeConfigurationData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
-        /// <param name="createdOn"> Gets or sets creation time. </param>
-        /// <param name="configurationName"> Gets or sets the configuration of the node. </param>
-        /// <param name="source"> Source of node configuration. </param>
-        /// <param name="nodeCount"> Number of nodes with this node configuration assigned. </param>
-        /// <param name="isIncrementNodeConfigurationBuildRequired"> If a new build version of NodeConfiguration is required. </param>
-        /// <returns> A new <see cref="Automation.DscNodeConfigurationData"/> instance for mocking. </returns>
-        public static DscNodeConfigurationData DscNodeConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DateTimeOffset? lastModifiedOn = null, DateTimeOffset? createdOn = null, string configurationName = null, string source = null, long? nodeCount = null, bool? isIncrementNodeConfigurationBuildRequired = null)
-        {
-            return new DscNodeConfigurationData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                lastModifiedOn,
-                createdOn,
-                configurationName != null ? new DscConfigurationAssociationProperty(configurationName, serializedAdditionalRawData: null) : null,
-                source,
-                nodeCount,
-                isIncrementNodeConfigurationBuildRequired,
-                serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="Models.DscCompilationJobCreateOrUpdateContent"/>. </summary>
         /// <param name="name"> Gets or sets name of the resource. </param>
         /// <param name="location"> Gets or sets the location of the resource. </param>
@@ -448,131 +363,234 @@ namespace Azure.ResourceManager.Automation.Models
             return new DscNodeCount(name, nameCount != null ? new DscNodeCountProperties(nameCount, serializedAdditionalRawData: null) : null, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Automation.AutomationSourceControlData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Automation.AutomationWatcherData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="repoUri"> The repo url of the source control. </param>
-        /// <param name="branch"> The repo branch of the source control. Include branch as empty string for VsoTfvc. </param>
-        /// <param name="folderPath"> The folder path of the source control. </param>
-        /// <param name="isAutoSyncEnabled"> The auto sync of the source control. Default is false. </param>
-        /// <param name="isAutoPublishRunbookEnabled"> The auto publish of the source control. Default is true. </param>
-        /// <param name="sourceType"> The source type. Must be one of VsoGit, VsoTfvc, GitHub. </param>
-        /// <param name="description"> The description. </param>
-        /// <param name="createdOn"> The creation time. </param>
-        /// <param name="lastModifiedOn"> The last modified time. </param>
-        /// <returns> A new <see cref="Automation.AutomationSourceControlData"/> instance for mocking. </returns>
-        public static AutomationSourceControlData AutomationSourceControlData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, Uri repoUri = null, string branch = null, string folderPath = null, bool? isAutoSyncEnabled = null, bool? isAutoPublishRunbookEnabled = null, SourceControlSourceType? sourceType = null, string description = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null)
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="etag"> Gets or sets the etag of the resource. </param>
+        /// <param name="executionFrequencyInSeconds"> Gets or sets the frequency at which the watcher is invoked. </param>
+        /// <param name="scriptName"> Gets or sets the name of the script the watcher is attached to, i.e. the name of an existing runbook. </param>
+        /// <param name="scriptParameters"> Gets or sets the parameters of the script. </param>
+        /// <param name="scriptRunOn"> Gets or sets the name of the hybrid worker group the watcher will run on. </param>
+        /// <param name="status"> Gets the current status of the watcher. </param>
+        /// <param name="createdOn"> Gets or sets the creation time. </param>
+        /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
+        /// <param name="lastModifiedBy"> Details of the user who last modified the watcher. </param>
+        /// <param name="description"> Gets or sets the description. </param>
+        /// <returns> A new <see cref="Automation.AutomationWatcherData"/> instance for mocking. </returns>
+        public static AutomationWatcherData AutomationWatcherData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ETag? etag = null, long? executionFrequencyInSeconds = null, string scriptName = null, IDictionary<string, string> scriptParameters = null, string scriptRunOn = null, string status = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, string lastModifiedBy = null, string description = null)
         {
-            return new AutomationSourceControlData(
+            tags ??= new Dictionary<string, string>();
+            scriptParameters ??= new Dictionary<string, string>();
+
+            return new AutomationWatcherData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                repoUri,
-                branch,
-                folderPath,
-                isAutoSyncEnabled,
-                isAutoPublishRunbookEnabled,
-                sourceType,
-                description,
+                tags,
+                location,
+                etag,
+                executionFrequencyInSeconds,
+                scriptName,
+                scriptParameters,
+                scriptRunOn,
+                status,
                 createdOn,
                 lastModifiedOn,
+                lastModifiedBy,
+                description,
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.SourceControlSyncJob"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Automation.SoftwareUpdateConfigurationData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="sourceControlSyncJobId"> The source control sync job id. </param>
-        /// <param name="createdOn"> The creation time of the job. </param>
-        /// <param name="provisioningState"> The provisioning state of the job. </param>
-        /// <param name="startOn"> The start time of the job. </param>
-        /// <param name="endOn"> The end time of the job. </param>
-        /// <param name="syncType"> The sync type. </param>
-        /// <returns> A new <see cref="Models.SourceControlSyncJob"/> instance for mocking. </returns>
-        public static SourceControlSyncJob SourceControlSyncJob(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string sourceControlSyncJobId = null, DateTimeOffset? createdOn = null, SourceControlProvisioningState? provisioningState = null, DateTimeOffset? startOn = null, DateTimeOffset? endOn = null, SourceControlSyncType? syncType = null)
+        /// <param name="updateConfiguration"> update specific properties for the Software update configuration. </param>
+        /// <param name="scheduleInfo"> Schedule information for the Software update configuration. </param>
+        /// <param name="provisioningState"> Provisioning state for the software update configuration, which only appears in the response. </param>
+        /// <param name="error"> Details of provisioning error. </param>
+        /// <param name="createdOn"> Creation time of the resource, which only appears in the response. </param>
+        /// <param name="createdBy"> CreatedBy property, which only appears in the response. </param>
+        /// <param name="lastModifiedOn"> Last time resource was modified, which only appears in the response. </param>
+        /// <param name="lastModifiedBy"> LastModifiedBy property, which only appears in the response. </param>
+        /// <param name="tasks"> Tasks information for the Software update configuration. </param>
+        /// <returns> A new <see cref="Automation.SoftwareUpdateConfigurationData"/> instance for mocking. </returns>
+        public static SoftwareUpdateConfigurationData SoftwareUpdateConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SoftwareUpdateConfigurationSpecificProperties updateConfiguration = null, SoftwareUpdateConfigurationScheduleProperties scheduleInfo = null, string provisioningState = null, AutomationResponseError error = null, DateTimeOffset? createdOn = null, string createdBy = null, DateTimeOffset? lastModifiedOn = null, string lastModifiedBy = null, SoftwareUpdateConfigurationTasks tasks = null)
         {
-            return new SourceControlSyncJob(
+            return new SoftwareUpdateConfigurationData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                sourceControlSyncJobId,
-                createdOn,
+                updateConfiguration,
+                scheduleInfo,
                 provisioningState,
-                startOn,
-                endOn,
-                syncType,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.SourceControlSyncJobResult"/>. </summary>
-        /// <param name="id"> The id of the job. </param>
-        /// <param name="sourceControlSyncJobId"> The source control sync job id. </param>
-        /// <param name="createdOn"> The creation time of the job. </param>
-        /// <param name="provisioningState"> The provisioning state of the job. </param>
-        /// <param name="startOn"> The start time of the job. </param>
-        /// <param name="endOn"> The end time of the job. </param>
-        /// <param name="syncType"> The sync type. </param>
-        /// <param name="exception"> The exceptions that occurred while running the sync job. </param>
-        /// <returns> A new <see cref="Models.SourceControlSyncJobResult"/> instance for mocking. </returns>
-        public static SourceControlSyncJobResult SourceControlSyncJobResult(ResourceIdentifier id = null, string sourceControlSyncJobId = null, DateTimeOffset? createdOn = null, SourceControlProvisioningState? provisioningState = null, DateTimeOffset? startOn = null, DateTimeOffset? endOn = null, SourceControlSyncType? syncType = null, string exception = null)
-        {
-            return new SourceControlSyncJobResult(
-                id,
-                sourceControlSyncJobId,
+                error,
                 createdOn,
-                provisioningState,
+                createdBy,
+                lastModifiedOn,
+                lastModifiedBy,
+                tasks,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SoftwareUpdateConfigurationScheduleProperties"/>. </summary>
+        /// <param name="startOn"> Gets or sets the start time of the schedule. </param>
+        /// <param name="startInMinutes"> Gets the start time's offset in minutes. </param>
+        /// <param name="expireOn"> Gets or sets the end time of the schedule. </param>
+        /// <param name="expireInMinutes"> Gets or sets the expiry time's offset in minutes. </param>
+        /// <param name="isEnabled"> Gets or sets a value indicating whether this schedule is enabled. </param>
+        /// <param name="nextRunOn"> Gets or sets the next run time of the schedule. </param>
+        /// <param name="nextRunInMinutes"> Gets or sets the next run time's offset in minutes. </param>
+        /// <param name="interval"> Gets or sets the interval of the schedule. </param>
+        /// <param name="frequency"> Gets or sets the frequency of the schedule. </param>
+        /// <param name="timeZone"> Gets or sets the time zone of the schedule. </param>
+        /// <param name="advancedSchedule"> Gets or sets the advanced schedule. </param>
+        /// <param name="createdOn"> Gets or sets the creation time. </param>
+        /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
+        /// <param name="description"> Gets or sets the description. </param>
+        /// <returns> A new <see cref="Models.SoftwareUpdateConfigurationScheduleProperties"/> instance for mocking. </returns>
+        public static SoftwareUpdateConfigurationScheduleProperties SoftwareUpdateConfigurationScheduleProperties(DateTimeOffset? startOn = null, double? startInMinutes = null, DateTimeOffset? expireOn = null, double? expireInMinutes = null, bool? isEnabled = null, DateTimeOffset? nextRunOn = null, double? nextRunInMinutes = null, long? interval = null, AutomationScheduleFrequency? frequency = null, string timeZone = null, AutomationAdvancedSchedule advancedSchedule = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, string description = null)
+        {
+            return new SoftwareUpdateConfigurationScheduleProperties(
                 startOn,
-                endOn,
-                syncType,
-                exception,
+                startInMinutes,
+                expireOn,
+                expireInMinutes,
+                isEnabled,
+                nextRunOn,
+                nextRunInMinutes,
+                interval,
+                frequency,
+                timeZone,
+                advancedSchedule,
+                createdOn,
+                lastModifiedOn,
+                description,
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.SourceControlSyncJobStream"/>. </summary>
-        /// <param name="id"> Resource id. </param>
-        /// <param name="sourceControlSyncJobStreamId"> The sync job stream id. </param>
-        /// <param name="summary"> The summary of the sync job stream. </param>
-        /// <param name="time"> The time of the sync job stream. </param>
-        /// <param name="streamType"> The type of the sync job stream. </param>
-        /// <returns> A new <see cref="Models.SourceControlSyncJobStream"/> instance for mocking. </returns>
-        public static SourceControlSyncJobStream SourceControlSyncJobStream(ResourceIdentifier id = null, string sourceControlSyncJobStreamId = null, string summary = null, DateTimeOffset? time = null, SourceControlStreamType? streamType = null)
+        /// <summary> Initializes a new instance of <see cref="Models.SoftwareUpdateConfigurationCollectionItem"/>. </summary>
+        /// <param name="name"> Name of the software update configuration. </param>
+        /// <param name="id"> Resource Id of the software update configuration. </param>
+        /// <param name="updateConfiguration"> Update specific properties of the software update configuration. </param>
+        /// <param name="tasks"> Pre and Post Tasks defined. </param>
+        /// <param name="frequency"> execution frequency of the schedule associated with the software update configuration. </param>
+        /// <param name="startOn"> the start time of the update. </param>
+        /// <param name="createdOn"> Creation time of the software update configuration, which only appears in the response. </param>
+        /// <param name="lastModifiedOn"> Last time software update configuration was modified, which only appears in the response. </param>
+        /// <param name="provisioningState"> Provisioning state for the software update configuration, which only appears in the response. </param>
+        /// <param name="nextRunOn"> ext run time of the update. </param>
+        /// <returns> A new <see cref="Models.SoftwareUpdateConfigurationCollectionItem"/> instance for mocking. </returns>
+        public static SoftwareUpdateConfigurationCollectionItem SoftwareUpdateConfigurationCollectionItem(string name = null, ResourceIdentifier id = null, SoftwareUpdateConfigurationSpecificProperties updateConfiguration = null, SoftwareUpdateConfigurationTasks tasks = null, AutomationScheduleFrequency? frequency = null, DateTimeOffset? startOn = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, string provisioningState = null, DateTimeOffset? nextRunOn = null)
         {
-            return new SourceControlSyncJobStream(
+            return new SoftwareUpdateConfigurationCollectionItem(
+                name,
                 id,
-                sourceControlSyncJobStreamId,
-                summary,
-                time,
-                streamType,
+                updateConfiguration,
+                tasks,
+                frequency,
+                startOn,
+                createdOn,
+                lastModifiedOn,
+                provisioningState,
+                nextRunOn,
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.SourceControlSyncJobStreamResult"/>. </summary>
-        /// <param name="id"> Resource id. </param>
-        /// <param name="sourceControlSyncJobStreamId"> The sync job stream id. </param>
-        /// <param name="summary"> The summary of the sync job stream. </param>
-        /// <param name="time"> The time of the sync job stream. </param>
-        /// <param name="streamType"> The type of the sync job stream. </param>
-        /// <param name="streamText"> The text of the sync job stream. </param>
-        /// <param name="value"> The values of the job stream. </param>
-        /// <returns> A new <see cref="Models.SourceControlSyncJobStreamResult"/> instance for mocking. </returns>
-        public static SourceControlSyncJobStreamResult SourceControlSyncJobStreamResult(ResourceIdentifier id = null, string sourceControlSyncJobStreamId = null, string summary = null, DateTimeOffset? time = null, SourceControlStreamType? streamType = null, string streamText = null, IReadOnlyDictionary<string, BinaryData> value = null)
+        /// <summary> Initializes a new instance of <see cref="Automation.AutomationWebhookData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="isEnabled"> Gets or sets the value of the enabled flag of the webhook. </param>
+        /// <param name="uri"> Gets or sets the webhook uri. </param>
+        /// <param name="expireOn"> Gets or sets the expiry time. </param>
+        /// <param name="lastInvokedOn"> Gets or sets the last invoked time. </param>
+        /// <param name="parameters"> Gets or sets the parameters of the job that is created when the webhook calls the runbook it is associated with. </param>
+        /// <param name="runbookName"> Gets or sets the runbook the webhook is associated with. </param>
+        /// <param name="runOn"> Gets or sets the name of the hybrid worker group the webhook job will run on. </param>
+        /// <param name="createdOn"> Gets or sets the creation time. </param>
+        /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
+        /// <param name="lastModifiedBy"> Details of the user who last modified the Webhook. </param>
+        /// <param name="description"> Gets or sets the description. </param>
+        /// <returns> A new <see cref="Automation.AutomationWebhookData"/> instance for mocking. </returns>
+        public static AutomationWebhookData AutomationWebhookData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, bool? isEnabled = null, Uri uri = null, DateTimeOffset? expireOn = null, DateTimeOffset? lastInvokedOn = null, IDictionary<string, string> parameters = null, string runbookName = null, string runOn = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, string lastModifiedBy = null, string description = null)
         {
-            value ??= new Dictionary<string, BinaryData>();
+            parameters ??= new Dictionary<string, string>();
 
-            return new SourceControlSyncJobStreamResult(
+            return new AutomationWebhookData(
                 id,
-                sourceControlSyncJobStreamId,
-                summary,
-                time,
-                streamType,
-                streamText,
-                value,
+                name,
+                resourceType,
+                systemData,
+                isEnabled,
+                uri,
+                expireOn,
+                lastInvokedOn,
+                parameters,
+                runbookName != null ? new RunbookAssociationProperty(runbookName, serializedAdditionalRawData: null) : null,
+                runOn,
+                createdOn,
+                lastModifiedOn,
+                lastModifiedBy,
+                description,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.AutomationWebhookCreateOrUpdateContent"/>. </summary>
+        /// <param name="name"> Gets or sets the name of the webhook. </param>
+        /// <param name="isEnabled"> Gets or sets the value of the enabled flag of webhook. </param>
+        /// <param name="uri"> Gets or sets the uri. </param>
+        /// <param name="expireOn"> Gets or sets the expiry time. </param>
+        /// <param name="parameters"> Gets or sets the parameters of the job. </param>
+        /// <param name="runbookName"> Gets or sets the runbook. </param>
+        /// <param name="runOn"> Gets or sets the name of the hybrid worker group the webhook job will run on. </param>
+        /// <returns> A new <see cref="Models.AutomationWebhookCreateOrUpdateContent"/> instance for mocking. </returns>
+        public static AutomationWebhookCreateOrUpdateContent AutomationWebhookCreateOrUpdateContent(string name = null, bool? isEnabled = null, Uri uri = null, DateTimeOffset? expireOn = null, IDictionary<string, string> parameters = null, string runbookName = null, string runOn = null)
+        {
+            parameters ??= new Dictionary<string, string>();
+
+            return new AutomationWebhookCreateOrUpdateContent(
+                name,
+                isEnabled,
+                uri,
+                expireOn,
+                parameters,
+                runbookName != null ? new RunbookAssociationProperty(runbookName, serializedAdditionalRawData: null) : null,
+                runOn,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.DeletedAutomationAccount"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="location"> Gets or sets the location of the resource. </param>
+        /// <param name="automationAccountResourceId"> Gets or sets the Automation Account Resource Id. </param>
+        /// <param name="automationAccountId"> Gets or sets the Automation Account Id. </param>
+        /// <param name="locationPropertiesLocation"> Gets or sets the location of the resource. </param>
+        /// <param name="deletedOn"> Gets the deletion time. </param>
+        /// <returns> A new <see cref="Models.DeletedAutomationAccount"/> instance for mocking. </returns>
+        public static DeletedAutomationAccount DeletedAutomationAccount(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, AzureLocation? location = null, ResourceIdentifier automationAccountResourceId = null, string automationAccountId = null, string locationPropertiesLocation = null, DateTimeOffset? deletedOn = null)
+        {
+            return new DeletedAutomationAccount(
+                id,
+                name,
+                resourceType,
+                systemData,
+                location,
+                automationAccountResourceId,
+                automationAccountId,
+                locationPropertiesLocation,
+                deletedOn,
                 serializedAdditionalRawData: null);
         }
 
@@ -844,6 +862,234 @@ namespace Azure.ResourceManager.Automation.Models
             return new AutomationCredentialCreateOrUpdateContent(name, userName, password, description, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Automation.DscConfigurationData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="etag"> Gets or sets the etag of the resource. </param>
+        /// <param name="provisioningState"> Gets or sets the provisioning state of the configuration. </param>
+        /// <param name="jobCount"> Gets or sets the job count of the configuration. </param>
+        /// <param name="parameters"> Gets or sets the configuration parameters. </param>
+        /// <param name="source"> Gets or sets the source. </param>
+        /// <param name="state"> Gets or sets the state of the configuration. </param>
+        /// <param name="isLogVerboseEnabled"> Gets or sets verbose log option. </param>
+        /// <param name="createdOn"> Gets or sets the creation time. </param>
+        /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
+        /// <param name="nodeConfigurationCount"> Gets the number of compiled node configurations. </param>
+        /// <param name="description"> Gets or sets the description. </param>
+        /// <returns> A new <see cref="Automation.DscConfigurationData"/> instance for mocking. </returns>
+        public static DscConfigurationData DscConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ETag? etag = null, DscConfigurationProvisioningState? provisioningState = null, int? jobCount = null, IDictionary<string, DscConfigurationParameterDefinition> parameters = null, AutomationContentSource source = null, DscConfigurationState? state = null, bool? isLogVerboseEnabled = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, int? nodeConfigurationCount = null, string description = null)
+        {
+            tags ??= new Dictionary<string, string>();
+            parameters ??= new Dictionary<string, DscConfigurationParameterDefinition>();
+
+            return new DscConfigurationData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                tags,
+                location,
+                etag,
+                provisioningState,
+                jobCount,
+                parameters,
+                source,
+                state,
+                isLogVerboseEnabled,
+                createdOn,
+                lastModifiedOn,
+                nodeConfigurationCount,
+                description,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.DscConfigurationCreateOrUpdateContent"/>. </summary>
+        /// <param name="name"> Gets or sets name of the resource. </param>
+        /// <param name="location"> Gets or sets the location of the resource. </param>
+        /// <param name="tags"> Gets or sets the tags attached to the resource. </param>
+        /// <param name="isLogVerboseEnabled"> Gets or sets verbose log option. </param>
+        /// <param name="isLogProgressEnabled"> Gets or sets progress log option. </param>
+        /// <param name="source"> Gets or sets the source. </param>
+        /// <param name="parameters"> Gets or sets the configuration parameters. </param>
+        /// <param name="description"> Gets or sets the description of the configuration. </param>
+        /// <returns> A new <see cref="Models.DscConfigurationCreateOrUpdateContent"/> instance for mocking. </returns>
+        public static DscConfigurationCreateOrUpdateContent DscConfigurationCreateOrUpdateContent(string name = null, AzureLocation? location = null, IDictionary<string, string> tags = null, bool? isLogVerboseEnabled = null, bool? isLogProgressEnabled = null, AutomationContentSource source = null, IDictionary<string, DscConfigurationParameterDefinition> parameters = null, string description = null)
+        {
+            tags ??= new Dictionary<string, string>();
+            parameters ??= new Dictionary<string, DscConfigurationParameterDefinition>();
+
+            return new DscConfigurationCreateOrUpdateContent(
+                name,
+                location,
+                tags,
+                isLogVerboseEnabled,
+                isLogProgressEnabled,
+                source,
+                parameters,
+                description,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Automation.DscNodeConfigurationData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
+        /// <param name="createdOn"> Gets or sets creation time. </param>
+        /// <param name="configurationName"> Gets or sets the configuration of the node. </param>
+        /// <param name="source"> Source of node configuration. </param>
+        /// <param name="nodeCount"> Number of nodes with this node configuration assigned. </param>
+        /// <param name="isIncrementNodeConfigurationBuildRequired"> If a new build version of NodeConfiguration is required. </param>
+        /// <returns> A new <see cref="Automation.DscNodeConfigurationData"/> instance for mocking. </returns>
+        public static DscNodeConfigurationData DscNodeConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DateTimeOffset? lastModifiedOn = null, DateTimeOffset? createdOn = null, string configurationName = null, string source = null, long? nodeCount = null, bool? isIncrementNodeConfigurationBuildRequired = null)
+        {
+            return new DscNodeConfigurationData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                lastModifiedOn,
+                createdOn,
+                configurationName != null ? new DscConfigurationAssociationProperty(configurationName, serializedAdditionalRawData: null) : null,
+                source,
+                nodeCount,
+                isIncrementNodeConfigurationBuildRequired,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Automation.HybridRunbookWorkerData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="ip"> Gets or sets the assigned machine IP address. </param>
+        /// <param name="registeredOn"> Gets or sets the registration time of the worker machine. </param>
+        /// <param name="lastSeenOn"> Last Heartbeat from the Worker. </param>
+        /// <param name="vmResourceId"> Azure Resource Manager Id for a virtual machine. </param>
+        /// <param name="workerType"> Type of the HybridWorker. </param>
+        /// <param name="workerName"> Name of the HybridWorker. </param>
+        /// <returns> A new <see cref="Automation.HybridRunbookWorkerData"/> instance for mocking. </returns>
+        public static HybridRunbookWorkerData HybridRunbookWorkerData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string ip = null, DateTimeOffset? registeredOn = null, DateTimeOffset? lastSeenOn = null, ResourceIdentifier vmResourceId = null, HybridWorkerType? workerType = null, string workerName = null)
+        {
+            return new HybridRunbookWorkerData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                ip,
+                registeredOn,
+                lastSeenOn,
+                vmResourceId,
+                workerType,
+                workerName,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Automation.HybridRunbookWorkerGroupData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="groupType"> Type of the HybridWorkerGroup. </param>
+        /// <param name="credentialName"> Sets the credential of a worker group. </param>
+        /// <returns> A new <see cref="Automation.HybridRunbookWorkerGroupData"/> instance for mocking. </returns>
+        public static HybridRunbookWorkerGroupData HybridRunbookWorkerGroupData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, HybridWorkerGroup? groupType = null, string credentialName = null)
+        {
+            return new HybridRunbookWorkerGroupData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                groupType,
+                credentialName != null ? new RunAsCredentialAssociationProperty(credentialName, serializedAdditionalRawData: null) : null,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Automation.AutomationJobData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="runbookName"> Gets or sets the runbook. </param>
+        /// <param name="startedBy"> Gets or sets the job started by. </param>
+        /// <param name="runOn"> Gets or sets the runOn which specifies the group name where the job is to be executed. </param>
+        /// <param name="jobId"> Gets or sets the id of the job. </param>
+        /// <param name="createdOn"> Gets or sets the creation time of the job. </param>
+        /// <param name="status"> Gets or sets the status of the job. </param>
+        /// <param name="statusDetails"> Gets or sets the status details of the job. </param>
+        /// <param name="startOn"> Gets or sets the start time of the job. </param>
+        /// <param name="endOn"> Gets or sets the end time of the job. </param>
+        /// <param name="exception"> Gets or sets the exception of the job. </param>
+        /// <param name="lastModifiedOn"> Gets or sets the last modified time of the job. </param>
+        /// <param name="lastStatusModifiedOn"> Gets or sets the last status modified time of the job. </param>
+        /// <param name="parameters"> Gets or sets the parameters of the job. </param>
+        /// <param name="provisioningState"> The current provisioning state of the job. </param>
+        /// <returns> A new <see cref="Automation.AutomationJobData"/> instance for mocking. </returns>
+        public static AutomationJobData AutomationJobData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string runbookName = null, string startedBy = null, string runOn = null, Guid? jobId = null, DateTimeOffset? createdOn = null, AutomationJobStatus? status = null, string statusDetails = null, DateTimeOffset? startOn = null, DateTimeOffset? endOn = null, string exception = null, DateTimeOffset? lastModifiedOn = null, DateTimeOffset? lastStatusModifiedOn = null, IDictionary<string, string> parameters = null, JobProvisioningState? provisioningState = null)
+        {
+            parameters ??= new Dictionary<string, string>();
+
+            return new AutomationJobData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                runbookName != null ? new RunbookAssociationProperty(runbookName, serializedAdditionalRawData: null) : null,
+                startedBy,
+                runOn,
+                jobId,
+                createdOn,
+                status,
+                statusDetails,
+                startOn,
+                endOn,
+                exception,
+                lastModifiedOn,
+                lastStatusModifiedOn,
+                parameters,
+                provisioningState,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.AutomationJobCollectionItemData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="runbookName"> The runbook association. </param>
+        /// <param name="jobId"> The id of the job. </param>
+        /// <param name="createdOn"> The creation time of the job. </param>
+        /// <param name="status"> The status of the job. </param>
+        /// <param name="startOn"> The start time of the job. </param>
+        /// <param name="endOn"> The end time of the job. </param>
+        /// <param name="lastModifiedOn"> The last modified time of the job. </param>
+        /// <param name="provisioningState"> The provisioning state of a resource. </param>
+        /// <param name="runOn"> Specifies the runOn group name where the job was executed. </param>
+        /// <returns> A new <see cref="Models.AutomationJobCollectionItemData"/> instance for mocking. </returns>
+        public static AutomationJobCollectionItemData AutomationJobCollectionItemData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string runbookName = null, Guid? jobId = null, DateTimeOffset? createdOn = null, AutomationJobStatus? status = null, DateTimeOffset? startOn = null, DateTimeOffset? endOn = null, DateTimeOffset? lastModifiedOn = null, string provisioningState = null, string runOn = null)
+        {
+            return new AutomationJobCollectionItemData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                runbookName != null ? new RunbookAssociationProperty(runbookName, serializedAdditionalRawData: null) : null,
+                jobId,
+                createdOn,
+                status,
+                startOn,
+                endOn,
+                lastModifiedOn,
+                provisioningState,
+                runOn,
+                serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Automation.AutomationJobScheduleData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -978,17 +1224,76 @@ namespace Azure.ResourceManager.Automation.Models
             return new AutomationActivityOutputType(name, activityOutputType, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.AutomationAccountModuleCreateOrUpdateContent"/>. </summary>
-        /// <param name="name"> Gets or sets name of the resource. </param>
-        /// <param name="location"> Gets or sets the location of the resource. </param>
-        /// <param name="tags"> Gets or sets the tags attached to the resource. </param>
-        /// <param name="contentLink"> Gets or sets the module content link. </param>
-        /// <returns> A new <see cref="Models.AutomationAccountModuleCreateOrUpdateContent"/> instance for mocking. </returns>
-        public static AutomationAccountModuleCreateOrUpdateContent AutomationAccountModuleCreateOrUpdateContent(string name = null, AzureLocation? location = null, IDictionary<string, string> tags = null, AutomationContentLink contentLink = null)
+        /// <summary> Initializes a new instance of <see cref="Automation.AutomationModuleData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="etag"> Gets the etag of the resource. </param>
+        /// <param name="isGlobal"> Gets the isGlobal flag of the module. </param>
+        /// <param name="version"> Gets the version of the module. </param>
+        /// <param name="sizeInBytes"> Gets the size in bytes of the module. </param>
+        /// <param name="activityCount"> Gets the activity count of the module. </param>
+        /// <param name="provisioningState"> Gets the provisioning state of the module. </param>
+        /// <param name="contentLink"> Gets or sets the contentLink of the module. </param>
+        /// <param name="error"> Gets the error info of the module. </param>
+        /// <param name="createdOn"> Gets the creation time. </param>
+        /// <param name="lastModifiedOn"> Gets the last modified time. </param>
+        /// <param name="description"> Gets or sets the description. </param>
+        /// <param name="isComposite"> Gets type of module, if its composite or not. </param>
+        /// <returns> A new <see cref="Automation.AutomationModuleData"/> instance for mocking. </returns>
+        public static AutomationModuleData AutomationModuleData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ETag? etag = null, bool? isGlobal = null, string version = null, long? sizeInBytes = null, int? activityCount = null, ModuleProvisioningState? provisioningState = null, AutomationContentLink contentLink = null, AutomationModuleErrorInfo error = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, string description = null, bool? isComposite = null)
         {
             tags ??= new Dictionary<string, string>();
 
-            return new AutomationAccountModuleCreateOrUpdateContent(name, location, tags, contentLink, serializedAdditionalRawData: null);
+            return new AutomationModuleData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                tags,
+                location,
+                etag,
+                isGlobal,
+                version,
+                sizeInBytes,
+                activityCount,
+                provisioningState,
+                contentLink,
+                error,
+                createdOn,
+                lastModifiedOn,
+                description,
+                isComposite,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ModuleCreateOrUpdateParameters"/>. </summary>
+        /// <param name="name"> Sets name of the resource. </param>
+        /// <param name="location"> Sets the location of the resource. </param>
+        /// <param name="tags"> Sets the tags attached to the resource. </param>
+        /// <param name="contentLink"> Sets the hash. </param>
+        /// <returns> A new <see cref="Models.ModuleCreateOrUpdateParameters"/> instance for mocking. </returns>
+        public static ModuleCreateOrUpdateParameters ModuleCreateOrUpdateParameters(string name = null, AzureLocation? location = null, IDictionary<string, string> tags = null, AutomationContentLink contentLink = null)
+        {
+            tags ??= new Dictionary<string, string>();
+
+            return new ModuleCreateOrUpdateParameters(name, location, tags, contentLink, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ModuleUpdateParameters"/>. </summary>
+        /// <param name="name"> Sets name of the resource. </param>
+        /// <param name="location"> Sets the location of the resource. </param>
+        /// <param name="tags"> Sets the tags attached to the resource. </param>
+        /// <param name="contentLink"> Sets the module content link. </param>
+        /// <returns> A new <see cref="Models.ModuleUpdateParameters"/> instance for mocking. </returns>
+        public static ModuleUpdateParameters ModuleUpdateParameters(string name = null, AzureLocation? location = null, IDictionary<string, string> tags = null, AutomationContentLink contentLink = null)
+        {
+            tags ??= new Dictionary<string, string>();
+
+            return new ModuleUpdateParameters(name, location, tags, contentLink, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.AutomationModuleField"/>. </summary>
@@ -1000,503 +1305,15 @@ namespace Azure.ResourceManager.Automation.Models
             return new AutomationModuleField(name, fieldType, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.AutomationScheduleCreateOrUpdateContent"/>. </summary>
-        /// <param name="name"> Gets or sets the name of the Schedule. </param>
-        /// <param name="description"> Gets or sets the description of the schedule. </param>
-        /// <param name="startOn"> Gets or sets the start time of the schedule. </param>
-        /// <param name="expireOn"> Gets or sets the end time of the schedule. </param>
-        /// <param name="interval"> Gets or sets the interval of the schedule. </param>
-        /// <param name="frequency"> Gets or sets the frequency of the schedule. </param>
-        /// <param name="timeZone"> Gets or sets the time zone of the schedule. </param>
-        /// <param name="advancedSchedule"> Gets or sets the AdvancedSchedule. </param>
-        /// <returns> A new <see cref="Models.AutomationScheduleCreateOrUpdateContent"/> instance for mocking. </returns>
-        public static AutomationScheduleCreateOrUpdateContent AutomationScheduleCreateOrUpdateContent(string name = null, string description = null, DateTimeOffset startOn = default, DateTimeOffset? expireOn = null, BinaryData interval = null, AutomationScheduleFrequency frequency = default, string timeZone = null, AutomationAdvancedSchedule advancedSchedule = null)
-        {
-            return new AutomationScheduleCreateOrUpdateContent(
-                name,
-                description,
-                startOn,
-                expireOn,
-                interval,
-                frequency,
-                timeZone,
-                advancedSchedule,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Automation.AutomationScheduleData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="startOn"> Gets or sets the start time of the schedule. </param>
-        /// <param name="startInMinutes"> Gets the start time's offset in minutes. </param>
-        /// <param name="expireOn"> Gets or sets the end time of the schedule. </param>
-        /// <param name="expireInMinutes"> Gets or sets the expiry time's offset in minutes. </param>
-        /// <param name="isEnabled"> Gets or sets a value indicating whether this schedule is enabled. </param>
-        /// <param name="nextRunOn"> Gets or sets the next run time of the schedule. </param>
-        /// <param name="nextRunInMinutes"> Gets or sets the next run time's offset in minutes. </param>
-        /// <param name="interval"> Gets or sets the interval of the schedule. </param>
-        /// <param name="frequency"> Gets or sets the frequency of the schedule. </param>
-        /// <param name="timeZone"> Gets or sets the time zone of the schedule. </param>
-        /// <param name="advancedSchedule"> Gets or sets the advanced schedule. </param>
-        /// <param name="createdOn"> Gets or sets the creation time. </param>
-        /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
-        /// <param name="description"> Gets or sets the description. </param>
-        /// <returns> A new <see cref="Automation.AutomationScheduleData"/> instance for mocking. </returns>
-        public static AutomationScheduleData AutomationScheduleData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DateTimeOffset? startOn = null, double? startInMinutes = null, DateTimeOffset? expireOn = null, double? expireInMinutes = null, bool? isEnabled = null, DateTimeOffset? nextRunOn = null, double? nextRunInMinutes = null, BinaryData interval = null, AutomationScheduleFrequency? frequency = null, string timeZone = null, AutomationAdvancedSchedule advancedSchedule = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, string description = null)
-        {
-            return new AutomationScheduleData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                startOn,
-                startInMinutes,
-                expireOn,
-                expireInMinutes,
-                isEnabled,
-                nextRunOn,
-                nextRunInMinutes,
-                interval,
-                frequency,
-                timeZone,
-                advancedSchedule,
-                createdOn,
-                lastModifiedOn,
-                description,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.AutomationVariableCreateOrUpdateContent"/>. </summary>
-        /// <param name="name"> Gets or sets the name of the variable. </param>
-        /// <param name="value"> Gets or sets the value of the variable. </param>
-        /// <param name="description"> Gets or sets the description of the variable. </param>
-        /// <param name="isEncrypted"> Gets or sets the encrypted flag of the variable. </param>
-        /// <returns> A new <see cref="Models.AutomationVariableCreateOrUpdateContent"/> instance for mocking. </returns>
-        public static AutomationVariableCreateOrUpdateContent AutomationVariableCreateOrUpdateContent(string name = null, string value = null, string description = null, bool? isEncrypted = null)
-        {
-            return new AutomationVariableCreateOrUpdateContent(name, value, description, isEncrypted, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Automation.AutomationVariableData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="value"> Gets or sets the value of the variable. </param>
-        /// <param name="isEncrypted"> Gets or sets the encrypted flag of the variable. </param>
-        /// <param name="createdOn"> Gets or sets the creation time. </param>
-        /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
-        /// <param name="description"> Gets or sets the description. </param>
-        /// <returns> A new <see cref="Automation.AutomationVariableData"/> instance for mocking. </returns>
-        public static AutomationVariableData AutomationVariableData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string value = null, bool? isEncrypted = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, string description = null)
-        {
-            return new AutomationVariableData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                value,
-                isEncrypted,
-                createdOn,
-                lastModifiedOn,
-                description,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Automation.AutomationWatcherData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="etag"> Gets or sets the etag of the resource. </param>
-        /// <param name="executionFrequencyInSeconds"> Gets or sets the frequency at which the watcher is invoked. </param>
-        /// <param name="scriptName"> Gets or sets the name of the script the watcher is attached to, i.e. the name of an existing runbook. </param>
-        /// <param name="scriptParameters"> Gets or sets the parameters of the script. </param>
-        /// <param name="scriptRunOn"> Gets or sets the name of the hybrid worker group the watcher will run on. </param>
-        /// <param name="status"> Gets the current status of the watcher. </param>
-        /// <param name="createdOn"> Gets or sets the creation time. </param>
-        /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
-        /// <param name="lastModifiedBy"> Details of the user who last modified the watcher. </param>
-        /// <param name="description"> Gets or sets the description. </param>
-        /// <returns> A new <see cref="Automation.AutomationWatcherData"/> instance for mocking. </returns>
-        public static AutomationWatcherData AutomationWatcherData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ETag? etag = null, long? executionFrequencyInSeconds = null, string scriptName = null, IDictionary<string, string> scriptParameters = null, string scriptRunOn = null, string status = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, string lastModifiedBy = null, string description = null)
-        {
-            tags ??= new Dictionary<string, string>();
-            scriptParameters ??= new Dictionary<string, string>();
-
-            return new AutomationWatcherData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                tags,
-                location,
-                etag,
-                executionFrequencyInSeconds,
-                scriptName,
-                scriptParameters,
-                scriptRunOn,
-                status,
-                createdOn,
-                lastModifiedOn,
-                lastModifiedBy,
-                description,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Automation.DscConfigurationData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="etag"> Gets or sets the etag of the resource. </param>
-        /// <param name="provisioningState"> Gets or sets the provisioning state of the configuration. </param>
-        /// <param name="jobCount"> Gets or sets the job count of the configuration. </param>
-        /// <param name="parameters"> Gets or sets the configuration parameters. </param>
-        /// <param name="source"> Gets or sets the source. </param>
-        /// <param name="state"> Gets or sets the state of the configuration. </param>
-        /// <param name="isLogVerboseEnabled"> Gets or sets verbose log option. </param>
-        /// <param name="createdOn"> Gets or sets the creation time. </param>
-        /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
-        /// <param name="nodeConfigurationCount"> Gets the number of compiled node configurations. </param>
-        /// <param name="description"> Gets or sets the description. </param>
-        /// <returns> A new <see cref="Automation.DscConfigurationData"/> instance for mocking. </returns>
-        public static DscConfigurationData DscConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ETag? etag = null, DscConfigurationProvisioningState? provisioningState = null, int? jobCount = null, IDictionary<string, DscConfigurationParameterDefinition> parameters = null, AutomationContentSource source = null, DscConfigurationState? state = null, bool? isLogVerboseEnabled = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, int? nodeConfigurationCount = null, string description = null)
-        {
-            tags ??= new Dictionary<string, string>();
-            parameters ??= new Dictionary<string, DscConfigurationParameterDefinition>();
-
-            return new DscConfigurationData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                tags,
-                location,
-                etag,
-                provisioningState,
-                jobCount,
-                parameters,
-                source,
-                state,
-                isLogVerboseEnabled,
-                createdOn,
-                lastModifiedOn,
-                nodeConfigurationCount,
-                description,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DscConfigurationCreateOrUpdateContent"/>. </summary>
-        /// <param name="name"> Gets or sets name of the resource. </param>
-        /// <param name="location"> Gets or sets the location of the resource. </param>
+        /// <summary> Initializes a new instance of <see cref="Models.PythonPackageCreateParameters"/>. </summary>
         /// <param name="tags"> Gets or sets the tags attached to the resource. </param>
-        /// <param name="isLogVerboseEnabled"> Gets or sets verbose log option. </param>
-        /// <param name="isLogProgressEnabled"> Gets or sets progress log option. </param>
-        /// <param name="source"> Gets or sets the source. </param>
-        /// <param name="parameters"> Gets or sets the configuration parameters. </param>
-        /// <param name="description"> Gets or sets the description of the configuration. </param>
-        /// <returns> A new <see cref="Models.DscConfigurationCreateOrUpdateContent"/> instance for mocking. </returns>
-        public static DscConfigurationCreateOrUpdateContent DscConfigurationCreateOrUpdateContent(string name = null, AzureLocation? location = null, IDictionary<string, string> tags = null, bool? isLogVerboseEnabled = null, bool? isLogProgressEnabled = null, AutomationContentSource source = null, IDictionary<string, DscConfigurationParameterDefinition> parameters = null, string description = null)
+        /// <param name="contentLink"> Gets or sets the module content link. </param>
+        /// <returns> A new <see cref="Models.PythonPackageCreateParameters"/> instance for mocking. </returns>
+        public static PythonPackageCreateParameters PythonPackageCreateParameters(IDictionary<string, string> tags = null, AutomationContentLink contentLink = null)
         {
             tags ??= new Dictionary<string, string>();
-            parameters ??= new Dictionary<string, DscConfigurationParameterDefinition>();
 
-            return new DscConfigurationCreateOrUpdateContent(
-                name,
-                location,
-                tags,
-                isLogVerboseEnabled,
-                isLogProgressEnabled,
-                source,
-                parameters,
-                description,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Automation.AutomationJobData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="runbookName"> Gets or sets the runbook. </param>
-        /// <param name="startedBy"> Gets or sets the job started by. </param>
-        /// <param name="runOn"> Gets or sets the runOn which specifies the group name where the job is to be executed. </param>
-        /// <param name="jobId"> Gets or sets the id of the job. </param>
-        /// <param name="createdOn"> Gets or sets the creation time of the job. </param>
-        /// <param name="status"> Gets or sets the status of the job. </param>
-        /// <param name="statusDetails"> Gets or sets the status details of the job. </param>
-        /// <param name="startOn"> Gets or sets the start time of the job. </param>
-        /// <param name="endOn"> Gets or sets the end time of the job. </param>
-        /// <param name="exception"> Gets or sets the exception of the job. </param>
-        /// <param name="lastModifiedOn"> Gets or sets the last modified time of the job. </param>
-        /// <param name="lastStatusModifiedOn"> Gets or sets the last status modified time of the job. </param>
-        /// <param name="parameters"> Gets or sets the parameters of the job. </param>
-        /// <param name="provisioningState"> The current provisioning state of the job. </param>
-        /// <returns> A new <see cref="Automation.AutomationJobData"/> instance for mocking. </returns>
-        public static AutomationJobData AutomationJobData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string runbookName = null, string startedBy = null, string runOn = null, Guid? jobId = null, DateTimeOffset? createdOn = null, AutomationJobStatus? status = null, string statusDetails = null, DateTimeOffset? startOn = null, DateTimeOffset? endOn = null, string exception = null, DateTimeOffset? lastModifiedOn = null, DateTimeOffset? lastStatusModifiedOn = null, IDictionary<string, string> parameters = null, JobProvisioningState? provisioningState = null)
-        {
-            parameters ??= new Dictionary<string, string>();
-
-            return new AutomationJobData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                runbookName != null ? new RunbookAssociationProperty(runbookName, serializedAdditionalRawData: null) : null,
-                startedBy,
-                runOn,
-                jobId,
-                createdOn,
-                status,
-                statusDetails,
-                startOn,
-                endOn,
-                exception,
-                lastModifiedOn,
-                lastStatusModifiedOn,
-                parameters,
-                provisioningState,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.AutomationJobCollectionItemData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="runbookName"> The runbook association. </param>
-        /// <param name="jobId"> The id of the job. </param>
-        /// <param name="createdOn"> The creation time of the job. </param>
-        /// <param name="status"> The status of the job. </param>
-        /// <param name="startOn"> The start time of the job. </param>
-        /// <param name="endOn"> The end time of the job. </param>
-        /// <param name="lastModifiedOn"> The last modified time of the job. </param>
-        /// <param name="provisioningState"> The provisioning state of a resource. </param>
-        /// <param name="runOn"> Specifies the runOn group name where the job was executed. </param>
-        /// <returns> A new <see cref="Models.AutomationJobCollectionItemData"/> instance for mocking. </returns>
-        public static AutomationJobCollectionItemData AutomationJobCollectionItemData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string runbookName = null, Guid? jobId = null, DateTimeOffset? createdOn = null, AutomationJobStatus? status = null, DateTimeOffset? startOn = null, DateTimeOffset? endOn = null, DateTimeOffset? lastModifiedOn = null, string provisioningState = null, string runOn = null)
-        {
-            return new AutomationJobCollectionItemData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                runbookName != null ? new RunbookAssociationProperty(runbookName, serializedAdditionalRawData: null) : null,
-                jobId,
-                createdOn,
-                status,
-                startOn,
-                endOn,
-                lastModifiedOn,
-                provisioningState,
-                runOn,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Automation.SoftwareUpdateConfigurationData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="updateConfiguration"> update specific properties for the Software update configuration. </param>
-        /// <param name="scheduleInfo"> Schedule information for the Software update configuration. </param>
-        /// <param name="provisioningState"> Provisioning state for the software update configuration, which only appears in the response. </param>
-        /// <param name="error"> Details of provisioning error. </param>
-        /// <param name="createdOn"> Creation time of the resource, which only appears in the response. </param>
-        /// <param name="createdBy"> CreatedBy property, which only appears in the response. </param>
-        /// <param name="lastModifiedOn"> Last time resource was modified, which only appears in the response. </param>
-        /// <param name="lastModifiedBy"> LastModifiedBy property, which only appears in the response. </param>
-        /// <param name="tasks"> Tasks information for the Software update configuration. </param>
-        /// <returns> A new <see cref="Automation.SoftwareUpdateConfigurationData"/> instance for mocking. </returns>
-        public static SoftwareUpdateConfigurationData SoftwareUpdateConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SoftwareUpdateConfigurationSpecificProperties updateConfiguration = null, SoftwareUpdateConfigurationScheduleProperties scheduleInfo = null, string provisioningState = null, AutomationResponseError error = null, DateTimeOffset? createdOn = null, string createdBy = null, DateTimeOffset? lastModifiedOn = null, string lastModifiedBy = null, SoftwareUpdateConfigurationTasks tasks = null)
-        {
-            return new SoftwareUpdateConfigurationData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                updateConfiguration,
-                scheduleInfo,
-                provisioningState,
-                error,
-                createdOn,
-                createdBy,
-                lastModifiedOn,
-                lastModifiedBy,
-                tasks,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.SoftwareUpdateConfigurationScheduleProperties"/>. </summary>
-        /// <param name="startOn"> Gets or sets the start time of the schedule. </param>
-        /// <param name="startInMinutes"> Gets the start time's offset in minutes. </param>
-        /// <param name="expireOn"> Gets or sets the end time of the schedule. </param>
-        /// <param name="expireInMinutes"> Gets or sets the expiry time's offset in minutes. </param>
-        /// <param name="isEnabled"> Gets or sets a value indicating whether this schedule is enabled. </param>
-        /// <param name="nextRunOn"> Gets or sets the next run time of the schedule. </param>
-        /// <param name="nextRunInMinutes"> Gets or sets the next run time's offset in minutes. </param>
-        /// <param name="interval"> Gets or sets the interval of the schedule. </param>
-        /// <param name="frequency"> Gets or sets the frequency of the schedule. </param>
-        /// <param name="timeZone"> Gets or sets the time zone of the schedule. </param>
-        /// <param name="advancedSchedule"> Gets or sets the advanced schedule. </param>
-        /// <param name="createdOn"> Gets or sets the creation time. </param>
-        /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
-        /// <param name="description"> Gets or sets the description. </param>
-        /// <returns> A new <see cref="Models.SoftwareUpdateConfigurationScheduleProperties"/> instance for mocking. </returns>
-        public static SoftwareUpdateConfigurationScheduleProperties SoftwareUpdateConfigurationScheduleProperties(DateTimeOffset? startOn = null, double? startInMinutes = null, DateTimeOffset? expireOn = null, double? expireInMinutes = null, bool? isEnabled = null, DateTimeOffset? nextRunOn = null, double? nextRunInMinutes = null, long? interval = null, AutomationScheduleFrequency? frequency = null, string timeZone = null, AutomationAdvancedSchedule advancedSchedule = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, string description = null)
-        {
-            return new SoftwareUpdateConfigurationScheduleProperties(
-                startOn,
-                startInMinutes,
-                expireOn,
-                expireInMinutes,
-                isEnabled,
-                nextRunOn,
-                nextRunInMinutes,
-                interval,
-                frequency,
-                timeZone,
-                advancedSchedule,
-                createdOn,
-                lastModifiedOn,
-                description,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.SoftwareUpdateConfigurationCollectionItem"/>. </summary>
-        /// <param name="name"> Name of the software update configuration. </param>
-        /// <param name="id"> Resource Id of the software update configuration. </param>
-        /// <param name="updateConfiguration"> Update specific properties of the software update configuration. </param>
-        /// <param name="tasks"> Pre and Post Tasks defined. </param>
-        /// <param name="frequency"> execution frequency of the schedule associated with the software update configuration. </param>
-        /// <param name="startOn"> the start time of the update. </param>
-        /// <param name="createdOn"> Creation time of the software update configuration, which only appears in the response. </param>
-        /// <param name="lastModifiedOn"> Last time software update configuration was modified, which only appears in the response. </param>
-        /// <param name="provisioningState"> Provisioning state for the software update configuration, which only appears in the response. </param>
-        /// <param name="nextRunOn"> ext run time of the update. </param>
-        /// <returns> A new <see cref="Models.SoftwareUpdateConfigurationCollectionItem"/> instance for mocking. </returns>
-        public static SoftwareUpdateConfigurationCollectionItem SoftwareUpdateConfigurationCollectionItem(string name = null, ResourceIdentifier id = null, SoftwareUpdateConfigurationSpecificProperties updateConfiguration = null, SoftwareUpdateConfigurationTasks tasks = null, AutomationScheduleFrequency? frequency = null, DateTimeOffset? startOn = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, string provisioningState = null, DateTimeOffset? nextRunOn = null)
-        {
-            return new SoftwareUpdateConfigurationCollectionItem(
-                name,
-                id,
-                updateConfiguration,
-                tasks,
-                frequency,
-                startOn,
-                createdOn,
-                lastModifiedOn,
-                provisioningState,
-                nextRunOn,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.SoftwareUpdateConfigurationRun"/>. </summary>
-        /// <param name="name"> Name of the software update configuration run. </param>
-        /// <param name="id"> Resource Id of the software update configuration run. </param>
-        /// <param name="softwareUpdateName"> software update configuration triggered this run. </param>
-        /// <param name="status"> Status of the software update configuration run. </param>
-        /// <param name="configuredDuration"> Configured duration for the software update configuration run. </param>
-        /// <param name="osType"> Operating system target of the software update configuration triggered this run. </param>
-        /// <param name="startOn"> Start time of the software update configuration run. </param>
-        /// <param name="endOn"> End time of the software update configuration run. </param>
-        /// <param name="computerCount"> Number of computers in the software update configuration run. </param>
-        /// <param name="failedCount"> Number of computers with failed status. </param>
-        /// <param name="createdOn"> Creation time of the resource, which only appears in the response. </param>
-        /// <param name="createdBy"> CreatedBy property, which only appears in the response. </param>
-        /// <param name="lastModifiedOn"> Last time resource was modified, which only appears in the response. </param>
-        /// <param name="lastModifiedBy"> LastModifiedBy property, which only appears in the response. </param>
-        /// <param name="tasks"> Software update configuration tasks triggered in this run. </param>
-        /// <returns> A new <see cref="Models.SoftwareUpdateConfigurationRun"/> instance for mocking. </returns>
-        public static SoftwareUpdateConfigurationRun SoftwareUpdateConfigurationRun(string name = null, ResourceIdentifier id = null, string softwareUpdateName = null, string status = null, TimeSpan? configuredDuration = null, string osType = null, DateTimeOffset? startOn = null, DateTimeOffset? endOn = null, int? computerCount = null, int? failedCount = null, DateTimeOffset? createdOn = null, string createdBy = null, DateTimeOffset? lastModifiedOn = null, string lastModifiedBy = null, SoftwareUpdateConfigurationRunTasks tasks = null)
-        {
-            return new SoftwareUpdateConfigurationRun(
-                name,
-                id,
-                softwareUpdateName != null ? new SoftwareUpdateConfigurationNavigation(softwareUpdateName, serializedAdditionalRawData: null) : null,
-                status,
-                configuredDuration,
-                osType,
-                startOn,
-                endOn,
-                computerCount,
-                failedCount,
-                createdOn,
-                createdBy,
-                lastModifiedOn,
-                lastModifiedBy,
-                tasks,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.SoftwareUpdateConfigurationRunTasks"/>. </summary>
-        /// <param name="preTask"> Pre task properties. </param>
-        /// <param name="postTask"> Post task properties. </param>
-        /// <returns> A new <see cref="Models.SoftwareUpdateConfigurationRunTasks"/> instance for mocking. </returns>
-        public static SoftwareUpdateConfigurationRunTasks SoftwareUpdateConfigurationRunTasks(SoftwareUpdateConfigurationRunTaskProperties preTask = null, SoftwareUpdateConfigurationRunTaskProperties postTask = null)
-        {
-            return new SoftwareUpdateConfigurationRunTasks(preTask, postTask, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.SoftwareUpdateConfigurationRunTaskProperties"/>. </summary>
-        /// <param name="status"> The status of the task. </param>
-        /// <param name="source"> The name of the source of the task. </param>
-        /// <param name="jobId"> The job id of the task. </param>
-        /// <returns> A new <see cref="Models.SoftwareUpdateConfigurationRunTaskProperties"/> instance for mocking. </returns>
-        public static SoftwareUpdateConfigurationRunTaskProperties SoftwareUpdateConfigurationRunTaskProperties(string status = null, string source = null, Guid? jobId = null)
-        {
-            return new SoftwareUpdateConfigurationRunTaskProperties(status, source, jobId, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.SoftwareUpdateConfigurationMachineRun"/>. </summary>
-        /// <param name="name"> Name of the software update configuration machine run. </param>
-        /// <param name="id"> Resource Id of the software update configuration machine run. </param>
-        /// <param name="targetComputerId"> name of the updated computer. </param>
-        /// <param name="targetComputerType"> type of the updated computer. </param>
-        /// <param name="softwareUpdateName"> software update configuration triggered this run. </param>
-        /// <param name="status"> Status of the software update configuration machine run. </param>
-        /// <param name="osType"> Operating system target of the software update configuration triggered this run. </param>
-        /// <param name="correlationId"> correlation id of the software update configuration machine run. </param>
-        /// <param name="sourceComputerId"> source computer id of the software update configuration machine run. </param>
-        /// <param name="startOn"> Start time of the software update configuration machine run. </param>
-        /// <param name="endOn"> End time of the software update configuration machine run. </param>
-        /// <param name="configuredDuration"> configured duration for the software update configuration run. </param>
-        /// <param name="jobId"> Job associated with the software update configuration machine run. </param>
-        /// <param name="createdOn"> Creation time of the resource, which only appears in the response. </param>
-        /// <param name="createdBy"> createdBy property, which only appears in the response. </param>
-        /// <param name="lastModifiedOn"> Last time resource was modified, which only appears in the response. </param>
-        /// <param name="lastModifiedBy"> lastModifiedBy property, which only appears in the response. </param>
-        /// <param name="error"> Details of provisioning error. </param>
-        /// <returns> A new <see cref="Models.SoftwareUpdateConfigurationMachineRun"/> instance for mocking. </returns>
-        public static SoftwareUpdateConfigurationMachineRun SoftwareUpdateConfigurationMachineRun(string name = null, ResourceIdentifier id = null, ResourceIdentifier targetComputerId = null, string targetComputerType = null, string softwareUpdateName = null, string status = null, string osType = null, Guid? correlationId = null, Guid? sourceComputerId = null, DateTimeOffset? startOn = null, DateTimeOffset? endOn = null, TimeSpan? configuredDuration = null, Guid? jobId = null, DateTimeOffset? createdOn = null, string createdBy = null, DateTimeOffset? lastModifiedOn = null, string lastModifiedBy = null, AutomationResponseError error = null)
-        {
-            return new SoftwareUpdateConfigurationMachineRun(
-                name,
-                id,
-                targetComputerId,
-                targetComputerType,
-                softwareUpdateName != null ? new SoftwareUpdateConfigurationNavigation(softwareUpdateName, serializedAdditionalRawData: null) : null,
-                status,
-                osType,
-                correlationId,
-                sourceComputerId,
-                startOn,
-                endOn,
-                configuredDuration,
-                jobId != null ? new JobNavigation(jobId, serializedAdditionalRawData: null) : null,
-                createdOn,
-                createdBy,
-                lastModifiedOn,
-                lastModifiedBy,
-                error,
-                serializedAdditionalRawData: null);
+            return new PythonPackageCreateParameters(tags, contentLink, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.RunbookDraftUndoEditResult"/>. </summary>
@@ -1626,141 +1443,337 @@ namespace Azure.ResourceManager.Automation.Models
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Automation.AutomationWebhookData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Models.AutomationScheduleCreateOrUpdateContent"/>. </summary>
+        /// <param name="name"> Gets or sets the name of the Schedule. </param>
+        /// <param name="description"> Gets or sets the description of the schedule. </param>
+        /// <param name="startOn"> Gets or sets the start time of the schedule. </param>
+        /// <param name="expireOn"> Gets or sets the end time of the schedule. </param>
+        /// <param name="interval"> Gets or sets the interval of the schedule. </param>
+        /// <param name="frequency"> Gets or sets the frequency of the schedule. </param>
+        /// <param name="timeZone"> Gets or sets the time zone of the schedule. </param>
+        /// <param name="advancedSchedule"> Gets or sets the AdvancedSchedule. </param>
+        /// <returns> A new <see cref="Models.AutomationScheduleCreateOrUpdateContent"/> instance for mocking. </returns>
+        public static AutomationScheduleCreateOrUpdateContent AutomationScheduleCreateOrUpdateContent(string name = null, string description = null, DateTimeOffset startOn = default, DateTimeOffset? expireOn = null, BinaryData interval = null, AutomationScheduleFrequency frequency = default, string timeZone = null, AutomationAdvancedSchedule advancedSchedule = null)
+        {
+            return new AutomationScheduleCreateOrUpdateContent(
+                name,
+                description,
+                startOn,
+                expireOn,
+                interval,
+                frequency,
+                timeZone,
+                advancedSchedule,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Automation.AutomationScheduleData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="isEnabled"> Gets or sets the value of the enabled flag of the webhook. </param>
-        /// <param name="uri"> Gets or sets the webhook uri. </param>
-        /// <param name="expireOn"> Gets or sets the expiry time. </param>
-        /// <param name="lastInvokedOn"> Gets or sets the last invoked time. </param>
-        /// <param name="parameters"> Gets or sets the parameters of the job that is created when the webhook calls the runbook it is associated with. </param>
-        /// <param name="runbookName"> Gets or sets the runbook the webhook is associated with. </param>
-        /// <param name="runOn"> Gets or sets the name of the hybrid worker group the webhook job will run on. </param>
+        /// <param name="startOn"> Gets or sets the start time of the schedule. </param>
+        /// <param name="startInMinutes"> Gets the start time's offset in minutes. </param>
+        /// <param name="expireOn"> Gets or sets the end time of the schedule. </param>
+        /// <param name="expireInMinutes"> Gets or sets the expiry time's offset in minutes. </param>
+        /// <param name="isEnabled"> Gets or sets a value indicating whether this schedule is enabled. </param>
+        /// <param name="nextRunOn"> Gets or sets the next run time of the schedule. </param>
+        /// <param name="nextRunInMinutes"> Gets or sets the next run time's offset in minutes. </param>
+        /// <param name="interval"> Gets or sets the interval of the schedule. </param>
+        /// <param name="frequency"> Gets or sets the frequency of the schedule. </param>
+        /// <param name="timeZone"> Gets or sets the time zone of the schedule. </param>
+        /// <param name="advancedSchedule"> Gets or sets the advanced schedule. </param>
         /// <param name="createdOn"> Gets or sets the creation time. </param>
         /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
-        /// <param name="lastModifiedBy"> Details of the user who last modified the Webhook. </param>
         /// <param name="description"> Gets or sets the description. </param>
-        /// <returns> A new <see cref="Automation.AutomationWebhookData"/> instance for mocking. </returns>
-        public static AutomationWebhookData AutomationWebhookData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, bool? isEnabled = null, Uri uri = null, DateTimeOffset? expireOn = null, DateTimeOffset? lastInvokedOn = null, IDictionary<string, string> parameters = null, string runbookName = null, string runOn = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, string lastModifiedBy = null, string description = null)
+        /// <returns> A new <see cref="Automation.AutomationScheduleData"/> instance for mocking. </returns>
+        public static AutomationScheduleData AutomationScheduleData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DateTimeOffset? startOn = null, double? startInMinutes = null, DateTimeOffset? expireOn = null, double? expireInMinutes = null, bool? isEnabled = null, DateTimeOffset? nextRunOn = null, double? nextRunInMinutes = null, BinaryData interval = null, AutomationScheduleFrequency? frequency = null, string timeZone = null, AutomationAdvancedSchedule advancedSchedule = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, string description = null)
         {
-            parameters ??= new Dictionary<string, string>();
-
-            return new AutomationWebhookData(
+            return new AutomationScheduleData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                isEnabled,
-                uri,
+                startOn,
+                startInMinutes,
                 expireOn,
-                lastInvokedOn,
-                parameters,
-                runbookName != null ? new RunbookAssociationProperty(runbookName, serializedAdditionalRawData: null) : null,
-                runOn,
+                expireInMinutes,
+                isEnabled,
+                nextRunOn,
+                nextRunInMinutes,
+                interval,
+                frequency,
+                timeZone,
+                advancedSchedule,
                 createdOn,
                 lastModifiedOn,
-                lastModifiedBy,
                 description,
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.AutomationWebhookCreateOrUpdateContent"/>. </summary>
-        /// <param name="name"> Gets or sets the name of the webhook. </param>
-        /// <param name="isEnabled"> Gets or sets the value of the enabled flag of webhook. </param>
-        /// <param name="uri"> Gets or sets the uri. </param>
-        /// <param name="expireOn"> Gets or sets the expiry time. </param>
-        /// <param name="parameters"> Gets or sets the parameters of the job. </param>
-        /// <param name="runbookName"> Gets or sets the runbook. </param>
-        /// <param name="runOn"> Gets or sets the name of the hybrid worker group the webhook job will run on. </param>
-        /// <returns> A new <see cref="Models.AutomationWebhookCreateOrUpdateContent"/> instance for mocking. </returns>
-        public static AutomationWebhookCreateOrUpdateContent AutomationWebhookCreateOrUpdateContent(string name = null, bool? isEnabled = null, Uri uri = null, DateTimeOffset? expireOn = null, IDictionary<string, string> parameters = null, string runbookName = null, string runOn = null)
+        /// <summary> Initializes a new instance of <see cref="Models.SoftwareUpdateConfigurationMachineRun"/>. </summary>
+        /// <param name="name"> Name of the software update configuration machine run. </param>
+        /// <param name="id"> Resource Id of the software update configuration machine run. </param>
+        /// <param name="targetComputerId"> name of the updated computer. </param>
+        /// <param name="targetComputerType"> type of the updated computer. </param>
+        /// <param name="softwareUpdateName"> software update configuration triggered this run. </param>
+        /// <param name="status"> Status of the software update configuration machine run. </param>
+        /// <param name="osType"> Operating system target of the software update configuration triggered this run. </param>
+        /// <param name="correlationId"> correlation id of the software update configuration machine run. </param>
+        /// <param name="sourceComputerId"> source computer id of the software update configuration machine run. </param>
+        /// <param name="startOn"> Start time of the software update configuration machine run. </param>
+        /// <param name="endOn"> End time of the software update configuration machine run. </param>
+        /// <param name="configuredDuration"> configured duration for the software update configuration run. </param>
+        /// <param name="jobId"> Job associated with the software update configuration machine run. </param>
+        /// <param name="createdOn"> Creation time of the resource, which only appears in the response. </param>
+        /// <param name="createdBy"> createdBy property, which only appears in the response. </param>
+        /// <param name="lastModifiedOn"> Last time resource was modified, which only appears in the response. </param>
+        /// <param name="lastModifiedBy"> lastModifiedBy property, which only appears in the response. </param>
+        /// <param name="error"> Details of provisioning error. </param>
+        /// <returns> A new <see cref="Models.SoftwareUpdateConfigurationMachineRun"/> instance for mocking. </returns>
+        public static SoftwareUpdateConfigurationMachineRun SoftwareUpdateConfigurationMachineRun(string name = null, ResourceIdentifier id = null, ResourceIdentifier targetComputerId = null, string targetComputerType = null, string softwareUpdateName = null, string status = null, string osType = null, Guid? correlationId = null, Guid? sourceComputerId = null, DateTimeOffset? startOn = null, DateTimeOffset? endOn = null, TimeSpan? configuredDuration = null, Guid? jobId = null, DateTimeOffset? createdOn = null, string createdBy = null, DateTimeOffset? lastModifiedOn = null, string lastModifiedBy = null, AutomationResponseError error = null)
         {
-            parameters ??= new Dictionary<string, string>();
-
-            return new AutomationWebhookCreateOrUpdateContent(
+            return new SoftwareUpdateConfigurationMachineRun(
                 name,
-                isEnabled,
-                uri,
-                expireOn,
-                parameters,
-                runbookName != null ? new RunbookAssociationProperty(runbookName, serializedAdditionalRawData: null) : null,
-                runOn,
+                id,
+                targetComputerId,
+                targetComputerType,
+                softwareUpdateName != null ? new SoftwareUpdateConfigurationNavigation(softwareUpdateName, serializedAdditionalRawData: null) : null,
+                status,
+                osType,
+                correlationId,
+                sourceComputerId,
+                startOn,
+                endOn,
+                configuredDuration,
+                jobId != null ? new JobNavigation(jobId, serializedAdditionalRawData: null) : null,
+                createdOn,
+                createdBy,
+                lastModifiedOn,
+                lastModifiedBy,
+                error,
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Automation.HybridRunbookWorkerData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Models.SoftwareUpdateConfigurationRun"/>. </summary>
+        /// <param name="name"> Name of the software update configuration run. </param>
+        /// <param name="id"> Resource Id of the software update configuration run. </param>
+        /// <param name="softwareUpdateName"> software update configuration triggered this run. </param>
+        /// <param name="status"> Status of the software update configuration run. </param>
+        /// <param name="configuredDuration"> Configured duration for the software update configuration run. </param>
+        /// <param name="osType"> Operating system target of the software update configuration triggered this run. </param>
+        /// <param name="startOn"> Start time of the software update configuration run. </param>
+        /// <param name="endOn"> End time of the software update configuration run. </param>
+        /// <param name="computerCount"> Number of computers in the software update configuration run. </param>
+        /// <param name="failedCount"> Number of computers with failed status. </param>
+        /// <param name="createdOn"> Creation time of the resource, which only appears in the response. </param>
+        /// <param name="createdBy"> CreatedBy property, which only appears in the response. </param>
+        /// <param name="lastModifiedOn"> Last time resource was modified, which only appears in the response. </param>
+        /// <param name="lastModifiedBy"> LastModifiedBy property, which only appears in the response. </param>
+        /// <param name="tasks"> Software update configuration tasks triggered in this run. </param>
+        /// <returns> A new <see cref="Models.SoftwareUpdateConfigurationRun"/> instance for mocking. </returns>
+        public static SoftwareUpdateConfigurationRun SoftwareUpdateConfigurationRun(string name = null, ResourceIdentifier id = null, string softwareUpdateName = null, string status = null, TimeSpan? configuredDuration = null, string osType = null, DateTimeOffset? startOn = null, DateTimeOffset? endOn = null, int? computerCount = null, int? failedCount = null, DateTimeOffset? createdOn = null, string createdBy = null, DateTimeOffset? lastModifiedOn = null, string lastModifiedBy = null, SoftwareUpdateConfigurationRunTasks tasks = null)
+        {
+            return new SoftwareUpdateConfigurationRun(
+                name,
+                id,
+                softwareUpdateName != null ? new SoftwareUpdateConfigurationNavigation(softwareUpdateName, serializedAdditionalRawData: null) : null,
+                status,
+                configuredDuration,
+                osType,
+                startOn,
+                endOn,
+                computerCount,
+                failedCount,
+                createdOn,
+                createdBy,
+                lastModifiedOn,
+                lastModifiedBy,
+                tasks,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SoftwareUpdateConfigurationRunTasks"/>. </summary>
+        /// <param name="preTask"> Pre task properties. </param>
+        /// <param name="postTask"> Post task properties. </param>
+        /// <returns> A new <see cref="Models.SoftwareUpdateConfigurationRunTasks"/> instance for mocking. </returns>
+        public static SoftwareUpdateConfigurationRunTasks SoftwareUpdateConfigurationRunTasks(SoftwareUpdateConfigurationRunTaskProperties preTask = null, SoftwareUpdateConfigurationRunTaskProperties postTask = null)
+        {
+            return new SoftwareUpdateConfigurationRunTasks(preTask, postTask, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SoftwareUpdateConfigurationRunTaskProperties"/>. </summary>
+        /// <param name="status"> The status of the task. </param>
+        /// <param name="source"> The name of the source of the task. </param>
+        /// <param name="jobId"> The job id of the task. </param>
+        /// <returns> A new <see cref="Models.SoftwareUpdateConfigurationRunTaskProperties"/> instance for mocking. </returns>
+        public static SoftwareUpdateConfigurationRunTaskProperties SoftwareUpdateConfigurationRunTaskProperties(string status = null, string source = null, Guid? jobId = null)
+        {
+            return new SoftwareUpdateConfigurationRunTaskProperties(status, source, jobId, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Automation.AutomationSourceControlData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="ip"> Gets or sets the assigned machine IP address. </param>
-        /// <param name="registeredOn"> Gets or sets the registration time of the worker machine. </param>
-        /// <param name="lastSeenOn"> Last Heartbeat from the Worker. </param>
-        /// <param name="vmResourceId"> Azure Resource Manager Id for a virtual machine. </param>
-        /// <param name="workerType"> Type of the HybridWorker. </param>
-        /// <param name="workerName"> Name of the HybridWorker. </param>
-        /// <returns> A new <see cref="Automation.HybridRunbookWorkerData"/> instance for mocking. </returns>
-        public static HybridRunbookWorkerData HybridRunbookWorkerData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string ip = null, DateTimeOffset? registeredOn = null, DateTimeOffset? lastSeenOn = null, ResourceIdentifier vmResourceId = null, HybridWorkerType? workerType = null, string workerName = null)
+        /// <param name="repoUri"> The repo url of the source control. </param>
+        /// <param name="branch"> The repo branch of the source control. Include branch as empty string for VsoTfvc. </param>
+        /// <param name="folderPath"> The folder path of the source control. </param>
+        /// <param name="isAutoSyncEnabled"> The auto sync of the source control. Default is false. </param>
+        /// <param name="isAutoPublishRunbookEnabled"> The auto publish of the source control. Default is true. </param>
+        /// <param name="sourceType"> The source type. Must be one of VsoGit, VsoTfvc, GitHub. </param>
+        /// <param name="description"> The description. </param>
+        /// <param name="createdOn"> The creation time. </param>
+        /// <param name="lastModifiedOn"> The last modified time. </param>
+        /// <returns> A new <see cref="Automation.AutomationSourceControlData"/> instance for mocking. </returns>
+        public static AutomationSourceControlData AutomationSourceControlData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, Uri repoUri = null, string branch = null, string folderPath = null, bool? isAutoSyncEnabled = null, bool? isAutoPublishRunbookEnabled = null, SourceControlSourceType? sourceType = null, string description = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null)
         {
-            return new HybridRunbookWorkerData(
+            return new AutomationSourceControlData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                ip,
-                registeredOn,
-                lastSeenOn,
-                vmResourceId,
-                workerType,
-                workerName,
+                repoUri,
+                branch,
+                folderPath,
+                isAutoSyncEnabled,
+                isAutoPublishRunbookEnabled,
+                sourceType,
+                description,
+                createdOn,
+                lastModifiedOn,
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.DeletedAutomationAccount"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Models.SourceControlSyncJob"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="location"> Gets or sets the location of the resource. </param>
-        /// <param name="automationAccountResourceId"> Gets or sets the Automation Account Resource Id. </param>
-        /// <param name="automationAccountId"> Gets or sets the Automation Account Id. </param>
-        /// <param name="locationPropertiesLocation"> Gets or sets the location of the resource. </param>
-        /// <param name="deletedOn"> Gets the deletion time. </param>
-        /// <returns> A new <see cref="Models.DeletedAutomationAccount"/> instance for mocking. </returns>
-        public static DeletedAutomationAccount DeletedAutomationAccount(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, AzureLocation? location = null, ResourceIdentifier automationAccountResourceId = null, string automationAccountId = null, string locationPropertiesLocation = null, DateTimeOffset? deletedOn = null)
+        /// <param name="sourceControlSyncJobId"> The source control sync job id. </param>
+        /// <param name="createdOn"> The creation time of the job. </param>
+        /// <param name="provisioningState"> The provisioning state of the job. </param>
+        /// <param name="startOn"> The start time of the job. </param>
+        /// <param name="endOn"> The end time of the job. </param>
+        /// <param name="syncType"> The sync type. </param>
+        /// <returns> A new <see cref="Models.SourceControlSyncJob"/> instance for mocking. </returns>
+        public static SourceControlSyncJob SourceControlSyncJob(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string sourceControlSyncJobId = null, DateTimeOffset? createdOn = null, SourceControlProvisioningState? provisioningState = null, DateTimeOffset? startOn = null, DateTimeOffset? endOn = null, SourceControlSyncType? syncType = null)
         {
-            return new DeletedAutomationAccount(
+            return new SourceControlSyncJob(
                 id,
                 name,
                 resourceType,
                 systemData,
-                location,
-                automationAccountResourceId,
-                automationAccountId,
-                locationPropertiesLocation,
-                deletedOn,
+                sourceControlSyncJobId,
+                createdOn,
+                provisioningState,
+                startOn,
+                endOn,
+                syncType,
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Automation.HybridRunbookWorkerGroupData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Models.SourceControlSyncJobResult"/>. </summary>
+        /// <param name="id"> The id of the job. </param>
+        /// <param name="sourceControlSyncJobId"> The source control sync job id. </param>
+        /// <param name="createdOn"> The creation time of the job. </param>
+        /// <param name="provisioningState"> The provisioning state of the job. </param>
+        /// <param name="startOn"> The start time of the job. </param>
+        /// <param name="endOn"> The end time of the job. </param>
+        /// <param name="syncType"> The sync type. </param>
+        /// <param name="exception"> The exceptions that occurred while running the sync job. </param>
+        /// <returns> A new <see cref="Models.SourceControlSyncJobResult"/> instance for mocking. </returns>
+        public static SourceControlSyncJobResult SourceControlSyncJobResult(ResourceIdentifier id = null, string sourceControlSyncJobId = null, DateTimeOffset? createdOn = null, SourceControlProvisioningState? provisioningState = null, DateTimeOffset? startOn = null, DateTimeOffset? endOn = null, SourceControlSyncType? syncType = null, string exception = null)
+        {
+            return new SourceControlSyncJobResult(
+                id,
+                sourceControlSyncJobId,
+                createdOn,
+                provisioningState,
+                startOn,
+                endOn,
+                syncType,
+                exception,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SourceControlSyncJobStream"/>. </summary>
+        /// <param name="id"> Resource id. </param>
+        /// <param name="sourceControlSyncJobStreamId"> The sync job stream id. </param>
+        /// <param name="summary"> The summary of the sync job stream. </param>
+        /// <param name="time"> The time of the sync job stream. </param>
+        /// <param name="streamType"> The type of the sync job stream. </param>
+        /// <returns> A new <see cref="Models.SourceControlSyncJobStream"/> instance for mocking. </returns>
+        public static SourceControlSyncJobStream SourceControlSyncJobStream(ResourceIdentifier id = null, string sourceControlSyncJobStreamId = null, string summary = null, DateTimeOffset? time = null, SourceControlStreamType? streamType = null)
+        {
+            return new SourceControlSyncJobStream(
+                id,
+                sourceControlSyncJobStreamId,
+                summary,
+                time,
+                streamType,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SourceControlSyncJobStreamResult"/>. </summary>
+        /// <param name="id"> Resource id. </param>
+        /// <param name="sourceControlSyncJobStreamId"> The sync job stream id. </param>
+        /// <param name="summary"> The summary of the sync job stream. </param>
+        /// <param name="time"> The time of the sync job stream. </param>
+        /// <param name="streamType"> The type of the sync job stream. </param>
+        /// <param name="streamText"> The text of the sync job stream. </param>
+        /// <param name="value"> The values of the job stream. </param>
+        /// <returns> A new <see cref="Models.SourceControlSyncJobStreamResult"/> instance for mocking. </returns>
+        public static SourceControlSyncJobStreamResult SourceControlSyncJobStreamResult(ResourceIdentifier id = null, string sourceControlSyncJobStreamId = null, string summary = null, DateTimeOffset? time = null, SourceControlStreamType? streamType = null, string streamText = null, IReadOnlyDictionary<string, BinaryData> value = null)
+        {
+            value ??= new Dictionary<string, BinaryData>();
+
+            return new SourceControlSyncJobStreamResult(
+                id,
+                sourceControlSyncJobStreamId,
+                summary,
+                time,
+                streamType,
+                streamText,
+                value,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.AutomationVariableCreateOrUpdateContent"/>. </summary>
+        /// <param name="name"> Gets or sets the name of the variable. </param>
+        /// <param name="value"> Gets or sets the value of the variable. </param>
+        /// <param name="description"> Gets or sets the description of the variable. </param>
+        /// <param name="isEncrypted"> Gets or sets the encrypted flag of the variable. </param>
+        /// <returns> A new <see cref="Models.AutomationVariableCreateOrUpdateContent"/> instance for mocking. </returns>
+        public static AutomationVariableCreateOrUpdateContent AutomationVariableCreateOrUpdateContent(string name = null, string value = null, string description = null, bool? isEncrypted = null)
+        {
+            return new AutomationVariableCreateOrUpdateContent(name, value, description, isEncrypted, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Automation.AutomationVariableData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="groupType"> Type of the HybridWorkerGroup. </param>
-        /// <param name="credentialName"> Sets the credential of a worker group. </param>
-        /// <returns> A new <see cref="Automation.HybridRunbookWorkerGroupData"/> instance for mocking. </returns>
-        public static HybridRunbookWorkerGroupData HybridRunbookWorkerGroupData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, HybridWorkerGroup? groupType = null, string credentialName = null)
+        /// <param name="value"> Gets or sets the value of the variable. </param>
+        /// <param name="isEncrypted"> Gets or sets the encrypted flag of the variable. </param>
+        /// <param name="createdOn"> Gets or sets the creation time. </param>
+        /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
+        /// <param name="description"> Gets or sets the description. </param>
+        /// <returns> A new <see cref="Automation.AutomationVariableData"/> instance for mocking. </returns>
+        public static AutomationVariableData AutomationVariableData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string value = null, bool? isEncrypted = null, DateTimeOffset? createdOn = null, DateTimeOffset? lastModifiedOn = null, string description = null)
         {
-            return new HybridRunbookWorkerGroupData(
+            return new AutomationVariableData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                groupType,
-                credentialName != null ? new RunAsCredentialAssociationProperty(credentialName, serializedAdditionalRawData: null) : null,
+                value,
+                isEncrypted,
+                createdOn,
+                lastModifiedOn,
+                description,
                 serializedAdditionalRawData: null);
         }
     }

@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Automation.Models
 {
-    public partial class AutomationAccountModuleCreateOrUpdateContent : IUtf8JsonSerializable, IJsonModel<AutomationAccountModuleCreateOrUpdateContent>
+    public partial class ModuleCreateOrUpdateParameters : IUtf8JsonSerializable, IJsonModel<ModuleCreateOrUpdateParameters>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AutomationAccountModuleCreateOrUpdateContent>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ModuleCreateOrUpdateParameters>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<AutomationAccountModuleCreateOrUpdateContent>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ModuleCreateOrUpdateParameters>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,10 +28,10 @@ namespace Azure.ResourceManager.Automation.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AutomationAccountModuleCreateOrUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ModuleCreateOrUpdateParameters>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AutomationAccountModuleCreateOrUpdateContent)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ModuleCreateOrUpdateParameters)} does not support writing '{format}' format.");
             }
 
             if (Optional.IsDefined(Name))
@@ -77,19 +77,19 @@ namespace Azure.ResourceManager.Automation.Models
             }
         }
 
-        AutomationAccountModuleCreateOrUpdateContent IJsonModel<AutomationAccountModuleCreateOrUpdateContent>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ModuleCreateOrUpdateParameters IJsonModel<ModuleCreateOrUpdateParameters>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AutomationAccountModuleCreateOrUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ModuleCreateOrUpdateParameters>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AutomationAccountModuleCreateOrUpdateContent)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ModuleCreateOrUpdateParameters)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeAutomationAccountModuleCreateOrUpdateContent(document.RootElement, options);
+            return DeserializeModuleCreateOrUpdateParameters(document.RootElement, options);
         }
 
-        internal static AutomationAccountModuleCreateOrUpdateContent DeserializeAutomationAccountModuleCreateOrUpdateContent(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ModuleCreateOrUpdateParameters DeserializeModuleCreateOrUpdateParameters(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -156,38 +156,38 @@ namespace Azure.ResourceManager.Automation.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AutomationAccountModuleCreateOrUpdateContent(name, location, tags ?? new ChangeTrackingDictionary<string, string>(), contentLink, serializedAdditionalRawData);
+            return new ModuleCreateOrUpdateParameters(name, location, tags ?? new ChangeTrackingDictionary<string, string>(), contentLink, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<AutomationAccountModuleCreateOrUpdateContent>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ModuleCreateOrUpdateParameters>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AutomationAccountModuleCreateOrUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ModuleCreateOrUpdateParameters>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(AutomationAccountModuleCreateOrUpdateContent)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ModuleCreateOrUpdateParameters)} does not support writing '{options.Format}' format.");
             }
         }
 
-        AutomationAccountModuleCreateOrUpdateContent IPersistableModel<AutomationAccountModuleCreateOrUpdateContent>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ModuleCreateOrUpdateParameters IPersistableModel<ModuleCreateOrUpdateParameters>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AutomationAccountModuleCreateOrUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ModuleCreateOrUpdateParameters>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeAutomationAccountModuleCreateOrUpdateContent(document.RootElement, options);
+                        return DeserializeModuleCreateOrUpdateParameters(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(AutomationAccountModuleCreateOrUpdateContent)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ModuleCreateOrUpdateParameters)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<AutomationAccountModuleCreateOrUpdateContent>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ModuleCreateOrUpdateParameters>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
