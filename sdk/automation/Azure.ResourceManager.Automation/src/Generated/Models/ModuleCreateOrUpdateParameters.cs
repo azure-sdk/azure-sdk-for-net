@@ -12,7 +12,7 @@ using Azure.Core;
 namespace Azure.ResourceManager.Automation.Models
 {
     /// <summary> The parameters supplied to the create or update module operation. </summary>
-    public partial class AutomationAccountModuleCreateOrUpdateContent
+    public partial class ModuleCreateOrUpdateParameters
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,10 +46,10 @@ namespace Azure.ResourceManager.Automation.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AutomationAccountModuleCreateOrUpdateContent"/>. </summary>
-        /// <param name="contentLink"> Gets or sets the module content link. </param>
+        /// <summary> Initializes a new instance of <see cref="ModuleCreateOrUpdateParameters"/>. </summary>
+        /// <param name="contentLink"> Sets the hash. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="contentLink"/> is null. </exception>
-        public AutomationAccountModuleCreateOrUpdateContent(AutomationContentLink contentLink)
+        public ModuleCreateOrUpdateParameters(AutomationContentLink contentLink)
         {
             Argument.AssertNotNull(contentLink, nameof(contentLink));
 
@@ -57,13 +57,13 @@ namespace Azure.ResourceManager.Automation.Models
             ContentLink = contentLink;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AutomationAccountModuleCreateOrUpdateContent"/>. </summary>
-        /// <param name="name"> Gets or sets name of the resource. </param>
-        /// <param name="location"> Gets or sets the location of the resource. </param>
-        /// <param name="tags"> Gets or sets the tags attached to the resource. </param>
-        /// <param name="contentLink"> Gets or sets the module content link. </param>
+        /// <summary> Initializes a new instance of <see cref="ModuleCreateOrUpdateParameters"/>. </summary>
+        /// <param name="name"> Sets name of the resource. </param>
+        /// <param name="location"> Sets the location of the resource. </param>
+        /// <param name="tags"> Sets the tags attached to the resource. </param>
+        /// <param name="contentLink"> Sets the hash. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AutomationAccountModuleCreateOrUpdateContent(string name, AzureLocation? location, IDictionary<string, string> tags, AutomationContentLink contentLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ModuleCreateOrUpdateParameters(string name, AzureLocation? location, IDictionary<string, string> tags, AutomationContentLink contentLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
             Location = location;
@@ -72,18 +72,18 @@ namespace Azure.ResourceManager.Automation.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AutomationAccountModuleCreateOrUpdateContent"/> for deserialization. </summary>
-        internal AutomationAccountModuleCreateOrUpdateContent()
+        /// <summary> Initializes a new instance of <see cref="ModuleCreateOrUpdateParameters"/> for deserialization. </summary>
+        internal ModuleCreateOrUpdateParameters()
         {
         }
 
-        /// <summary> Gets or sets name of the resource. </summary>
+        /// <summary> Sets name of the resource. </summary>
         public string Name { get; set; }
-        /// <summary> Gets or sets the location of the resource. </summary>
+        /// <summary> Sets the location of the resource. </summary>
         public AzureLocation? Location { get; set; }
-        /// <summary> Gets or sets the tags attached to the resource. </summary>
+        /// <summary> Sets the tags attached to the resource. </summary>
         public IDictionary<string, string> Tags { get; }
-        /// <summary> Gets or sets the module content link. </summary>
+        /// <summary> Sets the hash. </summary>
         public AutomationContentLink ContentLink { get; }
     }
 }

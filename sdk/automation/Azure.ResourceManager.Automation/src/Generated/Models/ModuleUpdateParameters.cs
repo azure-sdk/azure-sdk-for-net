@@ -7,11 +7,12 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Automation.Models
 {
     /// <summary> The parameters supplied to the update module operation. </summary>
-    public partial class AutomationAccountPython2PackagePatch
+    public partial class ModuleUpdateParameters
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,22 +46,34 @@ namespace Azure.ResourceManager.Automation.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AutomationAccountPython2PackagePatch"/>. </summary>
-        public AutomationAccountPython2PackagePatch()
+        /// <summary> Initializes a new instance of <see cref="ModuleUpdateParameters"/>. </summary>
+        public ModuleUpdateParameters()
         {
             Tags = new ChangeTrackingDictionary<string, string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="AutomationAccountPython2PackagePatch"/>. </summary>
-        /// <param name="tags"> Gets or sets the tags attached to the resource. </param>
+        /// <summary> Initializes a new instance of <see cref="ModuleUpdateParameters"/>. </summary>
+        /// <param name="name"> Sets name of the resource. </param>
+        /// <param name="location"> Sets the location of the resource. </param>
+        /// <param name="tags"> Sets the tags attached to the resource. </param>
+        /// <param name="contentLink"> Sets the module content link. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AutomationAccountPython2PackagePatch(IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ModuleUpdateParameters(string name, AzureLocation? location, IDictionary<string, string> tags, AutomationContentLink contentLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
+            Name = name;
+            Location = location;
             Tags = tags;
+            ContentLink = contentLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Gets or sets the tags attached to the resource. </summary>
+        /// <summary> Sets name of the resource. </summary>
+        public string Name { get; }
+        /// <summary> Sets the location of the resource. </summary>
+        public AzureLocation? Location { get; }
+        /// <summary> Sets the tags attached to the resource. </summary>
         public IDictionary<string, string> Tags { get; }
+        /// <summary> Sets the module content link. </summary>
+        public AutomationContentLink ContentLink { get; set; }
     }
 }
