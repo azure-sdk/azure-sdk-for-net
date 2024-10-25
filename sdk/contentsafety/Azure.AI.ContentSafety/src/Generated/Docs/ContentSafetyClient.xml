@@ -1,66 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doc>
   <members>
-    <member name="AnalyzeTextAsync(AnalyzeTextOptions,CancellationToken)">
-      <example>
-This sample shows how to call AnalyzeTextAsync.
-<code><![CDATA[
-Uri endpoint = new Uri("<endpoint>");
-AzureKeyCredential credential = new AzureKeyCredential("<key>");
-ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
-
-AnalyzeTextOptions options = new AnalyzeTextOptions("This is text example");
-Response<AnalyzeTextResult> response = await client.AnalyzeTextAsync(options);
-]]></code></example>
-    </member>
-    <member name="AnalyzeText(AnalyzeTextOptions,CancellationToken)">
-      <example>
-This sample shows how to call AnalyzeText.
-<code><![CDATA[
-Uri endpoint = new Uri("<endpoint>");
-AzureKeyCredential credential = new AzureKeyCredential("<key>");
-ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
-
-AnalyzeTextOptions options = new AnalyzeTextOptions("This is text example");
-Response<AnalyzeTextResult> response = client.AnalyzeText(options);
-]]></code></example>
-    </member>
-    <member name="AnalyzeTextAsync(RequestContent,RequestContext)">
-      <example>
-This sample shows how to call AnalyzeTextAsync and parse the result.
-<code><![CDATA[
-Uri endpoint = new Uri("<endpoint>");
-AzureKeyCredential credential = new AzureKeyCredential("<key>");
-ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
-
-using RequestContent content = RequestContent.Create(new
-{
-    text = "This is text example",
-});
-Response response = await client.AnalyzeTextAsync(content);
-
-JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
-]]></code></example>
-    </member>
-    <member name="AnalyzeText(RequestContent,RequestContext)">
-      <example>
-This sample shows how to call AnalyzeText and parse the result.
-<code><![CDATA[
-Uri endpoint = new Uri("<endpoint>");
-AzureKeyCredential credential = new AzureKeyCredential("<key>");
-ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
-
-using RequestContent content = RequestContent.Create(new
-{
-    text = "This is text example",
-});
-Response response = client.AnalyzeText(content);
-
-JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
-]]></code></example>
-    </member>
     <member name="AnalyzeImageAsync(AnalyzeImageOptions,CancellationToken)">
       <example>
 This sample shows how to call AnalyzeImageAsync.
@@ -125,6 +65,126 @@ Response response = client.AnalyzeImage(content);
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
 Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+]]></code></example>
+    </member>
+    <member name="AnalyzeTextAsync(AnalyzeTextOptions,CancellationToken)">
+      <example>
+This sample shows how to call AnalyzeTextAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+AnalyzeTextOptions options = new AnalyzeTextOptions("This is text example");
+Response<AnalyzeTextResult> response = await client.AnalyzeTextAsync(options);
+]]></code></example>
+    </member>
+    <member name="AnalyzeText(AnalyzeTextOptions,CancellationToken)">
+      <example>
+This sample shows how to call AnalyzeText.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+AnalyzeTextOptions options = new AnalyzeTextOptions("This is text example");
+Response<AnalyzeTextResult> response = client.AnalyzeText(options);
+]]></code></example>
+    </member>
+    <member name="AnalyzeTextAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AnalyzeTextAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    text = "This is text example",
+});
+Response response = await client.AnalyzeTextAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+]]></code></example>
+    </member>
+    <member name="AnalyzeText(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AnalyzeText and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    text = "This is text example",
+});
+Response response = client.AnalyzeText(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+]]></code></example>
+    </member>
+    <member name="DetectTextProtectedMaterialAsync(DetectTextProtectedMaterialOptions,CancellationToken)">
+      <example>
+This sample shows how to call DetectTextProtectedMaterialAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+DetectTextProtectedMaterialOptions options = new DetectTextProtectedMaterialOptions("to everyone, the best things in life are free. the stars belong to everyone, they gleam there for you and me. the flowers in spring, the robins that sing, the sunbeams that shine");
+Response<DetectTextProtectedMaterialResult> response = await client.DetectTextProtectedMaterialAsync(options);
+]]></code></example>
+    </member>
+    <member name="DetectTextProtectedMaterial(DetectTextProtectedMaterialOptions,CancellationToken)">
+      <example>
+This sample shows how to call DetectTextProtectedMaterial.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+DetectTextProtectedMaterialOptions options = new DetectTextProtectedMaterialOptions("to everyone, the best things in life are free. the stars belong to everyone, they gleam there for you and me. the flowers in spring, the robins that sing, the sunbeams that shine");
+Response<DetectTextProtectedMaterialResult> response = client.DetectTextProtectedMaterial(options);
+]]></code></example>
+    </member>
+    <member name="DetectTextProtectedMaterialAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call DetectTextProtectedMaterialAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    text = "to everyone, the best things in life are free. the stars belong to everyone, they gleam there for you and me. the flowers in spring, the robins that sing, the sunbeams that shine",
+});
+Response response = await client.DetectTextProtectedMaterialAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
+]]></code></example>
+    </member>
+    <member name="DetectTextProtectedMaterial(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call DetectTextProtectedMaterial and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    text = "to everyone, the best things in life are free. the stars belong to everyone, they gleam there for you and me. the flowers in spring, the robins that sing, the sunbeams that shine",
+});
+Response response = client.DetectTextProtectedMaterial(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("protectedMaterialAnalysis").GetProperty("detected").ToString());
 ]]></code></example>
     </member>
   </members>
