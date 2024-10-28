@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.Grafana.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ManagedPrivateEndpointList()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/stable/2023-09-01/examples/ManagedPrivateEndpoints_List.json
+            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2023-10-01-preview/examples/ManagedPrivateEndpoints_List.json
             // this example is just showing the usage of "ManagedPrivateEndpoints_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.Grafana.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ManagedPrivateEndpointGet()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/stable/2023-09-01/examples/ManagedPrivateEndpoints_Get.json
+            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2023-10-01-preview/examples/ManagedPrivateEndpoints_Get.json
             // this example is just showing the usage of "ManagedPrivateEndpoints_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.Grafana.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_ManagedPrivateEndpointGet()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/stable/2023-09-01/examples/ManagedPrivateEndpoints_Get.json
+            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2023-10-01-preview/examples/ManagedPrivateEndpoints_Get.json
             // this example is just showing the usage of "ManagedPrivateEndpoints_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.Grafana.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_ManagedPrivateEndpointGet()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/stable/2023-09-01/examples/ManagedPrivateEndpoints_Get.json
+            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2023-10-01-preview/examples/ManagedPrivateEndpoints_Get.json
             // this example is just showing the usage of "ManagedPrivateEndpoints_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -165,7 +165,7 @@ namespace Azure.ResourceManager.Grafana.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_ManagedPrivateEndpointCreate()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/stable/2023-09-01/examples/ManagedPrivateEndpoints_Create.json
+            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2023-10-01-preview/examples/ManagedPrivateEndpoints_Create.json
             // this example is just showing the usage of "ManagedPrivateEndpoints_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
