@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
@@ -17,7 +18,7 @@ namespace Azure.Monitor.Ingestion.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Upload_ShortVersion()
+        public void Example_LogsIngestionClient_Upload_IngestDataUsingADataCollectionRule()
         {
             Uri endpoint = new Uri("<endpoint>");
             TokenCredential credential = new DefaultAzureCredential();
@@ -25,16 +26,43 @@ namespace Azure.Monitor.Ingestion.Samples
 
             using RequestContent content = RequestContent.Create(new object[]
             {
-new object()
+new
+{
+Time = "2021-12-08T23:51:14.1104269Z",
+Computer = "Computer1",
+AdditionalContext = new Dictionary<string, object>
+{
+["$id"] = "55",
+["InstanceName"] = "user1",
+["TimeZone"] = "Pacific Time",
+["Level"] = 4,
+["CounterName"] = "AppMetric1",
+["CounterValue"] = 15.3F
+},
+},
+new
+{
+Time = "2021-12-08T23:51:14.1104269Z",
+Computer = "Computer2",
+AdditionalContext = new Dictionary<string, object>
+{
+["$id"] = "61",
+["InstanceName"] = "user2",
+["TimeZone"] = "Central Time",
+["Level"] = 3,
+["CounterName"] = "AppMetric1",
+["CounterValue"] = 23.5F
+},
+}
             });
-            Response response = client.Upload("<ruleId>", "<streamName>", content);
+            Response response = client.Upload("c512b59c-4005-40e2-b13d-ac29cfb46af4", "Custom-TestStream", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Upload_ShortVersion_Async()
+        public async Task Example_LogsIngestionClient_Upload_IngestDataUsingADataCollectionRule_Async()
         {
             Uri endpoint = new Uri("<endpoint>");
             TokenCredential credential = new DefaultAzureCredential();
@@ -42,45 +70,120 @@ new object()
 
             using RequestContent content = RequestContent.Create(new object[]
             {
-new object()
+new
+{
+Time = "2021-12-08T23:51:14.1104269Z",
+Computer = "Computer1",
+AdditionalContext = new Dictionary<string, object>
+{
+["$id"] = "55",
+["InstanceName"] = "user1",
+["TimeZone"] = "Pacific Time",
+["Level"] = 4,
+["CounterName"] = "AppMetric1",
+["CounterValue"] = 15.3F
+},
+},
+new
+{
+Time = "2021-12-08T23:51:14.1104269Z",
+Computer = "Computer2",
+AdditionalContext = new Dictionary<string, object>
+{
+["$id"] = "61",
+["InstanceName"] = "user2",
+["TimeZone"] = "Central Time",
+["Level"] = 3,
+["CounterName"] = "AppMetric1",
+["CounterValue"] = 23.5F
+},
+}
             });
-            Response response = await client.UploadAsync("<ruleId>", "<streamName>", content);
+            Response response = await client.UploadAsync("c512b59c-4005-40e2-b13d-ac29cfb46af4", "Custom-TestStream", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Upload_AllParameters()
+        public void Example_LogsIngestionClient_Upload_IngestDataUsingADataCollectionRule_Convenience()
         {
             Uri endpoint = new Uri("<endpoint>");
             TokenCredential credential = new DefaultAzureCredential();
             LogsIngestionClient client = new LogsIngestionClient(endpoint, credential);
 
-            using RequestContent content = RequestContent.Create(new object[]
+            Response response = client.Upload("c512b59c-4005-40e2-b13d-ac29cfb46af4", "Custom-TestStream", new IDictionary<string, BinaryData>[]
             {
-new object()
+new Dictionary<string, BinaryData>
+{
+["Time"] = BinaryData.FromObjectAsJson("2021-12-08T23:51:14.1104269Z"),
+["Computer"] = BinaryData.FromObjectAsJson("Computer1"),
+["AdditionalContext"] = BinaryData.FromObjectAsJson(new Dictionary<string, object>
+{
+["$id"] = "55",
+["InstanceName"] = "user1",
+["TimeZone"] = "Pacific Time",
+["Level"] = 4,
+["CounterName"] = "AppMetric1",
+["CounterValue"] = 15.3F
+})
+},
+new Dictionary<string, BinaryData>
+{
+["Time"] = BinaryData.FromObjectAsJson("2021-12-08T23:51:14.1104269Z"),
+["Computer"] = BinaryData.FromObjectAsJson("Computer2"),
+["AdditionalContext"] = BinaryData.FromObjectAsJson(new Dictionary<string, object>
+{
+["$id"] = "61",
+["InstanceName"] = "user2",
+["TimeZone"] = "Central Time",
+["Level"] = 3,
+["CounterName"] = "AppMetric1",
+["CounterValue"] = 23.5F
+})
+}
             });
-            Response response = client.Upload("<ruleId>", "<streamName>", content, contentEncoding: "<contentEncoding>");
-
-            Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Upload_AllParameters_Async()
+        public async Task Example_LogsIngestionClient_Upload_IngestDataUsingADataCollectionRule_Convenience_Async()
         {
             Uri endpoint = new Uri("<endpoint>");
             TokenCredential credential = new DefaultAzureCredential();
             LogsIngestionClient client = new LogsIngestionClient(endpoint, credential);
 
-            using RequestContent content = RequestContent.Create(new object[]
+            Response response = await client.UploadAsync("c512b59c-4005-40e2-b13d-ac29cfb46af4", "Custom-TestStream", new IDictionary<string, BinaryData>[]
             {
-new object()
+new Dictionary<string, BinaryData>
+{
+["Time"] = BinaryData.FromObjectAsJson("2021-12-08T23:51:14.1104269Z"),
+["Computer"] = BinaryData.FromObjectAsJson("Computer1"),
+["AdditionalContext"] = BinaryData.FromObjectAsJson(new Dictionary<string, object>
+{
+["$id"] = "55",
+["InstanceName"] = "user1",
+["TimeZone"] = "Pacific Time",
+["Level"] = 4,
+["CounterName"] = "AppMetric1",
+["CounterValue"] = 15.3F
+})
+},
+new Dictionary<string, BinaryData>
+{
+["Time"] = BinaryData.FromObjectAsJson("2021-12-08T23:51:14.1104269Z"),
+["Computer"] = BinaryData.FromObjectAsJson("Computer2"),
+["AdditionalContext"] = BinaryData.FromObjectAsJson(new Dictionary<string, object>
+{
+["$id"] = "61",
+["InstanceName"] = "user2",
+["TimeZone"] = "Central Time",
+["Level"] = 3,
+["CounterName"] = "AppMetric1",
+["CounterValue"] = 23.5F
+})
+}
             });
-            Response response = await client.UploadAsync("<ruleId>", "<streamName>", content, contentEncoding: "<contentEncoding>");
-
-            Console.WriteLine(response.Status);
         }
     }
 }

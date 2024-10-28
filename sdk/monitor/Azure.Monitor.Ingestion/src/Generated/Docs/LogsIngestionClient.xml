@@ -1,6 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doc>
   <members>
+    <member name="UploadAsync(string,string,IEnumerable{IDictionary{string,BinaryData}},string,CancellationToken)">
+      <example>
+This sample shows how to call UploadAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+LogsIngestionClient client = new LogsIngestionClient(endpoint, credential);
+
+Response response = await client.UploadAsync("c512b59c-4005-40e2-b13d-ac29cfb46af4", "Custom-TestStream", new IDictionary<string, BinaryData>[]
+{
+    new Dictionary<string, BinaryData>
+    {
+        ["Time"] = BinaryData.FromObjectAsJson("2021-12-08T23:51:14.1104269Z"),
+        ["Computer"] = BinaryData.FromObjectAsJson("Computer1"),
+        ["AdditionalContext"] = BinaryData.FromObjectAsJson(new Dictionary<string, object>
+        {
+            ["$id"] = "55",
+            ["InstanceName"] = "user1",
+            ["TimeZone"] = "Pacific Time",
+            ["Level"] = 4,
+            ["CounterName"] = "AppMetric1",
+            ["CounterValue"] = 15.3F
+        })
+    },
+    new Dictionary<string, BinaryData>
+    {
+        ["Time"] = BinaryData.FromObjectAsJson("2021-12-08T23:51:14.1104269Z"),
+        ["Computer"] = BinaryData.FromObjectAsJson("Computer2"),
+        ["AdditionalContext"] = BinaryData.FromObjectAsJson(new Dictionary<string, object>
+        {
+            ["$id"] = "61",
+            ["InstanceName"] = "user2",
+            ["TimeZone"] = "Central Time",
+            ["Level"] = 3,
+            ["CounterName"] = "AppMetric1",
+            ["CounterValue"] = 23.5F
+        })
+    }
+});
+]]></code></example>
+    </member>
+    <member name="Upload(string,string,IEnumerable{IDictionary{string,BinaryData}},string,CancellationToken)">
+      <example>
+This sample shows how to call Upload.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+LogsIngestionClient client = new LogsIngestionClient(endpoint, credential);
+
+Response response = client.Upload("c512b59c-4005-40e2-b13d-ac29cfb46af4", "Custom-TestStream", new IDictionary<string, BinaryData>[]
+{
+    new Dictionary<string, BinaryData>
+    {
+        ["Time"] = BinaryData.FromObjectAsJson("2021-12-08T23:51:14.1104269Z"),
+        ["Computer"] = BinaryData.FromObjectAsJson("Computer1"),
+        ["AdditionalContext"] = BinaryData.FromObjectAsJson(new Dictionary<string, object>
+        {
+            ["$id"] = "55",
+            ["InstanceName"] = "user1",
+            ["TimeZone"] = "Pacific Time",
+            ["Level"] = 4,
+            ["CounterName"] = "AppMetric1",
+            ["CounterValue"] = 15.3F
+        })
+    },
+    new Dictionary<string, BinaryData>
+    {
+        ["Time"] = BinaryData.FromObjectAsJson("2021-12-08T23:51:14.1104269Z"),
+        ["Computer"] = BinaryData.FromObjectAsJson("Computer2"),
+        ["AdditionalContext"] = BinaryData.FromObjectAsJson(new Dictionary<string, object>
+        {
+            ["$id"] = "61",
+            ["InstanceName"] = "user2",
+            ["TimeZone"] = "Central Time",
+            ["Level"] = 3,
+            ["CounterName"] = "AppMetric1",
+            ["CounterValue"] = 23.5F
+        })
+    }
+});
+]]></code></example>
+    </member>
     <member name="UploadAsync(string,string,RequestContent,string,RequestContext)">
       <example>
 This sample shows how to call UploadAsync.
@@ -11,23 +93,36 @@ LogsIngestionClient client = new LogsIngestionClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new object[]
 {
-    new object()
+    new
+    {
+        Time = "2021-12-08T23:51:14.1104269Z",
+        Computer = "Computer1",
+        AdditionalContext = new Dictionary<string, object>
+        {
+            ["$id"] = "55",
+            ["InstanceName"] = "user1",
+            ["TimeZone"] = "Pacific Time",
+            ["Level"] = 4,
+            ["CounterName"] = "AppMetric1",
+            ["CounterValue"] = 15.3F
+        },
+    },
+    new
+    {
+        Time = "2021-12-08T23:51:14.1104269Z",
+        Computer = "Computer2",
+        AdditionalContext = new Dictionary<string, object>
+        {
+            ["$id"] = "61",
+            ["InstanceName"] = "user2",
+            ["TimeZone"] = "Central Time",
+            ["Level"] = 3,
+            ["CounterName"] = "AppMetric1",
+            ["CounterValue"] = 23.5F
+        },
+    }
 });
-Response response = await client.UploadAsync("<ruleId>", "<streamName>", content);
-
-Console.WriteLine(response.Status);
-]]></code>
-This sample shows how to call UploadAsync with all parameters and request content.
-<code><![CDATA[
-Uri endpoint = new Uri("<endpoint>");
-TokenCredential credential = new DefaultAzureCredential();
-LogsIngestionClient client = new LogsIngestionClient(endpoint, credential);
-
-using RequestContent content = RequestContent.Create(new object[]
-{
-    new object()
-});
-Response response = await client.UploadAsync("<ruleId>", "<streamName>", content, contentEncoding: "<contentEncoding>");
+Response response = await client.UploadAsync("c512b59c-4005-40e2-b13d-ac29cfb46af4", "Custom-TestStream", content);
 
 Console.WriteLine(response.Status);
 ]]></code></example>
@@ -42,23 +137,36 @@ LogsIngestionClient client = new LogsIngestionClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new object[]
 {
-    new object()
+    new
+    {
+        Time = "2021-12-08T23:51:14.1104269Z",
+        Computer = "Computer1",
+        AdditionalContext = new Dictionary<string, object>
+        {
+            ["$id"] = "55",
+            ["InstanceName"] = "user1",
+            ["TimeZone"] = "Pacific Time",
+            ["Level"] = 4,
+            ["CounterName"] = "AppMetric1",
+            ["CounterValue"] = 15.3F
+        },
+    },
+    new
+    {
+        Time = "2021-12-08T23:51:14.1104269Z",
+        Computer = "Computer2",
+        AdditionalContext = new Dictionary<string, object>
+        {
+            ["$id"] = "61",
+            ["InstanceName"] = "user2",
+            ["TimeZone"] = "Central Time",
+            ["Level"] = 3,
+            ["CounterName"] = "AppMetric1",
+            ["CounterValue"] = 23.5F
+        },
+    }
 });
-Response response = client.Upload("<ruleId>", "<streamName>", content);
-
-Console.WriteLine(response.Status);
-]]></code>
-This sample shows how to call Upload with all parameters and request content.
-<code><![CDATA[
-Uri endpoint = new Uri("<endpoint>");
-TokenCredential credential = new DefaultAzureCredential();
-LogsIngestionClient client = new LogsIngestionClient(endpoint, credential);
-
-using RequestContent content = RequestContent.Create(new object[]
-{
-    new object()
-});
-Response response = client.Upload("<ruleId>", "<streamName>", content, contentEncoding: "<contentEncoding>");
+Response response = client.Upload("c512b59c-4005-40e2-b13d-ac29cfb46af4", "Custom-TestStream", content);
 
 Console.WriteLine(response.Status);
 ]]></code></example>
