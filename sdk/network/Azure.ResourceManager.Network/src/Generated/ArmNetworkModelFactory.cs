@@ -734,6 +734,7 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="macAddress"> The MAC address of the network interface. </param>
         /// <param name="primary"> Whether this is a primary network interface on a virtual machine. </param>
         /// <param name="vnetEncryptionSupported"> Whether the virtual machine this nic is attached to supports encryption. </param>
+        /// <param name="defaultOutboundConnectivityEnabled"> Whether default outbound connectivity for nic was configured or not. </param>
         /// <param name="enableAcceleratedNetworking"> If the network interface is configured for accelerated networking. Not applicable to VM sizes which require accelerated networking. </param>
         /// <param name="disableTcpStateTracking"> Indicates whether to disable tcp state tracking. </param>
         /// <param name="enableIPForwarding"> Indicates whether IP forwarding is enabled on this network interface. </param>
@@ -748,7 +749,7 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="auxiliaryMode"> Auxiliary mode of Network Interface resource. </param>
         /// <param name="auxiliarySku"> Auxiliary sku of Network Interface resource. </param>
         /// <returns> A new <see cref="Network.NetworkInterfaceData"/> instance for mocking. </returns>
-        public static NetworkInterfaceData NetworkInterfaceData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, AzureLocation? location = null, IDictionary<string, string> tags = null, ExtendedLocation extendedLocation = null, ETag? etag = null, ResourceIdentifier virtualMachineId = null, NetworkSecurityGroupData networkSecurityGroup = null, PrivateEndpointData privateEndpoint = null, IEnumerable<NetworkInterfaceIPConfigurationData> ipConfigurations = null, IEnumerable<NetworkInterfaceTapConfigurationData> tapConfigurations = null, NetworkInterfaceDnsSettings dnsSettings = null, string macAddress = null, bool? primary = null, bool? vnetEncryptionSupported = null, bool? enableAcceleratedNetworking = null, bool? disableTcpStateTracking = null, bool? enableIPForwarding = null, IEnumerable<string> hostedWorkloads = null, ResourceIdentifier dscpConfigurationId = null, Guid? resourceGuid = null, NetworkProvisioningState? provisioningState = null, string workloadType = null, NetworkInterfaceNicType? nicType = null, PrivateLinkServiceData privateLinkService = null, NetworkInterfaceMigrationPhase? migrationPhase = null, NetworkInterfaceAuxiliaryMode? auxiliaryMode = null, NetworkInterfaceAuxiliarySku? auxiliarySku = null)
+        public static NetworkInterfaceData NetworkInterfaceData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, AzureLocation? location = null, IDictionary<string, string> tags = null, ExtendedLocation extendedLocation = null, ETag? etag = null, ResourceIdentifier virtualMachineId = null, NetworkSecurityGroupData networkSecurityGroup = null, PrivateEndpointData privateEndpoint = null, IEnumerable<NetworkInterfaceIPConfigurationData> ipConfigurations = null, IEnumerable<NetworkInterfaceTapConfigurationData> tapConfigurations = null, NetworkInterfaceDnsSettings dnsSettings = null, string macAddress = null, bool? primary = null, bool? vnetEncryptionSupported = null, bool? defaultOutboundConnectivityEnabled = null, bool? enableAcceleratedNetworking = null, bool? disableTcpStateTracking = null, bool? enableIPForwarding = null, IEnumerable<string> hostedWorkloads = null, ResourceIdentifier dscpConfigurationId = null, Guid? resourceGuid = null, NetworkProvisioningState? provisioningState = null, string workloadType = null, NetworkInterfaceNicType? nicType = null, PrivateLinkServiceData privateLinkService = null, NetworkInterfaceMigrationPhase? migrationPhase = null, NetworkInterfaceAuxiliaryMode? auxiliaryMode = null, NetworkInterfaceAuxiliarySku? auxiliarySku = null)
         {
             tags ??= new Dictionary<string, string>();
             ipConfigurations ??= new List<NetworkInterfaceIPConfigurationData>();
@@ -773,6 +774,7 @@ namespace Azure.ResourceManager.Network.Models
                 macAddress,
                 primary,
                 vnetEncryptionSupported,
+                defaultOutboundConnectivityEnabled,
                 enableAcceleratedNetworking,
                 disableTcpStateTracking,
                 enableIPForwarding,
@@ -8250,6 +8252,43 @@ namespace Azure.ResourceManager.Network.Models
                 direction,
                 provisioningState,
                 resourceGuid);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Network.NetworkInterfaceData" />. </summary>
+        /// <param name="id"> Resource ID. </param>
+        /// <param name="name"> Resource name. </param>
+        /// <param name="resourceType"> Resource type. </param>
+        /// <param name="location"> Resource location. </param>
+        /// <param name="tags"> Resource tags. </param>
+        /// <param name="extendedLocation"> The extended location of the network interface. </param>
+        /// <param name="etag"> A unique read-only string that changes whenever the resource is updated. </param>
+        /// <param name="virtualMachineId"> The reference to a virtual machine. </param>
+        /// <param name="networkSecurityGroup"> The reference to the NetworkSecurityGroup resource. </param>
+        /// <param name="privateEndpoint"> A reference to the private endpoint to which the network interface is linked. </param>
+        /// <param name="ipConfigurations"> A list of IPConfigurations of the network interface. </param>
+        /// <param name="tapConfigurations"> A list of TapConfigurations of the network interface. </param>
+        /// <param name="dnsSettings"> The DNS settings in network interface. </param>
+        /// <param name="macAddress"> The MAC address of the network interface. </param>
+        /// <param name="primary"> Whether this is a primary network interface on a virtual machine. </param>
+        /// <param name="vnetEncryptionSupported"> Whether the virtual machine this nic is attached to supports encryption. </param>
+        /// <param name="enableAcceleratedNetworking"> If the network interface is configured for accelerated networking. Not applicable to VM sizes which require accelerated networking. </param>
+        /// <param name="disableTcpStateTracking"> Indicates whether to disable tcp state tracking. </param>
+        /// <param name="enableIPForwarding"> Indicates whether IP forwarding is enabled on this network interface. </param>
+        /// <param name="hostedWorkloads"> A list of references to linked BareMetal resources. </param>
+        /// <param name="dscpConfigurationId"> A reference to the dscp configuration to which the network interface is linked. </param>
+        /// <param name="resourceGuid"> The resource GUID property of the network interface resource. </param>
+        /// <param name="provisioningState"> The provisioning state of the network interface resource. </param>
+        /// <param name="workloadType"> WorkloadType of the NetworkInterface for BareMetal resources. </param>
+        /// <param name="nicType"> Type of Network Interface resource. </param>
+        /// <param name="privateLinkService"> Privatelinkservice of the network interface resource. </param>
+        /// <param name="migrationPhase"> Migration phase of Network Interface resource. </param>
+        /// <param name="auxiliaryMode"> Auxiliary mode of Network Interface resource. </param>
+        /// <param name="auxiliarySku"> Auxiliary sku of Network Interface resource. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Network.NetworkInterfaceData" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static NetworkInterfaceData NetworkInterfaceData(ResourceIdentifier id, string name, ResourceType? resourceType, AzureLocation? location, IDictionary<string, string> tags, ExtendedLocation extendedLocation, ETag? etag, ResourceIdentifier virtualMachineId, NetworkSecurityGroupData networkSecurityGroup, PrivateEndpointData privateEndpoint, IEnumerable<NetworkInterfaceIPConfigurationData> ipConfigurations, IEnumerable<NetworkInterfaceTapConfigurationData> tapConfigurations, NetworkInterfaceDnsSettings dnsSettings, string macAddress, bool? primary, bool? vnetEncryptionSupported, bool? enableAcceleratedNetworking, bool? disableTcpStateTracking, bool? enableIPForwarding, IEnumerable<string> hostedWorkloads, ResourceIdentifier dscpConfigurationId, Guid? resourceGuid, NetworkProvisioningState? provisioningState, string workloadType, NetworkInterfaceNicType? nicType, PrivateLinkServiceData privateLinkService, NetworkInterfaceMigrationPhase? migrationPhase, NetworkInterfaceAuxiliaryMode? auxiliaryMode, NetworkInterfaceAuxiliarySku? auxiliarySku)
+        {
+            return NetworkInterfaceData(id: id, name: name, resourceType: resourceType, location: location, tags: tags, extendedLocation: extendedLocation, etag: etag, virtualMachineId: virtualMachineId, networkSecurityGroup: networkSecurityGroup, privateEndpoint: privateEndpoint, ipConfigurations: ipConfigurations, tapConfigurations: tapConfigurations, dnsSettings: dnsSettings, macAddress: macAddress, primary: primary, vnetEncryptionSupported: vnetEncryptionSupported, defaultOutboundConnectivityEnabled: default, enableAcceleratedNetworking: enableAcceleratedNetworking, disableTcpStateTracking: disableTcpStateTracking, enableIPForwarding: enableIPForwarding, hostedWorkloads: hostedWorkloads, dscpConfigurationId: dscpConfigurationId, resourceGuid: resourceGuid, provisioningState: provisioningState, workloadType: workloadType, nicType: nicType, privateLinkService: privateLinkService, migrationPhase: migrationPhase, auxiliaryMode: auxiliaryMode, auxiliarySku: auxiliarySku);
         }
 
         /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Network.PrivateLinkServiceData" />. </summary>
