@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.Compute.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="RunCommandInput"/>. </summary>
-        /// <param name="commandId"> The run command id. </param>
+        /// <param name="commandId"> The run command id. Valid list of commandIds: Windows: https://learn.microsoft.com/en-us/azure/virtual-machines/windows/run-command#available-commands. Linux https://learn.microsoft.com/en-us/azure/virtual-machines/linux/run-command#available-commands. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="commandId"/> is null. </exception>
         public RunCommandInput(string commandId)
         {
@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.Compute.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="RunCommandInput"/>. </summary>
-        /// <param name="commandId"> The run command id. </param>
+        /// <param name="commandId"> The run command id. Valid list of commandIds: Windows: https://learn.microsoft.com/en-us/azure/virtual-machines/windows/run-command#available-commands. Linux https://learn.microsoft.com/en-us/azure/virtual-machines/linux/run-command#available-commands. </param>
         /// <param name="script"> Optional. The script to be executed.  When this value is given, the given script will override the default script of the command. </param>
         /// <param name="parameters"> The run command parameters. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
@@ -75,7 +75,7 @@ namespace Azure.ResourceManager.Compute.Models
         {
         }
 
-        /// <summary> The run command id. </summary>
+        /// <summary> The run command id. Valid list of commandIds: Windows: https://learn.microsoft.com/en-us/azure/virtual-machines/windows/run-command#available-commands. Linux https://learn.microsoft.com/en-us/azure/virtual-machines/linux/run-command#available-commands. </summary>
         public string CommandId { get; }
         /// <summary> Optional. The script to be executed.  When this value is given, the given script will override the default script of the command. </summary>
         public IList<string> Script { get; }
