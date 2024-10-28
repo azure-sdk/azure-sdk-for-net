@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.Grafana.Models
 {
     /// <summary> Server configurations of a Grafana instance. </summary>
-    internal partial class GrafanaConfigurations
+    public partial class GrafanaConfigurations
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -55,10 +55,14 @@ namespace Azure.ResourceManager.Grafana.Models
         /// Email server settings.
         /// https://grafana.com/docs/grafana/v9.0/setup-grafana/configure-grafana/#smtp
         /// </param>
+        /// <param name="snapshots"> Grafana Snapshots settings. </param>
+        /// <param name="users"> Grafana users settings. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal GrafanaConfigurations(Smtp smtp, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal GrafanaConfigurations(Smtp smtp, Snapshots snapshots, Users users, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Smtp = smtp;
+            Snapshots = snapshots;
+            Users = users;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -67,5 +71,32 @@ namespace Azure.ResourceManager.Grafana.Models
         /// https://grafana.com/docs/grafana/v9.0/setup-grafana/configure-grafana/#smtp
         /// </summary>
         public Smtp Smtp { get; set; }
+        /// <summary> Grafana Snapshots settings. </summary>
+        internal Snapshots Snapshots { get; set; }
+        /// <summary> Set to false to disable external snapshot publish endpoint. </summary>
+        public bool? ExternalEnabled
+        {
+            get => Snapshots is null ? default : Snapshots.ExternalEnabled;
+            set
+            {
+                if (Snapshots is null)
+                    Snapshots = new Snapshots();
+                Snapshots.ExternalEnabled = value;
+            }
+        }
+
+        /// <summary> Grafana users settings. </summary>
+        internal Users Users { get; set; }
+        /// <summary> Set to true so viewers can access and use explore and perform temporary edits on panels in dashboards they have access to. They cannot save their changes. </summary>
+        public bool? ViewersCanEdit
+        {
+            get => Users is null ? default : Users.ViewersCanEdit;
+            set
+            {
+                if (Users is null)
+                    Users = new Users();
+                Users.ViewersCanEdit = value;
+            }
+        }
     }
 }

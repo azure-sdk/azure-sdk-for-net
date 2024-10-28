@@ -22,7 +22,7 @@ namespace Azure.ResourceManager.Grafana.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_GrafanaListByResourceGroup()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/stable/2023-09-01/examples/Grafana_ListByResourceGroup.json
+            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2023-10-01-preview/examples/Grafana_ListByResourceGroup.json
             // this example is just showing the usage of "Grafana_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.Grafana.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GrafanaGet()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/stable/2023-09-01/examples/Grafana_Get.json
+            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2023-10-01-preview/examples/Grafana_Get.json
             // this example is just showing the usage of "Grafana_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.Grafana.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GrafanaGet()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/stable/2023-09-01/examples/Grafana_Get.json
+            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2023-10-01-preview/examples/Grafana_Get.json
             // this example is just showing the usage of "Grafana_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.Grafana.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GrafanaGet()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/stable/2023-09-01/examples/Grafana_Get.json
+            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2023-10-01-preview/examples/Grafana_Get.json
             // this example is just showing the usage of "Grafana_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -164,7 +164,7 @@ namespace Azure.ResourceManager.Grafana.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_GrafanaCreate()
         {
-            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/stable/2023-09-01/examples/Grafana_Create.json
+            // Generated from example definition: specification/dashboard/resource-manager/Microsoft.Dashboard/preview/2023-10-01-preview/examples/Grafana_Create.json
             // this example is just showing the usage of "Grafana_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -205,16 +205,21 @@ MonitorWorkspaceResourceId = new ResourceIdentifier("/subscriptions/00000000-000
                         MarketplacePlanId = "myPlanId",
                         MarketplaceAutoRenew = MarketplaceAutoRenew.Enabled,
                     },
-                    GrafanaConfigurationsSmtp = new Smtp()
+                    GrafanaConfigurations = new GrafanaConfigurations()
                     {
-                        Enabled = true,
-                        Host = "smtp.sendemail.com:587",
-                        User = "username",
-                        Password = "<password>",
-                        FromAddress = "test@sendemail.com",
-                        FromName = "emailsender",
-                        StartTLSPolicy = StartTLSPolicy.OpportunisticStartTLS,
-                        SkipVerify = true,
+                        Smtp = new Smtp()
+                        {
+                            Enabled = true,
+                            Host = "smtp.sendemail.com:587",
+                            User = "username",
+                            Password = "<password>",
+                            FromAddress = "test@sendemail.com",
+                            FromName = "emailsender",
+                            StartTLSPolicy = StartTLSPolicy.OpportunisticStartTLS,
+                            SkipVerify = true,
+                        },
+                        ExternalEnabled = true,
+                        ViewersCanEdit = true,
                     },
                     GrafanaPlugins =
 {
