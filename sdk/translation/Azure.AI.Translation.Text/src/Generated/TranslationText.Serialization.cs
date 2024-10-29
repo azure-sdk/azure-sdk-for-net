@@ -19,15 +19,23 @@ namespace Azure.AI.Translation.Text
 
         void IJsonModel<TranslationText>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
+            writer.WriteStartObject();
+            JsonModelWriteCore(writer, options);
+            writer.WriteEndObject();
+        }
+
+        /// <param name="writer"> The JSON writer. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        {
             var format = options.Format == "W" ? ((IPersistableModel<TranslationText>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(TranslationText)} does not support writing '{format}' format.");
             }
 
-            writer.WriteStartObject();
             writer.WritePropertyName("to"u8);
-            writer.WriteStringValue(TargetLanguage);
+            writer.WriteStringValue(To);
             writer.WritePropertyName("text"u8);
             writer.WriteStringValue(Text);
             if (Optional.IsDefined(Transliteration))
@@ -40,10 +48,10 @@ namespace Azure.AI.Translation.Text
                 writer.WritePropertyName("alignment"u8);
                 writer.WriteObjectValue(Alignment, options);
             }
-            if (Optional.IsDefined(SentenceBoundaries))
+            if (Optional.IsDefined(SentLen))
             {
                 writer.WritePropertyName("sentLen"u8);
-                writer.WriteObjectValue(SentenceBoundaries, options);
+                writer.WriteObjectValue(SentLen, options);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -60,7 +68,6 @@ namespace Azure.AI.Translation.Text
 #endif
                 }
             }
-            writer.WriteEndObject();
         }
 
         TranslationText IJsonModel<TranslationText>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
