@@ -71,6 +71,11 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 writer.WritePropertyName("hierarchyInformation"u8);
                 writer.WriteObjectValue(HierarchyInformation, options);
             }
+            if (options.Format != "W" && Optional.IsDefined(FulfilledBy))
+            {
+                writer.WritePropertyName("fulfilledBy"u8);
+                writer.WriteStringValue(FulfilledBy.Value.ToString());
+            }
             if (options.Format != "W" && Optional.IsCollectionDefined(FilterableProperties))
             {
                 writer.WritePropertyName("filterableProperties"u8);
@@ -135,6 +140,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             EdgeOrderProductCostInformation costInformation = default;
             ProductAvailabilityInformation availabilityInformation = default;
             HierarchyInformation hierarchyInformation = default;
+            FulfillmentType? fulfilledBy = default;
             IReadOnlyList<FilterableProperty> filterableProperties = default;
             IReadOnlyList<ProductConfiguration> configurations = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -205,6 +211,15 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                             hierarchyInformation = HierarchyInformation.DeserializeHierarchyInformation(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("fulfilledBy"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            fulfilledBy = new FulfillmentType(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("filterableProperties"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -249,6 +264,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 costInformation,
                 availabilityInformation,
                 hierarchyInformation,
+                fulfilledBy,
                 filterableProperties ?? new ChangeTrackingList<FilterableProperty>(),
                 configurations ?? new ChangeTrackingList<ProductConfiguration>(),
                 serializedAdditionalRawData);

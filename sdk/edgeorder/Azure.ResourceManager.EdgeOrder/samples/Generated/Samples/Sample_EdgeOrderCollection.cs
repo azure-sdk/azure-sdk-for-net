@@ -20,8 +20,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetOrderByName()
         {
-            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2021-12-01/examples/GetOrderByName.json
-            // this example is just showing the usage of "GetOrderByName" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2024-02-01/examples/GetOrderByName.json
+            // this example is just showing the usage of "Orders_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -30,8 +30,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
 
             // this example assumes you already have this ResourceGroupResource created on azure
             // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
-            string subscriptionId = "fa68082f-8ff7-4a25-95c7-ce9da541242f";
-            string resourceGroupName = "TestRG";
+            string subscriptionId = "eb5dc900-6186-49d8-b7d7-febd866fdc1d";
+            string resourceGroupName = "YourResourceGroupName";
             ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
             ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
@@ -39,8 +39,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
             EdgeOrderCollection collection = resourceGroupResource.GetEdgeOrders();
 
             // invoke the operation
-            AzureLocation location = new AzureLocation("%7B%7B%7Blocation%7D%7D");
-            string orderName = "TestOrderItemName901";
+            AzureLocation location = new AzureLocation("eastus");
+            string orderName = "TestOrderName3";
             EdgeOrderResource result = await collection.GetAsync(location, orderName);
 
             // the variable result is a resource, you could call other operations on this instance as well
@@ -55,8 +55,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetOrderByName()
         {
-            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2021-12-01/examples/GetOrderByName.json
-            // this example is just showing the usage of "GetOrderByName" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2024-02-01/examples/GetOrderByName.json
+            // this example is just showing the usage of "Orders_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -65,8 +65,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
 
             // this example assumes you already have this ResourceGroupResource created on azure
             // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
-            string subscriptionId = "fa68082f-8ff7-4a25-95c7-ce9da541242f";
-            string resourceGroupName = "TestRG";
+            string subscriptionId = "eb5dc900-6186-49d8-b7d7-febd866fdc1d";
+            string resourceGroupName = "YourResourceGroupName";
             ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
             ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
@@ -74,8 +74,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
             EdgeOrderCollection collection = resourceGroupResource.GetEdgeOrders();
 
             // invoke the operation
-            AzureLocation location = new AzureLocation("%7B%7B%7Blocation%7D%7D");
-            string orderName = "TestOrderItemName901";
+            AzureLocation location = new AzureLocation("eastus");
+            string orderName = "TestOrderName3";
             bool result = await collection.ExistsAsync(location, orderName);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -86,8 +86,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetOrderByName()
         {
-            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2021-12-01/examples/GetOrderByName.json
-            // this example is just showing the usage of "GetOrderByName" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/edgeorder/resource-manager/Microsoft.EdgeOrder/stable/2024-02-01/examples/GetOrderByName.json
+            // this example is just showing the usage of "Orders_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -96,8 +96,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
 
             // this example assumes you already have this ResourceGroupResource created on azure
             // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
-            string subscriptionId = "fa68082f-8ff7-4a25-95c7-ce9da541242f";
-            string resourceGroupName = "TestRG";
+            string subscriptionId = "eb5dc900-6186-49d8-b7d7-febd866fdc1d";
+            string resourceGroupName = "YourResourceGroupName";
             ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
             ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
@@ -105,8 +105,8 @@ namespace Azure.ResourceManager.EdgeOrder.Samples
             EdgeOrderCollection collection = resourceGroupResource.GetEdgeOrders();
 
             // invoke the operation
-            AzureLocation location = new AzureLocation("%7B%7B%7Blocation%7D%7D");
-            string orderName = "TestOrderItemName901";
+            AzureLocation location = new AzureLocation("eastus");
+            string orderName = "TestOrderName3";
             NullableResponse<EdgeOrderResource> response = await collection.GetIfExistsAsync(location, orderName);
             EdgeOrderResource result = response.HasValue ? response.Value : null;
 

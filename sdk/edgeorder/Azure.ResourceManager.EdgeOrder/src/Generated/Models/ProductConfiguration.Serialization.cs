@@ -71,6 +71,11 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 writer.WritePropertyName("hierarchyInformation"u8);
                 writer.WriteObjectValue(HierarchyInformation, options);
             }
+            if (options.Format != "W" && Optional.IsDefined(FulfilledBy))
+            {
+                writer.WritePropertyName("fulfilledBy"u8);
+                writer.WriteStringValue(FulfilledBy.Value.ToString());
+            }
             if (options.Format != "W" && Optional.IsCollectionDefined(FilterableProperties))
             {
                 writer.WritePropertyName("filterableProperties"u8);
@@ -95,6 +100,41 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             {
                 writer.WritePropertyName("dimensions"u8);
                 writer.WriteObjectValue(Dimensions, options);
+            }
+            if (options.Format != "W" && Optional.IsDefined(ProvisioningSupport))
+            {
+                writer.WritePropertyName("provisioningSupport"u8);
+                writer.WriteStringValue(ProvisioningSupport.Value.ToString());
+            }
+            if (options.Format != "W" && Optional.IsCollectionDefined(ChildConfigurationTypes))
+            {
+                writer.WritePropertyName("childConfigurationTypes"u8);
+                writer.WriteStartArray();
+                foreach (var item in ChildConfigurationTypes)
+                {
+                    writer.WriteStringValue(item.ToString());
+                }
+                writer.WriteEndArray();
+            }
+            if (options.Format != "W" && Optional.IsCollectionDefined(GroupedChildConfigurations))
+            {
+                writer.WritePropertyName("groupedChildConfigurations"u8);
+                writer.WriteStartArray();
+                foreach (var item in GroupedChildConfigurations)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
+            }
+            if (options.Format != "W" && Optional.IsCollectionDefined(SupportedTermCommitmentDurations))
+            {
+                writer.WritePropertyName("supportedTermCommitmentDurations"u8);
+                writer.WriteStartArray();
+                foreach (var item in SupportedTermCommitmentDurations)
+                {
+                    writer.WriteStringValue(item, "P");
+                }
+                writer.WriteEndArray();
             }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -140,9 +180,14 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             EdgeOrderProductCostInformation costInformation = default;
             ProductAvailabilityInformation availabilityInformation = default;
             HierarchyInformation hierarchyInformation = default;
+            FulfillmentType? fulfilledBy = default;
             IReadOnlyList<FilterableProperty> filterableProperties = default;
             IReadOnlyList<ProductSpecification> specifications = default;
             ProductDimensions dimensions = default;
+            ProvisioningSupport? provisioningSupport = default;
+            IReadOnlyList<ChildConfigurationType> childConfigurationTypes = default;
+            IReadOnlyList<GroupedChildConfigurations> groupedChildConfigurations = default;
+            IReadOnlyList<TimeSpan> supportedTermCommitmentDurations = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -211,6 +256,15 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                             hierarchyInformation = HierarchyInformation.DeserializeHierarchyInformation(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("fulfilledBy"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            fulfilledBy = new FulfillmentType(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("filterableProperties"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -248,6 +302,57 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                             dimensions = ProductDimensions.DeserializeProductDimensions(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("provisioningSupport"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            provisioningSupport = new ProvisioningSupport(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("childConfigurationTypes"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<ChildConfigurationType> array = new List<ChildConfigurationType>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(new ChildConfigurationType(item.GetString()));
+                            }
+                            childConfigurationTypes = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("groupedChildConfigurations"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<GroupedChildConfigurations> array = new List<GroupedChildConfigurations>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(Models.GroupedChildConfigurations.DeserializeGroupedChildConfigurations(item, options));
+                            }
+                            groupedChildConfigurations = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("supportedTermCommitmentDurations"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<TimeSpan> array = new List<TimeSpan>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(item.GetTimeSpan("P"));
+                            }
+                            supportedTermCommitmentDurations = array;
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -264,9 +369,14 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 costInformation,
                 availabilityInformation,
                 hierarchyInformation,
+                fulfilledBy,
                 filterableProperties ?? new ChangeTrackingList<FilterableProperty>(),
                 specifications ?? new ChangeTrackingList<ProductSpecification>(),
                 dimensions,
+                provisioningSupport,
+                childConfigurationTypes ?? new ChangeTrackingList<ChildConfigurationType>(),
+                groupedChildConfigurations ?? new ChangeTrackingList<GroupedChildConfigurations>(),
+                supportedTermCommitmentDurations ?? new ChangeTrackingList<TimeSpan>(),
                 serializedAdditionalRawData);
         }
 
