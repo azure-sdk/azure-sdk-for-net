@@ -19,21 +19,13 @@ namespace Azure.AI.Language.Conversations.Models
 
         void IJsonModel<ConversationPiiActionContent>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<ConversationPiiActionContent>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(ConversationPiiActionContent)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             if (Optional.IsDefined(LoggingOptOut))
             {
                 writer.WritePropertyName("loggingOptOut"u8);
@@ -79,6 +71,11 @@ namespace Azure.AI.Language.Conversations.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(RedactionPolicy))
+            {
+                writer.WritePropertyName("redactionPolicy"u8);
+                writer.WriteObjectValue(RedactionPolicy, options);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -94,6 +91,7 @@ namespace Azure.AI.Language.Conversations.Models
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         ConversationPiiActionContent IJsonModel<ConversationPiiActionContent>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -123,6 +121,7 @@ namespace Azure.AI.Language.Conversations.Models
             TranscriptContentType? redactionSource = default;
             RedactionCharacter? redactionCharacter = default;
             IList<ConversationPiiCategoryExclusions> excludePiiCategories = default;
+            BaseRedactionPolicy redactionPolicy = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -196,6 +195,15 @@ namespace Azure.AI.Language.Conversations.Models
                     excludePiiCategories = array;
                     continue;
                 }
+                if (property.NameEquals("redactionPolicy"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    redactionPolicy = BaseRedactionPolicy.DeserializeBaseRedactionPolicy(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -210,6 +218,7 @@ namespace Azure.AI.Language.Conversations.Models
                 redactionSource,
                 redactionCharacter,
                 excludePiiCategories ?? new ChangeTrackingList<ConversationPiiCategoryExclusions>(),
+                redactionPolicy,
                 serializedAdditionalRawData);
         }
 
