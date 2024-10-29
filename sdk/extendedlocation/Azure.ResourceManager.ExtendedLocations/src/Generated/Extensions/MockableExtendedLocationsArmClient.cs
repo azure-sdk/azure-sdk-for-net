@@ -45,5 +45,17 @@ namespace Azure.ResourceManager.ExtendedLocations.Mocking
             CustomLocationResource.ValidateResourceId(id);
             return new CustomLocationResource(Client, id);
         }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="ResourceSyncRuleResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ResourceSyncRuleResource.CreateResourceIdentifier" /> to create a <see cref="ResourceSyncRuleResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ResourceSyncRuleResource"/> object. </returns>
+        public virtual ResourceSyncRuleResource GetResourceSyncRuleResource(ResourceIdentifier id)
+        {
+            ResourceSyncRuleResource.ValidateResourceId(id);
+            return new ResourceSyncRuleResource(Client, id);
+        }
     }
 }
