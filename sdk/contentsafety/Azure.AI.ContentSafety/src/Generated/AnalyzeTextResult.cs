@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Azure.AI.ContentSafety
 {
@@ -47,35 +46,21 @@ namespace Azure.AI.ContentSafety
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextResult"/>. </summary>
-        /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="categoriesAnalysis"/> is null. </exception>
-        internal AnalyzeTextResult(IEnumerable<TextCategoriesAnalysis> categoriesAnalysis)
+        internal AnalyzeTextResult()
         {
-            Argument.AssertNotNull(categoriesAnalysis, nameof(categoriesAnalysis));
-
             BlocklistsMatch = new ChangeTrackingList<TextBlocklistMatch>();
-            CategoriesAnalysis = categoriesAnalysis.ToList();
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextResult"/>. </summary>
         /// <param name="blocklistsMatch"> The blocklist match details. </param>
-        /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AnalyzeTextResult(IReadOnlyList<TextBlocklistMatch> blocklistsMatch, IReadOnlyList<TextCategoriesAnalysis> categoriesAnalysis, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AnalyzeTextResult(IReadOnlyList<TextBlocklistMatch> blocklistsMatch, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             BlocklistsMatch = blocklistsMatch;
-            CategoriesAnalysis = categoriesAnalysis;
             _serializedAdditionalRawData = serializedAdditionalRawData;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="AnalyzeTextResult"/> for deserialization. </summary>
-        internal AnalyzeTextResult()
-        {
         }
 
         /// <summary> The blocklist match details. </summary>
         public IReadOnlyList<TextBlocklistMatch> BlocklistsMatch { get; }
-        /// <summary> Analysis result for categories. </summary>
-        public IReadOnlyList<TextCategoriesAnalysis> CategoriesAnalysis { get; }
     }
 }
