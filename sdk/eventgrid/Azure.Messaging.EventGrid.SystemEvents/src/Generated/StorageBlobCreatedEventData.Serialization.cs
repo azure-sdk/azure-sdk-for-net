@@ -19,21 +19,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         void IJsonModel<StorageBlobCreatedEventData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<StorageBlobCreatedEventData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(StorageBlobCreatedEventData)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             if (Optional.IsDefined(Api))
             {
                 writer.WritePropertyName("api"u8);
@@ -74,6 +66,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("blobType"u8);
                 writer.WriteStringValue(BlobType);
             }
+            writer.WritePropertyName("accessTier"u8);
+            writer.WriteStringValue(AccessTier.ToString());
             if (Optional.IsDefined(Url))
             {
                 writer.WritePropertyName("url"u8);
@@ -124,6 +118,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         StorageBlobCreatedEventData IJsonModel<StorageBlobCreatedEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -154,6 +149,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             long? contentLength = default;
             long? contentOffset = default;
             string blobType = default;
+            StorageBlobAccessTier accessTier = default;
             string url = default;
             string sequencer = default;
             string identity = default;
@@ -210,6 +206,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     blobType = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("accessTier"u8))
+                {
+                    accessTier = new StorageBlobAccessTier(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("url"u8))
                 {
                     url = property.Value.GetString();
@@ -257,6 +258,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 contentLength,
                 contentOffset,
                 blobType,
+                accessTier,
                 url,
                 sequencer,
                 identity,
