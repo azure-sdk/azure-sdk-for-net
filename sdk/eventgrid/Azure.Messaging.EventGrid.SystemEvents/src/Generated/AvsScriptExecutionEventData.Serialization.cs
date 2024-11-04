@@ -19,31 +19,17 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         void IJsonModel<AvsScriptExecutionEventData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<AvsScriptExecutionEventData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(AvsScriptExecutionEventData)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(OperationId))
-            {
-                writer.WritePropertyName("operationId"u8);
-                writer.WriteStringValue(OperationId);
-            }
-            if (Optional.IsDefined(CmdletId))
-            {
-                writer.WritePropertyName("cmdletId"u8);
-                writer.WriteStringValue(CmdletId);
-            }
+            writer.WriteStartObject();
+            writer.WritePropertyName("operationId"u8);
+            writer.WriteStringValue(OperationId);
+            writer.WritePropertyName("cmdletId"u8);
+            writer.WriteStringValue(CmdletId);
             if (Optional.IsCollectionDefined(Output))
             {
                 writer.WritePropertyName("output"u8);
@@ -69,6 +55,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         AvsScriptExecutionEventData IJsonModel<AvsScriptExecutionEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
