@@ -19,23 +19,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         void IJsonModel<HealthcareFhirResourceDeletedEventData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<HealthcareFhirResourceDeletedEventData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(HealthcareFhirResourceDeletedEventData)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("resourceType"u8);
-            writer.WriteStringValue(FhirResourceType.ToString());
+            writer.WriteStartObject();
+            if (Optional.IsDefined(FhirResourceType))
+            {
+                writer.WritePropertyName("resourceType"u8);
+                writer.WriteStringValue(FhirResourceType.Value.ToString());
+            }
             if (Optional.IsDefined(FhirServiceHostName))
             {
                 writer.WritePropertyName("resourceFhirAccount"u8);
@@ -66,6 +61,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         HealthcareFhirResourceDeletedEventData IJsonModel<HealthcareFhirResourceDeletedEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -88,7 +84,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            HealthcareFhirResourceType resourceType = default;
+            HealthcareFhirResourceType? resourceType = default;
             string resourceFhirAccount = default;
             string resourceFhirId = default;
             long? resourceVersionId = default;
@@ -98,6 +94,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("resourceType"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     resourceType = new HealthcareFhirResourceType(property.Value.GetString());
                     continue;
                 }

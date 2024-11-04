@@ -19,21 +19,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         void IJsonModel<AcsIncomingCallEventData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<AcsIncomingCallEventData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(AcsIncomingCallEventData)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             writer.WritePropertyName("to"u8);
             writer.WriteObjectValue(ToCommunicationIdentifier, options);
             writer.WritePropertyName("from"u8);
@@ -55,6 +47,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("incomingCallContext"u8);
                 writer.WriteStringValue(IncomingCallContext);
             }
+            if (Optional.IsDefined(OnBehalfOfCallee))
+            {
+                writer.WritePropertyName("onBehalfOfCallee"u8);
+                writer.WriteObjectValue(OnBehalfOfCallee, options);
+            }
             if (Optional.IsDefined(CorrelationId))
             {
                 writer.WritePropertyName("correlationId"u8);
@@ -75,6 +72,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         AcsIncomingCallEventData IJsonModel<AcsIncomingCallEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -103,6 +101,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             string callerDisplayName = default;
             AcsIncomingCallCustomContext customContext = default;
             string incomingCallContext = default;
+            CommunicationIdentifierModel onBehalfOfCallee = default;
             string correlationId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -138,6 +137,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     incomingCallContext = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("onBehalfOfCallee"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    onBehalfOfCallee = CommunicationIdentifierModel.DeserializeCommunicationIdentifierModel(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("correlationId"u8))
                 {
                     correlationId = property.Value.GetString();
@@ -156,6 +164,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 callerDisplayName,
                 customContext,
                 incomingCallContext,
+                onBehalfOfCallee,
                 correlationId,
                 serializedAdditionalRawData);
         }
