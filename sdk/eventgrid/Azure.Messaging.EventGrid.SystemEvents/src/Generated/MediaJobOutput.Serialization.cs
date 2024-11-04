@@ -19,21 +19,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         void IJsonModel<MediaJobOutput>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<MediaJobOutput>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(MediaJobOutput)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             writer.WritePropertyName("@odata.type"u8);
             writer.WriteStringValue(OdataType);
             writer.WritePropertyName("error"u8);
@@ -45,8 +37,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
             writer.WritePropertyName("progress"u8);
             writer.WriteNumberValue(Progress);
-            writer.WritePropertyName("state"u8);
-            writer.WriteStringValue(State.ToString());
+            if (Optional.IsDefined(State))
+            {
+                writer.WritePropertyName("state"u8);
+                writer.WriteStringValue(State.Value.ToString());
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -62,6 +57,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         MediaJobOutput IJsonModel<MediaJobOutput>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
