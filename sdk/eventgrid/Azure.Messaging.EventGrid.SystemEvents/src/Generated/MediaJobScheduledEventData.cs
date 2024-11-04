@@ -17,11 +17,9 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class MediaJobScheduledEventData : MediaJobStateChangeEventData
     {
         /// <summary> Initializes a new instance of <see cref="MediaJobScheduledEventData"/>. </summary>
-        /// <param name="previousState"> The previous state of the Job. </param>
-        /// <param name="state"> The new state of the Job. </param>
         /// <param name="correlationData"> Gets the Job correlation data. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="correlationData"/> is null. </exception>
-        internal MediaJobScheduledEventData(MediaJobState previousState, MediaJobState state, IReadOnlyDictionary<string, string> correlationData) : base(previousState, state, correlationData)
+        internal MediaJobScheduledEventData(IReadOnlyDictionary<string, string> correlationData) : base(correlationData)
         {
             Argument.AssertNotNull(correlationData, nameof(correlationData));
         }
@@ -31,7 +29,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="state"> The new state of the Job. </param>
         /// <param name="correlationData"> Gets the Job correlation data. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MediaJobScheduledEventData(MediaJobState previousState, MediaJobState state, IReadOnlyDictionary<string, string> correlationData, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(previousState, state, correlationData, serializedAdditionalRawData)
+        internal MediaJobScheduledEventData(MediaJobState? previousState, MediaJobState? state, IReadOnlyDictionary<string, string> correlationData, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(previousState, state, correlationData, serializedAdditionalRawData)
         {
         }
 
