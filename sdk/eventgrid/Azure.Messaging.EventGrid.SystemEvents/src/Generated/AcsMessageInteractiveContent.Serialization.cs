@@ -19,23 +19,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         void IJsonModel<AcsMessageInteractiveContent>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<AcsMessageInteractiveContent>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(AcsMessageInteractiveContent)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("type"u8);
-            writer.WriteStringValue(ReplyKind.ToString());
+            writer.WriteStartObject();
+            if (Optional.IsDefined(ReplyKind))
+            {
+                writer.WritePropertyName("type"u8);
+                writer.WriteStringValue(ReplyKind.Value.ToString());
+            }
             writer.WritePropertyName("buttonReply"u8);
             writer.WriteObjectValue(ButtonReply, options);
             writer.WritePropertyName("listReply"u8);
@@ -55,6 +50,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         AcsMessageInteractiveContent IJsonModel<AcsMessageInteractiveContent>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -77,7 +73,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            AcsInteractiveReplyKind type = default;
+            AcsInteractiveReplyKind? type = default;
             AcsMessageInteractiveButtonReplyContent buttonReply = default;
             AcsMessageInteractiveListReplyContent listReply = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -86,6 +82,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("type"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     type = new AcsInteractiveReplyKind(property.Value.GetString());
                     continue;
                 }
