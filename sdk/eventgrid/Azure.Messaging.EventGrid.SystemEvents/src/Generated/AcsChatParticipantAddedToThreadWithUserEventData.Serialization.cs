@@ -19,28 +19,60 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         void IJsonModel<AcsChatParticipantAddedToThreadWithUserEventData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<AcsChatParticipantAddedToThreadWithUserEventData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(AcsChatParticipantAddedToThreadWithUserEventData)} does not support writing '{format}' format.");
             }
 
-            base.JsonModelWriteCore(writer, options);
-            writer.WritePropertyName("time"u8);
-            writer.WriteStringValue(Time, "O");
+            writer.WriteStartObject();
+            if (Optional.IsDefined(Time))
+            {
+                writer.WritePropertyName("time"u8);
+                writer.WriteStringValue(Time.Value, "O");
+            }
             writer.WritePropertyName("addedByCommunicationIdentifier"u8);
             writer.WriteObjectValue(AddedByCommunicationIdentifier, options);
             writer.WritePropertyName("participantAdded"u8);
             writer.WriteObjectValue(ParticipantAdded, options);
+            if (Optional.IsDefined(CreateTime))
+            {
+                writer.WritePropertyName("createTime"u8);
+                writer.WriteStringValue(CreateTime.Value, "O");
+            }
+            if (Optional.IsDefined(Version))
+            {
+                writer.WritePropertyName("version"u8);
+                writer.WriteNumberValue(Version.Value);
+            }
+            writer.WritePropertyName("recipientCommunicationIdentifier"u8);
+            writer.WriteObjectValue(RecipientCommunicationIdentifier, options);
+            if (Optional.IsDefined(TransactionId))
+            {
+                writer.WritePropertyName("transactionId"u8);
+                writer.WriteStringValue(TransactionId);
+            }
+            if (Optional.IsDefined(ThreadId))
+            {
+                writer.WritePropertyName("threadId"u8);
+                writer.WriteStringValue(ThreadId);
+            }
+            if (options.Format != "W" && _serializedAdditionalRawData != null)
+            {
+                foreach (var item in _serializedAdditionalRawData)
+                {
+                    writer.WritePropertyName(item.Key);
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
+#endif
+                }
+            }
+            writer.WriteEndObject();
         }
 
         AcsChatParticipantAddedToThreadWithUserEventData IJsonModel<AcsChatParticipantAddedToThreadWithUserEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -63,10 +95,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            DateTimeOffset time = default;
+            DateTimeOffset? time = default;
             CommunicationIdentifierModel addedByCommunicationIdentifier = default;
             AcsChatThreadParticipantProperties participantAdded = default;
-            DateTimeOffset createTime = default;
+            DateTimeOffset? createTime = default;
             long? version = default;
             CommunicationIdentifierModel recipientCommunicationIdentifier = default;
             string transactionId = default;
@@ -77,6 +109,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("time"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     time = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
@@ -92,6 +128,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("createTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     createTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
