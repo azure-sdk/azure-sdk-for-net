@@ -19,24 +19,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         void IJsonModel<AcsChatParticipantRemovedFromThreadEventData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<AcsChatParticipantRemovedFromThreadEventData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(AcsChatParticipantRemovedFromThreadEventData)} does not support writing '{format}' format.");
             }
 
-            base.JsonModelWriteCore(writer, options);
-            writer.WritePropertyName("time"u8);
-            writer.WriteStringValue(Time, "O");
+            writer.WriteStartObject();
+            if (Optional.IsDefined(Time))
+            {
+                writer.WritePropertyName("time"u8);
+                writer.WriteStringValue(Time.Value, "O");
+            }
             writer.WritePropertyName("removedByCommunicationIdentifier"u8);
             writer.WriteObjectValue(RemovedByCommunicationIdentifier, options);
             writer.WritePropertyName("participantRemoved"u8);
@@ -46,6 +40,32 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("version"u8);
                 writer.WriteNumberValue(Version.Value);
             }
+            if (Optional.IsDefined(TransactionId))
+            {
+                writer.WritePropertyName("transactionId"u8);
+                writer.WriteStringValue(TransactionId);
+            }
+            if (Optional.IsDefined(ThreadId))
+            {
+                writer.WritePropertyName("threadId"u8);
+                writer.WriteStringValue(ThreadId);
+            }
+            if (options.Format != "W" && _serializedAdditionalRawData != null)
+            {
+                foreach (var item in _serializedAdditionalRawData)
+                {
+                    writer.WritePropertyName(item.Key);
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
+#endif
+                }
+            }
+            writer.WriteEndObject();
         }
 
         AcsChatParticipantRemovedFromThreadEventData IJsonModel<AcsChatParticipantRemovedFromThreadEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -68,7 +88,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            DateTimeOffset time = default;
+            DateTimeOffset? time = default;
             CommunicationIdentifierModel removedByCommunicationIdentifier = default;
             AcsChatThreadParticipantProperties participantRemoved = default;
             long? version = default;
@@ -80,6 +100,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("time"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     time = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
