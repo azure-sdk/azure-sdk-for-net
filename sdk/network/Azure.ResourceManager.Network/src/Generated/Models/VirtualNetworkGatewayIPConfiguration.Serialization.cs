@@ -63,6 +63,11 @@ namespace Azure.ResourceManager.Network.Models
                 writer.WritePropertyName("privateIPAddress"u8);
                 writer.WriteStringValue(PrivateIPAddress);
             }
+            if (options.Format != "W" && Optional.IsDefined(PrivateIPv6Address))
+            {
+                writer.WritePropertyName("privateIPv6Address"u8);
+                writer.WriteStringValue(PrivateIPv6Address);
+            }
             if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
             {
                 writer.WritePropertyName("provisioningState"u8);
@@ -99,6 +104,7 @@ namespace Azure.ResourceManager.Network.Models
             WritableSubResource subnet = default;
             WritableSubResource publicIPAddress = default;
             string privateIPAddress = default;
+            string privateIPv6Address = default;
             NetworkProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -177,6 +183,11 @@ namespace Azure.ResourceManager.Network.Models
                             privateIPAddress = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("privateIPv6Address"u8))
+                        {
+                            privateIPv6Address = property0.Value.GetString();
+                            continue;
+                        }
                         if (property0.NameEquals("provisioningState"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -205,6 +216,7 @@ namespace Azure.ResourceManager.Network.Models
                 subnet,
                 publicIPAddress,
                 privateIPAddress,
+                privateIPv6Address,
                 provisioningState);
         }
 

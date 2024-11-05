@@ -30,14 +30,16 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="subnet"> The reference to the subnet resource. </param>
         /// <param name="publicIPAddress"> The reference to the public IP resource. </param>
         /// <param name="privateIPAddress"> Private IP Address for this gateway. </param>
+        /// <param name="privateIPv6Address"> Private IP Address for this gateway. </param>
         /// <param name="provisioningState"> The provisioning state of the virtual network gateway IP configuration resource. </param>
-        internal VirtualNetworkGatewayIPConfiguration(ResourceIdentifier id, string name, ResourceType? resourceType, IDictionary<string, BinaryData> serializedAdditionalRawData, ETag? etag, NetworkIPAllocationMethod? privateIPAllocationMethod, WritableSubResource subnet, WritableSubResource publicIPAddress, string privateIPAddress, NetworkProvisioningState? provisioningState) : base(id, name, resourceType, serializedAdditionalRawData)
+        internal VirtualNetworkGatewayIPConfiguration(ResourceIdentifier id, string name, ResourceType? resourceType, IDictionary<string, BinaryData> serializedAdditionalRawData, ETag? etag, NetworkIPAllocationMethod? privateIPAllocationMethod, WritableSubResource subnet, WritableSubResource publicIPAddress, string privateIPAddress, string privateIPv6Address, NetworkProvisioningState? provisioningState) : base(id, name, resourceType, serializedAdditionalRawData)
         {
             ETag = etag;
             PrivateIPAllocationMethod = privateIPAllocationMethod;
             Subnet = subnet;
             PublicIPAddress = publicIPAddress;
             PrivateIPAddress = privateIPAddress;
+            PrivateIPv6Address = privateIPv6Address;
             ProvisioningState = provisioningState;
         }
 
@@ -75,6 +77,8 @@ namespace Azure.ResourceManager.Network.Models
 
         /// <summary> Private IP Address for this gateway. </summary>
         public string PrivateIPAddress { get; }
+        /// <summary> Private IP Address for this gateway. </summary>
+        public string PrivateIPv6Address { get; }
         /// <summary> The provisioning state of the virtual network gateway IP configuration resource. </summary>
         public NetworkProvisioningState? ProvisioningState { get; }
     }

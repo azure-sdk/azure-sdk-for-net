@@ -6319,9 +6319,10 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="subnetId"> The reference to the subnet resource. </param>
         /// <param name="publicIPAddressId"> The reference to the public IP resource. </param>
         /// <param name="privateIPAddress"> Private IP Address for this gateway. </param>
+        /// <param name="privateIPv6Address"> Private IP Address for this gateway. </param>
         /// <param name="provisioningState"> The provisioning state of the virtual network gateway IP configuration resource. </param>
         /// <returns> A new <see cref="Models.VirtualNetworkGatewayIPConfiguration"/> instance for mocking. </returns>
-        public static VirtualNetworkGatewayIPConfiguration VirtualNetworkGatewayIPConfiguration(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, ETag? etag = null, NetworkIPAllocationMethod? privateIPAllocationMethod = null, ResourceIdentifier subnetId = null, ResourceIdentifier publicIPAddressId = null, string privateIPAddress = null, NetworkProvisioningState? provisioningState = null)
+        public static VirtualNetworkGatewayIPConfiguration VirtualNetworkGatewayIPConfiguration(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, ETag? etag = null, NetworkIPAllocationMethod? privateIPAllocationMethod = null, ResourceIdentifier subnetId = null, ResourceIdentifier publicIPAddressId = null, string privateIPAddress = null, string privateIPv6Address = null, NetworkProvisioningState? provisioningState = null)
         {
             return new VirtualNetworkGatewayIPConfiguration(
                 id,
@@ -6333,6 +6334,7 @@ namespace Azure.ResourceManager.Network.Models
                 subnetId != null ? ResourceManagerModelFactory.WritableSubResource(subnetId) : null,
                 publicIPAddressId != null ? ResourceManagerModelFactory.WritableSubResource(publicIPAddressId) : null,
                 privateIPAddress,
+                privateIPv6Address,
                 provisioningState);
         }
 
@@ -8250,6 +8252,23 @@ namespace Azure.ResourceManager.Network.Models
                 direction,
                 provisioningState,
                 resourceGuid);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Network.Models.VirtualNetworkGatewayIPConfiguration" />. </summary>
+        /// <param name="id"> Resource ID. </param>
+        /// <param name="name"> Resource name. </param>
+        /// <param name="resourceType"> Resource type. </param>
+        /// <param name="etag"> A unique read-only string that changes whenever the resource is updated. </param>
+        /// <param name="privateIPAllocationMethod"> The private IP address allocation method. </param>
+        /// <param name="subnetId"> The reference to the subnet resource. </param>
+        /// <param name="publicIPAddressId"> The reference to the public IP resource. </param>
+        /// <param name="privateIPAddress"> Private IP Address for this gateway. </param>
+        /// <param name="provisioningState"> The provisioning state of the virtual network gateway IP configuration resource. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Network.Models.VirtualNetworkGatewayIPConfiguration" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static VirtualNetworkGatewayIPConfiguration VirtualNetworkGatewayIPConfiguration(ResourceIdentifier id, string name, ResourceType? resourceType, ETag? etag, NetworkIPAllocationMethod? privateIPAllocationMethod, ResourceIdentifier subnetId, ResourceIdentifier publicIPAddressId, string privateIPAddress, NetworkProvisioningState? provisioningState)
+        {
+            return VirtualNetworkGatewayIPConfiguration(id: id, name: name, resourceType: resourceType, etag: etag, privateIPAllocationMethod: privateIPAllocationMethod, subnetId: subnetId, publicIPAddressId: publicIPAddressId, privateIPAddress: privateIPAddress, privateIPv6Address: default, provisioningState: provisioningState);
         }
 
         /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Network.PrivateLinkServiceData" />. </summary>
