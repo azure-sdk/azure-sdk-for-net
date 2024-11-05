@@ -27,7 +27,7 @@ namespace Azure.AI.DocumentIntelligence
 
             writer.WriteStartObject();
             writer.WritePropertyName("locale"u8);
-            writer.WriteStringValue(Locale);
+            writer.WriteNumberValue(Locale);
             writer.WritePropertyName("spans"u8);
             writer.WriteStartArray();
             foreach (var item in Spans)
@@ -75,7 +75,7 @@ namespace Azure.AI.DocumentIntelligence
             {
                 return null;
             }
-            string locale = default;
+            long locale = default;
             IReadOnlyList<DocumentSpan> spans = default;
             float confidence = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -84,7 +84,7 @@ namespace Azure.AI.DocumentIntelligence
             {
                 if (property.NameEquals("locale"u8))
                 {
-                    locale = property.Value.GetString();
+                    locale = property.Value.GetInt64();
                     continue;
                 }
                 if (property.NameEquals("spans"u8))
