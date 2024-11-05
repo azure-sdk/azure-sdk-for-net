@@ -19,25 +19,23 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         void IJsonModel<StorageTaskAssignmentCompletedEventData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<StorageTaskAssignmentCompletedEventData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(StorageTaskAssignmentCompletedEventData)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("status"u8);
-            writer.WriteStringValue(Status.ToString());
-            writer.WritePropertyName("completedDateTime"u8);
-            writer.WriteStringValue(CompletedOn, "O");
+            writer.WriteStartObject();
+            if (Optional.IsDefined(Status))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(Status.Value.ToString());
+            }
+            if (Optional.IsDefined(CompletedOn))
+            {
+                writer.WritePropertyName("completedDateTime"u8);
+                writer.WriteStringValue(CompletedOn.Value, "O");
+            }
             if (Optional.IsDefined(TaskExecutionId))
             {
                 writer.WritePropertyName("taskExecutionId"u8);
@@ -65,6 +63,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         StorageTaskAssignmentCompletedEventData IJsonModel<StorageTaskAssignmentCompletedEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -87,8 +86,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            StorageTaskAssignmentCompletedStatus status = default;
-            DateTimeOffset completedDateTime = default;
+            StorageTaskAssignmentCompletedStatus? status = default;
+            DateTimeOffset? completedDateTime = default;
             string taskExecutionId = default;
             string taskName = default;
             Uri summaryReportBlobUrl = default;
@@ -98,11 +97,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("status"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     status = new StorageTaskAssignmentCompletedStatus(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("completedDateTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     completedDateTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
