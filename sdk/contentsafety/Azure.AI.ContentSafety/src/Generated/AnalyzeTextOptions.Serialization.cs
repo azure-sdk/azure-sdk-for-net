@@ -26,8 +26,8 @@ namespace Azure.AI.ContentSafety
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("text"u8);
-            writer.WriteStringValue(Text);
+            writer.WritePropertyName("text2"u8);
+            writer.WriteStringValue(Text2);
             if (Optional.IsCollectionDefined(Categories))
             {
                 writer.WritePropertyName("categories"u8);
@@ -96,7 +96,7 @@ namespace Azure.AI.ContentSafety
             {
                 return null;
             }
-            string text = default;
+            string text2 = default;
             IList<TextCategory> categories = default;
             IList<string> blocklistNames = default;
             bool? haltOnBlocklistHit = default;
@@ -105,9 +105,9 @@ namespace Azure.AI.ContentSafety
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("text"u8))
+                if (property.NameEquals("text2"u8))
                 {
-                    text = property.Value.GetString();
+                    text2 = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("categories"u8))
@@ -163,7 +163,7 @@ namespace Azure.AI.ContentSafety
             }
             serializedAdditionalRawData = rawDataDictionary;
             return new AnalyzeTextOptions(
-                text,
+                text2,
                 categories ?? new ChangeTrackingList<TextCategory>(),
                 blocklistNames ?? new ChangeTrackingList<string>(),
                 haltOnBlocklistHit,
