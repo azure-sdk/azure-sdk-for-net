@@ -19,28 +19,23 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         void IJsonModel<ContainerRegistryEventData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<ContainerRegistryEventData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(ContainerRegistryEventData)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             if (Optional.IsDefined(Id))
             {
                 writer.WritePropertyName("id"u8);
                 writer.WriteStringValue(Id);
             }
-            writer.WritePropertyName("timestamp"u8);
-            writer.WriteStringValue(Timestamp, "O");
+            if (Optional.IsDefined(Timestamp))
+            {
+                writer.WritePropertyName("timestamp"u8);
+                writer.WriteStringValue(Timestamp.Value, "O");
+            }
             if (Optional.IsDefined(Action))
             {
                 writer.WritePropertyName("action"u8);
@@ -76,6 +71,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         ContainerRegistryEventData IJsonModel<ContainerRegistryEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -99,7 +95,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             string id = default;
-            DateTimeOffset timestamp = default;
+            DateTimeOffset? timestamp = default;
             string action = default;
             string location = default;
             ContainerRegistryEventTarget target = default;
@@ -118,6 +114,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("timestamp"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     timestamp = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
