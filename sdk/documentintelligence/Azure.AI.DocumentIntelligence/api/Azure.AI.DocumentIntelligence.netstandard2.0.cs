@@ -17,7 +17,6 @@ namespace Azure.AI.DocumentIntelligence
         public string StreetAddress { get { throw null; } }
         public string Suburb { get { throw null; } }
         public string Unit { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AddressValue System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AddressValue>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AddressValue>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AddressValue System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.AddressValue>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -32,7 +31,6 @@ namespace Azure.AI.DocumentIntelligence
         public bool? OverwriteExisting { get { throw null; } set { } }
         public System.Uri ResultContainerUrl { get { throw null; } }
         public string ResultPrefix { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AnalyzeBatchDocumentsContent System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AnalyzeBatchDocumentsContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AnalyzeBatchDocumentsContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AnalyzeBatchDocumentsContent System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.AnalyzeBatchDocumentsContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -46,7 +44,6 @@ namespace Azure.AI.DocumentIntelligence
         public System.Uri ResultUrl { get { throw null; } }
         public System.Uri SourceUrl { get { throw null; } }
         public Azure.AI.DocumentIntelligence.OperationStatus Status { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AnalyzeBatchOperationDetail System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AnalyzeBatchOperationDetail>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AnalyzeBatchOperationDetail>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AnalyzeBatchOperationDetail System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.AnalyzeBatchOperationDetail>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -60,7 +57,6 @@ namespace Azure.AI.DocumentIntelligence
         public int FailedCount { get { throw null; } }
         public int SkippedCount { get { throw null; } }
         public int SucceededCount { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AnalyzeBatchResult System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AnalyzeBatchResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AnalyzeBatchResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AnalyzeBatchResult System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.AnalyzeBatchResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -75,7 +71,6 @@ namespace Azure.AI.DocumentIntelligence
         public string DocType { get { throw null; } }
         public System.Collections.Generic.IReadOnlyDictionary<string, Azure.AI.DocumentIntelligence.DocumentField> Fields { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentSpan> Spans { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AnalyzedDocument System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AnalyzedDocument>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AnalyzedDocument>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AnalyzedDocument System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.AnalyzedDocument>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -87,7 +82,6 @@ namespace Azure.AI.DocumentIntelligence
         public AnalyzeDocumentContent() { }
         public System.BinaryData Base64Source { get { throw null; } set { } }
         public System.Uri UrlSource { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AnalyzeDocumentContent System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AnalyzeDocumentContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AnalyzeDocumentContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AnalyzeDocumentContent System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.AnalyzeDocumentContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -130,7 +124,6 @@ namespace Azure.AI.DocumentIntelligence
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentStyle> Styles { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentTable> Tables { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentIntelligenceWarning> Warnings { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AnalyzeResult System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AnalyzeResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AnalyzeResult>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AnalyzeResult System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.AnalyzeResult>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -143,7 +136,6 @@ namespace Azure.AI.DocumentIntelligence
         public string ClassifierId { get { throw null; } }
         public string Description { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AuthorizeClassifierCopyContent System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AuthorizeClassifierCopyContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AuthorizeClassifierCopyContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AuthorizeClassifierCopyContent System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.AuthorizeClassifierCopyContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -156,7 +148,6 @@ namespace Azure.AI.DocumentIntelligence
         public string Description { get { throw null; } set { } }
         public string ModelId { get { throw null; } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AuthorizeCopyContent System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AuthorizeCopyContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AuthorizeCopyContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AuthorizeCopyContent System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.AuthorizeCopyContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -168,7 +159,6 @@ namespace Azure.AI.DocumentIntelligence
         public AzureBlobContentSource(System.Uri containerUrl) { }
         public System.Uri ContainerUrl { get { throw null; } set { } }
         public string Prefix { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AzureBlobContentSource System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AzureBlobContentSource>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AzureBlobContentSource>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AzureBlobContentSource System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.AzureBlobContentSource>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -180,7 +170,6 @@ namespace Azure.AI.DocumentIntelligence
         public AzureBlobFileListContentSource(System.Uri containerUrl, string fileList) { }
         public System.Uri ContainerUrl { get { throw null; } set { } }
         public string FileList { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AzureBlobFileListContentSource System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AzureBlobFileListContentSource>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.AzureBlobFileListContentSource>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.AzureBlobFileListContentSource System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.AzureBlobFileListContentSource>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -192,7 +181,6 @@ namespace Azure.AI.DocumentIntelligence
         internal BoundingRegion() { }
         public int PageNumber { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<float> Polygon { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.BoundingRegion System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.BoundingRegion>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.BoundingRegion>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.BoundingRegion System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.BoundingRegion>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -207,7 +195,6 @@ namespace Azure.AI.DocumentIntelligence
         public string ClassifierId { get { throw null; } }
         public string Description { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, Azure.AI.DocumentIntelligence.ClassifierDocumentTypeDetails> DocTypes { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.BuildDocumentClassifierContent System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.BuildDocumentClassifierContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.BuildDocumentClassifierContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.BuildDocumentClassifierContent System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.BuildDocumentClassifierContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -225,7 +212,6 @@ namespace Azure.AI.DocumentIntelligence
         public float? MaxTrainingHours { get { throw null; } set { } }
         public string ModelId { get { throw null; } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.BuildDocumentModelContent System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.BuildDocumentModelContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.BuildDocumentModelContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.BuildDocumentModelContent System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.BuildDocumentModelContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -241,7 +227,6 @@ namespace Azure.AI.DocumentIntelligence
         public System.Uri TargetClassifierLocation { get { throw null; } set { } }
         public string TargetResourceId { get { throw null; } set { } }
         public string TargetResourceRegion { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.ClassifierCopyAuthorization System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.ClassifierCopyAuthorization>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.ClassifierCopyAuthorization>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.ClassifierCopyAuthorization System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.ClassifierCopyAuthorization>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -254,7 +239,6 @@ namespace Azure.AI.DocumentIntelligence
         public Azure.AI.DocumentIntelligence.AzureBlobFileListContentSource AzureBlobFileListSource { get { throw null; } set { } }
         public Azure.AI.DocumentIntelligence.AzureBlobContentSource AzureBlobSource { get { throw null; } set { } }
         public Azure.AI.DocumentIntelligence.ContentSourceKind? SourceKind { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.ClassifierDocumentTypeDetails System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.ClassifierDocumentTypeDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.ClassifierDocumentTypeDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.ClassifierDocumentTypeDetails System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.ClassifierDocumentTypeDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -266,7 +250,6 @@ namespace Azure.AI.DocumentIntelligence
         public ClassifyDocumentContent() { }
         public System.BinaryData Base64Source { get { throw null; } set { } }
         public System.Uri UrlSource { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.ClassifyDocumentContent System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.ClassifyDocumentContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.ClassifyDocumentContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.ClassifyDocumentContent System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.ClassifyDocumentContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -282,7 +265,6 @@ namespace Azure.AI.DocumentIntelligence
         public string ModelId { get { throw null; } }
         public Azure.AI.DocumentIntelligence.SplitMode? Split { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.ComposeDocumentModelContent System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.ComposeDocumentModelContent>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.ComposeDocumentModelContent>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.ComposeDocumentModelContent System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.ComposeDocumentModelContent>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -336,7 +318,6 @@ namespace Azure.AI.DocumentIntelligence
         public System.Uri TargetModelLocation { get { throw null; } set { } }
         public string TargetResourceId { get { throw null; } set { } }
         public string TargetResourceRegion { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.CopyAuthorization System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.CopyAuthorization>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.CopyAuthorization>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.CopyAuthorization System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.CopyAuthorization>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -349,7 +330,6 @@ namespace Azure.AI.DocumentIntelligence
         public double Amount { get { throw null; } }
         public string CurrencyCode { get { throw null; } }
         public string CurrencySymbol { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.CurrencyValue System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.CurrencyValue>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.CurrencyValue>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.CurrencyValue System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.CurrencyValue>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -361,7 +341,6 @@ namespace Azure.AI.DocumentIntelligence
         internal CustomDocumentModelsDetails() { }
         public int Count { get { throw null; } }
         public int Limit { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.CustomDocumentModelsDetails System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.CustomDocumentModelsDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.CustomDocumentModelsDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.CustomDocumentModelsDetails System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.CustomDocumentModelsDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -399,7 +378,6 @@ namespace Azure.AI.DocumentIntelligence
         public System.Collections.Generic.IReadOnlyList<float> Polygon { get { throw null; } }
         public Azure.AI.DocumentIntelligence.DocumentSpan Span { get { throw null; } }
         public string Value { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentBarcode System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentBarcode>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentBarcode>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentBarcode System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentBarcode>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -465,7 +443,6 @@ namespace Azure.AI.DocumentIntelligence
         public string Content { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<string> Elements { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentSpan> Spans { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentCaption System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentCaption>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentCaption>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentCaption System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentCaption>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -476,7 +453,6 @@ namespace Azure.AI.DocumentIntelligence
     {
         internal DocumentClassifierBuildOperationDetails() : base (default(string), default(Azure.AI.DocumentIntelligence.OperationStatus), default(System.DateTimeOffset), default(System.DateTimeOffset), default(System.Uri)) { }
         public Azure.AI.DocumentIntelligence.DocumentClassifierDetails Result { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentClassifierBuildOperationDetails System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentClassifierBuildOperationDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentClassifierBuildOperationDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentClassifierBuildOperationDetails System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentClassifierBuildOperationDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -487,7 +463,6 @@ namespace Azure.AI.DocumentIntelligence
     {
         internal DocumentClassifierCopyToOperationDetails() : base (default(string), default(Azure.AI.DocumentIntelligence.OperationStatus), default(System.DateTimeOffset), default(System.DateTimeOffset), default(System.Uri)) { }
         public Azure.AI.DocumentIntelligence.DocumentClassifierDetails Result { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentClassifierCopyToOperationDetails System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentClassifierCopyToOperationDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentClassifierCopyToOperationDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentClassifierCopyToOperationDetails System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentClassifierCopyToOperationDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -505,7 +480,6 @@ namespace Azure.AI.DocumentIntelligence
         public System.Collections.Generic.IReadOnlyDictionary<string, Azure.AI.DocumentIntelligence.ClassifierDocumentTypeDetails> DocTypes { get { throw null; } }
         public System.DateTimeOffset? ExpiresOn { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentIntelligenceWarning> Warnings { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentClassifierDetails System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentClassifierDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentClassifierDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentClassifierDetails System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentClassifierDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -535,7 +509,6 @@ namespace Azure.AI.DocumentIntelligence
         public Azure.AI.DocumentIntelligence.DocumentSignatureType? ValueSignature { get { throw null; } }
         public string ValueString { get { throw null; } }
         public System.TimeSpan? ValueTime { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentField System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentField>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentField>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentField System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentField>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -550,7 +523,6 @@ namespace Azure.AI.DocumentIntelligence
         public Azure.AI.DocumentIntelligence.DocumentFieldSchema Items { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, Azure.AI.DocumentIntelligence.DocumentFieldSchema> Properties { get { throw null; } }
         public Azure.AI.DocumentIntelligence.DocumentFieldType Type { get { throw null; } set { } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentFieldSchema System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentFieldSchema>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentFieldSchema>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentFieldSchema System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentFieldSchema>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -597,7 +569,6 @@ namespace Azure.AI.DocumentIntelligence
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentFootnote> Footnotes { get { throw null; } }
         public string Id { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentSpan> Spans { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentFigure System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentFigure>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentFigure>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentFigure System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentFigure>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -647,7 +618,6 @@ namespace Azure.AI.DocumentIntelligence
         public string Content { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<string> Elements { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentSpan> Spans { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentFootnote System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentFootnote>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentFootnote>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentFootnote System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentFootnote>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -662,7 +632,6 @@ namespace Azure.AI.DocumentIntelligence
         public System.Collections.Generic.IReadOnlyList<float> Polygon { get { throw null; } }
         public Azure.AI.DocumentIntelligence.DocumentSpan Span { get { throw null; } }
         public string Value { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentFormula System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentFormula>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentFormula>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentFormula System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentFormula>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -801,7 +770,6 @@ namespace Azure.AI.DocumentIntelligence
         public Azure.AI.DocumentIntelligence.InnerError Innererror { get { throw null; } }
         public string Message { get { throw null; } }
         public string Target { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentIntelligenceError System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentIntelligenceError>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentIntelligenceError>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentIntelligenceError System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentIntelligenceError>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -837,7 +805,7 @@ namespace Azure.AI.DocumentIntelligence
         public static Azure.AI.DocumentIntelligence.DocumentIntelligenceWarning DocumentIntelligenceWarning(string code = null, string message = null, string target = null) { throw null; }
         public static Azure.AI.DocumentIntelligence.DocumentKeyValueElement DocumentKeyValueElement(string content = null, System.Collections.Generic.IEnumerable<Azure.AI.DocumentIntelligence.BoundingRegion> boundingRegions = null, System.Collections.Generic.IEnumerable<Azure.AI.DocumentIntelligence.DocumentSpan> spans = null) { throw null; }
         public static Azure.AI.DocumentIntelligence.DocumentKeyValuePair DocumentKeyValuePair(Azure.AI.DocumentIntelligence.DocumentKeyValueElement key = null, Azure.AI.DocumentIntelligence.DocumentKeyValueElement value = null, float confidence = 0f) { throw null; }
-        public static Azure.AI.DocumentIntelligence.DocumentLanguage DocumentLanguage(string locale = null, System.Collections.Generic.IEnumerable<Azure.AI.DocumentIntelligence.DocumentSpan> spans = null, float confidence = 0f) { throw null; }
+        public static Azure.AI.DocumentIntelligence.DocumentLanguage DocumentLanguage(long locale = (long)0, System.Collections.Generic.IEnumerable<Azure.AI.DocumentIntelligence.DocumentSpan> spans = null, float confidence = 0f) { throw null; }
         public static Azure.AI.DocumentIntelligence.DocumentLine DocumentLine(string content = null, System.Collections.Generic.IEnumerable<float> polygon = null, System.Collections.Generic.IEnumerable<Azure.AI.DocumentIntelligence.DocumentSpan> spans = null) { throw null; }
         public static Azure.AI.DocumentIntelligence.DocumentModelBuildOperationDetails DocumentModelBuildOperationDetails(string operationId = null, Azure.AI.DocumentIntelligence.OperationStatus status = default(Azure.AI.DocumentIntelligence.OperationStatus), int? percentCompleted = default(int?), System.DateTimeOffset createdOn = default(System.DateTimeOffset), System.DateTimeOffset lastUpdatedOn = default(System.DateTimeOffset), System.Uri resourceLocation = null, string apiVersion = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, Azure.AI.DocumentIntelligence.DocumentIntelligenceError error = null, Azure.AI.DocumentIntelligence.DocumentModelDetails result = null) { throw null; }
         public static Azure.AI.DocumentIntelligence.DocumentModelComposeOperationDetails DocumentModelComposeOperationDetails(string operationId = null, Azure.AI.DocumentIntelligence.OperationStatus status = default(Azure.AI.DocumentIntelligence.OperationStatus), int? percentCompleted = default(int?), System.DateTimeOffset createdOn = default(System.DateTimeOffset), System.DateTimeOffset lastUpdatedOn = default(System.DateTimeOffset), System.Uri resourceLocation = null, string apiVersion = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, Azure.AI.DocumentIntelligence.DocumentIntelligenceError error = null, Azure.AI.DocumentIntelligence.DocumentModelDetails result = null) { throw null; }
@@ -862,7 +830,6 @@ namespace Azure.AI.DocumentIntelligence
         public string Code { get { throw null; } }
         public string Message { get { throw null; } }
         public string Target { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentIntelligenceWarning System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentIntelligenceWarning>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentIntelligenceWarning>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentIntelligenceWarning System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentIntelligenceWarning>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -875,7 +842,6 @@ namespace Azure.AI.DocumentIntelligence
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.BoundingRegion> BoundingRegions { get { throw null; } }
         public string Content { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentSpan> Spans { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentKeyValueElement System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentKeyValueElement>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentKeyValueElement>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentKeyValueElement System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentKeyValueElement>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -888,7 +854,6 @@ namespace Azure.AI.DocumentIntelligence
         public float Confidence { get { throw null; } }
         public Azure.AI.DocumentIntelligence.DocumentKeyValueElement Key { get { throw null; } }
         public Azure.AI.DocumentIntelligence.DocumentKeyValueElement Value { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentKeyValuePair System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentKeyValuePair>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentKeyValuePair>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentKeyValuePair System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentKeyValuePair>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -899,9 +864,8 @@ namespace Azure.AI.DocumentIntelligence
     {
         internal DocumentLanguage() { }
         public float Confidence { get { throw null; } }
-        public string Locale { get { throw null; } }
+        public long Locale { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentSpan> Spans { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentLanguage System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentLanguage>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentLanguage>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentLanguage System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentLanguage>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -914,7 +878,6 @@ namespace Azure.AI.DocumentIntelligence
         public string Content { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<float> Polygon { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentSpan> Spans { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentLine System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentLine>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentLine>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentLine System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentLine>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -925,7 +888,6 @@ namespace Azure.AI.DocumentIntelligence
     {
         internal DocumentModelBuildOperationDetails() : base (default(string), default(Azure.AI.DocumentIntelligence.OperationStatus), default(System.DateTimeOffset), default(System.DateTimeOffset), default(System.Uri)) { }
         public Azure.AI.DocumentIntelligence.DocumentModelDetails Result { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentModelBuildOperationDetails System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentModelBuildOperationDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentModelBuildOperationDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentModelBuildOperationDetails System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentModelBuildOperationDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -936,7 +898,6 @@ namespace Azure.AI.DocumentIntelligence
     {
         internal DocumentModelComposeOperationDetails() : base (default(string), default(Azure.AI.DocumentIntelligence.OperationStatus), default(System.DateTimeOffset), default(System.DateTimeOffset), default(System.Uri)) { }
         public Azure.AI.DocumentIntelligence.DocumentModelDetails Result { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentModelComposeOperationDetails System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentModelComposeOperationDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentModelComposeOperationDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentModelComposeOperationDetails System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentModelComposeOperationDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -947,7 +908,6 @@ namespace Azure.AI.DocumentIntelligence
     {
         internal DocumentModelCopyToOperationDetails() : base (default(string), default(Azure.AI.DocumentIntelligence.OperationStatus), default(System.DateTimeOffset), default(System.DateTimeOffset), default(System.Uri)) { }
         public Azure.AI.DocumentIntelligence.DocumentModelDetails Result { get { throw null; } }
-        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentModelCopyToOperationDetails System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentModelCopyToOperationDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentModelCopyToOperationDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentModelCopyToOperationDetails System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentModelCopyToOperationDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -971,7 +931,6 @@ namespace Azure.AI.DocumentIntelligence
         public System.Collections.Generic.IReadOnlyDictionary<string, string> Tags { get { throw null; } }
         public float? TrainingHours { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentIntelligenceWarning> Warnings { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentModelDetails System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentModelDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentModelDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentModelDetails System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentModelDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -992,7 +951,6 @@ namespace Azure.AI.DocumentIntelligence
         public Azure.AI.DocumentIntelligence.LengthUnit? Unit { get { throw null; } }
         public float? Width { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentWord> Words { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentPage System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentPage>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentPage>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentPage System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentPage>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1006,7 +964,6 @@ namespace Azure.AI.DocumentIntelligence
         public string Content { get { throw null; } }
         public Azure.AI.DocumentIntelligence.ParagraphRole? Role { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentSpan> Spans { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentParagraph System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentParagraph>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentParagraph>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentParagraph System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentParagraph>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1018,7 +975,6 @@ namespace Azure.AI.DocumentIntelligence
         internal DocumentSection() { }
         public System.Collections.Generic.IReadOnlyList<string> Elements { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentSpan> Spans { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentSection System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentSection>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentSection>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentSection System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentSection>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1032,7 +988,6 @@ namespace Azure.AI.DocumentIntelligence
         public System.Collections.Generic.IReadOnlyList<float> Polygon { get { throw null; } }
         public Azure.AI.DocumentIntelligence.DocumentSpan Span { get { throw null; } }
         public Azure.AI.DocumentIntelligence.DocumentSelectionMarkState State { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentSelectionMark System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentSelectionMark>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentSelectionMark>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentSelectionMark System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentSelectionMark>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1080,7 +1035,6 @@ namespace Azure.AI.DocumentIntelligence
         internal DocumentSpan() { }
         public int Length { get { throw null; } }
         public int Offset { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentSpan System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentSpan>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentSpan>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentSpan System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentSpan>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1098,7 +1052,6 @@ namespace Azure.AI.DocumentIntelligence
         public bool? IsHandwritten { get { throw null; } }
         public string SimilarFontFamily { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentSpan> Spans { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentStyle System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentStyle>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentStyle>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentStyle System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentStyle>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1115,7 +1068,6 @@ namespace Azure.AI.DocumentIntelligence
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentFootnote> Footnotes { get { throw null; } }
         public int RowCount { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentSpan> Spans { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentTable System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentTable>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentTable>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentTable System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentTable>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1134,7 +1086,6 @@ namespace Azure.AI.DocumentIntelligence
         public int RowIndex { get { throw null; } }
         public int? RowSpan { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.DocumentIntelligence.DocumentSpan> Spans { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentTableCell System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentTableCell>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentTableCell>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentTableCell System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentTableCell>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1174,7 +1125,6 @@ namespace Azure.AI.DocumentIntelligence
         public int? MaxDocumentsToAnalyze { get { throw null; } set { } }
         public string ModelId { get { throw null; } set { } }
         public System.Collections.Generic.IList<string> QueryFields { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentTypeDetails System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentTypeDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentTypeDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentTypeDetails System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentTypeDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1188,7 +1138,6 @@ namespace Azure.AI.DocumentIntelligence
         public string Content { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<float> Polygon { get { throw null; } }
         public Azure.AI.DocumentIntelligence.DocumentSpan Span { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentWord System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentWord>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.DocumentWord>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.DocumentWord System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.DocumentWord>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1201,7 +1150,6 @@ namespace Azure.AI.DocumentIntelligence
         public string Code { get { throw null; } }
         public Azure.AI.DocumentIntelligence.InnerError InnerErrorObject { get { throw null; } }
         public string Message { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.InnerError System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.InnerError>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.InnerError>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.InnerError System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.InnerError>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1238,7 +1186,6 @@ namespace Azure.AI.DocumentIntelligence
         public System.Uri ResourceLocation { get { throw null; } }
         public Azure.AI.DocumentIntelligence.OperationStatus Status { get { throw null; } }
         public System.Collections.Generic.IReadOnlyDictionary<string, string> Tags { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.OperationDetails System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.OperationDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.OperationDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.OperationDetails System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.OperationDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1294,7 +1241,6 @@ namespace Azure.AI.DocumentIntelligence
     {
         internal ResourceDetails() { }
         public Azure.AI.DocumentIntelligence.CustomDocumentModelsDetails CustomDocumentModels { get { throw null; } }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.ResourceDetails System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.ResourceDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.DocumentIntelligence.ResourceDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.DocumentIntelligence.ResourceDetails System.ClientModel.Primitives.IPersistableModel<Azure.AI.DocumentIntelligence.ResourceDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }

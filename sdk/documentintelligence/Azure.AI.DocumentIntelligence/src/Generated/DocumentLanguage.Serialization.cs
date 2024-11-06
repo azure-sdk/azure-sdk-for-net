@@ -19,23 +19,15 @@ namespace Azure.AI.DocumentIntelligence
 
         void IJsonModel<DocumentLanguage>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<DocumentLanguage>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(DocumentLanguage)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             writer.WritePropertyName("locale"u8);
-            writer.WriteStringValue(Locale);
+            writer.WriteNumberValue(Locale);
             writer.WritePropertyName("spans"u8);
             writer.WriteStartArray();
             foreach (var item in Spans)
@@ -60,6 +52,7 @@ namespace Azure.AI.DocumentIntelligence
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         DocumentLanguage IJsonModel<DocumentLanguage>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -82,7 +75,7 @@ namespace Azure.AI.DocumentIntelligence
             {
                 return null;
             }
-            string locale = default;
+            long locale = default;
             IReadOnlyList<DocumentSpan> spans = default;
             float confidence = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -91,7 +84,7 @@ namespace Azure.AI.DocumentIntelligence
             {
                 if (property.NameEquals("locale"u8))
                 {
-                    locale = property.Value.GetString();
+                    locale = property.Value.GetInt64();
                     continue;
                 }
                 if (property.NameEquals("spans"u8))
