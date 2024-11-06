@@ -8,8 +8,8 @@ Run `dotnet build /t:GenerateCode` to generate code.
 ## Swagger Source(s)
 ``` yaml
 title: WebPubSubServiceClient
-input-file:
-- https://github.com/Azure/azure-rest-api-specs/blob/356aa5174e8eec6ed904bf5ff104595aec8c0411/specification/webpubsub/data-plane/WebPubSub/stable/2024-01-01/webpubsub.json
+require:
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/webpubsub/data-plane/readme.md
 
 credential-types: AzureKeyCredential
 credential-header-name: Ocp-Apim-Subscription-Key
@@ -345,3 +345,4 @@ directive:
   where: $.paths["/api/hubs/{hub}/connections/{connectionId}/groups"].delete.parameters["0"]
   transform: $["x-ms-parameter-location"] = "client"
 ```
+
