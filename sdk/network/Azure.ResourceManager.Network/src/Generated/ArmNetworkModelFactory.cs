@@ -6775,6 +6775,7 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="vpnConnectionOn"> The start time of a connected vpn client. </param>
         /// <param name="publicIPAddress"> The public Ip of a connected vpn client. </param>
         /// <param name="privateIPAddress"> The assigned private Ip of a connected vpn client. </param>
+        /// <param name="privateIPv6Address"> The assigned private Ipv6 of a connected vpn client. </param>
         /// <param name="vpnUserName"> The user name of a connected vpn client. </param>
         /// <param name="maxBandwidth"> The max band width. </param>
         /// <param name="egressPacketsTransferred"> The egress packets per second. </param>
@@ -6783,7 +6784,7 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="ingressBytesTransferred"> The ingress bytes per second. </param>
         /// <param name="maxPacketsPerSecond"> The max packets transferred per second. </param>
         /// <returns> A new <see cref="Models.VpnClientConnectionHealthDetail"/> instance for mocking. </returns>
-        public static VpnClientConnectionHealthDetail VpnClientConnectionHealthDetail(string vpnConnectionId = null, long? vpnConnectionDurationInSeconds = null, DateTimeOffset? vpnConnectionOn = null, string publicIPAddress = null, string privateIPAddress = null, string vpnUserName = null, long? maxBandwidth = null, long? egressPacketsTransferred = null, long? egressBytesTransferred = null, long? ingressPacketsTransferred = null, long? ingressBytesTransferred = null, long? maxPacketsPerSecond = null)
+        public static VpnClientConnectionHealthDetail VpnClientConnectionHealthDetail(string vpnConnectionId = null, long? vpnConnectionDurationInSeconds = null, DateTimeOffset? vpnConnectionOn = null, string publicIPAddress = null, string privateIPAddress = null, string privateIPv6Address = null, string vpnUserName = null, long? maxBandwidth = null, long? egressPacketsTransferred = null, long? egressBytesTransferred = null, long? ingressPacketsTransferred = null, long? ingressBytesTransferred = null, long? maxPacketsPerSecond = null)
         {
             return new VpnClientConnectionHealthDetail(
                 vpnConnectionId,
@@ -6791,6 +6792,7 @@ namespace Azure.ResourceManager.Network.Models
                 vpnConnectionOn,
                 publicIPAddress,
                 privateIPAddress,
+                privateIPv6Address,
                 vpnUserName,
                 maxBandwidth,
                 egressPacketsTransferred,
@@ -8250,6 +8252,26 @@ namespace Azure.ResourceManager.Network.Models
                 direction,
                 provisioningState,
                 resourceGuid);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Network.Models.VpnClientConnectionHealthDetail" />. </summary>
+        /// <param name="vpnConnectionId"> The vpn client Id. </param>
+        /// <param name="vpnConnectionDurationInSeconds"> The duration time of a connected vpn client. </param>
+        /// <param name="vpnConnectionOn"> The start time of a connected vpn client. </param>
+        /// <param name="publicIPAddress"> The public Ip of a connected vpn client. </param>
+        /// <param name="privateIPAddress"> The assigned private Ip of a connected vpn client. </param>
+        /// <param name="vpnUserName"> The user name of a connected vpn client. </param>
+        /// <param name="maxBandwidth"> The max band width. </param>
+        /// <param name="egressPacketsTransferred"> The egress packets per second. </param>
+        /// <param name="egressBytesTransferred"> The egress bytes per second. </param>
+        /// <param name="ingressPacketsTransferred"> The ingress packets per second. </param>
+        /// <param name="ingressBytesTransferred"> The ingress bytes per second. </param>
+        /// <param name="maxPacketsPerSecond"> The max packets transferred per second. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Network.Models.VpnClientConnectionHealthDetail" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static VpnClientConnectionHealthDetail VpnClientConnectionHealthDetail(string vpnConnectionId, long? vpnConnectionDurationInSeconds, DateTimeOffset? vpnConnectionOn, string publicIPAddress, string privateIPAddress, string vpnUserName, long? maxBandwidth, long? egressPacketsTransferred, long? egressBytesTransferred, long? ingressPacketsTransferred, long? ingressBytesTransferred, long? maxPacketsPerSecond)
+        {
+            return VpnClientConnectionHealthDetail(vpnConnectionId: vpnConnectionId, vpnConnectionDurationInSeconds: vpnConnectionDurationInSeconds, vpnConnectionOn: vpnConnectionOn, publicIPAddress: publicIPAddress, privateIPAddress: privateIPAddress, privateIPv6Address: default, vpnUserName: vpnUserName, maxBandwidth: maxBandwidth, egressPacketsTransferred: egressPacketsTransferred, egressBytesTransferred: egressBytesTransferred, ingressPacketsTransferred: ingressPacketsTransferred, ingressBytesTransferred: ingressBytesTransferred, maxPacketsPerSecond: maxPacketsPerSecond);
         }
 
         /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Network.PrivateLinkServiceData" />. </summary>
