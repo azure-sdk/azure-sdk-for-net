@@ -824,6 +824,8 @@ namespace Azure.ResourceManager.Compute
         public static Azure.ResourceManager.Compute.VirtualMachineScaleSetVmRunCommandResource GetVirtualMachineScaleSetVmRunCommandResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.Pageable<Azure.ResourceManager.Compute.Models.VirtualMachineSize> GetVirtualMachineSizes(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.AsyncPageable<Azure.ResourceManager.Compute.Models.VirtualMachineSize> GetVirtualMachineSizesAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.Pageable<Azure.ResourceManager.Compute.Models.VirtualMachineImage> GetWithPropertiesVirtualMachineImages(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.ResourceManager.Compute.Models.SubscriptionResourceGetWithPropertiesVirtualMachineImagesOptions options, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.AsyncPageable<Azure.ResourceManager.Compute.Models.VirtualMachineImage> GetWithPropertiesVirtualMachineImagesAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.ResourceManager.Compute.Models.SubscriptionResourceGetWithPropertiesVirtualMachineImagesOptions options, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
     public partial class ComputePrivateEndpointConnectionCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Compute.ComputePrivateEndpointConnectionResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.ComputePrivateEndpointConnectionResource>, System.Collections.IEnumerable
     {
@@ -3126,6 +3128,8 @@ namespace Azure.ResourceManager.Compute.Mocking
         public virtual Azure.AsyncPageable<Azure.ResourceManager.Compute.VirtualMachineScaleSetResource> GetVirtualMachineScaleSetsByLocationAsync(Azure.Core.AzureLocation location, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Pageable<Azure.ResourceManager.Compute.Models.VirtualMachineSize> GetVirtualMachineSizes(Azure.Core.AzureLocation location, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.AsyncPageable<Azure.ResourceManager.Compute.Models.VirtualMachineSize> GetVirtualMachineSizesAsync(Azure.Core.AzureLocation location, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.Compute.Models.VirtualMachineImage> GetWithPropertiesVirtualMachineImages(Azure.ResourceManager.Compute.Models.SubscriptionResourceGetWithPropertiesVirtualMachineImagesOptions options, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.Compute.Models.VirtualMachineImage> GetWithPropertiesVirtualMachineImagesAsync(Azure.ResourceManager.Compute.Models.SubscriptionResourceGetWithPropertiesVirtualMachineImagesOptions options, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
 }
 namespace Azure.ResourceManager.Compute.Models
@@ -5196,6 +5200,23 @@ namespace Azure.ResourceManager.Compute.Models
         Azure.ResourceManager.Compute.Models.EncryptionSettingsGroup System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.EncryptionSettingsGroup>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.EncryptionSettingsGroup>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.EncryptionSettingsGroup>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct Enum56 : System.IEquatable<Azure.ResourceManager.Compute.Models.Enum56>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public Enum56(string value) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.Enum56 Properties { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Compute.Models.Enum56 other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Compute.Models.Enum56 left, Azure.ResourceManager.Compute.Models.Enum56 right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Compute.Models.Enum56 (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Compute.Models.Enum56 left, Azure.ResourceManager.Compute.Models.Enum56 right) { throw null; }
+        public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct ExecutionState : System.IEquatable<Azure.ResourceManager.Compute.Models.ExecutionState>
@@ -7852,6 +7873,17 @@ namespace Azure.ResourceManager.Compute.Models
     {
         public SubscriptionResourceGetVirtualMachineImagesOptions(Azure.Core.AzureLocation location, string publisherName, string offer, string skus) { }
         public string Expand { get { throw null; } set { } }
+        public Azure.Core.AzureLocation Location { get { throw null; } }
+        public string Offer { get { throw null; } }
+        public string Orderby { get { throw null; } set { } }
+        public string PublisherName { get { throw null; } }
+        public string Skus { get { throw null; } }
+        public int? Top { get { throw null; } set { } }
+    }
+    public partial class SubscriptionResourceGetWithPropertiesVirtualMachineImagesOptions
+    {
+        public SubscriptionResourceGetWithPropertiesVirtualMachineImagesOptions(Azure.Core.AzureLocation location, string publisherName, string offer, string skus, Azure.ResourceManager.Compute.Models.Enum56 expand) { }
+        public Azure.ResourceManager.Compute.Models.Enum56 Expand { get { throw null; } }
         public Azure.Core.AzureLocation Location { get { throw null; } }
         public string Offer { get { throw null; } }
         public string Orderby { get { throw null; } set { } }
