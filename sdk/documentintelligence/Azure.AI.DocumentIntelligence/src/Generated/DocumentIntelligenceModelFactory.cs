@@ -472,7 +472,7 @@ namespace Azure.AI.DocumentIntelligence
         /// </param>
         /// <param name="confidence"> Confidence of correctly identifying the language. </param>
         /// <returns> A new <see cref="DocumentIntelligence.DocumentLanguage"/> instance for mocking. </returns>
-        public static DocumentLanguage DocumentLanguage(string locale = null, IEnumerable<DocumentSpan> spans = null, float confidence = default)
+        public static DocumentLanguage DocumentLanguage(long locale = default, IEnumerable<DocumentSpan> spans = null, float confidence = default)
         {
             spans ??= new List<DocumentSpan>();
 

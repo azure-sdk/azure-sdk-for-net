@@ -56,10 +56,9 @@ namespace Azure.AI.DocumentIntelligence
         /// to.
         /// </param>
         /// <param name="confidence"> Confidence of correctly identifying the language. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="locale"/> or <paramref name="spans"/> is null. </exception>
-        internal DocumentLanguage(string locale, IEnumerable<DocumentSpan> spans, float confidence)
+        /// <exception cref="ArgumentNullException"> <paramref name="spans"/> is null. </exception>
+        internal DocumentLanguage(long locale, IEnumerable<DocumentSpan> spans, float confidence)
         {
-            Argument.AssertNotNull(locale, nameof(locale));
             Argument.AssertNotNull(spans, nameof(spans));
 
             Locale = locale;
@@ -78,7 +77,7 @@ namespace Azure.AI.DocumentIntelligence
         /// </param>
         /// <param name="confidence"> Confidence of correctly identifying the language. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DocumentLanguage(string locale, IReadOnlyList<DocumentSpan> spans, float confidence, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DocumentLanguage(long locale, IReadOnlyList<DocumentSpan> spans, float confidence, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Locale = locale;
             Spans = spans;
@@ -95,7 +94,7 @@ namespace Azure.AI.DocumentIntelligence
         /// Detected language.  Value may an ISO 639-1 language code (ex. "en", "fr")
         /// or BCP 47 language tag (ex. "zh-Hans").
         /// </summary>
-        public string Locale { get; }
+        public long Locale { get; }
         /// <summary>
         /// Location of the text elements in the concatenated content the language applies
         /// to.
