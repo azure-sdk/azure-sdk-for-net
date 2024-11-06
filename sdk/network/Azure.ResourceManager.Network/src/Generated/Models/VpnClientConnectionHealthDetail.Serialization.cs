@@ -59,6 +59,11 @@ namespace Azure.ResourceManager.Network.Models
                 writer.WritePropertyName("privateIpAddress"u8);
                 writer.WriteStringValue(PrivateIPAddress);
             }
+            if (options.Format != "W" && Optional.IsDefined(PrivateIPv6Address))
+            {
+                writer.WritePropertyName("privateIpv6Address"u8);
+                writer.WriteStringValue(PrivateIPv6Address);
+            }
             if (options.Format != "W" && Optional.IsDefined(VpnUserName))
             {
                 writer.WritePropertyName("vpnUserName"u8);
@@ -136,6 +141,7 @@ namespace Azure.ResourceManager.Network.Models
             DateTimeOffset? vpnConnectionTime = default;
             string publicIPAddress = default;
             string privateIPAddress = default;
+            string privateIPv6Address = default;
             string vpnUserName = default;
             long? maxBandwidth = default;
             long? egressPacketsTransferred = default;
@@ -178,6 +184,11 @@ namespace Azure.ResourceManager.Network.Models
                 if (property.NameEquals("privateIpAddress"u8))
                 {
                     privateIPAddress = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("privateIpv6Address"u8))
+                {
+                    privateIPv6Address = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("vpnUserName"u8))
@@ -251,6 +262,7 @@ namespace Azure.ResourceManager.Network.Models
                 vpnConnectionTime,
                 publicIPAddress,
                 privateIPAddress,
+                privateIPv6Address,
                 vpnUserName,
                 maxBandwidth,
                 egressPacketsTransferred,

@@ -56,6 +56,7 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="vpnConnectionOn"> The start time of a connected vpn client. </param>
         /// <param name="publicIPAddress"> The public Ip of a connected vpn client. </param>
         /// <param name="privateIPAddress"> The assigned private Ip of a connected vpn client. </param>
+        /// <param name="privateIPv6Address"> The assigned private Ipv6 of a connected vpn client. </param>
         /// <param name="vpnUserName"> The user name of a connected vpn client. </param>
         /// <param name="maxBandwidth"> The max band width. </param>
         /// <param name="egressPacketsTransferred"> The egress packets per second. </param>
@@ -64,13 +65,14 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="ingressBytesTransferred"> The ingress bytes per second. </param>
         /// <param name="maxPacketsPerSecond"> The max packets transferred per second. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VpnClientConnectionHealthDetail(string vpnConnectionId, long? vpnConnectionDurationInSeconds, DateTimeOffset? vpnConnectionOn, string publicIPAddress, string privateIPAddress, string vpnUserName, long? maxBandwidth, long? egressPacketsTransferred, long? egressBytesTransferred, long? ingressPacketsTransferred, long? ingressBytesTransferred, long? maxPacketsPerSecond, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VpnClientConnectionHealthDetail(string vpnConnectionId, long? vpnConnectionDurationInSeconds, DateTimeOffset? vpnConnectionOn, string publicIPAddress, string privateIPAddress, string privateIPv6Address, string vpnUserName, long? maxBandwidth, long? egressPacketsTransferred, long? egressBytesTransferred, long? ingressPacketsTransferred, long? ingressBytesTransferred, long? maxPacketsPerSecond, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             VpnConnectionId = vpnConnectionId;
             VpnConnectionDurationInSeconds = vpnConnectionDurationInSeconds;
             VpnConnectionOn = vpnConnectionOn;
             PublicIPAddress = publicIPAddress;
             PrivateIPAddress = privateIPAddress;
+            PrivateIPv6Address = privateIPv6Address;
             VpnUserName = vpnUserName;
             MaxBandwidth = maxBandwidth;
             EgressPacketsTransferred = egressPacketsTransferred;
@@ -91,6 +93,8 @@ namespace Azure.ResourceManager.Network.Models
         public string PublicIPAddress { get; }
         /// <summary> The assigned private Ip of a connected vpn client. </summary>
         public string PrivateIPAddress { get; }
+        /// <summary> The assigned private Ipv6 of a connected vpn client. </summary>
+        public string PrivateIPv6Address { get; }
         /// <summary> The user name of a connected vpn client. </summary>
         public string VpnUserName { get; }
         /// <summary> The max band width. </summary>
