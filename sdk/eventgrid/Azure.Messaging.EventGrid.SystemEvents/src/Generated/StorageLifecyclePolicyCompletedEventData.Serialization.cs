@@ -19,21 +19,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         void IJsonModel<StorageLifecyclePolicyCompletedEventData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<StorageLifecyclePolicyCompletedEventData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(StorageLifecyclePolicyCompletedEventData)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             if (Optional.IsDefined(ScheduleTime))
             {
                 writer.WritePropertyName("scheduleTime"u8);
@@ -45,6 +37,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             writer.WriteObjectValue(TierToCoolSummary, options);
             writer.WritePropertyName("tierToArchiveSummary"u8);
             writer.WriteObjectValue(TierToArchiveSummary, options);
+            writer.WritePropertyName("tierToColdSummary"u8);
+            writer.WriteObjectValue(TierToColdSummary, options);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -60,6 +54,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         StorageLifecyclePolicyCompletedEventData IJsonModel<StorageLifecyclePolicyCompletedEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -86,6 +81,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             StorageLifecyclePolicyActionSummaryDetail deleteSummary = default;
             StorageLifecyclePolicyActionSummaryDetail tierToCoolSummary = default;
             StorageLifecyclePolicyActionSummaryDetail tierToArchiveSummary = default;
+            StorageLifecyclePolicyActionSummaryDetail tierToColdSummary = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -110,13 +106,24 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     tierToArchiveSummary = StorageLifecyclePolicyActionSummaryDetail.DeserializeStorageLifecyclePolicyActionSummaryDetail(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("tierToColdSummary"u8))
+                {
+                    tierToColdSummary = StorageLifecyclePolicyActionSummaryDetail.DeserializeStorageLifecyclePolicyActionSummaryDetail(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new StorageLifecyclePolicyCompletedEventData(scheduleTime, deleteSummary, tierToCoolSummary, tierToArchiveSummary, serializedAdditionalRawData);
+            return new StorageLifecyclePolicyCompletedEventData(
+                scheduleTime,
+                deleteSummary,
+                tierToCoolSummary,
+                tierToArchiveSummary,
+                tierToColdSummary,
+                serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<StorageLifecyclePolicyCompletedEventData>.Write(ModelReaderWriterOptions options)

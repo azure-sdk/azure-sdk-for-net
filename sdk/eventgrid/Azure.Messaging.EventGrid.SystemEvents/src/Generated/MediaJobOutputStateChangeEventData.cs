@@ -49,7 +49,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MediaJobOutputStateChangeEventData"/>. </summary>
-        /// <param name="previousState"> The previous state of the Job. </param>
         /// <param name="output">
         /// Gets the output.
         /// Please note <see cref="MediaJobOutput"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
@@ -57,12 +56,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </param>
         /// <param name="jobCorrelationData"> Gets the Job correlation data. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="output"/> or <paramref name="jobCorrelationData"/> is null. </exception>
-        internal MediaJobOutputStateChangeEventData(MediaJobState previousState, MediaJobOutput output, IReadOnlyDictionary<string, string> jobCorrelationData)
+        internal MediaJobOutputStateChangeEventData(MediaJobOutput output, IReadOnlyDictionary<string, string> jobCorrelationData)
         {
             Argument.AssertNotNull(output, nameof(output));
             Argument.AssertNotNull(jobCorrelationData, nameof(jobCorrelationData));
 
-            PreviousState = previousState;
             Output = output;
             JobCorrelationData = jobCorrelationData;
         }
@@ -76,7 +74,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </param>
         /// <param name="jobCorrelationData"> Gets the Job correlation data. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MediaJobOutputStateChangeEventData(MediaJobState previousState, MediaJobOutput output, IReadOnlyDictionary<string, string> jobCorrelationData, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal MediaJobOutputStateChangeEventData(MediaJobState? previousState, MediaJobOutput output, IReadOnlyDictionary<string, string> jobCorrelationData, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             PreviousState = previousState;
             Output = output;
@@ -90,7 +88,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         }
 
         /// <summary> The previous state of the Job. </summary>
-        public MediaJobState PreviousState { get; }
+        public MediaJobState? PreviousState { get; }
         /// <summary>
         /// Gets the output.
         /// Please note <see cref="MediaJobOutput"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
