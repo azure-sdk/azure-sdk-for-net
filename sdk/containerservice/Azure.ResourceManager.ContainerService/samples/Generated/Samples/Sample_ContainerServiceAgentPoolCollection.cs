@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListAgentPoolsByManagedCluster()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsList.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsList.json
             // this example is just showing the usage of "AgentPools_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetAgentPool()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsGet.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsGet.json
             // this example is just showing the usage of "AgentPools_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetAgentPool()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsGet.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsGet.json
             // this example is just showing the usage of "AgentPools_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetAgentPool()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsGet.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsGet.json
             // this example is just showing the usage of "AgentPools_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateAgentPoolUsingAnAgentPoolSnapshot()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsCreate_Snapshot.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_Snapshot.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -211,7 +211,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateAgentPoolWithCapacityReservationGroup()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsCreate_CRG.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_CRG.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -255,7 +255,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateAgentPoolWithDedicatedHostGroup()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsCreate_DedicatedHostGroup.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_DedicatedHostGroup.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -299,7 +299,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateAgentPoolWithEncryptionAtHostEnabled()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsCreate_EnableEncryptionAtHost.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_EnableEncryptionAtHost.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -343,7 +343,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateAgentPoolWithEphemeralOSDisk()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsCreate_Ephemeral.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_Ephemeral.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -388,7 +388,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateAgentPoolWithFIPSEnabledOS()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsCreate_EnableFIPS.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_EnableFIPS.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -432,7 +432,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateAgentPoolWithGPUMIG()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsCreate_GPUMIG.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_GPUMIG.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -503,7 +503,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateAgentPoolWithKrustletAndTheWASIRuntime()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsCreate_WasmWasi.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_WasmWasi.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -549,7 +549,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateAgentPoolWithKubeletConfigAndLinuxOSConfig()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsCreate_CustomNodeConfig.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_CustomNodeConfig.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -619,7 +619,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateAgentPoolWithOSSKU()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsCreate_OSSKU.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_OSSKU.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -690,7 +690,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateAgentPoolWithPPG()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsCreate_PPG.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_PPG.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -734,7 +734,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateAgentPoolWithUltraSSDEnabled()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsCreate_EnableUltraSSD.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_EnableUltraSSD.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -778,7 +778,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateAgentPoolWithWindowsOSSKU()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsCreate_WindowsOSSKU.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_WindowsOSSKU.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -822,7 +822,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateSpotAgentPool()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsCreate_Spot.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_Spot.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -874,12 +874,57 @@ namespace Azure.ResourceManager.ContainerService.Samples
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
+        // Create Windows Agent Pool with disabling OutboundNAT
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task CreateOrUpdate_CreateWindowsAgentPoolWithDisablingOutboundNAT()
+        {
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_WindowsDisableOutboundNAT.json
+            // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ContainerServiceManagedClusterResource created on azure
+            // for more information of creating ContainerServiceManagedClusterResource, please refer to the document of ContainerServiceManagedClusterResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "rg1";
+            string resourceName = "clustername1";
+            ResourceIdentifier containerServiceManagedClusterResourceId = ContainerServiceManagedClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, resourceName);
+            ContainerServiceManagedClusterResource containerServiceManagedCluster = client.GetContainerServiceManagedClusterResource(containerServiceManagedClusterResourceId);
+
+            // get the collection of this ContainerServiceAgentPoolResource
+            ContainerServiceAgentPoolCollection collection = containerServiceManagedCluster.GetContainerServiceAgentPools();
+
+            // invoke the operation
+            string agentPoolName = "wnp2";
+            ContainerServiceAgentPoolData data = new ContainerServiceAgentPoolData()
+            {
+                Count = 3,
+                VmSize = "Standard_D4s_v3",
+                OSType = ContainerServiceOSType.Windows,
+                OSSku = ContainerServiceOSSku.Windows2022,
+                OrchestratorVersion = "1.23.8",
+                DisableOutboundNat = true,
+            };
+            ArmOperation<ContainerServiceAgentPoolResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, agentPoolName, data);
+            ContainerServiceAgentPoolResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            ContainerServiceAgentPoolData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
         // Create/Update Agent Pool
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateUpdateAgentPool()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPoolsCreate_Update.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPoolsCreate_Update.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -937,7 +982,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_StartAgentPool()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPools_Start.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPools_Start.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -977,7 +1022,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_StopAgentPool()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPools_Stop.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPools_Stop.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1017,7 +1062,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_UpdateAgentPool()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/AgentPools_Update.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-09-01/examples/AgentPools_Update.json
             // this example is just showing the usage of "AgentPools_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
