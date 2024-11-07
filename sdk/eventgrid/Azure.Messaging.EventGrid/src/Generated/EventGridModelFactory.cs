@@ -4059,6 +4059,16 @@ namespace Azure.Messaging.EventGrid
             return new ResourceNotificationsResourceManagementDeletedEventData(resourceDetails, operationalDetails);
         }
 
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ResourceNotificationsContainerServiceEventResourcesScheduledEventData"/>. </summary>
+        /// <param name="resourceDetails"> resourceInfo details for update event. </param>
+        /// <param name="operationalDetails"> details about operational info. </param>
+        /// <param name="apiVersion"> api version of the resource properties bag. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceNotificationsContainerServiceEventResourcesScheduledEventData"/> instance for mocking. </returns>
+        public static ResourceNotificationsContainerServiceEventResourcesScheduledEventData ResourceNotificationsContainerServiceEventResourcesScheduledEventData(ResourceNotificationsResourceUpdatedDetails resourceDetails = null, ResourceNotificationsOperationalDetails operationalDetails = null, string apiVersion = null)
+        {
+            return new ResourceNotificationsContainerServiceEventResourcesScheduledEventData(resourceDetails, operationalDetails, apiVersion);
+        }
+
         /// <summary> Initializes a new instance of <see cref="SystemEvents.AvsPrivateCloudUpdatingEventData"/>. </summary>
         /// <param name="operationId"> Id of the operation that caused this event. </param>
         /// <returns> A new <see cref="SystemEvents.AvsPrivateCloudUpdatingEventData"/> instance for mocking. </returns>
