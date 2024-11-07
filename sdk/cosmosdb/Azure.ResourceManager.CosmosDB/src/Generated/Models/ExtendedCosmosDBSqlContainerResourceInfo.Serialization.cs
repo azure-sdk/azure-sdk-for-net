@@ -87,8 +87,8 @@ namespace Azure.ResourceManager.CosmosDB.Models
             long? analyticalStorageTtl = default;
             ResourceRestoreParameters restoreParameters = default;
             CosmosDBAccountCreateMode? createMode = default;
-            MaterializedViewDefinition materializedViewDefinition = default;
             IList<ComputedProperty> computedProperties = default;
+            VectorEmbeddingPolicy vectorEmbeddingPolicy = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -202,15 +202,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                     createMode = new CosmosDBAccountCreateMode(property.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("materializedViewDefinition"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    materializedViewDefinition = MaterializedViewDefinition.DeserializeMaterializedViewDefinition(property.Value, options);
-                    continue;
-                }
                 if (property.NameEquals("computedProperties"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -223,6 +214,15 @@ namespace Azure.ResourceManager.CosmosDB.Models
                         array.Add(ComputedProperty.DeserializeComputedProperty(item, options));
                     }
                     computedProperties = array;
+                    continue;
+                }
+                if (property.NameEquals("vectorEmbeddingPolicy"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    vectorEmbeddingPolicy = VectorEmbeddingPolicy.DeserializeVectorEmbeddingPolicy(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -242,8 +242,8 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 analyticalStorageTtl,
                 restoreParameters,
                 createMode,
-                materializedViewDefinition,
                 computedProperties ?? new ChangeTrackingList<ComputedProperty>(),
+                vectorEmbeddingPolicy,
                 serializedAdditionalRawData,
                 rid,
                 ts,
@@ -475,21 +475,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(MaterializedViewDefinition), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("  materializedViewDefinition: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(MaterializedViewDefinition))
-                {
-                    builder.Append("  materializedViewDefinition: ");
-                    BicepSerializationHelpers.AppendChildObject(builder, MaterializedViewDefinition, options, 2, false, "  materializedViewDefinition: ");
-                }
-            }
-
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ComputedProperties), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -510,6 +495,24 @@ namespace Azure.ResourceManager.CosmosDB.Models
                         }
                         builder.AppendLine("  ]");
                     }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue("VectorEmbeddings", out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  vectorEmbeddingPolicy: ");
+                builder.AppendLine("{");
+                builder.Append("    vectorEmbeddings: ");
+                builder.AppendLine(propertyOverride);
+                builder.AppendLine("  }");
+            }
+            else
+            {
+                if (Optional.IsDefined(VectorEmbeddingPolicy))
+                {
+                    builder.Append("  vectorEmbeddingPolicy: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, VectorEmbeddingPolicy, options, 2, false, "  vectorEmbeddingPolicy: ");
                 }
             }
 
