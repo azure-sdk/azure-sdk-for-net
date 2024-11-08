@@ -1478,9 +1478,9 @@ namespace Azure.ResourceManager.Network
         public Azure.Core.ResourceIdentifier ExpressRouteCircuitId { get { throw null; } set { } }
         public string PeeringLocation { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Network.ExpressRouteCrossConnectionPeeringData> Peerings { get { throw null; } }
-        public string PrimaryAzurePort { get { throw null; } }
+        public string PrimaryAzurePort { get { throw null; } set { } }
         public Azure.ResourceManager.Network.Models.NetworkProvisioningState? ProvisioningState { get { throw null; } }
-        public string SecondaryAzurePort { get { throw null; } }
+        public string SecondaryAzurePort { get { throw null; } set { } }
         public string ServiceProviderNotes { get { throw null; } set { } }
         public Azure.ResourceManager.Network.Models.ServiceProviderProvisioningState? ServiceProviderProvisioningState { get { throw null; } set { } }
         public int? STag { get { throw null; } }

@@ -61,9 +61,9 @@ namespace Azure.ResourceManager.Network
         /// <summary> A unique read-only string that changes whenever the resource is updated. </summary>
         public ETag? ETag { get; }
         /// <summary> The name of the primary port. </summary>
-        public string PrimaryAzurePort { get; }
+        public string PrimaryAzurePort { get; set; }
         /// <summary> The name of the secondary port. </summary>
-        public string SecondaryAzurePort { get; }
+        public string SecondaryAzurePort { get; set; }
         /// <summary> The identifier of the circuit traffic. </summary>
         public int? STag { get; }
         /// <summary> The peering location of the ExpressRoute circuit. </summary>

@@ -44,12 +44,12 @@ namespace Azure.ResourceManager.Network
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (options.Format != "W" && Optional.IsDefined(PrimaryAzurePort))
+            if (Optional.IsDefined(PrimaryAzurePort))
             {
                 writer.WritePropertyName("primaryAzurePort"u8);
                 writer.WriteStringValue(PrimaryAzurePort);
             }
-            if (options.Format != "W" && Optional.IsDefined(SecondaryAzurePort))
+            if (Optional.IsDefined(SecondaryAzurePort))
             {
                 writer.WritePropertyName("secondaryAzurePort"u8);
                 writer.WriteStringValue(SecondaryAzurePort);
