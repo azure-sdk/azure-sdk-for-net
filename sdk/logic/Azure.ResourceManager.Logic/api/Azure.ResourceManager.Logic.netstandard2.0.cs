@@ -2005,6 +2005,7 @@ namespace Azure.ResourceManager.Logic.Models
         public FlowAccessControlConfigurationPolicy() { }
         public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Logic.Models.OpenAuthenticationAccessPolicy> AccessPolicies { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Logic.Models.FlowAccessControlIPAddressRange> AllowedCallerIPAddresses { get { throw null; } }
+        public Azure.ResourceManager.Logic.Models.SasAuthenticationPolicyState? SasAuthenticationState { get { throw null; } set { } }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.Logic.Models.FlowAccessControlConfigurationPolicy System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Logic.Models.FlowAccessControlConfigurationPolicy>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Logic.Models.FlowAccessControlConfigurationPolicy>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -3625,6 +3626,24 @@ namespace Azure.ResourceManager.Logic.Models
         public static bool operator ==(Azure.ResourceManager.Logic.Models.OpenAuthenticationProviderType left, Azure.ResourceManager.Logic.Models.OpenAuthenticationProviderType right) { throw null; }
         public static implicit operator Azure.ResourceManager.Logic.Models.OpenAuthenticationProviderType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Logic.Models.OpenAuthenticationProviderType left, Azure.ResourceManager.Logic.Models.OpenAuthenticationProviderType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct SasAuthenticationPolicyState : System.IEquatable<Azure.ResourceManager.Logic.Models.SasAuthenticationPolicyState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public SasAuthenticationPolicyState(string value) { throw null; }
+        public static Azure.ResourceManager.Logic.Models.SasAuthenticationPolicyState Disabled { get { throw null; } }
+        public static Azure.ResourceManager.Logic.Models.SasAuthenticationPolicyState Enabled { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Logic.Models.SasAuthenticationPolicyState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Logic.Models.SasAuthenticationPolicyState left, Azure.ResourceManager.Logic.Models.SasAuthenticationPolicyState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Logic.Models.SasAuthenticationPolicyState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Logic.Models.SasAuthenticationPolicyState left, Azure.ResourceManager.Logic.Models.SasAuthenticationPolicyState right) { throw null; }
         public override string ToString() { throw null; }
     }
     public enum SegmentTerminatorSuffix
