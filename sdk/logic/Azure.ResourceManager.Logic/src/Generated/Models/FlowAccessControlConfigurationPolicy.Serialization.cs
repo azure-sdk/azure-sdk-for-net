@@ -49,6 +49,11 @@ namespace Azure.ResourceManager.Logic.Models
                 writer.WritePropertyName("openAuthenticationPolicies"u8);
                 writer.WriteObjectValue(OpenAuthenticationPolicies, options);
             }
+            if (Optional.IsDefined(SasAuthenticationPolicy))
+            {
+                writer.WritePropertyName("sasAuthenticationPolicy"u8);
+                writer.WriteObjectValue(SasAuthenticationPolicy, options);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -88,6 +93,7 @@ namespace Azure.ResourceManager.Logic.Models
             }
             IList<FlowAccessControlIPAddressRange> allowedCallerIPAddresses = default;
             OpenAuthenticationAccessPolicies openAuthenticationPolicies = default;
+            SasAuthenticationPolicy sasAuthenticationPolicy = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -115,13 +121,22 @@ namespace Azure.ResourceManager.Logic.Models
                     openAuthenticationPolicies = OpenAuthenticationAccessPolicies.DeserializeOpenAuthenticationAccessPolicies(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("sasAuthenticationPolicy"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sasAuthenticationPolicy = SasAuthenticationPolicy.DeserializeSasAuthenticationPolicy(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new FlowAccessControlConfigurationPolicy(allowedCallerIPAddresses ?? new ChangeTrackingList<FlowAccessControlIPAddressRange>(), openAuthenticationPolicies, serializedAdditionalRawData);
+            return new FlowAccessControlConfigurationPolicy(allowedCallerIPAddresses ?? new ChangeTrackingList<FlowAccessControlIPAddressRange>(), openAuthenticationPolicies, sasAuthenticationPolicy, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<FlowAccessControlConfigurationPolicy>.Write(ModelReaderWriterOptions options)

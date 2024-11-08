@@ -54,11 +54,13 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary> Initializes a new instance of <see cref="FlowAccessControlConfigurationPolicy"/>. </summary>
         /// <param name="allowedCallerIPAddresses"> The allowed caller IP address ranges. </param>
         /// <param name="openAuthenticationPolicies"> The authentication policies for workflow. </param>
+        /// <param name="sasAuthenticationPolicy"> The SAS authentication policy for workflow. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal FlowAccessControlConfigurationPolicy(IList<FlowAccessControlIPAddressRange> allowedCallerIPAddresses, OpenAuthenticationAccessPolicies openAuthenticationPolicies, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal FlowAccessControlConfigurationPolicy(IList<FlowAccessControlIPAddressRange> allowedCallerIPAddresses, OpenAuthenticationAccessPolicies openAuthenticationPolicies, SasAuthenticationPolicy sasAuthenticationPolicy, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             AllowedCallerIPAddresses = allowedCallerIPAddresses;
             OpenAuthenticationPolicies = openAuthenticationPolicies;
+            SasAuthenticationPolicy = sasAuthenticationPolicy;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -74,6 +76,20 @@ namespace Azure.ResourceManager.Logic.Models
                 if (OpenAuthenticationPolicies is null)
                     OpenAuthenticationPolicies = new OpenAuthenticationAccessPolicies();
                 return OpenAuthenticationPolicies.AccessPolicies;
+            }
+        }
+
+        /// <summary> The SAS authentication policy for workflow. </summary>
+        internal SasAuthenticationPolicy SasAuthenticationPolicy { get; set; }
+        /// <summary> SAS authentication policy state. </summary>
+        public SasAuthenticationPolicyState? SasAuthenticationState
+        {
+            get => SasAuthenticationPolicy is null ? default : SasAuthenticationPolicy.State;
+            set
+            {
+                if (SasAuthenticationPolicy is null)
+                    SasAuthenticationPolicy = new SasAuthenticationPolicy();
+                SasAuthenticationPolicy.State = value;
             }
         }
     }
