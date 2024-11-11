@@ -52,6 +52,16 @@ namespace Azure.AI.Translation.Document
             writer.WriteStringValue(Id);
             writer.WritePropertyName("characterCharged"u8);
             writer.WriteNumberValue(CharactersCharged);
+            if (Optional.IsDefined(TotalImageScansSucceeded))
+            {
+                writer.WritePropertyName("totalImageScansSucceeded"u8);
+                writer.WriteNumberValue(TotalImageScansSucceeded.Value);
+            }
+            if (Optional.IsDefined(TotalImageScansFailed))
+            {
+                writer.WritePropertyName("totalImageScansFailed"u8);
+                writer.WriteNumberValue(TotalImageScansFailed.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -100,6 +110,8 @@ namespace Azure.AI.Translation.Document
             float progress = default;
             string id = default;
             long characterCharged = default;
+            int? totalImageScansSucceeded = default;
+            int? totalImageScansFailed = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -162,6 +174,24 @@ namespace Azure.AI.Translation.Document
                     characterCharged = property.Value.GetInt64();
                     continue;
                 }
+                if (property.NameEquals("totalImageScansSucceeded"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    totalImageScansSucceeded = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("totalImageScansFailed"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    totalImageScansFailed = property.Value.GetInt32();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -179,6 +209,8 @@ namespace Azure.AI.Translation.Document
                 progress,
                 id,
                 characterCharged,
+                totalImageScansSucceeded,
+                totalImageScansFailed,
                 serializedAdditionalRawData);
         }
 
