@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListMeshRevisionProfilesInALocation()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersList_MeshRevisionProfiles.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-10-01/examples/ManagedClustersList_MeshRevisionProfiles.json
             // this example is just showing the usage of "ManagedClusters_ListMeshRevisionProfiles" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetAMeshRevisionProfileForAMeshMode()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersGet_MeshRevisionProfile.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-10-01/examples/ManagedClustersGet_MeshRevisionProfile.json
             // this example is just showing the usage of "ManagedClusters_GetMeshRevisionProfile" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetAMeshRevisionProfileForAMeshMode()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersGet_MeshRevisionProfile.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-10-01/examples/ManagedClustersGet_MeshRevisionProfile.json
             // this example is just showing the usage of "ManagedClusters_GetMeshRevisionProfile" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -120,7 +120,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetAMeshRevisionProfileForAMeshMode()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersGet_MeshRevisionProfile.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2024-10-01/examples/ManagedClustersGet_MeshRevisionProfile.json
             // this example is just showing the usage of "ManagedClusters_GetMeshRevisionProfile" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
