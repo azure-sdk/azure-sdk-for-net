@@ -40,6 +40,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 writer.WritePropertyName("workLoadType"u8);
                 writer.WriteStringValue(WorkLoadType.Value.ToString());
             }
+            if (Optional.IsDefined(VmWorkloadPolicyType))
+            {
+                writer.WritePropertyName("vmWorkloadPolicyType"u8);
+                writer.WriteStringValue(VmWorkloadPolicyType.Value.ToString());
+            }
             if (Optional.IsDefined(Settings))
             {
                 writer.WritePropertyName("settings"u8);
@@ -83,6 +88,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 return null;
             }
             BackupWorkloadType? workLoadType = default;
+            VmWorkloadPolicyType? vmWorkloadPolicyType = default;
             BackupCommonSettings settings = default;
             IList<SubProtectionPolicy> subProtectionPolicy = default;
             bool? makePolicyConsistent = default;
@@ -100,6 +106,15 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                         continue;
                     }
                     workLoadType = new BackupWorkloadType(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("vmWorkloadPolicyType"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    vmWorkloadPolicyType = new VmWorkloadPolicyType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("settings"u8))
@@ -174,6 +189,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 resourceGuardOperationRequests ?? new ChangeTrackingList<string>(),
                 serializedAdditionalRawData,
                 workLoadType,
+                vmWorkloadPolicyType,
                 settings,
                 subProtectionPolicy ?? new ChangeTrackingList<SubProtectionPolicy>(),
                 makePolicyConsistent);

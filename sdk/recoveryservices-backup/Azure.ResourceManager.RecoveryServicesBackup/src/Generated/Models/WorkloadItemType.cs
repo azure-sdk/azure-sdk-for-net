@@ -30,6 +30,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         private const string SapAseSystemValue = "SAPAseSystem";
         private const string SapAseDatabaseValue = "SAPAseDatabase";
         private const string SapHanaDBInstanceValue = "SAPHanaDBInstance";
+        private const string OracleSystemValue = "OracleSystem";
+        private const string OracleDatabaseValue = "OracleDatabase";
+        private const string AnyDBSystemValue = "AnyDBSystem";
+        private const string AnyDatabaseValue = "AnyDatabase";
 
         /// <summary> Invalid. </summary>
         public static WorkloadItemType Invalid { get; } = new WorkloadItemType(InvalidValue);
@@ -47,6 +51,14 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         public static WorkloadItemType SapAseDatabase { get; } = new WorkloadItemType(SapAseDatabaseValue);
         /// <summary> SAPHanaDBInstance. </summary>
         public static WorkloadItemType SapHanaDBInstance { get; } = new WorkloadItemType(SapHanaDBInstanceValue);
+        /// <summary> OracleSystem. </summary>
+        public static WorkloadItemType OracleSystem { get; } = new WorkloadItemType(OracleSystemValue);
+        /// <summary> OracleDatabase. </summary>
+        public static WorkloadItemType OracleDatabase { get; } = new WorkloadItemType(OracleDatabaseValue);
+        /// <summary> AnyDBSystem. </summary>
+        public static WorkloadItemType AnyDBSystem { get; } = new WorkloadItemType(AnyDBSystemValue);
+        /// <summary> AnyDatabase. </summary>
+        public static WorkloadItemType AnyDatabase { get; } = new WorkloadItemType(AnyDatabaseValue);
         /// <summary> Determines if two <see cref="WorkloadItemType"/> values are the same. </summary>
         public static bool operator ==(WorkloadItemType left, WorkloadItemType right) => left.Equals(right);
         /// <summary> Determines if two <see cref="WorkloadItemType"/> values are not the same. </summary>

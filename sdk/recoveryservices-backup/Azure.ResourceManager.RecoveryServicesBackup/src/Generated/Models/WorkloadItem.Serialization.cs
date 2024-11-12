@@ -97,7 +97,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 switch (discriminator.GetString())
                 {
+                    case "AnyDataBase": return AzureVmWorkloadAnyDatabaseWorkloadItem.DeserializeAzureVmWorkloadAnyDatabaseWorkloadItem(element, options);
                     case "AzureVmWorkloadItem": return VmWorkloadItem.DeserializeVmWorkloadItem(element, options);
+                    case "OracleDataBase": return AzureVmWorkloadOracleDatabaseWorkloadItem.DeserializeAzureVmWorkloadOracleDatabaseWorkloadItem(element, options);
                     case "SAPAseDatabase": return VmWorkloadSapAseDatabaseWorkloadItem.DeserializeVmWorkloadSapAseDatabaseWorkloadItem(element, options);
                     case "SAPAseSystem": return VmWorkloadSapAseSystemWorkloadItem.DeserializeVmWorkloadSapAseSystemWorkloadItem(element, options);
                     case "SAPHanaDatabase": return VmWorkloadSapHanaDatabaseWorkloadItem.DeserializeVmWorkloadSapHanaDatabaseWorkloadItem(element, options);
