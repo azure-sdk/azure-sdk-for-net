@@ -19,21 +19,13 @@ namespace Azure.Health.Insights.RadiologyInsights
 
         void IJsonModel<RadiologyInsightsInference>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            writer.WriteStartObject();
-            JsonModelWriteCore(writer, options);
-            writer.WriteEndObject();
-        }
-
-        /// <param name="writer"> The JSON writer. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-        {
             var format = options.Format == "W" ? ((IPersistableModel<RadiologyInsightsInference>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(RadiologyInsightsInference)} does not support writing '{format}' format.");
             }
 
+            writer.WriteStartObject();
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (Optional.IsCollectionDefined(Extension))
@@ -61,6 +53,7 @@ namespace Azure.Health.Insights.RadiologyInsights
 #endif
                 }
             }
+            writer.WriteEndObject();
         }
 
         RadiologyInsightsInference IJsonModel<RadiologyInsightsInference>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -93,9 +86,12 @@ namespace Azure.Health.Insights.RadiologyInsights
                     case "finding": return FindingInference.DeserializeFindingInference(element, options);
                     case "followupCommunication": return FollowupCommunicationInference.DeserializeFollowupCommunicationInference(element, options);
                     case "followupRecommendation": return FollowupRecommendationInference.DeserializeFollowupRecommendationInference(element, options);
+                    case "guidance": return GuidanceInference.DeserializeGuidanceInference(element, options);
                     case "lateralityDiscrepancy": return LateralityDiscrepancyInference.DeserializeLateralityDiscrepancyInference(element, options);
                     case "limitedOrderDiscrepancy": return LimitedOrderDiscrepancyInference.DeserializeLimitedOrderDiscrepancyInference(element, options);
+                    case "qualityMeasure": return QualityMeasureInference.DeserializeQualityMeasureInference(element, options);
                     case "radiologyProcedure": return RadiologyProcedureInference.DeserializeRadiologyProcedureInference(element, options);
+                    case "scoringAndAssessment": return ScoringAndAssessmentInference.DeserializeScoringAndAssessmentInference(element, options);
                     case "sexMismatch": return SexMismatchInference.DeserializeSexMismatchInference(element, options);
                 }
             }
