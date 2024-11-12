@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListMaintenanceConfigurationsByManagedCluster()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/MaintenanceConfigurationsList.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2024-10-02-preview/examples/MaintenanceConfigurationsList.json
             // this example is just showing the usage of "MaintenanceConfigurations_ListByManagedCluster" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListMaintenanceConfigurationsConfiguredWithMaintenanceWindowByManagedCluster()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/MaintenanceConfigurationsList_MaintenanceWindow.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2024-10-02-preview/examples/MaintenanceConfigurationsList_MaintenanceWindow.json
             // this example is just showing the usage of "MaintenanceConfigurations_ListByManagedCluster" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetMaintenanceConfiguration()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/MaintenanceConfigurationsGet.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2024-10-02-preview/examples/MaintenanceConfigurationsGet.json
             // this example is just showing the usage of "MaintenanceConfigurations_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -126,7 +126,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_GetMaintenanceConfiguration()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/MaintenanceConfigurationsGet.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2024-10-02-preview/examples/MaintenanceConfigurationsGet.json
             // this example is just showing the usage of "MaintenanceConfigurations_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -156,7 +156,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_GetMaintenanceConfiguration()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/MaintenanceConfigurationsGet.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2024-10-02-preview/examples/MaintenanceConfigurationsGet.json
             // this example is just showing the usage of "MaintenanceConfigurations_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -198,7 +198,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetMaintenanceConfigurationConfiguredWithMaintenanceWindow()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/MaintenanceConfigurationsGet_MaintenanceWindow.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2024-10-02-preview/examples/MaintenanceConfigurationsGet_MaintenanceWindow.json
             // this example is just showing the usage of "MaintenanceConfigurations_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -232,7 +232,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_GetMaintenanceConfigurationConfiguredWithMaintenanceWindow()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/MaintenanceConfigurationsGet_MaintenanceWindow.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2024-10-02-preview/examples/MaintenanceConfigurationsGet_MaintenanceWindow.json
             // this example is just showing the usage of "MaintenanceConfigurations_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -262,7 +262,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_GetMaintenanceConfigurationConfiguredWithMaintenanceWindow()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/MaintenanceConfigurationsGet_MaintenanceWindow.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2024-10-02-preview/examples/MaintenanceConfigurationsGet_MaintenanceWindow.json
             // this example is just showing the usage of "MaintenanceConfigurations_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -304,7 +304,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateUpdateMaintenanceConfiguration()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/MaintenanceConfigurationsCreate_Update.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2024-10-02-preview/examples/MaintenanceConfigurationsCreate_Update.json
             // this example is just showing the usage of "MaintenanceConfigurations_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -361,7 +361,7 @@ EndOn = DateTimeOffset.Parse("2020-11-30T12:00:00Z"),
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateUpdateMaintenanceConfigurationWithMaintenanceWindow()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/MaintenanceConfigurationsCreate_Update_MaintenanceWindow.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2024-10-02-preview/examples/MaintenanceConfigurationsCreate_Update_MaintenanceWindow.json
             // this example is just showing the usage of "MaintenanceConfigurations_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
