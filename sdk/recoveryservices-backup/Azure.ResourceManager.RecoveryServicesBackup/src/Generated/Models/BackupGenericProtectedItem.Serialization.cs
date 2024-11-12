@@ -174,6 +174,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 {
                     case "AzureFileShareProtectedItem": return FileshareProtectedItem.DeserializeFileshareProtectedItem(element, options);
                     case "AzureIaaSVMProtectedItem": return IaasVmProtectedItem.DeserializeIaasVmProtectedItem(element, options);
+                    case "AzureVmWorkloadAnyDatabase": return AzureVmWorkloadAnyDatabaseProtectedItem.DeserializeAzureVmWorkloadAnyDatabaseProtectedItem(element, options);
+                    case "AzureVmWorkloadOracleDatabase": return AzureVmWorkloadOracleDatabaseProtectedItem.DeserializeAzureVmWorkloadOracleDatabaseProtectedItem(element, options);
                     case "AzureVmWorkloadProtectedItem": return VmWorkloadProtectedItem.DeserializeVmWorkloadProtectedItem(element, options);
                     case "AzureVmWorkloadSAPAseDatabase": return VmWorkloadSapAseDatabaseProtectedItem.DeserializeVmWorkloadSapAseDatabaseProtectedItem(element, options);
                     case "AzureVmWorkloadSAPHanaDatabase": return VmWorkloadSapHanaDatabaseProtectedItem.DeserializeVmWorkloadSapHanaDatabaseProtectedItem(element, options);
