@@ -11,19 +11,14 @@ using System.Collections.Generic;
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
     /// <summary> Event data for Microsoft.EventGrid.MQTTClientSessionDisconnected event. </summary>
-    public partial class EventGridMQTTClientSessionDisconnectedEventData : EventGridMQTTClientEventData
+    public partial class EventGridMqttClientSessionDisconnectedEventData : EventGridMqttClientEventData
     {
-        /// <summary> Initializes a new instance of <see cref="EventGridMQTTClientSessionDisconnectedEventData"/>. </summary>
-        /// <param name="disconnectionReason">
-        /// Reason for the disconnection of the MQTT client's session. The value could be
-        /// one of the values in the disconnection reasons table.
-        /// </param>
-        internal EventGridMQTTClientSessionDisconnectedEventData(EventGridMQTTClientDisconnectionReason disconnectionReason)
+        /// <summary> Initializes a new instance of <see cref="EventGridMqttClientSessionDisconnectedEventData"/>. </summary>
+        internal EventGridMqttClientSessionDisconnectedEventData()
         {
-            DisconnectionReason = disconnectionReason;
         }
 
-        /// <summary> Initializes a new instance of <see cref="EventGridMQTTClientSessionDisconnectedEventData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="EventGridMqttClientSessionDisconnectedEventData"/>. </summary>
         /// <param name="clientAuthenticationName">
         /// Unique identifier for the MQTT client that the client presents to the service
         /// for authentication. This case-sensitive string can be up to 128 characters
@@ -45,16 +40,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// Reason for the disconnection of the MQTT client's session. The value could be
         /// one of the values in the disconnection reasons table.
         /// </param>
-        internal EventGridMQTTClientSessionDisconnectedEventData(string clientAuthenticationName, string clientName, string namespaceName, IDictionary<string, BinaryData> serializedAdditionalRawData, string clientSessionName, long? sequenceNumber, EventGridMQTTClientDisconnectionReason disconnectionReason) : base(clientAuthenticationName, clientName, namespaceName, serializedAdditionalRawData)
+        internal EventGridMqttClientSessionDisconnectedEventData(string clientAuthenticationName, string clientName, string namespaceName, IDictionary<string, BinaryData> serializedAdditionalRawData, string clientSessionName, long? sequenceNumber, EventGridMqttClientDisconnectionReason? disconnectionReason) : base(clientAuthenticationName, clientName, namespaceName, serializedAdditionalRawData)
         {
             ClientSessionName = clientSessionName;
             SequenceNumber = sequenceNumber;
             DisconnectionReason = disconnectionReason;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="EventGridMQTTClientSessionDisconnectedEventData"/> for deserialization. </summary>
-        internal EventGridMQTTClientSessionDisconnectedEventData()
-        {
         }
 
         /// <summary>
@@ -72,6 +62,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// Reason for the disconnection of the MQTT client's session. The value could be
         /// one of the values in the disconnection reasons table.
         /// </summary>
-        public EventGridMQTTClientDisconnectionReason DisconnectionReason { get; }
+        public EventGridMqttClientDisconnectionReason? DisconnectionReason { get; }
     }
 }
