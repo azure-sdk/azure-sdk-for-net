@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetKubernetesVersionsManagedCluster_ListKubernetesVersions()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/KubernetesVersions_List.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2024-10-02-preview/examples/KubernetesVersions_List.json
             // this example is just showing the usage of "ManagedClusters_ListKubernetesVersions" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetTrustedAccessRoles_ListTrustedAccessRoles()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/TrustedAccessRoles_List.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2024-10-02-preview/examples/TrustedAccessRoles_List.json
             // this example is just showing the usage of "TrustedAccessRoles_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
