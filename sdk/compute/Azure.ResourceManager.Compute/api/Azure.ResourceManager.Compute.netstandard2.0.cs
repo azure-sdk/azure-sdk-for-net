@@ -3929,6 +3929,7 @@ namespace Azure.ResourceManager.Compute.Models
         public ComputeAllocationStrategy(string value) { throw null; }
         public static Azure.ResourceManager.Compute.Models.ComputeAllocationStrategy CapacityOptimized { get { throw null; } }
         public static Azure.ResourceManager.Compute.Models.ComputeAllocationStrategy LowestPrice { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.ComputeAllocationStrategy Prioritized { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Compute.Models.ComputeAllocationStrategy other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override bool Equals(object obj) { throw null; }
@@ -4358,6 +4359,7 @@ namespace Azure.ResourceManager.Compute.Models
     {
         public ComputeSkuProfileVmSize() { }
         public string Name { get { throw null; } set { } }
+        public int? Rank { get { throw null; } set { } }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.Compute.Models.ComputeSkuProfileVmSize System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ComputeSkuProfileVmSize>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ComputeSkuProfileVmSize>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
