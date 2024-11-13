@@ -19,9 +19,9 @@ namespace Azure.ResourceManager.ComputeSchedule.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task SubmitVirtualMachineDeallocate_ScheduledActionsVirtualMachinesSubmitDeallocateGeneratedByMaximumSetRuleGeneratedByMaximumSetRule()
+        public async Task SubmitVirtualMachineDeallocate_ScheduledActionsVirtualMachinesSubmitDeallocateMaximumSetGenGeneratedByMaximumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesSubmitDeallocate_MaximumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesSubmitDeallocate_MaximumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_SubmitVirtualMachineDeallocate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -31,24 +31,24 @@ namespace Azure.ResourceManager.ComputeSchedule.Samples
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "ibfxsvilwrgqttuslbduzdtxcckdet";
-            SubmitDeallocateContent content = new SubmitDeallocateContent(new UserRequestSchedule(DateTimeOffset.Parse("2024-07-12T18:06:53.361Z"), "zlcujrtgxtgyik", ScheduledActionDeadlineType.Unknown), new ScheduledActionExecutionParameterDetail()
+            string locationparameter = "qfjjafnzudpcmtjufvilazetl";
+            SubmitDeallocateContent content = new SubmitDeallocateContent(new UserRequestSchedule(DateTimeOffset.Parse("2024-11-01T17:52:54.215Z"), "csrtkjccrazescylvjzn", ScheduledActionDeadlineType.Unknown), new ScheduledActionExecutionParameterDetail()
             {
                 OptimizationPreference = ScheduledActionOptimizationPreference.Cost,
                 RetryPolicy = new UserRequestRetryPolicy()
                 {
-                    RetryCount = 30,
+                    RetryCount = 27,
                     RetryWindowInMinutes = 27,
                 },
             }, new UserRequestResources(new ResourceIdentifier[]
             {
-new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource2")
-            }), "23519o2f-1dca-4610-afb4-dd25eec1f34");
+new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource3")
+            }), "coogaewlllezkrdyjfeilu");
             DeallocateResourceOperationResult result = await subscriptionResource.SubmitVirtualMachineDeallocateAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -56,9 +56,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task SubmitVirtualMachineDeallocate_ScheduledActionsVirtualMachinesSubmitDeallocateGeneratedByMaximumSetRuleGeneratedByMinimumSetRule()
+        public async Task SubmitVirtualMachineDeallocate_ScheduledActionsVirtualMachinesSubmitDeallocateMaximumSetGenGeneratedByMinimumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesSubmitDeallocate_MinimumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesSubmitDeallocate_MinimumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_SubmitVirtualMachineDeallocate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -68,16 +68,16 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "qwfcdtmshnlownbkyh";
-            SubmitDeallocateContent content = new SubmitDeallocateContent(new UserRequestSchedule(DateTimeOffset.Parse("2024-07-12T18:06:53.361Z"), "zlcujrtgxtgyik", ScheduledActionDeadlineType.Unknown), new ScheduledActionExecutionParameterDetail(), new UserRequestResources(new ResourceIdentifier[]
+            string locationparameter = "kfp";
+            SubmitDeallocateContent content = new SubmitDeallocateContent(new UserRequestSchedule(DateTimeOffset.Parse("2024-11-01T17:52:54.215Z"), "csrtkjccrazescylvjzn", ScheduledActionDeadlineType.Unknown), new ScheduledActionExecutionParameterDetail(), new UserRequestResources(new ResourceIdentifier[]
             {
-new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource2")
-            }), "23519o2f-1dca-4610-afb4-dd25eec1f34");
+new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource3")
+            }), "coogaewlllezkrdyjfeilu");
             DeallocateResourceOperationResult result = await subscriptionResource.SubmitVirtualMachineDeallocateAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -85,9 +85,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task SubmitVirtualMachineHibernate_ScheduledActionsVirtualMachinesSubmitHibernateGeneratedByMaximumSetRuleGeneratedByMaximumSetRule()
+        public async Task SubmitVirtualMachineHibernate_ScheduledActionsVirtualMachinesSubmitHibernateMaximumSetGenGeneratedByMaximumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesSubmitHibernate_MaximumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesSubmitHibernate_MaximumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_SubmitVirtualMachineHibernate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -97,24 +97,24 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "bgxeayimbxqzev";
-            SubmitHibernateContent content = new SubmitHibernateContent(new UserRequestSchedule(DateTimeOffset.Parse("2024-07-12T18:06:53.361Z"), "zlcujrtgxtgyik", ScheduledActionDeadlineType.Unknown), new ScheduledActionExecutionParameterDetail()
+            string locationparameter = "zaezoherlpbmujcy";
+            SubmitHibernateContent content = new SubmitHibernateContent(new UserRequestSchedule(DateTimeOffset.Parse("2024-11-01T17:52:54.215Z"), "csrtkjccrazescylvjzn", ScheduledActionDeadlineType.Unknown), new ScheduledActionExecutionParameterDetail()
             {
                 OptimizationPreference = ScheduledActionOptimizationPreference.Cost,
                 RetryPolicy = new UserRequestRetryPolicy()
                 {
-                    RetryCount = 30,
+                    RetryCount = 27,
                     RetryWindowInMinutes = 27,
                 },
             }, new UserRequestResources(new ResourceIdentifier[]
             {
 new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource3")
-            }), "23519o2f-1dca-4610-afb4-dd25eec1f34");
+            }), "gtmbshlh");
             HibernateResourceOperationResult result = await subscriptionResource.SubmitVirtualMachineHibernateAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -122,9 +122,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task SubmitVirtualMachineHibernate_ScheduledActionsVirtualMachinesSubmitHibernateGeneratedByMaximumSetRuleGeneratedByMinimumSetRule()
+        public async Task SubmitVirtualMachineHibernate_ScheduledActionsVirtualMachinesSubmitHibernateMaximumSetGenGeneratedByMinimumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesSubmitHibernate_MinimumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesSubmitHibernate_MinimumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_SubmitVirtualMachineHibernate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -134,16 +134,16 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "fvjciwudfbndlqumcgqs";
-            SubmitHibernateContent content = new SubmitHibernateContent(new UserRequestSchedule(DateTimeOffset.Parse("2024-07-12T18:06:53.361Z"), "zlcujrtgxtgyik", ScheduledActionDeadlineType.Unknown), new ScheduledActionExecutionParameterDetail(), new UserRequestResources(new ResourceIdentifier[]
+            string locationparameter = "hcppcvqhssvzpjbnnac";
+            SubmitHibernateContent content = new SubmitHibernateContent(new UserRequestSchedule(DateTimeOffset.Parse("2024-11-01T17:52:54.215Z"), "csrtkjccrazescylvjzn", ScheduledActionDeadlineType.Unknown), new ScheduledActionExecutionParameterDetail(), new UserRequestResources(new ResourceIdentifier[]
             {
 new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource3")
-            }), "23519o2f-1dca-4610-afb4-dd25eec1f34");
+            }), "gtmbshlh");
             HibernateResourceOperationResult result = await subscriptionResource.SubmitVirtualMachineHibernateAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -151,9 +151,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task SubmitVirtualMachineStart_ScheduledActionsVirtualMachinesSubmitStartGeneratedByMaximumSetRuleGeneratedByMaximumSetRule()
+        public async Task SubmitVirtualMachineStart_ScheduledActionsVirtualMachinesSubmitStartMaximumSetGenGeneratedByMaximumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesSubmitStart_MaximumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesSubmitStart_MaximumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_SubmitVirtualMachineStart" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -163,24 +163,24 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "fxiidszhrokwjmewlahfqjiocnes";
-            SubmitStartContent content = new SubmitStartContent(new UserRequestSchedule(DateTimeOffset.Parse("2024-07-12T18:06:53.361Z"), "zlcujrtgxtgyik", ScheduledActionDeadlineType.Unknown), new ScheduledActionExecutionParameterDetail()
+            string locationparameter = "wqmhcqilzhjtgphyrtmxd";
+            SubmitStartContent content = new SubmitStartContent(new UserRequestSchedule(DateTimeOffset.Parse("2024-11-01T17:52:54.215Z"), "csrtkjccrazescylvjzn", ScheduledActionDeadlineType.Unknown), new ScheduledActionExecutionParameterDetail()
             {
                 OptimizationPreference = ScheduledActionOptimizationPreference.Cost,
                 RetryPolicy = new UserRequestRetryPolicy()
                 {
-                    RetryCount = 30,
+                    RetryCount = 27,
                     RetryWindowInMinutes = 27,
                 },
             }, new UserRequestResources(new ResourceIdentifier[]
             {
-new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource4")
-            }), "23480d2f-1dca-4610-afb4-dd25eec1f34");
+new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource3")
+            }), "rtz");
             StartResourceOperationResult result = await subscriptionResource.SubmitVirtualMachineStartAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -188,9 +188,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task SubmitVirtualMachineStart_ScheduledActionsVirtualMachinesSubmitStartGeneratedByMaximumSetRuleGeneratedByMinimumSetRule()
+        public async Task SubmitVirtualMachineStart_ScheduledActionsVirtualMachinesSubmitStartMaximumSetGenGeneratedByMinimumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesSubmitStart_MinimumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesSubmitStart_MinimumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_SubmitVirtualMachineStart" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -200,16 +200,16 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "httzei";
-            SubmitStartContent content = new SubmitStartContent(new UserRequestSchedule(DateTimeOffset.Parse("2024-07-12T18:06:53.361Z"), "zlcujrtgxtgyik", ScheduledActionDeadlineType.Unknown), new ScheduledActionExecutionParameterDetail(), new UserRequestResources(new ResourceIdentifier[]
+            string locationparameter = "qgxm";
+            SubmitStartContent content = new SubmitStartContent(new UserRequestSchedule(DateTimeOffset.Parse("2024-11-01T17:52:54.215Z"), "csrtkjccrazescylvjzn", ScheduledActionDeadlineType.Unknown), new ScheduledActionExecutionParameterDetail(), new UserRequestResources(new ResourceIdentifier[]
             {
-new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource4")
-            }), "23480d2f-1dca-4610-afb4-dd25eec1f34");
+new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource3")
+            }), "rtz");
             StartResourceOperationResult result = await subscriptionResource.SubmitVirtualMachineStartAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -217,9 +217,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task ExecuteVirtualMachineDeallocate_ScheduledActionsVirtualMachinesExecuteDeallocateGeneratedByMaximumSetRuleGeneratedByMaximumSetRule()
+        public async Task ExecuteVirtualMachineDeallocate_ScheduledActionsVirtualMachinesExecuteDeallocateMaximumSetGenGeneratedByMaximumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesExecuteDeallocate_MaximumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesExecuteDeallocate_MaximumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_ExecuteVirtualMachineDeallocate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -229,24 +229,24 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "mklyzgztbivwzo";
+            string locationparameter = "emghzcdjeqqjwibfeklrsnsrcwbg";
             ExecuteDeallocateContent content = new ExecuteDeallocateContent(new ScheduledActionExecutionParameterDetail()
             {
                 OptimizationPreference = ScheduledActionOptimizationPreference.Cost,
                 RetryPolicy = new UserRequestRetryPolicy()
                 {
-                    RetryCount = 30,
+                    RetryCount = 27,
                     RetryWindowInMinutes = 27,
                 },
             }, new UserRequestResources(new ResourceIdentifier[]
             {
-new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource2")
-            }), "01080d2f-1dca-4610-afb4-dd25eddf1f3c1");
+new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource3")
+            }), "exoxgqdgcfiszehwxixjkkgitmnu");
             DeallocateResourceOperationResult result = await subscriptionResource.ExecuteVirtualMachineDeallocateAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -254,9 +254,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task ExecuteVirtualMachineDeallocate_ScheduledActionsVirtualMachinesExecuteDeallocateGeneratedByMaximumSetRuleGeneratedByMinimumSetRule()
+        public async Task ExecuteVirtualMachineDeallocate_ScheduledActionsVirtualMachinesExecuteDeallocateMaximumSetGenGeneratedByMinimumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesExecuteDeallocate_MinimumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesExecuteDeallocate_MinimumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_ExecuteVirtualMachineDeallocate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -266,16 +266,16 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "irbtacrhjgfpyvhvjo";
+            string locationparameter = "t";
             ExecuteDeallocateContent content = new ExecuteDeallocateContent(new ScheduledActionExecutionParameterDetail(), new UserRequestResources(new ResourceIdentifier[]
             {
-new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource2")
-            }), "01080d2f-1dca-4610-afb4-dd25eddf1f3c1");
+new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource3")
+            }), "exoxgqdgcfiszehwxixjkkgitmnu");
             DeallocateResourceOperationResult result = await subscriptionResource.ExecuteVirtualMachineDeallocateAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -283,9 +283,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task ExecuteVirtualMachineHibernate_ScheduledActionsVirtualMachinesExecuteHibernateGeneratedByMaximumSetRuleGeneratedByMaximumSetRule()
+        public async Task ExecuteVirtualMachineHibernate_ScheduledActionsVirtualMachinesExecuteHibernateMaximumSetGenGeneratedByMaximumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesExecuteHibernate_MaximumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesExecuteHibernate_MaximumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_ExecuteVirtualMachineHibernate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -295,24 +295,24 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "sejdmamuhhvfpljomwumsplc";
+            string locationparameter = "cjlwfuuanpzptgvnzyjthdgajrpp";
             ExecuteHibernateContent content = new ExecuteHibernateContent(new ScheduledActionExecutionParameterDetail()
             {
                 OptimizationPreference = ScheduledActionOptimizationPreference.Cost,
                 RetryPolicy = new UserRequestRetryPolicy()
                 {
-                    RetryCount = 30,
+                    RetryCount = 27,
                     RetryWindowInMinutes = 27,
                 },
             }, new UserRequestResources(new ResourceIdentifier[]
             {
 new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource3")
-            }), "01080d2f-1dca-4610-afb4-dd25eec1f3c1");
+            }), "vyhi");
             HibernateResourceOperationResult result = await subscriptionResource.ExecuteVirtualMachineHibernateAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -320,9 +320,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task ExecuteVirtualMachineHibernate_ScheduledActionsVirtualMachinesExecuteHibernateGeneratedByMaximumSetRuleGeneratedByMinimumSetRule()
+        public async Task ExecuteVirtualMachineHibernate_ScheduledActionsVirtualMachinesExecuteHibernateMaximumSetGenGeneratedByMinimumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesExecuteHibernate_MinimumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesExecuteHibernate_MinimumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_ExecuteVirtualMachineHibernate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -332,16 +332,16 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "kga";
+            string locationparameter = "zzrmqofhzmxvuhcd";
             ExecuteHibernateContent content = new ExecuteHibernateContent(new ScheduledActionExecutionParameterDetail(), new UserRequestResources(new ResourceIdentifier[]
             {
 new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource3")
-            }), "01080d2f-1dca-4610-afb4-dd25eec1f3c1");
+            }), "vyhi");
             HibernateResourceOperationResult result = await subscriptionResource.ExecuteVirtualMachineHibernateAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -349,9 +349,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task ExecuteVirtualMachineStart_ScheduledActionsVirtualMachinesExecuteStartGeneratedByMaximumSetRuleGeneratedByMaximumSetRule()
+        public async Task ExecuteVirtualMachineStart_ScheduledActionsVirtualMachinesExecuteStartMaximumSetGenGeneratedByMaximumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesExecuteStart_MaximumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesExecuteStart_MaximumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_ExecuteVirtualMachineStart" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -361,24 +361,24 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "ysfrwcfmfsh";
+            string locationparameter = "ejosmxxqdayoihqzbn";
             ExecuteStartContent content = new ExecuteStartContent(new ScheduledActionExecutionParameterDetail()
             {
                 OptimizationPreference = ScheduledActionOptimizationPreference.Cost,
                 RetryPolicy = new UserRequestRetryPolicy()
                 {
-                    RetryCount = 30,
+                    RetryCount = 27,
                     RetryWindowInMinutes = 27,
                 },
             }, new UserRequestResources(new ResourceIdentifier[]
             {
-new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource4")
-            }), "23230d2f-1dca-4610-afb4-dd25eec1f34");
+new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource3")
+            }), "czbxgyyxbo");
             StartResourceOperationResult result = await subscriptionResource.ExecuteVirtualMachineStartAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -386,9 +386,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task ExecuteVirtualMachineStart_ScheduledActionsVirtualMachinesExecuteStartGeneratedByMaximumSetRuleGeneratedByMinimumSetRule()
+        public async Task ExecuteVirtualMachineStart_ScheduledActionsVirtualMachinesExecuteStartMaximumSetGenGeneratedByMinimumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesExecuteStart_MinimumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesExecuteStart_MinimumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_ExecuteVirtualMachineStart" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -398,16 +398,16 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "qegbgjculewswqvnmaclcgpqqidl";
+            string locationparameter = "rxdfmeqzfejlzdcnmdztiy";
             ExecuteStartContent content = new ExecuteStartContent(new ScheduledActionExecutionParameterDetail(), new UserRequestResources(new ResourceIdentifier[]
             {
-new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource4")
-            }), "23230d2f-1dca-4610-afb4-dd25eec1f34");
+new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Compute/virtualMachines/testResource3")
+            }), "czbxgyyxbo");
             StartResourceOperationResult result = await subscriptionResource.ExecuteVirtualMachineStartAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -415,9 +415,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetVirtualMachineOperationStatus_ScheduledActionsVirtualMachinesGetOperationStatusGeneratedByMinimumSetRuleGeneratedByMaximumSetRule()
+        public async Task GetVirtualMachineOperationStatus_ScheduledActionsVirtualMachinesGetOperationStatusMaximumSetGenGeneratedByMaximumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesGetOperationStatus_MaximumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesGetOperationStatus_MaximumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_GetVirtualMachineOperationStatus" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -427,16 +427,16 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "htxxasfxaesuecem";
+            string locationparameter = "n";
             GetOperationStatusContent content = new GetOperationStatusContent(new string[]
             {
-"01080d2f-1dca-4610-afb4-dd25eec1f3df"
-            }, "01080d2f-1dca-4610-afb4-dd25eec1f3c1");
+"bybstwzkfypdufgxvvtaf"
+            }, "qdwuijwcpstvx");
             GetOperationStatusResult result = await subscriptionResource.GetVirtualMachineOperationStatusAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -444,9 +444,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetVirtualMachineOperationStatus_ScheduledActionsVirtualMachinesGetOperationStatusGeneratedByMinimumSetRule()
+        public async Task GetVirtualMachineOperationStatus_ScheduledActionsVirtualMachinesGetOperationStatusMaximumSetGenGeneratedByMinimumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesGetOperationStatus_MinimumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesGetOperationStatus_MinimumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_GetVirtualMachineOperationStatus" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -456,16 +456,16 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "csay";
+            string locationparameter = "doypjz";
             GetOperationStatusContent content = new GetOperationStatusContent(new string[]
             {
-"01080d2f-1dca-4610-afb4-dd25eec1f3df"
-            }, "01080d2f-1dca-4610-afb4-dd25eec1f3c1");
+"bybstwzkfypdufgxvvtaf"
+            }, "qdwuijwcpstvx");
             GetOperationStatusResult result = await subscriptionResource.GetVirtualMachineOperationStatusAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -473,9 +473,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task CancelVirtualMachineOperations_ScheduledActionsVirtualMachinesCancelOperationsGeneratedByMaximumSetRuleGeneratedByMaximumSetRule()
+        public async Task CancelVirtualMachineOperations_ScheduledActionsVirtualMachinesCancelOperationsMaximumSetGenGeneratedByMaximumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesCancelOperations_MaximumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesCancelOperations_MaximumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_CancelVirtualMachineOperations" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -485,16 +485,16 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "tdxypnse";
+            string locationparameter = "crnpkkzzulnvaauupoolqnsgpcfdgr";
             CancelOperationsContent content = new CancelOperationsContent(new string[]
             {
-"23480d2f-1dca-4610-afb4-dd25eec1f34r"
-            }, "01080d2f-1dca-4610-afb4-dd25eec1f3c1");
+"nvynvzydoyplsngbkhpw"
+            }, "wkzyavvbrovkgoxdddfcprnvll");
             CancelOperationsResult result = await subscriptionResource.CancelVirtualMachineOperationsAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -502,9 +502,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task CancelVirtualMachineOperations_ScheduledActionsVirtualMachinesCancelOperationsGeneratedByMaximumSetRuleGeneratedByMinimumSetRule()
+        public async Task CancelVirtualMachineOperations_ScheduledActionsVirtualMachinesCancelOperationsMaximumSetGenGeneratedByMinimumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesCancelOperations_MinimumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesCancelOperations_MinimumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_CancelVirtualMachineOperations" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -514,16 +514,16 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "lwapkjsbltcqp";
+            string locationparameter = "inquvldntqixydxjaf";
             CancelOperationsContent content = new CancelOperationsContent(new string[]
             {
-"23480d2f-1dca-4610-afb4-dd25eec1f34r"
-            }, "01080d2f-1dca-4610-afb4-dd25eec1f3c1");
+"nvynvzydoyplsngbkhpw"
+            }, "wkzyavvbrovkgoxdddfcprnvll");
             CancelOperationsResult result = await subscriptionResource.CancelVirtualMachineOperationsAsync(locationparameter, content);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -531,9 +531,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetVirtualMachineOperationErrors_CSScheduledActionsVirtualMachinesGetOperationErrorsMax()
+        public async Task GetVirtualMachineOperationErrors_ScheduledActionsVirtualMachinesGetOperationErrorsMaximumSetGenGeneratedByMaximumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesGetOperationErrors_MaximumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesGetOperationErrors_MaximumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_GetVirtualMachineOperationErrors" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -543,15 +543,15 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "hfsa";
+            string locationparameter = "mravjxzqficqzyifzpk";
             GetOperationErrorsContent content = new GetOperationErrorsContent(new string[]
             {
-"DE84A209-5715-43E7-BC76-3E208A9A323"
+"yrldpeepjdodnbwfgr"
             });
             GetOperationErrorsResult result = await subscriptionResource.GetVirtualMachineOperationErrorsAsync(locationparameter, content);
 
@@ -560,9 +560,9 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetVirtualMachineOperationErrors_CSScheduledActionsVirtualMachinesGetOperationErrorsMin()
+        public async Task GetVirtualMachineOperationErrors_ScheduledActionsVirtualMachinesGetOperationErrorsMaximumSetGenGeneratedByMinimumSetRule()
         {
-            // Generated from example definition: 2024-08-15-preview/ScheduledActions_VirtualMachinesGetOperationErrors_MinimumSet_Gen.json
+            // Generated from example definition: 2024-10-01/ScheduledActions_VirtualMachinesGetOperationErrors_MinimumSet_Gen.json
             // this example is just showing the usage of "ScheduledActions_GetVirtualMachineOperationErrors" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -572,15 +572,15 @@ new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourceGroups/YourRes
 
             // this example assumes you already have this SubscriptionResource created on azure
             // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
-            string subscriptionId = "DE84A209-5715-43E7-BC76-3E208A9A82C5";
+            string subscriptionId = "D8E30CC0-2763-4FCC-84A8-3C5659281032";
             ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            string locationparameter = "ggxoaxzxtdbi";
+            string locationparameter = "xtcsapbyrdpphsq";
             GetOperationErrorsContent content = new GetOperationErrorsContent(new string[]
             {
-"qeicik"
+"yrldpeepjdodnbwfgr"
             });
             GetOperationErrorsResult result = await subscriptionResource.GetVirtualMachineOperationErrorsAsync(locationparameter, content);
 
