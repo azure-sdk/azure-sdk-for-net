@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.Attestation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_AttestationProviderListPrivateEndpointConnections()
         {
-            // Generated from example definition: specification/attestation/resource-manager/Microsoft.Attestation/preview/2021-06-01-preview/examples/AttestationProviderListPrivateEndpointConnections.json
+            // Generated from example definition: specification/attestation/resource-manager/Microsoft.Attestation/stable/2021-06-01/examples/AttestationProviderListPrivateEndpointConnections.json
             // this example is just showing the usage of "PrivateEndpointConnections_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.Attestation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_AttestationProviderGetPrivateEndpointConnection()
         {
-            // Generated from example definition: specification/attestation/resource-manager/Microsoft.Attestation/preview/2021-06-01-preview/examples/AttestationProviderGetPrivateEndpointConnection.json
+            // Generated from example definition: specification/attestation/resource-manager/Microsoft.Attestation/stable/2021-06-01/examples/AttestationProviderGetPrivateEndpointConnection.json
             // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.Attestation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_AttestationProviderGetPrivateEndpointConnection()
         {
-            // Generated from example definition: specification/attestation/resource-manager/Microsoft.Attestation/preview/2021-06-01-preview/examples/AttestationProviderGetPrivateEndpointConnection.json
+            // Generated from example definition: specification/attestation/resource-manager/Microsoft.Attestation/stable/2021-06-01/examples/AttestationProviderGetPrivateEndpointConnection.json
             // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -120,7 +120,7 @@ namespace Azure.ResourceManager.Attestation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_AttestationProviderGetPrivateEndpointConnection()
         {
-            // Generated from example definition: specification/attestation/resource-manager/Microsoft.Attestation/preview/2021-06-01-preview/examples/AttestationProviderGetPrivateEndpointConnection.json
+            // Generated from example definition: specification/attestation/resource-manager/Microsoft.Attestation/stable/2021-06-01/examples/AttestationProviderGetPrivateEndpointConnection.json
             // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -162,7 +162,7 @@ namespace Azure.ResourceManager.Attestation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_AttestationProviderPutPrivateEndpointConnection()
         {
-            // Generated from example definition: specification/attestation/resource-manager/Microsoft.Attestation/preview/2021-06-01-preview/examples/AttestationProviderPutPrivateEndpointConnection.json
+            // Generated from example definition: specification/attestation/resource-manager/Microsoft.Attestation/stable/2021-06-01/examples/AttestationProviderPutPrivateEndpointConnection.json
             // this example is just showing the usage of "PrivateEndpointConnections_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
