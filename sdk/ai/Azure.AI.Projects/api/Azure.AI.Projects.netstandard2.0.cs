@@ -484,7 +484,7 @@ namespace Azure.AI.Projects
         public static Azure.AI.Projects.AgentPageableListOfVectorStore AgentPageableListOfVectorStore(Azure.AI.Projects.AgentPageableListOfVectorStoreObject @object = default(Azure.AI.Projects.AgentPageableListOfVectorStoreObject), System.Collections.Generic.IEnumerable<Azure.AI.Projects.VectorStore> data = null, string firstId = null, string lastId = null, bool hasMore = false) { throw null; }
         public static Azure.AI.Projects.AgentPageableListOfVectorStoreFile AgentPageableListOfVectorStoreFile(Azure.AI.Projects.AgentPageableListOfVectorStoreFileObject @object = default(Azure.AI.Projects.AgentPageableListOfVectorStoreFileObject), System.Collections.Generic.IEnumerable<Azure.AI.Projects.VectorStoreFile> data = null, string firstId = null, string lastId = null, bool hasMore = false) { throw null; }
         public static Azure.AI.Projects.Evaluation Evaluation(string id = null, Azure.AI.Projects.InputData data = null, string displayName = null, string description = null, Azure.AI.Projects.SystemData systemData = null, string status = null, System.Collections.Generic.IDictionary<string, string> tags = null, System.Collections.Generic.IDictionary<string, string> properties = null, System.Collections.Generic.IDictionary<string, Azure.AI.Projects.EvaluatorConfiguration> evaluators = null) { throw null; }
-        public static Azure.AI.Projects.EvaluationSchedule EvaluationSchedule(string name = null, Azure.AI.Projects.ApplicationInsightsConfiguration data = null, string description = null, Azure.AI.Projects.SystemData systemData = null, string provisioningStatus = null, System.Collections.Generic.IDictionary<string, string> tags = null, System.Collections.Generic.IDictionary<string, string> properties = null, System.Collections.Generic.IDictionary<string, Azure.AI.Projects.EvaluatorConfiguration> evaluators = null, Azure.AI.Projects.Trigger trigger = null) { throw null; }
+        public static Azure.AI.Projects.EvaluationSchedule EvaluationSchedule(string name = null, Azure.AI.Projects.ApplicationInsightsConfiguration data = null, string description = null, Azure.AI.Projects.SystemData systemData = null, string provisioningState = null, System.Collections.Generic.IDictionary<string, string> tags = null, System.Collections.Generic.IDictionary<string, string> properties = null, string isEnabled = null, System.Collections.Generic.IDictionary<string, Azure.AI.Projects.EvaluatorConfiguration> evaluators = null, Azure.AI.Projects.Trigger trigger = null) { throw null; }
         public static Azure.AI.Projects.GetWorkspaceResponse GetWorkspaceResponse(string id = null, string name = null, Azure.AI.Projects.WorkspaceProperties properties = null) { throw null; }
         public static Azure.AI.Projects.ListConnectionsResponse ListConnectionsResponse(System.Collections.Generic.IEnumerable<Azure.AI.Projects.GetConnectionResponse> value = null) { throw null; }
         public static Azure.AI.Projects.MessageDelta MessageDelta(Azure.AI.Projects.MessageRole role = default(Azure.AI.Projects.MessageRole), System.Collections.Generic.IEnumerable<Azure.AI.Projects.MessageDeltaContent> content = null) { throw null; }
@@ -753,9 +753,10 @@ namespace Azure.AI.Projects
         public Azure.AI.Projects.ApplicationInsightsConfiguration Data { get { throw null; } set { } }
         public string Description { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, Azure.AI.Projects.EvaluatorConfiguration> Evaluators { get { throw null; } }
+        public string IsEnabled { get { throw null; } }
         public string Name { get { throw null; } }
         public System.Collections.Generic.IDictionary<string, string> Properties { get { throw null; } }
-        public string ProvisioningStatus { get { throw null; } }
+        public string ProvisioningState { get { throw null; } }
         public Azure.AI.Projects.SystemData SystemData { get { throw null; } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
         public Azure.AI.Projects.Trigger Trigger { get { throw null; } set { } }
@@ -1387,8 +1388,8 @@ namespace Azure.AI.Projects
     }
     public partial class MicrosoftFabricToolDefinition : Azure.AI.Projects.ToolDefinition, System.ClientModel.Primitives.IJsonModel<Azure.AI.Projects.MicrosoftFabricToolDefinition>, System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.MicrosoftFabricToolDefinition>
     {
-        public MicrosoftFabricToolDefinition(Azure.AI.Projects.ToolConnectionList microsoftFabric) { }
-        public Azure.AI.Projects.ToolConnectionList MicrosoftFabric { get { throw null; } set { } }
+        public MicrosoftFabricToolDefinition(Azure.AI.Projects.ToolConnectionList fabricAiskill) { }
+        public Azure.AI.Projects.ToolConnectionList FabricAiskill { get { throw null; } set { } }
         protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.AI.Projects.MicrosoftFabricToolDefinition System.ClientModel.Primitives.IJsonModel<Azure.AI.Projects.MicrosoftFabricToolDefinition>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.AI.Projects.MicrosoftFabricToolDefinition>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
