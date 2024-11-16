@@ -51,21 +51,21 @@ namespace Azure.AI.DocumentIntelligence
         }
 
         /// <summary> Initializes a new instance of <see cref="ClassifyDocumentContent"/>. </summary>
-        /// <param name="urlSource"> Document URL to classify.  Either urlSource or base64Source must be specified. </param>
+        /// <param name="uriSource"> Document URL to classify.  Either urlSource or base64Source must be specified. </param>
         /// <param name="base64Source">
         /// Base64 encoding of the document to classify.  Either urlSource or base64Source
         /// must be specified.
         /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ClassifyDocumentContent(Uri urlSource, BinaryData base64Source, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ClassifyDocumentContent(Uri uriSource, BinaryData base64Source, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            UrlSource = urlSource;
+            UriSource = uriSource;
             Base64Source = base64Source;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> Document URL to classify.  Either urlSource or base64Source must be specified. </summary>
-        public Uri UrlSource { get; set; }
+        public Uri UriSource { get; set; }
         /// <summary>
         /// Base64 encoding of the document to classify.  Either urlSource or base64Source
         /// must be specified.

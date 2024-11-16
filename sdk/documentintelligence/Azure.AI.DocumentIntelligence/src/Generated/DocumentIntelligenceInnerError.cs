@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.DocumentIntelligence
 {
-    /// <summary> General information regarding the current resource. </summary>
-    public partial class ResourceDetails
+    /// <summary> An object containing more specific information about the error. </summary>
+    public partial class DocumentIntelligenceInnerError
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,31 +45,29 @@ namespace Azure.AI.DocumentIntelligence
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ResourceDetails"/>. </summary>
-        /// <param name="customDocumentModels"> Details regarding custom document models. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="customDocumentModels"/> is null. </exception>
-        internal ResourceDetails(CustomDocumentModelsDetails customDocumentModels)
+        /// <summary> Initializes a new instance of <see cref="DocumentIntelligenceInnerError"/>. </summary>
+        internal DocumentIntelligenceInnerError()
         {
-            Argument.AssertNotNull(customDocumentModels, nameof(customDocumentModels));
-
-            CustomDocumentModels = customDocumentModels;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ResourceDetails"/>. </summary>
-        /// <param name="customDocumentModels"> Details regarding custom document models. </param>
+        /// <summary> Initializes a new instance of <see cref="DocumentIntelligenceInnerError"/>. </summary>
+        /// <param name="code"> One of a server-defined set of error codes. </param>
+        /// <param name="message"> A human-readable representation of the error. </param>
+        /// <param name="innerErrorObject"> Inner error. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ResourceDetails(CustomDocumentModelsDetails customDocumentModels, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DocumentIntelligenceInnerError(string code, string message, DocumentIntelligenceInnerError innerErrorObject, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            CustomDocumentModels = customDocumentModels;
+            Code = code;
+            Message = message;
+            InnerErrorObject = innerErrorObject;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ResourceDetails"/> for deserialization. </summary>
-        internal ResourceDetails()
-        {
-        }
-
-        /// <summary> Details regarding custom document models. </summary>
-        public CustomDocumentModelsDetails CustomDocumentModels { get; }
+        /// <summary> One of a server-defined set of error codes. </summary>
+        public string Code { get; }
+        /// <summary> A human-readable representation of the error. </summary>
+        public string Message { get; }
+        /// <summary> Inner error. </summary>
+        public DocumentIntelligenceInnerError InnerErrorObject { get; }
     }
 }

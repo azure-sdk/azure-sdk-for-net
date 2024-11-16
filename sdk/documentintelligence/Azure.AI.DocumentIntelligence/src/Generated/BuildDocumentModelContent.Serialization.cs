@@ -43,15 +43,15 @@ namespace Azure.AI.DocumentIntelligence
             }
             writer.WritePropertyName("buildMode"u8);
             writer.WriteStringValue(BuildMode.ToString());
-            if (Optional.IsDefined(AzureBlobSource))
+            if (Optional.IsDefined(BlobSource))
             {
                 writer.WritePropertyName("azureBlobSource"u8);
-                writer.WriteObjectValue(AzureBlobSource, options);
+                writer.WriteObjectValue(BlobSource, options);
             }
-            if (Optional.IsDefined(AzureBlobFileListSource))
+            if (Optional.IsDefined(BlobFileListSource))
             {
                 writer.WritePropertyName("azureBlobFileListSource"u8);
-                writer.WriteObjectValue(AzureBlobFileListSource, options);
+                writer.WriteObjectValue(BlobFileListSource, options);
             }
             if (Optional.IsCollectionDefined(Tags))
             {
@@ -114,8 +114,8 @@ namespace Azure.AI.DocumentIntelligence
             string modelId = default;
             string description = default;
             DocumentBuildMode buildMode = default;
-            AzureBlobContentSource azureBlobSource = default;
-            AzureBlobFileListContentSource azureBlobFileListSource = default;
+            BlobContentSource azureBlobSource = default;
+            BlobFileListContentSource azureBlobFileListSource = default;
             IDictionary<string, string> tags = default;
             float? maxTrainingHours = default;
             bool? allowOverwrite = default;
@@ -144,7 +144,7 @@ namespace Azure.AI.DocumentIntelligence
                     {
                         continue;
                     }
-                    azureBlobSource = AzureBlobContentSource.DeserializeAzureBlobContentSource(property.Value, options);
+                    azureBlobSource = BlobContentSource.DeserializeBlobContentSource(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("azureBlobFileListSource"u8))
@@ -153,7 +153,7 @@ namespace Azure.AI.DocumentIntelligence
                     {
                         continue;
                     }
-                    azureBlobFileListSource = AzureBlobFileListContentSource.DeserializeAzureBlobFileListContentSource(property.Value, options);
+                    azureBlobFileListSource = BlobFileListContentSource.DeserializeBlobFileListContentSource(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("tags"u8))

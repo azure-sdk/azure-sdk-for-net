@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.DocumentIntelligence
 {
-    /// <summary> An object containing more specific information about the error. </summary>
-    public partial class InnerError
+    /// <summary> File list in Azure Blob Storage. </summary>
+    public partial class BlobFileListContentSource
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,29 +45,38 @@ namespace Azure.AI.DocumentIntelligence
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="InnerError"/>. </summary>
-        internal InnerError()
+        /// <summary> Initializes a new instance of <see cref="BlobFileListContentSource"/>. </summary>
+        /// <param name="containerUri"> Azure Blob Storage container URL. </param>
+        /// <param name="fileList"> Path to a JSONL file within the container specifying a subset of documents. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="containerUri"/> or <paramref name="fileList"/> is null. </exception>
+        public BlobFileListContentSource(Uri containerUri, string fileList)
         {
+            Argument.AssertNotNull(containerUri, nameof(containerUri));
+            Argument.AssertNotNull(fileList, nameof(fileList));
+
+            ContainerUri = containerUri;
+            FileList = fileList;
         }
 
-        /// <summary> Initializes a new instance of <see cref="InnerError"/>. </summary>
-        /// <param name="code"> One of a server-defined set of error codes. </param>
-        /// <param name="message"> A human-readable representation of the error. </param>
-        /// <param name="innerErrorObject"> Inner error. </param>
+        /// <summary> Initializes a new instance of <see cref="BlobFileListContentSource"/>. </summary>
+        /// <param name="containerUri"> Azure Blob Storage container URL. </param>
+        /// <param name="fileList"> Path to a JSONL file within the container specifying a subset of documents. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal InnerError(string code, string message, InnerError innerErrorObject, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BlobFileListContentSource(Uri containerUri, string fileList, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Code = code;
-            Message = message;
-            InnerErrorObject = innerErrorObject;
+            ContainerUri = containerUri;
+            FileList = fileList;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> One of a server-defined set of error codes. </summary>
-        public string Code { get; }
-        /// <summary> A human-readable representation of the error. </summary>
-        public string Message { get; }
-        /// <summary> Inner error. </summary>
-        public InnerError InnerErrorObject { get; }
+        /// <summary> Initializes a new instance of <see cref="BlobFileListContentSource"/> for deserialization. </summary>
+        internal BlobFileListContentSource()
+        {
+        }
+
+        /// <summary> Azure Blob Storage container URL. </summary>
+        public Uri ContainerUri { get; set; }
+        /// <summary> Path to a JSONL file within the container specifying a subset of documents. </summary>
+        public string FileList { get; set; }
     }
 }

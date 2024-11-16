@@ -12,10 +12,10 @@ namespace Azure.AI.DocumentIntelligence
 {
     /// <summary>
     /// Operation info.
-    /// Please note <see cref="OperationDetails"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+    /// Please note <see cref="DocumentIntelligenceOperationDetails"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
     /// The available derived classes include <see cref="DocumentClassifierBuildOperationDetails"/>, <see cref="DocumentClassifierCopyToOperationDetails"/>, <see cref="DocumentModelBuildOperationDetails"/>, <see cref="DocumentModelComposeOperationDetails"/> and <see cref="DocumentModelCopyToOperationDetails"/>.
     /// </summary>
-    public abstract partial class OperationDetails
+    public abstract partial class DocumentIntelligenceOperationDetails
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -49,14 +49,14 @@ namespace Azure.AI.DocumentIntelligence
         /// </summary>
         private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="OperationDetails"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="DocumentIntelligenceOperationDetails"/>. </summary>
         /// <param name="operationId"> Operation ID. </param>
         /// <param name="status"> Operation status.  notStarted, running, completed, or failed. </param>
         /// <param name="createdOn"> Date and time (UTC) when the operation was created. </param>
         /// <param name="lastUpdatedOn"> Date and time (UTC) when the status was last updated. </param>
         /// <param name="resourceLocation"> URL of the resource targeted by this operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="operationId"/> or <paramref name="resourceLocation"/> is null. </exception>
-        protected OperationDetails(string operationId, OperationStatus status, DateTimeOffset createdOn, DateTimeOffset lastUpdatedOn, Uri resourceLocation)
+        protected DocumentIntelligenceOperationDetails(string operationId, DocumentIntelligenceOperationStatus status, DateTimeOffset createdOn, DateTimeOffset lastUpdatedOn, Uri resourceLocation)
         {
             Argument.AssertNotNull(operationId, nameof(operationId));
             Argument.AssertNotNull(resourceLocation, nameof(resourceLocation));
@@ -69,7 +69,7 @@ namespace Azure.AI.DocumentIntelligence
             Tags = new ChangeTrackingDictionary<string, string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="OperationDetails"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="DocumentIntelligenceOperationDetails"/>. </summary>
         /// <param name="operationId"> Operation ID. </param>
         /// <param name="status"> Operation status.  notStarted, running, completed, or failed. </param>
         /// <param name="percentCompleted"> Operation progress (0-100). </param>
@@ -81,7 +81,7 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="tags"> List of key-value tag attributes associated with the document model. </param>
         /// <param name="error"> Encountered error. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal OperationDetails(string operationId, OperationStatus status, int? percentCompleted, DateTimeOffset createdOn, DateTimeOffset lastUpdatedOn, OperationKind kind, Uri resourceLocation, string apiVersion, IReadOnlyDictionary<string, string> tags, DocumentIntelligenceError error, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DocumentIntelligenceOperationDetails(string operationId, DocumentIntelligenceOperationStatus status, int? percentCompleted, DateTimeOffset createdOn, DateTimeOffset lastUpdatedOn, OperationKind kind, Uri resourceLocation, string apiVersion, IReadOnlyDictionary<string, string> tags, DocumentIntelligenceError error, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             OperationId = operationId;
             Status = status;
@@ -96,15 +96,15 @@ namespace Azure.AI.DocumentIntelligence
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="OperationDetails"/> for deserialization. </summary>
-        internal OperationDetails()
+        /// <summary> Initializes a new instance of <see cref="DocumentIntelligenceOperationDetails"/> for deserialization. </summary>
+        internal DocumentIntelligenceOperationDetails()
         {
         }
 
         /// <summary> Operation ID. </summary>
         public string OperationId { get; }
         /// <summary> Operation status.  notStarted, running, completed, or failed. </summary>
-        public OperationStatus Status { get; }
+        public DocumentIntelligenceOperationStatus Status { get; }
         /// <summary> Operation progress (0-100). </summary>
         public int? PercentCompleted { get; }
         /// <summary> Date and time (UTC) when the operation was created. </summary>
