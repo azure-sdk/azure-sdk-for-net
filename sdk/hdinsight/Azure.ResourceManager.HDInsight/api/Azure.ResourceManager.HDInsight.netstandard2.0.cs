@@ -1033,6 +1033,7 @@ namespace Azure.ResourceManager.HDInsight.Models
     public partial class HDInsightClusterUpdateGatewaySettingsContent : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HDInsight.Models.HDInsightClusterUpdateGatewaySettingsContent>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HDInsight.Models.HDInsightClusterUpdateGatewaySettingsContent>
     {
         public HDInsightClusterUpdateGatewaySettingsContent() { }
+        public System.Collections.Generic.IList<string> EntraUsers { get { throw null; } }
         public bool? IsCredentialEnabled { get { throw null; } set { } }
         public string Password { get { throw null; } set { } }
         public string UserName { get { throw null; } set { } }
