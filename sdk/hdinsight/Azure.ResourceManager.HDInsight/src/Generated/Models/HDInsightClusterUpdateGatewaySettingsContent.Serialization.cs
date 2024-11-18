@@ -49,6 +49,16 @@ namespace Azure.ResourceManager.HDInsight.Models
                 writer.WritePropertyName("restAuthCredential.password"u8);
                 writer.WriteStringValue(Password);
             }
+            if (Optional.IsCollectionDefined(EntraUsers))
+            {
+                writer.WritePropertyName("entraUsers"u8);
+                writer.WriteStartArray();
+                foreach (var item in EntraUsers)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -89,6 +99,7 @@ namespace Azure.ResourceManager.HDInsight.Models
             bool? restAuthCredentialIsEnabled = default;
             string restAuthCredentialUsername = default;
             string restAuthCredentialPassword = default;
+            IList<string> entraUsers = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -112,13 +123,27 @@ namespace Azure.ResourceManager.HDInsight.Models
                     restAuthCredentialPassword = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("entraUsers"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    entraUsers = array;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new HDInsightClusterUpdateGatewaySettingsContent(restAuthCredentialIsEnabled, restAuthCredentialUsername, restAuthCredentialPassword, serializedAdditionalRawData);
+            return new HDInsightClusterUpdateGatewaySettingsContent(restAuthCredentialIsEnabled, restAuthCredentialUsername, restAuthCredentialPassword, entraUsers ?? new ChangeTrackingList<string>(), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<HDInsightClusterUpdateGatewaySettingsContent>.Write(ModelReaderWriterOptions options)
