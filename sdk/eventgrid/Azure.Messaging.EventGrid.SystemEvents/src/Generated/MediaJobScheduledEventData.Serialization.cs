@@ -57,8 +57,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            MediaJobState previousState = default;
-            MediaJobState state = default;
+            MediaJobState? previousState = default;
+            MediaJobState? state = default;
             IReadOnlyDictionary<string, string> correlationData = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -66,11 +66,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("previousState"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     previousState = new MediaJobState(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("state"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     state = new MediaJobState(property.Value.GetString());
                     continue;
                 }

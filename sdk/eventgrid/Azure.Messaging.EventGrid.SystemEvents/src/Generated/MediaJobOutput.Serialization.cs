@@ -45,8 +45,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
             writer.WritePropertyName("progress"u8);
             writer.WriteNumberValue(Progress);
-            writer.WritePropertyName("state"u8);
-            writer.WriteStringValue(State.ToString());
+            if (Optional.IsDefined(State))
+            {
+                writer.WritePropertyName("state"u8);
+                writer.WriteStringValue(State.Value.ToString());
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
