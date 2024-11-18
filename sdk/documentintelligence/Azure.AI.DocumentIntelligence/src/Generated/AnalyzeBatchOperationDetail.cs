@@ -49,7 +49,7 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="status"> Analyze status.  succeeded, failed, or skipped. </param>
         /// <param name="sourceUrl"> URL of the source document. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="sourceUrl"/> is null. </exception>
-        internal AnalyzeBatchOperationDetail(OperationStatus status, Uri sourceUrl)
+        internal AnalyzeBatchOperationDetail(DocumentIntelligenceOperationStatus status, Uri sourceUrl)
         {
             Argument.AssertNotNull(sourceUrl, nameof(sourceUrl));
 
@@ -63,7 +63,7 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="resultUrl"> URL of the analyze result JSON. </param>
         /// <param name="error"> Encountered error. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AnalyzeBatchOperationDetail(OperationStatus status, Uri sourceUrl, Uri resultUrl, DocumentIntelligenceError error, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AnalyzeBatchOperationDetail(DocumentIntelligenceOperationStatus status, Uri sourceUrl, Uri resultUrl, DocumentIntelligenceError error, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Status = status;
             SourceUrl = sourceUrl;
@@ -78,7 +78,7 @@ namespace Azure.AI.DocumentIntelligence
         }
 
         /// <summary> Analyze status.  succeeded, failed, or skipped. </summary>
-        public OperationStatus Status { get; }
+        public DocumentIntelligenceOperationStatus Status { get; }
         /// <summary> URL of the source document. </summary>
         public Uri SourceUrl { get; }
         /// <summary> URL of the analyze result JSON. </summary>

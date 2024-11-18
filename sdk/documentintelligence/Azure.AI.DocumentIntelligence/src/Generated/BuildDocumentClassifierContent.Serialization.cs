@@ -48,7 +48,7 @@ namespace Azure.AI.DocumentIntelligence
             }
             writer.WritePropertyName("docTypes"u8);
             writer.WriteStartObject();
-            foreach (var item in DocTypes)
+            foreach (var item in DocumentTypes)
             {
                 writer.WritePropertyName(item.Key);
                 writer.WriteObjectValue(item.Value, options);

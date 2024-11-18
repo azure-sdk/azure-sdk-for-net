@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.AI.DocumentIntelligence
 {
-    public partial class AzureBlobContentSource : IUtf8JsonSerializable, IJsonModel<AzureBlobContentSource>
+    public partial class BlobContentSource : IUtf8JsonSerializable, IJsonModel<BlobContentSource>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AzureBlobContentSource>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BlobContentSource>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<AzureBlobContentSource>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<BlobContentSource>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,14 +28,14 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobContentSource>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BlobContentSource>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AzureBlobContentSource)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(BlobContentSource)} does not support writing '{format}' format.");
             }
 
             writer.WritePropertyName("containerUrl"u8);
-            writer.WriteStringValue(ContainerUrl.AbsoluteUri);
+            writer.WriteStringValue(ContainerUri.AbsoluteUri);
             if (Optional.IsDefined(Prefix))
             {
                 writer.WritePropertyName("prefix"u8);
@@ -58,19 +58,19 @@ namespace Azure.AI.DocumentIntelligence
             }
         }
 
-        AzureBlobContentSource IJsonModel<AzureBlobContentSource>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        BlobContentSource IJsonModel<BlobContentSource>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobContentSource>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BlobContentSource>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AzureBlobContentSource)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(BlobContentSource)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeAzureBlobContentSource(document.RootElement, options);
+            return DeserializeBlobContentSource(document.RootElement, options);
         }
 
-        internal static AzureBlobContentSource DeserializeAzureBlobContentSource(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static BlobContentSource DeserializeBlobContentSource(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -100,46 +100,46 @@ namespace Azure.AI.DocumentIntelligence
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AzureBlobContentSource(containerUrl, prefix, serializedAdditionalRawData);
+            return new BlobContentSource(containerUrl, prefix, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<AzureBlobContentSource>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<BlobContentSource>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobContentSource>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BlobContentSource>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(AzureBlobContentSource)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(BlobContentSource)} does not support writing '{options.Format}' format.");
             }
         }
 
-        AzureBlobContentSource IPersistableModel<AzureBlobContentSource>.Create(BinaryData data, ModelReaderWriterOptions options)
+        BlobContentSource IPersistableModel<BlobContentSource>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobContentSource>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BlobContentSource>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeAzureBlobContentSource(document.RootElement, options);
+                        return DeserializeBlobContentSource(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(AzureBlobContentSource)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(BlobContentSource)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<AzureBlobContentSource>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<BlobContentSource>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static AzureBlobContentSource FromResponse(Response response)
+        internal static BlobContentSource FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeAzureBlobContentSource(document.RootElement);
+            return DeserializeBlobContentSource(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>

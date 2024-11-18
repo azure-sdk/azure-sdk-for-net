@@ -12,12 +12,12 @@ using Azure.Core;
 
 namespace Azure.AI.DocumentIntelligence
 {
-    [PersistableModelProxy(typeof(UnknownOperationDetails))]
-    public partial class OperationDetails : IUtf8JsonSerializable, IJsonModel<OperationDetails>
+    [PersistableModelProxy(typeof(UnknownDocumentIntelligenceOperationDetails))]
+    public partial class DocumentIntelligenceOperationDetails : IUtf8JsonSerializable, IJsonModel<DocumentIntelligenceOperationDetails>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<OperationDetails>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<DocumentIntelligenceOperationDetails>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<OperationDetails>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<DocumentIntelligenceOperationDetails>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,10 +28,10 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<OperationDetails>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<DocumentIntelligenceOperationDetails>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(OperationDetails)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(DocumentIntelligenceOperationDetails)} does not support writing '{format}' format.");
             }
 
             writer.WritePropertyName("operationId"u8);
@@ -89,19 +89,19 @@ namespace Azure.AI.DocumentIntelligence
             }
         }
 
-        OperationDetails IJsonModel<OperationDetails>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        DocumentIntelligenceOperationDetails IJsonModel<DocumentIntelligenceOperationDetails>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<OperationDetails>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<DocumentIntelligenceOperationDetails>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(OperationDetails)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(DocumentIntelligenceOperationDetails)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeOperationDetails(document.RootElement, options);
+            return DeserializeDocumentIntelligenceOperationDetails(document.RootElement, options);
         }
 
-        internal static OperationDetails DeserializeOperationDetails(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static DocumentIntelligenceOperationDetails DeserializeDocumentIntelligenceOperationDetails(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -120,46 +120,46 @@ namespace Azure.AI.DocumentIntelligence
                     case "documentModelCopyTo": return DocumentModelCopyToOperationDetails.DeserializeDocumentModelCopyToOperationDetails(element, options);
                 }
             }
-            return UnknownOperationDetails.DeserializeUnknownOperationDetails(element, options);
+            return UnknownDocumentIntelligenceOperationDetails.DeserializeUnknownDocumentIntelligenceOperationDetails(element, options);
         }
 
-        BinaryData IPersistableModel<OperationDetails>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<DocumentIntelligenceOperationDetails>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<OperationDetails>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<DocumentIntelligenceOperationDetails>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(OperationDetails)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DocumentIntelligenceOperationDetails)} does not support writing '{options.Format}' format.");
             }
         }
 
-        OperationDetails IPersistableModel<OperationDetails>.Create(BinaryData data, ModelReaderWriterOptions options)
+        DocumentIntelligenceOperationDetails IPersistableModel<DocumentIntelligenceOperationDetails>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<OperationDetails>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<DocumentIntelligenceOperationDetails>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeOperationDetails(document.RootElement, options);
+                        return DeserializeDocumentIntelligenceOperationDetails(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(OperationDetails)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DocumentIntelligenceOperationDetails)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<OperationDetails>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<DocumentIntelligenceOperationDetails>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static OperationDetails FromResponse(Response response)
+        internal static DocumentIntelligenceOperationDetails FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeOperationDetails(document.RootElement);
+            return DeserializeDocumentIntelligenceOperationDetails(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
