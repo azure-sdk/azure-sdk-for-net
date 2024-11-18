@@ -85,7 +85,7 @@ namespace Azure.AI.DocumentIntelligence
             {
                 return null;
             }
-            OperationStatus status = default;
+            DocumentIntelligenceOperationStatus status = default;
             Uri sourceUrl = default;
             Uri resultUrl = default;
             DocumentIntelligenceError error = default;
@@ -95,7 +95,7 @@ namespace Azure.AI.DocumentIntelligence
             {
                 if (property.NameEquals("status"u8))
                 {
-                    status = new OperationStatus(property.Value.GetString());
+                    status = new DocumentIntelligenceOperationStatus(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("sourceUrl"u8))

@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.AI.DocumentIntelligence
 {
-    public partial class CopyAuthorization : IUtf8JsonSerializable, IJsonModel<CopyAuthorization>
+    public partial class ModelCopyAuthorization : IUtf8JsonSerializable, IJsonModel<ModelCopyAuthorization>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<CopyAuthorization>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ModelCopyAuthorization>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<CopyAuthorization>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ModelCopyAuthorization>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,10 +28,10 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CopyAuthorization>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ModelCopyAuthorization>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(CopyAuthorization)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ModelCopyAuthorization)} does not support writing '{format}' format.");
             }
 
             writer.WritePropertyName("targetResourceId"u8);
@@ -45,7 +45,7 @@ namespace Azure.AI.DocumentIntelligence
             writer.WritePropertyName("accessToken"u8);
             writer.WriteStringValue(AccessToken);
             writer.WritePropertyName("expirationDateTime"u8);
-            writer.WriteStringValue(ExpirationDateTime, "O");
+            writer.WriteStringValue(ExpiresOn, "O");
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -63,19 +63,19 @@ namespace Azure.AI.DocumentIntelligence
             }
         }
 
-        CopyAuthorization IJsonModel<CopyAuthorization>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ModelCopyAuthorization IJsonModel<ModelCopyAuthorization>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CopyAuthorization>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ModelCopyAuthorization>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(CopyAuthorization)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ModelCopyAuthorization)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeCopyAuthorization(document.RootElement, options);
+            return DeserializeModelCopyAuthorization(document.RootElement, options);
         }
 
-        internal static CopyAuthorization DeserializeCopyAuthorization(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ModelCopyAuthorization DeserializeModelCopyAuthorization(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -129,7 +129,7 @@ namespace Azure.AI.DocumentIntelligence
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new CopyAuthorization(
+            return new ModelCopyAuthorization(
                 targetResourceId,
                 targetResourceRegion,
                 targetModelId,
@@ -139,43 +139,43 @@ namespace Azure.AI.DocumentIntelligence
                 serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<CopyAuthorization>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ModelCopyAuthorization>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CopyAuthorization>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ModelCopyAuthorization>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(CopyAuthorization)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ModelCopyAuthorization)} does not support writing '{options.Format}' format.");
             }
         }
 
-        CopyAuthorization IPersistableModel<CopyAuthorization>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ModelCopyAuthorization IPersistableModel<ModelCopyAuthorization>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CopyAuthorization>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ModelCopyAuthorization>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeCopyAuthorization(document.RootElement, options);
+                        return DeserializeModelCopyAuthorization(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(CopyAuthorization)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ModelCopyAuthorization)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<CopyAuthorization>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ModelCopyAuthorization>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static CopyAuthorization FromResponse(Response response)
+        internal static ModelCopyAuthorization FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeCopyAuthorization(document.RootElement);
+            return DeserializeModelCopyAuthorization(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>

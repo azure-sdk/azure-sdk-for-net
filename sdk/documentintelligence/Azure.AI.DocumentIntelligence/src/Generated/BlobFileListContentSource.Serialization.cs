@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.AI.DocumentIntelligence
 {
-    public partial class AzureBlobFileListContentSource : IUtf8JsonSerializable, IJsonModel<AzureBlobFileListContentSource>
+    public partial class BlobFileListContentSource : IUtf8JsonSerializable, IJsonModel<BlobFileListContentSource>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AzureBlobFileListContentSource>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BlobFileListContentSource>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<AzureBlobFileListContentSource>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<BlobFileListContentSource>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,14 +28,14 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobFileListContentSource>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BlobFileListContentSource>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AzureBlobFileListContentSource)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(BlobFileListContentSource)} does not support writing '{format}' format.");
             }
 
             writer.WritePropertyName("containerUrl"u8);
-            writer.WriteStringValue(ContainerUrl.AbsoluteUri);
+            writer.WriteStringValue(ContainerUri.AbsoluteUri);
             writer.WritePropertyName("fileList"u8);
             writer.WriteStringValue(FileList);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -55,19 +55,19 @@ namespace Azure.AI.DocumentIntelligence
             }
         }
 
-        AzureBlobFileListContentSource IJsonModel<AzureBlobFileListContentSource>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        BlobFileListContentSource IJsonModel<BlobFileListContentSource>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobFileListContentSource>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BlobFileListContentSource>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AzureBlobFileListContentSource)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(BlobFileListContentSource)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeAzureBlobFileListContentSource(document.RootElement, options);
+            return DeserializeBlobFileListContentSource(document.RootElement, options);
         }
 
-        internal static AzureBlobFileListContentSource DeserializeAzureBlobFileListContentSource(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static BlobFileListContentSource DeserializeBlobFileListContentSource(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -97,46 +97,46 @@ namespace Azure.AI.DocumentIntelligence
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AzureBlobFileListContentSource(containerUrl, fileList, serializedAdditionalRawData);
+            return new BlobFileListContentSource(containerUrl, fileList, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<AzureBlobFileListContentSource>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<BlobFileListContentSource>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobFileListContentSource>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BlobFileListContentSource>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(AzureBlobFileListContentSource)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(BlobFileListContentSource)} does not support writing '{options.Format}' format.");
             }
         }
 
-        AzureBlobFileListContentSource IPersistableModel<AzureBlobFileListContentSource>.Create(BinaryData data, ModelReaderWriterOptions options)
+        BlobFileListContentSource IPersistableModel<BlobFileListContentSource>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobFileListContentSource>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BlobFileListContentSource>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeAzureBlobFileListContentSource(document.RootElement, options);
+                        return DeserializeBlobFileListContentSource(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(AzureBlobFileListContentSource)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(BlobFileListContentSource)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<AzureBlobFileListContentSource>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<BlobFileListContentSource>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static AzureBlobFileListContentSource FromResponse(Response response)
+        internal static BlobFileListContentSource FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeAzureBlobFileListContentSource(document.RootElement);
+            return DeserializeBlobFileListContentSource(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
