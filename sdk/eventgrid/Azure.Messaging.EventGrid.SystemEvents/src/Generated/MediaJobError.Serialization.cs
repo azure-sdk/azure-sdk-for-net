@@ -34,17 +34,26 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 throw new FormatException($"The model {nameof(MediaJobError)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("code"u8);
-            writer.WriteStringValue(Code.ToString());
+            if (Optional.IsDefined(Code))
+            {
+                writer.WritePropertyName("code"u8);
+                writer.WriteStringValue(Code.Value.ToString());
+            }
             if (Optional.IsDefined(Message))
             {
                 writer.WritePropertyName("message"u8);
                 writer.WriteStringValue(Message);
             }
-            writer.WritePropertyName("category"u8);
-            writer.WriteStringValue(Category.ToString());
-            writer.WritePropertyName("retry"u8);
-            writer.WriteStringValue(Retry.ToString());
+            if (Optional.IsDefined(Category))
+            {
+                writer.WritePropertyName("category"u8);
+                writer.WriteStringValue(Category.Value.ToString());
+            }
+            if (Optional.IsDefined(Retry))
+            {
+                writer.WritePropertyName("retry"u8);
+                writer.WriteStringValue(Retry.Value.ToString());
+            }
             writer.WritePropertyName("details"u8);
             writer.WriteStartArray();
             foreach (var item in Details)
@@ -89,10 +98,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            MediaJobErrorCode code = default;
+            MediaJobErrorCode? code = default;
             string message = default;
-            MediaJobErrorCategory category = default;
-            MediaJobRetry retry = default;
+            MediaJobErrorCategory? category = default;
+            MediaJobRetry? retry = default;
             IReadOnlyList<MediaJobErrorDetail> details = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -100,6 +109,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("code"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     code = new MediaJobErrorCode(property.Value.GetString());
                     continue;
                 }
@@ -110,11 +123,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("category"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     category = new MediaJobErrorCategory(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("retry"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     retry = new MediaJobRetry(property.Value.GetString());
                     continue;
                 }

@@ -503,9 +503,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="callerDisplayName"> Display name of caller. </param>
         /// <param name="customContext"> Custom Context of Incoming Call. </param>
         /// <param name="incomingCallContext"> Signed incoming call context. </param>
+        /// <param name="onBehalfOfCallee"> The communication identifier of the user on behalf of whom the call is made. </param>
         /// <param name="correlationId"> CorrelationId (CallId). </param>
         /// <returns> A new <see cref="SystemEvents.AcsIncomingCallEventData"/> instance for mocking. </returns>
-        public static AcsIncomingCallEventData AcsIncomingCallEventData(CommunicationIdentifierModel toCommunicationIdentifier = null, CommunicationIdentifierModel fromCommunicationIdentifier = null, string serverCallId = null, string callerDisplayName = null, AcsIncomingCallCustomContext customContext = null, string incomingCallContext = null, string correlationId = null)
+        public static AcsIncomingCallEventData AcsIncomingCallEventData(CommunicationIdentifierModel toCommunicationIdentifier = null, CommunicationIdentifierModel fromCommunicationIdentifier = null, string serverCallId = null, string callerDisplayName = null, AcsIncomingCallCustomContext customContext = null, string incomingCallContext = null, CommunicationIdentifierModel onBehalfOfCallee = null, string correlationId = null)
         {
             return new AcsIncomingCallEventData(
                 toCommunicationIdentifier,
@@ -514,6 +515,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 callerDisplayName,
                 customContext,
                 incomingCallContext,
+                onBehalfOfCallee,
                 correlationId,
                 serializedAdditionalRawData: null);
         }
@@ -526,7 +528,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="microsoftTeamsUser"> The Microsoft Teams user. </param>
         /// <param name="microsoftTeamsApp"> The Microsoft Teams application. </param>
         /// <returns> A new <see cref="SystemEvents.CommunicationIdentifierModel"/> instance for mocking. </returns>
-        public static CommunicationIdentifierModel CommunicationIdentifierModel(CommunicationIdentifierModelKind kind = default, string rawId = null, CommunicationUserIdentifierModel communicationUser = null, PhoneNumberIdentifierModel phoneNumber = null, MicrosoftTeamsUserIdentifierModel microsoftTeamsUser = null, MicrosoftTeamsAppIdentifierModel microsoftTeamsApp = null)
+        public static CommunicationIdentifierModel CommunicationIdentifierModel(CommunicationIdentifierModelKind? kind = null, string rawId = null, CommunicationUserIdentifierModel communicationUser = null, PhoneNumberIdentifierModel phoneNumber = null, MicrosoftTeamsUserIdentifierModel microsoftTeamsUser = null, MicrosoftTeamsAppIdentifierModel microsoftTeamsApp = null)
         {
             return new CommunicationIdentifierModel(
                 kind,
@@ -559,7 +561,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="isAnonymous"> True if the Microsoft Teams user is anonymous. By default false if missing. </param>
         /// <param name="cloud"> The cloud that the Microsoft Teams user belongs to. By default 'public' if missing. </param>
         /// <returns> A new <see cref="SystemEvents.MicrosoftTeamsUserIdentifierModel"/> instance for mocking. </returns>
-        public static MicrosoftTeamsUserIdentifierModel MicrosoftTeamsUserIdentifierModel(string userId = null, bool? isAnonymous = null, CommunicationCloudEnvironmentModel cloud = default)
+        public static MicrosoftTeamsUserIdentifierModel MicrosoftTeamsUserIdentifierModel(string userId = null, bool? isAnonymous = null, CommunicationCloudEnvironmentModel? cloud = null)
         {
             return new MicrosoftTeamsUserIdentifierModel(userId, isAnonymous, cloud, serializedAdditionalRawData: null);
         }
@@ -568,7 +570,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="appId"> The Id of the Microsoft Teams application. </param>
         /// <param name="cloud"> The cloud that the Microsoft Teams application belongs to. By default 'public' if missing. </param>
         /// <returns> A new <see cref="SystemEvents.MicrosoftTeamsAppIdentifierModel"/> instance for mocking. </returns>
-        public static MicrosoftTeamsAppIdentifierModel MicrosoftTeamsAppIdentifierModel(string appId = null, CommunicationCloudEnvironmentModel cloud = default)
+        public static MicrosoftTeamsAppIdentifierModel MicrosoftTeamsAppIdentifierModel(string appId = null, CommunicationCloudEnvironmentModel? cloud = null)
         {
             return new MicrosoftTeamsAppIdentifierModel(appId, cloud, serializedAdditionalRawData: null);
         }
@@ -623,7 +625,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="type"> The type of the message. </param>
         /// <param name="version"> The version of the message. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatMessageEventBaseProperties"/> instance for mocking. </returns>
-        public static AcsChatMessageEventBaseProperties AcsChatMessageEventBaseProperties(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset composeTime = default, string type = null, long? version = null)
+        public static AcsChatMessageEventBaseProperties AcsChatMessageEventBaseProperties(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset? composeTime = null, string type = null, long? version = null)
         {
             return new AcsChatMessageEventBaseProperties(
                 recipientCommunicationIdentifier,
@@ -651,7 +653,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="messageBody"> The body of the chat message. </param>
         /// <param name="metadata"> The chat message metadata. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatMessageReceivedEventData"/> instance for mocking. </returns>
-        public static AcsChatMessageReceivedEventData AcsChatMessageReceivedEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset composeTime = default, string type = null, long? version = null, string messageBody = null, IReadOnlyDictionary<string, string> metadata = null)
+        public static AcsChatMessageReceivedEventData AcsChatMessageReceivedEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset? composeTime = null, string type = null, long? version = null, string messageBody = null, IReadOnlyDictionary<string, string> metadata = null)
         {
             metadata ??= new Dictionary<string, string>();
 
@@ -680,7 +682,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="type"> The type of the message. </param>
         /// <param name="version"> The version of the message. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatMessageEventInThreadBaseProperties"/> instance for mocking. </returns>
-        public static AcsChatMessageEventInThreadBaseProperties AcsChatMessageEventInThreadBaseProperties(string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset composeTime = default, string type = null, long? version = null)
+        public static AcsChatMessageEventInThreadBaseProperties AcsChatMessageEventInThreadBaseProperties(string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset? composeTime = null, string type = null, long? version = null)
         {
             return new AcsChatMessageEventInThreadBaseProperties(
                 transactionId,
@@ -706,7 +708,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="messageBody"> The body of the chat message. </param>
         /// <param name="metadata"> The chat message metadata. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatMessageReceivedInThreadEventData"/> instance for mocking. </returns>
-        public static AcsChatMessageReceivedInThreadEventData AcsChatMessageReceivedInThreadEventData(string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset composeTime = default, string type = null, long? version = null, string messageBody = null, IReadOnlyDictionary<string, string> metadata = null)
+        public static AcsChatMessageReceivedInThreadEventData AcsChatMessageReceivedInThreadEventData(string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset? composeTime = null, string type = null, long? version = null, string messageBody = null, IReadOnlyDictionary<string, string> metadata = null)
         {
             metadata ??= new Dictionary<string, string>();
 
@@ -738,7 +740,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="metadata"> The chat message metadata. </param>
         /// <param name="editTime"> The time at which the message was edited. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatMessageEditedEventData"/> instance for mocking. </returns>
-        public static AcsChatMessageEditedEventData AcsChatMessageEditedEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset composeTime = default, string type = null, long? version = null, string messageBody = null, IReadOnlyDictionary<string, string> metadata = null, DateTimeOffset editTime = default)
+        public static AcsChatMessageEditedEventData AcsChatMessageEditedEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset? composeTime = null, string type = null, long? version = null, string messageBody = null, IReadOnlyDictionary<string, string> metadata = null, DateTimeOffset? editTime = null)
         {
             metadata ??= new Dictionary<string, string>();
 
@@ -771,7 +773,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="metadata"> The chat message metadata. </param>
         /// <param name="editTime"> The time at which the message was edited. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatMessageEditedInThreadEventData"/> instance for mocking. </returns>
-        public static AcsChatMessageEditedInThreadEventData AcsChatMessageEditedInThreadEventData(string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset composeTime = default, string type = null, long? version = null, string messageBody = null, IReadOnlyDictionary<string, string> metadata = null, DateTimeOffset editTime = default)
+        public static AcsChatMessageEditedInThreadEventData AcsChatMessageEditedInThreadEventData(string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset? composeTime = null, string type = null, long? version = null, string messageBody = null, IReadOnlyDictionary<string, string> metadata = null, DateTimeOffset? editTime = null)
         {
             metadata ??= new Dictionary<string, string>();
 
@@ -802,7 +804,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="version"> The version of the message. </param>
         /// <param name="deleteTime"> The time at which the message was deleted. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatMessageDeletedEventData"/> instance for mocking. </returns>
-        public static AcsChatMessageDeletedEventData AcsChatMessageDeletedEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset composeTime = default, string type = null, long? version = null, DateTimeOffset deleteTime = default)
+        public static AcsChatMessageDeletedEventData AcsChatMessageDeletedEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset? composeTime = null, string type = null, long? version = null, DateTimeOffset? deleteTime = null)
         {
             return new AcsChatMessageDeletedEventData(
                 recipientCommunicationIdentifier,
@@ -829,7 +831,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="version"> The version of the message. </param>
         /// <param name="deleteTime"> The time at which the message was deleted. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatMessageDeletedInThreadEventData"/> instance for mocking. </returns>
-        public static AcsChatMessageDeletedInThreadEventData AcsChatMessageDeletedInThreadEventData(string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset composeTime = default, string type = null, long? version = null, DateTimeOffset deleteTime = default)
+        public static AcsChatMessageDeletedInThreadEventData AcsChatMessageDeletedInThreadEventData(string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset? composeTime = null, string type = null, long? version = null, DateTimeOffset? deleteTime = null)
         {
             return new AcsChatMessageDeletedInThreadEventData(
                 transactionId,
@@ -851,7 +853,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="createTime"> The original creation time of the thread. </param>
         /// <param name="version"> The version of the thread. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatThreadEventBaseProperties"/> instance for mocking. </returns>
-        public static AcsChatThreadEventBaseProperties AcsChatThreadEventBaseProperties(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset createTime = default, long? version = null)
+        public static AcsChatThreadEventBaseProperties AcsChatThreadEventBaseProperties(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null)
         {
             return new AcsChatThreadEventBaseProperties(
                 recipientCommunicationIdentifier,
@@ -873,7 +875,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="metadata"> The thread metadata. </param>
         /// <param name="participants"> The list of properties of participants who are part of the thread. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatThreadCreatedWithUserEventData"/> instance for mocking. </returns>
-        public static AcsChatThreadCreatedWithUserEventData AcsChatThreadCreatedWithUserEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset createTime = default, long? version = null, CommunicationIdentifierModel createdByCommunicationIdentifier = null, IReadOnlyDictionary<string, BinaryData> properties = null, IReadOnlyDictionary<string, string> metadata = null, IEnumerable<AcsChatThreadParticipantProperties> participants = null)
+        public static AcsChatThreadCreatedWithUserEventData AcsChatThreadCreatedWithUserEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, CommunicationIdentifierModel createdByCommunicationIdentifier = null, IReadOnlyDictionary<string, BinaryData> properties = null, IReadOnlyDictionary<string, string> metadata = null, IEnumerable<AcsChatThreadParticipantProperties> participants = null)
         {
             properties ??= new Dictionary<string, BinaryData>();
             metadata ??= new Dictionary<string, string>();
@@ -910,7 +912,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="createTime"> The original creation time of the thread. </param>
         /// <param name="version"> The version of the thread. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatThreadEventInThreadBaseProperties"/> instance for mocking. </returns>
-        public static AcsChatThreadEventInThreadBaseProperties AcsChatThreadEventInThreadBaseProperties(string transactionId = null, string threadId = null, DateTimeOffset createTime = default, long? version = null)
+        public static AcsChatThreadEventInThreadBaseProperties AcsChatThreadEventInThreadBaseProperties(string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null)
         {
             return new AcsChatThreadEventInThreadBaseProperties(transactionId, threadId, serializedAdditionalRawData: null, createTime, version);
         }
@@ -925,7 +927,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="metadata"> The thread metadata. </param>
         /// <param name="participants"> The list of properties of participants who are part of the thread. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatThreadCreatedEventData"/> instance for mocking. </returns>
-        public static AcsChatThreadCreatedEventData AcsChatThreadCreatedEventData(string transactionId = null, string threadId = null, DateTimeOffset createTime = default, long? version = null, CommunicationIdentifierModel createdByCommunicationIdentifier = null, IReadOnlyDictionary<string, BinaryData> properties = null, IReadOnlyDictionary<string, string> metadata = null, IEnumerable<AcsChatThreadParticipantProperties> participants = null)
+        public static AcsChatThreadCreatedEventData AcsChatThreadCreatedEventData(string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, CommunicationIdentifierModel createdByCommunicationIdentifier = null, IReadOnlyDictionary<string, BinaryData> properties = null, IReadOnlyDictionary<string, string> metadata = null, IEnumerable<AcsChatThreadParticipantProperties> participants = null)
         {
             properties ??= new Dictionary<string, BinaryData>();
             metadata ??= new Dictionary<string, string>();
@@ -952,7 +954,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="deletedByCommunicationIdentifier"> The communication identifier of the user who deleted the thread. </param>
         /// <param name="deleteTime"> The deletion time of the thread. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatThreadWithUserDeletedEventData"/> instance for mocking. </returns>
-        public static AcsChatThreadWithUserDeletedEventData AcsChatThreadWithUserDeletedEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset createTime = default, long? version = null, CommunicationIdentifierModel deletedByCommunicationIdentifier = null, DateTimeOffset deleteTime = default)
+        public static AcsChatThreadWithUserDeletedEventData AcsChatThreadWithUserDeletedEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, CommunicationIdentifierModel deletedByCommunicationIdentifier = null, DateTimeOffset? deleteTime = null)
         {
             return new AcsChatThreadWithUserDeletedEventData(
                 recipientCommunicationIdentifier,
@@ -973,7 +975,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="deletedByCommunicationIdentifier"> The communication identifier of the user who deleted the thread. </param>
         /// <param name="deleteTime"> The deletion time of the thread. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatThreadDeletedEventData"/> instance for mocking. </returns>
-        public static AcsChatThreadDeletedEventData AcsChatThreadDeletedEventData(string transactionId = null, string threadId = null, DateTimeOffset createTime = default, long? version = null, CommunicationIdentifierModel deletedByCommunicationIdentifier = null, DateTimeOffset deleteTime = default)
+        public static AcsChatThreadDeletedEventData AcsChatThreadDeletedEventData(string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, CommunicationIdentifierModel deletedByCommunicationIdentifier = null, DateTimeOffset? deleteTime = null)
         {
             return new AcsChatThreadDeletedEventData(
                 transactionId,
@@ -996,7 +998,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="metadata"> The thread metadata. </param>
         /// <param name="properties"> The updated thread properties. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatThreadPropertiesUpdatedPerUserEventData"/> instance for mocking. </returns>
-        public static AcsChatThreadPropertiesUpdatedPerUserEventData AcsChatThreadPropertiesUpdatedPerUserEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset createTime = default, long? version = null, CommunicationIdentifierModel editedByCommunicationIdentifier = null, DateTimeOffset editTime = default, IReadOnlyDictionary<string, string> metadata = null, IReadOnlyDictionary<string, BinaryData> properties = null)
+        public static AcsChatThreadPropertiesUpdatedPerUserEventData AcsChatThreadPropertiesUpdatedPerUserEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, CommunicationIdentifierModel editedByCommunicationIdentifier = null, DateTimeOffset? editTime = null, IReadOnlyDictionary<string, string> metadata = null, IReadOnlyDictionary<string, BinaryData> properties = null)
         {
             metadata ??= new Dictionary<string, string>();
             properties ??= new Dictionary<string, BinaryData>();
@@ -1024,7 +1026,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="properties"> The updated thread properties. </param>
         /// <param name="metadata"> The thread metadata. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatThreadPropertiesUpdatedEventData"/> instance for mocking. </returns>
-        public static AcsChatThreadPropertiesUpdatedEventData AcsChatThreadPropertiesUpdatedEventData(string transactionId = null, string threadId = null, DateTimeOffset createTime = default, long? version = null, CommunicationIdentifierModel editedByCommunicationIdentifier = null, DateTimeOffset editTime = default, IReadOnlyDictionary<string, BinaryData> properties = null, IReadOnlyDictionary<string, string> metadata = null)
+        public static AcsChatThreadPropertiesUpdatedEventData AcsChatThreadPropertiesUpdatedEventData(string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, CommunicationIdentifierModel editedByCommunicationIdentifier = null, DateTimeOffset? editTime = null, IReadOnlyDictionary<string, BinaryData> properties = null, IReadOnlyDictionary<string, string> metadata = null)
         {
             properties ??= new Dictionary<string, BinaryData>();
             metadata ??= new Dictionary<string, string>();
@@ -1051,7 +1053,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="addedByCommunicationIdentifier"> The communication identifier of the user who added the user. </param>
         /// <param name="participantAdded"> The details of the user who was added. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatParticipantAddedToThreadWithUserEventData"/> instance for mocking. </returns>
-        public static AcsChatParticipantAddedToThreadWithUserEventData AcsChatParticipantAddedToThreadWithUserEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset createTime = default, long? version = null, DateTimeOffset time = default, CommunicationIdentifierModel addedByCommunicationIdentifier = null, AcsChatThreadParticipantProperties participantAdded = null)
+        public static AcsChatParticipantAddedToThreadWithUserEventData AcsChatParticipantAddedToThreadWithUserEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, DateTimeOffset? time = null, CommunicationIdentifierModel addedByCommunicationIdentifier = null, AcsChatThreadParticipantProperties participantAdded = null)
         {
             return new AcsChatParticipantAddedToThreadWithUserEventData(
                 recipientCommunicationIdentifier,
@@ -1075,7 +1077,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="removedByCommunicationIdentifier"> The communication identifier of the user who removed the user. </param>
         /// <param name="participantRemoved"> The details of the user who was removed. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatParticipantRemovedFromThreadWithUserEventData"/> instance for mocking. </returns>
-        public static AcsChatParticipantRemovedFromThreadWithUserEventData AcsChatParticipantRemovedFromThreadWithUserEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset createTime = default, long? version = null, DateTimeOffset time = default, CommunicationIdentifierModel removedByCommunicationIdentifier = null, AcsChatThreadParticipantProperties participantRemoved = null)
+        public static AcsChatParticipantRemovedFromThreadWithUserEventData AcsChatParticipantRemovedFromThreadWithUserEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, DateTimeOffset? time = null, CommunicationIdentifierModel removedByCommunicationIdentifier = null, AcsChatThreadParticipantProperties participantRemoved = null)
         {
             return new AcsChatParticipantRemovedFromThreadWithUserEventData(
                 recipientCommunicationIdentifier,
@@ -1097,7 +1099,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="participantAdded"> The details of the user who was added. </param>
         /// <param name="version"> The version of the thread. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatParticipantAddedToThreadEventData"/> instance for mocking. </returns>
-        public static AcsChatParticipantAddedToThreadEventData AcsChatParticipantAddedToThreadEventData(string transactionId = null, string threadId = null, DateTimeOffset time = default, CommunicationIdentifierModel addedByCommunicationIdentifier = null, AcsChatThreadParticipantProperties participantAdded = null, long? version = null)
+        public static AcsChatParticipantAddedToThreadEventData AcsChatParticipantAddedToThreadEventData(string transactionId = null, string threadId = null, DateTimeOffset? time = null, CommunicationIdentifierModel addedByCommunicationIdentifier = null, AcsChatThreadParticipantProperties participantAdded = null, long? version = null)
         {
             return new AcsChatParticipantAddedToThreadEventData(
                 transactionId,
@@ -1117,7 +1119,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="participantRemoved"> The details of the user who was removed. </param>
         /// <param name="version"> The version of the thread. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatParticipantRemovedFromThreadEventData"/> instance for mocking. </returns>
-        public static AcsChatParticipantRemovedFromThreadEventData AcsChatParticipantRemovedFromThreadEventData(string transactionId = null, string threadId = null, DateTimeOffset time = default, CommunicationIdentifierModel removedByCommunicationIdentifier = null, AcsChatThreadParticipantProperties participantRemoved = null, long? version = null)
+        public static AcsChatParticipantRemovedFromThreadEventData AcsChatParticipantRemovedFromThreadEventData(string transactionId = null, string threadId = null, DateTimeOffset? time = null, CommunicationIdentifierModel removedByCommunicationIdentifier = null, AcsChatThreadParticipantProperties participantRemoved = null, long? version = null)
         {
             return new AcsChatParticipantRemovedFromThreadEventData(
                 transactionId,
@@ -1149,7 +1151,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="receivedTimestamp"> The time at which the SMS delivery report was received. </param>
         /// <param name="tag"> Customer Content. </param>
         /// <returns> A new <see cref="SystemEvents.AcsSmsDeliveryReportReceivedEventData"/> instance for mocking. </returns>
-        public static AcsSmsDeliveryReportReceivedEventData AcsSmsDeliveryReportReceivedEventData(string messageId = null, string @from = null, string to = null, string deliveryStatus = null, string deliveryStatusDetails = null, IEnumerable<AcsSmsDeliveryAttemptProperties> deliveryAttempts = null, DateTimeOffset receivedTimestamp = default, string tag = null)
+        public static AcsSmsDeliveryReportReceivedEventData AcsSmsDeliveryReportReceivedEventData(string messageId = null, string @from = null, string to = null, string deliveryStatus = null, string deliveryStatusDetails = null, IEnumerable<AcsSmsDeliveryAttemptProperties> deliveryAttempts = null, DateTimeOffset? receivedTimestamp = null, string tag = null)
         {
             deliveryAttempts ??= new List<AcsSmsDeliveryAttemptProperties>();
 
@@ -1170,7 +1172,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="segmentsSucceeded"> Number of segments that were successfully delivered. </param>
         /// <param name="segmentsFailed"> Number of segments whose delivery failed. </param>
         /// <returns> A new <see cref="SystemEvents.AcsSmsDeliveryAttemptProperties"/> instance for mocking. </returns>
-        public static AcsSmsDeliveryAttemptProperties AcsSmsDeliveryAttemptProperties(DateTimeOffset timestamp = default, int? segmentsSucceeded = null, int? segmentsFailed = null)
+        public static AcsSmsDeliveryAttemptProperties AcsSmsDeliveryAttemptProperties(DateTimeOffset? timestamp = null, int? segmentsSucceeded = null, int? segmentsFailed = null)
         {
             return new AcsSmsDeliveryAttemptProperties(timestamp, segmentsSucceeded, segmentsFailed, serializedAdditionalRawData: null);
         }
@@ -1182,7 +1184,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="message"> The SMS content. </param>
         /// <param name="receivedTimestamp"> The time at which the SMS was received. </param>
         /// <returns> A new <see cref="SystemEvents.AcsSmsReceivedEventData"/> instance for mocking. </returns>
-        public static AcsSmsReceivedEventData AcsSmsReceivedEventData(string messageId = null, string @from = null, string to = null, string message = null, DateTimeOffset receivedTimestamp = default)
+        public static AcsSmsReceivedEventData AcsSmsReceivedEventData(string messageId = null, string @from = null, string to = null, string message = null, DateTimeOffset? receivedTimestamp = null)
         {
             return new AcsSmsReceivedEventData(
                 messageId,
@@ -1202,7 +1204,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="recordingFormatType"> The recording format type - Mp4, Mp3, Wav. </param>
         /// <param name="sessionEndReason"> The reason for ending recording session. </param>
         /// <returns> A new <see cref="SystemEvents.AcsRecordingFileStatusUpdatedEventData"/> instance for mocking. </returns>
-        public static AcsRecordingFileStatusUpdatedEventData AcsRecordingFileStatusUpdatedEventData(AcsRecordingStorageInfoProperties recordingStorageInfo = null, DateTimeOffset recordingStartTime = default, long? recordingDurationMs = null, RecordingContentType recordingContentType = default, RecordingChannelType recordingChannelKind = default, RecordingFormatType recordingFormatType = default, string sessionEndReason = null)
+        public static AcsRecordingFileStatusUpdatedEventData AcsRecordingFileStatusUpdatedEventData(AcsRecordingStorageInfoProperties recordingStorageInfo = null, DateTimeOffset? recordingStartTime = null, long? recordingDurationMs = null, RecordingContentType? recordingContentType = null, RecordingChannelType? recordingChannelKind = null, RecordingFormatType? recordingFormatType = null, string sessionEndReason = null)
         {
             return new AcsRecordingFileStatusUpdatedEventData(
                 recordingStorageInfo,
@@ -1253,7 +1255,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="deliveryStatusDetails"> Detailed information about the status if any. </param>
         /// <param name="deliveryAttemptTimestamp"> The time at which the email delivery report received timestamp. </param>
         /// <returns> A new <see cref="SystemEvents.AcsEmailDeliveryReportReceivedEventData"/> instance for mocking. </returns>
-        public static AcsEmailDeliveryReportReceivedEventData AcsEmailDeliveryReportReceivedEventData(string sender = null, string recipient = null, string messageId = null, AcsEmailDeliveryReportStatus status = default, AcsEmailDeliveryReportStatusDetails deliveryStatusDetails = null, DateTimeOffset deliveryAttemptTimestamp = default)
+        public static AcsEmailDeliveryReportReceivedEventData AcsEmailDeliveryReportReceivedEventData(string sender = null, string recipient = null, string messageId = null, AcsEmailDeliveryReportStatus? status = null, AcsEmailDeliveryReportStatusDetails deliveryStatusDetails = null, DateTimeOffset? deliveryAttemptTimestamp = null)
         {
             return new AcsEmailDeliveryReportReceivedEventData(
                 sender,
@@ -1282,7 +1284,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="userAgent"> The user agent interacting with the email. </param>
         /// <param name="engagement"> The type of engagement user have with email. </param>
         /// <returns> A new <see cref="SystemEvents.AcsEmailEngagementTrackingReportReceivedEventData"/> instance for mocking. </returns>
-        public static AcsEmailEngagementTrackingReportReceivedEventData AcsEmailEngagementTrackingReportReceivedEventData(string sender = null, string recipient = null, string messageId = null, DateTimeOffset userActionTimestamp = default, string engagementContext = null, string userAgent = null, AcsUserEngagement engagement = default)
+        public static AcsEmailEngagementTrackingReportReceivedEventData AcsEmailEngagementTrackingReportReceivedEventData(string sender = null, string recipient = null, string messageId = null, DateTimeOffset? userActionTimestamp = null, string engagementContext = null, string userAgent = null, AcsUserEngagement? engagement = null)
         {
             return new AcsEmailEngagementTrackingReportReceivedEventData(
                 sender,
@@ -1455,7 +1457,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="selectorState"> Router Job Worker Selector State. </param>
         /// <param name="expirationTime"> Router Job Worker Selector Expiration Time. </param>
         /// <returns> A new <see cref="SystemEvents.AcsRouterWorkerSelector"/> instance for mocking. </returns>
-        public static AcsRouterWorkerSelector AcsRouterWorkerSelector(string key = null, AcsRouterLabelOperator labelOperator = default, BinaryData labelValue = null, double timeToLive = default, AcsRouterWorkerSelectorState selectorState = default, DateTimeOffset expirationTime = default)
+        public static AcsRouterWorkerSelector AcsRouterWorkerSelector(string key = null, AcsRouterLabelOperator? labelOperator = null, BinaryData labelValue = null, double timeToLive = default, AcsRouterWorkerSelectorState? selectorState = null, DateTimeOffset? expirationTime = null)
         {
             return new AcsRouterWorkerSelector(
                 key,
@@ -1618,7 +1620,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="scheduledOn"> Router Job Received Scheduled Time in UTC. </param>
         /// <param name="unavailableForMatching"> Unavailable For Matching for Router Job Received. </param>
         /// <returns> A new <see cref="SystemEvents.AcsRouterJobReceivedEventData"/> instance for mocking. </returns>
-        public static AcsRouterJobReceivedEventData AcsRouterJobReceivedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, IReadOnlyDictionary<string, string> labels = null, IReadOnlyDictionary<string, string> tags = null, AcsRouterJobStatus jobStatus = default, string classificationPolicyId = null, int? priority = null, IEnumerable<AcsRouterWorkerSelector> requestedWorkerSelectors = null, DateTimeOffset scheduledOn = default, bool unavailableForMatching = default)
+        public static AcsRouterJobReceivedEventData AcsRouterJobReceivedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, IReadOnlyDictionary<string, string> labels = null, IReadOnlyDictionary<string, string> tags = null, AcsRouterJobStatus? jobStatus = null, string classificationPolicyId = null, int? priority = null, IEnumerable<AcsRouterWorkerSelector> requestedWorkerSelectors = null, DateTimeOffset? scheduledOn = null, bool unavailableForMatching = default)
         {
             labels ??= new Dictionary<string, string>();
             tags ??= new Dictionary<string, string>();
@@ -1653,7 +1655,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="scheduledOn"> Router Job Scheduling Failed Scheduled Time in UTC. </param>
         /// <param name="failureReason"> Router Job Scheduling Failed Reason. </param>
         /// <returns> A new <see cref="SystemEvents.AcsRouterJobSchedulingFailedEventData"/> instance for mocking. </returns>
-        public static AcsRouterJobSchedulingFailedEventData AcsRouterJobSchedulingFailedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, IReadOnlyDictionary<string, string> labels = null, IReadOnlyDictionary<string, string> tags = null, int? priority = null, IEnumerable<AcsRouterWorkerSelector> expiredAttachedWorkerSelectors = null, IEnumerable<AcsRouterWorkerSelector> expiredRequestedWorkerSelectors = null, DateTimeOffset scheduledOn = default, string failureReason = null)
+        public static AcsRouterJobSchedulingFailedEventData AcsRouterJobSchedulingFailedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, IReadOnlyDictionary<string, string> labels = null, IReadOnlyDictionary<string, string> tags = null, int? priority = null, IEnumerable<AcsRouterWorkerSelector> expiredAttachedWorkerSelectors = null, IEnumerable<AcsRouterWorkerSelector> expiredRequestedWorkerSelectors = null, DateTimeOffset? scheduledOn = null, string failureReason = null)
         {
             labels ??= new Dictionary<string, string>();
             tags ??= new Dictionary<string, string>();
@@ -1715,7 +1717,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="scheduledOn"> Router Job Waiting For Activation Scheduled Time in UTC. </param>
         /// <param name="unavailableForMatching"> Router Job Waiting For Activation Unavailable For Matching. </param>
         /// <returns> A new <see cref="SystemEvents.AcsRouterJobWaitingForActivationEventData"/> instance for mocking. </returns>
-        public static AcsRouterJobWaitingForActivationEventData AcsRouterJobWaitingForActivationEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, IReadOnlyDictionary<string, string> labels = null, IReadOnlyDictionary<string, string> tags = null, int? priority = null, IEnumerable<AcsRouterWorkerSelector> expiredAttachedWorkerSelectors = null, IEnumerable<AcsRouterWorkerSelector> expiredRequestedWorkerSelectors = null, DateTimeOffset scheduledOn = default, bool unavailableForMatching = default)
+        public static AcsRouterJobWaitingForActivationEventData AcsRouterJobWaitingForActivationEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, IReadOnlyDictionary<string, string> labels = null, IReadOnlyDictionary<string, string> tags = null, int? priority = null, IEnumerable<AcsRouterWorkerSelector> expiredAttachedWorkerSelectors = null, IEnumerable<AcsRouterWorkerSelector> expiredRequestedWorkerSelectors = null, DateTimeOffset? scheduledOn = null, bool unavailableForMatching = default)
         {
             labels ??= new Dictionary<string, string>();
             tags ??= new Dictionary<string, string>();
@@ -1888,7 +1890,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="jobLabels"> Router Worker Offer Issued Job Labels. </param>
         /// <param name="jobTags"> Router Worker Offer Issued Job Tags. </param>
         /// <returns> A new <see cref="SystemEvents.AcsRouterWorkerOfferIssuedEventData"/> instance for mocking. </returns>
-        public static AcsRouterWorkerOfferIssuedEventData AcsRouterWorkerOfferIssuedEventData(string jobId = null, string channelReference = null, string channelId = null, string workerId = null, string queueId = null, string offerId = null, int? jobPriority = null, IReadOnlyDictionary<string, string> workerLabels = null, DateTimeOffset offeredOn = default, DateTimeOffset expiresOn = default, IReadOnlyDictionary<string, string> workerTags = null, IReadOnlyDictionary<string, string> jobLabels = null, IReadOnlyDictionary<string, string> jobTags = null)
+        public static AcsRouterWorkerOfferIssuedEventData AcsRouterWorkerOfferIssuedEventData(string jobId = null, string channelReference = null, string channelId = null, string workerId = null, string queueId = null, string offerId = null, int? jobPriority = null, IReadOnlyDictionary<string, string> workerLabels = null, DateTimeOffset? offeredOn = null, DateTimeOffset? expiresOn = null, IReadOnlyDictionary<string, string> workerTags = null, IReadOnlyDictionary<string, string> jobLabels = null, IReadOnlyDictionary<string, string> jobTags = null)
         {
             workerLabels ??= new Dictionary<string, string>();
             workerTags ??= new Dictionary<string, string>();
@@ -2001,7 +2003,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="receivedTimestamp"> The time message was received. </param>
         /// <param name="error"> The channel event error. </param>
         /// <returns> A new <see cref="SystemEvents.AcsMessageEventData"/> instance for mocking. </returns>
-        public static AcsMessageEventData AcsMessageEventData(string @from = null, string to = null, DateTimeOffset receivedTimestamp = default, AcsMessageChannelEventError error = null)
+        public static AcsMessageEventData AcsMessageEventData(string @from = null, string to = null, DateTimeOffset? receivedTimestamp = null, AcsMessageChannelEventError error = null)
         {
             return new AcsMessageEventData(@from, to, receivedTimestamp, error, serializedAdditionalRawData: null);
         }
@@ -2024,7 +2026,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="status"> The updated message status. </param>
         /// <param name="channelKind"> The updated message channel type. </param>
         /// <returns> A new <see cref="SystemEvents.AcsMessageDeliveryStatusUpdatedEventData"/> instance for mocking. </returns>
-        public static AcsMessageDeliveryStatusUpdatedEventData AcsMessageDeliveryStatusUpdatedEventData(string @from = null, string to = null, DateTimeOffset receivedTimestamp = default, AcsMessageChannelEventError error = null, string messageId = null, AcsMessageDeliveryStatus status = default, AcsMessageChannelKind channelKind = default)
+        public static AcsMessageDeliveryStatusUpdatedEventData AcsMessageDeliveryStatusUpdatedEventData(string @from = null, string to = null, DateTimeOffset? receivedTimestamp = null, AcsMessageChannelEventError error = null, string messageId = null, AcsMessageDeliveryStatus? status = null, AcsMessageChannelKind? channelKind = null)
         {
             return new AcsMessageDeliveryStatusUpdatedEventData(
                 @from,
@@ -2049,7 +2051,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="button"> The received message button content. </param>
         /// <param name="interactiveContent"> The received message interactive content. </param>
         /// <returns> A new <see cref="SystemEvents.AcsMessageReceivedEventData"/> instance for mocking. </returns>
-        public static AcsMessageReceivedEventData AcsMessageReceivedEventData(string @from = null, string to = null, DateTimeOffset receivedTimestamp = default, AcsMessageChannelEventError error = null, string content = null, AcsMessageChannelKind channelKind = default, AcsMessageMediaContent mediaContent = null, AcsMessageContext context = null, AcsMessageButtonContent button = null, AcsMessageInteractiveContent interactiveContent = null)
+        public static AcsMessageReceivedEventData AcsMessageReceivedEventData(string @from = null, string to = null, DateTimeOffset? receivedTimestamp = null, AcsMessageChannelEventError error = null, string content = null, AcsMessageChannelKind channelKind = default, AcsMessageMediaContent mediaContent = null, AcsMessageContext context = null, AcsMessageButtonContent button = null, AcsMessageInteractiveContent interactiveContent = null)
         {
             return new AcsMessageReceivedEventData(
                 @from,
@@ -2099,7 +2101,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="buttonReply"> The Message Sent when a customer clicks a button. </param>
         /// <param name="listReply"> The Message Sent when a customer selects an item from a list. </param>
         /// <returns> A new <see cref="SystemEvents.AcsMessageInteractiveContent"/> instance for mocking. </returns>
-        public static AcsMessageInteractiveContent AcsMessageInteractiveContent(AcsInteractiveReplyKind replyKind = default, AcsMessageInteractiveButtonReplyContent buttonReply = null, AcsMessageInteractiveListReplyContent listReply = null)
+        public static AcsMessageInteractiveContent AcsMessageInteractiveContent(AcsInteractiveReplyKind? replyKind = null, AcsMessageInteractiveButtonReplyContent buttonReply = null, AcsMessageInteractiveListReplyContent listReply = null)
         {
             return new AcsMessageInteractiveContent(replyKind, buttonReply, listReply, serializedAdditionalRawData: null);
         }
@@ -2134,7 +2136,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="source"> The registry node that generated the event. Put differently, while the actor initiates the event, the source generates it. </param>
         /// <param name="connectedRegistry"> The connected registry information if the event is generated by a connected registry. </param>
         /// <returns> A new <see cref="SystemEvents.ContainerRegistryEventData"/> instance for mocking. </returns>
-        public static ContainerRegistryEventData ContainerRegistryEventData(string id = null, DateTimeOffset timestamp = default, string action = null, string location = null, ContainerRegistryEventTarget target = null, ContainerRegistryEventRequest request = null, ContainerRegistryEventActor actor = null, ContainerRegistryEventSource source = null, ContainerRegistryEventConnectedRegistry connectedRegistry = null)
+        public static ContainerRegistryEventData ContainerRegistryEventData(string id = null, DateTimeOffset? timestamp = null, string action = null, string location = null, ContainerRegistryEventTarget target = null, ContainerRegistryEventRequest request = null, ContainerRegistryEventActor actor = null, ContainerRegistryEventSource source = null, ContainerRegistryEventConnectedRegistry connectedRegistry = null)
         {
             return new ContainerRegistryEventData(
                 id,
@@ -2225,7 +2227,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="source"> The registry node that generated the event. Put differently, while the actor initiates the event, the source generates it. </param>
         /// <param name="connectedRegistry"> The connected registry information if the event is generated by a connected registry. </param>
         /// <returns> A new <see cref="SystemEvents.ContainerRegistryImagePushedEventData"/> instance for mocking. </returns>
-        public static ContainerRegistryImagePushedEventData ContainerRegistryImagePushedEventData(string id = null, DateTimeOffset timestamp = default, string action = null, string location = null, ContainerRegistryEventTarget target = null, ContainerRegistryEventRequest request = null, ContainerRegistryEventActor actor = null, ContainerRegistryEventSource source = null, ContainerRegistryEventConnectedRegistry connectedRegistry = null)
+        public static ContainerRegistryImagePushedEventData ContainerRegistryImagePushedEventData(string id = null, DateTimeOffset? timestamp = null, string action = null, string location = null, ContainerRegistryEventTarget target = null, ContainerRegistryEventRequest request = null, ContainerRegistryEventActor actor = null, ContainerRegistryEventSource source = null, ContainerRegistryEventConnectedRegistry connectedRegistry = null)
         {
             return new ContainerRegistryImagePushedEventData(
                 id,
@@ -2251,7 +2253,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="source"> The registry node that generated the event. Put differently, while the actor initiates the event, the source generates it. </param>
         /// <param name="connectedRegistry"> The connected registry information if the event is generated by a connected registry. </param>
         /// <returns> A new <see cref="SystemEvents.ContainerRegistryImageDeletedEventData"/> instance for mocking. </returns>
-        public static ContainerRegistryImageDeletedEventData ContainerRegistryImageDeletedEventData(string id = null, DateTimeOffset timestamp = default, string action = null, string location = null, ContainerRegistryEventTarget target = null, ContainerRegistryEventRequest request = null, ContainerRegistryEventActor actor = null, ContainerRegistryEventSource source = null, ContainerRegistryEventConnectedRegistry connectedRegistry = null)
+        public static ContainerRegistryImageDeletedEventData ContainerRegistryImageDeletedEventData(string id = null, DateTimeOffset? timestamp = null, string action = null, string location = null, ContainerRegistryEventTarget target = null, ContainerRegistryEventRequest request = null, ContainerRegistryEventActor actor = null, ContainerRegistryEventSource source = null, ContainerRegistryEventConnectedRegistry connectedRegistry = null)
         {
             return new ContainerRegistryImageDeletedEventData(
                 id,
@@ -2274,7 +2276,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="target"> The target of the event. </param>
         /// <param name="connectedRegistry"> The connected registry information if the event is generated by a connected registry. </param>
         /// <returns> A new <see cref="SystemEvents.ContainerRegistryArtifactEventData"/> instance for mocking. </returns>
-        public static ContainerRegistryArtifactEventData ContainerRegistryArtifactEventData(string id = null, DateTimeOffset timestamp = default, string action = null, string location = null, ContainerRegistryArtifactEventTarget target = null, ContainerRegistryEventConnectedRegistry connectedRegistry = null)
+        public static ContainerRegistryArtifactEventData ContainerRegistryArtifactEventData(string id = null, DateTimeOffset? timestamp = null, string action = null, string location = null, ContainerRegistryArtifactEventTarget target = null, ContainerRegistryEventConnectedRegistry connectedRegistry = null)
         {
             return new ContainerRegistryArtifactEventData(
                 id,
@@ -2316,7 +2318,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="target"> The target of the event. </param>
         /// <param name="connectedRegistry"> The connected registry information if the event is generated by a connected registry. </param>
         /// <returns> A new <see cref="SystemEvents.ContainerRegistryChartPushedEventData"/> instance for mocking. </returns>
-        public static ContainerRegistryChartPushedEventData ContainerRegistryChartPushedEventData(string id = null, DateTimeOffset timestamp = default, string action = null, string location = null, ContainerRegistryArtifactEventTarget target = null, ContainerRegistryEventConnectedRegistry connectedRegistry = null)
+        public static ContainerRegistryChartPushedEventData ContainerRegistryChartPushedEventData(string id = null, DateTimeOffset? timestamp = null, string action = null, string location = null, ContainerRegistryArtifactEventTarget target = null, ContainerRegistryEventConnectedRegistry connectedRegistry = null)
         {
             return new ContainerRegistryChartPushedEventData(
                 id,
@@ -2336,7 +2338,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="target"> The target of the event. </param>
         /// <param name="connectedRegistry"> The connected registry information if the event is generated by a connected registry. </param>
         /// <returns> A new <see cref="SystemEvents.ContainerRegistryChartDeletedEventData"/> instance for mocking. </returns>
-        public static ContainerRegistryChartDeletedEventData ContainerRegistryChartDeletedEventData(string id = null, DateTimeOffset timestamp = default, string action = null, string location = null, ContainerRegistryArtifactEventTarget target = null, ContainerRegistryEventConnectedRegistry connectedRegistry = null)
+        public static ContainerRegistryChartDeletedEventData ContainerRegistryChartDeletedEventData(string id = null, DateTimeOffset? timestamp = null, string action = null, string location = null, ContainerRegistryArtifactEventTarget target = null, ContainerRegistryEventConnectedRegistry connectedRegistry = null)
         {
             return new ContainerRegistryChartDeletedEventData(
                 id,
@@ -2420,7 +2422,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="stageName"> Name of the current Stage. </param>
         /// <param name="stageTime"> The time at which the stage happened. </param>
         /// <returns> A new <see cref="SystemEvents.DataBoxCopyStartedEventData"/> instance for mocking. </returns>
-        public static DataBoxCopyStartedEventData DataBoxCopyStartedEventData(string serialNumber = null, DataBoxStageName stageName = default, DateTimeOffset stageTime = default)
+        public static DataBoxCopyStartedEventData DataBoxCopyStartedEventData(string serialNumber = null, DataBoxStageName? stageName = null, DateTimeOffset? stageTime = null)
         {
             return new DataBoxCopyStartedEventData(serialNumber, stageName, stageTime, serializedAdditionalRawData: null);
         }
@@ -2430,7 +2432,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="stageName"> Name of the current Stage. </param>
         /// <param name="stageTime"> The time at which the stage happened. </param>
         /// <returns> A new <see cref="SystemEvents.DataBoxCopyCompletedEventData"/> instance for mocking. </returns>
-        public static DataBoxCopyCompletedEventData DataBoxCopyCompletedEventData(string serialNumber = null, DataBoxStageName stageName = default, DateTimeOffset stageTime = default)
+        public static DataBoxCopyCompletedEventData DataBoxCopyCompletedEventData(string serialNumber = null, DataBoxStageName? stageName = null, DateTimeOffset? stageTime = null)
         {
             return new DataBoxCopyCompletedEventData(serialNumber, stageName, stageTime, serializedAdditionalRawData: null);
         }
@@ -2440,7 +2442,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="stageName"> Name of the current Stage. </param>
         /// <param name="stageTime"> The time at which the stage happened. </param>
         /// <returns> A new <see cref="SystemEvents.DataBoxOrderCompletedEventData"/> instance for mocking. </returns>
-        public static DataBoxOrderCompletedEventData DataBoxOrderCompletedEventData(string serialNumber = null, DataBoxStageName stageName = default, DateTimeOffset stageTime = default)
+        public static DataBoxOrderCompletedEventData DataBoxOrderCompletedEventData(string serialNumber = null, DataBoxStageName? stageName = null, DateTimeOffset? stageTime = null)
         {
             return new DataBoxOrderCompletedEventData(serialNumber, stageName, stageTime, serializedAdditionalRawData: null);
         }
@@ -2456,7 +2458,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="firstEnqueueTime"> The first time from the queue. </param>
         /// <param name="lastEnqueueTime"> The last time from the queue. </param>
         /// <returns> A new <see cref="SystemEvents.EventHubCaptureFileCreatedEventData"/> instance for mocking. </returns>
-        public static EventHubCaptureFileCreatedEventData EventHubCaptureFileCreatedEventData(string fileurl = null, string fileType = null, string partitionId = null, int? sizeInBytes = null, int? eventCount = null, int? firstSequenceNumber = null, int? lastSequenceNumber = null, DateTimeOffset firstEnqueueTime = default, DateTimeOffset lastEnqueueTime = default)
+        public static EventHubCaptureFileCreatedEventData EventHubCaptureFileCreatedEventData(string fileurl = null, string fileType = null, string partitionId = null, int? sizeInBytes = null, int? eventCount = null, int? firstSequenceNumber = null, int? lastSequenceNumber = null, DateTimeOffset? firstEnqueueTime = null, DateTimeOffset? lastEnqueueTime = null)
         {
             return new EventHubCaptureFileCreatedEventData(
                 fileurl,
@@ -2721,7 +2723,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="fhirResourceId"> Id of HL7 FHIR resource. </param>
         /// <param name="fhirResourceVersionId"> VersionId of HL7 FHIR resource. It changes when the resource is created, updated, or deleted(soft-deletion). </param>
         /// <returns> A new <see cref="SystemEvents.HealthcareFhirResourceCreatedEventData"/> instance for mocking. </returns>
-        public static HealthcareFhirResourceCreatedEventData HealthcareFhirResourceCreatedEventData(HealthcareFhirResourceType fhirResourceType = default, string fhirServiceHostName = null, string fhirResourceId = null, long? fhirResourceVersionId = null)
+        public static HealthcareFhirResourceCreatedEventData HealthcareFhirResourceCreatedEventData(HealthcareFhirResourceType? fhirResourceType = null, string fhirServiceHostName = null, string fhirResourceId = null, long? fhirResourceVersionId = null)
         {
             return new HealthcareFhirResourceCreatedEventData(fhirResourceType, fhirServiceHostName, fhirResourceId, fhirResourceVersionId, serializedAdditionalRawData: null);
         }
@@ -2732,7 +2734,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="fhirResourceId"> Id of HL7 FHIR resource. </param>
         /// <param name="fhirResourceVersionId"> VersionId of HL7 FHIR resource. It changes when the resource is created, updated, or deleted(soft-deletion). </param>
         /// <returns> A new <see cref="SystemEvents.HealthcareFhirResourceUpdatedEventData"/> instance for mocking. </returns>
-        public static HealthcareFhirResourceUpdatedEventData HealthcareFhirResourceUpdatedEventData(HealthcareFhirResourceType fhirResourceType = default, string fhirServiceHostName = null, string fhirResourceId = null, long? fhirResourceVersionId = null)
+        public static HealthcareFhirResourceUpdatedEventData HealthcareFhirResourceUpdatedEventData(HealthcareFhirResourceType? fhirResourceType = null, string fhirServiceHostName = null, string fhirResourceId = null, long? fhirResourceVersionId = null)
         {
             return new HealthcareFhirResourceUpdatedEventData(fhirResourceType, fhirServiceHostName, fhirResourceId, fhirResourceVersionId, serializedAdditionalRawData: null);
         }
@@ -2743,7 +2745,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="fhirResourceId"> Id of HL7 FHIR resource. </param>
         /// <param name="fhirResourceVersionId"> VersionId of HL7 FHIR resource. It changes when the resource is created, updated, or deleted(soft-deletion). </param>
         /// <returns> A new <see cref="SystemEvents.HealthcareFhirResourceDeletedEventData"/> instance for mocking. </returns>
-        public static HealthcareFhirResourceDeletedEventData HealthcareFhirResourceDeletedEventData(HealthcareFhirResourceType fhirResourceType = default, string fhirServiceHostName = null, string fhirResourceId = null, long? fhirResourceVersionId = null)
+        public static HealthcareFhirResourceDeletedEventData HealthcareFhirResourceDeletedEventData(HealthcareFhirResourceType? fhirResourceType = null, string fhirServiceHostName = null, string fhirResourceId = null, long? fhirResourceVersionId = null)
         {
             return new HealthcareFhirResourceDeletedEventData(fhirResourceType, fhirServiceHostName, fhirResourceId, fhirResourceVersionId, serializedAdditionalRawData: null);
         }
@@ -3096,7 +3098,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="startTime"> The start time of the target dataset time series that resulted in drift detection. </param>
         /// <param name="endTime"> The end time of the target dataset time series that resulted in drift detection. </param>
         /// <returns> A new <see cref="SystemEvents.MachineLearningServicesDatasetDriftDetectedEventData"/> instance for mocking. </returns>
-        public static MachineLearningServicesDatasetDriftDetectedEventData MachineLearningServicesDatasetDriftDetectedEventData(string dataDriftId = null, string dataDriftName = null, string runId = null, string baseDatasetId = null, string targetDatasetId = null, double? driftCoefficient = null, DateTimeOffset startTime = default, DateTimeOffset endTime = default)
+        public static MachineLearningServicesDatasetDriftDetectedEventData MachineLearningServicesDatasetDriftDetectedEventData(string dataDriftId = null, string dataDriftName = null, string runId = null, string baseDatasetId = null, string targetDatasetId = null, double? driftCoefficient = null, DateTimeOffset? startTime = null, DateTimeOffset? endTime = null)
         {
             return new MachineLearningServicesDatasetDriftDetectedEventData(
                 dataDriftId,
@@ -3140,7 +3142,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="state"> The new state of the Job. </param>
         /// <param name="correlationData"> Gets the Job correlation data. </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobStateChangeEventData"/> instance for mocking. </returns>
-        public static MediaJobStateChangeEventData MediaJobStateChangeEventData(MediaJobState previousState = default, MediaJobState state = default, IReadOnlyDictionary<string, string> correlationData = null)
+        public static MediaJobStateChangeEventData MediaJobStateChangeEventData(MediaJobState? previousState = null, MediaJobState? state = null, IReadOnlyDictionary<string, string> correlationData = null)
         {
             correlationData ??= new Dictionary<string, string>();
 
@@ -3154,7 +3156,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="retry"> Indicates that it may be possible to retry the Job. If retry is unsuccessful, please contact Azure support via Azure Portal. </param>
         /// <param name="details"> An array of details about specific errors that led to this reported error. </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobError"/> instance for mocking. </returns>
-        public static MediaJobError MediaJobError(MediaJobErrorCode code = default, string message = null, MediaJobErrorCategory category = default, MediaJobRetry retry = default, IEnumerable<MediaJobErrorDetail> details = null)
+        public static MediaJobError MediaJobError(MediaJobErrorCode? code = null, string message = null, MediaJobErrorCategory? category = null, MediaJobRetry? retry = null, IEnumerable<MediaJobErrorDetail> details = null)
         {
             details ??= new List<MediaJobErrorDetail>();
 
@@ -3183,7 +3185,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="progress"> Gets the Job output progress. </param>
         /// <param name="state"> Gets the Job output state. </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobOutput"/> instance for mocking. </returns>
-        public static MediaJobOutput MediaJobOutput(string odataType = null, MediaJobError error = null, string label = null, long progress = default, MediaJobState state = default)
+        public static MediaJobOutput MediaJobOutput(string odataType = null, MediaJobError error = null, string label = null, long progress = default, MediaJobState? state = null)
         {
             return new UnknownMediaJobOutput(
                 odataType,
@@ -3201,7 +3203,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="state"> Gets the Job output state. </param>
         /// <param name="assetName"> Gets the Job output asset name. </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobOutputAsset"/> instance for mocking. </returns>
-        public static MediaJobOutputAsset MediaJobOutputAsset(MediaJobError error = null, string label = null, long progress = default, MediaJobState state = default, string assetName = null)
+        public static MediaJobOutputAsset MediaJobOutputAsset(MediaJobError error = null, string label = null, long progress = default, MediaJobState? state = null, string assetName = null)
         {
             return new MediaJobOutputAsset(
                 "#Microsoft.Media.JobOutputAsset",
@@ -3234,7 +3236,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </param>
         /// <param name="jobCorrelationData"> Gets the Job correlation data. </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobOutputStateChangeEventData"/> instance for mocking. </returns>
-        public static MediaJobOutputStateChangeEventData MediaJobOutputStateChangeEventData(MediaJobState previousState = default, MediaJobOutput output = null, IReadOnlyDictionary<string, string> jobCorrelationData = null)
+        public static MediaJobOutputStateChangeEventData MediaJobOutputStateChangeEventData(MediaJobState? previousState = null, MediaJobOutput output = null, IReadOnlyDictionary<string, string> jobCorrelationData = null)
         {
             jobCorrelationData ??= new Dictionary<string, string>();
 
@@ -3246,7 +3248,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="state"> The new state of the Job. </param>
         /// <param name="correlationData"> Gets the Job correlation data. </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobScheduledEventData"/> instance for mocking. </returns>
-        public static MediaJobScheduledEventData MediaJobScheduledEventData(MediaJobState previousState = default, MediaJobState state = default, IReadOnlyDictionary<string, string> correlationData = null)
+        public static MediaJobScheduledEventData MediaJobScheduledEventData(MediaJobState? previousState = null, MediaJobState? state = null, IReadOnlyDictionary<string, string> correlationData = null)
         {
             correlationData ??= new Dictionary<string, string>();
 
@@ -3258,7 +3260,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="state"> The new state of the Job. </param>
         /// <param name="correlationData"> Gets the Job correlation data. </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobProcessingEventData"/> instance for mocking. </returns>
-        public static MediaJobProcessingEventData MediaJobProcessingEventData(MediaJobState previousState = default, MediaJobState state = default, IReadOnlyDictionary<string, string> correlationData = null)
+        public static MediaJobProcessingEventData MediaJobProcessingEventData(MediaJobState? previousState = null, MediaJobState? state = null, IReadOnlyDictionary<string, string> correlationData = null)
         {
             correlationData ??= new Dictionary<string, string>();
 
@@ -3270,7 +3272,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="state"> The new state of the Job. </param>
         /// <param name="correlationData"> Gets the Job correlation data. </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobCancelingEventData"/> instance for mocking. </returns>
-        public static MediaJobCancelingEventData MediaJobCancelingEventData(MediaJobState previousState = default, MediaJobState state = default, IReadOnlyDictionary<string, string> correlationData = null)
+        public static MediaJobCancelingEventData MediaJobCancelingEventData(MediaJobState? previousState = null, MediaJobState? state = null, IReadOnlyDictionary<string, string> correlationData = null)
         {
             correlationData ??= new Dictionary<string, string>();
 
@@ -3287,7 +3289,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// The available derived classes include <see cref="SystemEvents.MediaJobOutputAsset"/>.
         /// </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobFinishedEventData"/> instance for mocking. </returns>
-        public static MediaJobFinishedEventData MediaJobFinishedEventData(MediaJobState previousState = default, MediaJobState state = default, IReadOnlyDictionary<string, string> correlationData = null, IEnumerable<MediaJobOutput> outputs = null)
+        public static MediaJobFinishedEventData MediaJobFinishedEventData(MediaJobState? previousState = null, MediaJobState? state = null, IReadOnlyDictionary<string, string> correlationData = null, IEnumerable<MediaJobOutput> outputs = null)
         {
             correlationData ??= new Dictionary<string, string>();
             outputs ??= new List<MediaJobOutput>();
@@ -3305,7 +3307,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// The available derived classes include <see cref="SystemEvents.MediaJobOutputAsset"/>.
         /// </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobCanceledEventData"/> instance for mocking. </returns>
-        public static MediaJobCanceledEventData MediaJobCanceledEventData(MediaJobState previousState = default, MediaJobState state = default, IReadOnlyDictionary<string, string> correlationData = null, IEnumerable<MediaJobOutput> outputs = null)
+        public static MediaJobCanceledEventData MediaJobCanceledEventData(MediaJobState? previousState = null, MediaJobState? state = null, IReadOnlyDictionary<string, string> correlationData = null, IEnumerable<MediaJobOutput> outputs = null)
         {
             correlationData ??= new Dictionary<string, string>();
             outputs ??= new List<MediaJobOutput>();
@@ -3323,7 +3325,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// The available derived classes include <see cref="SystemEvents.MediaJobOutputAsset"/>.
         /// </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobErroredEventData"/> instance for mocking. </returns>
-        public static MediaJobErroredEventData MediaJobErroredEventData(MediaJobState previousState = default, MediaJobState state = default, IReadOnlyDictionary<string, string> correlationData = null, IEnumerable<MediaJobOutput> outputs = null)
+        public static MediaJobErroredEventData MediaJobErroredEventData(MediaJobState? previousState = null, MediaJobState? state = null, IReadOnlyDictionary<string, string> correlationData = null, IEnumerable<MediaJobOutput> outputs = null)
         {
             correlationData ??= new Dictionary<string, string>();
             outputs ??= new List<MediaJobOutput>();
@@ -3340,7 +3342,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </param>
         /// <param name="jobCorrelationData"> Gets the Job correlation data. </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobOutputCanceledEventData"/> instance for mocking. </returns>
-        public static MediaJobOutputCanceledEventData MediaJobOutputCanceledEventData(MediaJobState previousState = default, MediaJobOutput output = null, IReadOnlyDictionary<string, string> jobCorrelationData = null)
+        public static MediaJobOutputCanceledEventData MediaJobOutputCanceledEventData(MediaJobState? previousState = null, MediaJobOutput output = null, IReadOnlyDictionary<string, string> jobCorrelationData = null)
         {
             jobCorrelationData ??= new Dictionary<string, string>();
 
@@ -3356,7 +3358,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </param>
         /// <param name="jobCorrelationData"> Gets the Job correlation data. </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobOutputCancelingEventData"/> instance for mocking. </returns>
-        public static MediaJobOutputCancelingEventData MediaJobOutputCancelingEventData(MediaJobState previousState = default, MediaJobOutput output = null, IReadOnlyDictionary<string, string> jobCorrelationData = null)
+        public static MediaJobOutputCancelingEventData MediaJobOutputCancelingEventData(MediaJobState? previousState = null, MediaJobOutput output = null, IReadOnlyDictionary<string, string> jobCorrelationData = null)
         {
             jobCorrelationData ??= new Dictionary<string, string>();
 
@@ -3372,7 +3374,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </param>
         /// <param name="jobCorrelationData"> Gets the Job correlation data. </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobOutputErroredEventData"/> instance for mocking. </returns>
-        public static MediaJobOutputErroredEventData MediaJobOutputErroredEventData(MediaJobState previousState = default, MediaJobOutput output = null, IReadOnlyDictionary<string, string> jobCorrelationData = null)
+        public static MediaJobOutputErroredEventData MediaJobOutputErroredEventData(MediaJobState? previousState = null, MediaJobOutput output = null, IReadOnlyDictionary<string, string> jobCorrelationData = null)
         {
             jobCorrelationData ??= new Dictionary<string, string>();
 
@@ -3388,7 +3390,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </param>
         /// <param name="jobCorrelationData"> Gets the Job correlation data. </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobOutputFinishedEventData"/> instance for mocking. </returns>
-        public static MediaJobOutputFinishedEventData MediaJobOutputFinishedEventData(MediaJobState previousState = default, MediaJobOutput output = null, IReadOnlyDictionary<string, string> jobCorrelationData = null)
+        public static MediaJobOutputFinishedEventData MediaJobOutputFinishedEventData(MediaJobState? previousState = null, MediaJobOutput output = null, IReadOnlyDictionary<string, string> jobCorrelationData = null)
         {
             jobCorrelationData ??= new Dictionary<string, string>();
 
@@ -3404,7 +3406,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </param>
         /// <param name="jobCorrelationData"> Gets the Job correlation data. </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobOutputProcessingEventData"/> instance for mocking. </returns>
-        public static MediaJobOutputProcessingEventData MediaJobOutputProcessingEventData(MediaJobState previousState = default, MediaJobOutput output = null, IReadOnlyDictionary<string, string> jobCorrelationData = null)
+        public static MediaJobOutputProcessingEventData MediaJobOutputProcessingEventData(MediaJobState? previousState = null, MediaJobOutput output = null, IReadOnlyDictionary<string, string> jobCorrelationData = null)
         {
             jobCorrelationData ??= new Dictionary<string, string>();
 
@@ -3420,7 +3422,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </param>
         /// <param name="jobCorrelationData"> Gets the Job correlation data. </param>
         /// <returns> A new <see cref="SystemEvents.MediaJobOutputScheduledEventData"/> instance for mocking. </returns>
-        public static MediaJobOutputScheduledEventData MediaJobOutputScheduledEventData(MediaJobState previousState = default, MediaJobOutput output = null, IReadOnlyDictionary<string, string> jobCorrelationData = null)
+        public static MediaJobOutputScheduledEventData MediaJobOutputScheduledEventData(MediaJobState? previousState = null, MediaJobOutput output = null, IReadOnlyDictionary<string, string> jobCorrelationData = null)
         {
             jobCorrelationData ??= new Dictionary<string, string>();
 
@@ -3638,7 +3640,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="subscriptionId"> The subscription ID of the resource. </param>
         /// <param name="complianceReasonCode"> The compliance reason code. May be empty. </param>
         /// <returns> A new <see cref="SystemEvents.PolicyInsightsPolicyStateCreatedEventData"/> instance for mocking. </returns>
-        public static PolicyInsightsPolicyStateCreatedEventData PolicyInsightsPolicyStateCreatedEventData(DateTimeOffset timestamp = default, string policyAssignmentId = null, string policyDefinitionId = null, string policyDefinitionReferenceId = null, string complianceState = null, string subscriptionId = null, string complianceReasonCode = null)
+        public static PolicyInsightsPolicyStateCreatedEventData PolicyInsightsPolicyStateCreatedEventData(DateTimeOffset? timestamp = null, string policyAssignmentId = null, string policyDefinitionId = null, string policyDefinitionReferenceId = null, string complianceState = null, string subscriptionId = null, string complianceReasonCode = null)
         {
             return new PolicyInsightsPolicyStateCreatedEventData(
                 timestamp,
@@ -3660,7 +3662,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="subscriptionId"> The subscription ID of the resource. </param>
         /// <param name="complianceReasonCode"> The compliance reason code. May be empty. </param>
         /// <returns> A new <see cref="SystemEvents.PolicyInsightsPolicyStateChangedEventData"/> instance for mocking. </returns>
-        public static PolicyInsightsPolicyStateChangedEventData PolicyInsightsPolicyStateChangedEventData(DateTimeOffset timestamp = default, string policyAssignmentId = null, string policyDefinitionId = null, string policyDefinitionReferenceId = null, string complianceState = null, string subscriptionId = null, string complianceReasonCode = null)
+        public static PolicyInsightsPolicyStateChangedEventData PolicyInsightsPolicyStateChangedEventData(DateTimeOffset? timestamp = null, string policyAssignmentId = null, string policyDefinitionId = null, string policyDefinitionReferenceId = null, string complianceState = null, string subscriptionId = null, string complianceReasonCode = null)
         {
             return new PolicyInsightsPolicyStateChangedEventData(
                 timestamp,
@@ -3682,7 +3684,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="subscriptionId"> The subscription ID of the resource. </param>
         /// <param name="complianceReasonCode"> The compliance reason code. May be empty. </param>
         /// <returns> A new <see cref="SystemEvents.PolicyInsightsPolicyStateDeletedEventData"/> instance for mocking. </returns>
-        public static PolicyInsightsPolicyStateDeletedEventData PolicyInsightsPolicyStateDeletedEventData(DateTimeOffset timestamp = default, string policyAssignmentId = null, string policyDefinitionId = null, string policyDefinitionReferenceId = null, string complianceState = null, string subscriptionId = null, string complianceReasonCode = null)
+        public static PolicyInsightsPolicyStateDeletedEventData PolicyInsightsPolicyStateDeletedEventData(DateTimeOffset? timestamp = null, string policyAssignmentId = null, string policyDefinitionId = null, string policyDefinitionReferenceId = null, string complianceState = null, string subscriptionId = null, string complianceReasonCode = null)
         {
             return new PolicyInsightsPolicyStateDeletedEventData(
                 timestamp,
@@ -3700,7 +3702,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="name"> The name of this event. </param>
         /// <param name="status"> The status of this event. Failed or  succeeded. </param>
         /// <returns> A new <see cref="SystemEvents.RedisPatchingCompletedEventData"/> instance for mocking. </returns>
-        public static RedisPatchingCompletedEventData RedisPatchingCompletedEventData(DateTimeOffset timestamp = default, string name = null, string status = null)
+        public static RedisPatchingCompletedEventData RedisPatchingCompletedEventData(DateTimeOffset? timestamp = null, string name = null, string status = null)
         {
             return new RedisPatchingCompletedEventData(timestamp, name, status, serializedAdditionalRawData: null);
         }
@@ -3710,29 +3712,29 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="name"> The name of this event. </param>
         /// <param name="status"> The status of this event. Failed or  succeeded. </param>
         /// <returns> A new <see cref="SystemEvents.RedisScalingCompletedEventData"/> instance for mocking. </returns>
-        public static RedisScalingCompletedEventData RedisScalingCompletedEventData(DateTimeOffset timestamp = default, string name = null, string status = null)
+        public static RedisScalingCompletedEventData RedisScalingCompletedEventData(DateTimeOffset? timestamp = null, string name = null, string status = null)
         {
             return new RedisScalingCompletedEventData(timestamp, name, status, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="SystemEvents.RedisExportRDBCompletedEventData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.RedisExportRdbCompletedEventData"/>. </summary>
         /// <param name="timestamp"> The time at which the event occurred. </param>
         /// <param name="name"> The name of this event. </param>
         /// <param name="status"> The status of this event. Failed or  succeeded. </param>
-        /// <returns> A new <see cref="SystemEvents.RedisExportRDBCompletedEventData"/> instance for mocking. </returns>
-        public static RedisExportRDBCompletedEventData RedisExportRDBCompletedEventData(DateTimeOffset timestamp = default, string name = null, string status = null)
+        /// <returns> A new <see cref="SystemEvents.RedisExportRdbCompletedEventData"/> instance for mocking. </returns>
+        public static RedisExportRdbCompletedEventData RedisExportRdbCompletedEventData(DateTimeOffset? timestamp = null, string name = null, string status = null)
         {
-            return new RedisExportRDBCompletedEventData(timestamp, name, status, serializedAdditionalRawData: null);
+            return new RedisExportRdbCompletedEventData(timestamp, name, status, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="SystemEvents.RedisImportRDBCompletedEventData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.RedisImportRdbCompletedEventData"/>. </summary>
         /// <param name="timestamp"> The time at which the event occurred. </param>
         /// <param name="name"> The name of this event. </param>
         /// <param name="status"> The status of this event. Failed or  succeeded. </param>
-        /// <returns> A new <see cref="SystemEvents.RedisImportRDBCompletedEventData"/> instance for mocking. </returns>
-        public static RedisImportRDBCompletedEventData RedisImportRDBCompletedEventData(DateTimeOffset timestamp = default, string name = null, string status = null)
+        /// <returns> A new <see cref="SystemEvents.RedisImportRdbCompletedEventData"/> instance for mocking. </returns>
+        public static RedisImportRdbCompletedEventData RedisImportRdbCompletedEventData(DateTimeOffset? timestamp = null, string name = null, string status = null)
         {
-            return new RedisImportRDBCompletedEventData(timestamp, name, status, serializedAdditionalRawData: null);
+            return new RedisImportRdbCompletedEventData(timestamp, name, status, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="SystemEvents.ResourceWriteSuccessEventData"/>. </summary>
@@ -4132,7 +4134,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="connectionId"> The connection Id of connected client connection. </param>
         /// <param name="userId"> The user Id of connected client connection. </param>
         /// <returns> A new <see cref="SystemEvents.SignalRServiceClientConnectionConnectedEventData"/> instance for mocking. </returns>
-        public static SignalRServiceClientConnectionConnectedEventData SignalRServiceClientConnectionConnectedEventData(DateTimeOffset timestamp = default, string hubName = null, string connectionId = null, string userId = null)
+        public static SignalRServiceClientConnectionConnectedEventData SignalRServiceClientConnectionConnectedEventData(DateTimeOffset? timestamp = null, string hubName = null, string connectionId = null, string userId = null)
         {
             return new SignalRServiceClientConnectionConnectedEventData(timestamp, hubName, connectionId, userId, serializedAdditionalRawData: null);
         }
@@ -4144,7 +4146,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="userId"> The user Id of connected client connection. </param>
         /// <param name="errorMessage"> The message of error that cause the client connection disconnected. </param>
         /// <returns> A new <see cref="SystemEvents.SignalRServiceClientConnectionDisconnectedEventData"/> instance for mocking. </returns>
-        public static SignalRServiceClientConnectionDisconnectedEventData SignalRServiceClientConnectionDisconnectedEventData(DateTimeOffset timestamp = default, string hubName = null, string connectionId = null, string userId = null, string errorMessage = null)
+        public static SignalRServiceClientConnectionDisconnectedEventData SignalRServiceClientConnectionDisconnectedEventData(DateTimeOffset? timestamp = null, string hubName = null, string connectionId = null, string userId = null, string errorMessage = null)
         {
             return new SignalRServiceClientConnectionDisconnectedEventData(
                 timestamp,
@@ -4164,12 +4166,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="contentLength"> The size of the blob in bytes. This is the same as what would be returned in the Content-Length header from the blob. </param>
         /// <param name="contentOffset"> The offset of the blob in bytes. </param>
         /// <param name="blobType"> The type of blob. </param>
+        /// <param name="accessTier"> The current tier of the blob. </param>
         /// <param name="url"> The path to the blob. </param>
         /// <param name="sequencer"> An opaque string value representing the logical sequence of events for any particular blob name. Users can use standard string comparison to understand the relative sequence of two events on the same blob name. </param>
         /// <param name="identity"> The identity of the requester that triggered this event. </param>
         /// <param name="storageDiagnostics"> For service use only. Diagnostic data occasionally included by the Azure Storage service. This property should be ignored by event consumers. </param>
         /// <returns> A new <see cref="SystemEvents.StorageBlobCreatedEventData"/> instance for mocking. </returns>
-        public static StorageBlobCreatedEventData StorageBlobCreatedEventData(string api = null, string clientRequestId = null, string requestId = null, string eTag = null, string contentType = null, long? contentLength = null, long? contentOffset = null, string blobType = null, string url = null, string sequencer = null, string identity = null, IReadOnlyDictionary<string, BinaryData> storageDiagnostics = null)
+        public static StorageBlobCreatedEventData StorageBlobCreatedEventData(string api = null, string clientRequestId = null, string requestId = null, string eTag = null, string contentType = null, long? contentLength = null, long? contentOffset = null, string blobType = null, StorageBlobAccessTier accessTier = default, string url = null, string sequencer = null, string identity = null, IReadOnlyDictionary<string, BinaryData> storageDiagnostics = null)
         {
             storageDiagnostics ??= new Dictionary<string, BinaryData>();
 
@@ -4182,6 +4185,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 contentLength,
                 contentOffset,
                 blobType,
+                accessTier,
                 url,
                 sequencer,
                 identity,
@@ -4323,13 +4327,30 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         /// <summary> Initializes a new instance of <see cref="SystemEvents.StorageLifecyclePolicyCompletedEventData"/>. </summary>
         /// <param name="scheduleTime"> The time the policy task was scheduled. </param>
+        /// <param name="policyRunSummary"> Policy execution summary which shows the completion status of a LCM run". </param>
         /// <param name="deleteSummary"> Execution statistics of a specific policy action in a Blob Management cycle. </param>
         /// <param name="tierToCoolSummary"> Execution statistics of a specific policy action in a Blob Management cycle. </param>
         /// <param name="tierToArchiveSummary"> Execution statistics of a specific policy action in a Blob Management cycle. </param>
+        /// <param name="tierToColdSummary"> Execution statistics of a specific policy action in a Blob Management cycle. </param>
         /// <returns> A new <see cref="SystemEvents.StorageLifecyclePolicyCompletedEventData"/> instance for mocking. </returns>
-        public static StorageLifecyclePolicyCompletedEventData StorageLifecyclePolicyCompletedEventData(string scheduleTime = null, StorageLifecyclePolicyActionSummaryDetail deleteSummary = null, StorageLifecyclePolicyActionSummaryDetail tierToCoolSummary = null, StorageLifecyclePolicyActionSummaryDetail tierToArchiveSummary = null)
+        public static StorageLifecyclePolicyCompletedEventData StorageLifecyclePolicyCompletedEventData(string scheduleTime = null, StorageLifecyclePolicyRunSummary policyRunSummary = null, StorageLifecyclePolicyActionSummaryDetail deleteSummary = null, StorageLifecyclePolicyActionSummaryDetail tierToCoolSummary = null, StorageLifecyclePolicyActionSummaryDetail tierToArchiveSummary = null, StorageLifecyclePolicyActionSummaryDetail tierToColdSummary = null)
         {
-            return new StorageLifecyclePolicyCompletedEventData(scheduleTime, deleteSummary, tierToCoolSummary, tierToArchiveSummary, serializedAdditionalRawData: null);
+            return new StorageLifecyclePolicyCompletedEventData(
+                scheduleTime,
+                policyRunSummary,
+                deleteSummary,
+                tierToCoolSummary,
+                tierToArchiveSummary,
+                tierToColdSummary,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.StorageLifecyclePolicyRunSummary"/>. </summary>
+        /// <param name="completionStatus"> Policy status can be Completed/CompletedWithError/Incomplete. </param>
+        /// <returns> A new <see cref="SystemEvents.StorageLifecyclePolicyRunSummary"/> instance for mocking. </returns>
+        public static StorageLifecyclePolicyRunSummary StorageLifecyclePolicyRunSummary(StorageLifecycleCompletionStatus completionStatus = default)
+        {
+            return new StorageLifecyclePolicyRunSummary(completionStatus, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="SystemEvents.StorageLifecyclePolicyActionSummaryDetail"/>. </summary>
@@ -4349,12 +4370,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="contentType"> The content type of the blob. This is the same as what would be returned in the Content-Type header from the blob. </param>
         /// <param name="contentLength"> The size of the blob in bytes. This is the same as what would be returned in the Content-Length header from the blob. </param>
         /// <param name="blobType"> The type of blob. </param>
+        /// <param name="accessTier"> The current tier of the blob. </param>
+        /// <param name="previousTier"> The previous tier of the blob. </param>
         /// <param name="url"> The path to the blob. </param>
         /// <param name="sequencer"> An opaque string value representing the logical sequence of events for any particular blob name. Users can use standard string comparison to understand the relative sequence of two events on the same blob name. </param>
         /// <param name="identity"> The identity of the requester that triggered this event. </param>
         /// <param name="storageDiagnostics"> For service use only. Diagnostic data occasionally included by the Azure Storage service. This property should be ignored by event consumers. </param>
         /// <returns> A new <see cref="SystemEvents.StorageBlobTierChangedEventData"/> instance for mocking. </returns>
-        public static StorageBlobTierChangedEventData StorageBlobTierChangedEventData(string api = null, string clientRequestId = null, string requestId = null, string contentType = null, long? contentLength = null, string blobType = null, string url = null, string sequencer = null, string identity = null, IReadOnlyDictionary<string, BinaryData> storageDiagnostics = null)
+        public static StorageBlobTierChangedEventData StorageBlobTierChangedEventData(string api = null, string clientRequestId = null, string requestId = null, string contentType = null, long? contentLength = null, string blobType = null, StorageBlobAccessTier accessTier = default, StorageBlobAccessTier previousTier = default, string url = null, string sequencer = null, string identity = null, IReadOnlyDictionary<string, BinaryData> storageDiagnostics = null)
         {
             storageDiagnostics ??= new Dictionary<string, BinaryData>();
 
@@ -4365,6 +4388,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 contentType,
                 contentLength,
                 blobType,
+                accessTier,
+                previousTier,
                 url,
                 sequencer,
                 identity,
@@ -4411,7 +4436,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="policyRunId"> The policy run id for inventory run. </param>
         /// <param name="manifestBlobUrl"> The blob URL for manifest file for inventory run. </param>
         /// <returns> A new <see cref="SystemEvents.StorageBlobInventoryPolicyCompletedEventData"/> instance for mocking. </returns>
-        public static StorageBlobInventoryPolicyCompletedEventData StorageBlobInventoryPolicyCompletedEventData(DateTimeOffset scheduleDateTime = default, string accountName = null, string ruleName = null, string policyRunStatus = null, string policyRunStatusMessage = null, string policyRunId = null, string manifestBlobUrl = null)
+        public static StorageBlobInventoryPolicyCompletedEventData StorageBlobInventoryPolicyCompletedEventData(DateTimeOffset? scheduleDateTime = null, string accountName = null, string ruleName = null, string policyRunStatus = null, string policyRunStatusMessage = null, string policyRunId = null, string manifestBlobUrl = null)
         {
             return new StorageBlobInventoryPolicyCompletedEventData(
                 scheduleDateTime,
@@ -4431,7 +4456,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="taskName"> The task name for a storage task. </param>
         /// <param name="summaryReportBlobUrl"> The summary report blob url for a storage task. </param>
         /// <returns> A new <see cref="SystemEvents.StorageTaskCompletedEventData"/> instance for mocking. </returns>
-        public static StorageTaskCompletedEventData StorageTaskCompletedEventData(StorageTaskCompletedStatus status = default, DateTimeOffset completedDateTime = default, string taskExecutionId = null, string taskName = null, Uri summaryReportBlobUrl = null)
+        public static StorageTaskCompletedEventData StorageTaskCompletedEventData(StorageTaskCompletedStatus? status = null, DateTimeOffset? completedDateTime = null, string taskExecutionId = null, string taskName = null, Uri summaryReportBlobUrl = null)
         {
             return new StorageTaskCompletedEventData(
                 status,
@@ -4446,7 +4471,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="queuedDateTime"> The time at which a storage task was queued. </param>
         /// <param name="taskExecutionId"> The execution id for a storage task. </param>
         /// <returns> A new <see cref="SystemEvents.StorageTaskQueuedEventData"/> instance for mocking. </returns>
-        public static StorageTaskQueuedEventData StorageTaskQueuedEventData(DateTimeOffset queuedDateTime = default, string taskExecutionId = null)
+        public static StorageTaskQueuedEventData StorageTaskQueuedEventData(DateTimeOffset? queuedDateTime = null, string taskExecutionId = null)
         {
             return new StorageTaskQueuedEventData(queuedDateTime, taskExecutionId, serializedAdditionalRawData: null);
         }
@@ -4455,7 +4480,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="queuedOn"> The time at which a storage task was queued. </param>
         /// <param name="taskExecutionId"> The execution id for a storage task. </param>
         /// <returns> A new <see cref="SystemEvents.StorageTaskAssignmentQueuedEventData"/> instance for mocking. </returns>
-        public static StorageTaskAssignmentQueuedEventData StorageTaskAssignmentQueuedEventData(DateTimeOffset queuedOn = default, string taskExecutionId = null)
+        public static StorageTaskAssignmentQueuedEventData StorageTaskAssignmentQueuedEventData(DateTimeOffset? queuedOn = null, string taskExecutionId = null)
         {
             return new StorageTaskAssignmentQueuedEventData(queuedOn, taskExecutionId, serializedAdditionalRawData: null);
         }
@@ -4467,7 +4492,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="taskName"> The task name for a storage task. </param>
         /// <param name="summaryReportBlobUri"> The summary report blob url for a storage task. </param>
         /// <returns> A new <see cref="SystemEvents.StorageTaskAssignmentCompletedEventData"/> instance for mocking. </returns>
-        public static StorageTaskAssignmentCompletedEventData StorageTaskAssignmentCompletedEventData(StorageTaskAssignmentCompletedStatus status = default, DateTimeOffset completedOn = default, string taskExecutionId = null, string taskName = null, Uri summaryReportBlobUri = null)
+        public static StorageTaskAssignmentCompletedEventData StorageTaskAssignmentCompletedEventData(StorageTaskAssignmentCompletedStatus? status = null, DateTimeOffset? completedOn = null, string taskExecutionId = null, string taskName = null, Uri summaryReportBlobUri = null)
         {
             return new StorageTaskAssignmentCompletedEventData(
                 status,
@@ -4481,7 +4506,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> Initializes a new instance of <see cref="SystemEvents.AppEventTypeDetail"/>. </summary>
         /// <param name="action"> Type of action of the operation. </param>
         /// <returns> A new <see cref="SystemEvents.AppEventTypeDetail"/> instance for mocking. </returns>
-        public static AppEventTypeDetail AppEventTypeDetail(AppAction action = default)
+        public static AppEventTypeDetail AppEventTypeDetail(AppAction? action = null)
         {
             return new AppEventTypeDetail(action, serializedAdditionalRawData: null);
         }
@@ -4779,7 +4804,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="action"> Type of action on the app service plan. </param>
         /// <param name="status"> Asynchronous operation status of the operation on the app service plan. </param>
         /// <returns> A new <see cref="SystemEvents.AppServicePlanEventTypeDetail"/> instance for mocking. </returns>
-        public static AppServicePlanEventTypeDetail AppServicePlanEventTypeDetail(StampKind stampKind = default, AppServicePlanAction action = default, AsyncStatus status = default)
+        public static AppServicePlanEventTypeDetail AppServicePlanEventTypeDetail(StampKind? stampKind = null, AppServicePlanAction? action = null, AsyncStatus? status = null)
         {
             return new AppServicePlanEventTypeDetail(stampKind, action, status, serializedAdditionalRawData: null);
         }
@@ -4835,7 +4860,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             return new SubscriptionDeletedEventData(eventSubscriptionId, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="SystemEvents.EventGridMQTTClientEventData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.EventGridMqttClientEventData"/>. </summary>
         /// <param name="clientAuthenticationName">
         /// Unique identifier for the MQTT client that the client presents to the service
         /// for authentication. This case-sensitive string can be up to 128 characters
@@ -4843,13 +4868,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </param>
         /// <param name="clientName"> Name of the client resource in the Event Grid namespace. </param>
         /// <param name="namespaceName"> Name of the Event Grid namespace where the MQTT client was created or updated. </param>
-        /// <returns> A new <see cref="SystemEvents.EventGridMQTTClientEventData"/> instance for mocking. </returns>
-        public static EventGridMQTTClientEventData EventGridMQTTClientEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null)
+        /// <returns> A new <see cref="SystemEvents.EventGridMqttClientEventData"/> instance for mocking. </returns>
+        public static EventGridMqttClientEventData EventGridMqttClientEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null)
         {
-            return new EventGridMQTTClientEventData(clientAuthenticationName, clientName, namespaceName, serializedAdditionalRawData: null);
+            return new EventGridMqttClientEventData(clientAuthenticationName, clientName, namespaceName, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="SystemEvents.EventGridMQTTClientCreatedOrUpdatedEventData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.EventGridMqttClientCreatedOrUpdatedEventData"/>. </summary>
         /// <param name="clientAuthenticationName">
         /// Unique identifier for the MQTT client that the client presents to the service
         /// for authentication. This case-sensitive string can be up to 128 characters
@@ -4865,12 +4890,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// the 'createdOn' property.
         /// </param>
         /// <param name="attributes"> The key-value attributes that are assigned to the client resource. </param>
-        /// <returns> A new <see cref="SystemEvents.EventGridMQTTClientCreatedOrUpdatedEventData"/> instance for mocking. </returns>
-        public static EventGridMQTTClientCreatedOrUpdatedEventData EventGridMQTTClientCreatedOrUpdatedEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null, EventGridMQTTClientState state = default, DateTimeOffset createdOn = default, DateTimeOffset updatedOn = default, IReadOnlyDictionary<string, string> attributes = null)
+        /// <returns> A new <see cref="SystemEvents.EventGridMqttClientCreatedOrUpdatedEventData"/> instance for mocking. </returns>
+        public static EventGridMqttClientCreatedOrUpdatedEventData EventGridMqttClientCreatedOrUpdatedEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null, EventGridMqttClientState? state = null, DateTimeOffset? createdOn = null, DateTimeOffset? updatedOn = null, IReadOnlyDictionary<string, string> attributes = null)
         {
             attributes ??= new Dictionary<string, string>();
 
-            return new EventGridMQTTClientCreatedOrUpdatedEventData(
+            return new EventGridMqttClientCreatedOrUpdatedEventData(
                 clientAuthenticationName,
                 clientName,
                 namespaceName,
@@ -4881,7 +4906,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 attributes);
         }
 
-        /// <summary> Initializes a new instance of <see cref="SystemEvents.EventGridMQTTClientDeletedEventData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.EventGridMqttClientDeletedEventData"/>. </summary>
         /// <param name="clientAuthenticationName">
         /// Unique identifier for the MQTT client that the client presents to the service
         /// for authentication. This case-sensitive string can be up to 128 characters
@@ -4889,13 +4914,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </param>
         /// <param name="clientName"> Name of the client resource in the Event Grid namespace. </param>
         /// <param name="namespaceName"> Name of the Event Grid namespace where the MQTT client was created or updated. </param>
-        /// <returns> A new <see cref="SystemEvents.EventGridMQTTClientDeletedEventData"/> instance for mocking. </returns>
-        public static EventGridMQTTClientDeletedEventData EventGridMQTTClientDeletedEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null)
+        /// <returns> A new <see cref="SystemEvents.EventGridMqttClientDeletedEventData"/> instance for mocking. </returns>
+        public static EventGridMqttClientDeletedEventData EventGridMqttClientDeletedEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null)
         {
-            return new EventGridMQTTClientDeletedEventData(clientAuthenticationName, clientName, namespaceName, serializedAdditionalRawData: null);
+            return new EventGridMqttClientDeletedEventData(clientAuthenticationName, clientName, namespaceName, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="SystemEvents.EventGridMQTTClientSessionConnectedEventData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.EventGridMqttClientSessionConnectedEventData"/>. </summary>
         /// <param name="clientAuthenticationName">
         /// Unique identifier for the MQTT client that the client presents to the service
         /// for authentication. This case-sensitive string can be up to 128 characters
@@ -4912,10 +4937,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// disconnected events. Latest event will have a sequence number that is higher
         /// than the previous event.
         /// </param>
-        /// <returns> A new <see cref="SystemEvents.EventGridMQTTClientSessionConnectedEventData"/> instance for mocking. </returns>
-        public static EventGridMQTTClientSessionConnectedEventData EventGridMQTTClientSessionConnectedEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null, string clientSessionName = null, long? sequenceNumber = null)
+        /// <returns> A new <see cref="SystemEvents.EventGridMqttClientSessionConnectedEventData"/> instance for mocking. </returns>
+        public static EventGridMqttClientSessionConnectedEventData EventGridMqttClientSessionConnectedEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null, string clientSessionName = null, long? sequenceNumber = null)
         {
-            return new EventGridMQTTClientSessionConnectedEventData(
+            return new EventGridMqttClientSessionConnectedEventData(
                 clientAuthenticationName,
                 clientName,
                 namespaceName,
@@ -4924,7 +4949,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 sequenceNumber);
         }
 
-        /// <summary> Initializes a new instance of <see cref="SystemEvents.EventGridMQTTClientSessionDisconnectedEventData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.EventGridMqttClientSessionDisconnectedEventData"/>. </summary>
         /// <param name="clientAuthenticationName">
         /// Unique identifier for the MQTT client that the client presents to the service
         /// for authentication. This case-sensitive string can be up to 128 characters
@@ -4945,10 +4970,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// Reason for the disconnection of the MQTT client's session. The value could be
         /// one of the values in the disconnection reasons table.
         /// </param>
-        /// <returns> A new <see cref="SystemEvents.EventGridMQTTClientSessionDisconnectedEventData"/> instance for mocking. </returns>
-        public static EventGridMQTTClientSessionDisconnectedEventData EventGridMQTTClientSessionDisconnectedEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null, string clientSessionName = null, long? sequenceNumber = null, EventGridMQTTClientDisconnectionReason disconnectionReason = default)
+        /// <returns> A new <see cref="SystemEvents.EventGridMqttClientSessionDisconnectedEventData"/> instance for mocking. </returns>
+        public static EventGridMqttClientSessionDisconnectedEventData EventGridMqttClientSessionDisconnectedEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null, string clientSessionName = null, long? sequenceNumber = null, EventGridMqttClientDisconnectionReason? disconnectionReason = null)
         {
-            return new EventGridMQTTClientSessionDisconnectedEventData(
+            return new EventGridMqttClientSessionDisconnectedEventData(
                 clientAuthenticationName,
                 clientName,
                 namespaceName,
@@ -4994,7 +5019,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> Initializes a new instance of <see cref="SystemEvents.ResourceNotificationsOperationalDetails"/>. </summary>
         /// <param name="resourceEventTime"> Date and Time when resource was updated. </param>
         /// <returns> A new <see cref="SystemEvents.ResourceNotificationsOperationalDetails"/> instance for mocking. </returns>
-        public static ResourceNotificationsOperationalDetails ResourceNotificationsOperationalDetails(DateTimeOffset resourceEventTime = default)
+        public static ResourceNotificationsOperationalDetails ResourceNotificationsOperationalDetails(DateTimeOffset? resourceEventTime = null)
         {
             return new ResourceNotificationsOperationalDetails(resourceEventTime, serializedAdditionalRawData: null);
         }
@@ -5019,14 +5044,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             return new ResourceNotificationsHealthResourcesAnnotatedEventData(resourceDetails, operationalDetails, apiVersion, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="SystemEvents.ResourceNotificationsResourceManagementCreatedOrUpdatedEventData"/>. </summary>
-        /// <param name="resourceDetails"> resourceInfo details for update event. </param>
-        /// <param name="operationalDetails"> details about operational info. </param>
-        /// <param name="apiVersion"> api version of the resource properties bag. </param>
-        /// <returns> A new <see cref="SystemEvents.ResourceNotificationsResourceManagementCreatedOrUpdatedEventData"/> instance for mocking. </returns>
-        public static ResourceNotificationsResourceManagementCreatedOrUpdatedEventData ResourceNotificationsResourceManagementCreatedOrUpdatedEventData(ResourceNotificationsResourceUpdatedDetails resourceDetails = null, ResourceNotificationsOperationalDetails operationalDetails = null, string apiVersion = null)
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ResourceNotificationsResourceDeletedDetails"/>. </summary>
+        /// <param name="id"> id of the resource for which the event is being emitted. </param>
+        /// <param name="name"> name of the resource for which the event is being emitted. </param>
+        /// <param name="type"> the type of the resource for which the event is being emitted. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceNotificationsResourceDeletedDetails"/> instance for mocking. </returns>
+        public static ResourceNotificationsResourceDeletedDetails ResourceNotificationsResourceDeletedDetails(string id = null, string name = null, string type = null)
         {
-            return new ResourceNotificationsResourceManagementCreatedOrUpdatedEventData(resourceDetails, operationalDetails, apiVersion, serializedAdditionalRawData: null);
+            return new ResourceNotificationsResourceDeletedDetails(id, name, type, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="SystemEvents.ResourceNotificationsResourceDeletedEventData"/>. </summary>
@@ -5038,14 +5063,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             return new ResourceNotificationsResourceDeletedEventData(resourceDetails, operationalDetails, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="SystemEvents.ResourceNotificationsResourceDeletedDetails"/>. </summary>
-        /// <param name="id"> id of the resource for which the event is being emitted. </param>
-        /// <param name="name"> name of the resource for which the event is being emitted. </param>
-        /// <param name="type"> the type of the resource for which the event is being emitted. </param>
-        /// <returns> A new <see cref="SystemEvents.ResourceNotificationsResourceDeletedDetails"/> instance for mocking. </returns>
-        public static ResourceNotificationsResourceDeletedDetails ResourceNotificationsResourceDeletedDetails(string id = null, string name = null, string type = null)
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ResourceNotificationsResourceManagementCreatedOrUpdatedEventData"/>. </summary>
+        /// <param name="resourceDetails"> resourceInfo details for update event. </param>
+        /// <param name="operationalDetails"> details about operational info. </param>
+        /// <param name="apiVersion"> api version of the resource properties bag. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceNotificationsResourceManagementCreatedOrUpdatedEventData"/> instance for mocking. </returns>
+        public static ResourceNotificationsResourceManagementCreatedOrUpdatedEventData ResourceNotificationsResourceManagementCreatedOrUpdatedEventData(ResourceNotificationsResourceUpdatedDetails resourceDetails = null, ResourceNotificationsOperationalDetails operationalDetails = null, string apiVersion = null)
         {
-            return new ResourceNotificationsResourceDeletedDetails(id, name, type, serializedAdditionalRawData: null);
+            return new ResourceNotificationsResourceManagementCreatedOrUpdatedEventData(resourceDetails, operationalDetails, apiVersion, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="SystemEvents.ResourceNotificationsResourceManagementDeletedEventData"/>. </summary>
@@ -5055,6 +5080,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public static ResourceNotificationsResourceManagementDeletedEventData ResourceNotificationsResourceManagementDeletedEventData(ResourceNotificationsResourceDeletedDetails resourceDetails = null, ResourceNotificationsOperationalDetails operationalDetails = null)
         {
             return new ResourceNotificationsResourceManagementDeletedEventData(resourceDetails, operationalDetails, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ResourceNotificationsContainerServiceEventResourcesScheduledEventData"/>. </summary>
+        /// <param name="resourceDetails"> resourceInfo details for update event. </param>
+        /// <param name="operationalDetails"> details about operational info. </param>
+        /// <param name="apiVersion"> api version of the resource properties bag. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceNotificationsContainerServiceEventResourcesScheduledEventData"/> instance for mocking. </returns>
+        public static ResourceNotificationsContainerServiceEventResourcesScheduledEventData ResourceNotificationsContainerServiceEventResourcesScheduledEventData(ResourceNotificationsResourceUpdatedDetails resourceDetails = null, ResourceNotificationsOperationalDetails operationalDetails = null, string apiVersion = null)
+        {
+            return new ResourceNotificationsContainerServiceEventResourcesScheduledEventData(resourceDetails, operationalDetails, apiVersion, serializedAdditionalRawData: null);
         }
     }
 }
