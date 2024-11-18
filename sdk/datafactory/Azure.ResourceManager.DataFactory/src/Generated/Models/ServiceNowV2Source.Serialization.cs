@@ -46,6 +46,11 @@ namespace Azure.ResourceManager.DataFactory.Models
                 writer.WritePropertyName("pageSize"u8);
                 JsonSerializer.Serialize(writer, PageSize);
             }
+            if (Optional.IsDefined(ValueType))
+            {
+                writer.WritePropertyName("valueType"u8);
+                JsonSerializer.Serialize(writer, ValueType);
+            }
             foreach (var item in AdditionalProperties)
             {
                 writer.WritePropertyName(item.Key);
@@ -82,6 +87,7 @@ namespace Azure.ResourceManager.DataFactory.Models
             }
             DataFactoryExpressionV2 expression = default;
             DataFactoryElement<int> pageSize = default;
+            DataFactoryElement<string> valueType = default;
             DataFactoryElement<string> queryTimeout = default;
             BinaryData additionalColumns = default;
             string type = default;
@@ -109,6 +115,15 @@ namespace Azure.ResourceManager.DataFactory.Models
                         continue;
                     }
                     pageSize = JsonSerializer.Deserialize<DataFactoryElement<int>>(property.Value.GetRawText());
+                    continue;
+                }
+                if (property.NameEquals("valueType"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    valueType = JsonSerializer.Deserialize<DataFactoryElement<string>>(property.Value.GetRawText());
                     continue;
                 }
                 if (property.NameEquals("queryTimeout"u8))
@@ -183,7 +198,8 @@ namespace Azure.ResourceManager.DataFactory.Models
                 queryTimeout,
                 additionalColumns,
                 expression,
-                pageSize);
+                pageSize,
+                valueType);
         }
 
         BinaryData IPersistableModel<ServiceNowV2Source>.Write(ModelReaderWriterOptions options)

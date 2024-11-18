@@ -31,10 +31,12 @@ namespace Azure.ResourceManager.DataFactory.Models
         /// <param name="additionalColumns"> Specifies the additional columns to be added to source data. Type: array of objects(AdditionalColumns) (or Expression with resultType array of objects). </param>
         /// <param name="expression"> Expression to filter data from source. </param>
         /// <param name="pageSize"> Page size of the result. Type: integer (or Expression with resultType integer). </param>
-        internal ServiceNowV2Source(string copySourceType, DataFactoryElement<int> sourceRetryCount, DataFactoryElement<string> sourceRetryWait, DataFactoryElement<int> maxConcurrentConnections, DataFactoryElement<bool> disableMetricsCollection, IDictionary<string, BinaryData> additionalProperties, DataFactoryElement<string> queryTimeout, BinaryData additionalColumns, DataFactoryExpressionV2 expression, DataFactoryElement<int> pageSize) : base(copySourceType, sourceRetryCount, sourceRetryWait, maxConcurrentConnections, disableMetricsCollection, additionalProperties, queryTimeout, additionalColumns)
+        /// <param name="valueType"> Type of value copied from source. Type: string. </param>
+        internal ServiceNowV2Source(string copySourceType, DataFactoryElement<int> sourceRetryCount, DataFactoryElement<string> sourceRetryWait, DataFactoryElement<int> maxConcurrentConnections, DataFactoryElement<bool> disableMetricsCollection, IDictionary<string, BinaryData> additionalProperties, DataFactoryElement<string> queryTimeout, BinaryData additionalColumns, DataFactoryExpressionV2 expression, DataFactoryElement<int> pageSize, DataFactoryElement<string> valueType) : base(copySourceType, sourceRetryCount, sourceRetryWait, maxConcurrentConnections, disableMetricsCollection, additionalProperties, queryTimeout, additionalColumns)
         {
             Expression = expression;
             PageSize = pageSize;
+            ValueType = valueType;
             CopySourceType = copySourceType ?? "ServiceNowV2Source";
         }
 
@@ -42,5 +44,7 @@ namespace Azure.ResourceManager.DataFactory.Models
         public DataFactoryExpressionV2 Expression { get; set; }
         /// <summary> Page size of the result. Type: integer (or Expression with resultType integer). </summary>
         public DataFactoryElement<int> PageSize { get; set; }
+        /// <summary> Type of value copied from source. Type: string. </summary>
+        public DataFactoryElement<string> ValueType { get; set; }
     }
 }
