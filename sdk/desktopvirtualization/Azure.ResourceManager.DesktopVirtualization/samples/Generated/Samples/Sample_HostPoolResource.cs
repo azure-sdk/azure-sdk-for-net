@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetPrivateLinkResources_PrivateLinkResourcesListByHostPool()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/PrivateLinkResources_ListByHostPool.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-09-10/examples/PrivateLinkResources_ListByHostPool.json
             // this example is just showing the usage of "PrivateLinkResources_ListByHostPool" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetScalingPlans_ScalingPlanListByHostPool()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/ScalingPlan_ListByHostPool.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-09-10/examples/ScalingPlan_ListByHostPool.json
             // this example is just showing the usage of "ScalingPlans_ListByHostPool" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_HostPoolGet()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/HostPool_Get.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-09-10/examples/HostPool_Get.json
             // this example is just showing the usage of "HostPools_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_HostPoolDelete()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/HostPool_Delete.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-09-10/examples/HostPool_Delete.json
             // this example is just showing the usage of "HostPools_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_HostPoolUpdate()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/HostPool_Update.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-09-10/examples/HostPool_Update.json
             // this example is just showing the usage of "HostPools_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -202,6 +202,10 @@ DayOfWeek = DesktopVirtualizationDayOfWeek.Saturday,
 }
 },
                 },
+                ManagedPrivateUDP = ManagedPrivateUDP.Enabled,
+                DirectUDP = DirectUDP.Enabled,
+                PublicUDP = PublicUDP.Enabled,
+                RelayUDP = RelayUDP.Enabled,
             };
             HostPoolResource result = await hostPool.UpdateAsync(patch);
 
@@ -216,7 +220,7 @@ DayOfWeek = DesktopVirtualizationDayOfWeek.Saturday,
         [Ignore("Only validating compilation of examples")]
         public async Task GetHostPools_HostPoolList()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/HostPool_List.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-09-10/examples/HostPool_List.json
             // this example is just showing the usage of "HostPools_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -250,7 +254,7 @@ DayOfWeek = DesktopVirtualizationDayOfWeek.Saturday,
         [Ignore("Only validating compilation of examples")]
         public async Task RetrieveRegistrationToken_HostPoolsRetrieveRegistrationTokenPost()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/HostPools_RetrieveRegistrationToken_Post.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-09-10/examples/HostPools_RetrieveRegistrationToken_Post.json
             // this example is just showing the usage of "HostPools_RetrieveRegistrationToken" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -274,9 +278,38 @@ DayOfWeek = DesktopVirtualizationDayOfWeek.Saturday,
 
         [Test]
         [Ignore("Only validating compilation of examples")]
+        public async Task GetRegistrationTokens_HostPoolsListRegistrationTokenPost()
+        {
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-09-10/examples/HostPools_ListRegistrationToken_Post.json
+            // this example is just showing the usage of "HostPools_ListRegistrationTokens" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this HostPoolResource created on azure
+            // for more information of creating HostPoolResource, please refer to the document of HostPoolResource
+            string subscriptionId = "daefabc0-95b4-48b3-b645-8a753a63c4fa";
+            string resourceGroupName = "resourceGroup1";
+            string hostPoolName = "hostPool1";
+            ResourceIdentifier hostPoolResourceId = HostPoolResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, hostPoolName);
+            HostPoolResource hostPool = client.GetHostPoolResource(hostPoolResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (RegistrationTokenMinimal item in hostPool.GetRegistrationTokensAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
         public async Task GetUserSessions_UserSessionListByHostPool()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/UserSession_ListByHostPool.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-09-10/examples/UserSession_ListByHostPool.json
             // this example is just showing the usage of "UserSessions_ListByHostPool" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -313,7 +346,7 @@ DayOfWeek = DesktopVirtualizationDayOfWeek.Saturday,
         [Ignore("Only validating compilation of examples")]
         public async Task ImportAppAttachPackageInfos_AppAttachPackageInfoImport()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/AppAttachPackageInfo_Import_Post.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-09-10/examples/AppAttachPackageInfo_Import_Post.json
             // this example is just showing the usage of "AppAttachPackageInfo_Import" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -351,7 +384,7 @@ DayOfWeek = DesktopVirtualizationDayOfWeek.Saturday,
         [Ignore("Only validating compilation of examples")]
         public async Task ExpandMsixImages_MsixImageExpand()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/MsixImage_Expand_Post.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-09-10/examples/MsixImage_Expand_Post.json
             // this example is just showing the usage of "MsixImages_Expand" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
