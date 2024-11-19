@@ -281,6 +281,26 @@ namespace Azure.ResourceManager.DesktopVirtualization
                     writer.WriteNull("privateEndpointConnections");
                 }
             }
+            if (Optional.IsDefined(ManagedPrivateUDP))
+            {
+                writer.WritePropertyName("managedPrivateUDP"u8);
+                writer.WriteStringValue(ManagedPrivateUDP.Value.ToString());
+            }
+            if (Optional.IsDefined(DirectUDP))
+            {
+                writer.WritePropertyName("directUDP"u8);
+                writer.WriteStringValue(DirectUDP.Value.ToString());
+            }
+            if (Optional.IsDefined(PublicUDP))
+            {
+                writer.WritePropertyName("publicUDP"u8);
+                writer.WriteStringValue(PublicUDP.Value.ToString());
+            }
+            if (Optional.IsDefined(RelayUDP))
+            {
+                writer.WritePropertyName("relayUDP"u8);
+                writer.WriteStringValue(RelayUDP.Value.ToString());
+            }
             writer.WriteEndObject();
         }
 
@@ -340,6 +360,10 @@ namespace Azure.ResourceManager.DesktopVirtualization
             HostPoolPublicNetworkAccess? publicNetworkAccess = default;
             SessionHostAgentUpdateProperties agentUpdate = default;
             IReadOnlyList<DesktopVirtualizationPrivateEndpointConnection> privateEndpointConnections = default;
+            ManagedPrivateUDP? managedPrivateUDP = default;
+            DirectUDP? directUDP = default;
+            PublicUDP? publicUDP = default;
+            RelayUDP? relayUDP = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -645,6 +669,42 @@ namespace Azure.ResourceManager.DesktopVirtualization
                             privateEndpointConnections = array;
                             continue;
                         }
+                        if (property0.NameEquals("managedPrivateUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            managedPrivateUDP = new ManagedPrivateUDP(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("directUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            directUDP = new DirectUDP(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("publicUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            publicUDP = new PublicUDP(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("relayUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            relayUDP = new RelayUDP(property0.Value.GetString());
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -685,6 +745,10 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 publicNetworkAccess,
                 agentUpdate,
                 privateEndpointConnections ?? new ChangeTrackingList<DesktopVirtualizationPrivateEndpointConnection>(),
+                managedPrivateUDP,
+                directUDP,
+                publicUDP,
+                relayUDP,
                 managedBy,
                 kind,
                 etag,
@@ -1372,6 +1436,66 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         }
                         builder.AppendLine("    ]");
                     }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ManagedPrivateUDP), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    managedPrivateUDP: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(ManagedPrivateUDP))
+                {
+                    builder.Append("    managedPrivateUDP: ");
+                    builder.AppendLine($"'{ManagedPrivateUDP.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(DirectUDP), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    directUDP: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(DirectUDP))
+                {
+                    builder.Append("    directUDP: ");
+                    builder.AppendLine($"'{DirectUDP.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PublicUDP), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    publicUDP: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(PublicUDP))
+                {
+                    builder.Append("    publicUDP: ");
+                    builder.AppendLine($"'{PublicUDP.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(RelayUDP), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    relayUDP: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(RelayUDP))
+                {
+                    builder.Append("    relayUDP: ");
+                    builder.AppendLine($"'{RelayUDP.Value.ToString()}'");
                 }
             }
 
