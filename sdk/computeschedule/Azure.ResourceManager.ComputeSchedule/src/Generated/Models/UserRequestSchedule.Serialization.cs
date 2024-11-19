@@ -34,10 +34,10 @@ namespace Azure.ResourceManager.ComputeSchedule.Models
                 throw new FormatException($"The model {nameof(UserRequestSchedule)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("deadLine"u8);
-            writer.WriteStringValue(DeadLine, "O");
-            writer.WritePropertyName("timeZone"u8);
-            writer.WriteStringValue(TimeZone);
+            writer.WritePropertyName("deadline"u8);
+            writer.WriteStringValue(Deadline, "O");
+            writer.WritePropertyName("timezone"u8);
+            writer.WriteStringValue(Timezone);
             writer.WritePropertyName("deadlineType"u8);
             writer.WriteStringValue(DeadlineType.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -77,21 +77,21 @@ namespace Azure.ResourceManager.ComputeSchedule.Models
             {
                 return null;
             }
-            DateTimeOffset deadLine = default;
-            string timeZone = default;
+            DateTimeOffset deadline = default;
+            string timezone = default;
             ScheduledActionDeadlineType deadlineType = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("deadLine"u8))
+                if (property.NameEquals("deadline"u8))
                 {
-                    deadLine = property.Value.GetDateTimeOffset("O");
+                    deadline = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
-                if (property.NameEquals("timeZone"u8))
+                if (property.NameEquals("timezone"u8))
                 {
-                    timeZone = property.Value.GetString();
+                    timezone = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("deadlineType"u8))
@@ -105,7 +105,7 @@ namespace Azure.ResourceManager.ComputeSchedule.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new UserRequestSchedule(deadLine, timeZone, deadlineType, serializedAdditionalRawData);
+            return new UserRequestSchedule(deadline, timezone, deadlineType, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<UserRequestSchedule>.Write(ModelReaderWriterOptions options)
