@@ -37,11 +37,11 @@ namespace Azure.ResourceManager.ComputeSchedule.Models
             writer.WritePropertyName("errorCode"u8);
             writer.WriteStringValue(ErrorCode);
             writer.WritePropertyName("errorDetails"u8);
-            writer.WriteStringValue(ErrorDetails, "O");
-            writer.WritePropertyName("timeStamp"u8);
-            writer.WriteStringValue(TimeStamp, "O");
-            writer.WritePropertyName("crpOperationId"u8);
-            writer.WriteStringValue(CrpOperationId);
+            writer.WriteStringValue(ErrorDetails);
+            writer.WritePropertyName("timestamp"u8);
+            writer.WriteStringValue(Timestamp, "O");
+            writer.WritePropertyName("azureOperationName"u8);
+            writer.WriteStringValue(AzureOperationName);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -80,9 +80,9 @@ namespace Azure.ResourceManager.ComputeSchedule.Models
                 return null;
             }
             string errorCode = default;
-            DateTimeOffset errorDetails = default;
-            DateTimeOffset timeStamp = default;
-            string crpOperationId = default;
+            string errorDetails = default;
+            DateTimeOffset timestamp = default;
+            string azureOperationName = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -94,17 +94,17 @@ namespace Azure.ResourceManager.ComputeSchedule.Models
                 }
                 if (property.NameEquals("errorDetails"u8))
                 {
-                    errorDetails = property.Value.GetDateTimeOffset("O");
+                    errorDetails = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("timeStamp"u8))
+                if (property.NameEquals("timestamp"u8))
                 {
-                    timeStamp = property.Value.GetDateTimeOffset("O");
+                    timestamp = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
-                if (property.NameEquals("crpOperationId"u8))
+                if (property.NameEquals("azureOperationName"u8))
                 {
-                    crpOperationId = property.Value.GetString();
+                    azureOperationName = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -113,7 +113,7 @@ namespace Azure.ResourceManager.ComputeSchedule.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new OperationErrorDetails(errorCode, errorDetails, timeStamp, crpOperationId, serializedAdditionalRawData);
+            return new OperationErrorDetails(errorCode, errorDetails, timestamp, azureOperationName, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<OperationErrorDetails>.Write(ModelReaderWriterOptions options)

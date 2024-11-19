@@ -48,32 +48,33 @@ namespace Azure.ResourceManager.ComputeSchedule.Models
         /// <summary> Initializes a new instance of <see cref="OperationErrorDetails"/>. </summary>
         /// <param name="errorCode"> The error code of the operation. </param>
         /// <param name="errorDetails"> The error details of the operation. </param>
-        /// <param name="timeStamp"> The timestamp of the error occurence. </param>
-        /// <param name="crpOperationId"> CRP operationid of the operation for deeper analysis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="errorCode"/> or <paramref name="crpOperationId"/> is null. </exception>
-        internal OperationErrorDetails(string errorCode, DateTimeOffset errorDetails, DateTimeOffset timeStamp, string crpOperationId)
+        /// <param name="timestamp"> The timestamp of the error occurence. </param>
+        /// <param name="azureOperationName"> The compute operationid of the Start/Deallocate/Hibernate request. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="errorCode"/>, <paramref name="errorDetails"/> or <paramref name="azureOperationName"/> is null. </exception>
+        internal OperationErrorDetails(string errorCode, string errorDetails, DateTimeOffset timestamp, string azureOperationName)
         {
             Argument.AssertNotNull(errorCode, nameof(errorCode));
-            Argument.AssertNotNull(crpOperationId, nameof(crpOperationId));
+            Argument.AssertNotNull(errorDetails, nameof(errorDetails));
+            Argument.AssertNotNull(azureOperationName, nameof(azureOperationName));
 
             ErrorCode = errorCode;
             ErrorDetails = errorDetails;
-            TimeStamp = timeStamp;
-            CrpOperationId = crpOperationId;
+            Timestamp = timestamp;
+            AzureOperationName = azureOperationName;
         }
 
         /// <summary> Initializes a new instance of <see cref="OperationErrorDetails"/>. </summary>
         /// <param name="errorCode"> The error code of the operation. </param>
         /// <param name="errorDetails"> The error details of the operation. </param>
-        /// <param name="timeStamp"> The timestamp of the error occurence. </param>
-        /// <param name="crpOperationId"> CRP operationid of the operation for deeper analysis. </param>
+        /// <param name="timestamp"> The timestamp of the error occurence. </param>
+        /// <param name="azureOperationName"> The compute operationid of the Start/Deallocate/Hibernate request. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal OperationErrorDetails(string errorCode, DateTimeOffset errorDetails, DateTimeOffset timeStamp, string crpOperationId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal OperationErrorDetails(string errorCode, string errorDetails, DateTimeOffset timestamp, string azureOperationName, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ErrorCode = errorCode;
             ErrorDetails = errorDetails;
-            TimeStamp = timeStamp;
-            CrpOperationId = crpOperationId;
+            Timestamp = timestamp;
+            AzureOperationName = azureOperationName;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -85,10 +86,10 @@ namespace Azure.ResourceManager.ComputeSchedule.Models
         /// <summary> The error code of the operation. </summary>
         public string ErrorCode { get; }
         /// <summary> The error details of the operation. </summary>
-        public DateTimeOffset ErrorDetails { get; }
+        public string ErrorDetails { get; }
         /// <summary> The timestamp of the error occurence. </summary>
-        public DateTimeOffset TimeStamp { get; }
-        /// <summary> CRP operationid of the operation for deeper analysis. </summary>
-        public string CrpOperationId { get; }
+        public DateTimeOffset Timestamp { get; }
+        /// <summary> The compute operationid of the Start/Deallocate/Hibernate request. </summary>
+        public string AzureOperationName { get; }
     }
 }
