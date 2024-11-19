@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetCloudExadataInfrastructures_ListExadataInfrastructureBySubscription()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/exaInfra_listBySubscription.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/exaInfra_listBySubscription.json
             // this example is just showing the usage of "CloudExadataInfrastructures_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetExadataInfrastructure()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/exaInfra_get.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/exaInfra_get.json
             // this example is just showing the usage of "CloudExadataInfrastructures_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_PatchExadataInfrastructure()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/exaInfra_patch.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/exaInfra_patch.json
             // this example is just showing the usage of "CloudExadataInfrastructures_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -114,7 +114,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_DeleteExadataInfrastructure()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/exaInfra_delete.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/exaInfra_delete.json
             // this example is just showing the usage of "CloudExadataInfrastructures_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -140,7 +140,7 @@ namespace Azure.ResourceManager.OracleDatabase.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task AddStorageCapacity_PerformAddStorageCapacityOnExadataInfra()
         {
-            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/stable/2023-09-01/examples/exaInfra_addStorageCapacity.json
+            // Generated from example definition: specification/oracle/resource-manager/Oracle.Database/preview/2024-10-01-preview/examples/exaInfra_addStorageCapacity.json
             // this example is just showing the usage of "CloudExadataInfrastructures_AddStorageCapacity" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
