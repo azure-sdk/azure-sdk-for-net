@@ -34,16 +34,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 throw new FormatException($"The model {nameof(MachineLearningServicesModelRegisteredEventData)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(ModelName))
-            {
-                writer.WritePropertyName("modelName"u8);
-                writer.WriteStringValue(ModelName);
-            }
-            if (Optional.IsDefined(ModelVersion))
-            {
-                writer.WritePropertyName("modelVersion"u8);
-                writer.WriteStringValue(ModelVersion);
-            }
+            writer.WritePropertyName("modelName"u8);
+            writer.WriteStringValue(ModelName);
+            writer.WritePropertyName("modelVersion"u8);
+            writer.WriteStringValue(ModelVersion);
             writer.WritePropertyName("modelTags"u8);
             writer.WriteStartObject();
             foreach (var item in ModelTags)
