@@ -22,7 +22,7 @@ namespace Azure.ResourceManager.StorageCache.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAmlFileSystems_AmlFilesystemsList()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-03-01/examples/amlFilesystems_List.json
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/amlFilesystems_List.json
             // this example is just showing the usage of "amlFilesystems_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.StorageCache.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_AmlFilesystemsDelete()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-03-01/examples/amlFilesystems_Delete.json
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/amlFilesystems_Delete.json
             // this example is just showing the usage of "amlFilesystems_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.StorageCache.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_AmlFilesystemsGet()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-03-01/examples/amlFilesystems_Get.json
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/amlFilesystems_Get.json
             // this example is just showing the usage of "amlFilesystems_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.StorageCache.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_AmlFilesystemsUpdate()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-03-01/examples/amlFilesystems_Update.json
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/amlFilesystems_Update.json
             // this example is just showing the usage of "amlFilesystems_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -163,7 +163,7 @@ namespace Azure.ResourceManager.StorageCache.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Archive_AmlFilesystemsArchive()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-03-01/examples/amlFilesystems_Archive.json
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/amlFilesystems_Archive.json
             // this example is just showing the usage of "amlFilesystems_Archive" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -193,7 +193,7 @@ namespace Azure.ResourceManager.StorageCache.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CancelArchive_AmlFilesystemsCancelArchive()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-03-01/examples/amlFilesystems_CancelArchive.json
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-07-01/examples/amlFilesystems_CancelArchive.json
             // this example is just showing the usage of "amlFilesystems_CancelArchive" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
