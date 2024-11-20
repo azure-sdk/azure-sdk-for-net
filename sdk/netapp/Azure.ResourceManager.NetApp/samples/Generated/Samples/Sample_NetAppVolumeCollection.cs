@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.NetApp.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_VolumesList()
         {
-            // Generated from example definition: specification/netapp/resource-manager/Microsoft.NetApp/stable/2024-07-01/examples/Volumes_List.json
+            // Generated from example definition: specification/netapp/resource-manager/Microsoft.NetApp/stable/2024-09-01/examples/Volumes_List.json
             // this example is just showing the usage of "Volumes_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.NetApp.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_VolumesGet()
         {
-            // Generated from example definition: specification/netapp/resource-manager/Microsoft.NetApp/stable/2024-07-01/examples/Volumes_Get.json
+            // Generated from example definition: specification/netapp/resource-manager/Microsoft.NetApp/stable/2024-09-01/examples/Volumes_Get.json
             // this example is just showing the usage of "Volumes_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.NetApp.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_VolumesGet()
         {
-            // Generated from example definition: specification/netapp/resource-manager/Microsoft.NetApp/stable/2024-07-01/examples/Volumes_Get.json
+            // Generated from example definition: specification/netapp/resource-manager/Microsoft.NetApp/stable/2024-09-01/examples/Volumes_Get.json
             // this example is just showing the usage of "Volumes_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.NetApp.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_VolumesGet()
         {
-            // Generated from example definition: specification/netapp/resource-manager/Microsoft.NetApp/stable/2024-07-01/examples/Volumes_Get.json
+            // Generated from example definition: specification/netapp/resource-manager/Microsoft.NetApp/stable/2024-09-01/examples/Volumes_Get.json
             // this example is just showing the usage of "Volumes_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.NetApp.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_VolumesCreateOrUpdate()
         {
-            // Generated from example definition: specification/netapp/resource-manager/Microsoft.NetApp/stable/2024-07-01/examples/Volumes_CreateOrUpdate.json
+            // Generated from example definition: specification/netapp/resource-manager/Microsoft.NetApp/stable/2024-09-01/examples/Volumes_CreateOrUpdate.json
             // this example is just showing the usage of "Volumes_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
