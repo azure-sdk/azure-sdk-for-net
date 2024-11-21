@@ -49,10 +49,28 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
                 writer.WritePropertyName("name"u8);
                 writer.WriteStringValue(Name);
             }
-            writer.WritePropertyName("connectionString"u8);
-            writer.WriteStringValue(ConnectionString);
+            if (Optional.IsDefined(HostName))
+            {
+                writer.WritePropertyName("hostName"u8);
+                writer.WriteStringValue(HostName);
+            }
+            if (Optional.IsDefined(ConnectionString))
+            {
+                writer.WritePropertyName("connectionString"u8);
+                writer.WriteStringValue(ConnectionString);
+            }
             writer.WritePropertyName("location"u8);
             writer.WriteStringValue(Location);
+            if (Optional.IsDefined(AuthenticationType))
+            {
+                writer.WritePropertyName("authenticationType"u8);
+                writer.WriteStringValue(AuthenticationType.Value.ToString());
+            }
+            if (Optional.IsDefined(SelectedUserAssignedIdentityResourceId))
+            {
+                writer.WritePropertyName("selectedUserAssignedIdentityResourceId"u8);
+                writer.WriteStringValue(SelectedUserAssignedIdentityResourceId);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -93,8 +111,11 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
             bool? applyAllocationPolicy = default;
             int? allocationWeight = default;
             string name = default;
+            string hostName = default;
             string connectionString = default;
             AzureLocation location = default;
+            IotHubAuthenticationType? authenticationType = default;
+            ResourceIdentifier selectedUserAssignedIdentityResourceId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -122,6 +143,11 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
                     name = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("hostName"u8))
+                {
+                    hostName = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("connectionString"u8))
                 {
                     connectionString = property.Value.GetString();
@@ -130,6 +156,24 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
                 if (property.NameEquals("location"u8))
                 {
                     location = new AzureLocation(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("authenticationType"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    authenticationType = new IotHubAuthenticationType(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("selectedUserAssignedIdentityResourceId"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    selectedUserAssignedIdentityResourceId = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -142,8 +186,11 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
                 applyAllocationPolicy,
                 allocationWeight,
                 name,
+                hostName,
                 connectionString,
                 location,
+                authenticationType,
+                selectedUserAssignedIdentityResourceId,
                 serializedAdditionalRawData);
         }
 
