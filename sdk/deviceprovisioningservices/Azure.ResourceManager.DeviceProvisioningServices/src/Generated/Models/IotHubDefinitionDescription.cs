@@ -47,31 +47,32 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="IotHubDefinitionDescription"/>. </summary>
-        /// <param name="connectionString"> Connection string of the IoT hub. </param>
         /// <param name="location"> ARM region of the IoT hub. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="connectionString"/> is null. </exception>
-        public IotHubDefinitionDescription(string connectionString, AzureLocation location)
+        public IotHubDefinitionDescription(AzureLocation location)
         {
-            Argument.AssertNotNull(connectionString, nameof(connectionString));
-
-            ConnectionString = connectionString;
             Location = location;
         }
 
         /// <summary> Initializes a new instance of <see cref="IotHubDefinitionDescription"/>. </summary>
         /// <param name="applyAllocationPolicy"> flag for applying allocationPolicy or not for a given iot hub. </param>
         /// <param name="allocationWeight"> weight to apply for a given iot h. </param>
-        /// <param name="name"> Host name of the IoT hub. </param>
+        /// <param name="name"> Host name of the IoT hub derived from connection string. </param>
+        /// <param name="hostName"> Host name of the IoT hub. </param>
         /// <param name="connectionString"> Connection string of the IoT hub. </param>
         /// <param name="location"> ARM region of the IoT hub. </param>
+        /// <param name="authenticationType"> IotHub MI authentication type: KeyBased, UserAssigned, SystemAssigned. </param>
+        /// <param name="selectedUserAssignedIdentityResourceId"> The selected user-assigned identity resource Id associated with IoT Hub. This is required when authenticationType is UserAssigned. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IotHubDefinitionDescription(bool? applyAllocationPolicy, int? allocationWeight, string name, string connectionString, AzureLocation location, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal IotHubDefinitionDescription(bool? applyAllocationPolicy, int? allocationWeight, string name, string hostName, string connectionString, AzureLocation location, IotHubAuthenticationType? authenticationType, ResourceIdentifier selectedUserAssignedIdentityResourceId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ApplyAllocationPolicy = applyAllocationPolicy;
             AllocationWeight = allocationWeight;
             Name = name;
+            HostName = hostName;
             ConnectionString = connectionString;
             Location = location;
+            AuthenticationType = authenticationType;
+            SelectedUserAssignedIdentityResourceId = selectedUserAssignedIdentityResourceId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -84,11 +85,17 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         public bool? ApplyAllocationPolicy { get; set; }
         /// <summary> weight to apply for a given iot h. </summary>
         public int? AllocationWeight { get; set; }
-        /// <summary> Host name of the IoT hub. </summary>
+        /// <summary> Host name of the IoT hub derived from connection string. </summary>
         public string Name { get; }
+        /// <summary> Host name of the IoT hub. </summary>
+        public string HostName { get; set; }
         /// <summary> Connection string of the IoT hub. </summary>
         public string ConnectionString { get; set; }
         /// <summary> ARM region of the IoT hub. </summary>
         public AzureLocation Location { get; set; }
+        /// <summary> IotHub MI authentication type: KeyBased, UserAssigned, SystemAssigned. </summary>
+        public IotHubAuthenticationType? AuthenticationType { get; set; }
+        /// <summary> The selected user-assigned identity resource Id associated with IoT Hub. This is required when authenticationType is UserAssigned. </summary>
+        public ResourceIdentifier SelectedUserAssignedIdentityResourceId { get; set; }
     }
 }
