@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.Storage.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_PutStorageTaskAssignment()
         {
-            // Generated from example definition: specification/storage/resource-manager/Microsoft.Storage/stable/2023-05-01/examples/storageTaskAssignmentsCrud/PutStorageTaskAssignment.json
+            // Generated from example definition: specification/storage/resource-manager/Microsoft.Storage/stable/2024-01-01/examples/storageTaskAssignmentsCrud/PutStorageTaskAssignment.json
             // this example is just showing the usage of "StorageTaskAssignments_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -71,7 +71,7 @@ namespace Azure.ResourceManager.Storage.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_PutStorageTaskAssignmentRequiredProperties()
         {
-            // Generated from example definition: specification/storage/resource-manager/Microsoft.Storage/stable/2023-05-01/examples/storageTaskAssignmentsCrud/PutStorageTaskAssignmentRequiredProperties.json
+            // Generated from example definition: specification/storage/resource-manager/Microsoft.Storage/stable/2024-01-01/examples/storageTaskAssignmentsCrud/PutStorageTaskAssignmentRequiredProperties.json
             // this example is just showing the usage of "StorageTaskAssignments_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -110,7 +110,7 @@ namespace Azure.ResourceManager.Storage.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetStorageTaskAssignment()
         {
-            // Generated from example definition: specification/storage/resource-manager/Microsoft.Storage/stable/2023-05-01/examples/storageTaskAssignmentsCrud/GetStorageTaskAssignment.json
+            // Generated from example definition: specification/storage/resource-manager/Microsoft.Storage/stable/2024-01-01/examples/storageTaskAssignmentsCrud/GetStorageTaskAssignment.json
             // this example is just showing the usage of "StorageTaskAssignments_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -144,7 +144,7 @@ namespace Azure.ResourceManager.Storage.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_GetStorageTaskAssignment()
         {
-            // Generated from example definition: specification/storage/resource-manager/Microsoft.Storage/stable/2023-05-01/examples/storageTaskAssignmentsCrud/GetStorageTaskAssignment.json
+            // Generated from example definition: specification/storage/resource-manager/Microsoft.Storage/stable/2024-01-01/examples/storageTaskAssignmentsCrud/GetStorageTaskAssignment.json
             // this example is just showing the usage of "StorageTaskAssignments_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -174,7 +174,7 @@ namespace Azure.ResourceManager.Storage.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_GetStorageTaskAssignment()
         {
-            // Generated from example definition: specification/storage/resource-manager/Microsoft.Storage/stable/2023-05-01/examples/storageTaskAssignmentsCrud/GetStorageTaskAssignment.json
+            // Generated from example definition: specification/storage/resource-manager/Microsoft.Storage/stable/2024-01-01/examples/storageTaskAssignmentsCrud/GetStorageTaskAssignment.json
             // this example is just showing the usage of "StorageTaskAssignments_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -216,7 +216,7 @@ namespace Azure.ResourceManager.Storage.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListStorageTaskAssignmentsForAccount()
         {
-            // Generated from example definition: specification/storage/resource-manager/Microsoft.Storage/stable/2023-05-01/examples/storageTaskAssignmentsList/ListStorageTaskAssignmentsForAccount.json
+            // Generated from example definition: specification/storage/resource-manager/Microsoft.Storage/stable/2024-01-01/examples/storageTaskAssignmentsList/ListStorageTaskAssignmentsForAccount.json
             // this example is just showing the usage of "StorageTaskAssignments_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
