@@ -247,5 +247,91 @@ namespace Azure.ResourceManager.Fabric.Mocking
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => FabricCapacityRestClient.CreateListSkusNextPageRequest(nextLink, Id.SubscriptionId);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => FabricSkuDetailsForNewCapacity.DeserializeFabricSkuDetailsForNewCapacity(e), FabricCapacityClientDiagnostics, Pipeline, "MockableFabricSubscriptionResource.GetSkusFabricCapacities", "value", "nextLink", cancellationToken);
         }
+
+        /// <summary>
+        /// List the current consumption and limit in this location for the provided subscription
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Fabric/locations/{location}/usages</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FabricCapacities_ListUsages</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-11-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="FabricCapacityResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="location"> The location name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="location"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
+        public virtual async Task<Response<FabricUsageAndQuotaDetailsForExistingResource>> GetUsagesFabricCapacityAsync(string location, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(location, nameof(location));
+
+            using var scope = FabricCapacityClientDiagnostics.CreateScope("MockableFabricSubscriptionResource.GetUsagesFabricCapacity");
+            scope.Start();
+            try
+            {
+                var response = await FabricCapacityRestClient.ListUsagesAsync(Id.SubscriptionId, location, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List the current consumption and limit in this location for the provided subscription
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Fabric/locations/{location}/usages</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FabricCapacities_ListUsages</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-11-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="FabricCapacityResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="location"> The location name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="location"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
+        public virtual Response<FabricUsageAndQuotaDetailsForExistingResource> GetUsagesFabricCapacity(string location, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(location, nameof(location));
+
+            using var scope = FabricCapacityClientDiagnostics.CreateScope("MockableFabricSubscriptionResource.GetUsagesFabricCapacity");
+            scope.Start();
+            try
+            {
+                var response = FabricCapacityRestClient.ListUsages(Id.SubscriptionId, location, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
     }
 }
