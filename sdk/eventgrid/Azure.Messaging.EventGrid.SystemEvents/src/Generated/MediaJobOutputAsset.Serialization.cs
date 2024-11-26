@@ -67,7 +67,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             MediaJobError error = default;
             string label = default;
             long progress = default;
-            MediaJobState state = default;
+            MediaJobState? state = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -99,6 +99,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("state"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     state = new MediaJobState(property.Value.GetString());
                     continue;
                 }
