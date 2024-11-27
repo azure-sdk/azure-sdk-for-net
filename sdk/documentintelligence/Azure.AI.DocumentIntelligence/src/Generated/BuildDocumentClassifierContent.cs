@@ -47,30 +47,30 @@ namespace Azure.AI.DocumentIntelligence
 
         /// <summary> Initializes a new instance of <see cref="BuildDocumentClassifierContent"/>. </summary>
         /// <param name="classifierId"> Unique document classifier name. </param>
-        /// <param name="docTypes"> List of document types to classify against. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="classifierId"/> or <paramref name="docTypes"/> is null. </exception>
-        public BuildDocumentClassifierContent(string classifierId, IDictionary<string, ClassifierDocumentTypeDetails> docTypes)
+        /// <param name="documentTypes"> List of document types to classify against. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="classifierId"/> or <paramref name="documentTypes"/> is null. </exception>
+        public BuildDocumentClassifierContent(string classifierId, IDictionary<string, ClassifierDocumentTypeDetails> documentTypes)
         {
             Argument.AssertNotNull(classifierId, nameof(classifierId));
-            Argument.AssertNotNull(docTypes, nameof(docTypes));
+            Argument.AssertNotNull(documentTypes, nameof(documentTypes));
 
             ClassifierId = classifierId;
-            DocTypes = docTypes;
+            DocumentTypes = documentTypes;
         }
 
         /// <summary> Initializes a new instance of <see cref="BuildDocumentClassifierContent"/>. </summary>
         /// <param name="classifierId"> Unique document classifier name. </param>
         /// <param name="description"> Document classifier description. </param>
         /// <param name="baseClassifierId"> Base classifierId on top of which to train the classifier. </param>
-        /// <param name="docTypes"> List of document types to classify against. </param>
+        /// <param name="documentTypes"> List of document types to classify against. </param>
         /// <param name="allowOverwrite"> Allow overwriting an existing classifier with the same name. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BuildDocumentClassifierContent(string classifierId, string description, string baseClassifierId, IDictionary<string, ClassifierDocumentTypeDetails> docTypes, bool? allowOverwrite, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BuildDocumentClassifierContent(string classifierId, string description, string baseClassifierId, IDictionary<string, ClassifierDocumentTypeDetails> documentTypes, bool? allowOverwrite, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ClassifierId = classifierId;
             Description = description;
             BaseClassifierId = baseClassifierId;
-            DocTypes = docTypes;
+            DocumentTypes = documentTypes;
             AllowOverwrite = allowOverwrite;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -87,7 +87,7 @@ namespace Azure.AI.DocumentIntelligence
         /// <summary> Base classifierId on top of which to train the classifier. </summary>
         public string BaseClassifierId { get; set; }
         /// <summary> List of document types to classify against. </summary>
-        public IDictionary<string, ClassifierDocumentTypeDetails> DocTypes { get; }
+        public IDictionary<string, ClassifierDocumentTypeDetails> DocumentTypes { get; }
         /// <summary> Allow overwriting an existing classifier with the same name. </summary>
         public bool? AllowOverwrite { get; set; }
     }

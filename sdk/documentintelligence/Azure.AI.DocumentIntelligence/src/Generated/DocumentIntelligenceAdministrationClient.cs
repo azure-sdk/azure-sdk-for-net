@@ -98,14 +98,14 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="authorizeCopyRequest"/> is null. </exception>
         /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='AuthorizeModelCopyAsync(AuthorizeCopyContent,CancellationToken)']/*" />
-        public virtual async Task<Response<CopyAuthorization>> AuthorizeModelCopyAsync(AuthorizeCopyContent authorizeCopyRequest, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ModelCopyAuthorization>> AuthorizeModelCopyAsync(AuthorizeCopyContent authorizeCopyRequest, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(authorizeCopyRequest, nameof(authorizeCopyRequest));
 
             using RequestContent content = authorizeCopyRequest.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await AuthorizeModelCopyAsync(content, context).ConfigureAwait(false);
-            return Response.FromValue(CopyAuthorization.FromResponse(response), response);
+            return Response.FromValue(ModelCopyAuthorization.FromResponse(response), response);
         }
 
         /// <summary>
@@ -116,14 +116,14 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="authorizeCopyRequest"/> is null. </exception>
         /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='AuthorizeModelCopy(AuthorizeCopyContent,CancellationToken)']/*" />
-        public virtual Response<CopyAuthorization> AuthorizeModelCopy(AuthorizeCopyContent authorizeCopyRequest, CancellationToken cancellationToken = default)
+        public virtual Response<ModelCopyAuthorization> AuthorizeModelCopy(AuthorizeCopyContent authorizeCopyRequest, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(authorizeCopyRequest, nameof(authorizeCopyRequest));
 
             using RequestContent content = authorizeCopyRequest.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = AuthorizeModelCopy(content, context);
-            return Response.FromValue(CopyAuthorization.FromResponse(response), response);
+            return Response.FromValue(ModelCopyAuthorization.FromResponse(response), response);
         }
 
         /// <summary>
@@ -390,22 +390,22 @@ namespace Azure.AI.DocumentIntelligence
 
         /// <summary> Return information about the current resource. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='GetResourceInfoAsync(CancellationToken)']/*" />
-        public virtual async Task<Response<ResourceDetails>> GetResourceInfoAsync(CancellationToken cancellationToken = default)
+        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='GetResourceDetailsAsync(CancellationToken)']/*" />
+        public virtual async Task<Response<DocumentIntelligenceResourceDetails>> GetResourceDetailsAsync(CancellationToken cancellationToken = default)
         {
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = await GetResourceInfoAsync(context).ConfigureAwait(false);
-            return Response.FromValue(ResourceDetails.FromResponse(response), response);
+            Response response = await GetResourceDetailsAsync(context).ConfigureAwait(false);
+            return Response.FromValue(DocumentIntelligenceResourceDetails.FromResponse(response), response);
         }
 
         /// <summary> Return information about the current resource. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='GetResourceInfo(CancellationToken)']/*" />
-        public virtual Response<ResourceDetails> GetResourceInfo(CancellationToken cancellationToken = default)
+        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='GetResourceDetails(CancellationToken)']/*" />
+        public virtual Response<DocumentIntelligenceResourceDetails> GetResourceDetails(CancellationToken cancellationToken = default)
         {
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = GetResourceInfo(context);
-            return Response.FromValue(ResourceDetails.FromResponse(response), response);
+            Response response = GetResourceDetails(context);
+            return Response.FromValue(DocumentIntelligenceResourceDetails.FromResponse(response), response);
         }
 
         /// <summary>
@@ -418,7 +418,7 @@ namespace Azure.AI.DocumentIntelligence
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="GetResourceInfoAsync(CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="GetResourceDetailsAsync(CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -426,14 +426,14 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='GetResourceInfoAsync(RequestContext)']/*" />
-        public virtual async Task<Response> GetResourceInfoAsync(RequestContext context)
+        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='GetResourceDetailsAsync(RequestContext)']/*" />
+        public virtual async Task<Response> GetResourceDetailsAsync(RequestContext context)
         {
-            using var scope = ClientDiagnostics.CreateScope("DocumentIntelligenceAdministrationClient.GetResourceInfo");
+            using var scope = ClientDiagnostics.CreateScope("DocumentIntelligenceAdministrationClient.GetResourceDetails");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateGetResourceInfoRequest(context);
+                using HttpMessage message = CreateGetResourceDetailsRequest(context);
                 return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
             }
             catch (Exception e)
@@ -453,7 +453,7 @@ namespace Azure.AI.DocumentIntelligence
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="GetResourceInfo(CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="GetResourceDetails(CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -461,14 +461,14 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='GetResourceInfo(RequestContext)']/*" />
-        public virtual Response GetResourceInfo(RequestContext context)
+        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='GetResourceDetails(RequestContext)']/*" />
+        public virtual Response GetResourceDetails(RequestContext context)
         {
-            using var scope = ClientDiagnostics.CreateScope("DocumentIntelligenceAdministrationClient.GetResourceInfo");
+            using var scope = ClientDiagnostics.CreateScope("DocumentIntelligenceAdministrationClient.GetResourceDetails");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateGetResourceInfoRequest(context);
+                using HttpMessage message = CreateGetResourceDetailsRequest(context);
                 return _pipeline.ProcessMessage(message, context);
             }
             catch (Exception e)
@@ -484,13 +484,13 @@ namespace Azure.AI.DocumentIntelligence
         /// <exception cref="ArgumentNullException"> <paramref name="operationId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="operationId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='GetOperationAsync(string,CancellationToken)']/*" />
-        public virtual async Task<Response<OperationDetails>> GetOperationAsync(string operationId, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<DocumentIntelligenceOperationDetails>> GetOperationAsync(string operationId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(operationId, nameof(operationId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await GetOperationAsync(operationId, context).ConfigureAwait(false);
-            return Response.FromValue(OperationDetails.FromResponse(response), response);
+            return Response.FromValue(DocumentIntelligenceOperationDetails.FromResponse(response), response);
         }
 
         /// <summary> Gets operation info. </summary>
@@ -499,13 +499,13 @@ namespace Azure.AI.DocumentIntelligence
         /// <exception cref="ArgumentNullException"> <paramref name="operationId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="operationId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='GetOperation(string,CancellationToken)']/*" />
-        public virtual Response<OperationDetails> GetOperation(string operationId, CancellationToken cancellationToken = default)
+        public virtual Response<DocumentIntelligenceOperationDetails> GetOperation(string operationId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(operationId, nameof(operationId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = GetOperation(operationId, context);
-            return Response.FromValue(OperationDetails.FromResponse(response), response);
+            return Response.FromValue(DocumentIntelligenceOperationDetails.FromResponse(response), response);
         }
 
         /// <summary>
@@ -963,23 +963,23 @@ namespace Azure.AI.DocumentIntelligence
         /// <summary> Lists all operations. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='GetOperationsAsync(CancellationToken)']/*" />
-        public virtual AsyncPageable<OperationDetails> GetOperationsAsync(CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<DocumentIntelligenceOperationDetails> GetOperationsAsync(CancellationToken cancellationToken = default)
         {
             RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
             HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetOperationsRequest(context);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetOperationsNextPageRequest(nextLink, context);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => OperationDetails.DeserializeOperationDetails(e), ClientDiagnostics, _pipeline, "DocumentIntelligenceAdministrationClient.GetOperations", "value", "nextLink", context);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => DocumentIntelligenceOperationDetails.DeserializeDocumentIntelligenceOperationDetails(e), ClientDiagnostics, _pipeline, "DocumentIntelligenceAdministrationClient.GetOperations", "value", "nextLink", context);
         }
 
         /// <summary> Lists all operations. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='GetOperations(CancellationToken)']/*" />
-        public virtual Pageable<OperationDetails> GetOperations(CancellationToken cancellationToken = default)
+        public virtual Pageable<DocumentIntelligenceOperationDetails> GetOperations(CancellationToken cancellationToken = default)
         {
             RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
             HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetOperationsRequest(context);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetOperationsNextPageRequest(nextLink, context);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => OperationDetails.DeserializeOperationDetails(e), ClientDiagnostics, _pipeline, "DocumentIntelligenceAdministrationClient.GetOperations", "value", "nextLink", context);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => DocumentIntelligenceOperationDetails.DeserializeDocumentIntelligenceOperationDetails(e), ClientDiagnostics, _pipeline, "DocumentIntelligenceAdministrationClient.GetOperations", "value", "nextLink", context);
         }
 
         /// <summary>
@@ -1179,8 +1179,8 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="modelId"/> or <paramref name="copyToRequest"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="modelId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='CopyModelToAsync(WaitUntil,string,CopyAuthorization,CancellationToken)']/*" />
-        public virtual async Task<Operation<DocumentModelDetails>> CopyModelToAsync(WaitUntil waitUntil, string modelId, CopyAuthorization copyToRequest, CancellationToken cancellationToken = default)
+        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='CopyModelToAsync(WaitUntil,string,ModelCopyAuthorization,CancellationToken)']/*" />
+        public virtual async Task<Operation<DocumentModelDetails>> CopyModelToAsync(WaitUntil waitUntil, string modelId, ModelCopyAuthorization copyToRequest, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(modelId, nameof(modelId));
             Argument.AssertNotNull(copyToRequest, nameof(copyToRequest));
@@ -1198,8 +1198,8 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="modelId"/> or <paramref name="copyToRequest"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="modelId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='CopyModelTo(WaitUntil,string,CopyAuthorization,CancellationToken)']/*" />
-        public virtual Operation<DocumentModelDetails> CopyModelTo(WaitUntil waitUntil, string modelId, CopyAuthorization copyToRequest, CancellationToken cancellationToken = default)
+        /// <include file="Docs/DocumentIntelligenceAdministrationClient.xml" path="doc/members/member[@name='CopyModelTo(WaitUntil,string,ModelCopyAuthorization,CancellationToken)']/*" />
+        public virtual Operation<DocumentModelDetails> CopyModelTo(WaitUntil waitUntil, string modelId, ModelCopyAuthorization copyToRequest, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(modelId, nameof(modelId));
             Argument.AssertNotNull(copyToRequest, nameof(copyToRequest));
@@ -1397,7 +1397,7 @@ namespace Azure.AI.DocumentIntelligence
             return message;
         }
 
-        internal HttpMessage CreateGetResourceInfoRequest(RequestContext context)
+        internal HttpMessage CreateGetResourceDetailsRequest(RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;

@@ -48,17 +48,17 @@ namespace Azure.AI.DocumentIntelligence
         /// <summary> Initializes a new instance of <see cref="ComposeDocumentModelContent"/>. </summary>
         /// <param name="modelId"> Unique document model name. </param>
         /// <param name="classifierId"> Custom classifier to split and classify the input file. </param>
-        /// <param name="docTypes"> Dictionary mapping supported docTypes to the corresponding document models. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="modelId"/>, <paramref name="classifierId"/> or <paramref name="docTypes"/> is null. </exception>
-        public ComposeDocumentModelContent(string modelId, string classifierId, IDictionary<string, DocumentTypeDetails> docTypes)
+        /// <param name="documentTypes"> Dictionary mapping supported docTypes to the corresponding document models. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="modelId"/>, <paramref name="classifierId"/> or <paramref name="documentTypes"/> is null. </exception>
+        public ComposeDocumentModelContent(string modelId, string classifierId, IDictionary<string, DocumentTypeDetails> documentTypes)
         {
             Argument.AssertNotNull(modelId, nameof(modelId));
             Argument.AssertNotNull(classifierId, nameof(classifierId));
-            Argument.AssertNotNull(docTypes, nameof(docTypes));
+            Argument.AssertNotNull(documentTypes, nameof(documentTypes));
 
             ModelId = modelId;
             ClassifierId = classifierId;
-            DocTypes = docTypes;
+            DocumentTypes = documentTypes;
             Tags = new ChangeTrackingDictionary<string, string>();
         }
 
@@ -67,16 +67,16 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="description"> Document model description. </param>
         /// <param name="classifierId"> Custom classifier to split and classify the input file. </param>
         /// <param name="split"> File splitting behavior. </param>
-        /// <param name="docTypes"> Dictionary mapping supported docTypes to the corresponding document models. </param>
+        /// <param name="documentTypes"> Dictionary mapping supported docTypes to the corresponding document models. </param>
         /// <param name="tags"> List of key-value tag attributes associated with the document model. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ComposeDocumentModelContent(string modelId, string description, string classifierId, SplitMode? split, IDictionary<string, DocumentTypeDetails> docTypes, IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ComposeDocumentModelContent(string modelId, string description, string classifierId, SplitMode? split, IDictionary<string, DocumentTypeDetails> documentTypes, IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ModelId = modelId;
             Description = description;
             ClassifierId = classifierId;
             Split = split;
-            DocTypes = docTypes;
+            DocumentTypes = documentTypes;
             Tags = tags;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -95,7 +95,7 @@ namespace Azure.AI.DocumentIntelligence
         /// <summary> File splitting behavior. </summary>
         public SplitMode? Split { get; set; }
         /// <summary> Dictionary mapping supported docTypes to the corresponding document models. </summary>
-        public IDictionary<string, DocumentTypeDetails> DocTypes { get; }
+        public IDictionary<string, DocumentTypeDetails> DocumentTypes { get; }
         /// <summary> List of key-value tag attributes associated with the document model. </summary>
         public IDictionary<string, string> Tags { get; }
     }

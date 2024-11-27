@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.DocumentIntelligence
 {
-    /// <summary> Azure Blob Storage content. </summary>
-    public partial class AzureBlobContentSource
+    /// <summary> General information regarding the current resource. </summary>
+    public partial class DocumentIntelligenceResourceDetails
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,35 +45,31 @@ namespace Azure.AI.DocumentIntelligence
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AzureBlobContentSource"/>. </summary>
-        /// <param name="containerUrl"> Azure Blob Storage container URL. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="containerUrl"/> is null. </exception>
-        public AzureBlobContentSource(Uri containerUrl)
+        /// <summary> Initializes a new instance of <see cref="DocumentIntelligenceResourceDetails"/>. </summary>
+        /// <param name="customDocumentModels"> Details regarding custom document models. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="customDocumentModels"/> is null. </exception>
+        internal DocumentIntelligenceResourceDetails(CustomDocumentModelsDetails customDocumentModels)
         {
-            Argument.AssertNotNull(containerUrl, nameof(containerUrl));
+            Argument.AssertNotNull(customDocumentModels, nameof(customDocumentModels));
 
-            ContainerUrl = containerUrl;
+            CustomDocumentModels = customDocumentModels;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AzureBlobContentSource"/>. </summary>
-        /// <param name="containerUrl"> Azure Blob Storage container URL. </param>
-        /// <param name="prefix"> Blob name prefix. </param>
+        /// <summary> Initializes a new instance of <see cref="DocumentIntelligenceResourceDetails"/>. </summary>
+        /// <param name="customDocumentModels"> Details regarding custom document models. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AzureBlobContentSource(Uri containerUrl, string prefix, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DocumentIntelligenceResourceDetails(CustomDocumentModelsDetails customDocumentModels, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            ContainerUrl = containerUrl;
-            Prefix = prefix;
+            CustomDocumentModels = customDocumentModels;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AzureBlobContentSource"/> for deserialization. </summary>
-        internal AzureBlobContentSource()
+        /// <summary> Initializes a new instance of <see cref="DocumentIntelligenceResourceDetails"/> for deserialization. </summary>
+        internal DocumentIntelligenceResourceDetails()
         {
         }
 
-        /// <summary> Azure Blob Storage container URL. </summary>
-        public Uri ContainerUrl { get; set; }
-        /// <summary> Blob name prefix. </summary>
-        public string Prefix { get; set; }
+        /// <summary> Details regarding custom document models. </summary>
+        public CustomDocumentModelsDetails CustomDocumentModels { get; }
     }
 }

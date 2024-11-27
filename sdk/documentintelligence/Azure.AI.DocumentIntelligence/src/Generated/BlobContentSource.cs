@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.DocumentIntelligence
 {
-    /// <summary> File list in Azure Blob Storage. </summary>
-    public partial class AzureBlobFileListContentSource
+    /// <summary> Azure Blob Storage content. </summary>
+    public partial class BlobContentSource
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,38 +45,35 @@ namespace Azure.AI.DocumentIntelligence
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AzureBlobFileListContentSource"/>. </summary>
-        /// <param name="containerUrl"> Azure Blob Storage container URL. </param>
-        /// <param name="fileList"> Path to a JSONL file within the container specifying a subset of documents. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="containerUrl"/> or <paramref name="fileList"/> is null. </exception>
-        public AzureBlobFileListContentSource(Uri containerUrl, string fileList)
+        /// <summary> Initializes a new instance of <see cref="BlobContentSource"/>. </summary>
+        /// <param name="containerUri"> Azure Blob Storage container URL. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="containerUri"/> is null. </exception>
+        public BlobContentSource(Uri containerUri)
         {
-            Argument.AssertNotNull(containerUrl, nameof(containerUrl));
-            Argument.AssertNotNull(fileList, nameof(fileList));
+            Argument.AssertNotNull(containerUri, nameof(containerUri));
 
-            ContainerUrl = containerUrl;
-            FileList = fileList;
+            ContainerUri = containerUri;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AzureBlobFileListContentSource"/>. </summary>
-        /// <param name="containerUrl"> Azure Blob Storage container URL. </param>
-        /// <param name="fileList"> Path to a JSONL file within the container specifying a subset of documents. </param>
+        /// <summary> Initializes a new instance of <see cref="BlobContentSource"/>. </summary>
+        /// <param name="containerUri"> Azure Blob Storage container URL. </param>
+        /// <param name="prefix"> Blob name prefix. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AzureBlobFileListContentSource(Uri containerUrl, string fileList, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BlobContentSource(Uri containerUri, string prefix, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            ContainerUrl = containerUrl;
-            FileList = fileList;
+            ContainerUri = containerUri;
+            Prefix = prefix;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AzureBlobFileListContentSource"/> for deserialization. </summary>
-        internal AzureBlobFileListContentSource()
+        /// <summary> Initializes a new instance of <see cref="BlobContentSource"/> for deserialization. </summary>
+        internal BlobContentSource()
         {
         }
 
         /// <summary> Azure Blob Storage container URL. </summary>
-        public Uri ContainerUrl { get; set; }
-        /// <summary> Path to a JSONL file within the container specifying a subset of documents. </summary>
-        public string FileList { get; set; }
+        public Uri ContainerUri { get; set; }
+        /// <summary> Blob name prefix. </summary>
+        public string Prefix { get; set; }
     }
 }
