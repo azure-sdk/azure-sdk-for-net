@@ -75,8 +75,8 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="isZoneRedundant">
         /// This is an optional property and it allows the user to specify if the namespace resource supports zone-redundancy capability or not. If this
         /// property is not specified explicitly by the user, its default value depends on the following conditions:
-        ///     a. For Availability Zones enabled regions - The default property value would be true.
-        ///     b. For non-Availability Zones enabled regions - The default property value would be false.
+        ///   a. For Availability Zones enabled regions - The default property value would be true.
+        ///   b. For non-Availability Zones enabled regions - The default property value would be false.
         /// Once specified, this property cannot be updated.
         /// </param>
         /// <param name="publicNetworkAccess">
@@ -127,8 +127,8 @@ namespace Azure.ResourceManager.EventGrid
         /// <summary>
         /// This is an optional property and it allows the user to specify if the namespace resource supports zone-redundancy capability or not. If this
         /// property is not specified explicitly by the user, its default value depends on the following conditions:
-        ///     a. For Availability Zones enabled regions - The default property value would be true.
-        ///     b. For non-Availability Zones enabled regions - The default property value would be false.
+        ///   a. For Availability Zones enabled regions - The default property value would be true.
+        ///   b. For non-Availability Zones enabled regions - The default property value would be false.
         /// Once specified, this property cannot be updated.
         /// </summary>
         [WirePath("properties.isZoneRedundant")]

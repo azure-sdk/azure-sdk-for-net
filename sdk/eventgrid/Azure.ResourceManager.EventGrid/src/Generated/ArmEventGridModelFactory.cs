@@ -292,9 +292,12 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="eventDeliverySchema"> The event delivery schema for the event subscription. </param>
         /// <param name="filtersConfiguration"> Information about the filter for the event subscription. </param>
         /// <param name="expireOn"> Expiration time of the event subscription. </param>
+        /// <param name="tags"> Tags relating to Event Subscription resource. </param>
         /// <returns> A new <see cref="EventGrid.NamespaceTopicEventSubscriptionData"/> instance for mocking. </returns>
-        public static NamespaceTopicEventSubscriptionData NamespaceTopicEventSubscriptionData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SubscriptionProvisioningState? provisioningState = null, DeliveryConfiguration deliveryConfiguration = null, DeliverySchema? eventDeliverySchema = null, FiltersConfiguration filtersConfiguration = null, DateTimeOffset? expireOn = null)
+        public static NamespaceTopicEventSubscriptionData NamespaceTopicEventSubscriptionData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SubscriptionProvisioningState? provisioningState = null, DeliveryConfiguration deliveryConfiguration = null, DeliverySchema? eventDeliverySchema = null, FiltersConfiguration filtersConfiguration = null, DateTimeOffset? expireOn = null, IDictionary<string, string> tags = null)
         {
+            tags ??= new Dictionary<string, string>();
+
             return new NamespaceTopicEventSubscriptionData(
                 id,
                 name,
@@ -305,6 +308,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 eventDeliverySchema,
                 filtersConfiguration,
                 expireOn,
+                tags,
                 serializedAdditionalRawData: null);
         }
 
@@ -380,8 +384,8 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="isZoneRedundant">
         /// This is an optional property and it allows the user to specify if the namespace resource supports zone-redundancy capability or not. If this
         /// property is not specified explicitly by the user, its default value depends on the following conditions:
-        ///     a. For Availability Zones enabled regions - The default property value would be true.
-        ///     b. For non-Availability Zones enabled regions - The default property value would be false.
+        ///   a. For Availability Zones enabled regions - The default property value would be true.
+        ///   b. For non-Availability Zones enabled regions - The default property value would be false.
         /// Once specified, this property cannot be updated.
         /// </param>
         /// <param name="publicNetworkAccess">
@@ -903,7 +907,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="systemData"> The systemData. </param>
         /// <param name="displayName"> Display name of the event type. </param>
         /// <param name="description"> Description of the event type. </param>
-        /// <param name="schemaUri"> Url of the schema for this event type. </param>
+        /// <param name="schemaUri"> URL of the schema for this event type. </param>
         /// <param name="isInDefaultSet"> IsInDefaultSet flag of the event type. </param>
         /// <returns> A new <see cref="Models.EventTypeUnderTopic"/> instance for mocking. </returns>
         public static EventTypeUnderTopic EventTypeUnderTopic(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string displayName = null, string description = null, Uri schemaUri = null, bool? isInDefaultSet = null)
@@ -949,9 +953,9 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="topicTemplates">
         /// The topic filters in the topic space.
         /// Example: "topicTemplates": [
-        ///               "devices/foo/bar",
-        ///               "devices/topic1/+",
-        ///               "devices/${principal.name}/${principal.attributes.keyName}" ].
+        ///         "devices/foo/bar",
+        ///         "devices/topic1/+",
+        ///         "devices/${principal.name}/${principal.attributes.keyName}" ].
         /// </param>
         /// <param name="provisioningState"> Provisioning state of the TopicSpace resource. </param>
         /// <returns> A new <see cref="EventGrid.TopicSpaceData"/> instance for mocking. </returns>
