@@ -115,7 +115,7 @@ namespace Azure.ResourceManager.DataFactory.Models
             DataFactoryElement<string> requestMethod = default;
             DataFactoryElement<string> requestBody = default;
             DataFactoryElement<string> additionalHeaders = default;
-            DataFactoryElement<string> paginationRules = default;
+            DataFactoryElement<IDictionary<string, string>> paginationRules = default;
             DataFactoryElement<string> httpRequestTimeout = default;
             BinaryData requestInterval = default;
             DataFactoryElement<IDictionary<string, string>> additionalColumns = default;
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     {
                         continue;
                     }
-                    paginationRules = JsonSerializer.Deserialize<DataFactoryElement<string>>(property.Value.GetRawText());
+                    paginationRules = JsonSerializer.Deserialize<DataFactoryElement<IDictionary<string, string>>>(property.Value.GetRawText());
                     continue;
                 }
                 if (property.NameEquals("httpRequestTimeout"u8))

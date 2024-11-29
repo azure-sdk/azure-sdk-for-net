@@ -30,11 +30,11 @@ namespace Azure.ResourceManager.DataFactory.Models
         /// <param name="requestMethod"> The HTTP method used to call the RESTful API. The default is GET. Type: string (or Expression with resultType string). </param>
         /// <param name="requestBody"> The HTTP request body to the RESTful API if requestMethod is POST. Type: string (or Expression with resultType string). </param>
         /// <param name="additionalHeaders"> The additional HTTP headers in the request to the RESTful API. Type: string (or Expression with resultType string). </param>
-        /// <param name="paginationRules"> The pagination rules to compose next page requests. Type: string (or Expression with resultType string). </param>
+        /// <param name="paginationRules"> The pagination rules to compose next page requests. Type: key value pairs (value should be string type). </param>
         /// <param name="httpRequestTimeout"> The timeout (TimeSpan) to get an HTTP response. It is the timeout to get a response, not the timeout to read response data. Default value: 00:01:40. Type: string (or Expression with resultType string), pattern: ((\d+)\.)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])). </param>
         /// <param name="requestInterval"> The time to await before sending next page request. </param>
         /// <param name="additionalColumns"> Specifies the additional columns to be added to source data. Type: key value pairs (value should be string type). </param>
-        internal RestSource(string copySourceType, DataFactoryElement<int> sourceRetryCount, DataFactoryElement<string> sourceRetryWait, DataFactoryElement<int> maxConcurrentConnections, DataFactoryElement<bool> disableMetricsCollection, IDictionary<string, BinaryData> additionalProperties, DataFactoryElement<string> requestMethod, DataFactoryElement<string> requestBody, DataFactoryElement<string> additionalHeaders, DataFactoryElement<string> paginationRules, DataFactoryElement<string> httpRequestTimeout, BinaryData requestInterval, DataFactoryElement<IDictionary<string, string>> additionalColumns) : base(copySourceType, sourceRetryCount, sourceRetryWait, maxConcurrentConnections, disableMetricsCollection, additionalProperties)
+        internal RestSource(string copySourceType, DataFactoryElement<int> sourceRetryCount, DataFactoryElement<string> sourceRetryWait, DataFactoryElement<int> maxConcurrentConnections, DataFactoryElement<bool> disableMetricsCollection, IDictionary<string, BinaryData> additionalProperties, DataFactoryElement<string> requestMethod, DataFactoryElement<string> requestBody, DataFactoryElement<string> additionalHeaders, DataFactoryElement<IDictionary<string, string>> paginationRules, DataFactoryElement<string> httpRequestTimeout, BinaryData requestInterval, DataFactoryElement<IDictionary<string, string>> additionalColumns) : base(copySourceType, sourceRetryCount, sourceRetryWait, maxConcurrentConnections, disableMetricsCollection, additionalProperties)
         {
             RequestMethod = requestMethod;
             RequestBody = requestBody;
@@ -52,8 +52,8 @@ namespace Azure.ResourceManager.DataFactory.Models
         public DataFactoryElement<string> RequestBody { get; set; }
         /// <summary> The additional HTTP headers in the request to the RESTful API. Type: string (or Expression with resultType string). </summary>
         public DataFactoryElement<string> AdditionalHeaders { get; set; }
-        /// <summary> The pagination rules to compose next page requests. Type: string (or Expression with resultType string). </summary>
-        public DataFactoryElement<string> PaginationRules { get; set; }
+        /// <summary> The pagination rules to compose next page requests. Type: key value pairs (value should be string type). </summary>
+        public DataFactoryElement<IDictionary<string, string>> PaginationRules { get; set; }
         /// <summary> The timeout (TimeSpan) to get an HTTP response. It is the timeout to get a response, not the timeout to read response data. Default value: 00:01:40. Type: string (or Expression with resultType string), pattern: ((\d+)\.)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])). </summary>
         public DataFactoryElement<string> HttpRequestTimeout { get; set; }
         /// <summary>

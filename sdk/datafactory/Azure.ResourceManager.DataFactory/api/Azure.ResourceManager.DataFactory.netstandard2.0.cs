@@ -9698,7 +9698,7 @@ namespace Azure.ResourceManager.DataFactory.Models
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<System.Collections.Generic.IDictionary<string, string>> AdditionalColumns { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> AdditionalHeaders { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> HttpRequestTimeout { get { throw null; } set { } }
-        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> PaginationRules { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<System.Collections.Generic.IDictionary<string, string>> PaginationRules { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> RequestBody { get { throw null; } set { } }
         public System.BinaryData RequestInterval { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> RequestMethod { get { throw null; } set { } }
