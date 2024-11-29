@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -69,7 +69,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -103,7 +103,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -205,7 +205,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -239,7 +239,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -273,7 +273,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -307,7 +307,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -341,7 +341,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -375,7 +375,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -409,7 +409,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -443,7 +443,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -477,7 +477,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -511,7 +511,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -545,7 +545,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -579,7 +579,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -613,7 +613,7 @@ namespace Azure.ResourceManager.ComputeSchedule
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-08-15-preview</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// </list>
         /// <item>
