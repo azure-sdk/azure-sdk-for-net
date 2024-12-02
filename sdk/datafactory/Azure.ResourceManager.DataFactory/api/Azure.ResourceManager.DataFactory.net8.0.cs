@@ -4263,6 +4263,7 @@ namespace Azure.ResourceManager.DataFactory.Models
     {
         public DataFactoryScriptActivity(string name) : base (default(string)) { }
         public Azure.ResourceManager.DataFactory.Models.ScriptActivityTypeLogSettings LogSettings { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<bool> ReturnMultistatementResult { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> ScriptBlockExecutionTimeout { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.DataFactory.Models.ScriptActivityScriptBlock> Scripts { get { throw null; } }
         protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
