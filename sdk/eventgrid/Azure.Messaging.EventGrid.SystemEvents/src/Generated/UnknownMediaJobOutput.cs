@@ -20,7 +20,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="progress"> Gets the Job output progress. </param>
         /// <param name="state"> Gets the Job output state. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownMediaJobOutput(string odataType, MediaJobError error, string label, long progress, MediaJobState state, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(odataType, error, label, progress, state, serializedAdditionalRawData)
+        internal UnknownMediaJobOutput(string odataType, MediaJobError error, string label, long progress, MediaJobState? state, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(odataType, error, label, progress, state, serializedAdditionalRawData)
         {
         }
 

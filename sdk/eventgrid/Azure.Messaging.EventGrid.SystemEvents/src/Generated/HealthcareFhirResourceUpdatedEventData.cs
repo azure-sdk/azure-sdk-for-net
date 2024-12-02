@@ -46,10 +46,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="HealthcareFhirResourceUpdatedEventData"/>. </summary>
-        /// <param name="fhirResourceType"> Type of HL7 FHIR resource. </param>
-        internal HealthcareFhirResourceUpdatedEventData(HealthcareFhirResourceType fhirResourceType)
+        internal HealthcareFhirResourceUpdatedEventData()
         {
-            FhirResourceType = fhirResourceType;
         }
 
         /// <summary> Initializes a new instance of <see cref="HealthcareFhirResourceUpdatedEventData"/>. </summary>
@@ -58,7 +56,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="fhirResourceId"> Id of HL7 FHIR resource. </param>
         /// <param name="fhirResourceVersionId"> VersionId of HL7 FHIR resource. It changes when the resource is created, updated, or deleted(soft-deletion). </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthcareFhirResourceUpdatedEventData(HealthcareFhirResourceType fhirResourceType, string fhirServiceHostName, string fhirResourceId, long? fhirResourceVersionId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal HealthcareFhirResourceUpdatedEventData(HealthcareFhirResourceType? fhirResourceType, string fhirServiceHostName, string fhirResourceId, long? fhirResourceVersionId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             FhirResourceType = fhirResourceType;
             FhirServiceHostName = fhirServiceHostName;
@@ -67,13 +65,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="HealthcareFhirResourceUpdatedEventData"/> for deserialization. </summary>
-        internal HealthcareFhirResourceUpdatedEventData()
-        {
-        }
-
         /// <summary> Type of HL7 FHIR resource. </summary>
-        public HealthcareFhirResourceType FhirResourceType { get; }
+        public HealthcareFhirResourceType? FhirResourceType { get; }
         /// <summary> Domain name of FHIR account for this resource. </summary>
         public string FhirServiceHostName { get; }
         /// <summary> Id of HL7 FHIR resource. </summary>

@@ -16,9 +16,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> Initializes a new instance of <see cref="MediaJobOutputAsset"/>. </summary>
         /// <param name="error"> Gets the Job output error. </param>
         /// <param name="progress"> Gets the Job output progress. </param>
-        /// <param name="state"> Gets the Job output state. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="error"/> is null. </exception>
-        internal MediaJobOutputAsset(MediaJobError error, long progress, MediaJobState state) : base(error, progress, state)
+        internal MediaJobOutputAsset(MediaJobError error, long progress) : base(error, progress)
         {
             Argument.AssertNotNull(error, nameof(error));
 
@@ -33,7 +32,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="state"> Gets the Job output state. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="assetName"> Gets the Job output asset name. </param>
-        internal MediaJobOutputAsset(string odataType, MediaJobError error, string label, long progress, MediaJobState state, IDictionary<string, BinaryData> serializedAdditionalRawData, string assetName) : base(odataType, error, label, progress, state, serializedAdditionalRawData)
+        internal MediaJobOutputAsset(string odataType, MediaJobError error, string label, long progress, MediaJobState? state, IDictionary<string, BinaryData> serializedAdditionalRawData, string assetName) : base(odataType, error, label, progress, state, serializedAdditionalRawData)
         {
             AssetName = assetName;
         }
