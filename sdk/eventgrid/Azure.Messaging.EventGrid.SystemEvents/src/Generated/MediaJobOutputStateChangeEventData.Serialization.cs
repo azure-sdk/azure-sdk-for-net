@@ -34,8 +34,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 throw new FormatException($"The model {nameof(MediaJobOutputStateChangeEventData)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("previousState"u8);
-            writer.WriteStringValue(PreviousState.ToString());
+            if (Optional.IsDefined(PreviousState))
+            {
+                writer.WritePropertyName("previousState"u8);
+                writer.WriteStringValue(PreviousState.Value.ToString());
+            }
             writer.WritePropertyName("output"u8);
             writer.WriteObjectValue(Output, options);
             writer.WritePropertyName("jobCorrelationData"u8);
@@ -83,7 +86,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            MediaJobState previousState = default;
+            MediaJobState? previousState = default;
             MediaJobOutput output = default;
             IReadOnlyDictionary<string, string> jobCorrelationData = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -92,6 +95,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("previousState"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     previousState = new MediaJobState(property.Value.GetString());
                     continue;
                 }

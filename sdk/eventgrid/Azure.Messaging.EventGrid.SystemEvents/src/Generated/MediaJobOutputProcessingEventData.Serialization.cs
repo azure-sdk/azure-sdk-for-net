@@ -57,7 +57,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            MediaJobState previousState = default;
+            MediaJobState? previousState = default;
             MediaJobOutput output = default;
             IReadOnlyDictionary<string, string> jobCorrelationData = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -66,6 +66,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("previousState"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     previousState = new MediaJobState(property.Value.GetString());
                     continue;
                 }
