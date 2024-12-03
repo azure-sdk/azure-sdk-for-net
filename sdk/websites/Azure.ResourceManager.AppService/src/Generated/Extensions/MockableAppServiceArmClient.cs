@@ -383,6 +383,42 @@ namespace Azure.ResourceManager.AppService.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="ServerfarmVirtualNetworkIntegrationResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ServerfarmVirtualNetworkIntegrationResource.CreateResourceIdentifier" /> to create a <see cref="ServerfarmVirtualNetworkIntegrationResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ServerfarmVirtualNetworkIntegrationResource"/> object. </returns>
+        public virtual ServerfarmVirtualNetworkIntegrationResource GetServerfarmVirtualNetworkIntegrationResource(ResourceIdentifier id)
+        {
+            ServerfarmVirtualNetworkIntegrationResource.ValidateResourceId(id);
+            return new ServerfarmVirtualNetworkIntegrationResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SiteNetworkConfigResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SiteNetworkConfigResource.CreateResourceIdentifier" /> to create a <see cref="SiteNetworkConfigResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SiteNetworkConfigResource"/> object. </returns>
+        public virtual SiteNetworkConfigResource GetSiteNetworkConfigResource(ResourceIdentifier id)
+        {
+            SiteNetworkConfigResource.ValidateResourceId(id);
+            return new SiteNetworkConfigResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SiteSlotNetworkConfigResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SiteSlotNetworkConfigResource.CreateResourceIdentifier" /> to create a <see cref="SiteSlotNetworkConfigResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SiteSlotNetworkConfigResource"/> object. </returns>
+        public virtual SiteSlotNetworkConfigResource GetSiteSlotNetworkConfigResource(ResourceIdentifier id)
+        {
+            SiteSlotNetworkConfigResource.ValidateResourceId(id);
+            return new SiteSlotNetworkConfigResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing an <see cref="AppCertificateResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="AppCertificateResource.CreateResourceIdentifier" /> to create an <see cref="AppCertificateResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -1220,30 +1256,6 @@ namespace Azure.ResourceManager.AppService.Mocking
         {
             SiteSlotProcessModuleResource.ValidateResourceId(id);
             return new SiteSlotProcessModuleResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="SiteNetworkConfigResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SiteNetworkConfigResource.CreateResourceIdentifier" /> to create a <see cref="SiteNetworkConfigResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SiteNetworkConfigResource"/> object. </returns>
-        public virtual SiteNetworkConfigResource GetSiteNetworkConfigResource(ResourceIdentifier id)
-        {
-            SiteNetworkConfigResource.ValidateResourceId(id);
-            return new SiteNetworkConfigResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="SiteSlotNetworkConfigResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SiteSlotNetworkConfigResource.CreateResourceIdentifier" /> to create a <see cref="SiteSlotNetworkConfigResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SiteSlotNetworkConfigResource"/> object. </returns>
-        public virtual SiteSlotNetworkConfigResource GetSiteSlotNetworkConfigResource(ResourceIdentifier id)
-        {
-            SiteSlotNetworkConfigResource.ValidateResourceId(id);
-            return new SiteSlotNetworkConfigResource(Client, id);
         }
 
         /// <summary>

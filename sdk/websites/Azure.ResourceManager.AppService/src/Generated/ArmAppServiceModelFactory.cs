@@ -2203,6 +2203,26 @@ namespace Azure.ResourceManager.AppService.Models
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="AppService.SwiftVirtualNetworkData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="properties"> SwiftVirtualNetwork resource specific properties. </param>
+        /// <param name="kind"> Kind of resource. </param>
+        /// <returns> A new <see cref="AppService.SwiftVirtualNetworkData"/> instance for mocking. </returns>
+        public static SwiftVirtualNetworkData SwiftVirtualNetworkData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SwiftVirtualNetworkProperties properties = null, string kind = null)
+        {
+            return new SwiftVirtualNetworkData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                properties,
+                kind,
+                serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="AppService.AppCertificateData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -3374,6 +3394,15 @@ namespace Azure.ResourceManager.AppService.Models
                 locations?.ToList(),
                 capabilities?.ToList(),
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.VirtualNetworkIntegrationResponse"/>. </summary>
+        /// <param name="message"> Description of the result. </param>
+        /// <param name="swiftVirtualNetwork"> The Swift Virtual Network object. </param>
+        /// <returns> A new <see cref="Models.VirtualNetworkIntegrationResponse"/> instance for mocking. </returns>
+        public static VirtualNetworkIntegrationResponse VirtualNetworkIntegrationResponse(VirtualNetworkIntegrationResponseMessage? message = null, SwiftVirtualNetworkProperties swiftVirtualNetwork = null)
+        {
+            return new VirtualNetworkIntegrationResponse(message, swiftVirtualNetwork, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.AppServiceVirtualNetworkValidationContent"/>. </summary>
@@ -5795,28 +5824,6 @@ namespace Azure.ResourceManager.AppService.Models
                 migrationOperationStatus,
                 operationId,
                 isLocalMySqlEnabled,
-                kind,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="AppService.SwiftVirtualNetworkData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="subnetResourceId"> The Virtual Network subnet's resource ID. This is the subnet that this Web App will join. This subnet must have a delegation to Microsoft.Web/serverFarms defined first. </param>
-        /// <param name="isSwiftSupported"> A flag that specifies if the scale unit this Web App is on supports Swift integration. </param>
-        /// <param name="kind"> Kind of resource. </param>
-        /// <returns> A new <see cref="AppService.SwiftVirtualNetworkData"/> instance for mocking. </returns>
-        public static SwiftVirtualNetworkData SwiftVirtualNetworkData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ResourceIdentifier subnetResourceId = null, bool? isSwiftSupported = null, string kind = null)
-        {
-            return new SwiftVirtualNetworkData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                subnetResourceId,
-                isSwiftSupported,
                 kind,
                 serializedAdditionalRawData: null);
         }
