@@ -93,7 +93,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="isVnetContentShareEnabled"> To enable accessing content over virtual network. </param>
         /// <param name="isVnetBackupRestoreEnabled"> To enable Backup and Restore operations over virtual network. </param>
         /// <param name="siteConfig"> Configuration of the app. </param>
-        /// <param name="functionAppConfig"> Configuration specific of the Azure Function app. </param>
+        /// <param name="functionAppConfig"> Configuration specific of the Azure Function app. Only applicable to Flex Consumption. </param>
         /// <param name="daprConfig"> Dapr configuration of the app. </param>
         /// <param name="workloadProfileName"> Workload profile name for function app to execute on. </param>
         /// <param name="resourceConfig"> Function app resource requirements. </param>
@@ -284,7 +284,7 @@ namespace Azure.ResourceManager.AppService
         /// <summary> Configuration of the app. </summary>
         [WirePath("properties.siteConfig")]
         public SiteConfigProperties SiteConfig { get; set; }
-        /// <summary> Configuration specific of the Azure Function app. </summary>
+        /// <summary> Configuration specific of the Azure Function app. Only applicable to Flex Consumption. </summary>
         [WirePath("properties.functionAppConfig")]
         public FunctionAppConfig FunctionAppConfig { get; set; }
         /// <summary> Dapr configuration of the app. </summary>
