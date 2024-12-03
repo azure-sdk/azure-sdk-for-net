@@ -46,10 +46,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="PolicyInsightsPolicyStateDeletedEventData"/>. </summary>
-        /// <param name="timestamp"> The time that the resource was scanned by Azure Policy in the Universal ISO 8601 DateTime format yyyy-MM-ddTHH:mm:ss.fffffffZ. </param>
-        internal PolicyInsightsPolicyStateDeletedEventData(DateTimeOffset timestamp)
+        internal PolicyInsightsPolicyStateDeletedEventData()
         {
-            Timestamp = timestamp;
         }
 
         /// <summary> Initializes a new instance of <see cref="PolicyInsightsPolicyStateDeletedEventData"/>. </summary>
@@ -61,7 +59,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="subscriptionId"> The subscription ID of the resource. </param>
         /// <param name="complianceReasonCode"> The compliance reason code. May be empty. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PolicyInsightsPolicyStateDeletedEventData(DateTimeOffset timestamp, string policyAssignmentId, string policyDefinitionId, string policyDefinitionReferenceId, string complianceState, string subscriptionId, string complianceReasonCode, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PolicyInsightsPolicyStateDeletedEventData(DateTimeOffset? timestamp, string policyAssignmentId, string policyDefinitionId, string policyDefinitionReferenceId, string complianceState, string subscriptionId, string complianceReasonCode, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Timestamp = timestamp;
             PolicyAssignmentId = policyAssignmentId;
@@ -73,13 +71,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="PolicyInsightsPolicyStateDeletedEventData"/> for deserialization. </summary>
-        internal PolicyInsightsPolicyStateDeletedEventData()
-        {
-        }
-
         /// <summary> The time that the resource was scanned by Azure Policy in the Universal ISO 8601 DateTime format yyyy-MM-ddTHH:mm:ss.fffffffZ. </summary>
-        public DateTimeOffset Timestamp { get; }
+        public DateTimeOffset? Timestamp { get; }
         /// <summary> The resource ID of the policy assignment. </summary>
         public string PolicyAssignmentId { get; }
         /// <summary> The resource ID of the policy definition. </summary>
