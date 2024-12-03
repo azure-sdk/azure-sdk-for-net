@@ -590,6 +590,63 @@ namespace Azure.ResourceManager.AppService
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="ServerfarmVirtualNetworkIntegrationResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ServerfarmVirtualNetworkIntegrationResource.CreateResourceIdentifier" /> to create a <see cref="ServerfarmVirtualNetworkIntegrationResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableAppServiceArmClient.GetServerfarmVirtualNetworkIntegrationResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="ServerfarmVirtualNetworkIntegrationResource"/> object. </returns>
+        public static ServerfarmVirtualNetworkIntegrationResource GetServerfarmVirtualNetworkIntegrationResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableAppServiceArmClient(client).GetServerfarmVirtualNetworkIntegrationResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SiteNetworkConfigResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SiteNetworkConfigResource.CreateResourceIdentifier" /> to create a <see cref="SiteNetworkConfigResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableAppServiceArmClient.GetSiteNetworkConfigResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="SiteNetworkConfigResource"/> object. </returns>
+        public static SiteNetworkConfigResource GetSiteNetworkConfigResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableAppServiceArmClient(client).GetSiteNetworkConfigResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="SiteSlotNetworkConfigResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SiteSlotNetworkConfigResource.CreateResourceIdentifier" /> to create a <see cref="SiteSlotNetworkConfigResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableAppServiceArmClient.GetSiteSlotNetworkConfigResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="SiteSlotNetworkConfigResource"/> object. </returns>
+        public static SiteSlotNetworkConfigResource GetSiteSlotNetworkConfigResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableAppServiceArmClient(client).GetSiteSlotNetworkConfigResource(id);
+        }
+
+        /// <summary>
         /// Gets an object representing an <see cref="AppCertificateResource" /> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="AppCertificateResource.CreateResourceIdentifier" /> to create an <see cref="AppCertificateResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
@@ -1920,44 +1977,6 @@ namespace Azure.ResourceManager.AppService
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="SiteNetworkConfigResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SiteNetworkConfigResource.CreateResourceIdentifier" /> to create a <see cref="SiteNetworkConfigResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableAppServiceArmClient.GetSiteNetworkConfigResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="SiteNetworkConfigResource"/> object. </returns>
-        public static SiteNetworkConfigResource GetSiteNetworkConfigResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableAppServiceArmClient(client).GetSiteNetworkConfigResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="SiteSlotNetworkConfigResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SiteSlotNetworkConfigResource.CreateResourceIdentifier" /> to create a <see cref="SiteSlotNetworkConfigResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableAppServiceArmClient.GetSiteSlotNetworkConfigResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="SiteSlotNetworkConfigResource"/> object. </returns>
-        public static SiteSlotNetworkConfigResource GetSiteSlotNetworkConfigResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableAppServiceArmClient(client).GetSiteSlotNetworkConfigResource(id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="WebSitePremierAddonResource" /> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="WebSitePremierAddonResource.CreateResourceIdentifier" /> to create a <see cref="WebSitePremierAddonResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
@@ -2481,7 +2500,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2519,7 +2538,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2574,7 +2593,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2612,7 +2631,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2667,7 +2686,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2705,7 +2724,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2760,7 +2779,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2798,7 +2817,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2853,7 +2872,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2891,7 +2910,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2946,7 +2965,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2984,7 +3003,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3039,7 +3058,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3077,7 +3096,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3132,7 +3151,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3170,7 +3189,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3208,7 +3227,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -3240,7 +3259,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -3289,7 +3308,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3327,7 +3346,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3382,7 +3401,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3420,7 +3439,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3458,7 +3477,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3494,7 +3513,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3530,7 +3549,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -3562,7 +3581,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -3594,7 +3613,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -3626,7 +3645,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -3658,7 +3677,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3694,7 +3713,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3730,7 +3749,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -3761,7 +3780,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -3792,7 +3811,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -3825,7 +3844,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -3858,7 +3877,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3894,7 +3913,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3930,7 +3949,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3970,7 +3989,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4010,7 +4029,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4047,7 +4066,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4084,7 +4103,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4121,7 +4140,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4158,7 +4177,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4196,7 +4215,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4234,7 +4253,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4270,7 +4289,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4306,7 +4325,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4339,7 +4358,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4372,7 +4391,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4406,7 +4425,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4440,7 +4459,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4471,7 +4490,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4502,7 +4521,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4535,7 +4554,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4568,7 +4587,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4600,7 +4619,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4632,7 +4651,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4666,7 +4685,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4700,7 +4719,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4732,7 +4751,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4764,7 +4783,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4797,7 +4816,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4830,7 +4849,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4861,7 +4880,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4892,7 +4911,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4924,7 +4943,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4956,7 +4975,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -4992,7 +5011,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5028,7 +5047,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5060,7 +5079,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5092,7 +5111,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5123,7 +5142,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5142,6 +5161,138 @@ namespace Azure.ResourceManager.AppService
         }
 
         /// <summary>
+        /// Retrieve information regarding the provided virtual network integration, such as its allocated resources and its allocated IP
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Web/locations/{location}/listVirtualNetworkIntegrations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ListVirtualNetworkIntegrations</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-11-01</description>
+        /// </item>
+        /// </list>
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableAppServiceSubscriptionResource.GetVirtualNetworkIntegrations(AzureLocation,VirtualNetworkIntegrationRequest,CancellationToken)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="location"> The name of the Azure region. </param>
+        /// <param name="request"> Object contains the subnetResourceId. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> or <paramref name="request"/> is null. </exception>
+        public static async Task<Response<SwiftVirtualNetworkData>> GetVirtualNetworkIntegrationsAsync(this SubscriptionResource subscriptionResource, AzureLocation location, VirtualNetworkIntegrationRequest request, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
+
+            return await GetMockableAppServiceSubscriptionResource(subscriptionResource).GetVirtualNetworkIntegrationsAsync(location, request, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Retrieve information regarding the provided virtual network integration, such as its allocated resources and its allocated IP
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Web/locations/{location}/listVirtualNetworkIntegrations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ListVirtualNetworkIntegrations</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-11-01</description>
+        /// </item>
+        /// </list>
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableAppServiceSubscriptionResource.GetVirtualNetworkIntegrations(AzureLocation,VirtualNetworkIntegrationRequest,CancellationToken)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="location"> The name of the Azure region. </param>
+        /// <param name="request"> Object contains the subnetResourceId. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> or <paramref name="request"/> is null. </exception>
+        public static Response<SwiftVirtualNetworkData> GetVirtualNetworkIntegrations(this SubscriptionResource subscriptionResource, AzureLocation location, VirtualNetworkIntegrationRequest request, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
+
+            return GetMockableAppServiceSubscriptionResource(subscriptionResource).GetVirtualNetworkIntegrations(location, request, cancellationToken);
+        }
+
+        /// <summary>
+        /// Delete orphaned (unused) VNET integration, otherwise fail the call if there are sites that are still using the VNET integrations
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Web/locations/{location}/purgeUnusedVirtualNetworkIntegration</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PurgeUnusedVirtualNetworkIntegrations</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-11-01</description>
+        /// </item>
+        /// </list>
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableAppServiceSubscriptionResource.PurgeUnusedVirtualNetworkIntegrations(AzureLocation,VirtualNetworkIntegrationRequest,CancellationToken)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="location"> The name of the Azure region. </param>
+        /// <param name="request"> Object contains the subnetResourceId. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> or <paramref name="request"/> is null. </exception>
+        public static async Task<Response<VirtualNetworkIntegrationResponse>> PurgeUnusedVirtualNetworkIntegrationsAsync(this SubscriptionResource subscriptionResource, AzureLocation location, VirtualNetworkIntegrationRequest request, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
+
+            return await GetMockableAppServiceSubscriptionResource(subscriptionResource).PurgeUnusedVirtualNetworkIntegrationsAsync(location, request, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Delete orphaned (unused) VNET integration, otherwise fail the call if there are sites that are still using the VNET integrations
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Web/locations/{location}/purgeUnusedVirtualNetworkIntegration</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PurgeUnusedVirtualNetworkIntegrations</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-11-01</description>
+        /// </item>
+        /// </list>
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableAppServiceSubscriptionResource.PurgeUnusedVirtualNetworkIntegrations(AzureLocation,VirtualNetworkIntegrationRequest,CancellationToken)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="location"> The name of the Azure region. </param>
+        /// <param name="request"> Object contains the subnetResourceId. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> or <paramref name="request"/> is null. </exception>
+        public static Response<VirtualNetworkIntegrationResponse> PurgeUnusedVirtualNetworkIntegrations(this SubscriptionResource subscriptionResource, AzureLocation location, VirtualNetworkIntegrationRequest request, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
+
+            return GetMockableAppServiceSubscriptionResource(subscriptionResource).PurgeUnusedVirtualNetworkIntegrations(location, request, cancellationToken);
+        }
+
+        /// <summary>
         /// Description for Verifies if this VNET is compatible with an App Service Environment by analyzing the Network Security Group rules.
         /// <list type="bullet">
         /// <item>
@@ -5154,7 +5305,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5186,7 +5337,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5218,7 +5369,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5251,7 +5402,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5284,7 +5435,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5317,7 +5468,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5350,7 +5501,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5386,7 +5537,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5422,7 +5573,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5458,7 +5609,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5528,7 +5679,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5566,7 +5717,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5604,7 +5755,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5636,7 +5787,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5668,7 +5819,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5700,7 +5851,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5732,7 +5883,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5765,7 +5916,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5798,7 +5949,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5831,7 +5982,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5864,7 +6015,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5898,7 +6049,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5932,7 +6083,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -5966,7 +6117,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -6000,7 +6151,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -6032,7 +6183,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -6064,7 +6215,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -6097,7 +6248,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
+        /// <description>2024-11-01</description>
         /// </item>
         /// </list>
         /// <item>
