@@ -3472,11 +3472,12 @@ namespace Azure.Messaging.EventGrid
         }
 
         /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsEmailDeliveryReportStatusDetails"/>. </summary>
+        /// <param name="recipientMailServer"> Recipient Mail Server. </param>
         /// <param name="statusMessage"> Detailed status message. </param>
         /// <returns> A new <see cref="SystemEvents.AcsEmailDeliveryReportStatusDetails"/> instance for mocking. </returns>
-        public static AcsEmailDeliveryReportStatusDetails AcsEmailDeliveryReportStatusDetails(string statusMessage = null)
+        public static AcsEmailDeliveryReportStatusDetails AcsEmailDeliveryReportStatusDetails(string recipientMailServer = null, string statusMessage = null)
         {
-            return new AcsEmailDeliveryReportStatusDetails(statusMessage);
+            return new AcsEmailDeliveryReportStatusDetails(recipientMailServer, statusMessage);
         }
 
         /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsEmailEngagementTrackingReportReceivedEventData"/>. </summary>
