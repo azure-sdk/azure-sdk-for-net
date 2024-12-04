@@ -14,24 +14,26 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsMessageReceivedEventData : AcsMessageEventData
     {
         /// <summary> Initializes a new instance of <see cref="AcsMessageReceivedEventData"/>. </summary>
-        /// <param name="receivedTimestamp"> The time message was received. </param>
         /// <param name="error"> The channel event error. </param>
         /// <param name="channelKind"> The message channel type. </param>
         /// <param name="mediaContent"> The received message media content. </param>
+        /// <param name="reaction"> The received message reaction content. </param>
         /// <param name="context"> The received message context. </param>
         /// <param name="button"> The received message button content. </param>
         /// <param name="interactiveContent"> The received message interactive content. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="error"/>, <paramref name="mediaContent"/>, <paramref name="context"/>, <paramref name="button"/> or <paramref name="interactiveContent"/> is null. </exception>
-        internal AcsMessageReceivedEventData(DateTimeOffset receivedTimestamp, AcsMessageChannelEventError error, AcsMessageChannelKind channelKind, AcsMessageMediaContent mediaContent, AcsMessageContext context, AcsMessageButtonContent button, AcsMessageInteractiveContent interactiveContent) : base(receivedTimestamp, error)
+        /// <exception cref="ArgumentNullException"> <paramref name="error"/>, <paramref name="mediaContent"/>, <paramref name="reaction"/>, <paramref name="context"/>, <paramref name="button"/> or <paramref name="interactiveContent"/> is null. </exception>
+        internal AcsMessageReceivedEventData(AcsMessageChannelEventError error, AcsMessageChannelKind channelKind, AcsMessageMediaContent mediaContent, AcsMessageReactionContent reaction, AcsMessageContext context, AcsMessageButtonContent button, AcsMessageInteractiveContent interactiveContent) : base(error)
         {
             Argument.AssertNotNull(error, nameof(error));
             Argument.AssertNotNull(mediaContent, nameof(mediaContent));
+            Argument.AssertNotNull(reaction, nameof(reaction));
             Argument.AssertNotNull(context, nameof(context));
             Argument.AssertNotNull(button, nameof(button));
             Argument.AssertNotNull(interactiveContent, nameof(interactiveContent));
 
             ChannelKind = channelKind;
             MediaContent = mediaContent;
+            Reaction = reaction;
             Context = context;
             Button = button;
             InteractiveContent = interactiveContent;
@@ -44,16 +46,20 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="error"> The channel event error. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="content"> The message content. </param>
+        /// <param name="messageType"> WhatsApp message type. </param>
         /// <param name="channelKind"> The message channel type. </param>
         /// <param name="mediaContent"> The received message media content. </param>
+        /// <param name="reaction"> The received message reaction content. </param>
         /// <param name="context"> The received message context. </param>
         /// <param name="button"> The received message button content. </param>
         /// <param name="interactiveContent"> The received message interactive content. </param>
-        internal AcsMessageReceivedEventData(string @from, string to, DateTimeOffset receivedTimestamp, AcsMessageChannelEventError error, IDictionary<string, BinaryData> serializedAdditionalRawData, string content, AcsMessageChannelKind channelKind, AcsMessageMediaContent mediaContent, AcsMessageContext context, AcsMessageButtonContent button, AcsMessageInteractiveContent interactiveContent) : base(@from, to, receivedTimestamp, error, serializedAdditionalRawData)
+        internal AcsMessageReceivedEventData(string @from, string to, DateTimeOffset? receivedTimestamp, AcsMessageChannelEventError error, IDictionary<string, BinaryData> serializedAdditionalRawData, string content, string messageType, AcsMessageChannelKind channelKind, AcsMessageMediaContent mediaContent, AcsMessageReactionContent reaction, AcsMessageContext context, AcsMessageButtonContent button, AcsMessageInteractiveContent interactiveContent) : base(@from, to, receivedTimestamp, error, serializedAdditionalRawData)
         {
             Content = content;
+            MessageType = messageType;
             ChannelKind = channelKind;
             MediaContent = mediaContent;
+            Reaction = reaction;
             Context = context;
             Button = button;
             InteractiveContent = interactiveContent;
@@ -66,10 +72,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         /// <summary> The message content. </summary>
         public string Content { get; }
+        /// <summary> WhatsApp message type. </summary>
+        public string MessageType { get; }
         /// <summary> The message channel type. </summary>
         public AcsMessageChannelKind ChannelKind { get; }
         /// <summary> The received message media content. </summary>
         public AcsMessageMediaContent MediaContent { get; }
+        /// <summary> The received message reaction content. </summary>
+        public AcsMessageReactionContent Reaction { get; }
         /// <summary> The received message context. </summary>
         public AcsMessageContext Context { get; }
         /// <summary> The received message button content. </summary>
