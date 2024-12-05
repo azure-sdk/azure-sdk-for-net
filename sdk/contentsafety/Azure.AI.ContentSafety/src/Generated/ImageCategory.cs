@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.AI.ContentSafety
 {
-    /// <summary> Image analyze category. </summary>
+    /// <summary> The harm category supported in Image content analysis. </summary>
     public readonly partial struct ImageCategory : IEquatable<ImageCategory>
     {
         private readonly string _value;
@@ -26,15 +26,18 @@ namespace Azure.AI.ContentSafety
         private const string SelfHarmValue = "SelfHarm";
         private const string SexualValue = "Sexual";
         private const string ViolenceValue = "Violence";
+        private const string DrugsValue = "Drugs";
 
-        /// <summary> Hate. </summary>
+        /// <summary> The harm category for Image - Hate. </summary>
         public static ImageCategory Hate { get; } = new ImageCategory(HateValue);
-        /// <summary> SelfHarm. </summary>
+        /// <summary> The harm category for Image - SelfHarm. </summary>
         public static ImageCategory SelfHarm { get; } = new ImageCategory(SelfHarmValue);
-        /// <summary> Sexual. </summary>
+        /// <summary> The harm category for Image - Sexual. </summary>
         public static ImageCategory Sexual { get; } = new ImageCategory(SexualValue);
-        /// <summary> Violence. </summary>
+        /// <summary> The harm category for Image - Violence. </summary>
         public static ImageCategory Violence { get; } = new ImageCategory(ViolenceValue);
+        /// <summary> The harm category for Text - Drugs. </summary>
+        public static ImageCategory Drugs { get; } = new ImageCategory(DrugsValue);
         /// <summary> Determines if two <see cref="ImageCategory"/> values are the same. </summary>
         public static bool operator ==(ImageCategory left, ImageCategory right) => left.Equals(right);
         /// <summary> Determines if two <see cref="ImageCategory"/> values are not the same. </summary>
