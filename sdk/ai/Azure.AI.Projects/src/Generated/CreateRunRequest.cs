@@ -100,9 +100,10 @@ namespace Azure.AI.Projects
         /// <param name="truncationStrategy"> The strategy to use for dropping messages as the context windows moves forward. </param>
         /// <param name="toolChoice"> Controls whether or not and which tool is called by the model. </param>
         /// <param name="responseFormat"> Specifies the format that the model must output. </param>
+        /// <param name="parallelToolCalls"> If `true` functions will run in parallel during tool use. </param>
         /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CreateRunRequest(string assistantId, string overrideModelName, string overrideInstructions, string additionalInstructions, IReadOnlyList<ThreadMessageOptions> additionalMessages, IReadOnlyList<ToolDefinition> overrideTools, bool? stream, float? temperature, float? topP, int? maxPromptTokens, int? maxCompletionTokens, TruncationObject truncationStrategy, BinaryData toolChoice, BinaryData responseFormat, IReadOnlyDictionary<string, string> metadata, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CreateRunRequest(string assistantId, string overrideModelName, string overrideInstructions, string additionalInstructions, IReadOnlyList<ThreadMessageOptions> additionalMessages, IReadOnlyList<ToolDefinition> overrideTools, bool? stream, float? temperature, float? topP, int? maxPromptTokens, int? maxCompletionTokens, TruncationObject truncationStrategy, BinaryData toolChoice, BinaryData responseFormat, bool? parallelToolCalls, IReadOnlyDictionary<string, string> metadata, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             AssistantId = assistantId;
             OverrideModelName = overrideModelName;
@@ -118,6 +119,7 @@ namespace Azure.AI.Projects
             TruncationStrategy = truncationStrategy;
             ToolChoice = toolChoice;
             ResponseFormat = responseFormat;
+            ParallelToolCalls = parallelToolCalls;
             Metadata = metadata;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -268,6 +270,8 @@ namespace Azure.AI.Projects
         /// </para>
         /// </summary>
         public BinaryData ResponseFormat { get; }
+        /// <summary> If `true` functions will run in parallel during tool use. </summary>
+        public bool? ParallelToolCalls { get; }
         /// <summary> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </summary>
         public IReadOnlyDictionary<string, string> Metadata { get; }
     }
