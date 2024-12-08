@@ -84,5 +84,14 @@ namespace Azure.ResourceManager.Fabric.Models
 
             return new FabricSkuDetailsForNewCapacity(resourceType, name, locations?.ToList(), serializedAdditionalRawData: null);
         }
+
+        /// <summary> Initializes a new instance of <see cref="Models.FabricUsageAndQuotaDetailsForExistingResource"/>. </summary>
+        /// <param name="currentValue"> The current consumption value. </param>
+        /// <param name="limit"> The quota limit. </param>
+        /// <returns> A new <see cref="Models.FabricUsageAndQuotaDetailsForExistingResource"/> instance for mocking. </returns>
+        public static FabricUsageAndQuotaDetailsForExistingResource FabricUsageAndQuotaDetailsForExistingResource(int currentValue = default, int limit = default)
+        {
+            return new FabricUsageAndQuotaDetailsForExistingResource(currentValue, limit, serializedAdditionalRawData: null);
+        }
     }
 }
