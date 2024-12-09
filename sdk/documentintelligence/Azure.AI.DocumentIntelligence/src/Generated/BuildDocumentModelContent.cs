@@ -62,11 +62,11 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="modelId"> Unique document model name. </param>
         /// <param name="description"> Document model description. </param>
         /// <param name="buildMode"> Custom document model build mode. </param>
-        /// <param name="azureBlobSource">
+        /// <param name="blobSource">
         /// Azure Blob Storage location containing the training data.  Either
         /// azureBlobSource or azureBlobFileListSource must be specified.
         /// </param>
-        /// <param name="azureBlobFileListSource">
+        /// <param name="blobFileListSource">
         /// Azure Blob Storage file list specifying the training data.  Either
         /// azureBlobSource or azureBlobFileListSource must be specified.
         /// </param>
@@ -74,13 +74,13 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="maxTrainingHours"> Max number of V100-equivalent GPU hours to use for model training.  Default=0.5. </param>
         /// <param name="allowOverwrite"> Allow overwriting an existing model with the same name. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BuildDocumentModelContent(string modelId, string description, DocumentBuildMode buildMode, AzureBlobContentSource azureBlobSource, AzureBlobFileListContentSource azureBlobFileListSource, IDictionary<string, string> tags, float? maxTrainingHours, bool? allowOverwrite, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BuildDocumentModelContent(string modelId, string description, DocumentBuildMode buildMode, BlobContentSource blobSource, BlobFileListContentSource blobFileListSource, IDictionary<string, string> tags, float? maxTrainingHours, bool? allowOverwrite, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ModelId = modelId;
             Description = description;
             BuildMode = buildMode;
-            AzureBlobSource = azureBlobSource;
-            AzureBlobFileListSource = azureBlobFileListSource;
+            BlobSource = blobSource;
+            BlobFileListSource = blobFileListSource;
             Tags = tags;
             MaxTrainingHours = maxTrainingHours;
             AllowOverwrite = allowOverwrite;
@@ -102,12 +102,12 @@ namespace Azure.AI.DocumentIntelligence
         /// Azure Blob Storage location containing the training data.  Either
         /// azureBlobSource or azureBlobFileListSource must be specified.
         /// </summary>
-        public AzureBlobContentSource AzureBlobSource { get; set; }
+        public BlobContentSource BlobSource { get; set; }
         /// <summary>
         /// Azure Blob Storage file list specifying the training data.  Either
         /// azureBlobSource or azureBlobFileListSource must be specified.
         /// </summary>
-        public AzureBlobFileListContentSource AzureBlobFileListSource { get; set; }
+        public BlobFileListContentSource BlobFileListSource { get; set; }
         /// <summary> List of key-value tag attributes associated with the document model. </summary>
         public IDictionary<string, string> Tags { get; }
         /// <summary> Max number of V100-equivalent GPU hours to use for model training.  Default=0.5. </summary>

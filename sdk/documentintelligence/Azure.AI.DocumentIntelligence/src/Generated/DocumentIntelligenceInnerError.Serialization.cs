@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.AI.DocumentIntelligence
 {
-    public partial class InnerError : IUtf8JsonSerializable, IJsonModel<InnerError>
+    public partial class DocumentIntelligenceInnerError : IUtf8JsonSerializable, IJsonModel<DocumentIntelligenceInnerError>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<InnerError>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<DocumentIntelligenceInnerError>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<InnerError>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<DocumentIntelligenceInnerError>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,10 +28,10 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<InnerError>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<DocumentIntelligenceInnerError>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(InnerError)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(DocumentIntelligenceInnerError)} does not support writing '{format}' format.");
             }
 
             if (Optional.IsDefined(Code))
@@ -66,19 +66,19 @@ namespace Azure.AI.DocumentIntelligence
             }
         }
 
-        InnerError IJsonModel<InnerError>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        DocumentIntelligenceInnerError IJsonModel<DocumentIntelligenceInnerError>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<InnerError>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<DocumentIntelligenceInnerError>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(InnerError)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(DocumentIntelligenceInnerError)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeInnerError(document.RootElement, options);
+            return DeserializeDocumentIntelligenceInnerError(document.RootElement, options);
         }
 
-        internal static InnerError DeserializeInnerError(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static DocumentIntelligenceInnerError DeserializeDocumentIntelligenceInnerError(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -88,7 +88,7 @@ namespace Azure.AI.DocumentIntelligence
             }
             string code = default;
             string message = default;
-            InnerError innererror = default;
+            DocumentIntelligenceInnerError innererror = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -109,7 +109,7 @@ namespace Azure.AI.DocumentIntelligence
                     {
                         continue;
                     }
-                    innererror = DeserializeInnerError(property.Value, options);
+                    innererror = DeserializeDocumentIntelligenceInnerError(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -118,46 +118,46 @@ namespace Azure.AI.DocumentIntelligence
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new InnerError(code, message, innererror, serializedAdditionalRawData);
+            return new DocumentIntelligenceInnerError(code, message, innererror, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<InnerError>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<DocumentIntelligenceInnerError>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<InnerError>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<DocumentIntelligenceInnerError>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(InnerError)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DocumentIntelligenceInnerError)} does not support writing '{options.Format}' format.");
             }
         }
 
-        InnerError IPersistableModel<InnerError>.Create(BinaryData data, ModelReaderWriterOptions options)
+        DocumentIntelligenceInnerError IPersistableModel<DocumentIntelligenceInnerError>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<InnerError>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<DocumentIntelligenceInnerError>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeInnerError(document.RootElement, options);
+                        return DeserializeDocumentIntelligenceInnerError(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(InnerError)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DocumentIntelligenceInnerError)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<InnerError>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<DocumentIntelligenceInnerError>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static InnerError FromResponse(Response response)
+        internal static DocumentIntelligenceInnerError FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeInnerError(document.RootElement);
+            return DeserializeDocumentIntelligenceInnerError(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
