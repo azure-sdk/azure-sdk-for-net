@@ -10,11 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.Projects
 {
-    /// <summary>
-    /// An object describing the expected output of the model. If `json_object` only `function` type `tools` are allowed to be passed to the Run.
-    /// If `text` the model can return text or any value needed.
-    /// </summary>
-    public partial class AgentsApiResponseFormat
+    /// <summary> A description of what the response format is for, used by the model to determine how to respond in the format. </summary>
+    public partial class ResponseFormatJsonSchema
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -48,22 +45,43 @@ namespace Azure.AI.Projects
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AgentsApiResponseFormat"/>. </summary>
-        public AgentsApiResponseFormat()
+        /// <summary> Initializes a new instance of <see cref="ResponseFormatJsonSchema"/>. </summary>
+        /// <param name="name"> The name of a schema. </param>
+        /// <param name="schema"> The JSON schema object, describing the response format. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="schema"/> is null. </exception>
+        public ResponseFormatJsonSchema(string name, BinaryData schema)
         {
+            Argument.AssertNotNull(name, nameof(name));
+            Argument.AssertNotNull(schema, nameof(schema));
+
+            Name = name;
+            Schema = schema;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AgentsApiResponseFormat"/>. </summary>
-        /// <param name="type"> Must be one of `text` or `json_object`. </param>
+        /// <summary> Initializes a new instance of <see cref="ResponseFormatJsonSchema"/>. </summary>
+        /// <param name="description"> A description of what the response format is for, used by the model to determine how to respond in the format. </param>
+        /// <param name="name"> The name of a schema. </param>
+        /// <param name="schema"> The JSON schema object, describing the response format. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AgentsApiResponseFormat(BinaryData type, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ResponseFormatJsonSchema(string description, string name, BinaryData schema, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Type = type;
+            Description = description;
+            Name = name;
+            Schema = schema;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
+        /// <summary> Initializes a new instance of <see cref="ResponseFormatJsonSchema"/> for deserialization. </summary>
+        internal ResponseFormatJsonSchema()
+        {
+        }
+
+        /// <summary> A description of what the response format is for, used by the model to determine how to respond in the format. </summary>
+        public string Description { get; set; }
+        /// <summary> The name of a schema. </summary>
+        public string Name { get; set; }
         /// <summary>
-        /// Must be one of `text` or `json_object`.
+        /// The JSON schema object, describing the response format.
         /// <para>
         /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
@@ -71,23 +89,6 @@ namespace Azure.AI.Projects
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
         /// </para>
         /// <para>
-        /// <remarks>
-        /// Supported types:
-        /// <list type="bullet">
-        /// <item>
-        /// <description><see cref="string"/></description>
-        /// </item>
-        /// <item>
-        /// <description>"text"</description>
-        /// </item>
-        /// <item>
-        /// <description>"json_object"</description>
-        /// </item>
-        /// <item>
-        /// <description><see cref="ResponseFormatJsonSchemaType"/></description>
-        /// </item>
-        /// </list>
-        /// </remarks>
         /// Examples:
         /// <list type="bullet">
         /// <item>
@@ -109,6 +110,6 @@ namespace Azure.AI.Projects
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Type { get; set; }
+        public BinaryData Schema { get; set; }
     }
 }
