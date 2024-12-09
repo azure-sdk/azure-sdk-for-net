@@ -55,13 +55,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="mediaId"> The media identifier. </param>
         /// <param name="fileName"> The filename of the underlying media file as specified when uploaded. </param>
         /// <param name="caption"> The caption for the media object, if supported and provided. </param>
+        /// <param name="animated"> Set to  true if the sticker is animated;  false otherwise. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AcsMessageMediaContent(string mimeType, string mediaId, string fileName, string caption, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AcsMessageMediaContent(string mimeType, string mediaId, string fileName, string caption, bool? animated, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             MimeType = mimeType;
             MediaId = mediaId;
             FileName = fileName;
             Caption = caption;
+            Animated = animated;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -73,5 +75,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public string FileName { get; }
         /// <summary> The caption for the media object, if supported and provided. </summary>
         public string Caption { get; }
+        /// <summary> Set to  true if the sticker is animated;  false otherwise. </summary>
+        public bool? Animated { get; }
     }
 }
