@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Automation.Models
 {
-    public partial class HybridRunbookWorkerCreateOrUpdateContent : IUtf8JsonSerializable, IJsonModel<HybridRunbookWorkerCreateOrUpdateContent>
+    public partial class PackagePatch : IUtf8JsonSerializable, IJsonModel<PackagePatch>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<HybridRunbookWorkerCreateOrUpdateContent>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<PackagePatch>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<HybridRunbookWorkerCreateOrUpdateContent>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<PackagePatch>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,23 +28,23 @@ namespace Azure.ResourceManager.Automation.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<HybridRunbookWorkerCreateOrUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PackagePatch>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(HybridRunbookWorkerCreateOrUpdateContent)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(PackagePatch)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(Name))
+            if (Optional.IsDefined(AllOf))
             {
-                writer.WritePropertyName("name"u8);
-                writer.WriteStringValue(Name);
+                writer.WritePropertyName("allOf"u8);
+                writer.WriteObjectValue(AllOf, options);
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(VmResourceId))
+            if (Optional.IsDefined(ContentLink))
             {
-                writer.WritePropertyName("vmResourceId"u8);
-                writer.WriteStringValue(VmResourceId);
+                writer.WritePropertyName("contentLink"u8);
+                writer.WriteObjectValue(ContentLink, options);
             }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -64,19 +64,19 @@ namespace Azure.ResourceManager.Automation.Models
             }
         }
 
-        HybridRunbookWorkerCreateOrUpdateContent IJsonModel<HybridRunbookWorkerCreateOrUpdateContent>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        PackagePatch IJsonModel<PackagePatch>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<HybridRunbookWorkerCreateOrUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PackagePatch>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(HybridRunbookWorkerCreateOrUpdateContent)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(PackagePatch)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeHybridRunbookWorkerCreateOrUpdateContent(document.RootElement, options);
+            return DeserializePackagePatch(document.RootElement, options);
         }
 
-        internal static HybridRunbookWorkerCreateOrUpdateContent DeserializeHybridRunbookWorkerCreateOrUpdateContent(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static PackagePatch DeserializePackagePatch(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -84,15 +84,19 @@ namespace Azure.ResourceManager.Automation.Models
             {
                 return null;
             }
-            string name = default;
-            ResourceIdentifier vmResourceId = default;
+            TrackedResource allOf = default;
+            AutomationContentLink contentLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("name"u8))
+                if (property.NameEquals("allOf"u8))
                 {
-                    name = property.Value.GetString();
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    allOf = TrackedResource.DeserializeTrackedResource(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("properties"u8))
@@ -104,13 +108,13 @@ namespace Azure.ResourceManager.Automation.Models
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("vmResourceId"u8))
+                        if (property0.NameEquals("contentLink"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
-                            vmResourceId = new ResourceIdentifier(property0.Value.GetString());
+                            contentLink = AutomationContentLink.DeserializeAutomationContentLink(property0.Value, options);
                             continue;
                         }
                     }
@@ -122,38 +126,38 @@ namespace Azure.ResourceManager.Automation.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new HybridRunbookWorkerCreateOrUpdateContent(name, vmResourceId, serializedAdditionalRawData);
+            return new PackagePatch(allOf, contentLink, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<HybridRunbookWorkerCreateOrUpdateContent>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<PackagePatch>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<HybridRunbookWorkerCreateOrUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PackagePatch>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(HybridRunbookWorkerCreateOrUpdateContent)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(PackagePatch)} does not support writing '{options.Format}' format.");
             }
         }
 
-        HybridRunbookWorkerCreateOrUpdateContent IPersistableModel<HybridRunbookWorkerCreateOrUpdateContent>.Create(BinaryData data, ModelReaderWriterOptions options)
+        PackagePatch IPersistableModel<PackagePatch>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<HybridRunbookWorkerCreateOrUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PackagePatch>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeHybridRunbookWorkerCreateOrUpdateContent(document.RootElement, options);
+                        return DeserializePackagePatch(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(HybridRunbookWorkerCreateOrUpdateContent)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(PackagePatch)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<HybridRunbookWorkerCreateOrUpdateContent>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<PackagePatch>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

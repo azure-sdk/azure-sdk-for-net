@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Automation.Models
 {
-    /// <summary> The response model for the list job operation. </summary>
-    internal partial class DscCompilationJobListResult
+    /// <summary> The parameters supplied to the update package operation. </summary>
+    public partial class PackagePatch
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,26 +45,25 @@ namespace Azure.ResourceManager.Automation.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="DscCompilationJobListResult"/>. </summary>
-        internal DscCompilationJobListResult()
+        /// <summary> Initializes a new instance of <see cref="PackagePatch"/>. </summary>
+        public PackagePatch()
         {
-            Value = new ChangeTrackingList<DscCompilationJobData>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="DscCompilationJobListResult"/>. </summary>
-        /// <param name="value"> Gets or sets a list of Dsc Compilation jobs. </param>
-        /// <param name="nextLink"> Gets or sets the next link. </param>
+        /// <summary> Initializes a new instance of <see cref="PackagePatch"/>. </summary>
+        /// <param name="allOf"> The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'. </param>
+        /// <param name="contentLink"> Gets or sets the package content link. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DscCompilationJobListResult(IReadOnlyList<DscCompilationJobData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PackagePatch(TrackedResource allOf, AutomationContentLink contentLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Value = value;
-            NextLink = nextLink;
+            AllOf = allOf;
+            ContentLink = contentLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Gets or sets a list of Dsc Compilation jobs. </summary>
-        public IReadOnlyList<DscCompilationJobData> Value { get; }
-        /// <summary> Gets or sets the next link. </summary>
-        public string NextLink { get; }
+        /// <summary> The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'. </summary>
+        public TrackedResource AllOf { get; set; }
+        /// <summary> Gets or sets the package content link. </summary>
+        public AutomationContentLink ContentLink { get; set; }
     }
 }
