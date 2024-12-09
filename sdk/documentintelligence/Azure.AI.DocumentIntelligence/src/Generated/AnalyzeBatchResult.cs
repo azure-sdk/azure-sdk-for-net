@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Azure.AI.DocumentIntelligence
 {
@@ -50,16 +49,12 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="succeededCount"> Number of documents that completed with status succeeded. </param>
         /// <param name="failedCount"> Number of documents that completed with status failed. </param>
         /// <param name="skippedCount"> Number of documents that completed with status skipped. </param>
-        /// <param name="details"> Operation detail for each document in the batch. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="details"/> is null. </exception>
-        internal AnalyzeBatchResult(int succeededCount, int failedCount, int skippedCount, IEnumerable<AnalyzeBatchOperationDetail> details)
+        internal AnalyzeBatchResult(int succeededCount, int failedCount, int skippedCount)
         {
-            Argument.AssertNotNull(details, nameof(details));
-
             SucceededCount = succeededCount;
             FailedCount = failedCount;
             SkippedCount = skippedCount;
-            Details = details.ToList();
+            Details = new ChangeTrackingList<AnalyzeBatchOperationDetail>();
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeBatchResult"/>. </summary>
