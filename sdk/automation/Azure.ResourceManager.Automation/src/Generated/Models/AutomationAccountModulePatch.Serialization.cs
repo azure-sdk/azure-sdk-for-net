@@ -34,12 +34,12 @@ namespace Azure.ResourceManager.Automation.Models
                 throw new FormatException($"The model {nameof(AutomationAccountModulePatch)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(Name))
+            if (options.Format != "W" && Optional.IsDefined(Name))
             {
                 writer.WritePropertyName("name"u8);
                 writer.WriteStringValue(Name);
             }
-            if (Optional.IsDefined(Location))
+            if (options.Format != "W" && Optional.IsDefined(Location))
             {
                 writer.WritePropertyName("location"u8);
                 writer.WriteStringValue(Location.Value);
