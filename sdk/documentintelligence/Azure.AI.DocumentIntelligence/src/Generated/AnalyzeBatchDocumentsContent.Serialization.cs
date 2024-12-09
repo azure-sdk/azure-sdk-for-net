@@ -93,8 +93,8 @@ namespace Azure.AI.DocumentIntelligence
             {
                 return null;
             }
-            AzureBlobContentSource azureBlobSource = default;
-            AzureBlobFileListContentSource azureBlobFileListSource = default;
+            BlobContentSource azureBlobSource = default;
+            BlobFileListContentSource azureBlobFileListSource = default;
             Uri resultContainerUrl = default;
             string resultPrefix = default;
             bool? overwriteExisting = default;
@@ -108,7 +108,7 @@ namespace Azure.AI.DocumentIntelligence
                     {
                         continue;
                     }
-                    azureBlobSource = AzureBlobContentSource.DeserializeAzureBlobContentSource(property.Value, options);
+                    azureBlobSource = BlobContentSource.DeserializeBlobContentSource(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("azureBlobFileListSource"u8))
@@ -117,7 +117,7 @@ namespace Azure.AI.DocumentIntelligence
                     {
                         continue;
                     }
-                    azureBlobFileListSource = AzureBlobFileListContentSource.DeserializeAzureBlobFileListContentSource(property.Value, options);
+                    azureBlobFileListSource = BlobFileListContentSource.DeserializeBlobFileListContentSource(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("resultContainerUrl"u8))

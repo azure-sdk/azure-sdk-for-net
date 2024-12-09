@@ -10,10 +10,10 @@ using System.Collections.Generic;
 
 namespace Azure.AI.DocumentIntelligence
 {
-    /// <summary> Unknown version of OperationDetails. </summary>
-    internal partial class UnknownOperationDetails : OperationDetails
+    /// <summary> Unknown version of DocumentIntelligenceOperationDetails. </summary>
+    internal partial class UnknownDocumentIntelligenceOperationDetails : DocumentIntelligenceOperationDetails
     {
-        /// <summary> Initializes a new instance of <see cref="UnknownOperationDetails"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="UnknownDocumentIntelligenceOperationDetails"/>. </summary>
         /// <param name="operationId"> Operation ID. </param>
         /// <param name="status"> Operation status.  notStarted, running, completed, or failed. </param>
         /// <param name="percentCompleted"> Operation progress (0-100). </param>
@@ -25,12 +25,12 @@ namespace Azure.AI.DocumentIntelligence
         /// <param name="tags"> List of key-value tag attributes associated with the document model. </param>
         /// <param name="error"> Encountered error. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownOperationDetails(string operationId, OperationStatus status, int? percentCompleted, DateTimeOffset createdOn, DateTimeOffset lastUpdatedOn, OperationKind kind, Uri resourceLocation, string apiVersion, IReadOnlyDictionary<string, string> tags, DocumentIntelligenceError error, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(operationId, status, percentCompleted, createdOn, lastUpdatedOn, kind, resourceLocation, apiVersion, tags, error, serializedAdditionalRawData)
+        internal UnknownDocumentIntelligenceOperationDetails(string operationId, DocumentIntelligenceOperationStatus status, int? percentCompleted, DateTimeOffset createdOn, DateTimeOffset lastUpdatedOn, OperationKind kind, Uri resourceLocation, string apiVersion, IReadOnlyDictionary<string, string> tags, DocumentIntelligenceError error, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(operationId, status, percentCompleted, createdOn, lastUpdatedOn, kind, resourceLocation, apiVersion, tags, error, serializedAdditionalRawData)
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="UnknownOperationDetails"/> for deserialization. </summary>
-        internal UnknownOperationDetails()
+        /// <summary> Initializes a new instance of <see cref="UnknownDocumentIntelligenceOperationDetails"/> for deserialization. </summary>
+        internal UnknownDocumentIntelligenceOperationDetails()
         {
         }
     }

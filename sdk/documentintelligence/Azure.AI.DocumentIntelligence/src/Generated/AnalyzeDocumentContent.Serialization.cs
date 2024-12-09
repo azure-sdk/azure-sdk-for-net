@@ -34,10 +34,10 @@ namespace Azure.AI.DocumentIntelligence
                 throw new FormatException($"The model {nameof(AnalyzeDocumentContent)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(UrlSource))
+            if (Optional.IsDefined(UriSource))
             {
                 writer.WritePropertyName("urlSource"u8);
-                writer.WriteStringValue(UrlSource.AbsoluteUri);
+                writer.WriteStringValue(UriSource.AbsoluteUri);
             }
             if (Optional.IsDefined(Base64Source))
             {
