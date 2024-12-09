@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.RedisEnterprise.Models
 {
-    /// <summary> The user associated with the access policy. </summary>
-    internal partial class AccessPolicyAssignmentPropertiesUser
+    /// <summary> Properties to configure geo replication for this database. </summary>
+    public partial class ForceLinkParametersGeoReplication
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,22 +45,28 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AccessPolicyAssignmentPropertiesUser"/>. </summary>
-        public AccessPolicyAssignmentPropertiesUser()
+        /// <summary> Initializes a new instance of <see cref="ForceLinkParametersGeoReplication"/>. </summary>
+        public ForceLinkParametersGeoReplication()
         {
+            LinkedDatabases = new ChangeTrackingList<RedisEnterpriseLinkedDatabase>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="AccessPolicyAssignmentPropertiesUser"/>. </summary>
-        /// <param name="objectId"> The object ID of the user. </param>
+        /// <summary> Initializes a new instance of <see cref="ForceLinkParametersGeoReplication"/>. </summary>
+        /// <param name="groupNickname"> The name of the group of linked database resources. This should match the existing replication group name. </param>
+        /// <param name="linkedDatabases"> The resource IDs of the databases that are expected to be linked and included in the replication group. This parameter is used to validate that the linking is to the expected (unlinked) part of the replication group, if it is splintered. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AccessPolicyAssignmentPropertiesUser(Guid? objectId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ForceLinkParametersGeoReplication(string groupNickname, IList<RedisEnterpriseLinkedDatabase> linkedDatabases, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            ObjectId = objectId;
+            GroupNickname = groupNickname;
+            LinkedDatabases = linkedDatabases;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The object ID of the user. </summary>
-        [WirePath("objectId")]
-        public Guid? ObjectId { get; set; }
+        /// <summary> The name of the group of linked database resources. This should match the existing replication group name. </summary>
+        [WirePath("groupNickname")]
+        public string GroupNickname { get; set; }
+        /// <summary> The resource IDs of the databases that are expected to be linked and included in the replication group. This parameter is used to validate that the linking is to the expected (unlinked) part of the replication group, if it is splintered. </summary>
+        [WirePath("linkedDatabases")]
+        public IList<RedisEnterpriseLinkedDatabase> LinkedDatabases { get; }
     }
 }
