@@ -40,8 +40,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("message"u8);
                 writer.WriteStringValue(Message);
             }
-            writer.WritePropertyName("receivedTimestamp"u8);
-            writer.WriteStringValue(ReceivedTimestamp, "O");
+            if (Optional.IsDefined(ReceivedTimestamp))
+            {
+                writer.WritePropertyName("receivedTimestamp"u8);
+                writer.WriteStringValue(ReceivedTimestamp.Value, "O");
+            }
+            if (Optional.IsDefined(SegmentCount))
+            {
+                writer.WritePropertyName("segmentCount"u8);
+                writer.WriteNumberValue(SegmentCount.Value);
+            }
         }
 
         AcsSmsReceivedEventData IJsonModel<AcsSmsReceivedEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -65,7 +73,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             string message = default;
-            DateTimeOffset receivedTimestamp = default;
+            DateTimeOffset? receivedTimestamp = default;
+            int? segmentCount = default;
             string messageId = default;
             string @from = default;
             string to = default;
@@ -80,7 +89,20 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("receivedTimestamp"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     receivedTimestamp = property.Value.GetDateTimeOffset("O");
+                    continue;
+                }
+                if (property.NameEquals("segmentCount"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    segmentCount = property.Value.GetInt32();
                     continue;
                 }
                 if (property.NameEquals("messageId"u8))
@@ -110,7 +132,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 to,
                 serializedAdditionalRawData,
                 message,
-                receivedTimestamp);
+                receivedTimestamp,
+                segmentCount);
         }
 
         BinaryData IPersistableModel<AcsSmsReceivedEventData>.Write(ModelReaderWriterOptions options)

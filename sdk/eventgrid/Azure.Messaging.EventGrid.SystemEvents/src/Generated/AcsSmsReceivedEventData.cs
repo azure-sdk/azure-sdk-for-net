@@ -14,10 +14,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsSmsReceivedEventData : AcsSmsEventBaseProperties
     {
         /// <summary> Initializes a new instance of <see cref="AcsSmsReceivedEventData"/>. </summary>
-        /// <param name="receivedTimestamp"> The time at which the SMS was received. </param>
-        internal AcsSmsReceivedEventData(DateTimeOffset receivedTimestamp)
+        internal AcsSmsReceivedEventData()
         {
-            ReceivedTimestamp = receivedTimestamp;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsSmsReceivedEventData"/>. </summary>
@@ -27,20 +25,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="message"> The SMS content. </param>
         /// <param name="receivedTimestamp"> The time at which the SMS was received. </param>
-        internal AcsSmsReceivedEventData(string messageId, string @from, string to, IDictionary<string, BinaryData> serializedAdditionalRawData, string message, DateTimeOffset receivedTimestamp) : base(messageId, @from, to, serializedAdditionalRawData)
+        /// <param name="segmentCount"> Number of segments in the message. </param>
+        internal AcsSmsReceivedEventData(string messageId, string @from, string to, IDictionary<string, BinaryData> serializedAdditionalRawData, string message, DateTimeOffset? receivedTimestamp, int? segmentCount) : base(messageId, @from, to, serializedAdditionalRawData)
         {
             Message = message;
             ReceivedTimestamp = receivedTimestamp;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="AcsSmsReceivedEventData"/> for deserialization. </summary>
-        internal AcsSmsReceivedEventData()
-        {
+            SegmentCount = segmentCount;
         }
 
         /// <summary> The SMS content. </summary>
         public string Message { get; }
         /// <summary> The time at which the SMS was received. </summary>
-        public DateTimeOffset ReceivedTimestamp { get; }
+        public DateTimeOffset? ReceivedTimestamp { get; }
+        /// <summary> Number of segments in the message. </summary>
+        public int? SegmentCount { get; }
     }
 }
