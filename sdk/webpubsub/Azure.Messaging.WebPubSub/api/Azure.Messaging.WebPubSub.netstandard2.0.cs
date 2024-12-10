@@ -5,6 +5,15 @@ namespace Azure.Messaging.WebPubSub
         public static string Create(System.FormattableString filter) { throw null; }
         public static string Create(System.FormattableString filter, System.IFormatProvider formatProvider) { throw null; }
     }
+    public partial class WebPubSubClient
+    {
+        protected WebPubSubClient() { }
+        public WebPubSubClient(string endpoint) { }
+        public WebPubSubClient(string endpoint, Azure.Messaging.WebPubSub.WebPubSubServiceClientOptions options) { }
+        public virtual Azure.Core.Pipeline.HttpPipeline Pipeline { get { throw null; } }
+        public virtual Azure.Pageable<System.BinaryData> GetConnectionsInGroups(string hub, string group, int? maxpagesize = default(int?), int? maxCount = default(int?), string continuationToken = null, Azure.RequestContext context = null) { throw null; }
+        public virtual Azure.AsyncPageable<System.BinaryData> GetConnectionsInGroupsAsync(string hub, string group, int? maxpagesize = default(int?), int? maxCount = default(int?), string continuationToken = null, Azure.RequestContext context = null) { throw null; }
+    }
     public enum WebPubSubClientProtocol
     {
         Default = 0,
