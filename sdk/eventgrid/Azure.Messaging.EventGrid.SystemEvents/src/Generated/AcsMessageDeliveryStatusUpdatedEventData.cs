@@ -14,17 +14,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsMessageDeliveryStatusUpdatedEventData : AcsMessageEventData
     {
         /// <summary> Initializes a new instance of <see cref="AcsMessageDeliveryStatusUpdatedEventData"/>. </summary>
-        /// <param name="receivedTimestamp"> The time message was received. </param>
         /// <param name="error"> The channel event error. </param>
-        /// <param name="status"> The updated message status. </param>
-        /// <param name="channelKind"> The updated message channel type. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="error"/> is null. </exception>
-        internal AcsMessageDeliveryStatusUpdatedEventData(DateTimeOffset receivedTimestamp, AcsMessageChannelEventError error, AcsMessageDeliveryStatus status, AcsMessageChannelKind channelKind) : base(receivedTimestamp, error)
+        internal AcsMessageDeliveryStatusUpdatedEventData(AcsMessageChannelEventError error) : base(error)
         {
             Argument.AssertNotNull(error, nameof(error));
-
-            Status = status;
-            ChannelKind = channelKind;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsMessageDeliveryStatusUpdatedEventData"/>. </summary>
@@ -36,7 +30,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="messageId"> The message id. </param>
         /// <param name="status"> The updated message status. </param>
         /// <param name="channelKind"> The updated message channel type. </param>
-        internal AcsMessageDeliveryStatusUpdatedEventData(string @from, string to, DateTimeOffset receivedTimestamp, AcsMessageChannelEventError error, IDictionary<string, BinaryData> serializedAdditionalRawData, string messageId, AcsMessageDeliveryStatus status, AcsMessageChannelKind channelKind) : base(@from, to, receivedTimestamp, error, serializedAdditionalRawData)
+        internal AcsMessageDeliveryStatusUpdatedEventData(string @from, string to, DateTimeOffset? receivedTimestamp, AcsMessageChannelEventError error, IDictionary<string, BinaryData> serializedAdditionalRawData, string messageId, AcsMessageDeliveryStatus? status, AcsMessageChannelKind? channelKind) : base(@from, to, receivedTimestamp, error, serializedAdditionalRawData)
         {
             MessageId = messageId;
             Status = status;
@@ -51,8 +45,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> The message id. </summary>
         public string MessageId { get; }
         /// <summary> The updated message status. </summary>
-        public AcsMessageDeliveryStatus Status { get; }
+        public AcsMessageDeliveryStatus? Status { get; }
         /// <summary> The updated message channel type. </summary>
-        public AcsMessageChannelKind ChannelKind { get; }
+        public AcsMessageChannelKind? ChannelKind { get; }
     }
 }
