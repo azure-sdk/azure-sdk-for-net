@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.DesktopVirtualization.Models
 {
-    /// <summary> Represents a RegistrationInfo definition. </summary>
+    /// <summary> Represents a RegistrationInfo definition.  This is not returned on HostPool GET. In order to get the registration token use the retrieveRegistrationToken or listRegistrationTokens POST calls. </summary>
     public partial class HostPoolRegistrationInfo
     {
         /// <summary>
