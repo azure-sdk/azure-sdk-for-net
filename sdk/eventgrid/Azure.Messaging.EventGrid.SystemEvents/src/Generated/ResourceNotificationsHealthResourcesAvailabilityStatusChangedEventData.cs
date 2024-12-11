@@ -10,11 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
-    /// <summary>
-    /// Schema of the Data property of an EventGridEvent for a
-    /// Microsoft.ResourceNotifications.HealthResources.AvailabilityStatusChanged
-    /// event.
-    /// </summary>
+    /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.ResourceNotifications.HealthResources.AvailabilityStatusChanged event. </summary>
     public partial class ResourceNotificationsHealthResourcesAvailabilityStatusChangedEventData : ResourceNotificationsResourceUpdatedEventData
     {
         /// <summary> Initializes a new instance of <see cref="ResourceNotificationsHealthResourcesAvailabilityStatusChangedEventData"/>. </summary>

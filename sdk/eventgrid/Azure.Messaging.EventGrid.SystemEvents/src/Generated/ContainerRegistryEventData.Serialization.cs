@@ -39,8 +39,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("id"u8);
                 writer.WriteStringValue(Id);
             }
-            writer.WritePropertyName("timestamp"u8);
-            writer.WriteStringValue(Timestamp, "O");
+            if (Optional.IsDefined(Timestamp))
+            {
+                writer.WritePropertyName("timestamp"u8);
+                writer.WriteStringValue(Timestamp.Value, "O");
+            }
             if (Optional.IsDefined(Action))
             {
                 writer.WritePropertyName("action"u8);
@@ -53,12 +56,21 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
             writer.WritePropertyName("target"u8);
             writer.WriteObjectValue(Target, options);
-            writer.WritePropertyName("request"u8);
-            writer.WriteObjectValue(Request, options);
-            writer.WritePropertyName("actor"u8);
-            writer.WriteObjectValue(Actor, options);
-            writer.WritePropertyName("source"u8);
-            writer.WriteObjectValue(Source, options);
+            if (Optional.IsDefined(Request))
+            {
+                writer.WritePropertyName("request"u8);
+                writer.WriteObjectValue(Request, options);
+            }
+            if (Optional.IsDefined(Actor))
+            {
+                writer.WritePropertyName("actor"u8);
+                writer.WriteObjectValue(Actor, options);
+            }
+            if (Optional.IsDefined(Source))
+            {
+                writer.WritePropertyName("source"u8);
+                writer.WriteObjectValue(Source, options);
+            }
             writer.WritePropertyName("connectedRegistry"u8);
             writer.WriteObjectValue(ConnectedRegistry, options);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -99,7 +111,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             string id = default;
-            DateTimeOffset timestamp = default;
+            DateTimeOffset? timestamp = default;
             string action = default;
             string location = default;
             ContainerRegistryEventTarget target = default;
@@ -118,6 +130,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("timestamp"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     timestamp = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
@@ -138,16 +154,28 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("request"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     request = ContainerRegistryEventRequest.DeserializeContainerRegistryEventRequest(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("actor"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     actor = ContainerRegistryEventActor.DeserializeContainerRegistryEventActor(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("source"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     source = ContainerRegistryEventSource.DeserializeContainerRegistryEventSource(property.Value, options);
                     continue;
                 }

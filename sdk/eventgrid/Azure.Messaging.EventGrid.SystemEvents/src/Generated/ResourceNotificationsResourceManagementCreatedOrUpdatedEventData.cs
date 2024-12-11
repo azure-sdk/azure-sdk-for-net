@@ -10,10 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
-    /// <summary>
-    /// Schema of the Data property of an EventGridEvent for a
-    /// Microsoft.ResourceNotifications.Resources.CreatedOrUpdated event.
-    /// </summary>
+    /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.ResourceNotifications.Resources.CreatedOrUpdated event. </summary>
     public partial class ResourceNotificationsResourceManagementCreatedOrUpdatedEventData : ResourceNotificationsResourceUpdatedEventData
     {
         /// <summary> Initializes a new instance of <see cref="ResourceNotificationsResourceManagementCreatedOrUpdatedEventData"/>. </summary>

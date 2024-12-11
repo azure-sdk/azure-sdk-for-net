@@ -54,14 +54,17 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("location"u8);
                 writer.WriteStringValue(Location);
             }
-            writer.WritePropertyName("tags"u8);
-            writer.WriteStartObject();
-            foreach (var item in Tags)
+            if (Optional.IsCollectionDefined(Tags))
             {
-                writer.WritePropertyName(item.Key);
-                writer.WriteStringValue(item.Value);
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in Tags)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
             }
-            writer.WriteEndObject();
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
             foreach (var item in Properties)
@@ -151,6 +154,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("tags"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     Dictionary<string, string> dictionary = new Dictionary<string, string>();
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
@@ -187,7 +194,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 name,
                 type,
                 location,
-                tags,
+                tags ?? new ChangeTrackingDictionary<string, string>(),
                 properties,
                 serializedAdditionalRawData);
         }

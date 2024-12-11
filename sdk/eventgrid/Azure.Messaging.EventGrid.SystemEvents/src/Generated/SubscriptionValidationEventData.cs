@@ -46,8 +46,17 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="SubscriptionValidationEventData"/>. </summary>
-        internal SubscriptionValidationEventData()
+        /// <param name="validationCode">
+        /// The validation code sent by Azure Event Grid to validate an event subscription.
+        /// To complete the validation handshake, the subscriber must either respond with this validation code as part of the validation response,
+        /// or perform a GET request on the validationUrl (available starting version 2018-05-01-preview).
+        /// </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="validationCode"/> is null. </exception>
+        internal SubscriptionValidationEventData(string validationCode)
         {
+            Argument.AssertNotNull(validationCode, nameof(validationCode));
+
+            ValidationCode = validationCode;
         }
 
         /// <summary> Initializes a new instance of <see cref="SubscriptionValidationEventData"/>. </summary>
@@ -67,6 +76,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             ValidationCode = validationCode;
             ValidationUrl = validationUrl;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SubscriptionValidationEventData"/> for deserialization. </summary>
+        internal SubscriptionValidationEventData()
+        {
         }
 
         /// <summary>
