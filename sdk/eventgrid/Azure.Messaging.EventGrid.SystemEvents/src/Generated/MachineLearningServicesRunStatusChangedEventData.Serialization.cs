@@ -34,26 +34,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 throw new FormatException($"The model {nameof(MachineLearningServicesRunStatusChangedEventData)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(ExperimentId))
-            {
-                writer.WritePropertyName("experimentId"u8);
-                writer.WriteStringValue(ExperimentId);
-            }
-            if (Optional.IsDefined(ExperimentName))
-            {
-                writer.WritePropertyName("experimentName"u8);
-                writer.WriteStringValue(ExperimentName);
-            }
-            if (Optional.IsDefined(RunId))
-            {
-                writer.WritePropertyName("runId"u8);
-                writer.WriteStringValue(RunId);
-            }
-            if (Optional.IsDefined(RunType))
-            {
-                writer.WritePropertyName("runType"u8);
-                writer.WriteStringValue(RunType);
-            }
+            writer.WritePropertyName("experimentId"u8);
+            writer.WriteStringValue(ExperimentId);
+            writer.WritePropertyName("experimentName"u8);
+            writer.WriteStringValue(ExperimentName);
+            writer.WritePropertyName("runId"u8);
+            writer.WriteStringValue(RunId);
+            writer.WritePropertyName("runType"u8);
+            writer.WriteStringValue(RunType);
             writer.WritePropertyName("runTags"u8);
             writer.WriteStartObject();
             foreach (var item in RunTags)
@@ -94,11 +82,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 #endif
             }
             writer.WriteEndObject();
-            if (Optional.IsDefined(RunStatus))
-            {
-                writer.WritePropertyName("runStatus"u8);
-                writer.WriteStringValue(RunStatus);
-            }
+            writer.WritePropertyName("runStatus"u8);
+            writer.WriteStringValue(RunStatus);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
