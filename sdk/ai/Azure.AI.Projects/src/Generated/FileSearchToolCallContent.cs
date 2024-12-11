@@ -10,12 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.Projects
 {
-    /// <summary>
-    /// An abstract representation of an input tool definition that an agent can use.
-    /// Please note <see cref="ToolDefinition"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="AzureAISearchToolDefinition"/>, <see cref="BingGroundingToolDefinition"/>, <see cref="CodeInterpreterToolDefinition"/>, <see cref="MicrosoftFabricToolDefinition"/>, <see cref="FileSearchToolDefinition"/>, <see cref="FunctionToolDefinition"/>, <see cref="OpenApiToolDefinition"/> and <see cref="SharepointToolDefinition"/>.
-    /// </summary>
-    public abstract partial class ToolDefinition
+    /// <summary> The file search result content object. </summary>
+    public partial class FileSearchToolCallContent
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,23 +43,38 @@ namespace Azure.AI.Projects
         /// </list>
         /// </para>
         /// </summary>
-        private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ToolDefinition"/>. </summary>
-        protected ToolDefinition()
+        /// <summary> Initializes a new instance of <see cref="FileSearchToolCallContent"/>. </summary>
+        /// <param name="text"> The text content of the file. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="text"/> is null. </exception>
+        internal FileSearchToolCallContent(string text)
         {
+            Argument.AssertNotNull(text, nameof(text));
+
+            Text = text;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ToolDefinition"/>. </summary>
-        /// <param name="type"> The object type. </param>
+        /// <summary> Initializes a new instance of <see cref="FileSearchToolCallContent"/>. </summary>
+        /// <param name="type"> The type of the content. </param>
+        /// <param name="text"> The text content of the file. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ToolDefinition(string type, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal FileSearchToolCallContent(FileSearchToolCallContentType type, string text, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Type = type;
+            Text = text;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The object type. </summary>
-        internal string Type { get; set; }
+        /// <summary> Initializes a new instance of <see cref="FileSearchToolCallContent"/> for deserialization. </summary>
+        internal FileSearchToolCallContent()
+        {
+        }
+
+        /// <summary> The type of the content. </summary>
+        public FileSearchToolCallContentType Type { get; } = FileSearchToolCallContentType.Text;
+
+        /// <summary> The text content of the file. </summary>
+        public string Text { get; }
     }
 }
