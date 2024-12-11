@@ -795,25 +795,7 @@ Value = BinaryData.FromObjectAsJson("2017-09-01T00:00:00"),
 
             // invoke the operation
             string configurationId = "slowpageloadtime";
-            ApplicationInsightsComponentProactiveDetectionConfiguration proactiveDetectionProperties = new ApplicationInsightsComponentProactiveDetectionConfiguration
-            {
-                Name = "slowpageloadtime",
-                IsEnabled = true,
-                SendEmailsToSubscriptionOwners = true,
-                CustomEmails = { "foo@microsoft.com", "foo2@microsoft.com" },
-                LastUpdatedOn = default,
-                RuleDefinitions = new ApplicationInsightsComponentProactiveDetectionConfigurationRuleDefinitions
-                {
-                    Name = "slowpageloadtime",
-                    DisplayName = "Slow page load time",
-                    Description = "Smart Detection rules notify you of performance anomaly issues.",
-                    HelpUri = new Uri("https://docs.microsoft.com/en-us/azure/application-insights/app-insights-proactive-performance-diagnostics"),
-                    IsHidden = false,
-                    IsEnabledByDefault = true,
-                    IsInPreview = false,
-                    IsEmailNotificationsSupported = true,
-                },
-            };
+            ApplicationInsightsComponentProactiveDetectionConfiguration proactiveDetectionProperties = new ApplicationInsightsComponentProactiveDetectionConfiguration();
             ApplicationInsightsComponentProactiveDetectionConfiguration result = await applicationInsightsComponent.UpdateProactiveDetectionConfigurationAsync(configurationId, proactiveDetectionProperties);
 
             Console.WriteLine($"Succeeded: {result}");
