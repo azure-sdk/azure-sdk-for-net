@@ -49,15 +49,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ResourceNotificationsResourceUpdatedDetails"/>. </summary>
-        /// <param name="tags"> the tags on the resource for which the event is being emitted. </param>
         /// <param name="properties"> properties in the payload of the resource for which the event is being emitted. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="tags"/> or <paramref name="properties"/> is null. </exception>
-        internal ResourceNotificationsResourceUpdatedDetails(IReadOnlyDictionary<string, string> tags, IReadOnlyDictionary<string, BinaryData> properties)
+        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
+        internal ResourceNotificationsResourceUpdatedDetails(IReadOnlyDictionary<string, BinaryData> properties)
         {
-            Argument.AssertNotNull(tags, nameof(tags));
             Argument.AssertNotNull(properties, nameof(properties));
 
-            Tags = tags;
+            Tags = new ChangeTrackingDictionary<string, string>();
             Properties = properties;
         }
 
