@@ -34,26 +34,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 throw new FormatException($"The model {nameof(MachineLearningServicesRunCompletedEventData)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(ExperimentId))
-            {
-                writer.WritePropertyName("experimentId"u8);
-                writer.WriteStringValue(ExperimentId);
-            }
-            if (Optional.IsDefined(ExperimentName))
-            {
-                writer.WritePropertyName("experimentName"u8);
-                writer.WriteStringValue(ExperimentName);
-            }
-            if (Optional.IsDefined(RunId))
-            {
-                writer.WritePropertyName("runId"u8);
-                writer.WriteStringValue(RunId);
-            }
-            if (Optional.IsDefined(RunType))
-            {
-                writer.WritePropertyName("runType"u8);
-                writer.WriteStringValue(RunType);
-            }
+            writer.WritePropertyName("experimentId"u8);
+            writer.WriteStringValue(ExperimentId);
+            writer.WritePropertyName("experimentName"u8);
+            writer.WriteStringValue(ExperimentName);
+            writer.WritePropertyName("runId"u8);
+            writer.WriteStringValue(RunId);
+            writer.WritePropertyName("runType"u8);
+            writer.WriteStringValue(RunType);
             writer.WritePropertyName("runTags"u8);
             writer.WriteStartObject();
             foreach (var item in RunTags)

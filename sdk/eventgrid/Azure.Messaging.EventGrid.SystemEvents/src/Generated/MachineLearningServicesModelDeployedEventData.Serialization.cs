@@ -34,21 +34,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 throw new FormatException($"The model {nameof(MachineLearningServicesModelDeployedEventData)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(ServiceName))
-            {
-                writer.WritePropertyName("serviceName"u8);
-                writer.WriteStringValue(ServiceName);
-            }
-            if (Optional.IsDefined(ServiceComputeType))
-            {
-                writer.WritePropertyName("serviceComputeType"u8);
-                writer.WriteStringValue(ServiceComputeType);
-            }
-            if (Optional.IsDefined(ModelIds))
-            {
-                writer.WritePropertyName("modelIds"u8);
-                writer.WriteStringValue(ModelIds);
-            }
+            writer.WritePropertyName("serviceName"u8);
+            writer.WriteStringValue(ServiceName);
+            writer.WritePropertyName("serviceComputeType"u8);
+            writer.WriteStringValue(ServiceComputeType);
+            writer.WritePropertyName("modelIds"u8);
+            writer.WriteStringValue(ModelIds);
             writer.WritePropertyName("serviceTags"u8);
             writer.WriteStartObject();
             foreach (var item in ServiceTags)
