@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.AI.Projects
 {
-    public partial class AgentsApiResponseFormat : IUtf8JsonSerializable, IJsonModel<AgentsApiResponseFormat>
+    public partial class OpenApiManagedSecurityScheme : IUtf8JsonSerializable, IJsonModel<OpenApiManagedSecurityScheme>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AgentsApiResponseFormat>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<OpenApiManagedSecurityScheme>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<AgentsApiResponseFormat>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<OpenApiManagedSecurityScheme>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,17 +28,14 @@ namespace Azure.AI.Projects
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AgentsApiResponseFormat>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<OpenApiManagedSecurityScheme>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AgentsApiResponseFormat)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(OpenApiManagedSecurityScheme)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(Type))
-            {
-                writer.WritePropertyName("type"u8);
-                writer.WriteStringValue(Type.Value.ToString());
-            }
+            writer.WritePropertyName("audience"u8);
+            writer.WriteStringValue(Audience);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -56,19 +53,19 @@ namespace Azure.AI.Projects
             }
         }
 
-        AgentsApiResponseFormat IJsonModel<AgentsApiResponseFormat>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        OpenApiManagedSecurityScheme IJsonModel<OpenApiManagedSecurityScheme>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AgentsApiResponseFormat>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<OpenApiManagedSecurityScheme>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AgentsApiResponseFormat)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(OpenApiManagedSecurityScheme)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeAgentsApiResponseFormat(document.RootElement, options);
+            return DeserializeOpenApiManagedSecurityScheme(document.RootElement, options);
         }
 
-        internal static AgentsApiResponseFormat DeserializeAgentsApiResponseFormat(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static OpenApiManagedSecurityScheme DeserializeOpenApiManagedSecurityScheme(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -76,18 +73,14 @@ namespace Azure.AI.Projects
             {
                 return null;
             }
-            ResponseFormat? type = default;
+            string audience = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("type"u8))
+                if (property.NameEquals("audience"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    type = new ResponseFormat(property.Value.GetString());
+                    audience = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -96,46 +89,46 @@ namespace Azure.AI.Projects
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AgentsApiResponseFormat(type, serializedAdditionalRawData);
+            return new OpenApiManagedSecurityScheme(audience, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<AgentsApiResponseFormat>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<OpenApiManagedSecurityScheme>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AgentsApiResponseFormat>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<OpenApiManagedSecurityScheme>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(AgentsApiResponseFormat)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(OpenApiManagedSecurityScheme)} does not support writing '{options.Format}' format.");
             }
         }
 
-        AgentsApiResponseFormat IPersistableModel<AgentsApiResponseFormat>.Create(BinaryData data, ModelReaderWriterOptions options)
+        OpenApiManagedSecurityScheme IPersistableModel<OpenApiManagedSecurityScheme>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AgentsApiResponseFormat>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<OpenApiManagedSecurityScheme>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeAgentsApiResponseFormat(document.RootElement, options);
+                        return DeserializeOpenApiManagedSecurityScheme(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(AgentsApiResponseFormat)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(OpenApiManagedSecurityScheme)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<AgentsApiResponseFormat>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<OpenApiManagedSecurityScheme>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static AgentsApiResponseFormat FromResponse(Response response)
+        internal static OpenApiManagedSecurityScheme FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeAgentsApiResponseFormat(document.RootElement);
+            return DeserializeOpenApiManagedSecurityScheme(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>

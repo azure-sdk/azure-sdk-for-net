@@ -7,15 +7,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.AI.Projects
 {
-    /// <summary>
-    /// An abstract representation of an input tool definition that an agent can use.
-    /// Please note <see cref="ToolDefinition"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="AzureAISearchToolDefinition"/>, <see cref="BingGroundingToolDefinition"/>, <see cref="CodeInterpreterToolDefinition"/>, <see cref="MicrosoftFabricToolDefinition"/>, <see cref="FileSearchToolDefinition"/>, <see cref="FunctionToolDefinition"/>, <see cref="OpenApiToolDefinition"/> and <see cref="SharepointToolDefinition"/>.
-    /// </summary>
-    public abstract partial class ToolDefinition
+    /// <summary> The results of the file search. </summary>
+    public partial class RunStepFileSearchToolCallResults
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,23 +44,37 @@ namespace Azure.AI.Projects
         /// </list>
         /// </para>
         /// </summary>
-        private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ToolDefinition"/>. </summary>
-        protected ToolDefinition()
+        /// <summary> Initializes a new instance of <see cref="RunStepFileSearchToolCallResults"/>. </summary>
+        /// <param name="results"> The array of a file search results. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="results"/> is null. </exception>
+        internal RunStepFileSearchToolCallResults(IEnumerable<RunStepFileSearchToolCallResult> results)
         {
+            Argument.AssertNotNull(results, nameof(results));
+
+            Results = results.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="ToolDefinition"/>. </summary>
-        /// <param name="type"> The object type. </param>
+        /// <summary> Initializes a new instance of <see cref="RunStepFileSearchToolCallResults"/>. </summary>
+        /// <param name="rankingOptions"> Ranking options for file search. </param>
+        /// <param name="results"> The array of a file search results. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ToolDefinition(string type, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal RunStepFileSearchToolCallResults(FileSearchRankingOptions rankingOptions, IReadOnlyList<RunStepFileSearchToolCallResult> results, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Type = type;
+            RankingOptions = rankingOptions;
+            Results = results;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The object type. </summary>
-        internal string Type { get; set; }
+        /// <summary> Initializes a new instance of <see cref="RunStepFileSearchToolCallResults"/> for deserialization. </summary>
+        internal RunStepFileSearchToolCallResults()
+        {
+        }
+
+        /// <summary> Ranking options for file search. </summary>
+        public FileSearchRankingOptions RankingOptions { get; }
+        /// <summary> The array of a file search results. </summary>
+        public IReadOnlyList<RunStepFileSearchToolCallResult> Results { get; }
     }
 }

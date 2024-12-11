@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Azure.AI.Projects
 {
-    /// <summary> This describes to which tools a file has been attached. </summary>
-    public partial class MessageAttachment
+    /// <summary> A description of what the response format is for, used by the model to determine how to respond in the format. </summary>
+    public partial class ResponseFormatJsonSchema
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,55 +45,50 @@ namespace Azure.AI.Projects
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="MessageAttachment"/>. </summary>
-        /// <param name="tools"> The tools to add to this file. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="tools"/> is null. </exception>
-        public MessageAttachment(IEnumerable<BinaryData> tools)
+        /// <summary> Initializes a new instance of <see cref="ResponseFormatJsonSchema"/>. </summary>
+        /// <param name="name"> The name of a schema. </param>
+        /// <param name="schema"> The JSON schema object, describing the response format. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="schema"/> is null. </exception>
+        public ResponseFormatJsonSchema(string name, BinaryData schema)
         {
-            Argument.AssertNotNull(tools, nameof(tools));
+            Argument.AssertNotNull(name, nameof(name));
+            Argument.AssertNotNull(schema, nameof(schema));
 
-            Tools = tools.ToList();
+            Name = name;
+            Schema = schema;
         }
 
-        /// <summary> Initializes a new instance of <see cref="MessageAttachment"/>. </summary>
-        /// <param name="fileId"> The ID of the file to attach to the message. </param>
-        /// <param name="dataSource"> Azure asset ID. </param>
-        /// <param name="tools"> The tools to add to this file. </param>
+        /// <summary> Initializes a new instance of <see cref="ResponseFormatJsonSchema"/>. </summary>
+        /// <param name="description"> A description of what the response format is for, used by the model to determine how to respond in the format. </param>
+        /// <param name="name"> The name of a schema. </param>
+        /// <param name="schema"> The JSON schema object, describing the response format. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MessageAttachment(string fileId, VectorStoreDataSource dataSource, IList<BinaryData> tools, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ResponseFormatJsonSchema(string description, string name, BinaryData schema, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            FileId = fileId;
-            DataSource = dataSource;
-            Tools = tools;
+            Description = description;
+            Name = name;
+            Schema = schema;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="MessageAttachment"/> for deserialization. </summary>
-        internal MessageAttachment()
+        /// <summary> Initializes a new instance of <see cref="ResponseFormatJsonSchema"/> for deserialization. </summary>
+        internal ResponseFormatJsonSchema()
         {
         }
 
-        /// <summary> The ID of the file to attach to the message. </summary>
-        public string FileId { get; set; }
-        /// <summary> Azure asset ID. </summary>
-        public VectorStoreDataSource DataSource { get; set; }
+        /// <summary> A description of what the response format is for, used by the model to determine how to respond in the format. </summary>
+        public string Description { get; set; }
+        /// <summary> The name of a schema. </summary>
+        public string Name { get; set; }
         /// <summary>
-        /// The tools to add to this file.
+        /// The JSON schema object, describing the response format.
         /// <para>
-        /// To assign an object to the element of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
         /// </para>
         /// <para>
-        /// <remarks>
-        /// Supported types:
-        /// <list type="bullet">
-        /// <item>
-        /// <description><see cref="BinaryData"/></description>
-        /// </item>
-        /// </list>
-        /// </remarks>
         /// Examples:
         /// <list type="bullet">
         /// <item>
@@ -116,6 +110,6 @@ namespace Azure.AI.Projects
         /// </list>
         /// </para>
         /// </summary>
-        public IList<BinaryData> Tools { get; }
+        public BinaryData Schema { get; set; }
     }
 }
