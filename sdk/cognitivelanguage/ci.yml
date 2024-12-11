@@ -32,3 +32,5 @@ extends:
       safeName: AzureAILanguageConversations
     - name: Azure.AI.Language.QuestionAnswering
       safeName: AzureAILanguageQuestionAnswering
+    - name: Azure.AI.Language.Documents
+      safeName: AzureAILanguageDocuments
