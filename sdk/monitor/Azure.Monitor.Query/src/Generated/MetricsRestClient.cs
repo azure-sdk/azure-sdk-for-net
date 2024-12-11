@@ -99,14 +99,14 @@ namespace Azure.Monitor.Query
             return message;
         }
 
-        /// <summary> **Lists the metric values for a resource**. </summary>
+        /// <summary> **Lists the metric values for a resource**. This API used the [default ARM throttling limits](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/request-limits-and-throttling). </summary>
         /// <param name="resourceUri"> The identifier of the resource. </param>
         /// <param name="timespan"> The timespan of the query. It is a string with the following format 'startDateTime_ISO/endDateTime_ISO'. </param>
         /// <param name="interval">
         /// The interval (i.e. timegrain) of the query in ISO 8601 duration format. Defaults to PT1M. Special case for 'FULL' value that returns single datapoint for entire time span requested.
         /// *Examples: PT15M, PT1H, P1D, FULL*
         /// </param>
-        /// <param name="metricnames"> The names of the metrics (comma separated) to retrieve. </param>
+        /// <param name="metricnames"> The names of the metrics (comma separated) to retrieve. Limit 20 metrics. </param>
         /// <param name="aggregation">
         /// The list of aggregation types (comma separated) to retrieve.
         /// *Examples: average, minimum, maximum*
@@ -152,14 +152,14 @@ namespace Azure.Monitor.Query
             }
         }
 
-        /// <summary> **Lists the metric values for a resource**. </summary>
+        /// <summary> **Lists the metric values for a resource**. This API used the [default ARM throttling limits](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/request-limits-and-throttling). </summary>
         /// <param name="resourceUri"> The identifier of the resource. </param>
         /// <param name="timespan"> The timespan of the query. It is a string with the following format 'startDateTime_ISO/endDateTime_ISO'. </param>
         /// <param name="interval">
         /// The interval (i.e. timegrain) of the query in ISO 8601 duration format. Defaults to PT1M. Special case for 'FULL' value that returns single datapoint for entire time span requested.
         /// *Examples: PT15M, PT1H, P1D, FULL*
         /// </param>
-        /// <param name="metricnames"> The names of the metrics (comma separated) to retrieve. </param>
+        /// <param name="metricnames"> The names of the metrics (comma separated) to retrieve. Limit 20 metrics. </param>
         /// <param name="aggregation">
         /// The list of aggregation types (comma separated) to retrieve.
         /// *Examples: average, minimum, maximum*
