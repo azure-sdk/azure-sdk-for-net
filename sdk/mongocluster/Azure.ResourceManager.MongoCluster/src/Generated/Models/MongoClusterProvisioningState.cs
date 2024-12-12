@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.MongoCluster.Models
         private const string FailedValue = "Failed";
         private const string CanceledValue = "Canceled";
         private const string InProgressValue = "InProgress";
-        private const string UpdatingValue = "Updating";
+        private const string UpdatingTest2Value = "UpdatingTest2";
         private const string DroppingValue = "Dropping";
 
         /// <summary> Resource has been created. </summary>
@@ -38,7 +38,7 @@ namespace Azure.ResourceManager.MongoCluster.Models
         /// <summary> An operation is in-progress on the resource. </summary>
         public static MongoClusterProvisioningState InProgress { get; } = new MongoClusterProvisioningState(InProgressValue);
         /// <summary> An update operation is in-progress on the resource. </summary>
-        public static MongoClusterProvisioningState Updating { get; } = new MongoClusterProvisioningState(UpdatingValue);
+        public static MongoClusterProvisioningState UpdatingTest2 { get; } = new MongoClusterProvisioningState(UpdatingTest2Value);
         /// <summary> A drop operation is in-progress on the resource. </summary>
         public static MongoClusterProvisioningState Dropping { get; } = new MongoClusterProvisioningState(DroppingValue);
         /// <summary> Determines if two <see cref="MongoClusterProvisioningState"/> values are the same. </summary>
