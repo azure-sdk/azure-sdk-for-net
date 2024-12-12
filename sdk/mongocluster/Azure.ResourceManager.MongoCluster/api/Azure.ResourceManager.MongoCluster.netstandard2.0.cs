@@ -554,7 +554,7 @@ namespace Azure.ResourceManager.MongoCluster.Models
         public static Azure.ResourceManager.MongoCluster.Models.MongoClusterProvisioningState Failed { get { throw null; } }
         public static Azure.ResourceManager.MongoCluster.Models.MongoClusterProvisioningState InProgress { get { throw null; } }
         public static Azure.ResourceManager.MongoCluster.Models.MongoClusterProvisioningState Succeeded { get { throw null; } }
-        public static Azure.ResourceManager.MongoCluster.Models.MongoClusterProvisioningState Updating { get { throw null; } }
+        public static Azure.ResourceManager.MongoCluster.Models.MongoClusterProvisioningState UpdatingTest2 { get { throw null; } }
         public bool Equals(Azure.ResourceManager.MongoCluster.Models.MongoClusterProvisioningState other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override bool Equals(object obj) { throw null; }
