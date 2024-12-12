@@ -8,7 +8,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.ResourceManager.PlaywrightTesting.Models
+namespace Azure.Developer.MicrosoftPlaywrightTesting
 {
     /// <summary> The enablement status of a feature. </summary>
     public readonly partial struct EnablementStatus : IEquatable<EnablementStatus>
