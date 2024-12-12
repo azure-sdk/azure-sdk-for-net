@@ -16,12 +16,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsEmailDeliveryReportStatusDetails"/>. </summary>
+        /// <param name="recipientMailServer"> Recipient Mail Server. </param>
         /// <param name="statusMessage"> Detailed status message. </param>
-        internal AcsEmailDeliveryReportStatusDetails(string statusMessage)
+        internal AcsEmailDeliveryReportStatusDetails(string recipientMailServer, string statusMessage)
         {
+            RecipientMailServer = recipientMailServer;
             StatusMessage = statusMessage;
         }
 
+        /// <summary> Recipient Mail Server. </summary>
+        public string RecipientMailServer { get; }
         /// <summary> Detailed status message. </summary>
         public string StatusMessage { get; }
     }
