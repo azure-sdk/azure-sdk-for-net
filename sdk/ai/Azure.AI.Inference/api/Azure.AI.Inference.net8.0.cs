@@ -558,25 +558,6 @@ namespace Azure.AI.Inference
         string System.ClientModel.Primitives.IPersistableModel<Azure.AI.Inference.EmbeddingsUsage>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.AI.Inference.EmbeddingsUsage>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct ExtraParameters : System.IEquatable<Azure.AI.Inference.ExtraParameters>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public ExtraParameters(string value) { throw null; }
-        public static Azure.AI.Inference.ExtraParameters Drop { get { throw null; } }
-        public static Azure.AI.Inference.ExtraParameters Error { get { throw null; } }
-        public static Azure.AI.Inference.ExtraParameters PassThrough { get { throw null; } }
-        public bool Equals(Azure.AI.Inference.ExtraParameters other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.AI.Inference.ExtraParameters left, Azure.AI.Inference.ExtraParameters right) { throw null; }
-        public static implicit operator Azure.AI.Inference.ExtraParameters (string value) { throw null; }
-        public static bool operator !=(Azure.AI.Inference.ExtraParameters left, Azure.AI.Inference.ExtraParameters right) { throw null; }
-        public override string ToString() { throw null; }
-    }
     public partial class FunctionCall : System.ClientModel.Primitives.IJsonModel<Azure.AI.Inference.FunctionCall>, System.ClientModel.Primitives.IPersistableModel<Azure.AI.Inference.FunctionCall>
     {
         public FunctionCall(string name, string arguments) { }
@@ -626,7 +607,7 @@ namespace Azure.AI.Inference
         private readonly int _dummyPrimitive;
         public ModelType(string value) { throw null; }
         public static Azure.AI.Inference.ModelType AudioGeneration { get { throw null; } }
-        public static Azure.AI.Inference.ModelType Chat { get { throw null; } }
+        public static Azure.AI.Inference.ModelType ChatCompletion { get { throw null; } }
         public static Azure.AI.Inference.ModelType Embeddings { get { throw null; } }
         public static Azure.AI.Inference.ModelType ImageEmbeddings { get { throw null; } }
         public static Azure.AI.Inference.ModelType ImageGeneration { get { throw null; } }
