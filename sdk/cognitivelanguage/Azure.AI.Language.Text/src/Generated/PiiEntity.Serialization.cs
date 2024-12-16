@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.AI.Language.Text
 {
-    public partial class NamedEntityWithMetadata : IUtf8JsonSerializable, IJsonModel<NamedEntityWithMetadata>
+    public partial class PiiEntity : IUtf8JsonSerializable, IJsonModel<PiiEntity>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<NamedEntityWithMetadata>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<PiiEntity>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<NamedEntityWithMetadata>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<PiiEntity>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,10 +28,10 @@ namespace Azure.AI.Language.Text
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<NamedEntityWithMetadata>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PiiEntity>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(NamedEntityWithMetadata)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(PiiEntity)} does not support writing '{format}' format.");
             }
 
             writer.WritePropertyName("text"u8);
@@ -64,10 +64,20 @@ namespace Azure.AI.Language.Text
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(Metadata))
+            if (Optional.IsDefined(Mask))
             {
-                writer.WritePropertyName("metadata"u8);
-                writer.WriteObjectValue(Metadata, options);
+                writer.WritePropertyName("mask"u8);
+                writer.WriteStringValue(Mask);
+            }
+            if (Optional.IsDefined(MaskOffset))
+            {
+                writer.WritePropertyName("maskOffset"u8);
+                writer.WriteNumberValue(MaskOffset.Value);
+            }
+            if (Optional.IsDefined(MaskLength))
+            {
+                writer.WritePropertyName("maskLength"u8);
+                writer.WriteNumberValue(MaskLength.Value);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -86,19 +96,19 @@ namespace Azure.AI.Language.Text
             }
         }
 
-        NamedEntityWithMetadata IJsonModel<NamedEntityWithMetadata>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        PiiEntity IJsonModel<PiiEntity>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<NamedEntityWithMetadata>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PiiEntity>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(NamedEntityWithMetadata)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(PiiEntity)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeNamedEntityWithMetadata(document.RootElement, options);
+            return DeserializePiiEntity(document.RootElement, options);
         }
 
-        internal static NamedEntityWithMetadata DeserializeNamedEntityWithMetadata(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static PiiEntity DeserializePiiEntity(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -114,7 +124,9 @@ namespace Azure.AI.Language.Text
             double confidenceScore = default;
             string type = default;
             IReadOnlyList<EntityTag> tags = default;
-            BaseMetadata metadata = default;
+            string mask = default;
+            int? maskOffset = default;
+            int? maskLength = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -168,13 +180,27 @@ namespace Azure.AI.Language.Text
                     tags = array;
                     continue;
                 }
-                if (property.NameEquals("metadata"u8))
+                if (property.NameEquals("mask"u8))
+                {
+                    mask = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("maskOffset"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    metadata = BaseMetadata.DeserializeBaseMetadata(property.Value, options);
+                    maskOffset = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("maskLength"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    maskLength = property.Value.GetInt32();
                     continue;
                 }
                 if (options.Format != "W")
@@ -183,7 +209,7 @@ namespace Azure.AI.Language.Text
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new NamedEntityWithMetadata(
+            return new PiiEntity(
                 text,
                 category,
                 subcategory,
@@ -192,47 +218,49 @@ namespace Azure.AI.Language.Text
                 confidenceScore,
                 type,
                 tags ?? new ChangeTrackingList<EntityTag>(),
-                metadata,
+                mask,
+                maskOffset,
+                maskLength,
                 serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<NamedEntityWithMetadata>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<PiiEntity>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<NamedEntityWithMetadata>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PiiEntity>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(NamedEntityWithMetadata)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(PiiEntity)} does not support writing '{options.Format}' format.");
             }
         }
 
-        NamedEntityWithMetadata IPersistableModel<NamedEntityWithMetadata>.Create(BinaryData data, ModelReaderWriterOptions options)
+        PiiEntity IPersistableModel<PiiEntity>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<NamedEntityWithMetadata>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PiiEntity>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeNamedEntityWithMetadata(document.RootElement, options);
+                        return DeserializePiiEntity(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(NamedEntityWithMetadata)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(PiiEntity)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<NamedEntityWithMetadata>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<PiiEntity>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static NamedEntityWithMetadata FromResponse(Response response)
+        internal static PiiEntity FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeNamedEntityWithMetadata(document.RootElement);
+            return DeserializePiiEntity(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
