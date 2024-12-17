@@ -11,20 +11,22 @@ using System.Linq;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The ExtractedSummaryDocumentResult. </summary>
-    internal partial class ExtractedSummaryDocumentResult : DocumentResult
+    /// <summary> A ranked list of sentences representing the extracted summary. </summary>
+    internal partial class ExtractedSummaryDocumentResult
     {
         /// <summary> Initializes a new instance of <see cref="ExtractedSummaryDocumentResult"/>. </summary>
         /// <param name="id"> Unique, non-empty document identifier. </param>
         /// <param name="warnings"> Warnings encountered while processing document. </param>
-        /// <param name="sentences"> A ranked list of sentences representing the extracted summary. </param>
+        /// <param name="sentences"> Specifies the the extracted sentences from the input document. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="id"/>, <paramref name="warnings"/> or <paramref name="sentences"/> is null. </exception>
-        public ExtractedSummaryDocumentResult(string id, IEnumerable<DocumentWarning> warnings, IEnumerable<ExtractedSummarySentence> sentences) : base(id, warnings)
+        internal ExtractedSummaryDocumentResult(string id, IEnumerable<DocumentWarning> warnings, IEnumerable<ExtractedSummarySentence> sentences)
         {
             Argument.AssertNotNull(id, nameof(id));
             Argument.AssertNotNull(warnings, nameof(warnings));
             Argument.AssertNotNull(sentences, nameof(sentences));
 
+            Id = id;
+            Warnings = warnings.ToList();
             Sentences = sentences.ToList();
         }
 
@@ -32,13 +34,22 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="id"> Unique, non-empty document identifier. </param>
         /// <param name="warnings"> Warnings encountered while processing document. </param>
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the document payload. </param>
-        /// <param name="sentences"> A ranked list of sentences representing the extracted summary. </param>
-        internal ExtractedSummaryDocumentResult(string id, IList<DocumentWarning> warnings, TextDocumentStatistics? statistics, IList<ExtractedSummarySentence> sentences) : base(id, warnings, statistics)
+        /// <param name="sentences"> Specifies the the extracted sentences from the input document. </param>
+        internal ExtractedSummaryDocumentResult(string id, IReadOnlyList<DocumentWarning> warnings, TextDocumentStatistics? statistics, IReadOnlyList<ExtractedSummarySentence> sentences)
         {
+            Id = id;
+            Warnings = warnings;
+            Statistics = statistics;
             Sentences = sentences;
         }
 
-        /// <summary> A ranked list of sentences representing the extracted summary. </summary>
-        public IList<ExtractedSummarySentence> Sentences { get; }
+        /// <summary> Unique, non-empty document identifier. </summary>
+        public string Id { get; }
+        /// <summary> Warnings encountered while processing document. </summary>
+        public IReadOnlyList<DocumentWarning> Warnings { get; }
+        /// <summary> if showStats=true was specified in the request this field will contain information about the document payload. </summary>
+        public TextDocumentStatistics? Statistics { get; }
+        /// <summary> Specifies the the extracted sentences from the input document. </summary>
+        public IReadOnlyList<ExtractedSummarySentence> Sentences { get; }
     }
 }
