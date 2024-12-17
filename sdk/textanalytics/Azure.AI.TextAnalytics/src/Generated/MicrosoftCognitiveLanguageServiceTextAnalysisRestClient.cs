@@ -18,7 +18,6 @@ namespace Azure.AI.TextAnalytics
     internal partial class MicrosoftCognitiveLanguageServiceTextAnalysisRestClient
     {
         private readonly HttpPipeline _pipeline;
-        private readonly string _endpoint;
         private readonly string _apiVersion;
 
         /// <summary> The ClientDiagnostics is used to provide tracing support for the client library. </summary>
@@ -27,24 +26,22 @@ namespace Azure.AI.TextAnalytics
         /// <summary> Initializes a new instance of MicrosoftCognitiveLanguageServiceTextAnalysisRestClient. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
-        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
         /// <param name="apiVersion"> Api Version. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="clientDiagnostics"/>, <paramref name="pipeline"/>, <paramref name="endpoint"/> or <paramref name="apiVersion"/> is null. </exception>
-        public MicrosoftCognitiveLanguageServiceTextAnalysisRestClient(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, string endpoint, string apiVersion = "2023-04-01")
+        /// <exception cref="ArgumentNullException"> <paramref name="clientDiagnostics"/>, <paramref name="pipeline"/> or <paramref name="apiVersion"/> is null. </exception>
+        public MicrosoftCognitiveLanguageServiceTextAnalysisRestClient(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, string apiVersion = "2023-04-01")
         {
             ClientDiagnostics = clientDiagnostics ?? throw new ArgumentNullException(nameof(clientDiagnostics));
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
-            _endpoint = endpoint ?? throw new ArgumentNullException(nameof(endpoint));
             _apiVersion = apiVersion ?? throw new ArgumentNullException(nameof(apiVersion));
         }
 
-        internal HttpMessage CreateAnalyzeRequest(AnalyzeTextTask body, bool? showStats)
+        internal HttpMessage CreateAnalyzeRequest(string endpoint, AnalyzeTextTask body, bool? showStats)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.AppendRaw(endpoint, true);
             uri.AppendRaw("/language", false);
             uri.AppendPath("/:analyze-text", false);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -62,19 +59,23 @@ namespace Azure.AI.TextAnalytics
         }
 
         /// <summary> Request text analysis over a collection of documents. </summary>
-        /// <param name="body"> Collection of documents to analyze and a single task to execute. </param>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
+        /// <param name="body"> The input documents to analyze. </param>
         /// <param name="showStats"> (Optional) if set to true, response will contain request and document level statistics. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
-        /// <remarks> Submit a collection of text documents for analysis.  Specify a single unique task to be executed immediately. </remarks>
-        public async Task<Response<AnalyzeTextTaskResult>> AnalyzeAsync(AnalyzeTextTask body, bool? showStats = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="body"/> is null. </exception>
+        public async Task<Response<AnalyzeTextTaskResult>> AnalyzeAsync(string endpoint, AnalyzeTextTask body, bool? showStats = null, CancellationToken cancellationToken = default)
         {
+            if (endpoint == null)
+            {
+                throw new ArgumentNullException(nameof(endpoint));
+            }
             if (body == null)
             {
                 throw new ArgumentNullException(nameof(body));
             }
 
-            using var message = CreateAnalyzeRequest(body, showStats);
+            using var message = CreateAnalyzeRequest(endpoint, body, showStats);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -91,19 +92,23 @@ namespace Azure.AI.TextAnalytics
         }
 
         /// <summary> Request text analysis over a collection of documents. </summary>
-        /// <param name="body"> Collection of documents to analyze and a single task to execute. </param>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
+        /// <param name="body"> The input documents to analyze. </param>
         /// <param name="showStats"> (Optional) if set to true, response will contain request and document level statistics. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
-        /// <remarks> Submit a collection of text documents for analysis.  Specify a single unique task to be executed immediately. </remarks>
-        public Response<AnalyzeTextTaskResult> Analyze(AnalyzeTextTask body, bool? showStats = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="body"/> is null. </exception>
+        public Response<AnalyzeTextTaskResult> Analyze(string endpoint, AnalyzeTextTask body, bool? showStats = null, CancellationToken cancellationToken = default)
         {
+            if (endpoint == null)
+            {
+                throw new ArgumentNullException(nameof(endpoint));
+            }
             if (body == null)
             {
                 throw new ArgumentNullException(nameof(body));
             }
 
-            using var message = CreateAnalyzeRequest(body, showStats);
+            using var message = CreateAnalyzeRequest(endpoint, body, showStats);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -119,13 +124,13 @@ namespace Azure.AI.TextAnalytics
             }
         }
 
-        internal HttpMessage CreateAnalyzeBatchSubmitJobRequest(AnalyzeTextJobsInput body)
+        internal HttpMessage CreateAnalyzeTextSubmitJobRequest(string endpoint, AnalyzeTextJobsInput body)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.AppendRaw(endpoint, true);
             uri.AppendRaw("/language", false);
             uri.AppendPath("/analyze-text/jobs", false);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -138,21 +143,25 @@ namespace Azure.AI.TextAnalytics
             return message;
         }
 
-        /// <summary> Submit text analysis job. </summary>
-        /// <param name="body"> Collection of documents to analyze and one or more tasks to execute. </param>
+        /// <summary> Submit a collection of text documents for analysis. Specify one or more unique tasks to be executed as a long-running operation. </summary>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
+        /// <param name="body"> The <see cref="AnalyzeTextJobsInput"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
-        /// <remarks> Submit a collection of text documents for analysis. Specify one or more unique tasks to be executed as a long-running operation. </remarks>
-        public async Task<ResponseWithHeaders<MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeBatchSubmitJobHeaders>> AnalyzeBatchSubmitJobAsync(AnalyzeTextJobsInput body, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="body"/> is null. </exception>
+        public async Task<ResponseWithHeaders<MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeTextSubmitJobHeaders>> AnalyzeTextSubmitJobAsync(string endpoint, AnalyzeTextJobsInput body, CancellationToken cancellationToken = default)
         {
+            if (endpoint == null)
+            {
+                throw new ArgumentNullException(nameof(endpoint));
+            }
             if (body == null)
             {
                 throw new ArgumentNullException(nameof(body));
             }
 
-            using var message = CreateAnalyzeBatchSubmitJobRequest(body);
+            using var message = CreateAnalyzeTextSubmitJobRequest(endpoint, body);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            var headers = new MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeBatchSubmitJobHeaders(message.Response);
+            var headers = new MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeTextSubmitJobHeaders(message.Response);
             switch (message.Response.Status)
             {
                 case 202:
@@ -162,21 +171,25 @@ namespace Azure.AI.TextAnalytics
             }
         }
 
-        /// <summary> Submit text analysis job. </summary>
-        /// <param name="body"> Collection of documents to analyze and one or more tasks to execute. </param>
+        /// <summary> Submit a collection of text documents for analysis. Specify one or more unique tasks to be executed as a long-running operation. </summary>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
+        /// <param name="body"> The <see cref="AnalyzeTextJobsInput"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
-        /// <remarks> Submit a collection of text documents for analysis. Specify one or more unique tasks to be executed as a long-running operation. </remarks>
-        public ResponseWithHeaders<MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeBatchSubmitJobHeaders> AnalyzeBatchSubmitJob(AnalyzeTextJobsInput body, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="body"/> is null. </exception>
+        public ResponseWithHeaders<MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeTextSubmitJobHeaders> AnalyzeTextSubmitJob(string endpoint, AnalyzeTextJobsInput body, CancellationToken cancellationToken = default)
         {
+            if (endpoint == null)
+            {
+                throw new ArgumentNullException(nameof(endpoint));
+            }
             if (body == null)
             {
                 throw new ArgumentNullException(nameof(body));
             }
 
-            using var message = CreateAnalyzeBatchSubmitJobRequest(body);
+            using var message = CreateAnalyzeTextSubmitJobRequest(endpoint, body);
             _pipeline.Send(message, cancellationToken);
-            var headers = new MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeBatchSubmitJobHeaders(message.Response);
+            var headers = new MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeTextSubmitJobHeaders(message.Response);
             switch (message.Response.Status)
             {
                 case 202:
@@ -186,13 +199,13 @@ namespace Azure.AI.TextAnalytics
             }
         }
 
-        internal HttpMessage CreateAnalyzeBatchJobStatusRequest(Guid jobId, bool? showStats, int? top, int? skip)
+        internal HttpMessage CreateAnalyzeTextJobStatusRequest(string endpoint, Guid jobId, bool? showStats, int? top, int? skip)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.AppendRaw(endpoint, true);
             uri.AppendRaw("/language", false);
             uri.AppendPath("/analyze-text/jobs/", false);
             uri.AppendPath(jobId, true);
@@ -215,15 +228,22 @@ namespace Azure.AI.TextAnalytics
         }
 
         /// <summary> Get analysis status and results. </summary>
-        /// <param name="jobId"> Job ID. </param>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
+        /// <param name="jobId"> job ID. </param>
         /// <param name="showStats"> (Optional) if set to true, response will contain request and document level statistics. </param>
         /// <param name="top"> The maximum number of resources to return from the collection. </param>
         /// <param name="skip"> An offset into the collection of the first resource to be returned. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <remarks> Get the status of an analysis job.  A job may consist of one or more tasks.  Once all tasks are succeeded, the job will transition to the succeeded state and results will be available for each task. </remarks>
-        public async Task<Response<AnalyzeTextJobState>> AnalyzeBatchJobStatusAsync(Guid jobId, bool? showStats = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> is null. </exception>
+        /// <remarks> Get the status of an analysis job. A job can consist of one or more tasks. After all tasks succeed, the job transitions to the succeeded state and results are available for each task. </remarks>
+        public async Task<Response<AnalyzeTextJobState>> AnalyzeTextJobStatusAsync(string endpoint, Guid jobId, bool? showStats = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            using var message = CreateAnalyzeBatchJobStatusRequest(jobId, showStats, top, skip);
+            if (endpoint == null)
+            {
+                throw new ArgumentNullException(nameof(endpoint));
+            }
+
+            using var message = CreateAnalyzeTextJobStatusRequest(endpoint, jobId, showStats, top, skip);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -240,15 +260,22 @@ namespace Azure.AI.TextAnalytics
         }
 
         /// <summary> Get analysis status and results. </summary>
-        /// <param name="jobId"> Job ID. </param>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
+        /// <param name="jobId"> job ID. </param>
         /// <param name="showStats"> (Optional) if set to true, response will contain request and document level statistics. </param>
         /// <param name="top"> The maximum number of resources to return from the collection. </param>
         /// <param name="skip"> An offset into the collection of the first resource to be returned. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <remarks> Get the status of an analysis job.  A job may consist of one or more tasks.  Once all tasks are succeeded, the job will transition to the succeeded state and results will be available for each task. </remarks>
-        public Response<AnalyzeTextJobState> AnalyzeBatchJobStatus(Guid jobId, bool? showStats = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> is null. </exception>
+        /// <remarks> Get the status of an analysis job. A job can consist of one or more tasks. After all tasks succeed, the job transitions to the succeeded state and results are available for each task. </remarks>
+        public Response<AnalyzeTextJobState> AnalyzeTextJobStatus(string endpoint, Guid jobId, bool? showStats = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            using var message = CreateAnalyzeBatchJobStatusRequest(jobId, showStats, top, skip);
+            if (endpoint == null)
+            {
+                throw new ArgumentNullException(nameof(endpoint));
+            }
+
+            using var message = CreateAnalyzeTextJobStatusRequest(endpoint, jobId, showStats, top, skip);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -264,13 +291,13 @@ namespace Azure.AI.TextAnalytics
             }
         }
 
-        internal HttpMessage CreateAnalyzeBatchCancelJobRequest(Guid jobId)
+        internal HttpMessage CreateAnalyzeTextCancelJobRequest(string endpoint, Guid jobId)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.AppendRaw(endpoint, true);
             uri.AppendRaw("/language", false);
             uri.AppendPath("/analyze-text/jobs/", false);
             uri.AppendPath(jobId, true);
@@ -282,14 +309,20 @@ namespace Azure.AI.TextAnalytics
         }
 
         /// <summary> Cancel a long-running Text Analysis job. </summary>
-        /// <param name="jobId"> Job ID. </param>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
+        /// <param name="jobId"> The job ID to cancel. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <remarks> Cancel a long-running Text Analysis job. </remarks>
-        public async Task<ResponseWithHeaders<MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeBatchCancelJobHeaders>> AnalyzeBatchCancelJobAsync(Guid jobId, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> is null. </exception>
+        public async Task<ResponseWithHeaders<MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeTextCancelJobHeaders>> AnalyzeTextCancelJobAsync(string endpoint, Guid jobId, CancellationToken cancellationToken = default)
         {
-            using var message = CreateAnalyzeBatchCancelJobRequest(jobId);
+            if (endpoint == null)
+            {
+                throw new ArgumentNullException(nameof(endpoint));
+            }
+
+            using var message = CreateAnalyzeTextCancelJobRequest(endpoint, jobId);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            var headers = new MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeBatchCancelJobHeaders(message.Response);
+            var headers = new MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeTextCancelJobHeaders(message.Response);
             switch (message.Response.Status)
             {
                 case 202:
@@ -300,14 +333,20 @@ namespace Azure.AI.TextAnalytics
         }
 
         /// <summary> Cancel a long-running Text Analysis job. </summary>
-        /// <param name="jobId"> Job ID. </param>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
+        /// <param name="jobId"> The job ID to cancel. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <remarks> Cancel a long-running Text Analysis job. </remarks>
-        public ResponseWithHeaders<MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeBatchCancelJobHeaders> AnalyzeBatchCancelJob(Guid jobId, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> is null. </exception>
+        public ResponseWithHeaders<MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeTextCancelJobHeaders> AnalyzeTextCancelJob(string endpoint, Guid jobId, CancellationToken cancellationToken = default)
         {
-            using var message = CreateAnalyzeBatchCancelJobRequest(jobId);
+            if (endpoint == null)
+            {
+                throw new ArgumentNullException(nameof(endpoint));
+            }
+
+            using var message = CreateAnalyzeTextCancelJobRequest(endpoint, jobId);
             _pipeline.Send(message, cancellationToken);
-            var headers = new MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeBatchCancelJobHeaders(message.Response);
+            var headers = new MicrosoftCognitiveLanguageServiceTextAnalysisAnalyzeTextCancelJobHeaders(message.Response);
             switch (message.Response.Status)
             {
                 case 202:
