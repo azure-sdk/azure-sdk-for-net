@@ -7,7 +7,7 @@
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> An object representing the task definition for a PII Entities Recognition task. </summary>
+    /// <summary> Contains the analyze text PIIEntityRecognition LRO task. </summary>
     internal partial class PiiLROTask : AnalyzeTextLROTask
     {
         /// <summary> Initializes a new instance of <see cref="PiiLROTask"/>. </summary>
@@ -17,16 +17,16 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="PiiLROTask"/>. </summary>
-        /// <param name="taskName"></param>
-        /// <param name="kind"> Enumeration of supported long-running Text Analysis tasks. </param>
-        /// <param name="parameters"> Supported parameters for a PII Entities Recognition task. </param>
+        /// <param name="taskName"> task name. </param>
+        /// <param name="kind"> The kind of task to perform. </param>
+        /// <param name="parameters"> Pii task parameters. </param>
         internal PiiLROTask(string taskName, AnalyzeTextLROTaskKind kind, PiiTaskParameters parameters) : base(taskName, kind)
         {
             Parameters = parameters;
             Kind = kind;
         }
 
-        /// <summary> Supported parameters for a PII Entities Recognition task. </summary>
+        /// <summary> Pii task parameters. </summary>
         public PiiTaskParameters Parameters { get; set; }
     }
 }

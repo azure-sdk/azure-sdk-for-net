@@ -11,20 +11,22 @@ using System.Linq;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The LanguageDetectionResult. </summary>
-    internal partial class LanguageDetectionResult : PreBuiltResult
+    /// <summary> Contains the language detection result for the request. </summary>
+    internal partial class LanguageDetectionResult
     {
         /// <summary> Initializes a new instance of <see cref="LanguageDetectionResult"/>. </summary>
         /// <param name="errors"> Errors by document id. </param>
         /// <param name="modelVersion"> This field indicates which model is used for scoring. </param>
-        /// <param name="documents"> Response by document. </param>
+        /// <param name="documents"> Enumeration of language detection results for each input document. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="errors"/>, <paramref name="modelVersion"/> or <paramref name="documents"/> is null. </exception>
-        public LanguageDetectionResult(IEnumerable<DocumentError> errors, string modelVersion, IEnumerable<LanguageDetectionDocumentResult> documents) : base(errors, modelVersion)
+        internal LanguageDetectionResult(IEnumerable<DocumentError> errors, string modelVersion, IEnumerable<LanguageDetectionDocumentResult> documents)
         {
             Argument.AssertNotNull(errors, nameof(errors));
             Argument.AssertNotNull(modelVersion, nameof(modelVersion));
             Argument.AssertNotNull(documents, nameof(documents));
 
+            Errors = errors.ToList();
+            ModelVersion = modelVersion;
             Documents = documents.ToList();
         }
 
@@ -32,13 +34,22 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="errors"> Errors by document id. </param>
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the request payload. </param>
         /// <param name="modelVersion"> This field indicates which model is used for scoring. </param>
-        /// <param name="documents"> Response by document. </param>
-        internal LanguageDetectionResult(IList<DocumentError> errors, TextDocumentBatchStatistics statistics, string modelVersion, IList<LanguageDetectionDocumentResult> documents) : base(errors, statistics, modelVersion)
+        /// <param name="documents"> Enumeration of language detection results for each input document. </param>
+        internal LanguageDetectionResult(IReadOnlyList<DocumentError> errors, TextDocumentBatchStatistics statistics, string modelVersion, IReadOnlyList<LanguageDetectionDocumentResult> documents)
         {
+            Errors = errors;
+            Statistics = statistics;
+            ModelVersion = modelVersion;
             Documents = documents;
         }
 
-        /// <summary> Response by document. </summary>
-        public IList<LanguageDetectionDocumentResult> Documents { get; }
+        /// <summary> Errors by document id. </summary>
+        public IReadOnlyList<DocumentError> Errors { get; }
+        /// <summary> if showStats=true was specified in the request this field will contain information about the request payload. </summary>
+        public TextDocumentBatchStatistics Statistics { get; }
+        /// <summary> This field indicates which model is used for scoring. </summary>
+        public string ModelVersion { get; }
+        /// <summary> Enumeration of language detection results for each input document. </summary>
+        public IReadOnlyList<LanguageDetectionDocumentResult> Documents { get; }
     }
 }
