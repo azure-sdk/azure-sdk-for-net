@@ -6,22 +6,11 @@
 #nullable disable
 
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics
 {
-    public partial struct TextDocumentStatistics : IUtf8JsonSerializable
+    public partial struct TextDocumentStatistics
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("charactersCount"u8);
-            writer.WriteNumberValue(CharacterCount);
-            writer.WritePropertyName("transactionsCount"u8);
-            writer.WriteNumberValue(TransactionCount);
-            writer.WriteEndObject();
-        }
-
         internal static TextDocumentStatistics DeserializeTextDocumentStatistics(JsonElement element)
         {
             int charactersCount = default;
@@ -48,14 +37,6 @@ namespace Azure.AI.TextAnalytics
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializeTextDocumentStatistics(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }

@@ -11,20 +11,22 @@ using System.Linq;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The LinkedEntitiesDocumentResult. </summary>
-    internal partial class LinkedEntitiesDocumentResult : DocumentResult
+    /// <summary> Entity linking document result. </summary>
+    internal partial class LinkedEntitiesDocumentResult
     {
         /// <summary> Initializes a new instance of <see cref="LinkedEntitiesDocumentResult"/>. </summary>
         /// <param name="id"> Unique, non-empty document identifier. </param>
         /// <param name="warnings"> Warnings encountered while processing document. </param>
         /// <param name="entities"> Recognized well known entities in the document. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="id"/>, <paramref name="warnings"/> or <paramref name="entities"/> is null. </exception>
-        public LinkedEntitiesDocumentResult(string id, IEnumerable<DocumentWarning> warnings, IEnumerable<LinkedEntity> entities) : base(id, warnings)
+        internal LinkedEntitiesDocumentResult(string id, IEnumerable<DocumentWarning> warnings, IEnumerable<LinkedEntity> entities)
         {
             Argument.AssertNotNull(id, nameof(id));
             Argument.AssertNotNull(warnings, nameof(warnings));
             Argument.AssertNotNull(entities, nameof(entities));
 
+            Id = id;
+            Warnings = warnings.ToList();
             Entities = entities.ToList();
         }
 
@@ -33,12 +35,21 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="warnings"> Warnings encountered while processing document. </param>
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the document payload. </param>
         /// <param name="entities"> Recognized well known entities in the document. </param>
-        internal LinkedEntitiesDocumentResult(string id, IList<DocumentWarning> warnings, TextDocumentStatistics? statistics, IList<LinkedEntity> entities) : base(id, warnings, statistics)
+        internal LinkedEntitiesDocumentResult(string id, IReadOnlyList<DocumentWarning> warnings, TextDocumentStatistics? statistics, IReadOnlyList<LinkedEntity> entities)
         {
+            Id = id;
+            Warnings = warnings;
+            Statistics = statistics;
             Entities = entities;
         }
 
+        /// <summary> Unique, non-empty document identifier. </summary>
+        public string Id { get; }
+        /// <summary> Warnings encountered while processing document. </summary>
+        public IReadOnlyList<DocumentWarning> Warnings { get; }
+        /// <summary> if showStats=true was specified in the request this field will contain information about the document payload. </summary>
+        public TextDocumentStatistics? Statistics { get; }
         /// <summary> Recognized well known entities in the document. </summary>
-        public IList<LinkedEntity> Entities { get; }
+        public IReadOnlyList<LinkedEntity> Entities { get; }
     }
 }

@@ -1,4 +1,4 @@
-repo: Azure/azure-rest-api-specs
-commit: 21c2852d62ccc3abe9cc3800c989c6826f8363dc
 directory: specification/cognitiveservices/Language.AnalyzeText
-
+commit: ce46dc3e04b0bc3a7b04d9c715c1107186978a5c
+repo: Azure/azure-rest-api-specs
+additionalDirectories: 

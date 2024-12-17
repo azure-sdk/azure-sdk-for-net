@@ -7,48 +7,11 @@
 
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial struct SentenceSentimentInternal : IUtf8JsonSerializable
+    internal partial struct SentenceSentimentInternal
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("text"u8);
-            writer.WriteStringValue(Text);
-            writer.WritePropertyName("sentiment"u8);
-            writer.WriteStringValue(Sentiment);
-            writer.WritePropertyName("confidenceScores"u8);
-            writer.WriteObjectValue<SentimentConfidenceScores>(ConfidenceScores);
-            writer.WritePropertyName("offset"u8);
-            writer.WriteNumberValue(Offset);
-            writer.WritePropertyName("length"u8);
-            writer.WriteNumberValue(Length);
-            if (Optional.IsCollectionDefined(Targets))
-            {
-                writer.WritePropertyName("targets"u8);
-                writer.WriteStartArray();
-                foreach (var item in Targets)
-                {
-                    writer.WriteObjectValue<SentenceTarget>(item);
-                }
-                writer.WriteEndArray();
-            }
-            if (Optional.IsCollectionDefined(Assessments))
-            {
-                writer.WritePropertyName("assessments"u8);
-                writer.WriteStartArray();
-                foreach (var item in Assessments)
-                {
-                    writer.WriteObjectValue<SentenceAssessment>(item);
-                }
-                writer.WriteEndArray();
-            }
-            writer.WriteEndObject();
-        }
-
         internal static SentenceSentimentInternal DeserializeSentenceSentimentInternal(JsonElement element)
         {
             string text = default;
@@ -130,14 +93,6 @@ namespace Azure.AI.TextAnalytics.Models
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializeSentenceSentimentInternal(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }

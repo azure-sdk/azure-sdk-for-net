@@ -6,22 +6,11 @@
 #nullable disable
 
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics
 {
-    public partial class EntityDataSource : IUtf8JsonSerializable
+    public partial class EntityDataSource
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("dataSource"u8);
-            writer.WriteStringValue(Name);
-            writer.WritePropertyName("id"u8);
-            writer.WriteStringValue(EntityId);
-            writer.WriteEndObject();
-        }
-
         internal static EntityDataSource DeserializeEntityDataSource(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -52,14 +41,6 @@ namespace Azure.AI.TextAnalytics
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializeEntityDataSource(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal virtual RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }
