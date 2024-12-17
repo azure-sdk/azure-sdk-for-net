@@ -11,7 +11,7 @@ namespace Azure.AI.TextAnalytics.Models
     internal partial class UnknownAnalyzeTextTaskResult : AnalyzeTextTaskResult
     {
         /// <summary> Initializes a new instance of <see cref="UnknownAnalyzeTextTaskResult"/>. </summary>
-        /// <param name="kind"> Enumeration of supported Text Analysis task results. </param>
+        /// <param name="kind"> The kind of task result. </param>
         internal UnknownAnalyzeTextTaskResult(AnalyzeTextTaskResultsKind kind) : base(kind)
         {
             Kind = kind;
