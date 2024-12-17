@@ -9,11 +9,11 @@ using System;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The SentimentTaskResult. </summary>
+    /// <summary> Contains the analyze text SentimentAnalysis LRO task result. </summary>
     internal partial class SentimentTaskResult : AnalyzeTextTaskResult
     {
         /// <summary> Initializes a new instance of <see cref="SentimentTaskResult"/>. </summary>
-        /// <param name="results"></param>
+        /// <param name="results"> The sentiment analysis results. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="results"/> is null. </exception>
         internal SentimentTaskResult(SentimentResponse results)
         {
@@ -24,15 +24,15 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="SentimentTaskResult"/>. </summary>
-        /// <param name="kind"> Enumeration of supported Text Analysis task results. </param>
-        /// <param name="results"></param>
+        /// <param name="kind"> The kind of task result. </param>
+        /// <param name="results"> The sentiment analysis results. </param>
         internal SentimentTaskResult(AnalyzeTextTaskResultsKind kind, SentimentResponse results) : base(kind)
         {
             Results = results;
             Kind = kind;
         }
 
-        /// <summary> Gets the results. </summary>
+        /// <summary> The sentiment analysis results. </summary>
         public SentimentResponse Results { get; }
     }
 }
