@@ -9,7 +9,7 @@ using System;
 
 namespace Azure.AI.TextAnalytics
 {
-    /// <summary> The Match. </summary>
+    /// <summary> The Match object containing the detected entity text with the offset and the length. </summary>
     public readonly partial struct LinkedEntityMatch
     {
     }

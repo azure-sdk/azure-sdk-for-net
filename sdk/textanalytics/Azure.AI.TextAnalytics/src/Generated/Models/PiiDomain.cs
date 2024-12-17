@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The PII domain used for PII Entity Recognition. </summary>
+    /// <summary> Domain for PII task. </summary>
     internal readonly partial struct PiiDomain : IEquatable<PiiDomain>
     {
         private readonly string _value;
