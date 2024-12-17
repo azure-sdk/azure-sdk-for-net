@@ -7,7 +7,7 @@
 
 namespace Azure.AI.TextAnalytics
 {
-    /// <summary> The HealthcareAssertion. </summary>
+    /// <summary> Assertion of the entity. </summary>
     public partial class HealthcareEntityAssertion
     {
         /// <summary> Initializes a new instance of <see cref="HealthcareEntityAssertion"/>. </summary>

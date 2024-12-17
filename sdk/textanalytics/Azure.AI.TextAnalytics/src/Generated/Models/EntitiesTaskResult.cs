@@ -9,11 +9,11 @@ using System;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The EntitiesTaskResult. </summary>
+    /// <summary> Contains the entity task. </summary>
     internal partial class EntitiesTaskResult : AnalyzeTextTaskResult
     {
         /// <summary> Initializes a new instance of <see cref="EntitiesTaskResult"/>. </summary>
-        /// <param name="results"></param>
+        /// <param name="results"> Results for entity recognition. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="results"/> is null. </exception>
         internal EntitiesTaskResult(EntitiesResult results)
         {
@@ -24,15 +24,15 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="EntitiesTaskResult"/>. </summary>
-        /// <param name="kind"> Enumeration of supported Text Analysis task results. </param>
-        /// <param name="results"></param>
+        /// <param name="kind"> The kind of task result. </param>
+        /// <param name="results"> Results for entity recognition. </param>
         internal EntitiesTaskResult(AnalyzeTextTaskResultsKind kind, EntitiesResult results) : base(kind)
         {
             Results = results;
             Kind = kind;
         }
 
-        /// <summary> Gets the results. </summary>
+        /// <summary> Results for entity recognition. </summary>
         public EntitiesResult Results { get; }
     }
 }
