@@ -10,24 +10,37 @@ using System;
 namespace Azure.AI.TextAnalytics.Models
 {
     /// <summary> Supported parameters for a Custom Single Classification task. </summary>
-    internal partial class CustomSingleLabelClassificationTaskParameters : CustomTaskParameters
+    internal partial class CustomSingleLabelClassificationTaskParameters
     {
         /// <summary> Initializes a new instance of <see cref="CustomSingleLabelClassificationTaskParameters"/>. </summary>
         /// <param name="projectName"> This field indicates the project name for the model. </param>
         /// <param name="deploymentName"> This field indicates the deployment name for the model. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is null. </exception>
-        public CustomSingleLabelClassificationTaskParameters(string projectName, string deploymentName) : base(projectName, deploymentName)
+        public CustomSingleLabelClassificationTaskParameters(string projectName, string deploymentName)
         {
             Argument.AssertNotNull(projectName, nameof(projectName));
             Argument.AssertNotNull(deploymentName, nameof(deploymentName));
+
+            ProjectName = projectName;
+            DeploymentName = deploymentName;
         }
 
         /// <summary> Initializes a new instance of <see cref="CustomSingleLabelClassificationTaskParameters"/>. </summary>
-        /// <param name="loggingOptOut"></param>
+        /// <param name="loggingOptOut"> logging opt out. </param>
         /// <param name="projectName"> This field indicates the project name for the model. </param>
         /// <param name="deploymentName"> This field indicates the deployment name for the model. </param>
-        internal CustomSingleLabelClassificationTaskParameters(bool? loggingOptOut, string projectName, string deploymentName) : base(loggingOptOut, projectName, deploymentName)
+        internal CustomSingleLabelClassificationTaskParameters(bool? loggingOptOut, string projectName, string deploymentName)
         {
+            LoggingOptOut = loggingOptOut;
+            ProjectName = projectName;
+            DeploymentName = deploymentName;
         }
+
+        /// <summary> logging opt out. </summary>
+        public bool? LoggingOptOut { get; set; }
+        /// <summary> This field indicates the project name for the model. </summary>
+        public string ProjectName { get; }
+        /// <summary> This field indicates the deployment name for the model. </summary>
+        public string DeploymentName { get; }
     }
 }

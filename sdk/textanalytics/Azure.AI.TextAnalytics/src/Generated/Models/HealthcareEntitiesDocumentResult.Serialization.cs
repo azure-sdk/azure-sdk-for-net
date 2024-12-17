@@ -7,79 +7,24 @@
 
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class HealthcareEntitiesDocumentResult : IUtf8JsonSerializable
+    internal partial class HealthcareEntitiesDocumentResult
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("entities"u8);
-            writer.WriteStartArray();
-            foreach (var item in Entities)
-            {
-                writer.WriteObjectValue(item);
-            }
-            writer.WriteEndArray();
-            writer.WritePropertyName("relations"u8);
-            writer.WriteStartArray();
-            foreach (var item in Relations)
-            {
-                writer.WriteObjectValue(item);
-            }
-            writer.WriteEndArray();
-            writer.WritePropertyName("id"u8);
-            writer.WriteStringValue(Id);
-            writer.WritePropertyName("warnings"u8);
-            writer.WriteStartArray();
-            foreach (var item in Warnings)
-            {
-                writer.WriteObjectValue(item);
-            }
-            writer.WriteEndArray();
-            if (Optional.IsDefined(Statistics))
-            {
-                writer.WritePropertyName("statistics"u8);
-                writer.WriteObjectValue(Statistics);
-            }
-            writer.WriteEndObject();
-        }
-
         internal static HealthcareEntitiesDocumentResult DeserializeHealthcareEntitiesDocumentResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            IList<HealthcareEntityInternal> entities = default;
-            IList<HealthcareRelationInternal> relations = default;
             string id = default;
-            IList<DocumentWarning> warnings = default;
+            IReadOnlyList<DocumentWarning> warnings = default;
             TextDocumentStatistics? statistics = default;
+            IReadOnlyList<HealthcareEntityInternal> entities = default;
+            IReadOnlyList<HealthcareRelationInternal> relations = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("entities"u8))
-                {
-                    List<HealthcareEntityInternal> array = new List<HealthcareEntityInternal>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(HealthcareEntityInternal.DeserializeHealthcareEntityInternal(item));
-                    }
-                    entities = array;
-                    continue;
-                }
-                if (property.NameEquals("relations"u8))
-                {
-                    List<HealthcareRelationInternal> array = new List<HealthcareRelationInternal>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(HealthcareRelationInternal.DeserializeHealthcareRelationInternal(item));
-                    }
-                    relations = array;
-                    continue;
-                }
                 if (property.NameEquals("id"u8))
                 {
                     id = property.Value.GetString();
@@ -104,24 +49,36 @@ namespace Azure.AI.TextAnalytics.Models
                     statistics = TextDocumentStatistics.DeserializeTextDocumentStatistics(property.Value);
                     continue;
                 }
+                if (property.NameEquals("entities"u8))
+                {
+                    List<HealthcareEntityInternal> array = new List<HealthcareEntityInternal>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(HealthcareEntityInternal.DeserializeHealthcareEntityInternal(item));
+                    }
+                    entities = array;
+                    continue;
+                }
+                if (property.NameEquals("relations"u8))
+                {
+                    List<HealthcareRelationInternal> array = new List<HealthcareRelationInternal>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(HealthcareRelationInternal.DeserializeHealthcareRelationInternal(item));
+                    }
+                    relations = array;
+                    continue;
+                }
             }
             return new HealthcareEntitiesDocumentResult(id, warnings, statistics, entities, relations);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static new HealthcareEntitiesDocumentResult FromResponse(Response response)
+        internal static HealthcareEntitiesDocumentResult FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializeHealthcareEntitiesDocumentResult(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal override RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }
