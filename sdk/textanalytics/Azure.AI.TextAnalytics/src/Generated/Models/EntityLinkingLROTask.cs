@@ -7,7 +7,7 @@
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> An object representing the task definition for an Entity Linking task. </summary>
+    /// <summary> Contains the analyze text Entity linking LRO task. </summary>
     internal partial class EntityLinkingLROTask : AnalyzeTextLROTask
     {
         /// <summary> Initializes a new instance of <see cref="EntityLinkingLROTask"/>. </summary>
@@ -17,16 +17,16 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="EntityLinkingLROTask"/>. </summary>
-        /// <param name="taskName"></param>
-        /// <param name="kind"> Enumeration of supported long-running Text Analysis tasks. </param>
-        /// <param name="parameters"> Supported parameters for an Entity Linking task. </param>
+        /// <param name="taskName"> task name. </param>
+        /// <param name="kind"> The kind of task to perform. </param>
+        /// <param name="parameters"> Task parameters. </param>
         internal EntityLinkingLROTask(string taskName, AnalyzeTextLROTaskKind kind, EntityLinkingTaskParameters parameters) : base(taskName, kind)
         {
             Parameters = parameters;
             Kind = kind;
         }
 
-        /// <summary> Supported parameters for an Entity Linking task. </summary>
+        /// <summary> Task parameters. </summary>
         public EntityLinkingTaskParameters Parameters { get; set; }
     }
 }

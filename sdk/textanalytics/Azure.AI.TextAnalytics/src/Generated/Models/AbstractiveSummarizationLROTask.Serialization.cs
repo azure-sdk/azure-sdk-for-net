@@ -15,54 +15,19 @@ namespace Azure.AI.TextAnalytics.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName("parameters"u8);
-            writer.WriteObjectValue(Parameters);
-            writer.WritePropertyName("kind"u8);
-            writer.WriteStringValue(Kind.ToString());
+            if (Optional.IsDefined(Parameters))
+            {
+                writer.WritePropertyName("parameters"u8);
+                writer.WriteObjectValue(Parameters);
+            }
             if (Optional.IsDefined(TaskName))
             {
                 writer.WritePropertyName("taskName"u8);
                 writer.WriteStringValue(TaskName);
             }
+            writer.WritePropertyName("kind"u8);
+            writer.WriteStringValue(Kind.ToString());
             writer.WriteEndObject();
-        }
-
-        internal static AbstractiveSummarizationLROTask DeserializeAbstractiveSummarizationLROTask(JsonElement element)
-        {
-            if (element.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            AbstractiveSummarizationTaskParameters parameters = default;
-            AnalyzeTextLROTaskKind kind = default;
-            string taskName = default;
-            foreach (var property in element.EnumerateObject())
-            {
-                if (property.NameEquals("parameters"u8))
-                {
-                    parameters = AbstractiveSummarizationTaskParameters.DeserializeAbstractiveSummarizationTaskParameters(property.Value);
-                    continue;
-                }
-                if (property.NameEquals("kind"u8))
-                {
-                    kind = new AnalyzeTextLROTaskKind(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("taskName"u8))
-                {
-                    taskName = property.Value.GetString();
-                    continue;
-                }
-            }
-            return new AbstractiveSummarizationLROTask(taskName, kind, parameters);
-        }
-
-        /// <summary> Deserializes the model from a raw response. </summary>
-        /// <param name="response"> The response to deserialize the model from. </param>
-        internal static new AbstractiveSummarizationLROTask FromResponse(Response response)
-        {
-            using var document = JsonDocument.Parse(response.Content);
-            return DeserializeAbstractiveSummarizationLROTask(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>

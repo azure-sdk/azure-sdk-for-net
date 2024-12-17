@@ -7,49 +7,21 @@
 
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class AbstractiveSummarizationResult : IUtf8JsonSerializable
+    internal partial class AbstractiveSummarizationResult
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("errors"u8);
-            writer.WriteStartArray();
-            foreach (var item in Errors)
-            {
-                writer.WriteObjectValue(item);
-            }
-            writer.WriteEndArray();
-            if (Optional.IsDefined(Statistics))
-            {
-                writer.WritePropertyName("statistics"u8);
-                writer.WriteObjectValue(Statistics);
-            }
-            writer.WritePropertyName("modelVersion"u8);
-            writer.WriteStringValue(ModelVersion);
-            writer.WritePropertyName("documents"u8);
-            writer.WriteStartArray();
-            foreach (var item in Documents)
-            {
-                writer.WriteObjectValue(item);
-            }
-            writer.WriteEndArray();
-            writer.WriteEndObject();
-        }
-
         internal static AbstractiveSummarizationResult DeserializeAbstractiveSummarizationResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            IList<DocumentError> errors = default;
+            IReadOnlyList<DocumentError> errors = default;
             TextDocumentBatchStatistics statistics = default;
             string modelVersion = default;
-            IList<AbstractiveSummaryDocumentResult> documents = default;
+            IReadOnlyList<AbstractiveSummaryDocumentResult> documents = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("errors"u8))
@@ -87,23 +59,15 @@ namespace Azure.AI.TextAnalytics.Models
                     continue;
                 }
             }
-            return new AbstractiveSummarizationResult(documents, errors, statistics, modelVersion);
+            return new AbstractiveSummarizationResult(errors, statistics, modelVersion, documents);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static new AbstractiveSummarizationResult FromResponse(Response response)
+        internal static AbstractiveSummarizationResult FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializeAbstractiveSummarizationResult(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal override RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }
