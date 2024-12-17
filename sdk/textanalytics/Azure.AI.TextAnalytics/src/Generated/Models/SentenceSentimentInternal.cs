@@ -11,19 +11,19 @@ using System.Linq;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The SentenceSentiment. </summary>
+    /// <summary> A document's sentence sentiment. </summary>
     internal readonly partial struct SentenceSentimentInternal
     {
         /// <summary> Initializes a new instance of <see cref="SentenceSentimentInternal"/>. </summary>
         /// <param name="text"> The sentence text. </param>
         /// <param name="sentiment"> The predicted Sentiment for the sentence. </param>
         /// <param name="confidenceScores"> The sentiment confidence score between 0 and 1 for the sentence for all classes. </param>
-        /// <param name="offset"> The sentence offset from the start of the document. </param>
-        /// <param name="length"> The length of the sentence. </param>
+        /// <param name="offset"> The target offset from the start of the sentence. </param>
+        /// <param name="length"> The length of the target. </param>
         /// <param name="targets"> The array of sentence targets for the sentence. </param>
         /// <param name="assessments"> The array of assessments for the sentence. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="text"/>, <paramref name="sentiment"/> or <paramref name="confidenceScores"/> is null. </exception>
-        public SentenceSentimentInternal(string text, string sentiment, SentimentConfidenceScores confidenceScores, int offset, int length, IEnumerable<SentenceTarget> targets, IEnumerable<SentenceAssessment> assessments)
+        internal SentenceSentimentInternal(string text, string sentiment, SentimentConfidenceScores confidenceScores, int offset, int length, IEnumerable<SentenceTarget> targets, IEnumerable<SentenceAssessment> assessments)
         {
             Argument.AssertNotNull(text, nameof(text));
             Argument.AssertNotNull(sentiment, nameof(sentiment));
@@ -42,8 +42,8 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="text"> The sentence text. </param>
         /// <param name="sentiment"> The predicted Sentiment for the sentence. </param>
         /// <param name="confidenceScores"> The sentiment confidence score between 0 and 1 for the sentence for all classes. </param>
-        /// <param name="offset"> The sentence offset from the start of the document. </param>
-        /// <param name="length"> The length of the sentence. </param>
+        /// <param name="offset"> The target offset from the start of the sentence. </param>
+        /// <param name="length"> The length of the target. </param>
         /// <param name="targets"> The array of sentence targets for the sentence. </param>
         /// <param name="assessments"> The array of assessments for the sentence. </param>
         internal SentenceSentimentInternal(string text, string sentiment, SentimentConfidenceScores confidenceScores, int offset, int length, IReadOnlyList<SentenceTarget> targets, IReadOnlyList<SentenceAssessment> assessments)
