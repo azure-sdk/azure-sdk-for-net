@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.Synapse.Models
 {
-    /// <summary> Contains the information necessary to perform a resource move (rename). </summary>
-    public partial class SynapseResourceMoveDefinition
+    /// <summary> PipelineExternalComputeScale properties for managed integration runtime. </summary>
+    public partial class PipelineExternalComputeScaleProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,31 +45,29 @@ namespace Azure.ResourceManager.Synapse.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SynapseResourceMoveDefinition"/>. </summary>
-        /// <param name="id"> The target ID for the resource. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="id"/> is null. </exception>
-        public SynapseResourceMoveDefinition(ResourceIdentifier id)
+        /// <summary> Initializes a new instance of <see cref="PipelineExternalComputeScaleProperties"/>. </summary>
+        public PipelineExternalComputeScaleProperties()
         {
-            Argument.AssertNotNull(id, nameof(id));
-
-            Id = id;
         }
 
-        /// <summary> Initializes a new instance of <see cref="SynapseResourceMoveDefinition"/>. </summary>
-        /// <param name="id"> The target ID for the resource. </param>
+        /// <summary> Initializes a new instance of <see cref="PipelineExternalComputeScaleProperties"/>. </summary>
+        /// <param name="timeToLive"> Time to live (in minutes) setting of integration runtime which will execute pipeline and external activity. </param>
+        /// <param name="numberOfPipelineNodes"> Number of the pipeline nodes, which should be greater than 0 and less than 11. </param>
+        /// <param name="numberOfExternalNodes"> Number of the the external nodes, which should be greater than 0 and less than 11. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SynapseResourceMoveDefinition(ResourceIdentifier id, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PipelineExternalComputeScaleProperties(int? timeToLive, int? numberOfPipelineNodes, int? numberOfExternalNodes, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Id = id;
+            TimeToLive = timeToLive;
+            NumberOfPipelineNodes = numberOfPipelineNodes;
+            NumberOfExternalNodes = numberOfExternalNodes;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="SynapseResourceMoveDefinition"/> for deserialization. </summary>
-        internal SynapseResourceMoveDefinition()
-        {
-        }
-
-        /// <summary> The target ID for the resource. </summary>
-        public ResourceIdentifier Id { get; }
+        /// <summary> Time to live (in minutes) setting of integration runtime which will execute pipeline and external activity. </summary>
+        public int? TimeToLive { get; set; }
+        /// <summary> Number of the pipeline nodes, which should be greater than 0 and less than 11. </summary>
+        public int? NumberOfPipelineNodes { get; set; }
+        /// <summary> Number of the the external nodes, which should be greater than 0 and less than 11. </summary>
+        public int? NumberOfExternalNodes { get; set; }
     }
 }
