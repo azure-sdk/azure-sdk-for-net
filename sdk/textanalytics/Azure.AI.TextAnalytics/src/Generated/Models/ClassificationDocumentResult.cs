@@ -11,20 +11,22 @@ using System.Linq;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The ClassificationDocumentResult. </summary>
-    internal partial class ClassificationDocumentResult : DocumentResult
+    /// <summary> Contains the classification doc result for the task. </summary>
+    internal partial class ClassificationDocumentResult
     {
         /// <summary> Initializes a new instance of <see cref="ClassificationDocumentResult"/>. </summary>
         /// <param name="id"> Unique, non-empty document identifier. </param>
         /// <param name="warnings"> Warnings encountered while processing document. </param>
-        /// <param name="class"></param>
+        /// <param name="class"> Contains the classification doc results for all docs. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="id"/>, <paramref name="warnings"/> or <paramref name="class"/> is null. </exception>
-        public ClassificationDocumentResult(string id, IEnumerable<DocumentWarning> warnings, IEnumerable<ClassificationResult> @class) : base(id, warnings)
+        internal ClassificationDocumentResult(string id, IEnumerable<DocumentWarning> warnings, IEnumerable<ClassificationResult> @class)
         {
             Argument.AssertNotNull(id, nameof(id));
             Argument.AssertNotNull(warnings, nameof(warnings));
             Argument.AssertNotNull(@class, nameof(@class));
 
+            Id = id;
+            Warnings = warnings.ToList();
             Class = @class.ToList();
         }
 
@@ -32,13 +34,22 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="id"> Unique, non-empty document identifier. </param>
         /// <param name="warnings"> Warnings encountered while processing document. </param>
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the document payload. </param>
-        /// <param name="class"></param>
-        internal ClassificationDocumentResult(string id, IList<DocumentWarning> warnings, TextDocumentStatistics? statistics, IList<ClassificationResult> @class) : base(id, warnings, statistics)
+        /// <param name="class"> Contains the classification doc results for all docs. </param>
+        internal ClassificationDocumentResult(string id, IReadOnlyList<DocumentWarning> warnings, TextDocumentStatistics? statistics, IReadOnlyList<ClassificationResult> @class)
         {
+            Id = id;
+            Warnings = warnings;
+            Statistics = statistics;
             Class = @class;
         }
 
-        /// <summary> Gets the class. </summary>
-        public IList<ClassificationResult> Class { get; }
+        /// <summary> Unique, non-empty document identifier. </summary>
+        public string Id { get; }
+        /// <summary> Warnings encountered while processing document. </summary>
+        public IReadOnlyList<DocumentWarning> Warnings { get; }
+        /// <summary> if showStats=true was specified in the request this field will contain information about the document payload. </summary>
+        public TextDocumentStatistics? Statistics { get; }
+        /// <summary> Contains the classification doc results for all docs. </summary>
+        public IReadOnlyList<ClassificationResult> Class { get; }
     }
 }
