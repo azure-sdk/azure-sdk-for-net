@@ -11,8 +11,8 @@ using System.Linq;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The HealthcareEntitiesDocumentResult. </summary>
-    internal partial class HealthcareEntitiesDocumentResult : DocumentResult
+    /// <summary> Result object for the processed Healthcare document. </summary>
+    internal partial class HealthcareEntitiesDocumentResult
     {
         /// <summary> Initializes a new instance of <see cref="HealthcareEntitiesDocumentResult"/>. </summary>
         /// <param name="id"> Unique, non-empty document identifier. </param>
@@ -20,13 +20,15 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="entities"> Healthcare entities. </param>
         /// <param name="relations"> Healthcare entity relations. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="id"/>, <paramref name="warnings"/>, <paramref name="entities"/> or <paramref name="relations"/> is null. </exception>
-        public HealthcareEntitiesDocumentResult(string id, IEnumerable<DocumentWarning> warnings, IEnumerable<HealthcareEntityInternal> entities, IEnumerable<HealthcareRelationInternal> relations) : base(id, warnings)
+        internal HealthcareEntitiesDocumentResult(string id, IEnumerable<DocumentWarning> warnings, IEnumerable<HealthcareEntityInternal> entities, IEnumerable<HealthcareRelationInternal> relations)
         {
             Argument.AssertNotNull(id, nameof(id));
             Argument.AssertNotNull(warnings, nameof(warnings));
             Argument.AssertNotNull(entities, nameof(entities));
             Argument.AssertNotNull(relations, nameof(relations));
 
+            Id = id;
+            Warnings = warnings.ToList();
             Entities = entities.ToList();
             Relations = relations.ToList();
         }
@@ -37,15 +39,24 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the document payload. </param>
         /// <param name="entities"> Healthcare entities. </param>
         /// <param name="relations"> Healthcare entity relations. </param>
-        internal HealthcareEntitiesDocumentResult(string id, IList<DocumentWarning> warnings, TextDocumentStatistics? statistics, IList<HealthcareEntityInternal> entities, IList<HealthcareRelationInternal> relations) : base(id, warnings, statistics)
+        internal HealthcareEntitiesDocumentResult(string id, IReadOnlyList<DocumentWarning> warnings, TextDocumentStatistics? statistics, IReadOnlyList<HealthcareEntityInternal> entities, IReadOnlyList<HealthcareRelationInternal> relations)
         {
+            Id = id;
+            Warnings = warnings;
+            Statistics = statistics;
             Entities = entities;
             Relations = relations;
         }
 
+        /// <summary> Unique, non-empty document identifier. </summary>
+        public string Id { get; }
+        /// <summary> Warnings encountered while processing document. </summary>
+        public IReadOnlyList<DocumentWarning> Warnings { get; }
+        /// <summary> if showStats=true was specified in the request this field will contain information about the document payload. </summary>
+        public TextDocumentStatistics? Statistics { get; }
         /// <summary> Healthcare entities. </summary>
-        public IList<HealthcareEntityInternal> Entities { get; }
+        public IReadOnlyList<HealthcareEntityInternal> Entities { get; }
         /// <summary> Healthcare entity relations. </summary>
-        public IList<HealthcareRelationInternal> Relations { get; }
+        public IReadOnlyList<HealthcareRelationInternal> Relations { get; }
     }
 }

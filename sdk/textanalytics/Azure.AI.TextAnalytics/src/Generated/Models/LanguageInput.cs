@@ -7,12 +7,12 @@
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The LanguageInput. </summary>
+    /// <summary> Contains the language detection input. </summary>
     internal partial class LanguageInput
     {
         /// <summary> Initializes a new instance of <see cref="LanguageInput"/>. </summary>
-        /// <param name="id"> Unique, non-empty document identifier. </param>
-        /// <param name="text"></param>
+        /// <param name="id"> A unique, non-empty document identifier. </param>
+        /// <param name="text"> The input text to process. </param>
         public LanguageInput(string id, string text)
         {
             Id = id;
@@ -20,9 +20,9 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="LanguageInput"/>. </summary>
-        /// <param name="id"> Unique, non-empty document identifier. </param>
-        /// <param name="text"></param>
-        /// <param name="countryHint"></param>
+        /// <param name="id"> A unique, non-empty document identifier. </param>
+        /// <param name="text"> The input text to process. </param>
+        /// <param name="countryHint"> The country hint to help with language detection of the text. </param>
         internal LanguageInput(string id, string text, string countryHint)
         {
             Id = id;
@@ -30,11 +30,11 @@ namespace Azure.AI.TextAnalytics.Models
             CountryHint = countryHint;
         }
 
-        /// <summary> Unique, non-empty document identifier. </summary>
+        /// <summary> A unique, non-empty document identifier. </summary>
         public string Id { get; }
-        /// <summary> Gets the text. </summary>
+        /// <summary> The input text to process. </summary>
         public string Text { get; }
-        /// <summary> Gets or sets the country hint. </summary>
+        /// <summary> The country hint to help with language detection of the text. </summary>
         public string CountryHint { get; set; }
     }
 }

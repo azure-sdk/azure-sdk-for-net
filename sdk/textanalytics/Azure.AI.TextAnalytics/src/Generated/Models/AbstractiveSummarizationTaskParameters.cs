@@ -7,8 +7,8 @@
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> Supported parameters for the pre-build Abstractive Summarization task. </summary>
-    internal partial class AbstractiveSummarizationTaskParameters : AbstractiveSummarizationTaskParametersBase
+    /// <summary> Supported parameters for the pre-built Abstractive Summarization task. </summary>
+    internal partial class AbstractiveSummarizationTaskParameters
     {
         /// <summary> Initializes a new instance of <see cref="AbstractiveSummarizationTaskParameters"/>. </summary>
         public AbstractiveSummarizationTaskParameters()
@@ -16,19 +16,25 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="AbstractiveSummarizationTaskParameters"/>. </summary>
-        /// <param name="sentenceCount"> It controls the approximate number of sentences in the output summaries. </param>
-        /// <param name="stringIndexType"> Specifies the method used to interpret string offsets.  Defaults to Text Elements (Graphemes) according to Unicode v8.0.0. For additional information see https://aka.ms/text-analytics-offsets. </param>
-        /// <param name="modelVersion"></param>
-        /// <param name="loggingOptOut"></param>
-        internal AbstractiveSummarizationTaskParameters(int? sentenceCount, StringIndexType? stringIndexType, string modelVersion, bool? loggingOptOut) : base(sentenceCount, stringIndexType)
+        /// <param name="loggingOptOut"> logging opt out. </param>
+        /// <param name="modelVersion"> model version. </param>
+        /// <param name="sentenceCount"> Controls the approximate number of sentences in the output summaries. </param>
+        /// <param name="stringIndexType"> String index type. </param>
+        internal AbstractiveSummarizationTaskParameters(bool? loggingOptOut, string modelVersion, int? sentenceCount, StringIndexType? stringIndexType)
         {
-            ModelVersion = modelVersion;
             LoggingOptOut = loggingOptOut;
+            ModelVersion = modelVersion;
+            SentenceCount = sentenceCount;
+            StringIndexType = stringIndexType;
         }
 
-        /// <summary> Gets or sets the model version. </summary>
-        public string ModelVersion { get; set; }
-        /// <summary> Gets or sets the logging opt out. </summary>
+        /// <summary> logging opt out. </summary>
         public bool? LoggingOptOut { get; set; }
+        /// <summary> model version. </summary>
+        public string ModelVersion { get; set; }
+        /// <summary> Controls the approximate number of sentences in the output summaries. </summary>
+        public int? SentenceCount { get; set; }
+        /// <summary> String index type. </summary>
+        public StringIndexType? StringIndexType { get; set; }
     }
 }
