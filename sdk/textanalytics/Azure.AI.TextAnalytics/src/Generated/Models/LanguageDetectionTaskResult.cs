@@ -9,11 +9,11 @@ using System;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The LanguageDetectionTaskResult. </summary>
+    /// <summary> Contains the language detection task result for the request. </summary>
     internal partial class LanguageDetectionTaskResult : AnalyzeTextTaskResult
     {
         /// <summary> Initializes a new instance of <see cref="LanguageDetectionTaskResult"/>. </summary>
-        /// <param name="results"></param>
+        /// <param name="results"> Contains the language detection results. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="results"/> is null. </exception>
         internal LanguageDetectionTaskResult(LanguageDetectionResult results)
         {
@@ -24,15 +24,15 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="LanguageDetectionTaskResult"/>. </summary>
-        /// <param name="kind"> Enumeration of supported Text Analysis task results. </param>
-        /// <param name="results"></param>
+        /// <param name="kind"> The kind of task result. </param>
+        /// <param name="results"> Contains the language detection results. </param>
         internal LanguageDetectionTaskResult(AnalyzeTextTaskResultsKind kind, LanguageDetectionResult results) : base(kind)
         {
             Results = results;
             Kind = kind;
         }
 
-        /// <summary> Gets the results. </summary>
+        /// <summary> Contains the language detection results. </summary>
         public LanguageDetectionResult Results { get; }
     }
 }

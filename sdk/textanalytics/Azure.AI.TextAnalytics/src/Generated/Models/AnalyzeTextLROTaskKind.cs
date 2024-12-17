@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> Enumeration of supported long-running Text Analysis tasks. </summary>
+    /// <summary> The kind of the long running analyze text tasks supported. </summary>
     internal readonly partial struct AnalyzeTextLROTaskKind : IEquatable<AnalyzeTextLROTaskKind>
     {
         private readonly string _value;
@@ -28,33 +28,33 @@ namespace Azure.AI.TextAnalytics.Models
         private const string KeyPhraseExtractionValue = "KeyPhraseExtraction";
         private const string EntityLinkingValue = "EntityLinking";
         private const string HealthcareValue = "Healthcare";
-        private const string ExtractiveSummarizationValue = "ExtractiveSummarization";
         private const string CustomEntityRecognitionValue = "CustomEntityRecognition";
         private const string CustomSingleLabelClassificationValue = "CustomSingleLabelClassification";
         private const string CustomMultiLabelClassificationValue = "CustomMultiLabelClassification";
+        private const string ExtractiveSummarizationValue = "ExtractiveSummarization";
         private const string AbstractiveSummarizationValue = "AbstractiveSummarization";
 
-        /// <summary> SentimentAnalysis. </summary>
+        /// <summary> Sentiment analysis task. </summary>
         public static AnalyzeTextLROTaskKind SentimentAnalysis { get; } = new AnalyzeTextLROTaskKind(SentimentAnalysisValue);
-        /// <summary> EntityRecognition. </summary>
+        /// <summary> Entity recognition task. </summary>
         public static AnalyzeTextLROTaskKind EntityRecognition { get; } = new AnalyzeTextLROTaskKind(EntityRecognitionValue);
-        /// <summary> PiiEntityRecognition. </summary>
+        /// <summary> PII entity recognition task. </summary>
         public static AnalyzeTextLROTaskKind PiiEntityRecognition { get; } = new AnalyzeTextLROTaskKind(PiiEntityRecognitionValue);
-        /// <summary> KeyPhraseExtraction. </summary>
+        /// <summary> Key phrase extraction task. </summary>
         public static AnalyzeTextLROTaskKind KeyPhraseExtraction { get; } = new AnalyzeTextLROTaskKind(KeyPhraseExtractionValue);
-        /// <summary> EntityLinking. </summary>
+        /// <summary> Entity linking task. </summary>
         public static AnalyzeTextLROTaskKind EntityLinking { get; } = new AnalyzeTextLROTaskKind(EntityLinkingValue);
-        /// <summary> Healthcare. </summary>
+        /// <summary> Healthcare task. </summary>
         public static AnalyzeTextLROTaskKind Healthcare { get; } = new AnalyzeTextLROTaskKind(HealthcareValue);
-        /// <summary> ExtractiveSummarization. </summary>
-        public static AnalyzeTextLROTaskKind ExtractiveSummarization { get; } = new AnalyzeTextLROTaskKind(ExtractiveSummarizationValue);
-        /// <summary> CustomEntityRecognition. </summary>
+        /// <summary> Custom entity recognition task. </summary>
         public static AnalyzeTextLROTaskKind CustomEntityRecognition { get; } = new AnalyzeTextLROTaskKind(CustomEntityRecognitionValue);
-        /// <summary> CustomSingleLabelClassification. </summary>
+        /// <summary> Custom single label classification task. </summary>
         public static AnalyzeTextLROTaskKind CustomSingleLabelClassification { get; } = new AnalyzeTextLROTaskKind(CustomSingleLabelClassificationValue);
-        /// <summary> CustomMultiLabelClassification. </summary>
+        /// <summary> Custom multi label classification task. </summary>
         public static AnalyzeTextLROTaskKind CustomMultiLabelClassification { get; } = new AnalyzeTextLROTaskKind(CustomMultiLabelClassificationValue);
-        /// <summary> AbstractiveSummarization. </summary>
+        /// <summary> Extractive summarization task. </summary>
+        public static AnalyzeTextLROTaskKind ExtractiveSummarization { get; } = new AnalyzeTextLROTaskKind(ExtractiveSummarizationValue);
+        /// <summary> Abstractive summarization task. </summary>
         public static AnalyzeTextLROTaskKind AbstractiveSummarization { get; } = new AnalyzeTextLROTaskKind(AbstractiveSummarizationValue);
         /// <summary> Determines if two <see cref="AnalyzeTextLROTaskKind"/> values are the same. </summary>
         public static bool operator ==(AnalyzeTextLROTaskKind left, AnalyzeTextLROTaskKind right) => left.Equals(right);

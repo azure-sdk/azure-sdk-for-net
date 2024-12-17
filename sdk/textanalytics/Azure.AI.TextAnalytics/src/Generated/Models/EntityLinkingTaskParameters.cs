@@ -8,7 +8,7 @@
 namespace Azure.AI.TextAnalytics.Models
 {
     /// <summary> Supported parameters for an Entity Linking task. </summary>
-    internal partial class EntityLinkingTaskParameters : PreBuiltTaskParameters
+    internal partial class EntityLinkingTaskParameters
     {
         /// <summary> Initializes a new instance of <see cref="EntityLinkingTaskParameters"/>. </summary>
         public EntityLinkingTaskParameters()
@@ -16,15 +16,21 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="EntityLinkingTaskParameters"/>. </summary>
-        /// <param name="loggingOptOut"></param>
-        /// <param name="modelVersion"></param>
-        /// <param name="stringIndexType"> Specifies the method used to interpret string offsets.  Defaults to Text Elements (Graphemes) according to Unicode v8.0.0. For additional information see https://aka.ms/text-analytics-offsets. </param>
-        internal EntityLinkingTaskParameters(bool? loggingOptOut, string modelVersion, StringIndexType? stringIndexType) : base(loggingOptOut, modelVersion)
+        /// <param name="loggingOptOut"> logging opt out. </param>
+        /// <param name="modelVersion"> model version. </param>
+        /// <param name="stringIndexType"> Optional parameter to provide the string index type used to interpret string offsets. Defaults to TextElements (Graphemes). </param>
+        internal EntityLinkingTaskParameters(bool? loggingOptOut, string modelVersion, StringIndexType? stringIndexType)
         {
+            LoggingOptOut = loggingOptOut;
+            ModelVersion = modelVersion;
             StringIndexType = stringIndexType;
         }
 
-        /// <summary> Specifies the method used to interpret string offsets.  Defaults to Text Elements (Graphemes) according to Unicode v8.0.0. For additional information see https://aka.ms/text-analytics-offsets. </summary>
+        /// <summary> logging opt out. </summary>
+        public bool? LoggingOptOut { get; set; }
+        /// <summary> model version. </summary>
+        public string ModelVersion { get; set; }
+        /// <summary> Optional parameter to provide the string index type used to interpret string offsets. Defaults to TextElements (Graphemes). </summary>
         public StringIndexType? StringIndexType { get; set; }
     }
 }

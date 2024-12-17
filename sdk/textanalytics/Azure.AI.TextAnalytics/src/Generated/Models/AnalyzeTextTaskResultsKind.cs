@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> Enumeration of supported Text Analysis task results. </summary>
+    /// <summary> The kind of the response object returned by the analyze-text task. </summary>
     internal readonly partial struct AnalyzeTextTaskResultsKind : IEquatable<AnalyzeTextTaskResultsKind>
     {
         private readonly string _value;
@@ -29,17 +29,17 @@ namespace Azure.AI.TextAnalytics.Models
         private const string LanguageDetectionResultsValue = "LanguageDetectionResults";
         private const string EntityLinkingResultsValue = "EntityLinkingResults";
 
-        /// <summary> SentimentAnalysisResults. </summary>
+        /// <summary> Sentiment analysis results. </summary>
         public static AnalyzeTextTaskResultsKind SentimentAnalysisResults { get; } = new AnalyzeTextTaskResultsKind(SentimentAnalysisResultsValue);
-        /// <summary> EntityRecognitionResults. </summary>
+        /// <summary> Entity recognition results. </summary>
         public static AnalyzeTextTaskResultsKind EntityRecognitionResults { get; } = new AnalyzeTextTaskResultsKind(EntityRecognitionResultsValue);
-        /// <summary> PiiEntityRecognitionResults. </summary>
+        /// <summary> PII entity recognition results. </summary>
         public static AnalyzeTextTaskResultsKind PiiEntityRecognitionResults { get; } = new AnalyzeTextTaskResultsKind(PiiEntityRecognitionResultsValue);
-        /// <summary> KeyPhraseExtractionResults. </summary>
+        /// <summary> Key phrase extraction results. </summary>
         public static AnalyzeTextTaskResultsKind KeyPhraseExtractionResults { get; } = new AnalyzeTextTaskResultsKind(KeyPhraseExtractionResultsValue);
-        /// <summary> LanguageDetectionResults. </summary>
+        /// <summary> Language detection results. </summary>
         public static AnalyzeTextTaskResultsKind LanguageDetectionResults { get; } = new AnalyzeTextTaskResultsKind(LanguageDetectionResultsValue);
-        /// <summary> EntityLinkingResults. </summary>
+        /// <summary> Entity linking results. </summary>
         public static AnalyzeTextTaskResultsKind EntityLinkingResults { get; } = new AnalyzeTextTaskResultsKind(EntityLinkingResultsValue);
         /// <summary> Determines if two <see cref="AnalyzeTextTaskResultsKind"/> values are the same. </summary>
         public static bool operator ==(AnalyzeTextTaskResultsKind left, AnalyzeTextTaskResultsKind right) => left.Equals(right);
