@@ -11,23 +11,25 @@ using System.Linq;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The SentimentDocumentResult. </summary>
-    internal partial class SentimentDocumentResult : DocumentResult
+    /// <summary> An object representing the pre-built Sentiment Analysis results of each document. </summary>
+    internal partial class SentimentDocumentResult
     {
         /// <summary> Initializes a new instance of <see cref="SentimentDocumentResult"/>. </summary>
         /// <param name="id"> Unique, non-empty document identifier. </param>
         /// <param name="warnings"> Warnings encountered while processing document. </param>
         /// <param name="sentiment"> Predicted sentiment for document (Negative, Neutral, Positive, or Mixed). </param>
-        /// <param name="confidenceScores"> Document level sentiment confidence scores between 0 and 1 for each sentiment class. </param>
-        /// <param name="sentences"> Sentence level sentiment analysis. </param>
+        /// <param name="confidenceScores"> The sentiment confidence score between 0 and 1 for the sentence for all classes. </param>
+        /// <param name="sentences"> The document's sentences sentiment. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="id"/>, <paramref name="warnings"/>, <paramref name="confidenceScores"/> or <paramref name="sentences"/> is null. </exception>
-        public SentimentDocumentResult(string id, IEnumerable<DocumentWarning> warnings, TextSentiment sentiment, SentimentConfidenceScores confidenceScores, IEnumerable<SentenceSentimentInternal> sentences) : base(id, warnings)
+        internal SentimentDocumentResult(string id, IEnumerable<DocumentWarning> warnings, TextSentiment sentiment, SentimentConfidenceScores confidenceScores, IEnumerable<SentenceSentimentInternal> sentences)
         {
             Argument.AssertNotNull(id, nameof(id));
             Argument.AssertNotNull(warnings, nameof(warnings));
             Argument.AssertNotNull(confidenceScores, nameof(confidenceScores));
             Argument.AssertNotNull(sentences, nameof(sentences));
 
+            Id = id;
+            Warnings = warnings.ToList();
             Sentiment = sentiment;
             ConfidenceScores = confidenceScores;
             Sentences = sentences.ToList();
@@ -38,20 +40,29 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="warnings"> Warnings encountered while processing document. </param>
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the document payload. </param>
         /// <param name="sentiment"> Predicted sentiment for document (Negative, Neutral, Positive, or Mixed). </param>
-        /// <param name="confidenceScores"> Document level sentiment confidence scores between 0 and 1 for each sentiment class. </param>
-        /// <param name="sentences"> Sentence level sentiment analysis. </param>
-        internal SentimentDocumentResult(string id, IList<DocumentWarning> warnings, TextDocumentStatistics? statistics, TextSentiment sentiment, SentimentConfidenceScores confidenceScores, IList<SentenceSentimentInternal> sentences) : base(id, warnings, statistics)
+        /// <param name="confidenceScores"> The sentiment confidence score between 0 and 1 for the sentence for all classes. </param>
+        /// <param name="sentences"> The document's sentences sentiment. </param>
+        internal SentimentDocumentResult(string id, IReadOnlyList<DocumentWarning> warnings, TextDocumentStatistics? statistics, TextSentiment sentiment, SentimentConfidenceScores confidenceScores, IReadOnlyList<SentenceSentimentInternal> sentences)
         {
+            Id = id;
+            Warnings = warnings;
+            Statistics = statistics;
             Sentiment = sentiment;
             ConfidenceScores = confidenceScores;
             Sentences = sentences;
         }
 
+        /// <summary> Unique, non-empty document identifier. </summary>
+        public string Id { get; }
+        /// <summary> Warnings encountered while processing document. </summary>
+        public IReadOnlyList<DocumentWarning> Warnings { get; }
+        /// <summary> if showStats=true was specified in the request this field will contain information about the document payload. </summary>
+        public TextDocumentStatistics? Statistics { get; }
         /// <summary> Predicted sentiment for document (Negative, Neutral, Positive, or Mixed). </summary>
-        public TextSentiment Sentiment { get; set; }
-        /// <summary> Document level sentiment confidence scores between 0 and 1 for each sentiment class. </summary>
-        public SentimentConfidenceScores ConfidenceScores { get; set; }
-        /// <summary> Sentence level sentiment analysis. </summary>
-        public IList<SentenceSentimentInternal> Sentences { get; }
+        public TextSentiment Sentiment { get; }
+        /// <summary> The sentiment confidence score between 0 and 1 for the sentence for all classes. </summary>
+        public SentimentConfidenceScores ConfidenceScores { get; }
+        /// <summary> The document's sentences sentiment. </summary>
+        public IReadOnlyList<SentenceSentimentInternal> Sentences { get; }
     }
 }

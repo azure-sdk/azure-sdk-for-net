@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The LanguageDetectionAnalysisInput. </summary>
+    /// <summary> Contains the language detection document analysis input. </summary>
     internal partial class LanguageDetectionAnalysisInput
     {
         /// <summary> Initializes a new instance of <see cref="LanguageDetectionAnalysisInput"/>. </summary>
@@ -19,13 +19,13 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="LanguageDetectionAnalysisInput"/>. </summary>
-        /// <param name="documents"></param>
+        /// <param name="documents"> List of documents to be analyzed. </param>
         internal LanguageDetectionAnalysisInput(IList<LanguageInput> documents)
         {
             Documents = documents;
         }
 
-        /// <summary> Gets the documents. </summary>
+        /// <summary> List of documents to be analyzed. </summary>
         public IList<LanguageInput> Documents { get; }
     }
 }
