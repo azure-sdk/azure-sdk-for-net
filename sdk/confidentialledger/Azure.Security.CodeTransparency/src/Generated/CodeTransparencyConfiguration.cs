@@ -51,23 +51,27 @@ namespace Azure.Security.CodeTransparency
         }
 
         /// <summary> Initializes a new instance of <see cref="CodeTransparencyConfiguration"/>. </summary>
-        /// <param name="policy"></param>
-        /// <param name="authentication"></param>
-        /// <param name="serviceIdentifier"> did:web identifier. </param>
+        /// <param name="policy"> Policy configuration. </param>
+        /// <param name="authentication"> Authentication configuration. </param>
+        /// <param name="serviceIssuer"> Issuer used in receipts. </param>
+        /// <param name="serviceFeed"> Feed name used in receipts. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CodeTransparencyConfiguration(CodeTransparencyConfigurationPolicy policy, CodeTransparencyConfigurationAuthentication authentication, string serviceIdentifier, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CodeTransparencyConfiguration(CodeTransparencyConfigurationPolicy policy, CodeTransparencyConfigurationAuthentication authentication, string serviceIssuer, string serviceFeed, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Policy = policy;
             Authentication = authentication;
-            ServiceIdentifier = serviceIdentifier;
+            ServiceIssuer = serviceIssuer;
+            ServiceFeed = serviceFeed;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Gets the policy. </summary>
+        /// <summary> Policy configuration. </summary>
         public CodeTransparencyConfigurationPolicy Policy { get; }
-        /// <summary> Gets the authentication. </summary>
+        /// <summary> Authentication configuration. </summary>
         public CodeTransparencyConfigurationAuthentication Authentication { get; }
-        /// <summary> did:web identifier. </summary>
-        public string ServiceIdentifier { get; }
+        /// <summary> Issuer used in receipts. </summary>
+        public string ServiceIssuer { get; }
+        /// <summary> Feed name used in receipts. </summary>
+        public string ServiceFeed { get; }
     }
 }
