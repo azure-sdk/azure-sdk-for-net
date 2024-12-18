@@ -44,10 +44,15 @@ namespace Azure.Security.CodeTransparency
                 writer.WritePropertyName("authentication"u8);
                 writer.WriteObjectValue(Authentication, options);
             }
-            if (Optional.IsDefined(ServiceIdentifier))
+            if (Optional.IsDefined(ServiceIssuer))
             {
-                writer.WritePropertyName("service_identifier"u8);
-                writer.WriteStringValue(ServiceIdentifier);
+                writer.WritePropertyName("serviceIssuer"u8);
+                writer.WriteStringValue(ServiceIssuer);
+            }
+            if (Optional.IsDefined(ServiceFeed))
+            {
+                writer.WritePropertyName("serviceFeed"u8);
+                writer.WriteStringValue(ServiceFeed);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -88,7 +93,8 @@ namespace Azure.Security.CodeTransparency
             }
             CodeTransparencyConfigurationPolicy policy = default;
             CodeTransparencyConfigurationAuthentication authentication = default;
-            string serviceIdentifier = default;
+            string serviceIssuer = default;
+            string serviceFeed = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -111,9 +117,14 @@ namespace Azure.Security.CodeTransparency
                     authentication = CodeTransparencyConfigurationAuthentication.DeserializeCodeTransparencyConfigurationAuthentication(property.Value, options);
                     continue;
                 }
-                if (property.NameEquals("service_identifier"u8))
+                if (property.NameEquals("serviceIssuer"u8))
                 {
-                    serviceIdentifier = property.Value.GetString();
+                    serviceIssuer = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("serviceFeed"u8))
+                {
+                    serviceFeed = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -122,7 +133,7 @@ namespace Azure.Security.CodeTransparency
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new CodeTransparencyConfiguration(policy, authentication, serviceIdentifier, serializedAdditionalRawData);
+            return new CodeTransparencyConfiguration(policy, authentication, serviceIssuer, serviceFeed, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<CodeTransparencyConfiguration>.Write(ModelReaderWriterOptions options)

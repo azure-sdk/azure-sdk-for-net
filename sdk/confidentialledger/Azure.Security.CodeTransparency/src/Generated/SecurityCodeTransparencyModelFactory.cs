@@ -13,66 +13,23 @@ namespace Azure.Security.CodeTransparency
     /// <summary> Model factory for models. </summary>
     public static partial class SecurityCodeTransparencyModelFactory
     {
-        /// <summary> Initializes a new instance of <see cref="CodeTransparency.CreateEntryResult"/>. </summary>
-        /// <param name="operationId"> String representing the operation id submitted. </param>
-        /// <returns> A new <see cref="CodeTransparency.CreateEntryResult"/> instance for mocking. </returns>
-        public static CreateEntryResult CreateEntryResult(string operationId = null)
+        /// <summary> Initializes a new instance of <see cref="CodeTransparency.TransparencyConfigurationJson"/>. </summary>
+        /// <param name="issuer"> Configured issuer string. </param>
+        /// <param name="jwksUri"> Location of the JWKS document. </param>
+        /// <returns> A new <see cref="CodeTransparency.TransparencyConfigurationJson"/> instance for mocking. </returns>
+        public static TransparencyConfigurationJson TransparencyConfigurationJson(string issuer = null, string jwksUri = null)
         {
-            return new CreateEntryResult(operationId, serializedAdditionalRawData: null);
+            return new TransparencyConfigurationJson(issuer, jwksUri, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="CodeTransparency.GetOperationResult"/>. </summary>
-        /// <param name="entryId"> ID of the transaction. Only if status is Succeeded. </param>
-        /// <param name="error"> Error in json format. Only if Status is Failed. </param>
-        /// <param name="operationId"> OperationId. </param>
-        /// <param name="status"> Status of the operation. </param>
-        /// <returns> A new <see cref="CodeTransparency.GetOperationResult"/> instance for mocking. </returns>
-        public static GetOperationResult GetOperationResult(string entryId = null, string error = null, string operationId = null, OperationStatus status = default)
+        /// <summary> Initializes a new instance of <see cref="CodeTransparency.JwksDocument"/>. </summary>
+        /// <param name="keys"> List of public keys used for receipt verification. </param>
+        /// <returns> A new <see cref="CodeTransparency.JwksDocument"/> instance for mocking. </returns>
+        public static JwksDocument JwksDocument(IEnumerable<JsonWebKey> keys = null)
         {
-            return new GetOperationResult(entryId, error, operationId, status, serializedAdditionalRawData: null);
-        }
+            keys ??= new List<JsonWebKey>();
 
-        /// <summary> Initializes a new instance of <see cref="CodeTransparency.ListOperationResult"/>. </summary>
-        /// <param name="operations"> List of operations. </param>
-        /// <returns> A new <see cref="CodeTransparency.ListOperationResult"/> instance for mocking. </returns>
-        public static ListOperationResult ListOperationResult(IEnumerable<GetOperationResult> operations = null)
-        {
-            operations ??= new List<GetOperationResult>();
-
-            return new ListOperationResult(operations?.ToList(), serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="CodeTransparency.ParametersResult"/>. </summary>
-        /// <param name="serviceCertificate"></param>
-        /// <param name="serviceId"></param>
-        /// <param name="signatureAlgorithm"></param>
-        /// <param name="treeAlgorithm"></param>
-        /// <returns> A new <see cref="CodeTransparency.ParametersResult"/> instance for mocking. </returns>
-        public static ParametersResult ParametersResult(string serviceCertificate = null, string serviceId = null, string signatureAlgorithm = null, string treeAlgorithm = null)
-        {
-            return new ParametersResult(serviceCertificate, serviceId, signatureAlgorithm, treeAlgorithm, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="CodeTransparency.DidDocument"/>. </summary>
-        /// <param name="id"> String representing a DID issuer. </param>
-        /// <param name="assertionMethod"> List of public keys used for receipt endorsement verification. </param>
-        /// <returns> A new <see cref="CodeTransparency.DidDocument"/> instance for mocking. </returns>
-        public static DidDocument DidDocument(string id = null, IEnumerable<DidDocumentKey> assertionMethod = null)
-        {
-            assertionMethod ??= new List<DidDocumentKey>();
-
-            return new DidDocument(id, assertionMethod?.ToList(), serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="CodeTransparency.DidDocumentKey"/>. </summary>
-        /// <param name="id"> Key identifier. </param>
-        /// <param name="controller"> Key controller - similar to DID issuer. </param>
-        /// <param name="type"> Key type. </param>
-        /// <param name="publicKeyJwk"> Serialized public key in JWK format. </param>
-        /// <returns> A new <see cref="CodeTransparency.DidDocumentKey"/> instance for mocking. </returns>
-        public static DidDocumentKey DidDocumentKey(string id = null, string controller = null, DidDocumentKeyType type = default, JsonWebKey publicKeyJwk = null)
-        {
-            return new DidDocumentKey(id, controller, type, publicKeyJwk, serializedAdditionalRawData: null);
+            return new JwksDocument(keys?.ToList(), serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="CodeTransparency.JsonWebKey"/>. </summary>
@@ -155,30 +112,30 @@ namespace Azure.Security.CodeTransparency
         }
 
         /// <summary> Initializes a new instance of <see cref="CodeTransparency.CodeTransparencyConfiguration"/>. </summary>
-        /// <param name="policy"></param>
-        /// <param name="authentication"></param>
-        /// <param name="serviceIdentifier"> did:web identifier. </param>
+        /// <param name="policy"> Policy configuration. </param>
+        /// <param name="authentication"> Authentication configuration. </param>
+        /// <param name="serviceIssuer"> Issuer used in receipts. </param>
+        /// <param name="serviceFeed"> Feed name used in receipts. </param>
         /// <returns> A new <see cref="CodeTransparency.CodeTransparencyConfiguration"/> instance for mocking. </returns>
-        public static CodeTransparencyConfiguration CodeTransparencyConfiguration(CodeTransparencyConfigurationPolicy policy = null, CodeTransparencyConfigurationAuthentication authentication = null, string serviceIdentifier = null)
+        public static CodeTransparencyConfiguration CodeTransparencyConfiguration(CodeTransparencyConfigurationPolicy policy = null, CodeTransparencyConfigurationAuthentication authentication = null, string serviceIssuer = null, string serviceFeed = null)
         {
-            return new CodeTransparencyConfiguration(policy, authentication, serviceIdentifier, serializedAdditionalRawData: null);
+            return new CodeTransparencyConfiguration(policy, authentication, serviceIssuer, serviceFeed, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="CodeTransparency.CodeTransparencyConfigurationPolicy"/>. </summary>
-        /// <param name="acceptedAlgorithms"></param>
-        /// <param name="acceptedDidIssuers"></param>
+        /// <param name="acceptedAlgorithms"> Accepted COSE signature algorithms when verifying signed statements. </param>
+        /// <param name="policyScript"> COSE signature verification script in Javascript. </param>
         /// <returns> A new <see cref="CodeTransparency.CodeTransparencyConfigurationPolicy"/> instance for mocking. </returns>
-        public static CodeTransparencyConfigurationPolicy CodeTransparencyConfigurationPolicy(IEnumerable<string> acceptedAlgorithms = null, IEnumerable<string> acceptedDidIssuers = null)
+        public static CodeTransparencyConfigurationPolicy CodeTransparencyConfigurationPolicy(IEnumerable<string> acceptedAlgorithms = null, string policyScript = null)
         {
             acceptedAlgorithms ??= new List<string>();
-            acceptedDidIssuers ??= new List<string>();
 
-            return new CodeTransparencyConfigurationPolicy(acceptedAlgorithms?.ToList(), acceptedDidIssuers?.ToList(), serializedAdditionalRawData: null);
+            return new CodeTransparencyConfigurationPolicy(acceptedAlgorithms?.ToList(), policyScript, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="CodeTransparency.CodeTransparencyConfigurationAuthentication"/>. </summary>
-        /// <param name="allowUnauthenticated"></param>
-        /// <param name="jwt"></param>
+        /// <param name="allowUnauthenticated"> Disable API authentication and rely on signed statement verification only. </param>
+        /// <param name="jwt"> JWT requirements if authentication is enabled. </param>
         /// <returns> A new <see cref="CodeTransparency.CodeTransparencyConfigurationAuthentication"/> instance for mocking. </returns>
         public static CodeTransparencyConfigurationAuthentication CodeTransparencyConfigurationAuthentication(bool allowUnauthenticated = default, CodeTransparencyConfigurationAuthenticationJwt jwt = null)
         {
@@ -186,7 +143,7 @@ namespace Azure.Security.CodeTransparency
         }
 
         /// <summary> Initializes a new instance of <see cref="CodeTransparency.CodeTransparencyConfigurationAuthenticationJwt"/>. </summary>
-        /// <param name="requiredClaims"></param>
+        /// <param name="requiredClaims"> Claims that must be present in the JWT. </param>
         /// <returns> A new <see cref="CodeTransparency.CodeTransparencyConfigurationAuthenticationJwt"/> instance for mocking. </returns>
         public static CodeTransparencyConfigurationAuthenticationJwt CodeTransparencyConfigurationAuthenticationJwt(IReadOnlyDictionary<string, string> requiredClaims = null)
         {
@@ -196,11 +153,11 @@ namespace Azure.Security.CodeTransparency
         }
 
         /// <summary> Initializes a new instance of <see cref="CodeTransparency.VersionResult"/>. </summary>
-        /// <param name="scittVersion"> Version of the CodeTransparency service. </param>
+        /// <param name="version"> Version of the CodeTransparency service. </param>
         /// <returns> A new <see cref="CodeTransparency.VersionResult"/> instance for mocking. </returns>
-        public static VersionResult VersionResult(string scittVersion = null)
+        public static VersionResult VersionResult(string version = null)
         {
-            return new VersionResult(scittVersion, serializedAdditionalRawData: null);
+            return new VersionResult(version, serializedAdditionalRawData: null);
         }
     }
 }
