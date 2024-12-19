@@ -10,14 +10,15 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.Confluent.Models;
 
-namespace Azure.ResourceManager.Confluent.Models
+namespace Azure.ResourceManager.Confluent
 {
-    public partial class SCClusterRecord : IUtf8JsonSerializable, IJsonModel<SCClusterRecord>
+    public partial class SCClusterRecordData : IUtf8JsonSerializable, IJsonModel<SCClusterRecordData>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<SCClusterRecord>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<SCClusterRecordData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<SCClusterRecord>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<SCClusterRecordData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,10 +29,10 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SCClusterRecord>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SCClusterRecordData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SCClusterRecord)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(SCClusterRecordData)} does not support writing '{format}' format.");
             }
 
             if (Optional.IsDefined(Kind))
@@ -43,6 +44,11 @@ namespace Azure.ResourceManager.Confluent.Models
             {
                 writer.WritePropertyName("id"u8);
                 writer.WriteStringValue(Id);
+            }
+            if (Optional.IsDefined(ResourceType))
+            {
+                writer.WritePropertyName("type"u8);
+                writer.WriteStringValue(ResourceType);
             }
             if (Optional.IsDefined(Name))
             {
@@ -84,19 +90,19 @@ namespace Azure.ResourceManager.Confluent.Models
             }
         }
 
-        SCClusterRecord IJsonModel<SCClusterRecord>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        SCClusterRecordData IJsonModel<SCClusterRecordData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SCClusterRecord>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SCClusterRecordData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SCClusterRecord)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(SCClusterRecordData)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeSCClusterRecord(document.RootElement, options);
+            return DeserializeSCClusterRecordData(document.RootElement, options);
         }
 
-        internal static SCClusterRecord DeserializeSCClusterRecord(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static SCClusterRecordData DeserializeSCClusterRecordData(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -106,6 +112,7 @@ namespace Azure.ResourceManager.Confluent.Models
             }
             string kind = default;
             string id = default;
+            string type = default;
             string name = default;
             SCMetadataEntity metadata = default;
             SCClusterSpecEntity spec = default;
@@ -122,6 +129,11 @@ namespace Azure.ResourceManager.Confluent.Models
                 if (property.NameEquals("id"u8))
                 {
                     id = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("type"u8))
+                {
+                    type = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("name"u8))
@@ -174,9 +186,10 @@ namespace Azure.ResourceManager.Confluent.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new SCClusterRecord(
+            return new SCClusterRecordData(
                 kind,
                 id,
+                type,
                 name,
                 metadata,
                 spec,
@@ -184,35 +197,35 @@ namespace Azure.ResourceManager.Confluent.Models
                 serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<SCClusterRecord>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<SCClusterRecordData>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SCClusterRecord>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SCClusterRecordData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(SCClusterRecord)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(SCClusterRecordData)} does not support writing '{options.Format}' format.");
             }
         }
 
-        SCClusterRecord IPersistableModel<SCClusterRecord>.Create(BinaryData data, ModelReaderWriterOptions options)
+        SCClusterRecordData IPersistableModel<SCClusterRecordData>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SCClusterRecord>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SCClusterRecordData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeSCClusterRecord(document.RootElement, options);
+                        return DeserializeSCClusterRecordData(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(SCClusterRecord)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(SCClusterRecordData)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<SCClusterRecord>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<SCClusterRecordData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
