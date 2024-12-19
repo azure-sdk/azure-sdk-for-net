@@ -2236,8 +2236,10 @@ namespace Azure.ResourceManager.DataFactory.Models
     public partial class AzurePostgreSqlLinkedService : Azure.ResourceManager.DataFactory.Models.DataFactoryLinkedServiceProperties, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.DataFactory.Models.AzurePostgreSqlLinkedService>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.DataFactory.Models.AzurePostgreSqlLinkedService>
     {
         public AzurePostgreSqlLinkedService() { }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> AzureCloudType { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<int> CommandTimeout { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> ConnectionString { get { throw null; } set { } }
+        public Azure.ResourceManager.DataFactory.Models.DataFactoryCredentialReference Credential { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Database { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Encoding { get { throw null; } set { } }
         public string EncryptedCredential { get { throw null; } set { } }
@@ -2245,7 +2247,13 @@ namespace Azure.ResourceManager.DataFactory.Models
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<int> Port { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<int> ReadBufferSize { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Server { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> ServicePrincipalCredentialType { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactorySecret ServicePrincipalEmbeddedCert { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactorySecret ServicePrincipalEmbeddedCertPassword { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> ServicePrincipalId { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactorySecret ServicePrincipalKey { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<int> SslMode { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Tenant { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<int> Timeout { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Timezone { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<bool> TrustServerCertificate { get { throw null; } set { } }
@@ -4263,6 +4271,7 @@ namespace Azure.ResourceManager.DataFactory.Models
     {
         public DataFactoryScriptActivity(string name) : base (default(string)) { }
         public Azure.ResourceManager.DataFactory.Models.ScriptActivityTypeLogSettings LogSettings { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<bool> ReturnMultistatementResult { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> ScriptBlockExecutionTimeout { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.DataFactory.Models.ScriptActivityScriptBlock> Scripts { get { throw null; } }
         protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -10356,7 +10365,7 @@ namespace Azure.ResourceManager.DataFactory.Models
         public Azure.Core.Expressions.DataFactory.DataFactorySecret Password { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Server { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> SncLibraryPath { get { throw null; } set { } }
-        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> SncMode { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<bool> SncMode { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> SncMyName { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> SncPartnerName { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> SncQop { get { throw null; } set { } }
@@ -10458,7 +10467,7 @@ namespace Azure.ResourceManager.DataFactory.Models
         public Azure.Core.Expressions.DataFactory.DataFactorySecret Password { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Server { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> SncLibraryPath { get { throw null; } set { } }
-        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> SncMode { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<bool> SncMode { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> SncMyName { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> SncPartnerName { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> SncQop { get { throw null; } set { } }
