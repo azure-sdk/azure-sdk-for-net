@@ -46,21 +46,21 @@ namespace Azure.Security.CodeTransparency
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="VersionResult"/>. </summary>
-        /// <param name="scittVersion"> Version of the CodeTransparency service. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="scittVersion"/> is null. </exception>
-        internal VersionResult(string scittVersion)
+        /// <param name="version"> Version of the CodeTransparency service. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="version"/> is null. </exception>
+        internal VersionResult(string version)
         {
-            Argument.AssertNotNull(scittVersion, nameof(scittVersion));
+            Argument.AssertNotNull(version, nameof(version));
 
-            ScittVersion = scittVersion;
+            Version = version;
         }
 
         /// <summary> Initializes a new instance of <see cref="VersionResult"/>. </summary>
-        /// <param name="scittVersion"> Version of the CodeTransparency service. </param>
+        /// <param name="version"> Version of the CodeTransparency service. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VersionResult(string scittVersion, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VersionResult(string version, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            ScittVersion = scittVersion;
+            Version = version;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -70,6 +70,6 @@ namespace Azure.Security.CodeTransparency
         }
 
         /// <summary> Version of the CodeTransparency service. </summary>
-        public string ScittVersion { get; }
+        public string Version { get; }
     }
 }

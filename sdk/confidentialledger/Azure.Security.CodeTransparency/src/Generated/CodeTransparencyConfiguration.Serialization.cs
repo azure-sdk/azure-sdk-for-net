@@ -44,11 +44,6 @@ namespace Azure.Security.CodeTransparency
                 writer.WritePropertyName("authentication"u8);
                 writer.WriteObjectValue(Authentication, options);
             }
-            if (Optional.IsDefined(ServiceIdentifier))
-            {
-                writer.WritePropertyName("service_identifier"u8);
-                writer.WriteStringValue(ServiceIdentifier);
-            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -88,7 +83,6 @@ namespace Azure.Security.CodeTransparency
             }
             CodeTransparencyConfigurationPolicy policy = default;
             CodeTransparencyConfigurationAuthentication authentication = default;
-            string serviceIdentifier = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -111,18 +105,13 @@ namespace Azure.Security.CodeTransparency
                     authentication = CodeTransparencyConfigurationAuthentication.DeserializeCodeTransparencyConfigurationAuthentication(property.Value, options);
                     continue;
                 }
-                if (property.NameEquals("service_identifier"u8))
-                {
-                    serviceIdentifier = property.Value.GetString();
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new CodeTransparencyConfiguration(policy, authentication, serviceIdentifier, serializedAdditionalRawData);
+            return new CodeTransparencyConfiguration(policy, authentication, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<CodeTransparencyConfiguration>.Write(ModelReaderWriterOptions options)
