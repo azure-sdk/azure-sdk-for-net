@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Confluent.Models
 {
-    /// <summary> Details of cluster record. </summary>
-    public partial class SCClusterRecord
+    /// <summary> Stream governance configuration. </summary>
+    internal partial class StreamGovernanceConfig
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,41 +45,21 @@ namespace Azure.ResourceManager.Confluent.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SCClusterRecord"/>. </summary>
-        internal SCClusterRecord()
+        /// <summary> Initializes a new instance of <see cref="StreamGovernanceConfig"/>. </summary>
+        public StreamGovernanceConfig()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="SCClusterRecord"/>. </summary>
-        /// <param name="kind"> Type of cluster. </param>
-        /// <param name="id"> Id of the cluster. </param>
-        /// <param name="name"> Display name of the cluster. </param>
-        /// <param name="metadata"> Metadata of the record. </param>
-        /// <param name="spec"> Specification of the cluster. </param>
-        /// <param name="status"> Specification of the cluster status. </param>
+        /// <summary> Initializes a new instance of <see cref="StreamGovernanceConfig"/>. </summary>
+        /// <param name="package"> Stream governance configuration. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SCClusterRecord(string kind, string id, string name, SCMetadataEntity metadata, SCClusterSpecEntity spec, ClusterStatusEntity status, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal StreamGovernanceConfig(Package? package, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Kind = kind;
-            Id = id;
-            Name = name;
-            Metadata = metadata;
-            Spec = spec;
-            Status = status;
+            Package = package;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Type of cluster. </summary>
-        public string Kind { get; }
-        /// <summary> Id of the cluster. </summary>
-        public string Id { get; }
-        /// <summary> Display name of the cluster. </summary>
-        public string Name { get; }
-        /// <summary> Metadata of the record. </summary>
-        public SCMetadataEntity Metadata { get; }
-        /// <summary> Specification of the cluster. </summary>
-        public SCClusterSpecEntity Spec { get; }
-        /// <summary> Specification of the cluster status. </summary>
-        public ClusterStatusEntity Status { get; }
+        /// <summary> Stream governance configuration. </summary>
+        public Package? Package { get; set; }
     }
 }

@@ -10,8 +10,12 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Confluent.Models
 {
-    /// <summary> Details about environment name, metadata and environment id of an environment. </summary>
-    public partial class SCEnvironmentRecord
+    /// <summary>
+    /// The connector service type info
+    /// Please note <see cref="ConnectorServiceTypeInfoBase"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+    /// The available derived classes include <see cref="AzureBlobStorageSinkConnectorServiceInfo"/>, <see cref="AzureBlobStorageSourceConnectorServiceInfo"/>, <see cref="AzureCosmosDBSinkConnectorServiceInfo"/>, <see cref="AzureCosmosDBSourceConnectorServiceInfo"/> and <see cref="AzureSynapseAnalyticsSinkConnectorServiceInfo"/>.
+    /// </summary>
+    public abstract partial class ConnectorServiceTypeInfoBase
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -43,35 +47,23 @@ namespace Azure.ResourceManager.Confluent.Models
         /// </list>
         /// </para>
         /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SCEnvironmentRecord"/>. </summary>
-        internal SCEnvironmentRecord()
+        /// <summary> Initializes a new instance of <see cref="ConnectorServiceTypeInfoBase"/>. </summary>
+        protected ConnectorServiceTypeInfoBase()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="SCEnvironmentRecord"/>. </summary>
-        /// <param name="kind"> Type of environment. </param>
-        /// <param name="id"> Id of the environment. </param>
-        /// <param name="name"> Display name of the environment. </param>
-        /// <param name="metadata"> Metadata of the record. </param>
+        /// <summary> Initializes a new instance of <see cref="ConnectorServiceTypeInfoBase"/>. </summary>
+        /// <param name="connectorServiceType"> The connector service type. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SCEnvironmentRecord(string kind, string id, string name, SCMetadataEntity metadata, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ConnectorServiceTypeInfoBase(ConnectorServiceType connectorServiceType, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Kind = kind;
-            Id = id;
-            Name = name;
-            Metadata = metadata;
+            ConnectorServiceType = connectorServiceType;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Type of environment. </summary>
-        public string Kind { get; }
-        /// <summary> Id of the environment. </summary>
-        public string Id { get; }
-        /// <summary> Display name of the environment. </summary>
-        public string Name { get; }
-        /// <summary> Metadata of the record. </summary>
-        public SCMetadataEntity Metadata { get; }
+        /// <summary> The connector service type. </summary>
+        internal ConnectorServiceType ConnectorServiceType { get; set; }
     }
 }
