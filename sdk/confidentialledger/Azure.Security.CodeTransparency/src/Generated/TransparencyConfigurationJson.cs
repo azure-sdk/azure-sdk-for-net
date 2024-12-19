@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Azure.Security.CodeTransparency
 {
-    /// <summary> A DID document. </summary>
-    public partial class DidDocument
+    /// <summary> Transparency configuration, see IETF SCITT draft. </summary>
+    public partial class TransparencyConfigurationJson
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,38 +45,38 @@ namespace Azure.Security.CodeTransparency
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="DidDocument"/>. </summary>
-        /// <param name="id"> String representing a DID issuer. </param>
-        /// <param name="assertionMethod"> List of public keys used for receipt endorsement verification. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="id"/> or <paramref name="assertionMethod"/> is null. </exception>
-        internal DidDocument(string id, IEnumerable<DidDocumentKey> assertionMethod)
+        /// <summary> Initializes a new instance of <see cref="TransparencyConfigurationJson"/>. </summary>
+        /// <param name="issuer"> Configured issuer string. </param>
+        /// <param name="jwksUri"> Location of the JWKS document. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="issuer"/> or <paramref name="jwksUri"/> is null. </exception>
+        internal TransparencyConfigurationJson(string issuer, string jwksUri)
         {
-            Argument.AssertNotNull(id, nameof(id));
-            Argument.AssertNotNull(assertionMethod, nameof(assertionMethod));
+            Argument.AssertNotNull(issuer, nameof(issuer));
+            Argument.AssertNotNull(jwksUri, nameof(jwksUri));
 
-            Id = id;
-            AssertionMethod = assertionMethod.ToList();
+            Issuer = issuer;
+            JwksUri = jwksUri;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DidDocument"/>. </summary>
-        /// <param name="id"> String representing a DID issuer. </param>
-        /// <param name="assertionMethod"> List of public keys used for receipt endorsement verification. </param>
+        /// <summary> Initializes a new instance of <see cref="TransparencyConfigurationJson"/>. </summary>
+        /// <param name="issuer"> Configured issuer string. </param>
+        /// <param name="jwksUri"> Location of the JWKS document. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DidDocument(string id, IReadOnlyList<DidDocumentKey> assertionMethod, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TransparencyConfigurationJson(string issuer, string jwksUri, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Id = id;
-            AssertionMethod = assertionMethod;
+            Issuer = issuer;
+            JwksUri = jwksUri;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DidDocument"/> for deserialization. </summary>
-        internal DidDocument()
+        /// <summary> Initializes a new instance of <see cref="TransparencyConfigurationJson"/> for deserialization. </summary>
+        internal TransparencyConfigurationJson()
         {
         }
 
-        /// <summary> String representing a DID issuer. </summary>
-        public string Id { get; }
-        /// <summary> List of public keys used for receipt endorsement verification. </summary>
-        public IReadOnlyList<DidDocumentKey> AssertionMethod { get; }
+        /// <summary> Configured issuer string. </summary>
+        public string Issuer { get; }
+        /// <summary> Location of the JWKS document. </summary>
+        public string JwksUri { get; }
     }
 }
