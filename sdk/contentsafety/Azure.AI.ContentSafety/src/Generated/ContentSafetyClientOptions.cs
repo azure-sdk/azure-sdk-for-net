@@ -13,13 +13,17 @@ namespace Azure.AI.ContentSafety
     /// <summary> Client options for Azure.AI.ContentSafety library clients. </summary>
     public partial class ContentSafetyClientOptions : ClientOptions
     {
-        private const ServiceVersion LatestVersion = ServiceVersion.V2023_10_01;
+        private const ServiceVersion LatestVersion = ServiceVersion.V2024_12_15_Preview;
 
         /// <summary> The version of the service to use. </summary>
         public enum ServiceVersion
         {
             /// <summary> Service version "2023-10-01". </summary>
             V2023_10_01 = 1,
+            /// <summary> Service version "2024-09-01". </summary>
+            V2024_09_01 = 2,
+            /// <summary> Service version "2024-12-15-preview". </summary>
+            V2024_12_15_Preview = 3,
         }
 
         internal string Version { get; }
@@ -30,6 +34,8 @@ namespace Azure.AI.ContentSafety
             Version = version switch
             {
                 ServiceVersion.V2023_10_01 => "2023-10-01",
+                ServiceVersion.V2024_09_01 => "2024-09-01",
+                ServiceVersion.V2024_12_15_Preview => "2024-12-15-preview",
                 _ => throw new NotSupportedException()
             };
         }

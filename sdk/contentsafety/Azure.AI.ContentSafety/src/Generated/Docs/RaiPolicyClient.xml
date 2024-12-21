@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateOrUpdateRaiPolicyAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateRaiPolicyAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    taskSettings = new object[]
+    {
+        new
+        {
+            settingId = "<settingId>",
+            settingEnabled = true,
+            appliedFor = new object[]
+            {
+                new
+                {
+                    role = "all",
+                    source = "messageToAI",
+                }
+            },
+            kind = "harmCategory",
+            blockingCriteria = new
+            {
+                enabled = true,
+                kind = "severity",
+                allowedSeverity = 1234,
+                isDetected = true,
+                allowedRiskLevel = "safe",
+            },
+        }
+    },
+});
+Response response = await client.CreateOrUpdateRaiPolicyAsync("<raiPolicyName>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingId").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingEnabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("role").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("enabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedSeverity").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("isDetected").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedRiskLevel").ToString());
+]]></code>
+This sample shows how to call CreateOrUpdateRaiPolicyAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    taskSettings = new object[]
+    {
+        new
+        {
+            settingId = "<settingId>",
+            settingEnabled = true,
+            appliedFor = new object[]
+            {
+                new
+                {
+                    role = "all",
+                    source = "messageToAI",
+                }
+            },
+            kind = "harmCategory",
+            harmCategoryTaskSetting = new
+            {
+                harmCategory = "celebrity",
+                harmConfigId = "<harmConfigId>",
+            },
+            blocklistTaskSetting = new
+            {
+                name = "<name>",
+            },
+            safetyIncidentTaskSetting = new
+            {
+                name = "<name>",
+            },
+            customHarmCategoryTaskSetting = new
+            {
+                name = "<name>",
+            },
+            blockingCriteria = new
+            {
+                enabled = true,
+                kind = "severity",
+                allowedSeverity = 1234,
+                isDetected = true,
+                allowedRiskLevel = "safe",
+            },
+        }
+    },
+});
+Response response = await client.CreateOrUpdateRaiPolicyAsync("<raiPolicyName>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingId").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingEnabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("role").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("harmCategoryTaskSetting").GetProperty("harmCategory").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("harmCategoryTaskSetting").GetProperty("harmConfigId").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blocklistTaskSetting").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("safetyIncidentTaskSetting").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("customHarmCategoryTaskSetting").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("enabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedSeverity").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("isDetected").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedRiskLevel").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateRaiPolicy(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateRaiPolicy and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    taskSettings = new object[]
+    {
+        new
+        {
+            settingId = "<settingId>",
+            settingEnabled = true,
+            appliedFor = new object[]
+            {
+                new
+                {
+                    role = "all",
+                    source = "messageToAI",
+                }
+            },
+            kind = "harmCategory",
+            blockingCriteria = new
+            {
+                enabled = true,
+                kind = "severity",
+                allowedSeverity = 1234,
+                isDetected = true,
+                allowedRiskLevel = "safe",
+            },
+        }
+    },
+});
+Response response = client.CreateOrUpdateRaiPolicy("<raiPolicyName>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingId").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingEnabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("role").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("enabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedSeverity").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("isDetected").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedRiskLevel").ToString());
+]]></code>
+This sample shows how to call CreateOrUpdateRaiPolicy with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    taskSettings = new object[]
+    {
+        new
+        {
+            settingId = "<settingId>",
+            settingEnabled = true,
+            appliedFor = new object[]
+            {
+                new
+                {
+                    role = "all",
+                    source = "messageToAI",
+                }
+            },
+            kind = "harmCategory",
+            harmCategoryTaskSetting = new
+            {
+                harmCategory = "celebrity",
+                harmConfigId = "<harmConfigId>",
+            },
+            blocklistTaskSetting = new
+            {
+                name = "<name>",
+            },
+            safetyIncidentTaskSetting = new
+            {
+                name = "<name>",
+            },
+            customHarmCategoryTaskSetting = new
+            {
+                name = "<name>",
+            },
+            blockingCriteria = new
+            {
+                enabled = true,
+                kind = "severity",
+                allowedSeverity = 1234,
+                isDetected = true,
+                allowedRiskLevel = "safe",
+            },
+        }
+    },
+});
+Response response = client.CreateOrUpdateRaiPolicy("<raiPolicyName>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingId").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingEnabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("role").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("harmCategoryTaskSetting").GetProperty("harmCategory").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("harmCategoryTaskSetting").GetProperty("harmConfigId").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blocklistTaskSetting").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("safetyIncidentTaskSetting").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("customHarmCategoryTaskSetting").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("enabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedSeverity").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("isDetected").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedRiskLevel").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteRaiPolicyAsync(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteRaiPolicyAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+Response response = await client.DeleteRaiPolicyAsync("<raiPolicyName>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call DeleteRaiPolicyAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+Response response = await client.DeleteRaiPolicyAsync("<raiPolicyName>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteRaiPolicy(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteRaiPolicy.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+Response response = client.DeleteRaiPolicy("<raiPolicyName>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call DeleteRaiPolicy with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+Response response = client.DeleteRaiPolicy("<raiPolicyName>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetRaiPolicyAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetRaiPolicyAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+Response<RaiPolicy> response = await client.GetRaiPolicyAsync("<raiPolicyName>");
+]]></code>
+This sample shows how to call GetRaiPolicyAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+Response<RaiPolicy> response = await client.GetRaiPolicyAsync("<raiPolicyName>");
+]]></code></example>
+    </member>
+    <member name="GetRaiPolicy(string,CancellationToken)">
+      <example>
+This sample shows how to call GetRaiPolicy.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+Response<RaiPolicy> response = client.GetRaiPolicy("<raiPolicyName>");
+]]></code>
+This sample shows how to call GetRaiPolicy with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+Response<RaiPolicy> response = client.GetRaiPolicy("<raiPolicyName>");
+]]></code></example>
+    </member>
+    <member name="GetRaiPolicyAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetRaiPolicyAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+Response response = await client.GetRaiPolicyAsync("<raiPolicyName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingId").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingEnabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("role").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("enabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedSeverity").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("isDetected").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedRiskLevel").ToString());
+]]></code>
+This sample shows how to call GetRaiPolicyAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+Response response = await client.GetRaiPolicyAsync("<raiPolicyName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingId").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingEnabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("role").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("harmCategoryTaskSetting").GetProperty("harmCategory").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("harmCategoryTaskSetting").GetProperty("harmConfigId").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blocklistTaskSetting").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("safetyIncidentTaskSetting").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("customHarmCategoryTaskSetting").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("enabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedSeverity").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("isDetected").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedRiskLevel").ToString());
+]]></code></example>
+    </member>
+    <member name="GetRaiPolicy(string,RequestContext)">
+      <example>
+This sample shows how to call GetRaiPolicy and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+Response response = client.GetRaiPolicy("<raiPolicyName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingId").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingEnabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("role").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("enabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedSeverity").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("isDetected").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedRiskLevel").ToString());
+]]></code>
+This sample shows how to call GetRaiPolicy with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+Response response = client.GetRaiPolicy("<raiPolicyName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingId").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingEnabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("role").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("harmCategoryTaskSetting").GetProperty("harmCategory").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("harmCategoryTaskSetting").GetProperty("harmConfigId").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blocklistTaskSetting").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("safetyIncidentTaskSetting").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("customHarmCategoryTaskSetting").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("enabled").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedSeverity").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("isDetected").ToString());
+Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedRiskLevel").ToString());
+]]></code></example>
+    </member>
+    <member name="GetRaiPoliciesAsync(CancellationToken)">
+      <example>
+This sample shows how to call GetRaiPoliciesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+await foreach (RaiPolicy item in client.GetRaiPoliciesAsync())
+{
+}
+]]></code>
+This sample shows how to call GetRaiPoliciesAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+await foreach (RaiPolicy item in client.GetRaiPoliciesAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetRaiPolicies(CancellationToken)">
+      <example>
+This sample shows how to call GetRaiPolicies.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+foreach (RaiPolicy item in client.GetRaiPolicies())
+{
+}
+]]></code>
+This sample shows how to call GetRaiPolicies with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+foreach (RaiPolicy item in client.GetRaiPolicies())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetRaiPoliciesAsync(RequestContext)">
+      <example>
+This sample shows how to call GetRaiPoliciesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetRaiPoliciesAsync(null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingId").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingEnabled").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("role").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("source").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("enabled").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedSeverity").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("isDetected").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedRiskLevel").ToString());
+}
+]]></code>
+This sample shows how to call GetRaiPoliciesAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetRaiPoliciesAsync(null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingId").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingEnabled").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("role").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("source").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("harmCategoryTaskSetting").GetProperty("harmCategory").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("harmCategoryTaskSetting").GetProperty("harmConfigId").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blocklistTaskSetting").GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("safetyIncidentTaskSetting").GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("customHarmCategoryTaskSetting").GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("enabled").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedSeverity").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("isDetected").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedRiskLevel").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetRaiPolicies(RequestContext)">
+      <example>
+This sample shows how to call GetRaiPolicies and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetRaiPolicies(null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingId").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingEnabled").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("role").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("source").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("enabled").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedSeverity").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("isDetected").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedRiskLevel").ToString());
+}
+]]></code>
+This sample shows how to call GetRaiPolicies with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+RaiPolicyClient client = new RaiPolicyClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetRaiPolicies(null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingId").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("settingEnabled").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("role").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("appliedFor")[0].GetProperty("source").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("harmCategoryTaskSetting").GetProperty("harmCategory").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("harmCategoryTaskSetting").GetProperty("harmConfigId").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blocklistTaskSetting").GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("safetyIncidentTaskSetting").GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("customHarmCategoryTaskSetting").GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("enabled").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedSeverity").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("isDetected").ToString());
+    Console.WriteLine(result.GetProperty("taskSettings")[0].GetProperty("blockingCriteria").GetProperty("allowedRiskLevel").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
