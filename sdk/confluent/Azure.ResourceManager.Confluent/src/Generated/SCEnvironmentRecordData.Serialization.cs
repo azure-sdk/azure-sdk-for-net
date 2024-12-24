@@ -10,14 +10,15 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.Confluent.Models;
 
-namespace Azure.ResourceManager.Confluent.Models
+namespace Azure.ResourceManager.Confluent
 {
-    public partial class SCEnvironmentRecord : IUtf8JsonSerializable, IJsonModel<SCEnvironmentRecord>
+    public partial class SCEnvironmentRecordData : IUtf8JsonSerializable, IJsonModel<SCEnvironmentRecordData>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<SCEnvironmentRecord>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<SCEnvironmentRecordData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<SCEnvironmentRecord>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<SCEnvironmentRecordData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,10 +29,10 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SCEnvironmentRecord>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SCEnvironmentRecordData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SCEnvironmentRecord)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(SCEnvironmentRecordData)} does not support writing '{format}' format.");
             }
 
             if (Optional.IsDefined(Kind))
@@ -44,6 +45,11 @@ namespace Azure.ResourceManager.Confluent.Models
                 writer.WritePropertyName("id"u8);
                 writer.WriteStringValue(Id);
             }
+            if (Optional.IsDefined(ResourceType))
+            {
+                writer.WritePropertyName("type"u8);
+                writer.WriteStringValue(ResourceType);
+            }
             if (Optional.IsDefined(Name))
             {
                 writer.WritePropertyName("name"u8);
@@ -51,6 +57,11 @@ namespace Azure.ResourceManager.Confluent.Models
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
+            if (Optional.IsDefined(StreamGovernanceConfig))
+            {
+                writer.WritePropertyName("streamGovernanceConfig"u8);
+                writer.WriteObjectValue(StreamGovernanceConfig, options);
+            }
             if (Optional.IsDefined(Metadata))
             {
                 writer.WritePropertyName("metadata"u8);
@@ -74,19 +85,19 @@ namespace Azure.ResourceManager.Confluent.Models
             }
         }
 
-        SCEnvironmentRecord IJsonModel<SCEnvironmentRecord>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        SCEnvironmentRecordData IJsonModel<SCEnvironmentRecordData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SCEnvironmentRecord>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SCEnvironmentRecordData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SCEnvironmentRecord)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(SCEnvironmentRecordData)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeSCEnvironmentRecord(document.RootElement, options);
+            return DeserializeSCEnvironmentRecordData(document.RootElement, options);
         }
 
-        internal static SCEnvironmentRecord DeserializeSCEnvironmentRecord(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static SCEnvironmentRecordData DeserializeSCEnvironmentRecordData(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -96,7 +107,9 @@ namespace Azure.ResourceManager.Confluent.Models
             }
             string kind = default;
             string id = default;
+            string type = default;
             string name = default;
+            StreamGovernanceConfig streamGovernanceConfig = default;
             SCMetadataEntity metadata = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -110,6 +123,11 @@ namespace Azure.ResourceManager.Confluent.Models
                 if (property.NameEquals("id"u8))
                 {
                     id = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("type"u8))
+                {
+                    type = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("name"u8))
@@ -126,6 +144,15 @@ namespace Azure.ResourceManager.Confluent.Models
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
+                        if (property0.NameEquals("streamGovernanceConfig"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            streamGovernanceConfig = StreamGovernanceConfig.DeserializeStreamGovernanceConfig(property0.Value, options);
+                            continue;
+                        }
                         if (property0.NameEquals("metadata"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -144,38 +171,45 @@ namespace Azure.ResourceManager.Confluent.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new SCEnvironmentRecord(kind, id, name, metadata, serializedAdditionalRawData);
+            return new SCEnvironmentRecordData(
+                kind,
+                id,
+                type,
+                name,
+                streamGovernanceConfig,
+                metadata,
+                serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<SCEnvironmentRecord>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<SCEnvironmentRecordData>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SCEnvironmentRecord>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SCEnvironmentRecordData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(SCEnvironmentRecord)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(SCEnvironmentRecordData)} does not support writing '{options.Format}' format.");
             }
         }
 
-        SCEnvironmentRecord IPersistableModel<SCEnvironmentRecord>.Create(BinaryData data, ModelReaderWriterOptions options)
+        SCEnvironmentRecordData IPersistableModel<SCEnvironmentRecordData>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SCEnvironmentRecord>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SCEnvironmentRecordData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeSCEnvironmentRecord(document.RootElement, options);
+                        return DeserializeSCEnvironmentRecordData(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(SCEnvironmentRecord)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(SCEnvironmentRecordData)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<SCEnvironmentRecord>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<SCEnvironmentRecordData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

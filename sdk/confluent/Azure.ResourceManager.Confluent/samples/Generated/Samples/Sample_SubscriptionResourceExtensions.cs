@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.Confluent.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetMarketplaceAgreements_MarketplaceAgreementsList()
         {
-            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2024-02-13/examples/MarketplaceAgreements_List.json
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2024-07-01/examples/MarketplaceAgreements_List.json
             // this example is just showing the usage of "MarketplaceAgreements_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -48,7 +48,7 @@ namespace Azure.ResourceManager.Confluent.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateMarketplaceAgreement_MarketplaceAgreementsCreate()
         {
-            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2024-02-13/examples/MarketplaceAgreements_Create.json
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2024-07-01/examples/MarketplaceAgreements_Create.json
             // this example is just showing the usage of "MarketplaceAgreements_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -72,7 +72,7 @@ namespace Azure.ResourceManager.Confluent.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetConfluentOrganizations_OrganizationListBySubscription()
         {
-            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2024-02-13/examples/Organization_ListBySubscription.json
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2024-07-01/examples/Organization_ListBySubscription.json
             // this example is just showing the usage of "Organization_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
