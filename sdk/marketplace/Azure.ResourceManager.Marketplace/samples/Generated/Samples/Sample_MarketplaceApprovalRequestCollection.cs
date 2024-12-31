@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.Marketplace.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateApprovalRequest()
         {
-            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2023-01-01/examples/CreateApprovalRequest.json
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/CreateApprovalRequest.json
             // this example is just showing the usage of "PrivateStore_CreateApprovalRequest" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.Marketplace.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetApprovalRequest()
         {
-            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2023-01-01/examples/GetRequestApproval.json
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/GetRequestApproval.json
             // this example is just showing the usage of "PrivateStore_GetRequestApproval" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -85,7 +85,7 @@ namespace Azure.ResourceManager.Marketplace.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_GetApprovalRequestsList()
         {
-            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2023-01-01/examples/GetApprovalRequestsList.json
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/GetApprovalRequestsList.json
             // this example is just showing the usage of "PrivateStore_GetApprovalRequestsList" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -119,7 +119,7 @@ namespace Azure.ResourceManager.Marketplace.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_GetApprovalRequest()
         {
-            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2023-01-01/examples/GetRequestApproval.json
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/GetRequestApproval.json
             // this example is just showing the usage of "PrivateStore_GetRequestApproval" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -147,7 +147,7 @@ namespace Azure.ResourceManager.Marketplace.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_GetApprovalRequest()
         {
-            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2023-01-01/examples/GetRequestApproval.json
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/GetRequestApproval.json
             // this example is just showing the usage of "PrivateStore_GetRequestApproval" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
