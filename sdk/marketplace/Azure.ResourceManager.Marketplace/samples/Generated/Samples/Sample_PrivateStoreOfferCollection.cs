@@ -9,6 +9,7 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
+using Azure.ResourceManager.Marketplace.Models;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.Marketplace.Samples
@@ -19,7 +20,7 @@ namespace Azure.ResourceManager.Marketplace.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_PrivateStoreOfferUpdate()
         {
-            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2023-01-01/examples/PrivateStoreOffer_update.json
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/PrivateStoreOffer_update.json
             // this example is just showing the usage of "PrivateStoreCollectionOffer_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -58,7 +59,7 @@ namespace Azure.ResourceManager.Marketplace.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetPrivateStoreCollectionOffer()
         {
-            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2023-01-01/examples/GetPrivateStoreCollectionOffer.json
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/GetPrivateStoreCollectionOffer.json
             // this example is just showing the usage of "PrivateStoreCollectionOffer_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -91,7 +92,7 @@ namespace Azure.ResourceManager.Marketplace.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_GetPrivateStoreOffers()
         {
-            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2023-01-01/examples/GetPrivateStoreOffers.json
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/GetPrivateStoreOffers.json
             // this example is just showing the usage of "PrivateStoreCollectionOffer_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -124,9 +125,49 @@ namespace Azure.ResourceManager.Marketplace.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
+        public async Task GetAll_GetCollectionOffersWithContextsPlans()
+        {
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/GetCollectionOffersWithContextsPlans.json
+            // this example is just showing the usage of "PrivateStoreCollectionOffersWithContextsPlans_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this PrivateStoreCollectionInfoResource created on azure
+            // for more information of creating PrivateStoreCollectionInfoResource, please refer to the document of PrivateStoreCollectionInfoResource
+            Guid privateStoreId = Guid.Parse("a0e28e55-90c4-41d8-8e34-bb7ef7775406");
+            Guid collectionId = Guid.Parse("cfe376ca-872c-4aee-bfa9-eee85e9c4145");
+            ResourceIdentifier privateStoreCollectionInfoResourceId = PrivateStoreCollectionInfoResource.CreateResourceIdentifier(privateStoreId, collectionId);
+            PrivateStoreCollectionInfoResource privateStoreCollectionInfo = client.GetPrivateStoreCollectionInfoResource(privateStoreCollectionInfoResourceId);
+
+            // get the collection of this PrivateStoreOfferResource
+            PrivateStoreOfferCollection collection = privateStoreCollectionInfo.GetPrivateStoreOffers();
+
+            // invoke the operation and iterate over the result
+            GetCollectionOffersWithContextsPlansProperties payload = new GetCollectionOffersWithContextsPlansProperties
+            {
+                OfferIds = { "contoso.logger" },
+                SubscriptionIds = { "b340914e-353d-453a-85fb-8f9b65b51f91", "2a981fb2-893a-4209-b657-f68aebbb26bb" },
+            };
+            await foreach (PrivateStoreOfferResource item in collection.GetAllAsync(payload: payload))
+            {
+                // the variable item is a resource, you could call other operations on this instance as well
+                // but just for demo, we get its data from this resource instance
+                PrivateStoreOfferData resourceData = item.Data;
+                // for demo we just print out the id
+                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+            }
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
         public async Task Exists_GetPrivateStoreCollectionOffer()
         {
-            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2023-01-01/examples/GetPrivateStoreCollectionOffer.json
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/GetPrivateStoreCollectionOffer.json
             // this example is just showing the usage of "PrivateStoreCollectionOffer_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -155,7 +196,7 @@ namespace Azure.ResourceManager.Marketplace.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_GetPrivateStoreCollectionOffer()
         {
-            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2023-01-01/examples/GetPrivateStoreCollectionOffer.json
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/GetPrivateStoreCollectionOffer.json
             // this example is just showing the usage of "PrivateStoreCollectionOffer_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
