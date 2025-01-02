@@ -80,7 +80,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             AcsMessageInteractiveContent interactive = default;
             string @from = default;
             string to = default;
-            DateTimeOffset receivedTimeStamp = default;
+            DateTimeOffset? receivedTimeStamp = default;
             AcsMessageChannelEventError error = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -128,6 +128,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("receivedTimeStamp"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     receivedTimeStamp = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
