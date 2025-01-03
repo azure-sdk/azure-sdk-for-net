@@ -104,81 +104,81 @@ namespace Azure.ResourceManager.CognitiveServices.Samples
                     BasePolicyName = "Microsoft.Default",
                     ContentFilters = {new RaiPolicyContentFilter
 {
-Name = "hate",
+Name = "Hate",
 Enabled = false,
 SeverityThreshold = RaiPolicyContentLevel.High,
 Blocking = false,
 Source = RaiPolicyContentSource.Prompt,
 }, new RaiPolicyContentFilter
 {
-Name = "hate",
+Name = "Hate",
 Enabled = true,
 SeverityThreshold = RaiPolicyContentLevel.Medium,
 Blocking = true,
 Source = RaiPolicyContentSource.Completion,
 }, new RaiPolicyContentFilter
 {
-Name = "sexual",
+Name = "Sexual",
 Enabled = true,
 SeverityThreshold = RaiPolicyContentLevel.High,
 Blocking = true,
 Source = RaiPolicyContentSource.Prompt,
 }, new RaiPolicyContentFilter
 {
-Name = "sexual",
+Name = "Sexual",
 Enabled = true,
 SeverityThreshold = RaiPolicyContentLevel.Medium,
 Blocking = true,
 Source = RaiPolicyContentSource.Completion,
 }, new RaiPolicyContentFilter
 {
-Name = "selfharm",
+Name = "Selfharm",
 Enabled = true,
 SeverityThreshold = RaiPolicyContentLevel.High,
 Blocking = true,
 Source = RaiPolicyContentSource.Prompt,
 }, new RaiPolicyContentFilter
 {
-Name = "selfharm",
+Name = "Selfharm",
 Enabled = true,
 SeverityThreshold = RaiPolicyContentLevel.Medium,
 Blocking = true,
 Source = RaiPolicyContentSource.Completion,
 }, new RaiPolicyContentFilter
 {
-Name = "violence",
+Name = "Violence",
 Enabled = true,
 SeverityThreshold = RaiPolicyContentLevel.Medium,
 Blocking = true,
 Source = RaiPolicyContentSource.Prompt,
 }, new RaiPolicyContentFilter
 {
-Name = "violence",
+Name = "Violence",
 Enabled = true,
 SeverityThreshold = RaiPolicyContentLevel.Medium,
 Blocking = true,
 Source = RaiPolicyContentSource.Completion,
 }, new RaiPolicyContentFilter
 {
-Name = "jailbreak",
+Name = "Jailbreak",
 Enabled = true,
 Blocking = true,
 Source = RaiPolicyContentSource.Prompt,
 }, new RaiPolicyContentFilter
 {
-Name = "protected_material_text",
+Name = "Protected Material Text",
 Enabled = true,
 Blocking = true,
 Source = RaiPolicyContentSource.Completion,
 }, new RaiPolicyContentFilter
 {
-Name = "protected_material_code",
+Name = "Protected Material Code",
 Enabled = true,
 Blocking = true,
 Source = RaiPolicyContentSource.Completion,
 }, new RaiPolicyContentFilter
 {
-Name = "profanity",
+Name = "Profanity",
 Enabled = true,
 Blocking = true,
 Source = RaiPolicyContentSource.Prompt,

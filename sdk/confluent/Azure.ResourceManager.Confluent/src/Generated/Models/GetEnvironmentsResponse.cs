@@ -48,14 +48,14 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <summary> Initializes a new instance of <see cref="GetEnvironmentsResponse"/>. </summary>
         internal GetEnvironmentsResponse()
         {
-            Value = new ChangeTrackingList<SCEnvironmentRecord>();
+            Value = new ChangeTrackingList<SCEnvironmentRecordData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="GetEnvironmentsResponse"/>. </summary>
         /// <param name="value"> List of environments in a confluent organization. </param>
         /// <param name="nextLink"> URL to get the next set of environment records if there are any. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal GetEnvironmentsResponse(IReadOnlyList<SCEnvironmentRecord> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal GetEnvironmentsResponse(IReadOnlyList<SCEnvironmentRecordData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.Confluent.Models
         }
 
         /// <summary> List of environments in a confluent organization. </summary>
-        public IReadOnlyList<SCEnvironmentRecord> Value { get; }
+        public IReadOnlyList<SCEnvironmentRecordData> Value { get; }
         /// <summary> URL to get the next set of environment records if there are any. </summary>
         public string NextLink { get; }
     }
