@@ -10,7 +10,6 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Datadog.Models
 {
@@ -41,7 +40,7 @@ namespace Azure.ResourceManager.Datadog.Models
                 writer.WriteStartArray();
                 foreach (var item in Value)
                 {
-                    JsonSerializer.Serialize(writer, item);
+                    writer.WriteObjectValue(item, options);
                 }
                 writer.WriteEndArray();
             }
@@ -87,7 +86,7 @@ namespace Azure.ResourceManager.Datadog.Models
             {
                 return null;
             }
-            IReadOnlyList<SubResource> value = default;
+            IReadOnlyList<LinkedResource> value = default;
             string nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -99,10 +98,10 @@ namespace Azure.ResourceManager.Datadog.Models
                     {
                         continue;
                     }
-                    List<SubResource> array = new List<SubResource>();
+                    List<LinkedResource> array = new List<LinkedResource>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(JsonSerializer.Deserialize<SubResource>(item.GetRawText()));
+                        array.Add(LinkedResource.DeserializeLinkedResource(item, options));
                     }
                     value = array;
                     continue;
@@ -118,7 +117,7 @@ namespace Azure.ResourceManager.Datadog.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new LinkedResourceListResponse(value ?? new ChangeTrackingList<SubResource>(), nextLink, serializedAdditionalRawData);
+            return new LinkedResourceListResponse(value ?? new ChangeTrackingList<LinkedResource>(), nextLink, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<LinkedResourceListResponse>.Write(ModelReaderWriterOptions options)
