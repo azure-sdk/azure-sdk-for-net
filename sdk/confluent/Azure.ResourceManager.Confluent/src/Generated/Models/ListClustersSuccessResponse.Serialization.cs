@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.Confluent.Models
             {
                 return null;
             }
-            IReadOnlyList<SCClusterRecord> value = default;
+            IReadOnlyList<SCClusterRecordData> value = default;
             string nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -98,10 +98,10 @@ namespace Azure.ResourceManager.Confluent.Models
                     {
                         continue;
                     }
-                    List<SCClusterRecord> array = new List<SCClusterRecord>();
+                    List<SCClusterRecordData> array = new List<SCClusterRecordData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(SCClusterRecord.DeserializeSCClusterRecord(item, options));
+                        array.Add(SCClusterRecordData.DeserializeSCClusterRecordData(item, options));
                     }
                     value = array;
                     continue;
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.Confluent.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ListClustersSuccessResponse(value ?? new ChangeTrackingList<SCClusterRecord>(), nextLink, serializedAdditionalRawData);
+            return new ListClustersSuccessResponse(value ?? new ChangeTrackingList<SCClusterRecordData>(), nextLink, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ListClustersSuccessResponse>.Write(ModelReaderWriterOptions options)

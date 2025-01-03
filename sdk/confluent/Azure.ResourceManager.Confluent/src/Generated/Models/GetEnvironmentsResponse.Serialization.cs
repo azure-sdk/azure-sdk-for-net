@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.Confluent.Models
             {
                 return null;
             }
-            IReadOnlyList<SCEnvironmentRecord> value = default;
+            IReadOnlyList<SCEnvironmentRecordData> value = default;
             string nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -98,10 +98,10 @@ namespace Azure.ResourceManager.Confluent.Models
                     {
                         continue;
                     }
-                    List<SCEnvironmentRecord> array = new List<SCEnvironmentRecord>();
+                    List<SCEnvironmentRecordData> array = new List<SCEnvironmentRecordData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(SCEnvironmentRecord.DeserializeSCEnvironmentRecord(item, options));
+                        array.Add(SCEnvironmentRecordData.DeserializeSCEnvironmentRecordData(item, options));
                     }
                     value = array;
                     continue;
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.Confluent.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new GetEnvironmentsResponse(value ?? new ChangeTrackingList<SCEnvironmentRecord>(), nextLink, serializedAdditionalRawData);
+            return new GetEnvironmentsResponse(value ?? new ChangeTrackingList<SCEnvironmentRecordData>(), nextLink, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<GetEnvironmentsResponse>.Write(ModelReaderWriterOptions options)
