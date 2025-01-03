@@ -48,14 +48,14 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <summary> Initializes a new instance of <see cref="ListClustersSuccessResponse"/>. </summary>
         internal ListClustersSuccessResponse()
         {
-            Value = new ChangeTrackingList<SCClusterRecord>();
+            Value = new ChangeTrackingList<SCClusterRecordData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="ListClustersSuccessResponse"/>. </summary>
         /// <param name="value"> List of clusters in an environment of a confluent organization. </param>
         /// <param name="nextLink"> URL to get the next set of cluster records if there are any. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ListClustersSuccessResponse(IReadOnlyList<SCClusterRecord> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ListClustersSuccessResponse(IReadOnlyList<SCClusterRecordData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.Confluent.Models
         }
 
         /// <summary> List of clusters in an environment of a confluent organization. </summary>
-        public IReadOnlyList<SCClusterRecord> Value { get; }
+        public IReadOnlyList<SCClusterRecordData> Value { get; }
         /// <summary> URL to get the next set of cluster records if there are any. </summary>
         public string NextLink { get; }
     }
