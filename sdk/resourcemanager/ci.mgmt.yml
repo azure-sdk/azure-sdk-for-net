@@ -77,6 +77,7 @@ trigger:
     - sdk/digitaltwins/Azure.ResourceManager.DigitalTwins
     - sdk/dns/Azure.ResourceManager.Dns
     - sdk/dnsresolver/Azure.ResourceManager.DnsResolver
+    - sdk/durabletask/Azure.ResourceManager.DurableTask
     - sdk/dynatrace/Azure.ResourceManager.Dynatrace
     - sdk/edgeorder/Azure.ResourceManager.EdgeOrder
     - sdk/edgezones/Azure.ResourceManager.EdgeZones
@@ -107,6 +108,7 @@ trigger:
     - sdk/iot/Azure.ResourceManager.IotFirmwareDefense
     - sdk/iotcentral/Azure.ResourceManager.IotCentral
     - sdk/iothub/Azure.ResourceManager.IotHub
+    - sdk/iotoperations/Azure.ResourceManager.IoTOperations
     - sdk/keyvault/Azure.ResourceManager.KeyVault
     - sdk/kubernetesconfiguration/Azure.ResourceManager.KubernetesConfiguration
     - sdk/kusto/Azure.ResourceManager.Kusto
@@ -203,6 +205,7 @@ trigger:
     - sdk/websites/Azure.ResourceManager.AppService
     - sdk/workloadmonitor/Azure.ResourceManager.WorkloadMonitor
     - sdk/workloads/Azure.ResourceManager.Workloads
+    - sdk/workloadssapvirtualinstance/Azure.ResourceManager.SapVirtualInstances
 
 pr:
   branches:
@@ -282,6 +285,7 @@ pr:
     - sdk/digitaltwins/Azure.ResourceManager.DigitalTwins
     - sdk/dns/Azure.ResourceManager.Dns
     - sdk/dnsresolver/Azure.ResourceManager.DnsResolver
+    - sdk/durabletask/Azure.ResourceManager.DurableTask
     - sdk/dynatrace/Azure.ResourceManager.Dynatrace
     - sdk/edgeorder/Azure.ResourceManager.EdgeOrder
     - sdk/edgezones/Azure.ResourceManager.EdgeZones
@@ -312,6 +316,7 @@ pr:
     - sdk/iot/Azure.ResourceManager.IotFirmwareDefense
     - sdk/iotcentral/Azure.ResourceManager.IotCentral
     - sdk/iothub/Azure.ResourceManager.IotHub
+    - sdk/iotoperations/Azure.ResourceManager.IoTOperations
     - sdk/keyvault/Azure.ResourceManager.KeyVault
     - sdk/kubernetesconfiguration/Azure.ResourceManager.KubernetesConfiguration
     - sdk/kusto/Azure.ResourceManager.Kusto
@@ -408,6 +413,7 @@ pr:
     - sdk/websites/Azure.ResourceManager.AppService
     - sdk/workloadmonitor/Azure.ResourceManager.WorkloadMonitor
     - sdk/workloads/Azure.ResourceManager.Workloads
+    - sdk/workloadssapvirtualinstance/Azure.ResourceManager.SapVirtualInstances
 
 extends:
   template: /eng/pipelines/templates/stages/archetype-sdk-client.yml
