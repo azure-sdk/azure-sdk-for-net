@@ -12,7 +12,7 @@ using Azure.Core.Pipeline;
 namespace Azure.AI.Language.Text.Authoring
 {
     // Data plane generated client.
-    /// <summary> The language service API is a suite of natural language processing (NLP) skills built with best-in-class Microsoft machine learning algorithms. The API can be used to analyze unstructured text for tasks such as sentiment analysis, key phrase extraction, language detection and question answering. Further documentation can be found in &lt;a href="https://docs.microsoft.com/en-us/azure/cognitive-services/language-service/overview"&gt;https://docs.microsoft.com/en-us/azure/cognitive-services/language-service/overview&lt;/a&gt;. </summary>
+    /// <summary> The language service API is a suite of natural language processing (NLP) skills built with best-in-class Microsoft machine learning algorithms. The API can be used to analyze unstructured text for tasks such as sentiment analysis, key phrase extraction, language detection and question answering. Further documentation can be found in &lt;a href="https://learn.microsoft.com/en-us/azure/cognitive-services/language-service/overview"&gt;https://learn.microsoft.com/en-us/azure/cognitive-services/language-service/overview&lt;/a&gt;. </summary>
     public partial class AuthoringClient
     {
         private const string AuthorizationHeader = "Ocp-Apim-Subscription-Key";
