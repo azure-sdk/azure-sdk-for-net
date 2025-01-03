@@ -149,6 +149,18 @@ namespace Azure.AI.Inference
             return new EmbeddingsUsage(promptTokens, totalTokens, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Inference.ImageEmbeddingInput"/>. </summary>
+        /// <param name="image"> The input image encoded in base64 string as a data URL. Example: `data:image/{format};base64,{data}`. </param>
+        /// <param name="text">
+        /// Optional. The text input to feed into the model (like DINO, CLIP).
+        /// Returns a 422 error if the model doesn't support the value or parameter.
+        /// </param>
+        /// <returns> A new <see cref="Inference.ImageEmbeddingInput"/> instance for mocking. </returns>
+        public static ImageEmbeddingInput ImageEmbeddingInput(string image = null, string text = null)
+        {
+            return new ImageEmbeddingInput(image, text, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Inference.StreamingChatCompletionsUpdate"/>. </summary>
         /// <param name="id"> A unique identifier associated with this chat completions response. </param>
         /// <param name="created">

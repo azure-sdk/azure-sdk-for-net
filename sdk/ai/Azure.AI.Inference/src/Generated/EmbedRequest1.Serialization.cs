@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.AI.Inference
 {
-    internal partial class EmbedRequest : IUtf8JsonSerializable, IJsonModel<EmbedRequest>
+    internal partial class EmbedRequest1 : IUtf8JsonSerializable, IJsonModel<EmbedRequest1>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<EmbedRequest>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<EmbedRequest1>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<EmbedRequest>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<EmbedRequest1>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,17 +28,17 @@ namespace Azure.AI.Inference
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EmbedRequest>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EmbedRequest1>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(EmbedRequest)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(EmbedRequest1)} does not support writing '{format}' format.");
             }
 
             writer.WritePropertyName("input"u8);
             writer.WriteStartArray();
             foreach (var item in Input)
             {
-                writer.WriteStringValue(item);
+                writer.WriteObjectValue(item, options);
             }
             writer.WriteEndArray();
             if (Optional.IsDefined(Dimensions))
@@ -75,19 +75,19 @@ namespace Azure.AI.Inference
             }
         }
 
-        EmbedRequest IJsonModel<EmbedRequest>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        EmbedRequest1 IJsonModel<EmbedRequest1>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EmbedRequest>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EmbedRequest1>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(EmbedRequest)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(EmbedRequest1)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeEmbedRequest(document.RootElement, options);
+            return DeserializeEmbedRequest1(document.RootElement, options);
         }
 
-        internal static EmbedRequest DeserializeEmbedRequest(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static EmbedRequest1 DeserializeEmbedRequest1(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -95,7 +95,7 @@ namespace Azure.AI.Inference
             {
                 return null;
             }
-            IReadOnlyList<string> input = default;
+            IReadOnlyList<ImageEmbeddingInput> input = default;
             int? dimensions = default;
             EmbeddingEncodingFormat? encodingFormat = default;
             EmbeddingInputType? inputType = default;
@@ -106,10 +106,10 @@ namespace Azure.AI.Inference
             {
                 if (property.NameEquals("input"u8))
                 {
-                    List<string> array = new List<string>();
+                    List<ImageEmbeddingInput> array = new List<ImageEmbeddingInput>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(item.GetString());
+                        array.Add(ImageEmbeddingInput.DeserializeImageEmbeddingInput(item, options));
                     }
                     input = array;
                     continue;
@@ -149,7 +149,7 @@ namespace Azure.AI.Inference
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new EmbedRequest(
+            return new EmbedRequest1(
                 input,
                 dimensions,
                 encodingFormat,
@@ -158,43 +158,43 @@ namespace Azure.AI.Inference
                 additionalProperties);
         }
 
-        BinaryData IPersistableModel<EmbedRequest>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<EmbedRequest1>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EmbedRequest>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EmbedRequest1>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(EmbedRequest)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(EmbedRequest1)} does not support writing '{options.Format}' format.");
             }
         }
 
-        EmbedRequest IPersistableModel<EmbedRequest>.Create(BinaryData data, ModelReaderWriterOptions options)
+        EmbedRequest1 IPersistableModel<EmbedRequest1>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EmbedRequest>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EmbedRequest1>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeEmbedRequest(document.RootElement, options);
+                        return DeserializeEmbedRequest1(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(EmbedRequest)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(EmbedRequest1)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<EmbedRequest>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<EmbedRequest1>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static EmbedRequest FromResponse(Response response)
+        internal static EmbedRequest1 FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeEmbedRequest(document.RootElement);
+            return DeserializeEmbedRequest1(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
