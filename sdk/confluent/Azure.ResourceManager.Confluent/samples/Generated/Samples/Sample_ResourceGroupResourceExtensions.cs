@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.Confluent.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task ValidateOrganization_ValidationsValidateOrganizations()
         {
-            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2024-02-13/examples/Validations_ValidateOrganizations.json
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2024-07-01/examples/Validations_ValidateOrganizations.json
             // this example is just showing the usage of "Validations_ValidateOrganization" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.Confluent.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task ValidateOrganizationV2_ValidationsValidateOrganizations()
         {
-            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2024-02-13/examples/Validations_ValidateOrganizationsV2.json
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2024-07-01/examples/Validations_ValidateOrganizationsV2.json
             // this example is just showing the usage of "Validations_ValidateOrganizationV2" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
