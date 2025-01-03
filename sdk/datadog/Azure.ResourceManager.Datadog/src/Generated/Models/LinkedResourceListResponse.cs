@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Datadog.Models
 {
@@ -49,14 +48,14 @@ namespace Azure.ResourceManager.Datadog.Models
         /// <summary> Initializes a new instance of <see cref="LinkedResourceListResponse"/>. </summary>
         internal LinkedResourceListResponse()
         {
-            Value = new ChangeTrackingList<SubResource>();
+            Value = new ChangeTrackingList<LinkedResource>();
         }
 
         /// <summary> Initializes a new instance of <see cref="LinkedResourceListResponse"/>. </summary>
         /// <param name="value"> Results of a list operation. </param>
         /// <param name="nextLink"> Link to the next set of results, if any. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LinkedResourceListResponse(IReadOnlyList<SubResource> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal LinkedResourceListResponse(IReadOnlyList<LinkedResource> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
@@ -64,7 +63,7 @@ namespace Azure.ResourceManager.Datadog.Models
         }
 
         /// <summary> Results of a list operation. </summary>
-        public IReadOnlyList<SubResource> Value { get; }
+        public IReadOnlyList<LinkedResource> Value { get; }
         /// <summary> Link to the next set of results, if any. </summary>
         public string NextLink { get; }
     }
