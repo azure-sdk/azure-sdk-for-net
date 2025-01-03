@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.Compute
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2024-07-01";
+            _apiVersion = apiVersion ?? "2024-11-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -462,7 +462,7 @@ namespace Azure.ResourceManager.Compute
             return message;
         }
 
-        /// <summary> The operation to delete a virtual machine. </summary>
+        /// <summary> The operation to delete a virtual machine. NOTE: As of version 2024-11-01, we are rolling out a feature where if the forceDeletion parameter is unspecified OR not explicitly set to false, AND the VM meets the relevant criteria, then the VM will be force deleted. The criteria is 1) All disks must be marked with the delete option and 2) VM must be on Merlin Fast Path. To avoid defaulting to force delete, ensure that the forceDeletion parameter is explicitly set to false. </summary>
         /// <param name="subscriptionId"> Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="vmName"> The name of the virtual machine. </param>
@@ -489,7 +489,7 @@ namespace Azure.ResourceManager.Compute
             }
         }
 
-        /// <summary> The operation to delete a virtual machine. </summary>
+        /// <summary> The operation to delete a virtual machine. NOTE: As of version 2024-11-01, we are rolling out a feature where if the forceDeletion parameter is unspecified OR not explicitly set to false, AND the VM meets the relevant criteria, then the VM will be force deleted. The criteria is 1) All disks must be marked with the delete option and 2) VM must be on Merlin Fast Path. To avoid defaulting to force delete, ensure that the forceDeletion parameter is explicitly set to false. </summary>
         /// <param name="subscriptionId"> Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="vmName"> The name of the virtual machine. </param>
