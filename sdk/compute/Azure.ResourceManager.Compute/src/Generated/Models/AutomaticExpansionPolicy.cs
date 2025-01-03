@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    /// <summary> Describes the additional replica set information. </summary>
-    public partial class AdditionalReplicaSet
+    /// <summary> The configuration parameters used by Automatic AZ Balancing for expanding the scale set to a target zonal instance count. </summary>
+    internal partial class AutomaticExpansionPolicy
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,25 +45,21 @@ namespace Azure.ResourceManager.Compute.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AdditionalReplicaSet"/>. </summary>
-        public AdditionalReplicaSet()
+        /// <summary> Initializes a new instance of <see cref="AutomaticExpansionPolicy"/>. </summary>
+        public AutomaticExpansionPolicy()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="AdditionalReplicaSet"/>. </summary>
-        /// <param name="storageAccountType"> Specifies the storage account type to be used to create the direct drive replicas. </param>
-        /// <param name="regionalReplicaCount"> The number of direct drive replicas of the Image Version to be created.This Property is updatable. </param>
+        /// <summary> Initializes a new instance of <see cref="AutomaticExpansionPolicy"/>. </summary>
+        /// <param name="minTargetZonalInstanceCount"> Specifies the minimum number of zonal VMs that will be gradually provisioned to the scale set. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AdditionalReplicaSet(ImageStorageAccountType? storageAccountType, int? regionalReplicaCount, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AutomaticExpansionPolicy(int? minTargetZonalInstanceCount, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            StorageAccountType = storageAccountType;
-            RegionalReplicaCount = regionalReplicaCount;
+            MinTargetZonalInstanceCount = minTargetZonalInstanceCount;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Specifies the storage account type to be used to create the direct drive replicas. </summary>
-        public ImageStorageAccountType? StorageAccountType { get; set; }
-        /// <summary> The number of direct drive replicas of the Image Version to be created.This Property is updatable. </summary>
-        public int? RegionalReplicaCount { get; set; }
+        /// <summary> Specifies the minimum number of zonal VMs that will be gradually provisioned to the scale set. </summary>
+        public int? MinTargetZonalInstanceCount { get; set; }
     }
 }
