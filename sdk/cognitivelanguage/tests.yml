@@ -21,4 +21,6 @@ extends:
       AZURE_TEXT_CUSTOM_SINGLE_CLASSIFICATION_DEPLOYMENT: $(csc-deployment)
       AZURE_TEXT_CUSTOM_MULTI_CLASSIFICATION_PROJECT: $(cmc-project)
       AZURE_TEXT_CUSTOM_MULTI_CLASSIFICATION_DEPLOYMENT: $(cmc-deployment)
+      AZURE_DOCUMENTS_ENDPOINT: $(doc-uri)
+      AZURE_DOCUMENTS_KEY: $(doc-key)
     ServiceDirectory: cognitivelanguage
