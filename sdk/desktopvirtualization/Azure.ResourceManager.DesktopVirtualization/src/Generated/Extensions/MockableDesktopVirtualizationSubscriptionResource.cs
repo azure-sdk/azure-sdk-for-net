@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -98,7 +98,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -128,7 +128,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -194,7 +194,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -225,7 +225,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -256,7 +256,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -289,7 +289,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -322,7 +322,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -330,7 +330,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, resource group, host pool, package owner name, and custom data. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="AppAttachPackageResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<AppAttachPackageResource> GetAppAttachPackagesAsync(string filter = null, CancellationToken cancellationToken = default)
@@ -353,7 +353,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-08-08-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -361,7 +361,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, resource group, host pool, package owner name, and custom data. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="AppAttachPackageResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<AppAttachPackageResource> GetAppAttachPackages(string filter = null, CancellationToken cancellationToken = default)

@@ -69,7 +69,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <param name="isRegularRegistration"> Specifies how to register Package in feed. </param>
         /// <param name="isActive"> Make this version of the package the active one across the hostpool. </param>
         /// <param name="packageDependencies"> List of package dependencies. </param>
-        /// <param name="version"> Package version found in the appxmanifest.xml. </param>
+        /// <param name="version"> Package Version found in the appxmanifest.xml. </param>
         /// <param name="lastUpdatedOn"> Date Package was last updated, found in the appxmanifest.xml. </param>
         /// <param name="packageApplications"> List of package applications. </param>
         /// <param name="certificateName"> Certificate name found in the appxmanifest.xml. </param>
@@ -125,7 +125,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <summary> List of package dependencies. </summary>
         [WirePath("properties.packageDependencies")]
         public IList<MsixPackageDependencies> PackageDependencies { get; set; }
-        /// <summary> Package version found in the appxmanifest.xml. </summary>
+        /// <summary> Package Version found in the appxmanifest.xml. </summary>
         [WirePath("properties.version")]
         public string Version { get; set; }
         /// <summary> Date Package was last updated, found in the appxmanifest.xml. </summary>
