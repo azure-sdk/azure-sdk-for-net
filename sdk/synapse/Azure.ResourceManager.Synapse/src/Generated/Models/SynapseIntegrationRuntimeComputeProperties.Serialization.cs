@@ -64,6 +64,16 @@ namespace Azure.ResourceManager.Synapse.Models
                 writer.WritePropertyName("vNetProperties"u8);
                 writer.WriteObjectValue(VnetProperties, options);
             }
+            if (Optional.IsDefined(CopyComputeScaleProperties))
+            {
+                writer.WritePropertyName("copyComputeScaleProperties"u8);
+                writer.WriteObjectValue(CopyComputeScaleProperties, options);
+            }
+            if (Optional.IsDefined(PipelineExternalComputeScaleProperties))
+            {
+                writer.WritePropertyName("pipelineExternalComputeScaleProperties"u8);
+                writer.WriteObjectValue(PipelineExternalComputeScaleProperties, options);
+            }
             foreach (var item in AdditionalProperties)
             {
                 writer.WritePropertyName(item.Key);
@@ -104,6 +114,8 @@ namespace Azure.ResourceManager.Synapse.Models
             int? maxParallelExecutionsPerNode = default;
             SynapseIntegrationRuntimeDataFlowProperties dataFlowProperties = default;
             SynapseIntegrationRuntimeVnetProperties vNetProperties = default;
+            CopyComputeScaleProperties copyComputeScaleProperties = default;
+            PipelineExternalComputeScaleProperties pipelineExternalComputeScaleProperties = default;
             IDictionary<string, BinaryData> additionalProperties = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -158,6 +170,24 @@ namespace Azure.ResourceManager.Synapse.Models
                     vNetProperties = SynapseIntegrationRuntimeVnetProperties.DeserializeSynapseIntegrationRuntimeVnetProperties(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("copyComputeScaleProperties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    copyComputeScaleProperties = CopyComputeScaleProperties.DeserializeCopyComputeScaleProperties(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("pipelineExternalComputeScaleProperties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    pipelineExternalComputeScaleProperties = PipelineExternalComputeScaleProperties.DeserializePipelineExternalComputeScaleProperties(property.Value, options);
+                    continue;
+                }
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
@@ -168,6 +198,8 @@ namespace Azure.ResourceManager.Synapse.Models
                 maxParallelExecutionsPerNode,
                 dataFlowProperties,
                 vNetProperties,
+                copyComputeScaleProperties,
+                pipelineExternalComputeScaleProperties,
                 additionalProperties);
         }
 

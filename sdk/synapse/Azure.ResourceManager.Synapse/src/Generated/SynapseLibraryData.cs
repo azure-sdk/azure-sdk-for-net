@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.Synapse
         /// <summary> Storage blob container name. </summary>
         public string ContainerName { get; set; }
         /// <summary> The last update time of the library. </summary>
-        public DateTimeOffset? UploadedOn { get; set; }
+        public DateTimeOffset? UploadedOn { get; }
         /// <summary> Type of the library. </summary>
         public string TypePropertiesType { get; set; }
         /// <summary> Provisioning status of the library/package. </summary>
