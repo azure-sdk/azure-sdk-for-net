@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
@@ -18,9 +19,8 @@ namespace Azure.AI.Inference
     /// <summary> The ChatCompletions service client. </summary>
     public partial class ChatCompletionsClient
     {
-        private const string AuthorizationHeader = "Authorization";
+        private const string AuthorizationHeader = "api-key";
         private readonly AzureKeyCredential _keyCredential;
-        private const string AuthorizationApiKeyPrefix = "Bearer";
         private static readonly string[] AuthorizationScopes = new string[] { "https://ml.azure.com/.default" };
         private readonly TokenCredential _tokenCredential;
         private readonly HttpPipeline _pipeline;
@@ -42,7 +42,7 @@ namespace Azure.AI.Inference
         /// <param name="endpoint"> Service host. </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public ChatCompletionsClient(Uri endpoint, AzureKeyCredential credential) : this(endpoint, credential, new AzureAIInferenceClientOptions())
+        public ChatCompletionsClient(Uri endpoint, AzureKeyCredential credential) : this(endpoint, credential, new ChatCompletionsClientOptions())
         {
         }
 
@@ -50,7 +50,7 @@ namespace Azure.AI.Inference
         /// <param name="endpoint"> Service host. </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public ChatCompletionsClient(Uri endpoint, TokenCredential credential) : this(endpoint, credential, new AzureAIInferenceClientOptions())
+        public ChatCompletionsClient(Uri endpoint, TokenCredential credential) : this(endpoint, credential, new ChatCompletionsClientOptions())
         {
         }
 
@@ -59,17 +59,227 @@ namespace Azure.AI.Inference
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public ChatCompletionsClient(Uri endpoint, TokenCredential credential, AzureAIInferenceClientOptions options)
+        public ChatCompletionsClient(Uri endpoint, AzureKeyCredential credential, ChatCompletionsClientOptions options)
         {
             Argument.AssertNotNull(endpoint, nameof(endpoint));
             Argument.AssertNotNull(credential, nameof(credential));
-            options ??= new AzureAIInferenceClientOptions();
+            options ??= new ChatCompletionsClientOptions();
+
+            ClientDiagnostics = new ClientDiagnostics(options, true);
+            _keyCredential = credential;
+            _pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>(), new HttpPipelinePolicy[] { new AzureKeyCredentialPolicy(_keyCredential, AuthorizationHeader) }, new ResponseClassifier());
+            _endpoint = endpoint;
+            _apiVersion = options.Version;
+        }
+
+        /// <summary> Initializes a new instance of ChatCompletionsClient. </summary>
+        /// <param name="endpoint"> Service host. </param>
+        /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
+        /// <param name="options"> The options for configuring the client. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
+        public ChatCompletionsClient(Uri endpoint, TokenCredential credential, ChatCompletionsClientOptions options)
+        {
+            Argument.AssertNotNull(endpoint, nameof(endpoint));
+            Argument.AssertNotNull(credential, nameof(credential));
+            options ??= new ChatCompletionsClientOptions();
 
             ClientDiagnostics = new ClientDiagnostics(options, true);
             _tokenCredential = credential;
             _pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>(), new HttpPipelinePolicy[] { new BearerTokenAuthenticationPolicy(_tokenCredential, AuthorizationScopes) }, new ResponseClassifier());
             _endpoint = endpoint;
             _apiVersion = options.Version;
+        }
+
+        /// <summary>
+        /// Gets chat completions for the provided chat messages.
+        /// Completions support a wide variety of tasks and generate text that continues from or "completes"
+        /// provided prompt data. The method makes a REST API call to the `/chat/completions` route
+        /// on the given endpoint.
+        /// </summary>
+        /// <param name="messages">
+        /// The collection of context messages associated with this chat completions request.
+        /// Typical usage begins with a chat message for the System role that provides instructions for
+        /// the behavior of the assistant, followed by alternating messages between the User and
+        /// Assistant roles.
+        /// </param>
+        /// <param name="frequencyPenalty">
+        /// A value that influences the probability of generated tokens appearing based on their cumulative
+        /// frequency in generated text.
+        /// Positive values will make tokens less likely to appear as their frequency increases and
+        /// decrease the likelihood of the model repeating the same statements verbatim.
+        /// Supported range is [-2, 2].
+        /// </param>
+        /// <param name="internalShouldStreamResponse"> A value indicating whether chat completions should be streamed for this request. </param>
+        /// <param name="presencePenalty">
+        /// A value that influences the probability of generated tokens appearing based on their existing
+        /// presence in generated text.
+        /// Positive values will make tokens less likely to appear when they already exist and increase the
+        /// model's likelihood to output new topics.
+        /// Supported range is [-2, 2].
+        /// </param>
+        /// <param name="temperature">
+        /// The sampling temperature to use that controls the apparent creativity of generated completions.
+        /// Higher values will make output more random while lower values will make results more focused
+        /// and deterministic.
+        /// It is not recommended to modify temperature and top_p for the same completions request as the
+        /// interaction of these two settings is difficult to predict.
+        /// Supported range is [0, 1].
+        /// </param>
+        /// <param name="nucleusSamplingFactor">
+        /// An alternative to sampling with temperature called nucleus sampling. This value causes the
+        /// model to consider the results of tokens with the provided probability mass. As an example, a
+        /// value of 0.15 will cause only the tokens comprising the top 15% of probability mass to be
+        /// considered.
+        /// It is not recommended to modify temperature and top_p for the same completions request as the
+        /// interaction of these two settings is difficult to predict.
+        /// Supported range is [0, 1].
+        /// </param>
+        /// <param name="maxTokens"> The maximum number of tokens to generate. </param>
+        /// <param name="responseFormat">
+        /// An object specifying the format that the model must output.
+        ///
+        /// Setting to `{ "type": "json_schema", "json_schema": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema.
+        ///
+        /// Setting to `{ "type": "json_object" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+        ///
+        /// **Important:** when using JSON mode, you **must** also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly "stuck" request. Also note that the message content may be partially cut off if `finish_reason="length"`, which indicates the generation exceeded `max_tokens` or the conversation exceeded the max context length.
+        /// </param>
+        /// <param name="stopSequences"> A collection of textual sequences that will end completions generation. </param>
+        /// <param name="tools">
+        /// A list of tools the model may request to call. Currently, only functions are supported as a tool. The model
+        /// may response with a function call request and provide the input arguments in JSON format for that function.
+        /// </param>
+        /// <param name="toolChoice"> If specified, the model will configure which of the provided tools it can use for the chat completions response. </param>
+        /// <param name="seed">
+        /// If specified, the system will make a best effort to sample deterministically such that repeated requests with the
+        /// same seed and parameters should return the same result. Determinism is not guaranteed.
+        /// </param>
+        /// <param name="model"> ID of the specific AI model to use, if more than one model is available on the endpoint. </param>
+        /// <param name="extraParams">
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="messages"/> is null. </exception>
+        internal virtual async Task<Response<ChatCompletions>> CompleteAsync(IEnumerable<ChatRequestMessage> messages, float? frequencyPenalty = null, bool? internalShouldStreamResponse = null, float? presencePenalty = null, float? temperature = null, float? nucleusSamplingFactor = null, int? maxTokens = null, ChatCompletionsResponseFormat responseFormat = null, IEnumerable<string> stopSequences = null, IEnumerable<ChatCompletionsToolDefinition> tools = null, BinaryData toolChoice = null, long? seed = null, string model = null, ExtraParameters? extraParams = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(messages, nameof(messages));
+
+            CompleteRequest completeRequest = new CompleteRequest(
+                messages.ToList(),
+                frequencyPenalty,
+                internalShouldStreamResponse,
+                presencePenalty,
+                temperature,
+                nucleusSamplingFactor,
+                maxTokens,
+                responseFormat,
+                stopSequences?.ToList() as IReadOnlyList<string> ?? new ChangeTrackingList<string>(),
+                tools?.ToList() as IReadOnlyList<ChatCompletionsToolDefinition> ?? new ChangeTrackingList<ChatCompletionsToolDefinition>(),
+                toolChoice,
+                seed,
+                model,
+                null);
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = await CompleteAsync(completeRequest.ToRequestContent(), extraParams?.ToString(), context).ConfigureAwait(false);
+            return Response.FromValue(ChatCompletions.FromResponse(response), response);
+        }
+
+        /// <summary>
+        /// Gets chat completions for the provided chat messages.
+        /// Completions support a wide variety of tasks and generate text that continues from or "completes"
+        /// provided prompt data. The method makes a REST API call to the `/chat/completions` route
+        /// on the given endpoint.
+        /// </summary>
+        /// <param name="messages">
+        /// The collection of context messages associated with this chat completions request.
+        /// Typical usage begins with a chat message for the System role that provides instructions for
+        /// the behavior of the assistant, followed by alternating messages between the User and
+        /// Assistant roles.
+        /// </param>
+        /// <param name="frequencyPenalty">
+        /// A value that influences the probability of generated tokens appearing based on their cumulative
+        /// frequency in generated text.
+        /// Positive values will make tokens less likely to appear as their frequency increases and
+        /// decrease the likelihood of the model repeating the same statements verbatim.
+        /// Supported range is [-2, 2].
+        /// </param>
+        /// <param name="internalShouldStreamResponse"> A value indicating whether chat completions should be streamed for this request. </param>
+        /// <param name="presencePenalty">
+        /// A value that influences the probability of generated tokens appearing based on their existing
+        /// presence in generated text.
+        /// Positive values will make tokens less likely to appear when they already exist and increase the
+        /// model's likelihood to output new topics.
+        /// Supported range is [-2, 2].
+        /// </param>
+        /// <param name="temperature">
+        /// The sampling temperature to use that controls the apparent creativity of generated completions.
+        /// Higher values will make output more random while lower values will make results more focused
+        /// and deterministic.
+        /// It is not recommended to modify temperature and top_p for the same completions request as the
+        /// interaction of these two settings is difficult to predict.
+        /// Supported range is [0, 1].
+        /// </param>
+        /// <param name="nucleusSamplingFactor">
+        /// An alternative to sampling with temperature called nucleus sampling. This value causes the
+        /// model to consider the results of tokens with the provided probability mass. As an example, a
+        /// value of 0.15 will cause only the tokens comprising the top 15% of probability mass to be
+        /// considered.
+        /// It is not recommended to modify temperature and top_p for the same completions request as the
+        /// interaction of these two settings is difficult to predict.
+        /// Supported range is [0, 1].
+        /// </param>
+        /// <param name="maxTokens"> The maximum number of tokens to generate. </param>
+        /// <param name="responseFormat">
+        /// An object specifying the format that the model must output.
+        ///
+        /// Setting to `{ "type": "json_schema", "json_schema": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema.
+        ///
+        /// Setting to `{ "type": "json_object" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+        ///
+        /// **Important:** when using JSON mode, you **must** also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly "stuck" request. Also note that the message content may be partially cut off if `finish_reason="length"`, which indicates the generation exceeded `max_tokens` or the conversation exceeded the max context length.
+        /// </param>
+        /// <param name="stopSequences"> A collection of textual sequences that will end completions generation. </param>
+        /// <param name="tools">
+        /// A list of tools the model may request to call. Currently, only functions are supported as a tool. The model
+        /// may response with a function call request and provide the input arguments in JSON format for that function.
+        /// </param>
+        /// <param name="toolChoice"> If specified, the model will configure which of the provided tools it can use for the chat completions response. </param>
+        /// <param name="seed">
+        /// If specified, the system will make a best effort to sample deterministically such that repeated requests with the
+        /// same seed and parameters should return the same result. Determinism is not guaranteed.
+        /// </param>
+        /// <param name="model"> ID of the specific AI model to use, if more than one model is available on the endpoint. </param>
+        /// <param name="extraParams">
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="messages"/> is null. </exception>
+        internal virtual Response<ChatCompletions> Complete(IEnumerable<ChatRequestMessage> messages, float? frequencyPenalty = null, bool? internalShouldStreamResponse = null, float? presencePenalty = null, float? temperature = null, float? nucleusSamplingFactor = null, int? maxTokens = null, ChatCompletionsResponseFormat responseFormat = null, IEnumerable<string> stopSequences = null, IEnumerable<ChatCompletionsToolDefinition> tools = null, BinaryData toolChoice = null, long? seed = null, string model = null, ExtraParameters? extraParams = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(messages, nameof(messages));
+
+            CompleteRequest completeRequest = new CompleteRequest(
+                messages.ToList(),
+                frequencyPenalty,
+                internalShouldStreamResponse,
+                presencePenalty,
+                temperature,
+                nucleusSamplingFactor,
+                maxTokens,
+                responseFormat,
+                stopSequences?.ToList() as IReadOnlyList<string> ?? new ChangeTrackingList<string>(),
+                tools?.ToList() as IReadOnlyList<ChatCompletionsToolDefinition> ?? new ChangeTrackingList<ChatCompletionsToolDefinition>(),
+                toolChoice,
+                seed,
+                model,
+                null);
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = Complete(completeRequest.ToRequestContent(), extraParams?.ToString(), context);
+            return Response.FromValue(ChatCompletions.FromResponse(response), response);
         }
 
         /// <summary>
