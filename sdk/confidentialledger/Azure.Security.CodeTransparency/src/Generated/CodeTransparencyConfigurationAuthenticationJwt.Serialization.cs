@@ -34,7 +34,7 @@ namespace Azure.Security.CodeTransparency
                 throw new FormatException($"The model {nameof(CodeTransparencyConfigurationAuthenticationJwt)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("required_claims"u8);
+            writer.WritePropertyName("requiredClaims"u8);
             writer.WriteStartObject();
             foreach (var item in RequiredClaims)
             {
@@ -84,7 +84,7 @@ namespace Azure.Security.CodeTransparency
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("required_claims"u8))
+                if (property.NameEquals("requiredClaims"u8))
                 {
                     Dictionary<string, string> dictionary = new Dictionary<string, string>();
                     foreach (var property0 in property.Value.EnumerateObject())

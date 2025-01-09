@@ -34,8 +34,8 @@ namespace Azure.Security.CodeTransparency
                 throw new FormatException($"The model {nameof(VersionResult)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("scitt_version"u8);
-            writer.WriteStringValue(ScittVersion);
+            writer.WritePropertyName("version"u8);
+            writer.WriteStringValue(Version);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -73,14 +73,14 @@ namespace Azure.Security.CodeTransparency
             {
                 return null;
             }
-            string scittVersion = default;
+            string version = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("scitt_version"u8))
+                if (property.NameEquals("version"u8))
                 {
-                    scittVersion = property.Value.GetString();
+                    version = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -89,7 +89,7 @@ namespace Azure.Security.CodeTransparency
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new VersionResult(scittVersion, serializedAdditionalRawData);
+            return new VersionResult(version, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<VersionResult>.Write(ModelReaderWriterOptions options)
