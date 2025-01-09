@@ -34,7 +34,7 @@ namespace Azure.Security.CodeTransparency
                 throw new FormatException($"The model {nameof(CodeTransparencyConfigurationAuthentication)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("allow_unauthenticated"u8);
+            writer.WritePropertyName("allowUnauthenticated"u8);
             writer.WriteBooleanValue(AllowUnauthenticated);
             if (Optional.IsDefined(Jwt))
             {
@@ -84,7 +84,7 @@ namespace Azure.Security.CodeTransparency
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("allow_unauthenticated"u8))
+                if (property.NameEquals("allowUnauthenticated"u8))
                 {
                     allowUnauthenticated = property.Value.GetBoolean();
                     continue;

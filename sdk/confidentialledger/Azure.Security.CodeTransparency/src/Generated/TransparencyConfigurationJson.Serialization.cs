@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.Security.CodeTransparency
 {
-    public partial class ListOperationResult : IUtf8JsonSerializable, IJsonModel<ListOperationResult>
+    public partial class TransparencyConfigurationJson : IUtf8JsonSerializable, IJsonModel<TransparencyConfigurationJson>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ListOperationResult>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<TransparencyConfigurationJson>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<ListOperationResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<TransparencyConfigurationJson>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,19 +28,16 @@ namespace Azure.Security.CodeTransparency
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ListOperationResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TransparencyConfigurationJson>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ListOperationResult)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(TransparencyConfigurationJson)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("operations"u8);
-            writer.WriteStartArray();
-            foreach (var item in Operations)
-            {
-                writer.WriteObjectValue(item, options);
-            }
-            writer.WriteEndArray();
+            writer.WritePropertyName("issuer"u8);
+            writer.WriteStringValue(Issuer);
+            writer.WritePropertyName("jwksUri"u8);
+            writer.WriteStringValue(JwksUri);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -58,19 +55,19 @@ namespace Azure.Security.CodeTransparency
             }
         }
 
-        ListOperationResult IJsonModel<ListOperationResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        TransparencyConfigurationJson IJsonModel<TransparencyConfigurationJson>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ListOperationResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TransparencyConfigurationJson>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ListOperationResult)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(TransparencyConfigurationJson)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeListOperationResult(document.RootElement, options);
+            return DeserializeTransparencyConfigurationJson(document.RootElement, options);
         }
 
-        internal static ListOperationResult DeserializeListOperationResult(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static TransparencyConfigurationJson DeserializeTransparencyConfigurationJson(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -78,19 +75,20 @@ namespace Azure.Security.CodeTransparency
             {
                 return null;
             }
-            IReadOnlyList<GetOperationResult> operations = default;
+            string issuer = default;
+            string jwksUri = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("operations"u8))
+                if (property.NameEquals("issuer"u8))
                 {
-                    List<GetOperationResult> array = new List<GetOperationResult>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(GetOperationResult.DeserializeGetOperationResult(item, options));
-                    }
-                    operations = array;
+                    issuer = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("jwksUri"u8))
+                {
+                    jwksUri = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -99,46 +97,46 @@ namespace Azure.Security.CodeTransparency
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ListOperationResult(operations, serializedAdditionalRawData);
+            return new TransparencyConfigurationJson(issuer, jwksUri, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<ListOperationResult>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<TransparencyConfigurationJson>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ListOperationResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TransparencyConfigurationJson>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(ListOperationResult)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(TransparencyConfigurationJson)} does not support writing '{options.Format}' format.");
             }
         }
 
-        ListOperationResult IPersistableModel<ListOperationResult>.Create(BinaryData data, ModelReaderWriterOptions options)
+        TransparencyConfigurationJson IPersistableModel<TransparencyConfigurationJson>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ListOperationResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TransparencyConfigurationJson>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeListOperationResult(document.RootElement, options);
+                        return DeserializeTransparencyConfigurationJson(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ListOperationResult)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(TransparencyConfigurationJson)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ListOperationResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<TransparencyConfigurationJson>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static ListOperationResult FromResponse(Response response)
+        internal static TransparencyConfigurationJson FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeListOperationResult(document.RootElement);
+            return DeserializeTransparencyConfigurationJson(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.Security.CodeTransparency
 {
-    /// <summary> Configuration of CCF Authentication policies. </summary>
+    /// <summary> Policy configuration listing accepted algorithms and the the policy script. </summary>
     public partial class CodeTransparencyConfigurationPolicy
     {
         /// <summary>
@@ -46,26 +46,35 @@ namespace Azure.Security.CodeTransparency
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="CodeTransparencyConfigurationPolicy"/>. </summary>
-        internal CodeTransparencyConfigurationPolicy()
+        /// <param name="policyScript"> COSE signature verification script in Javascript. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="policyScript"/> is null. </exception>
+        internal CodeTransparencyConfigurationPolicy(string policyScript)
         {
+            Argument.AssertNotNull(policyScript, nameof(policyScript));
+
             AcceptedAlgorithms = new ChangeTrackingList<string>();
-            AcceptedDidIssuers = new ChangeTrackingList<string>();
+            PolicyScript = policyScript;
         }
 
         /// <summary> Initializes a new instance of <see cref="CodeTransparencyConfigurationPolicy"/>. </summary>
-        /// <param name="acceptedAlgorithms"></param>
-        /// <param name="acceptedDidIssuers"></param>
+        /// <param name="acceptedAlgorithms"> Accepted COSE signature algorithms when verifying signed statements. </param>
+        /// <param name="policyScript"> COSE signature verification script in Javascript. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CodeTransparencyConfigurationPolicy(IReadOnlyList<string> acceptedAlgorithms, IReadOnlyList<string> acceptedDidIssuers, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CodeTransparencyConfigurationPolicy(IReadOnlyList<string> acceptedAlgorithms, string policyScript, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             AcceptedAlgorithms = acceptedAlgorithms;
-            AcceptedDidIssuers = acceptedDidIssuers;
+            PolicyScript = policyScript;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Gets the accepted algorithms. </summary>
+        /// <summary> Initializes a new instance of <see cref="CodeTransparencyConfigurationPolicy"/> for deserialization. </summary>
+        internal CodeTransparencyConfigurationPolicy()
+        {
+        }
+
+        /// <summary> Accepted COSE signature algorithms when verifying signed statements. </summary>
         public IReadOnlyList<string> AcceptedAlgorithms { get; }
-        /// <summary> Gets the accepted did issuers. </summary>
-        public IReadOnlyList<string> AcceptedDidIssuers { get; }
+        /// <summary> COSE signature verification script in Javascript. </summary>
+        public string PolicyScript { get; }
     }
 }
