@@ -129,11 +129,6 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("architecture"u8);
                 writer.WriteStringValue(Architecture.Value.ToString());
             }
-            if (Optional.IsDefined(AllowUpdateImage))
-            {
-                writer.WritePropertyName("allowUpdateImage"u8);
-                writer.WriteBooleanValue(AllowUpdateImage.Value);
-            }
             writer.WriteEndObject();
         }
 
@@ -177,7 +172,6 @@ namespace Azure.ResourceManager.Compute.Models
             GalleryProvisioningState? provisioningState = default;
             IList<GalleryImageFeature> features = default;
             ArchitectureType? architecture = default;
-            bool? allowUpdateImage = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -361,15 +355,6 @@ namespace Azure.ResourceManager.Compute.Models
                             architecture = new ArchitectureType(property0.Value.GetString());
                             continue;
                         }
-                        if (property0.NameEquals("allowUpdateImage"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            allowUpdateImage = property0.Value.GetBoolean();
-                            continue;
-                        }
                     }
                     continue;
                 }
@@ -399,7 +384,6 @@ namespace Azure.ResourceManager.Compute.Models
                 provisioningState,
                 features ?? new ChangeTrackingList<GalleryImageFeature>(),
                 architecture,
-                allowUpdateImage,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 serializedAdditionalRawData);
         }
