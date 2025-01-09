@@ -56,16 +56,6 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("excludeFromLatest"u8);
                 writer.WriteBooleanValue(IsExcludedFromLatest.Value);
             }
-            if (Optional.IsCollectionDefined(AdditionalReplicaSets))
-            {
-                writer.WritePropertyName("additionalReplicaSets"u8);
-                writer.WriteStartArray();
-                foreach (var item in AdditionalReplicaSets)
-                {
-                    writer.WriteObjectValue(item, options);
-                }
-                writer.WriteEndArray();
-            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -108,7 +98,6 @@ namespace Azure.ResourceManager.Compute.Models
             ImageStorageAccountType? storageAccountType = default;
             EncryptionImages encryption = default;
             bool? excludeFromLatest = default;
-            IList<AdditionalReplicaSet> additionalReplicaSets = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -154,20 +143,6 @@ namespace Azure.ResourceManager.Compute.Models
                     excludeFromLatest = property.Value.GetBoolean();
                     continue;
                 }
-                if (property.NameEquals("additionalReplicaSets"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    List<AdditionalReplicaSet> array = new List<AdditionalReplicaSet>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(AdditionalReplicaSet.DeserializeAdditionalReplicaSet(item, options));
-                    }
-                    additionalReplicaSets = array;
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -180,7 +155,6 @@ namespace Azure.ResourceManager.Compute.Models
                 storageAccountType,
                 encryption,
                 excludeFromLatest,
-                additionalReplicaSets ?? new ChangeTrackingList<AdditionalReplicaSet>(),
                 serializedAdditionalRawData);
         }
 

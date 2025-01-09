@@ -36,11 +36,6 @@ namespace Azure.ResourceManager.Compute.Models
             }
 
             base.JsonModelWriteCore(writer, options);
-            if (Optional.IsDefined(Identity))
-            {
-                writer.WritePropertyName("identity"u8);
-                JsonSerializer.Serialize(writer, Identity);
-            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -107,7 +102,6 @@ namespace Azure.ResourceManager.Compute.Models
             {
                 return null;
             }
-            ManagedServiceIdentity identity = default;
             IDictionary<string, string> tags = default;
             ResourceIdentifier id = default;
             string name = default;
@@ -123,15 +117,6 @@ namespace Azure.ResourceManager.Compute.Models
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("identity"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
-                    continue;
-                }
                 if (property.NameEquals("tags"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -243,7 +228,6 @@ namespace Azure.ResourceManager.Compute.Models
                 name,
                 type,
                 systemData,
-                identity,
                 description,
                 identifier,
                 provisioningState,
