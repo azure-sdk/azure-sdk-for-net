@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.AI.Inference
 {
     /// <summary> A response format for Chat Completions that emits text responses. This is the default response format. </summary>
-    public partial class ChatCompletionsResponseFormatText : ChatCompletionsResponseFormat
+    internal partial class ChatCompletionsResponseFormatText : ChatCompletionsResponseFormat
     {
         /// <summary> Initializes a new instance of <see cref="ChatCompletionsResponseFormatText"/>. </summary>
         public ChatCompletionsResponseFormatText()
