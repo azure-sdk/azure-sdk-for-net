@@ -14,16 +14,8 @@ namespace Azure.ResourceManager.CosmosDB.Models
     public partial class CosmosCassandraDataTransferDataSourceSink : BaseCosmosDataTransferDataSourceSink
     {
         /// <summary> Initializes a new instance of <see cref="CosmosCassandraDataTransferDataSourceSink"/>. </summary>
-        /// <param name="keyspaceName"></param>
-        /// <param name="tableName"></param>
-        /// <exception cref="ArgumentNullException"> <paramref name="keyspaceName"/> or <paramref name="tableName"/> is null. </exception>
-        public CosmosCassandraDataTransferDataSourceSink(string keyspaceName, string tableName)
+        public CosmosCassandraDataTransferDataSourceSink()
         {
-            Argument.AssertNotNull(keyspaceName, nameof(keyspaceName));
-            Argument.AssertNotNull(tableName, nameof(tableName));
-
-            KeyspaceName = keyspaceName;
-            TableName = tableName;
             Component = DataTransferComponent.CosmosDBCassandra;
         }
 
@@ -38,11 +30,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
             KeyspaceName = keyspaceName;
             TableName = tableName;
             Component = component;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="CosmosCassandraDataTransferDataSourceSink"/> for deserialization. </summary>
-        internal CosmosCassandraDataTransferDataSourceSink()
-        {
         }
 
         /// <summary> Gets or sets the keyspace name. </summary>

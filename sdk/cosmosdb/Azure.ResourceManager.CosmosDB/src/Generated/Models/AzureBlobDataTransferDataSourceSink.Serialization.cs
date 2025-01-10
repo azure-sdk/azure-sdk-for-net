@@ -36,8 +36,11 @@ namespace Azure.ResourceManager.CosmosDB.Models
             }
 
             base.JsonModelWriteCore(writer, options);
-            writer.WritePropertyName("containerName"u8);
-            writer.WriteStringValue(ContainerName);
+            if (Optional.IsDefined(ContainerName))
+            {
+                writer.WritePropertyName("containerName"u8);
+                writer.WriteStringValue(ContainerName);
+            }
             if (Optional.IsDefined(EndpointUri))
             {
                 writer.WritePropertyName("endpointUrl"u8);

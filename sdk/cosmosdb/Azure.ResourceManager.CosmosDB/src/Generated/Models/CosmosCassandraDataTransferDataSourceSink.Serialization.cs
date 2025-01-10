@@ -36,10 +36,16 @@ namespace Azure.ResourceManager.CosmosDB.Models
             }
 
             base.JsonModelWriteCore(writer, options);
-            writer.WritePropertyName("keyspaceName"u8);
-            writer.WriteStringValue(KeyspaceName);
-            writer.WritePropertyName("tableName"u8);
-            writer.WriteStringValue(TableName);
+            if (Optional.IsDefined(KeyspaceName))
+            {
+                writer.WritePropertyName("keyspaceName"u8);
+                writer.WriteStringValue(KeyspaceName);
+            }
+            if (Optional.IsDefined(TableName))
+            {
+                writer.WritePropertyName("tableName"u8);
+                writer.WriteStringValue(TableName);
+            }
         }
 
         CosmosCassandraDataTransferDataSourceSink IJsonModel<CosmosCassandraDataTransferDataSourceSink>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
