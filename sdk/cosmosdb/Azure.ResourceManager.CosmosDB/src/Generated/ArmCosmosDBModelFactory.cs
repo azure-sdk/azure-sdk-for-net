@@ -2146,6 +2146,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// Please note <see cref="DataTransferDataSourceSink"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="AzureBlobDataTransferDataSourceSink"/>, <see cref="BaseCosmosDataTransferDataSourceSink"/>, <see cref="CosmosCassandraDataTransferDataSourceSink"/>, <see cref="CosmosMongoDataTransferDataSourceSink"/>, <see cref="CosmosMongoVCoreDataTransferDataSourceSink"/> and <see cref="CosmosSqlDataTransferDataSourceSink"/>.
         /// </param>
+        /// <param name="sourceAndDestinationContainers"></param>
         /// <param name="status"> Job Status. </param>
         /// <param name="processedCount"> Processed Count. </param>
         /// <param name="totalCount"> Total Count. </param>
@@ -2155,12 +2156,15 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// <param name="duration"> Total Duration of Job. </param>
         /// <param name="mode"> Mode of job execution. </param>
         /// <returns> A new <see cref="Models.DataTransferJobProperties"/> instance for mocking. </returns>
-        public static DataTransferJobProperties DataTransferJobProperties(string jobName = null, DataTransferDataSourceSink source = null, DataTransferDataSourceSink destination = null, string status = null, long? processedCount = null, long? totalCount = null, DateTimeOffset? lastUpdatedUtcOn = null, int? workerCount = null, CosmosDBErrorResult error = null, TimeSpan? duration = null, DataTransferJobMode? mode = null)
+        public static DataTransferJobProperties DataTransferJobProperties(string jobName = null, DataTransferDataSourceSink source = null, DataTransferDataSourceSink destination = null, IEnumerable<DataTransferContainerDetails> sourceAndDestinationContainers = null, string status = null, long? processedCount = null, long? totalCount = null, DateTimeOffset? lastUpdatedUtcOn = null, int? workerCount = null, CosmosDBErrorResult error = null, TimeSpan? duration = null, DataTransferJobMode? mode = null)
         {
+            sourceAndDestinationContainers ??= new List<DataTransferContainerDetails>();
+
             return new DataTransferJobProperties(
                 jobName,
                 source,
                 destination,
+                sourceAndDestinationContainers?.ToList(),
                 status,
                 processedCount,
                 totalCount,
@@ -2170,6 +2174,23 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 duration,
                 mode,
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.DataTransferContainerDetails"/>. </summary>
+        /// <param name="totalCount"></param>
+        /// <param name="processedCount"></param>
+        /// <param name="source">
+        /// Please note <see cref="ContainerEntity"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="AzureBlobStorageContainerEntity"/>, <see cref="CosmosCassandraContainerEntity"/>, <see cref="CosmosMongoVCoreContainerEntity"/> and <see cref="CosmosSqlContainerEntity"/>.
+        /// </param>
+        /// <param name="destination">
+        /// Please note <see cref="ContainerEntity"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="AzureBlobStorageContainerEntity"/>, <see cref="CosmosCassandraContainerEntity"/>, <see cref="CosmosMongoVCoreContainerEntity"/> and <see cref="CosmosSqlContainerEntity"/>.
+        /// </param>
+        /// <returns> A new <see cref="Models.DataTransferContainerDetails"/> instance for mocking. </returns>
+        public static DataTransferContainerDetails DataTransferContainerDetails(int? totalCount = null, int? processedCount = null, ContainerEntity source = null, ContainerEntity destination = null)
+        {
+            return new DataTransferContainerDetails(totalCount, processedCount, source, destination, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="CosmosDB.DataTransferJobGetResultData"/>. </summary>
@@ -2188,6 +2209,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// Please note <see cref="DataTransferDataSourceSink"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="AzureBlobDataTransferDataSourceSink"/>, <see cref="BaseCosmosDataTransferDataSourceSink"/>, <see cref="CosmosCassandraDataTransferDataSourceSink"/>, <see cref="CosmosMongoDataTransferDataSourceSink"/>, <see cref="CosmosMongoVCoreDataTransferDataSourceSink"/> and <see cref="CosmosSqlDataTransferDataSourceSink"/>.
         /// </param>
+        /// <param name="sourceAndDestinationContainers"></param>
         /// <param name="status"> Job Status. </param>
         /// <param name="processedCount"> Processed Count. </param>
         /// <param name="totalCount"> Total Count. </param>
@@ -2197,8 +2219,10 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// <param name="duration"> Total Duration of Job. </param>
         /// <param name="mode"> Mode of job execution. </param>
         /// <returns> A new <see cref="CosmosDB.DataTransferJobGetResultData"/> instance for mocking. </returns>
-        public static DataTransferJobGetResultData DataTransferJobGetResultData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string jobName = null, DataTransferDataSourceSink source = null, DataTransferDataSourceSink destination = null, string status = null, long? processedCount = null, long? totalCount = null, DateTimeOffset? lastUpdatedUtcOn = null, int? workerCount = null, CosmosDBErrorResult error = null, TimeSpan? duration = null, DataTransferJobMode? mode = null)
+        public static DataTransferJobGetResultData DataTransferJobGetResultData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string jobName = null, DataTransferDataSourceSink source = null, DataTransferDataSourceSink destination = null, IEnumerable<DataTransferContainerDetails> sourceAndDestinationContainers = null, string status = null, long? processedCount = null, long? totalCount = null, DateTimeOffset? lastUpdatedUtcOn = null, int? workerCount = null, CosmosDBErrorResult error = null, TimeSpan? duration = null, DataTransferJobMode? mode = null)
         {
+            sourceAndDestinationContainers ??= new List<DataTransferContainerDetails>();
+
             return new DataTransferJobGetResultData(
                 id,
                 name,
@@ -2207,6 +2231,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 jobName,
                 source,
                 destination,
+                sourceAndDestinationContainers?.ToList(),
                 status,
                 processedCount,
                 totalCount,

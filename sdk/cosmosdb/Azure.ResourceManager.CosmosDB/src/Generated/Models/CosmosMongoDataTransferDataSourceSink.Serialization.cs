@@ -36,10 +36,16 @@ namespace Azure.ResourceManager.CosmosDB.Models
             }
 
             base.JsonModelWriteCore(writer, options);
-            writer.WritePropertyName("databaseName"u8);
-            writer.WriteStringValue(DatabaseName);
-            writer.WritePropertyName("collectionName"u8);
-            writer.WriteStringValue(CollectionName);
+            if (Optional.IsDefined(DatabaseName))
+            {
+                writer.WritePropertyName("databaseName"u8);
+                writer.WriteStringValue(DatabaseName);
+            }
+            if (Optional.IsDefined(CollectionName))
+            {
+                writer.WritePropertyName("collectionName"u8);
+                writer.WriteStringValue(CollectionName);
+            }
         }
 
         CosmosMongoDataTransferDataSourceSink IJsonModel<CosmosMongoDataTransferDataSourceSink>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)

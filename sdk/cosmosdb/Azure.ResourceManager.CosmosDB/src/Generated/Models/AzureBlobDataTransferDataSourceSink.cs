@@ -14,13 +14,8 @@ namespace Azure.ResourceManager.CosmosDB.Models
     public partial class AzureBlobDataTransferDataSourceSink : DataTransferDataSourceSink
     {
         /// <summary> Initializes a new instance of <see cref="AzureBlobDataTransferDataSourceSink"/>. </summary>
-        /// <param name="containerName"></param>
-        /// <exception cref="ArgumentNullException"> <paramref name="containerName"/> is null. </exception>
-        public AzureBlobDataTransferDataSourceSink(string containerName)
+        public AzureBlobDataTransferDataSourceSink()
         {
-            Argument.AssertNotNull(containerName, nameof(containerName));
-
-            ContainerName = containerName;
             Component = DataTransferComponent.AzureBlobStorage;
         }
 
@@ -34,11 +29,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
             ContainerName = containerName;
             EndpointUri = endpointUri;
             Component = component;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="AzureBlobDataTransferDataSourceSink"/> for deserialization. </summary>
-        internal AzureBlobDataTransferDataSourceSink()
-        {
         }
 
         /// <summary> Gets or sets the container name. </summary>
