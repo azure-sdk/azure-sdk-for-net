@@ -54,10 +54,16 @@ namespace Azure.ResourceManager.Support
                 writer.WritePropertyName("sender"u8);
                 writer.WriteStringValue(Sender);
             }
-            writer.WritePropertyName("subject"u8);
-            writer.WriteStringValue(Subject);
-            writer.WritePropertyName("body"u8);
-            writer.WriteStringValue(Body);
+            if (Optional.IsDefined(Subject))
+            {
+                writer.WritePropertyName("subject"u8);
+                writer.WriteStringValue(Subject);
+            }
+            if (Optional.IsDefined(Body))
+            {
+                writer.WritePropertyName("body"u8);
+                writer.WriteStringValue(Body);
+            }
             if (options.Format != "W" && Optional.IsDefined(CreatedOn))
             {
                 writer.WritePropertyName("createdDate"u8);

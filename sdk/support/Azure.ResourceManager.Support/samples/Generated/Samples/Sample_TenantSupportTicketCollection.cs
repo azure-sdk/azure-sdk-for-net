@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.Support.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateATicketForBillingRelatedIssues()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/CreateBillingSupportTicket.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/CreateBillingSupportTicket.json
             // this example is just showing the usage of "SupportTicketsNoSubscription_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -36,12 +36,13 @@ namespace Azure.ResourceManager.Support.Samples
 
             // invoke the operation
             string supportTicketName = "testticket";
-            SupportTicketData data = new SupportTicketData(
-                "my description",
-                "/providers/Microsoft.Support/services/billing_service_guid/problemClassifications/billing_problemClassification_guid",
-                SupportSeverityLevel.Moderate,
-                AdvancedDiagnosticConsent.No,
-                new SupportContactProfile(
+            SupportTicketData data = new SupportTicketData
+            {
+                Description = "my description",
+                ProblemClassificationId = "/providers/Microsoft.Support/services/billing_service_guid/problemClassifications/billing_problemClassification_guid",
+                Severity = SupportSeverityLevel.Moderate,
+                SupportPlanId = "U291cmNlOlNDTSxDbGFyaWZ5SW5zdGFsbGF0aW9uU2l0ZUlkOjcsTGluZUl0ZW1JZDo5ODY1NzIyOSxDb250cmFjdElkOjk4NjU5MTk0LFN1YnNjcmlwdGlvbklkOjc2Y2I3N2ZhLThiMTctNGVhYi05NDkzLWI2NWRhY2U5OTgxMyw=",
+                ContactDetails = new SupportContactProfile(
                 "abc",
                 "xyz",
                 PreferredContactMethod.Email,
@@ -49,10 +50,8 @@ namespace Azure.ResourceManager.Support.Samples
                 "Pacific Standard Time",
                 "usa",
                 "en-US"),
-                "my title",
-                "/providers/Microsoft.Support/services/billing_service_guid")
-            {
-                SupportPlanId = "U291cmNlOlNDTSxDbGFyaWZ5SW5zdGFsbGF0aW9uU2l0ZUlkOjcsTGluZUl0ZW1JZDo5ODY1NzIyOSxDb250cmFjdElkOjk4NjU5MTk0LFN1YnNjcmlwdGlvbklkOjc2Y2I3N2ZhLThiMTctNGVhYi05NDkzLWI2NWRhY2U5OTgxMyw=",
+                Title = "my title",
+                ServiceId = "/providers/Microsoft.Support/services/billing_service_guid",
                 FileWorkspaceName = "6f16735c-1530836f-e9970f1a-2e49-47b7-96cd-9746b83aa066",
             };
             ArmOperation<TenantSupportTicketResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, supportTicketName, data);
@@ -69,7 +68,7 @@ namespace Azure.ResourceManager.Support.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateATicketForSubscriptionManagementRelatedIssues()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/CreateSubMgmtSupportTicket.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/CreateSubMgmtSupportTicket.json
             // this example is just showing the usage of "SupportTicketsNoSubscription_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -84,12 +83,13 @@ namespace Azure.ResourceManager.Support.Samples
 
             // invoke the operation
             string supportTicketName = "testticket";
-            SupportTicketData data = new SupportTicketData(
-                "my description",
-                "/providers/Microsoft.Support/services/subscription_management_service_guid/problemClassifications/subscription_management_problemClassification_guid",
-                SupportSeverityLevel.Moderate,
-                AdvancedDiagnosticConsent.Yes,
-                new SupportContactProfile(
+            SupportTicketData data = new SupportTicketData
+            {
+                Description = "my description",
+                ProblemClassificationId = "/providers/Microsoft.Support/services/subscription_management_service_guid/problemClassifications/subscription_management_problemClassification_guid",
+                Severity = SupportSeverityLevel.Moderate,
+                SupportPlanId = "U291cmNlOlNDTSxDbGFyaWZ5SW5zdGFsbGF0aW9uU2l0ZUlkOjcsTGluZUl0ZW1JZDo5ODY1NzIyOSxDb250cmFjdElkOjk4NjU5MTk0LFN1YnNjcmlwdGlvbklkOjc2Y2I3N2ZhLThiMTctNGVhYi05NDkzLWI2NWRhY2U5OTgxMyw=",
+                ContactDetails = new SupportContactProfile(
                 "abc",
                 "xyz",
                 PreferredContactMethod.Email,
@@ -97,10 +97,8 @@ namespace Azure.ResourceManager.Support.Samples
                 "Pacific Standard Time",
                 "usa",
                 "en-US"),
-                "my title",
-                "/providers/Microsoft.Support/services/subscription_management_service_guid")
-            {
-                SupportPlanId = "U291cmNlOlNDTSxDbGFyaWZ5SW5zdGFsbGF0aW9uU2l0ZUlkOjcsTGluZUl0ZW1JZDo5ODY1NzIyOSxDb250cmFjdElkOjk4NjU5MTk0LFN1YnNjcmlwdGlvbklkOjc2Y2I3N2ZhLThiMTctNGVhYi05NDkzLWI2NWRhY2U5OTgxMyw=",
+                Title = "my title",
+                ServiceId = "/providers/Microsoft.Support/services/subscription_management_service_guid",
                 FileWorkspaceName = "6f16735c-1530836f-e9970f1a-2e49-47b7-96cd-9746b83aa066",
             };
             ArmOperation<TenantSupportTicketResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, supportTicketName, data);
@@ -117,7 +115,7 @@ namespace Azure.ResourceManager.Support.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateATicketForTechnicalIssueRelatedToASpecificResource()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/CreateTechnicalSupportTicket.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/CreateTechnicalSupportTicket.json
             // this example is just showing the usage of "SupportTicketsNoSubscription_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -132,12 +130,15 @@ namespace Azure.ResourceManager.Support.Samples
 
             // invoke the operation
             string supportTicketName = "testticket";
-            SupportTicketData data = new SupportTicketData(
-                "my description",
-                "/providers/Microsoft.Support/services/virtual_machine_running_linux_service_guid/problemClassifications/problemClassification_guid",
-                SupportSeverityLevel.Moderate,
-                AdvancedDiagnosticConsent.Yes,
-                new SupportContactProfile(
+            SupportTicketData data = new SupportTicketData
+            {
+                Description = "my description",
+                ProblemClassificationId = "/providers/Microsoft.Support/services/virtual_machine_running_linux_service_guid/problemClassifications/problemClassification_guid",
+                Severity = SupportSeverityLevel.Moderate,
+                AdvancedDiagnosticConsent = AdvancedDiagnosticConsent.Yes,
+                ProblemScopingQuestions = "{\"articleId\":\"076846c1-4c0b-4b21-91c6-1a30246b3867\",\"scopingDetails\":[{\"question\":\"When did the problem begin?\",\"controlId\":\"problem_start_time\",\"orderId\":1,\"inputType\":\"static\",\"answer\":{\"displayValue\":\"2023-08-31T18:55:00.739Z\",\"value\":\"2023-08-31T18:55:00.739Z\",\"type\":\"datetime\"}},{\"question\":\"API Type of the Cosmos DB account\",\"controlId\":\"api_type\",\"orderId\":2,\"inputType\":\"static\",\"answer\":{\"displayValue\":\"Table\",\"value\":\"tables\",\"type\":\"string\"}},{\"question\":\"Table name\",\"controlId\":\"collection_name_table\",\"orderId\":11,\"inputType\":\"nonstatic\",\"answer\":{\"displayValue\":\"Select Table Name\",\"value\":\"dont_know_answer\",\"type\":\"string\"}},{\"question\":\"Provide additional details about the issue you're facing\",\"controlId\":\"problem_description\",\"orderId\":12,\"inputType\":\"nonstatic\",\"answer\":{\"displayValue\":\"test ticket, please ignore and close\",\"value\":\"test ticket, please ignore and close\",\"type\":\"string\"}}]}",
+                SupportPlanId = "U291cmNlOlNDTSxDbGFyaWZ5SW5zdGFsbGF0aW9uU2l0ZUlkOjcsTGluZUl0ZW1JZDo5ODY1NzIyOSxDb250cmFjdElkOjk4NjU5MTk0LFN1YnNjcmlwdGlvbklkOjc2Y2I3N2ZhLThiMTctNGVhYi05NDkzLWI2NWRhY2U5OTgxMyw=",
+                ContactDetails = new SupportContactProfile(
                 "abc",
                 "xyz",
                 PreferredContactMethod.Email,
@@ -145,11 +146,8 @@ namespace Azure.ResourceManager.Support.Samples
                 "Pacific Standard Time",
                 "usa",
                 "en-US"),
-                "my title",
-                "/providers/Microsoft.Support/services/cddd3eb5-1830-b494-44fd-782f691479dc")
-            {
-                ProblemScopingQuestions = "{\"articleId\":\"076846c1-4c0b-4b21-91c6-1a30246b3867\",\"scopingDetails\":[{\"question\":\"When did the problem begin?\",\"controlId\":\"problem_start_time\",\"orderId\":1,\"inputType\":\"static\",\"answer\":{\"displayValue\":\"2023-08-31T18:55:00.739Z\",\"value\":\"2023-08-31T18:55:00.739Z\",\"type\":\"datetime\"}},{\"question\":\"API Type of the Cosmos DB account\",\"controlId\":\"api_type\",\"orderId\":2,\"inputType\":\"static\",\"answer\":{\"displayValue\":\"Table\",\"value\":\"tables\",\"type\":\"string\"}},{\"question\":\"Table name\",\"controlId\":\"collection_name_table\",\"orderId\":11,\"inputType\":\"nonstatic\",\"answer\":{\"displayValue\":\"Select Table Name\",\"value\":\"dont_know_answer\",\"type\":\"string\"}},{\"question\":\"Provide additional details about the issue you're facing\",\"controlId\":\"problem_description\",\"orderId\":12,\"inputType\":\"nonstatic\",\"answer\":{\"displayValue\":\"test ticket, please ignore and close\",\"value\":\"test ticket, please ignore and close\",\"type\":\"string\"}}]}",
-                SupportPlanId = "U291cmNlOlNDTSxDbGFyaWZ5SW5zdGFsbGF0aW9uU2l0ZUlkOjcsTGluZUl0ZW1JZDo5ODY1NzIyOSxDb250cmFjdElkOjk4NjU5MTk0LFN1YnNjcmlwdGlvbklkOjc2Y2I3N2ZhLThiMTctNGVhYi05NDkzLWI2NWRhY2U5OTgxMyw=",
+                Title = "my title",
+                ServiceId = "/providers/Microsoft.Support/services/cddd3eb5-1830-b494-44fd-782f691479dc",
                 FileWorkspaceName = "6f16735c-1530836f-e9970f1a-2e49-47b7-96cd-9746b83aa066",
                 SecondaryConsent = {new SecondaryConsent
 {
@@ -171,7 +169,7 @@ SecondaryConsentType = "virtualmachinerunninglinuxservice",
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetDetailsOfATicket()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/GetSupportTicketDetails.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/GetSupportTicketDetails.json
             // this example is just showing the usage of "SupportTicketsNoSubscription_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -199,7 +197,7 @@ SecondaryConsentType = "virtualmachinerunninglinuxservice",
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListSupportTickets()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/ListSupportTickets.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/ListSupportTickets.json
             // this example is just showing the usage of "SupportTicketsNoSubscription_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -229,7 +227,7 @@ SecondaryConsentType = "virtualmachinerunninglinuxservice",
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListSupportTicketsCreatedOnOrAfterACertainDateAndInOpenState()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/ListSupportTicketsCreatedOnOrAfterAndInOpenState.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/ListSupportTicketsCreatedOnOrAfterAndInOpenState.json
             // this example is just showing the usage of "SupportTicketsNoSubscription_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -260,7 +258,7 @@ SecondaryConsentType = "virtualmachinerunninglinuxservice",
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListSupportTicketsCreatedOnOrAfterACertainDateAndInUpdatingState()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/ListSupportTicketsCreatedOnOrAfterAndInUpdatingState.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/ListSupportTicketsCreatedOnOrAfterAndInUpdatingState.json
             // this example is just showing the usage of "SupportTicketsNoSubscription_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -291,7 +289,7 @@ SecondaryConsentType = "virtualmachinerunninglinuxservice",
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListSupportTicketsInOpenState()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/ListSupportTicketsInOpenState.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/ListSupportTicketsInOpenState.json
             // this example is just showing the usage of "SupportTicketsNoSubscription_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -322,7 +320,7 @@ SecondaryConsentType = "virtualmachinerunninglinuxservice",
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListSupportTicketsInUpdatingState()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/ListSupportTicketsInUpdatingState.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/ListSupportTicketsInUpdatingState.json
             // this example is just showing the usage of "SupportTicketsNoSubscription_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -353,7 +351,7 @@ SecondaryConsentType = "virtualmachinerunninglinuxservice",
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListSupportTicketsWithACertainProblemClassificationId()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/ListSupportTicketsProblemClassificationIdEquals.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/ListSupportTicketsProblemClassificationIdEquals.json
             // this example is just showing the usage of "SupportTicketsNoSubscription_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -384,7 +382,7 @@ SecondaryConsentType = "virtualmachinerunninglinuxservice",
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListSupportTicketsWithACertainServiceId()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/ListSupportTicketsServiceIdEquals.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/ListSupportTicketsServiceIdEquals.json
             // this example is just showing the usage of "SupportTicketsNoSubscription_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -415,7 +413,7 @@ SecondaryConsentType = "virtualmachinerunninglinuxservice",
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_GetDetailsOfATicket()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/GetSupportTicketDetails.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/GetSupportTicketDetails.json
             // this example is just showing the usage of "SupportTicketsNoSubscription_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -439,7 +437,7 @@ SecondaryConsentType = "virtualmachinerunninglinuxservice",
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_GetDetailsOfATicket()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/GetSupportTicketDetails.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/GetSupportTicketDetails.json
             // this example is just showing the usage of "SupportTicketsNoSubscription_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

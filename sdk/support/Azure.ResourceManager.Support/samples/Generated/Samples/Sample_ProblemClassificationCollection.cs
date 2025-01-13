@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.Support.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetsDetailsOfProblemClassificationForAzureService()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/GetProblemClassification.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/GetProblemClassification.json
             // this example is just showing the usage of "ProblemClassifications_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.Support.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_GetsListOfProblemClassificationsForAServiceForWhichASupportTicketCanBeCreated()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/ListProblemClassifications.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/ListProblemClassifications.json
             // this example is just showing the usage of "ProblemClassifications_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -85,7 +85,7 @@ namespace Azure.ResourceManager.Support.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_GetsDetailsOfProblemClassificationForAzureService()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/GetProblemClassification.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/GetProblemClassification.json
             // this example is just showing the usage of "ProblemClassifications_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -113,7 +113,7 @@ namespace Azure.ResourceManager.Support.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_GetsDetailsOfProblemClassificationForAzureService()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/GetProblemClassification.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/GetProblemClassification.json
             // this example is just showing the usage of "ProblemClassifications_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
