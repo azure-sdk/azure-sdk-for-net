@@ -65,7 +65,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
         /// <param name="properties"> The resource group properties. </param>
-        /// <param name="managedBy"> The ID of the resource that manages this resource group. </param>
+        /// <param name="managedBy"> The ID of the resource that manages this resource group. This field is immutable once set. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal ResourceGroupData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ResourceGroupProperties properties, string managedBy, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.Resources
             get => Properties is null ? default : Properties.ProvisioningState;
         }
 
-        /// <summary> The ID of the resource that manages this resource group. </summary>
+        /// <summary> The ID of the resource that manages this resource group. This field is immutable once set. </summary>
         [WirePath("managedBy")]
         public string ManagedBy { get; set; }
     }

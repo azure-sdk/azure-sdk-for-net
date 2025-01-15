@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="plan"> The plan of the resource. </param>
         /// <param name="properties"> The resource properties. </param>
         /// <param name="kind"> The kind of the resource. </param>
-        /// <param name="managedBy"> ID of the resource that manages this resource. </param>
+        /// <param name="managedBy"> ID of the resource that manages this resource. This field is immutable once set. </param>
         /// <param name="sku"> The SKU of the resource. </param>
         /// <param name="identity"> The identity of the resource. </param>
         /// <param name="createdOn"> The created time of the resource. This is only present if requested via the $expand query parameter. </param>
@@ -99,7 +99,7 @@ namespace Azure.ResourceManager.Resources
         /// <summary> The kind of the resource. </summary>
         [WirePath("kind")]
         public string Kind { get; set; }
-        /// <summary> ID of the resource that manages this resource. </summary>
+        /// <summary> ID of the resource that manages this resource. This field is immutable once set. </summary>
         [WirePath("managedBy")]
         public string ManagedBy { get; set; }
         /// <summary> The SKU of the resource. </summary>
