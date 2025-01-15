@@ -158,6 +158,21 @@ namespace Azure.ResourceManager.Synapse.Models
                 }
                 writer.WriteEndArray();
             }
+            if (options.Format != "W" && Optional.IsDefined(OSType))
+            {
+                writer.WritePropertyName("osType"u8);
+                writer.WriteNumberValue(OSType.Value);
+            }
+            if (options.Format != "W" && Optional.IsDefined(TargetFramework))
+            {
+                writer.WritePropertyName("targetFramework"u8);
+                writer.WriteNumberValue(TargetFramework.Value);
+            }
+            if (options.Format != "W" && Optional.IsDefined(SelfContainedInteractiveAuthoringEnabled))
+            {
+                writer.WritePropertyName("selfContainedInteractiveAuthoringEnabled"u8);
+                writer.WriteStringValue(SelfContainedInteractiveAuthoringEnabled.Value.ToSerialBoolean());
+            }
             writer.WriteEndObject();
             foreach (var item in AdditionalProperties)
             {
@@ -215,6 +230,9 @@ namespace Azure.ResourceManager.Synapse.Models
             DateTimeOffset? autoUpdateEta = default;
             string serviceRegion = default;
             IReadOnlyList<string> newerVersions = default;
+            int? osType = default;
+            int? targetFramework = default;
+            SelfContainedInteractiveAuthoringState? selfContainedInteractiveAuthoringEnabled = default;
             IReadOnlyDictionary<string, BinaryData> additionalProperties = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -407,6 +425,33 @@ namespace Azure.ResourceManager.Synapse.Models
                             newerVersions = array;
                             continue;
                         }
+                        if (property0.NameEquals("osType"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            osType = property0.Value.GetInt32();
+                            continue;
+                        }
+                        if (property0.NameEquals("targetFramework"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            targetFramework = property0.Value.GetInt32();
+                            continue;
+                        }
+                        if (property0.NameEquals("selfContainedInteractiveAuthoringEnabled"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            selfContainedInteractiveAuthoringEnabled = property0.Value.GetBoolean().ToSelfContainedInteractiveAuthoringState();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -436,7 +481,10 @@ namespace Azure.ResourceManager.Synapse.Models
                 latestVersion,
                 autoUpdateEta,
                 serviceRegion,
-                newerVersions ?? new ChangeTrackingList<string>());
+                newerVersions ?? new ChangeTrackingList<string>(),
+                osType,
+                targetFramework,
+                selfContainedInteractiveAuthoringEnabled);
         }
 
         BinaryData IPersistableModel<SynapseSelfHostedIntegrationRuntimeStatus>.Write(ModelReaderWriterOptions options)
