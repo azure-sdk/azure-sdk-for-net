@@ -2261,7 +2261,6 @@ namespace Azure.ResourceManager.Resources.Models
     public partial class ResourceGroupPatch : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Resources.Models.ResourceGroupPatch>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Resources.Models.ResourceGroupPatch>
     {
         public ResourceGroupPatch() { }
-        public string ManagedBy { get { throw null; } set { } }
         public string Name { get { throw null; } set { } }
         public string ResourceGroupProvisioningState { get { throw null; } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }

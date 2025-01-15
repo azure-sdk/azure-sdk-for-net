@@ -441,7 +441,7 @@ namespace Azure.ResourceManager.Models
         /// <param name="plan"> The plan of the resource. </param>
         /// <param name="properties"> The resource properties. </param>
         /// <param name="kind"> The kind of the resource. </param>
-        /// <param name="managedBy"> ID of the resource that manages this resource. </param>
+        /// <param name="managedBy"> ID of the resource that manages this resource. This field is immutable once set. </param>
         /// <param name="sku"> The SKU of the resource. </param>
         /// <param name="identity"> The identity of the resource. </param>
         /// <param name="createdOn"> The created time of the resource. This is only present if requested via the $expand query parameter. </param>
@@ -504,7 +504,7 @@ namespace Azure.ResourceManager.Models
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
         /// <param name="resourceGroupProvisioningState"> The resource group properties. </param>
-        /// <param name="managedBy"> The ID of the resource that manages this resource group. </param>
+        /// <param name="managedBy"> The ID of the resource that manages this resource group. This field is immutable once set. </param>
         /// <returns> A new <see cref="Resources.ResourceGroupData"/> instance for mocking. </returns>
         public static ResourceGroupData ResourceGroupData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, string resourceGroupProvisioningState = null, string managedBy = null)
         {

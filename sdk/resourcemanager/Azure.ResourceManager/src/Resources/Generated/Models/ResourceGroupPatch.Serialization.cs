@@ -44,11 +44,6 @@ namespace Azure.ResourceManager.Resources.Models
                 writer.WritePropertyName("properties"u8);
                 writer.WriteObjectValue(Properties, options);
             }
-            if (Optional.IsDefined(ManagedBy))
-            {
-                writer.WritePropertyName("managedBy"u8);
-                writer.WriteStringValue(ManagedBy);
-            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -99,7 +94,6 @@ namespace Azure.ResourceManager.Resources.Models
             }
             string name = default;
             ResourceGroupProperties properties = default;
-            string managedBy = default;
             IDictionary<string, string> tags = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -117,11 +111,6 @@ namespace Azure.ResourceManager.Resources.Models
                         continue;
                     }
                     properties = ResourceGroupProperties.DeserializeResourceGroupProperties(property.Value, options);
-                    continue;
-                }
-                if (property.NameEquals("managedBy"u8))
-                {
-                    managedBy = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -144,7 +133,7 @@ namespace Azure.ResourceManager.Resources.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ResourceGroupPatch(name, properties, managedBy, tags ?? new ChangeTrackingDictionary<string, string>(), serializedAdditionalRawData);
+            return new ResourceGroupPatch(name, properties, tags ?? new ChangeTrackingDictionary<string, string>(), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ResourceGroupPatch>.Write(ModelReaderWriterOptions options)
