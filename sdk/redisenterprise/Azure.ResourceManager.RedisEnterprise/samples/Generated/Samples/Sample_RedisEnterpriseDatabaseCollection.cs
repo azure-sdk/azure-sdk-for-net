@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_RedisEnterpriseDatabasesCreate()
         {
-            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/preview/2024-09-01-preview/examples/RedisEnterpriseDatabasesCreate.json
+            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/stable/2024-10-01/examples/RedisEnterpriseDatabasesCreate.json
             // this example is just showing the usage of "Databases_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -30,7 +30,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Samples
 
             // this example assumes you already have this RedisEnterpriseClusterResource created on azure
             // for more information of creating RedisEnterpriseClusterResource, please refer to the document of RedisEnterpriseClusterResource
-            string subscriptionId = "e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8f";
+            string subscriptionId = "subid";
             string resourceGroupName = "rg1";
             string clusterName = "cache1";
             ResourceIdentifier redisEnterpriseClusterResourceId = RedisEnterpriseClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, clusterName);
@@ -59,8 +59,6 @@ Args = "ERROR_RATE 0.00 INITIAL_SIZE 400",
 {
 Args = "RETENTION_POLICY 20",
 }, new RedisEnterpriseModule("RediSearch")},
-                DeferUpgrade = DeferUpgradeSetting.NotDeferred,
-                AccessKeysAuthentication = AccessKeysAuthentication.Enabled,
             };
             ArmOperation<RedisEnterpriseDatabaseResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, databaseName, data);
             RedisEnterpriseDatabaseResource result = lro.Value;
@@ -76,7 +74,7 @@ Args = "RETENTION_POLICY 20",
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_RedisEnterpriseDatabasesCreateWithActiveGeoReplication()
         {
-            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/preview/2024-09-01-preview/examples/RedisEnterpriseDatabasesCreateWithGeoReplication.json
+            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/stable/2024-10-01/examples/RedisEnterpriseDatabasesCreateWithGeoReplication.json
             // this example is just showing the usage of "Databases_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -86,7 +84,7 @@ Args = "RETENTION_POLICY 20",
 
             // this example assumes you already have this RedisEnterpriseClusterResource created on azure
             // for more information of creating RedisEnterpriseClusterResource, please refer to the document of RedisEnterpriseClusterResource
-            string subscriptionId = "e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8f";
+            string subscriptionId = "subid1";
             string resourceGroupName = "rg1";
             string clusterName = "cache1";
             ResourceIdentifier redisEnterpriseClusterResourceId = RedisEnterpriseClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, clusterName);
@@ -108,13 +106,12 @@ Args = "RETENTION_POLICY 20",
                     GroupNickname = "groupName",
                     LinkedDatabases = {new RedisEnterpriseLinkedDatabase
 {
-Id = new ResourceIdentifier("/subscriptions/e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8f/resourceGroups/rg1/providers/Microsoft.Cache/redisEnterprise/cache1/databases/default"),
+Id = new ResourceIdentifier("/subscriptions/subid1/resourceGroups/rg1/providers/Microsoft.Cache/redisEnterprise/cache1/databases/default"),
 }, new RedisEnterpriseLinkedDatabase
 {
-Id = new ResourceIdentifier("/subscriptions/e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8e/resourceGroups/rg2/providers/Microsoft.Cache/redisEnterprise/cache2/databases/default"),
+Id = new ResourceIdentifier("/subscriptions/subid2/resourceGroups/rg2/providers/Microsoft.Cache/redisEnterprise/cache2/databases/default"),
 }},
                 },
-                AccessKeysAuthentication = AccessKeysAuthentication.Enabled,
             };
             ArmOperation<RedisEnterpriseDatabaseResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, databaseName, data);
             RedisEnterpriseDatabaseResource result = lro.Value;
@@ -130,7 +127,7 @@ Id = new ResourceIdentifier("/subscriptions/e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8e
         [Ignore("Only validating compilation of examples")]
         public async Task Get_RedisEnterpriseDatabasesGet()
         {
-            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/preview/2024-09-01-preview/examples/RedisEnterpriseDatabasesGet.json
+            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/stable/2024-10-01/examples/RedisEnterpriseDatabasesGet.json
             // this example is just showing the usage of "Databases_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -140,7 +137,7 @@ Id = new ResourceIdentifier("/subscriptions/e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8e
 
             // this example assumes you already have this RedisEnterpriseClusterResource created on azure
             // for more information of creating RedisEnterpriseClusterResource, please refer to the document of RedisEnterpriseClusterResource
-            string subscriptionId = "e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8f";
+            string subscriptionId = "subid";
             string resourceGroupName = "rg1";
             string clusterName = "cache1";
             ResourceIdentifier redisEnterpriseClusterResourceId = RedisEnterpriseClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, clusterName);
@@ -164,7 +161,7 @@ Id = new ResourceIdentifier("/subscriptions/e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8e
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_RedisEnterpriseDatabasesListByCluster()
         {
-            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/preview/2024-09-01-preview/examples/RedisEnterpriseDatabasesListByCluster.json
+            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/stable/2024-10-01/examples/RedisEnterpriseDatabasesListByCluster.json
             // this example is just showing the usage of "Databases_ListByCluster" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -174,7 +171,7 @@ Id = new ResourceIdentifier("/subscriptions/e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8e
 
             // this example assumes you already have this RedisEnterpriseClusterResource created on azure
             // for more information of creating RedisEnterpriseClusterResource, please refer to the document of RedisEnterpriseClusterResource
-            string subscriptionId = "e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8f";
+            string subscriptionId = "subid";
             string resourceGroupName = "rg1";
             string clusterName = "cache1";
             ResourceIdentifier redisEnterpriseClusterResourceId = RedisEnterpriseClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, clusterName);
@@ -200,7 +197,7 @@ Id = new ResourceIdentifier("/subscriptions/e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8e
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_RedisEnterpriseDatabasesGet()
         {
-            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/preview/2024-09-01-preview/examples/RedisEnterpriseDatabasesGet.json
+            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/stable/2024-10-01/examples/RedisEnterpriseDatabasesGet.json
             // this example is just showing the usage of "Databases_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -210,7 +207,7 @@ Id = new ResourceIdentifier("/subscriptions/e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8e
 
             // this example assumes you already have this RedisEnterpriseClusterResource created on azure
             // for more information of creating RedisEnterpriseClusterResource, please refer to the document of RedisEnterpriseClusterResource
-            string subscriptionId = "e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8f";
+            string subscriptionId = "subid";
             string resourceGroupName = "rg1";
             string clusterName = "cache1";
             ResourceIdentifier redisEnterpriseClusterResourceId = RedisEnterpriseClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, clusterName);
@@ -230,7 +227,7 @@ Id = new ResourceIdentifier("/subscriptions/e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8e
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_RedisEnterpriseDatabasesGet()
         {
-            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/preview/2024-09-01-preview/examples/RedisEnterpriseDatabasesGet.json
+            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/stable/2024-10-01/examples/RedisEnterpriseDatabasesGet.json
             // this example is just showing the usage of "Databases_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -240,7 +237,7 @@ Id = new ResourceIdentifier("/subscriptions/e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8e
 
             // this example assumes you already have this RedisEnterpriseClusterResource created on azure
             // for more information of creating RedisEnterpriseClusterResource, please refer to the document of RedisEnterpriseClusterResource
-            string subscriptionId = "e7b5a9d2-6b6a-4d2f-9143-20d9a10f5b8f";
+            string subscriptionId = "subid";
             string resourceGroupName = "rg1";
             string clusterName = "cache1";
             ResourceIdentifier redisEnterpriseClusterResourceId = RedisEnterpriseClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, clusterName);

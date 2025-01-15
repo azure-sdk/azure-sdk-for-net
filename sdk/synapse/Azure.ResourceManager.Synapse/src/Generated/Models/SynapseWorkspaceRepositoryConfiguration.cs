@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.Synapse.Models
 
         /// <summary> Initializes a new instance of <see cref="SynapseWorkspaceRepositoryConfiguration"/>. </summary>
         /// <param name="workspaceRepositoryConfigurationType"> Type of workspace repositoryID configuration. Example WorkspaceVSTSConfiguration, WorkspaceGitHubConfiguration. </param>
-        /// <param name="hostName"> GitHub Enterprise host name. For example: https://github.mydomain.com. </param>
+        /// <param name="hostName"> GitHub Enterprise host name. For example: `https://github.mydomain.com`. </param>
         /// <param name="accountName"> Account name. </param>
         /// <param name="projectName"> VSTS project name. </param>
         /// <param name="repositoryName"> Repository name. </param>
@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.Synapse.Models
 
         /// <summary> Type of workspace repositoryID configuration. Example WorkspaceVSTSConfiguration, WorkspaceGitHubConfiguration. </summary>
         public string WorkspaceRepositoryConfigurationType { get; set; }
-        /// <summary> GitHub Enterprise host name. For example: https://github.mydomain.com. </summary>
+        /// <summary> GitHub Enterprise host name. For example: `https://github.mydomain.com`. </summary>
         public string HostName { get; set; }
         /// <summary> Account name. </summary>
         public string AccountName { get; set; }
