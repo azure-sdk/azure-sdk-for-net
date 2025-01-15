@@ -25,51 +25,6 @@ namespace Azure.ResourceManager.MixedReality.Models
             return new MixedRealityNameAvailabilityResult(isNameAvailable, reason, message, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="MixedReality.SpatialAnchorsAccountData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="identity"> The identity associated with this account. Current supported identity types: SystemAssigned. </param>
-        /// <param name="plan"> The plan associated with this account. Current supported identity types: SystemAssigned. </param>
-        /// <param name="sku"> The sku associated with this account. </param>
-        /// <param name="kind"> The kind of account, if supported. </param>
-        /// <param name="storageAccountName"> The name of the storage account associated with this accountId. </param>
-        /// <param name="accountId"> unique id of certain account. </param>
-        /// <param name="accountDomain"> Correspond domain name of certain Spatial Anchors Account. </param>
-        /// <returns> A new <see cref="MixedReality.SpatialAnchorsAccountData"/> instance for mocking. </returns>
-        public static SpatialAnchorsAccountData SpatialAnchorsAccountData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, ManagedServiceIdentity plan = null, MixedRealitySku sku = null, MixedRealitySku kind = null, string storageAccountName = null, Guid? accountId = null, string accountDomain = null)
-        {
-            tags ??= new Dictionary<string, string>();
-
-            return new SpatialAnchorsAccountData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                tags,
-                location,
-                identity,
-                plan,
-                sku,
-                kind,
-                storageAccountName,
-                accountId,
-                accountDomain,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.MixedRealityAccountKeys"/>. </summary>
-        /// <param name="primaryKey"> value of primary key. </param>
-        /// <param name="secondaryKey"> value of secondary key. </param>
-        /// <returns> A new <see cref="Models.MixedRealityAccountKeys"/> instance for mocking. </returns>
-        public static MixedRealityAccountKeys MixedRealityAccountKeys(string primaryKey = null, string secondaryKey = null)
-        {
-            return new MixedRealityAccountKeys(primaryKey, secondaryKey, serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="MixedReality.RemoteRenderingAccountData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -104,6 +59,15 @@ namespace Azure.ResourceManager.MixedReality.Models
                 accountId,
                 accountDomain,
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.MixedRealityAccountKeys"/>. </summary>
+        /// <param name="primaryKey"> value of primary key. </param>
+        /// <param name="secondaryKey"> value of secondary key. </param>
+        /// <returns> A new <see cref="Models.MixedRealityAccountKeys"/> instance for mocking. </returns>
+        public static MixedRealityAccountKeys MixedRealityAccountKeys(string primaryKey = null, string secondaryKey = null)
+        {
+            return new MixedRealityAccountKeys(primaryKey, secondaryKey, serializedAdditionalRawData: null);
         }
     }
 }

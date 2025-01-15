@@ -35,18 +35,6 @@ namespace Azure.ResourceManager.MixedReality.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="SpatialAnchorsAccountResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SpatialAnchorsAccountResource.CreateResourceIdentifier" /> to create a <see cref="SpatialAnchorsAccountResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SpatialAnchorsAccountResource"/> object. </returns>
-        public virtual SpatialAnchorsAccountResource GetSpatialAnchorsAccountResource(ResourceIdentifier id)
-        {
-            SpatialAnchorsAccountResource.ValidateResourceId(id);
-            return new SpatialAnchorsAccountResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="RemoteRenderingAccountResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="RemoteRenderingAccountResource.CreateResourceIdentifier" /> to create a <see cref="RemoteRenderingAccountResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>

@@ -20,8 +20,6 @@ namespace Azure.ResourceManager.MixedReality.Mocking
     {
         private ClientDiagnostics _defaultClientDiagnostics;
         private MixedRealityRestOperations _defaultRestClient;
-        private ClientDiagnostics _spatialAnchorsAccountClientDiagnostics;
-        private SpatialAnchorsAccountsRestOperations _spatialAnchorsAccountRestClient;
         private ClientDiagnostics _remoteRenderingAccountClientDiagnostics;
         private RemoteRenderingAccountsRestOperations _remoteRenderingAccountRestClient;
 
@@ -39,8 +37,6 @@ namespace Azure.ResourceManager.MixedReality.Mocking
 
         private ClientDiagnostics DefaultClientDiagnostics => _defaultClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.MixedReality", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private MixedRealityRestOperations DefaultRestClient => _defaultRestClient ??= new MixedRealityRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
-        private ClientDiagnostics SpatialAnchorsAccountClientDiagnostics => _spatialAnchorsAccountClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.MixedReality", SpatialAnchorsAccountResource.ResourceType.Namespace, Diagnostics);
-        private SpatialAnchorsAccountsRestOperations SpatialAnchorsAccountRestClient => _spatialAnchorsAccountRestClient ??= new SpatialAnchorsAccountsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(SpatialAnchorsAccountResource.ResourceType));
         private ClientDiagnostics RemoteRenderingAccountClientDiagnostics => _remoteRenderingAccountClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.MixedReality", RemoteRenderingAccountResource.ResourceType.Namespace, Diagnostics);
         private RemoteRenderingAccountsRestOperations RemoteRenderingAccountRestClient => _remoteRenderingAccountRestClient ??= new RemoteRenderingAccountsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(RemoteRenderingAccountResource.ResourceType));
 
@@ -126,66 +122,6 @@ namespace Azure.ResourceManager.MixedReality.Mocking
                 scope.Failed(e);
                 throw;
             }
-        }
-
-        /// <summary>
-        /// List Spatial Anchors Accounts by Subscription
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.MixedReality/spatialAnchorsAccounts</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>SpatialAnchorsAccounts_ListBySubscription</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2021-01-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="SpatialAnchorsAccountResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="SpatialAnchorsAccountResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<SpatialAnchorsAccountResource> GetSpatialAnchorsAccountsAsync(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => SpatialAnchorsAccountRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SpatialAnchorsAccountRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new SpatialAnchorsAccountResource(Client, SpatialAnchorsAccountData.DeserializeSpatialAnchorsAccountData(e)), SpatialAnchorsAccountClientDiagnostics, Pipeline, "MockableMixedRealitySubscriptionResource.GetSpatialAnchorsAccounts", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// List Spatial Anchors Accounts by Subscription
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.MixedReality/spatialAnchorsAccounts</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>SpatialAnchorsAccounts_ListBySubscription</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2021-01-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="SpatialAnchorsAccountResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SpatialAnchorsAccountResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<SpatialAnchorsAccountResource> GetSpatialAnchorsAccounts(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => SpatialAnchorsAccountRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SpatialAnchorsAccountRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new SpatialAnchorsAccountResource(Client, SpatialAnchorsAccountData.DeserializeSpatialAnchorsAccountData(e)), SpatialAnchorsAccountClientDiagnostics, Pipeline, "MockableMixedRealitySubscriptionResource.GetSpatialAnchorsAccounts", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
