@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Security.KeyVault.Administration.Models
 {
-    /// <summary> The authentication method and location for the selective key restore operation. </summary>
-    internal partial class SelectiveKeyRestoreOperationParameters
+    /// <summary> The authentication method and location for the restore operation. </summary>
+    internal partial class PreRestoreOperationParameters
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,38 +45,25 @@ namespace Azure.Security.KeyVault.Administration.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SelectiveKeyRestoreOperationParameters"/>. </summary>
-        /// <param name="sasTokenParameters"> A user-provided SAS token to an Azure blob storage container. </param>
-        /// <param name="folder"> The Folder name of the blob where the previous successful full backup was stored. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="sasTokenParameters"/> or <paramref name="folder"/> is null. </exception>
-        public SelectiveKeyRestoreOperationParameters(SASTokenParameter sasTokenParameters, string folder)
+        /// <summary> Initializes a new instance of <see cref="PreRestoreOperationParameters"/>. </summary>
+        public PreRestoreOperationParameters()
         {
-            Argument.AssertNotNull(sasTokenParameters, nameof(sasTokenParameters));
-            Argument.AssertNotNull(folder, nameof(folder));
-
-            SasTokenParameters = sasTokenParameters;
-            Folder = folder;
         }
 
-        /// <summary> Initializes a new instance of <see cref="SelectiveKeyRestoreOperationParameters"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="PreRestoreOperationParameters"/>. </summary>
         /// <param name="sasTokenParameters"> A user-provided SAS token to an Azure blob storage container. </param>
-        /// <param name="folder"> The Folder name of the blob where the previous successful full backup was stored. </param>
+        /// <param name="folderToRestore"> The Folder name of the blob where the previous successful full backup was stored. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SelectiveKeyRestoreOperationParameters(SASTokenParameter sasTokenParameters, string folder, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PreRestoreOperationParameters(SASTokenParameter sasTokenParameters, string folderToRestore, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             SasTokenParameters = sasTokenParameters;
-            Folder = folder;
+            FolderToRestore = folderToRestore;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="SelectiveKeyRestoreOperationParameters"/> for deserialization. </summary>
-        internal SelectiveKeyRestoreOperationParameters()
-        {
-        }
-
         /// <summary> A user-provided SAS token to an Azure blob storage container. </summary>
-        public SASTokenParameter SasTokenParameters { get; }
+        public SASTokenParameter SasTokenParameters { get; set; }
         /// <summary> The Folder name of the blob where the previous successful full backup was stored. </summary>
-        public string Folder { get; }
+        public string FolderToRestore { get; set; }
     }
 }

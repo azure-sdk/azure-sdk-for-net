@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.Security.KeyVault.Administration.Models
 {
-    internal partial class RestoreOperationParameters : IUtf8JsonSerializable, IJsonModel<RestoreOperationParameters>
+    internal partial class PreRestoreOperationParameters : IUtf8JsonSerializable, IJsonModel<PreRestoreOperationParameters>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<RestoreOperationParameters>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<PreRestoreOperationParameters>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<RestoreOperationParameters>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<PreRestoreOperationParameters>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,16 +28,22 @@ namespace Azure.Security.KeyVault.Administration.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<RestoreOperationParameters>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PreRestoreOperationParameters>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(RestoreOperationParameters)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(PreRestoreOperationParameters)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("sasTokenParameters"u8);
-            writer.WriteObjectValue(SasTokenParameters, options);
-            writer.WritePropertyName("folderToRestore"u8);
-            writer.WriteStringValue(FolderToRestore);
+            if (Optional.IsDefined(SasTokenParameters))
+            {
+                writer.WritePropertyName("sasTokenParameters"u8);
+                writer.WriteObjectValue(SasTokenParameters, options);
+            }
+            if (Optional.IsDefined(FolderToRestore))
+            {
+                writer.WritePropertyName("folderToRestore"u8);
+                writer.WriteStringValue(FolderToRestore);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -55,19 +61,19 @@ namespace Azure.Security.KeyVault.Administration.Models
             }
         }
 
-        RestoreOperationParameters IJsonModel<RestoreOperationParameters>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        PreRestoreOperationParameters IJsonModel<PreRestoreOperationParameters>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<RestoreOperationParameters>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PreRestoreOperationParameters>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(RestoreOperationParameters)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(PreRestoreOperationParameters)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeRestoreOperationParameters(document.RootElement, options);
+            return DeserializePreRestoreOperationParameters(document.RootElement, options);
         }
 
-        internal static RestoreOperationParameters DeserializeRestoreOperationParameters(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static PreRestoreOperationParameters DeserializePreRestoreOperationParameters(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -83,6 +89,10 @@ namespace Azure.Security.KeyVault.Administration.Models
             {
                 if (property.NameEquals("sasTokenParameters"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     sasTokenParameters = SASTokenParameter.DeserializeSASTokenParameter(property.Value, options);
                     continue;
                 }
@@ -97,46 +107,46 @@ namespace Azure.Security.KeyVault.Administration.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new RestoreOperationParameters(sasTokenParameters, folderToRestore, serializedAdditionalRawData);
+            return new PreRestoreOperationParameters(sasTokenParameters, folderToRestore, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<RestoreOperationParameters>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<PreRestoreOperationParameters>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<RestoreOperationParameters>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PreRestoreOperationParameters>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(RestoreOperationParameters)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(PreRestoreOperationParameters)} does not support writing '{options.Format}' format.");
             }
         }
 
-        RestoreOperationParameters IPersistableModel<RestoreOperationParameters>.Create(BinaryData data, ModelReaderWriterOptions options)
+        PreRestoreOperationParameters IPersistableModel<PreRestoreOperationParameters>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<RestoreOperationParameters>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PreRestoreOperationParameters>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeRestoreOperationParameters(document.RootElement, options);
+                        return DeserializePreRestoreOperationParameters(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(RestoreOperationParameters)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(PreRestoreOperationParameters)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<RestoreOperationParameters>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<PreRestoreOperationParameters>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static RestoreOperationParameters FromResponse(Response response)
+        internal static PreRestoreOperationParameters FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeRestoreOperationParameters(document.RootElement);
+            return DeserializePreRestoreOperationParameters(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
