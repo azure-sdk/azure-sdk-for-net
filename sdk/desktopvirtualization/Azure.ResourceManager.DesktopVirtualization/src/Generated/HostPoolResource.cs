@@ -133,7 +133,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -164,7 +164,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -202,7 +202,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -233,7 +233,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -271,7 +271,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -302,7 +302,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -333,7 +333,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -373,7 +373,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -413,7 +413,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -458,7 +458,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -503,7 +503,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -545,7 +545,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -587,7 +587,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -616,7 +616,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -645,7 +645,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -678,7 +678,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -711,7 +711,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -749,7 +749,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -775,6 +775,64 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary>
+        /// Operation to list the RegistrationTokens associated with the HostPool
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/listRegistrationTokens</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>HostPools_ListRegistrationTokens</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-10</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="HostPoolResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="RegistrationTokenMinimal"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<RegistrationTokenMinimal> GetRegistrationTokensAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _hostPoolRestClient.CreateListRegistrationTokensRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => RegistrationTokenMinimal.DeserializeRegistrationTokenMinimal(e), _hostPoolClientDiagnostics, Pipeline, "HostPoolResource.GetRegistrationTokens", "value", null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Operation to list the RegistrationTokens associated with the HostPool
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/listRegistrationTokens</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>HostPools_ListRegistrationTokens</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-10</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="HostPoolResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="RegistrationTokenMinimal"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<RegistrationTokenMinimal> GetRegistrationTokens(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _hostPoolRestClient.CreateListRegistrationTokensRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => RegistrationTokenMinimal.DeserializeRegistrationTokenMinimal(e), _hostPoolClientDiagnostics, Pipeline, "HostPoolResource.GetRegistrationTokens", "value", null, cancellationToken);
+        }
+
+        /// <summary>
         /// List userSessions.
         /// <list type="bullet">
         /// <item>
@@ -787,7 +845,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -821,7 +879,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -855,7 +913,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -885,7 +943,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -915,7 +973,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -945,7 +1003,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -975,7 +1033,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1037,7 +1095,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1099,7 +1157,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1156,7 +1214,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1213,7 +1271,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1273,7 +1331,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-09-10</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
