@@ -91,21 +91,6 @@ namespace Azure.ResourceManager.RedisEnterprise
                 writer.WritePropertyName("geoReplication"u8);
                 writer.WriteObjectValue(GeoReplication, options);
             }
-            if (options.Format != "W" && Optional.IsDefined(RedisVersion))
-            {
-                writer.WritePropertyName("redisVersion"u8);
-                writer.WriteStringValue(RedisVersion);
-            }
-            if (Optional.IsDefined(DeferUpgrade))
-            {
-                writer.WritePropertyName("deferUpgrade"u8);
-                writer.WriteStringValue(DeferUpgrade.Value.ToString());
-            }
-            if (Optional.IsDefined(AccessKeysAuthentication))
-            {
-                writer.WritePropertyName("accessKeysAuthentication"u8);
-                writer.WriteStringValue(AccessKeysAuthentication.Value.ToString());
-            }
             writer.WriteEndObject();
         }
 
@@ -142,9 +127,6 @@ namespace Azure.ResourceManager.RedisEnterprise
             RedisPersistenceSettings persistence = default;
             IList<RedisEnterpriseModule> modules = default;
             RedisEnterpriseDatabaseGeoReplication geoReplication = default;
-            string redisVersion = default;
-            DeferUpgradeSetting? deferUpgrade = default;
-            AccessKeysAuthentication? accessKeysAuthentication = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -268,29 +250,6 @@ namespace Azure.ResourceManager.RedisEnterprise
                             geoReplication = RedisEnterpriseDatabaseGeoReplication.DeserializeRedisEnterpriseDatabaseGeoReplication(property0.Value, options);
                             continue;
                         }
-                        if (property0.NameEquals("redisVersion"u8))
-                        {
-                            redisVersion = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("deferUpgrade"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            deferUpgrade = new DeferUpgradeSetting(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("accessKeysAuthentication"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            accessKeysAuthentication = new AccessKeysAuthentication(property0.Value.GetString());
-                            continue;
-                        }
                     }
                     continue;
                 }
@@ -314,9 +273,6 @@ namespace Azure.ResourceManager.RedisEnterprise
                 persistence,
                 modules ?? new ChangeTrackingList<RedisEnterpriseModule>(),
                 geoReplication,
-                redisVersion,
-                deferUpgrade,
-                accessKeysAuthentication,
                 serializedAdditionalRawData);
         }
 
@@ -526,59 +482,6 @@ namespace Azure.ResourceManager.RedisEnterprise
                 {
                     builder.Append("    geoReplication: ");
                     BicepSerializationHelpers.AppendChildObject(builder, GeoReplication, options, 4, false, "    geoReplication: ");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(RedisVersion), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    redisVersion: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(RedisVersion))
-                {
-                    builder.Append("    redisVersion: ");
-                    if (RedisVersion.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{RedisVersion}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{RedisVersion}'");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(DeferUpgrade), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    deferUpgrade: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(DeferUpgrade))
-                {
-                    builder.Append("    deferUpgrade: ");
-                    builder.AppendLine($"'{DeferUpgrade.Value.ToString()}'");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(AccessKeysAuthentication), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    accessKeysAuthentication: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(AccessKeysAuthentication))
-                {
-                    builder.Append("    accessKeysAuthentication: ");
-                    builder.AppendLine($"'{AccessKeysAuthentication.Value.ToString()}'");
                 }
             }
 
