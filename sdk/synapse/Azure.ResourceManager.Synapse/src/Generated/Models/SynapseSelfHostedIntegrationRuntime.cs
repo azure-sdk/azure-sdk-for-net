@@ -28,9 +28,11 @@ namespace Azure.ResourceManager.Synapse.Models
         /// Please note <see cref="SynapseLinkedIntegrationRuntimeType"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="SynapseLinkedIntegrationRuntimeKeyAuthorization"/> and <see cref="SynapseLinkedIntegrationRuntimeRbacAuthorization"/>.
         /// </param>
-        internal SynapseSelfHostedIntegrationRuntime(IntegrationRuntimeType integrationRuntimeType, string description, IDictionary<string, BinaryData> additionalProperties, SynapseLinkedIntegrationRuntimeType linkedInfo) : base(integrationRuntimeType, description, additionalProperties)
+        /// <param name="selfContainedInteractiveAuthoringEnabled"> An alternative option to ensure interactive authoring function when your self-hosted integration runtime is unable to establish a connection with Azure Relay. </param>
+        internal SynapseSelfHostedIntegrationRuntime(IntegrationRuntimeType integrationRuntimeType, string description, IDictionary<string, BinaryData> additionalProperties, SynapseLinkedIntegrationRuntimeType linkedInfo, SelfContainedInteractiveAuthoringState? selfContainedInteractiveAuthoringEnabled) : base(integrationRuntimeType, description, additionalProperties)
         {
             LinkedInfo = linkedInfo;
+            SelfContainedInteractiveAuthoringEnabled = selfContainedInteractiveAuthoringEnabled;
             IntegrationRuntimeType = integrationRuntimeType;
         }
 
@@ -40,5 +42,7 @@ namespace Azure.ResourceManager.Synapse.Models
         /// The available derived classes include <see cref="SynapseLinkedIntegrationRuntimeKeyAuthorization"/> and <see cref="SynapseLinkedIntegrationRuntimeRbacAuthorization"/>.
         /// </summary>
         public SynapseLinkedIntegrationRuntimeType LinkedInfo { get; set; }
+        /// <summary> An alternative option to ensure interactive authoring function when your self-hosted integration runtime is unable to establish a connection with Azure Relay. </summary>
+        public SelfContainedInteractiveAuthoringState? SelfContainedInteractiveAuthoringEnabled { get; set; }
     }
 }
