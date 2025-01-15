@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.Synapse
                 writer.WritePropertyName("containerName"u8);
                 writer.WriteStringValue(ContainerName);
             }
-            if (Optional.IsDefined(UploadedOn))
+            if (options.Format != "W" && Optional.IsDefined(UploadedOn))
             {
                 writer.WritePropertyName("uploadedTimestamp"u8);
                 writer.WriteStringValue(UploadedOn.Value, "O");

@@ -58,11 +58,6 @@ namespace Azure.ResourceManager.RedisEnterprise
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(HighAvailability))
-            {
-                writer.WritePropertyName("highAvailability"u8);
-                writer.WriteStringValue(HighAvailability.Value.ToString());
-            }
             if (Optional.IsDefined(MinimumTlsVersion))
             {
                 writer.WritePropertyName("minimumTlsVersion"u8);
@@ -82,11 +77,6 @@ namespace Azure.ResourceManager.RedisEnterprise
             {
                 writer.WritePropertyName("provisioningState"u8);
                 writer.WriteStringValue(ProvisioningState.Value.ToString());
-            }
-            if (options.Format != "W" && Optional.IsDefined(RedundancyMode))
-            {
-                writer.WritePropertyName("redundancyMode"u8);
-                writer.WriteStringValue(RedundancyMode.Value.ToString());
             }
             if (options.Format != "W" && Optional.IsDefined(ResourceState))
             {
@@ -140,12 +130,10 @@ namespace Azure.ResourceManager.RedisEnterprise
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            RedisEnterpriseHighAvailability? highAvailability = default;
             RedisEnterpriseTlsVersion? minimumTlsVersion = default;
             ClusterPropertiesEncryption encryption = default;
             string hostName = default;
             RedisEnterpriseProvisioningStatus? provisioningState = default;
-            RedisEnterpriseRedundancyMode? redundancyMode = default;
             RedisEnterpriseClusterResourceState? resourceState = default;
             string redisVersion = default;
             IReadOnlyList<RedisEnterprisePrivateEndpointConnectionData> privateEndpointConnections = default;
@@ -233,15 +221,6 @@ namespace Azure.ResourceManager.RedisEnterprise
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("highAvailability"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            highAvailability = new RedisEnterpriseHighAvailability(property0.Value.GetString());
-                            continue;
-                        }
                         if (property0.NameEquals("minimumTlsVersion"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -272,15 +251,6 @@ namespace Azure.ResourceManager.RedisEnterprise
                                 continue;
                             }
                             provisioningState = new RedisEnterpriseProvisioningStatus(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("redundancyMode"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            redundancyMode = new RedisEnterpriseRedundancyMode(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("resourceState"u8))
@@ -330,12 +300,10 @@ namespace Azure.ResourceManager.RedisEnterprise
                 sku,
                 zones ?? new ChangeTrackingList<string>(),
                 identity,
-                highAvailability,
                 minimumTlsVersion,
                 encryption,
                 hostName,
                 provisioningState,
-                redundancyMode,
                 resourceState,
                 redisVersion,
                 privateEndpointConnections ?? new ChangeTrackingList<RedisEnterprisePrivateEndpointConnectionData>(),
@@ -523,21 +491,6 @@ namespace Azure.ResourceManager.RedisEnterprise
 
             builder.Append("  properties:");
             builder.AppendLine(" {");
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(HighAvailability), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    highAvailability: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(HighAvailability))
-                {
-                    builder.Append("    highAvailability: ");
-                    builder.AppendLine($"'{HighAvailability.Value.ToString()}'");
-                }
-            }
-
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(MinimumTlsVersion), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -608,21 +561,6 @@ namespace Azure.ResourceManager.RedisEnterprise
                 {
                     builder.Append("    provisioningState: ");
                     builder.AppendLine($"'{ProvisioningState.Value.ToString()}'");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(RedundancyMode), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    redundancyMode: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(RedundancyMode))
-                {
-                    builder.Append("    redundancyMode: ");
-                    builder.AppendLine($"'{RedundancyMode.Value.ToString()}'");
                 }
             }
 
