@@ -94,6 +94,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             string policyName = default;
             int? softDeleteRetentionPeriodInDays = default;
             string vaultId = default;
+            string policyType = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -273,6 +274,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     vaultId = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("policyType"u8))
+                {
+                    policyType = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -299,6 +305,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 policyName,
                 softDeleteRetentionPeriodInDays,
                 vaultId,
+                policyType,
                 serializedAdditionalRawData,
                 protectedItemDataId,
                 protectionState,

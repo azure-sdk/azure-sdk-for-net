@@ -131,6 +131,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 writer.WritePropertyName("vaultId"u8);
                 writer.WriteStringValue(VaultId);
             }
+            if (Optional.IsDefined(PolicyType))
+            {
+                writer.WritePropertyName("policyType"u8);
+                writer.WriteStringValue(PolicyType);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
