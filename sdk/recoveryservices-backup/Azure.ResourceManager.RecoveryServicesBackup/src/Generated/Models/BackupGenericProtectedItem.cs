@@ -76,8 +76,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="policyName"> Name of the policy used for protection. </param>
         /// <param name="softDeleteRetentionPeriodInDays"> Soft delete retention period in days. </param>
         /// <param name="vaultId"> ID of the vault which protects this item. </param>
+        /// <param name="policyType"> Type of the policy used for protection. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BackupGenericProtectedItem(string protectedItemType, BackupManagementType? backupManagementType, BackupDataSourceType? workloadType, string containerName, ResourceIdentifier sourceResourceId, ResourceIdentifier policyId, DateTimeOffset? lastRecoverOn, string backupSetName, BackupCreateMode? createMode, DateTimeOffset? deferredDeletedOn, bool? isScheduledForDeferredDelete, string deferredDeleteTimeRemaining, bool? isDeferredDeleteScheduleUpcoming, bool? isRehydrate, IList<string> resourceGuardOperationRequests, bool? isArchiveEnabled, string policyName, int? softDeleteRetentionPeriodInDays, string vaultId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BackupGenericProtectedItem(string protectedItemType, BackupManagementType? backupManagementType, BackupDataSourceType? workloadType, string containerName, ResourceIdentifier sourceResourceId, ResourceIdentifier policyId, DateTimeOffset? lastRecoverOn, string backupSetName, BackupCreateMode? createMode, DateTimeOffset? deferredDeletedOn, bool? isScheduledForDeferredDelete, string deferredDeleteTimeRemaining, bool? isDeferredDeleteScheduleUpcoming, bool? isRehydrate, IList<string> resourceGuardOperationRequests, bool? isArchiveEnabled, string policyName, int? softDeleteRetentionPeriodInDays, string vaultId, string policyType, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ProtectedItemType = protectedItemType;
             BackupManagementType = backupManagementType;
@@ -98,6 +99,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             PolicyName = policyName;
             SoftDeleteRetentionPeriodInDays = softDeleteRetentionPeriodInDays;
             VaultId = vaultId;
+            PolicyType = policyType;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -139,5 +141,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         public int? SoftDeleteRetentionPeriodInDays { get; set; }
         /// <summary> ID of the vault which protects this item. </summary>
         public string VaultId { get; }
+        /// <summary> Type of the policy used for protection. </summary>
+        public string PolicyType { get; set; }
     }
 }
