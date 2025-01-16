@@ -65,6 +65,11 @@ namespace Azure.ResourceManager.Network.Models
             }
             writer.WritePropertyName("storageLocation"u8);
             writer.WriteObjectValue(StorageLocation, options);
+            if (Optional.IsDefined(StorageSettings))
+            {
+                writer.WritePropertyName("storageSettings"u8);
+                writer.WriteObjectValue(StorageSettings, options);
+            }
             if (Optional.IsCollectionDefined(Filters))
             {
                 writer.WritePropertyName("filters"u8);
@@ -130,6 +135,7 @@ namespace Azure.ResourceManager.Network.Models
             long? totalBytesPerSession = default;
             int? timeLimitInSeconds = default;
             PacketCaptureStorageLocation storageLocation = default;
+            PacketCaptureStorageSettings storageSettings = default;
             IList<PacketCaptureFilter> filters = default;
             bool? continuousCapture = default;
             PacketCaptureSettings captureSettings = default;
@@ -201,6 +207,15 @@ namespace Azure.ResourceManager.Network.Models
                             storageLocation = PacketCaptureStorageLocation.DeserializePacketCaptureStorageLocation(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("storageSettings"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            storageSettings = PacketCaptureStorageSettings.DeserializePacketCaptureStorageSettings(property0.Value, options);
+                            continue;
+                        }
                         if (property0.NameEquals("filters"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -250,6 +265,7 @@ namespace Azure.ResourceManager.Network.Models
                 totalBytesPerSession,
                 timeLimitInSeconds,
                 storageLocation,
+                storageSettings,
                 filters ?? new ChangeTrackingList<PacketCaptureFilter>(),
                 continuousCapture,
                 captureSettings,

@@ -67,11 +67,12 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="totalBytesPerSession"> Maximum size of the capture output. </param>
         /// <param name="timeLimitInSeconds"> Maximum duration of the capture session in seconds. </param>
         /// <param name="storageLocation"> The storage location for a packet capture session. </param>
+        /// <param name="storageSettings"> The storage setting for a packet capture session. </param>
         /// <param name="filters"> A list of packet capture filters. </param>
         /// <param name="isContinuousCapture"> This continuous capture is a nullable boolean, which can hold 'null', 'true' or 'false' value. If we do not pass this parameter, it would be consider as 'null', default value is 'null'. </param>
         /// <param name="captureSettings"> The capture setting holds the 'FileCount', 'FileSizeInBytes', 'SessionTimeLimitInSeconds' values. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PacketCaptureCreateOrUpdateContent(string target, PacketCaptureMachineScope scope, PacketCaptureTargetType? targetType, long? bytesToCapturePerPacket, long? totalBytesPerSession, int? timeLimitInSeconds, PacketCaptureStorageLocation storageLocation, IList<PacketCaptureFilter> filters, bool? isContinuousCapture, PacketCaptureSettings captureSettings, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PacketCaptureCreateOrUpdateContent(string target, PacketCaptureMachineScope scope, PacketCaptureTargetType? targetType, long? bytesToCapturePerPacket, long? totalBytesPerSession, int? timeLimitInSeconds, PacketCaptureStorageLocation storageLocation, PacketCaptureStorageSettings storageSettings, IList<PacketCaptureFilter> filters, bool? isContinuousCapture, PacketCaptureSettings captureSettings, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Target = target;
             Scope = scope;
@@ -80,6 +81,7 @@ namespace Azure.ResourceManager.Network.Models
             TotalBytesPerSession = totalBytesPerSession;
             TimeLimitInSeconds = timeLimitInSeconds;
             StorageLocation = storageLocation;
+            StorageSettings = storageSettings;
             Filters = filters;
             IsContinuousCapture = isContinuousCapture;
             CaptureSettings = captureSettings;
@@ -105,6 +107,20 @@ namespace Azure.ResourceManager.Network.Models
         public int? TimeLimitInSeconds { get; set; }
         /// <summary> The storage location for a packet capture session. </summary>
         public PacketCaptureStorageLocation StorageLocation { get; }
+        /// <summary> The storage setting for a packet capture session. </summary>
+        internal PacketCaptureStorageSettings StorageSettings { get; set; }
+        /// <summary> The managed identity resource id information for a packet capture session. </summary>
+        public string StorageAuthenticationValueManagedIndentityResourceId
+        {
+            get => StorageSettings is null ? default : StorageSettings.StorageAuthenticationValueManagedIndentityResourceId;
+            set
+            {
+                if (StorageSettings is null)
+                    StorageSettings = new PacketCaptureStorageSettings();
+                StorageSettings.StorageAuthenticationValueManagedIndentityResourceId = value;
+            }
+        }
+
         /// <summary> A list of packet capture filters. </summary>
         public IList<PacketCaptureFilter> Filters { get; }
         /// <summary> This continuous capture is a nullable boolean, which can hold 'null', 'true' or 'false' value. If we do not pass this parameter, it would be consider as 'null', default value is 'null'. </summary>

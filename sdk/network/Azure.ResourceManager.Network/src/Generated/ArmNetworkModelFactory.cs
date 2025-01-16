@@ -5465,11 +5465,12 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="totalBytesPerSession"> Maximum size of the capture output. </param>
         /// <param name="timeLimitInSeconds"> Maximum duration of the capture session in seconds. </param>
         /// <param name="storageLocation"> The storage location for a packet capture session. </param>
+        /// <param name="storageAuthenticationValueManagedIndentityResourceId"> The storage setting for a packet capture session. </param>
         /// <param name="filters"> A list of packet capture filters. </param>
         /// <param name="isContinuousCapture"> This continuous capture is a nullable boolean, which can hold 'null', 'true' or 'false' value. If we do not pass this parameter, it would be consider as 'null', default value is 'null'. </param>
         /// <param name="captureSettings"> The capture setting holds the 'FileCount', 'FileSizeInBytes', 'SessionTimeLimitInSeconds' values. </param>
         /// <returns> A new <see cref="Models.PacketCaptureCreateOrUpdateContent"/> instance for mocking. </returns>
-        public static PacketCaptureCreateOrUpdateContent PacketCaptureCreateOrUpdateContent(string target = null, PacketCaptureMachineScope scope = null, PacketCaptureTargetType? targetType = null, long? bytesToCapturePerPacket = null, long? totalBytesPerSession = null, int? timeLimitInSeconds = null, PacketCaptureStorageLocation storageLocation = null, IEnumerable<PacketCaptureFilter> filters = null, bool? isContinuousCapture = null, PacketCaptureSettings captureSettings = null)
+        public static PacketCaptureCreateOrUpdateContent PacketCaptureCreateOrUpdateContent(string target = null, PacketCaptureMachineScope scope = null, PacketCaptureTargetType? targetType = null, long? bytesToCapturePerPacket = null, long? totalBytesPerSession = null, int? timeLimitInSeconds = null, PacketCaptureStorageLocation storageLocation = null, string storageAuthenticationValueManagedIndentityResourceId = null, IEnumerable<PacketCaptureFilter> filters = null, bool? isContinuousCapture = null, PacketCaptureSettings captureSettings = null)
         {
             filters ??= new List<PacketCaptureFilter>();
 
@@ -5481,6 +5482,7 @@ namespace Azure.ResourceManager.Network.Models
                 totalBytesPerSession,
                 timeLimitInSeconds,
                 storageLocation,
+                storageAuthenticationValueManagedIndentityResourceId != null ? new PacketCaptureStorageSettings(new StorageAuthentication(new ManagedIdentityInfo(storageAuthenticationValueManagedIndentityResourceId, serializedAdditionalRawData: null), serializedAdditionalRawData: null), serializedAdditionalRawData: null) : null,
                 filters?.ToList(),
                 isContinuousCapture,
                 captureSettings,
@@ -5500,12 +5502,13 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="totalBytesPerSession"> Maximum size of the capture output. </param>
         /// <param name="timeLimitInSeconds"> Maximum duration of the capture session in seconds. </param>
         /// <param name="storageLocation"> The storage location for a packet capture session. </param>
+        /// <param name="storageAuthenticationValueManagedIndentityResourceId"> The storage setting for a packet capture session. </param>
         /// <param name="filters"> A list of packet capture filters. </param>
         /// <param name="isContinuousCapture"> This continuous capture is a nullable boolean, which can hold 'null', 'true' or 'false' value. If we do not pass this parameter, it would be consider as 'null', default value is 'null'. </param>
         /// <param name="captureSettings"> The capture setting holds the 'FileCount', 'FileSizeInBytes', 'SessionTimeLimitInSeconds' values. </param>
         /// <param name="provisioningState"> The provisioning state of the packet capture session. </param>
         /// <returns> A new <see cref="Network.PacketCaptureData"/> instance for mocking. </returns>
-        public static PacketCaptureData PacketCaptureData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ETag? etag = null, string target = null, PacketCaptureMachineScope scope = null, PacketCaptureTargetType? targetType = null, long? bytesToCapturePerPacket = null, long? totalBytesPerSession = null, int? timeLimitInSeconds = null, PacketCaptureStorageLocation storageLocation = null, IEnumerable<PacketCaptureFilter> filters = null, bool? isContinuousCapture = null, PacketCaptureSettings captureSettings = null, NetworkProvisioningState? provisioningState = null)
+        public static PacketCaptureData PacketCaptureData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ETag? etag = null, string target = null, PacketCaptureMachineScope scope = null, PacketCaptureTargetType? targetType = null, long? bytesToCapturePerPacket = null, long? totalBytesPerSession = null, int? timeLimitInSeconds = null, PacketCaptureStorageLocation storageLocation = null, string storageAuthenticationValueManagedIndentityResourceId = null, IEnumerable<PacketCaptureFilter> filters = null, bool? isContinuousCapture = null, PacketCaptureSettings captureSettings = null, NetworkProvisioningState? provisioningState = null)
         {
             filters ??= new List<PacketCaptureFilter>();
 
@@ -5522,6 +5525,7 @@ namespace Azure.ResourceManager.Network.Models
                 totalBytesPerSession,
                 timeLimitInSeconds,
                 storageLocation,
+                storageAuthenticationValueManagedIndentityResourceId != null ? new PacketCaptureStorageSettings(new StorageAuthentication(new ManagedIdentityInfo(storageAuthenticationValueManagedIndentityResourceId, serializedAdditionalRawData: null), serializedAdditionalRawData: null), serializedAdditionalRawData: null) : null,
                 filters?.ToList(),
                 isContinuousCapture,
                 captureSettings,
@@ -8650,6 +8654,48 @@ namespace Azure.ResourceManager.Network.Models
                 resourceGuid);
         }
 
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Network.Models.PacketCaptureCreateOrUpdateContent" />. </summary>
+        /// <param name="target"> The ID of the targeted resource, only AzureVM and AzureVMSS as target type are currently supported. </param>
+        /// <param name="scope"> A list of AzureVMSS instances which can be included or excluded to run packet capture. If both included and excluded are empty, then the packet capture will run on all instances of AzureVMSS. </param>
+        /// <param name="targetType"> Target type of the resource provided. </param>
+        /// <param name="bytesToCapturePerPacket"> Number of bytes captured per packet, the remaining bytes are truncated. </param>
+        /// <param name="totalBytesPerSession"> Maximum size of the capture output. </param>
+        /// <param name="timeLimitInSeconds"> Maximum duration of the capture session in seconds. </param>
+        /// <param name="storageLocation"> The storage location for a packet capture session. </param>
+        /// <param name="filters"> A list of packet capture filters. </param>
+        /// <param name="isContinuousCapture"> This continuous capture is a nullable boolean, which can hold 'null', 'true' or 'false' value. If we do not pass this parameter, it would be consider as 'null', default value is 'null'. </param>
+        /// <param name="captureSettings"> The capture setting holds the 'FileCount', 'FileSizeInBytes', 'SessionTimeLimitInSeconds' values. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Network.Models.PacketCaptureCreateOrUpdateContent" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static PacketCaptureCreateOrUpdateContent PacketCaptureCreateOrUpdateContent(string target, PacketCaptureMachineScope scope, PacketCaptureTargetType? targetType, long? bytesToCapturePerPacket, long? totalBytesPerSession, int? timeLimitInSeconds, PacketCaptureStorageLocation storageLocation, IEnumerable<PacketCaptureFilter> filters, bool? isContinuousCapture, PacketCaptureSettings captureSettings)
+        {
+            return PacketCaptureCreateOrUpdateContent(target: target, scope: scope, targetType: targetType, bytesToCapturePerPacket: bytesToCapturePerPacket, totalBytesPerSession: totalBytesPerSession, timeLimitInSeconds: timeLimitInSeconds, storageLocation: storageLocation, storageAuthenticationValueManagedIndentityResourceId: default, filters: filters, isContinuousCapture: isContinuousCapture, captureSettings: captureSettings);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Network.PacketCaptureData" />. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="etag"> A unique read-only string that changes whenever the resource is updated. </param>
+        /// <param name="target"> The ID of the targeted resource, only AzureVM and AzureVMSS as target type are currently supported. </param>
+        /// <param name="scope"> A list of AzureVMSS instances which can be included or excluded to run packet capture. If both included and excluded are empty, then the packet capture will run on all instances of AzureVMSS. </param>
+        /// <param name="targetType"> Target type of the resource provided. </param>
+        /// <param name="bytesToCapturePerPacket"> Number of bytes captured per packet, the remaining bytes are truncated. </param>
+        /// <param name="totalBytesPerSession"> Maximum size of the capture output. </param>
+        /// <param name="timeLimitInSeconds"> Maximum duration of the capture session in seconds. </param>
+        /// <param name="storageLocation"> The storage location for a packet capture session. </param>
+        /// <param name="filters"> A list of packet capture filters. </param>
+        /// <param name="isContinuousCapture"> This continuous capture is a nullable boolean, which can hold 'null', 'true' or 'false' value. If we do not pass this parameter, it would be consider as 'null', default value is 'null'. </param>
+        /// <param name="captureSettings"> The capture setting holds the 'FileCount', 'FileSizeInBytes', 'SessionTimeLimitInSeconds' values. </param>
+        /// <param name="provisioningState"> The provisioning state of the packet capture session. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Network.PacketCaptureData" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static PacketCaptureData PacketCaptureData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ETag? etag, string target, PacketCaptureMachineScope scope, PacketCaptureTargetType? targetType, long? bytesToCapturePerPacket, long? totalBytesPerSession, int? timeLimitInSeconds, PacketCaptureStorageLocation storageLocation, IEnumerable<PacketCaptureFilter> filters, bool? isContinuousCapture, PacketCaptureSettings captureSettings, NetworkProvisioningState? provisioningState)
+        {
+            return PacketCaptureData(id: id, name: name, resourceType: resourceType, systemData: systemData, etag: etag, target: target, scope: scope, targetType: targetType, bytesToCapturePerPacket: bytesToCapturePerPacket, totalBytesPerSession: totalBytesPerSession, timeLimitInSeconds: timeLimitInSeconds, storageLocation: storageLocation, storageAuthenticationValueManagedIndentityResourceId: default, filters: filters, isContinuousCapture: isContinuousCapture, captureSettings: captureSettings, provisioningState: provisioningState);
+        }
+
         /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Network.SubnetData" />. </summary>
         /// <param name="id"> Resource ID. </param>
         /// <param name="name"> Resource name. </param>
@@ -9112,7 +9158,7 @@ namespace Azure.ResourceManager.Network.Models
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static PacketCaptureCreateOrUpdateContent PacketCaptureCreateOrUpdateContent(string target, PacketCaptureMachineScope scope, PacketCaptureTargetType? targetType, long? bytesToCapturePerPacket, long? totalBytesPerSession, int? timeLimitInSeconds, PacketCaptureStorageLocation storageLocation, IEnumerable<PacketCaptureFilter> filters)
         {
-            return PacketCaptureCreateOrUpdateContent(target: target, scope: scope, targetType: targetType, bytesToCapturePerPacket: bytesToCapturePerPacket, totalBytesPerSession: totalBytesPerSession, timeLimitInSeconds: timeLimitInSeconds, storageLocation: storageLocation, filters: filters, isContinuousCapture: default, captureSettings: default);
+            return PacketCaptureCreateOrUpdateContent(target: target, scope: scope, targetType: targetType, bytesToCapturePerPacket: bytesToCapturePerPacket, totalBytesPerSession: totalBytesPerSession, timeLimitInSeconds: timeLimitInSeconds, storageLocation: storageLocation, storageAuthenticationValueManagedIndentityResourceId: default, filters: filters, isContinuousCapture: default, captureSettings: default);
         }
 
         /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Network.PacketCaptureData" />. </summary>
@@ -9134,7 +9180,7 @@ namespace Azure.ResourceManager.Network.Models
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static PacketCaptureData PacketCaptureData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ETag? etag, string target, PacketCaptureMachineScope scope, PacketCaptureTargetType? targetType, long? bytesToCapturePerPacket, long? totalBytesPerSession, int? timeLimitInSeconds, PacketCaptureStorageLocation storageLocation, IEnumerable<PacketCaptureFilter> filters, NetworkProvisioningState? provisioningState)
         {
-            return PacketCaptureData(id: id, name: name, resourceType: resourceType, systemData: systemData, etag: etag, target: target, scope: scope, targetType: targetType, bytesToCapturePerPacket: bytesToCapturePerPacket, totalBytesPerSession: totalBytesPerSession, timeLimitInSeconds: timeLimitInSeconds, storageLocation: storageLocation, filters: filters, isContinuousCapture: default, captureSettings: default, provisioningState: provisioningState);
+            return PacketCaptureData(id: id, name: name, resourceType: resourceType, systemData: systemData, etag: etag, target: target, scope: scope, targetType: targetType, bytesToCapturePerPacket: bytesToCapturePerPacket, totalBytesPerSession: totalBytesPerSession, timeLimitInSeconds: timeLimitInSeconds, storageLocation: storageLocation, storageAuthenticationValueManagedIndentityResourceId: default, filters: filters, isContinuousCapture: default, captureSettings: default, provisioningState: provisioningState);
         }
 
         /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Network.VpnSiteLinkConnectionData" />. </summary>
