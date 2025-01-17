@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.Compute
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2024-07-01";
+            _apiVersion = apiVersion ?? "2024-11-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -1334,7 +1334,7 @@ namespace Azure.ResourceManager.Compute
             return message;
         }
 
-        /// <summary> The operation to power off (stop) a virtual machine. The virtual machine can be restarted with the same provisioned resources. You are still charged for this virtual machine. NOTE: This operation is not allowed on a virtual machine that is being deallocated or has already been deallocated. </summary>
+        /// <summary> The operation to power off (stop) a virtual machine. The virtual machine can be restarted with the same provisioned resources. You are still charged for this virtual machine. </summary>
         /// <param name="subscriptionId"> Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="vmName"> The name of the virtual machine. </param>
@@ -1360,7 +1360,7 @@ namespace Azure.ResourceManager.Compute
             }
         }
 
-        /// <summary> The operation to power off (stop) a virtual machine. The virtual machine can be restarted with the same provisioned resources. You are still charged for this virtual machine. NOTE: This operation is not allowed on a virtual machine that is being deallocated or has already been deallocated. </summary>
+        /// <summary> The operation to power off (stop) a virtual machine. The virtual machine can be restarted with the same provisioned resources. You are still charged for this virtual machine. </summary>
         /// <param name="subscriptionId"> Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="vmName"> The name of the virtual machine. </param>
@@ -2366,6 +2366,99 @@ namespace Azure.ResourceManager.Compute
             switch (message.Response.Status)
             {
                 case 200:
+                case 202:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal RequestUriBuilder CreateMigrateToVmScaleSetRequestUri(string subscriptionId, string resourceGroupName, string vmName, MigrateVmToVirtualMachineScaleSetContent content)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Compute/virtualMachines/", false);
+            uri.AppendPath(vmName, true);
+            uri.AppendPath("/migrateToVirtualMachineScaleSet", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            return uri;
+        }
+
+        internal HttpMessage CreateMigrateToVmScaleSetRequest(string subscriptionId, string resourceGroupName, string vmName, MigrateVmToVirtualMachineScaleSetContent content)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Compute/virtualMachines/", false);
+            uri.AppendPath(vmName, true);
+            uri.AppendPath("/migrateToVirtualMachineScaleSet", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            if (content != null)
+            {
+                request.Headers.Add("Content-Type", "application/json");
+                var content0 = new Utf8JsonRequestContent();
+                content0.JsonWriter.WriteObjectValue(content, ModelSerializationExtensions.WireOptions);
+                request.Content = content0;
+            }
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Migrate a virtual machine from availability set to Flexible Virtual Machine Scale Set. </summary>
+        /// <param name="subscriptionId"> Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="vmName"> The name of the virtual machine. </param>
+        /// <param name="content"> Parameters supplied to the Migrate Virtual Machine operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="vmName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="vmName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> MigrateToVmScaleSetAsync(string subscriptionId, string resourceGroupName, string vmName, MigrateVmToVirtualMachineScaleSetContent content = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(vmName, nameof(vmName));
+
+            using var message = CreateMigrateToVmScaleSetRequest(subscriptionId, resourceGroupName, vmName, content);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 202:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Migrate a virtual machine from availability set to Flexible Virtual Machine Scale Set. </summary>
+        /// <param name="subscriptionId"> Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="vmName"> The name of the virtual machine. </param>
+        /// <param name="content"> Parameters supplied to the Migrate Virtual Machine operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="vmName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="vmName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response MigrateToVmScaleSet(string subscriptionId, string resourceGroupName, string vmName, MigrateVmToVirtualMachineScaleSetContent content = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(vmName, nameof(vmName));
+
+            using var message = CreateMigrateToVmScaleSetRequest(subscriptionId, resourceGroupName, vmName, content);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
                 case 202:
                     return message.Response;
                 default:

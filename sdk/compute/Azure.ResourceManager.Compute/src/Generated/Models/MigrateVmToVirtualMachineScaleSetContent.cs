@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    /// <summary> Describes the additional replica set information. </summary>
-    public partial class AdditionalReplicaSet
+    /// <summary> The input of virtual machine migration from Availability Set to Flexible Virtual Machine Scale Set. </summary>
+    public partial class MigrateVmToVirtualMachineScaleSetContent
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,25 +45,29 @@ namespace Azure.ResourceManager.Compute.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AdditionalReplicaSet"/>. </summary>
-        public AdditionalReplicaSet()
+        /// <summary> Initializes a new instance of <see cref="MigrateVmToVirtualMachineScaleSetContent"/>. </summary>
+        public MigrateVmToVirtualMachineScaleSetContent()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="AdditionalReplicaSet"/>. </summary>
-        /// <param name="storageAccountType"> Specifies the storage account type to be used to create the direct drive replicas. </param>
-        /// <param name="regionalReplicaCount"> The number of direct drive replicas of the Image Version to be created.This Property is updatable. </param>
+        /// <summary> Initializes a new instance of <see cref="MigrateVmToVirtualMachineScaleSetContent"/>. </summary>
+        /// <param name="targetZone"> The target zone of VM migration to Flexible Virtual Machine Scale Set. </param>
+        /// <param name="targetFaultDomain"> The target compute fault domain of VM migration to Flexible Virtual Machine Scale Set. </param>
+        /// <param name="targetVmSize"> The target Virtual Machine size of VM migration to Flexible Virtual Machine Scale Set. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AdditionalReplicaSet(ImageStorageAccountType? storageAccountType, int? regionalReplicaCount, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal MigrateVmToVirtualMachineScaleSetContent(string targetZone, int? targetFaultDomain, string targetVmSize, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            StorageAccountType = storageAccountType;
-            RegionalReplicaCount = regionalReplicaCount;
+            TargetZone = targetZone;
+            TargetFaultDomain = targetFaultDomain;
+            TargetVmSize = targetVmSize;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Specifies the storage account type to be used to create the direct drive replicas. </summary>
-        public ImageStorageAccountType? StorageAccountType { get; set; }
-        /// <summary> The number of direct drive replicas of the Image Version to be created.This Property is updatable. </summary>
-        public int? RegionalReplicaCount { get; set; }
+        /// <summary> The target zone of VM migration to Flexible Virtual Machine Scale Set. </summary>
+        public string TargetZone { get; set; }
+        /// <summary> The target compute fault domain of VM migration to Flexible Virtual Machine Scale Set. </summary>
+        public int? TargetFaultDomain { get; set; }
+        /// <summary> The target Virtual Machine size of VM migration to Flexible Virtual Machine Scale Set. </summary>
+        public string TargetVmSize { get; set; }
     }
 }
