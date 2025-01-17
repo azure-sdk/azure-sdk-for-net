@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    /// <summary> This is the executed Validation. </summary>
-    public partial class GalleryImageExecutedValidation
+    /// <summary> Describes the Virtual Machine Scale Set to convert from Availability Set. </summary>
+    public partial class ConvertToVirtualMachineScaleSetContent
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,33 +45,21 @@ namespace Azure.ResourceManager.Compute.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="GalleryImageExecutedValidation"/>. </summary>
-        internal GalleryImageExecutedValidation()
+        /// <summary> Initializes a new instance of <see cref="ConvertToVirtualMachineScaleSetContent"/>. </summary>
+        public ConvertToVirtualMachineScaleSetContent()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="GalleryImageExecutedValidation"/>. </summary>
-        /// <param name="executedValidationType"> This property specifies the type of image version validation. </param>
-        /// <param name="status"> This property specifies the status of the validationProfile of the image version. </param>
-        /// <param name="version"> This property specifies the valid version of the validation. </param>
-        /// <param name="executionOn"> This property specifies the starting timestamp. </param>
+        /// <summary> Initializes a new instance of <see cref="ConvertToVirtualMachineScaleSetContent"/>. </summary>
+        /// <param name="virtualMachineScaleSetName"> Specifies information about the Virtual Machine Scale Set that the Availability Set should be converted to. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal GalleryImageExecutedValidation(string executedValidationType, ComputeGalleryValidationStatus? status, string version, DateTimeOffset? executionOn, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ConvertToVirtualMachineScaleSetContent(string virtualMachineScaleSetName, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            ExecutedValidationType = executedValidationType;
-            Status = status;
-            Version = version;
-            ExecutionOn = executionOn;
+            VirtualMachineScaleSetName = virtualMachineScaleSetName;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> This property specifies the type of image version validation. </summary>
-        public string ExecutedValidationType { get; }
-        /// <summary> This property specifies the status of the validationProfile of the image version. </summary>
-        public ComputeGalleryValidationStatus? Status { get; }
-        /// <summary> This property specifies the valid version of the validation. </summary>
-        public string Version { get; }
-        /// <summary> This property specifies the starting timestamp. </summary>
-        public DateTimeOffset? ExecutionOn { get; }
+        /// <summary> Specifies information about the Virtual Machine Scale Set that the Availability Set should be converted to. </summary>
+        public string VirtualMachineScaleSetName { get; set; }
     }
 }
