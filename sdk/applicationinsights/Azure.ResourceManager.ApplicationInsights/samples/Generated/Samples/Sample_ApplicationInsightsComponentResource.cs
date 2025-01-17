@@ -798,10 +798,10 @@ Value = BinaryData.FromObjectAsJson("2017-09-01T00:00:00"),
             ApplicationInsightsComponentProactiveDetectionConfiguration proactiveDetectionProperties = new ApplicationInsightsComponentProactiveDetectionConfiguration
             {
                 Name = "slowpageloadtime",
-                IsEnabled = true,
+                Enabled = true,
                 SendEmailsToSubscriptionOwners = true,
                 CustomEmails = { "foo@microsoft.com", "foo2@microsoft.com" },
-                LastUpdatedOn = default,
+                LastUpdatedTime = null,
                 RuleDefinitions = new ApplicationInsightsComponentProactiveDetectionConfigurationRuleDefinitions
                 {
                     Name = "slowpageloadtime",
