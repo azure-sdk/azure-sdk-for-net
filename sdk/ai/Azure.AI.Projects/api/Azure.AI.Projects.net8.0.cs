@@ -559,7 +559,7 @@ namespace Azure.AI.Projects
     }
     public partial class ApplicationInsightsConfiguration : Azure.AI.Projects.InputData, System.ClientModel.Primitives.IJsonModel<Azure.AI.Projects.ApplicationInsightsConfiguration>, System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.ApplicationInsightsConfiguration>
     {
-        public ApplicationInsightsConfiguration(string resourceId, string query, string serviceName) { }
+        public ApplicationInsightsConfiguration(string resourceId, string query) { }
         public string ConnectionString { get { throw null; } set { } }
         public string Query { get { throw null; } set { } }
         public string ResourceId { get { throw null; } set { } }
