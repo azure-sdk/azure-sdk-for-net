@@ -107,18 +107,6 @@ namespace Azure.ResourceManager.Billing.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="BillingProfileRoleAssignmentResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="BillingProfileRoleAssignmentResource.CreateResourceIdentifier" /> to create a <see cref="BillingProfileRoleAssignmentResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="BillingProfileRoleAssignmentResource"/> object. </returns>
-        public virtual BillingProfileRoleAssignmentResource GetBillingProfileRoleAssignmentResource(ResourceIdentifier id)
-        {
-            BillingProfileRoleAssignmentResource.ValidateResourceId(id);
-            return new BillingProfileRoleAssignmentResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="BillingCustomerRoleAssignmentResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="BillingCustomerRoleAssignmentResource.CreateResourceIdentifier" /> to create a <see cref="BillingCustomerRoleAssignmentResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -176,18 +164,6 @@ namespace Azure.ResourceManager.Billing.Mocking
         {
             BillingEnrollmentAccountRoleAssignmentResource.ValidateResourceId(id);
             return new BillingEnrollmentAccountRoleAssignmentResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="BillingProfileRoleDefinitionResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="BillingProfileRoleDefinitionResource.CreateResourceIdentifier" /> to create a <see cref="BillingProfileRoleDefinitionResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="BillingProfileRoleDefinitionResource"/> object. </returns>
-        public virtual BillingProfileRoleDefinitionResource GetBillingProfileRoleDefinitionResource(ResourceIdentifier id)
-        {
-            BillingProfileRoleDefinitionResource.ValidateResourceId(id);
-            return new BillingProfileRoleDefinitionResource(Client, id);
         }
 
         /// <summary>
