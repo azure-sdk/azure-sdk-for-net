@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_AppAttachPackageCreate()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/AppAttachPackage_Create.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2024-08-08-preview/examples/AppAttachPackage_Create.json
             // this example is just showing the usage of "AppAttachPackage_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -78,6 +78,8 @@ RawPng = BinaryData.FromObjectAsJson("VGhpcyBpcyBhIHN0cmluZyB0byBoYXNo"),
                 HostPoolReferences = { },
                 KeyVaultUri = new Uri(""),
                 FailHealthCheckOnStagingFailure = FailHealthCheckOnStagingFailure.NeedsAssistance,
+                PackageOwnerName = "App Attach",
+                CustomData = "",
             });
             ArmOperation<AppAttachPackageResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, appAttachPackageName, data);
             AppAttachPackageResource result = lro.Value;
@@ -93,7 +95,7 @@ RawPng = BinaryData.FromObjectAsJson("VGhpcyBpcyBhIHN0cmluZyB0byBoYXNo"),
         [Ignore("Only validating compilation of examples")]
         public async Task Get_AppAttachPackageGet()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/AppAttachPackage_Get.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2024-08-08-preview/examples/AppAttachPackage_Get.json
             // this example is just showing the usage of "AppAttachPackage_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -126,7 +128,7 @@ RawPng = BinaryData.FromObjectAsJson("VGhpcyBpcyBhIHN0cmluZyB0byBoYXNo"),
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_AppAttachPackageListByResourceGroup()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/AppAttachPackage_ListByResourceGroup.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2024-08-08-preview/examples/AppAttachPackage_ListByResourceGroup.json
             // this example is just showing the usage of "AppAttachPackage_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -162,7 +164,7 @@ RawPng = BinaryData.FromObjectAsJson("VGhpcyBpcyBhIHN0cmluZyB0byBoYXNo"),
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_AppAttachPackageGet()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/AppAttachPackage_Get.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2024-08-08-preview/examples/AppAttachPackage_Get.json
             // this example is just showing the usage of "AppAttachPackage_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -191,7 +193,7 @@ RawPng = BinaryData.FromObjectAsJson("VGhpcyBpcyBhIHN0cmluZyB0byBoYXNo"),
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_AppAttachPackageGet()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/AppAttachPackage_Get.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2024-08-08-preview/examples/AppAttachPackage_Get.json
             // this example is just showing the usage of "AppAttachPackage_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
