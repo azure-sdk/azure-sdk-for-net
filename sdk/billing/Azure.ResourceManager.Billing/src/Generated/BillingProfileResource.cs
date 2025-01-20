@@ -44,6 +44,8 @@ namespace Azure.ResourceManager.Billing
         private readonly BillingRequestsRestOperations _billingRequestRestClient;
         private readonly ClientDiagnostics _billingRoleAssignmentsClientDiagnostics;
         private readonly BillingRoleAssignmentsRestOperations _billingRoleAssignmentsRestClient;
+        private readonly ClientDiagnostics _billingRoleDefinitionClientDiagnostics;
+        private readonly BillingRoleDefinitionRestOperations _billingRoleDefinitionRestClient;
         private readonly ClientDiagnostics _invoicesClientDiagnostics;
         private readonly InvoicesRestOperations _invoicesRestClient;
         private readonly ClientDiagnostics _billingProductProductsClientDiagnostics;
@@ -88,6 +90,8 @@ namespace Azure.ResourceManager.Billing
             _billingRequestRestClient = new BillingRequestsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, billingRequestApiVersion);
             _billingRoleAssignmentsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Billing", ProviderConstants.DefaultProviderNamespace, Diagnostics);
             _billingRoleAssignmentsRestClient = new BillingRoleAssignmentsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+            _billingRoleDefinitionClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Billing", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _billingRoleDefinitionRestClient = new BillingRoleDefinitionRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
             _invoicesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Billing", ProviderConstants.DefaultProviderNamespace, Diagnostics);
             _invoicesRestClient = new InvoicesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
             _billingProductProductsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Billing", BillingProductResource.ResourceType.Namespace, Diagnostics);
@@ -122,144 +126,6 @@ namespace Azure.ResourceManager.Billing
         {
             if (id.ResourceType != ResourceType)
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
-        }
-
-        /// <summary> Gets a collection of BillingProfileRoleAssignmentResources in the BillingProfile. </summary>
-        /// <returns> An object representing collection of BillingProfileRoleAssignmentResources and their operations over a BillingProfileRoleAssignmentResource. </returns>
-        public virtual BillingProfileRoleAssignmentCollection GetBillingProfileRoleAssignments()
-        {
-            return GetCachedClient(client => new BillingProfileRoleAssignmentCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Gets a role assignment for the caller on a billing profile. The operation is supported for billing accounts with agreement type Microsoft Partner Agreement or Microsoft Customer Agreement.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/billingRoleAssignments/{billingRoleAssignmentName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>BillingRoleAssignments_GetByBillingProfile</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="BillingProfileRoleAssignmentResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="billingRoleAssignmentName"> The ID that uniquely identifies a role assignment. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="billingRoleAssignmentName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="billingRoleAssignmentName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<BillingProfileRoleAssignmentResource>> GetBillingProfileRoleAssignmentAsync(string billingRoleAssignmentName, CancellationToken cancellationToken = default)
-        {
-            return await GetBillingProfileRoleAssignments().GetAsync(billingRoleAssignmentName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets a role assignment for the caller on a billing profile. The operation is supported for billing accounts with agreement type Microsoft Partner Agreement or Microsoft Customer Agreement.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/billingRoleAssignments/{billingRoleAssignmentName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>BillingRoleAssignments_GetByBillingProfile</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="BillingProfileRoleAssignmentResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="billingRoleAssignmentName"> The ID that uniquely identifies a role assignment. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="billingRoleAssignmentName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="billingRoleAssignmentName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<BillingProfileRoleAssignmentResource> GetBillingProfileRoleAssignment(string billingRoleAssignmentName, CancellationToken cancellationToken = default)
-        {
-            return GetBillingProfileRoleAssignments().Get(billingRoleAssignmentName, cancellationToken);
-        }
-
-        /// <summary> Gets a collection of BillingProfileRoleDefinitionResources in the BillingProfile. </summary>
-        /// <returns> An object representing collection of BillingProfileRoleDefinitionResources and their operations over a BillingProfileRoleDefinitionResource. </returns>
-        public virtual BillingProfileRoleDefinitionCollection GetBillingProfileRoleDefinitions()
-        {
-            return GetCachedClient(client => new BillingProfileRoleDefinitionCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Gets the definition for a role on a billing profile. The operation is supported for billing accounts with agreement type Microsoft Partner Agreement or Microsoft Customer Agreement.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/billingRoleDefinitions/{roleDefinitionName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>BillingRoleDefinition_GetByBillingProfile</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="BillingProfileRoleDefinitionResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="roleDefinitionName"> The ID that uniquely identifies a role definition. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="roleDefinitionName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="roleDefinitionName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<BillingProfileRoleDefinitionResource>> GetBillingProfileRoleDefinitionAsync(string roleDefinitionName, CancellationToken cancellationToken = default)
-        {
-            return await GetBillingProfileRoleDefinitions().GetAsync(roleDefinitionName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets the definition for a role on a billing profile. The operation is supported for billing accounts with agreement type Microsoft Partner Agreement or Microsoft Customer Agreement.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/billingRoleDefinitions/{roleDefinitionName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>BillingRoleDefinition_GetByBillingProfile</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-04-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="BillingProfileRoleDefinitionResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="roleDefinitionName"> The ID that uniquely identifies a role definition. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="roleDefinitionName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="roleDefinitionName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<BillingProfileRoleDefinitionResource> GetBillingProfileRoleDefinition(string roleDefinitionName, CancellationToken cancellationToken = default)
-        {
-            return GetBillingProfileRoleDefinitions().Get(roleDefinitionName, cancellationToken);
         }
 
         /// <summary> Gets a collection of BillingProfileSubscriptionResources in the BillingProfile. </summary>
@@ -1124,6 +990,64 @@ namespace Azure.ResourceManager.Billing
         }
 
         /// <summary>
+        /// Lists the role assignments for the caller on a billing profile. The operation is supported for billing accounts with agreement type Microsoft Partner Agreement or Microsoft Customer Agreement.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/billingRoleAssignments</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BillingRoleAssignments_ListByBillingProfile</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-04-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="filter"> The filter query option allows clients to filter a collection of resources that are addressed by a request URL. </param>
+        /// <param name="top"> The top query option requests the number of items in the queried collection to be included in the result. The maximum supported value for top is 50. </param>
+        /// <param name="skip"> The skip query option requests the number of items in the queried collection that are to be skipped and not included in the result. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="BillingRoleAssignmentData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<BillingRoleAssignmentData> GetBillingRoleAssignmentsAsync(string filter = null, long? top = null, long? skip = null, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _billingRoleAssignmentsRestClient.CreateListByBillingProfileRequest(Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _billingRoleAssignmentsRestClient.CreateListByBillingProfileNextPageRequest(nextLink, Id.Parent.Name, Id.Name, filter, top, skip);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => BillingRoleAssignmentData.DeserializeBillingRoleAssignmentData(e), _billingRoleAssignmentsClientDiagnostics, Pipeline, "BillingProfileResource.GetBillingRoleAssignments", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists the role assignments for the caller on a billing profile. The operation is supported for billing accounts with agreement type Microsoft Partner Agreement or Microsoft Customer Agreement.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/billingRoleAssignments</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BillingRoleAssignments_ListByBillingProfile</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-04-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="filter"> The filter query option allows clients to filter a collection of resources that are addressed by a request URL. </param>
+        /// <param name="top"> The top query option requests the number of items in the queried collection to be included in the result. The maximum supported value for top is 50. </param>
+        /// <param name="skip"> The skip query option requests the number of items in the queried collection that are to be skipped and not included in the result. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="BillingRoleAssignmentData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<BillingRoleAssignmentData> GetBillingRoleAssignments(string filter = null, long? top = null, long? skip = null, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _billingRoleAssignmentsRestClient.CreateListByBillingProfileRequest(Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _billingRoleAssignmentsRestClient.CreateListByBillingProfileNextPageRequest(nextLink, Id.Parent.Name, Id.Name, filter, top, skip);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => BillingRoleAssignmentData.DeserializeBillingRoleAssignmentData(e), _billingRoleAssignmentsClientDiagnostics, Pipeline, "BillingProfileResource.GetBillingRoleAssignments", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
         /// Adds a role assignment on a billing profile. The operation is supported for billing accounts with agreement type Microsoft Partner Agreement or Microsoft Customer Agreement.
         /// <list type="bullet">
         /// <item>
@@ -1285,6 +1209,58 @@ namespace Azure.ResourceManager.Billing
                 scope.Failed(e);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Lists the role definitions for a billing profile. The operation is supported for billing accounts with agreement type Microsoft Partner Agreement, Microsoft Customer Agreement or Enterprise Agreement.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/billingRoleDefinitions</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BillingRoleDefinition_ListByBillingProfile</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-04-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="BillingRoleDefinitionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<BillingRoleDefinitionData> GetBillingRoleDefinitionsAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _billingRoleDefinitionRestClient.CreateListByBillingProfileRequest(Id.Parent.Name, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _billingRoleDefinitionRestClient.CreateListByBillingProfileNextPageRequest(nextLink, Id.Parent.Name, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => BillingRoleDefinitionData.DeserializeBillingRoleDefinitionData(e), _billingRoleDefinitionClientDiagnostics, Pipeline, "BillingProfileResource.GetBillingRoleDefinitions", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists the role definitions for a billing profile. The operation is supported for billing accounts with agreement type Microsoft Partner Agreement, Microsoft Customer Agreement or Enterprise Agreement.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/billingRoleDefinitions</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BillingRoleDefinition_ListByBillingProfile</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-04-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="BillingRoleDefinitionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<BillingRoleDefinitionData> GetBillingRoleDefinitions(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _billingRoleDefinitionRestClient.CreateListByBillingProfileRequest(Id.Parent.Name, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _billingRoleDefinitionRestClient.CreateListByBillingProfileNextPageRequest(nextLink, Id.Parent.Name, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => BillingRoleDefinitionData.DeserializeBillingRoleDefinitionData(e), _billingRoleDefinitionClientDiagnostics, Pipeline, "BillingProfileResource.GetBillingRoleDefinitions", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
