@@ -797,6 +797,17 @@ namespace Azure.ResourceManager.Billing.Models
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Models.BillingRoleAssignmentListResult"/>. </summary>
+        /// <param name="nextLink"> The link (url) to the next page of results. </param>
+        /// <param name="value"> The list of resources. </param>
+        /// <returns> A new <see cref="Models.BillingRoleAssignmentListResult"/> instance for mocking. </returns>
+        public static BillingRoleAssignmentListResult BillingRoleAssignmentListResult(string nextLink = null, IEnumerable<BillingRoleAssignmentData> value = null)
+        {
+            value ??= new List<BillingRoleAssignmentData>();
+
+            return new BillingRoleAssignmentListResult(nextLink, value?.ToList(), serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Billing.BillingRoleAssignmentData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -885,17 +896,6 @@ namespace Azure.ResourceManager.Billing.Models
                 customerId,
                 customerDisplayName,
                 serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.BillingRoleAssignmentListResult"/>. </summary>
-        /// <param name="nextLink"> The link (url) to the next page of results. </param>
-        /// <param name="value"> The list of resources. </param>
-        /// <returns> A new <see cref="Models.BillingRoleAssignmentListResult"/> instance for mocking. </returns>
-        public static BillingRoleAssignmentListResult BillingRoleAssignmentListResult(string nextLink = null, IEnumerable<BillingRoleAssignmentData> value = null)
-        {
-            value ??= new List<BillingRoleAssignmentData>();
-
-            return new BillingRoleAssignmentListResult(nextLink, value?.ToList(), serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Billing.BillingRoleDefinitionData"/>. </summary>
@@ -1152,7 +1152,7 @@ namespace Azure.ResourceManager.Billing.Models
         /// <param name="lastMonthCharges"> The last month's charges. This field is only available for usage based subscriptions of Microsoft Customer Agreement billing accounts. </param>
         /// <param name="monthToDateCharges"> The current month to date charges. This field is only available for usage based subscriptions of Microsoft Customer Agreement billing accounts. </param>
         /// <param name="nextBillingCycleBillingFrequency"> Next billing cycle details of the subscription. </param>
-        /// <param name="offerId"> The offer ID for the subscription. This field is only available for the Microsoft Online Services Program billing accounts. </param>
+        /// <param name="offerId"> The offer ID for the subscription. This field is only available for the Microsoft Online Services Program billing accounts or billing accounts with agreement type Enterprise Agreement. </param>
         /// <param name="productCategory"> The category of the product for which the subscription is purchased. Possible values include: AzureSupport, Hardware, ReservationOrder, SaaS, SavingsPlanOrder, Software, UsageBased, Other. </param>
         /// <param name="productType"> Type of the product for which the subscription is purchased. </param>
         /// <param name="productTypeId"> Id of the product for which the subscription is purchased. </param>
@@ -1296,7 +1296,7 @@ namespace Azure.ResourceManager.Billing.Models
         /// <param name="lastMonthCharges"> The last month's charges. This field is only available for usage based subscriptions of Microsoft Customer Agreement billing accounts. </param>
         /// <param name="monthToDateCharges"> The current month to date charges. This field is only available for usage based subscriptions of Microsoft Customer Agreement billing accounts. </param>
         /// <param name="nextBillingCycleBillingFrequency"> Next billing cycle details of the subscription. </param>
-        /// <param name="offerId"> The offer ID for the subscription. This field is only available for the Microsoft Online Services Program billing accounts. </param>
+        /// <param name="offerId"> The offer ID for the subscription. This field is only available for the Microsoft Online Services Program billing accounts or billing accounts with agreement type Enterprise Agreement. </param>
         /// <param name="productCategory"> The category of the product for which the subscription is purchased. Possible values include: AzureSupport, Hardware, ReservationOrder, SaaS, SavingsPlanOrder, Software, UsageBased, Other. </param>
         /// <param name="productType"> Type of the product for which the subscription is purchased. </param>
         /// <param name="productTypeId"> Id of the product for which the subscription is purchased. </param>
@@ -1439,7 +1439,7 @@ namespace Azure.ResourceManager.Billing.Models
         /// <param name="lastMonthCharges"> The last month's charges. This field is only available for usage based subscriptions of Microsoft Customer Agreement billing accounts. </param>
         /// <param name="monthToDateCharges"> The current month to date charges. This field is only available for usage based subscriptions of Microsoft Customer Agreement billing accounts. </param>
         /// <param name="nextBillingCycleBillingFrequency"> Next billing cycle details of the subscription. </param>
-        /// <param name="offerId"> The offer ID for the subscription. This field is only available for the Microsoft Online Services Program billing accounts. </param>
+        /// <param name="offerId"> The offer ID for the subscription. This field is only available for the Microsoft Online Services Program billing accounts or billing accounts with agreement type Enterprise Agreement. </param>
         /// <param name="productCategory"> The category of the product for which the subscription is purchased. Possible values include: AzureSupport, Hardware, ReservationOrder, SaaS, SavingsPlanOrder, Software, UsageBased, Other. </param>
         /// <param name="productType"> Type of the product for which the subscription is purchased. </param>
         /// <param name="productTypeId"> Id of the product for which the subscription is purchased. </param>
