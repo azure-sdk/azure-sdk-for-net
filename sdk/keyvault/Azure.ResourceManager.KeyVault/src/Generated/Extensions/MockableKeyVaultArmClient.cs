@@ -35,18 +35,6 @@ namespace Azure.ResourceManager.KeyVault.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="KeyVaultResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="KeyVaultResource.CreateResourceIdentifier" /> to create a <see cref="KeyVaultResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="KeyVaultResource"/> object. </returns>
-        public virtual KeyVaultResource GetKeyVaultResource(ResourceIdentifier id)
-        {
-            KeyVaultResource.ValidateResourceId(id);
-            return new KeyVaultResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="DeletedKeyVaultResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="DeletedKeyVaultResource.CreateResourceIdentifier" /> to create a <see cref="DeletedKeyVaultResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>

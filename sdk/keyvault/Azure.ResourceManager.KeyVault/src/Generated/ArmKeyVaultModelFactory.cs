@@ -17,16 +17,50 @@ namespace Azure.ResourceManager.KeyVault.Models
     /// <summary> Model factory for models. </summary>
     public static partial class ArmKeyVaultModelFactory
     {
-        /// <summary> Initializes a new instance of <see cref="Models.KeyVaultCreateOrUpdateContent"/>. </summary>
-        /// <param name="location"> The supported Azure location where the key vault should be created. </param>
-        /// <param name="tags"> The tags that will be assigned to the key vault. </param>
+        /// <summary> Initializes a new instance of <see cref="Models.KeyVaultAccessPolicyParameters"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="location"> The resource type of the access policy. </param>
+        /// <param name="accessPolicies"> Properties of the access policy. </param>
+        /// <returns> A new <see cref="Models.KeyVaultAccessPolicyParameters"/> instance for mocking. </returns>
+        public static KeyVaultAccessPolicyParameters KeyVaultAccessPolicyParameters(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, AzureLocation? location = null, IEnumerable<KeyVaultAccessPolicy> accessPolicies = null)
+        {
+            accessPolicies ??= new List<KeyVaultAccessPolicy>();
+
+            return new KeyVaultAccessPolicyParameters(
+                id,
+                name,
+                resourceType,
+                systemData,
+                location,
+                accessPolicies != null ? new KeyVaultAccessPolicyProperties(accessPolicies?.ToList(), serializedAdditionalRawData: null) : null,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.KeyVault"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
         /// <param name="properties"> Properties of the vault. </param>
-        /// <returns> A new <see cref="Models.KeyVaultCreateOrUpdateContent"/> instance for mocking. </returns>
-        public static KeyVaultCreateOrUpdateContent KeyVaultCreateOrUpdateContent(AzureLocation location = default, IDictionary<string, string> tags = null, KeyVaultProperties properties = null)
+        /// <returns> A new <see cref="Models.KeyVault"/> instance for mocking. </returns>
+        public static KeyVault KeyVault(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, KeyVaultProperties properties = null)
         {
             tags ??= new Dictionary<string, string>();
 
-            return new KeyVaultCreateOrUpdateContent(location, tags, properties, serializedAdditionalRawData: null);
+            return new KeyVault(
+                id,
+                name,
+                resourceType,
+                systemData,
+                tags,
+                location,
+                properties,
+                serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.KeyVaultProperties"/>. </summary>
@@ -92,59 +126,13 @@ namespace Azure.ResourceManager.KeyVault.Models
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="KeyVault.KeyVaultData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="properties"> Properties of the vault. </param>
-        /// <returns> A new <see cref="KeyVault.KeyVaultData"/> instance for mocking. </returns>
-        public static KeyVaultData KeyVaultData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, KeyVaultProperties properties = null)
-        {
-            tags ??= new Dictionary<string, string>();
-
-            return new KeyVaultData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                tags,
-                location,
-                properties,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.KeyVaultAccessPolicyParameters"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="location"> The resource type of the access policy. </param>
-        /// <param name="accessPolicies"> Properties of the access policy. </param>
-        /// <returns> A new <see cref="Models.KeyVaultAccessPolicyParameters"/> instance for mocking. </returns>
-        public static KeyVaultAccessPolicyParameters KeyVaultAccessPolicyParameters(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, AzureLocation? location = null, IEnumerable<KeyVaultAccessPolicy> accessPolicies = null)
-        {
-            accessPolicies ??= new List<KeyVaultAccessPolicy>();
-
-            return new KeyVaultAccessPolicyParameters(
-                id,
-                name,
-                resourceType,
-                systemData,
-                location,
-                accessPolicies != null ? new KeyVaultAccessPolicyProperties(accessPolicies?.ToList(), serializedAdditionalRawData: null) : null,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="KeyVault.DeletedKeyVaultData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ResourceManager.KeyVault.DeletedKeyVaultData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="properties"> Properties of the vault. </param>
-        /// <returns> A new <see cref="KeyVault.DeletedKeyVaultData"/> instance for mocking. </returns>
+        /// <returns> A new <see cref="ResourceManager.KeyVault.DeletedKeyVaultData"/> instance for mocking. </returns>
         public static DeletedKeyVaultData DeletedKeyVaultData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DeletedKeyVaultProperties properties = null)
         {
             return new DeletedKeyVaultData(
@@ -197,7 +185,7 @@ namespace Azure.ResourceManager.KeyVault.Models
             return new KeyVaultNameAvailabilityResult(nameAvailable, reason, message, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="KeyVault.KeyVaultPrivateEndpointConnectionData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ResourceManager.KeyVault.KeyVaultPrivateEndpointConnectionData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -208,7 +196,7 @@ namespace Azure.ResourceManager.KeyVault.Models
         /// <param name="provisioningState"> Provisioning state of the private endpoint connection. </param>
         /// <param name="location"> Azure location of the key vault resource. </param>
         /// <param name="tags"> Tags assigned to the key vault resource. </param>
-        /// <returns> A new <see cref="KeyVault.KeyVaultPrivateEndpointConnectionData"/> instance for mocking. </returns>
+        /// <returns> A new <see cref="ResourceManager.KeyVault.KeyVaultPrivateEndpointConnectionData"/> instance for mocking. </returns>
         public static KeyVaultPrivateEndpointConnectionData KeyVaultPrivateEndpointConnectionData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ETag? etag = null, ResourceIdentifier privateEndpointId = null, KeyVaultPrivateLinkServiceConnectionState connectionState = null, KeyVaultPrivateEndpointConnectionProvisioningState? provisioningState = null, AzureLocation? location = null, IReadOnlyDictionary<string, string> tags = null)
         {
             tags ??= new Dictionary<string, string>();
@@ -257,7 +245,7 @@ namespace Azure.ResourceManager.KeyVault.Models
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="KeyVault.ManagedHsmData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ResourceManager.KeyVault.ManagedHsmData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -267,7 +255,7 @@ namespace Azure.ResourceManager.KeyVault.Models
         /// <param name="properties"> Properties of the managed HSM. </param>
         /// <param name="sku"> SKU details. </param>
         /// <param name="identity"> Managed service identity (system assigned and/or user assigned identities). </param>
-        /// <returns> A new <see cref="KeyVault.ManagedHsmData"/> instance for mocking. </returns>
+        /// <returns> A new <see cref="ResourceManager.KeyVault.ManagedHsmData"/> instance for mocking. </returns>
         public static ManagedHsmData ManagedHsmData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedHsmProperties properties = null, ManagedHsmSku sku = null, ManagedServiceIdentity identity = null)
         {
             tags ??= new Dictionary<string, string>();
@@ -364,7 +352,7 @@ namespace Azure.ResourceManager.KeyVault.Models
             return new ManagedHSMSecurityDomainProperties(activationStatus, activationStatusMessage, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="KeyVault.ManagedHsmPrivateEndpointConnectionData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ResourceManager.KeyVault.ManagedHsmPrivateEndpointConnectionData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -377,7 +365,7 @@ namespace Azure.ResourceManager.KeyVault.Models
         /// <param name="provisioningState"> Provisioning state of the private endpoint connection. </param>
         /// <param name="sku"> SKU details. </param>
         /// <param name="identity"> Managed service identity (system assigned and/or user assigned identities). </param>
-        /// <returns> A new <see cref="KeyVault.ManagedHsmPrivateEndpointConnectionData"/> instance for mocking. </returns>
+        /// <returns> A new <see cref="ResourceManager.KeyVault.ManagedHsmPrivateEndpointConnectionData"/> instance for mocking. </returns>
         public static ManagedHsmPrivateEndpointConnectionData ManagedHsmPrivateEndpointConnectionData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ETag? etag = null, ResourceIdentifier privateEndpointId = null, ManagedHsmPrivateLinkServiceConnectionState privateLinkServiceConnectionState = null, ManagedHsmPrivateEndpointConnectionProvisioningState? provisioningState = null, ManagedHsmSku sku = null, ManagedServiceIdentity identity = null)
         {
             tags ??= new Dictionary<string, string>();
@@ -398,13 +386,13 @@ namespace Azure.ResourceManager.KeyVault.Models
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="KeyVault.DeletedManagedHsmData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ResourceManager.KeyVault.DeletedManagedHsmData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="properties"> Properties of the deleted managed HSM. </param>
-        /// <returns> A new <see cref="KeyVault.DeletedManagedHsmData"/> instance for mocking. </returns>
+        /// <returns> A new <see cref="ResourceManager.KeyVault.DeletedManagedHsmData"/> instance for mocking. </returns>
         public static DeletedManagedHsmData DeletedManagedHsmData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DeletedManagedHsmProperties properties = null)
         {
             return new DeletedManagedHsmData(
@@ -547,7 +535,7 @@ namespace Azure.ResourceManager.KeyVault.Models
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="KeyVault.KeyVaultSecretData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ResourceManager.KeyVault.KeyVaultSecretData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -555,7 +543,7 @@ namespace Azure.ResourceManager.KeyVault.Models
         /// <param name="properties"> Properties of the secret. </param>
         /// <param name="location"> Azure location of the key vault resource. </param>
         /// <param name="tags"> Tags assigned to the key vault resource. </param>
-        /// <returns> A new <see cref="KeyVault.KeyVaultSecretData"/> instance for mocking. </returns>
+        /// <returns> A new <see cref="ResourceManager.KeyVault.KeyVaultSecretData"/> instance for mocking. </returns>
         public static KeyVaultSecretData KeyVaultSecretData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, SecretProperties properties = null, AzureLocation? location = null, IReadOnlyDictionary<string, string> tags = null)
         {
             tags ??= new Dictionary<string, string>();

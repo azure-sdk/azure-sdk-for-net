@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager.KeyVault.Models;
+using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.KeyVault
 {
@@ -19,7 +20,7 @@ namespace Azure.ResourceManager.KeyVault
     /// A Class representing a KeyVaultSecret along with the instance operations that can be performed on it.
     /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="KeyVaultSecretResource"/>
     /// from an instance of <see cref="ArmClient"/> using the GetKeyVaultSecretResource method.
-    /// Otherwise you can get one from its parent resource <see cref="KeyVaultResource"/> using the GetKeyVaultSecret method.
+    /// Otherwise you can get one from its parent resource <see cref="ResourceGroupResource"/> using the GetKeyVaultSecret method.
     /// </summary>
     public partial class KeyVaultSecretResource : ArmResource
     {

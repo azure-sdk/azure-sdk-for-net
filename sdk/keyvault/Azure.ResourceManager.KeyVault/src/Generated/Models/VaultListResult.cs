@@ -48,14 +48,14 @@ namespace Azure.ResourceManager.KeyVault.Models
         /// <summary> Initializes a new instance of <see cref="VaultListResult"/>. </summary>
         internal VaultListResult()
         {
-            Value = new ChangeTrackingList<KeyVaultData>();
+            Value = new ChangeTrackingList<KeyVault>();
         }
 
         /// <summary> Initializes a new instance of <see cref="VaultListResult"/>. </summary>
         /// <param name="value"> The list of vaults. </param>
         /// <param name="nextLink"> The URL to get the next set of vaults. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VaultListResult(IReadOnlyList<KeyVaultData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VaultListResult(IReadOnlyList<KeyVault> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.KeyVault.Models
         }
 
         /// <summary> The list of vaults. </summary>
-        public IReadOnlyList<KeyVaultData> Value { get; }
+        public IReadOnlyList<KeyVault> Value { get; }
         /// <summary> The URL to get the next set of vaults. </summary>
         public string NextLink { get; }
     }
