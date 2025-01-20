@@ -12,16 +12,15 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.KeyVault.Models;
 using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.KeyVault
+namespace Azure.ResourceManager.KeyVault.Models
 {
-    public partial class KeyVaultData : IUtf8JsonSerializable, IJsonModel<KeyVaultData>
+    public partial class KeyVault : IUtf8JsonSerializable, IJsonModel<KeyVault>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<KeyVaultData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<KeyVault>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<KeyVaultData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<KeyVault>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -32,10 +31,10 @@ namespace Azure.ResourceManager.KeyVault
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<KeyVaultData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<KeyVault>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(KeyVaultData)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(KeyVault)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
@@ -43,19 +42,19 @@ namespace Azure.ResourceManager.KeyVault
             writer.WriteObjectValue(Properties, options);
         }
 
-        KeyVaultData IJsonModel<KeyVaultData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        KeyVault IJsonModel<KeyVault>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<KeyVaultData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<KeyVault>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(KeyVaultData)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(KeyVault)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeKeyVaultData(document.RootElement, options);
+            return DeserializeKeyVault(document.RootElement, options);
         }
 
-        internal static KeyVaultData DeserializeKeyVaultData(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static KeyVault DeserializeKeyVault(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -63,7 +62,7 @@ namespace Azure.ResourceManager.KeyVault
             {
                 return null;
             }
-            Models.KeyVaultProperties properties = default;
+            KeyVaultProperties properties = default;
             IDictionary<string, string> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
@@ -76,7 +75,7 @@ namespace Azure.ResourceManager.KeyVault
             {
                 if (property.NameEquals("properties"u8))
                 {
-                    properties = Models.KeyVaultProperties.DeserializeKeyVaultProperties(property.Value, options);
+                    properties = KeyVaultProperties.DeserializeKeyVaultProperties(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -128,7 +127,7 @@ namespace Azure.ResourceManager.KeyVault
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new KeyVaultData(
+            return new KeyVault(
                 id,
                 name,
                 type,
@@ -271,9 +270,9 @@ namespace Azure.ResourceManager.KeyVault
             return BinaryData.FromString(builder.ToString());
         }
 
-        BinaryData IPersistableModel<KeyVaultData>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<KeyVault>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<KeyVaultData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<KeyVault>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
@@ -282,26 +281,26 @@ namespace Azure.ResourceManager.KeyVault
                 case "bicep":
                     return SerializeBicep(options);
                 default:
-                    throw new FormatException($"The model {nameof(KeyVaultData)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(KeyVault)} does not support writing '{options.Format}' format.");
             }
         }
 
-        KeyVaultData IPersistableModel<KeyVaultData>.Create(BinaryData data, ModelReaderWriterOptions options)
+        KeyVault IPersistableModel<KeyVault>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<KeyVaultData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<KeyVault>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeKeyVaultData(document.RootElement, options);
+                        return DeserializeKeyVault(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(KeyVaultData)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(KeyVault)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<KeyVaultData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<KeyVault>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
