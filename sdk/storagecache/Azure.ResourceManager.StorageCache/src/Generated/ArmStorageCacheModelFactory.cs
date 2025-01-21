@@ -156,6 +156,65 @@ namespace Azure.ResourceManager.StorageCache.Models
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="StorageCache.AutoExportJobData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="provisioningState"> ARM provisioning state. </param>
+        /// <param name="adminStatus"> The administrative status of the auto export job. Possible values: 'Enable', 'Disable'. Passing in a value of 'Disable' will disable the current active auto export job. By default it is set to 'Enable'. </param>
+        /// <param name="autoExportPrefixes"> An array of blob paths/prefixes that get auto exported to the cluster namespace. It has '/' as the default value. Number of maximum allowed paths for now is 1. </param>
+        /// <param name="state"> The operational state of auto export. InProgress indicates the export is running.  Disabling indicates the user has requested to disable the export but the disabling is still in progress. Disabled indicates auto export has been disabled.  DisableFailed indicates the disabling has failed.  Failed means the export was unable to continue, due to a fatal error. </param>
+        /// <param name="statusCode"> Server-defined status code for auto export job. </param>
+        /// <param name="statusMessage"> Server-defined status message for auto export job. </param>
+        /// <param name="totalFilesExported"> Total files exported since the start of the export. This is accumulative, some files may be counted repeatedly. </param>
+        /// <param name="totalMiBExported"> Total data (in MiB) exported since the start of the export. This is accumulative, some files may be counted repeatedly. </param>
+        /// <param name="totalFilesFailed"> Total files failed to be export since the last successfully completed iteration. This is accumulative, some files may be counted repeatedly. </param>
+        /// <param name="exportIterationCount"> Number of iterations completed since the start of the export. </param>
+        /// <param name="lastSuccessfulIterationCompletionTimeUTC"> Time (in UTC) of the last successfully completed export iteration. Look at logging container for details. </param>
+        /// <param name="currentIterationFilesDiscovered"> Files discovered for export in current iteration. It may increase while more export items are found. </param>
+        /// <param name="currentIterationMiBDiscovered"> Data (in MiB) discovered for export in current iteration. It may increase while more export items are found. </param>
+        /// <param name="currentIterationFilesExported"> Files that have been exported in current iteration. </param>
+        /// <param name="currentIterationMiBExported"> Data (in MiB) that have been exported in current iteration. </param>
+        /// <param name="currentIterationFilesFailed"> Files failed to export in current iteration. </param>
+        /// <param name="lastStartedTimeUTC"> The time (in UTC) the latest auto export job started. </param>
+        /// <param name="lastCompletionTimeUTC"> The time (in UTC) of the last completed auto export job. </param>
+        /// <returns> A new <see cref="StorageCache.AutoExportJobData"/> instance for mocking. </returns>
+        public static AutoExportJobData AutoExportJobData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, AutoExportJobProvisioningStateType? provisioningState = null, AutoExportJobAdminStatus? adminStatus = null, IEnumerable<string> autoExportPrefixes = null, AutoExportStatusType? state = null, string statusCode = null, string statusMessage = null, long? totalFilesExported = null, long? totalMiBExported = null, long? totalFilesFailed = null, int? exportIterationCount = null, DateTimeOffset? lastSuccessfulIterationCompletionTimeUTC = null, long? currentIterationFilesDiscovered = null, long? currentIterationMiBDiscovered = null, long? currentIterationFilesExported = null, long? currentIterationMiBExported = null, long? currentIterationFilesFailed = null, DateTimeOffset? lastStartedTimeUTC = null, DateTimeOffset? lastCompletionTimeUTC = null)
+        {
+            tags ??= new Dictionary<string, string>();
+            autoExportPrefixes ??= new List<string>();
+
+            return new AutoExportJobData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                tags,
+                location,
+                provisioningState,
+                adminStatus,
+                autoExportPrefixes?.ToList(),
+                state,
+                statusCode,
+                statusMessage,
+                totalFilesExported,
+                totalMiBExported,
+                totalFilesFailed,
+                exportIterationCount,
+                lastSuccessfulIterationCompletionTimeUTC,
+                currentIterationFilesDiscovered,
+                currentIterationMiBDiscovered,
+                currentIterationFilesExported,
+                currentIterationMiBExported,
+                currentIterationFilesFailed,
+                lastStartedTimeUTC,
+                lastCompletionTimeUTC,
+                serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="StorageCache.StorageCacheImportJobData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -164,21 +223,28 @@ namespace Azure.ResourceManager.StorageCache.Models
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
         /// <param name="provisioningState"> ARM provisioning state. </param>
+        /// <param name="adminStatus"> The administrative status of the import job. Possible values: 'Enable', 'Disable'. Passing in a value of 'Disable' will cancel the current active import job. By default it is set to 'Enable'. </param>
         /// <param name="importPrefixes"> An array of blob paths/prefixes that get imported into the cluster namespace. It has '/' as the default value. </param>
         /// <param name="conflictResolutionMode"> How the import job will handle conflicts. For example, if the import job is trying to bring in a directory, but a file is at that path, how it handles it. Fail indicates that the import job should stop immediately and not do anything with the conflict. Skip indicates that it should pass over the conflict. OverwriteIfDirty causes the import job to delete and re-import the file or directory if it is a conflicting type, is dirty, or was not previously imported. OverwriteAlways extends OverwriteIfDirty to include releasing files that had been restored but were not dirty. Please reference https://learn.microsoft.com/en-us/azure/azure-managed-lustre/ for a thorough explanation of these resolution modes. </param>
         /// <param name="maximumErrors"> Total non-conflict oriented errors the import job will tolerate before exiting with failure. -1 means infinite. 0 means exit immediately and is the default. </param>
-        /// <param name="state"> The state of the import job. InProgress indicates the import is still running. Canceled indicates it has been canceled by the user. Completed indicates import finished, successfully importing all discovered blobs into the Lustre namespace. CompletedPartial indicates the import finished but some blobs either were found to be conflicting and could not be imported or other errors were encountered. Failed means the import was unable to complete due to a fatal error. </param>
+        /// <param name="state"> The operational state of the import job. InProgress indicates the import is still running. Canceled indicates it has been canceled by the user. Completed indicates import finished, successfully importing all discovered blobs into the Lustre namespace. CompletedPartial indicates the import finished but some blobs either were found to be conflicting and could not be imported or other errors were encountered. Failed means the import was unable to complete due to a fatal error. </param>
         /// <param name="statusMessage"> The status message of the import job. </param>
         /// <param name="totalBlobsWalked"> The total blob objects walked. </param>
         /// <param name="blobsWalkedPerSecond"> A recent and frequently updated rate of blobs walked per second. </param>
         /// <param name="totalBlobsImported"> The total blobs that have been imported since import began. </param>
+        /// <param name="importedFiles"> New or modified files that have been imported into the filesystem. </param>
+        /// <param name="importedDirectories"> New or modified directories that have been imported into the filesystem. </param>
+        /// <param name="importedSymlinks"> Newly added symbolic links into the filesystem. </param>
+        /// <param name="preexistingFiles"> Files that already exist in the filesystem and have not been modified. </param>
+        /// <param name="preexistingDirectories"> Directories that already exist in the filesystem and have not been modified. </param>
+        /// <param name="preexistingSymlinks"> Symbolic links that already exist in the filesystem and have not been modified. </param>
         /// <param name="blobsImportedPerSecond"> A recent and frequently updated rate of total files, directories, and symlinks imported per second. </param>
-        /// <param name="lastCompletionOn"> The time of the last completed archive operation. </param>
-        /// <param name="lastStartedOn"> The time the latest archive operation started. </param>
+        /// <param name="lastCompletionOn"> The time (in UTC) of the last completed import job. </param>
+        /// <param name="lastStartedOn"> The time (in UTC) the latest import job started. </param>
         /// <param name="totalErrors"> Number of errors in the import job. </param>
         /// <param name="totalConflicts"> Number of conflicts in the import job. </param>
         /// <returns> A new <see cref="StorageCache.StorageCacheImportJobData"/> instance for mocking. </returns>
-        public static StorageCacheImportJobData StorageCacheImportJobData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ImportJobProvisioningStateType? provisioningState = null, IEnumerable<string> importPrefixes = null, ConflictResolutionMode? conflictResolutionMode = null, int? maximumErrors = null, ImportStatusType? state = null, string statusMessage = null, long? totalBlobsWalked = null, long? blobsWalkedPerSecond = null, long? totalBlobsImported = null, long? blobsImportedPerSecond = null, DateTimeOffset? lastCompletionOn = null, DateTimeOffset? lastStartedOn = null, int? totalErrors = null, int? totalConflicts = null)
+        public static StorageCacheImportJobData StorageCacheImportJobData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ImportJobProvisioningStateType? provisioningState = null, ImportJobAdminStatus? adminStatus = null, IEnumerable<string> importPrefixes = null, ConflictResolutionMode? conflictResolutionMode = null, int? maximumErrors = null, ImportStatusType? state = null, string statusMessage = null, long? totalBlobsWalked = null, long? blobsWalkedPerSecond = null, long? totalBlobsImported = null, long? importedFiles = null, long? importedDirectories = null, long? importedSymlinks = null, long? preexistingFiles = null, long? preexistingDirectories = null, long? preexistingSymlinks = null, long? blobsImportedPerSecond = null, DateTimeOffset? lastCompletionOn = null, DateTimeOffset? lastStartedOn = null, int? totalErrors = null, int? totalConflicts = null)
         {
             tags ??= new Dictionary<string, string>();
             importPrefixes ??= new List<string>();
@@ -191,6 +257,7 @@ namespace Azure.ResourceManager.StorageCache.Models
                 tags,
                 location,
                 provisioningState,
+                adminStatus,
                 importPrefixes?.ToList(),
                 conflictResolutionMode,
                 maximumErrors,
@@ -199,6 +266,12 @@ namespace Azure.ResourceManager.StorageCache.Models
                 totalBlobsWalked,
                 blobsWalkedPerSecond,
                 totalBlobsImported,
+                importedFiles,
+                importedDirectories,
+                importedSymlinks,
+                preexistingFiles,
+                preexistingDirectories,
+                preexistingSymlinks,
                 blobsImportedPerSecond,
                 lastCompletionOn,
                 lastStartedOn,
@@ -534,6 +607,34 @@ namespace Azure.ResourceManager.StorageCache.Models
                 allocationPercentage,
                 location,
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.StorageCache.StorageCacheImportJobData" />. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="provisioningState"> ARM provisioning state. </param>
+        /// <param name="importPrefixes"> An array of blob paths/prefixes that get imported into the cluster namespace. It has '/' as the default value. </param>
+        /// <param name="conflictResolutionMode"> How the import job will handle conflicts. For example, if the import job is trying to bring in a directory, but a file is at that path, how it handles it. Fail indicates that the import job should stop immediately and not do anything with the conflict. Skip indicates that it should pass over the conflict. OverwriteIfDirty causes the import job to delete and re-import the file or directory if it is a conflicting type, is dirty, or was not previously imported. OverwriteAlways extends OverwriteIfDirty to include releasing files that had been restored but were not dirty. Please reference https://learn.microsoft.com/en-us/azure/azure-managed-lustre/ for a thorough explanation of these resolution modes. </param>
+        /// <param name="maximumErrors"> Total non-conflict oriented errors the import job will tolerate before exiting with failure. -1 means infinite. 0 means exit immediately and is the default. </param>
+        /// <param name="state"> The state of the import job. InProgress indicates the import is still running. Canceled indicates it has been canceled by the user. Completed indicates import finished, successfully importing all discovered blobs into the Lustre namespace. CompletedPartial indicates the import finished but some blobs either were found to be conflicting and could not be imported or other errors were encountered. Failed means the import was unable to complete due to a fatal error. </param>
+        /// <param name="statusMessage"> The status message of the import job. </param>
+        /// <param name="totalBlobsWalked"> The total blob objects walked. </param>
+        /// <param name="blobsWalkedPerSecond"> A recent and frequently updated rate of blobs walked per second. </param>
+        /// <param name="totalBlobsImported"> The total blobs that have been imported since import began. </param>
+        /// <param name="blobsImportedPerSecond"> A recent and frequently updated rate of total files, directories, and symlinks imported per second. </param>
+        /// <param name="lastCompletionOn"> The time of the last completed archive operation. </param>
+        /// <param name="lastStartedOn"> The time the latest archive operation started. </param>
+        /// <param name="totalErrors"> Number of errors in the import job. </param>
+        /// <param name="totalConflicts"> Number of conflicts in the import job. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.StorageCache.StorageCacheImportJobData" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static StorageCacheImportJobData StorageCacheImportJobData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ImportJobProvisioningStateType? provisioningState, IEnumerable<string> importPrefixes, ConflictResolutionMode? conflictResolutionMode, int? maximumErrors, ImportStatusType? state, string statusMessage, long? totalBlobsWalked, long? blobsWalkedPerSecond, long? totalBlobsImported, long? blobsImportedPerSecond, DateTimeOffset? lastCompletionOn, DateTimeOffset? lastStartedOn, int? totalErrors, int? totalConflicts)
+        {
+            return StorageCacheImportJobData(id: id, name: name, resourceType: resourceType, systemData: systemData, tags: tags, location: location, provisioningState: provisioningState, adminStatus: default, importPrefixes: importPrefixes, conflictResolutionMode: conflictResolutionMode, maximumErrors: maximumErrors, state: state, statusMessage: statusMessage, totalBlobsWalked: totalBlobsWalked, blobsWalkedPerSecond: blobsWalkedPerSecond, totalBlobsImported: totalBlobsImported, importedFiles: default, importedDirectories: default, importedSymlinks: default, preexistingFiles: default, preexistingDirectories: default, preexistingSymlinks: default, blobsImportedPerSecond: blobsImportedPerSecond, lastCompletionOn: lastCompletionOn, lastStartedOn: lastStartedOn, totalErrors: totalErrors, totalConflicts: totalConflicts);
         }
     }
 }
