@@ -81,5 +81,17 @@ namespace Azure.ResourceManager.Grafana.Mocking
             ManagedPrivateEndpointModelResource.ValidateResourceId(id);
             return new ManagedPrivateEndpointModelResource(Client, id);
         }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="IntegrationFabricResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="IntegrationFabricResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationFabricResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="IntegrationFabricResource"/> object. </returns>
+        public virtual IntegrationFabricResource GetIntegrationFabricResource(ResourceIdentifier id)
+        {
+            IntegrationFabricResource.ValidateResourceId(id);
+            return new IntegrationFabricResource(Client, id);
+        }
     }
 }
