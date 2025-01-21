@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: StorageCache
 namespace: Azure.ResourceManager.StorageCache
-require: https://github.com/Azure/azure-rest-api-specs/blob/cb1185d9961b7dabe002fdb4c3a28c07d130e47e/specification/storagecache/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/storagecache/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
