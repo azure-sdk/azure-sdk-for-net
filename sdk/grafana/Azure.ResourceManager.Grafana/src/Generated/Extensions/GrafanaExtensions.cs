@@ -109,6 +109,25 @@ namespace Azure.ResourceManager.Grafana
         }
 
         /// <summary>
+        /// Gets an object representing an <see cref="IntegrationFabricResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="IntegrationFabricResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationFabricResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableGrafanaArmClient.GetIntegrationFabricResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="IntegrationFabricResource"/> object. </returns>
+        public static IntegrationFabricResource GetIntegrationFabricResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableGrafanaArmClient(client).GetIntegrationFabricResource(id);
+        }
+
+        /// <summary>
         /// Gets a collection of ManagedGrafanaResources in the ResourceGroupResource.
         /// <item>
         /// <term>Mocking</term>
@@ -138,7 +157,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -176,7 +195,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -214,7 +233,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -250,7 +269,7 @@ namespace Azure.ResourceManager.Grafana
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
