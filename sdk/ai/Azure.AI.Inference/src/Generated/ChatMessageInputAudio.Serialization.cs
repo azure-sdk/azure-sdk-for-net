@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.AI.Inference
 {
-    public partial class EmbeddingsUsage : IUtf8JsonSerializable, IJsonModel<EmbeddingsUsage>
+    public partial class ChatMessageInputAudio : IUtf8JsonSerializable, IJsonModel<ChatMessageInputAudio>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<EmbeddingsUsage>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ChatMessageInputAudio>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<EmbeddingsUsage>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ChatMessageInputAudio>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,16 +28,16 @@ namespace Azure.AI.Inference
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EmbeddingsUsage>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ChatMessageInputAudio>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(EmbeddingsUsage)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ChatMessageInputAudio)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("prompt_tokens"u8);
-            writer.WriteNumberValue(PromptTokens);
-            writer.WritePropertyName("total_tokens"u8);
-            writer.WriteNumberValue(TotalTokens);
+            writer.WritePropertyName("data"u8);
+            writer.WriteStringValue(Data);
+            writer.WritePropertyName("format"u8);
+            writer.WriteStringValue(Format.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -55,19 +55,19 @@ namespace Azure.AI.Inference
             }
         }
 
-        EmbeddingsUsage IJsonModel<EmbeddingsUsage>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ChatMessageInputAudio IJsonModel<ChatMessageInputAudio>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EmbeddingsUsage>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ChatMessageInputAudio>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(EmbeddingsUsage)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ChatMessageInputAudio)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeEmbeddingsUsage(document.RootElement, options);
+            return DeserializeChatMessageInputAudio(document.RootElement, options);
         }
 
-        internal static EmbeddingsUsage DeserializeEmbeddingsUsage(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ChatMessageInputAudio DeserializeChatMessageInputAudio(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -75,20 +75,20 @@ namespace Azure.AI.Inference
             {
                 return null;
             }
-            int promptTokens = default;
-            int totalTokens = default;
+            string data = default;
+            AudioContentFormat format = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("prompt_tokens"u8))
+                if (property.NameEquals("data"u8))
                 {
-                    promptTokens = property.Value.GetInt32();
+                    data = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("total_tokens"u8))
+                if (property.NameEquals("format"u8))
                 {
-                    totalTokens = property.Value.GetInt32();
+                    format = new AudioContentFormat(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -97,46 +97,46 @@ namespace Azure.AI.Inference
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new EmbeddingsUsage(promptTokens, totalTokens, serializedAdditionalRawData);
+            return new ChatMessageInputAudio(data, format, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<EmbeddingsUsage>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ChatMessageInputAudio>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EmbeddingsUsage>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ChatMessageInputAudio>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(EmbeddingsUsage)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ChatMessageInputAudio)} does not support writing '{options.Format}' format.");
             }
         }
 
-        EmbeddingsUsage IPersistableModel<EmbeddingsUsage>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ChatMessageInputAudio IPersistableModel<ChatMessageInputAudio>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EmbeddingsUsage>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ChatMessageInputAudio>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeEmbeddingsUsage(document.RootElement, options);
+                        return DeserializeChatMessageInputAudio(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(EmbeddingsUsage)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ChatMessageInputAudio)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<EmbeddingsUsage>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ChatMessageInputAudio>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static EmbeddingsUsage FromResponse(Response response)
+        internal static ChatMessageInputAudio FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeEmbeddingsUsage(document.RootElement);
+            return DeserializeChatMessageInputAudio(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
