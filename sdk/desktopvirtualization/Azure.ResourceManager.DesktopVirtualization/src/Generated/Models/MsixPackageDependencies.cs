@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="MsixPackageDependencies"/>. </summary>
-        /// <param name="dependencyName"> Name of package dependency. </param>
+        /// <param name="dependencyName"> Name of the package dependency. For Msix packages, this is the other packages this package depends upon, for APP-V packages this is the locations of the user and deployment config files. </param>
         /// <param name="publisher"> Name of dependency publisher. </param>
         /// <param name="minVersion"> Dependency version required. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Name of package dependency. </summary>
+        /// <summary> Name of the package dependency. For Msix packages, this is the other packages this package depends upon, for APP-V packages this is the locations of the user and deployment config files. </summary>
         [WirePath("dependencyName")]
         public string DependencyName { get; set; }
         /// <summary> Name of dependency publisher. </summary>
