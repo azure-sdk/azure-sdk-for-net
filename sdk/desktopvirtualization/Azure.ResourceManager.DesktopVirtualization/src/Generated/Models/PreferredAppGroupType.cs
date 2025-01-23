@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string DesktopValue = "Desktop";
         private const string RailApplicationsValue = "RailApplications";
 
-        /// <summary> None. </summary>
+        /// <summary> This value is read only, it is not accepted on input. </summary>
         public static PreferredAppGroupType None { get; } = new PreferredAppGroupType(NoneValue);
-        /// <summary> Desktop. </summary>
+        /// <summary> Users access the full Windows desktop from a session host. Available with pooled or personal host pools. </summary>
         public static PreferredAppGroupType Desktop { get; } = new PreferredAppGroupType(DesktopValue);
-        /// <summary> RailApplications. </summary>
+        /// <summary> Users access individual applications you select and publish to the application group. Available with pooled host pools only. </summary>
         public static PreferredAppGroupType RailApplications { get; } = new PreferredAppGroupType(RailApplicationsValue);
         /// <summary> Determines if two <see cref="PreferredAppGroupType"/> values are the same. </summary>
         public static bool operator ==(PreferredAppGroupType left, PreferredAppGroupType right) => left.Equals(right);
