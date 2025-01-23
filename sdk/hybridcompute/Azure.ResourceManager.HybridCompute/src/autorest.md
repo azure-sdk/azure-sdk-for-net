@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: HybridCompute
 namespace: Azure.ResourceManager.HybridCompute
-require: https://github.com/Azure/azure-rest-api-specs/blob/0f300277e21972f20b32ffbff96180217875909b/specification/hybridcompute/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/hybridcompute/resource-manager/readme.md
 tag: package-preview-2024-07
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
