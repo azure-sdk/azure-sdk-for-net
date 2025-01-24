@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2023-03-15";
+            _apiVersion = apiVersion ?? "2024-12-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -65,7 +65,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> List of endpoints to the target resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
         public async Task<Response<EndpointsList>> ListAsync(string resourceUri, CancellationToken cancellationToken = default)
@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> List of endpoints to the target resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
         public Response<EndpointsList> List(string resourceUri, CancellationToken cancellationToken = default)
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Gets the endpoint to the resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="endpointName"/> is null. </exception>
@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Gets the endpoint to the resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="endpointName"/> is null. </exception>
@@ -233,7 +233,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Create or update the endpoint to the target resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="data"> Endpoint details. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -261,7 +261,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Create or update the endpoint to the target resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="data"> Endpoint details. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -323,7 +323,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Update the endpoint to the target resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="data"> Endpoint details. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -351,7 +351,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Update the endpoint to the target resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="data"> Endpoint details. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -409,7 +409,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Deletes the endpoint access to the target resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="endpointName"/> is null. </exception>
@@ -431,7 +431,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Deletes the endpoint access to the target resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="endpointName"/> is null. </exception>
@@ -500,7 +500,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Gets the endpoint access credentials to the resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="content"> Object of type ListCredentialsRequest. </param>
         /// <param name="expiresin"> The is how long the endpoint access token is valid (in seconds). </param>
@@ -528,7 +528,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Gets the endpoint access credentials to the resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="content"> Object of type ListCredentialsRequest. </param>
         /// <param name="expiresin"> The is how long the endpoint access token is valid (in seconds). </param>
@@ -555,7 +555,7 @@ namespace Azure.ResourceManager.HybridConnectivity
             }
         }
 
-        internal RequestUriBuilder CreateListIngressGatewayCredentialsRequestUri(string resourceUri, string endpointName, long? expiresin)
+        internal RequestUriBuilder CreateListIngressGatewayCredentialsRequestUri(string resourceUri, string endpointName, ListIngressGatewayCredentialsContent content, long? expiresin)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -572,7 +572,7 @@ namespace Azure.ResourceManager.HybridConnectivity
             return uri;
         }
 
-        internal HttpMessage CreateListIngressGatewayCredentialsRequest(string resourceUri, string endpointName, long? expiresin)
+        internal HttpMessage CreateListIngressGatewayCredentialsRequest(string resourceUri, string endpointName, ListIngressGatewayCredentialsContent content, long? expiresin)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -591,22 +591,30 @@ namespace Azure.ResourceManager.HybridConnectivity
             }
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
+            if (content != null)
+            {
+                request.Headers.Add("Content-Type", "application/json");
+                var content0 = new Utf8JsonRequestContent();
+                content0.JsonWriter.WriteObjectValue(content, ModelSerializationExtensions.WireOptions);
+                request.Content = content0;
+            }
             _userAgent.Apply(message);
             return message;
         }
 
         /// <summary> Gets the ingress gateway endpoint credentials. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
+        /// <param name="content"> Object of type ListIngressGatewayCredentialsRequest. </param>
         /// <param name="expiresin"> The is how long the endpoint access token is valid (in seconds). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="endpointName"/> is null. </exception>
-        public async Task<Response<IngressGatewayAsset>> ListIngressGatewayCredentialsAsync(string resourceUri, string endpointName, long? expiresin = null, CancellationToken cancellationToken = default)
+        public async Task<Response<IngressGatewayAsset>> ListIngressGatewayCredentialsAsync(string resourceUri, string endpointName, ListIngressGatewayCredentialsContent content = null, long? expiresin = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceUri, nameof(resourceUri));
             Argument.AssertNotNull(endpointName, nameof(endpointName));
 
-            using var message = CreateListIngressGatewayCredentialsRequest(resourceUri, endpointName, expiresin);
+            using var message = CreateListIngressGatewayCredentialsRequest(resourceUri, endpointName, content, expiresin);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -623,17 +631,18 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Gets the ingress gateway endpoint credentials. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
+        /// <param name="content"> Object of type ListIngressGatewayCredentialsRequest. </param>
         /// <param name="expiresin"> The is how long the endpoint access token is valid (in seconds). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="endpointName"/> is null. </exception>
-        public Response<IngressGatewayAsset> ListIngressGatewayCredentials(string resourceUri, string endpointName, long? expiresin = null, CancellationToken cancellationToken = default)
+        public Response<IngressGatewayAsset> ListIngressGatewayCredentials(string resourceUri, string endpointName, ListIngressGatewayCredentialsContent content = null, long? expiresin = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceUri, nameof(resourceUri));
             Argument.AssertNotNull(endpointName, nameof(endpointName));
 
-            using var message = CreateListIngressGatewayCredentialsRequest(resourceUri, endpointName, expiresin);
+            using var message = CreateListIngressGatewayCredentialsRequest(resourceUri, endpointName, content, expiresin);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -686,7 +695,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Fetches the managed proxy details. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="content"> Object of type ManagedProxyRequest. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -714,7 +723,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Fetches the managed proxy details. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="content"> Object of type ManagedProxyRequest. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -765,7 +774,7 @@ namespace Azure.ResourceManager.HybridConnectivity
 
         /// <summary> List of endpoints to the target resource. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="resourceUri"/> is null. </exception>
         public async Task<Response<EndpointsList>> ListNextPageAsync(string nextLink, string resourceUri, CancellationToken cancellationToken = default)
@@ -791,7 +800,7 @@ namespace Azure.ResourceManager.HybridConnectivity
 
         /// <summary> List of endpoints to the target resource. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="resourceUri"/> is null. </exception>
         public Response<EndpointsList> ListNextPage(string nextLink, string resourceUri, CancellationToken cancellationToken = default)

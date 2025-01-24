@@ -7,12 +7,12 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
+using System.Linq;
 
 namespace Azure.ResourceManager.HybridConnectivity.Models
 {
-    /// <summary> Endpoint details. </summary>
-    public partial class HybridConnectivityEndpointProperties
+    /// <summary> The response of a PublicCloudConnector list operation. </summary>
+    internal partial class PublicCloudConnectorListResult
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,36 +46,35 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="HybridConnectivityEndpointProperties"/>. </summary>
-        /// <param name="endpointType"> The type of endpoint. </param>
-        public HybridConnectivityEndpointProperties(HybridConnectivityEndpointType endpointType)
+        /// <summary> Initializes a new instance of <see cref="PublicCloudConnectorListResult"/>. </summary>
+        /// <param name="value"> The PublicCloudConnector items on this page. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        internal PublicCloudConnectorListResult(IEnumerable<PublicCloudConnectorData> value)
         {
-            EndpointType = endpointType;
+            Argument.AssertNotNull(value, nameof(value));
+
+            Value = value.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="HybridConnectivityEndpointProperties"/>. </summary>
-        /// <param name="endpointType"> The type of endpoint. </param>
-        /// <param name="resourceId"> The resource Id of the connectivity endpoint (optional). </param>
-        /// <param name="provisioningState"> The resource provisioning state. </param>
+        /// <summary> Initializes a new instance of <see cref="PublicCloudConnectorListResult"/>. </summary>
+        /// <param name="value"> The PublicCloudConnector items on this page. </param>
+        /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HybridConnectivityEndpointProperties(HybridConnectivityEndpointType endpointType, ResourceIdentifier resourceId, string provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PublicCloudConnectorListResult(IReadOnlyList<PublicCloudConnectorData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            EndpointType = endpointType;
-            ResourceId = resourceId;
-            ProvisioningState = provisioningState;
+            Value = value;
+            NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="HybridConnectivityEndpointProperties"/> for deserialization. </summary>
-        internal HybridConnectivityEndpointProperties()
+        /// <summary> Initializes a new instance of <see cref="PublicCloudConnectorListResult"/> for deserialization. </summary>
+        internal PublicCloudConnectorListResult()
         {
         }
 
-        /// <summary> The type of endpoint. </summary>
-        public HybridConnectivityEndpointType EndpointType { get; set; }
-        /// <summary> The resource Id of the connectivity endpoint (optional). </summary>
-        public ResourceIdentifier ResourceId { get; set; }
-        /// <summary> The resource provisioning state. </summary>
-        public string ProvisioningState { get; }
+        /// <summary> The PublicCloudConnector items on this page. </summary>
+        public IReadOnlyList<PublicCloudConnectorData> Value { get; }
+        /// <summary> The link to the next page of items. </summary>
+        public Uri NextLink { get; }
     }
 }
