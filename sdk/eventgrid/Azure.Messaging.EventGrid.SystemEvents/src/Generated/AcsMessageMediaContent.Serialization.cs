@@ -34,16 +34,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 throw new FormatException($"The model {nameof(AcsMessageMediaContent)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(MimeType))
-            {
-                writer.WritePropertyName("mimeType"u8);
-                writer.WriteStringValue(MimeType);
-            }
-            if (Optional.IsDefined(MediaId))
-            {
-                writer.WritePropertyName("id"u8);
-                writer.WriteStringValue(MediaId);
-            }
+            writer.WritePropertyName("mimeType"u8);
+            writer.WriteStringValue(MimeType);
+            writer.WritePropertyName("id"u8);
+            writer.WriteStringValue(MediaId);
             if (Optional.IsDefined(FileName))
             {
                 writer.WritePropertyName("fileName"u8);

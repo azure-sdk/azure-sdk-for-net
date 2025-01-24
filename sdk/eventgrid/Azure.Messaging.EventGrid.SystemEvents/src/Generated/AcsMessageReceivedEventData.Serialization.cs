@@ -42,14 +42,28 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
             writer.WritePropertyName("channelType"u8);
             writer.WriteStringValue(ChannelKind.ToString());
-            writer.WritePropertyName("media"u8);
-            writer.WriteObjectValue(MediaContent, options);
-            writer.WritePropertyName("context"u8);
-            writer.WriteObjectValue(Context, options);
-            writer.WritePropertyName("button"u8);
-            writer.WriteObjectValue(Button, options);
-            writer.WritePropertyName("interactive"u8);
-            writer.WriteObjectValue(InteractiveContent, options);
+            writer.WritePropertyName("messageType"u8);
+            writer.WriteStringValue(MessageType);
+            if (Optional.IsDefined(MediaContent))
+            {
+                writer.WritePropertyName("media"u8);
+                writer.WriteObjectValue(MediaContent, options);
+            }
+            if (Optional.IsDefined(Context))
+            {
+                writer.WritePropertyName("context"u8);
+                writer.WriteObjectValue(Context, options);
+            }
+            if (Optional.IsDefined(Button))
+            {
+                writer.WritePropertyName("button"u8);
+                writer.WriteObjectValue(Button, options);
+            }
+            if (Optional.IsDefined(InteractiveContent))
+            {
+                writer.WritePropertyName("interactive"u8);
+                writer.WriteObjectValue(InteractiveContent, options);
+            }
         }
 
         AcsMessageReceivedEventData IJsonModel<AcsMessageReceivedEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -74,13 +88,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
             string content = default;
             AcsMessageChannelKind channelType = default;
+            string messageType = default;
             AcsMessageMediaContent media = default;
             AcsMessageContext context = default;
             AcsMessageButtonContent button = default;
             AcsMessageInteractiveContent interactive = default;
             string @from = default;
             string to = default;
-            DateTimeOffset receivedTimeStamp = default;
+            DateTimeOffset? receivedTimeStamp = default;
             AcsMessageChannelEventError error = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -96,23 +111,44 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     channelType = new AcsMessageChannelKind(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("messageType"u8))
+                {
+                    messageType = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("media"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     media = AcsMessageMediaContent.DeserializeAcsMessageMediaContent(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("context"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     context = AcsMessageContext.DeserializeAcsMessageContext(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("button"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     button = AcsMessageButtonContent.DeserializeAcsMessageButtonContent(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("interactive"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     interactive = AcsMessageInteractiveContent.DeserializeAcsMessageInteractiveContent(property.Value, options);
                     continue;
                 }
@@ -128,11 +164,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("receivedTimeStamp"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     receivedTimeStamp = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
                 if (property.NameEquals("error"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     error = AcsMessageChannelEventError.DeserializeAcsMessageChannelEventError(property.Value, options);
                     continue;
                 }
@@ -150,6 +194,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 serializedAdditionalRawData,
                 content,
                 channelType,
+                messageType,
                 media,
                 context,
                 button,

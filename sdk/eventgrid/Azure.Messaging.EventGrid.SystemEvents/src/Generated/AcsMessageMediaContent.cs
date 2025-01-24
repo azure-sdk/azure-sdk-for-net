@@ -46,15 +46,23 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsMessageMediaContent"/>. </summary>
-        internal AcsMessageMediaContent()
+        /// <param name="mimeType"> Required. The MIME type of the file this media represents. </param>
+        /// <param name="mediaId"> Required. The media identifier. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="mimeType"/> or <paramref name="mediaId"/> is null. </exception>
+        internal AcsMessageMediaContent(string mimeType, string mediaId)
         {
+            Argument.AssertNotNull(mimeType, nameof(mimeType));
+            Argument.AssertNotNull(mediaId, nameof(mediaId));
+
+            MimeType = mimeType;
+            MediaId = mediaId;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsMessageMediaContent"/>. </summary>
-        /// <param name="mimeType"> The MIME type of the file this media represents. </param>
-        /// <param name="mediaId"> The media identifier. </param>
-        /// <param name="fileName"> The filename of the underlying media file as specified when uploaded. </param>
-        /// <param name="caption"> The caption for the media object, if supported and provided. </param>
+        /// <param name="mimeType"> Required. The MIME type of the file this media represents. </param>
+        /// <param name="mediaId"> Required. The media identifier. </param>
+        /// <param name="fileName"> Optional. The filename of the underlying media file as specified when uploaded. </param>
+        /// <param name="caption"> Optional. The caption for the media object, if supported and provided. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal AcsMessageMediaContent(string mimeType, string mediaId, string fileName, string caption, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
@@ -65,13 +73,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The MIME type of the file this media represents. </summary>
+        /// <summary> Initializes a new instance of <see cref="AcsMessageMediaContent"/> for deserialization. </summary>
+        internal AcsMessageMediaContent()
+        {
+        }
+
+        /// <summary> Required. The MIME type of the file this media represents. </summary>
         public string MimeType { get; }
-        /// <summary> The media identifier. </summary>
+        /// <summary> Required. The media identifier. </summary>
         public string MediaId { get; }
-        /// <summary> The filename of the underlying media file as specified when uploaded. </summary>
+        /// <summary> Optional. The filename of the underlying media file as specified when uploaded. </summary>
         public string FileName { get; }
-        /// <summary> The caption for the media object, if supported and provided. </summary>
+        /// <summary> Optional. The caption for the media object, if supported and provided. </summary>
         public string Caption { get; }
     }
 }
