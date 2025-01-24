@@ -6,6 +6,8 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Azure.Core;
 using Azure.ResourceManager.Models;
 
@@ -19,49 +21,19 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> The endpoint properties. </param>
+        /// <param name="typePropertiesType"> The type of endpoint. </param>
+        /// <param name="resourceId"> The resource Id of the connectivity endpoint (optional). </param>
+        /// <param name="provisioningState"> The resource provisioning state. </param>
         /// <returns> A new <see cref="HybridConnectivity.HybridConnectivityEndpointData"/> instance for mocking. </returns>
-        public static HybridConnectivityEndpointData HybridConnectivityEndpointData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, HybridConnectivityEndpointProperties properties = null)
+        public static HybridConnectivityEndpointData HybridConnectivityEndpointData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, Type? typePropertiesType = null, ResourceIdentifier resourceId = null, string provisioningState = null)
         {
             return new HybridConnectivityEndpointData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                properties,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.HybridConnectivityEndpointProperties"/>. </summary>
-        /// <param name="endpointType"> The type of endpoint. </param>
-        /// <param name="resourceId"> The resource Id of the connectivity endpoint (optional). </param>
-        /// <param name="provisioningState"> The resource provisioning state. </param>
-        /// <returns> A new <see cref="Models.HybridConnectivityEndpointProperties"/> instance for mocking. </returns>
-        public static HybridConnectivityEndpointProperties HybridConnectivityEndpointProperties(HybridConnectivityEndpointType endpointType = default, ResourceIdentifier resourceId = null, string provisioningState = null)
-        {
-            return new HybridConnectivityEndpointProperties(endpointType, resourceId, provisioningState, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="HybridConnectivity.HybridConnectivityServiceConfigurationData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="serviceName"> Name of the service. </param>
-        /// <param name="resourceId"> The resource Id of the connectivity endpoint (optional). </param>
-        /// <param name="port"> The port on which service is enabled. </param>
-        /// <param name="provisioningState"> The resource provisioning state. </param>
-        /// <returns> A new <see cref="HybridConnectivity.HybridConnectivityServiceConfigurationData"/> instance for mocking. </returns>
-        public static HybridConnectivityServiceConfigurationData HybridConnectivityServiceConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, HybridConnectivityServiceName? serviceName = null, ResourceIdentifier resourceId = null, long? port = null, HybridConnectivityProvisioningState? provisioningState = null)
-        {
-            return new HybridConnectivityServiceConfigurationData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                serviceName,
+                typePropertiesType,
                 resourceId,
-                port,
                 provisioningState,
                 serializedAdditionalRawData: null);
         }
@@ -129,6 +101,240 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
         public static ManagedProxyAsset ManagedProxyAsset(string proxy = null, long expiresOn = default)
         {
             return new ManagedProxyAsset(proxy, expiresOn, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="HybridConnectivity.HybridConnectivityServiceConfigurationData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="serviceName"> Name of the service. </param>
+        /// <param name="resourceId"> The resource Id of the connectivity endpoint (optional). </param>
+        /// <param name="port"> The port on which service is enabled. </param>
+        /// <param name="provisioningState"> The resource provisioning state. </param>
+        /// <returns> A new <see cref="HybridConnectivity.HybridConnectivityServiceConfigurationData"/> instance for mocking. </returns>
+        public static HybridConnectivityServiceConfigurationData HybridConnectivityServiceConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, HybridConnectivityServiceName? serviceName = null, ResourceIdentifier resourceId = null, long? port = null, HybridConnectivityProvisioningState? provisioningState = null)
+        {
+            return new HybridConnectivityServiceConfigurationData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                serviceName,
+                resourceId,
+                port,
+                provisioningState,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="HybridConnectivity.SolutionConfigurationData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="provisioningState"> The resource provisioning state. </param>
+        /// <param name="solutionType"> The type of the solution. </param>
+        /// <param name="solutionSettings"> Solution settings. </param>
+        /// <param name="status"> The status of solution configurations. </param>
+        /// <param name="statusDetails"> The detailed message of status details. </param>
+        /// <param name="lastSyncOn"> The last time resources were inventoried. </param>
+        /// <returns> A new <see cref="HybridConnectivity.SolutionConfigurationData"/> instance for mocking. </returns>
+        public static SolutionConfigurationData SolutionConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ResourceProvisioningState? provisioningState = null, string solutionType = null, IDictionary<string, string> solutionSettings = null, SolutionConfigurationStatus? status = null, string statusDetails = null, DateTimeOffset? lastSyncOn = null)
+        {
+            solutionSettings ??= new Dictionary<string, string>();
+
+            return new SolutionConfigurationData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                provisioningState,
+                solutionType,
+                solutionSettings,
+                status,
+                statusDetails,
+                lastSyncOn,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SolutionConfigurationPatch"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="solutionType"> The type of the solution. </param>
+        /// <param name="solutionSettings"> Solution settings. </param>
+        /// <returns> A new <see cref="Models.SolutionConfigurationPatch"/> instance for mocking. </returns>
+        public static SolutionConfigurationPatch SolutionConfigurationPatch(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string solutionType = null, IDictionary<string, string> solutionSettings = null)
+        {
+            solutionSettings ??= new Dictionary<string, string>();
+
+            return new SolutionConfigurationPatch(
+                id,
+                name,
+                resourceType,
+                systemData,
+                solutionType,
+                solutionSettings,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="HybridConnectivity.InventoryResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="cloudNativeType"> Gets or sets the cloud native resource type. </param>
+        /// <param name="cloudNativeResourceId"> Gets or sets the cloud native resource name. </param>
+        /// <param name="azureResourceId"> Gets or sets the mapped azure resource id. </param>
+        /// <param name="status"> Gets or sets the status of the inventory. </param>
+        /// <param name="statusDetails"> Gets or sets the status details. </param>
+        /// <param name="provisioningState"> The resource provisioning state. </param>
+        /// <returns> A new <see cref="HybridConnectivity.InventoryResourceData"/> instance for mocking. </returns>
+        public static InventoryResourceData InventoryResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, CloudNativeType? cloudNativeType = null, string cloudNativeResourceId = null, string azureResourceId = null, SolutionConfigurationStatus? status = null, string statusDetails = null, ResourceProvisioningState? provisioningState = null)
+        {
+            return new InventoryResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                cloudNativeType,
+                cloudNativeResourceId,
+                azureResourceId,
+                status,
+                statusDetails,
+                provisioningState,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.OperationStatusResult"/>. </summary>
+        /// <param name="id"> Fully qualified ID for the async operation. </param>
+        /// <param name="resourceId"> Fully qualified ID of the resource against which the original async operation was started. </param>
+        /// <param name="name"> Name of the async operation. </param>
+        /// <param name="status"> Operation status. </param>
+        /// <param name="percentComplete"> Percent of the operation that is complete. </param>
+        /// <param name="startOn"> The start time of the operation. </param>
+        /// <param name="endOn"> The end time of the operation. </param>
+        /// <param name="operations"> The operations list. </param>
+        /// <param name="error"> If present, details of the operation error. </param>
+        /// <returns> A new <see cref="Models.OperationStatusResult"/> instance for mocking. </returns>
+        public static OperationStatusResult OperationStatusResult(ResourceIdentifier id = null, ResourceIdentifier resourceId = null, string name = null, string status = null, float? percentComplete = null, DateTimeOffset? startOn = null, DateTimeOffset? endOn = null, IEnumerable<OperationStatusResult> operations = null, ResponseError error = null)
+        {
+            operations ??= new List<OperationStatusResult>();
+
+            return new OperationStatusResult(
+                id,
+                resourceId,
+                name,
+                status,
+                percentComplete,
+                startOn,
+                endOn,
+                operations?.ToList(),
+                error,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.GenerateAwsTemplateContent"/>. </summary>
+        /// <param name="connectorId"> The name of public cloud connector. </param>
+        /// <param name="solutionTypes"> The list of solution types and their settings. </param>
+        /// <returns> A new <see cref="Models.GenerateAwsTemplateContent"/> instance for mocking. </returns>
+        public static GenerateAwsTemplateContent GenerateAwsTemplateContent(string connectorId = null, IEnumerable<SolutionTypeSettings> solutionTypes = null)
+        {
+            solutionTypes ??= new List<SolutionTypeSettings>();
+
+            return new GenerateAwsTemplateContent(connectorId, solutionTypes?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SolutionTypeSettings"/>. </summary>
+        /// <param name="solutionType"> The type of the solution. </param>
+        /// <param name="solutionSettings"> Solution settings. </param>
+        /// <returns> A new <see cref="Models.SolutionTypeSettings"/> instance for mocking. </returns>
+        public static SolutionTypeSettings SolutionTypeSettings(string solutionType = null, IDictionary<string, string> solutionSettings = null)
+        {
+            solutionSettings ??= new Dictionary<string, string>();
+
+            return new SolutionTypeSettings(solutionType, solutionSettings, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="HybridConnectivity.PublicCloudConnectorData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="awsCloudProfile"> Cloud profile for AWS. </param>
+        /// <param name="hostType"> Host cloud the public cloud connector. </param>
+        /// <param name="provisioningState"> The resource provisioning state. </param>
+        /// <param name="connectorPrimaryIdentifier"> Connector primary identifier. </param>
+        /// <returns> A new <see cref="HybridConnectivity.PublicCloudConnectorData"/> instance for mocking. </returns>
+        public static PublicCloudConnectorData PublicCloudConnectorData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, AwsCloudProfile awsCloudProfile = null, HostType? hostType = null, ResourceProvisioningState? provisioningState = null, string connectorPrimaryIdentifier = null)
+        {
+            tags ??= new Dictionary<string, string>();
+
+            return new PublicCloudConnectorData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                tags,
+                location,
+                awsCloudProfile,
+                hostType,
+                provisioningState,
+                connectorPrimaryIdentifier,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="HybridConnectivity.SolutionTypeResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="solutionType"> The name of the solution type. </param>
+        /// <param name="description"> Short description of solution type. </param>
+        /// <param name="supportedAzureRegions"> The locations this solution is supported in. </param>
+        /// <param name="solutionSettings"> Array of solution settings and its description. </param>
+        /// <returns> A new <see cref="HybridConnectivity.SolutionTypeResourceData"/> instance for mocking. </returns>
+        public static SolutionTypeResourceData SolutionTypeResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string solutionType = null, string description = null, IEnumerable<string> supportedAzureRegions = null, IEnumerable<SolutionTypeSettingsProperties> solutionSettings = null)
+        {
+            supportedAzureRegions ??= new List<string>();
+            solutionSettings ??= new List<SolutionTypeSettingsProperties>();
+
+            return new SolutionTypeResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                solutionType,
+                description,
+                supportedAzureRegions?.ToList(),
+                solutionSettings?.ToList(),
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.PublicCloudConnectorPatch"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="awsCloudExcludedAccounts"> Cloud profile for AWS. </param>
+        /// <param name="tags"> Resource tags. </param>
+        /// <returns> A new <see cref="Models.PublicCloudConnectorPatch"/> instance for mocking. </returns>
+        public static PublicCloudConnectorPatch PublicCloudConnectorPatch(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IEnumerable<string> awsCloudExcludedAccounts = null, IDictionary<string, string> tags = null)
+        {
+            awsCloudExcludedAccounts ??= new List<string>();
+            tags ??= new Dictionary<string, string>();
+
+            return new PublicCloudConnectorPatch(
+                id,
+                name,
+                resourceType,
+                systemData,
+                awsCloudExcludedAccounts != null ? new AwsCloudProfileUpdate(awsCloudExcludedAccounts?.ToList(), serializedAdditionalRawData: null) : null,
+                tags,
+                serializedAdditionalRawData: null);
         }
     }
 }
