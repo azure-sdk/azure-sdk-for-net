@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.Analysis
         }
 
         /// <summary>
-        /// Gets details about the specified Analysis Services server.
+        /// Gets details about the specified Analysis Services server. trestest
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -132,7 +132,7 @@ namespace Azure.ResourceManager.Analysis
         }
 
         /// <summary>
-        /// Gets details about the specified Analysis Services server.
+        /// Gets details about the specified Analysis Services server. trestest
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
