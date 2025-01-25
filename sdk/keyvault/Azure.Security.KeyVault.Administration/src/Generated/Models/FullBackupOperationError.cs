@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Security.KeyVault.Administration.Models
 {
-    /// <summary> Role assignment list operation result. </summary>
-    internal partial class RoleAssignmentListResult
+    /// <summary> The FullBackupOperationError. </summary>
+    internal partial class FullBackupOperationError
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,26 +45,29 @@ namespace Azure.Security.KeyVault.Administration.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="RoleAssignmentListResult"/>. </summary>
-        internal RoleAssignmentListResult()
+        /// <summary> Initializes a new instance of <see cref="FullBackupOperationError"/>. </summary>
+        internal FullBackupOperationError()
         {
-            Value = new ChangeTrackingList<KeyVaultRoleAssignment>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="RoleAssignmentListResult"/>. </summary>
-        /// <param name="value"> Role assignment list. </param>
-        /// <param name="nextLink"> The URL to use for getting the next set of results. </param>
+        /// <summary> Initializes a new instance of <see cref="FullBackupOperationError"/>. </summary>
+        /// <param name="code"> The error code. </param>
+        /// <param name="message"> The error message. </param>
+        /// <param name="innerError"> The key vault server error. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal RoleAssignmentListResult(IReadOnlyList<KeyVaultRoleAssignment> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal FullBackupOperationError(string code, string message, FullBackupOperationError innerError, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Value = value;
-            NextLink = nextLink;
+            Code = code;
+            Message = message;
+            InnerError = innerError;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Role assignment list. </summary>
-        public IReadOnlyList<KeyVaultRoleAssignment> Value { get; }
-        /// <summary> The URL to use for getting the next set of results. </summary>
-        public string NextLink { get; }
+        /// <summary> The error code. </summary>
+        public string Code { get; }
+        /// <summary> The error message. </summary>
+        public string Message { get; }
+        /// <summary> The key vault server error. </summary>
+        public FullBackupOperationError InnerError { get; }
     }
 }
