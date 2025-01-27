@@ -22,7 +22,7 @@ namespace Azure.ResourceManager.DataBox.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_JobsCreate()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsCreate.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsCreate.json
             // this example is just showing the usage of "Jobs_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -49,11 +49,12 @@ namespace Azure.ResourceManager.DataBox.Samples
                     PhoneExtension = "",
                 })
                 {
-                    ShippingAddress = new DataBoxShippingAddress("XXXX XXXX", "XX", "00000")
+                    ShippingAddress = new DataBoxShippingAddress("XXXX XXXX", "XX")
                     {
                         StreetAddress2 = "XXXX XXXX",
                         City = "XXXX XXXX",
                         StateOrProvince = "XX",
+                        PostalCode = "00000",
                         CompanyName = "XXXX XXXX",
                         AddressType = DataBoxShippingAddressType.Commercial,
                     },
@@ -74,7 +75,7 @@ namespace Azure.ResourceManager.DataBox.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_JobsCreateDevicePassword()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsCreateDevicePassword.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsCreateDevicePassword.json
             // this example is just showing the usage of "Jobs_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -102,11 +103,12 @@ namespace Azure.ResourceManager.DataBox.Samples
                 })
                 {
                     DevicePassword = "<devicePassword>",
-                    ShippingAddress = new DataBoxShippingAddress("XXXX XXXX", "XX", "00000")
+                    ShippingAddress = new DataBoxShippingAddress("XXXX XXXX", "XX")
                     {
                         StreetAddress2 = "XXXX XXXX",
                         City = "XXXX XXXX",
                         StateOrProvince = "XX",
+                        PostalCode = "00000",
                         CompanyName = "XXXX XXXX",
                         AddressType = DataBoxShippingAddressType.Commercial,
                     },
@@ -130,7 +132,7 @@ SharePassword = "<sharePassword>",
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_JobsCreateDoubleEncryption()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsCreateDoubleEncryption.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsCreateDoubleEncryption.json
             // this example is just showing the usage of "Jobs_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -157,11 +159,12 @@ SharePassword = "<sharePassword>",
                     PhoneExtension = "",
                 })
                 {
-                    ShippingAddress = new DataBoxShippingAddress("XXXX XXXX", "XX", "00000")
+                    ShippingAddress = new DataBoxShippingAddress("XXXX XXXX", "XX")
                     {
                         StreetAddress2 = "XXXX XXXX",
                         City = "XXXX XXXX",
                         StateOrProvince = "XX",
+                        PostalCode = "00000",
                         CompanyName = "XXXX XXXX",
                         AddressType = DataBoxShippingAddressType.Commercial,
                     },
@@ -189,7 +192,7 @@ SharePassword = "<sharePassword>",
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_JobsCreateExport()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsCreateExport.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsCreateExport.json
             // this example is just showing the usage of "Jobs_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -216,11 +219,12 @@ SharePassword = "<sharePassword>",
                     PhoneExtension = "",
                 })
                 {
-                    ShippingAddress = new DataBoxShippingAddress("XXXX XXXX", "XX", "00000")
+                    ShippingAddress = new DataBoxShippingAddress("XXXX XXXX", "XX")
                     {
                         StreetAddress2 = "XXXX XXXX",
                         City = "XXXX XXXX",
                         StateOrProvince = "XX",
+                        PostalCode = "00000",
                         CompanyName = "XXXX XXXX",
                         AddressType = DataBoxShippingAddressType.Commercial,
                     },
@@ -248,7 +252,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_JobsCreateWithUserAssignedIdentity()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsCreateWithUserAssignedIdentity.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsCreateWithUserAssignedIdentity.json
             // this example is just showing the usage of "Jobs_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -275,11 +279,12 @@ TransferAllFiles = true,
                     PhoneExtension = "",
                 })
                 {
-                    ShippingAddress = new DataBoxShippingAddress("XXXX XXXX", "XX", "00000")
+                    ShippingAddress = new DataBoxShippingAddress("XXXX XXXX", "XX")
                     {
                         StreetAddress2 = "XXXX XXXX",
                         City = "XXXX XXXX",
                         StateOrProvince = "XX",
+                        PostalCode = "00000",
                         CompanyName = "XXXX XXXX",
                         AddressType = DataBoxShippingAddressType.Commercial,
                     },
@@ -307,7 +312,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task Get_JobsGet()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsGet.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsGet.json
             // this example is just showing the usage of "Jobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -341,7 +346,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task Get_JobsGetCmk()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsGetCmk.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsGetCmk.json
             // this example is just showing the usage of "Jobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -375,7 +380,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task Get_JobsGetCopyStuck()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsGetCopyStuck.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsGetCopyStuck.json
             // this example is just showing the usage of "Jobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -409,7 +414,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task Get_JobsGetExport()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsGetExport.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsGetExport.json
             // this example is just showing the usage of "Jobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -443,7 +448,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task Get_JobsGetWaitingForAction()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsGetWaitingForAction.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsGetWaitingForAction.json
             // this example is just showing the usage of "Jobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -477,7 +482,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_JobsListByResourceGroup()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsListByResourceGroup.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsListByResourceGroup.json
             // this example is just showing the usage of "Jobs_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -512,7 +517,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_JobsGet()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsGet.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsGet.json
             // this example is just showing the usage of "Jobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -542,7 +547,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_JobsGetCmk()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsGetCmk.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsGetCmk.json
             // this example is just showing the usage of "Jobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -572,7 +577,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_JobsGetCopyStuck()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsGetCopyStuck.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsGetCopyStuck.json
             // this example is just showing the usage of "Jobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -602,7 +607,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_JobsGetExport()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsGetExport.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsGetExport.json
             // this example is just showing the usage of "Jobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -632,7 +637,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_JobsGetWaitingForAction()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsGetWaitingForAction.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsGetWaitingForAction.json
             // this example is just showing the usage of "Jobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -662,7 +667,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_JobsGet()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsGet.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsGet.json
             // this example is just showing the usage of "Jobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -704,7 +709,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_JobsGetCmk()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsGetCmk.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsGetCmk.json
             // this example is just showing the usage of "Jobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -746,7 +751,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_JobsGetCopyStuck()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsGetCopyStuck.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsGetCopyStuck.json
             // this example is just showing the usage of "Jobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -788,7 +793,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_JobsGetExport()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsGetExport.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsGetExport.json
             // this example is just showing the usage of "Jobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -830,7 +835,7 @@ TransferAllFiles = true,
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_JobsGetWaitingForAction()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsGetWaitingForAction.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsGetWaitingForAction.json
             // this example is just showing the usage of "Jobs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

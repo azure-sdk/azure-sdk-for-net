@@ -61,12 +61,14 @@ namespace Azure.ResourceManager.DataBox.Models
         /// <param name="storageLocation"> Location for data transfer. For locations check: https://management.azure.com/subscriptions/SUBSCRIPTIONID/locations?api-version=2018-01-01. </param>
         /// <param name="skuName"> Sku Name for which the order is to be scheduled. </param>
         /// <param name="country"> Country in which storage location should be supported. </param>
+        /// <param name="model"> The model name. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ScheduleAvailabilityContent(AzureLocation storageLocation, DataBoxSkuName skuName, string country, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ScheduleAvailabilityContent(AzureLocation storageLocation, DataBoxSkuName skuName, string country, ModelName? model, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             StorageLocation = storageLocation;
             SkuName = skuName;
             Country = country;
+            Model = model;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -81,5 +83,7 @@ namespace Azure.ResourceManager.DataBox.Models
         internal DataBoxSkuName SkuName { get; set; }
         /// <summary> Country in which storage location should be supported. </summary>
         public string Country { get; set; }
+        /// <summary> The model name. </summary>
+        public ModelName? Model { get; }
     }
 }

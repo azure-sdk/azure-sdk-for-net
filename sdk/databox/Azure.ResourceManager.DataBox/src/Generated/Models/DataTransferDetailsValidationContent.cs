@@ -32,12 +32,14 @@ namespace Azure.ResourceManager.DataBox.Models
         /// <param name="dataImportDetails"> List of DataTransfer details to be used to import data to azure. </param>
         /// <param name="deviceType"> Device type. </param>
         /// <param name="transferType"> Type of the transfer. </param>
-        internal DataTransferDetailsValidationContent(DataBoxValidationInputDiscriminator validationType, IDictionary<string, BinaryData> serializedAdditionalRawData, IList<DataExportDetails> dataExportDetails, IList<DataImportDetails> dataImportDetails, DataBoxSkuName deviceType, DataBoxJobTransferType transferType) : base(validationType, serializedAdditionalRawData)
+        /// <param name="model"> The model name. </param>
+        internal DataTransferDetailsValidationContent(DataBoxValidationInputDiscriminator validationType, IDictionary<string, BinaryData> serializedAdditionalRawData, IList<DataExportDetails> dataExportDetails, IList<DataImportDetails> dataImportDetails, DataBoxSkuName deviceType, DataBoxJobTransferType transferType, ModelName? model) : base(validationType, serializedAdditionalRawData)
         {
             DataExportDetails = dataExportDetails;
             DataImportDetails = dataImportDetails;
             DeviceType = deviceType;
             TransferType = transferType;
+            Model = model;
             ValidationType = validationType;
         }
 
@@ -54,5 +56,7 @@ namespace Azure.ResourceManager.DataBox.Models
         public DataBoxSkuName DeviceType { get; }
         /// <summary> Type of the transfer. </summary>
         public DataBoxJobTransferType TransferType { get; }
+        /// <summary> The model name. </summary>
+        public ModelName? Model { get; }
     }
 }

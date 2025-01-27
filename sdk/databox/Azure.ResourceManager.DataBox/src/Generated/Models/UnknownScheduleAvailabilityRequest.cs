@@ -18,8 +18,9 @@ namespace Azure.ResourceManager.DataBox.Models
         /// <param name="storageLocation"> Location for data transfer. For locations check: https://management.azure.com/subscriptions/SUBSCRIPTIONID/locations?api-version=2018-01-01. </param>
         /// <param name="skuName"> Sku Name for which the order is to be scheduled. </param>
         /// <param name="country"> Country in which storage location should be supported. </param>
+        /// <param name="model"> The model name. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownScheduleAvailabilityRequest(AzureLocation storageLocation, DataBoxSkuName skuName, string country, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(storageLocation, skuName, country, serializedAdditionalRawData)
+        internal UnknownScheduleAvailabilityRequest(AzureLocation storageLocation, DataBoxSkuName skuName, string country, ModelName? model, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(storageLocation, skuName, country, model, serializedAdditionalRawData)
         {
             SkuName = skuName;
         }
