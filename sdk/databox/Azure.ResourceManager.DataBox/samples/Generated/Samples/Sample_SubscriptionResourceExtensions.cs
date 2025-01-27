@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.DataBox.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetDataBoxJobs_JobsList()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/JobsList.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/JobsList.json
             // this example is just showing the usage of "Jobs_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.DataBox.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task ValidateAddress_ValidateAddressPost()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/ValidateAddressPost.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/ValidateAddressPost.json
             // this example is just showing the usage of "Service_ValidateAddress" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -68,11 +68,12 @@ namespace Azure.ResourceManager.DataBox.Samples
 
             // invoke the operation
             AzureLocation location = new AzureLocation("westus");
-            DataBoxValidateAddressContent content = new DataBoxValidateAddressContent(new DataBoxShippingAddress("XXXX XXXX", "XX", "00000")
+            DataBoxValidateAddressContent content = new DataBoxValidateAddressContent(new DataBoxShippingAddress("XXXX XXXX", "XX")
             {
                 StreetAddress2 = "XXXX XXXX",
                 City = "XXXX XXXX",
                 StateOrProvince = "XX",
+                PostalCode = "00000",
                 CompanyName = "XXXX XXXX",
                 AddressType = DataBoxShippingAddressType.Commercial,
             }, DataBoxSkuName.DataBox);
@@ -85,7 +86,7 @@ namespace Azure.ResourceManager.DataBox.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task ValidateInputs_ValidateInputs()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/ValidateInputs.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/ValidateInputs.json
             // this example is just showing the usage of "Service_ValidateInputs" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -107,11 +108,12 @@ new DataTransferDetailsValidationContent(DataBoxSkuName.DataBox, DataBoxJobTrans
 {
 DataImportDetails = {new DataImportDetails(new DataBoxStorageAccountDetails(new ResourceIdentifier("/subscriptions/YourSubscriptionId/resourcegroups/YourResourceGroupName/providers/Microsoft.Storage/storageAccounts/YourStorageAccountName")))},
 },
-new DataBoxValidateAddressContent(new DataBoxShippingAddress("XXXX XXXX", "XX", "00000")
+new DataBoxValidateAddressContent(new DataBoxShippingAddress("XXXX XXXX", "XX")
 {
 StreetAddress2 = "XXXX XXXX",
 City = "XXXX XXXX",
 StateOrProvince = "XX",
+PostalCode = "00000",
 CompanyName = "XXXX XXXX",
 AddressType = DataBoxShippingAddressType.Commercial,
 }, DataBoxSkuName.DataBox)
@@ -138,7 +140,7 @@ TransportPreferences = new TransportPreferences(TransportShipmentType.MicrosoftM
         [Ignore("Only validating compilation of examples")]
         public async Task GetRegionConfiguration_RegionConfiguration()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/RegionConfiguration.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2025-02-01/examples/RegionConfiguration.json
             // this example is just showing the usage of "Service_RegionConfiguration" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -157,6 +159,10 @@ TransportPreferences = new TransportPreferences(TransportShipmentType.MicrosoftM
             RegionConfigurationContent content = new RegionConfigurationContent
             {
                 ScheduleAvailabilityRequest = new DataBoxScheduleAvailabilityContent(new AzureLocation("westus")),
+                DeviceCapabilityRequest = new DeviceCapabilityRequest
+                {
+                    SkuName = DataBoxSkuName.DataBoxDisk,
+                },
             };
             RegionConfigurationResult result = await subscriptionResource.GetRegionConfigurationAsync(location, content);
 

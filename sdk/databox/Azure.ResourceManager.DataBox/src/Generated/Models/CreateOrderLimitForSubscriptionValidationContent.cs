@@ -25,9 +25,11 @@ namespace Azure.ResourceManager.DataBox.Models
         /// <param name="validationType"> Identifies the type of validation request. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="deviceType"> Device type to be used for the job. </param>
-        internal CreateOrderLimitForSubscriptionValidationContent(DataBoxValidationInputDiscriminator validationType, IDictionary<string, BinaryData> serializedAdditionalRawData, DataBoxSkuName deviceType) : base(validationType, serializedAdditionalRawData)
+        /// <param name="model"> Error, if any, in the stage. </param>
+        internal CreateOrderLimitForSubscriptionValidationContent(DataBoxValidationInputDiscriminator validationType, IDictionary<string, BinaryData> serializedAdditionalRawData, DataBoxSkuName deviceType, ModelName? model) : base(validationType, serializedAdditionalRawData)
         {
             DeviceType = deviceType;
+            Model = model;
             ValidationType = validationType;
         }
 
@@ -38,5 +40,7 @@ namespace Azure.ResourceManager.DataBox.Models
 
         /// <summary> Device type to be used for the job. </summary>
         public DataBoxSkuName DeviceType { get; }
+        /// <summary> Error, if any, in the stage. </summary>
+        public ModelName? Model { get; }
     }
 }

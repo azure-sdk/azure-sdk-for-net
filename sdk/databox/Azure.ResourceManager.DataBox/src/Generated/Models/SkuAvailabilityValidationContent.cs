@@ -38,12 +38,14 @@ namespace Azure.ResourceManager.DataBox.Models
         /// <param name="transferType"> Type of the transfer. </param>
         /// <param name="country"> ISO country code. Country for hardware shipment. For codes check: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements. </param>
         /// <param name="location"> Location for data transfer. For locations check: https://management.azure.com/subscriptions/SUBSCRIPTIONID/locations?api-version=2018-01-01. </param>
-        internal SkuAvailabilityValidationContent(DataBoxValidationInputDiscriminator validationType, IDictionary<string, BinaryData> serializedAdditionalRawData, DataBoxSkuName deviceType, DataBoxJobTransferType transferType, string country, AzureLocation location) : base(validationType, serializedAdditionalRawData)
+        /// <param name="model"> The model name. </param>
+        internal SkuAvailabilityValidationContent(DataBoxValidationInputDiscriminator validationType, IDictionary<string, BinaryData> serializedAdditionalRawData, DataBoxSkuName deviceType, DataBoxJobTransferType transferType, string country, AzureLocation location, ModelName? model) : base(validationType, serializedAdditionalRawData)
         {
             DeviceType = deviceType;
             TransferType = transferType;
             Country = country;
             Location = location;
+            Model = model;
             ValidationType = validationType;
         }
 
@@ -60,5 +62,7 @@ namespace Azure.ResourceManager.DataBox.Models
         public string Country { get; }
         /// <summary> Location for data transfer. For locations check: https://management.azure.com/subscriptions/SUBSCRIPTIONID/locations?api-version=2018-01-01. </summary>
         public AzureLocation Location { get; }
+        /// <summary> The model name. </summary>
+        public ModelName? Model { get; }
     }
 }

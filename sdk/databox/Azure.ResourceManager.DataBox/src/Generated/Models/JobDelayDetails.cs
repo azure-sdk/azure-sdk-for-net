@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.DataBox.Models
 {
-    /// <summary> The Sku. </summary>
-    public partial class DataBoxSku
+    /// <summary> Job Delay Notification details. </summary>
+    public partial class JobDelayDetails
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,40 +45,37 @@ namespace Azure.ResourceManager.DataBox.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="DataBoxSku"/>. </summary>
-        /// <param name="name"> The sku name. </param>
-        public DataBoxSku(DataBoxSkuName name)
+        /// <summary> Initializes a new instance of <see cref="JobDelayDetails"/>. </summary>
+        internal JobDelayDetails()
         {
-            Name = name;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DataBoxSku"/>. </summary>
-        /// <param name="name"> The sku name. </param>
-        /// <param name="displayName"> The display name of the sku. </param>
-        /// <param name="family"> The sku family. </param>
-        /// <param name="model"> The model name. </param>
+        /// <summary> Initializes a new instance of <see cref="JobDelayDetails"/>. </summary>
+        /// <param name="status"> Status of notification. </param>
+        /// <param name="errorCode"> Delay Error code. </param>
+        /// <param name="description"> Description of the delay. </param>
+        /// <param name="startOn"> Timestamp when the delay notification was created. </param>
+        /// <param name="resolutionOn"> Timestamp when the delay notification was resolved. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DataBoxSku(DataBoxSkuName name, string displayName, string family, ModelName? model, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal JobDelayDetails(DelayNotificationStatus? status, PortalDelayErrorCode? errorCode, string description, DateTimeOffset? startOn, DateTimeOffset? resolutionOn, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Name = name;
-            DisplayName = displayName;
-            Family = family;
-            Model = model;
+            Status = status;
+            ErrorCode = errorCode;
+            Description = description;
+            StartOn = startOn;
+            ResolutionOn = resolutionOn;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DataBoxSku"/> for deserialization. </summary>
-        internal DataBoxSku()
-        {
-        }
-
-        /// <summary> The sku name. </summary>
-        public DataBoxSkuName Name { get; set; }
-        /// <summary> The display name of the sku. </summary>
-        public string DisplayName { get; set; }
-        /// <summary> The sku family. </summary>
-        public string Family { get; set; }
-        /// <summary> The model name. </summary>
-        public ModelName? Model { get; }
+        /// <summary> Status of notification. </summary>
+        public DelayNotificationStatus? Status { get; }
+        /// <summary> Delay Error code. </summary>
+        public PortalDelayErrorCode? ErrorCode { get; }
+        /// <summary> Description of the delay. </summary>
+        public string Description { get; }
+        /// <summary> Timestamp when the delay notification was created. </summary>
+        public DateTimeOffset? StartOn { get; }
+        /// <summary> Timestamp when the delay notification was resolved. </summary>
+        public DateTimeOffset? ResolutionOn { get; }
     }
 }

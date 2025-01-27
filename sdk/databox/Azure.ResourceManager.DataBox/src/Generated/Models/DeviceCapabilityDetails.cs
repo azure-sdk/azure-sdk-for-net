@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.DataBox.Models
 {
-    /// <summary> The Sku. </summary>
-    public partial class DataBoxSku
+    /// <summary> Device capability details for a given sku for a given region. </summary>
+    public partial class DeviceCapabilityDetails
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,40 +45,21 @@ namespace Azure.ResourceManager.DataBox.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="DataBoxSku"/>. </summary>
-        /// <param name="name"> The sku name. </param>
-        public DataBoxSku(DataBoxSkuName name)
+        /// <summary> Initializes a new instance of <see cref="DeviceCapabilityDetails"/>. </summary>
+        internal DeviceCapabilityDetails()
         {
-            Name = name;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DataBoxSku"/>. </summary>
-        /// <param name="name"> The sku name. </param>
-        /// <param name="displayName"> The display name of the sku. </param>
-        /// <param name="family"> The sku family. </param>
-        /// <param name="model"> The model name. </param>
+        /// <summary> Initializes a new instance of <see cref="DeviceCapabilityDetails"/>. </summary>
+        /// <param name="hardwareEncryption"> Hardware encryption support for a given sku for a given region. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DataBoxSku(DataBoxSkuName name, string displayName, string family, ModelName? model, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DeviceCapabilityDetails(HardwareEncryption? hardwareEncryption, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Name = name;
-            DisplayName = displayName;
-            Family = family;
-            Model = model;
+            HardwareEncryption = hardwareEncryption;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DataBoxSku"/> for deserialization. </summary>
-        internal DataBoxSku()
-        {
-        }
-
-        /// <summary> The sku name. </summary>
-        public DataBoxSkuName Name { get; set; }
-        /// <summary> The display name of the sku. </summary>
-        public string DisplayName { get; set; }
-        /// <summary> The sku family. </summary>
-        public string Family { get; set; }
-        /// <summary> The model name. </summary>
-        public ModelName? Model { get; }
+        /// <summary> Hardware encryption support for a given sku for a given region. </summary>
+        public HardwareEncryption? HardwareEncryption { get; }
     }
 }

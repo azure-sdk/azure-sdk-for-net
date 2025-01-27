@@ -58,11 +58,13 @@ namespace Azure.ResourceManager.DataBox.Models
         /// <summary> Initializes a new instance of <see cref="DataCenterAddressContent"/>. </summary>
         /// <param name="storageLocation"> Storage location. For locations check: https://management.azure.com/subscriptions/SUBSCRIPTIONID/locations?api-version=2018-01-01. </param>
         /// <param name="skuName"> Sku Name for which the data center address requested. </param>
+        /// <param name="model"> The model name. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DataCenterAddressContent(AzureLocation storageLocation, DataBoxSkuName skuName, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DataCenterAddressContent(AzureLocation storageLocation, DataBoxSkuName skuName, ModelName? model, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             StorageLocation = storageLocation;
             SkuName = skuName;
+            Model = model;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -75,5 +77,7 @@ namespace Azure.ResourceManager.DataBox.Models
         public AzureLocation StorageLocation { get; }
         /// <summary> Sku Name for which the data center address requested. </summary>
         public DataBoxSkuName SkuName { get; }
+        /// <summary> The model name. </summary>
+        public ModelName? Model { get; }
     }
 }

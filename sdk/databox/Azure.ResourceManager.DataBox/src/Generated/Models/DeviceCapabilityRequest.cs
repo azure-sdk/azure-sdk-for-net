@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.DataBox.Models
 {
-    /// <summary> The Sku. </summary>
-    public partial class DataBoxSku
+    /// <summary> Request body to get the device capabilities for given sku. </summary>
+    public partial class DeviceCapabilityRequest
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,39 +45,24 @@ namespace Azure.ResourceManager.DataBox.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="DataBoxSku"/>. </summary>
-        /// <param name="name"> The sku name. </param>
-        public DataBoxSku(DataBoxSkuName name)
+        /// <summary> Initializes a new instance of <see cref="DeviceCapabilityRequest"/>. </summary>
+        public DeviceCapabilityRequest()
         {
-            Name = name;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DataBoxSku"/>. </summary>
-        /// <param name="name"> The sku name. </param>
-        /// <param name="displayName"> The display name of the sku. </param>
-        /// <param name="family"> The sku family. </param>
+        /// <summary> Initializes a new instance of <see cref="DeviceCapabilityRequest"/>. </summary>
+        /// <param name="skuName"> Type of the device. </param>
         /// <param name="model"> The model name. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DataBoxSku(DataBoxSkuName name, string displayName, string family, ModelName? model, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DeviceCapabilityRequest(DataBoxSkuName? skuName, ModelName? model, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Name = name;
-            DisplayName = displayName;
-            Family = family;
+            SkuName = skuName;
             Model = model;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DataBoxSku"/> for deserialization. </summary>
-        internal DataBoxSku()
-        {
-        }
-
-        /// <summary> The sku name. </summary>
-        public DataBoxSkuName Name { get; set; }
-        /// <summary> The display name of the sku. </summary>
-        public string DisplayName { get; set; }
-        /// <summary> The sku family. </summary>
-        public string Family { get; set; }
+        /// <summary> Type of the device. </summary>
+        public DataBoxSkuName? SkuName { get; set; }
         /// <summary> The model name. </summary>
         public ModelName? Model { get; }
     }

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.DataBox.Models
 {
     /// <summary> Request body to get the transport availability for given sku. </summary>
-    internal partial class TransportAvailabilityRequest
+    public partial class TransportAvailabilityRequest
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -52,14 +52,18 @@ namespace Azure.ResourceManager.DataBox.Models
 
         /// <summary> Initializes a new instance of <see cref="TransportAvailabilityRequest"/>. </summary>
         /// <param name="skuName"> Type of the device. </param>
+        /// <param name="model"> The model name. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TransportAvailabilityRequest(DataBoxSkuName? skuName, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TransportAvailabilityRequest(DataBoxSkuName? skuName, ModelName? model, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             SkuName = skuName;
+            Model = model;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> Type of the device. </summary>
         public DataBoxSkuName? SkuName { get; set; }
+        /// <summary> The model name. </summary>
+        public ModelName? Model { get; }
     }
 }
