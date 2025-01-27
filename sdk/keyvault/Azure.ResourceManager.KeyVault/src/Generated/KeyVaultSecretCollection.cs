@@ -15,18 +15,20 @@ using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager.KeyVault.Models;
+using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.KeyVault
 {
     /// <summary>
     /// A class representing a collection of <see cref="KeyVaultSecretResource"/> and their operations.
-    /// Each <see cref="KeyVaultSecretResource"/> in the collection will belong to the same instance of <see cref="KeyVaultResource"/>.
-    /// To get a <see cref="KeyVaultSecretCollection"/> instance call the GetKeyVaultSecrets method from an instance of <see cref="KeyVaultResource"/>.
+    /// Each <see cref="KeyVaultSecretResource"/> in the collection will belong to the same instance of <see cref="ResourceGroupResource"/>.
+    /// To get a <see cref="KeyVaultSecretCollection"/> instance call the GetKeyVaultSecrets method from an instance of <see cref="ResourceGroupResource"/>.
     /// </summary>
     public partial class KeyVaultSecretCollection : ArmCollection, IEnumerable<KeyVaultSecretResource>, IAsyncEnumerable<KeyVaultSecretResource>
     {
         private readonly ClientDiagnostics _keyVaultSecretSecretsClientDiagnostics;
         private readonly SecretsRestOperations _keyVaultSecretSecretsRestClient;
+        private readonly string _vaultName;
 
         /// <summary> Initializes a new instance of the <see cref="KeyVaultSecretCollection"/> class for mocking. </summary>
         protected KeyVaultSecretCollection()
@@ -36,8 +38,12 @@ namespace Azure.ResourceManager.KeyVault
         /// <summary> Initializes a new instance of the <see cref="KeyVaultSecretCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
-        internal KeyVaultSecretCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
+        /// <param name="vaultName"> The name of the vault. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="vaultName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="vaultName"/> is an empty string, and was expected to be non-empty. </exception>
+        internal KeyVaultSecretCollection(ArmClient client, ResourceIdentifier id, string vaultName) : base(client, id)
         {
+            _vaultName = vaultName;
             _keyVaultSecretSecretsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.KeyVault", KeyVaultSecretResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(KeyVaultSecretResource.ResourceType, out string keyVaultSecretSecretsApiVersion);
             _keyVaultSecretSecretsRestClient = new SecretsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, keyVaultSecretSecretsApiVersion);
@@ -48,8 +54,8 @@ namespace Azure.ResourceManager.KeyVault
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != KeyVaultResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, KeyVaultResource.ResourceType), nameof(id));
+            if (id.ResourceType != ResourceGroupResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceGroupResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -88,8 +94,8 @@ namespace Azure.ResourceManager.KeyVault
             scope.Start();
             try
             {
-                var response = await _keyVaultSecretSecretsRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, content, cancellationToken).ConfigureAwait(false);
-                var uri = _keyVaultSecretSecretsRestClient.CreateCreateOrUpdateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, content);
+                var response = await _keyVaultSecretSecretsRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, _vaultName, secretName, content, cancellationToken).ConfigureAwait(false);
+                var uri = _keyVaultSecretSecretsRestClient.CreateCreateOrUpdateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, _vaultName, secretName, content);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new KeyVaultArmOperation<KeyVaultSecretResource>(Response.FromValue(new KeyVaultSecretResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
@@ -139,8 +145,8 @@ namespace Azure.ResourceManager.KeyVault
             scope.Start();
             try
             {
-                var response = _keyVaultSecretSecretsRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, content, cancellationToken);
-                var uri = _keyVaultSecretSecretsRestClient.CreateCreateOrUpdateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, content);
+                var response = _keyVaultSecretSecretsRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, _vaultName, secretName, content, cancellationToken);
+                var uri = _keyVaultSecretSecretsRestClient.CreateCreateOrUpdateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, _vaultName, secretName, content);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new KeyVaultArmOperation<KeyVaultSecretResource>(Response.FromValue(new KeyVaultSecretResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
@@ -187,7 +193,7 @@ namespace Azure.ResourceManager.KeyVault
             scope.Start();
             try
             {
-                var response = await _keyVaultSecretSecretsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, cancellationToken).ConfigureAwait(false);
+                var response = await _keyVaultSecretSecretsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, _vaultName, secretName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new KeyVaultSecretResource(Client, response.Value), response.GetRawResponse());
@@ -232,7 +238,7 @@ namespace Azure.ResourceManager.KeyVault
             scope.Start();
             try
             {
-                var response = _keyVaultSecretSecretsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, cancellationToken);
+                var response = _keyVaultSecretSecretsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, _vaultName, secretName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new KeyVaultSecretResource(Client, response.Value), response.GetRawResponse());
@@ -270,8 +276,8 @@ namespace Azure.ResourceManager.KeyVault
         /// <returns> An async collection of <see cref="KeyVaultSecretResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<KeyVaultSecretResource> GetAllAsync(int? top = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _keyVaultSecretSecretsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, top);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _keyVaultSecretSecretsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, top);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _keyVaultSecretSecretsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, _vaultName, top);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _keyVaultSecretSecretsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _vaultName, top);
             return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new KeyVaultSecretResource(Client, KeyVaultSecretData.DeserializeKeyVaultSecretData(e)), _keyVaultSecretSecretsClientDiagnostics, Pipeline, "KeyVaultSecretCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -301,8 +307,8 @@ namespace Azure.ResourceManager.KeyVault
         /// <returns> A collection of <see cref="KeyVaultSecretResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<KeyVaultSecretResource> GetAll(int? top = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _keyVaultSecretSecretsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, top);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _keyVaultSecretSecretsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, top);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _keyVaultSecretSecretsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, _vaultName, top);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _keyVaultSecretSecretsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _vaultName, top);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new KeyVaultSecretResource(Client, KeyVaultSecretData.DeserializeKeyVaultSecretData(e)), _keyVaultSecretSecretsClientDiagnostics, Pipeline, "KeyVaultSecretCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -339,7 +345,7 @@ namespace Azure.ResourceManager.KeyVault
             scope.Start();
             try
             {
-                var response = await _keyVaultSecretSecretsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _keyVaultSecretSecretsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, _vaultName, secretName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -382,7 +388,7 @@ namespace Azure.ResourceManager.KeyVault
             scope.Start();
             try
             {
-                var response = _keyVaultSecretSecretsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, cancellationToken: cancellationToken);
+                var response = _keyVaultSecretSecretsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, _vaultName, secretName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -425,7 +431,7 @@ namespace Azure.ResourceManager.KeyVault
             scope.Start();
             try
             {
-                var response = await _keyVaultSecretSecretsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _keyVaultSecretSecretsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, _vaultName, secretName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     return new NoValueResponse<KeyVaultSecretResource>(response.GetRawResponse());
                 return Response.FromValue(new KeyVaultSecretResource(Client, response.Value), response.GetRawResponse());
@@ -470,7 +476,7 @@ namespace Azure.ResourceManager.KeyVault
             scope.Start();
             try
             {
-                var response = _keyVaultSecretSecretsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, cancellationToken: cancellationToken);
+                var response = _keyVaultSecretSecretsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, _vaultName, secretName, cancellationToken: cancellationToken);
                 if (response.Value == null)
                     return new NoValueResponse<KeyVaultSecretResource>(response.GetRawResponse());
                 return Response.FromValue(new KeyVaultSecretResource(Client, response.Value), response.GetRawResponse());
