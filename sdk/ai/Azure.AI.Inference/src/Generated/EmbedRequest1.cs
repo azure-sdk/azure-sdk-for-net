@@ -11,17 +11,16 @@ using System.Linq;
 
 namespace Azure.AI.Inference
 {
-    /// <summary> The EmbedRequest. </summary>
-    internal partial class EmbedRequest
+    /// <summary> The EmbedRequest1. </summary>
+    internal partial class EmbedRequest1
     {
-        /// <summary> Initializes a new instance of <see cref="EmbedRequest"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="EmbedRequest1"/>. </summary>
         /// <param name="input">
-        /// Input text to embed, encoded as a string or array of tokens.
-        /// To embed multiple inputs in a single request, pass an array
-        /// of strings or array of token arrays.
+        /// Input image to embed. To embed multiple inputs in a single request, pass an array.
+        /// The input must not exceed the max input tokens for the model.
         /// </param>
         /// <exception cref="ArgumentNullException"> <paramref name="input"/> is null. </exception>
-        internal EmbedRequest(IEnumerable<string> input)
+        internal EmbedRequest1(IEnumerable<ImageEmbeddingInput> input)
         {
             Argument.AssertNotNull(input, nameof(input));
 
@@ -29,25 +28,28 @@ namespace Azure.AI.Inference
             AdditionalProperties = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="EmbedRequest"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="EmbedRequest1"/>. </summary>
         /// <param name="input">
-        /// Input text to embed, encoded as a string or array of tokens.
-        /// To embed multiple inputs in a single request, pass an array
-        /// of strings or array of token arrays.
+        /// Input image to embed. To embed multiple inputs in a single request, pass an array.
+        /// The input must not exceed the max input tokens for the model.
         /// </param>
         /// <param name="dimensions">
         /// Optional. The number of dimensions the resulting output embeddings should have.
         /// Passing null causes the model to use its default value.
         /// Returns a 422 error if the model doesn't support the value or parameter.
         /// </param>
-        /// <param name="encodingFormat"> Optional. The desired format for the returned embeddings. </param>
+        /// <param name="encodingFormat">
+        /// Optional. The number of dimensions the resulting output embeddings should have.
+        /// Passing null causes the model to use its default value.
+        /// Returns a 422 error if the model doesn't support the value or parameter.
+        /// </param>
         /// <param name="inputType">
         /// Optional. The type of the input.
         /// Returns a 422 error if the model doesn't support the value or parameter.
         /// </param>
         /// <param name="model"> ID of the specific AI model to use, if more than one model is available on the endpoint. </param>
         /// <param name="additionalProperties"> Additional Properties. </param>
-        internal EmbedRequest(IReadOnlyList<string> input, int? dimensions, EmbeddingEncodingFormat? encodingFormat, EmbeddingInputType? inputType, string model, IReadOnlyDictionary<string, BinaryData> additionalProperties)
+        internal EmbedRequest1(IReadOnlyList<ImageEmbeddingInput> input, int? dimensions, EmbeddingEncodingFormat? encodingFormat, EmbeddingInputType? inputType, string model, IReadOnlyDictionary<string, BinaryData> additionalProperties)
         {
             Input = input;
             Dimensions = dimensions;
@@ -57,24 +59,27 @@ namespace Azure.AI.Inference
             AdditionalProperties = additionalProperties;
         }
 
-        /// <summary> Initializes a new instance of <see cref="EmbedRequest"/> for deserialization. </summary>
-        internal EmbedRequest()
+        /// <summary> Initializes a new instance of <see cref="EmbedRequest1"/> for deserialization. </summary>
+        internal EmbedRequest1()
         {
         }
 
         /// <summary>
-        /// Input text to embed, encoded as a string or array of tokens.
-        /// To embed multiple inputs in a single request, pass an array
-        /// of strings or array of token arrays.
+        /// Input image to embed. To embed multiple inputs in a single request, pass an array.
+        /// The input must not exceed the max input tokens for the model.
         /// </summary>
-        public IReadOnlyList<string> Input { get; }
+        public IReadOnlyList<ImageEmbeddingInput> Input { get; }
         /// <summary>
         /// Optional. The number of dimensions the resulting output embeddings should have.
         /// Passing null causes the model to use its default value.
         /// Returns a 422 error if the model doesn't support the value or parameter.
         /// </summary>
         public int? Dimensions { get; }
-        /// <summary> Optional. The desired format for the returned embeddings. </summary>
+        /// <summary>
+        /// Optional. The number of dimensions the resulting output embeddings should have.
+        /// Passing null causes the model to use its default value.
+        /// Returns a 422 error if the model doesn't support the value or parameter.
+        /// </summary>
         public EmbeddingEncodingFormat? EncodingFormat { get; }
         /// <summary>
         /// Optional. The type of the input.
