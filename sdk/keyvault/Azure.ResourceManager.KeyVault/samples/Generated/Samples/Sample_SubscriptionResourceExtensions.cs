@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.KeyVault.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetKeyVaults_ListVaultsInTheSpecifiedSubscription()
+        public async Task GetVaultsBySubscription_ListVaultsInTheSpecifiedSubscription()
         {
             // Generated from example definition: specification/keyvault/resource-manager/Microsoft.KeyVault/stable/2023-07-01/examples/listVaultBySubscription.json
             // this example is just showing the usage of "Vaults_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
@@ -37,13 +37,9 @@ namespace Azure.ResourceManager.KeyVault.Samples
 
             // invoke the operation and iterate over the result
             int? top = 1;
-            await foreach (KeyVaultResource item in subscriptionResource.GetKeyVaultsAsync(top: top))
+            await foreach (Models.KeyVault item in subscriptionResource.GetVaultsBySubscriptionAsync(top: top))
             {
-                // the variable item is a resource, you could call other operations on this instance as well
-                // but just for demo, we get its data from this resource instance
-                KeyVaultData resourceData = item.Data;
-                // for demo we just print out the id
-                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+                Console.WriteLine($"Succeeded: {item}");
             }
 
             Console.WriteLine("Succeeded");

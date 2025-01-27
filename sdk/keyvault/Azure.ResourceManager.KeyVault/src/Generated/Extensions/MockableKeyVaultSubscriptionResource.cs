@@ -18,10 +18,8 @@ namespace Azure.ResourceManager.KeyVault.Mocking
     /// <summary> A class to add extension methods to SubscriptionResource. </summary>
     public partial class MockableKeyVaultSubscriptionResource : ArmResource
     {
-        private ClientDiagnostics _keyVaultVaultsClientDiagnostics;
-        private VaultsRestOperations _keyVaultVaultsRestClient;
-        private ClientDiagnostics _vaultsClientDiagnostics;
-        private VaultsRestOperations _vaultsRestClient;
+        private ClientDiagnostics _deletedKeyVaultVaultsClientDiagnostics;
+        private VaultsRestOperations _deletedKeyVaultVaultsRestClient;
         private ClientDiagnostics _managedHsmClientDiagnostics;
         private ManagedHsmsRestOperations _managedHsmRestClient;
         private ClientDiagnostics _managedHsmsClientDiagnostics;
@@ -39,10 +37,8 @@ namespace Azure.ResourceManager.KeyVault.Mocking
         {
         }
 
-        private ClientDiagnostics KeyVaultVaultsClientDiagnostics => _keyVaultVaultsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.KeyVault", KeyVaultResource.ResourceType.Namespace, Diagnostics);
-        private VaultsRestOperations KeyVaultVaultsRestClient => _keyVaultVaultsRestClient ??= new VaultsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(KeyVaultResource.ResourceType));
-        private ClientDiagnostics VaultsClientDiagnostics => _vaultsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.KeyVault", ProviderConstants.DefaultProviderNamespace, Diagnostics);
-        private VaultsRestOperations VaultsRestClient => _vaultsRestClient ??= new VaultsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics DeletedKeyVaultVaultsClientDiagnostics => _deletedKeyVaultVaultsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.KeyVault", DeletedKeyVaultResource.ResourceType.Namespace, Diagnostics);
+        private VaultsRestOperations DeletedKeyVaultVaultsRestClient => _deletedKeyVaultVaultsRestClient ??= new VaultsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(DeletedKeyVaultResource.ResourceType));
         private ClientDiagnostics ManagedHsmClientDiagnostics => _managedHsmClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.KeyVault", ManagedHsmResource.ResourceType.Namespace, Diagnostics);
         private ManagedHsmsRestOperations ManagedHsmRestClient => _managedHsmRestClient ??= new ManagedHsmsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(ManagedHsmResource.ResourceType));
         private ClientDiagnostics ManagedHsmsClientDiagnostics => _managedHsmsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.KeyVault", ProviderConstants.DefaultProviderNamespace, Diagnostics);
@@ -213,18 +209,18 @@ namespace Azure.ResourceManager.KeyVault.Mocking
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="KeyVaultResource"/></description>
+        /// <description><see cref="DeletedKeyVaultResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="top"> Maximum number of results to return. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="KeyVaultResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<KeyVaultResource> GetKeyVaultsAsync(int? top = null, CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="Models.KeyVault"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<Models.KeyVault> GetVaultsBySubscriptionAsync(int? top = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => KeyVaultVaultsRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId, top);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => KeyVaultVaultsRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId, top);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new KeyVaultResource(Client, KeyVaultData.DeserializeKeyVaultData(e)), KeyVaultVaultsClientDiagnostics, Pipeline, "MockableKeyVaultSubscriptionResource.GetKeyVaults", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => DeletedKeyVaultVaultsRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId, top);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => DeletedKeyVaultVaultsRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId, top);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => Models.KeyVault.DeserializeKeyVault(e), DeletedKeyVaultVaultsClientDiagnostics, Pipeline, "MockableKeyVaultSubscriptionResource.GetVaultsBySubscription", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -244,18 +240,18 @@ namespace Azure.ResourceManager.KeyVault.Mocking
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="KeyVaultResource"/></description>
+        /// <description><see cref="DeletedKeyVaultResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="top"> Maximum number of results to return. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="KeyVaultResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<KeyVaultResource> GetKeyVaults(int? top = null, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="Models.KeyVault"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<Models.KeyVault> GetVaultsBySubscription(int? top = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => KeyVaultVaultsRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId, top);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => KeyVaultVaultsRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId, top);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new KeyVaultResource(Client, KeyVaultData.DeserializeKeyVaultData(e)), KeyVaultVaultsClientDiagnostics, Pipeline, "MockableKeyVaultSubscriptionResource.GetKeyVaults", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => DeletedKeyVaultVaultsRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId, top);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => DeletedKeyVaultVaultsRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId, top);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => Models.KeyVault.DeserializeKeyVault(e), DeletedKeyVaultVaultsClientDiagnostics, Pipeline, "MockableKeyVaultSubscriptionResource.GetVaultsBySubscription", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -272,6 +268,10 @@ namespace Azure.ResourceManager.KeyVault.Mocking
         /// <item>
         /// <term>Default Api Version</term>
         /// <description>2023-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="DeletedKeyVaultResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -279,9 +279,9 @@ namespace Azure.ResourceManager.KeyVault.Mocking
         /// <returns> An async collection of <see cref="DeletedKeyVaultResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<DeletedKeyVaultResource> GetDeletedKeyVaultsAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => VaultsRestClient.CreateListDeletedRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => VaultsRestClient.CreateListDeletedNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new DeletedKeyVaultResource(Client, DeletedKeyVaultData.DeserializeDeletedKeyVaultData(e)), VaultsClientDiagnostics, Pipeline, "MockableKeyVaultSubscriptionResource.GetDeletedKeyVaults", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => DeletedKeyVaultVaultsRestClient.CreateListDeletedRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => DeletedKeyVaultVaultsRestClient.CreateListDeletedNextPageRequest(nextLink, Id.SubscriptionId);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new DeletedKeyVaultResource(Client, DeletedKeyVaultData.DeserializeDeletedKeyVaultData(e)), DeletedKeyVaultVaultsClientDiagnostics, Pipeline, "MockableKeyVaultSubscriptionResource.GetDeletedKeyVaults", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -299,15 +299,19 @@ namespace Azure.ResourceManager.KeyVault.Mocking
         /// <term>Default Api Version</term>
         /// <description>2023-07-01</description>
         /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="DeletedKeyVaultResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="DeletedKeyVaultResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<DeletedKeyVaultResource> GetDeletedKeyVaults(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => VaultsRestClient.CreateListDeletedRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => VaultsRestClient.CreateListDeletedNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new DeletedKeyVaultResource(Client, DeletedKeyVaultData.DeserializeDeletedKeyVaultData(e)), VaultsClientDiagnostics, Pipeline, "MockableKeyVaultSubscriptionResource.GetDeletedKeyVaults", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => DeletedKeyVaultVaultsRestClient.CreateListDeletedRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => DeletedKeyVaultVaultsRestClient.CreateListDeletedNextPageRequest(nextLink, Id.SubscriptionId);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new DeletedKeyVaultResource(Client, DeletedKeyVaultData.DeserializeDeletedKeyVaultData(e)), DeletedKeyVaultVaultsClientDiagnostics, Pipeline, "MockableKeyVaultSubscriptionResource.GetDeletedKeyVaults", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -327,7 +331,7 @@ namespace Azure.ResourceManager.KeyVault.Mocking
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="KeyVaultResource"/></description>
+        /// <description><see cref="DeletedKeyVaultResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -338,11 +342,11 @@ namespace Azure.ResourceManager.KeyVault.Mocking
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = KeyVaultVaultsClientDiagnostics.CreateScope("MockableKeyVaultSubscriptionResource.CheckKeyVaultNameAvailability");
+            using var scope = DeletedKeyVaultVaultsClientDiagnostics.CreateScope("MockableKeyVaultSubscriptionResource.CheckKeyVaultNameAvailability");
             scope.Start();
             try
             {
-                var response = await KeyVaultVaultsRestClient.CheckNameAvailabilityAsync(Id.SubscriptionId, content, cancellationToken).ConfigureAwait(false);
+                var response = await DeletedKeyVaultVaultsRestClient.CheckNameAvailabilityAsync(Id.SubscriptionId, content, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -369,7 +373,7 @@ namespace Azure.ResourceManager.KeyVault.Mocking
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="KeyVaultResource"/></description>
+        /// <description><see cref="DeletedKeyVaultResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -380,11 +384,11 @@ namespace Azure.ResourceManager.KeyVault.Mocking
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = KeyVaultVaultsClientDiagnostics.CreateScope("MockableKeyVaultSubscriptionResource.CheckKeyVaultNameAvailability");
+            using var scope = DeletedKeyVaultVaultsClientDiagnostics.CreateScope("MockableKeyVaultSubscriptionResource.CheckKeyVaultNameAvailability");
             scope.Start();
             try
             {
-                var response = KeyVaultVaultsRestClient.CheckNameAvailability(Id.SubscriptionId, content, cancellationToken);
+                var response = DeletedKeyVaultVaultsRestClient.CheckNameAvailability(Id.SubscriptionId, content, cancellationToken);
                 return response;
             }
             catch (Exception e)

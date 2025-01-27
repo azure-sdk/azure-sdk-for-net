@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
 using Azure.ResourceManager.KeyVault.Models;
+using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.KeyVault.Samples
@@ -28,16 +29,16 @@ namespace Azure.ResourceManager.KeyVault.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this KeyVaultResource created on azure
-            // for more information of creating KeyVaultResource, please refer to the document of KeyVaultResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "sample-group";
-            string vaultName = "sample-vault";
-            ResourceIdentifier keyVaultResourceId = KeyVaultResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, vaultName);
-            KeyVaultResource keyVault = client.GetKeyVaultResource(keyVaultResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this KeyVaultPrivateEndpointConnectionResource
-            KeyVaultPrivateEndpointConnectionCollection collection = keyVault.GetKeyVaultPrivateEndpointConnections();
+            string vaultName = "sample-vault";
+            KeyVaultPrivateEndpointConnectionCollection collection = resourceGroupResource.GetKeyVaultPrivateEndpointConnections(vaultName);
 
             // invoke the operation
             string privateEndpointConnectionName = "sample-pec";
@@ -72,16 +73,16 @@ namespace Azure.ResourceManager.KeyVault.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this KeyVaultResource created on azure
-            // for more information of creating KeyVaultResource, please refer to the document of KeyVaultResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "sample-group";
-            string vaultName = "sample-vault";
-            ResourceIdentifier keyVaultResourceId = KeyVaultResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, vaultName);
-            KeyVaultResource keyVault = client.GetKeyVaultResource(keyVaultResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this KeyVaultPrivateEndpointConnectionResource
-            KeyVaultPrivateEndpointConnectionCollection collection = keyVault.GetKeyVaultPrivateEndpointConnections();
+            string vaultName = "sample-vault";
+            KeyVaultPrivateEndpointConnectionCollection collection = resourceGroupResource.GetKeyVaultPrivateEndpointConnections(vaultName);
 
             // invoke the operation
             string privateEndpointConnectionName = "sample-pec";
@@ -106,16 +107,16 @@ namespace Azure.ResourceManager.KeyVault.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this KeyVaultResource created on azure
-            // for more information of creating KeyVaultResource, please refer to the document of KeyVaultResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "sample-group";
-            string vaultName = "sample-vault";
-            ResourceIdentifier keyVaultResourceId = KeyVaultResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, vaultName);
-            KeyVaultResource keyVault = client.GetKeyVaultResource(keyVaultResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this KeyVaultPrivateEndpointConnectionResource
-            KeyVaultPrivateEndpointConnectionCollection collection = keyVault.GetKeyVaultPrivateEndpointConnections();
+            string vaultName = "sample-vault";
+            KeyVaultPrivateEndpointConnectionCollection collection = resourceGroupResource.GetKeyVaultPrivateEndpointConnections(vaultName);
 
             // invoke the operation and iterate over the result
             await foreach (KeyVaultPrivateEndpointConnectionResource item in collection.GetAllAsync())
@@ -142,16 +143,16 @@ namespace Azure.ResourceManager.KeyVault.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this KeyVaultResource created on azure
-            // for more information of creating KeyVaultResource, please refer to the document of KeyVaultResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "sample-group";
-            string vaultName = "sample-vault";
-            ResourceIdentifier keyVaultResourceId = KeyVaultResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, vaultName);
-            KeyVaultResource keyVault = client.GetKeyVaultResource(keyVaultResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this KeyVaultPrivateEndpointConnectionResource
-            KeyVaultPrivateEndpointConnectionCollection collection = keyVault.GetKeyVaultPrivateEndpointConnections();
+            string vaultName = "sample-vault";
+            KeyVaultPrivateEndpointConnectionCollection collection = resourceGroupResource.GetKeyVaultPrivateEndpointConnections(vaultName);
 
             // invoke the operation
             string privateEndpointConnectionName = "sample-pec";
@@ -172,16 +173,16 @@ namespace Azure.ResourceManager.KeyVault.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this KeyVaultResource created on azure
-            // for more information of creating KeyVaultResource, please refer to the document of KeyVaultResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "sample-group";
-            string vaultName = "sample-vault";
-            ResourceIdentifier keyVaultResourceId = KeyVaultResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, vaultName);
-            KeyVaultResource keyVault = client.GetKeyVaultResource(keyVaultResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this KeyVaultPrivateEndpointConnectionResource
-            KeyVaultPrivateEndpointConnectionCollection collection = keyVault.GetKeyVaultPrivateEndpointConnections();
+            string vaultName = "sample-vault";
+            KeyVaultPrivateEndpointConnectionCollection collection = resourceGroupResource.GetKeyVaultPrivateEndpointConnections(vaultName);
 
             // invoke the operation
             string privateEndpointConnectionName = "sample-pec";

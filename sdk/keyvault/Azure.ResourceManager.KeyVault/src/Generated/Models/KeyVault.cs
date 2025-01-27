@@ -7,11 +7,13 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.Core;
+using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.KeyVault.Models
 {
-    /// <summary> Parameters for creating or updating a vault. </summary>
-    public partial class KeyVaultPatch
+    /// <summary> Resource information with extended details. </summary>
+    public partial class KeyVault : TrackedResourceData
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,28 +47,39 @@ namespace Azure.ResourceManager.KeyVault.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="KeyVaultPatch"/>. </summary>
-        public KeyVaultPatch()
+        /// <summary> Initializes a new instance of <see cref="KeyVault"/>. </summary>
+        /// <param name="location"> The location. </param>
+        /// <param name="properties"> Properties of the vault. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
+        public KeyVault(AzureLocation location, KeyVaultProperties properties) : base(location)
         {
-            Tags = new ChangeTrackingDictionary<string, string>();
+            Argument.AssertNotNull(properties, nameof(properties));
+
+            Properties = properties;
         }
 
-        /// <summary> Initializes a new instance of <see cref="KeyVaultPatch"/>. </summary>
-        /// <param name="tags"> The tags that will be assigned to the key vault. </param>
+        /// <summary> Initializes a new instance of <see cref="KeyVault"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
         /// <param name="properties"> Properties of the vault. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal KeyVaultPatch(IDictionary<string, string> tags, KeyVaultPatchProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal KeyVault(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, KeyVaultProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
-            Tags = tags;
             Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The tags that will be assigned to the key vault. </summary>
-        [WirePath("tags")]
-        public IDictionary<string, string> Tags { get; }
+        /// <summary> Initializes a new instance of <see cref="KeyVault"/> for deserialization. </summary>
+        internal KeyVault()
+        {
+        }
+
         /// <summary> Properties of the vault. </summary>
         [WirePath("properties")]
-        public KeyVaultPatchProperties Properties { get; set; }
+        public KeyVaultProperties Properties { get; set; }
     }
 }
