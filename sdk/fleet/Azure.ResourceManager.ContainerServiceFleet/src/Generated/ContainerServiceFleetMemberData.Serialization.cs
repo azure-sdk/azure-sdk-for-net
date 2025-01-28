@@ -42,6 +42,17 @@ namespace Azure.ResourceManager.ContainerServiceFleet
                 writer.WritePropertyName("eTag"u8);
                 writer.WriteStringValue(ETag.Value.ToString());
             }
+            if (Optional.IsCollectionDefined(Tags))
+            {
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in Tags)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
             if (Optional.IsDefined(ClusterResourceId))
@@ -83,6 +94,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet
                 return null;
             }
             ETag? eTag = default;
+            IDictionary<string, string> tags = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
@@ -101,6 +113,20 @@ namespace Azure.ResourceManager.ContainerServiceFleet
                         continue;
                     }
                     eTag = new ETag(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("tags"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        dictionary.Add(property0.Name, property0.Value.GetString());
+                    }
+                    tags = dictionary;
                     continue;
                 }
                 if (property.NameEquals("id"u8))
@@ -174,6 +200,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet
                 type,
                 systemData,
                 eTag,
+                tags ?? new ChangeTrackingDictionary<string, string>(),
                 clusterResourceId,
                 group,
                 provisioningState,

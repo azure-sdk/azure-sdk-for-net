@@ -34,6 +34,17 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
                 throw new FormatException($"The model {nameof(ContainerServiceFleetMemberPatch)} does not support writing '{format}' format.");
             }
 
+            if (Optional.IsCollectionDefined(Tags))
+            {
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in Tags)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
             if (Optional.IsDefined(Group))
@@ -79,11 +90,26 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
             {
                 return null;
             }
+            IDictionary<string, string> tags = default;
             string group = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("tags"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        dictionary.Add(property0.Name, property0.Value.GetString());
+                    }
+                    tags = dictionary;
+                    continue;
+                }
                 if (property.NameEquals("properties"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -107,7 +133,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ContainerServiceFleetMemberPatch(group, serializedAdditionalRawData);
+            return new ContainerServiceFleetMemberPatch(tags ?? new ChangeTrackingDictionary<string, string>(), group, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ContainerServiceFleetMemberPatch>.Write(ModelReaderWriterOptions options)
