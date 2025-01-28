@@ -5,27 +5,18 @@
 
 #nullable disable
 
-using System;
 using System.Threading;
-using System.Threading.Tasks;
 using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
-using Azure.ResourceManager.ContainerService.Models;
 
 namespace Azure.ResourceManager.ContainerService.Mocking
 {
     /// <summary> A class to add extension methods to SubscriptionResource. </summary>
     public partial class MockableContainerServiceSubscriptionResource : ArmResource
     {
-        private ClientDiagnostics _managedClustersClientDiagnostics;
-        private ManagedClustersRestOperations _managedClustersRestClient;
-        private ClientDiagnostics _containerServiceManagedClusterManagedClustersClientDiagnostics;
-        private ManagedClustersRestOperations _containerServiceManagedClusterManagedClustersRestClient;
-        private ClientDiagnostics _agentPoolSnapshotSnapshotsClientDiagnostics;
-        private SnapshotsRestOperations _agentPoolSnapshotSnapshotsRestClient;
-        private ClientDiagnostics _trustedAccessRolesClientDiagnostics;
-        private TrustedAccessRolesRestOperations _trustedAccessRolesRestClient;
+        private ClientDiagnostics _fleetClientDiagnostics;
+        private FleetsRestOperations _fleetRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="MockableContainerServiceSubscriptionResource"/> class for mocking. </summary>
         protected MockableContainerServiceSubscriptionResource()
@@ -39,14 +30,8 @@ namespace Azure.ResourceManager.ContainerService.Mocking
         {
         }
 
-        private ClientDiagnostics ManagedClustersClientDiagnostics => _managedClustersClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.ContainerService", ProviderConstants.DefaultProviderNamespace, Diagnostics);
-        private ManagedClustersRestOperations ManagedClustersRestClient => _managedClustersRestClient ??= new ManagedClustersRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
-        private ClientDiagnostics ContainerServiceManagedClusterManagedClustersClientDiagnostics => _containerServiceManagedClusterManagedClustersClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.ContainerService", ContainerServiceManagedClusterResource.ResourceType.Namespace, Diagnostics);
-        private ManagedClustersRestOperations ContainerServiceManagedClusterManagedClustersRestClient => _containerServiceManagedClusterManagedClustersRestClient ??= new ManagedClustersRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(ContainerServiceManagedClusterResource.ResourceType));
-        private ClientDiagnostics AgentPoolSnapshotSnapshotsClientDiagnostics => _agentPoolSnapshotSnapshotsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.ContainerService", AgentPoolSnapshotResource.ResourceType.Namespace, Diagnostics);
-        private SnapshotsRestOperations AgentPoolSnapshotSnapshotsRestClient => _agentPoolSnapshotSnapshotsRestClient ??= new SnapshotsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(AgentPoolSnapshotResource.ResourceType));
-        private ClientDiagnostics TrustedAccessRolesClientDiagnostics => _trustedAccessRolesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.ContainerService", ProviderConstants.DefaultProviderNamespace, Diagnostics);
-        private TrustedAccessRolesRestOperations TrustedAccessRolesRestClient => _trustedAccessRolesRestClient ??= new TrustedAccessRolesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics FleetClientDiagnostics => _fleetClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.ContainerService", FleetResource.ResourceType.Namespace, Diagnostics);
+        private FleetsRestOperations FleetRestClient => _fleetRestClient ??= new FleetsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(FleetResource.ResourceType));
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -54,320 +39,64 @@ namespace Azure.ResourceManager.ContainerService.Mocking
             return apiVersion;
         }
 
-        /// <summary> Gets a collection of MeshRevisionProfileResources in the SubscriptionResource. </summary>
-        /// <param name="location"> The name of the Azure region. </param>
-        /// <returns> An object representing collection of MeshRevisionProfileResources and their operations over a MeshRevisionProfileResource. </returns>
-        public virtual MeshRevisionProfileCollection GetMeshRevisionProfiles(AzureLocation location)
-        {
-            return new MeshRevisionProfileCollection(Client, Id, location);
-        }
-
         /// <summary>
-        /// Contains extra metadata on the revision, including supported revisions, cluster compatibility and available upgrades
+        /// Lists fleets in the specified subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ContainerService/locations/{location}/meshRevisionProfiles/{mode}</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ContainerService/fleets</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ManagedClusters_GetMeshRevisionProfile</description>
+        /// <description>Fleets_ListBySubscription</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-10-01</description>
+        /// <description>2025-01-23-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="MeshRevisionProfileResource"/></description>
+        /// <description><see cref="FleetResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The name of the Azure region. </param>
-        /// <param name="mode"> The mode of the mesh. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="mode"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="mode"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<MeshRevisionProfileResource>> GetMeshRevisionProfileAsync(AzureLocation location, string mode, CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="FleetResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<FleetResource> GetFleetsAsync(CancellationToken cancellationToken = default)
         {
-            return await GetMeshRevisionProfiles(location).GetAsync(mode, cancellationToken).ConfigureAwait(false);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => FleetRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => FleetRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new FleetResource(Client, FleetData.DeserializeFleetData(e)), FleetClientDiagnostics, Pipeline, "MockableContainerServiceSubscriptionResource.GetFleets", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
-        /// Contains extra metadata on the revision, including supported revisions, cluster compatibility and available upgrades
+        /// Lists fleets in the specified subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ContainerService/locations/{location}/meshRevisionProfiles/{mode}</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ContainerService/fleets</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ManagedClusters_GetMeshRevisionProfile</description>
+        /// <description>Fleets_ListBySubscription</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-10-01</description>
+        /// <description>2025-01-23-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="MeshRevisionProfileResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The name of the Azure region. </param>
-        /// <param name="mode"> The mode of the mesh. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="mode"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="mode"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<MeshRevisionProfileResource> GetMeshRevisionProfile(AzureLocation location, string mode, CancellationToken cancellationToken = default)
-        {
-            return GetMeshRevisionProfiles(location).Get(mode, cancellationToken);
-        }
-
-        /// <summary>
-        /// Contains extra metadata on the version, including supported patch versions, capabilities, available upgrades, and details on preview status of the version
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ContainerService/locations/{location}/kubernetesVersions</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedClusters_ListKubernetesVersions</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-01</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The name of the Azure region. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<KubernetesVersionListResult>> GetKubernetesVersionsManagedClusterAsync(AzureLocation location, CancellationToken cancellationToken = default)
-        {
-            using var scope = ManagedClustersClientDiagnostics.CreateScope("MockableContainerServiceSubscriptionResource.GetKubernetesVersionsManagedCluster");
-            scope.Start();
-            try
-            {
-                var response = await ManagedClustersRestClient.ListKubernetesVersionsAsync(Id.SubscriptionId, location, cancellationToken).ConfigureAwait(false);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Contains extra metadata on the version, including supported patch versions, capabilities, available upgrades, and details on preview status of the version
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ContainerService/locations/{location}/kubernetesVersions</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedClusters_ListKubernetesVersions</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-01</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The name of the Azure region. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<KubernetesVersionListResult> GetKubernetesVersionsManagedCluster(AzureLocation location, CancellationToken cancellationToken = default)
-        {
-            using var scope = ManagedClustersClientDiagnostics.CreateScope("MockableContainerServiceSubscriptionResource.GetKubernetesVersionsManagedCluster");
-            scope.Start();
-            try
-            {
-                var response = ManagedClustersRestClient.ListKubernetesVersions(Id.SubscriptionId, location, cancellationToken);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets a list of managed clusters in the specified subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ContainerService/managedClusters</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedClusters_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ContainerServiceManagedClusterResource"/></description>
+        /// <description><see cref="FleetResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="ContainerServiceManagedClusterResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<ContainerServiceManagedClusterResource> GetContainerServiceManagedClustersAsync(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="FleetResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<FleetResource> GetFleets(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => ContainerServiceManagedClusterManagedClustersRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ContainerServiceManagedClusterManagedClustersRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ContainerServiceManagedClusterResource(Client, ContainerServiceManagedClusterData.DeserializeContainerServiceManagedClusterData(e)), ContainerServiceManagedClusterManagedClustersClientDiagnostics, Pipeline, "MockableContainerServiceSubscriptionResource.GetContainerServiceManagedClusters", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets a list of managed clusters in the specified subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ContainerService/managedClusters</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedClusters_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ContainerServiceManagedClusterResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="ContainerServiceManagedClusterResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<ContainerServiceManagedClusterResource> GetContainerServiceManagedClusters(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => ContainerServiceManagedClusterManagedClustersRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ContainerServiceManagedClusterManagedClustersRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ContainerServiceManagedClusterResource(Client, ContainerServiceManagedClusterData.DeserializeContainerServiceManagedClusterData(e)), ContainerServiceManagedClusterManagedClustersClientDiagnostics, Pipeline, "MockableContainerServiceSubscriptionResource.GetContainerServiceManagedClusters", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets a list of snapshots in the specified subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ContainerService/snapshots</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Snapshots_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="AgentPoolSnapshotResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="AgentPoolSnapshotResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<AgentPoolSnapshotResource> GetAgentPoolSnapshotsAsync(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => AgentPoolSnapshotSnapshotsRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => AgentPoolSnapshotSnapshotsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new AgentPoolSnapshotResource(Client, AgentPoolSnapshotData.DeserializeAgentPoolSnapshotData(e)), AgentPoolSnapshotSnapshotsClientDiagnostics, Pipeline, "MockableContainerServiceSubscriptionResource.GetAgentPoolSnapshots", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets a list of snapshots in the specified subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ContainerService/snapshots</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Snapshots_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="AgentPoolSnapshotResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="AgentPoolSnapshotResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<AgentPoolSnapshotResource> GetAgentPoolSnapshots(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => AgentPoolSnapshotSnapshotsRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => AgentPoolSnapshotSnapshotsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new AgentPoolSnapshotResource(Client, AgentPoolSnapshotData.DeserializeAgentPoolSnapshotData(e)), AgentPoolSnapshotSnapshotsClientDiagnostics, Pipeline, "MockableContainerServiceSubscriptionResource.GetAgentPoolSnapshots", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// List supported trusted access roles.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ContainerService/locations/{location}/trustedAccessRoles</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>TrustedAccessRoles_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-01</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The name of the Azure region. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="ContainerServiceTrustedAccessRole"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<ContainerServiceTrustedAccessRole> GetTrustedAccessRolesAsync(AzureLocation location, CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => TrustedAccessRolesRestClient.CreateListRequest(Id.SubscriptionId, location);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => TrustedAccessRolesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, location);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => ContainerServiceTrustedAccessRole.DeserializeContainerServiceTrustedAccessRole(e), TrustedAccessRolesClientDiagnostics, Pipeline, "MockableContainerServiceSubscriptionResource.GetTrustedAccessRoles", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// List supported trusted access roles.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ContainerService/locations/{location}/trustedAccessRoles</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>TrustedAccessRoles_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-01</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The name of the Azure region. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="ContainerServiceTrustedAccessRole"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<ContainerServiceTrustedAccessRole> GetTrustedAccessRoles(AzureLocation location, CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => TrustedAccessRolesRestClient.CreateListRequest(Id.SubscriptionId, location);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => TrustedAccessRolesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, location);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => ContainerServiceTrustedAccessRole.DeserializeContainerServiceTrustedAccessRole(e), TrustedAccessRolesClientDiagnostics, Pipeline, "MockableContainerServiceSubscriptionResource.GetTrustedAccessRoles", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => FleetRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => FleetRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new FleetResource(Client, FleetData.DeserializeFleetData(e)), FleetClientDiagnostics, Pipeline, "MockableContainerServiceSubscriptionResource.GetFleets", "value", "nextLink", cancellationToken);
         }
     }
 }
