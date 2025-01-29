@@ -1,0 +1,10 @@
+{
+  "output-folder": ".",
+  "namespace": "Microsoft.Security.Copilot.SkillsetAuthoring",
+  "library-name": "Microsoft.Security.Copilot.SkillsetAuthoring",
+  "shared-source-folders": [
+    "../TempTypeSpecFiles/TypeSpec/node_modules/@autorest/csharp/Generator.Shared",
+    "../TempTypeSpecFiles/TypeSpec/node_modules/@autorest/csharp/Azure.Core.Shared"
+  ],
+  "use-overloads-between-protocol-and-convenience": true
+}

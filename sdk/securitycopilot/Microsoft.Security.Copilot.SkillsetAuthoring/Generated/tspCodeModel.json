@@ -1,0 +1,7382 @@
+{
+ "$id": "1",
+ "Name": "SkillContext",
+ "Description": "The Skillset Authoring API exposes endpoints allowing a skill to interact with the current session to perform actions such as accessing previous prompts/responses within the current session, \nreading the inputs of the skill, invoking other skills, reporting progress of execution, returning results/errors, acquiring tokens to access other resources, and retrieving skill specific settings. It also provides methods to interact with Open\nAI client to create chat completion and get embeddings.",
+ "ApiVersions": [
+  "2023-08-01-preview"
+ ],
+ "Enums": [
+  {
+   "$id": "2",
+   "Name": "SkillsetCategory",
+   "Namespace": "",
+   "Description": "Defines the category of the data source/API that the skillset interacts with",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "3",
+     "Name": "Hidden",
+     "Value": "Hidden",
+     "Description": "Default value if a category is not specified. The skillset willnot appear in the UI"
+    },
+    {
+     "$id": "4",
+     "Name": "Microsoft",
+     "Value": "Microsoft",
+     "Description": "The skillset interacts with Microsoft services only"
+    },
+    {
+     "$id": "5",
+     "Name": "Other",
+     "Value": "Other",
+     "Description": "The skillset interacts with 3rd party service"
+    },
+    {
+     "$id": "6",
+     "Name": "Web",
+     "Value": "Web",
+     "Description": "The skillset interacts with public facing web services"
+    },
+    {
+     "$id": "7",
+     "Name": "Testing",
+     "Value": "Testing",
+     "Description": "The skillset is used for testing and debugging purposes"
+    },
+    {
+     "$id": "8",
+     "Name": "Plugin",
+     "Value": "Plugin",
+     "Description": "THe skillset of of a plugin format, such as ChatGPT or LogicApp plugins"
+    }
+   ],
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "9",
+   "Name": "SkillsetCatalogScope",
+   "Namespace": "",
+   "Description": "The scope of a skillset in the skillset catalog",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "10",
+     "Name": "None",
+     "Value": "None",
+     "Description": "No scope specified"
+    },
+    {
+     "$id": "11",
+     "Name": "User",
+     "Value": "User",
+     "Description": "The skillset is scoped to the calling user"
+    },
+    {
+     "$id": "12",
+     "Name": "Workspace",
+     "Value": "Workspace",
+     "Description": "The skillset is scoped to the calling user's workspace TODO what does this mean"
+    },
+    {
+     "$id": "13",
+     "Name": "Tenant",
+     "Value": "Tenant",
+     "Description": "The skillset is scoped to the calling user's tenant"
+    },
+    {
+     "$id": "14",
+     "Name": "Global",
+     "Value": "Global",
+     "Description": "The skillset is available globally"
+    }
+   ],
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "15",
+   "Name": "SkillsetSettingType",
+   "Namespace": "",
+   "Description": "Defines the type of a skillset setting",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "16",
+     "Name": "SecretString",
+     "Value": "SecretString",
+     "Description": "The skillset setting is a secret string TODO what does this mean"
+    },
+    {
+     "$id": "17",
+     "Name": "String",
+     "Value": "String",
+     "Description": "The skillset setting is a string"
+    }
+   ],
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "18",
+   "Name": "SkillsetAuthType",
+   "Namespace": "",
+   "Description": "Defines the authentication types supported by a skillset",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "19",
+     "Name": "None",
+     "Value": "None",
+     "Description": "The skillset supports no authentication"
+    },
+    {
+     "$id": "20",
+     "Name": "Basic",
+     "Value": "Basic",
+     "Description": "The skillset supports basic authentication TODO what does this mean"
+    },
+    {
+     "$id": "21",
+     "Name": "ApiKey",
+     "Value": "ApiKey",
+     "Description": "The skillset supports API key authentication TO what does this mean"
+    },
+    {
+     "$id": "22",
+     "Name": "OAuthAuthorizationCodeFlow",
+     "Value": "OAuthAuthorizationCodeFlow",
+     "Description": "The skillset supports OAuth authorization code flow authentication TODO what does this mean"
+    },
+    {
+     "$id": "23",
+     "Name": "OAuthClientCredentialsFlow",
+     "Value": "OAuthClientCredentialsFlow",
+     "Description": "The skillset supports OAuth client credentials flow TODO what does this mean"
+    },
+    {
+     "$id": "24",
+     "Name": "AAD",
+     "Value": "AAD",
+     "Description": "The skillset supports AAD authentication"
+    },
+    {
+     "$id": "25",
+     "Name": "ServiceHttp",
+     "Value": "ServiceHttp",
+     "Description": "The skillset supports service HTTP authentication TODO what does this mean"
+    },
+    {
+     "$id": "26",
+     "Name": "AADDelegated",
+     "Value": "AADDelegated",
+     "Description": "The skillset supports AAD delegated authentication TODO what does this mean"
+    }
+   ],
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "27",
+   "Name": "SkillVisibility",
+   "Namespace": "",
+   "Description": "Defines the conditions under which the users can see or use a skillset",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "28",
+     "Name": "Always",
+     "Value": "Always",
+     "Description": "Always visible"
+    },
+    {
+     "$id": "29",
+     "Name": "Never",
+     "Value": "Never",
+     "Description": "Never visible"
+    },
+    {
+     "$id": "30",
+     "Name": "IfFeatureFlagEnabled",
+     "Value": "IfFeatureFlagEnabled",
+     "Description": "Visible when any of an associated list of feature flags are enabled"
+    }
+   ],
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "31",
+   "Name": "SkillSourceType",
+   "Namespace": "",
+   "Description": "The type for a source that was used in generating the output of a skill",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "32",
+     "Name": "Uri",
+     "Value": "Uri",
+     "Description": "Uri"
+    },
+    {
+     "$id": "33",
+     "Name": "StringType",
+     "Value": "StringType",
+     "Description": "StringType"
+    }
+   ],
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "RoundTrip"
+  },
+  {
+   "$id": "34",
+   "Name": "SkillOutputType",
+   "Namespace": "SkillContext",
+   "Description": "Skill Output type enum. Supports StructuredOutput and Primitive",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "35",
+     "Name": "Primitive",
+     "Value": "Primitive",
+     "Description": "Primitive"
+    },
+    {
+     "$id": "36",
+     "Name": "StructuredComponents",
+     "Value": "StructuredComponents",
+     "Description": "Structured Components"
+    }
+   ],
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "RoundTrip"
+  },
+  {
+   "$id": "37",
+   "Name": "EvaluationInvocationType",
+   "Namespace": "SkillContext",
+   "Description": "Evaluation Invocation Type",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "38",
+     "Name": "Manual",
+     "Value": "Manual",
+     "Description": "Manual generation"
+    },
+    {
+     "$id": "39",
+     "Name": "Automated",
+     "Value": "Automated",
+     "Description": "Automated generation"
+    }
+   ],
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "40",
+   "Name": "EvaluationInvocationCategory",
+   "Namespace": "SkillContext",
+   "Description": "Evaluation Invocation Category",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "41",
+     "Name": "UserPrompt",
+     "Value": "UserPrompt",
+     "Description": "Generated from a Prompt"
+    },
+    {
+     "$id": "42",
+     "Name": "Promptbooks",
+     "Value": "Promptbooks",
+     "Description": "Generated from a Promptbook"
+    }
+   ],
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "43",
+   "Name": "SkillPreviewState",
+   "Namespace": "SkillContext",
+   "Description": "Used to configure the preview state of a skill.",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "44",
+     "Name": "GA",
+     "Value": "GA"
+    },
+    {
+     "$id": "45",
+     "Name": "Public",
+     "Value": "Public"
+    },
+    {
+     "$id": "46",
+     "Name": "Private",
+     "Value": "Private"
+    }
+   ],
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "47",
+   "Name": "ProgressLogLevel",
+   "Namespace": "",
+   "Description": "Level for progress logs",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "48",
+     "Name": "Error",
+     "Value": "Error",
+     "Description": "Error log"
+    },
+    {
+     "$id": "49",
+     "Name": "Warning",
+     "Value": "Warning",
+     "Description": "Warning log"
+    },
+    {
+     "$id": "50",
+     "Name": "Information",
+     "Value": "Information",
+     "Description": "Information log"
+    },
+    {
+     "$id": "51",
+     "Name": "Verbose",
+     "Value": "Verbose",
+     "Description": "Verbose log"
+    }
+   ],
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Input"
+  },
+  {
+   "$id": "52",
+   "Name": "OutputComponentType",
+   "Namespace": "SkillContext",
+   "Description": "",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "53",
+     "Name": "GptOutput",
+     "Value": "GptOutput"
+    },
+    {
+     "$id": "54",
+     "Name": "Text",
+     "Value": "Text"
+    },
+    {
+     "$id": "55",
+     "Name": "Image",
+     "Value": "Image"
+    }
+   ],
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "None"
+  },
+  {
+   "$id": "56",
+   "Name": "SkillOutputComponentAction",
+   "Namespace": "SkillContext",
+   "Description": "",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "57",
+     "Name": "None",
+     "Value": "None"
+    },
+    {
+     "$id": "58",
+     "Name": "Summarize",
+     "Value": "Summarize"
+    },
+    {
+     "$id": "59",
+     "Name": "Substitute",
+     "Value": "Substitute"
+    }
+   ],
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Input"
+  },
+  {
+   "$id": "60",
+   "Name": "AuthLocationEnum",
+   "Namespace": "SkillContext",
+   "Description": "Auth Location",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "61",
+     "Name": "Header",
+     "Value": "Header",
+     "Description": "Using Header"
+    },
+    {
+     "$id": "62",
+     "Name": "QueryParams",
+     "Value": "QueryParams",
+     "Description": "Using QueryParams"
+    }
+   ],
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "63",
+   "Name": "TokenCredentialEnum",
+   "Namespace": "",
+   "Description": "Token Credential Types",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "64",
+     "Name": "None",
+     "Value": "None",
+     "Description": "None"
+    },
+    {
+     "$id": "65",
+     "Name": "UserTokenCredential",
+     "Value": "UserTokenCredential",
+     "Description": "UserTokenCredential type"
+    },
+    {
+     "$id": "66",
+     "Name": "ServiceTokenCredential",
+     "Value": "ServiceTokenCredential",
+     "Description": "ServiceTokenCredential type"
+    }
+   ],
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Input"
+  }
+ ],
+ "Models": [
+  {
+   "$id": "67",
+   "Name": "SkillContextResponse",
+   "Namespace": "SkillContext",
+   "Description": "SkillContext object containing properties of the current session relevant to the invoked skill",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "68",
+     "Name": "descriptor",
+     "SerializedName": "descriptor",
+     "Description": "Skill descriptor containing attributes that describe a skill (i.e. Inputs required to execute the skill)",
+     "Type": {
+      "$id": "69",
+      "Name": "SkillDescriptor",
+      "Namespace": "",
+      "Description": "The desciptor of a skill",
+      "IsNullable": false,
+      "Usage": "Output",
+      "Properties": [
+       {
+        "$id": "70",
+        "Name": "skillset",
+        "SerializedName": "skillset",
+        "Description": "The skillset descriptor",
+        "Type": {
+         "$id": "71",
+         "Name": "SkillsetDescriptor",
+         "Namespace": "",
+         "Description": "Entity representing a Skillset.",
+         "IsNullable": false,
+         "Usage": "Output",
+         "Properties": [
+          {
+           "$id": "72",
+           "Name": "namespace",
+           "SerializedName": "namespace",
+           "Description": "Namespace for the skillset",
+           "Type": {
+            "$id": "73",
+            "Name": "string",
+            "Kind": "String",
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "74",
+           "Name": "name",
+           "SerializedName": "name",
+           "Description": "The name of the Skillset",
+           "Type": {
+            "$id": "75",
+            "Name": "string",
+            "Kind": "String",
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "76",
+           "Name": "description",
+           "SerializedName": "description",
+           "Description": "The description of the Skillset",
+           "Type": {
+            "$id": "77",
+            "Name": "string",
+            "Kind": "String",
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "78",
+           "Name": "descriptionDisplay",
+           "SerializedName": "descriptionDisplay",
+           "Description": "The description of the skillset that's displayed TODO postman/dev figure out where this is displayed",
+           "Type": {
+            "$id": "79",
+            "Name": "string",
+            "Kind": "String",
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "80",
+           "Name": "disaplyName",
+           "SerializedName": "disaplyName",
+           "Description": "The Skillset name that's displayed in the portal",
+           "Type": {
+            "$id": "81",
+            "Name": "string",
+            "Kind": "String",
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "82",
+           "Name": "icon",
+           "SerializedName": "icon",
+           "Description": "The icon displayed for the skillset in the console",
+           "Type": {
+            "$id": "83",
+            "Name": "string",
+            "Kind": "String",
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "84",
+           "Name": "category",
+           "SerializedName": "category",
+           "Description": "The category of the Skillset",
+           "Type": {
+            "$ref": "2"
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "85",
+           "Name": "catalogScope",
+           "SerializedName": "catalogScope",
+           "Description": "CatalogScope of the Skillset",
+           "Type": {
+            "$ref": "9"
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "86",
+           "Name": "enabled",
+           "SerializedName": "enabled",
+           "Description": "Whether the skillset is enabled TODO how is this different than Hidden",
+           "Type": {
+            "$id": "87",
+            "Name": "boolean",
+            "Kind": "Boolean",
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "88",
+           "Name": "hidden",
+           "SerializedName": "hidden",
+           "Description": "Whether the skillset is hidden TODO how is this different than enabled",
+           "Type": {
+            "$id": "89",
+            "Name": "boolean",
+            "Kind": "Boolean",
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "90",
+           "Name": "prerequisites",
+           "SerializedName": "prerequisites",
+           "Description": "The prerequisites of a skillset TODO what does this mean",
+           "Type": {
+            "$id": "91",
+            "Name": "Array",
+            "ElementType": {
+             "$id": "92",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "IsNullable": true
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "93",
+           "Name": "settings",
+           "SerializedName": "settings",
+           "Description": "The settings of a skillset",
+           "Type": {
+            "$id": "94",
+            "Name": "Array",
+            "ElementType": {
+             "$id": "95",
+             "Name": "SkillsetSetting",
+             "Namespace": "",
+             "Description": "Defines the settings of a skillset",
+             "IsNullable": false,
+             "Usage": "Output",
+             "Properties": [
+              {
+               "$id": "96",
+               "Name": "name",
+               "SerializedName": "name",
+               "Description": "The name of the skillset setting",
+               "Type": {
+                "$id": "97",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "98",
+               "Name": "label",
+               "SerializedName": "label",
+               "Description": "The label of the skillset setting",
+               "Type": {
+                "$id": "99",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "100",
+               "Name": "description",
+               "SerializedName": "description",
+               "Description": "The description of the skillset setting used to describe the setting to the user in an info text box",
+               "Type": {
+                "$id": "101",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "102",
+               "Name": "hintText",
+               "SerializedName": "hintText",
+               "Description": "The hint text used to fill in the setting box",
+               "Type": {
+                "$id": "103",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "104",
+               "Name": "settingType",
+               "SerializedName": "settingType",
+               "Description": "The type of the skillset setting",
+               "Type": {
+                "$ref": "15"
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "105",
+               "Name": "required",
+               "SerializedName": "required",
+               "Description": "Whether the skillset setting is required",
+               "Type": {
+                "$id": "106",
+                "Name": "boolean",
+                "Kind": "Boolean",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "107",
+               "Name": "defaultValue",
+               "SerializedName": "defaultValue",
+               "Description": "The default value of the skillset setting",
+               "Type": {
+                "$id": "108",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "109",
+               "Name": "value",
+               "SerializedName": "value",
+               "Description": "The value of the skillset setting",
+               "Type": {
+                "$id": "110",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              }
+             ]
+            },
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "111",
+           "Name": "authorization",
+           "SerializedName": "authorization",
+           "Description": "The settings of a skillset",
+           "Type": {
+            "$id": "112",
+            "Name": "SkillsetAuth",
+            "Namespace": "",
+            "Description": "The authorization settings for the skillset",
+            "IsNullable": false,
+            "Usage": "Output",
+            "Properties": [
+             {
+              "$id": "113",
+              "Name": "type",
+              "SerializedName": "type",
+              "Description": "SkillsetAuth Type",
+              "Type": {
+               "$ref": "18"
+              },
+              "IsRequired": true,
+              "IsReadOnly": false
+             }
+            ]
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "114",
+           "Name": "supportedAuthTypes",
+           "SerializedName": "supportedAuthTypes",
+           "Description": "The types of authentication supported by the skillset",
+           "Type": {
+            "$id": "115",
+            "Name": "Array",
+            "ElementType": {
+             "$ref": "18"
+            },
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "116",
+           "Name": "userVisibilityFeatureFlags",
+           "SerializedName": "userVisibilityFeatureFlags",
+           "Description": "A list of feature flags. At least one of the feature flags is required to enabled in the prompt context in order for the skillset to be available",
+           "Type": {
+            "$id": "117",
+            "Name": "Array",
+            "ElementType": {
+             "$id": "118",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "119",
+           "Name": "userVisibility",
+           "SerializedName": "userVisibility",
+           "Description": "Controls the conditions under which the users can see or use this skillset",
+           "Type": {
+            "$ref": "27"
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "120",
+           "Name": "plannerVisibilityFeatureFlags",
+           "SerializedName": "plannerVisibilityFeatureFlags",
+           "Description": "Visibility flags required for the planner to user the skillset TODO confirm what this does",
+           "Type": {
+            "$id": "121",
+            "Name": "Array",
+            "ElementType": {
+             "$id": "122",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "123",
+           "Name": "plannerVisibility",
+           "SerializedName": "plannerVisibility",
+           "Description": "Controls the conditions under a prompt can use this skillset",
+           "Type": {
+            "$ref": "27"
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "124",
+           "Name": "creatorUserId",
+           "SerializedName": "creatorUserId",
+           "Description": "The user ID of the user who created this skillset.",
+           "Type": {
+            "$id": "125",
+            "Name": "string",
+            "Kind": "String",
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "126",
+           "Name": "ownersGroupId",
+           "SerializedName": "ownersGroupId",
+           "Description": "The ID of an Entra group that contains the owners for this Skillset",
+           "Type": {
+            "$id": "127",
+            "Name": "string",
+            "Kind": "String",
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          }
+         ]
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "128",
+        "Name": "name",
+        "SerializedName": "name",
+        "Description": "The name of the skill",
+        "Type": {
+         "$id": "129",
+         "Name": "string",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "130",
+        "Name": "format",
+        "SerializedName": "format",
+        "Description": "The format of the skill",
+        "Type": {
+         "$id": "131",
+         "Name": "string",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "132",
+        "Name": "displayName",
+        "SerializedName": "displayName",
+        "Description": "The display name of the skill",
+        "Type": {
+         "$id": "133",
+         "Name": "string",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "134",
+        "Name": "altName",
+        "SerializedName": "altName",
+        "Description": "An alternative name for the skill as some planners follow different naming convensions. This is set by the planner to map the name back to the skill",
+        "Type": {
+         "$id": "135",
+         "Name": "string",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "136",
+        "Name": "dependencies",
+        "SerializedName": "dependencies",
+        "Description": "The dependencies of the skill",
+        "Type": {
+         "$id": "137",
+         "Name": "Array",
+         "ElementType": {
+          "$id": "138",
+          "Name": "SkillDependencyDescriptor",
+          "Namespace": "",
+          "Description": "The descriptor of a skill dependency",
+          "IsNullable": false,
+          "Usage": "Output",
+          "Properties": [
+           {
+            "$id": "139",
+            "Name": "skillsetName",
+            "SerializedName": "skillsetName",
+            "Description": "The skillset name",
+            "Type": {
+             "$id": "140",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "141",
+            "Name": "skillName",
+            "SerializedName": "skillName",
+            "Description": "The name of the skill",
+            "Type": {
+             "$id": "142",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           }
+          ]
+         },
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "143",
+        "Name": "description",
+        "SerializedName": "description",
+        "Description": "The description of the skill",
+        "Type": {
+         "$id": "144",
+         "Name": "string",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "145",
+        "Name": "examplePrompts",
+        "SerializedName": "examplePrompts",
+        "Description": "A list of example prompts for the skill",
+        "Type": {
+         "$id": "146",
+         "Name": "Array",
+         "ElementType": {
+          "$id": "147",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "148",
+        "Name": "hidden",
+        "SerializedName": "hidden",
+        "Description": "Whether the skill is hidden TODO what does this mean",
+        "Type": {
+         "$id": "149",
+         "Name": "boolean",
+         "Kind": "Boolean",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "150",
+        "Name": "inputs",
+        "SerializedName": "inputs",
+        "Description": "The inputs required for the skill",
+        "Type": {
+         "$id": "151",
+         "Name": "Array",
+         "ElementType": {
+          "$id": "152",
+          "Name": "SkillInputDescriptor",
+          "Namespace": "",
+          "Description": "The descriptor of a skill input",
+          "IsNullable": false,
+          "Usage": "Output",
+          "Properties": [
+           {
+            "$id": "153",
+            "Name": "name",
+            "SerializedName": "name",
+            "Description": "The name of the skill input",
+            "Type": {
+             "$id": "154",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "IsRequired": false,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "155",
+            "Name": "type",
+            "SerializedName": "type",
+            "Description": "The type of the skill input",
+            "Type": {
+             "$id": "156",
+             "Name": "SkillTypeDescriptor",
+             "Namespace": "",
+             "Description": "The descriptor of a skill type",
+             "IsNullable": false,
+             "Usage": "Output",
+             "Properties": [
+              {
+               "$id": "157",
+               "Name": "name",
+               "SerializedName": "name",
+               "Description": "The name of the skill type",
+               "Type": {
+                "$id": "158",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              }
+             ]
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "159",
+            "Name": "description",
+            "SerializedName": "description",
+            "Description": "The description of the skill",
+            "Type": {
+             "$id": "160",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "IsRequired": false,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "161",
+            "Name": "required",
+            "SerializedName": "required",
+            "Description": "Whether a skill input is required",
+            "Type": {
+             "$id": "162",
+             "Name": "boolean",
+             "Kind": "Boolean",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "163",
+            "Name": "defaultValue",
+            "SerializedName": "defaultValue",
+            "Description": "The default value of the skill input",
+            "Type": {
+             "$id": "164",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "IsRequired": false,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "165",
+            "Name": "placeholderValue",
+            "SerializedName": "placeholderValue",
+            "Description": "The placeholder value of the skill input TODO how is this different than the default",
+            "Type": {
+             "$id": "166",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "167",
+            "Name": "enum",
+            "SerializedName": "enum",
+            "Description": "Enum",
+            "Type": {
+             "$id": "168",
+             "Name": "Array",
+             "ElementType": {
+              "$id": "169",
+              "Name": "string",
+              "Kind": "String",
+              "IsNullable": false
+             },
+             "IsNullable": true
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           }
+          ]
+         },
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "170",
+        "Name": "outputs",
+        "SerializedName": "outputs",
+        "Description": "The outputs of the skill",
+        "Type": {
+         "$id": "171",
+         "Name": "Array",
+         "ElementType": {
+          "$id": "172",
+          "Name": "SkillOutputDescriptor",
+          "Namespace": "",
+          "Description": "The descriptor of a skill output",
+          "IsNullable": false,
+          "Usage": "Output",
+          "Properties": [
+           {
+            "$id": "173",
+            "Name": "name",
+            "SerializedName": "name",
+            "Description": "The name of the skill input",
+            "Type": {
+             "$id": "174",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "IsRequired": false,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "175",
+            "Name": "type",
+            "SerializedName": "type",
+            "Description": "The type of the skill input",
+            "Type": {
+             "$ref": "156"
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "176",
+            "Name": "description",
+            "SerializedName": "description",
+            "Description": "The description of the skill",
+            "Type": {
+             "$id": "177",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "IsRequired": false,
+            "IsReadOnly": false
+           }
+          ]
+         },
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "178",
+        "Name": "promptAlignedName",
+        "SerializedName": "promptAlignedName",
+        "Description": "The prompt aligned name of the skill TODO what does this mean",
+        "Type": {
+         "$id": "179",
+         "Name": "string",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "180",
+        "Name": "userVisibilityFeatureFlags",
+        "SerializedName": "userVisibilityFeatureFlags",
+        "Description": "A list of feature flags. At least one of the feature flags is required to enabled in the prompt context in order for the skillset to be available",
+        "Type": {
+         "$id": "181",
+         "Name": "Array",
+         "ElementType": {
+          "$id": "182",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "183",
+        "Name": "userVisibility",
+        "SerializedName": "userVisibility",
+        "Description": "Controls the conditions under which the users can see or use this skillset",
+        "Type": {
+         "$ref": "27"
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "184",
+        "Name": "plannerVisibilityFeatureFlags",
+        "SerializedName": "plannerVisibilityFeatureFlags",
+        "Description": "Visibility flags required for the planner to user the skillset TODO confirm what this does",
+        "Type": {
+         "$id": "185",
+         "Name": "Array",
+         "ElementType": {
+          "$id": "186",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "187",
+        "Name": "plannerVisibility",
+        "SerializedName": "plannerVisibility",
+        "Description": "Controls the conditions under a prompt can use this skillset",
+        "Type": {
+         "$ref": "27"
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "188",
+        "Name": "settings",
+        "SerializedName": "settings",
+        "Description": "The settings of the skill",
+        "Type": {
+         "$id": "189",
+         "Name": "Dictionary",
+         "KeyType": {
+          "$id": "190",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "ValueType": {
+          "$id": "191",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "192",
+        "Name": "skillSummaryMetadata",
+        "SerializedName": "skillSummaryMetadata",
+        "Description": "skillSummaryMetadata",
+        "Type": {
+         "$id": "193",
+         "Name": "SkillSummaryDescriptor",
+         "Namespace": "",
+         "Description": "SkillSummaryDescriptor",
+         "IsNullable": false,
+         "Usage": "Output",
+         "Properties": [
+          {
+           "$id": "194",
+           "Name": "summaryStartMessage",
+           "SerializedName": "summaryStartMessage",
+           "Description": "SummaryStartMessage",
+           "Type": {
+            "$id": "195",
+            "Name": "string",
+            "Kind": "String",
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "196",
+           "Name": "summaryEndMessage",
+           "SerializedName": "summaryEndMessage",
+           "Description": "SummaryEndMessage",
+           "Type": {
+            "$id": "197",
+            "Name": "string",
+            "Kind": "String",
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          }
+         ]
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "198",
+        "Name": "enableVariableSubstitutionInCompose",
+        "SerializedName": "enableVariableSubstitutionInCompose",
+        "Description": "EnableVariableSubstitutionInCompose",
+        "Type": {
+         "$id": "199",
+         "Name": "boolean",
+         "Kind": "Boolean",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       }
+      ]
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "200",
+     "Name": "id",
+     "SerializedName": "id",
+     "Description": "SkillContext Id",
+     "Type": {
+      "$id": "201",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "202",
+     "Name": "featureFlags",
+     "SerializedName": "featureFlags",
+     "Description": "Array of feature flags",
+     "Type": {
+      "$id": "203",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "204",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "205",
+     "Name": "inputs",
+     "SerializedName": "inputs",
+     "Description": "Skill Variable Collection",
+     "Type": {
+      "$id": "206",
+      "Name": "Dictionary",
+      "KeyType": {
+       "$id": "207",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "ValueType": {
+       "$id": "208",
+       "Name": "SkillVariable",
+       "Namespace": "SkillContext",
+       "Description": "Skill Variable",
+       "IsNullable": true,
+       "Usage": "RoundTrip",
+       "Properties": [
+        {
+         "$id": "209",
+         "Name": "type",
+         "SerializedName": "type",
+         "Description": "Skill variable type",
+         "Type": {
+          "$id": "210",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "211",
+         "Name": "value",
+         "SerializedName": "value",
+         "Description": "Skill variable value",
+         "Type": {
+          "$id": "212",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "213",
+         "Name": "valueStoredAsJson",
+         "SerializedName": "valueStoredAsJson",
+         "Description": "Skill variable value is stored as json document",
+         "Type": {
+          "$id": "214",
+          "Name": "boolean",
+          "Kind": "Boolean",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        }
+       ],
+       "DerivedModels": [
+        {
+         "$id": "215",
+         "Name": "OutputSkillVariable",
+         "Namespace": "SkillContext",
+         "Description": "Skill variable parent entity adding additional attribute 'skillsource' to provide visibility to users as to what data/information was used in generating the output of a skill",
+         "IsNullable": false,
+         "BaseModel": {
+          "$ref": "208"
+         },
+         "Usage": "RoundTrip",
+         "Properties": [
+          {
+           "$id": "216",
+           "Name": "sources",
+           "SerializedName": "sources",
+           "Description": "Array of cited sources that were fetched by a skill and that impacted the output of the skill evaluation",
+           "Type": {
+            "$id": "217",
+            "Name": "Array",
+            "ElementType": {
+             "$id": "218",
+             "Name": "SkillSource",
+             "Namespace": "SkillContext",
+             "Description": "Source that is fetched during the evaluation of a skill. Provides visibility to users as to what data/information was used in generating the output of a skill",
+             "IsNullable": false,
+             "Usage": "RoundTrip",
+             "Properties": [
+              {
+               "$id": "219",
+               "Name": "displayName",
+               "SerializedName": "displayName",
+               "Description": "User friendly name for the information source",
+               "Type": {
+                "$id": "220",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "221",
+               "Name": "sourceContent",
+               "SerializedName": "sourceContent",
+               "Description": "Information source content (i.e. URL to article)",
+               "Type": {
+                "$id": "222",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "223",
+               "Name": "sourceType",
+               "SerializedName": "sourceType",
+               "Description": "The source type (i.e. URI)",
+               "Type": {
+                "$ref": "31"
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "224",
+               "Name": "sourceSerializedData",
+               "SerializedName": "sourceSerializedData",
+               "Description": "Source data serialized as string",
+               "Type": {
+                "$id": "225",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": true
+               },
+               "IsRequired": false,
+               "IsReadOnly": false
+              }
+             ]
+            },
+            "IsNullable": true
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "226",
+           "Name": "suggestedPrompts",
+           "SerializedName": "suggestedPrompts",
+           "Description": "Suggested prompts providing assistance to users in understanding what prompts work well with CFS",
+           "Type": {
+            "$id": "227",
+            "Name": "Array",
+            "ElementType": {
+             "$id": "228",
+             "Name": "SuggestedPrompt",
+             "Namespace": "SkillContext",
+             "Description": "Suggested prompts providing assistance to users in understanding what prompts work well with CFS",
+             "IsNullable": false,
+             "Usage": "RoundTrip",
+             "Properties": [
+              {
+               "$id": "229",
+               "Name": "prompt",
+               "SerializedName": "prompt",
+               "Description": "Prompt text",
+               "Type": {
+                "$id": "230",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              }
+             ]
+            },
+            "IsNullable": true
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "231",
+           "Name": "skillName",
+           "SerializedName": "skillName",
+           "Description": "Skill name",
+           "Type": {
+            "$id": "232",
+            "Name": "string",
+            "Kind": "String",
+            "IsNullable": true
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "233",
+           "Name": "skillInputs",
+           "SerializedName": "skillInputs",
+           "Description": "Skill inputs that were used in generating the output of the skill evaluation",
+           "Type": {
+            "$id": "234",
+            "Name": "Dictionary",
+            "KeyType": {
+             "$id": "235",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "ValueType": {
+             "$id": "236",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "IsNullable": true
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "237",
+           "Name": "outputLanguage",
+           "SerializedName": "outputLanguage",
+           "Description": "Skill output language",
+           "Type": {
+            "$id": "238",
+            "Name": "string",
+            "Kind": "String",
+            "IsNullable": true
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "239",
+           "Name": "outputType",
+           "SerializedName": "outputType",
+           "Description": "Enum indicating the output type of the skill. Supports StructuredOutput and Primitive",
+           "Type": {
+            "$ref": "34"
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          }
+         ]
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "240",
+     "Name": "properties",
+     "SerializedName": "properties",
+     "Description": "Additional skill specific settings",
+     "Type": {
+      "$id": "241",
+      "Name": "Dictionary",
+      "KeyType": {
+       "$id": "242",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "ValueType": {
+       "$id": "243",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "244",
+     "Name": "startTime",
+     "SerializedName": "startTime",
+     "Description": "TODO",
+     "Type": {
+      "$id": "245",
+      "Name": "utcDateTime",
+      "Kind": "DateTime",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "246",
+     "Name": "tenantId",
+     "SerializedName": "tenantId",
+     "Description": "Tenant id of tenant in which skill invocation occured",
+     "Type": {
+      "$id": "247",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "248",
+     "Name": "userId",
+     "SerializedName": "userId",
+     "Description": "User id of user that invoked the skill",
+     "Type": {
+      "$id": "249",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "250",
+     "Name": "sessionId",
+     "SerializedName": "sessionId",
+     "Description": "Current session ID",
+     "Type": {
+      "$id": "251",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "252",
+     "Name": "promptId",
+     "SerializedName": "promptId",
+     "Description": "Current prompt ID",
+     "Type": {
+      "$id": "253",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "254",
+     "Name": "evaluationId",
+     "SerializedName": "evaluationId",
+     "Description": "Current evaluation ID",
+     "Type": {
+      "$id": "255",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "256",
+     "Name": "complianceFlags",
+     "SerializedName": "complianceFlags",
+     "Description": "Compliance flags for logging.",
+     "Type": {
+      "$id": "257",
+      "Name": "ComplianceFlags",
+      "Namespace": "SkillContext",
+      "Description": "ComplianceFlags",
+      "IsNullable": false,
+      "Usage": "Output",
+      "Properties": [
+       {
+        "$id": "258",
+        "Name": "recordLog",
+        "SerializedName": "recordLog",
+        "Description": "Whether to record logs in Geneva and Kusto for this user",
+        "Type": {
+         "$id": "259",
+         "Name": "boolean",
+         "Kind": "Boolean",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "260",
+        "Name": "customerOptedInToEyesOnProductImprovement",
+        "SerializedName": "customerOptedInToEyesOnProductImprovement",
+        "Description": "Locked down tables not required and non-customer content table does not have to be redacted",
+        "Type": {
+         "$id": "261",
+         "Name": "boolean",
+         "Kind": "Boolean",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "262",
+        "Name": "customerOptedInToModelImprovement",
+        "SerializedName": "customerOptedInToModelImprovement",
+        "Description": "When this is true, the data may be used for model improvement. This flag does not affect redaction.",
+        "Type": {
+         "$id": "263",
+         "Name": "boolean",
+         "Kind": "Boolean",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       }
+      ]
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "264",
+     "Name": "workspaceId",
+     "SerializedName": "workspaceId",
+     "Description": "Fidelis Workspace Id",
+     "Type": {
+      "$id": "265",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "266",
+     "Name": "source",
+     "SerializedName": "source",
+     "Description": "Originating source tag for the evaluation (i.e. Immersive, Logic Apps, etc.)",
+     "Type": {
+      "$id": "267",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "268",
+     "Name": "invocationType",
+     "SerializedName": "invocationType",
+     "Description": "Indicates whether the evaluation is user driven or automated",
+     "Type": {
+      "$ref": "37"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "269",
+     "Name": "invocationCategory",
+     "SerializedName": "invocationCategory",
+     "Description": "Indicates whether the evaluation is from a Prompt or a Promptbook",
+     "Type": {
+      "$ref": "40"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "270",
+     "Name": "userName",
+     "SerializedName": "userName",
+     "Description": "Username of the user that invoked the skill",
+     "Type": {
+      "$id": "271",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "69"
+  },
+  {
+   "$ref": "71"
+  },
+  {
+   "$ref": "95"
+  },
+  {
+   "$ref": "112"
+  },
+  {
+   "$ref": "138"
+  },
+  {
+   "$ref": "152"
+  },
+  {
+   "$ref": "156"
+  },
+  {
+   "$ref": "172"
+  },
+  {
+   "$ref": "193"
+  },
+  {
+   "$ref": "208"
+  },
+  {
+   "$ref": "215"
+  },
+  {
+   "$ref": "218"
+  },
+  {
+   "$ref": "228"
+  },
+  {
+   "$ref": "257"
+  },
+  {
+   "$id": "272",
+   "Name": "InvokeSkillRequest",
+   "Namespace": "SkillContext",
+   "Description": "Invoke skill request including necessary inputs for invoking a skill",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "273",
+     "Name": "skillsetName",
+     "SerializedName": "skillsetName",
+     "Description": "Name of skillset in which desired skill to invoke resides",
+     "Type": {
+      "$id": "274",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "275",
+     "Name": "skillName",
+     "SerializedName": "skillName",
+     "Description": "Name of skill to be invoked",
+     "Type": {
+      "$id": "276",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "277",
+     "Name": "inputs",
+     "SerializedName": "inputs",
+     "Description": "Skill inputs",
+     "Type": {
+      "$id": "278",
+      "Name": "Dictionary",
+      "KeyType": {
+       "$id": "279",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "ValueType": {
+       "$ref": "208"
+      },
+      "IsNullable": true
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "280",
+   "Name": "MedeinaExecutionContext",
+   "Namespace": "SkillContext",
+   "Description": "Represents the execution context for the current session.",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "281",
+     "Name": "SessionId",
+     "SerializedName": "SessionId",
+     "Description": "The session id.",
+     "Type": {
+      "$id": "282",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "283",
+     "Name": "PromptId",
+     "SerializedName": "PromptId",
+     "Description": "The prompt id.",
+     "Type": {
+      "$id": "284",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "285",
+     "Name": "EvaluationId",
+     "SerializedName": "EvaluationId",
+     "Description": "The evaluation id.",
+     "Type": {
+      "$id": "286",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "287",
+     "Name": "TenantId",
+     "SerializedName": "TenantId",
+     "Description": "The tenant id.",
+     "Type": {
+      "$id": "288",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "289",
+     "Name": "AccountId",
+     "SerializedName": "AccountId",
+     "Description": "The account id.",
+     "Type": {
+      "$id": "290",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "291",
+     "Name": "WorkspaceId",
+     "SerializedName": "WorkspaceId",
+     "Description": "The workspace id.",
+     "Type": {
+      "$id": "292",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "293",
+     "Name": "UserName",
+     "SerializedName": "UserName",
+     "Description": "The display name of the user.",
+     "Type": {
+      "$id": "294",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "295",
+     "Name": "ApplicationId",
+     "SerializedName": "ApplicationId",
+     "Description": "The Application Id that created the Session.",
+     "Type": {
+      "$id": "296",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "297",
+     "Name": "Source",
+     "SerializedName": "Source",
+     "Description": "The Source tag i.e. 'immersive'.",
+     "Type": {
+      "$id": "298",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "299",
+     "Name": "UnauthenticatedSourceApplicationId",
+     "SerializedName": "UnauthenticatedSourceApplicationId",
+     "Description": "The source application ID.",
+     "Type": {
+      "$id": "300",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "301",
+     "Name": "SelectedSkills",
+     "SerializedName": "SelectedSkills",
+     "Description": "The selected skills.",
+     "Type": {
+      "$id": "302",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "303",
+     "Name": "SelectedSkillsets",
+     "SerializedName": "SelectedSkillsets",
+     "Description": "The skillsets identified for execution during the evaluation process post skill selection.",
+     "Type": {
+      "$id": "304",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "305",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "306",
+     "Name": "IsFidelisUser",
+     "SerializedName": "IsFidelisUser",
+     "Description": "Indicates whether the context is for a user onboarded to Fidelis.",
+     "Type": {
+      "$id": "307",
+      "Name": "boolean",
+      "Kind": "Boolean",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "308",
+     "Name": "InvocationType",
+     "SerializedName": "InvocationType",
+     "Description": "Indicates whether the evaluation is manually generated or user driven.",
+     "Type": {
+      "$ref": "37"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "309",
+     "Name": "InvocationCategory",
+     "SerializedName": "InvocationCategory",
+     "Description": "Indicates whether the evaluation is from a Prompt or a Promptbook",
+     "Type": {
+      "$ref": "40"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "310",
+     "Name": "EncryptedUserAccessToken",
+     "SerializedName": "EncryptedUserAccessToken",
+     "Description": "The encrypted token used to authenticate the user.",
+     "Type": {
+      "$id": "311",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "312",
+     "Name": "ComplianceFlags",
+     "SerializedName": "ComplianceFlags",
+     "Description": "Compliance flags for logging.",
+     "Type": {
+      "$ref": "257"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "313",
+     "Name": "AzureOpenAIExecutionContext",
+     "SerializedName": "AzureOpenAIExecutionContext",
+     "Description": "Contains the context for the Azure OpenAI requests such as the deployment id.",
+     "Type": {
+      "$id": "314",
+      "Name": "AzureOpenAIExecutionContext",
+      "Namespace": "SkillContext",
+      "Description": "Represents the Azure OpenAI execution context.",
+      "IsNullable": false,
+      "Usage": "RoundTrip",
+      "Properties": [
+       {
+        "$id": "315",
+        "Name": "ApiVersion",
+        "SerializedName": "ApiVersion",
+        "Description": "The API version.",
+        "Type": {
+         "$id": "316",
+         "Name": "string",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "317",
+        "Name": "Environment",
+        "SerializedName": "Environment",
+        "Description": "The environment where the request is being made.",
+        "Type": {
+         "$id": "318",
+         "Name": "string",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "319",
+        "Name": "IsGPUProxyEnabled",
+        "SerializedName": "IsGPUProxyEnabled",
+        "Description": "Determines if the GPU proxy is enabled.",
+        "Type": {
+         "$id": "320",
+         "Name": "boolean",
+         "Kind": "Boolean",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "321",
+        "Name": "GpuProcessingGeo",
+        "SerializedName": "GpuProcessingGeo",
+        "Description": "The geographic location where the GPU processing is being done.",
+        "Type": {
+         "$id": "322",
+         "Name": "string",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "IsRequired": false,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "323",
+        "Name": "CustomerAllowCrossGeoCompute",
+        "SerializedName": "CustomerAllowCrossGeoCompute",
+        "Description": "Whether the customer allows cross-geo compute in their workspace capacity.",
+        "Type": {
+         "$id": "324",
+         "Name": "boolean",
+         "Kind": "Boolean",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "325",
+        "Name": "EcsAllowCrossGeoCompute",
+        "SerializedName": "EcsAllowCrossGeoCompute",
+        "Description": "ECS controlled flag to allow cross-geo compute.",
+        "Type": {
+         "$id": "326",
+         "Name": "boolean",
+         "Kind": "Boolean",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "327",
+        "Name": "ContentFilterProperties",
+        "SerializedName": "ContentFilterProperties",
+        "Description": "Properties used to add content prompt and content filter details from the response.",
+        "Type": {
+         "$id": "328",
+         "Name": "Dictionary",
+         "KeyType": {
+          "$id": "329",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "ValueType": {
+          "$id": "330",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsNullable": false
+        },
+        "IsRequired": false,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "331",
+        "Name": "ReportingProperties",
+        "SerializedName": "ReportingProperties",
+        "Description": "Properties used to report information about the skill invocation. Must not contain customer content.",
+        "Type": {
+         "$id": "332",
+         "Name": "Dictionary",
+         "KeyType": {
+          "$id": "333",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "ValueType": {
+          "$id": "334",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsNullable": false
+        },
+        "IsRequired": false,
+        "IsReadOnly": false
+       }
+      ]
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "335",
+     "Name": "PreviewState",
+     "SerializedName": "PreviewState",
+     "Description": "Preview state of the execution context.",
+     "Type": {
+      "$ref": "43"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "314"
+  },
+  {
+   "$id": "336",
+   "Name": "PromptHistoryResponse",
+   "Namespace": "SkillContext",
+   "Description": "The prompt history of the current session",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "337",
+     "Name": "prompts",
+     "SerializedName": "prompts",
+     "Description": "List of prompts that have been evaluated in the current session",
+     "Type": {
+      "$id": "338",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "339",
+       "Name": "SessionPrompt",
+       "Namespace": "SkillContext",
+       "Description": "A record for a prompt and response used in tracking session prompt history",
+       "IsNullable": false,
+       "Usage": "Output",
+       "Properties": [
+        {
+         "$id": "340",
+         "Name": "prompt",
+         "SerializedName": "prompt",
+         "Description": "The content of the prompt",
+         "Type": {
+          "$id": "341",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "342",
+         "Name": "response",
+         "SerializedName": "response",
+         "Description": "Prompt response returned by the prompt evaluation",
+         "Type": {
+          "$id": "343",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": true
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "339"
+  },
+  {
+   "$id": "344",
+   "Name": "LogProgressRequest",
+   "Namespace": "SkillContext",
+   "Description": "The progress message to log during a skill invocation",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "345",
+     "Name": "level",
+     "SerializedName": "level",
+     "Description": "Log level",
+     "Type": {
+      "$ref": "47"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "346",
+     "Name": "message",
+     "SerializedName": "message",
+     "Description": "Log message",
+     "Type": {
+      "$id": "347",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "348",
+   "Name": "EvaluationResultOutput",
+   "Namespace": "SkillContext",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "349",
+     "Name": "skillOutputType",
+     "SerializedName": "skillOutputType",
+     "Description": "",
+     "Type": {
+      "$ref": "34"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "350",
+     "Name": "primitiveOutput",
+     "SerializedName": "primitiveOutput",
+     "Description": "",
+     "Type": {
+      "$ref": "215"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "351",
+     "Name": "structuredOutput",
+     "SerializedName": "structuredOutput",
+     "Description": "",
+     "Type": {
+      "$id": "352",
+      "Name": "SkillStructuredOutput",
+      "Namespace": "SkillContext",
+      "IsNullable": false,
+      "Usage": "Input",
+      "Properties": [
+       {
+        "$id": "353",
+        "Name": "components",
+        "SerializedName": "components",
+        "Description": "",
+        "Type": {
+         "$id": "354",
+         "Name": "Array",
+         "ElementType": {
+          "$id": "355",
+          "Name": "SkillOutputComponent",
+          "Namespace": "SkillContext",
+          "IsNullable": false,
+          "BaseModel": {
+           "$id": "356",
+           "Name": "OutputComponent",
+           "Namespace": "SkillContext",
+           "IsNullable": false,
+           "Usage": "None",
+           "Properties": [
+            {
+             "$id": "357",
+             "Name": "name",
+             "SerializedName": "name",
+             "Description": "",
+             "Type": {
+              "$id": "358",
+              "Name": "string",
+              "Kind": "String",
+              "IsNullable": false
+             },
+             "IsRequired": true,
+             "IsReadOnly": false
+            },
+            {
+             "$id": "359",
+             "Name": "content",
+             "SerializedName": "content",
+             "Description": "",
+             "Type": {
+              "$id": "360",
+              "Name": "string",
+              "Kind": "String",
+              "IsNullable": false
+             },
+             "IsRequired": true,
+             "IsReadOnly": false
+            },
+            {
+             "$id": "361",
+             "Name": "description",
+             "SerializedName": "description",
+             "Description": "",
+             "Type": {
+              "$id": "362",
+              "Name": "string",
+              "Kind": "String",
+              "IsNullable": false
+             },
+             "IsRequired": false,
+             "IsReadOnly": false
+            },
+            {
+             "$id": "363",
+             "Name": "type",
+             "SerializedName": "type",
+             "Description": "",
+             "Type": {
+              "$ref": "52"
+             },
+             "IsRequired": true,
+             "IsReadOnly": false
+            }
+           ],
+           "DerivedModels": [
+            {
+             "$id": "364",
+             "Name": "SkillOutputComponent",
+             "Namespace": "SkillContext",
+             "IsNullable": false,
+             "BaseModel": {
+              "$ref": "356"
+             },
+             "Usage": "None",
+             "Properties": [
+              {
+               "$id": "365",
+               "Name": "action",
+               "SerializedName": "action",
+               "Description": "",
+               "Type": {
+                "$ref": "56"
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "366",
+               "Name": "includeInEvalResultAsRawComponent",
+               "SerializedName": "includeInEvalResultAsRawComponent",
+               "Description": "",
+               "Type": {
+                "$id": "367",
+                "Name": "boolean",
+                "Kind": "Boolean",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              }
+             ]
+            }
+           ]
+          },
+          "Usage": "Input",
+          "Properties": [
+           {
+            "$id": "368",
+            "Name": "action",
+            "SerializedName": "action",
+            "Description": "",
+            "Type": {
+             "$ref": "56"
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "369",
+            "Name": "includeInEvalResultAsRawComponent",
+            "SerializedName": "includeInEvalResultAsRawComponent",
+            "Description": "",
+            "Type": {
+             "$id": "370",
+             "Name": "boolean",
+             "Kind": "Boolean",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           }
+          ]
+         },
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       }
+      ]
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "371",
+     "Name": "primitiveOutputValue",
+     "SerializedName": "primitiveOutputValue",
+     "Description": "",
+     "Type": {
+      "$id": "372",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "352"
+  },
+  {
+   "$ref": "356"
+  },
+  {
+   "$ref": "355"
+  },
+  {
+   "$id": "373",
+   "Name": "AuthDetails",
+   "Namespace": "SkillContext",
+   "Description": "Auth Details",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "374",
+     "Name": "authLocation",
+     "SerializedName": "authLocation",
+     "Description": "Auth Location",
+     "Type": {
+      "$ref": "60"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "375",
+     "Name": "authInfo",
+     "SerializedName": "authInfo",
+     "Description": "Auth Info",
+     "Type": {
+      "$id": "376",
+      "Name": "Dictionary",
+      "KeyType": {
+       "$id": "377",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "ValueType": {
+       "$id": "378",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "379",
+   "Name": "GetTokenCredentialRequest",
+   "Namespace": "SkillContext",
+   "Description": "TokenCredentialRequest",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "380",
+     "Name": "scopes",
+     "SerializedName": "scopes",
+     "Description": "Scopes",
+     "Type": {
+      "$id": "381",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "382",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "383",
+     "Name": "tokenCredentialType",
+     "SerializedName": "tokenCredentialType",
+     "Description": "TokenCredential Type",
+     "Type": {
+      "$ref": "63"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "384",
+     "Name": "tenantId",
+     "SerializedName": "tenantId",
+     "Description": "TenantId",
+     "Type": {
+      "$id": "385",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": true
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "386",
+   "Name": "AccessToken",
+   "Namespace": "SkillContext",
+   "Description": "AccessToken",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "387",
+     "Name": "token",
+     "SerializedName": "token",
+     "Description": "Token string",
+     "Type": {
+      "$id": "388",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "389",
+     "Name": "expiresOn",
+     "SerializedName": "expiresOn",
+     "Description": "Expiry time",
+     "Type": {
+      "$id": "390",
+      "Name": "offsetDateTime",
+      "Kind": "DateTime",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "391",
+   "Name": "GetInputRequest",
+   "Namespace": "SkillContext",
+   "Description": "GetInputRequest",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "392",
+     "Name": "inputName",
+     "SerializedName": "inputName",
+     "Description": "Input Name",
+     "Type": {
+      "$id": "393",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "394",
+     "Name": "defaultValue",
+     "SerializedName": "defaultValue",
+     "Description": "Default value for the input",
+     "Type": {
+      "$ref": "208"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "395",
+   "Name": "SetInputRequest",
+   "Namespace": "SkillContext",
+   "Description": "SetInputRequest",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "396",
+     "Name": "inputName",
+     "SerializedName": "inputName",
+     "Description": "Input Name",
+     "Type": {
+      "$id": "397",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "398",
+     "Name": "defaultValue",
+     "SerializedName": "defaultValue",
+     "Description": "Default value for the input",
+     "Type": {
+      "$ref": "208"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "399",
+   "Name": "AddSourcesRequest",
+   "Namespace": "SkillContext",
+   "Description": "AddSourcesRequest",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "400",
+     "Name": "sources",
+     "SerializedName": "sources",
+     "Description": "List of SkillSource",
+     "Type": {
+      "$id": "401",
+      "Name": "Array",
+      "ElementType": {
+       "$ref": "218"
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "402",
+   "Name": "AddSourceRequest",
+   "Namespace": "SkillContext",
+   "Description": "AddSourceRequest",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "403",
+     "Name": "SkillSource",
+     "SerializedName": "SkillSource",
+     "Description": "SkillSource",
+     "Type": {
+      "$ref": "218"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "404",
+   "Name": "AddSuggestedPromptsRequest",
+   "Namespace": "SkillContext",
+   "Description": "AddSuggestedPromptsRequest",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "405",
+     "Name": "suggestedPrompts",
+     "SerializedName": "suggestedPrompts",
+     "Description": "List of SuggestedPrompt",
+     "Type": {
+      "$id": "406",
+      "Name": "Array",
+      "ElementType": {
+       "$ref": "228"
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "407",
+   "Name": "SetFinalResponseSettingsRequest",
+   "Namespace": "SkillContext",
+   "Description": "SetFinalResponseSettingsRequest",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "408",
+     "Name": "finalResponseBehavior",
+     "SerializedName": "finalResponseBehavior",
+     "Description": "FinalResponseBehavior",
+     "Type": {
+      "$id": "409",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "410",
+     "Name": "finalResponseFormat",
+     "SerializedName": "finalResponseFormat",
+     "Description": "FinalResponseFormat",
+     "Type": {
+      "$id": "411",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "412",
+     "Name": "finalResponsePersona",
+     "SerializedName": "finalResponsePersona",
+     "Description": "FinalResponsePersona",
+     "Type": {
+      "$id": "413",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "414",
+     "Name": "finalResponseFallback",
+     "SerializedName": "finalResponseFallback",
+     "Description": "FinalResponseFallback",
+     "Type": {
+      "$id": "415",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "416",
+   "Name": "CreateChatCompletionRequest",
+   "Namespace": "SkillContext",
+   "Description": "Represents a request to create a chat completion.",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "417",
+     "Name": "deploymentId",
+     "SerializedName": "deploymentId",
+     "Description": "The deployment ID.",
+     "Type": {
+      "$id": "418",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "419",
+     "Name": "chatCompletionRequest",
+     "SerializedName": "chatCompletionRequest",
+     "Description": "The chat completion request details.",
+     "Type": {
+      "$id": "420",
+      "Name": "ChatCompletionRequest",
+      "Namespace": "SkillContext",
+      "Description": "Represents a chat completion request.",
+      "IsNullable": false,
+      "BaseModel": {
+       "$id": "421",
+       "Name": "BaseCompletionRequest",
+       "Namespace": "SkillContext",
+       "Description": "Represents the base completion request with common parameters.",
+       "IsNullable": false,
+       "Usage": "None",
+       "Properties": [
+        {
+         "$id": "422",
+         "Name": "MaxTokens",
+         "SerializedName": "MaxTokens",
+         "Description": "The maximum number of tokens to generate.",
+         "Type": {
+          "$id": "423",
+          "Name": "int32",
+          "Kind": "Int32",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "424",
+         "Name": "Temperature",
+         "SerializedName": "Temperature",
+         "Description": "The sampling temperature to use.",
+         "Type": {
+          "$id": "425",
+          "Name": "float64",
+          "Kind": "Float64",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "426",
+         "Name": "TopP",
+         "SerializedName": "TopP",
+         "Description": "The nucleus sampling parameter.",
+         "Type": {
+          "$id": "427",
+          "Name": "float64",
+          "Kind": "Float64",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "428",
+         "Name": "N",
+         "SerializedName": "N",
+         "Description": "The number of completions to generate.",
+         "Type": {
+          "$id": "429",
+          "Name": "int32",
+          "Kind": "Int32",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "430",
+         "Name": "Stream",
+         "SerializedName": "Stream",
+         "Description": "Specifies whether to stream the response.",
+         "Type": {
+          "$id": "431",
+          "Name": "boolean",
+          "Kind": "Boolean",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "432",
+         "Name": "Logprobs",
+         "SerializedName": "Logprobs",
+         "Description": "The number of log probabilities to include.",
+         "Type": {
+          "$id": "433",
+          "Name": "int32",
+          "Kind": "Int32",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "434",
+         "Name": "Echo",
+         "SerializedName": "Echo",
+         "Description": "Whether to include the prompt in the output.",
+         "Type": {
+          "$id": "435",
+          "Name": "boolean",
+          "Kind": "Boolean",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "436",
+         "Name": "Stop",
+         "SerializedName": "Stop",
+         "Description": "Stop sequences to terminate generation.",
+         "Type": {
+          "$id": "437",
+          "Name": "Array",
+          "ElementType": {
+           "$id": "438",
+           "Name": "string",
+           "Kind": "String",
+           "IsNullable": false
+          },
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "439",
+         "Name": "PresencePenalty",
+         "SerializedName": "PresencePenalty",
+         "Description": "The penalty for repeating words in the presence.",
+         "Type": {
+          "$id": "440",
+          "Name": "float64",
+          "Kind": "Float64",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "441",
+         "Name": "FrequencyPenalty",
+         "SerializedName": "FrequencyPenalty",
+         "Description": "The penalty for repeating tokens.",
+         "Type": {
+          "$id": "442",
+          "Name": "float64",
+          "Kind": "Float64",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "443",
+         "Name": "BestOf",
+         "SerializedName": "BestOf",
+         "Description": "The number of completions to choose the best from.",
+         "Type": {
+          "$id": "444",
+          "Name": "int32",
+          "Kind": "Int32",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "445",
+         "Name": "LogitBias",
+         "SerializedName": "LogitBias",
+         "Description": "Adjusts likelihood of specific tokens.",
+         "Type": {
+          "$id": "446",
+          "Name": "Dictionary",
+          "KeyType": {
+           "$id": "447",
+           "Name": "string",
+           "Kind": "String",
+           "IsNullable": false
+          },
+          "ValueType": {
+           "$id": "448",
+           "Name": "int32",
+           "Kind": "Int32",
+           "IsNullable": false
+          },
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "449",
+         "Name": "ResponseFormat",
+         "SerializedName": "ResponseFormat",
+         "Description": "The response format specification.",
+         "Type": {
+          "$id": "450",
+          "Name": "Intrinsic",
+          "Kind": "unknown",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        }
+       ],
+       "DerivedModels": [
+        {
+         "$id": "451",
+         "Name": "ChatCompletionRequest",
+         "Namespace": "SkillContext",
+         "Description": "Represents a chat completion request.",
+         "IsNullable": false,
+         "BaseModel": {
+          "$ref": "421"
+         },
+         "Usage": "None",
+         "Properties": [
+          {
+           "$id": "452",
+           "Name": "Messages",
+           "SerializedName": "Messages",
+           "Description": "The messages associated with the request.",
+           "Type": {
+            "$id": "453",
+            "Name": "Array",
+            "ElementType": {
+             "$id": "454",
+             "Name": "Message",
+             "Namespace": "SkillContext",
+             "Description": "Represents a message in the chat.",
+             "IsNullable": false,
+             "Usage": "RoundTrip",
+             "Properties": [
+              {
+               "$id": "455",
+               "Name": "Content",
+               "SerializedName": "Content",
+               "Description": "The content of the message.",
+               "Type": {
+                "$id": "456",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": false,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "457",
+               "Name": "Role",
+               "SerializedName": "Role",
+               "Description": "The role of the message sender.",
+               "Type": {
+                "$id": "458",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "459",
+               "Name": "Name",
+               "SerializedName": "Name",
+               "Description": "The name of the message sender.",
+               "Type": {
+                "$id": "460",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": false,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "461",
+               "Name": "FunctionCall",
+               "SerializedName": "FunctionCall",
+               "Description": "The function call information.",
+               "Type": {
+                "$id": "462",
+                "Name": "FunctionCall",
+                "Namespace": "SkillContext",
+                "Description": "Represents a function call.",
+                "IsNullable": false,
+                "Usage": "RoundTrip",
+                "Properties": [
+                 {
+                  "$id": "463",
+                  "Name": "Name",
+                  "SerializedName": "Name",
+                  "Description": "The name of the function.",
+                  "Type": {
+                   "$id": "464",
+                   "Name": "string",
+                   "Kind": "String",
+                   "IsNullable": false
+                  },
+                  "IsRequired": true,
+                  "IsReadOnly": false
+                 },
+                 {
+                  "$id": "465",
+                  "Name": "Arguments",
+                  "SerializedName": "Arguments",
+                  "Description": "The arguments passed to the function.",
+                  "Type": {
+                   "$id": "466",
+                   "Name": "Dictionary",
+                   "KeyType": {
+                    "$id": "467",
+                    "Name": "string",
+                    "Kind": "String",
+                    "IsNullable": false
+                   },
+                   "ValueType": {
+                    "$id": "468",
+                    "Name": "string",
+                    "Kind": "String",
+                    "IsNullable": false
+                   },
+                   "IsNullable": false
+                  },
+                  "IsRequired": false,
+                  "IsReadOnly": false
+                 }
+                ]
+               },
+               "IsRequired": false,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "469",
+               "Name": "ToolCalls",
+               "SerializedName": "ToolCalls",
+               "Description": "The tool calls associated with the message.",
+               "Type": {
+                "$id": "470",
+                "Name": "Array",
+                "ElementType": {
+                 "$id": "471",
+                 "Name": "ToolCall",
+                 "Namespace": "SkillContext",
+                 "Description": "Represents a tool call.",
+                 "IsNullable": false,
+                 "Usage": "RoundTrip",
+                 "Properties": [
+                  {
+                   "$id": "472",
+                   "Name": "Id",
+                   "SerializedName": "Id",
+                   "Description": "The id of the tool call.",
+                   "Type": {
+                    "$id": "473",
+                    "Name": "string",
+                    "Kind": "String",
+                    "IsNullable": false
+                   },
+                   "IsRequired": true,
+                   "IsReadOnly": false
+                  },
+                  {
+                   "$id": "474",
+                   "Name": "Type",
+                   "SerializedName": "Type",
+                   "Description": "The type of the tool call.",
+                   "Type": {
+                    "$id": "475",
+                    "Name": "string",
+                    "Kind": "String",
+                    "IsNullable": false
+                   },
+                   "IsRequired": true,
+                   "IsReadOnly": false
+                  },
+                  {
+                   "$id": "476",
+                   "Name": "Function",
+                   "SerializedName": "Function",
+                   "Description": "The function for the tool call.",
+                   "Type": {
+                    "$id": "477",
+                    "Name": "ToolFunctionCall",
+                    "Namespace": "SkillContext",
+                    "Description": "Represents a tool function call.",
+                    "IsNullable": false,
+                    "Usage": "RoundTrip",
+                    "Properties": [
+                     {
+                      "$id": "478",
+                      "Name": "Name",
+                      "SerializedName": "Name",
+                      "Description": "The name of the tool function.",
+                      "Type": {
+                       "$id": "479",
+                       "Name": "string",
+                       "Kind": "String",
+                       "IsNullable": false
+                      },
+                      "IsRequired": true,
+                      "IsReadOnly": false
+                     },
+                     {
+                      "$id": "480",
+                      "Name": "Arguments",
+                      "SerializedName": "Arguments",
+                      "Description": "The arguments for the tool function.",
+                      "Type": {
+                       "$id": "481",
+                       "Name": "string",
+                       "Kind": "String",
+                       "IsNullable": false
+                      },
+                      "IsRequired": true,
+                      "IsReadOnly": false
+                     }
+                    ]
+                   },
+                   "IsRequired": true,
+                   "IsReadOnly": false
+                  }
+                 ]
+                },
+                "IsNullable": false
+               },
+               "IsRequired": false,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "482",
+               "Name": "ToolCallId",
+               "SerializedName": "ToolCallId",
+               "Description": "The identifier for the tool call.",
+               "Type": {
+                "$id": "483",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": false,
+               "IsReadOnly": false
+              }
+             ]
+            },
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "484",
+           "Name": "Functions",
+           "SerializedName": "Functions",
+           "Description": "The functions associated with the request.",
+           "Type": {
+            "$id": "485",
+            "Name": "Array",
+            "ElementType": {
+             "$id": "486",
+             "Name": "GPTFunction",
+             "Namespace": "SkillContext",
+             "Description": "Represents a GPT function definition.",
+             "IsNullable": false,
+             "Usage": "Input",
+             "Properties": [
+              {
+               "$id": "487",
+               "Name": "Name",
+               "SerializedName": "Name",
+               "Description": "The name of the GPT function.",
+               "Type": {
+                "$id": "488",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "489",
+               "Name": "Description",
+               "SerializedName": "Description",
+               "Description": "The description of the GPT function.",
+               "Type": {
+                "$id": "490",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "491",
+               "Name": "Parameters",
+               "SerializedName": "Parameters",
+               "Description": "The parameters required by the GPT function.",
+               "Type": {
+                "$id": "492",
+                "Name": "FunctionParameter",
+                "Namespace": "SkillContext",
+                "Description": "Represents parameters for a function.",
+                "IsNullable": false,
+                "Usage": "Input",
+                "Properties": [
+                 {
+                  "$id": "493",
+                  "Name": "Type",
+                  "SerializedName": "Type",
+                  "Description": "The type of the parameter.",
+                  "Type": {
+                   "$id": "494",
+                   "Name": "string",
+                   "Kind": "String",
+                   "IsNullable": false
+                  },
+                  "IsRequired": true,
+                  "IsReadOnly": false
+                 },
+                 {
+                  "$id": "495",
+                  "Name": "Properties",
+                  "SerializedName": "Properties",
+                  "Description": "The properties of the parameter.",
+                  "Type": {
+                   "$id": "496",
+                   "Name": "Dictionary",
+                   "KeyType": {
+                    "$id": "497",
+                    "Name": "string",
+                    "Kind": "String",
+                    "IsNullable": false
+                   },
+                   "ValueType": {
+                    "$id": "498",
+                    "Name": "FunctionParameterProperty",
+                    "Namespace": "SkillContext",
+                    "Description": "Represents parameters properties for a function.",
+                    "IsNullable": false,
+                    "Usage": "Input",
+                    "Properties": [
+                     {
+                      "$id": "499",
+                      "Name": "Type",
+                      "SerializedName": "Type",
+                      "Description": "The type of the parameter property.",
+                      "Type": {
+                       "$id": "500",
+                       "Name": "string",
+                       "Kind": "String",
+                       "IsNullable": false
+                      },
+                      "IsRequired": true,
+                      "IsReadOnly": false
+                     },
+                     {
+                      "$id": "501",
+                      "Name": "Description",
+                      "SerializedName": "Description",
+                      "Description": "The description of property of the parameter.",
+                      "Type": {
+                       "$id": "502",
+                       "Name": "string",
+                       "Kind": "String",
+                       "IsNullable": false
+                      },
+                      "IsRequired": true,
+                      "IsReadOnly": false
+                     },
+                     {
+                      "$id": "503",
+                      "Name": "Enum",
+                      "SerializedName": "Enum",
+                      "Description": "The list of enums.",
+                      "Type": {
+                       "$id": "504",
+                       "Name": "Array",
+                       "ElementType": {
+                        "$id": "505",
+                        "Name": "string",
+                        "Kind": "String",
+                        "IsNullable": false
+                       },
+                       "IsNullable": false
+                      },
+                      "IsRequired": true,
+                      "IsReadOnly": false
+                     }
+                    ]
+                   },
+                   "IsNullable": false
+                  },
+                  "IsRequired": true,
+                  "IsReadOnly": false
+                 },
+                 {
+                  "$id": "506",
+                  "Name": "Required",
+                  "SerializedName": "Required",
+                  "Description": "The list of required properties.",
+                  "Type": {
+                   "$id": "507",
+                   "Name": "Array",
+                   "ElementType": {
+                    "$id": "508",
+                    "Name": "string",
+                    "Kind": "String",
+                    "IsNullable": false
+                   },
+                   "IsNullable": false
+                  },
+                  "IsRequired": true,
+                  "IsReadOnly": false
+                 }
+                ]
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "509",
+               "Name": "Result",
+               "SerializedName": "Result",
+               "Description": "The result of the GPT function.",
+               "Type": {
+                "$id": "510",
+                "Name": "FunctionResult",
+                "Namespace": "SkillContext",
+                "Description": "Represents the result of a function.",
+                "IsNullable": false,
+                "Usage": "Input",
+                "Properties": [
+                 {
+                  "$id": "511",
+                  "Name": "Type",
+                  "SerializedName": "Type",
+                  "Description": "The type of the result.",
+                  "Type": {
+                   "$id": "512",
+                   "Name": "string",
+                   "Kind": "String",
+                   "IsNullable": false
+                  },
+                  "IsRequired": true,
+                  "IsReadOnly": false
+                 }
+                ]
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              }
+             ]
+            },
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "513",
+           "Name": "FunctionCall",
+           "SerializedName": "FunctionCall",
+           "Description": "Specifies the function to call.",
+           "Type": {
+            "$id": "514",
+            "Name": "string",
+            "Kind": "String",
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "515",
+           "Name": "Tools",
+           "SerializedName": "Tools",
+           "Description": "The tools available for this request.",
+           "Type": {
+            "$id": "516",
+            "Name": "Array",
+            "ElementType": {
+             "$id": "517",
+             "Name": "Tools",
+             "Namespace": "SkillContext",
+             "Description": "Represents a tool.",
+             "IsNullable": false,
+             "Usage": "Input",
+             "Properties": [
+              {
+               "$id": "518",
+               "Name": "Type",
+               "SerializedName": "Type",
+               "Description": "The type of the tool.",
+               "Type": {
+                "$id": "519",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "520",
+               "Name": "Function",
+               "SerializedName": "Function",
+               "Description": "The function definition for the tool.",
+               "Type": {
+                "$id": "521",
+                "Name": "FunctionDefinition",
+                "Namespace": "SkillContext",
+                "Description": "Represents the definition of a function.",
+                "IsNullable": false,
+                "Usage": "Input",
+                "Properties": [
+                 {
+                  "$id": "522",
+                  "Name": "Description",
+                  "SerializedName": "Description",
+                  "Description": "The description of the function.",
+                  "Type": {
+                   "$id": "523",
+                   "Name": "string",
+                   "Kind": "String",
+                   "IsNullable": false
+                  },
+                  "IsRequired": true,
+                  "IsReadOnly": false
+                 },
+                 {
+                  "$id": "524",
+                  "Name": "Name",
+                  "SerializedName": "Name",
+                  "Description": "The name of the function.",
+                  "Type": {
+                   "$id": "525",
+                   "Name": "string",
+                   "Kind": "String",
+                   "IsNullable": false
+                  },
+                  "IsRequired": true,
+                  "IsReadOnly": false
+                 },
+                 {
+                  "$id": "526",
+                  "Name": "Parameters",
+                  "SerializedName": "Parameters",
+                  "Description": "The parameters for the function.",
+                  "Type": {
+                   "$id": "527",
+                   "Name": "Intrinsic",
+                   "Kind": "unknown",
+                   "IsNullable": false
+                  },
+                  "IsRequired": true,
+                  "IsReadOnly": false
+                 }
+                ]
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              }
+             ]
+            },
+            "IsNullable": false
+           },
+           "IsRequired": false,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "528",
+           "Name": "ToolChoice",
+           "SerializedName": "ToolChoice",
+           "Description": "The selected tool for execution.",
+           "Type": {
+            "$id": "529",
+            "Name": "string",
+            "Kind": "String",
+            "IsNullable": false
+           },
+           "IsRequired": false,
+           "IsReadOnly": false
+          },
+          {
+           "$id": "530",
+           "Name": "ParallelToolCalls",
+           "SerializedName": "ParallelToolCalls",
+           "Description": "Indicates whether tools can be called in parallel.",
+           "Type": {
+            "$id": "531",
+            "Name": "boolean",
+            "Kind": "Boolean",
+            "IsNullable": false
+           },
+           "IsRequired": false,
+           "IsReadOnly": false
+          }
+         ]
+        },
+        {
+         "$id": "532",
+         "Name": "CompletionRequest",
+         "Namespace": "SkillContext",
+         "IsNullable": false,
+         "BaseModel": {
+          "$ref": "421"
+         },
+         "Usage": "Input",
+         "Properties": [
+          {
+           "$id": "533",
+           "Name": "Prompt",
+           "SerializedName": "Prompt",
+           "Description": "",
+           "Type": {
+            "$id": "534",
+            "Name": "string",
+            "Kind": "String",
+            "IsNullable": false
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          }
+         ]
+        }
+       ]
+      },
+      "Usage": "Input",
+      "Properties": [
+       {
+        "$id": "535",
+        "Name": "Messages",
+        "SerializedName": "Messages",
+        "Description": "The messages associated with the request.",
+        "Type": {
+         "$id": "536",
+         "Name": "Array",
+         "ElementType": {
+          "$ref": "454"
+         },
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "537",
+        "Name": "Functions",
+        "SerializedName": "Functions",
+        "Description": "The functions associated with the request.",
+        "Type": {
+         "$id": "538",
+         "Name": "Array",
+         "ElementType": {
+          "$ref": "486"
+         },
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "539",
+        "Name": "FunctionCall",
+        "SerializedName": "FunctionCall",
+        "Description": "Specifies the function to call.",
+        "Type": {
+         "$id": "540",
+         "Name": "string",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "541",
+        "Name": "Tools",
+        "SerializedName": "Tools",
+        "Description": "The tools available for this request.",
+        "Type": {
+         "$id": "542",
+         "Name": "Array",
+         "ElementType": {
+          "$ref": "517"
+         },
+         "IsNullable": false
+        },
+        "IsRequired": false,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "543",
+        "Name": "ToolChoice",
+        "SerializedName": "ToolChoice",
+        "Description": "The selected tool for execution.",
+        "Type": {
+         "$id": "544",
+         "Name": "string",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "IsRequired": false,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "545",
+        "Name": "ParallelToolCalls",
+        "SerializedName": "ParallelToolCalls",
+        "Description": "Indicates whether tools can be called in parallel.",
+        "Type": {
+         "$id": "546",
+         "Name": "boolean",
+         "Kind": "Boolean",
+         "IsNullable": false
+        },
+        "IsRequired": false,
+        "IsReadOnly": false
+       }
+      ]
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "547",
+     "Name": "openAiExecutionContext",
+     "SerializedName": "openAiExecutionContext",
+     "Description": "The Azure OpenAI execution context.",
+     "Type": {
+      "$ref": "314"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "421"
+  },
+  {
+   "$ref": "420"
+  },
+  {
+   "$ref": "454"
+  },
+  {
+   "$ref": "462"
+  },
+  {
+   "$ref": "471"
+  },
+  {
+   "$ref": "477"
+  },
+  {
+   "$ref": "486"
+  },
+  {
+   "$ref": "492"
+  },
+  {
+   "$ref": "498"
+  },
+  {
+   "$ref": "510"
+  },
+  {
+   "$ref": "517"
+  },
+  {
+   "$ref": "521"
+  },
+  {
+   "$ref": "532"
+  },
+  {
+   "$id": "548",
+   "Name": "BaseCompletionResponse",
+   "Namespace": "SkillContext",
+   "Description": "Represents the base completion response.",
+   "IsNullable": false,
+   "Usage": "None",
+   "Properties": [
+    {
+     "$id": "549",
+     "Name": "Id",
+     "SerializedName": "Id",
+     "Description": "The unique identifier for the response.",
+     "Type": {
+      "$id": "550",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "551",
+     "Name": "Object",
+     "SerializedName": "Object",
+     "Description": "The object type.",
+     "Type": {
+      "$id": "552",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "553",
+     "Name": "Created",
+     "SerializedName": "Created",
+     "Description": "The creation timestamp.",
+     "Type": {
+      "$id": "554",
+      "Name": "utcDateTime",
+      "Kind": "DateTime",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "555",
+     "Name": "Model",
+     "SerializedName": "Model",
+     "Description": "The model used for completion.",
+     "Type": {
+      "$id": "556",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "557",
+     "Name": "Usage",
+     "SerializedName": "Usage",
+     "Description": "The usage statistics for the response.",
+     "Type": {
+      "$id": "558",
+      "Name": "Intrinsic",
+      "Kind": "unknown",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "559",
+     "Name": "PromptFilterResults",
+     "SerializedName": "PromptFilterResults",
+     "Description": "The results of prompt filtering.",
+     "Type": {
+      "$id": "560",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "561",
+       "Name": "Intrinsic",
+       "Kind": "unknown",
+       "IsNullable": false
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ],
+   "DerivedModels": [
+    {
+     "$id": "562",
+     "Name": "ChatCompletionResponse",
+     "Namespace": "SkillContext",
+     "IsNullable": false,
+     "BaseModel": {
+      "$ref": "548"
+     },
+     "Usage": "None",
+     "Properties": [
+      {
+       "$id": "563",
+       "Name": "Choices",
+       "SerializedName": "Choices",
+       "Description": "List of choices in the chat completion response.",
+       "Type": {
+        "$id": "564",
+        "Name": "Array",
+        "ElementType": {
+         "$id": "565",
+         "Name": "ChatChoice",
+         "Namespace": "SkillContext",
+         "IsNullable": false,
+         "BaseModel": {
+          "$id": "566",
+          "Name": "BaseChoice",
+          "Namespace": "SkillContext",
+          "IsNullable": false,
+          "Usage": "None",
+          "Properties": [
+           {
+            "$id": "567",
+            "Name": "Index",
+            "SerializedName": "Index",
+            "Description": "",
+            "Type": {
+             "$id": "568",
+             "Name": "int32",
+             "Kind": "Int32",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "569",
+            "Name": "LogProbs",
+            "SerializedName": "LogProbs",
+            "Description": "Log probabilities for this choice.",
+            "Type": {
+             "$id": "570",
+             "Name": "Intrinsic",
+             "Kind": "unknown",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "571",
+            "Name": "FinishReason",
+            "SerializedName": "FinishReason",
+            "Description": "The reason why the operation finished.",
+            "Type": {
+             "$id": "572",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "573",
+            "Name": "ContentFilterResults",
+            "SerializedName": "ContentFilterResults",
+            "Description": "This object contains the list of content filter annotations.",
+            "Type": {
+             "$id": "574",
+             "Name": "Intrinsic",
+             "Kind": "unknown",
+             "IsNullable": false
+            },
+            "IsRequired": false,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "575",
+            "Name": "ContentFilterError",
+            "SerializedName": "ContentFilterError",
+            "Description": "This indicates when the content filtering system does not run on the chat completion.",
+            "Type": {
+             "$id": "576",
+             "Name": "Intrinsic",
+             "Kind": "unknown",
+             "IsNullable": false
+            },
+            "IsRequired": false,
+            "IsReadOnly": false
+           }
+          ],
+          "DerivedModels": [
+           {
+            "$id": "577",
+            "Name": "ChatChoice",
+            "Namespace": "SkillContext",
+            "IsNullable": false,
+            "BaseModel": {
+             "$ref": "566"
+            },
+            "Usage": "None",
+            "Properties": [
+             {
+              "$id": "578",
+              "Name": "Message",
+              "SerializedName": "Message",
+              "Description": "The message associated with the chat choice.",
+              "Type": {
+               "$ref": "454"
+              },
+              "IsRequired": true,
+              "IsReadOnly": false
+             }
+            ]
+           },
+           {
+            "$id": "579",
+            "Name": "Choice",
+            "Namespace": "SkillContext",
+            "IsNullable": false,
+            "BaseModel": {
+             "$ref": "566"
+            },
+            "Usage": "Output",
+            "Properties": [
+             {
+              "$id": "580",
+              "Name": "Text",
+              "SerializedName": "Text",
+              "Description": "",
+              "Type": {
+               "$id": "581",
+               "Name": "string",
+               "Kind": "String",
+               "IsNullable": false
+              },
+              "IsRequired": true,
+              "IsReadOnly": false
+             }
+            ]
+           }
+          ]
+         },
+         "Usage": "Output",
+         "Properties": [
+          {
+           "$id": "582",
+           "Name": "Message",
+           "SerializedName": "Message",
+           "Description": "The message associated with the chat choice.",
+           "Type": {
+            "$ref": "454"
+           },
+           "IsRequired": true,
+           "IsReadOnly": false
+          }
+         ]
+        },
+        "IsNullable": false
+       },
+       "IsRequired": true,
+       "IsReadOnly": false
+      }
+     ]
+    },
+    {
+     "$id": "583",
+     "Name": "CompletionResponse",
+     "Namespace": "SkillContext",
+     "IsNullable": false,
+     "BaseModel": {
+      "$ref": "548"
+     },
+     "Usage": "Output",
+     "Properties": [
+      {
+       "$id": "584",
+       "Name": "Choices",
+       "SerializedName": "Choices",
+       "Description": "",
+       "Type": {
+        "$id": "585",
+        "Name": "Array",
+        "ElementType": {
+         "$ref": "579"
+        },
+        "IsNullable": false
+       },
+       "IsRequired": true,
+       "IsReadOnly": false
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "$id": "586",
+   "Name": "ChatCompletionResponse",
+   "Namespace": "SkillContext",
+   "IsNullable": false,
+   "BaseModel": {
+    "$ref": "548"
+   },
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "587",
+     "Name": "Choices",
+     "SerializedName": "Choices",
+     "Description": "List of choices in the chat completion response.",
+     "Type": {
+      "$id": "588",
+      "Name": "Array",
+      "ElementType": {
+       "$ref": "565"
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "566"
+  },
+  {
+   "$ref": "565"
+  },
+  {
+   "$ref": "579"
+  },
+  {
+   "$ref": "583"
+  },
+  {
+   "$id": "589",
+   "Name": "CreateCompletionRequest",
+   "Namespace": "SkillContext",
+   "Description": "Represents a request to create a chat completion.",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "590",
+     "Name": "deploymentId",
+     "SerializedName": "deploymentId",
+     "Description": "The deployment ID.",
+     "Type": {
+      "$id": "591",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "592",
+     "Name": "completionRequest",
+     "SerializedName": "completionRequest",
+     "Description": "The chat completion request details.",
+     "Type": {
+      "$ref": "532"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "593",
+     "Name": "openAiExecutionContext",
+     "SerializedName": "openAiExecutionContext",
+     "Description": "The Azure OpenAI execution context.",
+     "Type": {
+      "$ref": "314"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "594",
+   "Name": "CreateEmbeddingRequest",
+   "Namespace": "SkillContext",
+   "Description": "Represents a request to create embedding.",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "595",
+     "Name": "deploymentId",
+     "SerializedName": "deploymentId",
+     "Description": "The deployment ID.",
+     "Type": {
+      "$id": "596",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "597",
+     "Name": "embeddingRequest",
+     "SerializedName": "embeddingRequest",
+     "Description": "The embedding request details.",
+     "Type": {
+      "$id": "598",
+      "Name": "EmbeddingRequest",
+      "Namespace": "SkillContext",
+      "IsNullable": false,
+      "Usage": "Input",
+      "Properties": [
+       {
+        "$id": "599",
+        "Name": "Input",
+        "SerializedName": "Input",
+        "Description": "The object to embed.",
+        "Type": {
+         "$id": "600",
+         "Name": "Intrinsic",
+         "Kind": "unknown",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       }
+      ]
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "601",
+     "Name": "openAiExecutionContext",
+     "SerializedName": "openAiExecutionContext",
+     "Description": "The Azure OpenAI execution context.",
+     "Type": {
+      "$ref": "314"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "598"
+  },
+  {
+   "$id": "602",
+   "Name": "EmbeddingResponse",
+   "Namespace": "SkillContext",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "603",
+     "Name": "Data",
+     "SerializedName": "Data",
+     "Description": "",
+     "Type": {
+      "$id": "604",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "605",
+       "Name": "EmbeddingData",
+       "Namespace": "SkillContext",
+       "IsNullable": false,
+       "Usage": "Output",
+       "Properties": [
+        {
+         "$id": "606",
+         "Name": "Embedding",
+         "SerializedName": "Embedding",
+         "Description": "",
+         "Type": {
+          "$id": "607",
+          "Name": "Array",
+          "ElementType": {
+           "$id": "608",
+           "Name": "float32",
+           "Kind": "Float32",
+           "IsNullable": false
+          },
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "609",
+         "Name": "Index",
+         "SerializedName": "Index",
+         "Description": "",
+         "Type": {
+          "$id": "610",
+          "Name": "int32",
+          "Kind": "Int32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "611",
+         "Name": "Object",
+         "SerializedName": "Object",
+         "Description": "",
+         "Type": {
+          "$id": "612",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "613",
+     "Name": "Model",
+     "SerializedName": "Model",
+     "Description": "",
+     "Type": {
+      "$id": "614",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "615",
+     "Name": "Object",
+     "SerializedName": "Object",
+     "Description": "",
+     "Type": {
+      "$id": "616",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "617",
+     "Name": "Usage",
+     "SerializedName": "Usage",
+     "Description": "",
+     "Type": {
+      "$id": "618",
+      "Name": "Intrinsic",
+      "Kind": "unknown",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "605"
+  }
+ ],
+ "Clients": [
+  {
+   "$id": "619",
+   "Name": "SkillContextClient",
+   "Description": "The Skillset Authoring API exposes endpoints allowing a skill to interact with the current session to perform actions such as accessing previous prompts/responses within the current session, \nreading the inputs of the skill, invoking other skills, reporting progress of execution, returning results/errors, acquiring tokens to access other resources, and retrieving skill specific settings. It also provides methods to interact with Open\nAI client to create chat completion and get embeddings.",
+   "Operations": [
+    {
+     "$id": "620",
+     "Name": "getSkillContext",
+     "ResourceName": "SkillContext",
+     "Description": "Get the SkillContext for the current skill invocation",
+     "Parameters": [
+      {
+       "$id": "621",
+       "Name": "endpoint",
+       "NameInRequest": "endpoint",
+       "Description": "Supported Security Copilot API endpoints (protocol and host name, such as\nhttps://api.medeina-dev.defender.microsoft.com).",
+       "Type": {
+        "$id": "622",
+        "Name": "Uri",
+        "Kind": "Uri",
+        "IsNullable": false
+       },
+       "Location": "Uri",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": true,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "623",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "624",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "625",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "626",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "627",
+        "Type": {
+         "$ref": "626"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "628",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "",
+       "Type": {
+        "$id": "629",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "IsResourceParameter": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client",
+       "DefaultValue": {
+        "$id": "630",
+        "Type": {
+         "$id": "631",
+         "Name": "String",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "Value": "2023-08-01-preview"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "632",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "67"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "633",
+     "Name": "invokeSkill",
+     "ResourceName": "SkillContext",
+     "Description": "Invokes a skill. Allows current skill to invoke dependency skills.",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "634",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "635",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "636",
+       "Name": "invokeSkill",
+       "NameInRequest": "invokeSkill",
+       "Type": {
+        "$ref": "272"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "637",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "638",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "639",
+        "Type": {
+         "$ref": "638"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "640",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "641",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "642",
+        "Type": {
+         "$ref": "641"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "643",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "215"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/invokeSkill",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "644",
+     "Name": "getSkillDescriptor",
+     "ResourceName": "SkillContext",
+     "Description": "Get skill descriptor",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "645",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "646",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "647",
+       "Name": "skillName",
+       "NameInRequest": "skillName",
+       "Type": {
+        "$id": "648",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "649",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "650",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "651",
+        "Type": {
+         "$ref": "650"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "652",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "653",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "654",
+        "Type": {
+         "$ref": "653"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "655",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "69"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/skillDescriptor",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "656",
+     "Name": "getSkillDescriptors",
+     "ResourceName": "SkillContext",
+     "Description": "Get skill descriptors",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "657",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "658",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "659",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "660",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "661",
+        "Type": {
+         "$ref": "660"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "662",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$id": "663",
+        "Name": "Array",
+        "ElementType": {
+         "$ref": "69"
+        },
+        "IsNullable": false
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/skillDescriptors",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "664",
+     "Name": "getSkillsetDescriptors",
+     "ResourceName": "SkillContext",
+     "Description": "Get skillset descriptors",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "665",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "666",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "667",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "668",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "669",
+        "Type": {
+         "$ref": "668"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "670",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$id": "671",
+        "Name": "Array",
+        "ElementType": {
+         "$ref": "71"
+        },
+        "IsNullable": false
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/skillsetDescriptors",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "672",
+     "Name": "getExecutionContext",
+     "ResourceName": "SkillContext",
+     "Description": "Get execution context",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "673",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "674",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "675",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "676",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "677",
+        "Type": {
+         "$ref": "676"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "678",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "280"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/executionContext",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "679",
+     "Name": "getPromptHistory",
+     "ResourceName": "SkillContext",
+     "Description": "Get prompt history",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "680",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "681",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "682",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "683",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "684",
+        "Type": {
+         "$ref": "683"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "685",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "336"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/promptHistory",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "686",
+     "Name": "logProgress",
+     "ResourceName": "SkillContext",
+     "Description": "Log a progress message for a skill invocation",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "687",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "688",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "689",
+       "Name": "logProgressRequest",
+       "NameInRequest": "logProgressRequest",
+       "Type": {
+        "$ref": "344"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "690",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "691",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "692",
+        "Type": {
+         "$ref": "691"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "693",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "694",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "695",
+        "Type": {
+         "$ref": "694"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "696",
+       "StatusCodes": [
+        204
+       ],
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/logProgress",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "697",
+     "Name": "setSkillOutput",
+     "ResourceName": "SkillContext",
+     "Description": "Sets the skill output",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "698",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "699",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "700",
+       "Name": "evaluationResultOutput",
+       "NameInRequest": "evaluationResultOutput",
+       "Type": {
+        "$ref": "348"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "701",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "702",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "703",
+        "Type": {
+         "$ref": "702"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "704",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "705",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "706",
+        "Type": {
+         "$ref": "705"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "707",
+       "StatusCodes": [
+        204
+       ],
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/setOutputAsync",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "708",
+     "Name": "getSkillsetSettings",
+     "ResourceName": "SkillContext",
+     "Description": "Gets the skillset settings",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "709",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "710",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "711",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "712",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "713",
+        "Type": {
+         "$ref": "712"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "714",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$id": "715",
+        "Name": "Dictionary",
+        "KeyType": {
+         "$id": "716",
+         "Name": "string",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "ValueType": {
+         "$id": "717",
+         "Name": "string",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "IsNullable": false
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/skillsetSettings",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "718",
+     "Name": "setSkillInvocationStarted",
+     "ResourceName": "SkillContext",
+     "Description": "Notifies security copilot backend service that the skill has been invoked",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "719",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "720",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "721",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "722",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "723",
+        "Type": {
+         "$ref": "722"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "724",
+       "StatusCodes": [
+        204
+       ],
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "None",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/setSkillInvocationStarted",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "725",
+     "Name": "setSkillInvocationCompleted",
+     "ResourceName": "SkillContext",
+     "Description": "Notifies security copilot backend service that the skill invocation has completed",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "726",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "727",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "728",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "729",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "730",
+        "Type": {
+         "$ref": "729"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "731",
+       "StatusCodes": [
+        204
+       ],
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "None",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/setSkillInvocationCompleted",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "732",
+     "Name": "getSkillsetAuthInfo",
+     "ResourceName": "SkillContext",
+     "Description": "Gets the skillset auth related information",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "733",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "734",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "735",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "736",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "737",
+        "Type": {
+         "$ref": "736"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "738",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "373"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/getSkillsetAuthInfoAsync",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "739",
+     "Name": "getTokenCredential",
+     "ResourceName": "SkillContext",
+     "Description": "Gets the token credentials",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "740",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "741",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "742",
+       "Name": "getTokenCredentialRequest",
+       "NameInRequest": "getTokenCredentialRequest",
+       "Type": {
+        "$ref": "379"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "743",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "744",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "745",
+        "Type": {
+         "$ref": "744"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "746",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "747",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "748",
+        "Type": {
+         "$ref": "747"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "749",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "386"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/getTokenCredentialAsync",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "750",
+     "Name": "getInput",
+     "ResourceName": "SkillContext",
+     "Description": "Gets the skill input",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "751",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "752",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "753",
+       "Name": "getInputRequest",
+       "NameInRequest": "getInputRequest",
+       "Type": {
+        "$ref": "391"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "754",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "755",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "756",
+        "Type": {
+         "$ref": "755"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "757",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "758",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "759",
+        "Type": {
+         "$ref": "758"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "760",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "208"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      },
+      {
+       "$id": "761",
+       "StatusCodes": [
+        204
+       ],
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/getInputAsync",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "762",
+     "Name": "setInput",
+     "ResourceName": "SkillContext",
+     "Description": "Sets the input for the skill",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "763",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "764",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "765",
+       "Name": "setInputRequest",
+       "NameInRequest": "setInputRequest",
+       "Type": {
+        "$ref": "395"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "766",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "767",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "768",
+        "Type": {
+         "$ref": "767"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "769",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "770",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "771",
+        "Type": {
+         "$ref": "770"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "772",
+       "StatusCodes": [
+        204
+       ],
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/setInputAsync",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "773",
+     "Name": "addSources",
+     "ResourceName": "SkillContext",
+     "Description": "Adds a list of sources to the output",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "774",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "775",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "776",
+       "Name": "addSourcesRequest",
+       "NameInRequest": "addSourcesRequest",
+       "Type": {
+        "$ref": "399"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "777",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "778",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "779",
+        "Type": {
+         "$ref": "778"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "780",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "781",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "782",
+        "Type": {
+         "$ref": "781"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "783",
+       "StatusCodes": [
+        204
+       ],
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/AddSources",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "784",
+     "Name": "addSource",
+     "ResourceName": "SkillContext",
+     "Description": "Adds a source to the output",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "785",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "786",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "787",
+       "Name": "addSourceRequest",
+       "NameInRequest": "addSourceRequest",
+       "Type": {
+        "$ref": "402"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "788",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "789",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "790",
+        "Type": {
+         "$ref": "789"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "791",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "792",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "793",
+        "Type": {
+         "$ref": "792"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "794",
+       "StatusCodes": [
+        204
+       ],
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/AddSource",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "795",
+     "Name": "addSuggestedPrompts",
+     "ResourceName": "SkillContext",
+     "Description": " Adds a list of suggested prompts to the skill context",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "796",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "797",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "798",
+       "Name": "addSuggestedPromptsRequest",
+       "NameInRequest": "addSuggestedPromptsRequest",
+       "Type": {
+        "$ref": "404"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "799",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "800",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "801",
+        "Type": {
+         "$ref": "800"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "802",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "803",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "804",
+        "Type": {
+         "$ref": "803"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "805",
+       "StatusCodes": [
+        204
+       ],
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/AddSuggestedPrompts",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "806",
+     "Name": "setFinalResponseSettings",
+     "ResourceName": "SkillContext",
+     "Description": "Sets the final response settings",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "807",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "808",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "809",
+       "Name": "setFinalResponseSettingsRequest",
+       "NameInRequest": "setFinalResponseSettingsRequest",
+       "Type": {
+        "$ref": "407"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "810",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "811",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "812",
+        "Type": {
+         "$ref": "811"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "813",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "814",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "815",
+        "Type": {
+         "$ref": "814"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "816",
+       "StatusCodes": [
+        204
+       ],
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}",
+     "Path": "/skillContext/SetFinalResponseSettings",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "817",
+     "Name": "createChatCompletion",
+     "ResourceName": "SkillContext",
+     "Description": "Executes an Open AI Chat completion request",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "818",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "819",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "820",
+       "Name": "request",
+       "NameInRequest": "request",
+       "Type": {
+        "$ref": "416"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "821",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "822",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "823",
+        "Type": {
+         "$ref": "822"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "824",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "825",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "826",
+        "Type": {
+         "$ref": "825"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "827",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "586"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}",
+     "Path": "/medeinaOpenAI/createChatCompletion",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "828",
+     "Name": "createCompletion",
+     "ResourceName": "SkillContext",
+     "Description": "Executes an Open AI completion request",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "829",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "830",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "831",
+       "Name": "request",
+       "NameInRequest": "request",
+       "Type": {
+        "$ref": "589"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "832",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "833",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "834",
+        "Type": {
+         "$ref": "833"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "835",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "836",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "837",
+        "Type": {
+         "$ref": "836"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "838",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "583"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}",
+     "Path": "/medeinaOpenAI/createCompletion",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "839",
+     "Name": "CreateEmbedding",
+     "ResourceName": "SkillContext",
+     "Description": "Creates Embedding for a prompt or message",
+     "Parameters": [
+      {
+       "$ref": "621"
+      },
+      {
+       "$id": "840",
+       "Name": "evaluationToken",
+       "NameInRequest": "X-MS-SecurityCopilot-EvaluationToken",
+       "Type": {
+        "$id": "841",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "842",
+       "Name": "request",
+       "NameInRequest": "request",
+       "Type": {
+        "$ref": "594"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "843",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "844",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "845",
+        "Type": {
+         "$ref": "844"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "846",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "847",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "848",
+        "Type": {
+         "$ref": "847"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$ref": "628"
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "849",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "602"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}",
+     "Path": "/medeinaOpenAI/CreateEmbedding",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    }
+   ],
+   "Protocol": {
+    "$id": "850"
+   },
+   "Creatable": true
+  }
+ ],
+ "Auth": {
+  "$id": "851"
+ }
+}

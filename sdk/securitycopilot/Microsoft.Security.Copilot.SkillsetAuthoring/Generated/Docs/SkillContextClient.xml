@@ -1,0 +1,3185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetSkillContextAsync(string,CancellationToken)">
+<example>
+This sample shows how to call GetSkillContextAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var result = await client.GetSkillContextAsync("<evaluationToken>");
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillContext(string,CancellationToken)">
+<example>
+This sample shows how to call GetSkillContext with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var result = client.GetSkillContext("<evaluationToken>");
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillContextAsync(string,RequestContext)">
+<example>
+This sample shows how to call GetSkillContextAsync with required parameters and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = await client.GetSkillContextAsync("<evaluationToken>", new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("namespace").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("descriptionDisplay").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("disaplyName").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("icon").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("category").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("catalogScope").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("enabled").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("hidden").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("prerequisites")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("label").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("hintText").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("settingType").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("required").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("defaultValue").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("authorization").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("supportedAuthTypes")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("userVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("userVisibility").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("plannerVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("plannerVisibility").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("creatorUserId").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("ownersGroupId").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("format").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("altName").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("dependencies")[0].GetProperty("skillsetName").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("dependencies")[0].GetProperty("skillName").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("examplePrompts")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("hidden").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("inputs")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("inputs")[0].GetProperty("type").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("inputs")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("inputs")[0].GetProperty("required").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("inputs")[0].GetProperty("defaultValue").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("inputs")[0].GetProperty("placeholderValue").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("inputs")[0].GetProperty("enum")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("outputs")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("outputs")[0].GetProperty("type").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("outputs")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("promptAlignedName").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("userVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("userVisibility").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("plannerVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("plannerVisibility").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("settings").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillSummaryMetadata").GetProperty("summaryStartMessage").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillSummaryMetadata").GetProperty("summaryEndMessage").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("enableVariableSubstitutionInCompose").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("featureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("inputs").GetProperty("<test>").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("inputs").GetProperty("<test>").GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("inputs").GetProperty("<test>").GetProperty("valueStoredAsJson").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+Console.WriteLine(result.GetProperty("userId").ToString());
+Console.WriteLine(result.GetProperty("sessionId").ToString());
+Console.WriteLine(result.GetProperty("promptId").ToString());
+Console.WriteLine(result.GetProperty("evaluationId").ToString());
+Console.WriteLine(result.GetProperty("complianceFlags").GetProperty("recordLog").ToString());
+Console.WriteLine(result.GetProperty("complianceFlags").GetProperty("customerOptedInToEyesOnProductImprovement").ToString());
+Console.WriteLine(result.GetProperty("complianceFlags").GetProperty("customerOptedInToModelImprovement").ToString());
+Console.WriteLine(result.GetProperty("workspaceId").ToString());
+Console.WriteLine(result.GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("invocationType").ToString());
+Console.WriteLine(result.GetProperty("invocationCategory").ToString());
+Console.WriteLine(result.GetProperty("userName").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillContext(string,RequestContext)">
+<example>
+This sample shows how to call GetSkillContext with required parameters and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = client.GetSkillContext("<evaluationToken>", new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("namespace").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("descriptionDisplay").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("disaplyName").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("icon").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("category").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("catalogScope").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("enabled").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("hidden").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("prerequisites")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("label").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("hintText").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("settingType").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("required").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("defaultValue").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("settings")[0].GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("authorization").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("supportedAuthTypes")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("userVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("userVisibility").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("plannerVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("plannerVisibility").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("creatorUserId").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillset").GetProperty("ownersGroupId").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("format").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("altName").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("dependencies")[0].GetProperty("skillsetName").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("dependencies")[0].GetProperty("skillName").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("examplePrompts")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("hidden").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("inputs")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("inputs")[0].GetProperty("type").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("inputs")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("inputs")[0].GetProperty("required").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("inputs")[0].GetProperty("defaultValue").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("inputs")[0].GetProperty("placeholderValue").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("inputs")[0].GetProperty("enum")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("outputs")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("outputs")[0].GetProperty("type").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("outputs")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("promptAlignedName").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("userVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("userVisibility").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("plannerVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("plannerVisibility").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("settings").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillSummaryMetadata").GetProperty("summaryStartMessage").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("skillSummaryMetadata").GetProperty("summaryEndMessage").ToString());
+Console.WriteLine(result.GetProperty("descriptor").GetProperty("enableVariableSubstitutionInCompose").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("featureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("inputs").GetProperty("<test>").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("inputs").GetProperty("<test>").GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("inputs").GetProperty("<test>").GetProperty("valueStoredAsJson").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+Console.WriteLine(result.GetProperty("userId").ToString());
+Console.WriteLine(result.GetProperty("sessionId").ToString());
+Console.WriteLine(result.GetProperty("promptId").ToString());
+Console.WriteLine(result.GetProperty("evaluationId").ToString());
+Console.WriteLine(result.GetProperty("complianceFlags").GetProperty("recordLog").ToString());
+Console.WriteLine(result.GetProperty("complianceFlags").GetProperty("customerOptedInToEyesOnProductImprovement").ToString());
+Console.WriteLine(result.GetProperty("complianceFlags").GetProperty("customerOptedInToModelImprovement").ToString());
+Console.WriteLine(result.GetProperty("workspaceId").ToString());
+Console.WriteLine(result.GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("invocationType").ToString());
+Console.WriteLine(result.GetProperty("invocationCategory").ToString());
+Console.WriteLine(result.GetProperty("userName").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="InvokeSkillAsync(string,InvokeSkillRequest,CancellationToken)">
+<example>
+This sample shows how to call InvokeSkillAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var invokeSkill = new InvokeSkillRequest("<skillName>", new Dictionary<string, SkillVariable>
+{
+    ["key"] = new SkillVariable(true)
+{
+        Type = "<Type>",
+        Value = "<Value>",
+    },
+})
+{
+    SkillsetName = "<SkillsetName>",
+};
+var result = await client.InvokeSkillAsync("<evaluationToken>", invokeSkill);
+]]></code>
+</example>
+    </member>
+    <member name="InvokeSkill(string,InvokeSkillRequest,CancellationToken)">
+<example>
+This sample shows how to call InvokeSkill with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var invokeSkill = new InvokeSkillRequest("<skillName>", new Dictionary<string, SkillVariable>
+{
+    ["key"] = new SkillVariable(true)
+{
+        Type = "<Type>",
+        Value = "<Value>",
+    },
+})
+{
+    SkillsetName = "<SkillsetName>",
+};
+var result = client.InvokeSkill("<evaluationToken>", invokeSkill);
+]]></code>
+</example>
+    </member>
+    <member name="InvokeSkillAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call InvokeSkillAsync with required parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    skillName = "<skillName>",
+    inputs = new {
+        key = new {
+            sources = new[] {
+                new {
+                    displayName = "<displayName>",
+                    sourceContent = "<sourceContent>",
+                    sourceType = "Uri",
+                }
+            },
+            suggestedPrompts = new[] {
+                new {
+                    prompt = "<prompt>",
+                }
+            },
+            skillName = "<skillName>",
+            skillInputs = new {
+                key = "<String>",
+            },
+            outputLanguage = "<outputLanguage>",
+            outputType = "Primitive",
+            valueStoredAsJson = true,
+        },
+    },
+};
+
+Response response = await client.InvokeSkillAsync("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sources")[0].GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("sources")[0].GetProperty("sourceContent").ToString());
+Console.WriteLine(result.GetProperty("sources")[0].GetProperty("sourceType").ToString());
+Console.WriteLine(result.GetProperty("suggestedPrompts")[0].GetProperty("prompt").ToString());
+Console.WriteLine(result.GetProperty("skillName").ToString());
+Console.WriteLine(result.GetProperty("skillInputs").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("outputLanguage").ToString());
+Console.WriteLine(result.GetProperty("outputType").ToString());
+Console.WriteLine(result.GetProperty("valueStoredAsJson").ToString());
+]]></code>
+This sample shows how to call InvokeSkillAsync with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    skillsetName = "<skillsetName>",
+    skillName = "<skillName>",
+    inputs = new {
+        key = new {
+            sources = new[] {
+                new {
+                    displayName = "<displayName>",
+                    sourceContent = "<sourceContent>",
+                    sourceType = "Uri",
+                    sourceSerializedData = "<sourceSerializedData>",
+                }
+            },
+            suggestedPrompts = new[] {
+                new {
+                    prompt = "<prompt>",
+                }
+            },
+            skillName = "<skillName>",
+            skillInputs = new {
+                key = "<String>",
+            },
+            outputLanguage = "<outputLanguage>",
+            outputType = "Primitive",
+            type = "<type>",
+            value = "<value>",
+            valueStoredAsJson = true,
+        },
+    },
+};
+
+Response response = await client.InvokeSkillAsync("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sources")[0].GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("sources")[0].GetProperty("sourceContent").ToString());
+Console.WriteLine(result.GetProperty("sources")[0].GetProperty("sourceType").ToString());
+Console.WriteLine(result.GetProperty("sources")[0].GetProperty("sourceSerializedData").ToString());
+Console.WriteLine(result.GetProperty("suggestedPrompts")[0].GetProperty("prompt").ToString());
+Console.WriteLine(result.GetProperty("skillName").ToString());
+Console.WriteLine(result.GetProperty("skillInputs").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("outputLanguage").ToString());
+Console.WriteLine(result.GetProperty("outputType").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("valueStoredAsJson").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="InvokeSkill(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call InvokeSkill with required parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    skillName = "<skillName>",
+    inputs = new {
+        key = new {
+            sources = new[] {
+                new {
+                    displayName = "<displayName>",
+                    sourceContent = "<sourceContent>",
+                    sourceType = "Uri",
+                }
+            },
+            suggestedPrompts = new[] {
+                new {
+                    prompt = "<prompt>",
+                }
+            },
+            skillName = "<skillName>",
+            skillInputs = new {
+                key = "<String>",
+            },
+            outputLanguage = "<outputLanguage>",
+            outputType = "Primitive",
+            valueStoredAsJson = true,
+        },
+    },
+};
+
+Response response = client.InvokeSkill("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sources")[0].GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("sources")[0].GetProperty("sourceContent").ToString());
+Console.WriteLine(result.GetProperty("sources")[0].GetProperty("sourceType").ToString());
+Console.WriteLine(result.GetProperty("suggestedPrompts")[0].GetProperty("prompt").ToString());
+Console.WriteLine(result.GetProperty("skillName").ToString());
+Console.WriteLine(result.GetProperty("skillInputs").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("outputLanguage").ToString());
+Console.WriteLine(result.GetProperty("outputType").ToString());
+Console.WriteLine(result.GetProperty("valueStoredAsJson").ToString());
+]]></code>
+This sample shows how to call InvokeSkill with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    skillsetName = "<skillsetName>",
+    skillName = "<skillName>",
+    inputs = new {
+        key = new {
+            sources = new[] {
+                new {
+                    displayName = "<displayName>",
+                    sourceContent = "<sourceContent>",
+                    sourceType = "Uri",
+                    sourceSerializedData = "<sourceSerializedData>",
+                }
+            },
+            suggestedPrompts = new[] {
+                new {
+                    prompt = "<prompt>",
+                }
+            },
+            skillName = "<skillName>",
+            skillInputs = new {
+                key = "<String>",
+            },
+            outputLanguage = "<outputLanguage>",
+            outputType = "Primitive",
+            type = "<type>",
+            value = "<value>",
+            valueStoredAsJson = true,
+        },
+    },
+};
+
+Response response = client.InvokeSkill("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sources")[0].GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("sources")[0].GetProperty("sourceContent").ToString());
+Console.WriteLine(result.GetProperty("sources")[0].GetProperty("sourceType").ToString());
+Console.WriteLine(result.GetProperty("sources")[0].GetProperty("sourceSerializedData").ToString());
+Console.WriteLine(result.GetProperty("suggestedPrompts")[0].GetProperty("prompt").ToString());
+Console.WriteLine(result.GetProperty("skillName").ToString());
+Console.WriteLine(result.GetProperty("skillInputs").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("outputLanguage").ToString());
+Console.WriteLine(result.GetProperty("outputType").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("valueStoredAsJson").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillDescriptorAsync(string,string,CancellationToken)">
+<example>
+This sample shows how to call GetSkillDescriptorAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var skillName = "<null>";
+var result = await client.GetSkillDescriptorAsync("<evaluationToken>", skillName);
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillDescriptor(string,string,CancellationToken)">
+<example>
+This sample shows how to call GetSkillDescriptor with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var skillName = "<null>";
+var result = client.GetSkillDescriptor("<evaluationToken>", skillName);
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillDescriptorAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call GetSkillDescriptorAsync with required parameters and request content and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = "<String>";
+
+Response response = await client.GetSkillDescriptorAsync("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("skillset").GetProperty("namespace").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("descriptionDisplay").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("disaplyName").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("icon").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("category").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("catalogScope").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("enabled").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("hidden").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("prerequisites")[0].ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("label").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("hintText").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("settingType").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("required").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("defaultValue").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("authorization").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("supportedAuthTypes")[0].ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("userVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("userVisibility").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("plannerVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("plannerVisibility").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("creatorUserId").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("ownersGroupId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("format").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("altName").ToString());
+Console.WriteLine(result.GetProperty("dependencies")[0].GetProperty("skillsetName").ToString());
+Console.WriteLine(result.GetProperty("dependencies")[0].GetProperty("skillName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("examplePrompts")[0].ToString());
+Console.WriteLine(result.GetProperty("hidden").ToString());
+Console.WriteLine(result.GetProperty("inputs")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("inputs")[0].GetProperty("type").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("inputs")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("inputs")[0].GetProperty("required").ToString());
+Console.WriteLine(result.GetProperty("inputs")[0].GetProperty("defaultValue").ToString());
+Console.WriteLine(result.GetProperty("inputs")[0].GetProperty("placeholderValue").ToString());
+Console.WriteLine(result.GetProperty("inputs")[0].GetProperty("enum")[0].ToString());
+Console.WriteLine(result.GetProperty("outputs")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("outputs")[0].GetProperty("type").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("outputs")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("promptAlignedName").ToString());
+Console.WriteLine(result.GetProperty("userVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("userVisibility").ToString());
+Console.WriteLine(result.GetProperty("plannerVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("plannerVisibility").ToString());
+Console.WriteLine(result.GetProperty("settings").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("skillSummaryMetadata").GetProperty("summaryStartMessage").ToString());
+Console.WriteLine(result.GetProperty("skillSummaryMetadata").GetProperty("summaryEndMessage").ToString());
+Console.WriteLine(result.GetProperty("enableVariableSubstitutionInCompose").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillDescriptor(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call GetSkillDescriptor with required parameters and request content and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = "<String>";
+
+Response response = client.GetSkillDescriptor("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("skillset").GetProperty("namespace").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("descriptionDisplay").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("disaplyName").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("icon").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("category").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("catalogScope").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("enabled").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("hidden").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("prerequisites")[0].ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("label").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("hintText").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("settingType").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("required").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("defaultValue").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("settings")[0].GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("authorization").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("supportedAuthTypes")[0].ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("userVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("userVisibility").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("plannerVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("plannerVisibility").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("creatorUserId").ToString());
+Console.WriteLine(result.GetProperty("skillset").GetProperty("ownersGroupId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("format").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("altName").ToString());
+Console.WriteLine(result.GetProperty("dependencies")[0].GetProperty("skillsetName").ToString());
+Console.WriteLine(result.GetProperty("dependencies")[0].GetProperty("skillName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("examplePrompts")[0].ToString());
+Console.WriteLine(result.GetProperty("hidden").ToString());
+Console.WriteLine(result.GetProperty("inputs")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("inputs")[0].GetProperty("type").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("inputs")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("inputs")[0].GetProperty("required").ToString());
+Console.WriteLine(result.GetProperty("inputs")[0].GetProperty("defaultValue").ToString());
+Console.WriteLine(result.GetProperty("inputs")[0].GetProperty("placeholderValue").ToString());
+Console.WriteLine(result.GetProperty("inputs")[0].GetProperty("enum")[0].ToString());
+Console.WriteLine(result.GetProperty("outputs")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("outputs")[0].GetProperty("type").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("outputs")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("promptAlignedName").ToString());
+Console.WriteLine(result.GetProperty("userVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("userVisibility").ToString());
+Console.WriteLine(result.GetProperty("plannerVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result.GetProperty("plannerVisibility").ToString());
+Console.WriteLine(result.GetProperty("settings").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("skillSummaryMetadata").GetProperty("summaryStartMessage").ToString());
+Console.WriteLine(result.GetProperty("skillSummaryMetadata").GetProperty("summaryEndMessage").ToString());
+Console.WriteLine(result.GetProperty("enableVariableSubstitutionInCompose").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillDescriptorsAsync(string,CancellationToken)">
+<example>
+This sample shows how to call GetSkillDescriptorsAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var result = await client.GetSkillDescriptorsAsync("<evaluationToken>");
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillDescriptors(string,CancellationToken)">
+<example>
+This sample shows how to call GetSkillDescriptors with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var result = client.GetSkillDescriptors("<evaluationToken>");
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillDescriptorsAsync(string,RequestContext)">
+<example>
+This sample shows how to call GetSkillDescriptorsAsync with required parameters and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = await client.GetSkillDescriptorsAsync("<evaluationToken>", new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("namespace").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("description").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("descriptionDisplay").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("disaplyName").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("icon").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("category").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("catalogScope").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("enabled").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("hidden").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("prerequisites")[0].ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("label").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("description").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("hintText").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("settingType").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("required").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("defaultValue").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("value").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("authorization").GetProperty("type").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("supportedAuthTypes")[0].ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("userVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("userVisibility").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("plannerVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("plannerVisibility").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("creatorUserId").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("ownersGroupId").ToString());
+Console.WriteLine(result[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("format").ToString());
+Console.WriteLine(result[0].GetProperty("displayName").ToString());
+Console.WriteLine(result[0].GetProperty("altName").ToString());
+Console.WriteLine(result[0].GetProperty("dependencies")[0].GetProperty("skillsetName").ToString());
+Console.WriteLine(result[0].GetProperty("dependencies")[0].GetProperty("skillName").ToString());
+Console.WriteLine(result[0].GetProperty("description").ToString());
+Console.WriteLine(result[0].GetProperty("examplePrompts")[0].ToString());
+Console.WriteLine(result[0].GetProperty("hidden").ToString());
+Console.WriteLine(result[0].GetProperty("inputs")[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("inputs")[0].GetProperty("type").GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("inputs")[0].GetProperty("description").ToString());
+Console.WriteLine(result[0].GetProperty("inputs")[0].GetProperty("required").ToString());
+Console.WriteLine(result[0].GetProperty("inputs")[0].GetProperty("defaultValue").ToString());
+Console.WriteLine(result[0].GetProperty("inputs")[0].GetProperty("placeholderValue").ToString());
+Console.WriteLine(result[0].GetProperty("inputs")[0].GetProperty("enum")[0].ToString());
+Console.WriteLine(result[0].GetProperty("outputs")[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("outputs")[0].GetProperty("type").GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("outputs")[0].GetProperty("description").ToString());
+Console.WriteLine(result[0].GetProperty("promptAlignedName").ToString());
+Console.WriteLine(result[0].GetProperty("userVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result[0].GetProperty("userVisibility").ToString());
+Console.WriteLine(result[0].GetProperty("plannerVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result[0].GetProperty("plannerVisibility").ToString());
+Console.WriteLine(result[0].GetProperty("settings").GetProperty("<test>").ToString());
+Console.WriteLine(result[0].GetProperty("skillSummaryMetadata").GetProperty("summaryStartMessage").ToString());
+Console.WriteLine(result[0].GetProperty("skillSummaryMetadata").GetProperty("summaryEndMessage").ToString());
+Console.WriteLine(result[0].GetProperty("enableVariableSubstitutionInCompose").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillDescriptors(string,RequestContext)">
+<example>
+This sample shows how to call GetSkillDescriptors with required parameters and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = client.GetSkillDescriptors("<evaluationToken>", new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("namespace").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("description").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("descriptionDisplay").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("disaplyName").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("icon").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("category").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("catalogScope").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("enabled").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("hidden").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("prerequisites")[0].ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("label").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("description").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("hintText").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("settingType").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("required").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("defaultValue").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("settings")[0].GetProperty("value").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("authorization").GetProperty("type").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("supportedAuthTypes")[0].ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("userVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("userVisibility").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("plannerVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("plannerVisibility").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("creatorUserId").ToString());
+Console.WriteLine(result[0].GetProperty("skillset").GetProperty("ownersGroupId").ToString());
+Console.WriteLine(result[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("format").ToString());
+Console.WriteLine(result[0].GetProperty("displayName").ToString());
+Console.WriteLine(result[0].GetProperty("altName").ToString());
+Console.WriteLine(result[0].GetProperty("dependencies")[0].GetProperty("skillsetName").ToString());
+Console.WriteLine(result[0].GetProperty("dependencies")[0].GetProperty("skillName").ToString());
+Console.WriteLine(result[0].GetProperty("description").ToString());
+Console.WriteLine(result[0].GetProperty("examplePrompts")[0].ToString());
+Console.WriteLine(result[0].GetProperty("hidden").ToString());
+Console.WriteLine(result[0].GetProperty("inputs")[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("inputs")[0].GetProperty("type").GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("inputs")[0].GetProperty("description").ToString());
+Console.WriteLine(result[0].GetProperty("inputs")[0].GetProperty("required").ToString());
+Console.WriteLine(result[0].GetProperty("inputs")[0].GetProperty("defaultValue").ToString());
+Console.WriteLine(result[0].GetProperty("inputs")[0].GetProperty("placeholderValue").ToString());
+Console.WriteLine(result[0].GetProperty("inputs")[0].GetProperty("enum")[0].ToString());
+Console.WriteLine(result[0].GetProperty("outputs")[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("outputs")[0].GetProperty("type").GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("outputs")[0].GetProperty("description").ToString());
+Console.WriteLine(result[0].GetProperty("promptAlignedName").ToString());
+Console.WriteLine(result[0].GetProperty("userVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result[0].GetProperty("userVisibility").ToString());
+Console.WriteLine(result[0].GetProperty("plannerVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result[0].GetProperty("plannerVisibility").ToString());
+Console.WriteLine(result[0].GetProperty("settings").GetProperty("<test>").ToString());
+Console.WriteLine(result[0].GetProperty("skillSummaryMetadata").GetProperty("summaryStartMessage").ToString());
+Console.WriteLine(result[0].GetProperty("skillSummaryMetadata").GetProperty("summaryEndMessage").ToString());
+Console.WriteLine(result[0].GetProperty("enableVariableSubstitutionInCompose").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillsetDescriptorsAsync(string,CancellationToken)">
+<example>
+This sample shows how to call GetSkillsetDescriptorsAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var result = await client.GetSkillsetDescriptorsAsync("<evaluationToken>");
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillsetDescriptors(string,CancellationToken)">
+<example>
+This sample shows how to call GetSkillsetDescriptors with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var result = client.GetSkillsetDescriptors("<evaluationToken>");
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillsetDescriptorsAsync(string,RequestContext)">
+<example>
+This sample shows how to call GetSkillsetDescriptorsAsync with required parameters and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = await client.GetSkillsetDescriptorsAsync("<evaluationToken>", new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("namespace").ToString());
+Console.WriteLine(result[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("description").ToString());
+Console.WriteLine(result[0].GetProperty("descriptionDisplay").ToString());
+Console.WriteLine(result[0].GetProperty("disaplyName").ToString());
+Console.WriteLine(result[0].GetProperty("icon").ToString());
+Console.WriteLine(result[0].GetProperty("category").ToString());
+Console.WriteLine(result[0].GetProperty("catalogScope").ToString());
+Console.WriteLine(result[0].GetProperty("enabled").ToString());
+Console.WriteLine(result[0].GetProperty("hidden").ToString());
+Console.WriteLine(result[0].GetProperty("prerequisites")[0].ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("label").ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("description").ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("hintText").ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("settingType").ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("required").ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("defaultValue").ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("value").ToString());
+Console.WriteLine(result[0].GetProperty("authorization").GetProperty("type").ToString());
+Console.WriteLine(result[0].GetProperty("supportedAuthTypes")[0].ToString());
+Console.WriteLine(result[0].GetProperty("userVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result[0].GetProperty("userVisibility").ToString());
+Console.WriteLine(result[0].GetProperty("plannerVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result[0].GetProperty("plannerVisibility").ToString());
+Console.WriteLine(result[0].GetProperty("creatorUserId").ToString());
+Console.WriteLine(result[0].GetProperty("ownersGroupId").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillsetDescriptors(string,RequestContext)">
+<example>
+This sample shows how to call GetSkillsetDescriptors with required parameters and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = client.GetSkillsetDescriptors("<evaluationToken>", new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("namespace").ToString());
+Console.WriteLine(result[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("description").ToString());
+Console.WriteLine(result[0].GetProperty("descriptionDisplay").ToString());
+Console.WriteLine(result[0].GetProperty("disaplyName").ToString());
+Console.WriteLine(result[0].GetProperty("icon").ToString());
+Console.WriteLine(result[0].GetProperty("category").ToString());
+Console.WriteLine(result[0].GetProperty("catalogScope").ToString());
+Console.WriteLine(result[0].GetProperty("enabled").ToString());
+Console.WriteLine(result[0].GetProperty("hidden").ToString());
+Console.WriteLine(result[0].GetProperty("prerequisites")[0].ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("name").ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("label").ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("description").ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("hintText").ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("settingType").ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("required").ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("defaultValue").ToString());
+Console.WriteLine(result[0].GetProperty("settings")[0].GetProperty("value").ToString());
+Console.WriteLine(result[0].GetProperty("authorization").GetProperty("type").ToString());
+Console.WriteLine(result[0].GetProperty("supportedAuthTypes")[0].ToString());
+Console.WriteLine(result[0].GetProperty("userVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result[0].GetProperty("userVisibility").ToString());
+Console.WriteLine(result[0].GetProperty("plannerVisibilityFeatureFlags")[0].ToString());
+Console.WriteLine(result[0].GetProperty("plannerVisibility").ToString());
+Console.WriteLine(result[0].GetProperty("creatorUserId").ToString());
+Console.WriteLine(result[0].GetProperty("ownersGroupId").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetExecutionContextAsync(string,CancellationToken)">
+<example>
+This sample shows how to call GetExecutionContextAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var result = await client.GetExecutionContextAsync("<evaluationToken>");
+]]></code>
+</example>
+    </member>
+    <member name="GetExecutionContext(string,CancellationToken)">
+<example>
+This sample shows how to call GetExecutionContext with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var result = client.GetExecutionContext("<evaluationToken>");
+]]></code>
+</example>
+    </member>
+    <member name="GetExecutionContextAsync(string,RequestContext)">
+<example>
+This sample shows how to call GetExecutionContextAsync with required parameters and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = await client.GetExecutionContextAsync("<evaluationToken>", new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("SessionId").ToString());
+Console.WriteLine(result.GetProperty("PromptId").ToString());
+Console.WriteLine(result.GetProperty("EvaluationId").ToString());
+Console.WriteLine(result.GetProperty("TenantId").ToString());
+Console.WriteLine(result.GetProperty("AccountId").ToString());
+Console.WriteLine(result.GetProperty("WorkspaceId").ToString());
+Console.WriteLine(result.GetProperty("UserName").ToString());
+Console.WriteLine(result.GetProperty("ApplicationId").ToString());
+Console.WriteLine(result.GetProperty("Source").ToString());
+Console.WriteLine(result.GetProperty("UnauthenticatedSourceApplicationId").ToString());
+Console.WriteLine(result.GetProperty("SelectedSkills").ToString());
+Console.WriteLine(result.GetProperty("SelectedSkillsets")[0].ToString());
+Console.WriteLine(result.GetProperty("IsFidelisUser").ToString());
+Console.WriteLine(result.GetProperty("InvocationType").ToString());
+Console.WriteLine(result.GetProperty("InvocationCategory").ToString());
+Console.WriteLine(result.GetProperty("EncryptedUserAccessToken").ToString());
+Console.WriteLine(result.GetProperty("ComplianceFlags").GetProperty("recordLog").ToString());
+Console.WriteLine(result.GetProperty("ComplianceFlags").GetProperty("customerOptedInToEyesOnProductImprovement").ToString());
+Console.WriteLine(result.GetProperty("ComplianceFlags").GetProperty("customerOptedInToModelImprovement").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("ApiVersion").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("Environment").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("IsGPUProxyEnabled").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("GpuProcessingGeo").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("CustomerAllowCrossGeoCompute").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("EcsAllowCrossGeoCompute").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("ContentFilterProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("ReportingProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("PreviewState").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetExecutionContext(string,RequestContext)">
+<example>
+This sample shows how to call GetExecutionContext with required parameters and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = client.GetExecutionContext("<evaluationToken>", new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("SessionId").ToString());
+Console.WriteLine(result.GetProperty("PromptId").ToString());
+Console.WriteLine(result.GetProperty("EvaluationId").ToString());
+Console.WriteLine(result.GetProperty("TenantId").ToString());
+Console.WriteLine(result.GetProperty("AccountId").ToString());
+Console.WriteLine(result.GetProperty("WorkspaceId").ToString());
+Console.WriteLine(result.GetProperty("UserName").ToString());
+Console.WriteLine(result.GetProperty("ApplicationId").ToString());
+Console.WriteLine(result.GetProperty("Source").ToString());
+Console.WriteLine(result.GetProperty("UnauthenticatedSourceApplicationId").ToString());
+Console.WriteLine(result.GetProperty("SelectedSkills").ToString());
+Console.WriteLine(result.GetProperty("SelectedSkillsets")[0].ToString());
+Console.WriteLine(result.GetProperty("IsFidelisUser").ToString());
+Console.WriteLine(result.GetProperty("InvocationType").ToString());
+Console.WriteLine(result.GetProperty("InvocationCategory").ToString());
+Console.WriteLine(result.GetProperty("EncryptedUserAccessToken").ToString());
+Console.WriteLine(result.GetProperty("ComplianceFlags").GetProperty("recordLog").ToString());
+Console.WriteLine(result.GetProperty("ComplianceFlags").GetProperty("customerOptedInToEyesOnProductImprovement").ToString());
+Console.WriteLine(result.GetProperty("ComplianceFlags").GetProperty("customerOptedInToModelImprovement").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("ApiVersion").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("Environment").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("IsGPUProxyEnabled").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("GpuProcessingGeo").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("CustomerAllowCrossGeoCompute").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("EcsAllowCrossGeoCompute").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("ContentFilterProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("AzureOpenAIExecutionContext").GetProperty("ReportingProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("PreviewState").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetPromptHistoryAsync(string,CancellationToken)">
+<example>
+This sample shows how to call GetPromptHistoryAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var result = await client.GetPromptHistoryAsync("<evaluationToken>");
+]]></code>
+</example>
+    </member>
+    <member name="GetPromptHistory(string,CancellationToken)">
+<example>
+This sample shows how to call GetPromptHistory with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var result = client.GetPromptHistory("<evaluationToken>");
+]]></code>
+</example>
+    </member>
+    <member name="GetPromptHistoryAsync(string,RequestContext)">
+<example>
+This sample shows how to call GetPromptHistoryAsync with required parameters and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = await client.GetPromptHistoryAsync("<evaluationToken>", new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("prompts")[0].GetProperty("prompt").ToString());
+Console.WriteLine(result.GetProperty("prompts")[0].GetProperty("response").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetPromptHistory(string,RequestContext)">
+<example>
+This sample shows how to call GetPromptHistory with required parameters and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = client.GetPromptHistory("<evaluationToken>", new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("prompts")[0].GetProperty("prompt").ToString());
+Console.WriteLine(result.GetProperty("prompts")[0].GetProperty("response").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="LogProgressAsync(string,LogProgressRequest,CancellationToken)">
+<example>
+This sample shows how to call LogProgressAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var logProgressRequest = new LogProgressRequest("<message>")
+{
+    Level = ProgressLogLevel.Error,
+};
+var result = await client.LogProgressAsync("<evaluationToken>", logProgressRequest);
+]]></code>
+</example>
+    </member>
+    <member name="LogProgress(string,LogProgressRequest,CancellationToken)">
+<example>
+This sample shows how to call LogProgress with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var logProgressRequest = new LogProgressRequest("<message>")
+{
+    Level = ProgressLogLevel.Error,
+};
+var result = client.LogProgress("<evaluationToken>", logProgressRequest);
+]]></code>
+</example>
+    </member>
+    <member name="LogProgressAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call LogProgressAsync with required parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    message = "<message>",
+};
+
+Response response = await client.LogProgressAsync("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call LogProgressAsync with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    level = "Error",
+    message = "<message>",
+};
+
+Response response = await client.LogProgressAsync("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="LogProgress(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call LogProgress with required parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    message = "<message>",
+};
+
+Response response = client.LogProgress("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call LogProgress with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    level = "Error",
+    message = "<message>",
+};
+
+Response response = client.LogProgress("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="SetSkillOutputAsync(string,EvaluationResultOutput,CancellationToken)">
+<example>
+This sample shows how to call SetSkillOutputAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var evaluationResultOutput = new EvaluationResultOutput(SkillOutputType.Primitive)
+{
+    PrimitiveOutput = new OutputSkillVariable(true, new SkillSource[] 
+{
+        new SkillSource("<displayName>", "<sourceContent>", SkillSourceType.Uri)
+{
+            SourceSerializedData = "<SourceSerializedData>",
+        }
+    }, new SuggestedPrompt[] 
+{
+        new SuggestedPrompt("<prompt>")
+    }, "<skillName>", new Dictionary<string, string>
+{
+        ["key"] = "<null>",
+    }, "<outputLanguage>", SkillOutputType.Primitive)
+{
+        Type = "<Type>",
+        Value = "<Value>",
+    },
+    StructuredOutput = new SkillStructuredOutput(new SkillOutputComponent[] 
+{
+        new SkillOutputComponent("<name>", "<content>", "<type>", SkillOutputComponentAction.None, true)
+    }),
+    PrimitiveOutputValue = "<PrimitiveOutputValue>",
+};
+var result = await client.SetSkillOutputAsync("<evaluationToken>", evaluationResultOutput);
+]]></code>
+</example>
+    </member>
+    <member name="SetSkillOutput(string,EvaluationResultOutput,CancellationToken)">
+<example>
+This sample shows how to call SetSkillOutput with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var evaluationResultOutput = new EvaluationResultOutput(SkillOutputType.Primitive)
+{
+    PrimitiveOutput = new OutputSkillVariable(true, new SkillSource[] 
+{
+        new SkillSource("<displayName>", "<sourceContent>", SkillSourceType.Uri)
+{
+            SourceSerializedData = "<SourceSerializedData>",
+        }
+    }, new SuggestedPrompt[] 
+{
+        new SuggestedPrompt("<prompt>")
+    }, "<skillName>", new Dictionary<string, string>
+{
+        ["key"] = "<null>",
+    }, "<outputLanguage>", SkillOutputType.Primitive)
+{
+        Type = "<Type>",
+        Value = "<Value>",
+    },
+    StructuredOutput = new SkillStructuredOutput(new SkillOutputComponent[] 
+{
+        new SkillOutputComponent("<name>", "<content>", "<type>", SkillOutputComponentAction.None, true)
+    }),
+    PrimitiveOutputValue = "<PrimitiveOutputValue>",
+};
+var result = client.SetSkillOutput("<evaluationToken>", evaluationResultOutput);
+]]></code>
+</example>
+    </member>
+    <member name="SetSkillOutputAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call SetSkillOutputAsync with required parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    skillOutputType = "Primitive",
+};
+
+Response response = await client.SetSkillOutputAsync("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call SetSkillOutputAsync with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    skillOutputType = "Primitive",
+    primitiveOutput = new {
+        sources = new[] {
+            new {
+                displayName = "<displayName>",
+                sourceContent = "<sourceContent>",
+                sourceType = "Uri",
+                sourceSerializedData = "<sourceSerializedData>",
+            }
+        },
+        suggestedPrompts = new[] {
+            new {
+                prompt = "<prompt>",
+            }
+        },
+        skillName = "<skillName>",
+        skillInputs = new {
+            key = "<String>",
+        },
+        outputLanguage = "<outputLanguage>",
+        outputType = "Primitive",
+        type = "<type>",
+        value = "<value>",
+        valueStoredAsJson = true,
+    },
+    structuredOutput = new {
+        components = new[] {
+            new {
+                action = "None",
+                includeInEvalResultAsRawComponent = true,
+                name = "<name>",
+                content = "<content>",
+                description = "<description>",
+                type = "GptOutput",
+            }
+        },
+    },
+    primitiveOutputValue = "<primitiveOutputValue>",
+};
+
+Response response = await client.SetSkillOutputAsync("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="SetSkillOutput(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call SetSkillOutput with required parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    skillOutputType = "Primitive",
+};
+
+Response response = client.SetSkillOutput("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call SetSkillOutput with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    skillOutputType = "Primitive",
+    primitiveOutput = new {
+        sources = new[] {
+            new {
+                displayName = "<displayName>",
+                sourceContent = "<sourceContent>",
+                sourceType = "Uri",
+                sourceSerializedData = "<sourceSerializedData>",
+            }
+        },
+        suggestedPrompts = new[] {
+            new {
+                prompt = "<prompt>",
+            }
+        },
+        skillName = "<skillName>",
+        skillInputs = new {
+            key = "<String>",
+        },
+        outputLanguage = "<outputLanguage>",
+        outputType = "Primitive",
+        type = "<type>",
+        value = "<value>",
+        valueStoredAsJson = true,
+    },
+    structuredOutput = new {
+        components = new[] {
+            new {
+                action = "None",
+                includeInEvalResultAsRawComponent = true,
+                name = "<name>",
+                content = "<content>",
+                description = "<description>",
+                type = "GptOutput",
+            }
+        },
+    },
+    primitiveOutputValue = "<primitiveOutputValue>",
+};
+
+Response response = client.SetSkillOutput("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillsetSettingsAsync(string,CancellationToken)">
+<example>
+This sample shows how to call GetSkillsetSettingsAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var result = await client.GetSkillsetSettingsAsync("<evaluationToken>");
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillsetSettings(string,CancellationToken)">
+<example>
+This sample shows how to call GetSkillsetSettings with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var result = client.GetSkillsetSettings("<evaluationToken>");
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillsetSettingsAsync(string,RequestContext)">
+<example>
+This sample shows how to call GetSkillsetSettingsAsync with required parameters and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = await client.GetSkillsetSettingsAsync("<evaluationToken>", new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("<test>").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillsetSettings(string,RequestContext)">
+<example>
+This sample shows how to call GetSkillsetSettings with required parameters and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = client.GetSkillsetSettings("<evaluationToken>", new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("<test>").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="SetSkillInvocationStartedAsync(string,RequestContext)">
+<example>
+This sample shows how to call SetSkillInvocationStartedAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = await client.SetSkillInvocationStartedAsync("<evaluationToken>");
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="SetSkillInvocationStarted(string,RequestContext)">
+<example>
+This sample shows how to call SetSkillInvocationStarted with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = client.SetSkillInvocationStarted("<evaluationToken>");
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="SetSkillInvocationCompletedAsync(string,RequestContext)">
+<example>
+This sample shows how to call SetSkillInvocationCompletedAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = await client.SetSkillInvocationCompletedAsync("<evaluationToken>");
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="SetSkillInvocationCompleted(string,RequestContext)">
+<example>
+This sample shows how to call SetSkillInvocationCompleted with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = client.SetSkillInvocationCompleted("<evaluationToken>");
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillsetAuthInfoAsync(string,CancellationToken)">
+<example>
+This sample shows how to call GetSkillsetAuthInfoAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var result = await client.GetSkillsetAuthInfoAsync("<evaluationToken>");
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillsetAuthInfo(string,CancellationToken)">
+<example>
+This sample shows how to call GetSkillsetAuthInfo with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var result = client.GetSkillsetAuthInfo("<evaluationToken>");
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillsetAuthInfoAsync(string,RequestContext)">
+<example>
+This sample shows how to call GetSkillsetAuthInfoAsync with required parameters and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = await client.GetSkillsetAuthInfoAsync("<evaluationToken>", new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("authLocation").ToString());
+Console.WriteLine(result.GetProperty("authInfo").GetProperty("<test>").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetSkillsetAuthInfo(string,RequestContext)">
+<example>
+This sample shows how to call GetSkillsetAuthInfo with required parameters and parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+Response response = client.GetSkillsetAuthInfo("<evaluationToken>", new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("authLocation").ToString());
+Console.WriteLine(result.GetProperty("authInfo").GetProperty("<test>").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetTokenCredentialAsync(string,GetTokenCredentialRequest,CancellationToken)">
+<example>
+This sample shows how to call GetTokenCredentialAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var getTokenCredentialRequest = new GetTokenCredentialRequest(new string[] 
+{
+    "<null>"
+}, TokenCredentialEnum.None)
+{
+    TenantId = "<TenantId>",
+};
+var result = await client.GetTokenCredentialAsync("<evaluationToken>", getTokenCredentialRequest);
+]]></code>
+</example>
+    </member>
+    <member name="GetTokenCredential(string,GetTokenCredentialRequest,CancellationToken)">
+<example>
+This sample shows how to call GetTokenCredential with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var getTokenCredentialRequest = new GetTokenCredentialRequest(new string[] 
+{
+    "<null>"
+}, TokenCredentialEnum.None)
+{
+    TenantId = "<TenantId>",
+};
+var result = client.GetTokenCredential("<evaluationToken>", getTokenCredentialRequest);
+]]></code>
+</example>
+    </member>
+    <member name="GetTokenCredentialAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call GetTokenCredentialAsync with required parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    scopes = new[] {
+        "<String>"
+    },
+    tokenCredentialType = "None",
+};
+
+Response response = await client.GetTokenCredentialAsync("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("token").ToString());
+Console.WriteLine(result.GetProperty("expiresOn").ToString());
+]]></code>
+This sample shows how to call GetTokenCredentialAsync with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    scopes = new[] {
+        "<String>"
+    },
+    tokenCredentialType = "None",
+    tenantId = "<tenantId>",
+};
+
+Response response = await client.GetTokenCredentialAsync("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("token").ToString());
+Console.WriteLine(result.GetProperty("expiresOn").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetTokenCredential(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call GetTokenCredential with required parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    scopes = new[] {
+        "<String>"
+    },
+    tokenCredentialType = "None",
+};
+
+Response response = client.GetTokenCredential("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("token").ToString());
+Console.WriteLine(result.GetProperty("expiresOn").ToString());
+]]></code>
+This sample shows how to call GetTokenCredential with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    scopes = new[] {
+        "<String>"
+    },
+    tokenCredentialType = "None",
+    tenantId = "<tenantId>",
+};
+
+Response response = client.GetTokenCredential("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("token").ToString());
+Console.WriteLine(result.GetProperty("expiresOn").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetInputAsync(string,GetInputRequest,CancellationToken)">
+<example>
+This sample shows how to call GetInputAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var getInputRequest = new GetInputRequest("<inputName>")
+{
+    DefaultValue = new SkillVariable(true)
+{
+        Type = "<Type>",
+        Value = "<Value>",
+    },
+};
+var result = await client.GetInputAsync("<evaluationToken>", getInputRequest);
+]]></code>
+</example>
+    </member>
+    <member name="GetInput(string,GetInputRequest,CancellationToken)">
+<example>
+This sample shows how to call GetInput with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var getInputRequest = new GetInputRequest("<inputName>")
+{
+    DefaultValue = new SkillVariable(true)
+{
+        Type = "<Type>",
+        Value = "<Value>",
+    },
+};
+var result = client.GetInput("<evaluationToken>", getInputRequest);
+]]></code>
+</example>
+    </member>
+    <member name="GetInputAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call GetInputAsync with required parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    inputName = "<inputName>",
+};
+
+Response response = await client.GetInputAsync("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("valueStoredAsJson").ToString());
+]]></code>
+This sample shows how to call GetInputAsync with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    inputName = "<inputName>",
+    defaultValue = new {
+        sources = new[] {
+            new {
+                displayName = "<displayName>",
+                sourceContent = "<sourceContent>",
+                sourceType = "Uri",
+                sourceSerializedData = "<sourceSerializedData>",
+            }
+        },
+        suggestedPrompts = new[] {
+            new {
+                prompt = "<prompt>",
+            }
+        },
+        skillName = "<skillName>",
+        skillInputs = new {
+            key = "<String>",
+        },
+        outputLanguage = "<outputLanguage>",
+        outputType = "Primitive",
+        type = "<type>",
+        value = "<value>",
+        valueStoredAsJson = true,
+    },
+};
+
+Response response = await client.GetInputAsync("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("valueStoredAsJson").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetInput(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call GetInput with required parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    inputName = "<inputName>",
+};
+
+Response response = client.GetInput("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("valueStoredAsJson").ToString());
+]]></code>
+This sample shows how to call GetInput with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    inputName = "<inputName>",
+    defaultValue = new {
+        sources = new[] {
+            new {
+                displayName = "<displayName>",
+                sourceContent = "<sourceContent>",
+                sourceType = "Uri",
+                sourceSerializedData = "<sourceSerializedData>",
+            }
+        },
+        suggestedPrompts = new[] {
+            new {
+                prompt = "<prompt>",
+            }
+        },
+        skillName = "<skillName>",
+        skillInputs = new {
+            key = "<String>",
+        },
+        outputLanguage = "<outputLanguage>",
+        outputType = "Primitive",
+        type = "<type>",
+        value = "<value>",
+        valueStoredAsJson = true,
+    },
+};
+
+Response response = client.GetInput("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("valueStoredAsJson").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="SetInputAsync(string,SetInputRequest,CancellationToken)">
+<example>
+This sample shows how to call SetInputAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var setInputRequest = new SetInputRequest("<inputName>")
+{
+    DefaultValue = new SkillVariable(true)
+{
+        Type = "<Type>",
+        Value = "<Value>",
+    },
+};
+var result = await client.SetInputAsync("<evaluationToken>", setInputRequest);
+]]></code>
+</example>
+    </member>
+    <member name="SetInput(string,SetInputRequest,CancellationToken)">
+<example>
+This sample shows how to call SetInput with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var setInputRequest = new SetInputRequest("<inputName>")
+{
+    DefaultValue = new SkillVariable(true)
+{
+        Type = "<Type>",
+        Value = "<Value>",
+    },
+};
+var result = client.SetInput("<evaluationToken>", setInputRequest);
+]]></code>
+</example>
+    </member>
+    <member name="SetInputAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call SetInputAsync with required parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    inputName = "<inputName>",
+};
+
+Response response = await client.SetInputAsync("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call SetInputAsync with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    inputName = "<inputName>",
+    defaultValue = new {
+        sources = new[] {
+            new {
+                displayName = "<displayName>",
+                sourceContent = "<sourceContent>",
+                sourceType = "Uri",
+                sourceSerializedData = "<sourceSerializedData>",
+            }
+        },
+        suggestedPrompts = new[] {
+            new {
+                prompt = "<prompt>",
+            }
+        },
+        skillName = "<skillName>",
+        skillInputs = new {
+            key = "<String>",
+        },
+        outputLanguage = "<outputLanguage>",
+        outputType = "Primitive",
+        type = "<type>",
+        value = "<value>",
+        valueStoredAsJson = true,
+    },
+};
+
+Response response = await client.SetInputAsync("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="SetInput(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call SetInput with required parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    inputName = "<inputName>",
+};
+
+Response response = client.SetInput("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call SetInput with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    inputName = "<inputName>",
+    defaultValue = new {
+        sources = new[] {
+            new {
+                displayName = "<displayName>",
+                sourceContent = "<sourceContent>",
+                sourceType = "Uri",
+                sourceSerializedData = "<sourceSerializedData>",
+            }
+        },
+        suggestedPrompts = new[] {
+            new {
+                prompt = "<prompt>",
+            }
+        },
+        skillName = "<skillName>",
+        skillInputs = new {
+            key = "<String>",
+        },
+        outputLanguage = "<outputLanguage>",
+        outputType = "Primitive",
+        type = "<type>",
+        value = "<value>",
+        valueStoredAsJson = true,
+    },
+};
+
+Response response = client.SetInput("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="AddSourcesAsync(string,AddSourcesRequest,CancellationToken)">
+<example>
+This sample shows how to call AddSourcesAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var addSourcesRequest = new AddSourcesRequest(new SkillSource[] 
+{
+    new SkillSource("<displayName>", "<sourceContent>", SkillSourceType.Uri)
+{
+        SourceSerializedData = "<SourceSerializedData>",
+    }
+});
+var result = await client.AddSourcesAsync("<evaluationToken>", addSourcesRequest);
+]]></code>
+</example>
+    </member>
+    <member name="AddSources(string,AddSourcesRequest,CancellationToken)">
+<example>
+This sample shows how to call AddSources with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var addSourcesRequest = new AddSourcesRequest(new SkillSource[] 
+{
+    new SkillSource("<displayName>", "<sourceContent>", SkillSourceType.Uri)
+{
+        SourceSerializedData = "<SourceSerializedData>",
+    }
+});
+var result = client.AddSources("<evaluationToken>", addSourcesRequest);
+]]></code>
+</example>
+    </member>
+    <member name="AddSourcesAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call AddSourcesAsync with required parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    sources = new[] {
+        new {
+            displayName = "<displayName>",
+            sourceContent = "<sourceContent>",
+            sourceType = "Uri",
+            sourceSerializedData = "<sourceSerializedData>",
+        }
+    },
+};
+
+Response response = await client.AddSourcesAsync("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="AddSources(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call AddSources with required parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    sources = new[] {
+        new {
+            displayName = "<displayName>",
+            sourceContent = "<sourceContent>",
+            sourceType = "Uri",
+            sourceSerializedData = "<sourceSerializedData>",
+        }
+    },
+};
+
+Response response = client.AddSources("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="AddSourceAsync(string,AddSourceRequest,CancellationToken)">
+<example>
+This sample shows how to call AddSourceAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var addSourceRequest = new AddSourceRequest(new SkillSource("<displayName>", "<sourceContent>", SkillSourceType.Uri)
+{
+    SourceSerializedData = "<SourceSerializedData>",
+});
+var result = await client.AddSourceAsync("<evaluationToken>", addSourceRequest);
+]]></code>
+</example>
+    </member>
+    <member name="AddSource(string,AddSourceRequest,CancellationToken)">
+<example>
+This sample shows how to call AddSource with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var addSourceRequest = new AddSourceRequest(new SkillSource("<displayName>", "<sourceContent>", SkillSourceType.Uri)
+{
+    SourceSerializedData = "<SourceSerializedData>",
+});
+var result = client.AddSource("<evaluationToken>", addSourceRequest);
+]]></code>
+</example>
+    </member>
+    <member name="AddSourceAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call AddSourceAsync with required parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    SkillSource = new {
+        displayName = "<displayName>",
+        sourceContent = "<sourceContent>",
+        sourceType = "Uri",
+    },
+};
+
+Response response = await client.AddSourceAsync("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call AddSourceAsync with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    SkillSource = new {
+        displayName = "<displayName>",
+        sourceContent = "<sourceContent>",
+        sourceType = "Uri",
+        sourceSerializedData = "<sourceSerializedData>",
+    },
+};
+
+Response response = await client.AddSourceAsync("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="AddSource(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call AddSource with required parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    SkillSource = new {
+        displayName = "<displayName>",
+        sourceContent = "<sourceContent>",
+        sourceType = "Uri",
+    },
+};
+
+Response response = client.AddSource("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call AddSource with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    SkillSource = new {
+        displayName = "<displayName>",
+        sourceContent = "<sourceContent>",
+        sourceType = "Uri",
+        sourceSerializedData = "<sourceSerializedData>",
+    },
+};
+
+Response response = client.AddSource("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="AddSuggestedPromptsAsync(string,AddSuggestedPromptsRequest,CancellationToken)">
+<example>
+This sample shows how to call AddSuggestedPromptsAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var addSuggestedPromptsRequest = new AddSuggestedPromptsRequest(new SuggestedPrompt[] 
+{
+    new SuggestedPrompt("<prompt>")
+});
+var result = await client.AddSuggestedPromptsAsync("<evaluationToken>", addSuggestedPromptsRequest);
+]]></code>
+</example>
+    </member>
+    <member name="AddSuggestedPrompts(string,AddSuggestedPromptsRequest,CancellationToken)">
+<example>
+This sample shows how to call AddSuggestedPrompts with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var addSuggestedPromptsRequest = new AddSuggestedPromptsRequest(new SuggestedPrompt[] 
+{
+    new SuggestedPrompt("<prompt>")
+});
+var result = client.AddSuggestedPrompts("<evaluationToken>", addSuggestedPromptsRequest);
+]]></code>
+</example>
+    </member>
+    <member name="AddSuggestedPromptsAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call AddSuggestedPromptsAsync with required parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    suggestedPrompts = new[] {
+        new {
+            prompt = "<prompt>",
+        }
+    },
+};
+
+Response response = await client.AddSuggestedPromptsAsync("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="AddSuggestedPrompts(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call AddSuggestedPrompts with required parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    suggestedPrompts = new[] {
+        new {
+            prompt = "<prompt>",
+        }
+    },
+};
+
+Response response = client.AddSuggestedPrompts("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="SetFinalResponseSettingsAsync(string,SetFinalResponseSettingsRequest,CancellationToken)">
+<example>
+This sample shows how to call SetFinalResponseSettingsAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var setFinalResponseSettingsRequest = new SetFinalResponseSettingsRequest("<finalResponseBehavior>")
+{
+    FinalResponseFormat = "<FinalResponseFormat>",
+    FinalResponsePersona = "<FinalResponsePersona>",
+    FinalResponseFallback = "<FinalResponseFallback>",
+};
+var result = await client.SetFinalResponseSettingsAsync("<evaluationToken>", setFinalResponseSettingsRequest);
+]]></code>
+</example>
+    </member>
+    <member name="SetFinalResponseSettings(string,SetFinalResponseSettingsRequest,CancellationToken)">
+<example>
+This sample shows how to call SetFinalResponseSettings with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var setFinalResponseSettingsRequest = new SetFinalResponseSettingsRequest("<finalResponseBehavior>")
+{
+    FinalResponseFormat = "<FinalResponseFormat>",
+    FinalResponsePersona = "<FinalResponsePersona>",
+    FinalResponseFallback = "<FinalResponseFallback>",
+};
+var result = client.SetFinalResponseSettings("<evaluationToken>", setFinalResponseSettingsRequest);
+]]></code>
+</example>
+    </member>
+    <member name="SetFinalResponseSettingsAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call SetFinalResponseSettingsAsync with required parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    finalResponseBehavior = "<finalResponseBehavior>",
+};
+
+Response response = await client.SetFinalResponseSettingsAsync("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call SetFinalResponseSettingsAsync with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    finalResponseBehavior = "<finalResponseBehavior>",
+    finalResponseFormat = "<finalResponseFormat>",
+    finalResponsePersona = "<finalResponsePersona>",
+    finalResponseFallback = "<finalResponseFallback>",
+};
+
+Response response = await client.SetFinalResponseSettingsAsync("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="SetFinalResponseSettings(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call SetFinalResponseSettings with required parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    finalResponseBehavior = "<finalResponseBehavior>",
+};
+
+Response response = client.SetFinalResponseSettings("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call SetFinalResponseSettings with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    finalResponseBehavior = "<finalResponseBehavior>",
+    finalResponseFormat = "<finalResponseFormat>",
+    finalResponsePersona = "<finalResponsePersona>",
+    finalResponseFallback = "<finalResponseFallback>",
+};
+
+Response response = client.SetFinalResponseSettings("<evaluationToken>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="CreateChatCompletionAsync(string,CreateChatCompletionRequest,CancellationToken)">
+<example>
+This sample shows how to call CreateChatCompletionAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var request = new CreateChatCompletionRequest(new ChatCompletionRequest(new string[] 
+{
+    "<null>"
+}, null, BinaryData.FromString("<your binary data content>"), new Message[] 
+{
+    new Message("<role>")
+{
+        Content = "<Content>",
+        Name = "<Name>",
+        FunctionCall = new FunctionCall("<name>")
+{
+            Arguments = 
+{
+                ["key"] = "<null>",
+            },
+        },
+        ToolCalls = 
+{
+            new ToolCall("<id>", "<type>", new ToolFunctionCall("<name>", "<arguments>"))
+        },
+        ToolCallId = "<ToolCallId>",
+    }
+}, new GPTFunction[] 
+{
+    new GPTFunction("<name>", "<description>", new FunctionParameter("<type>", new Dictionary<string, FunctionParameterProperty>
+{
+        ["key"] = new FunctionParameterProperty("<type>", "<description>", new string[] 
+{
+            "<null>"
+        }),
+    }, new string[] 
+{
+        "<null>"
+    }), new FunctionResult("<type>"))
+}, "<functionCall>")
+{
+    Tools = 
+{
+        new Tools("<type>", new FunctionDefinition("<description>", "<name>", BinaryData.FromString("<your binary data content>")))
+    },
+    ToolChoice = "<ToolChoice>",
+    ParallelToolCalls = true,
+})
+{
+    DeploymentId = "<DeploymentId>",
+    OpenAiExecutionContext = new AzureOpenAIExecutionContext("<apiVersion>", "<environment>", true, true, true)
+{
+        GpuProcessingGeo = "<GpuProcessingGeo>",
+        ContentFilterProperties = 
+{
+            ["key"] = "<null>",
+        },
+        ReportingProperties = 
+{
+            ["key"] = "<null>",
+        },
+    },
+};
+var result = await client.CreateChatCompletionAsync("<evaluationToken>", request);
+]]></code>
+</example>
+    </member>
+    <member name="CreateChatCompletion(string,CreateChatCompletionRequest,CancellationToken)">
+<example>
+This sample shows how to call CreateChatCompletion with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var request = new CreateChatCompletionRequest(new ChatCompletionRequest(new string[] 
+{
+    "<null>"
+}, null, BinaryData.FromString("<your binary data content>"), new Message[] 
+{
+    new Message("<role>")
+{
+        Content = "<Content>",
+        Name = "<Name>",
+        FunctionCall = new FunctionCall("<name>")
+{
+            Arguments = 
+{
+                ["key"] = "<null>",
+            },
+        },
+        ToolCalls = 
+{
+            new ToolCall("<id>", "<type>", new ToolFunctionCall("<name>", "<arguments>"))
+        },
+        ToolCallId = "<ToolCallId>",
+    }
+}, new GPTFunction[] 
+{
+    new GPTFunction("<name>", "<description>", new FunctionParameter("<type>", new Dictionary<string, FunctionParameterProperty>
+{
+        ["key"] = new FunctionParameterProperty("<type>", "<description>", new string[] 
+{
+            "<null>"
+        }),
+    }, new string[] 
+{
+        "<null>"
+    }), new FunctionResult("<type>"))
+}, "<functionCall>")
+{
+    Tools = 
+{
+        new Tools("<type>", new FunctionDefinition("<description>", "<name>", BinaryData.FromString("<your binary data content>")))
+    },
+    ToolChoice = "<ToolChoice>",
+    ParallelToolCalls = true,
+})
+{
+    DeploymentId = "<DeploymentId>",
+    OpenAiExecutionContext = new AzureOpenAIExecutionContext("<apiVersion>", "<environment>", true, true, true)
+{
+        GpuProcessingGeo = "<GpuProcessingGeo>",
+        ContentFilterProperties = 
+{
+            ["key"] = "<null>",
+        },
+        ReportingProperties = 
+{
+            ["key"] = "<null>",
+        },
+    },
+};
+var result = client.CreateChatCompletion("<evaluationToken>", request);
+]]></code>
+</example>
+    </member>
+    <member name="CreateChatCompletionAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateChatCompletionAsync with required parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    chatCompletionRequest = new {
+        Messages = new[] {
+            new {
+                Role = "<Role>",
+            }
+        },
+        Functions = new[] {
+            new {
+                Name = "<Name>",
+                Description = "<Description>",
+                Parameters = new {
+                    Type = "<Type>",
+                    Properties = new {
+                        key = new {
+                            Type = "<Type>",
+                            Description = "<Description>",
+                            Enum = new[] {
+                                "<String>"
+                            },
+                        },
+                    },
+                    Required = new[] {
+                        "<String>"
+                    },
+                },
+                Result = new {
+                    Type = "<Type>",
+                },
+            }
+        },
+        FunctionCall = "<FunctionCall>",
+        Stop = new[] {
+            "<String>"
+        },
+        LogitBias = new {
+            key = 1234,
+        },
+        ResponseFormat = new {},
+    },
+};
+
+Response response = await client.CreateChatCompletionAsync("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("Role").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Index").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("LogProbs").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("FinishReason").ToString());
+Console.WriteLine(result.GetProperty("Id").ToString());
+Console.WriteLine(result.GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Created").ToString());
+Console.WriteLine(result.GetProperty("Model").ToString());
+Console.WriteLine(result.GetProperty("Usage").ToString());
+Console.WriteLine(result.GetProperty("PromptFilterResults")[0].ToString());
+]]></code>
+This sample shows how to call CreateChatCompletionAsync with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    deploymentId = "<deploymentId>",
+    chatCompletionRequest = new {
+        Messages = new[] {
+            new {
+                Content = "<Content>",
+                Role = "<Role>",
+                Name = "<Name>",
+                FunctionCall = new {
+                    Name = "<Name>",
+                    Arguments = new {
+                        key = "<String>",
+                    },
+                },
+                ToolCalls = new[] {
+                    new {
+                        Id = "<Id>",
+                        Type = "<Type>",
+                        Function = new {
+                            Name = "<Name>",
+                            Arguments = "<Arguments>",
+                        },
+                    }
+                },
+                ToolCallId = "<ToolCallId>",
+            }
+        },
+        Functions = new[] {
+            new {
+                Name = "<Name>",
+                Description = "<Description>",
+                Parameters = new {
+                    Type = "<Type>",
+                    Properties = new {
+                        key = new {
+                            Type = "<Type>",
+                            Description = "<Description>",
+                            Enum = new[] {
+                                "<String>"
+                            },
+                        },
+                    },
+                    Required = new[] {
+                        "<String>"
+                    },
+                },
+                Result = new {
+                    Type = "<Type>",
+                },
+            }
+        },
+        FunctionCall = "<FunctionCall>",
+        Tools = new[] {
+            new {
+                Type = "<Type>",
+                Function = new {
+                    Description = "<Description>",
+                    Name = "<Name>",
+                    Parameters = new {},
+                },
+            }
+        },
+        ToolChoice = "<ToolChoice>",
+        ParallelToolCalls = true,
+        MaxTokens = 1234,
+        Temperature = 123.45d,
+        TopP = 123.45d,
+        N = 1234,
+        Stream = true,
+        Logprobs = 1234,
+        Echo = true,
+        Stop = new[] {
+            "<String>"
+        },
+        PresencePenalty = 123.45d,
+        FrequencyPenalty = 123.45d,
+        BestOf = 1234,
+        LogitBias = new {
+            key = 1234,
+        },
+        ResponseFormat = new {},
+    },
+    openAiExecutionContext = new {
+        ApiVersion = "<ApiVersion>",
+        Environment = "<Environment>",
+        IsGPUProxyEnabled = true,
+        GpuProcessingGeo = "<GpuProcessingGeo>",
+        CustomerAllowCrossGeoCompute = true,
+        EcsAllowCrossGeoCompute = true,
+        ContentFilterProperties = new {
+            key = "<String>",
+        },
+        ReportingProperties = new {
+            key = "<String>",
+        },
+    },
+};
+
+Response response = await client.CreateChatCompletionAsync("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("Content").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("Role").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("Name").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("FunctionCall").GetProperty("Name").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("FunctionCall").GetProperty("Arguments").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("ToolCalls")[0].GetProperty("Id").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("ToolCalls")[0].GetProperty("Type").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("ToolCalls")[0].GetProperty("Function").GetProperty("Name").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("ToolCalls")[0].GetProperty("Function").GetProperty("Arguments").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("ToolCallId").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Index").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("LogProbs").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("FinishReason").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("ContentFilterResults").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("ContentFilterError").ToString());
+Console.WriteLine(result.GetProperty("Id").ToString());
+Console.WriteLine(result.GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Created").ToString());
+Console.WriteLine(result.GetProperty("Model").ToString());
+Console.WriteLine(result.GetProperty("Usage").ToString());
+Console.WriteLine(result.GetProperty("PromptFilterResults")[0].ToString());
+]]></code>
+</example>
+    </member>
+    <member name="CreateChatCompletion(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateChatCompletion with required parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    chatCompletionRequest = new {
+        Messages = new[] {
+            new {
+                Role = "<Role>",
+            }
+        },
+        Functions = new[] {
+            new {
+                Name = "<Name>",
+                Description = "<Description>",
+                Parameters = new {
+                    Type = "<Type>",
+                    Properties = new {
+                        key = new {
+                            Type = "<Type>",
+                            Description = "<Description>",
+                            Enum = new[] {
+                                "<String>"
+                            },
+                        },
+                    },
+                    Required = new[] {
+                        "<String>"
+                    },
+                },
+                Result = new {
+                    Type = "<Type>",
+                },
+            }
+        },
+        FunctionCall = "<FunctionCall>",
+        Stop = new[] {
+            "<String>"
+        },
+        LogitBias = new {
+            key = 1234,
+        },
+        ResponseFormat = new {},
+    },
+};
+
+Response response = client.CreateChatCompletion("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("Role").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Index").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("LogProbs").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("FinishReason").ToString());
+Console.WriteLine(result.GetProperty("Id").ToString());
+Console.WriteLine(result.GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Created").ToString());
+Console.WriteLine(result.GetProperty("Model").ToString());
+Console.WriteLine(result.GetProperty("Usage").ToString());
+Console.WriteLine(result.GetProperty("PromptFilterResults")[0].ToString());
+]]></code>
+This sample shows how to call CreateChatCompletion with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    deploymentId = "<deploymentId>",
+    chatCompletionRequest = new {
+        Messages = new[] {
+            new {
+                Content = "<Content>",
+                Role = "<Role>",
+                Name = "<Name>",
+                FunctionCall = new {
+                    Name = "<Name>",
+                    Arguments = new {
+                        key = "<String>",
+                    },
+                },
+                ToolCalls = new[] {
+                    new {
+                        Id = "<Id>",
+                        Type = "<Type>",
+                        Function = new {
+                            Name = "<Name>",
+                            Arguments = "<Arguments>",
+                        },
+                    }
+                },
+                ToolCallId = "<ToolCallId>",
+            }
+        },
+        Functions = new[] {
+            new {
+                Name = "<Name>",
+                Description = "<Description>",
+                Parameters = new {
+                    Type = "<Type>",
+                    Properties = new {
+                        key = new {
+                            Type = "<Type>",
+                            Description = "<Description>",
+                            Enum = new[] {
+                                "<String>"
+                            },
+                        },
+                    },
+                    Required = new[] {
+                        "<String>"
+                    },
+                },
+                Result = new {
+                    Type = "<Type>",
+                },
+            }
+        },
+        FunctionCall = "<FunctionCall>",
+        Tools = new[] {
+            new {
+                Type = "<Type>",
+                Function = new {
+                    Description = "<Description>",
+                    Name = "<Name>",
+                    Parameters = new {},
+                },
+            }
+        },
+        ToolChoice = "<ToolChoice>",
+        ParallelToolCalls = true,
+        MaxTokens = 1234,
+        Temperature = 123.45d,
+        TopP = 123.45d,
+        N = 1234,
+        Stream = true,
+        Logprobs = 1234,
+        Echo = true,
+        Stop = new[] {
+            "<String>"
+        },
+        PresencePenalty = 123.45d,
+        FrequencyPenalty = 123.45d,
+        BestOf = 1234,
+        LogitBias = new {
+            key = 1234,
+        },
+        ResponseFormat = new {},
+    },
+    openAiExecutionContext = new {
+        ApiVersion = "<ApiVersion>",
+        Environment = "<Environment>",
+        IsGPUProxyEnabled = true,
+        GpuProcessingGeo = "<GpuProcessingGeo>",
+        CustomerAllowCrossGeoCompute = true,
+        EcsAllowCrossGeoCompute = true,
+        ContentFilterProperties = new {
+            key = "<String>",
+        },
+        ReportingProperties = new {
+            key = "<String>",
+        },
+    },
+};
+
+Response response = client.CreateChatCompletion("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("Content").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("Role").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("Name").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("FunctionCall").GetProperty("Name").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("FunctionCall").GetProperty("Arguments").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("ToolCalls")[0].GetProperty("Id").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("ToolCalls")[0].GetProperty("Type").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("ToolCalls")[0].GetProperty("Function").GetProperty("Name").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("ToolCalls")[0].GetProperty("Function").GetProperty("Arguments").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Message").GetProperty("ToolCallId").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Index").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("LogProbs").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("FinishReason").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("ContentFilterResults").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("ContentFilterError").ToString());
+Console.WriteLine(result.GetProperty("Id").ToString());
+Console.WriteLine(result.GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Created").ToString());
+Console.WriteLine(result.GetProperty("Model").ToString());
+Console.WriteLine(result.GetProperty("Usage").ToString());
+Console.WriteLine(result.GetProperty("PromptFilterResults")[0].ToString());
+]]></code>
+</example>
+    </member>
+    <member name="CreateCompletionAsync(string,CreateCompletionRequest,CancellationToken)">
+<example>
+This sample shows how to call CreateCompletionAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var request = new CreateCompletionRequest(new CompletionRequest(new string[] 
+{
+    "<null>"
+}, null, BinaryData.FromString("<your binary data content>"), "<prompt>"))
+{
+    DeploymentId = "<DeploymentId>",
+    OpenAiExecutionContext = new AzureOpenAIExecutionContext("<apiVersion>", "<environment>", true, true, true)
+{
+        GpuProcessingGeo = "<GpuProcessingGeo>",
+        ContentFilterProperties = 
+{
+            ["key"] = "<null>",
+        },
+        ReportingProperties = 
+{
+            ["key"] = "<null>",
+        },
+    },
+};
+var result = await client.CreateCompletionAsync("<evaluationToken>", request);
+]]></code>
+</example>
+    </member>
+    <member name="CreateCompletion(string,CreateCompletionRequest,CancellationToken)">
+<example>
+This sample shows how to call CreateCompletion with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var request = new CreateCompletionRequest(new CompletionRequest(new string[] 
+{
+    "<null>"
+}, null, BinaryData.FromString("<your binary data content>"), "<prompt>"))
+{
+    DeploymentId = "<DeploymentId>",
+    OpenAiExecutionContext = new AzureOpenAIExecutionContext("<apiVersion>", "<environment>", true, true, true)
+{
+        GpuProcessingGeo = "<GpuProcessingGeo>",
+        ContentFilterProperties = 
+{
+            ["key"] = "<null>",
+        },
+        ReportingProperties = 
+{
+            ["key"] = "<null>",
+        },
+    },
+};
+var result = client.CreateCompletion("<evaluationToken>", request);
+]]></code>
+</example>
+    </member>
+    <member name="CreateCompletionAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateCompletionAsync with required parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    completionRequest = new {
+        Prompt = "<Prompt>",
+        Stop = new[] {
+            "<String>"
+        },
+        LogitBias = new {
+            key = 1234,
+        },
+        ResponseFormat = new {},
+    },
+};
+
+Response response = await client.CreateCompletionAsync("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Text").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Index").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("LogProbs").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("FinishReason").ToString());
+Console.WriteLine(result.GetProperty("Id").ToString());
+Console.WriteLine(result.GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Created").ToString());
+Console.WriteLine(result.GetProperty("Model").ToString());
+Console.WriteLine(result.GetProperty("Usage").ToString());
+Console.WriteLine(result.GetProperty("PromptFilterResults")[0].ToString());
+]]></code>
+This sample shows how to call CreateCompletionAsync with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    deploymentId = "<deploymentId>",
+    completionRequest = new {
+        Prompt = "<Prompt>",
+        MaxTokens = 1234,
+        Temperature = 123.45d,
+        TopP = 123.45d,
+        N = 1234,
+        Stream = true,
+        Logprobs = 1234,
+        Echo = true,
+        Stop = new[] {
+            "<String>"
+        },
+        PresencePenalty = 123.45d,
+        FrequencyPenalty = 123.45d,
+        BestOf = 1234,
+        LogitBias = new {
+            key = 1234,
+        },
+        ResponseFormat = new {},
+    },
+    openAiExecutionContext = new {
+        ApiVersion = "<ApiVersion>",
+        Environment = "<Environment>",
+        IsGPUProxyEnabled = true,
+        GpuProcessingGeo = "<GpuProcessingGeo>",
+        CustomerAllowCrossGeoCompute = true,
+        EcsAllowCrossGeoCompute = true,
+        ContentFilterProperties = new {
+            key = "<String>",
+        },
+        ReportingProperties = new {
+            key = "<String>",
+        },
+    },
+};
+
+Response response = await client.CreateCompletionAsync("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Text").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Index").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("LogProbs").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("FinishReason").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("ContentFilterResults").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("ContentFilterError").ToString());
+Console.WriteLine(result.GetProperty("Id").ToString());
+Console.WriteLine(result.GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Created").ToString());
+Console.WriteLine(result.GetProperty("Model").ToString());
+Console.WriteLine(result.GetProperty("Usage").ToString());
+Console.WriteLine(result.GetProperty("PromptFilterResults")[0].ToString());
+]]></code>
+</example>
+    </member>
+    <member name="CreateCompletion(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateCompletion with required parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    completionRequest = new {
+        Prompt = "<Prompt>",
+        Stop = new[] {
+            "<String>"
+        },
+        LogitBias = new {
+            key = 1234,
+        },
+        ResponseFormat = new {},
+    },
+};
+
+Response response = client.CreateCompletion("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Text").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Index").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("LogProbs").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("FinishReason").ToString());
+Console.WriteLine(result.GetProperty("Id").ToString());
+Console.WriteLine(result.GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Created").ToString());
+Console.WriteLine(result.GetProperty("Model").ToString());
+Console.WriteLine(result.GetProperty("Usage").ToString());
+Console.WriteLine(result.GetProperty("PromptFilterResults")[0].ToString());
+]]></code>
+This sample shows how to call CreateCompletion with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    deploymentId = "<deploymentId>",
+    completionRequest = new {
+        Prompt = "<Prompt>",
+        MaxTokens = 1234,
+        Temperature = 123.45d,
+        TopP = 123.45d,
+        N = 1234,
+        Stream = true,
+        Logprobs = 1234,
+        Echo = true,
+        Stop = new[] {
+            "<String>"
+        },
+        PresencePenalty = 123.45d,
+        FrequencyPenalty = 123.45d,
+        BestOf = 1234,
+        LogitBias = new {
+            key = 1234,
+        },
+        ResponseFormat = new {},
+    },
+    openAiExecutionContext = new {
+        ApiVersion = "<ApiVersion>",
+        Environment = "<Environment>",
+        IsGPUProxyEnabled = true,
+        GpuProcessingGeo = "<GpuProcessingGeo>",
+        CustomerAllowCrossGeoCompute = true,
+        EcsAllowCrossGeoCompute = true,
+        ContentFilterProperties = new {
+            key = "<String>",
+        },
+        ReportingProperties = new {
+            key = "<String>",
+        },
+    },
+};
+
+Response response = client.CreateCompletion("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Text").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("Index").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("LogProbs").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("FinishReason").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("ContentFilterResults").ToString());
+Console.WriteLine(result.GetProperty("Choices")[0].GetProperty("ContentFilterError").ToString());
+Console.WriteLine(result.GetProperty("Id").ToString());
+Console.WriteLine(result.GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Created").ToString());
+Console.WriteLine(result.GetProperty("Model").ToString());
+Console.WriteLine(result.GetProperty("Usage").ToString());
+Console.WriteLine(result.GetProperty("PromptFilterResults")[0].ToString());
+]]></code>
+</example>
+    </member>
+    <member name="CreateEmbeddingAsync(string,CreateEmbeddingRequest,CancellationToken)">
+<example>
+This sample shows how to call CreateEmbeddingAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var request = new CreateEmbeddingRequest(new EmbeddingRequest(BinaryData.FromString("<your binary data content>")))
+{
+    DeploymentId = "<DeploymentId>",
+    OpenAiExecutionContext = new AzureOpenAIExecutionContext("<apiVersion>", "<environment>", true, true, true)
+{
+        GpuProcessingGeo = "<GpuProcessingGeo>",
+        ContentFilterProperties = 
+{
+            ["key"] = "<null>",
+        },
+        ReportingProperties = 
+{
+            ["key"] = "<null>",
+        },
+    },
+};
+var result = await client.CreateEmbeddingAsync("<evaluationToken>", request);
+]]></code>
+</example>
+    </member>
+    <member name="CreateEmbedding(string,CreateEmbeddingRequest,CancellationToken)">
+<example>
+This sample shows how to call CreateEmbedding with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var request = new CreateEmbeddingRequest(new EmbeddingRequest(BinaryData.FromString("<your binary data content>")))
+{
+    DeploymentId = "<DeploymentId>",
+    OpenAiExecutionContext = new AzureOpenAIExecutionContext("<apiVersion>", "<environment>", true, true, true)
+{
+        GpuProcessingGeo = "<GpuProcessingGeo>",
+        ContentFilterProperties = 
+{
+            ["key"] = "<null>",
+        },
+        ReportingProperties = 
+{
+            ["key"] = "<null>",
+        },
+    },
+};
+var result = client.CreateEmbedding("<evaluationToken>", request);
+]]></code>
+</example>
+    </member>
+    <member name="CreateEmbeddingAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateEmbeddingAsync with required parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    embeddingRequest = new {
+        Input = new {},
+    },
+};
+
+Response response = await client.CreateEmbeddingAsync("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Data")[0].GetProperty("Embedding")[0].ToString());
+Console.WriteLine(result.GetProperty("Data")[0].GetProperty("Index").ToString());
+Console.WriteLine(result.GetProperty("Data")[0].GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Model").ToString());
+Console.WriteLine(result.GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Usage").ToString());
+]]></code>
+This sample shows how to call CreateEmbeddingAsync with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    deploymentId = "<deploymentId>",
+    embeddingRequest = new {
+        Input = new {},
+    },
+    openAiExecutionContext = new {
+        ApiVersion = "<ApiVersion>",
+        Environment = "<Environment>",
+        IsGPUProxyEnabled = true,
+        GpuProcessingGeo = "<GpuProcessingGeo>",
+        CustomerAllowCrossGeoCompute = true,
+        EcsAllowCrossGeoCompute = true,
+        ContentFilterProperties = new {
+            key = "<String>",
+        },
+        ReportingProperties = new {
+            key = "<String>",
+        },
+    },
+};
+
+Response response = await client.CreateEmbeddingAsync("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Data")[0].GetProperty("Embedding")[0].ToString());
+Console.WriteLine(result.GetProperty("Data")[0].GetProperty("Index").ToString());
+Console.WriteLine(result.GetProperty("Data")[0].GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Model").ToString());
+Console.WriteLine(result.GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Usage").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="CreateEmbedding(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateEmbedding with required parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    embeddingRequest = new {
+        Input = new {},
+    },
+};
+
+Response response = client.CreateEmbedding("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Data")[0].GetProperty("Embedding")[0].ToString());
+Console.WriteLine(result.GetProperty("Data")[0].GetProperty("Index").ToString());
+Console.WriteLine(result.GetProperty("Data")[0].GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Model").ToString());
+Console.WriteLine(result.GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Usage").ToString());
+]]></code>
+This sample shows how to call CreateEmbedding with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new SkillContextClient(endpoint);
+
+var data = new {
+    deploymentId = "<deploymentId>",
+    embeddingRequest = new {
+        Input = new {},
+    },
+    openAiExecutionContext = new {
+        ApiVersion = "<ApiVersion>",
+        Environment = "<Environment>",
+        IsGPUProxyEnabled = true,
+        GpuProcessingGeo = "<GpuProcessingGeo>",
+        CustomerAllowCrossGeoCompute = true,
+        EcsAllowCrossGeoCompute = true,
+        ContentFilterProperties = new {
+            key = "<String>",
+        },
+        ReportingProperties = new {
+            key = "<String>",
+        },
+    },
+};
+
+Response response = client.CreateEmbedding("<evaluationToken>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Data")[0].GetProperty("Embedding")[0].ToString());
+Console.WriteLine(result.GetProperty("Data")[0].GetProperty("Index").ToString());
+Console.WriteLine(result.GetProperty("Data")[0].GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Model").ToString());
+Console.WriteLine(result.GetProperty("Object").ToString());
+Console.WriteLine(result.GetProperty("Usage").ToString());
+]]></code>
+</example>
+    </member>
+  </members>
+</doc>
