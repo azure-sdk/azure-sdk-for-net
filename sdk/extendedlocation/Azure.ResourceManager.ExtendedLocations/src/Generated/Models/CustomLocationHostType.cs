@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.ExtendedLocations.Models
 {
-    /// <summary> Type of host the Custom Locations is referencing (Kubernetes, etc...). </summary>
+    /// <summary> Type of host the Custom Locations is referencing (Kubernetes, EdgeCluster, etc...). </summary>
     public readonly partial struct CustomLocationHostType : IEquatable<CustomLocationHostType>
     {
         private readonly string _value;
@@ -23,9 +23,12 @@ namespace Azure.ResourceManager.ExtendedLocations.Models
         }
 
         private const string KubernetesValue = "Kubernetes";
+        private const string EdgeClusterValue = "EdgeCluster";
 
         /// <summary> Kubernetes. </summary>
         public static CustomLocationHostType Kubernetes { get; } = new CustomLocationHostType(KubernetesValue);
+        /// <summary> EdgeCluster. </summary>
+        public static CustomLocationHostType EdgeCluster { get; } = new CustomLocationHostType(EdgeClusterValue);
         /// <summary> Determines if two <see cref="CustomLocationHostType"/> values are the same. </summary>
         public static bool operator ==(CustomLocationHostType left, CustomLocationHostType right) => left.Equals(right);
         /// <summary> Determines if two <see cref="CustomLocationHostType"/> values are not the same. </summary>
