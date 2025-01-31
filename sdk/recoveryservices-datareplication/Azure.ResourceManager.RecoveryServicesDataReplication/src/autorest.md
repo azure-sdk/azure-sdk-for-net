@@ -7,7 +7,7 @@ azure-arm: true
 csharp: true
 library-name: RecoveryServicesDataReplication
 namespace: Azure.ResourceManager.RecoveryServicesDataReplication
-require: https://github.com/Azure/azure-rest-api-specs/blob/64cddc58b25ae7d6e50cc0dfb5bc19af4ea23f65/specification/recoveryservicesdatareplication/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/f56534535c3ed3bc7f1fa49e047ee326eda4e0d6/specification/recoveryservicesdatareplication/resource-manager/readme.md
 #tag: package-2021-02-16-preview
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
