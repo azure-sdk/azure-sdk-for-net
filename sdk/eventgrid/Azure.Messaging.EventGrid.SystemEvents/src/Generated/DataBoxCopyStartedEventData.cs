@@ -46,10 +46,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="DataBoxCopyStartedEventData"/>. </summary>
+        /// <param name="serialNumber"> Serial Number of the device associated with the event. The list is comma separated if more than one serial number is associated. </param>
         /// <param name="stageName"> Name of the current Stage. </param>
         /// <param name="stageTime"> The time at which the stage happened. </param>
-        internal DataBoxCopyStartedEventData(DataBoxStageName stageName, DateTimeOffset stageTime)
+        /// <exception cref="ArgumentNullException"> <paramref name="serialNumber"/> is null. </exception>
+        internal DataBoxCopyStartedEventData(string serialNumber, DataBoxStageName stageName, DateTimeOffset stageTime)
         {
+            Argument.AssertNotNull(serialNumber, nameof(serialNumber));
+
+            SerialNumber = serialNumber;
             StageName = stageName;
             StageTime = stageTime;
         }

@@ -34,53 +34,26 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 throw new FormatException($"The model {nameof(DeviceTwinInfo)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(AuthenticationType))
-            {
-                writer.WritePropertyName("authenticationType"u8);
-                writer.WriteStringValue(AuthenticationType);
-            }
-            if (Optional.IsDefined(CloudToDeviceMessageCount))
-            {
-                writer.WritePropertyName("cloudToDeviceMessageCount"u8);
-                writer.WriteNumberValue(CloudToDeviceMessageCount.Value);
-            }
-            if (Optional.IsDefined(ConnectionState))
-            {
-                writer.WritePropertyName("connectionState"u8);
-                writer.WriteStringValue(ConnectionState);
-            }
-            if (Optional.IsDefined(DeviceId))
-            {
-                writer.WritePropertyName("deviceId"u8);
-                writer.WriteStringValue(DeviceId);
-            }
-            if (Optional.IsDefined(Etag))
-            {
-                writer.WritePropertyName("etag"u8);
-                writer.WriteStringValue(Etag);
-            }
-            if (Optional.IsDefined(LastActivityTime))
-            {
-                writer.WritePropertyName("lastActivityTime"u8);
-                writer.WriteStringValue(LastActivityTime);
-            }
+            writer.WritePropertyName("authenticationType"u8);
+            writer.WriteStringValue(AuthenticationType);
+            writer.WritePropertyName("cloudToDeviceMessageCount"u8);
+            writer.WriteNumberValue(CloudToDeviceMessageCount);
+            writer.WritePropertyName("connectionState"u8);
+            writer.WriteStringValue(ConnectionState);
+            writer.WritePropertyName("deviceId"u8);
+            writer.WriteStringValue(DeviceId);
+            writer.WritePropertyName("etag"u8);
+            writer.WriteStringValue(Etag);
+            writer.WritePropertyName("lastActivityTime"u8);
+            writer.WriteStringValue(LastActivityTime);
             writer.WritePropertyName("properties"u8);
             writer.WriteObjectValue(Properties, options);
-            if (Optional.IsDefined(Status))
-            {
-                writer.WritePropertyName("status"u8);
-                writer.WriteStringValue(Status);
-            }
-            if (Optional.IsDefined(StatusUpdateTime))
-            {
-                writer.WritePropertyName("statusUpdateTime"u8);
-                writer.WriteStringValue(StatusUpdateTime);
-            }
-            if (Optional.IsDefined(Version))
-            {
-                writer.WritePropertyName("version"u8);
-                writer.WriteNumberValue(Version.Value);
-            }
+            writer.WritePropertyName("status"u8);
+            writer.WriteStringValue(Status);
+            writer.WritePropertyName("statusUpdateTime"u8);
+            writer.WriteStringValue(StatusUpdateTime);
+            writer.WritePropertyName("version"u8);
+            writer.WriteNumberValue(Version);
             writer.WritePropertyName("x509Thumbprint"u8);
             writer.WriteObjectValue(X509Thumbprint, options);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -121,7 +94,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             string authenticationType = default;
-            float? cloudToDeviceMessageCount = default;
+            float cloudToDeviceMessageCount = default;
             string connectionState = default;
             string deviceId = default;
             string etag = default;
@@ -129,7 +102,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             DeviceTwinInfoProperties properties = default;
             string status = default;
             string statusUpdateTime = default;
-            float? version = default;
+            float version = default;
             DeviceTwinInfoX509Thumbprint x509Thumbprint = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -142,10 +115,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("cloudToDeviceMessageCount"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     cloudToDeviceMessageCount = property.Value.GetSingle();
                     continue;
                 }
@@ -186,10 +155,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("version"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     version = property.Value.GetSingle();
                     continue;
                 }

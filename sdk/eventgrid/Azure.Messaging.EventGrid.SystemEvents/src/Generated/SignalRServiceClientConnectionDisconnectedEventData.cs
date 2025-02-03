@@ -47,9 +47,17 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         /// <summary> Initializes a new instance of <see cref="SignalRServiceClientConnectionDisconnectedEventData"/>. </summary>
         /// <param name="timestamp"> The time at which the event occurred. </param>
-        internal SignalRServiceClientConnectionDisconnectedEventData(DateTimeOffset timestamp)
+        /// <param name="hubName"> The hub of connected client connection. </param>
+        /// <param name="connectionId"> The connection Id of connected client connection. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="hubName"/> or <paramref name="connectionId"/> is null. </exception>
+        internal SignalRServiceClientConnectionDisconnectedEventData(DateTimeOffset timestamp, string hubName, string connectionId)
         {
+            Argument.AssertNotNull(hubName, nameof(hubName));
+            Argument.AssertNotNull(connectionId, nameof(connectionId));
+
             Timestamp = timestamp;
+            HubName = hubName;
+            ConnectionId = connectionId;
         }
 
         /// <summary> Initializes a new instance of <see cref="SignalRServiceClientConnectionDisconnectedEventData"/>. </summary>

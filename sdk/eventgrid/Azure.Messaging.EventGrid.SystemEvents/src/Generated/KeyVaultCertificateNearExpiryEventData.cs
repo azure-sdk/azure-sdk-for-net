@@ -46,8 +46,29 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="KeyVaultCertificateNearExpiryEventData"/>. </summary>
-        internal KeyVaultCertificateNearExpiryEventData()
+        /// <param name="id"> The id of the object that triggered this event. </param>
+        /// <param name="vaultName"> Key vault name of the object that triggered this event. </param>
+        /// <param name="objectType"> The type of the object that triggered this event. </param>
+        /// <param name="objectName"> The name of the object that triggered this event. </param>
+        /// <param name="version"> The version of the object that triggered this event. </param>
+        /// <param name="nbf"> Not before date of the object that triggered this event. </param>
+        /// <param name="exp"> The expiration date of the object that triggered this event. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="id"/>, <paramref name="vaultName"/>, <paramref name="objectType"/>, <paramref name="objectName"/> or <paramref name="version"/> is null. </exception>
+        internal KeyVaultCertificateNearExpiryEventData(string id, string vaultName, string objectType, string objectName, string version, float nbf, float exp)
         {
+            Argument.AssertNotNull(id, nameof(id));
+            Argument.AssertNotNull(vaultName, nameof(vaultName));
+            Argument.AssertNotNull(objectType, nameof(objectType));
+            Argument.AssertNotNull(objectName, nameof(objectName));
+            Argument.AssertNotNull(version, nameof(version));
+
+            Id = id;
+            VaultName = vaultName;
+            ObjectType = objectType;
+            ObjectName = objectName;
+            Version = version;
+            NBF = nbf;
+            EXP = exp;
         }
 
         /// <summary> Initializes a new instance of <see cref="KeyVaultCertificateNearExpiryEventData"/>. </summary>
@@ -59,7 +80,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="nbf"> Not before date of the object that triggered this event. </param>
         /// <param name="exp"> The expiration date of the object that triggered this event. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal KeyVaultCertificateNearExpiryEventData(string id, string vaultName, string objectType, string objectName, string version, float? nbf, float? exp, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal KeyVaultCertificateNearExpiryEventData(string id, string vaultName, string objectType, string objectName, string version, float nbf, float exp, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Id = id;
             VaultName = vaultName;
@@ -69,6 +90,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             NBF = nbf;
             EXP = exp;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="KeyVaultCertificateNearExpiryEventData"/> for deserialization. </summary>
+        internal KeyVaultCertificateNearExpiryEventData()
+        {
         }
 
         /// <summary> The id of the object that triggered this event. </summary>
@@ -82,8 +108,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> The version of the object that triggered this event. </summary>
         public string Version { get; }
         /// <summary> Not before date of the object that triggered this event. </summary>
-        public float? NBF { get; }
+        public float NBF { get; }
         /// <summary> The expiration date of the object that triggered this event. </summary>
-        public float? EXP { get; }
+        public float EXP { get; }
     }
 }

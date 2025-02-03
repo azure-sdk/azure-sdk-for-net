@@ -46,8 +46,27 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="HealthcareDicomImageUpdatedEventData"/>. </summary>
-        internal HealthcareDicomImageUpdatedEventData()
+        /// <param name="partitionName"> Data partition name. </param>
+        /// <param name="imageStudyInstanceUid"> Unique identifier for the Study. </param>
+        /// <param name="imageSeriesInstanceUid"> Unique identifier for the Series. </param>
+        /// <param name="imageSopInstanceUid"> Unique identifier for the DICOM Image. </param>
+        /// <param name="serviceHostName"> Domain name of the DICOM account for this image. </param>
+        /// <param name="sequenceNumber"> Sequence number of the DICOM Service within Azure Health Data Services. It is unique for every image creation, updation and deletion within the service. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="partitionName"/>, <paramref name="imageStudyInstanceUid"/>, <paramref name="imageSeriesInstanceUid"/>, <paramref name="imageSopInstanceUid"/> or <paramref name="serviceHostName"/> is null. </exception>
+        internal HealthcareDicomImageUpdatedEventData(string partitionName, string imageStudyInstanceUid, string imageSeriesInstanceUid, string imageSopInstanceUid, string serviceHostName, long sequenceNumber)
         {
+            Argument.AssertNotNull(partitionName, nameof(partitionName));
+            Argument.AssertNotNull(imageStudyInstanceUid, nameof(imageStudyInstanceUid));
+            Argument.AssertNotNull(imageSeriesInstanceUid, nameof(imageSeriesInstanceUid));
+            Argument.AssertNotNull(imageSopInstanceUid, nameof(imageSopInstanceUid));
+            Argument.AssertNotNull(serviceHostName, nameof(serviceHostName));
+
+            PartitionName = partitionName;
+            ImageStudyInstanceUid = imageStudyInstanceUid;
+            ImageSeriesInstanceUid = imageSeriesInstanceUid;
+            ImageSopInstanceUid = imageSopInstanceUid;
+            ServiceHostName = serviceHostName;
+            SequenceNumber = sequenceNumber;
         }
 
         /// <summary> Initializes a new instance of <see cref="HealthcareDicomImageUpdatedEventData"/>. </summary>
@@ -58,7 +77,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="serviceHostName"> Domain name of the DICOM account for this image. </param>
         /// <param name="sequenceNumber"> Sequence number of the DICOM Service within Azure Health Data Services. It is unique for every image creation, updation and deletion within the service. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthcareDicomImageUpdatedEventData(string partitionName, string imageStudyInstanceUid, string imageSeriesInstanceUid, string imageSopInstanceUid, string serviceHostName, long? sequenceNumber, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal HealthcareDicomImageUpdatedEventData(string partitionName, string imageStudyInstanceUid, string imageSeriesInstanceUid, string imageSopInstanceUid, string serviceHostName, long sequenceNumber, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             PartitionName = partitionName;
             ImageStudyInstanceUid = imageStudyInstanceUid;
@@ -67,6 +86,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             ServiceHostName = serviceHostName;
             SequenceNumber = sequenceNumber;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="HealthcareDicomImageUpdatedEventData"/> for deserialization. </summary>
+        internal HealthcareDicomImageUpdatedEventData()
+        {
         }
 
         /// <summary> Data partition name. </summary>
@@ -80,6 +104,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> Domain name of the DICOM account for this image. </summary>
         public string ServiceHostName { get; }
         /// <summary> Sequence number of the DICOM Service within Azure Health Data Services. It is unique for every image creation, updation and deletion within the service. </summary>
-        public long? SequenceNumber { get; }
+        public long SequenceNumber { get; }
     }
 }

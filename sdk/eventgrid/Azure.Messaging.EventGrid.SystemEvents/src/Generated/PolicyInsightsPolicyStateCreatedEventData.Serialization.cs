@@ -36,36 +36,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
             writer.WritePropertyName("timestamp"u8);
             writer.WriteStringValue(Timestamp, "O");
-            if (Optional.IsDefined(PolicyAssignmentId))
-            {
-                writer.WritePropertyName("policyAssignmentId"u8);
-                writer.WriteStringValue(PolicyAssignmentId);
-            }
-            if (Optional.IsDefined(PolicyDefinitionId))
-            {
-                writer.WritePropertyName("policyDefinitionId"u8);
-                writer.WriteStringValue(PolicyDefinitionId);
-            }
-            if (Optional.IsDefined(PolicyDefinitionReferenceId))
-            {
-                writer.WritePropertyName("policyDefinitionReferenceId"u8);
-                writer.WriteStringValue(PolicyDefinitionReferenceId);
-            }
-            if (Optional.IsDefined(ComplianceState))
-            {
-                writer.WritePropertyName("complianceState"u8);
-                writer.WriteStringValue(ComplianceState);
-            }
-            if (Optional.IsDefined(SubscriptionId))
-            {
-                writer.WritePropertyName("subscriptionId"u8);
-                writer.WriteStringValue(SubscriptionId);
-            }
-            if (Optional.IsDefined(ComplianceReasonCode))
-            {
-                writer.WritePropertyName("complianceReasonCode"u8);
-                writer.WriteStringValue(ComplianceReasonCode);
-            }
+            writer.WritePropertyName("policyAssignmentId"u8);
+            writer.WriteStringValue(PolicyAssignmentId);
+            writer.WritePropertyName("policyDefinitionId"u8);
+            writer.WriteStringValue(PolicyDefinitionId);
+            writer.WritePropertyName("policyDefinitionReferenceId"u8);
+            writer.WriteStringValue(PolicyDefinitionReferenceId);
+            writer.WritePropertyName("complianceState"u8);
+            writer.WriteStringValue(ComplianceState);
+            writer.WritePropertyName("subscriptionId"u8);
+            writer.WriteStringValue(SubscriptionId);
+            writer.WritePropertyName("complianceReasonCode"u8);
+            writer.WriteStringValue(ComplianceReasonCode);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

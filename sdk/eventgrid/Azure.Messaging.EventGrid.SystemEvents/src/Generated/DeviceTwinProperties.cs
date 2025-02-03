@@ -47,19 +47,21 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         /// <summary> Initializes a new instance of <see cref="DeviceTwinProperties"/>. </summary>
         /// <param name="metadata"> Metadata information for the properties JSON document. </param>
+        /// <param name="version"> Version of device twin properties. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="metadata"/> is null. </exception>
-        internal DeviceTwinProperties(DeviceTwinMetadata metadata)
+        internal DeviceTwinProperties(DeviceTwinMetadata metadata, float version)
         {
             Argument.AssertNotNull(metadata, nameof(metadata));
 
             Metadata = metadata;
+            Version = version;
         }
 
         /// <summary> Initializes a new instance of <see cref="DeviceTwinProperties"/>. </summary>
         /// <param name="metadata"> Metadata information for the properties JSON document. </param>
         /// <param name="version"> Version of device twin properties. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DeviceTwinProperties(DeviceTwinMetadata metadata, float? version, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DeviceTwinProperties(DeviceTwinMetadata metadata, float version, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Metadata = metadata;
             Version = version;
@@ -74,6 +76,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> Metadata information for the properties JSON document. </summary>
         public DeviceTwinMetadata Metadata { get; }
         /// <summary> Version of device twin properties. </summary>
-        public float? Version { get; }
+        public float Version { get; }
     }
 }

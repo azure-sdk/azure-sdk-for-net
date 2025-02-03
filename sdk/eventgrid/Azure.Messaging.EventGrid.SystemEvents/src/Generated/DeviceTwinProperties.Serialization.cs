@@ -36,11 +36,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
             writer.WritePropertyName("metadata"u8);
             writer.WriteObjectValue(Metadata, options);
-            if (Optional.IsDefined(Version))
-            {
-                writer.WritePropertyName("version"u8);
-                writer.WriteNumberValue(Version.Value);
-            }
+            writer.WritePropertyName("version"u8);
+            writer.WriteNumberValue(Version);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -79,7 +76,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             DeviceTwinMetadata metadata = default;
-            float? version = default;
+            float version = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -91,10 +88,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("version"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     version = property.Value.GetSingle();
                     continue;
                 }

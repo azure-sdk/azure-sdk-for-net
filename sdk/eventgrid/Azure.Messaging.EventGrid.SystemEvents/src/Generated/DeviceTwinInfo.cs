@@ -46,15 +46,40 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="DeviceTwinInfo"/>. </summary>
+        /// <param name="authenticationType"> Authentication type used for this device: either SAS, SelfSigned, or CertificateAuthority. </param>
+        /// <param name="cloudToDeviceMessageCount"> Count of cloud to device messages sent to this device. </param>
+        /// <param name="connectionState"> Whether the device is connected or disconnected. </param>
+        /// <param name="deviceId"> The unique identifier of the device twin. </param>
+        /// <param name="etag"> A piece of information that describes the content of the device twin. Each etag is guaranteed to be unique per device twin. </param>
+        /// <param name="lastActivityTime"> The ISO8601 timestamp of the last activity. </param>
         /// <param name="properties"> Properties JSON element. </param>
+        /// <param name="status"> Whether the device twin is enabled or disabled. </param>
+        /// <param name="statusUpdateTime"> The ISO8601 timestamp of the last device twin status update. </param>
+        /// <param name="version"> An integer that is incremented by one each time the device twin is updated. </param>
         /// <param name="x509Thumbprint"> The thumbprint is a unique value for the x509 certificate, commonly used to find a particular certificate in a certificate store. The thumbprint is dynamically generated using the SHA1 algorithm, and does not physically exist in the certificate. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> or <paramref name="x509Thumbprint"/> is null. </exception>
-        internal DeviceTwinInfo(DeviceTwinInfoProperties properties, DeviceTwinInfoX509Thumbprint x509Thumbprint)
+        /// <exception cref="ArgumentNullException"> <paramref name="authenticationType"/>, <paramref name="connectionState"/>, <paramref name="deviceId"/>, <paramref name="etag"/>, <paramref name="lastActivityTime"/>, <paramref name="properties"/>, <paramref name="status"/>, <paramref name="statusUpdateTime"/> or <paramref name="x509Thumbprint"/> is null. </exception>
+        internal DeviceTwinInfo(string authenticationType, float cloudToDeviceMessageCount, string connectionState, string deviceId, string etag, string lastActivityTime, DeviceTwinInfoProperties properties, string status, string statusUpdateTime, float version, DeviceTwinInfoX509Thumbprint x509Thumbprint)
         {
+            Argument.AssertNotNull(authenticationType, nameof(authenticationType));
+            Argument.AssertNotNull(connectionState, nameof(connectionState));
+            Argument.AssertNotNull(deviceId, nameof(deviceId));
+            Argument.AssertNotNull(etag, nameof(etag));
+            Argument.AssertNotNull(lastActivityTime, nameof(lastActivityTime));
             Argument.AssertNotNull(properties, nameof(properties));
+            Argument.AssertNotNull(status, nameof(status));
+            Argument.AssertNotNull(statusUpdateTime, nameof(statusUpdateTime));
             Argument.AssertNotNull(x509Thumbprint, nameof(x509Thumbprint));
 
+            AuthenticationType = authenticationType;
+            CloudToDeviceMessageCount = cloudToDeviceMessageCount;
+            ConnectionState = connectionState;
+            DeviceId = deviceId;
+            Etag = etag;
+            LastActivityTime = lastActivityTime;
             Properties = properties;
+            Status = status;
+            StatusUpdateTime = statusUpdateTime;
+            Version = version;
             X509Thumbprint = x509Thumbprint;
         }
 
@@ -71,7 +96,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="version"> An integer that is incremented by one each time the device twin is updated. </param>
         /// <param name="x509Thumbprint"> The thumbprint is a unique value for the x509 certificate, commonly used to find a particular certificate in a certificate store. The thumbprint is dynamically generated using the SHA1 algorithm, and does not physically exist in the certificate. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DeviceTwinInfo(string authenticationType, float? cloudToDeviceMessageCount, string connectionState, string deviceId, string etag, string lastActivityTime, DeviceTwinInfoProperties properties, string status, string statusUpdateTime, float? version, DeviceTwinInfoX509Thumbprint x509Thumbprint, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DeviceTwinInfo(string authenticationType, float cloudToDeviceMessageCount, string connectionState, string deviceId, string etag, string lastActivityTime, DeviceTwinInfoProperties properties, string status, string statusUpdateTime, float version, DeviceTwinInfoX509Thumbprint x509Thumbprint, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             AuthenticationType = authenticationType;
             CloudToDeviceMessageCount = cloudToDeviceMessageCount;
@@ -95,7 +120,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> Authentication type used for this device: either SAS, SelfSigned, or CertificateAuthority. </summary>
         public string AuthenticationType { get; }
         /// <summary> Count of cloud to device messages sent to this device. </summary>
-        public float? CloudToDeviceMessageCount { get; }
+        public float CloudToDeviceMessageCount { get; }
         /// <summary> Whether the device is connected or disconnected. </summary>
         public string ConnectionState { get; }
         /// <summary> The unique identifier of the device twin. </summary>
@@ -111,7 +136,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> The ISO8601 timestamp of the last device twin status update. </summary>
         public string StatusUpdateTime { get; }
         /// <summary> An integer that is incremented by one each time the device twin is updated. </summary>
-        public float? Version { get; }
+        public float Version { get; }
         /// <summary> The thumbprint is a unique value for the x509 certificate, commonly used to find a particular certificate in a certificate store. The thumbprint is dynamically generated using the SHA1 algorithm, and does not physically exist in the certificate. </summary>
         public DeviceTwinInfoX509Thumbprint X509Thumbprint { get; }
     }

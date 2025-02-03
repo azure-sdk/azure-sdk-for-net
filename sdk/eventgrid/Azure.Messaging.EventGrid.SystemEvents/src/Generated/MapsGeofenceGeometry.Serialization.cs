@@ -34,31 +34,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 throw new FormatException($"The model {nameof(MapsGeofenceGeometry)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(DeviceId))
-            {
-                writer.WritePropertyName("deviceId"u8);
-                writer.WriteStringValue(DeviceId);
-            }
-            if (Optional.IsDefined(Distance))
-            {
-                writer.WritePropertyName("distance"u8);
-                writer.WriteNumberValue(Distance.Value);
-            }
-            if (Optional.IsDefined(GeometryId))
-            {
-                writer.WritePropertyName("geometryId"u8);
-                writer.WriteStringValue(GeometryId);
-            }
-            if (Optional.IsDefined(NearestLat))
-            {
-                writer.WritePropertyName("nearestLat"u8);
-                writer.WriteNumberValue(NearestLat.Value);
-            }
-            if (Optional.IsDefined(NearestLon))
-            {
-                writer.WritePropertyName("nearestLon"u8);
-                writer.WriteNumberValue(NearestLon.Value);
-            }
+            writer.WritePropertyName("deviceId"u8);
+            writer.WriteStringValue(DeviceId);
+            writer.WritePropertyName("distance"u8);
+            writer.WriteNumberValue(Distance);
+            writer.WritePropertyName("geometryId"u8);
+            writer.WriteStringValue(GeometryId);
+            writer.WritePropertyName("nearestLat"u8);
+            writer.WriteNumberValue(NearestLat);
+            writer.WritePropertyName("nearestLon"u8);
+            writer.WriteNumberValue(NearestLon);
             if (Optional.IsDefined(UdId))
             {
                 writer.WritePropertyName("udId"u8);
@@ -102,10 +87,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             string deviceId = default;
-            float? distance = default;
+            float distance = default;
             string geometryId = default;
-            float? nearestLat = default;
-            float? nearestLon = default;
+            float nearestLat = default;
+            float nearestLon = default;
             string udId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -118,10 +103,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("distance"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     distance = property.Value.GetSingle();
                     continue;
                 }
@@ -132,19 +113,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("nearestLat"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     nearestLat = property.Value.GetSingle();
                     continue;
                 }
                 if (property.NameEquals("nearestLon"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     nearestLon = property.Value.GetSingle();
                     continue;
                 }

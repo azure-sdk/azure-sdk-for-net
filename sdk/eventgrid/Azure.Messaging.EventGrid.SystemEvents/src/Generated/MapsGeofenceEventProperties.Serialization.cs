@@ -34,16 +34,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 throw new FormatException($"The model {nameof(MapsGeofenceEventProperties)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsCollectionDefined(ExpiredGeofenceGeometryId))
+            writer.WritePropertyName("expiredGeofenceGeometryId"u8);
+            writer.WriteStartArray();
+            foreach (var item in ExpiredGeofenceGeometryId)
             {
-                writer.WritePropertyName("expiredGeofenceGeometryId"u8);
-                writer.WriteStartArray();
-                foreach (var item in ExpiredGeofenceGeometryId)
-                {
-                    writer.WriteStringValue(item);
-                }
-                writer.WriteEndArray();
+                writer.WriteStringValue(item);
             }
+            writer.WriteEndArray();
             writer.WritePropertyName("geometries"u8);
             writer.WriteStartArray();
             foreach (var item in Geometries)
@@ -51,21 +48,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteObjectValue(item, options);
             }
             writer.WriteEndArray();
-            if (Optional.IsCollectionDefined(InvalidPeriodGeofenceGeometryId))
+            writer.WritePropertyName("invalidPeriodGeofenceGeometryId"u8);
+            writer.WriteStartArray();
+            foreach (var item in InvalidPeriodGeofenceGeometryId)
             {
-                writer.WritePropertyName("invalidPeriodGeofenceGeometryId"u8);
-                writer.WriteStartArray();
-                foreach (var item in InvalidPeriodGeofenceGeometryId)
-                {
-                    writer.WriteStringValue(item);
-                }
-                writer.WriteEndArray();
+                writer.WriteStringValue(item);
             }
-            if (Optional.IsDefined(IsEventPublished))
-            {
-                writer.WritePropertyName("isEventPublished"u8);
-                writer.WriteBooleanValue(IsEventPublished.Value);
-            }
+            writer.WriteEndArray();
+            writer.WritePropertyName("isEventPublished"u8);
+            writer.WriteBooleanValue(IsEventPublished);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -106,17 +97,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             IReadOnlyList<string> expiredGeofenceGeometryId = default;
             IReadOnlyList<MapsGeofenceGeometry> geometries = default;
             IReadOnlyList<string> invalidPeriodGeofenceGeometryId = default;
-            bool? isEventPublished = default;
+            bool isEventPublished = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("expiredGeofenceGeometryId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -137,10 +124,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("invalidPeriodGeofenceGeometryId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -151,10 +134,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("isEventPublished"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     isEventPublished = property.Value.GetBoolean();
                     continue;
                 }
@@ -164,7 +143,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new MapsGeofenceEventProperties(expiredGeofenceGeometryId ?? new ChangeTrackingList<string>(), geometries, invalidPeriodGeofenceGeometryId ?? new ChangeTrackingList<string>(), isEventPublished, serializedAdditionalRawData);
+            return new MapsGeofenceEventProperties(expiredGeofenceGeometryId, geometries, invalidPeriodGeofenceGeometryId, isEventPublished, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<MapsGeofenceEventProperties>.Write(ModelReaderWriterOptions options)
