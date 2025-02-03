@@ -47,9 +47,29 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         /// <summary> Initializes a new instance of <see cref="PolicyInsightsPolicyStateCreatedEventData"/>. </summary>
         /// <param name="timestamp"> The time that the resource was scanned by Azure Policy in the Universal ISO 8601 DateTime format yyyy-MM-ddTHH:mm:ss.fffffffZ. </param>
-        internal PolicyInsightsPolicyStateCreatedEventData(DateTimeOffset timestamp)
+        /// <param name="policyAssignmentId"> The resource ID of the policy assignment. </param>
+        /// <param name="policyDefinitionId"> The resource ID of the policy definition. </param>
+        /// <param name="policyDefinitionReferenceId"> The reference ID for the policy definition inside the initiative definition, if the policy assignment is for an initiative. May be empty. </param>
+        /// <param name="complianceState"> The compliance state of the resource with respect to the policy assignment. </param>
+        /// <param name="subscriptionId"> The subscription ID of the resource. </param>
+        /// <param name="complianceReasonCode"> The compliance reason code. May be empty. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="policyAssignmentId"/>, <paramref name="policyDefinitionId"/>, <paramref name="policyDefinitionReferenceId"/>, <paramref name="complianceState"/>, <paramref name="subscriptionId"/> or <paramref name="complianceReasonCode"/> is null. </exception>
+        internal PolicyInsightsPolicyStateCreatedEventData(DateTimeOffset timestamp, string policyAssignmentId, string policyDefinitionId, string policyDefinitionReferenceId, string complianceState, string subscriptionId, string complianceReasonCode)
         {
+            Argument.AssertNotNull(policyAssignmentId, nameof(policyAssignmentId));
+            Argument.AssertNotNull(policyDefinitionId, nameof(policyDefinitionId));
+            Argument.AssertNotNull(policyDefinitionReferenceId, nameof(policyDefinitionReferenceId));
+            Argument.AssertNotNull(complianceState, nameof(complianceState));
+            Argument.AssertNotNull(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNull(complianceReasonCode, nameof(complianceReasonCode));
+
             Timestamp = timestamp;
+            PolicyAssignmentId = policyAssignmentId;
+            PolicyDefinitionId = policyDefinitionId;
+            PolicyDefinitionReferenceId = policyDefinitionReferenceId;
+            ComplianceState = complianceState;
+            SubscriptionId = subscriptionId;
+            ComplianceReasonCode = complianceReasonCode;
         }
 
         /// <summary> Initializes a new instance of <see cref="PolicyInsightsPolicyStateCreatedEventData"/>. </summary>

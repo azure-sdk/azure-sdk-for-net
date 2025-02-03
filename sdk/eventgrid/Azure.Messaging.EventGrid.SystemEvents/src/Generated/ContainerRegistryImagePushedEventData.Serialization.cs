@@ -97,21 +97,37 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("request"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     request = ContainerRegistryEventRequest.DeserializeContainerRegistryEventRequest(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("actor"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     actor = ContainerRegistryEventActor.DeserializeContainerRegistryEventActor(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("source"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     source = ContainerRegistryEventSource.DeserializeContainerRegistryEventSource(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("connectedRegistry"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     connectedRegistry = ContainerRegistryEventConnectedRegistry.DeserializeContainerRegistryEventConnectedRegistry(property.Value, options);
                     continue;
                 }

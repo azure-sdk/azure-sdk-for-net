@@ -34,41 +34,20 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 throw new FormatException($"The model {nameof(KeyVaultSecretExpiredEventData)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(Id))
-            {
-                writer.WritePropertyName("Id"u8);
-                writer.WriteStringValue(Id);
-            }
-            if (Optional.IsDefined(VaultName))
-            {
-                writer.WritePropertyName("VaultName"u8);
-                writer.WriteStringValue(VaultName);
-            }
-            if (Optional.IsDefined(ObjectType))
-            {
-                writer.WritePropertyName("ObjectType"u8);
-                writer.WriteStringValue(ObjectType);
-            }
-            if (Optional.IsDefined(ObjectName))
-            {
-                writer.WritePropertyName("ObjectName"u8);
-                writer.WriteStringValue(ObjectName);
-            }
-            if (Optional.IsDefined(Version))
-            {
-                writer.WritePropertyName("Version"u8);
-                writer.WriteStringValue(Version);
-            }
-            if (Optional.IsDefined(NBF))
-            {
-                writer.WritePropertyName("NBF"u8);
-                writer.WriteNumberValue(NBF.Value);
-            }
-            if (Optional.IsDefined(EXP))
-            {
-                writer.WritePropertyName("EXP"u8);
-                writer.WriteNumberValue(EXP.Value);
-            }
+            writer.WritePropertyName("Id"u8);
+            writer.WriteStringValue(Id);
+            writer.WritePropertyName("VaultName"u8);
+            writer.WriteStringValue(VaultName);
+            writer.WritePropertyName("ObjectType"u8);
+            writer.WriteStringValue(ObjectType);
+            writer.WritePropertyName("ObjectName"u8);
+            writer.WriteStringValue(ObjectName);
+            writer.WritePropertyName("Version"u8);
+            writer.WriteStringValue(Version);
+            writer.WritePropertyName("NBF"u8);
+            writer.WriteNumberValue(NBF);
+            writer.WritePropertyName("EXP"u8);
+            writer.WriteNumberValue(EXP);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -111,8 +90,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             string objectType = default;
             string objectName = default;
             string version = default;
-            float? nbf = default;
-            float? exp = default;
+            float nbf = default;
+            float exp = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -144,19 +123,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("NBF"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     nbf = property.Value.GetSingle();
                     continue;
                 }
                 if (property.NameEquals("EXP"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     exp = property.Value.GetSingle();
                     continue;
                 }

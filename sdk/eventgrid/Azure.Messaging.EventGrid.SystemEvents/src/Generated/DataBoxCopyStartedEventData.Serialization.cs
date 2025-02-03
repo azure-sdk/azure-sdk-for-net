@@ -34,11 +34,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 throw new FormatException($"The model {nameof(DataBoxCopyStartedEventData)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(SerialNumber))
-            {
-                writer.WritePropertyName("serialNumber"u8);
-                writer.WriteStringValue(SerialNumber);
-            }
+            writer.WritePropertyName("serialNumber"u8);
+            writer.WriteStringValue(SerialNumber);
             writer.WritePropertyName("stageName"u8);
             writer.WriteStringValue(StageName.ToString());
             writer.WritePropertyName("stageTime"u8);

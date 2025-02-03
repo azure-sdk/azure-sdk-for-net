@@ -36,16 +36,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
             writer.WritePropertyName("timestamp"u8);
             writer.WriteStringValue(Timestamp, "O");
-            if (Optional.IsDefined(HubName))
-            {
-                writer.WritePropertyName("hubName"u8);
-                writer.WriteStringValue(HubName);
-            }
-            if (Optional.IsDefined(ConnectionId))
-            {
-                writer.WritePropertyName("connectionId"u8);
-                writer.WriteStringValue(ConnectionId);
-            }
+            writer.WritePropertyName("hubName"u8);
+            writer.WriteStringValue(HubName);
+            writer.WritePropertyName("connectionId"u8);
+            writer.WriteStringValue(ConnectionId);
             if (Optional.IsDefined(UserId))
             {
                 writer.WritePropertyName("userId"u8);

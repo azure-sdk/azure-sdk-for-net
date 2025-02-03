@@ -47,15 +47,21 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="MapsGeofenceEventProperties"/>. </summary>
+        /// <param name="expiredGeofenceGeometryId"> Lists of the geometry ID of the geofence which is expired relative to the user time in the request. </param>
         /// <param name="geometries"> Lists the fence geometries that either fully contain the coordinate position or have an overlap with the searchBuffer around the fence. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="geometries"/> is null. </exception>
-        internal MapsGeofenceEventProperties(IEnumerable<MapsGeofenceGeometry> geometries)
+        /// <param name="invalidPeriodGeofenceGeometryId"> Lists of the geometry ID of the geofence which is in invalid period relative to the user time in the request. </param>
+        /// <param name="isEventPublished"> True if at least one event is published to the Azure Maps event subscriber, false if no event is published to the Azure Maps event subscriber. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="expiredGeofenceGeometryId"/>, <paramref name="geometries"/> or <paramref name="invalidPeriodGeofenceGeometryId"/> is null. </exception>
+        internal MapsGeofenceEventProperties(IEnumerable<string> expiredGeofenceGeometryId, IEnumerable<MapsGeofenceGeometry> geometries, IEnumerable<string> invalidPeriodGeofenceGeometryId, bool isEventPublished)
         {
+            Argument.AssertNotNull(expiredGeofenceGeometryId, nameof(expiredGeofenceGeometryId));
             Argument.AssertNotNull(geometries, nameof(geometries));
+            Argument.AssertNotNull(invalidPeriodGeofenceGeometryId, nameof(invalidPeriodGeofenceGeometryId));
 
-            ExpiredGeofenceGeometryId = new ChangeTrackingList<string>();
+            ExpiredGeofenceGeometryId = expiredGeofenceGeometryId.ToList();
             Geometries = geometries.ToList();
-            InvalidPeriodGeofenceGeometryId = new ChangeTrackingList<string>();
+            InvalidPeriodGeofenceGeometryId = invalidPeriodGeofenceGeometryId.ToList();
+            IsEventPublished = isEventPublished;
         }
 
         /// <summary> Initializes a new instance of <see cref="MapsGeofenceEventProperties"/>. </summary>
@@ -64,7 +70,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="invalidPeriodGeofenceGeometryId"> Lists of the geometry ID of the geofence which is in invalid period relative to the user time in the request. </param>
         /// <param name="isEventPublished"> True if at least one event is published to the Azure Maps event subscriber, false if no event is published to the Azure Maps event subscriber. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MapsGeofenceEventProperties(IReadOnlyList<string> expiredGeofenceGeometryId, IReadOnlyList<MapsGeofenceGeometry> geometries, IReadOnlyList<string> invalidPeriodGeofenceGeometryId, bool? isEventPublished, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal MapsGeofenceEventProperties(IReadOnlyList<string> expiredGeofenceGeometryId, IReadOnlyList<MapsGeofenceGeometry> geometries, IReadOnlyList<string> invalidPeriodGeofenceGeometryId, bool isEventPublished, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ExpiredGeofenceGeometryId = expiredGeofenceGeometryId;
             Geometries = geometries;
@@ -85,6 +91,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> Lists of the geometry ID of the geofence which is in invalid period relative to the user time in the request. </summary>
         public IReadOnlyList<string> InvalidPeriodGeofenceGeometryId { get; }
         /// <summary> True if at least one event is published to the Azure Maps event subscriber, false if no event is published to the Azure Maps event subscriber. </summary>
-        public bool? IsEventPublished { get; }
+        public bool IsEventPublished { get; }
     }
 }

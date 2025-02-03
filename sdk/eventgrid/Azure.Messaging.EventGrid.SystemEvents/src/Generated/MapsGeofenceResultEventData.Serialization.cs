@@ -60,17 +60,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             IReadOnlyList<string> expiredGeofenceGeometryId = default;
             IReadOnlyList<MapsGeofenceGeometry> geometries = default;
             IReadOnlyList<string> invalidPeriodGeofenceGeometryId = default;
-            bool? isEventPublished = default;
+            bool isEventPublished = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("expiredGeofenceGeometryId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -91,10 +87,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("invalidPeriodGeofenceGeometryId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -105,10 +97,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("isEventPublished"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     isEventPublished = property.Value.GetBoolean();
                     continue;
                 }
@@ -118,7 +106,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new MapsGeofenceResultEventData(expiredGeofenceGeometryId ?? new ChangeTrackingList<string>(), geometries, invalidPeriodGeofenceGeometryId ?? new ChangeTrackingList<string>(), isEventPublished, serializedAdditionalRawData);
+            return new MapsGeofenceResultEventData(expiredGeofenceGeometryId, geometries, invalidPeriodGeofenceGeometryId, isEventPublished, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<MapsGeofenceResultEventData>.Write(ModelReaderWriterOptions options)

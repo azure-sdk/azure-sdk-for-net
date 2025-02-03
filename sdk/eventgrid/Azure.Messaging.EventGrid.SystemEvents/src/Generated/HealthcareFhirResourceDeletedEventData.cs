@@ -47,9 +47,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         /// <summary> Initializes a new instance of <see cref="HealthcareFhirResourceDeletedEventData"/>. </summary>
         /// <param name="fhirResourceType"> Type of HL7 FHIR resource. </param>
-        internal HealthcareFhirResourceDeletedEventData(HealthcareFhirResourceType fhirResourceType)
+        /// <param name="fhirServiceHostName"> Domain name of FHIR account for this resource. </param>
+        /// <param name="fhirResourceId"> Id of HL7 FHIR resource. </param>
+        /// <param name="fhirResourceVersionId"> VersionId of HL7 FHIR resource. It changes when the resource is created, updated, or deleted(soft-deletion). </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="fhirServiceHostName"/> or <paramref name="fhirResourceId"/> is null. </exception>
+        internal HealthcareFhirResourceDeletedEventData(HealthcareFhirResourceType fhirResourceType, string fhirServiceHostName, string fhirResourceId, long fhirResourceVersionId)
         {
+            Argument.AssertNotNull(fhirServiceHostName, nameof(fhirServiceHostName));
+            Argument.AssertNotNull(fhirResourceId, nameof(fhirResourceId));
+
             FhirResourceType = fhirResourceType;
+            FhirServiceHostName = fhirServiceHostName;
+            FhirResourceId = fhirResourceId;
+            FhirResourceVersionId = fhirResourceVersionId;
         }
 
         /// <summary> Initializes a new instance of <see cref="HealthcareFhirResourceDeletedEventData"/>. </summary>
@@ -58,7 +68,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="fhirResourceId"> Id of HL7 FHIR resource. </param>
         /// <param name="fhirResourceVersionId"> VersionId of HL7 FHIR resource. It changes when the resource is created, updated, or deleted(soft-deletion). </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthcareFhirResourceDeletedEventData(HealthcareFhirResourceType fhirResourceType, string fhirServiceHostName, string fhirResourceId, long? fhirResourceVersionId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal HealthcareFhirResourceDeletedEventData(HealthcareFhirResourceType fhirResourceType, string fhirServiceHostName, string fhirResourceId, long fhirResourceVersionId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             FhirResourceType = fhirResourceType;
             FhirServiceHostName = fhirServiceHostName;
@@ -79,6 +89,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> Id of HL7 FHIR resource. </summary>
         public string FhirResourceId { get; }
         /// <summary> VersionId of HL7 FHIR resource. It changes when the resource is created, updated, or deleted(soft-deletion). </summary>
-        public long? FhirResourceVersionId { get; }
+        public long FhirResourceVersionId { get; }
     }
 }
