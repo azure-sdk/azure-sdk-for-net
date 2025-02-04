@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateAsync(string,Conversation,CancellationToken)">
+      <example>
+This sample shows how to call CreateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Conversation resource = new Conversation();
+Response<Conversation> response = await client.CreateAsync("<conversationId>", resource);
+]]></code>
+This sample shows how to call CreateAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Conversation resource = new Conversation
+{
+    Topic = "<topic>",
+    DeliveryChannelIds = { "<deliveryChannelIds>" },
+    OutboundDeliveryStrategy = OutboundDeliveryStrategyKind.InternalOnly,
+    Participants = {new InternalParticipant(new CommunicationContact("<id>"))
+    {
+        DisplayName = "<displayName>",
+    }},
+};
+Response<Conversation> response = await client.CreateAsync("<conversationId>", resource);
+]]></code></example>
+    </member>
+    <member name="Create(string,Conversation,CancellationToken)">
+      <example>
+This sample shows how to call Create.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Conversation resource = new Conversation();
+Response<Conversation> response = client.Create("<conversationId>", resource);
+]]></code>
+This sample shows how to call Create with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Conversation resource = new Conversation
+{
+    Topic = "<topic>",
+    DeliveryChannelIds = { "<deliveryChannelIds>" },
+    OutboundDeliveryStrategy = OutboundDeliveryStrategyKind.InternalOnly,
+    Participants = {new InternalParticipant(new CommunicationContact("<id>"))
+    {
+        DisplayName = "<displayName>",
+    }},
+};
+Response<Conversation> response = client.Create("<conversationId>", resource);
+]]></code></example>
+    </member>
+    <member name="CreateAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.CreateAsync("<conversationId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("conversationId").ToString());
+]]></code>
+This sample shows how to call CreateAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    topic = "<topic>",
+    deliveryChannelIds = new object[]
+    {
+        "<deliveryChannelIds>"
+    },
+    outboundDeliveryStrategy = "internalOnly",
+    participants = new object[]
+    {
+        new
+        {
+            kind = "internal",
+            contact = new
+            {
+                kind = "communication",
+                id = "<id>",
+            },
+            displayName = "<displayName>",
+        }
+    },
+});
+Response response = await client.CreateAsync("<conversationId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("conversationId").ToString());
+Console.WriteLine(result.GetProperty("topic").ToString());
+Console.WriteLine(result.GetProperty("deliveryChannelIds")[0].ToString());
+Console.WriteLine(result.GetProperty("outboundDeliveryStrategy").ToString());
+Console.WriteLine(result.GetProperty("participants")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("participants")[0].GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("participants")[0].GetProperty("kind").ToString());
+]]></code></example>
+    </member>
+    <member name="Create(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Create and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.Create("<conversationId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("conversationId").ToString());
+]]></code>
+This sample shows how to call Create with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    topic = "<topic>",
+    deliveryChannelIds = new object[]
+    {
+        "<deliveryChannelIds>"
+    },
+    outboundDeliveryStrategy = "internalOnly",
+    participants = new object[]
+    {
+        new
+        {
+            kind = "internal",
+            contact = new
+            {
+                kind = "communication",
+                id = "<id>",
+            },
+            displayName = "<displayName>",
+        }
+    },
+});
+Response response = client.Create("<conversationId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("conversationId").ToString());
+Console.WriteLine(result.GetProperty("topic").ToString());
+Console.WriteLine(result.GetProperty("deliveryChannelIds")[0].ToString());
+Console.WriteLine(result.GetProperty("outboundDeliveryStrategy").ToString());
+Console.WriteLine(result.GetProperty("participants")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("participants")[0].GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("participants")[0].GetProperty("kind").ToString());
+]]></code></example>
+    </member>
+    <member name="GetConversationAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetConversationAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response<Conversation> response = await client.GetConversationAsync("<conversationId>");
+]]></code>
+This sample shows how to call GetConversationAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response<Conversation> response = await client.GetConversationAsync("<conversationId>");
+]]></code></example>
+    </member>
+    <member name="GetConversation(string,CancellationToken)">
+      <example>
+This sample shows how to call GetConversation.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response<Conversation> response = client.GetConversation("<conversationId>");
+]]></code>
+This sample shows how to call GetConversation with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response<Conversation> response = client.GetConversation("<conversationId>");
+]]></code></example>
+    </member>
+    <member name="GetConversationAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetConversationAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response response = await client.GetConversationAsync("<conversationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("conversationId").ToString());
+]]></code>
+This sample shows how to call GetConversationAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response response = await client.GetConversationAsync("<conversationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("conversationId").ToString());
+Console.WriteLine(result.GetProperty("topic").ToString());
+Console.WriteLine(result.GetProperty("deliveryChannelIds")[0].ToString());
+Console.WriteLine(result.GetProperty("outboundDeliveryStrategy").ToString());
+Console.WriteLine(result.GetProperty("participants")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("participants")[0].GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("participants")[0].GetProperty("kind").ToString());
+]]></code></example>
+    </member>
+    <member name="GetConversation(string,RequestContext)">
+      <example>
+This sample shows how to call GetConversation and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response response = client.GetConversation("<conversationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("conversationId").ToString());
+]]></code>
+This sample shows how to call GetConversation with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response response = client.GetConversation("<conversationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("conversationId").ToString());
+Console.WriteLine(result.GetProperty("topic").ToString());
+Console.WriteLine(result.GetProperty("deliveryChannelIds")[0].ToString());
+Console.WriteLine(result.GetProperty("outboundDeliveryStrategy").ToString());
+Console.WriteLine(result.GetProperty("participants")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("participants")[0].GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("participants")[0].GetProperty("kind").ToString());
+]]></code></example>
+    </member>
+    <member name="TerminateConversationAsync(string,RequestContext)">
+      <example>
+This sample shows how to call TerminateConversationAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response response = await client.TerminateConversationAsync("<conversationId>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call TerminateConversationAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response response = await client.TerminateConversationAsync("<conversationId>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="TerminateConversation(string,RequestContext)">
+      <example>
+This sample shows how to call TerminateConversation.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response response = client.TerminateConversation("<conversationId>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call TerminateConversation with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response response = client.TerminateConversation("<conversationId>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="AddParticipantsAsync(string,AddParticipantsRequest,CancellationToken)">
+      <example>
+This sample shows how to call AddParticipantsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+AddParticipantsRequest body = new AddParticipantsRequest(new Participant[]
+{
+    new InternalParticipant(new CommunicationContact("<id>"))
+});
+Response<AddParticipantsResult> response = await client.AddParticipantsAsync("<conversationId>", body);
+]]></code>
+This sample shows how to call AddParticipantsAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+AddParticipantsRequest body = new AddParticipantsRequest(new Participant[]
+{
+    new InternalParticipant(new CommunicationContact("<id>"))
+    {
+        DisplayName = "<displayName>",
+    }
+});
+Response<AddParticipantsResult> response = await client.AddParticipantsAsync("<conversationId>", body);
+]]></code></example>
+    </member>
+    <member name="AddParticipants(string,AddParticipantsRequest,CancellationToken)">
+      <example>
+This sample shows how to call AddParticipants.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+AddParticipantsRequest body = new AddParticipantsRequest(new Participant[]
+{
+    new InternalParticipant(new CommunicationContact("<id>"))
+});
+Response<AddParticipantsResult> response = client.AddParticipants("<conversationId>", body);
+]]></code>
+This sample shows how to call AddParticipants with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+AddParticipantsRequest body = new AddParticipantsRequest(new Participant[]
+{
+    new InternalParticipant(new CommunicationContact("<id>"))
+    {
+        DisplayName = "<displayName>",
+    }
+});
+Response<AddParticipantsResult> response = client.AddParticipants("<conversationId>", body);
+]]></code></example>
+    </member>
+    <member name="AddParticipantsAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AddParticipantsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    participants = new object[]
+    {
+        new
+        {
+            kind = "internal",
+            contact = new
+            {
+                kind = "communication",
+                id = "<id>",
+            },
+        }
+    },
+});
+Response response = await client.AddParticipantsAsync("<conversationId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("id").ToString());
+]]></code>
+This sample shows how to call AddParticipantsAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    participants = new object[]
+    {
+        new
+        {
+            kind = "internal",
+            contact = new
+            {
+                kind = "communication",
+                id = "<id>",
+            },
+            displayName = "<displayName>",
+        }
+    },
+});
+Response response = await client.AddParticipantsAsync("<conversationId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+]]></code></example>
+    </member>
+    <member name="AddParticipants(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AddParticipants and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    participants = new object[]
+    {
+        new
+        {
+            kind = "internal",
+            contact = new
+            {
+                kind = "communication",
+                id = "<id>",
+            },
+        }
+    },
+});
+Response response = client.AddParticipants("<conversationId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("id").ToString());
+]]></code>
+This sample shows how to call AddParticipants with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    participants = new object[]
+    {
+        new
+        {
+            kind = "internal",
+            contact = new
+            {
+                kind = "communication",
+                id = "<id>",
+            },
+            displayName = "<displayName>",
+        }
+    },
+});
+Response response = client.AddParticipants("<conversationId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+]]></code></example>
+    </member>
+    <member name="RemoveParticipantsAsync(string,RemoveParticipantsRequest,CancellationToken)">
+      <example>
+This sample shows how to call RemoveParticipantsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+RemoveParticipantsRequest body = new RemoveParticipantsRequest();
+Response<RemoveParticipantsResult> response = await client.RemoveParticipantsAsync("<conversationId>", body);
+]]></code>
+This sample shows how to call RemoveParticipantsAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+RemoveParticipantsRequest body = new RemoveParticipantsRequest();
+Response<RemoveParticipantsResult> response = await client.RemoveParticipantsAsync("<conversationId>", body);
+]]></code></example>
+    </member>
+    <member name="RemoveParticipants(string,RemoveParticipantsRequest,CancellationToken)">
+      <example>
+This sample shows how to call RemoveParticipants.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+RemoveParticipantsRequest body = new RemoveParticipantsRequest();
+Response<RemoveParticipantsResult> response = client.RemoveParticipants("<conversationId>", body);
+]]></code>
+This sample shows how to call RemoveParticipants with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+RemoveParticipantsRequest body = new RemoveParticipantsRequest();
+Response<RemoveParticipantsResult> response = client.RemoveParticipants("<conversationId>", body);
+]]></code></example>
+    </member>
+    <member name="RemoveParticipantsAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call RemoveParticipantsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.RemoveParticipantsAsync("<conversationId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("id").ToString());
+]]></code>
+This sample shows how to call RemoveParticipantsAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.RemoveParticipantsAsync("<conversationId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+]]></code></example>
+    </member>
+    <member name="RemoveParticipants(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call RemoveParticipants and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.RemoveParticipants("<conversationId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("id").ToString());
+]]></code>
+This sample shows how to call RemoveParticipants with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.RemoveParticipants("<conversationId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("invalidParticipants")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+]]></code></example>
+    </member>
+    <member name="AnalyzeAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call AnalyzeAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response<GetConversationMessagesAnalysisResult> response = await client.AnalyzeAsync("<conversationId>");
+]]></code>
+This sample shows how to call AnalyzeAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response<GetConversationMessagesAnalysisResult> response = await client.AnalyzeAsync("<conversationId>");
+]]></code></example>
+    </member>
+    <member name="Analyze(string,CancellationToken)">
+      <example>
+This sample shows how to call Analyze.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response<GetConversationMessagesAnalysisResult> response = client.Analyze("<conversationId>");
+]]></code>
+This sample shows how to call Analyze with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response<GetConversationMessagesAnalysisResult> response = client.Analyze("<conversationId>");
+]]></code></example>
+    </member>
+    <member name="AnalyzeAsync(string,RequestContext)">
+      <example>
+This sample shows how to call AnalyzeAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response response = await client.AnalyzeAsync("<conversationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("summary").ToString());
+]]></code>
+This sample shows how to call AnalyzeAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response response = await client.AnalyzeAsync("<conversationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("summary").ToString());
+]]></code></example>
+    </member>
+    <member name="Analyze(string,RequestContext)">
+      <example>
+This sample shows how to call Analyze and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response response = client.Analyze("<conversationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("summary").ToString());
+]]></code>
+This sample shows how to call Analyze with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+Response response = client.Analyze("<conversationId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("summary").ToString());
+]]></code></example>
+    </member>
+    <member name="GetConversationsAsync(int?,string,Guid?,CancellationToken)">
+      <example>
+This sample shows how to call GetConversationsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+await foreach (Conversation item in client.GetConversationsAsync())
+{
+}
+]]></code>
+This sample shows how to call GetConversationsAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+await foreach (Conversation item in client.GetConversationsAsync(maxpagesize: 1234, participant: "<participant>", channelId: Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a")))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetConversations(int?,string,Guid?,CancellationToken)">
+      <example>
+This sample shows how to call GetConversations.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+foreach (Conversation item in client.GetConversations())
+{
+}
+]]></code>
+This sample shows how to call GetConversations with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+foreach (Conversation item in client.GetConversations(maxpagesize: 1234, participant: "<participant>", channelId: Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a")))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetConversationsAsync(int?,string,Guid?,RequestContext)">
+      <example>
+This sample shows how to call GetConversationsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetConversationsAsync(null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("conversationId").ToString());
+}
+]]></code>
+This sample shows how to call GetConversationsAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetConversationsAsync(1234, "<participant>", Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("conversationId").ToString());
+    Console.WriteLine(result.GetProperty("topic").ToString());
+    Console.WriteLine(result.GetProperty("deliveryChannelIds")[0].ToString());
+    Console.WriteLine(result.GetProperty("outboundDeliveryStrategy").ToString());
+    Console.WriteLine(result.GetProperty("participants")[0].GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("participants")[0].GetProperty("displayName").ToString());
+    Console.WriteLine(result.GetProperty("participants")[0].GetProperty("kind").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetConversations(int?,string,Guid?,RequestContext)">
+      <example>
+This sample shows how to call GetConversations and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetConversations(null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("conversationId").ToString());
+}
+]]></code>
+This sample shows how to call GetConversations with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetConversations(1234, "<participant>", Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("conversationId").ToString());
+    Console.WriteLine(result.GetProperty("topic").ToString());
+    Console.WriteLine(result.GetProperty("deliveryChannelIds")[0].ToString());
+    Console.WriteLine(result.GetProperty("outboundDeliveryStrategy").ToString());
+    Console.WriteLine(result.GetProperty("participants")[0].GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("participants")[0].GetProperty("displayName").ToString());
+    Console.WriteLine(result.GetProperty("participants")[0].GetProperty("kind").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetMessagesAsync(string,int?,string,CancellationToken)">
+      <example>
+This sample shows how to call GetMessagesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+await foreach (ConversationMessageItem item in client.GetMessagesAsync("<conversationId>"))
+{
+}
+]]></code>
+This sample shows how to call GetMessagesAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+await foreach (ConversationMessageItem item in client.GetMessagesAsync("<conversationId>", maxpagesize: 1234, participant: "<participant>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetMessages(string,int?,string,CancellationToken)">
+      <example>
+This sample shows how to call GetMessages.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+foreach (ConversationMessageItem item in client.GetMessages("<conversationId>"))
+{
+}
+]]></code>
+This sample shows how to call GetMessages with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+foreach (ConversationMessageItem item in client.GetMessages("<conversationId>", maxpagesize: 1234, participant: "<participant>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetMessagesAsync(string,int?,string,RequestContext)">
+      <example>
+This sample shows how to call GetMessagesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetMessagesAsync("<conversationId>", null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("message").GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("senderCommunicationIdentifier").ToString());
+    Console.WriteLine(result.GetProperty("createdOn").ToString());
+}
+]]></code>
+This sample shows how to call GetMessagesAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetMessagesAsync("<conversationId>", 1234, "<participant>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("sequenceId").ToString());
+    Console.WriteLine(result.GetProperty("message").GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("senderDisplayName").ToString());
+    Console.WriteLine(result.GetProperty("senderCommunicationIdentifier").ToString());
+    Console.WriteLine(result.GetProperty("createdOn").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetMessages(string,int?,string,RequestContext)">
+      <example>
+This sample shows how to call GetMessages and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetMessages("<conversationId>", null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("message").GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("senderCommunicationIdentifier").ToString());
+    Console.WriteLine(result.GetProperty("createdOn").ToString());
+}
+]]></code>
+This sample shows how to call GetMessages with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationManagementClient client = new ConversationManagementClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetMessages("<conversationId>", 1234, "<participant>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("sequenceId").ToString());
+    Console.WriteLine(result.GetProperty("message").GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("senderDisplayName").ToString());
+    Console.WriteLine(result.GetProperty("senderCommunicationIdentifier").ToString());
+    Console.WriteLine(result.GetProperty("createdOn").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
