@@ -65,7 +65,7 @@ namespace Azure.Search.Documents.Indexes.Models
         public static TokenFilterName AsciiFolding { get; } = new TokenFilterName(AsciiFoldingValue);
         /// <summary> Forms bigrams of CJK terms that are generated from the standard tokenizer. See http://lucene.apache.org/core/4_10_3/analyzers-common/org/apache/lucene/analysis/cjk/CJKBigramFilter.html. </summary>
         public static TokenFilterName CjkBigram { get; } = new TokenFilterName(CjkBigramValue);
-        /// <summary> Normalizes CJK width differences. Folds fullwidth ASCII variants into the equivalent basic Latin, and half-width Katakana variants into the equivalent Kana. See http://lucene.apache.org/core/4_10_3/analyzers-common/org/apache/lucene/analysis/cjk/CJKWidthFilter.html. </summary>
+        /// <summary> Normalizes CJK width differences. Folds full-width ASCII variants into the equivalent basic Latin, and half-width Katakana variants into the equivalent Kana. See http://lucene.apache.org/core/4_10_3/analyzers-common/org/apache/lucene/analysis/cjk/CJKWidthFilter.html. </summary>
         public static TokenFilterName CjkWidth { get; } = new TokenFilterName(CjkWidthValue);
         /// <summary> Removes English possessives, and dots from acronyms. See http://lucene.apache.org/core/4_10_3/analyzers-common/org/apache/lucene/analysis/standard/ClassicFilter.html. </summary>
         public static TokenFilterName Classic { get; } = new TokenFilterName(ClassicValue);
