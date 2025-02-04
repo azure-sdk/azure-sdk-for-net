@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Security.KeyVault.Administration.Models
 {
-    /// <summary> Role assignment list operation result. </summary>
-    internal partial class RoleAssignmentListResult
+    /// <summary> The authentication method and location for the backup operation. </summary>
+    internal partial class PreBackupOperationParameters
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,26 +45,29 @@ namespace Azure.Security.KeyVault.Administration.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="RoleAssignmentListResult"/>. </summary>
-        internal RoleAssignmentListResult()
+        /// <summary> Initializes a new instance of <see cref="PreBackupOperationParameters"/>. </summary>
+        public PreBackupOperationParameters()
         {
-            Value = new ChangeTrackingList<KeyVaultRoleAssignment>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="RoleAssignmentListResult"/>. </summary>
-        /// <param name="value"> Role assignment list. </param>
-        /// <param name="nextLink"> The URL to use for getting the next set of results. </param>
+        /// <summary> Initializes a new instance of <see cref="PreBackupOperationParameters"/>. </summary>
+        /// <param name="storageResourceUri"> Azure Blob storage container Uri. </param>
+        /// <param name="token"> The SAS token pointing to an Azure Blob storage container. </param>
+        /// <param name="useManagedIdentity"> Indicates which authentication method should be used. If set to true, Managed HSM will use the configured user-assigned managed identity to authenticate with Azure Storage. Otherwise, a SAS token has to be specified. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal RoleAssignmentListResult(IReadOnlyList<KeyVaultRoleAssignment> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PreBackupOperationParameters(string storageResourceUri, string token, bool? useManagedIdentity, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Value = value;
-            NextLink = nextLink;
+            StorageResourceUri = storageResourceUri;
+            Token = token;
+            UseManagedIdentity = useManagedIdentity;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Role assignment list. </summary>
-        public IReadOnlyList<KeyVaultRoleAssignment> Value { get; }
-        /// <summary> The URL to use for getting the next set of results. </summary>
-        public string NextLink { get; }
+        /// <summary> Azure Blob storage container Uri. </summary>
+        public string StorageResourceUri { get; set; }
+        /// <summary> The SAS token pointing to an Azure Blob storage container. </summary>
+        public string Token { get; set; }
+        /// <summary> Indicates which authentication method should be used. If set to true, Managed HSM will use the configured user-assigned managed identity to authenticate with Azure Storage. Otherwise, a SAS token has to be specified. </summary>
+        public bool? UseManagedIdentity { get; set; }
     }
 }

@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.Security.KeyVault.Administration.Models
 {
-    internal partial class SASTokenParameter : IUtf8JsonSerializable, IJsonModel<SASTokenParameter>
+    internal partial class PreBackupOperationParameters : IUtf8JsonSerializable, IJsonModel<PreBackupOperationParameters>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<SASTokenParameter>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<PreBackupOperationParameters>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<SASTokenParameter>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<PreBackupOperationParameters>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,14 +28,17 @@ namespace Azure.Security.KeyVault.Administration.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SASTokenParameter>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PreBackupOperationParameters>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SASTokenParameter)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(PreBackupOperationParameters)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("storageResourceUri"u8);
-            writer.WriteStringValue(StorageResourceUri);
+            if (Optional.IsDefined(StorageResourceUri))
+            {
+                writer.WritePropertyName("storageResourceUri"u8);
+                writer.WriteStringValue(StorageResourceUri);
+            }
             if (Optional.IsDefined(Token))
             {
                 writer.WritePropertyName("token"u8);
@@ -63,19 +66,19 @@ namespace Azure.Security.KeyVault.Administration.Models
             }
         }
 
-        SASTokenParameter IJsonModel<SASTokenParameter>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        PreBackupOperationParameters IJsonModel<PreBackupOperationParameters>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SASTokenParameter>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PreBackupOperationParameters>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SASTokenParameter)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(PreBackupOperationParameters)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeSASTokenParameter(document.RootElement, options);
+            return DeserializePreBackupOperationParameters(document.RootElement, options);
         }
 
-        internal static SASTokenParameter DeserializeSASTokenParameter(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static PreBackupOperationParameters DeserializePreBackupOperationParameters(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -115,46 +118,46 @@ namespace Azure.Security.KeyVault.Administration.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new SASTokenParameter(storageResourceUri, token, useManagedIdentity, serializedAdditionalRawData);
+            return new PreBackupOperationParameters(storageResourceUri, token, useManagedIdentity, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<SASTokenParameter>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<PreBackupOperationParameters>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SASTokenParameter>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PreBackupOperationParameters>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(SASTokenParameter)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(PreBackupOperationParameters)} does not support writing '{options.Format}' format.");
             }
         }
 
-        SASTokenParameter IPersistableModel<SASTokenParameter>.Create(BinaryData data, ModelReaderWriterOptions options)
+        PreBackupOperationParameters IPersistableModel<PreBackupOperationParameters>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SASTokenParameter>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PreBackupOperationParameters>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeSASTokenParameter(document.RootElement, options);
+                        return DeserializePreBackupOperationParameters(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(SASTokenParameter)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(PreBackupOperationParameters)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<SASTokenParameter>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<PreBackupOperationParameters>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static SASTokenParameter FromResponse(Response response)
+        internal static PreBackupOperationParameters FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeSASTokenParameter(document.RootElement);
+            return DeserializePreBackupOperationParameters(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
