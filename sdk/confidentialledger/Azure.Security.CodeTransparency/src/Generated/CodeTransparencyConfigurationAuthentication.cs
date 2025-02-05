@@ -46,15 +46,15 @@ namespace Azure.Security.CodeTransparency
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="CodeTransparencyConfigurationAuthentication"/>. </summary>
-        /// <param name="allowUnauthenticated"></param>
+        /// <param name="allowUnauthenticated"> Disable API authentication and rely on signed statement verification only. </param>
         internal CodeTransparencyConfigurationAuthentication(bool allowUnauthenticated)
         {
             AllowUnauthenticated = allowUnauthenticated;
         }
 
         /// <summary> Initializes a new instance of <see cref="CodeTransparencyConfigurationAuthentication"/>. </summary>
-        /// <param name="allowUnauthenticated"></param>
-        /// <param name="jwt"></param>
+        /// <param name="allowUnauthenticated"> Disable API authentication and rely on signed statement verification only. </param>
+        /// <param name="jwt"> JWT requirements if authentication is enabled. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal CodeTransparencyConfigurationAuthentication(bool allowUnauthenticated, CodeTransparencyConfigurationAuthenticationJwt jwt, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
@@ -68,9 +68,9 @@ namespace Azure.Security.CodeTransparency
         {
         }
 
-        /// <summary> Gets the allow unauthenticated. </summary>
+        /// <summary> Disable API authentication and rely on signed statement verification only. </summary>
         public bool AllowUnauthenticated { get; }
-        /// <summary> Gets the jwt. </summary>
+        /// <summary> JWT requirements if authentication is enabled. </summary>
         public CodeTransparencyConfigurationAuthenticationJwt Jwt { get; }
     }
 }

@@ -36,7 +36,7 @@ namespace Azure.Security.CodeTransparency
 
             if (Optional.IsCollectionDefined(AcceptedAlgorithms))
             {
-                writer.WritePropertyName("accepted_algorithms"u8);
+                writer.WritePropertyName("acceptedAlgorithms"u8);
                 writer.WriteStartArray();
                 foreach (var item in AcceptedAlgorithms)
                 {
@@ -44,16 +44,8 @@ namespace Azure.Security.CodeTransparency
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsCollectionDefined(AcceptedDidIssuers))
-            {
-                writer.WritePropertyName("accepted_did_issuers"u8);
-                writer.WriteStartArray();
-                foreach (var item in AcceptedDidIssuers)
-                {
-                    writer.WriteStringValue(item);
-                }
-                writer.WriteEndArray();
-            }
+            writer.WritePropertyName("policyScript"u8);
+            writer.WriteStringValue(PolicyScript);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -92,12 +84,12 @@ namespace Azure.Security.CodeTransparency
                 return null;
             }
             IReadOnlyList<string> acceptedAlgorithms = default;
-            IReadOnlyList<string> acceptedDidIssuers = default;
+            string policyScript = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("accepted_algorithms"u8))
+                if (property.NameEquals("acceptedAlgorithms"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
@@ -111,18 +103,9 @@ namespace Azure.Security.CodeTransparency
                     acceptedAlgorithms = array;
                     continue;
                 }
-                if (property.NameEquals("accepted_did_issuers"u8))
+                if (property.NameEquals("policyScript"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    List<string> array = new List<string>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(item.GetString());
-                    }
-                    acceptedDidIssuers = array;
+                    policyScript = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -131,7 +114,7 @@ namespace Azure.Security.CodeTransparency
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new CodeTransparencyConfigurationPolicy(acceptedAlgorithms ?? new ChangeTrackingList<string>(), acceptedDidIssuers ?? new ChangeTrackingList<string>(), serializedAdditionalRawData);
+            return new CodeTransparencyConfigurationPolicy(acceptedAlgorithms ?? new ChangeTrackingList<string>(), policyScript, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<CodeTransparencyConfigurationPolicy>.Write(ModelReaderWriterOptions options)

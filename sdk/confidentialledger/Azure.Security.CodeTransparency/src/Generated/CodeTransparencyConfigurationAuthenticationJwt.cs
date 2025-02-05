@@ -46,7 +46,7 @@ namespace Azure.Security.CodeTransparency
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="CodeTransparencyConfigurationAuthenticationJwt"/>. </summary>
-        /// <param name="requiredClaims"></param>
+        /// <param name="requiredClaims"> Claims that must be present in the JWT. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="requiredClaims"/> is null. </exception>
         internal CodeTransparencyConfigurationAuthenticationJwt(IReadOnlyDictionary<string, string> requiredClaims)
         {
@@ -56,7 +56,7 @@ namespace Azure.Security.CodeTransparency
         }
 
         /// <summary> Initializes a new instance of <see cref="CodeTransparencyConfigurationAuthenticationJwt"/>. </summary>
-        /// <param name="requiredClaims"></param>
+        /// <param name="requiredClaims"> Claims that must be present in the JWT. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal CodeTransparencyConfigurationAuthenticationJwt(IReadOnlyDictionary<string, string> requiredClaims, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
@@ -69,7 +69,7 @@ namespace Azure.Security.CodeTransparency
         {
         }
 
-        /// <summary> Gets the required claims. </summary>
+        /// <summary> Claims that must be present in the JWT. </summary>
         public IReadOnlyDictionary<string, string> RequiredClaims { get; }
     }
 }
