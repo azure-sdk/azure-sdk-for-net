@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.AI.Inference
 {
-    public partial class ChatRequestToolMessage : IUtf8JsonSerializable, IJsonModel<ChatRequestToolMessage>
+    public partial class ChatRequestDeveloperMessage : IUtf8JsonSerializable, IJsonModel<ChatRequestDeveloperMessage>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ChatRequestToolMessage>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ChatRequestDeveloperMessage>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<ChatRequestToolMessage>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ChatRequestDeveloperMessage>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,35 +28,30 @@ namespace Azure.AI.Inference
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ChatRequestToolMessage>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ChatRequestDeveloperMessage>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ChatRequestToolMessage)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ChatRequestDeveloperMessage)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
-            if (Optional.IsDefined(Content))
-            {
-                writer.WritePropertyName("content"u8);
-                writer.WriteStringValue(Content);
-            }
-            writer.WritePropertyName("tool_call_id"u8);
-            writer.WriteStringValue(ToolCallId);
+            writer.WritePropertyName("content"u8);
+            writer.WriteStringValue(Content);
         }
 
-        ChatRequestToolMessage IJsonModel<ChatRequestToolMessage>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ChatRequestDeveloperMessage IJsonModel<ChatRequestDeveloperMessage>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ChatRequestToolMessage>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ChatRequestDeveloperMessage>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ChatRequestToolMessage)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ChatRequestDeveloperMessage)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeChatRequestToolMessage(document.RootElement, options);
+            return DeserializeChatRequestDeveloperMessage(document.RootElement, options);
         }
 
-        internal static ChatRequestToolMessage DeserializeChatRequestToolMessage(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ChatRequestDeveloperMessage DeserializeChatRequestDeveloperMessage(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -65,7 +60,6 @@ namespace Azure.AI.Inference
                 return null;
             }
             string content = default;
-            string toolCallId = default;
             ChatRole role = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -74,11 +68,6 @@ namespace Azure.AI.Inference
                 if (property.NameEquals("content"u8))
                 {
                     content = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("tool_call_id"u8))
-                {
-                    toolCallId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("role"u8))
@@ -92,46 +81,46 @@ namespace Azure.AI.Inference
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ChatRequestToolMessage(role, serializedAdditionalRawData, content, toolCallId);
+            return new ChatRequestDeveloperMessage(role, serializedAdditionalRawData, content);
         }
 
-        BinaryData IPersistableModel<ChatRequestToolMessage>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ChatRequestDeveloperMessage>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ChatRequestToolMessage>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ChatRequestDeveloperMessage>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(ChatRequestToolMessage)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ChatRequestDeveloperMessage)} does not support writing '{options.Format}' format.");
             }
         }
 
-        ChatRequestToolMessage IPersistableModel<ChatRequestToolMessage>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ChatRequestDeveloperMessage IPersistableModel<ChatRequestDeveloperMessage>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ChatRequestToolMessage>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ChatRequestDeveloperMessage>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeChatRequestToolMessage(document.RootElement, options);
+                        return DeserializeChatRequestDeveloperMessage(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ChatRequestToolMessage)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ChatRequestDeveloperMessage)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ChatRequestToolMessage>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ChatRequestDeveloperMessage>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static new ChatRequestToolMessage FromResponse(Response response)
+        internal static new ChatRequestDeveloperMessage FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeChatRequestToolMessage(document.RootElement);
+            return DeserializeChatRequestDeveloperMessage(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
