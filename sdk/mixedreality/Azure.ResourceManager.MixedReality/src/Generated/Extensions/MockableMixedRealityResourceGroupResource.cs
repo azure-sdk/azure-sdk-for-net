@@ -41,7 +41,14 @@ namespace Azure.ResourceManager.MixedReality.Mocking
         }
 
         /// <summary>
-        /// Retrieve a Spatial Anchors Account.
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Retrieve a Spatial Anchors Account.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -72,7 +79,14 @@ namespace Azure.ResourceManager.MixedReality.Mocking
         }
 
         /// <summary>
-        /// Retrieve a Spatial Anchors Account.
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Retrieve a Spatial Anchors Account.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -110,7 +124,14 @@ namespace Azure.ResourceManager.MixedReality.Mocking
         }
 
         /// <summary>
-        /// Retrieve a Remote Rendering Account.
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Retrieve a Remote Rendering Account.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -141,7 +162,14 @@ namespace Azure.ResourceManager.MixedReality.Mocking
         }
 
         /// <summary>
-        /// Retrieve a Remote Rendering Account.
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Retrieve a Remote Rendering Account.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>

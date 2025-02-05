@@ -53,7 +53,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// Creating or Updating a Spatial Anchors Account.
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Creating or Updating a Spatial Anchors Account.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -104,7 +111,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// Creating or Updating a Spatial Anchors Account.
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Creating or Updating a Spatial Anchors Account.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -155,7 +169,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// Retrieve a Spatial Anchors Account.
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Retrieve a Spatial Anchors Account.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -200,7 +221,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// Retrieve a Spatial Anchors Account.
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Retrieve a Spatial Anchors Account.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -245,7 +273,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// List Resources by Resource Group
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  List Resources by Resource Group
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -275,7 +310,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// List Resources by Resource Group
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  List Resources by Resource Group
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
