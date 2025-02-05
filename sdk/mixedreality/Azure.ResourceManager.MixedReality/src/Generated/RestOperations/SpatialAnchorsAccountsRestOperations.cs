@@ -64,7 +64,16 @@ namespace Azure.ResourceManager.MixedReality
             return message;
         }
 
-        /// <summary> List Spatial Anchors Accounts by Subscription. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  List Spatial Anchors Accounts by Subscription
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
@@ -89,7 +98,16 @@ namespace Azure.ResourceManager.MixedReality
             }
         }
 
-        /// <summary> List Spatial Anchors Accounts by Subscription. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  List Spatial Anchors Accounts by Subscription
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
@@ -146,7 +164,16 @@ namespace Azure.ResourceManager.MixedReality
             return message;
         }
 
-        /// <summary> List Resources by Resource Group. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  List Resources by Resource Group
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -173,7 +200,16 @@ namespace Azure.ResourceManager.MixedReality
             }
         }
 
-        /// <summary> List Resources by Resource Group. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  List Resources by Resource Group
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -234,7 +270,16 @@ namespace Azure.ResourceManager.MixedReality
             return message;
         }
 
-        /// <summary> Delete a Spatial Anchors Account. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Delete a Spatial Anchors Account.
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
         /// <param name="accountName"> Name of an Mixed Reality Account. </param>
@@ -259,7 +304,16 @@ namespace Azure.ResourceManager.MixedReality
             }
         }
 
-        /// <summary> Delete a Spatial Anchors Account. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Delete a Spatial Anchors Account.
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
         /// <param name="accountName"> Name of an Mixed Reality Account. </param>
@@ -318,7 +372,16 @@ namespace Azure.ResourceManager.MixedReality
             return message;
         }
 
-        /// <summary> Retrieve a Spatial Anchors Account. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Retrieve a Spatial Anchors Account.
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
         /// <param name="accountName"> Name of an Mixed Reality Account. </param>
@@ -349,7 +412,16 @@ namespace Azure.ResourceManager.MixedReality
             }
         }
 
-        /// <summary> Retrieve a Spatial Anchors Account. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Retrieve a Spatial Anchors Account.
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
         /// <param name="accountName"> Name of an Mixed Reality Account. </param>
@@ -418,7 +490,16 @@ namespace Azure.ResourceManager.MixedReality
             return message;
         }
 
-        /// <summary> Updating a Spatial Anchors Account. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Updating a Spatial Anchors Account
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
         /// <param name="accountName"> Name of an Mixed Reality Account. </param>
@@ -449,7 +530,16 @@ namespace Azure.ResourceManager.MixedReality
             }
         }
 
-        /// <summary> Updating a Spatial Anchors Account. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Updating a Spatial Anchors Account
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
         /// <param name="accountName"> Name of an Mixed Reality Account. </param>
@@ -518,7 +608,16 @@ namespace Azure.ResourceManager.MixedReality
             return message;
         }
 
-        /// <summary> Creating or Updating a Spatial Anchors Account. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Creating or Updating a Spatial Anchors Account.
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
         /// <param name="accountName"> Name of an Mixed Reality Account. </param>
@@ -550,7 +649,16 @@ namespace Azure.ResourceManager.MixedReality
             }
         }
 
-        /// <summary> Creating or Updating a Spatial Anchors Account. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Creating or Updating a Spatial Anchors Account.
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
         /// <param name="accountName"> Name of an Mixed Reality Account. </param>
@@ -618,7 +726,16 @@ namespace Azure.ResourceManager.MixedReality
             return message;
         }
 
-        /// <summary> List Both of the 2 Keys of a Spatial Anchors Account. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  List Both of the 2 Keys of a Spatial Anchors Account
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
         /// <param name="accountName"> Name of an Mixed Reality Account. </param>
@@ -647,7 +764,16 @@ namespace Azure.ResourceManager.MixedReality
             }
         }
 
-        /// <summary> List Both of the 2 Keys of a Spatial Anchors Account. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  List Both of the 2 Keys of a Spatial Anchors Account
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
         /// <param name="accountName"> Name of an Mixed Reality Account. </param>
@@ -716,7 +842,16 @@ namespace Azure.ResourceManager.MixedReality
             return message;
         }
 
-        /// <summary> Regenerate specified Key of a Spatial Anchors Account. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Regenerate specified Key of a Spatial Anchors Account
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
         /// <param name="accountName"> Name of an Mixed Reality Account. </param>
@@ -747,7 +882,16 @@ namespace Azure.ResourceManager.MixedReality
             }
         }
 
-        /// <summary> Regenerate specified Key of a Spatial Anchors Account. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Regenerate specified Key of a Spatial Anchors Account
+        /// </summary>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
         /// <param name="accountName"> Name of an Mixed Reality Account. </param>
@@ -800,7 +944,16 @@ namespace Azure.ResourceManager.MixedReality
             return message;
         }
 
-        /// <summary> List Spatial Anchors Accounts by Subscription. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  List Spatial Anchors Accounts by Subscription
+        /// </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -827,7 +980,16 @@ namespace Azure.ResourceManager.MixedReality
             }
         }
 
-        /// <summary> List Spatial Anchors Accounts by Subscription. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  List Spatial Anchors Accounts by Subscription
+        /// </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -876,7 +1038,16 @@ namespace Azure.ResourceManager.MixedReality
             return message;
         }
 
-        /// <summary> List Resources by Resource Group. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  List Resources by Resource Group
+        /// </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
@@ -905,7 +1076,16 @@ namespace Azure.ResourceManager.MixedReality
             }
         }
 
-        /// <summary> List Resources by Resource Group. </summary>
+        /// <summary>
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  List Resources by Resource Group
+        /// </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of an Azure resource group. </param>
