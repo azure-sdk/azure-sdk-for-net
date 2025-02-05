@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.AI.Inference
 {
-    public partial class ChatCompletionsResponseFormatText : IUtf8JsonSerializable, IJsonModel<ChatCompletionsResponseFormatText>
+    internal partial class ChatCompletionsResponseFormatText : IUtf8JsonSerializable, IJsonModel<ChatCompletionsResponseFormatText>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ChatCompletionsResponseFormatText>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
