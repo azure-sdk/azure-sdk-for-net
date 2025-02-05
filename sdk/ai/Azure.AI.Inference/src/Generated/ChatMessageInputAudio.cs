@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.Inference
 {
-    /// <summary> The EmbedRequest. </summary>
-    internal partial class EmbedRequest
+    /// <summary> The details of an audio chat message content part. </summary>
+    public partial class ChatMessageInputAudio
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,31 +45,37 @@ namespace Azure.AI.Inference
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="EmbedRequest"/>. </summary>
-        /// <param name="embeddingsOptions"></param>
-        /// <exception cref="ArgumentNullException"> <paramref name="embeddingsOptions"/> is null. </exception>
-        internal EmbedRequest(EmbeddingsOptions embeddingsOptions)
+        /// <summary> Initializes a new instance of <see cref="ChatMessageInputAudio"/>. </summary>
+        /// <param name="data"> Base64 encoded audio data. </param>
+        /// <param name="format"> The audio format of the audio content. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
+        public ChatMessageInputAudio(string data, AudioContentFormat format)
         {
-            Argument.AssertNotNull(embeddingsOptions, nameof(embeddingsOptions));
+            Argument.AssertNotNull(data, nameof(data));
 
-            EmbeddingsOptions = embeddingsOptions;
+            Data = data;
+            Format = format;
         }
 
-        /// <summary> Initializes a new instance of <see cref="EmbedRequest"/>. </summary>
-        /// <param name="embeddingsOptions"></param>
+        /// <summary> Initializes a new instance of <see cref="ChatMessageInputAudio"/>. </summary>
+        /// <param name="data"> Base64 encoded audio data. </param>
+        /// <param name="format"> The audio format of the audio content. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal EmbedRequest(EmbeddingsOptions embeddingsOptions, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ChatMessageInputAudio(string data, AudioContentFormat format, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            EmbeddingsOptions = embeddingsOptions;
+            Data = data;
+            Format = format;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="EmbedRequest"/> for deserialization. </summary>
-        internal EmbedRequest()
+        /// <summary> Initializes a new instance of <see cref="ChatMessageInputAudio"/> for deserialization. </summary>
+        internal ChatMessageInputAudio()
         {
         }
 
-        /// <summary> Gets the embeddings options. </summary>
-        public EmbeddingsOptions EmbeddingsOptions { get; }
+        /// <summary> Base64 encoded audio data. </summary>
+        public string Data { get; }
+        /// <summary> The audio format of the audio content. </summary>
+        public AudioContentFormat Format { get; }
     }
 }
