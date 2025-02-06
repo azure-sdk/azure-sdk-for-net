@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.DataBox.Models
 {
-    /// <summary> Request body to get the transport availability for given sku. </summary>
-    public partial class TransportAvailabilityRequest
+    /// <summary> Device capabilities for given sku in a region. </summary>
+    internal partial class DeviceCapabilityResponse
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,25 +45,22 @@ namespace Azure.ResourceManager.DataBox.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="TransportAvailabilityRequest"/>. </summary>
-        public TransportAvailabilityRequest()
+        /// <summary> Initializes a new instance of <see cref="DeviceCapabilityResponse"/>. </summary>
+        internal DeviceCapabilityResponse()
         {
+            DeviceCapabilityDetails = new ChangeTrackingList<DeviceCapabilityDetails>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="TransportAvailabilityRequest"/>. </summary>
-        /// <param name="skuName"> Type of the device. </param>
-        /// <param name="model"> The customer friendly name of the combination of version and capacity of the device. This field is necessary only at the time of ordering the newer generation device i.e. AzureDataBox120 and AzureDataBox525 as of Feb/2025. </param>
+        /// <summary> Initializes a new instance of <see cref="DeviceCapabilityResponse"/>. </summary>
+        /// <param name="deviceCapabilityDetails"> List of device capabilities available for a given region and a given sku. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TransportAvailabilityRequest(DataBoxSkuName? skuName, ModelName? model, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DeviceCapabilityResponse(IReadOnlyList<DeviceCapabilityDetails> deviceCapabilityDetails, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            SkuName = skuName;
-            Model = model;
+            DeviceCapabilityDetails = deviceCapabilityDetails;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Type of the device. </summary>
-        public DataBoxSkuName? SkuName { get; set; }
-        /// <summary> The customer friendly name of the combination of version and capacity of the device. This field is necessary only at the time of ordering the newer generation device i.e. AzureDataBox120 and AzureDataBox525 as of Feb/2025. </summary>
-        public ModelName? Model { get; set; }
+        /// <summary> List of device capabilities available for a given region and a given sku. </summary>
+        public IReadOnlyList<DeviceCapabilityDetails> DeviceCapabilityDetails { get; }
     }
 }
