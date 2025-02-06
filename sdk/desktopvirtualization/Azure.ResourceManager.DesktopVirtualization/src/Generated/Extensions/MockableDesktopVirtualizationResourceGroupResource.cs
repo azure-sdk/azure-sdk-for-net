@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-11-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -84,7 +84,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-11-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-11-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -153,7 +153,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-11-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -191,7 +191,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-11-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -222,7 +222,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-11-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -260,7 +260,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-11-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -291,7 +291,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-11-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -329,7 +329,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-11-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -337,7 +337,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="appAttachPackageName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -360,7 +360,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2024-11-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -368,7 +368,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="appAttachPackageName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
