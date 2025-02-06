@@ -10,14 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.Inference
 {
-    /// <summary>
-    /// Represents the format that the model must output. Use this to enable JSON mode instead of the default text mode.
-    /// Note that to enable JSON mode, some AI models may also require you to instruct the model to produce JSON
-    /// via a system or user message.
-    /// Please note <see cref="ChatCompletionsResponseFormat"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="ChatCompletionsResponseFormatJsonObject"/> and <see cref="ChatCompletionsResponseFormatText"/>.
-    /// </summary>
-    public abstract partial class ChatCompletionsResponseFormat
+    /// <summary> The details of the audio url pointer. </summary>
+    internal partial class ChatMessageInputAudioUrl
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -49,23 +43,33 @@ namespace Azure.AI.Inference
         /// </list>
         /// </para>
         /// </summary>
-        private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ChatCompletionsResponseFormat"/>. </summary>
-        protected ChatCompletionsResponseFormat()
+        /// <summary> Initializes a new instance of <see cref="ChatMessageInputAudioUrl"/>. </summary>
+        /// <param name="url"> The URL of the audio content. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="url"/> is null. </exception>
+        public ChatMessageInputAudioUrl(string url)
         {
+            Argument.AssertNotNull(url, nameof(url));
+
+            Url = url;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ChatCompletionsResponseFormat"/>. </summary>
-        /// <param name="type"> The response format type to use for chat completions. </param>
+        /// <summary> Initializes a new instance of <see cref="ChatMessageInputAudioUrl"/>. </summary>
+        /// <param name="url"> The URL of the audio content. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ChatCompletionsResponseFormat(string type, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ChatMessageInputAudioUrl(string url, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Type = type;
+            Url = url;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The response format type to use for chat completions. </summary>
-        internal string Type { get; set; }
+        /// <summary> Initializes a new instance of <see cref="ChatMessageInputAudioUrl"/> for deserialization. </summary>
+        internal ChatMessageInputAudioUrl()
+        {
+        }
+
+        /// <summary> The URL of the audio content. </summary>
+        public string Url { get; }
     }
 }

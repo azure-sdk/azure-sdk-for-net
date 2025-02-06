@@ -13,15 +13,15 @@ using NUnit.Framework;
 
 namespace Azure.AI.Inference.Samples
 {
-    public partial class Samples_EmbeddingsClient
+    public partial class Samples_ImageEmbeddingsClient
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Client2_GetModelInfo_MaximumSetModelInformation()
+        public void Example_Client3_GetModelInfo_MaximumSetModelInformation()
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            EmbeddingsClient client = new EmbeddingsClient(endpoint, credential);
+            ImageEmbeddingsClient client = new ImageEmbeddingsClient(endpoint, credential);
 
             Response response = client.GetModelInfo(null);
 
@@ -33,11 +33,11 @@ namespace Azure.AI.Inference.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Client2_GetModelInfo_MaximumSetModelInformation_Async()
+        public async Task Example_Client3_GetModelInfo_MaximumSetModelInformation_Async()
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            EmbeddingsClient client = new EmbeddingsClient(endpoint, credential);
+            ImageEmbeddingsClient client = new ImageEmbeddingsClient(endpoint, credential);
 
             Response response = await client.GetModelInfoAsync(null);
 
@@ -49,33 +49,33 @@ namespace Azure.AI.Inference.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Client2_GetModelInfo_MaximumSetModelInformation_Convenience()
+        public void Example_Client3_GetModelInfo_MaximumSetModelInformation_Convenience()
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            EmbeddingsClient client = new EmbeddingsClient(endpoint, credential);
+            ImageEmbeddingsClient client = new ImageEmbeddingsClient(endpoint, credential);
 
             Response<ModelInfo> response = client.GetModelInfo();
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Client2_GetModelInfo_MaximumSetModelInformation_Convenience_Async()
+        public async Task Example_Client3_GetModelInfo_MaximumSetModelInformation_Convenience_Async()
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            EmbeddingsClient client = new EmbeddingsClient(endpoint, credential);
+            ImageEmbeddingsClient client = new ImageEmbeddingsClient(endpoint, credential);
 
             Response<ModelInfo> response = await client.GetModelInfoAsync();
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Client2_GetModelInfo_MinimumSetModelInformation()
+        public void Example_Client3_GetModelInfo_MinimumSetModelInformation()
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            EmbeddingsClient client = new EmbeddingsClient(endpoint, credential);
+            ImageEmbeddingsClient client = new ImageEmbeddingsClient(endpoint, credential);
 
             Response response = client.GetModelInfo(null);
 
@@ -87,11 +87,11 @@ namespace Azure.AI.Inference.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Client2_GetModelInfo_MinimumSetModelInformation_Async()
+        public async Task Example_Client3_GetModelInfo_MinimumSetModelInformation_Async()
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            EmbeddingsClient client = new EmbeddingsClient(endpoint, credential);
+            ImageEmbeddingsClient client = new ImageEmbeddingsClient(endpoint, credential);
 
             Response response = await client.GetModelInfoAsync(null);
 
@@ -103,22 +103,22 @@ namespace Azure.AI.Inference.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_Client2_GetModelInfo_MinimumSetModelInformation_Convenience()
+        public void Example_Client3_GetModelInfo_MinimumSetModelInformation_Convenience()
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            EmbeddingsClient client = new EmbeddingsClient(endpoint, credential);
+            ImageEmbeddingsClient client = new ImageEmbeddingsClient(endpoint, credential);
 
             Response<ModelInfo> response = client.GetModelInfo();
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_Client2_GetModelInfo_MinimumSetModelInformation_Convenience_Async()
+        public async Task Example_Client3_GetModelInfo_MinimumSetModelInformation_Convenience_Async()
         {
             Uri endpoint = new Uri("<endpoint>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            EmbeddingsClient client = new EmbeddingsClient(endpoint, credential);
+            ImageEmbeddingsClient client = new ImageEmbeddingsClient(endpoint, credential);
 
             Response<ModelInfo> response = await client.GetModelInfoAsync();
         }
