@@ -10,11 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Compute.Batch
 {
-    /// <summary>
-    /// Specifies the ephemeral Disk Settings for the operating system disk used by the
-    /// compute node (VM).
-    /// </summary>
-    public partial class DiffDiskSettings
+    /// <summary> The entry of path and mount mode you want to mount into task container. </summary>
+    public partial class ContainerHostBatchBindMountEntry
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -48,21 +45,25 @@ namespace Azure.Compute.Batch
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="DiffDiskSettings"/>. </summary>
-        public DiffDiskSettings()
+        /// <summary> Initializes a new instance of <see cref="ContainerHostBatchBindMountEntry"/>. </summary>
+        public ContainerHostBatchBindMountEntry()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="DiffDiskSettings"/>. </summary>
-        /// <param name="placement"> Specifies the ephemeral disk placement for operating system disk for all VMs in the pool. This property can be used by user in the request to choose the location e.g., cache disk space for Ephemeral OS disk provisioning. For more information on Ephemeral OS disk size requirements, please refer to Ephemeral OS disk size requirements for Windows VMs at https://learn.microsoft.com/azure/virtual-machines/windows/ephemeral-os-disks#size-requirements and Linux VMs at https://learn.microsoft.com/azure/virtual-machines/linux/ephemeral-os-disks#size-requirements. </param>
+        /// <summary> Initializes a new instance of <see cref="ContainerHostBatchBindMountEntry"/>. </summary>
+        /// <param name="source"> The path which be mounted to container customer can select. </param>
+        /// <param name="isReadOnly"> Mount this source path as read-only mode or not. Default value is false (read/write mode). For Linux, if you mount this path as a read/write mode, this does not mean that all users in container have the read/write access for the path, it depends on the access in host VM. If this path is mounted read-only, all users within the container will not be able to modify the path. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DiffDiskSettings(DiffDiskPlacement? placement, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ContainerHostBatchBindMountEntry(ContainerHostDataPath? source, bool? isReadOnly, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Placement = placement;
+            Source = source;
+            IsReadOnly = isReadOnly;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Specifies the ephemeral disk placement for operating system disk for all VMs in the pool. This property can be used by user in the request to choose the location e.g., cache disk space for Ephemeral OS disk provisioning. For more information on Ephemeral OS disk size requirements, please refer to Ephemeral OS disk size requirements for Windows VMs at https://learn.microsoft.com/azure/virtual-machines/windows/ephemeral-os-disks#size-requirements and Linux VMs at https://learn.microsoft.com/azure/virtual-machines/linux/ephemeral-os-disks#size-requirements. </summary>
-        public DiffDiskPlacement? Placement { get; set; }
+        /// <summary> The path which be mounted to container customer can select. </summary>
+        public ContainerHostDataPath? Source { get; set; }
+        /// <summary> Mount this source path as read-only mode or not. Default value is false (read/write mode). For Linux, if you mount this path as a read/write mode, this does not mean that all users in container have the read/write access for the path, it depends on the access in host VM. If this path is mounted read-only, all users within the container will not be able to modify the path. </summary>
+        public bool? IsReadOnly { get; set; }
     }
 }
