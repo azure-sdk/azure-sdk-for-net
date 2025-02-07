@@ -25,6 +25,7 @@ namespace Azure.Compute.Batch
         private const string TaskSuccessValue = "tasksuccess";
         private const string TaskFailureValue = "taskfailure";
         private const string TaskCompletionValue = "taskcompletion";
+        private const string TaskCancelledValue = "taskcancelled";
 
         /// <summary> Upload the file(s) only after the Task process exits with an exit code of 0. </summary>
         public static OutputFileUploadCondition TaskSuccess { get; } = new OutputFileUploadCondition(TaskSuccessValue);
@@ -32,6 +33,8 @@ namespace Azure.Compute.Batch
         public static OutputFileUploadCondition TaskFailure { get; } = new OutputFileUploadCondition(TaskFailureValue);
         /// <summary> Upload the file(s) after the Task process exits, no matter what the exit code was. </summary>
         public static OutputFileUploadCondition TaskCompletion { get; } = new OutputFileUploadCondition(TaskCompletionValue);
+        /// <summary> Upload the file(s) after the Task process exits, no matter what the exit code was. </summary>
+        public static OutputFileUploadCondition TaskCancelled { get; } = new OutputFileUploadCondition(TaskCancelledValue);
         /// <summary> Determines if two <see cref="OutputFileUploadCondition"/> values are the same. </summary>
         public static bool operator ==(OutputFileUploadCondition left, OutputFileUploadCondition right) => left.Equals(right);
         /// <summary> Determines if two <see cref="OutputFileUploadCondition"/> values are not the same. </summary>
