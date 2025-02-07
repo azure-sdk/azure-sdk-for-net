@@ -10,14 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.Inference
 {
-    /// <summary>
-    /// Represents the format that the model must output. Use this to enable JSON mode instead of the default text mode.
-    /// Note that to enable JSON mode, some AI models may also require you to instruct the model to produce JSON
-    /// via a system or user message.
-    /// Please note <see cref="ChatCompletionsResponseFormat"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="ChatCompletionsResponseFormatJsonObject"/> and <see cref="ChatCompletionsResponseFormatText"/>.
-    /// </summary>
-    public abstract partial class ChatCompletionsResponseFormat
+    /// <summary> The details of the input audio data. </summary>
+    internal partial class ChatMessageInputAudio
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -49,23 +43,39 @@ namespace Azure.AI.Inference
         /// </list>
         /// </para>
         /// </summary>
-        private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ChatCompletionsResponseFormat"/>. </summary>
-        protected ChatCompletionsResponseFormat()
+        /// <summary> Initializes a new instance of <see cref="ChatMessageInputAudio"/>. </summary>
+        /// <param name="data"> Base64 encoded audio data. </param>
+        /// <param name="format"> The audio format of the audio content. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
+        public ChatMessageInputAudio(string data, AudioContentFormat format)
         {
+            Argument.AssertNotNull(data, nameof(data));
+
+            Data = data;
+            Format = format;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ChatCompletionsResponseFormat"/>. </summary>
-        /// <param name="type"> The response format type to use for chat completions. </param>
+        /// <summary> Initializes a new instance of <see cref="ChatMessageInputAudio"/>. </summary>
+        /// <param name="data"> Base64 encoded audio data. </param>
+        /// <param name="format"> The audio format of the audio content. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ChatCompletionsResponseFormat(string type, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ChatMessageInputAudio(string data, AudioContentFormat format, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Type = type;
+            Data = data;
+            Format = format;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The response format type to use for chat completions. </summary>
-        internal string Type { get; set; }
+        /// <summary> Initializes a new instance of <see cref="ChatMessageInputAudio"/> for deserialization. </summary>
+        internal ChatMessageInputAudio()
+        {
+        }
+
+        /// <summary> Base64 encoded audio data. </summary>
+        public string Data { get; }
+        /// <summary> The audio format of the audio content. </summary>
+        public AudioContentFormat Format { get; }
     }
 }
