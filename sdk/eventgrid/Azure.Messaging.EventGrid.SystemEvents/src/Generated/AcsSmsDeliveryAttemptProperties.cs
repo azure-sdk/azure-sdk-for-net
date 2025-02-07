@@ -46,10 +46,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsSmsDeliveryAttemptProperties"/>. </summary>
-        /// <param name="timestamp"> TimeStamp when delivery was attempted. </param>
-        internal AcsSmsDeliveryAttemptProperties(DateTimeOffset timestamp)
+        /// <param name="segmentsSucceeded"> Number of segments that were successfully delivered. </param>
+        /// <param name="segmentsFailed"> Number of segments whose delivery failed. </param>
+        internal AcsSmsDeliveryAttemptProperties(int segmentsSucceeded, int segmentsFailed)
         {
-            Timestamp = timestamp;
+            SegmentsSucceeded = segmentsSucceeded;
+            SegmentsFailed = segmentsFailed;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsSmsDeliveryAttemptProperties"/>. </summary>
@@ -57,7 +59,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="segmentsSucceeded"> Number of segments that were successfully delivered. </param>
         /// <param name="segmentsFailed"> Number of segments whose delivery failed. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AcsSmsDeliveryAttemptProperties(DateTimeOffset timestamp, int? segmentsSucceeded, int? segmentsFailed, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AcsSmsDeliveryAttemptProperties(DateTimeOffset? timestamp, int segmentsSucceeded, int segmentsFailed, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Timestamp = timestamp;
             SegmentsSucceeded = segmentsSucceeded;
@@ -71,10 +73,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         }
 
         /// <summary> TimeStamp when delivery was attempted. </summary>
-        public DateTimeOffset Timestamp { get; }
+        public DateTimeOffset? Timestamp { get; }
         /// <summary> Number of segments that were successfully delivered. </summary>
-        public int? SegmentsSucceeded { get; }
+        public int SegmentsSucceeded { get; }
         /// <summary> Number of segments whose delivery failed. </summary>
-        public int? SegmentsFailed { get; }
+        public int SegmentsFailed { get; }
     }
 }

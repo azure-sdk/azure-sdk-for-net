@@ -34,18 +34,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 throw new FormatException($"The model {nameof(AcsSmsDeliveryAttemptProperties)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("timestamp"u8);
-            writer.WriteStringValue(Timestamp, "O");
-            if (Optional.IsDefined(SegmentsSucceeded))
+            if (Optional.IsDefined(Timestamp))
             {
-                writer.WritePropertyName("segmentsSucceeded"u8);
-                writer.WriteNumberValue(SegmentsSucceeded.Value);
+                writer.WritePropertyName("timestamp"u8);
+                writer.WriteStringValue(Timestamp.Value, "O");
             }
-            if (Optional.IsDefined(SegmentsFailed))
-            {
-                writer.WritePropertyName("segmentsFailed"u8);
-                writer.WriteNumberValue(SegmentsFailed.Value);
-            }
+            writer.WritePropertyName("segmentsSucceeded"u8);
+            writer.WriteNumberValue(SegmentsSucceeded);
+            writer.WritePropertyName("segmentsFailed"u8);
+            writer.WriteNumberValue(SegmentsFailed);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -83,33 +80,29 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            DateTimeOffset timestamp = default;
-            int? segmentsSucceeded = default;
-            int? segmentsFailed = default;
+            DateTimeOffset? timestamp = default;
+            int segmentsSucceeded = default;
+            int segmentsFailed = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("timestamp"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     timestamp = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
                 if (property.NameEquals("segmentsSucceeded"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     segmentsSucceeded = property.Value.GetInt32();
                     continue;
                 }
                 if (property.NameEquals("segmentsFailed"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     segmentsFailed = property.Value.GetInt32();
                     continue;
                 }
