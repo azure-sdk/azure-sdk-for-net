@@ -10,11 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Compute.Batch
 {
-    /// <summary>
-    /// Specifies the ephemeral Disk Settings for the operating system disk used by the
-    /// compute node (VM).
-    /// </summary>
-    public partial class DiffDiskSettings
+    /// <summary> Parameters for reimaging an Azure Batch Compute Node. </summary>
+    public partial class BatchNodeReimageContent
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -48,21 +45,21 @@ namespace Azure.Compute.Batch
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="DiffDiskSettings"/>. </summary>
-        public DiffDiskSettings()
+        /// <summary> Initializes a new instance of <see cref="BatchNodeReimageContent"/>. </summary>
+        public BatchNodeReimageContent()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="DiffDiskSettings"/>. </summary>
-        /// <param name="placement"> Specifies the ephemeral disk placement for operating system disk for all VMs in the pool. This property can be used by user in the request to choose the location e.g., cache disk space for Ephemeral OS disk provisioning. For more information on Ephemeral OS disk size requirements, please refer to Ephemeral OS disk size requirements for Windows VMs at https://learn.microsoft.com/azure/virtual-machines/windows/ephemeral-os-disks#size-requirements and Linux VMs at https://learn.microsoft.com/azure/virtual-machines/linux/ephemeral-os-disks#size-requirements. </param>
+        /// <summary> Initializes a new instance of <see cref="BatchNodeReimageContent"/>. </summary>
+        /// <param name="nodeReimageOption"> When to reimage the Compute Node and what to do with currently running Tasks. The default value is requeue. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DiffDiskSettings(DiffDiskPlacement? placement, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BatchNodeReimageContent(BatchNodeReimageOption? nodeReimageOption, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Placement = placement;
+            NodeReimageOption = nodeReimageOption;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Specifies the ephemeral disk placement for operating system disk for all VMs in the pool. This property can be used by user in the request to choose the location e.g., cache disk space for Ephemeral OS disk provisioning. For more information on Ephemeral OS disk size requirements, please refer to Ephemeral OS disk size requirements for Windows VMs at https://learn.microsoft.com/azure/virtual-machines/windows/ephemeral-os-disks#size-requirements and Linux VMs at https://learn.microsoft.com/azure/virtual-machines/linux/ephemeral-os-disks#size-requirements. </summary>
-        public DiffDiskPlacement? Placement { get; set; }
+        /// <summary> When to reimage the Compute Node and what to do with currently running Tasks. The default value is requeue. </summary>
+        public BatchNodeReimageOption? NodeReimageOption { get; set; }
     }
 }
