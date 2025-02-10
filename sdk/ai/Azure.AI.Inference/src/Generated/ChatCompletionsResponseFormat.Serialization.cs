@@ -13,7 +13,7 @@ using Azure.Core;
 namespace Azure.AI.Inference
 {
     [PersistableModelProxy(typeof(UnknownChatCompletionsResponseFormat))]
-    public partial class ChatCompletionsResponseFormat : IUtf8JsonSerializable, IJsonModel<ChatCompletionsResponseFormat>
+    internal partial class ChatCompletionsResponseFormat : IUtf8JsonSerializable, IJsonModel<ChatCompletionsResponseFormat>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ChatCompletionsResponseFormat>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
@@ -77,7 +77,8 @@ namespace Azure.AI.Inference
             {
                 switch (discriminator.GetString())
                 {
-                    case "json_object": return ChatCompletionsResponseFormatJSON.DeserializeChatCompletionsResponseFormatJSON(element, options);
+                    case "json_object": return ChatCompletionsResponseFormatJsonObject.DeserializeChatCompletionsResponseFormatJsonObject(element, options);
+                    case "json_schema": return ChatCompletionsResponseFormatJsonSchema.DeserializeChatCompletionsResponseFormatJsonSchema(element, options);
                     case "text": return ChatCompletionsResponseFormatText.DeserializeChatCompletionsResponseFormatText(element, options);
                 }
             }

@@ -1,3 +1,4 @@
 directory: specification/ai/ModelClient
-repo: trangevi/azure-rest-api-specs
-commit: aa97e50e44d2c620c92e5a4c791bb387a741d64c
+commit: 72facf0e9c60036ab1afea24957fa8f99fd885c4
+repo: Azure/azure-rest-api-specs
+additionalDirectories: 
