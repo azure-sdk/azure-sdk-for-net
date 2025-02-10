@@ -1,0 +1,4 @@
+directory: specification/ai/Azure.AI.Evaluations
+commit: 985d9a014e6eb451627aa82ae3071aaa5f8d6c93
+repo: Azure/azure-rest-api-specs
+additionalDirectories: 
