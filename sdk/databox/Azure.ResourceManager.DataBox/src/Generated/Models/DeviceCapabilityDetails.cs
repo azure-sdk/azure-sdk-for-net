@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.DataBox.Models
 {
-    /// <summary> Request body to get the transport availability for given sku. </summary>
-    public partial class TransportAvailabilityRequest
+    /// <summary> Device capability details for a given sku for a given region. </summary>
+    public partial class DeviceCapabilityDetails
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,25 +45,21 @@ namespace Azure.ResourceManager.DataBox.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="TransportAvailabilityRequest"/>. </summary>
-        public TransportAvailabilityRequest()
+        /// <summary> Initializes a new instance of <see cref="DeviceCapabilityDetails"/>. </summary>
+        internal DeviceCapabilityDetails()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="TransportAvailabilityRequest"/>. </summary>
-        /// <param name="skuName"> Type of the device. </param>
-        /// <param name="model"> The customer friendly name of the combination of version and capacity of the device. This field is necessary only at the time of ordering the newer generation device i.e. AzureDataBox120 and AzureDataBox525 as of Feb/2025. </param>
+        /// <summary> Initializes a new instance of <see cref="DeviceCapabilityDetails"/>. </summary>
+        /// <param name="hardwareEncryption"> Hardware encryption support for a given sku for a given region. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TransportAvailabilityRequest(DataBoxSkuName? skuName, ModelName? model, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DeviceCapabilityDetails(HardwareEncryption? hardwareEncryption, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            SkuName = skuName;
-            Model = model;
+            HardwareEncryption = hardwareEncryption;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Type of the device. </summary>
-        public DataBoxSkuName? SkuName { get; set; }
-        /// <summary> The customer friendly name of the combination of version and capacity of the device. This field is necessary only at the time of ordering the newer generation device i.e. AzureDataBox120 and AzureDataBox525 as of Feb/2025. </summary>
-        public ModelName? Model { get; set; }
+        /// <summary> Hardware encryption support for a given sku for a given region. </summary>
+        public HardwareEncryption? HardwareEncryption { get; }
     }
 }
