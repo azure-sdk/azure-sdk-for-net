@@ -6,33 +6,33 @@
 #nullable disable
 
 using System;
-using Azure.AI.Projects;
+using Azure.AI.Telemetry;
 using Azure.Core.Extensions;
 
 namespace Microsoft.Extensions.Azure
 {
-    /// <summary> Extension methods to add <see cref="AgentsClient"/> to client builder. </summary>
-    public static partial class AIProjectsClientBuilderExtensions
+    /// <summary> Extension methods to add <see cref="AITelemetryClient"/> to client builder. </summary>
+    public static partial class AITelemetryClientBuilderExtensions
     {
-        /// <summary> Registers a <see cref="AgentsClient"/> instance. </summary>
+        /// <summary> Registers a <see cref="AITelemetryClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint"> The Azure AI Foundry project endpoint, in the form `https://&lt;azure-region&gt;.api.azureml.ms` or `https://&lt;private-link-guid&gt;.&lt;azure-region&gt;.api.azureml.ms`, where &lt;azure-region&gt; is the Azure region where the project is deployed (e.g. westus) and &lt;private-link-guid&gt; is the GUID of the Enterprise private link. </param>
         /// <param name="subscriptionId"> The Azure subscription ID. </param>
         /// <param name="resourceGroupName"> The name of the Azure Resource Group. </param>
         /// <param name="projectName"> The Azure AI Foundry project name. </param>
-        public static IAzureClientBuilder<AgentsClient, AgentsClientOptions> AddAgentsClient<TBuilder>(this TBuilder builder, Uri endpoint, string subscriptionId, string resourceGroupName, string projectName)
+        public static IAzureClientBuilder<AITelemetryClient, AITelemetryClientOptions> AddAITelemetryClient<TBuilder>(this TBuilder builder, Uri endpoint, string subscriptionId, string resourceGroupName, string projectName)
         where TBuilder : IAzureClientFactoryBuilderWithCredential
         {
-            return builder.RegisterClientFactory<AgentsClient, AgentsClientOptions>((options, cred) => new AgentsClient(endpoint, subscriptionId, resourceGroupName, projectName, cred, options));
+            return builder.RegisterClientFactory<AITelemetryClient, AITelemetryClientOptions>((options, cred) => new AITelemetryClient(endpoint, subscriptionId, resourceGroupName, projectName, cred, options));
         }
 
-        /// <summary> Registers a <see cref="AgentsClient"/> instance. </summary>
+        /// <summary> Registers a <see cref="AITelemetryClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="configuration"> The configuration values. </param>
-        public static IAzureClientBuilder<AgentsClient, AgentsClientOptions> AddAgentsClient<TBuilder, TConfiguration>(this TBuilder builder, TConfiguration configuration)
+        public static IAzureClientBuilder<AITelemetryClient, AITelemetryClientOptions> AddAITelemetryClient<TBuilder, TConfiguration>(this TBuilder builder, TConfiguration configuration)
         where TBuilder : IAzureClientFactoryBuilderWithConfiguration<TConfiguration>
         {
-            return builder.RegisterClientFactory<AgentsClient, AgentsClientOptions>(configuration);
+            return builder.RegisterClientFactory<AITelemetryClient, AITelemetryClientOptions>(configuration);
         }
     }
 }

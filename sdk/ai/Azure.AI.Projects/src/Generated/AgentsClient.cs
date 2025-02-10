@@ -16,8 +16,8 @@ using Azure.Core.Pipeline;
 
 namespace Azure.AI.Projects
 {
-    // Data plane generated sub-client.
-    /// <summary> The Agents sub-client. </summary>
+    // Data plane generated client.
+    /// <summary> The Agents service client. </summary>
     public partial class AgentsClient
     {
         private static readonly string[] AuthorizationScopes = new string[] { "https://management.azure.com/.default" };
@@ -41,24 +41,31 @@ namespace Azure.AI.Projects
         }
 
         /// <summary> Initializes a new instance of AgentsClient. </summary>
-        /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
-        /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
-        /// <param name="tokenCredential"> The token credential to copy. </param>
         /// <param name="endpoint"> The Azure AI Foundry project endpoint, in the form `https://&lt;azure-region&gt;.api.azureml.ms` or `https://&lt;private-link-guid&gt;.&lt;azure-region&gt;.api.azureml.ms`, where &lt;azure-region&gt; is the Azure region where the project is deployed (e.g. westus) and &lt;private-link-guid&gt; is the GUID of the Enterprise private link. </param>
         /// <param name="subscriptionId"> The Azure subscription ID. </param>
         /// <param name="resourceGroupName"> The name of the Azure Resource Group. </param>
         /// <param name="projectName"> The Azure AI Foundry project name. </param>
-        /// <param name="apiVersion"> The API version to use for this operation. </param>
-        internal AgentsClient(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, TokenCredential tokenCredential, Uri endpoint, string subscriptionId, string resourceGroupName, string projectName, string apiVersion)
+        /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
+        /// <param name="options"> The options for configuring the client. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="projectName"/> or <paramref name="credential"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
+        public AgentsClient(Uri endpoint, string subscriptionId, string resourceGroupName, string projectName, TokenCredential credential, AgentsClientOptions options)
         {
-            ClientDiagnostics = clientDiagnostics;
-            _pipeline = pipeline;
-            _tokenCredential = tokenCredential;
+            Argument.AssertNotNull(endpoint, nameof(endpoint));
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
+            Argument.AssertNotNull(credential, nameof(credential));
+            options ??= new AgentsClientOptions();
+
+            ClientDiagnostics = new ClientDiagnostics(options, true);
+            _tokenCredential = credential;
+            _pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>(), new HttpPipelinePolicy[] { new BearerTokenAuthenticationPolicy(_tokenCredential, AuthorizationScopes) }, new ResponseClassifier());
             _endpoint = endpoint;
             _subscriptionId = subscriptionId;
             _resourceGroupName = resourceGroupName;
             _projectName = projectName;
-            _apiVersion = apiVersion;
+            _apiVersion = options.Version;
         }
 
         /// <summary> Creates a new agent. </summary>
