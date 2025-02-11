@@ -742,8 +742,8 @@ namespace Azure.ResourceManager.ApplicationInsights.Models
     {
         public ApplicationInsightsComponentProactiveDetectionConfiguration() { }
         public System.Collections.Generic.IList<string> CustomEmails { get { throw null; } }
-        public bool? IsEnabled { get { throw null; } set { } }
-        public System.DateTimeOffset? LastUpdatedOn { get { throw null; } set { } }
+        public bool? Enabled { get { throw null; } set { } }
+        public string LastUpdatedTime { get { throw null; } set { } }
         public string Name { get { throw null; } set { } }
         public Azure.ResourceManager.ApplicationInsights.Models.ApplicationInsightsComponentProactiveDetectionConfigurationRuleDefinitions RuleDefinitions { get { throw null; } set { } }
         public bool? SendEmailsToSubscriptionOwners { get { throw null; } set { } }
