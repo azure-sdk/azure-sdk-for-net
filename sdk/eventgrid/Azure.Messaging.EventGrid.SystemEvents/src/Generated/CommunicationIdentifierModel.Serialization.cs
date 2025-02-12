@@ -34,8 +34,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 throw new FormatException($"The model {nameof(CommunicationIdentifierModel)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("kind"u8);
-            writer.WriteStringValue(Kind.ToString());
+            if (Optional.IsDefined(Kind))
+            {
+                writer.WritePropertyName("kind"u8);
+                writer.WriteStringValue(Kind.Value.ToString());
+            }
             if (Optional.IsDefined(RawId))
             {
                 writer.WritePropertyName("rawId"u8);
@@ -43,12 +46,21 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
             writer.WritePropertyName("communicationUser"u8);
             writer.WriteObjectValue(CommunicationUser, options);
-            writer.WritePropertyName("phoneNumber"u8);
-            writer.WriteObjectValue(PhoneNumber, options);
-            writer.WritePropertyName("microsoftTeamsUser"u8);
-            writer.WriteObjectValue(MicrosoftTeamsUser, options);
-            writer.WritePropertyName("microsoftTeamsApp"u8);
-            writer.WriteObjectValue(MicrosoftTeamsApp, options);
+            if (Optional.IsDefined(PhoneNumber))
+            {
+                writer.WritePropertyName("phoneNumber"u8);
+                writer.WriteObjectValue(PhoneNumber, options);
+            }
+            if (Optional.IsDefined(MicrosoftTeamsUser))
+            {
+                writer.WritePropertyName("microsoftTeamsUser"u8);
+                writer.WriteObjectValue(MicrosoftTeamsUser, options);
+            }
+            if (Optional.IsDefined(MicrosoftTeamsApp))
+            {
+                writer.WritePropertyName("microsoftTeamsApp"u8);
+                writer.WriteObjectValue(MicrosoftTeamsApp, options);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -86,7 +98,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            CommunicationIdentifierModelKind kind = default;
+            CommunicationIdentifierModelKind? kind = default;
             string rawId = default;
             CommunicationUserIdentifierModel communicationUser = default;
             PhoneNumberIdentifierModel phoneNumber = default;
@@ -98,6 +110,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 if (property.NameEquals("kind"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     kind = new CommunicationIdentifierModelKind(property.Value.GetString());
                     continue;
                 }
@@ -113,16 +129,28 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("phoneNumber"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     phoneNumber = PhoneNumberIdentifierModel.DeserializePhoneNumberIdentifierModel(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("microsoftTeamsUser"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     microsoftTeamsUser = MicrosoftTeamsUserIdentifierModel.DeserializeMicrosoftTeamsUserIdentifierModel(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("microsoftTeamsApp"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     microsoftTeamsApp = MicrosoftTeamsAppIdentifierModel.DeserializeMicrosoftTeamsAppIdentifierModel(property.Value, options);
                     continue;
                 }

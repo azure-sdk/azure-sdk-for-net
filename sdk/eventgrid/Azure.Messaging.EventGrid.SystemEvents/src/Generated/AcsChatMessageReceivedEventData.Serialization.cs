@@ -40,14 +40,17 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("messageBody"u8);
                 writer.WriteStringValue(MessageBody);
             }
-            writer.WritePropertyName("metadata"u8);
-            writer.WriteStartObject();
-            foreach (var item in Metadata)
+            if (Optional.IsCollectionDefined(Metadata))
             {
-                writer.WritePropertyName(item.Key);
-                writer.WriteStringValue(item.Value);
+                writer.WritePropertyName("metadata"u8);
+                writer.WriteStartObject();
+                foreach (var item in Metadata)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
             }
-            writer.WriteEndObject();
         }
 
         AcsChatMessageReceivedEventData IJsonModel<AcsChatMessageReceivedEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -75,7 +78,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             string messageId = default;
             CommunicationIdentifierModel senderCommunicationIdentifier = default;
             string senderDisplayName = default;
-            DateTimeOffset composeTime = default;
+            DateTimeOffset? composeTime = default;
             string type = default;
             long? version = default;
             CommunicationIdentifierModel recipientCommunicationIdentifier = default;
@@ -92,6 +95,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("metadata"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     Dictionary<string, string> dictionary = new Dictionary<string, string>();
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
@@ -117,6 +124,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("composeTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     composeTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
@@ -167,7 +178,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 type,
                 version,
                 messageBody,
-                metadata);
+                metadata ?? new ChangeTrackingDictionary<string, string>());
         }
 
         BinaryData IPersistableModel<AcsChatMessageReceivedEventData>.Write(ModelReaderWriterOptions options)

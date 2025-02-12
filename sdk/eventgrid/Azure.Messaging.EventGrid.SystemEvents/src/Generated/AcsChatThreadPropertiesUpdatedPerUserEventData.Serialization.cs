@@ -37,16 +37,22 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             base.JsonModelWriteCore(writer, options);
             writer.WritePropertyName("editedByCommunicationIdentifier"u8);
             writer.WriteObjectValue(EditedByCommunicationIdentifier, options);
-            writer.WritePropertyName("editTime"u8);
-            writer.WriteStringValue(EditTime, "O");
-            writer.WritePropertyName("metadata"u8);
-            writer.WriteStartObject();
-            foreach (var item in Metadata)
+            if (Optional.IsDefined(EditTime))
             {
-                writer.WritePropertyName(item.Key);
-                writer.WriteStringValue(item.Value);
+                writer.WritePropertyName("editTime"u8);
+                writer.WriteStringValue(EditTime.Value, "O");
             }
-            writer.WriteEndObject();
+            if (Optional.IsCollectionDefined(Metadata))
+            {
+                writer.WritePropertyName("metadata"u8);
+                writer.WriteStartObject();
+                foreach (var item in Metadata)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
             foreach (var item in Properties)
@@ -90,10 +96,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             CommunicationIdentifierModel editedByCommunicationIdentifier = default;
-            DateTimeOffset editTime = default;
+            DateTimeOffset? editTime = default;
             IReadOnlyDictionary<string, string> metadata = default;
             IReadOnlyDictionary<string, BinaryData> properties = default;
-            DateTimeOffset createTime = default;
+            DateTimeOffset? createTime = default;
             long? version = default;
             CommunicationIdentifierModel recipientCommunicationIdentifier = default;
             string transactionId = default;
@@ -109,11 +115,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("editTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     editTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
                 if (property.NameEquals("metadata"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     Dictionary<string, string> dictionary = new Dictionary<string, string>();
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
@@ -141,6 +155,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("createTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     createTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
@@ -183,7 +201,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 version,
                 editedByCommunicationIdentifier,
                 editTime,
-                metadata,
+                metadata ?? new ChangeTrackingDictionary<string, string>(),
                 properties);
         }
 
