@@ -57,14 +57,17 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 #endif
             }
             writer.WriteEndObject();
-            writer.WritePropertyName("metadata"u8);
-            writer.WriteStartObject();
-            foreach (var item in Metadata)
+            if (Optional.IsCollectionDefined(Metadata))
             {
-                writer.WritePropertyName(item.Key);
-                writer.WriteStringValue(item.Value);
+                writer.WritePropertyName("metadata"u8);
+                writer.WriteStartObject();
+                foreach (var item in Metadata)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
             }
-            writer.WriteEndObject();
             writer.WritePropertyName("participants"u8);
             writer.WriteStartArray();
             foreach (var item in Participants)
@@ -98,7 +101,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             IReadOnlyDictionary<string, BinaryData> properties = default;
             IReadOnlyDictionary<string, string> metadata = default;
             IReadOnlyList<AcsChatThreadParticipantProperties> participants = default;
-            DateTimeOffset createTime = default;
+            DateTimeOffset? createTime = default;
             long? version = default;
             string transactionId = default;
             string threadId = default;
@@ -130,6 +133,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("metadata"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     Dictionary<string, string> dictionary = new Dictionary<string, string>();
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
@@ -150,6 +157,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("createTime"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     createTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
@@ -186,7 +197,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 version,
                 createdByCommunicationIdentifier,
                 properties,
-                metadata,
+                metadata ?? new ChangeTrackingDictionary<string, string>(),
                 participants);
         }
 
