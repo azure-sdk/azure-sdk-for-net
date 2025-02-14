@@ -22,7 +22,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string ReadValue = "read";
+        private const string ReadValue = "Read";
         private const string DeliveredValue = "delivered";
         private const string FailedValue = "failed";
         private const string SentValue = "sent";

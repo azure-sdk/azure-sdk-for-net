@@ -26,6 +26,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private const string CommunicationUserValue = "communicationUser";
         private const string PhoneNumberValue = "phoneNumber";
         private const string MicrosoftTeamsUserValue = "microsoftTeamsUser";
+        private const string MicrosoftTeamsAppValue = "microsoftTeamsApp";
 
         /// <summary> Unknown. </summary>
         public static CommunicationIdentifierModelKind Unknown { get; } = new CommunicationIdentifierModelKind(UnknownValue);
@@ -35,6 +36,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public static CommunicationIdentifierModelKind PhoneNumber { get; } = new CommunicationIdentifierModelKind(PhoneNumberValue);
         /// <summary> Microsoft Teams User. </summary>
         public static CommunicationIdentifierModelKind MicrosoftTeamsUser { get; } = new CommunicationIdentifierModelKind(MicrosoftTeamsUserValue);
+        /// <summary> Microsoft Teams Application. </summary>
+        public static CommunicationIdentifierModelKind MicrosoftTeamsApp { get; } = new CommunicationIdentifierModelKind(MicrosoftTeamsAppValue);
         /// <summary> Determines if two <see cref="CommunicationIdentifierModelKind"/> values are the same. </summary>
         public static bool operator ==(CommunicationIdentifierModelKind left, CommunicationIdentifierModelKind right) => left.Equals(right);
         /// <summary> Determines if two <see cref="CommunicationIdentifierModelKind"/> values are not the same. </summary>
