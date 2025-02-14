@@ -61,15 +61,23 @@ namespace Azure.ResourceManager.HybridConnectivity
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> The endpoint properties. </param>
+        /// <param name="typePropertiesType"> The type of endpoint. </param>
+        /// <param name="resourceId"> The resource Id of the connectivity endpoint (optional). </param>
+        /// <param name="provisioningState"> The resource provisioning state. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HybridConnectivityEndpointData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, HybridConnectivityEndpointProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal HybridConnectivityEndpointData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, Models.Type? typePropertiesType, ResourceIdentifier resourceId, string provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            Properties = properties;
+            TypePropertiesType = typePropertiesType;
+            ResourceId = resourceId;
+            ProvisioningState = provisioningState;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The endpoint properties. </summary>
-        public HybridConnectivityEndpointProperties Properties { get; set; }
+        /// <summary> The type of endpoint. </summary>
+        public Models.Type? TypePropertiesType { get; set; }
+        /// <summary> The resource Id of the connectivity endpoint (optional). </summary>
+        public ResourceIdentifier ResourceId { get; set; }
+        /// <summary> The resource provisioning state. </summary>
+        public string ProvisioningState { get; }
     }
 }

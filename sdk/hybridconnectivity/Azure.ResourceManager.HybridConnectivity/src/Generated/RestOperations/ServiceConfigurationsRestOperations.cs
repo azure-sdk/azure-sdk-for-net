@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2023-03-15";
+            _apiVersion = apiVersion ?? "2024-12-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -69,7 +69,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> API to enumerate registered services in service configurations under a Endpoint Resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="endpointName"/> is null. </exception>
@@ -95,7 +95,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> API to enumerate registered services in service configurations under a Endpoint Resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="endpointName"/> is null. </exception>
@@ -155,7 +155,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Gets the details about the service to the resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="serviceConfigurationName"> The service name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -185,7 +185,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Gets the details about the service to the resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="serviceConfigurationName"> The service name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -253,7 +253,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Create or update a service in serviceConfiguration for the endpoint resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="serviceConfigurationName"> The service name. </param>
         /// <param name="data"> Service details. </param>
@@ -284,7 +284,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Create or update a service in serviceConfiguration for the endpoint resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="serviceConfigurationName"> The service name. </param>
         /// <param name="data"> Service details. </param>
@@ -353,7 +353,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Update the service details in the service configurations of the target resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="serviceConfigurationName"> The service name. </param>
         /// <param name="patch"> Service details. </param>
@@ -383,7 +383,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Update the service details in the service configurations of the target resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="serviceConfigurationName"> The service name. </param>
         /// <param name="patch"> Service details. </param>
@@ -447,7 +447,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Deletes the service details to the target resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="serviceConfigurationName"> The service name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -471,7 +471,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary> Deletes the service details to the target resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="serviceConfigurationName"> The service name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -518,7 +518,7 @@ namespace Azure.ResourceManager.HybridConnectivity
 
         /// <summary> API to enumerate registered services in service configurations under a Endpoint Resource. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="resourceUri"/> or <paramref name="endpointName"/> is null. </exception>
@@ -546,7 +546,7 @@ namespace Azure.ResourceManager.HybridConnectivity
 
         /// <summary> API to enumerate registered services in service configurations under a Endpoint Resource. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="endpointName"> The endpoint name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="resourceUri"/> or <paramref name="endpointName"/> is null. </exception>
