@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.HealthcareApis.Models
 {
-    /// <summary> The configuration of connected storage. </summary>
-    public partial class HealthcareApisServiceStorageConfiguration
+    /// <summary> The configuration for monitoring changes in a connected storage. </summary>
+    public partial class StorageMonitorConfiguration
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,29 +45,29 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceStorageConfiguration"/>. </summary>
-        public HealthcareApisServiceStorageConfiguration()
+        /// <summary> Initializes a new instance of <see cref="StorageMonitorConfiguration"/>. </summary>
+        public StorageMonitorConfiguration()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceStorageConfiguration"/>. </summary>
-        /// <param name="storageResourceId"> The resource id of connected storage account. </param>
-        /// <param name="fileSystemName"> The filesystem name of connected storage account. </param>
-        /// <param name="storageMonitorConfiguration"> The configuration for monitoring changes in the specified storage account. </param>
+        /// <summary> Initializes a new instance of <see cref="StorageMonitorConfiguration"/>. </summary>
+        /// <param name="namespaceResourceId"> The resource id of the Azure Event Grid Namespace. </param>
+        /// <param name="topicName"> The name of the namespace topic within the specified namespace. </param>
+        /// <param name="eventSubscriptionName"> The name of the event subscription associated with the given namespace topic that contains storage events. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthcareApisServiceStorageConfiguration(ResourceIdentifier storageResourceId, string fileSystemName, StorageMonitorConfiguration storageMonitorConfiguration, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal StorageMonitorConfiguration(string namespaceResourceId, string topicName, string eventSubscriptionName, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            StorageResourceId = storageResourceId;
-            FileSystemName = fileSystemName;
-            StorageMonitorConfiguration = storageMonitorConfiguration;
+            NamespaceResourceId = namespaceResourceId;
+            TopicName = topicName;
+            EventSubscriptionName = eventSubscriptionName;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The resource id of connected storage account. </summary>
-        public ResourceIdentifier StorageResourceId { get; set; }
-        /// <summary> The filesystem name of connected storage account. </summary>
-        public string FileSystemName { get; set; }
-        /// <summary> The configuration for monitoring changes in the specified storage account. </summary>
-        public StorageMonitorConfiguration StorageMonitorConfiguration { get; set; }
+        /// <summary> The resource id of the Azure Event Grid Namespace. </summary>
+        public string NamespaceResourceId { get; set; }
+        /// <summary> The name of the namespace topic within the specified namespace. </summary>
+        public string TopicName { get; set; }
+        /// <summary> The name of the event subscription associated with the given namespace topic that contains storage events. </summary>
+        public string EventSubscriptionName { get; set; }
     }
 }
