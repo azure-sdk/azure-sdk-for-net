@@ -38,6 +38,14 @@ namespace Azure.AI.Inference
             return new ChatMessageTextContentItem("text", serializedAdditionalRawData: null, text);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Inference.ChatMessageAudioContentItem"/>. </summary>
+        /// <param name="inputAudio"> The details of the input audio. </param>
+        /// <returns> A new <see cref="Inference.ChatMessageAudioContentItem"/> instance for mocking. </returns>
+        public static ChatMessageAudioContentItem ChatMessageAudioContentItem(ChatMessageInputAudio inputAudio = null)
+        {
+            return new ChatMessageAudioContentItem("input_audio", serializedAdditionalRawData: null, inputAudio);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Inference.ChatCompletionsToolCall"/>. </summary>
         /// <param name="id"> The ID of the tool call. </param>
         /// <param name="type"> The type of tool call. Currently, only `function` is supported. </param>
@@ -55,6 +63,36 @@ namespace Azure.AI.Inference
         public static ChatRequestToolMessage ChatRequestToolMessage(string content = null, string toolCallId = null)
         {
             return new ChatRequestToolMessage(ChatRole.Tool, serializedAdditionalRawData: null, content, toolCallId);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Inference.ChatCompletionsResponseFormatJsonSchema"/>. </summary>
+        /// <param name="jsonSchema"> The definition of the required JSON schema in the response, and associated metadata. </param>
+        /// <returns> A new <see cref="Inference.ChatCompletionsResponseFormatJsonSchema"/> instance for mocking. </returns>
+        public static ChatCompletionsResponseFormatJsonSchema ChatCompletionsResponseFormatJsonSchema(ChatCompletionsResponseFormatJsonSchemaDefinition jsonSchema = null)
+        {
+            return new ChatCompletionsResponseFormatJsonSchema("json_schema", serializedAdditionalRawData: null, jsonSchema);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Inference.ChatCompletionsResponseFormatJsonSchemaDefinition"/>. </summary>
+        /// <param name="name"> A name that labels this JSON schema. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64. </param>
+        /// <param name="schema">
+        /// The definition of the JSON schema. See https://json-schema.org/overview/what-is-jsonschema.
+        /// Note that AI models usually only support a subset of the keywords defined by JSON schema.
+        /// Consult your AI model documentation to determine what is supported.
+        /// </param>
+        /// <param name="description"> A description of the response format, used by the AI model to determine how to generate responses in this format. </param>
+        /// <param name="strict">
+        /// If set to true, the service will error out if the provided JSON schema contains keywords
+        /// not supported by the AI model. An example of such keyword may be `maxLength` for JSON type `string`.
+        /// If false, and the provided JSON schema contains keywords not supported by the AI model,
+        /// the AI model will not error out. Instead it will ignore the unsupported keywords.
+        /// </param>
+        /// <returns> A new <see cref="Inference.ChatCompletionsResponseFormatJsonSchemaDefinition"/> instance for mocking. </returns>
+        public static ChatCompletionsResponseFormatJsonSchemaDefinition ChatCompletionsResponseFormatJsonSchemaDefinition(string name = null, IDictionary<string, BinaryData> schema = null, string description = null, bool? strict = null)
+        {
+            schema ??= new Dictionary<string, BinaryData>();
+
+            return new ChatCompletionsResponseFormatJsonSchemaDefinition(name, schema, description, strict, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Inference.ChatCompletionsToolDefinition"/>. </summary>
@@ -118,55 +156,6 @@ namespace Azure.AI.Inference
         public static ModelInfo ModelInfo(string modelName = null, ModelType modelType = default, string modelProviderName = null)
         {
             return new ModelInfo(modelName, modelType, modelProviderName, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Inference.EmbeddingsResult"/>. </summary>
-        /// <param name="id"> Unique identifier for the embeddings result. </param>
-        /// <param name="data"> Embedding values for the prompts submitted in the request. </param>
-        /// <param name="usage"> Usage counts for tokens input using the embeddings API. </param>
-        /// <param name="model"> The model ID used to generate this result. </param>
-        /// <returns> A new <see cref="Inference.EmbeddingsResult"/> instance for mocking. </returns>
-        public static EmbeddingsResult EmbeddingsResult(string id = null, IEnumerable<EmbeddingItem> data = null, EmbeddingsUsage usage = null, string model = null)
-        {
-            data ??= new List<EmbeddingItem>();
-
-            return new EmbeddingsResult(id, data?.ToList(), usage, model, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Inference.EmbeddingItem"/>. </summary>
-        /// <param name="embedding">
-        /// List of embedding values for the input prompt. These represent a measurement of the
-        /// vector-based relatedness of the provided input. Or a base64 encoded string of the embedding vector.
-        /// </param>
-        /// <param name="index"> Index of the prompt to which the EmbeddingItem corresponds. </param>
-        /// <returns> A new <see cref="Inference.EmbeddingItem"/> instance for mocking. </returns>
-        public static EmbeddingItem EmbeddingItem(BinaryData embedding = null, int index = default)
-        {
-            return new EmbeddingItem(embedding, index, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Inference.EmbeddingsUsage"/>. </summary>
-        /// <param name="promptTokens"> Number of tokens in the request. </param>
-        /// <param name="totalTokens">
-        /// Total number of tokens transacted in this request/response. Should equal the
-        /// number of tokens in the request.
-        /// </param>
-        /// <returns> A new <see cref="Inference.EmbeddingsUsage"/> instance for mocking. </returns>
-        public static EmbeddingsUsage EmbeddingsUsage(int promptTokens = default, int totalTokens = default)
-        {
-            return new EmbeddingsUsage(promptTokens, totalTokens, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Inference.ImageEmbeddingInput"/>. </summary>
-        /// <param name="image"> The input image encoded in base64 string as a data URL. Example: `data:image/{format};base64,{data}`. </param>
-        /// <param name="text">
-        /// Optional. The text input to feed into the model (like DINO, CLIP).
-        /// Returns a 422 error if the model doesn't support the value or parameter.
-        /// </param>
-        /// <returns> A new <see cref="Inference.ImageEmbeddingInput"/> instance for mocking. </returns>
-        public static ImageEmbeddingInput ImageEmbeddingInput(string image = null, string text = null)
-        {
-            return new ImageEmbeddingInput(image, text, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Inference.StreamingChatCompletionsUpdate"/>. </summary>

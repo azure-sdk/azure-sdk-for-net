@@ -14,7 +14,7 @@ namespace Azure.AI.Inference
     /// A response format for Chat Completions that restricts responses to emitting valid JSON objects, with a
     /// JSON schema specified by the caller.
     /// </summary>
-    internal partial class ChatCompletionsResponseFormatJsonSchema : ChatCompletionsResponseFormat
+    public partial class ChatCompletionsResponseFormatJsonSchema : ChatCompletionsResponseFormat
     {
         /// <summary> Initializes a new instance of <see cref="ChatCompletionsResponseFormatJsonSchema"/>. </summary>
         /// <param name="jsonSchema"> The definition of the required JSON schema in the response, and associated metadata. </param>

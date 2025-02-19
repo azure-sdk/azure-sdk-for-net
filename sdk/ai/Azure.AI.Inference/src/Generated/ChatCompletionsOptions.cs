@@ -11,11 +11,7 @@ using System.Linq;
 
 namespace Azure.AI.Inference
 {
-    /// <summary>
-    /// The configuration information for a chat completions request.
-    /// Completions support a wide variety of tasks and generate text that continues from or "completes"
-    /// provided prompt data.
-    /// </summary>
+    /// <summary> The ChatCompletionsOptions. </summary>
     public partial class ChatCompletionsOptions
     {
         /// <summary> Initializes a new instance of <see cref="ChatCompletionsOptions"/>. </summary>
@@ -89,7 +85,7 @@ namespace Azure.AI.Inference
         ///
         /// **Important:** when using JSON mode, you **must** also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly "stuck" request. Also note that the message content may be partially cut off if `finish_reason="length"`, which indicates the generation exceeded `max_tokens` or the conversation exceeded the max context length.
         /// Please note <see cref="ChatCompletionsResponseFormat"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="ChatCompletionsResponseFormatJsonObject"/> and <see cref="ChatCompletionsResponseFormatText"/>.
+        /// The available derived classes include <see cref="ChatCompletionsResponseFormatJsonObject"/>, <see cref="ChatCompletionsResponseFormatJsonSchema"/> and <see cref="ChatCompletionsResponseFormatText"/>.
         /// </param>
         /// <param name="stopSequences"> A collection of textual sequences that will end completions generation. </param>
         /// <param name="tools">
@@ -166,7 +162,7 @@ namespace Azure.AI.Inference
         ///
         /// **Important:** when using JSON mode, you **must** also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly "stuck" request. Also note that the message content may be partially cut off if `finish_reason="length"`, which indicates the generation exceeded `max_tokens` or the conversation exceeded the max context length.
         /// Please note <see cref="ChatCompletionsResponseFormat"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="ChatCompletionsResponseFormatJsonObject"/> and <see cref="ChatCompletionsResponseFormatText"/>.
+        /// The available derived classes include <see cref="ChatCompletionsResponseFormatJsonObject"/>, <see cref="ChatCompletionsResponseFormatJsonSchema"/> and <see cref="ChatCompletionsResponseFormatText"/>.
         /// </summary>
         public ChatCompletionsResponseFormat ResponseFormat { get; set; }
         /// <summary> A collection of textual sequences that will end completions generation. </summary>
