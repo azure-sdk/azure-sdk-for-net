@@ -149,6 +149,11 @@ namespace Azure.ResourceManager.DataBoxEdge
                 writer.WritePropertyName("dataResidency"u8);
                 writer.WriteObjectValue(DataResidency, options);
             }
+            if (options.Format != "W" && Optional.IsDefined(KubernetesWorkloadProfile))
+            {
+                writer.WritePropertyName("kubernetesWorkloadProfile"u8);
+                writer.WriteStringValue(KubernetesWorkloadProfile);
+            }
             writer.WriteEndObject();
         }
 
@@ -199,6 +204,7 @@ namespace Azure.ResourceManager.DataBoxEdge
             DataBoxEdgeResourceMoveDetails resourceMoveDetails = default;
             EdgeProfile edgeProfile = default;
             DataResidency dataResidency = default;
+            string kubernetesWorkloadProfile = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -413,6 +419,11 @@ namespace Azure.ResourceManager.DataBoxEdge
                             dataResidency = DataResidency.DeserializeDataResidency(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("kubernetesWorkloadProfile"u8))
+                        {
+                            kubernetesWorkloadProfile = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -450,6 +461,7 @@ namespace Azure.ResourceManager.DataBoxEdge
                 resourceMoveDetails,
                 edgeProfile,
                 dataResidency,
+                kubernetesWorkloadProfile,
                 serializedAdditionalRawData);
         }
 
