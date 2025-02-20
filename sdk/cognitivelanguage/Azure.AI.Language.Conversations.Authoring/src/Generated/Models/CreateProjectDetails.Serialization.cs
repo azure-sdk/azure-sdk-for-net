@@ -97,8 +97,8 @@ namespace Azure.AI.Language.Conversations.Authoring.Models
             {
                 return null;
             }
-            ProjectKind projectKind = default;
-            ProjectSettings settings = default;
+            AnalyzeConversationAuthoringProjectKind projectKind = default;
+            AnalyzeConversationAuthoringProjectSettings settings = default;
             string storageInputContainerName = default;
             string projectName = default;
             bool? multilingual = default;
@@ -110,7 +110,7 @@ namespace Azure.AI.Language.Conversations.Authoring.Models
             {
                 if (property.NameEquals("projectKind"u8))
                 {
-                    projectKind = new ProjectKind(property.Value.GetString());
+                    projectKind = new AnalyzeConversationAuthoringProjectKind(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("settings"u8))
@@ -119,7 +119,7 @@ namespace Azure.AI.Language.Conversations.Authoring.Models
                     {
                         continue;
                     }
-                    settings = ProjectSettings.DeserializeProjectSettings(property.Value, options);
+                    settings = AnalyzeConversationAuthoringProjectSettings.DeserializeAnalyzeConversationAuthoringProjectSettings(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("storageInputContainerName"u8))

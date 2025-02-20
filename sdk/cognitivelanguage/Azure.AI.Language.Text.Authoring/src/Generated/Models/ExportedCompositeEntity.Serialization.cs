@@ -96,9 +96,9 @@ namespace Azure.AI.Language.Text.Authoring.Models
             {
                 return null;
             }
-            CompositionSetting? compositionSetting = default;
-            ExportedEntityList list = default;
-            IList<ExportedPrebuiltEntity> prebuilts = default;
+            TextAuthoringCompositionMode? compositionSetting = default;
+            TextAuthoringExportedEntityList list = default;
+            IList<TextAuthoringExportedPrebuiltEntity> prebuilts = default;
             string category = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -110,7 +110,7 @@ namespace Azure.AI.Language.Text.Authoring.Models
                     {
                         continue;
                     }
-                    compositionSetting = new CompositionSetting(property.Value.GetString());
+                    compositionSetting = new TextAuthoringCompositionMode(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("list"u8))
@@ -119,7 +119,7 @@ namespace Azure.AI.Language.Text.Authoring.Models
                     {
                         continue;
                     }
-                    list = ExportedEntityList.DeserializeExportedEntityList(property.Value, options);
+                    list = TextAuthoringExportedEntityList.DeserializeTextAuthoringExportedEntityList(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("prebuilts"u8))
@@ -128,10 +128,10 @@ namespace Azure.AI.Language.Text.Authoring.Models
                     {
                         continue;
                     }
-                    List<ExportedPrebuiltEntity> array = new List<ExportedPrebuiltEntity>();
+                    List<TextAuthoringExportedPrebuiltEntity> array = new List<TextAuthoringExportedPrebuiltEntity>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(ExportedPrebuiltEntity.DeserializeExportedPrebuiltEntity(item, options));
+                        array.Add(TextAuthoringExportedPrebuiltEntity.DeserializeTextAuthoringExportedPrebuiltEntity(item, options));
                     }
                     prebuilts = array;
                     continue;
@@ -147,7 +147,7 @@ namespace Azure.AI.Language.Text.Authoring.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ExportedCompositeEntity(compositionSetting, list, prebuilts ?? new ChangeTrackingList<ExportedPrebuiltEntity>(), category, serializedAdditionalRawData);
+            return new ExportedCompositeEntity(compositionSetting, list, prebuilts ?? new ChangeTrackingList<TextAuthoringExportedPrebuiltEntity>(), category, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ExportedCompositeEntity>.Write(ModelReaderWriterOptions options)

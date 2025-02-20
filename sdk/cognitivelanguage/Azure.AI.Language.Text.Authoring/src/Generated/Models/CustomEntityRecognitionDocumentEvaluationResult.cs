@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.AI.Language.Text.Authoring.Models
 {
     /// <summary> Represents the document evaluation result for a custom entity recognition project. </summary>
-    public partial class CustomEntityRecognitionDocumentEvaluationResult : DocumentEvaluationResult
+    public partial class CustomEntityRecognitionDocumentEvaluationResult : TextAuthoringDocumentEvaluationResult
     {
         /// <summary> Initializes a new instance of <see cref="CustomEntityRecognitionDocumentEvaluationResult"/>. </summary>
         /// <param name="location"> Represents the document path. </param>
@@ -24,7 +24,7 @@ namespace Azure.AI.Language.Text.Authoring.Models
             Argument.AssertNotNull(language, nameof(language));
             Argument.AssertNotNull(customEntityRecognitionResult, nameof(customEntityRecognitionResult));
 
-            ProjectKind = ProjectKind.CustomEntityRecognition;
+            ProjectKind = TextAuthoringProjectKind.CustomEntityRecognition;
             CustomEntityRecognitionResult = customEntityRecognitionResult;
         }
 
@@ -34,7 +34,7 @@ namespace Azure.AI.Language.Text.Authoring.Models
         /// <param name="language"> Represents the document language. This is BCP-47 representation of a language. For example, use "en" for English, "en-gb" for English (UK), "es" for Spanish etc. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="customEntityRecognitionResult"> Represents the evaluation prediction for entity recognition. </param>
-        internal CustomEntityRecognitionDocumentEvaluationResult(ProjectKind projectKind, string location, string language, IDictionary<string, BinaryData> serializedAdditionalRawData, DocumentEntityRecognitionEvaluationResult customEntityRecognitionResult) : base(projectKind, location, language, serializedAdditionalRawData)
+        internal CustomEntityRecognitionDocumentEvaluationResult(TextAuthoringProjectKind projectKind, string location, string language, IDictionary<string, BinaryData> serializedAdditionalRawData, DocumentEntityRecognitionEvaluationResult customEntityRecognitionResult) : base(projectKind, location, language, serializedAdditionalRawData)
         {
             CustomEntityRecognitionResult = customEntityRecognitionResult;
         }

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.AI.Language.Text.Authoring.Models
 {
     /// <summary> Represents the document evaluation result for a custom single-label classification project. </summary>
-    public partial class CustomSingleLabelClassificationDocumentEvaluationResult : DocumentEvaluationResult
+    public partial class CustomSingleLabelClassificationDocumentEvaluationResult : TextAuthoringDocumentEvaluationResult
     {
         /// <summary> Initializes a new instance of <see cref="CustomSingleLabelClassificationDocumentEvaluationResult"/>. </summary>
         /// <param name="location"> Represents the document path. </param>
@@ -24,7 +24,7 @@ namespace Azure.AI.Language.Text.Authoring.Models
             Argument.AssertNotNull(language, nameof(language));
             Argument.AssertNotNull(customSingleLabelClassificationResult, nameof(customSingleLabelClassificationResult));
 
-            ProjectKind = ProjectKind.CustomSingleLabelClassification;
+            ProjectKind = TextAuthoringProjectKind.CustomSingleLabelClassification;
             CustomSingleLabelClassificationResult = customSingleLabelClassificationResult;
         }
 
@@ -34,7 +34,7 @@ namespace Azure.AI.Language.Text.Authoring.Models
         /// <param name="language"> Represents the document language. This is BCP-47 representation of a language. For example, use "en" for English, "en-gb" for English (UK), "es" for Spanish etc. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="customSingleLabelClassificationResult"> Represents the evaluation prediction for single label classification. </param>
-        internal CustomSingleLabelClassificationDocumentEvaluationResult(ProjectKind projectKind, string location, string language, IDictionary<string, BinaryData> serializedAdditionalRawData, DocumentSingleLabelClassificationEvaluationResult customSingleLabelClassificationResult) : base(projectKind, location, language, serializedAdditionalRawData)
+        internal CustomSingleLabelClassificationDocumentEvaluationResult(TextAuthoringProjectKind projectKind, string location, string language, IDictionary<string, BinaryData> serializedAdditionalRawData, DocumentSingleLabelClassificationEvaluationResult customSingleLabelClassificationResult) : base(projectKind, location, language, serializedAdditionalRawData)
         {
             CustomSingleLabelClassificationResult = customSingleLabelClassificationResult;
         }

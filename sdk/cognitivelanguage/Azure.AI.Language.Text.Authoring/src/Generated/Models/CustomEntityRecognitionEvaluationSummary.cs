@@ -11,18 +11,18 @@ using System.Collections.Generic;
 namespace Azure.AI.Language.Text.Authoring.Models
 {
     /// <summary> Represents the evaluation summary for a custom entity recognition project. </summary>
-    public partial class CustomEntityRecognitionEvaluationSummary : EvaluationSummary
+    public partial class CustomEntityRecognitionEvaluationSummary : TextAuthoringEvaluationSummary
     {
         /// <summary> Initializes a new instance of <see cref="CustomEntityRecognitionEvaluationSummary"/>. </summary>
         /// <param name="evaluationOptions"> Represents the options used running the evaluation. </param>
         /// <param name="customEntityRecognitionEvaluation"> Contains the data related to extraction evaluation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="evaluationOptions"/> or <paramref name="customEntityRecognitionEvaluation"/> is null. </exception>
-        internal CustomEntityRecognitionEvaluationSummary(EvaluationDetails evaluationOptions, EntityRecognitionEvaluationSummary customEntityRecognitionEvaluation) : base(evaluationOptions)
+        internal CustomEntityRecognitionEvaluationSummary(TextAuthoringEvaluationDetails evaluationOptions, EntityRecognitionEvaluationSummary customEntityRecognitionEvaluation) : base(evaluationOptions)
         {
             Argument.AssertNotNull(evaluationOptions, nameof(evaluationOptions));
             Argument.AssertNotNull(customEntityRecognitionEvaluation, nameof(customEntityRecognitionEvaluation));
 
-            ProjectKind = ProjectKind.CustomEntityRecognition;
+            ProjectKind = TextAuthoringProjectKind.CustomEntityRecognition;
             CustomEntityRecognitionEvaluation = customEntityRecognitionEvaluation;
         }
 
@@ -31,7 +31,7 @@ namespace Azure.AI.Language.Text.Authoring.Models
         /// <param name="evaluationOptions"> Represents the options used running the evaluation. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="customEntityRecognitionEvaluation"> Contains the data related to extraction evaluation. </param>
-        internal CustomEntityRecognitionEvaluationSummary(ProjectKind projectKind, EvaluationDetails evaluationOptions, IDictionary<string, BinaryData> serializedAdditionalRawData, EntityRecognitionEvaluationSummary customEntityRecognitionEvaluation) : base(projectKind, evaluationOptions, serializedAdditionalRawData)
+        internal CustomEntityRecognitionEvaluationSummary(TextAuthoringProjectKind projectKind, TextAuthoringEvaluationDetails evaluationOptions, IDictionary<string, BinaryData> serializedAdditionalRawData, EntityRecognitionEvaluationSummary customEntityRecognitionEvaluation) : base(projectKind, evaluationOptions, serializedAdditionalRawData)
         {
             CustomEntityRecognitionEvaluation = customEntityRecognitionEvaluation;
         }

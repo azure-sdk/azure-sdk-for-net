@@ -35,18 +35,18 @@ namespace Azure.AI.Language.Conversations.Authoring.Models
             }
 
             writer.WritePropertyName("createdDateTime"u8);
-            writer.WriteStringValue(CreatedDateTime, "O");
+            writer.WriteStringValue(CreatedOn, "O");
             writer.WritePropertyName("lastModifiedDateTime"u8);
-            writer.WriteStringValue(LastModifiedDateTime, "O");
-            if (Optional.IsDefined(LastTrainedDateTime))
+            writer.WriteStringValue(LastModifiedOn, "O");
+            if (Optional.IsDefined(LastTrainedOn))
             {
                 writer.WritePropertyName("lastTrainedDateTime"u8);
-                writer.WriteStringValue(LastTrainedDateTime.Value, "O");
+                writer.WriteStringValue(LastTrainedOn.Value, "O");
             }
-            if (Optional.IsDefined(LastDeployedDateTime))
+            if (Optional.IsDefined(LastDeployedOn))
             {
                 writer.WritePropertyName("lastDeployedDateTime"u8);
-                writer.WriteStringValue(LastDeployedDateTime.Value, "O");
+                writer.WriteStringValue(LastDeployedOn.Value, "O");
             }
             writer.WritePropertyName("projectKind"u8);
             writer.WriteStringValue(ProjectKind.ToString());
@@ -115,8 +115,8 @@ namespace Azure.AI.Language.Conversations.Authoring.Models
             DateTimeOffset lastModifiedDateTime = default;
             DateTimeOffset? lastTrainedDateTime = default;
             DateTimeOffset? lastDeployedDateTime = default;
-            ProjectKind projectKind = default;
-            ProjectSettings settings = default;
+            AnalyzeConversationAuthoringProjectKind projectKind = default;
+            AnalyzeConversationAuthoringProjectSettings settings = default;
             string storageInputContainerName = default;
             string projectName = default;
             bool? multilingual = default;
@@ -156,7 +156,7 @@ namespace Azure.AI.Language.Conversations.Authoring.Models
                 }
                 if (property.NameEquals("projectKind"u8))
                 {
-                    projectKind = new ProjectKind(property.Value.GetString());
+                    projectKind = new AnalyzeConversationAuthoringProjectKind(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("settings"u8))
@@ -165,7 +165,7 @@ namespace Azure.AI.Language.Conversations.Authoring.Models
                     {
                         continue;
                     }
-                    settings = ProjectSettings.DeserializeProjectSettings(property.Value, options);
+                    settings = AnalyzeConversationAuthoringProjectSettings.DeserializeAnalyzeConversationAuthoringProjectSettings(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("storageInputContainerName"u8))

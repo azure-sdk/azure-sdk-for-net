@@ -34,10 +34,13 @@ namespace Azure.AI.Language.Conversations.Authoring.Models
                 throw new FormatException($"The model {nameof(TrainingConfigVersion)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("trainingConfigVersion"u8);
-            writer.WriteStringValue(TrainingConfigVersionProperty);
+            if (options.Format != "W")
+            {
+                writer.WritePropertyName("trainingConfigVersion"u8);
+                writer.WriteStringValue(TrainingConfigVersionProperty);
+            }
             writer.WritePropertyName("modelExpirationDate"u8);
-            writer.WriteStringValue(ModelExpirationDate, "D");
+            writer.WriteStringValue(ModelExpiredOn, "D");
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)

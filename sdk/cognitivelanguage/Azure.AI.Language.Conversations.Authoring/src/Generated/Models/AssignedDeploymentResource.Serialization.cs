@@ -37,7 +37,7 @@ namespace Azure.AI.Language.Conversations.Authoring.Models
             if (options.Format != "W")
             {
                 writer.WritePropertyName("azureResourceId"u8);
-                writer.WriteStringValue(AzureResourceId);
+                writer.WriteStringValue(ResourceId);
             }
             writer.WritePropertyName("region"u8);
             writer.WriteStringValue(Region);
