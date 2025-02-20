@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.AI.Language.Text.Authoring.Models
 {
     /// <summary> Represents the document evaluation result for a custom multi-label classification project. </summary>
-    public partial class CustomMultiLabelClassificationDocumentEvaluationResult : DocumentEvaluationResult
+    public partial class CustomMultiLabelClassificationDocumentEvaluationResult : TextAuthoringDocumentEvaluationResult
     {
         /// <summary> Initializes a new instance of <see cref="CustomMultiLabelClassificationDocumentEvaluationResult"/>. </summary>
         /// <param name="location"> Represents the document path. </param>
@@ -24,7 +24,7 @@ namespace Azure.AI.Language.Text.Authoring.Models
             Argument.AssertNotNull(language, nameof(language));
             Argument.AssertNotNull(customMultiLabelClassificationResult, nameof(customMultiLabelClassificationResult));
 
-            ProjectKind = ProjectKind.CustomMultiLabelClassification;
+            ProjectKind = TextAuthoringProjectKind.CustomMultiLabelClassification;
             CustomMultiLabelClassificationResult = customMultiLabelClassificationResult;
         }
 
@@ -34,7 +34,7 @@ namespace Azure.AI.Language.Text.Authoring.Models
         /// <param name="language"> Represents the document language. This is BCP-47 representation of a language. For example, use "en" for English, "en-gb" for English (UK), "es" for Spanish etc. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="customMultiLabelClassificationResult"> Represents the evaluation prediction for multi label classification. </param>
-        internal CustomMultiLabelClassificationDocumentEvaluationResult(ProjectKind projectKind, string location, string language, IDictionary<string, BinaryData> serializedAdditionalRawData, DocumentMultiLabelClassificationEvaluationResult customMultiLabelClassificationResult) : base(projectKind, location, language, serializedAdditionalRawData)
+        internal CustomMultiLabelClassificationDocumentEvaluationResult(TextAuthoringProjectKind projectKind, string location, string language, IDictionary<string, BinaryData> serializedAdditionalRawData, DocumentMultiLabelClassificationEvaluationResult customMultiLabelClassificationResult) : base(projectKind, location, language, serializedAdditionalRawData)
         {
             CustomMultiLabelClassificationResult = customMultiLabelClassificationResult;
         }

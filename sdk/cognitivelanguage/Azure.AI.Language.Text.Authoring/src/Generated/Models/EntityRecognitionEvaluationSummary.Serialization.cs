@@ -35,7 +35,13 @@ namespace Azure.AI.Language.Text.Authoring.Models
             }
 
             writer.WritePropertyName("confusionMatrix"u8);
-            writer.WriteObjectValue(ConfusionMatrix, options);
+            writer.WriteStartObject();
+            foreach (var item in ConfusionMatrix)
+            {
+                writer.WritePropertyName(item.Key);
+                writer.WriteObjectValue(item.Value, options);
+            }
+            writer.WriteEndObject();
             writer.WritePropertyName("entities"u8);
             writer.WriteStartObject();
             foreach (var item in Entities)
@@ -93,8 +99,8 @@ namespace Azure.AI.Language.Text.Authoring.Models
             {
                 return null;
             }
-            ConfusionMatrix confusionMatrix = default;
-            IReadOnlyDictionary<string, EntityEvaluationSummary> entities = default;
+            IReadOnlyDictionary<string, TextAuthoringConfusionMatrixRow> confusionMatrix = default;
+            IReadOnlyDictionary<string, TextAuthoringEntityEvaluationSummary> entities = default;
             float microF1 = default;
             float microPrecision = default;
             float microRecall = default;
@@ -107,15 +113,20 @@ namespace Azure.AI.Language.Text.Authoring.Models
             {
                 if (property.NameEquals("confusionMatrix"u8))
                 {
-                    confusionMatrix = ConfusionMatrix.DeserializeConfusionMatrix(property.Value, options);
+                    Dictionary<string, TextAuthoringConfusionMatrixRow> dictionary = new Dictionary<string, TextAuthoringConfusionMatrixRow>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        dictionary.Add(property0.Name, TextAuthoringConfusionMatrixRow.DeserializeTextAuthoringConfusionMatrixRow(property0.Value, options));
+                    }
+                    confusionMatrix = dictionary;
                     continue;
                 }
                 if (property.NameEquals("entities"u8))
                 {
-                    Dictionary<string, EntityEvaluationSummary> dictionary = new Dictionary<string, EntityEvaluationSummary>();
+                    Dictionary<string, TextAuthoringEntityEvaluationSummary> dictionary = new Dictionary<string, TextAuthoringEntityEvaluationSummary>();
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        dictionary.Add(property0.Name, EntityEvaluationSummary.DeserializeEntityEvaluationSummary(property0.Value, options));
+                        dictionary.Add(property0.Name, TextAuthoringEntityEvaluationSummary.DeserializeTextAuthoringEntityEvaluationSummary(property0.Value, options));
                     }
                     entities = dictionary;
                     continue;
