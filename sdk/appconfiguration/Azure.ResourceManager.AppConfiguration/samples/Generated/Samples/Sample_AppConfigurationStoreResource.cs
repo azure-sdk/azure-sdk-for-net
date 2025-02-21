@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.AppConfiguration.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_ConfigurationStoresGet()
         {
-            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/stable/2024-05-01/examples/ConfigurationStoresGet.json
+            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2024-06-01-preview/examples/ConfigurationStoresGet.json
             // this example is just showing the usage of "ConfigurationStores_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.AppConfiguration.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_ConfigurationStoresDelete()
         {
-            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/stable/2024-05-01/examples/ConfigurationStoresDelete.json
+            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2024-06-01-preview/examples/ConfigurationStoresDelete.json
             // this example is just showing the usage of "ConfigurationStores_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.AppConfiguration.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_ConfigurationStoresUpdate()
         {
-            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/stable/2024-05-01/examples/ConfigurationStoresUpdate.json
+            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2024-06-01-preview/examples/ConfigurationStoresUpdate.json
             // this example is just showing the usage of "ConfigurationStores_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.AppConfiguration.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_ConfigurationStoresUpdateDisableLocalAuth()
         {
-            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/stable/2024-05-01/examples/ConfigurationStoresUpdateDisableLocalAuth.json
+            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2024-06-01-preview/examples/ConfigurationStoresUpdateDisableLocalAuth.json
             // this example is just showing the usage of "ConfigurationStores_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -150,9 +150,48 @@ namespace Azure.ResourceManager.AppConfiguration.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
+        public async Task Update_ConfigurationStoresUpdateEnableSasAuth()
+        {
+            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2024-06-01-preview/examples/ConfigurationStoresUpdateEnableSas.json
+            // this example is just showing the usage of "ConfigurationStores_Update" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AppConfigurationStoreResource created on azure
+            // for more information of creating AppConfigurationStoreResource, please refer to the document of AppConfigurationStoreResource
+            string subscriptionId = "c80fb759-c965-4c6a-9110-9b2b2d038882";
+            string resourceGroupName = "myResourceGroup";
+            string configStoreName = "contoso";
+            ResourceIdentifier appConfigurationStoreResourceId = AppConfigurationStoreResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, configStoreName);
+            AppConfigurationStoreResource appConfigurationStore = client.GetAppConfigurationStoreResource(appConfigurationStoreResourceId);
+
+            // invoke the operation
+            AppConfigurationStorePatch patch = new AppConfigurationStorePatch
+            {
+                SkuName = "Standard",
+                Sas = new SasProperties
+                {
+                    Status = SasStatus.Enabled,
+                },
+            };
+            ArmOperation<AppConfigurationStoreResource> lro = await appConfigurationStore.UpdateAsync(WaitUntil.Completed, patch);
+            AppConfigurationStoreResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            AppConfigurationStoreData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
         public async Task Update_ConfigurationStoresUpdateWithIdentity()
         {
-            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/stable/2024-05-01/examples/ConfigurationStoresUpdateWithIdentity.json
+            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2024-06-01-preview/examples/ConfigurationStoresUpdateWithIdentity.json
             // this example is just showing the usage of "ConfigurationStores_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -198,7 +237,7 @@ namespace Azure.ResourceManager.AppConfiguration.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetKeys_ConfigurationStoresListKeys()
         {
-            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/stable/2024-05-01/examples/ConfigurationStoresListKeys.json
+            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2024-06-01-preview/examples/ConfigurationStoresListKeys.json
             // this example is just showing the usage of "ConfigurationStores_ListKeys" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -227,7 +266,7 @@ namespace Azure.ResourceManager.AppConfiguration.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task RegenerateKey_ConfigurationStoresRegenerateKey()
         {
-            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/stable/2024-05-01/examples/ConfigurationStoresRegenerateKey.json
+            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2024-06-01-preview/examples/ConfigurationStoresRegenerateKey.json
             // this example is just showing the usage of "ConfigurationStores_RegenerateKey" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -251,6 +290,72 @@ namespace Azure.ResourceManager.AppConfiguration.Samples
             AppConfigurationStoreApiKey result = await appConfigurationStore.RegenerateKeyAsync(content);
 
             Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GenerateSasToken_ConfigurationStoresGenerateSasToken()
+        {
+            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2024-06-01-preview/examples/ConfigurationStoresGenerateSasToken.json
+            // this example is just showing the usage of "ConfigurationStores_GenerateSasToken" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AppConfigurationStoreResource created on azure
+            // for more information of creating AppConfigurationStoreResource, please refer to the document of AppConfigurationStoreResource
+            string subscriptionId = "c80fb759-c965-4c6a-9110-9b2b2d038882";
+            string resourceGroupName = "myResourceGroup";
+            string configStoreName = "contoso";
+            ResourceIdentifier appConfigurationStoreResourceId = AppConfigurationStoreResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, configStoreName);
+            AppConfigurationStoreResource appConfigurationStore = client.GetAppConfigurationStoreResource(appConfigurationStoreResourceId);
+
+            // invoke the operation
+            SasTokenGenerationContent content = new SasTokenGenerationContent(new KvSasTokenScope
+            {
+                Key = "test*",
+                Label = "prod",
+                Tags = { "group=test-group", "region=eastus" },
+            }, DateTimeOffset.Parse("2024-09-01T00:00:00.0000000Z"), SasKind.Primary)
+            {
+                CacheControlMaxAge = 3600,
+            };
+            SasTokenGenerationResult result = await appConfigurationStore.GenerateSasTokenAsync(content);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task ResetSasKind_ConfigurationStoresResetSasKind()
+        {
+            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2024-06-01-preview/examples/ConfigurationStoresResetSasKind.json
+            // this example is just showing the usage of "ConfigurationStores_ResetSasKind" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AppConfigurationStoreResource created on azure
+            // for more information of creating AppConfigurationStoreResource, please refer to the document of AppConfigurationStoreResource
+            string subscriptionId = "c80fb759-c965-4c6a-9110-9b2b2d038882";
+            string resourceGroupName = "myResourceGroup";
+            string configStoreName = "contoso";
+            ResourceIdentifier appConfigurationStoreResourceId = AppConfigurationStoreResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, configStoreName);
+            AppConfigurationStoreResource appConfigurationStore = client.GetAppConfigurationStoreResource(appConfigurationStoreResourceId);
+
+            // invoke the operation
+            ResetSasKindContent content = new ResetSasKindContent(SasKind.Primary);
+            AppConfigurationStoreResource result = await appConfigurationStore.ResetSasKindAsync(content);
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            AppConfigurationStoreData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
     }
 }

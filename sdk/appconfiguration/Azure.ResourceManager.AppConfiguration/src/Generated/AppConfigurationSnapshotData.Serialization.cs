@@ -138,7 +138,7 @@ namespace Azure.ResourceManager.AppConfiguration
             string type = default;
             ResourceIdentifier id = default;
             string name = default;
-            ResourceType type0 = default;
+            Core.ResourceType type0 = default;
             SystemData systemData = default;
             AppConfigurationProvisioningState? provisioningState = default;
             AppConfigurationSnapshotStatus? status = default;
@@ -172,7 +172,7 @@ namespace Azure.ResourceManager.AppConfiguration
                 }
                 if (property.NameEquals("type"u8))
                 {
-                    type0 = new ResourceType(property.Value.GetString());
+                    type0 = new Core.ResourceType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("systemData"u8))
