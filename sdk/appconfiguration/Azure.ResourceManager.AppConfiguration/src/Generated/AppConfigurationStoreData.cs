@@ -78,13 +78,16 @@ namespace Azure.ResourceManager.AppConfiguration
         /// <param name="encryption"> The encryption settings of the configuration store. </param>
         /// <param name="privateEndpointConnections"> The list of private endpoint connections that are set up for this resource. </param>
         /// <param name="publicNetworkAccess"> Control permission for data plane traffic coming from public networks while private endpoint is enabled. </param>
-        /// <param name="disableLocalAuth"> Disables all authentication methods other than AAD authentication. </param>
+        /// <param name="disableLocalAuth"> Disables access key authentication. </param>
+        /// <param name="sas"> The SAS authentication settings of the configuration store. </param>
         /// <param name="softDeleteRetentionInDays"> The amount of time in days that the configuration store will be retained when it is soft deleted. </param>
         /// <param name="enablePurgeProtection"> Property specifying whether protection against purge is enabled for this configuration store. </param>
         /// <param name="dataPlaneProxy"> Property specifying the configuration of data plane proxy for Azure Resource Manager (ARM). </param>
         /// <param name="createMode"> Indicates whether the configuration store need to be recovered. </param>
+        /// <param name="telemetry"> Property specifying the configuration of telemetry for this configuration store. </param>
+        /// <param name="experimentation"> Property specifying the configuration of experimentation for this configuration store. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppConfigurationStoreData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, AppConfigurationSku sku, AppConfigurationProvisioningState? provisioningState, DateTimeOffset? createdOn, string endpoint, AppConfigurationStoreEncryptionProperties encryption, IReadOnlyList<AppConfigurationPrivateEndpointConnectionReference> privateEndpointConnections, AppConfigurationPublicNetworkAccess? publicNetworkAccess, bool? disableLocalAuth, int? softDeleteRetentionInDays, bool? enablePurgeProtection, AppConfigurationDataPlaneProxyProperties dataPlaneProxy, AppConfigurationCreateMode? createMode, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal AppConfigurationStoreData(ResourceIdentifier id, string name, Core.ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, AppConfigurationSku sku, AppConfigurationProvisioningState? provisioningState, DateTimeOffset? createdOn, string endpoint, AppConfigurationStoreEncryptionProperties encryption, IReadOnlyList<AppConfigurationPrivateEndpointConnectionReference> privateEndpointConnections, AppConfigurationPublicNetworkAccess? publicNetworkAccess, bool? disableLocalAuth, SasProperties sas, int? softDeleteRetentionInDays, bool? enablePurgeProtection, AppConfigurationDataPlaneProxyProperties dataPlaneProxy, AppConfigurationCreateMode? createMode, TelemetryProperties telemetry, ExperimentationProperties experimentation, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             Identity = identity;
             Sku = sku;
@@ -95,10 +98,13 @@ namespace Azure.ResourceManager.AppConfiguration
             PrivateEndpointConnections = privateEndpointConnections;
             PublicNetworkAccess = publicNetworkAccess;
             DisableLocalAuth = disableLocalAuth;
+            Sas = sas;
             SoftDeleteRetentionInDays = softDeleteRetentionInDays;
             EnablePurgeProtection = enablePurgeProtection;
             DataPlaneProxy = dataPlaneProxy;
             CreateMode = createMode;
+            Telemetry = telemetry;
+            Experimentation = experimentation;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -150,9 +156,12 @@ namespace Azure.ResourceManager.AppConfiguration
         /// <summary> Control permission for data plane traffic coming from public networks while private endpoint is enabled. </summary>
         [WirePath("properties.publicNetworkAccess")]
         public AppConfigurationPublicNetworkAccess? PublicNetworkAccess { get; set; }
-        /// <summary> Disables all authentication methods other than AAD authentication. </summary>
+        /// <summary> Disables access key authentication. </summary>
         [WirePath("properties.disableLocalAuth")]
         public bool? DisableLocalAuth { get; set; }
+        /// <summary> The SAS authentication settings of the configuration store. </summary>
+        [WirePath("properties.sas")]
+        public SasProperties Sas { get; set; }
         /// <summary> The amount of time in days that the configuration store will be retained when it is soft deleted. </summary>
         [WirePath("properties.softDeleteRetentionInDays")]
         public int? SoftDeleteRetentionInDays { get; set; }
@@ -165,5 +174,23 @@ namespace Azure.ResourceManager.AppConfiguration
         /// <summary> Indicates whether the configuration store need to be recovered. </summary>
         [WirePath("properties.createMode")]
         public AppConfigurationCreateMode? CreateMode { get; set; }
+        /// <summary> Property specifying the configuration of telemetry for this configuration store. </summary>
+        internal TelemetryProperties Telemetry { get; set; }
+        /// <summary> Resource ID of a resource enabling telemetry collection. </summary>
+        [WirePath("properties.telemetry.resourceId")]
+        public ResourceIdentifier TelemetryResourceId
+        {
+            get => Telemetry is null ? default : Telemetry.ResourceId;
+            set
+            {
+                if (Telemetry is null)
+                    Telemetry = new TelemetryProperties();
+                Telemetry.ResourceId = value;
+            }
+        }
+
+        /// <summary> Property specifying the configuration of experimentation for this configuration store. </summary>
+        [WirePath("properties.experimentation")]
+        public ExperimentationProperties Experimentation { get; set; }
     }
 }

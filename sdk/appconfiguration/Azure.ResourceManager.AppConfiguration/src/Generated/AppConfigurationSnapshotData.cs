@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// <param name="tags"> The tags of the snapshot. NOTE: These are data plane tags, not Azure Resource Manager (ARM) tags. </param>
         /// <param name="eTag"> A value representing the current state of the snapshot. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppConfigurationSnapshotData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string snapshotType, AppConfigurationProvisioningState? provisioningState, AppConfigurationSnapshotStatus? status, IList<SnapshotKeyValueFilter> filters, SnapshotCompositionType? compositionType, DateTimeOffset? createdOn, DateTimeOffset? expireOn, long? retentionPeriod, long? size, long? itemsCount, IDictionary<string, string> tags, ETag? eTag, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal AppConfigurationSnapshotData(ResourceIdentifier id, string name, Core.ResourceType resourceType, SystemData systemData, string snapshotType, AppConfigurationProvisioningState? provisioningState, AppConfigurationSnapshotStatus? status, IList<SnapshotKeyValueFilter> filters, SnapshotCompositionType? compositionType, DateTimeOffset? createdOn, DateTimeOffset? expireOn, long? retentionPeriod, long? size, long? itemsCount, IDictionary<string, string> tags, ETag? eTag, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             SnapshotType = snapshotType;
             ProvisioningState = provisioningState;

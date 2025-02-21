@@ -68,6 +68,11 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                 writer.WritePropertyName("disableLocalAuth"u8);
                 writer.WriteBooleanValue(DisableLocalAuth.Value);
             }
+            if (Optional.IsDefined(Sas))
+            {
+                writer.WritePropertyName("sas"u8);
+                writer.WriteObjectValue(Sas, options);
+            }
             if (Optional.IsDefined(PublicNetworkAccess))
             {
                 writer.WritePropertyName("publicNetworkAccess"u8);
@@ -82,6 +87,16 @@ namespace Azure.ResourceManager.AppConfiguration.Models
             {
                 writer.WritePropertyName("dataPlaneProxy"u8);
                 writer.WriteObjectValue(DataPlaneProxy, options);
+            }
+            if (Optional.IsDefined(Telemetry))
+            {
+                writer.WritePropertyName("telemetry"u8);
+                writer.WriteObjectValue(Telemetry, options);
+            }
+            if (Optional.IsDefined(Experimentation))
+            {
+                writer.WritePropertyName("experimentation"u8);
+                writer.WriteObjectValue(Experimentation, options);
             }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -126,9 +141,12 @@ namespace Azure.ResourceManager.AppConfiguration.Models
             IDictionary<string, string> tags = default;
             AppConfigurationStoreEncryptionProperties encryption = default;
             bool? disableLocalAuth = default;
+            SasProperties sas = default;
             AppConfigurationPublicNetworkAccess? publicNetworkAccess = default;
             bool? enablePurgeProtection = default;
             AppConfigurationDataPlaneProxyProperties dataPlaneProxy = default;
+            TelemetryProperties telemetry = default;
+            ExperimentationProperties experimentation = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -192,6 +210,15 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                             disableLocalAuth = property0.Value.GetBoolean();
                             continue;
                         }
+                        if (property0.NameEquals("sas"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            sas = SasProperties.DeserializeSasProperties(property0.Value, options);
+                            continue;
+                        }
                         if (property0.NameEquals("publicNetworkAccess"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -219,6 +246,24 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                             dataPlaneProxy = AppConfigurationDataPlaneProxyProperties.DeserializeAppConfigurationDataPlaneProxyProperties(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("telemetry"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            telemetry = TelemetryProperties.DeserializeTelemetryProperties(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("experimentation"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            experimentation = ExperimentationProperties.DeserializeExperimentationProperties(property0.Value, options);
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -234,9 +279,12 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 encryption,
                 disableLocalAuth,
+                sas,
                 publicNetworkAccess,
                 enablePurgeProtection,
                 dataPlaneProxy,
+                telemetry,
+                experimentation,
                 serializedAdditionalRawData);
         }
 

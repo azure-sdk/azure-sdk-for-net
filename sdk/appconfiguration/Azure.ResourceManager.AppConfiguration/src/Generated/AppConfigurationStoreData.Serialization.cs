@@ -95,6 +95,11 @@ namespace Azure.ResourceManager.AppConfiguration
                 writer.WritePropertyName("disableLocalAuth"u8);
                 writer.WriteBooleanValue(DisableLocalAuth.Value);
             }
+            if (Optional.IsDefined(Sas))
+            {
+                writer.WritePropertyName("sas"u8);
+                writer.WriteObjectValue(Sas, options);
+            }
             if (Optional.IsDefined(SoftDeleteRetentionInDays))
             {
                 writer.WritePropertyName("softDeleteRetentionInDays"u8);
@@ -114,6 +119,16 @@ namespace Azure.ResourceManager.AppConfiguration
             {
                 writer.WritePropertyName("createMode"u8);
                 writer.WriteStringValue(CreateMode.Value.ToSerialString());
+            }
+            if (Optional.IsDefined(Telemetry))
+            {
+                writer.WritePropertyName("telemetry"u8);
+                writer.WriteObjectValue(Telemetry, options);
+            }
+            if (Optional.IsDefined(Experimentation))
+            {
+                writer.WritePropertyName("experimentation"u8);
+                writer.WriteObjectValue(Experimentation, options);
             }
             writer.WriteEndObject();
         }
@@ -144,7 +159,7 @@ namespace Azure.ResourceManager.AppConfiguration
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
-            ResourceType type = default;
+            Core.ResourceType type = default;
             SystemData systemData = default;
             AppConfigurationProvisioningState? provisioningState = default;
             DateTimeOffset? creationDate = default;
@@ -153,10 +168,13 @@ namespace Azure.ResourceManager.AppConfiguration
             IReadOnlyList<AppConfigurationPrivateEndpointConnectionReference> privateEndpointConnections = default;
             AppConfigurationPublicNetworkAccess? publicNetworkAccess = default;
             bool? disableLocalAuth = default;
+            SasProperties sas = default;
             int? softDeleteRetentionInDays = default;
             bool? enablePurgeProtection = default;
             AppConfigurationDataPlaneProxyProperties dataPlaneProxy = default;
             AppConfigurationCreateMode? createMode = default;
+            TelemetryProperties telemetry = default;
+            ExperimentationProperties experimentation = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -206,7 +224,7 @@ namespace Azure.ResourceManager.AppConfiguration
                 }
                 if (property.NameEquals("type"u8))
                 {
-                    type = new ResourceType(property.Value.GetString());
+                    type = new Core.ResourceType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("systemData"u8))
@@ -292,6 +310,15 @@ namespace Azure.ResourceManager.AppConfiguration
                             disableLocalAuth = property0.Value.GetBoolean();
                             continue;
                         }
+                        if (property0.NameEquals("sas"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            sas = SasProperties.DeserializeSasProperties(property0.Value, options);
+                            continue;
+                        }
                         if (property0.NameEquals("softDeleteRetentionInDays"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -328,6 +355,24 @@ namespace Azure.ResourceManager.AppConfiguration
                             createMode = property0.Value.GetString().ToAppConfigurationCreateMode();
                             continue;
                         }
+                        if (property0.NameEquals("telemetry"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            telemetry = TelemetryProperties.DeserializeTelemetryProperties(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("experimentation"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            experimentation = ExperimentationProperties.DeserializeExperimentationProperties(property0.Value, options);
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -353,10 +398,13 @@ namespace Azure.ResourceManager.AppConfiguration
                 privateEndpointConnections ?? new ChangeTrackingList<AppConfigurationPrivateEndpointConnectionReference>(),
                 publicNetworkAccess,
                 disableLocalAuth,
+                sas,
                 softDeleteRetentionInDays,
                 enablePurgeProtection,
                 dataPlaneProxy,
                 createMode,
+                telemetry,
+                experimentation,
                 serializedAdditionalRawData);
         }
 
@@ -636,6 +684,21 @@ namespace Azure.ResourceManager.AppConfiguration
                 }
             }
 
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Sas), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    sas: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(Sas))
+                {
+                    builder.Append("    sas: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, Sas, options, 4, false, "    sas: ");
+                }
+            }
+
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(SoftDeleteRetentionInDays), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -694,6 +757,41 @@ namespace Azure.ResourceManager.AppConfiguration
                 {
                     builder.Append("    createMode: ");
                     builder.AppendLine($"'{CreateMode.Value.ToSerialString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue("TelemetryResourceId", out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    telemetry: ");
+                builder.AppendLine("{");
+                builder.AppendLine("      telemetry: {");
+                builder.Append("        resourceId: ");
+                builder.AppendLine(propertyOverride);
+                builder.AppendLine("      }");
+                builder.AppendLine("    }");
+            }
+            else
+            {
+                if (Optional.IsDefined(Telemetry))
+                {
+                    builder.Append("    telemetry: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, Telemetry, options, 4, false, "    telemetry: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Experimentation), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    experimentation: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(Experimentation))
+                {
+                    builder.Append("    experimentation: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, Experimentation, options, 4, false, "    experimentation: ");
                 }
             }
 
