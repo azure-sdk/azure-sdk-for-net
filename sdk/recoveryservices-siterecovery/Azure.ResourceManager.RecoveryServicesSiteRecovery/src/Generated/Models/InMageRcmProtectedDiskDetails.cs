@@ -56,6 +56,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         /// <param name="diskName"> The disk name. </param>
         /// <param name="isOSDisk"> A value indicating whether the disk is the OS disk. </param>
         /// <param name="capacityInBytes"> The disk capacity in bytes. </param>
+        /// <param name="diskState"> The disk state. </param>
         /// <param name="logStorageAccountId"> The log storage account ARM Id. </param>
         /// <param name="diskEncryptionSetId"> The DiskEncryptionSet ARM Id. </param>
         /// <param name="seedManagedDiskId"> The ARM Id of the seed managed disk. </param>
@@ -67,13 +68,19 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         /// <param name="isInitialReplicationComplete"> A value indicating whether initial replication is complete or not. </param>
         /// <param name="irDetails"> The initial replication details. </param>
         /// <param name="resyncDetails"> The resync details. </param>
+        /// <param name="customTargetDiskName"> The custom target Azure disk name. </param>
+        /// <param name="sectorSizeInBytes"> The logical sector size (in bytes), 512 by default. </param>
+        /// <param name="iops"> The number of IOPS allowed for Premium V2 and Ultra disks. </param>
+        /// <param name="throughputInMbps"> The total throughput in Mbps for Premium V2 and Ultra disks. </param>
+        /// <param name="diskSizeInGB"> The target disk size in GB. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal InMageRcmProtectedDiskDetails(string diskId, string diskName, string isOSDisk, long? capacityInBytes, ResourceIdentifier logStorageAccountId, ResourceIdentifier diskEncryptionSetId, string seedManagedDiskId, Uri seedBlobUri, string targetManagedDiskId, SiteRecoveryDiskAccountType? diskType, double? dataPendingInLogDataStoreInMB, double? dataPendingAtSourceAgentInMB, string isInitialReplicationComplete, InMageRcmSyncDetails irDetails, InMageRcmSyncDetails resyncDetails, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal InMageRcmProtectedDiskDetails(string diskId, string diskName, string isOSDisk, long? capacityInBytes, DiskState? diskState, ResourceIdentifier logStorageAccountId, ResourceIdentifier diskEncryptionSetId, string seedManagedDiskId, Uri seedBlobUri, string targetManagedDiskId, SiteRecoveryDiskAccountType? diskType, double? dataPendingInLogDataStoreInMB, double? dataPendingAtSourceAgentInMB, string isInitialReplicationComplete, InMageRcmSyncDetails irDetails, InMageRcmSyncDetails resyncDetails, string customTargetDiskName, int? sectorSizeInBytes, long? iops, long? throughputInMbps, long? diskSizeInGB, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             DiskId = diskId;
             DiskName = diskName;
             IsOSDisk = isOSDisk;
             CapacityInBytes = capacityInBytes;
+            DiskState = diskState;
             LogStorageAccountId = logStorageAccountId;
             DiskEncryptionSetId = diskEncryptionSetId;
             SeedManagedDiskId = seedManagedDiskId;
@@ -85,6 +92,11 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             IsInitialReplicationComplete = isInitialReplicationComplete;
             IrDetails = irDetails;
             ResyncDetails = resyncDetails;
+            CustomTargetDiskName = customTargetDiskName;
+            SectorSizeInBytes = sectorSizeInBytes;
+            Iops = iops;
+            ThroughputInMbps = throughputInMbps;
+            DiskSizeInGB = diskSizeInGB;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -96,6 +108,8 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         public string IsOSDisk { get; }
         /// <summary> The disk capacity in bytes. </summary>
         public long? CapacityInBytes { get; }
+        /// <summary> The disk state. </summary>
+        public DiskState? DiskState { get; }
         /// <summary> The log storage account ARM Id. </summary>
         public ResourceIdentifier LogStorageAccountId { get; }
         /// <summary> The DiskEncryptionSet ARM Id. </summary>
@@ -118,5 +132,15 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         public InMageRcmSyncDetails IrDetails { get; }
         /// <summary> The resync details. </summary>
         public InMageRcmSyncDetails ResyncDetails { get; }
+        /// <summary> The custom target Azure disk name. </summary>
+        public string CustomTargetDiskName { get; }
+        /// <summary> The logical sector size (in bytes), 512 by default. </summary>
+        public int? SectorSizeInBytes { get; }
+        /// <summary> The number of IOPS allowed for Premium V2 and Ultra disks. </summary>
+        public long? Iops { get; }
+        /// <summary> The total throughput in Mbps for Premium V2 and Ultra disks. </summary>
+        public long? ThroughputInMbps { get; }
+        /// <summary> The target disk size in GB. </summary>
+        public long? DiskSizeInGB { get; }
     }
 }

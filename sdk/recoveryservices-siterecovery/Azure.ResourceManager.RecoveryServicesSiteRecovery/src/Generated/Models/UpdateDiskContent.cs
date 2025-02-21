@@ -58,11 +58,17 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         /// <summary> Initializes a new instance of <see cref="UpdateDiskContent"/>. </summary>
         /// <param name="diskId"> The disk Id. </param>
         /// <param name="targetDiskName"> The target disk name. </param>
+        /// <param name="iops"> The number of IOPS allowed for Premium V2 and Ultra disks. </param>
+        /// <param name="throughputInMbps"> The total throughput in Mbps for Premium V2 and Ultra disks. </param>
+        /// <param name="diskSizeInGB"> The target disk size in GB. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UpdateDiskContent(string diskId, string targetDiskName, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal UpdateDiskContent(string diskId, string targetDiskName, long? iops, long? throughputInMbps, long? diskSizeInGB, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             DiskId = diskId;
             TargetDiskName = targetDiskName;
+            Iops = iops;
+            ThroughputInMbps = throughputInMbps;
+            DiskSizeInGB = diskSizeInGB;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -75,5 +81,11 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         public string DiskId { get; }
         /// <summary> The target disk name. </summary>
         public string TargetDiskName { get; set; }
+        /// <summary> The number of IOPS allowed for Premium V2 and Ultra disks. </summary>
+        public long? Iops { get; set; }
+        /// <summary> The total throughput in Mbps for Premium V2 and Ultra disks. </summary>
+        public long? ThroughputInMbps { get; set; }
+        /// <summary> The target disk size in GB. </summary>
+        public long? DiskSizeInGB { get; set; }
     }
 }
