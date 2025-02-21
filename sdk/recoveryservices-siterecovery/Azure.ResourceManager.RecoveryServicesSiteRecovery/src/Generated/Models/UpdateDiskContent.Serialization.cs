@@ -41,6 +41,21 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 writer.WritePropertyName("targetDiskName"u8);
                 writer.WriteStringValue(TargetDiskName);
             }
+            if (Optional.IsDefined(Iops))
+            {
+                writer.WritePropertyName("iops"u8);
+                writer.WriteNumberValue(Iops.Value);
+            }
+            if (Optional.IsDefined(ThroughputInMbps))
+            {
+                writer.WritePropertyName("throughputInMbps"u8);
+                writer.WriteNumberValue(ThroughputInMbps.Value);
+            }
+            if (Optional.IsDefined(DiskSizeInGB))
+            {
+                writer.WritePropertyName("diskSizeInGB"u8);
+                writer.WriteNumberValue(DiskSizeInGB.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -80,6 +95,9 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             }
             string diskId = default;
             string targetDiskName = default;
+            long? iops = default;
+            long? throughputInMbps = default;
+            long? diskSizeInGB = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -94,13 +112,46 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                     targetDiskName = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("iops"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    iops = property.Value.GetInt64();
+                    continue;
+                }
+                if (property.NameEquals("throughputInMbps"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    throughputInMbps = property.Value.GetInt64();
+                    continue;
+                }
+                if (property.NameEquals("diskSizeInGB"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    diskSizeInGB = property.Value.GetInt64();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new UpdateDiskContent(diskId, targetDiskName, serializedAdditionalRawData);
+            return new UpdateDiskContent(
+                diskId,
+                targetDiskName,
+                iops,
+                throughputInMbps,
+                diskSizeInGB,
+                serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<UpdateDiskContent>.Write(ModelReaderWriterOptions options)
